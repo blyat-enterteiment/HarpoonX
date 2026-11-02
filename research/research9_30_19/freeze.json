@@ -1,0 +1,36 @@
+{
+  "schema": "HARPOON_RESEARCH9_FREEZE_1",
+  "stage": "FROZEN_BEFORE_NEW_MEASUREMENT",
+  "created_at_utc": "2026-11-02T06:05:44.587887+00:00",
+  "history_already_seen": true,
+  "independent_preregistration": false,
+  "level9_accredited": false,
+  "orders_allowed": false,
+  "new_policy_scenario_measurements": 6,
+  "declared_budget_parent": 47,
+  "declared_budget_after": 53,
+  "declared_budget_limit": 128,
+  "global_budget_independently_reconciled": false,
+  "policies": {
+    "CONTINUATION": "Largest admissible z >=1.5 at 60m; half positive residual excursion exceeds frozen cost hurdle plus5bp; baseline exits",
+    "STABILIZED_NORMALIZE": "Original residual candidate; at65m z improves versus60m but <=-0.5; entry70m; exit at first future executable open with known anchored z>=-0.25",
+    "REVERSAL_INVALIDATE": "Original residual entries; exit first future executable open with known anchored z<=-3; baseline other exits"
+  },
+  "exit_anchor": "Entry session original stock and XLK opens; frozen training beta mu sigma; postentry benchmark split blocks the account rather than inventing adjusted PnL",
+  "costs_and_limits": "Identical to frozen30.18 protocol",
+  "controls": [
+    "RESIDUAL_LONG",
+    "STOCK_THRESHOLD_OFF",
+    "CASH"
+  ],
+  "stopping_rule": "Six measurements only, retain all results, no threshold retuning. No winner promoted from reused history.",
+  "source_sha256": {
+    "runtime30/ultimate_replay_research.js": "84594c176040c058506e9ba1323ae11901897a5023621c12c0e00c484c5f354c",
+    "runtime30/research_residual_exit.js": "b4a00a6158ebb23c9aa249e408c9bfe6419993284bcdc38d6363801058ea8595",
+    "tools/research9_prepare.py": "167b4768d9bcd3eabdd9935b6ff1510c94c31fd9332d9c5fb8abb77eef6e571c",
+    "tools/research9_replay.cjs": "365b026a5313be94661302f0526365982c66db5ac2b0094db04e74a2fff54d40",
+    "tools/research9_test.cjs": "35cd0262d26797e2ed206f743effc3a1100e818c2ad794043039ceae10b8f847",
+    "research/residual_30_18/protocol.json": "159358061b6593fc4a6c18d77e93498b8e496f8012f1a585ab8852b2758515e3",
+    "evidence/residual_30_18_0/data/research_dataset.json": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530"
+  }
+}
