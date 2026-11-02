@@ -134,7 +134,9 @@ histórico global no se declara reconciliado. No se ensayaron más reglas tras e
 - Compilación sintáctica Python ejecutada. Linter y verificador formal de tipos
   Python no ejecutados; no estaban instalados. No se equipara compilación a lint.
 - Medición de una reproducción local: aproximadamente 2.08 s; sólo tiempo de
-  cómputo, no mejora financiera. Workflow `multiasset8.yml` reproduce en GitHub.
+  cómputo, no mejora financiera. Workflow `multiasset8.yml` preparado para GitHub;
+  su ejecución remota no quedó verificada en esta entrega. La API disponible
+  de workflow runs sólo devuelve ejecuciones disparadas por pull request, no por push.
 
 ```sh
 python3 -m pip install -r quant/requirements-tested.txt
