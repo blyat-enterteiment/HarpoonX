@@ -1,0 +1,53 @@
+name: Swing24-72h breakout gap and retest reproduction
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/swing.py'
+      - 'quant/tests/test_swing.py'
+      - 'tools/*swing8.py'
+      - 'tools/test_swing8_verifier.py'
+      - 'research/swing8/**'
+      - 'evidence/swing8/**'
+      - '.github/workflows/swing8.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  swing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install -r quant/requirements-tested.txt
+      - run: python3 -B -m unittest discover -s quant/tests -p test_swing.py -v
+      - run: python3 -B -m unittest discover -s tools -p test_swing8_verifier.py -v
+      - run: python3 -B tools/run_swing8.py --output-dir "$RUNNER_TEMP/swing8"
+      - run: python3 -B tools/verify_swing8.py "$RUNNER_TEMP/swing8"
+      - name: Complete account identity, independent of gzip container version
+        run: |
+          python3 - <<'PY'
+          import gzip,hashlib,os
+          from pathlib import Path
+          expected=Path('evidence/swing8/run_01')
+          actual=Path(os.environ['RUNNER_TEMP'])/'swing8'
+          files=list(expected.glob('*.json.gz'))
+          assert len(files)==8
+          for p in files:
+              a=gzip.decompress(p.read_bytes())
+              b=gzip.decompress((actual/p.name).read_bytes())
+              assert hashlib.sha256(a).digest()==hashlib.sha256(b).digest(),p.name
+          print('All eight complete accounts reproduced exactly')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: swing8-full-accounts-and-statistics
+          path: ${{ runner.temp }}/swing8
+          retention-days: 90
