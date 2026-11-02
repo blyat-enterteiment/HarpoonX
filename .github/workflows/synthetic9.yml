@@ -1,0 +1,55 @@
+name: Synthetic execution and prequential bank
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/synthetic9/**'
+      - 'quant/tests/test_synthetic9*.py'
+      - 'tools/run_synthetic9.py'
+      - 'tools/verify_synthetic9.py'
+      - 'research/synthetic9/**'
+      - '.github/workflows/synthetic9.yml'
+  pull_request:
+    paths:
+      - 'quant/harpoon_quant/synthetic9/**'
+      - 'quant/tests/test_synthetic9*.py'
+      - 'tools/*synthetic9.py'
+      - 'research/synthetic9/**'
+      - '.github/workflows/synthetic9.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - run: python3 -m pip install -r quant/requirements-tested.txt ruff==0.17.3 mypy==2.4.1
+      - run: python3 -m ruff check quant/harpoon_quant/synthetic9 quant/tests/test_synthetic9*.py tools/run_synthetic9.py tools/verify_synthetic9.py
+      - run: python3 -m mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/synthetic9 tools/run_synthetic9.py tools/verify_synthetic9.py
+      - run: python3 -B -m unittest discover -s quant/tests
+      - name: Verify previous frontier artifacts remain usable
+        run: python3 -B tools/frontier_verify.py evidence/frontier/run_04 --repeats 1 --output "$RUNNER_TEMP/frontier_preserved.json"
+      - name: Registered synthetic workload
+        run: python3 -B tools/run_synthetic9.py --output-dir "$RUNNER_TEMP/synthetic9" --source-commit "$GITHUB_SHA"
+      - name: Separate reviewer process
+        run: python3 -B tools/verify_synthetic9.py "$RUNNER_TEMP/synthetic9" --output "$RUNNER_TEMP/synthetic9_verification.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic9-packet-no-real-financial-evidence
+          path: |
+            ${{ runner.temp }}/synthetic9
+            ${{ runner.temp }}/synthetic9_verification.json
+          retention-days: 30
