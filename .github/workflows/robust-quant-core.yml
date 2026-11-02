@@ -1,0 +1,33 @@
+name: Robust quant core regressions
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/**'
+      - 'quant/tests/**'
+      - '.github/workflows/robust-quant-core.yml'
+  pull_request:
+    paths:
+      - 'quant/harpoon_quant/**'
+      - 'quant/tests/**'
+      - '.github/workflows/robust-quant-core.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: quant/requirements-tested.txt
+      - run: python3 -m pip install -r quant/requirements-tested.txt
+      - name: Entire quant suite including certificate regressions
+        run: python3 -B -m unittest discover -s quant/tests
