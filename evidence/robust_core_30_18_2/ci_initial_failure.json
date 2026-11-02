@@ -1,0 +1,14 @@
+{
+  "run_id": 41396851627,
+  "status": "FAILED_RETAINED",
+  "errors": [
+    "Missing Node ws dependency: CI omitted npm ci",
+    "Legacy test required bitwise float equality across CPU/Python builds; observed approximately 1 ULP difference"
+  ],
+  "correction": [
+    "Install locked Node dependencies before integration tests",
+    "Use maximum 16 ULP or 1e-20 absolute floor only for recomputed float tree; all types, discrete values and source/database hashes remain exact"
+  ],
+  "sealed_economic_results_changed": false,
+  "tests_skipped": 0
+}

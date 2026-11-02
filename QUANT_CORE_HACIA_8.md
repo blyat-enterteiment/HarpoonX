@@ -116,3 +116,13 @@ comparación no presupone que las señales cripto actuales tengan alpha.
 Opciones no entra para incrementar la nota: faltan cadenas bid/ask, lifecycle,
 asignación y marks ejecutables suficientes. Tampoco se propone más agentes,
 GPU o LLM en la decisión como sustituto de una hipótesis rentable.
+
+## Portabilidad de CI
+
+La primera ejecución remota se conserva como fallida (41396851627): faltaba
+`npm ci` para las integraciones Node y una comparación de floats recalculados
+exigía igualdad bit a bit entre plataformas. CI instala ahora ambas familias
+de dependencias. El test de reproducción admite como máximo 16 ULP (suelo
+1e-20) sólo en floats recalculados, con tres regresiones del comparador.
+Tipos, claves, longitudes, estados, enteros y hashes de artefactos/BD siguen
+siendo exactos. No se cambiaron datos, dictamen, costes ni fórmulas históricas.

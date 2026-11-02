@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import math
 import shutil
 import tempfile
 import unittest
@@ -72,6 +73,42 @@ def reseal_holdout(root: Path, holdout: dict[str, Any]) -> None:
 
 
 class StudyIntegrityTests(unittest.TestCase):
+    def assert_numeric_tree_equal(self, actual, expected):
+        """Exact structure/discrete values, <=16 ULP for floating arithmetic only.
+
+        Canonical artifact hashes and read-only database checks remain exact.
+        Different CPU/NumPy builds can differ in the last bit of bootstrap sums.
+        The 1e-20 floor covers values near zero, not economic materiality.
+        """
+        self.assertIs(type(actual), type(expected))
+        if isinstance(expected, dict):
+            self.assertEqual(set(actual), set(expected))
+            for key in expected:
+                with self.subTest(field=key):
+                    self.assert_numeric_tree_equal(actual[key], expected[key])
+        elif isinstance(expected, list):
+            self.assertEqual(len(actual), len(expected))
+            for a, e in zip(actual, expected, strict=True):
+                self.assert_numeric_tree_equal(a, e)
+        elif isinstance(expected, float):
+            self.assertTrue(math.isfinite(actual) and math.isfinite(expected))
+            self.assertLessEqual(abs(actual - expected), max(1e-20, 16 * math.ulp(expected)))
+        else:
+            self.assertEqual(actual, expected)
+
+    def test_numeric_comparator_allows_only_roundoff(self):
+        expected = -3.468605e-5
+        self.assert_numeric_tree_equal(math.nextafter(expected, math.inf), expected)
+
+    def test_numeric_comparator_rejects_material_changes(self):
+        with self.assertRaises(AssertionError):
+            self.assert_numeric_tree_equal(.00001 + 1e-10, .00001)
+
+    def test_numeric_comparator_keeps_discrete_values_exact(self):
+        for actual, expected in ((1, True), ('PASS', 'FAIL'), (2, 1), (math.nan, 0.0)):
+            with self.subTest(actual=actual), self.assertRaises(AssertionError):
+                self.assert_numeric_tree_equal(actual, expected)
+
     def test_historical_analysis_is_numerically_identical_and_read_only(self):
         before = hashlib.sha256(
             (SOURCE / "study/optimizer.sqlite3").read_bytes()
@@ -83,7 +120,7 @@ class StudyIntegrityTests(unittest.TestCase):
             for key, value in expected.items()
             if key not in {"integrity", "scenario_roles"}
         }
-        self.assertEqual({key: actual[key] for key in historical}, historical)
+        self.assert_numeric_tree_equal({key: actual[key] for key in historical}, historical)
         self.assertEqual(actual["status"], "REJECTED")
         self.assertEqual(actual["integrity"]["verified_runs"], 45)
         self.assertEqual(
