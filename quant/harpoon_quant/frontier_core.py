@@ -57,6 +57,7 @@ def shadow(
         *sorted((Path(__file__).parent / "frontier").glob("*.py")),
         Path(__file__),
         Path(__file__).parent / "core.py",
+        Path(__file__).parent / "macd30.py",
     ]
     engine_hash = digest(
         {

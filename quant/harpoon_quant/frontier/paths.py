@@ -138,6 +138,11 @@ def predict(
         model["symbols"] == [a["symbol"] for a in state["assets"]],
         "MODEL_UNIVERSE_BINDING",
     )
+    latest_label = max(timestamp(r["known_at"]) for r in model["samples"])
+    require(
+        0 <= (now - latest_label).total_seconds() <= cfg.max_model_age_hours * 3600,
+        "TRAINING_LABELS_STALE_OR_FUTURE",
+    )
     if model["origin"] == "SYNTHETIC_ENGINEERING_ONLY":
         require(
             state["origin"] == "SYNTHETIC_ENGINEERING_ONLY",

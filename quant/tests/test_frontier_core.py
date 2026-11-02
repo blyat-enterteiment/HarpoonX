@@ -71,8 +71,8 @@ def fixture(n: int = 1, trend: float = 0.0005):
         "corporate_actions_covered": True,
         "samples": rows,
     }
-    available = "2024-07-01T00:00:00+00:00"
-    now = "2024-07-01T12:00:00+00:00"
+    available = "2024-06-14T00:00:00+00:00"
+    now = "2024-06-14T12:00:00+00:00"
     assets = []
     for s in symbols:
         assets.append(
@@ -452,6 +452,25 @@ class FrontierTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "CASE_IDS"):
             assure(self.state, self.model, receipt, self.cfg)
+
+    def test_new_fit_timestamp_cannot_hide_old_labels(self):
+        state = copy.deepcopy(self.state)
+        state["asof"] = "2024-07-01T12:00:00+00:00"
+        state["known_at"] = state["asof"]
+        for asset in state["assets"]:
+            for key in (
+                "quote_at",
+                "quote_received_at",
+                "status_known_at",
+                "schedule_known_at",
+            ):
+                asset[key] = state["asof"]
+        model = copy.deepcopy(self.model)
+        model["available_at"] = "2024-07-01T11:00:00+00:00"
+        model["model_hash"] = digest(
+            {k: v for k, v in model.items() if k != "model_hash"}
+        )
+        self.assertIn("TRAINING_LABELS_STALE", self.result(state, model)["reason"])
 
     def test_cli_end_to_end(self):
         with tempfile.TemporaryDirectory() as tmp:

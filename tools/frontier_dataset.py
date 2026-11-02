@@ -14,6 +14,7 @@ from typing import Any
 import numpy as np
 from harpoon_quant.core import digest
 from harpoon_quant.frontier.contracts import require
+from harpoon_quant.frontier.features import oscillator_context
 from harpoon_quant.frontier.paths import validate_paths
 from harpoon_quant.swing import NY
 from run_swing8 import inputs
@@ -56,7 +57,11 @@ def schedule_for(when: Any, symbol: str, sessions: dict[str, Any]) -> list[bool]
     return out
 
 
-def build() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+def build(
+    *, context_mode: str = "BASELINE16"
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    require(context_mode in {"BASELINE16", "OSCILLATORS24"}, "REGISTERED_CONTEXT_MODE")
+    oscillator_names = None
     hourly, daily, sessions, actions, start, end, coverage, sources = inputs()
     lookup = {s: {r["at"]: r for r in hourly[s]} for s in SYMBOLS}
     sample_rows = []
@@ -74,6 +79,11 @@ def build() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         try:
             require(all(when in lookup[s] for s in SYMBOLS), "MISSING_ENTRY_BAR")
             features, features_known = context(daily, when)
+            if context_mode == "OSCILLATORS24":
+                oscillator = oscillator_context(daily, SYMBOLS, when.isoformat())
+                features = oscillator["features"]
+                features_known = oscillator["features_known_at"]
+                oscillator_names = oscillator["feature_names"]
             schedules = [schedule_for(when, s, sessions) for s in SYMBOLS]
             paths, dividends = [], []
             bases = {s: lookup[s][when]["open"] for s in SYMBOLS}
@@ -188,6 +198,10 @@ def build() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         for s in SYMBOLS
         for f in ("return1", "momentum5", "vol21", "trend20_z")
     ]
+    if context_mode == "OSCILLATORS24":
+        if oscillator_names is None:
+            raise ValueError("OSCILLATOR_CONTEXT_NOT_BUILT")
+        fields = oscillator_names
     state["feature_names"] = fields
     dataset = {
         "schema": "HARPOON_JOINT_PATH_DATASET_1",
