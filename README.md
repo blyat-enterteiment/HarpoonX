@@ -1,5 +1,11 @@
 # HARPOON XXXUltimate 30.17.0
 
+**Entrega actual de I+D:** [núcleo de trayectorias, inventario y supervisor](FRONTIER_CORE_RD.md),
+con [framework de planificación de USD 5 millones](programme/frontier/FRAMEWORK_RD_5M.md),
+modelos reconstruibles y comprobaciones de ingeniería. Opera en investigación/shadow;
+el presupuesto no compromete gasto y no acredita rentabilidad ni nivel 9.
+El informe histórico siguiente se conserva con sus propios resultados y alcance.
+
 **Core corregido. Ventaja neta no demostrada. Nivel 8 no acreditado.**
 
 Esta integral conserva la aplicación, código, datos originales, estudios anteriores, modelos diagnósticos, pruebas y nuevas evidencias. No se ha desplegado ni conectado a un broker.

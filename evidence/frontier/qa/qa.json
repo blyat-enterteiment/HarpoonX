@@ -1,0 +1,74 @@
+{
+  "benchmark_scope": "TWO_REGISTERED_HISTORICAL_MODELED_SNAPSHOTS_NOT_LIVE_SLA",
+  "broker_calls": 0,
+  "date_utc": "2026-11-02",
+  "execution_allowed": false,
+  "final_reproduction_and_benchmark": "evidence/frontier/final_reproduction_and_benchmark.json",
+  "frontier_subset": {
+    "command": "PYTHONPATH=quant python3 -B -m unittest discover -s quant/tests -p 'test_frontier*.py'",
+    "included_in_full_count": true,
+    "result": "PASS",
+    "seconds": 3.703,
+    "tests": 59
+  },
+  "full_quant_suite": {
+    "command": "PYTHONPATH=quant python3 -B -m unittest discover -s quant/tests",
+    "result": "PASS",
+    "seconds": 95.781,
+    "tests": 611
+  },
+  "functional_source_commit": "fff11f750fded12d5d76e608f72ce098c1f4b866",
+  "github_ci": {
+    "status": "PENDING_FINAL_ARTIFACT_PUBLICATION",
+    "workflow": ".github/workflows/frontier-core.yml"
+  },
+  "level9_accredited": false,
+  "mypy": {
+    "options": [
+      "--follow-imports=silent",
+      "--ignore-missing-imports"
+    ],
+    "result": "PASS",
+    "scope": "NEW_FRONTIER_SOURCES_AND_TOOLS",
+    "source_files": 16,
+    "version": "2.4.1"
+  },
+  "node": "v24.22.1",
+  "numpy": "2.3.5",
+  "optional_oscillator_adapter": {
+    "historical_recipe": "BASELINE16_UNCHANGED",
+    "predictive_validation_of_OSCILLATORS24": false,
+    "unit_tested": true
+  },
+  "planning_budget_usd": 5000000,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "real_fills_calibrated": false,
+  "registered_lab": {
+    "assumed_bar_availability": true,
+    "blocked_decisions": 3,
+    "calibration_cases": 189,
+    "canonical_directory": "evidence/frontier/run_04",
+    "economic_backtest_executed": false,
+    "hypothetical_inventory_and_bbo": true,
+    "original_joint_cases": 239,
+    "reconstruction_verified": true,
+    "reused_historical_data": true,
+    "scored_asset_cases_total": 64
+  },
+  "ruff": {
+    "result": "PASS",
+    "scope": "NEW_FRONTIER_SOURCES_TOOLS_AND_TESTS",
+    "version": "0.17.3"
+  },
+  "schema": "HARPOON_FRONTIER_ENGINEERING_QA_1",
+  "selected_action_checker": {
+    "external_independent_auditor": false,
+    "maximum_mean_error_usd": 5.684341886080802e-14,
+    "sampling_coverage_proven": false,
+    "separate_scalar_decimal_implementation": true,
+    "whole_grid_optimality_proven": false
+  },
+  "source_rights_or_authenticity_independently_authenticated": false,
+  "spent_usd": 0
+}

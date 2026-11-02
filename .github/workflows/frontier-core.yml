@@ -1,0 +1,74 @@
+name: Frontier core R&D engineering and historical reconstruction
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/frontier/**'
+      - 'quant/harpoon_quant/frontier_core.py'
+      - 'quant/tests/test_frontier*.py'
+      - 'tools/frontier_*.py'
+      - 'tools/run_frontier_lab.py'
+      - 'programme/frontier/**'
+      - 'research/frontier/**'
+      - 'evidence/frontier/run_04/**'
+      - '.github/workflows/frontier-core.yml'
+  pull_request:
+    paths:
+      - 'quant/harpoon_quant/frontier/**'
+      - 'quant/harpoon_quant/frontier_core.py'
+      - 'quant/tests/test_frontier*.py'
+      - 'tools/frontier_*.py'
+      - 'tools/run_frontier_lab.py'
+      - 'programme/frontier/**'
+      - 'research/frontier/**'
+      - '.github/workflows/frontier-core.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  engineering:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - run: python3 -m pip install -r quant/requirements-tested.txt ruff==0.17.3 mypy==2.4.1
+      - name: Static analysis of new sources and tests
+        run: python3 -m ruff check quant/harpoon_quant/frontier quant/harpoon_quant/frontier_core.py tools/frontier_dataset.py tools/frontier_restore.py tools/run_frontier_lab.py tools/frontier_verify.py quant/tests/test_frontier*.py
+      - name: Type checking of new engine and reconstruction tools
+        run: python3 -m mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/frontier quant/harpoon_quant/frontier_core.py tools/frontier_dataset.py tools/frontier_restore.py tools/run_frontier_lab.py tools/frontier_verify.py
+      - name: Full quant regression suite
+        run: python3 -B -m unittest discover -s quant/tests
+      - name: Registered historical reconstruction and separate Decimal audit
+        run: python3 -B tools/run_frontier_lab.py --output-dir "$RUNNER_TEMP/frontier"
+      - name: Verify archived shards and independent selected-action valuations
+        run: python3 -B tools/frontier_verify.py evidence/frontier/run_04 --repeats 1 --output "$RUNNER_TEMP/archived_frontier_verification.json"
+      - name: Compare diagnostic results without pretending economic acceptance
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          expected=json.loads(Path('evidence/frontier/run_04/summary.json').read_text())
+          actual=json.loads((Path(os.environ['RUNNER_TEMP'])/'frontier/summary.json').read_text())
+          for key in ('dataset_cases','calibration_cases','flat_targets','holding_actions','scored_asset_cases','probability_evaluation_blocked','model_dataset_roundtrip_verified','journal_verified','broker_calls','real_fills_calibrated','economic_backtest_executed','predictive_improvement_accredited','level9_accredited','planning_budget_usd','spent_usd'):
+              assert actual[key]==expected[key],key
+          for key in ('learned_brier_bounds','uniform_brier_bounds'):
+              assert len(actual[key])==len(expected[key])
+              assert all(abs(a-b)<=1e-12 for a,b in zip(actual[key],expected[key],strict=True)),key
+          print('Engineering receipt reproduced; no financial promotion')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontier-model-calibration-supervisor-and-source-evidence
+          path: ${{ runner.temp }}/frontier
+          retention-days: 30
