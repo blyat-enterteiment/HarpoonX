@@ -36,9 +36,10 @@ PnL no permite atribuir causalmente la mejora o pérdida a un solo componente.
 - Diagnósticos bootstrap pareados: bloques 5/20, 120,000 remuestreos y 24
   endpoints. Estadística descriptiva del histórico ya visto; no corrección
   completa de búsqueda global ni aprobación financiera.
-- El workflow reproduce el experimento, compara hashes y conserva los reportes
-  completos como artefacto descargable durante 90 días. Las recetas, los
-  diagnósticos y hashes quedan versionados en el repositorio.
+- El workflow reproduce el experimento y compara hashes de cuentas y señales
+  exactamente; admite hasta16ULP sólo en estadísticas derivadas. Las seis
+  cuentas y señales completas quedan versionadas como JSON gzip con doble
+  checksum en run_02. El artefacto adicional de CI se conserva90días.
 
 `evidence/research9_30_19/run_02/diagnosis.json` contiene resultados por activo,
 salida, concentración, equilibrio de costes y límites inferiores. La primera
