@@ -1,0 +1,23 @@
+{
+  "schema": "HARPOON_SWING_BREAKOUT_GAP_1",
+  "period": ["2025-01-01T00:00:00Z", "2026-11-01T00:00:00Z"],
+  "symbols": ["SPY", "QQQ", "IWM", "XLF", "XLE", "XLV", "XLK", "AAPL", "MSFT", "BTC/USD", "ETH/USD"],
+  "initial_usd": 20000,
+  "rules": ["BREAKOUT", "GAP", "RETEST"],
+  "trials": "THREE_FIXED_RULES_TIMES_TWO_COST_SCENARIOS_PLUS_TWO_CASH_CONTROLS",
+  "stopping_rule": "NO_PARAMETER_TUNING_AFTER_RESULTS_NO_WINNER_PROMOTION_FROM_SEEN_HISTORY",
+  "entry": "12:00 America/New_York; last hourly bar must have ended plus60seconds strictly before decision; only raw open at decision used as modeled entry, never same-bar HLC",
+  "features": "completed prior days only; ATR14 arithmetic true-range mean; SMA50; median volume20; prior20 high excludes signal day",
+  "breakout": "prior close above prior20 high, prior volume>=1.2*preceding20 median volume, prior close>SMA50; last known hour close above frozen level",
+  "gap": "equity only; actual session open gap to prior close between0.5 and2ATR; open>prior close>SMA50; last known hour close>session open and prior high; crypto has no overnight equity session gap",
+  "retest": "a qualifying breakout within last5 completed days; last known hourly low<=frozen breakout level+0.25ATR and close>level; frozen ATR and level from that breakout",
+  "entry_guards": "price<=last known hourly close+0.25ATR; breakout/retest price<=level+1ATR; 2ATR/entry>=3*(roundtrip variable cost rate); reject unadjusted jumps>20% within61 prior days",
+  "ranking": "(prior close-SMA50)/ATR, descending, then symbol; no learned score or label calibration",
+  "holding": "planned24to72 elapsed UTC hours, choose valid session12:00 closest48hours; crypto48hours; account for holidays/half-days/DST; no admissible future session=>no entry; stops/targets may exit earlier",
+  "risk": {"stop_atr": 2, "target_atr": 3, "trade_stop_risk_fraction": 0.0035, "total_stop_risk_fraction": 0.01, "max_gross_fraction": 0.6, "max_name_fraction": 0.2, "max_crypto_fraction": 0.2, "max_tech_fraction": 0.3, "max_positions": 3, "daily_loss_halt_fraction": 0.02, "capacity": "1percent median prior20 known hourly dollar volume", "fixed_cost_reserve_usd": 100},
+  "exit": "native modeled stops at worse(open,stop) for long; stop-first if both stop/target touch in bar; conservative target fill exactly target; deadline at scheduled open; missing deadline bar blocks account, not silent skipping",
+  "accounting": "continuous cash plus positions plus dividend receivables; dividends ex-date entitlement, payable-date cash; splits adjust qty and price levels; shared infrastructure once per UTC calendar day; no broker writes",
+  "costs": {"equity_one_way_bps": 5, "crypto_one_way_bps": 35, "stress_multiplier": 2, "fixed_usd_per_calendar_day": 1, "fixed_stress_usd_per_calendar_day": 2, "nature": "ASSUMED_NOT_FILL_CALIBRATED_NOT_REDUCED_FROM_PREVIOUS_STUDY"},
+  "validation": {"2025": "EXPLORATORY", "2026": "TEMPORAL_EXTENSION_ALREADY_SEEN_ELSEWHERE_NOT_VIRGIN_HOLDOUT", "capital_reset_at_year_boundary": false, "paired_uncertainty": "daily log growth vs same-cost CASH, Bartlett HAC5 with IID floor, descriptive mean-3SE; not global search correction", "net_pnl_stress_required_positive": true, "source_authenticity_independently_verified": false, "live_fill_evidence_required": true, "execution_allowed": false, "level8_accredited": false},
+  "preregistration": "OWN_RESEARCH_PROTOCOL_BEFORE_NEW_MEASUREMENTS_NOT_INDEPENDENT_OR_BLIND"
+}
