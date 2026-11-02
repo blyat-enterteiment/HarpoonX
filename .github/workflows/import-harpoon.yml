@@ -1,0 +1,26 @@
+name: Import HARPOON integral
+on:
+  push:
+    branches: [main]
+    paths: ['.migration/archive.part*']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: harpoon-integral-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify and extract unchanged source
+        run: python3 .migration/import_integral.py
+      - name: Commit complete source and verification receipt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f -- .
+          git commit -m "Import complete HARPOON 30.18.0 source, test bank and JSON; verify SHA-256"
+          git push origin HEAD:main

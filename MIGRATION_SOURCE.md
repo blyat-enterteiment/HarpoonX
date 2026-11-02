@@ -1,6 +1,3 @@
-# HARPOON 30.18.0 integral migration
+# HARPOON 30.18.0
 
-Source: HARPOON_XXXUltimate_30_18_0_Integral.zip
-SHA-256: 7668e206301a23b24ecb4e7f2200510f774cdacd53f854963686d22c848984c1
-
-Migration in progress. This initialization alone does not contain the application.
+Complete source archive uploaded in 18 parts. GitHub Actions reconstructs and verifies the source. See Actions for migration status. This staging commit is not yet the extracted application.
