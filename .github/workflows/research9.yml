@@ -1,0 +1,62 @@
+name: Research9 bounded economic replay
+on:
+  push:
+    paths:
+      - 'tools/research9*'
+      - 'tools/run_research9.py'
+      - 'runtime30/research_residual_exit.js'
+      - 'runtime30/ultimate_replay_research.js'
+      - 'research/research9_30_19/**'
+      - '.github/workflows/research9.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: python3 -m pip install -r quant/requirements-tested.txt
+      - run: node --test tools/research9_test.cjs tools/research9_parity_test.cjs
+      - name: Reproduce six frozen measurements without parameter search
+        run: python3 -B tools/run_research9.py --output-dir "$RUNNER_TEMP/research9"
+      - name: Verify complete output identity against retained local execution
+        run: |
+          python3 - <<'PY'
+          import json,os,hashlib,math
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'research9'
+          expected=json.loads(Path('evidence/research9_30_19/run_02/result_hashes.json').read_text())
+          actual={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in expected if p!='diagnosis.json'}
+          assert actual=={p:h for p,h in expected.items() if p!='diagnosis.json'},'REPLAY_HASH_MISMATCH'
+          def same(a,b):
+              assert type(a) is type(b)
+              if isinstance(b,dict):
+                  assert set(a)==set(b)
+                  for k in b:same(a[k],b[k])
+              elif isinstance(b,list):
+                  assert len(a)==len(b)
+                  for x,y in zip(a,b,strict=True):same(x,y)
+              elif isinstance(b,float):
+                  assert math.isfinite(a) and abs(a-b)<=max(1e-20,16*math.ulp(b))
+              else:assert a==b
+          same(json.loads((root/'diagnosis.json').read_text()),json.loads(Path('evidence/research9_30_19/run_02/diagnosis.json').read_text()))
+          print('Account/signal hashes exact; derived diagnostics within16ULP')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: research9-complete-accounts-and-diagnostics
+          path: ${{ runner.temp }}/research9
+          retention-days: 90
