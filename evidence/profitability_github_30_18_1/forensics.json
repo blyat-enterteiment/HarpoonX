@@ -1,0 +1,1388 @@
+{
+  "accounts": {
+    "NOMINAL:CASH": {
+      "attribution_before_shared_fixed": {},
+      "campaigns": 0,
+      "dividends_usd": 0.0,
+      "explicit_commissions_usd": 0.0,
+      "extra_fixed_path_edge_needed_usd": 404.0,
+      "final_equity_usd": 19596.0,
+      "fixed_path_break_even_daily_budget_usd": 0.0,
+      "geometric_mean_per_session": -5.051062968544045e-05,
+      "geometric_return_fraction": -0.020199999999999996,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 0,
+      "loss_campaigns_causing_at_least_80pct_losses": 0,
+      "net_after_removing_largest_winner_usd": -404.0,
+      "net_before_shared_fixed_usd": 0.0,
+      "net_modeled_usd": -404.0,
+      "policy": "CASH",
+      "price_pnl_after_embedded_execution_costs_usd": 0.0,
+      "reconciliation_verified": true,
+      "scenario": "NOMINAL",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 404.0,
+      "sum_losses_before_shared_fixed_usd": 0,
+      "sum_winners_before_shared_fixed_usd": 0,
+      "winning_campaigns": 0,
+      "worst_25_campaigns": []
+    },
+    "NOMINAL:RESIDUAL_LONG": {
+      "attribution_before_shared_fixed": {
+        "asset:AAPL": {
+          "campaigns": 32,
+          "net_before_shared_fixed_usd": 173.06000000000037
+        },
+        "asset:MSFT": {
+          "campaigns": 35,
+          "net_before_shared_fixed_usd": 112.2900000000018
+        },
+        "exit:STOP": {
+          "campaigns": 18,
+          "net_before_shared_fixed_usd": -706.4199999999994
+        },
+        "exit:TIME": {
+          "campaigns": 49,
+          "net_before_shared_fixed_usd": 991.7700000000018
+        }
+      },
+      "campaigns": 67,
+      "dividends_usd": 1.82,
+      "explicit_commissions_usd": 3.719999999999998,
+      "extra_fixed_path_edge_needed_usd": 118.64999999999782,
+      "final_equity_usd": 19881.350000000002,
+      "fixed_path_break_even_daily_budget_usd": 0.7063118811881243,
+      "geometric_mean_per_session": -1.4728028141778723e-05,
+      "geometric_return_fraction": -0.005932499999999896,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 33,
+      "loss_campaigns_causing_at_least_80pct_losses": 17,
+      "net_after_removing_largest_winner_usd": -224.59999999999786,
+      "net_before_shared_fixed_usd": 285.3500000000022,
+      "net_modeled_usd": -118.64999999999782,
+      "policy": "RESIDUAL_LONG",
+      "price_pnl_after_embedded_execution_costs_usd": 287.2500000000021,
+      "reconciliation_verified": true,
+      "scenario": "NOMINAL",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 404.0,
+      "sum_losses_before_shared_fixed_usd": -977.3799999999994,
+      "sum_winners_before_shared_fixed_usd": 1262.7300000000014,
+      "winning_campaigns": 34,
+      "worst_25_campaigns": [
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-07-30:AAPL",
+          "net_before_shared_fixed_usd": -152.21999999999974,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-06-01:MSFT",
+          "net_before_shared_fixed_usd": -54.67999999999988,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-02-27:AAPL",
+          "net_before_shared_fixed_usd": -46.89999999999998,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 1.3330555555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-02-12:AAPL",
+          "net_before_shared_fixed_usd": -46.059999999999945,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.499722222222225,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-05-19:AAPL",
+          "net_before_shared_fixed_usd": -45.919999999999916,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.91638888888889,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-02-02:MSFT",
+          "net_before_shared_fixed_usd": -44.430000000000035,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 2.5830555555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-01-21:MSFT",
+          "net_before_shared_fixed_usd": -44.30000000000011,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 28.41638888888889,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-03-19:MSFT",
+          "net_before_shared_fixed_usd": -42.249999999999986,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 52.33305555555555,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-06-03:MSFT",
+          "net_before_shared_fixed_usd": -39.41999999999999,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 29.41638888888889,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-01-06:AAPL",
+          "net_before_shared_fixed_usd": -38.70000000000019,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.999722222222225,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-04-14:AAPL",
+          "net_before_shared_fixed_usd": -37.620000000000005,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-12-15:AAPL",
+          "net_before_shared_fixed_usd": -36.159999999999926,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-10-29:MSFT",
+          "net_before_shared_fixed_usd": -35.520000000000024,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 2.499722222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-08-01:AAPL",
+          "net_before_shared_fixed_usd": -33.99000000000014,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 24.49972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-01-13:MSFT",
+          "net_before_shared_fixed_usd": -33.34999999999984,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-07-20:AAPL",
+          "net_before_shared_fixed_usd": -29.449999999999974,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-07-31:MSFT",
+          "net_before_shared_fixed_usd": -25.639999999999908,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 53.33305555555555,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-08-06:MSFT",
+          "net_before_shared_fixed_usd": -22.799999999999763,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-06-12:AAPL",
+          "net_before_shared_fixed_usd": -22.69999999999991,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-03-10:MSFT",
+          "net_before_shared_fixed_usd": -20.500000000000156,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2025-05-05:AAPL",
+          "net_before_shared_fixed_usd": -19.740000000000016,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-07-06:MSFT",
+          "net_before_shared_fixed_usd": -19.379999999999967,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-05-08:MSFT",
+          "net_before_shared_fixed_usd": -18.959999999999845,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-02-09:AAPL",
+          "net_before_shared_fixed_usd": -14.459999999999862,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:NOMINAL:RESIDUAL_LONG:2026-01-02:MSFT",
+          "net_before_shared_fixed_usd": -12.949999999999921,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        }
+      ]
+    },
+    "NOMINAL:SECTOR_TIMING_CONTROL": {
+      "attribution_before_shared_fixed": {
+        "asset:XLK": {
+          "campaigns": 68,
+          "net_before_shared_fixed_usd": -26.17999999999917
+        },
+        "exit:STOP": {
+          "campaigns": 28,
+          "net_before_shared_fixed_usd": -916.94
+        },
+        "exit:TIME": {
+          "campaigns": 40,
+          "net_before_shared_fixed_usd": 890.7600000000004
+        }
+      },
+      "campaigns": 68,
+      "dividends_usd": 0.0,
+      "explicit_commissions_usd": 7.4700000000000015,
+      "extra_fixed_path_edge_needed_usd": 430.1800000000003,
+      "final_equity_usd": 19569.82,
+      "fixed_path_break_even_daily_budget_usd": -0.06480198019802053,
+      "geometric_mean_per_session": -5.381956637805889e-05,
+      "geometric_return_fraction": -0.021509,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 37,
+      "loss_campaigns_causing_at_least_80pct_losses": 22,
+      "net_after_removing_largest_winner_usd": -537.4700000000003,
+      "net_before_shared_fixed_usd": -26.18000000000029,
+      "net_modeled_usd": -430.1800000000003,
+      "policy": "SECTOR_TIMING_CONTROL",
+      "price_pnl_after_embedded_execution_costs_usd": -18.709999999999205,
+      "reconciliation_verified": true,
+      "scenario": "NOMINAL",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 404.0,
+      "sum_losses_before_shared_fixed_usd": -1190.1599999999999,
+      "sum_winners_before_shared_fixed_usd": 1163.9800000000007,
+      "winning_campaigns": 31,
+      "worst_25_campaigns": [
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-07-06:XLK",
+          "net_before_shared_fixed_usd": -48.56000000000002,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-02-12:XLK",
+          "net_before_shared_fixed_usd": -48.22999999999985,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-05-14:XLK",
+          "net_before_shared_fixed_usd": -48.22999999999985,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-03-23:XLK",
+          "net_before_shared_fixed_usd": -48.149999999999835,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2025-03-24:XLK",
+          "net_before_shared_fixed_usd": -47.67999999999991,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 53.41638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-03-24:XLK",
+          "net_before_shared_fixed_usd": -47.40000000000009,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.24972222222222,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-06-04:XLK",
+          "net_before_shared_fixed_usd": -47.19000000000001,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-04-01:XLK",
+          "net_before_shared_fixed_usd": -47.03999999999992,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 4.833055555555555,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-06-10:XLK",
+          "net_before_shared_fixed_usd": -46.95999999999988,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 28.99972222222222,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-03-19:XLK",
+          "net_before_shared_fixed_usd": -46.80000000000021,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 1.4997222222222222,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-06-09:XLK",
+          "net_before_shared_fixed_usd": -46.440000000000055,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.49972222222222,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-02-02:XLK",
+          "net_before_shared_fixed_usd": -45.60000000000005,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 52.66638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2025-05-19:XLK",
+          "net_before_shared_fixed_usd": -45.499999999999915,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.41638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-08-17:XLK",
+          "net_before_shared_fixed_usd": -44.81999999999999,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 52.16638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2025-04-14:XLK",
+          "net_before_shared_fixed_usd": -41.55999999999999,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 47.499722222222225,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-08-31:XLK",
+          "net_before_shared_fixed_usd": -41.280000000000086,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 49.749722222222225,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2025-10-29:XLK",
+          "net_before_shared_fixed_usd": -40.600000000000136,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2025-10-13:XLK",
+          "net_before_shared_fixed_usd": -36.479999999999634,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-03-05:XLK",
+          "net_before_shared_fixed_usd": -34.719999999999985,
+          "reason": "TIME",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-07-23:XLK",
+          "net_before_shared_fixed_usd": -33.84,
+          "reason": "TIME",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 47.499722222222225,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-01-06:XLK",
+          "net_before_shared_fixed_usd": -33.12000000000003,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 26.583055555555557,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-10-07:XLK",
+          "net_before_shared_fixed_usd": -32.8900000000002,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.91638888888889,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2025-06-12:XLK",
+          "net_before_shared_fixed_usd": -32.30999999999986,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 24.24972222222222,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-01-15:XLK",
+          "net_before_shared_fixed_usd": -32.16,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.583055555555557,
+          "id": "RESIDUAL:NOMINAL:SECTOR_TIMING_CONTROL:2026-01-13:XLK",
+          "net_before_shared_fixed_usd": -30.08000000000007,
+          "reason": "STOP",
+          "symbol": "XLK"
+        }
+      ]
+    },
+    "NOMINAL:STOCK_THRESHOLD_OFF": {
+      "attribution_before_shared_fixed": {
+        "asset:AAPL": {
+          "campaigns": 111,
+          "net_before_shared_fixed_usd": 562.4200000000001
+        },
+        "asset:MSFT": {
+          "campaigns": 73,
+          "net_before_shared_fixed_usd": 55.99000000000157
+        },
+        "exit:STOP": {
+          "campaigns": 46,
+          "net_before_shared_fixed_usd": -1686.2399999999998
+        },
+        "exit:TIME": {
+          "campaigns": 138,
+          "net_before_shared_fixed_usd": 2304.6500000000024
+        }
+      },
+      "campaigns": 184,
+      "dividends_usd": 4.55,
+      "explicit_commissions_usd": 11.509999999999998,
+      "extra_fixed_path_edge_needed_usd": 0.0,
+      "final_equity_usd": 20214.41,
+      "fixed_path_break_even_daily_budget_usd": 1.530717821782178,
+      "geometric_mean_per_session": 2.6395008899000234e-05,
+      "geometric_return_fraction": 0.01072049999999991,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 82,
+      "loss_campaigns_causing_at_least_80pct_losses": 47,
+      "net_after_removing_largest_winner_usd": 92.00999999999985,
+      "net_before_shared_fixed_usd": 618.4099999999999,
+      "net_modeled_usd": 214.40999999999985,
+      "policy": "STOCK_THRESHOLD_OFF",
+      "price_pnl_after_embedded_execution_costs_usd": 625.3700000000016,
+      "reconciliation_verified": true,
+      "scenario": "NOMINAL",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 404.0,
+      "sum_losses_before_shared_fixed_usd": -2563.8999999999996,
+      "sum_winners_before_shared_fixed_usd": 3182.3100000000013,
+      "winning_campaigns": 102,
+      "worst_25_campaigns": [
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-07-30:AAPL",
+          "net_before_shared_fixed_usd": -152.21999999999974,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-03-26:MSFT",
+          "net_before_shared_fixed_usd": -61.920000000000016,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-05-22:AAPL",
+          "net_before_shared_fixed_usd": -56.800000000000026,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-06-01:MSFT",
+          "net_before_shared_fixed_usd": -54.67999999999988,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.333055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-06-02:MSFT",
+          "net_before_shared_fixed_usd": -49.35999999999994,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-11-17:MSFT",
+          "net_before_shared_fixed_usd": -48.8,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-09-28:AAPL",
+          "net_before_shared_fixed_usd": -48.510000000000105,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.583055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-09-03:AAPL",
+          "net_before_shared_fixed_usd": -47.809999999999945,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-04-03:MSFT",
+          "net_before_shared_fixed_usd": -46.949999999999974,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 47.08305555555555,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-08-18:MSFT",
+          "net_before_shared_fixed_usd": -46.35999999999994,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 1.3330555555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-02-12:AAPL",
+          "net_before_shared_fixed_usd": -46.059999999999945,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 4.083055555555555,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-04-04:AAPL",
+          "net_before_shared_fixed_usd": -45.98999999999981,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.499722222222225,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-05-19:AAPL",
+          "net_before_shared_fixed_usd": -45.919999999999916,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 24.583055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-03-11:AAPL",
+          "net_before_shared_fixed_usd": -45.63999999999993,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.41638888888889,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-02-03:MSFT",
+          "net_before_shared_fixed_usd": -45.08999999999995,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-03-16:MSFT",
+          "net_before_shared_fixed_usd": -45.05,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 48.41638888888889,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-07-07:AAPL",
+          "net_before_shared_fixed_usd": -44.879999999999924,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.91638888888889,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-02-02:MSFT",
+          "net_before_shared_fixed_usd": -44.430000000000035,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 2.5830555555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-01-21:MSFT",
+          "net_before_shared_fixed_usd": -44.30000000000011,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-02-26:AAPL",
+          "net_before_shared_fixed_usd": -44.0299999999998,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-08-20:AAPL",
+          "net_before_shared_fixed_usd": -42.600000000000236,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 24.66638888888889,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-10-09:AAPL",
+          "net_before_shared_fixed_usd": -42.480000000000075,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 28.41638888888889,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2026-03-19:MSFT",
+          "net_before_shared_fixed_usd": -42.249999999999986,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 47.249722222222225,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-08-05:MSFT",
+          "net_before_shared_fixed_usd": -41.320000000000206,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:NOMINAL:STOCK_THRESHOLD_OFF:2025-04-02:MSFT",
+          "net_before_shared_fixed_usd": -41.099999999999895,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        }
+      ]
+    },
+    "STRESS:CASH": {
+      "attribution_before_shared_fixed": {},
+      "campaigns": 0,
+      "dividends_usd": 0.0,
+      "explicit_commissions_usd": 0.0,
+      "extra_fixed_path_edge_needed_usd": 808.0,
+      "final_equity_usd": 19192.0,
+      "fixed_path_break_even_daily_budget_usd": 0.0,
+      "geometric_mean_per_session": -0.0001020708993632244,
+      "geometric_return_fraction": -0.04039999999999999,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 0,
+      "loss_campaigns_causing_at_least_80pct_losses": 0,
+      "net_after_removing_largest_winner_usd": -808.0,
+      "net_before_shared_fixed_usd": 0.0,
+      "net_modeled_usd": -808.0,
+      "policy": "CASH",
+      "price_pnl_after_embedded_execution_costs_usd": 0.0,
+      "reconciliation_verified": true,
+      "scenario": "STRESS",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 808.0,
+      "sum_losses_before_shared_fixed_usd": 0,
+      "sum_winners_before_shared_fixed_usd": 0,
+      "winning_campaigns": 0,
+      "worst_25_campaigns": []
+    },
+    "STRESS:RESIDUAL_LONG": {
+      "attribution_before_shared_fixed": {
+        "asset:AAPL": {
+          "campaigns": 32,
+          "net_before_shared_fixed_usd": 154.39999999999912
+        },
+        "asset:MSFT": {
+          "campaigns": 35,
+          "net_before_shared_fixed_usd": 55.22999999999928
+        },
+        "exit:STOP": {
+          "campaigns": 19,
+          "net_before_shared_fixed_usd": -694.3300000000007
+        },
+        "exit:TIME": {
+          "campaigns": 48,
+          "net_before_shared_fixed_usd": 903.9599999999989
+        }
+      },
+      "campaigns": 67,
+      "dividends_usd": 1.82,
+      "explicit_commissions_usd": 7.139999999999995,
+      "extra_fixed_path_edge_needed_usd": 598.3700000000026,
+      "final_equity_usd": 19401.629999999997,
+      "fixed_path_break_even_daily_budget_usd": 0.5188861386138549,
+      "geometric_mean_per_session": -7.518328843571166e-05,
+      "geometric_return_fraction": -0.02991850000000018,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 34,
+      "loss_campaigns_causing_at_least_80pct_losses": 18,
+      "net_after_removing_largest_winner_usd": -703.5000000000025,
+      "net_before_shared_fixed_usd": 209.62999999999738,
+      "net_modeled_usd": -598.3700000000026,
+      "policy": "RESIDUAL_LONG",
+      "price_pnl_after_embedded_execution_costs_usd": 214.94999999999845,
+      "reconciliation_verified": true,
+      "scenario": "STRESS",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 808.0,
+      "sum_losses_before_shared_fixed_usd": -958.1200000000014,
+      "sum_winners_before_shared_fixed_usd": 1167.7499999999998,
+      "winning_campaigns": 33,
+      "worst_25_campaigns": [
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-07-30:AAPL",
+          "net_before_shared_fixed_usd": -127.85000000000005,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 1.3330555555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-02-12:AAPL",
+          "net_before_shared_fixed_usd": -46.68999999999984,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.499722222222225,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-05-19:AAPL",
+          "net_before_shared_fixed_usd": -46.47999999999993,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 2.499722222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-01-21:MSFT",
+          "net_before_shared_fixed_usd": -45.000000000000085,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.91638888888889,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-02-02:MSFT",
+          "net_before_shared_fixed_usd": -44.82000000000005,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 28.333055555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-03-19:MSFT",
+          "net_before_shared_fixed_usd": -42.85000000000005,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-06-01:MSFT",
+          "net_before_shared_fixed_usd": -41.84999999999985,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-02-27:AAPL",
+          "net_before_shared_fixed_usd": -40.74000000000024,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.33305555555555,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-06-03:MSFT",
+          "net_before_shared_fixed_usd": -39.839999999999975,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 52.749722222222225,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-04-14:AAPL",
+          "net_before_shared_fixed_usd": -37.83000000000001,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-12-15:AAPL",
+          "net_before_shared_fixed_usd": -36.88000000000025,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-10-29:MSFT",
+          "net_before_shared_fixed_usd": -36.19999999999989,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 29.41638888888889,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-01-06:AAPL",
+          "net_before_shared_fixed_usd": -35.12000000000003,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 2.499722222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-08-01:AAPL",
+          "net_before_shared_fixed_usd": -34.76000000000016,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 24.49972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-01-13:MSFT",
+          "net_before_shared_fixed_usd": -34.10000000000005,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-07-20:AAPL",
+          "net_before_shared_fixed_usd": -30.45000000000025,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-07-31:MSFT",
+          "net_before_shared_fixed_usd": -26.320000000000235,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-01-02:MSFT",
+          "net_before_shared_fixed_usd": -25.679999999999907,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 53.33305555555555,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-08-06:MSFT",
+          "net_before_shared_fixed_usd": -24.120000000000417,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-06-12:AAPL",
+          "net_before_shared_fixed_usd": -23.999999999999957,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-03-10:MSFT",
+          "net_before_shared_fixed_usd": -21.750000000000206,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-07-06:MSFT",
+          "net_before_shared_fixed_usd": -20.129999999999995,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2025-05-05:AAPL",
+          "net_before_shared_fixed_usd": -17.70000000000004,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-02-09:AAPL",
+          "net_before_shared_fixed_usd": -15.480000000000015,
+          "reason": "TIME",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.99972222222222,
+          "id": "RESIDUAL:STRESS:RESIDUAL_LONG:2026-05-08:MSFT",
+          "net_before_shared_fixed_usd": -14.96999999999991,
+          "reason": "TIME",
+          "symbol": "MSFT"
+        }
+      ]
+    },
+    "STRESS:SECTOR_TIMING_CONTROL": {
+      "attribution_before_shared_fixed": {
+        "asset:XLK": {
+          "campaigns": 68,
+          "net_before_shared_fixed_usd": -90.7799999999982
+        },
+        "exit:STOP": {
+          "campaigns": 29,
+          "net_before_shared_fixed_usd": -939.4899999999994
+        },
+        "exit:TIME": {
+          "campaigns": 39,
+          "net_before_shared_fixed_usd": 848.7100000000014
+        }
+      },
+      "campaigns": 68,
+      "dividends_usd": 0.0,
+      "explicit_commissions_usd": 14.480000000000002,
+      "extra_fixed_path_edge_needed_usd": 898.7799999999988,
+      "final_equity_usd": 19101.22,
+      "fixed_path_break_even_daily_budget_usd": -0.22470297029702682,
+      "geometric_mean_per_session": -0.00011380556869385061,
+      "geometric_return_fraction": -0.04493899999999995,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 37,
+      "loss_campaigns_causing_at_least_80pct_losses": 23,
+      "net_after_removing_largest_winner_usd": -1004.8299999999989,
+      "net_before_shared_fixed_usd": -90.77999999999884,
+      "net_modeled_usd": -898.7799999999988,
+      "policy": "SECTOR_TIMING_CONTROL",
+      "price_pnl_after_embedded_execution_costs_usd": -76.29999999999811,
+      "reconciliation_verified": true,
+      "scenario": "STRESS",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 808.0,
+      "sum_losses_before_shared_fixed_usd": -1190.1599999999983,
+      "sum_winners_before_shared_fixed_usd": 1099.38,
+      "winning_campaigns": 31,
+      "worst_25_campaigns": [
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2025-03-24:XLK",
+          "net_before_shared_fixed_usd": -48.24000000000015,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 1.4997222222222222,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-06-09:XLK",
+          "net_before_shared_fixed_usd": -46.979999999999905,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 52.66638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2025-05-19:XLK",
+          "net_before_shared_fixed_usd": -46.30000000000014,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-03-23:XLK",
+          "net_before_shared_fixed_usd": -45.63999999999973,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.333055555555557,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-08-17:XLK",
+          "net_before_shared_fixed_usd": -45.44999999999976,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-05-14:XLK",
+          "net_before_shared_fixed_usd": -45.239999999999995,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-02-12:XLK",
+          "net_before_shared_fixed_usd": -45.120000000000104,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 53.41638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-03-24:XLK",
+          "net_before_shared_fixed_usd": -44.93999999999997,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 28.91638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-03-19:XLK",
+          "net_before_shared_fixed_usd": -44.38000000000008,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.16638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-04-01:XLK",
+          "net_before_shared_fixed_usd": -44.32999999999983,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 71.66638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-06-01:XLK",
+          "net_before_shared_fixed_usd": -44.099999999999866,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.24972222222222,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-06-04:XLK",
+          "net_before_shared_fixed_usd": -43.60000000000004,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.49972222222222,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-02-02:XLK",
+          "net_before_shared_fixed_usd": -43.49999999999993,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-07-06:XLK",
+          "net_before_shared_fixed_usd": -42.910000000000096,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 47.41638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-08-31:XLK",
+          "net_before_shared_fixed_usd": -42.00000000000021,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 52.16638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2025-04-14:XLK",
+          "net_before_shared_fixed_usd": -41.83999999999999,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 4.833055555555555,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-06-10:XLK",
+          "net_before_shared_fixed_usd": -41.50999999999998,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 49.749722222222225,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2025-10-29:XLK",
+          "net_before_shared_fixed_usd": -41.30000000000037,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2025-10-13:XLK",
+          "net_before_shared_fixed_usd": -37.19999999999996,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-03-05:XLK",
+          "net_before_shared_fixed_usd": -35.98000000000016,
+          "reason": "TIME",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 47.499722222222225,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-01-06:XLK",
+          "net_before_shared_fixed_usd": -33.9199999999999,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 26.583055555555557,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-10-07:XLK",
+          "net_before_shared_fixed_usd": -33.660000000000224,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 23.91638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2025-06-12:XLK",
+          "net_before_shared_fixed_usd": -33.0299999999998,
+          "reason": "STOP",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 29.333055555555557,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-07-23:XLK",
+          "net_before_shared_fixed_usd": -30.96000000000018,
+          "reason": "TIME",
+          "symbol": "XLK"
+        },
+        {
+          "holding_hours": 24.16638888888889,
+          "id": "RESIDUAL:STRESS:SECTOR_TIMING_CONTROL:2026-01-15:XLK",
+          "net_before_shared_fixed_usd": -30.899999999999878,
+          "reason": "STOP",
+          "symbol": "XLK"
+        }
+      ]
+    },
+    "STRESS:STOCK_THRESHOLD_OFF": {
+      "attribution_before_shared_fixed": {
+        "asset:AAPL": {
+          "campaigns": 112,
+          "net_before_shared_fixed_usd": 408.6299999999993
+        },
+        "asset:MSFT": {
+          "campaigns": 73,
+          "net_before_shared_fixed_usd": -65.77000000000005
+        },
+        "exit:STOP": {
+          "campaigns": 49,
+          "net_before_shared_fixed_usd": -1732.6399999999999
+        },
+        "exit:TIME": {
+          "campaigns": 136,
+          "net_before_shared_fixed_usd": 2075.5000000000005
+        }
+      },
+      "campaigns": 185,
+      "dividends_usd": 4.55,
+      "explicit_commissions_usd": 22.379999999999995,
+      "extra_fixed_path_edge_needed_usd": 465.14000000000306,
+      "final_equity_usd": 19534.859999999997,
+      "fixed_path_break_even_daily_budget_usd": 0.8486633663366261,
+      "geometric_mean_per_session": -5.824511481774318e-05,
+      "geometric_return_fraction": -0.023257000000000194,
+      "initial_equity_usd": 20000.0,
+      "losing_campaigns": 89,
+      "loss_campaigns_causing_at_least_80pct_losses": 50,
+      "net_after_removing_largest_winner_usd": -586.7600000000031,
+      "net_before_shared_fixed_usd": 342.85999999999694,
+      "net_modeled_usd": -465.14000000000306,
+      "policy": "STOCK_THRESHOLD_OFF",
+      "price_pnl_after_embedded_execution_costs_usd": 360.68999999999915,
+      "reconciliation_verified": true,
+      "scenario": "STRESS",
+      "sessions": 404,
+      "shared_fixed_costs_usd": 808.0,
+      "sum_losses_before_shared_fixed_usd": -2606.460000000001,
+      "sum_winners_before_shared_fixed_usd": 2949.32,
+      "winning_campaigns": 96,
+      "worst_25_campaigns": [
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-07-30:AAPL",
+          "net_before_shared_fixed_usd": -127.85000000000005,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-03-26:MSFT",
+          "net_before_shared_fixed_usd": -63.29999999999984,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-05-22:AAPL",
+          "net_before_shared_fixed_usd": -57.83999999999983,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-04-03:MSFT",
+          "net_before_shared_fixed_usd": -48.099999999999824,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 47.08305555555555,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-08-18:MSFT",
+          "net_before_shared_fixed_usd": -46.999999999999844,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 1.3330555555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-02-12:AAPL",
+          "net_before_shared_fixed_usd": -46.68999999999984,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.499722222222225,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-05-19:AAPL",
+          "net_before_shared_fixed_usd": -46.47999999999993,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 4.083055555555555,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-04-04:AAPL",
+          "net_before_shared_fixed_usd": -46.47999999999983,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 24.49972222222222,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-03-11:AAPL",
+          "net_before_shared_fixed_usd": -46.12999999999995,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 71.08305555555556,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-03-16:MSFT",
+          "net_before_shared_fixed_usd": -45.70000000000002,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 48.41638888888889,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-07-07:AAPL",
+          "net_before_shared_fixed_usd": -45.64999999999995,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 52.41638888888889,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-02-03:MSFT",
+          "net_before_shared_fixed_usd": -45.47999999999996,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 2.499722222222222,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-01-21:MSFT",
+          "net_before_shared_fixed_usd": -45.000000000000085,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.91638888888889,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-02-02:MSFT",
+          "net_before_shared_fixed_usd": -44.82000000000005,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 24.66638888888889,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-10-09:AAPL",
+          "net_before_shared_fixed_usd": -43.289999999999935,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-08-20:AAPL",
+          "net_before_shared_fixed_usd": -43.10000000000011,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 28.333055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-03-19:MSFT",
+          "net_before_shared_fixed_usd": -42.85000000000005,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-09-28:AAPL",
+          "net_before_shared_fixed_usd": -42.239999999999895,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 47.249722222222225,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-08-05:MSFT",
+          "net_before_shared_fixed_usd": -42.00000000000007,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-06-01:MSFT",
+          "net_before_shared_fixed_usd": -41.84999999999985,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.083055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-04-02:MSFT",
+          "net_before_shared_fixed_usd": -41.69999999999996,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        },
+        {
+          "holding_hours": 23.583055555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-09-03:AAPL",
+          "net_before_shared_fixed_usd": -41.6400000000001,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 3.3330555555555557,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-08-04:AAPL",
+          "net_before_shared_fixed_usd": -41.47,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 27.74972222222222,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2025-09-08:AAPL",
+          "net_before_shared_fixed_usd": -41.199999999999946,
+          "reason": "STOP",
+          "symbol": "AAPL"
+        },
+        {
+          "holding_hours": 26.16638888888889,
+          "id": "RESIDUAL:STRESS:STOCK_THRESHOLD_OFF:2026-06-08:MSFT",
+          "net_before_shared_fixed_usd": -40.94999999999999,
+          "reason": "STOP",
+          "symbol": "MSFT"
+        }
+      ]
+    }
+  },
+  "input_report_sha256": {
+    "NOMINAL_CASH.json": "1a07091a24ecd9825fbf4d1bc30f5b7514728739c2265c421270d88d890ebb2c",
+    "NOMINAL_RESIDUAL_LONG.json": "dd8b5f81aa0f3c09f197f2157000be1af3511b36d6b66d86e7ee2334fc186d19",
+    "NOMINAL_SECTOR_TIMING_CONTROL.json": "04e17e6b7c102238ee48afd5904269ffb2b5d652219e9180150ead026be18102",
+    "NOMINAL_STOCK_THRESHOLD_OFF.json": "e47502f7fc9bcdd5b89a7c440fdbeefee57c3f7b31e656032ac3f57b8164b3c8",
+    "STRESS_CASH.json": "3629b2598d52785cb053bd815d7a03b3915c6bb061518d2839cf56a40b3c9977",
+    "STRESS_RESIDUAL_LONG.json": "541166f9533d119cfb6cc876ea16036a136aee9f8c6f6be81fa8142bfb98db20",
+    "STRESS_SECTOR_TIMING_CONTROL.json": "c3abc4a28a4194d27576f3fd671d5592c0b17b602bc4f2c609fb59c9634a219c",
+    "STRESS_STOCK_THRESHOLD_OFF.json": "e4425a18c09ad1838b880ee2f4e944d99e115414d5d009a78c1daa68506061be"
+  },
+  "level8_accredited": false,
+  "orders_allowed": false,
+  "schema": "HARPOON_PROFITABILITY_FORENSICS_1",
+  "scope": "Retrospective diagnosis of sealed modeled accounts, not an alpha improvement or real execution validation.",
+  "selected_policy": null,
+  "sensitivity_limits": "Fixed-path cost budgets are algebra only. Changed costs alter sizing, fills and compounding; replay and fresh validation are required. Embedded spread/slippage cannot be separated here. Shared fixed costs are charged once, never per asset.",
+  "source_manifest_checks_are_not_authentication": true,
+  "strategy_variants_created": 0
+}
