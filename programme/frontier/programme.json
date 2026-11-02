@@ -1,0 +1,34 @@
+{
+  "schema": "HARPOON_RD_PROGRAMME_1",
+  "currency": "USD",
+  "planning_budget_usd": 5000000,
+  "planning_horizon_months": 12,
+  "status": "INTERNAL_PLANNING_NOT_FUNDED_OR_COMMISSIONED",
+  "institutional_affiliation": null,
+  "work_packages": [
+    {"id":"WP0","name":"Governance, reproducibility, research accounting and contracts","budget_usd":450000,"spent_usd":0},
+    {"id":"WP1","name":"Joint path models, regimes and probability calibration","budget_usd":1100000,"spent_usd":0},
+    {"id":"WP2","name":"Inventory-aware controller and net capital allocation","budget_usd":1150000,"spent_usd":0},
+    {"id":"WP3","name":"Independent verification, adversarial testing and assurance","budget_usd":850000,"spent_usd":0},
+    {"id":"WP4","name":"Licensed data, exchange conventions, execution and reconciliation","budget_usd":650000,"spent_usd":0},
+    {"id":"WP5","name":"Prospective evaluation and external economic audit","budget_usd":500000,"spent_usd":0},
+    {"id":"RESERVE","name":"Controlled contingency, no automatic release","budget_usd":300000,"spent_usd":0}
+  ],
+  "gates": [
+    {"id":"G0","month":1,"depends_on":[],"requirements":["baseline_manifest","reproducibility","research_trial_register","data_rights_inventory"]},
+    {"id":"G1","month":3,"depends_on":["G0"],"requirements":["causal_path_contract","ambiguous_label_audit","temporal_calibration","simple_predictor_comparison"]},
+    {"id":"G2","month":5,"depends_on":["G1"],"requirements":["holding_state_tests","integer_lot_repricing","partial_fill_risk","invariant_test_matrix","controller_ablation"]},
+    {"id":"G3","month":7,"depends_on":["G2"],"requirements":["licensed_calendar_corporate_actions","observed_fills_quotes_fees","account_reconciliation","halt_and_restart_drills"]},
+    {"id":"G4","month":10,"depends_on":["G3"],"requirements":["frozen_prospective_protocol","net_growth_lower_bound","cash_and_fixed_strategy_comparators","stress_survival","global_search_accounting"]},
+    {"id":"G5","month":12,"depends_on":["G4"],"requirements":["independent_external_review","reproducible_economic_results","operational_limits_signoff","release_approval"]}
+  ],
+  "kill_criteria": [
+    "No incremental predictive calibration over simple baselines within registered budget",
+    "No positive net portfolio growth under registered realistic cost stress",
+    "Claims depend on invalid labels, chronology, unresolved corporate actions or duplicated capital",
+    "Safety receipts cannot be reproduced or live fills cannot be reconciled",
+    "External evidence contradicts the proposed edge or capacity envelope"
+  ],
+  "no_automatic_spending": true,
+  "no_automatic_promotion": true
+}

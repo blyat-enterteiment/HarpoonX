@@ -1,0 +1,15 @@
+{
+  "schema":"HARPOON_FRONTIER_ENGINEERING_PROTOCOL_1",
+  "stage":"OWN_PROTOCOL_BEFORE_NEW_HISTORICAL_MODEL_MEASUREMENT_NOT_INDEPENDENT",
+  "hypothesis":"A conditional path distribution and inventory-aware fixed-continuation controller can be implemented with causal training and separately verified constraints. Predictive or economic superiority is not assumed.",
+  "registered_data":"Existing archived2025 AAPL MSFT BTC/USD ETH/USD with archived corporate action query for both equity names; no new provider data",
+  "forecast":"Mahalanobis analogues, fixed25percent covariance shrinkage,40neighbors, minimum20calendar-compatible original cases, effective support>=10, 16context features",
+  "fixed_settings":"Settings defaults committed with sources; hourly path72h, stop2percent, target3percent, costs nominal and2x plus0.5percent adverse future price gap; assumed stress set not a calibrated confidence region",
+  "historical_query":"2025-10-15 at12:00 America/New_York, flat hypothetical20000USD state and hypothetical held2lots AAPL state; quotes and liquidity modeled from archived bars; not broker observations",
+  "calibration_available_at":"2025-10-14T00:00:00+00:00",
+  "chronological_evaluation":{"test_start":"2025-11-03","test_end":"2025-11-28","maximum_decisions":20,"purge":"label known and label end strictly before test decision","comparator":"uniform probabilities on same selected original analogues","metric":"Brier identification lower/upper bounds, not confidence bounds"},
+  "adaptation":"No coefficient/threshold tuning after measurement. Engineering failures retained and corrected with reason; no failed count relabeled successful.",
+  "budget":"One forecast recipe, one registered finite controller action grid, three fixed stress scenarios. No economic strategy search or broker experiment.",
+  "execution_allowed":false,
+  "level9_accredited":false
+}
