@@ -20,6 +20,11 @@ function exitReason(signal,data,at){
  const m=signal.metadata.researchExit;
  if(at<=signal.plannedEntryAt)return null;
  if((data.splitEvents||[]).some(e=>e.symbol==='XLK'&&e.at>signal.at&&e.at<=at))throw Error('RESEARCH_BENCHMARK_SPLIT_WITH_OPEN_EXPOSURE');
+ const stock=data.series.find(s=>s.symbol===m.stock),sector=data.series.find(s=>s.symbol==='XLK');
+ const a=stock&&latest(stock.bars,at),b=sector&&latest(sector.bars,at);
+ // Overnight open has no newly received closed bar. Keep native stop/deadline;
+ // do not invent a residual decision or turn a known open position into no-fill.
+ if(a&&b&&(at-a.availableAt>600000||at-b.availableAt>600000))return null;
  if(!['NORMALIZE','INVALIDATE'].includes(m.mode))throw Error('RESEARCH_EXIT_MODE');
  const z=residualZ(m,data,at);
  if(m.mode==='NORMALIZE'&&z>=-.25)return 'RESEARCH_NORMALIZE';

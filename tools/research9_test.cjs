@@ -13,3 +13,4 @@ test('invalidation retains stop and triggers at frozen boundary',()=>{const {sig
 test('unobserved marks are rejected',()=>{const {signal,data}=fixture(0);assert.throws(()=>residualZ(signal.metadata.researchExit,data,1));});
 test('unsupported exit cannot silently default',()=>{const {signal,data}=fixture(0);signal.metadata.researchExit.mode='UNKNOWN';assert.throws(()=>exitReason(signal,data,3));});
 test('benchmark split with inventory remains an incident',()=>{const {signal,data}=fixture(0);data.splitEvents=[{symbol:'XLK',at:2}];assert.throws(()=>exitReason(signal,data,3),/SPLIT_WITH_OPEN_EXPOSURE/);});
+test('overnight open keeps native stops until a fresh residual is known',()=>{const {signal,data}=fixture(0);assert.equal(exitReason(signal,data,90000000),null);});
