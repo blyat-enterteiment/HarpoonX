@@ -1,0 +1,9 @@
+{
+  "stage": "DATASET_BUILD_BEFORE_FORECAST_FIT",
+  "error": "TypeError: Object of type datetime is not JSON serializable",
+  "cause": "Schedule provenance attempted JSON hashing of parsed session datetimes",
+  "fix": "Bind schedule to SHA256 of original archived calendar response",
+  "recipe_threshold_changes": false,
+  "economic_backtest_executed": false,
+  "historical_forecast_metrics_produced": false
+}

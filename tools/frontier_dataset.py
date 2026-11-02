@@ -154,7 +154,9 @@ def build() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
                             "cost_origin": "ASSUMED",
                             "schedule": schedule,
                             "schedule_known_at": when.isoformat(),
-                            "schedule_source_hash": digest(sessions),
+                            "schedule_source_hash": sources[
+                                "evidence/residual_30_18_0/data/raw/calendar.json"
+                            ],
                         }
                     )
                 state = {
