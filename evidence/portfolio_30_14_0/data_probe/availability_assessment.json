@@ -1,0 +1,141 @@
+{
+  "schema": "HARPOON_DATA_AVAILABILITY_ASSESSMENT_1",
+  "scope": "READ_ONLY_AVAILABILITY_AND_PIPELINE_REVIEW",
+  "generated_utc": "2026-11-01 16:20:49 UTC",
+  "requested_interval": {
+    "start": "2026-07-14",
+    "end": "2026-10-30"
+  },
+  "probe": {
+    "queries_executed": 1,
+    "request_file": "alpaca_probe.json",
+    "outcome": "UNAVAILABLE",
+    "reason": "mcp_network_error: Connection timed out",
+    "bars_returned": 0,
+    "observed_market_values": null,
+    "interpretation": "Connectivity failure only. It does not establish absence of history, entitlement denial or unavailable assets.",
+    "strategy_execution": false,
+    "profit_calculation": false,
+    "subsequent_retrieval": {
+      "request_file": "alpaca_retry.json",
+      "outcome": "SUCCESS",
+      "symbol": "SPY",
+      "bars_returned": 3,
+      "sha256": "21039f66dcdd1718ee849050c8c598b5f51423e0b68e3e321446b30df65a3e55"
+    },
+    "current_access_outcome": "Subsequent retry and authorized four week/symbol calls succeeded; initial timeout is a resolved transient observation, not a present access diagnosis."
+  },
+  "existing_history": {
+    "evidence_file": "existing_data_coverage.json",
+    "last_equity_bar_utc": "2026-10-16T19:55:00+00:00",
+    "last_calendar_session": "2026-10-16",
+    "important": "The 2026-07-13 economic report boundary is not an unobserved-data boundary. The retained prepared dataset includes July14 through October16.",
+    "earliest_potential_unseen_session": "2026-10-19",
+    "novelty_verified": false,
+    "novelty_limit": "Other attempts and original retrievals must be checked; calendar novelty alone does not establish independent final holdout.",
+    "prior_holdout_used": {
+      "source": "evidence/ultimate/report.json",
+      "from": "2026-07-21",
+      "through": "2026-10-16",
+      "used": true
+    }
+  },
+  "existing_pipeline": [
+    {
+      "path": "research/tp32/prepare.py",
+      "function": "main",
+      "role": "Prepare retained historical OHLCV, daily, calendar, corporate-action files",
+      "limitations": [
+        "Hardcoded input folder evidence/tp32/data and historical ranges through2026-10-16",
+        "Requires original raw5Min files, daily files, calendar and corporate actions",
+        "Models spreads, does not observe original receipt timestamps or fills"
+      ]
+    },
+    {
+      "path": "research/ultimate/run.cjs",
+      "function": "main",
+      "role": "Imports prepared data into existing ResearchLab and runs trial",
+      "limitations": [
+        "Verifies all referenced raw source files before import",
+        "Mutates trial journal/report; not a read-only reproduction command",
+        "Default protocol explores variants; do not run as an unregistered frozen holdout"
+      ]
+    },
+    {
+      "path": "tools/build_causal_panel.py",
+      "function": "main",
+      "role": "File adapter into harpoon_quant.causal_panel.build/verify",
+      "limitations": [
+        "Observation exports and complete original runtime receipt chronology required for causal training panel",
+        "Historical formula reconstruction is segregated as not training ready"
+      ]
+    },
+    {
+      "path": "tools/funded_comparison.cjs",
+      "function": "runFundedComparison",
+      "role": "Runs C0,RIDGE,SVR on one cash pool and matched coordinator events, same risk/costs/universe",
+      "limitations": [
+        "No fitting; requires fixed observed models and original model bytes",
+        "Observed measurements require bound source hashes and verified journal reservation",
+        "Unknown external costs block rather than default to zero",
+        "Returns modeled execution, never actual account profitability"
+      ]
+    },
+    {
+      "path": "tools/level5_readiness.cjs",
+      "function": "deriveLevel5",
+      "role": "Reexecutes comparison and readiness, accrues external costs from verified ledger, compares one preregistered stress",
+      "limitations": [
+        "Needs complete level4 resources and ledger",
+        "Current grade gates are not a profitability guarantee"
+      ]
+    },
+    {
+      "path": "tools/collect_runtime_evidence.cjs",
+      "function": "collectRuntimeEvidence",
+      "role": "Existing collector for identified runtime observations and ledger",
+      "limitations": [
+        "Needs accessible user-identified runtime URL/account",
+        "Historical bars alone cannot replace original account/receipt evidence"
+      ]
+    }
+  ],
+  "adapter_limitations": [
+    "Current stock-bars tool exposes neither page_token nor adjustment. Do not assert complete raw/unadjusted pagination without inspecting its actual payload and validating coverage.",
+    "Official bars endpoint sorts by symbol then timestamp and total page limit applies across symbols. A multi-symbol partial response cannot establish the second symbol absent.",
+    "Do not recover missing original timestamps by setting availableAt equal to historical retrieval timestamp or assuming 3seconds latency.",
+    "No accessible account or fill-history tool was exposed in Alpaca metadata inspected in this task."
+  ],
+  "external_primary_sources": [
+    {
+      "url": "https://docs.alpaca.markets/us/reference/stockbars",
+      "ref": "turn54search1",
+      "supports": "5Min aggregates, raw default at HTTP endpoint, total per-page limit, next_page_token pagination; not proof of wrapper implementation"
+    },
+    {
+      "url": "https://docs.alpaca.markets/us/v1.4.2/docs/paper-trading",
+      "ref": "turn54search4",
+      "supports": "Paper fills are simulation and omit several real trading effects, including latency slippage, order queue position and regulatory fees"
+    }
+  ],
+  "feasible_next_step": "Use retained captured data for a preregistered fixed-rule historical modeled comparison; original receipts, actual fills and reconciled account economics remain separate missing evidence.",
+  "financial_verdict": "VENTAJA_NO_DEMOSTRADA",
+  "financial_grade": null,
+  "code_changes": 0,
+  "orders_sent": 0,
+  "deployments": 0,
+  "new_data_capture": {
+    "path": "../new_market_data",
+    "bar_calls": 4,
+    "calendar_calls": 1,
+    "corporate_action_calls": 1,
+    "sessions_observed": 10,
+    "regular_bars_per_symbol": 780,
+    "symbols": [
+      "SPY",
+      "XLK"
+    ],
+    "coverage_complete_regular_grid": true,
+    "no_pnl_or_strategy_run": true
+  }
+}

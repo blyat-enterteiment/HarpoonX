@@ -1,0 +1,204 @@
+{
+  "schema": "HARPOON_LEVEL4_SOURCE_AUDIT_1",
+  "application": "30.12.1",
+  "quant": "1.8.0",
+  "checked_at_mexico_city": "2026-10-31T21:54:57.707384-06:00",
+  "nature": "READ_ONLY_SOURCE_AND_EXISTING_EVIDENCE_REEXECUTION",
+  "criteria": {
+    "score_if_all_checks_pass": 4,
+    "current_score": 3,
+    "meaning": "INTEGRATED_OBSERVED_MEASUREMENT_NOT_PROFIT_OR_AUTONOMOUS_PROMOTION",
+    "can_coexist_with_losses": true,
+    "demonstrates_real_profitability": false,
+    "authorizes_paper_or_live_orders": false
+  },
+  "reexecution": {
+    "schema": "HARPOON_LEVEL4_READINESS_VERIFICATION_1",
+    "verified": true,
+    "score": 3,
+    "expected_artifact_hash": "ed13544fbd486fb7c61e07ca7e29fa07e721464508e1ff38f2f430c273748900",
+    "observed_artifact_hash": "ed13544fbd486fb7c61e07ca7e29fa07e721464508e1ff38f2f430c273748900",
+    "execution_allowed": false,
+    "liveApproved": false,
+    "financial_acceptance_allowed": false
+  },
+  "check_count": 10,
+  "passed_check_count": 1,
+  "exact_blockers": [
+    "OBSERVED_CAUSAL_CALIBRATION_PANEL_NOT_AVAILABLE",
+    "OBSERVED_THREE_POLICY_COMPARISON_NOT_AVAILABLE",
+    "COMPARISON_MARKET_RECEIPT_BINDING_MISSING",
+    "RECONCILED_ACCOUNT_HISTORY_MISSING_OR_INVALID",
+    "OBSERVED_ACCOUNT_CURVE_OR_COST_COVERAGE_INCOMPLETE",
+    "APPLICABLE_BROKER_ACCRUALS_NOT_VERIFIED",
+    "MODEL_PANEL_HASH_OR_CHRONOLOGY_BINDING_MISSING",
+    "ACCOUNT_OR_PERIOD_BINDING_MISSING",
+    "COMPARISON_EXTERNAL_COST_NOT_BOUND_TO_ACCOUNT_PERIOD"
+  ],
+  "observed_data_counts": {
+    "prospective_frames": 0,
+    "causal_rows_admissible": 0,
+    "reconstructed_feature_rows": 8
+  },
+  "actual_account": null,
+  "actual_account_null_cause": "No ledger bundle in supplied readiness request; current broker account access is outside this source-only subtask.",
+  "observed_account_period": null,
+  "observed_pnl": null,
+  "observed_external_costs": null,
+  "minimum_original_resources": [
+    {
+      "id": "R1",
+      "resource": "Prospective runtime observation exports from one identified account and fixed signal configuration",
+      "format": "HARPOON_OBSERVATION_EXPORT_1; preferably snapshot descriptor + all pinned pages and stream manifest",
+      "requirements": [
+        "Original market timestamps and receipt timestamps retained",
+        "Complete snapshot prefix and valid frame/chain hashes",
+        "Stock/ETF features, quote, bars, SPY benchmark and observed session calendar",
+        "Explicit local selection grid fixed before relevant observation selection",
+        "Mature label quotes observed at the configured horizon with original availability"
+      ],
+      "source_functions": [
+        "QuantObservationJournal.snapshotExport",
+        "QuantObservationJournal.exportSnapshot",
+        "causal_panel.build",
+        "calibration_readiness"
+      ],
+      "available_in_current_bundle": false
+    },
+    {
+      "id": "R2",
+      "resource": "Sufficient causal calibration panel",
+      "current_contract": {
+        "min_rows": 100,
+        "min_distinct_sessions": 100,
+        "unit": "ONE_ROW_PER_ASSET_SESSION",
+        "split": "CURRENT_SVR_60_20_20_PURGED",
+        "example_horizon_hours": 24,
+        "sample_count_is_not_a_universal_profit_guarantee": true
+      },
+      "requirements": [
+        "All labels available before model availability",
+        "One row per asset/session; repeated intraday decisions cannot manufacture independent sessions",
+        "Current model age limits respected"
+      ],
+      "available_in_current_bundle": false
+    },
+    {
+      "id": "R3",
+      "resource": "Original fixed Ridge/SVR model JSON bytes and causal data/protocol lineage",
+      "requirements": [
+        "Model origin observed, panel data_hash and feature/horizon contracts match",
+        "Both models available strictly before measured decisions",
+        "Model source JSON bytes retained separately from semantic hashes",
+        "Existing search journal and exact registered three-policy measurement receipt; no counter reset"
+      ],
+      "available_in_current_bundle": false
+    },
+    {
+      "id": "R4",
+      "resource": "Account ledger history covering the same measured account and interval",
+      "format": "Complete HARPOON_NET_HISTORY_PAGE_1 pages plus expected_integrity",
+      "requirements": [
+        "At least two reconciled comparable account observations",
+        "Cash, inventory, activities, external flows and open positions included",
+        "All pages have one ledger_integrity and complete total_records without gaps",
+        "Closed economic prefix covers the entire comparison period"
+      ],
+      "available_in_current_bundle": false
+    },
+    {
+      "id": "R5",
+      "resource": "Original cost receipt and broker accrual documentation for that same account/period",
+      "format": "HARPOON_COST_RECEIPT_1 with HARPOON_BROKER_ACCRUAL_COVERAGE_1 when used",
+      "requirements": [
+        "All four declared operating-cost categories covered",
+        "Original document content, SHA-256 and explicit field bindings support accrual coverage",
+        "Applicable unreported commissions, exchange/clearing/regulatory/financing/borrow/other costs included or explicit documented zero",
+        "External charges reconciled once and their period total bound to comparison execution_model"
+      ],
+      "available_in_current_bundle": false
+    },
+    {
+      "id": "R6",
+      "resource": "Registered fixed-model three-policy comparison on original observations with justified execution assumptions",
+      "format": "HARPOON_FUNDED_COMPARISON_REQUEST_1 and reexecuted report",
+      "requirements": [
+        "C0, RIDGE and SVR use the same capital, event horizon and admissible constraints",
+        "Complete original market-source refs; modeled quotes bound to observed receipt availability",
+        "Executable quantity, fees and delays cannot be inferred from missing depth",
+        "Comparison remains a modeled counterfactual even when source observations are genuine"
+      ],
+      "available_in_current_bundle": false
+    }
+  ],
+  "implemented_steps": [
+    {
+      "step": "Independent periodic capture",
+      "source": "xxx/coordinator.ts configureLanes: quant-prospective-observations; accounting every 60000 ms when quant enabled"
+    },
+    {
+      "step": "Bounded durable observations with pinned snapshot paging",
+      "source": "xxx/quant_observations.ts"
+    },
+    {
+      "step": "Bounded account history with verifiable complete-page export",
+      "source": "xxx/net_accounting.ts exportHistory; verifyNetLedgerHistoryBundle"
+    },
+    {
+      "step": "Causal panel with original availability and labels",
+      "source": "quant/harpoon_quant/causal_panel.py"
+    },
+    {
+      "step": "Three-policy funded comparison and numerical predictor replay",
+      "source": "tools/funded_comparison.cjs"
+    },
+    {
+      "step": "Cross-source gate with preserved unknowns",
+      "source": "tools/level4_readiness.cjs assessLevel4"
+    }
+  ],
+  "concrete_integration_gap": {
+    "status": "CONFIRMED_MISSING_CONVENIENCE_ORCHESTRATION_NOT_MISSING_QUANT_ENGINE",
+    "evidence": "The runtime exposes authenticated observation snapshot/page and accounting-history endpoints. tools/export_observation_snapshot.cjs only assembles/verifies already-downloaded local files. No production tool in tools/ retrieves the whole authenticated evidence bundle; guide requires manual pagination.",
+    "bounded_remediation": "A one-shot authenticated GET-only collector may download health/identity, pinned observation pages, and a consistent ledger page set; bind expected account and version; write original bytes with SHA-256; verify via existing readers; generate explicit missing-resource report. No model fitting, trade submission, cost fabrication, or automatic score promotion.",
+    "prerequisites": [
+      "Identified application URL",
+      "Existing legitimate panel authentication",
+      "Expected account identifier",
+      "Available original receipts and costs"
+    ],
+    "operational_cases": [
+      "Reject redirects and mismatched account/version",
+      "Bound bytes/pages/time/retries and private credential handling",
+      "Reject mixed ledger revisions; bounded restart rather than unbounded retries",
+      "Preserve completed source bytes if a later page fails; do not label partial bundle complete",
+      "Return unknown costs as null, even if account/market export succeeds"
+    ],
+    "existing_ledger_limit": "exportHistory pins a state during one request and rejects revision changes, but there is no cross-request immutable ledger snapshot. Consistent multi-page export can require a bounded restart when the 60-second capture advances the revision.",
+    "score_impact_without_original_data": 0,
+    "implementation_done_by_this_agent": false
+  },
+  "scope_limits": [
+    "No production instance inspected by this subtask",
+    "No new financial trial, fitting, broker request or external order",
+    "Existing synthetic engineering comparison was reexecuted only as part of verifying the prior blocked gate",
+    "Source hashes prove local consistency, not independent market or training provenance"
+  ],
+  "source_sha256": {
+    "tools/level4_readiness.cjs": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+    "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+    "tools/export_observation_snapshot.cjs": "33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a",
+    "tools/build_causal_panel.py": "c3f5f4452ad238128a773085757d2e8fa10e5ce13320ead8c5a8f8cd8260b7a5",
+    "xxx/coordinator.ts": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+    "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+    "xxx/net_accounting.ts": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+    "xxx/cost_receipts.ts": "50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a",
+    "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+    "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+    "quant/harpoon_quant/paired_replay.py": "9366b2364e557ad1bcd2b5bda5cd581646e44e8dc69d8cd562c2214d99f6cdf0",
+    "quant/harpoon_quant/scalar_svr.py": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+    "LEEME_NIVEL4_30_11_0.txt": "f89d46212904e89ef3c10d3bf6034918bd3ac12a2568c0b722e4a495763622b3"
+  },
+  "dictamen": "VENTAJA_NO_DEMOSTRADA"
+}

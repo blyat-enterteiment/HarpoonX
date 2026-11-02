@@ -1,0 +1,12 @@
+BLE001 Do not catch blind exception: `Exception`
+  --> runtime/store.py:84:16
+   |
+82 |             request = json.loads(line)
+83 |             out = {'id': request['id'], 'result': dispatch(db, request)}
+84 |         except Exception as error:
+   |                ^^^^^^^^^
+85 |             out = {'id': request.get('id'), 'error': type(error).__name__+': '+str(error)}
+86 |         print(json.dumps(out, allow_nan=False, separators=(',', ':')), flush=True)
+   |
+
+Found 1 error.

@@ -1,0 +1,135 @@
+HARPOON XXXUltimate 30.11.0 · Quant 1.7.0
+Avance verificable hacia el nivel 4
+
+ALCANCE
+
+La nota mide preparación económica con evidencia, no probabilidad de ganar.
+El nivel 4 exige datos observados causales utilizables, costes y patrimonio
+conciliados y comparación reproducible de C0, Ridge y SVR bajo condiciones
+comunes. Puede coexistir con pérdidas. Los niveles posteriores exigen ventaja
+neta fuera de muestra y validación hacia delante.
+
+Esta entrega prepara y comprueba las funciones de medición. El informe
+EVALUACION_ECONOMICA_HARPOONX_30_11_0.yaml contiene la nota obtenida con los
+recursos realmente disponibles. No cambiar la nota porque los tests pasen.
+
+CONTENIDO NUEVO
+
+1. NetAccountLedger conserva el patrimonio inicial y el historial mediante
+segmentos verificables con presupuesto de almacenamiento. El archivo se carga
+y verifica al reiniciar; las marcas nuevas no reinician capital ni borran
+insolvencias. Los límites agotados producen un bloqueo explícito.
+
+2. LocalCostReceiptSource lee un recibo local de costes con cuenta, moneda,
+periodo, fecha de conocimiento, referencia y cobertura declarada. La ausencia
+de recibo o la cobertura incompleta no equivale a coste cero. La escritura de
+recibos valida datos aportados; no obtiene automáticamente facturas de terceros.
+El contrato y los ejemplos de validación están en los módulos cost_receipts,
+net_accounting y sus pruebas de continuidad. La cobertura documental de costes
+del broker no equivale a autenticación externa del documento.
+
+3. GET /v1/accounting/history?offset=0&limit=1000 exporta una página de historia.
+Requiere la autenticación y el origen autorizados del panel. Seguir next_offset
+hasta que sea null y conservar las páginas de una misma ledger_integrity; el
+verificador comprueba que entre todas se cubra total_records sin huecos.
+verifyNetLedgerHistoryBundle recompone sus registros y recalcula conciliaciones.
+No editar los sellos para mezclar páginas de distintas revisiones.
+
+4. tools/build_causal_panel.py verifica fuentes y construye un panel causal.
+Las reconstrucciones con precios históricos pero sin fecha original de recepción
+se guardan en archive_audit; nunca se introducen en panel.rows. La selección de
+filas se fija explícitamente. El contrato vigente del modelo usa una observación
+por activo/sesión; varias decisiones de una sesión no multiplican la muestra.
+
+5. tools/funded_comparison.cjs ejecuta C0, Ridge y SVR a través del coordinador
+real y los predictores numéricos. C0 conserva su selector nativo; Ridge y SVR
+usan el mismo asignador numérico. Comparten mercado, capital, salidas, límites
+y supuestos de ejecución. La política y las curvas son contrafactuales offline;
+los fills modelados no se convierten en fills de broker por repetir el cálculo.
+El alcance actual es cuenta inicial sólo en efectivo, acciones/ETF en USD y sin
+flujos de capital externos en esa comparación. No modifica la cuenta conectada.
+
+6. Los bytes JSON originales de los modelos se conservan en model_json; el hash
+de bytes se distingue del hash de contenido. Esto evita corromper la firma de
+un modelo Python al representarlo en JavaScript. No actualizar hashes de un
+modelo antiguo para ocultar un cambio de implementación.
+
+7. tools/level4_readiness.cjs vuelve a construir datos, reejecuta las políticas,
+reconcilia el ledger y comprueba vínculos de fuente, cuenta, modelos y periodo.
+Una bandera de aprobación dentro de un JSON no concede el nivel 4. Su salida
+nunca concede autorización de órdenes, promoción LIVE ni beneficio demostrado.
+
+CARGA Y FUNCIONAMIENTO
+
+Se conserva un trabajador numérico y la cola acotada existentes. No se añaden
+servicios, consultas del panel ni llamadas al LLM. La gestión de posiciones
+permanece separada de investigación y cálculo de estadísticas.
+
+La configuración de ejemplo incorpora quant.accounting.archive, con 16 segmentos
+y 512 MiB como límites de archivo configurados. Son límites, no una garantía de
+días de retención. La duración efectiva depende del tamaño y frecuencia de las
+observaciones, que debe medirse en el despliegue. No elevar estos límites por
+este informe ni borrar historia para eludir un bloqueo de presupuesto.
+
+Las estadísticas del ledger archivado tienen un máximo de 100000 observaciones
+por materialización y una reutilización predeterminada de 15 minutos. Se muestra
+la fecha del cálculo y la contabilidad actual por separado. Cambio de cuenta,
+política, archivo o fuente de costes, o pérdida de conciliación, invalida la
+reutilización. Sin un prefijo cerrado con costes y retornos comparables no se
+recorre el archivo para producir métricas financieras. Un prefijo cubierto sigue
+siendo medible aunque la marca actual esté fuera de esa cobertura. Un límite
+insuficiente se declara; no se recorta
+silenciosamente el historial.
+
+VALIDACIÓN LOCAL REPRODUCIBLE
+
+Desde la raíz descomprimida, con Node 24, Python >=3.11 y dependencias instaladas:
+
+  npm ci --ignore-scripts
+  npm run build:xxx
+  python3 -m venv .quant-venv
+  .quant-venv/bin/pip install -r quant/requirements-tested.txt -r quant/requirements-dev.txt
+  export HARPOON_QUANT_PYTHON="$PWD/.quant-venv/bin/python3"
+
+Regresión de software (fixtures sintéticos; no conecta con broker):
+
+  .quant-venv/bin/python3 tools/verify_remediation.py --suite all --output /tmp/harpoon-level4-qa
+
+Reproducir los datos disponibles, conservando el informe entregado:
+
+  .quant-venv/bin/python3 tools/build_causal_panel.py --input evidence/level4_30_11_0/data/request.json --verify evidence/level4_30_11_0/data/report.json --output /tmp/harpoon-data-verification.json
+
+Reproducir la comparación sintética que prueba el software:
+
+  node tools/funded_comparison.cjs --input quant/examples/funded_comparison/synthetic_request.json --verify quant/examples/funded_comparison/synthetic_report.json --output /tmp/harpoon-comparison-verification.json
+
+Reproducir la valoración de nivel con las evidencias entregadas:
+
+  node tools/level4_readiness.cjs --input evidence/level4_30_11_0/readiness_request.json --verify evidence/level4_30_11_0/readiness_report.json --output /tmp/harpoon-level4-verification.json
+
+Si cambia código, configuración o datos vinculados, la reproducción debe señalar
+la diferencia. No sustituir los hashes esperados para fabricar una coincidencia.
+
+MEDICIÓN HISTÓRICA FUTURA
+
+Hace falta un panel causal suficiente, modelos observados congelados con fecha
+anterior a sus decisiones, recibos originales de mercado, historia de cuenta y
+costes documentados. El ejemplo observed_missing_request no contiene esos
+recursos y sólo informa del bloqueo. No entrenar modelos con el periodo reservado
+para la comparación ni declarar históricos los fixtures sintéticos.
+
+Para una medición fija ya justificada, la herramienta genera registration-binding
+y measurement_registration.py reserva tres plazas C0/Ridge/SVR en el journal
+existente. Conserva el estado anterior y rechaza un head diferente; repetir la
+misma solicitud es idempotente. La familia completa no admite más de seis plazas.
+Esta entrega no reservó ninguna plaza financiera nueva. Ver contrato exacto en
+quant/examples/funded_comparison/README.txt y tools/measurement_registration.py.
+
+INSTALACIÓN EXISTENTE
+
+La distribución incluye el instalador integral de 30.10.1. Conservar su SQLite,
+identidad de cuenta, configuración y límites. La configuración de ejemplo no
+autoriza reemplazar una configuración vinculada ni reiniciar sus contadores.
+No se ha ejecutado instalación, despliegue, órdenes externas ni paso PAPER a LIVE
+durante esta revisión. Consulte LEEME_INTEGRAL_30_10_1.txt para los mecanismos del
+instalador y el informe actual para las verificaciones realizadas en 30.11.0.

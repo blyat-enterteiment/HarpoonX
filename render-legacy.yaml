@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: harpoon-paper
+    runtime: docker
+    plan: standard
+    region: oregon
+    dockerfilePath: ./deploy/Dockerfile.managed
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    maxShutdownDelaySeconds: 60
+    disk:
+      name: harpoon-journal
+      mountPath: /var/data
+      sizeGB: 10
+    envVars:
+      - key: HARPOON_BOOKS
+        value: crypto
+      - key: HARPOON_PANEL_PASSWORD
+        generateValue: true
+      - key: CRYPTO_APCA_KEY
+        sync: false
+      - key: CRYPTO_APCA_SECRET
+        sync: false

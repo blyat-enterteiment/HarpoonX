@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: dashboard compiles; the read-only renderer is wired to real snapshot fields and all DOM IDs exist
+ok 1 - dashboard compiles; the read-only renderer is wired to real snapshot fields and all DOM IDs exist
+  ---
+  duration_ms: 17.534431
+  type: 'test'
+  ...
+# Subtest: version labels come from runtime and missing version clears the previous label
+ok 2 - version labels come from runtime and missing version clears the previous label
+  ---
+  duration_ms: 1.422386
+  type: 'test'
+  ...
+# Subtest: missing account, costs and observations remain null instead of zero or ready
+ok 3 - missing account, costs and observations remain null instead of zero or ready
+  ---
+  duration_ms: 1.055011
+  type: 'test'
+  ...
+# Subtest: known zero costs differ from missing costs, and incomplete economic result stays null
+ok 4 - known zero costs differ from missing costs, and incomplete economic result stays null
+  ---
+  duration_ms: 3.22208
+  type: 'test'
+  ...
+# Subtest: positive account PnL does not turn financial proof or complete autonomy green
+ok 5 - positive account PnL does not turn financial proof or complete autonomy green
+  ---
+  duration_ms: 1.79641
+  type: 'test'
+  ...
+# Subtest: candidate for forward validation is explicitly narrower than demonstrated profit
+ok 6 - candidate for forward validation is explicitly narrower than demonstrated profit
+  ---
+  duration_ms: 1.481805
+  type: 'test'
+  ...
+# Subtest: reported blockers, reasons and evidence are escaped before entering HTML
+ok 7 - reported blockers, reasons and evidence are escaped before entering HTML
+  ---
+  duration_ms: 1.426262
+  type: 'test'
+  ...
+# Subtest: capture reports continuous totals, actual storage reservations and partial universe scope
+ok 8 - capture reports continuous totals, actual storage reservations and partial universe scope
+  ---
+  duration_ms: 1.934358
+  type: 'test'
+  ...
+# Subtest: stale ledger and failed capture preserve last values with explicit unverified current status
+ok 9 - stale ledger and failed capture preserve last values with explicit unverified current status
+  ---
+  duration_ms: 1.581255
+  type: 'test'
+  ...
+# Subtest: disconnection removes operational green and invalidates check badges without inventing new values
+ok 10 - disconnection removes operational green and invalidates check badges without inventing new values
+  ---
+  duration_ms: 1.65083
+  type: 'test'
+  ...
+# Subtest: global entry banner never claims active when readiness is missing, false or contradictory
+ok 11 - global entry banner never claims active when readiness is missing, false or contradictory
+  ---
+  duration_ms: 0.947349
+  type: 'test'
+  ...
+# Subtest: invalid numeric and boolean types remain unknown instead of coercing into observations
+ok 12 - invalid numeric and boolean types remain unknown instead of coercing into observations
+  ---
+  duration_ms: 1.625683
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.167044

@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: strict JSON rejects overwritten evidence and nonfinite numbers
+ok 1 - strict JSON rejects overwritten evidence and nonfinite numbers
+  ---
+  duration_ms: 4.794844
+  type: 'test'
+  ...
+# Subtest: missing inputs stay at3 despite caller claims of readiness or profit
+ok 2 - missing inputs stay at3 despite caller claims of readiness or profit
+  ---
+  duration_ms: 5.201948
+  type: 'test'
+  ...
+# Subtest: valid data artifact is reconstructed but an empty panel cannot qualify
+ok 3 - valid data artifact is reconstructed but an empty panel cannot qualify
+  ---
+  duration_ms: 1435.622464
+  type: 'test'
+  ...
+# Subtest: tampered JSON report remains invalid even with a new outer file checksum
+ok 4 - tampered JSON report remains invalid even with a new outer file checksum
+  ---
+  duration_ms: 1595.931736
+  type: 'test'
+  ...
+# Subtest: mismatched source checksum cannot be treated as a verified component
+ok 5 - mismatched source checksum cannot be treated as a verified component
+  ---
+  duration_ms: 761.255645
+  type: 'test'
+  ...
+# Subtest: a declared reconciled ledger without reconstructible pages is rejected
+ok 6 - a declared reconciled ledger without reconstructible pages is rejected
+  ---
+  duration_ms: 2.507262
+  type: 'test'
+  ...
+# Subtest: real three-policy synthetic reexecution is engineering evidence and stays at3
+ok 7 - real three-policy synthetic reexecution is engineering evidence and stays at3
+  ---
+  duration_ms: 15954.098473
+  type: 'test'
+  ...
+# Subtest: relabeling and resealing synthetic comparison cannot promote it
+ok 8 - relabeling and resealing synthetic comparison cannot promote it
+  ---
+  duration_ms: 7988.874378
+  type: 'test'
+  ...
+# Subtest: market binding reads original local frames, and changed quote or bar cannot match
+ok 9 - market binding reads original local frames, and changed quote or bar cannot match
+  ---
+  duration_ms: 96.899988
+  type: 'test'
+  ...
+# Subtest: explicitly synthetic frames and incomplete page sets never claim observed receipts
+ok 10 - explicitly synthetic frames and incomplete page sets never claim observed receipts
+  ---
+  duration_ms: 64.98748
+  type: 'test'
+  ...
+# Subtest: self-resealed level4 score is checked by complete reexecution
+ok 11 - self-resealed level4 score is checked by complete reexecution
+  ---
+  duration_ms: 2.41912
+  type: 'test'
+  ...
+# Subtest: closed documentary coverage is usable only inside its verified period despite an unknown current tail
+ok 12 - closed documentary coverage is usable only inside its verified period despite an unknown current tail
+  ---
+  duration_ms: 0.286232
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27937.613243

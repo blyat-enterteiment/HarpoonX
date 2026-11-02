@@ -1,0 +1,154 @@
+{
+  "scope": "Adversarial source and data review; no live account access, no model fitting or financial trial",
+  "checked_at_utc": "2026-11-01T03:59:05.493324+00:00",
+  "base_version": "30.12.1 + Quant1.8.0",
+  "classification": "HECHO_CON_CODIGO_Y_CONTRAEJEMPLO_REPRODUCIBLE",
+  "source_hashes": {
+    "evidence/integral_30_12_1/data/request.json": "b25d746132b05ba2831c8189d51a861886c7ab7c4191fe4257cd622f083989d8",
+    "evidence/integral_30_12_1/data/report.json": "f7844e0f9ed80fe02c02fe40e98dacfe15d4a6497f51d3c12e5b84781b65be66",
+    "tools/level4_readiness.cjs": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+    "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+    "tools/export_observation_snapshot.cjs": "33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a",
+    "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+    "quant/harpoon_quant/scalar_svr.py": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+    "quant/harpoon_quant/paired_replay.py": "9366b2364e557ad1bcd2b5bda5cd581646e44e8dc69d8cd562c2214d99f6cdf0",
+    "xxx/coordinator.ts": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+    "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+    "runtime/quant_bridge.cjs": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b"
+  },
+  "rating_semantics": {
+    "level4_criterion": "INTEGRATED_OBSERVED_MEASUREMENT_NOT_PROFIT_OR_AUTONOMOUS_PROMOTION",
+    "level4_can_coexist_with_losses": true,
+    "profitability_score_from_current_data": null,
+    "cause": "The ordinal gate measures evidence readiness; actual current account return is unavailable."
+  },
+  "why_counts_are_zero": {
+    "counts": {
+      "prospective_frames": 0,
+      "causal_rows_admissible": 0,
+      "reconstructed_feature_rows": 8
+    },
+    "observation_exports_supplied": 0,
+    "selection_supplied": null,
+    "blocking_resources": [
+      "PROSPECTIVE_OBSERVATION_EXPORTS_MISSING"
+    ],
+    "archive_training_rows_admissible": 0,
+    "causal_capture_defect_demonstrated_by_zero_count": false,
+    "explanation": "The producer received an empty prospective source list. Eight reconstructed feature vectors are kept in archive_audit because original receipt times and causal label receipts were not recorded; they are not admitted as calibration rows."
+  },
+  "actual_causal_contract": {
+    "one_row_per_asset_session": true,
+    "minimum_distinct_sessions": 100,
+    "minimum_is_implemented_contract_not_universal_financial_guarantee": true,
+    "horizon_hours": 24,
+    "selection": "FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID in America/New_York, declared before using the measurement",
+    "receipt_and_label_requirements": [
+      "Original frame must predate build availability",
+      "Features are recomputed from the observed input snapshot",
+      "Fixed-horizon label uses an observed as-of quote and a maturity receipt",
+      "Labels must be known strictly before model availability; model availability must predate comparison",
+      "Receipt collection and candidate fitting are separate stages"
+    ],
+    "models_current": null
+  },
+  "historical_market_download": {
+    "can_recover_prices": true,
+    "can_recover_original_runtime_receipt_times": false,
+    "can_recover_account_execution_and_costs": false,
+    "sufficient_for_existing_level4": false,
+    "allowed_interpretation": "A new retrospective diagnostic/research input with recorded download time; not original decision-time availability or proof of net account performance."
+  },
+  "capture_controls_seen": [
+    "Quant capture is scheduled independently of research and numerical calibration when cfg.quant.enabled",
+    "The observation journal records accepted and rejected signals with bounds and a linked chain",
+    "Pinned snapshots avoid changing-page exports",
+    "The streaming causal panel admits causal universe rotations while preserving fixed signal parameters"
+  ],
+  "single_material_finding": {
+    "id": "L4-PAGINATION-CONFIG-BINDING",
+    "function": "tools/level4_readiness.cjs::bindMarketSources",
+    "mechanism": "Configuration invariance was checked separately per page by fromObservationExport, so partitioning the same frames could erase the configuration-change rejection. The common request configuration also was not bound to the normalized source configuration.",
+    "counterexample_nature": "SYNTHETIC_SOFTWARE_COUNTEREXAMPLE_NOT_FINANCIAL_DATA",
+    "counterexample": {
+      "nature": "SYNTHETIC_SOFTWARE_COUNTEREXAMPLE_NOT_FINANCIAL_DATA",
+      "same_frames_within_each_pair": true,
+      "only_page_partition_changed_within_pair": true,
+      "stable_configuration": {
+        "one_page": {
+          "passed": true,
+          "result": {
+            "verified": true,
+            "account_id": "SYNTHETIC_PAGINATION_ONLY",
+            "frames": 2,
+            "quotes_bound": 6,
+            "bars_bound": 2052,
+            "availability": "OBSERVED_RUNTIME_RECEIPTS",
+            "executable_depth_observed": false,
+            "external_authenticity_verified": false
+          }
+        },
+        "two_pages": {
+          "passed": true,
+          "result": {
+            "verified": true,
+            "account_id": "SYNTHETIC_PAGINATION_ONLY",
+            "frames": 2,
+            "quotes_bound": 6,
+            "bars_bound": 2052,
+            "availability": "OBSERVED_RUNTIME_RECEIPTS",
+            "executable_depth_observed": false,
+            "external_authenticity_verified": false
+          }
+        }
+      },
+      "causal_universe_change": {
+        "one_page": {
+          "passed": false,
+          "error": "SOURCE_CONFIG_CHANGED_SPLIT_REPLAY"
+        },
+        "two_pages": {
+          "passed": true,
+          "result": {
+            "verified": true,
+            "account_id": "SYNTHETIC_PAGINATION_ONLY",
+            "frames": 2,
+            "quotes_bound": 6,
+            "bars_bound": 2052,
+            "availability": "OBSERVED_RUNTIME_RECEIPTS",
+            "executable_depth_observed": false,
+            "external_authenticity_verified": false
+          }
+        }
+      },
+      "code_hashes": {
+        "tools/level4_readiness.cjs": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+        "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086"
+      }
+    },
+    "causes_the_current_zero_observations": false,
+    "economic_impact_usd": null,
+    "impact_reason": "No empirical account source is available; this is an evidence-admission defect, not a measured PnL loss.",
+    "remediation": "Validate the original configuration across the entire source prefix and bind common_request.config to source normalization with the deterministic equity/ETF share projection already required by funded_comparison. No selective symbol removal, extra risk change or universe-epoch replay is admitted.",
+    "implementation_owner": "root/nivel4_data_adversary, subsequently authorized by parent; two files only",
+    "target_version": "30.12.2",
+    "validation_report": "causal_fix/result.json"
+  },
+  "proposed_refutation_tests": [
+    "Same fixed-configuration frames produce identical binding regardless of page partition",
+    "Source configuration changes fail both within a page and across pages",
+    "Changed comparison risk, slippage, source-supported universe or protection configuration fails binding",
+    "Mixed equity/ETF/crypto source permits exactly the funded equity/ETF projection; dropping a supported equity/ETF fails",
+    "Existing clock, source-hash, account, missing-resource and synthetic-evidence tests remain effective"
+  ],
+  "non_goals": [
+    "No gate threshold or score rewrite",
+    "No synthetic source relabeled as observed financial evidence",
+    "No new forecasting model, parameter search, order or deployment",
+    "No new data/compute budget"
+  ],
+  "financial_trials": 0,
+  "model_fits": 0,
+  "external_orders": 0,
+  "current_return_or_balance": null
+}

@@ -1,0 +1,146 @@
+{
+  "schema": "HARPOON_NET_CONTINUITY_REMEDIATION_1",
+  "generated_at": "2026-11-01T01:09:35.257575+00:00",
+  "application": "30.11.0",
+  "scope": "OFFLINE_ENGINEERING_AND_LOCAL_DOCUMENTARY_VALIDATION_ONLY",
+  "implementation_status": "IMPLEMENTED_TESTED_AND_FROZEN",
+  "source_root": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+  "implemented": [
+    "Immutable segmented accounting archive, durable quota reservations and verified restart.",
+    "Original baseline, cash/inventory, cumulative flows/fees/external costs, losses and insolvency retained.",
+    "Incremental created-at activity windows, overlap and archived-ID deduplication; no settlement-date watermark.",
+    "Strict local cost receipt reader and atomic explicit-declaration writer; missing costs stay null.",
+    "Optional original-JSON-bound broker accrual coverage, exact OTHER/reference/cost links, no second subtraction.",
+    "Current coverage separated from closed historical coverage; source-authenticity claim remains false.",
+    "Paginated complete record export and independent arithmetic/integrity reconstruction.",
+    "Bounded asynchronous whole-prefix performance materialization, with explicit WAIT and event-loop yields."
+  ],
+  "validation": {
+    "type_script_build": {
+      "status": "PASS",
+      "executor": "ROOT",
+      "command": "npm run build:xxx"
+    },
+    "tests": [
+      {
+        "log": "continuity-tests.log",
+        "tests": 35,
+        "passed": 35,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "log": "prior-ledger-tests.log",
+        "tests": 40,
+        "passed": 40,
+        "failed": 0,
+        "skipped": 0
+      }
+    ],
+    "test_total": 75,
+    "commands": [
+      "node --no-use-env-proxy --test --test-isolation=none --test-timeout=30000 tools/quant_net_continuity_test.cjs",
+      "node --no-use-env-proxy --test --test-isolation=none --test-timeout=30000 tools/quant_net_ledger_test.cjs",
+      "node tools/quant_net_continuity_benchmark.cjs /tmp/harpoon-continuity-benchmark.json"
+    ],
+    "benchmark": "benchmark.json",
+    "production_sqlite_restart_tests": 2
+  },
+  "benchmark_summary": {
+    "workload": {
+      "observations": 1001,
+      "positions_per_observation": 1,
+      "activities": 0,
+      "declared_expenses": 0,
+      "explicit_synthetic_cost_coverage": true,
+      "active_observation_bound": 250,
+      "archive_segments": 4,
+      "archived_observations": 1000,
+      "active_observations": 1,
+      "reserved_archive_bytes": 1208249
+    },
+    "refresh_before_first_rollover": {
+      "samples": 250,
+      "p50_ms": 14.036661999999978,
+      "p95_ms": 26.053001000000222,
+      "p99_ms": 29.190008999999918,
+      "min_ms": 1.450449000000006,
+      "max_ms": 29.795040999999856,
+      "tail_quantile_limitation": null
+    },
+    "rollover": {
+      "samples": 4,
+      "p50_ms": 20.94286700000157,
+      "p95_ms": null,
+      "p99_ms": null,
+      "min_ms": 19.86126400000103,
+      "max_ms": 35.42462400000022,
+      "tail_quantile_limitation": "INSUFFICIENT_SAMPLES_FOR_REPORTED_P99"
+    },
+    "refresh_after_first_rollover": {
+      "samples": 747,
+      "p50_ms": 11.466660000000047,
+      "p95_ms": 32.50009200000022,
+      "p99_ms": 36.265863000000536,
+      "min_ms": 0.7613380000002508,
+      "max_ms": 38.218479000000116,
+      "tail_quantile_limitation": null
+    },
+    "full_export": {
+      "pages": 2,
+      "records": 1006,
+      "elapsed_ms": 45.931768000000375
+    },
+    "offline_integrity_and_accounting_verification": {
+      "observations": 1001,
+      "elapsed_ms": 51.62299399999938,
+      "verified": true
+    },
+    "performance_materialization": {
+      "returns": 1000,
+      "elapsed_ms": 49.4658500000005,
+      "bytes": 1219072
+    }
+  },
+  "external_execution": {
+    "broker_requests": 0,
+    "orders": 0,
+    "deployment": false,
+    "new_financial_trials": 0,
+    "actual_cost_receipts_supplied": 0,
+    "external_source_authentication": false
+  },
+  "real_account_telemetry": {
+    "account_id": null,
+    "net_pnl": null,
+    "external_costs": null,
+    "broker_pending_accruals": null,
+    "broker_latency_p50_p95_p99": null,
+    "reason": "No account/activity access or real expense/accrual documents supplied for this task."
+  },
+  "limitations": [
+    "Archive retention is finite. Serialized quota excludes SQLite/WAL/filesystem overhead; active state has a separate cap.",
+    "Failed commits can consume reserved quota. Reservations and evidence are not silently purged.",
+    "A cost contradicting a sealed prefix latches ECONOMIC_RESTATEMENT_REQUIRED; automatic historical restatement is not implemented.",
+    "Receipt producer accepts supplied declarations; it does not connect to actual billing or broker statements.",
+    "Hashes, JSON-pointer bindings and arithmetic verify local documentary consistency, not external authenticity or completeness of an unseen source.",
+    "Broker accrual linkage requires category OTHER and matching coverage/document reference. Posted-vs-pending reclassification needs reconciliation/restatement.",
+    "Current uncovered tail is never represented as covered. Closed proof applies only to its explicit compared interval.",
+    "Whole-prefix performance materialization has strict count/byte limits; exceeding them produces WAIT and leaves paginated export available.",
+    "Benchmark uses one synthetic position, zero reported activities and an in-memory Store; it is not market latency or production capacity evidence.",
+    "These tests do not establish readiness level 4 or a net trading advantage. Observed causal data, reconciled actual costs/NAV and paired motor/Ridge/control evidence remain necessary."
+  ],
+  "documentation": "CONTRATO_CONTABILIDAD_30_11.txt",
+  "sha256": {
+    "xxx/net_accounting.ts": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+    "xxx/net_ledger_archive.ts": "4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2",
+    "xxx/net_ledger_verify.ts": "d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477",
+    "xxx/cost_receipts.ts": "50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a",
+    "tools/quant_net_continuity_test.cjs": "17d1ea8ca1ce61f7baea4d977a0dc4c2740721748a7a86166b2826fc87164110",
+    "tools/quant_net_continuity_benchmark.cjs": "0c1183b3aed3b2937ebe30d1b32aaea8fd31fcd3fb499ea2c2732543588c1519",
+    "runtime30/net_accounting.js": "a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7",
+    "runtime30/net_ledger_archive.js": "84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc",
+    "runtime30/net_ledger_verify.js": "cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a",
+    "runtime30/cost_receipts.js": "e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca"
+  }
+}

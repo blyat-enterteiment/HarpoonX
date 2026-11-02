@@ -1,0 +1,27 @@
+--- 30.12.0/runtime/store.py
++++ 30.12.1/runtime/store.py
+@@ -1,5 +1,6 @@
+ """Durable runtime storage over private stdio. No network listener or credentials."""
+ from __future__ import annotations
++
+ import json
+ import sqlite3
+ import sys
+@@ -11,7 +12,7 @@
+ 
+ def connect(path: str) -> sqlite3.Connection:
+     Path(path).parent.mkdir(parents=True, exist_ok=True)
+-    db = sqlite3.connect(path, timeout=30)
++    db = sqlite3.connect(path, timeout=1.0)
+     for attempt in range(50):
+         try:
+             db.execute('PRAGMA journal_mode=WAL')
+@@ -37,6 +38,8 @@
+ 
+ def dispatch(db: sqlite3.Connection, req: dict[str, Any]) -> Any:
+     op = req['op']
++    if op == 'ping':
++        return {'ok': True}
+     if op == 'get':
+         row = db.execute('SELECT v FROM records WHERE k=?', (req['key'],)).fetchone()
+         return decode(row[0]) if row else None

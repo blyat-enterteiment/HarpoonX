@@ -1,0 +1,53 @@
+--- 30.12/xxx/ultimate_contracts.ts
+
++++ 31.6TP/xxx/ultimate_contracts.ts
+
+@@ -1,7 +1,7 @@
+
+ import { createHash } from "node:crypto";
+ import { ContractError } from "./validators";
+ 
+-export const ULTIMATE_VERSION = "30.3.0";
++export const ULTIMATE_VERSION = "31.4.0";
+ export const HYPOTHESES = [
+   "OPENING_BREAKOUT",
+   "CLOSED_CHANNEL",
+@@ -76,6 +76,7 @@
+
+   purgeHours: number;
+   gapSessions: number;
+   bootstrapRuns: number;
++  entryFilter?: "BASELINE" | "TREND_ALIGNMENT" | "COST_QUALITY";
+   blockSessions: number;
+   familyTrials: number;
+   minOosCampaigns: number;
+@@ -95,7 +96,8 @@
+
+     holdoutSessions: 63,
+     purgeHours: 72,
+     gapSessions: 3,
+-    bootstrapRuns: 2000,
++    bootstrapRuns: 100000,
++    entryFilter: "BASELINE",
+     blockSessions: 5,
+     familyTrials: 72,
+     minOosCampaigns: 100,
+@@ -112,6 +114,7 @@
+
+   const p = structuredClone(raw) as ResearchProtocol;
+   need(p?.schema === "HARPOON-ULTIMATE-PROTOCOL-1", "protocol schema");
+   need(["FUTURES", "ALPACA_PROXY"].includes(p.kind), "research kind");
++  need(p.entryFilter === undefined || ["BASELINE", "TREND_ALIGNMENT", "COST_QUALITY"].includes(p.entryFilter), "entry filter");
+   need(
+     Array.isArray(p.universe) &&
+       p.universe.length > 0 &&
+@@ -134,7 +137,7 @@
+
+     ["testSessions", 10, 63],
+     ["holdoutSessions", 30, 252],
+     ["gapSessions", 1, 20],
+-    ["bootstrapRuns", 500, 10000],
++    ["bootstrapRuns", 500, 500000],
+     ["blockSessions", 2, 30],
+     ["familyTrials", 9 * p.universe.length, 128],
+     ["minOosCampaigns", 100, 10000],

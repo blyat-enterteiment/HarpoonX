@@ -1,0 +1,107 @@
+HARPOON XXXUltimate 30.12.0 / Quant 1.8.0
+========================================
+
+RESULTADO EN LENGUAJE SIMPLE
+
+La versión de software avanzó. La nota económica verificable continúa en 3/10.
+El 5 exige una prueba nueva de beneficio neto, mejora frente a Ridge y al motor
+vigente, costes cubiertos, riesgo aceptable e incertidumbre evaluada. No existe
+esa prueba observada en los recursos recuperados. La nota no es una probabilidad
+de ganar, ni mide el saldo actual de una cuenta.
+
+Qué se corrigió
+
+1. El evaluador distingue motor vigente (NATIVE), Ridge, SVR y efectivo (CASH).
+   Reejecuta las funciones y rechaza curvas o aprobaciones escritas a mano.
+   En el contrato anterior C0 continúa significando efectivo.
+2. Reconstruye gastos en sus fechas, pérdidas entre eventos, exposición y
+   financiación. Reservar dinero para gastos reduce realmente la potencia de
+   compra en el replay y se contrasta en las tres estrategias.
+3. El estrés usa los mismos datos/modelos/capital; solo aumenta los costes
+   permitidos. Las reservas consumen como máximo seis plazas por familia.
+   El historial y la novedad del periodo deben probarse con los originales.
+4. Un snapshot fija las páginas de observaciones aunque siga llegando mercado.
+   El constructor consume páginas con límites explícitos, conserva el universo
+   conocido y rechaza cambios futuros de unidades/factor para filas anteriores.
+
+El informe EVALUACION_ECONOMICA_HARPOONX_30_12_0.yaml contiene la tabla técnica,
+los hallazgos, pruebas, límites, fuentes y dictamen. evidence/level5_30_12_0
+conserva todos los recibos de esta entrega. Los ejemplos de quant/examples/level5
+son sintéticos: prueban el software y no describen una cuenta de inversión.
+
+REPRODUCIR EL DIAGNOSTICO SIN ORDENES
+
+Usar la aplicación integral con las dependencias de Node y Python indicadas en
+LEEME_INTEGRAL_30_10_1.txt y quant/requirements-tested.txt. Desde la raíz:
+
+  python evidence/level5_30_12_0/reproduce_level5.py --app .
+
+Ese comando reconstruye los datos ya entregados y ejemplos exclusivamente
+sintéticos. No descarga mercado, no entrena, no registra nuevos ensayos y no
+llama a un broker. Actualiza archivos de diagnóstico; la referencia histórica
+original permanece conservada por bytes en history/ y en la versión anterior.
+El gate económico devuelve deliberadamente un resultado bloqueado cuando
+fechas, costes, modelos o protocolo reales son desconocidos.
+
+Para repetir solo el contraste de las entradas disponibles:
+
+  node tools/level5_readiness.cjs --input evidence/level5_30_12_0/derived_request.json --output /tmp/harpoon-derived.json
+
+Para verificar el código con las pruebas del alcance:
+
+  python tools/verify_remediation.py --suite all --output /tmp/harpoon-software-tests
+
+En entornos que bloquean sockets locales, algunas pruebas de integración
+requieren permiso para servicios efímeros en 127.0.0.1. Eso no autoriza acceso
+externo, órdenes ni despliegue. Los resultados de esta entrega identifican las
+pruebas ejecutadas; no se afirma una imagen Docker arrancada.
+
+OBTENER LA EVIDENCIA QUE FALTA
+
+La instancia PAPER debe estar identificada, configurada con sus límites y
+ejecutando una versión comprobable. La inspección de GitHub recuperó código
+antiguo 24.3.1; Render no devolvió un servicio identificable. No hay garantía de
+que la versión actual esté operativa por el hecho de existir este ZIP.
+
+Las rutas existentes usan autenticación. Una vez disponible la instancia:
+
+  GET /v1/quant/observations/snapshot
+  GET /v1/quant/observations?snapshot_id=ID&offset=0&limit=100
+  GET /v1/accounting/history?offset=0&limit=1000
+
+El snapshot es un identificador de integridad, no una contraseña. Guardar el
+descriptor y todas las páginas originales; continuar en next_offset hasta
+completar el prefijo. Los detalles, el manifest y los comandos del panel están
+en tools/OBSERVATION_SNAPSHOT_CONTRACT.txt. El historial contable mantiene su
+propio control de revisión y exige páginas de la misma integridad.
+
+También hacen falta los documentos originales de gastos y devengos, los
+modelos fijos antes del test y un periodo final nuevo con protocolo registrado.
+No enviar claves API ni contraseñas en un chat o en estos artefactos.
+
+Los datos de observación no contienen por sí solos profundidad ejecutable ni
+fills. No convertir executable_qty desconocido en una cantidad inventada.
+El comparador conserva ese bloqueo hasta disponer de una hipótesis de ejecución
+explícita, justificada y registrada, y del resto de la evidencia contable.
+
+HISTORIAL Y CARGA
+
+Se conservan por separado 23 intentos Quant, 18 Ultimate y 3 TP32. Las primeras
+fuentes son originales dentro del historial local conservado; su revisión no
+equivale a autenticación externa. El total global deduplicado sigue siendo
+desconocido y los contadores no se reinician. history/verification.json explica
+lo comprobado y las identidades o fechas que siguen faltando.
+
+No se añaden servicios permanentes, llamadas al LLM ni cambios de frecuencia.
+La cuota de observaciones conserva 512 MiB; cada exportación tiene como máximo
+dos snapshots retenidos. El consumidor admite 128 MiB de fuentes y 512 páginas,
+con SQLite temporal de hasta 128 MiB que se elimina al terminar. Estos límites
+no garantizan 100 sesiones reales: falta medir el tamaño y la cadencia del caso.
+
+Los 90 minutos posteriores a la apertura, los 90 minutos anteriores al cierre y los 90 minutos
+posteriores al cierre se distinguen. El panel causal de esta versión admite
+sesión regular; no valida poscierre por haber capturado algunas cotizaciones.
+
+El contrato económico completo está en tools/LEVEL5_READINESS_CONTRACT.txt.
+Superarlo solo genera un candidato para validación forward, no una orden de
+operar ni una promesa de rentabilidad. SVR mantiene su alcance de investigación.

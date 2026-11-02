@@ -1,0 +1,325 @@
+--- 30.12/xxx/ultimate_replay.ts
++++ 31.4/xxx/ultimate_replay.ts
+@@ -15,12 +15,13 @@
+   ExitVariant,
+ } from "./ultimate_contracts";
+ import {
+-  bootstrapLower,
++  bootstrapEvidence,
+   deflatedSharpe,
+   mean,
+   metrics,
+   probabilityBacktestOverfit,
+ } from "./ultimate_stats";
++import { accountSnapshot, causalSize, campaignPnlAt, dollarTradeMetrics } from "./research_accounting";
+ import { trainingFrequencies } from "./ultimate_frequency";
+ 
+ export interface Opportunity {
+@@ -51,6 +52,13 @@
+   ambiguousBars: number;
+   quantity: number;
+   entry: number;
++  reservedAt?: number;
++  sizingReference?: number;
++  sizingReferenceAt?: number;
++  reservedRiskUsd?: number;
++  reservedNotionalUsd?: number;
++  entryCostUsd?: number;
++  executions?: {at:number;quantity:number;price:number;feeUsd:number}[];
+   marks: { at: number; pnl: number }[];
+   reason: string;
+ }
+@@ -132,15 +140,13 @@
+       }
+       if (!bars.length) continue;
+       funnel.sessions++;
+-      if (
++      const incomplete = (
+         bars.length !== (session.close - session.open) / 300000 ||
+         bars[0].t !== session.open ||
+         bars.at(-1)!.end !== session.close ||
+         bars.some((b, i) => i && b.t !== bars[i - 1].end)
+-      ) {
+-        funnel.incompleteSessions++;
+-        continue;
+-      }
++      );
++      if (incomplete) funnel.incompleteSessions++;
+       const fired = new Set<string>(),
+         prior = previousDays.slice(-50),
+         daily = prior.map((x) => x.daily);
+@@ -149,8 +155,10 @@
+         vwSum = 0,
+         square = 0;
+       for (let j = 0; j < bars.length; j++) {
+-        const b = bars[j],
+-          x = b.vw ?? (b.h + b.l + b.c) / 3;
++        const b = bars[j];
++        // Only a gap already observable at this bar stops signals. Future missing bars cannot erase earlier signals.
++        if ((j === 0 && b.t !== session.open) || (j > 0 && b.t !== bars[j - 1].end)) { funnel.dataGap++; break; }
++        const x = b.vw ?? (b.h + b.l + b.c) / 3;
+         vol += b.v;
+         vwSum += x * b.v;
+         square += x * x * b.v;
+@@ -191,6 +199,14 @@
+           const key = hypothesis + ":" + direction;
+           if (fired.has(key) || (direction === -1 && p.kind === "ALPACA_PROXY"))
+             return;
++          if (p.entryFilter === "TREND_ALIGNMENT") {
++            const average = mean(daily.slice(-20).map(z => z.c));
++            if (direction * (daily.at(-1)!.c - average) <= 0) { funnel.filterRejected = (funnel.filterRejected || 0) + 1; return; }
++          }
++          if (p.entryFilter === "COST_QUALITY") {
++            const friction = 2 * p.costs.perSideUsd / series.pointValue + b.c * (p.costs.spreadBps + 2 * p.costs.slippageBps) / 10000;
++            if (friction > 0.15 * stopDistance || rvol < 1 || (hypothesis !== "VWAP_REVERSION" && er < 0.35)) { funnel.filterRejected = (funnel.filterRejected || 0) + 1; return; }
++          }
+           fired.add(key);
+           out.push({
+             id: digest([series.symbol, hypothesis, b.availableAt, direction]),
+@@ -239,6 +255,7 @@
+           if (b.c >= vw + 2 * sigma) add("VWAP_REVERSION", -1, risk, vw);
+         }
+       }
++      if (incomplete) { previousDays.length = 0; continue; }
+       previousDays.push({
+         bars,
+         daily: {
+@@ -326,14 +343,14 @@
+             (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000),
+         );
+   const contractDeadline =
+-    Math.min(series.firstNoticeAt ?? Infinity, series.lastTradeAt ?? Infinity) -
+-    86400000;
++    Math.min((series.firstNoticeAt ?? Infinity) - 86400000, (series.lastTradeAt ?? Infinity) - (dir === -1 ? 5 : 1) * 86400000);
+   if (
+     data.splitEvents.some(
+       (e) => e.symbol === series.symbol && e.at > first.t && e.at <= deadline,
+     )
+   )
+     return null;
++  const executions: NonNullable<ModeledCampaign["executions"]> = [];
+   const marks: ModeledCampaign["marks"] = [],
+     tpDone = [false, false];
+   const close = (qty: number, px: number, at: number, why: string) => {
+@@ -342,6 +359,7 @@
+       charge = qty * p.costs.perSideUsd * costMultiplier;
+     realized += dir * (filled - entry) * qty * series.pointValue - charge;
+     fees += charge;
++    executions.push({at,quantity:qty,price:filled,feeUsd:charge});
+     remaining -= qty;
+     closed = at;
+     reason = why;
+@@ -452,6 +470,8 @@
+     ambiguousBars: ambiguous,
+     quantity,
+     entry,
++    entryCostUsd:quantity * (p.costs.perSideUsd * costMultiplier + Math.abs(entry-first.o) * series.pointValue),
++    executions,
+     marks,
+     reason,
+   };
+@@ -588,19 +608,19 @@
+       hm = evaluate(h, holdout),
+       sm = evaluate(double, oos);
+     const bootstrap = (v: number[]) =>
+-      bootstrapLower(
++      bootstrapEvidence(
+         v,
+         p.bootstrapRuns,
+         p.blockSessions,
+         Math.max(p.familyTrials, ids.length * p.universe.length),
+       );
+-    const lower = bootstrap(matrix[index]),
+-      heldLower = bootstrap(normalizedDaily(h, holdout));
++    const oosBootstrap = bootstrap(matrix[index]), holdoutBootstrap = bootstrap(normalizedDaily(h, holdout));
++    const lower = oosBootstrap.lower, heldLower = holdoutBootstrap.lower;
+     const baselineDaily = normalizedDaily(oosTrades(baseId), oos),
+       pairedLower =
+         id === baseId
+           ? null
+-          : bootstrap(matrix[index].map((v, i) => v - baselineDaily[i]));
++          : bootstrap(matrix[index].map((v, i) => v - baselineDaily[i])).conservativeMcLower;
+     const heldBase = normalizedDaily(
+         windowTrades(trades[baseId], holdout, purge),
+         holdout,
+@@ -609,15 +629,17 @@
+     const pairedHoldoutLower =
+       id === baseId
+         ? null
+-        : bootstrap(heldDaily.map((v, i) => v - heldBase[i]));
++        : bootstrap(heldDaily.map((v, i) => v - heldBase[i])).conservativeMcLower;
+     const dsr = deflatedSharpe(matrix, index, p.familyTrials, a.length);
+     const holdoutFresh =
+       holdout[0].open > Math.max(registeredAt, p.knownHistoryThrough);
+     const gates = {
+       oosSample: a.length >= p.minOosCampaigns,
+       holdoutSample: h.length >= p.minHoldoutCampaigns,
+-      oosLowerPositive: lower !== null && lower > 0,
+-      holdoutLowerPositive: heldLower !== null && heldLower > 0,
++      bootstrapPrecision: oosBootstrap.precision && holdoutBootstrap.precision,
++      oosLowerPositive: oosBootstrap.conservativeMcLower !== null && oosBootstrap.conservativeMcLower > 0,
++      holdoutLowerPositive: holdoutBootstrap.conservativeMcLower !== null && holdoutBootstrap.conservativeMcLower > 0,
++      completePaths: excluded.incompletePath === 0,
+       doubleCostEvidence:
+         double.length > 0 &&
+         (sm.expectancyR ?? 0) > 0 &&
+@@ -639,6 +661,8 @@
+       untouchedHoldout: holdoutFresh,
+       actualFutures: p.kind === "FUTURES",
+       authenticatedExecution: false,
++      runtimeStrategyParity: false,
++      globalSearchHistoryComplete: false,
+     };
+     return {
+       id,
+@@ -647,6 +671,7 @@
+       doubleCostOos: sm,
+       lower,
+       heldLower,
++      bootstrapDiagnostics: { oos: oosBootstrap, holdout: holdoutBootstrap },
+       pairedLower,
+       pairedHoldoutLower,
+       dsr,
+@@ -668,97 +693,32 @@
+     portfolioSkips[reason] = (portfolioSkips[reason] || 0) + 1;
+   };
+   let peakEquity = limits.capitalUsd;
+-  for (const opportunity of common) {
+-    const fold = folds.find(
+-      (f) =>
+-        opportunity.at >= f.test[0].open &&
+-        opportunity.at <= f.test.at(-1)!.close - purge,
+-    );
+-    if (
+-      !fold ||
+-      fold.selected === "CASH" ||
+-      !fold.selected.startsWith(opportunity.hypothesis + ":")
+-    )
+-      continue;
+-    if (p.kind === "FUTURES") {
+-      skip("HISTORICAL_MARGIN_UNAVAILABLE");
+-      continue;
+-    }
+-    const active = funded.filter(
+-      (t) => t.opened <= opportunity.at && t.closed > opportunity.at,
+-    );
+-    const equityAt = (at: number) =>
+-      limits.capitalUsd +
+-      funded.reduce(
+-        (n, t) =>
+-          n +
+-          (t.closed <= at
+-            ? t.netUsd
+-            : t.opened <= at
+-              ? (t.marks.findLast((m) => m.at <= at)?.pnl ?? 0)
+-              : 0),
+-        0,
+-      );
+-    const equity = equityAt(opportunity.at),
+-      day = data.sessions.find(
+-        (s) => opportunity.at >= s.open && opportunity.at < s.close,
+-      )!;
+-    peakEquity = Math.max(peakEquity, equity);
+-    if (
+-      equity <= peakEquity * (1 - limits.maxDrawdown) ||
+-      equity <= equityAt(day.open) * (1 - limits.dailyLoss)
+-    ) {
+-      skip("LOSS_LIMIT");
+-      continue;
+-    }
+-    if (active.some((t) => t.symbol === opportunity.symbol)) {
+-      skip("SYMBOL_BUSY");
+-      continue;
+-    }
+-    const s = bySymbol[opportunity.symbol],
+-      px = s.bars[opportunity.index].o;
+-    const riskUnit =
+-      opportunity.stopDistance * s.pointValue +
+-      2 * p.costs.perSideUsd +
+-      (2 * px * s.pointValue * (p.costs.spreadBps / 2 + p.costs.slippageBps)) /
+-        10000;
+-    const notional = active.reduce((n, t) => n + t.quantity * t.entry, 0),
+-      openRisk = active.reduce((n, t) => n + t.riskUsd, 0);
+-    const quantity = Math.floor(
+-      Math.min(
+-        (equity * limits.riskFraction) / riskUnit,
+-        Math.max(0, equity * limits.openRiskFraction - openRisk) / riskUnit,
+-        Math.max(0, equity * limits.grossFraction - notional) / px,
+-        (equity * limits.assetFraction) / px,
+-      ),
+-    );
+-    if (quantity < 1) {
+-      skip("INTEGER_RISK_OR_EXPOSURE");
+-      continue;
+-    }
+-    const t = replayCampaign(
+-      opportunity,
+-      s,
+-      data,
+-      p,
+-      fold.selected.split(":")[1] as ExitVariant,
+-      quantity,
+-    );
+-    if (t) funded.push(t);
+-    else skip("INCOMPLETE_PATH");
++  const allocationAudit: Record<string, unknown>[] = [];
++  for (const opportunity of generated.signals) {
++    const fold = folds.find(f => opportunity.at >= f.test[0].open && opportunity.at <= f.test.at(-1)!.close - purge);
++    if (!fold || fold.selected === "CASH" || !fold.selected.startsWith(opportunity.hypothesis + ":")) continue;
++    if (p.kind === "FUTURES") { skip("HISTORICAL_MARGIN_UNAVAILABLE"); continue; }
++    const snapshot = accountSnapshot(funded,bySymbol,opportunity.at,limits);
++    const day = data.sessions.find(s => opportunity.at >= s.open && opportunity.at < s.close)!;
++    // Include all observed historical marks in the high-water mark, not only entry timestamps.
++    const observedTimes = new Set(funded.flatMap(t => t.marks.filter(m => m.at <= opportunity.at).map(m => m.at)));
++    for (const at of observedTimes) peakEquity = Math.max(peakEquity, limits.capitalUsd + funded.reduce((n,t)=>n+campaignPnlAt(t,at),0));
++    peakEquity = Math.max(peakEquity,snapshot.equity);
++    const dayEquity = limits.capitalUsd + funded.reduce((n,t)=>n+campaignPnlAt(t,day.open),0);
++    if (snapshot.equity <= peakEquity*(1-limits.maxDrawdown) || snapshot.equity <= dayEquity*(1-limits.dailyLoss)) {skip("LOSS_LIMIT");continue;}
++    if (snapshot.busy.includes(opportunity.symbol)) {skip("SYMBOL_BUSY");continue;}
++    const s=bySymbol[opportunity.symbol], size=causalSize(opportunity,s,p,limits,snapshot);
++    allocationAudit.push({signalId:opportunity.id,symbol:opportunity.symbol,decisionAt:opportunity.at,...size,equity:snapshot.equity,priorNotional:snapshot.notional,priorOpenRisk:snapshot.openRisk});
++    if (size.quantity<1) {skip("INTEGER_RISK_OR_EXPOSURE");continue;}
++    const t=replayCampaign(opportunity,s,data,p,fold.selected.split(":")[1] as ExitVariant,size.quantity);
++    if (!t) {skip("INCOMPLETE_PATH");continue;}
++    t.reservedAt=opportunity.at;t.sizingReference=size.referencePrice;t.sizingReferenceAt=size.referenceAt;t.reservedRiskUsd=size.reservedRiskUsd;t.reservedNotionalUsd=size.reservedNotional;
++    if (t.entry*t.quantity*s.pointValue>size.budget*limits.assetFraction+1e-8) skip("FILL_GAP_EXCEEDS_ASSET_CAP_OBSERVED_NOT_RETROACTIVELY_REJECTED");
++    funded.push(t);
+   }
+   const fundedPnl = oos.map((s, i) => {
+     const at = (time: number) =>
+-      funded.reduce(
+-        (n, t) =>
+-          n +
+-          (time < t.opened
+-            ? 0
+-            : time >= t.closed
+-              ? t.netUsd
+-              : (t.marks.findLast((m) => m.at <= time)?.pnl ?? 0)),
+-        0,
+-      );
++      funded.reduce((n,t)=>n+campaignPnlAt(t,time),0);
+     return at(s.close) - at(i ? oos[i - 1].close : s.open - 1);
+   });
+   let eq = limits.capitalUsd;
+@@ -807,10 +767,17 @@
+     fundedPortfolio: {
+       scope: "MODELED_SHARED_CAPITAL_INTEGER_LOTS",
+       limits,
+-      oos: metrics(
+-        fundedReturns,
+-        funded.map((t) => t.netR),
+-      ),
++      oos: {
++        ...metrics(fundedReturns,funded.map(t=>t.netR)),
++        profitFactorR: metrics(fundedReturns,funded.map(t=>t.netR)).profitFactor,
++        profitFactor:dollarTradeMetrics(funded).profitFactorUsd,
++        ...dollarTradeMetrics(funded),
++      },
++      status: portfolioSkips.INCOMPLETE_PATH ? "INVALID_INCOMPLETE_PATH" : "MODELED_CAUSAL_ALLOCATION",
++      runtimeParity: "NOT_ESTABLISHED_RESEARCH_HYPOTHESES_DIFFER_FROM_RUNTIME_PLUGINS",
++      allocationAudit,
++      campaigns:funded,
++      daily:oos.map((s,i)=>({date:s.date,pnlUsd:fundedPnl[i],return:fundedReturns[i]})),
+       netUsd: funded.reduce((n, t) => n + t.netUsd, 0),
+       skipped: portfolioSkips,
+     },

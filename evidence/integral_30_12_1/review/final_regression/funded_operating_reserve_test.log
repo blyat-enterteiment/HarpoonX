@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: the actual coordinator retains reserved cash and exposes only remaining buying power
+ok 1 - the actual coordinator retains reserved cash and exposes only remaining buying power
+  ---
+  duration_ms: 149.895315
+  type: 'test'
+  ...
+# Subtest: a nearly fully reserved account produces no purchases instead of recycling operating money
+ok 2 - a nearly fully reserved account produces no purchases instead of recycling operating money
+  ---
+  duration_ms: 52.936949
+  type: 'test'
+  ...
+# Subtest: late, unfunded, negative and insufficient reserves are rejected before replay
+ok 3 - late, unfunded, negative and insufficient reserves are rejected before replay
+  ---
+  duration_ms: 8.753829
+  type: 'test'
+  ...
+# Subtest: partial fills and their fees cannot consume the locked operating reserve
+ok 4 - partial fills and their fees cannot consume the locked operating reserve
+  ---
+  duration_ms: 1.379962
+  type: 'test'
+  ...
+# Subtest: reserving capital is neither a fee nor an additional contribution in all three funded paths
+ok 5 - reserving capital is neither a fee nor an additional contribution in all three funded paths
+  ---
+  duration_ms: 8278.221725
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8510.404838

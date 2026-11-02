@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "name": "build",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.xxx.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "causal_data",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "tools/build_causal_panel.py",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/request.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "verify_causal_data",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "tools/build_causal_panel.py",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/request.json",
+        "--verify",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/report.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/verification.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "coordinator_fixture",
+      "command": [
+        "node",
+        "tools/coordinator_replay.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_request.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "coordinator_verify",
+      "command": [
+        "node",
+        "tools/coordinator_replay.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_request.json",
+        "--verify",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_report.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_verification.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "make_fixed_synthetic_request",
+      "command": [
+        "node",
+        "-e",
+        "const fs=require('node:fs');const {syntheticComparison}=require('./tools/fixtures/funded_comparison_fixture.cjs');fs.writeFileSync(process.argv[1],JSON.stringify(syntheticComparison(),null,2)+'\\n');",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_request.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "funded_fixture",
+      "command": [
+        "node",
+        "tools/funded_comparison.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_request.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "funded_verify",
+      "command": [
+        "node",
+        "tools/funded_comparison.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_request.json",
+        "--verify",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_report.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_verification.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "legacy_coordinator_gate_fixture",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "examples.economic_gate.bind_coordinator_example",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/economic_gate/coordinator_fixture"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "level5_synthetic_base_and_stress",
+      "command": [
+        "node",
+        "tools/fixtures/level5_fixture.cjs",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/level5/synthetic"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "level4_available_evidence",
+      "command": [
+        "node",
+        "tools/level4_readiness.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_request.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "level4_verify",
+      "command": [
+        "node",
+        "tools/level4_readiness.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_request.json",
+        "--verify",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_report.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_verification.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "level5_available_evidence",
+      "command": [
+        "node",
+        "tools/level5_readiness.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_request.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_report.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "level5_verify",
+      "command": [
+        "node",
+        "tools/level5_readiness.cjs",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_request.json",
+        "--verify",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_report.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_verification.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "economic_gate_missing_inputs",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "harpoon_quant.economic_gate",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/protocol_draft_not_registered.json",
+        "--input",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/economic_gate_input.json",
+        "--artifact-root",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/economic_gate_report.json"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2
+    }
+  ],
+  "passed": true,
+  "new_financial_trials": 0,
+  "model_fits": 0,
+  "expected_blocked_economic_gate": true,
+  "financial_verdict": "VENTAJA_NO_DEMOSTRADA",
+  "economic_score": 3,
+  "synthetic_fixtures_are_financial_evidence": false
+}

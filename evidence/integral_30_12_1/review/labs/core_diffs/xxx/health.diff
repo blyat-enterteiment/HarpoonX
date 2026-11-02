@@ -1,0 +1,51 @@
+--- 30.12/xxx/health.ts
+
++++ 31.6TP/xxx/health.ts
+
+@@ -9,8 +9,14 @@
+
+   private rows: Record<string, Json> = {};
+   private timings: number[] = [];
+   constructor(private inner: Api) {}
++  get simulationOnly() {
++    return (this.inner as Json).simulationOnly === true;
++  }
+   get keys() {
+     return (this.inner as Json).keys;
++  }
++  authorityStatus() {
++    return (this.inner as Json).authorityStatus?.() || {status:"TEST_OR_LEGACY_ADAPTER"};
+   }
+   get mode() {
+     return (this.inner as Json).mode;
+@@ -162,29 +168,6 @@
+
+       detail: lane.error || lane.reason,
+     });
+   const operationalCoverage = e.exitCoverage(now);
+-  if (e.cfg.quant?.enabled) {
+-    const ledger = e.netLedger.view(), observations = e.quantObservations.view(now);
+-    components.push({id: "net-account-data", label: "Contabilidad neta conciliada",
+-      state: ledger.reconciled && !["STALE", "ERROR", "BLOCKED"].includes(ledger.status) ? "READY" : ledger.status,
+-      lastSuccess: ledger.lastSuccess || null, ageMs: ledger.lastSuccess ? now - ledger.lastSuccess : null,
+-      economicComplete: ledger.economicComplete, detail: e.netAccountingError || ledger.blockers});
+-    components.push({id: "quant-observation-data", label: "Observaciones prospectivas",
+-      state: e.quantObservationError ? "ERROR" : observations.status,
+-      lastSuccess: observations.lastSuccess, ageMs: observations.ageMs, frames: observations.frames,
+-      detail: e.quantObservationError || observations.error || observations.latest});
+-  }
+-  if (e.cfg.quant?.enabled && e.cfg.quant.discovery) {
+-    const d = e.quantDiscovery, age = Number.isFinite(d.at) ? Math.max(0, now - d.at) : null;
+-    components.push({
+-      id: "stock-etf-discovery-data", label: "Cobertura de acciones y ETF",
+-      state: d.health === "READY" && age !== null && age > 900000 ? "STALE" : d.health || "WAITING",
+-      lastAttempt: d.attempt_at || d.at || 0,
+-      lastSuccess: d.health === "READY" && d.persisted === true ? d.at : 0,
+-      ageMs: age, entryHold: e.discoveryHold,
+-      readySymbols: d.ready_symbols || [], pendingSymbols: d.pending_symbols || [],
+-      detail: d.reason || "Sin snapshot completo de descubrimiento",
+-    });
+-  }
+   components.push({
+     id: "exit-decisions",
+     label: "Decisiones de salida por posición",

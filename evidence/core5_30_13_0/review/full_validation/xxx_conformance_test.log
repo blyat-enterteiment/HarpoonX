@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: connected selectors can be selected but require installed evidence before an entry
+ok 1 - connected selectors can be selected but require installed evidence before an entry
+  ---
+  duration_ms: 46.961178
+  type: 'test'
+  ...
+# Subtest: strict audit requires connected selector lifecycle and still disclaims external certification
+ok 2 - strict audit requires connected selector lifecycle and still disclaims external certification
+  ---
+  duration_ms: 474.530266
+  type: 'test'
+  ...
+# Subtest: production transport uses Alpaca hosts and credentials, without local fill fabrication
+ok 3 - production transport uses Alpaca hosts and credentials, without local fill fabrication
+  ---
+  duration_ms: 5.927653
+  type: 'test'
+  ...
+# Subtest: production transport rejects failure and does not synthesize a successful order
+ok 4 - production transport rejects failure and does not synthesize a successful order
+  ---
+  duration_ms: 1.369005
+  type: 'test'
+  ...
+# Subtest: stagnation closes through the broker path while entries are paused
+ok 5 - stagnation closes through the broker path while entries are paused
+  ---
+  duration_ms: 16.419481
+  type: 'test'
+  ...
+# Subtest: stagnation clock excludes closed sessions and resets on an observed high
+ok 6 - stagnation clock excludes closed sessions and resets on an observed high
+  ---
+  duration_ms: 10.385269
+  type: 'test'
+  ...
+# Subtest: volatility trailing changes after observed quotes and never loosens an existing stop
+ok 7 - volatility trailing changes after observed quotes and never loosens an existing stop
+  ---
+  duration_ms: 9.60425
+  type: 'test'
+  ...
+# Subtest: reentry policy true is honored after a confirmed close
+ok 8 - reentry policy true is honored after a confirmed close
+  ---
+  duration_ms: 12.30223
+  type: 'test'
+  ...
+# Subtest: reentry policy false is honored after a confirmed close
+ok 9 - reentry policy false is honored after a confirmed close
+  ---
+  duration_ms: 11.989018
+  type: 'test'
+  ...
+# Subtest: sector evidence is calculated from XLK and never silently substituted with SPY
+ok 10 - sector evidence is calculated from XLK and never silently substituted with SPY
+  ---
+  duration_ms: 20.876235
+  type: 'test'
+  ...
+# Subtest: strategy variants pass their actual exit parameters into executable signals
+ok 11 - strategy variants pass their actual exit parameters into executable signals
+  ---
+  duration_ms: 20.736083
+  type: 'test'
+  ...
+# Subtest: missing observed VWAP blocks equity features instead of manufacturing VWAP from closes
+ok 12 - missing observed VWAP blocks equity features instead of manufacturing VWAP from closes
+  ---
+  duration_ms: 10.43949
+  type: 'test'
+  ...
+# Subtest: native closed daily crypto channel generates an actual exit intent
+ok 13 - native closed daily crypto channel generates an actual exit intent
+  ---
+  duration_ms: 10.715726
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 704.071224

@@ -1,0 +1,826 @@
+{
+  "schema": "HARPOON_RESIDUAL_RAW_CAPTURE_MANIFEST_1",
+  "algorithm": "SHA-256",
+  "completed_at": "2026-11-02T00:02:31.494052+00:00",
+  "raw_receipts_expected": 80,
+  "raw_receipts_present": 80,
+  "monthly_bar_receipts": 78,
+  "calendar_receipts": 1,
+  "corporate_action_receipts": 1,
+  "raw_records_by_symbol": {
+    "AAPL": 98820,
+    "MSFT": 93542,
+    "XLK": 68137
+  },
+  "protocol_sha256": "159358061b6593fc4a6c18d77e93498b8e496f8012f1a585ab8852b2758515e3",
+  "source_serialization": "Complete MCP result serialized to JSON, preserving original text content and structured result. Not original HTTP bytes.",
+  "known_at_semantics": "captured_at is current connector result retrieval completion; never original historical publication/availability or simulatedlatency.",
+  "capture_after_reservation": true,
+  "request_equality_verified": true,
+  "truncation_checks": "No nonempty exposed next_page_token and no count at limit; connector omission of pagination field does not independently certify complete grid. Auditor must verify RTH calendar slots.",
+  "RTH_grid_verification_status": "PENDING_AUDIT_CORE",
+  "issues": [],
+  "files": [
+    {
+      "path": "raw/AAPL_2024-09.json",
+      "bytes": 1320693,
+      "sha256": "1d87266495899f2b6ce4882d540dbe08ae597fddd04fd7922d5a61e1706fa8e4",
+      "id": "AAPL_2024-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-01T23:59:30.158Z",
+      "records": 3705,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2024-10.json",
+      "bytes": 1487111,
+      "sha256": "463b579fd483ca3a361957c00d3bb5ba20fa41190a4ceca006f2ad7549eb895f",
+      "id": "AAPL_2024-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:12.494Z",
+      "records": 4170,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2024-11.json",
+      "bytes": 1281057,
+      "sha256": "8ea9e6aaec0453378264b61684fbff324e53e3f98048ae0a87b4bc4185e192e6",
+      "id": "AAPL_2024-11",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:13.917Z",
+      "records": 3598,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2024-12.json",
+      "bytes": 1327581,
+      "sha256": "02b946a5091d4392172467494823a7916b4052fbaf8e33db7ab89ede80e80946",
+      "id": "AAPL_2024-12",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:13.961Z",
+      "records": 3728,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-01.json",
+      "bytes": 1343845,
+      "sha256": "9292786593601616379af351f84c12e42697dd392297799881a4305cb3a10ae4",
+      "id": "AAPL_2025-01",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:14.773Z",
+      "records": 3759,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-02.json",
+      "bytes": 1258547,
+      "sha256": "78898aad565fa65e1d311809424dc53c8db7ffa0d588b8cb88d1c64a566ad3b7",
+      "id": "AAPL_2025-02",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:21.674Z",
+      "records": 3529,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-03.json",
+      "bytes": 1393497,
+      "sha256": "8df1d6b23b23519967e6a6910111b54d4e66ca63a0cbf904007087e43f5e175c",
+      "id": "AAPL_2025-03",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:22.499Z",
+      "records": 3911,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-04.json",
+      "bytes": 1419959,
+      "sha256": "61cd7c63ebfbc563c331d84da088c1b8584c0de83a60e04b7a88a4da18214805",
+      "id": "AAPL_2025-04",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:22.176Z",
+      "records": 3970,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-05.json",
+      "bytes": 1420431,
+      "sha256": "15d9ec759fd85ae5fa270fdd904c8218c200701721e59703359be8be1cb12fec",
+      "id": "AAPL_2025-05",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:26.849Z",
+      "records": 3974,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-06.json",
+      "bytes": 1350987,
+      "sha256": "7e32ec4b71e118ef471dfc4240d50258b32d49421964b768ada8e958be38bf24",
+      "id": "AAPL_2025-06",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:25.546Z",
+      "records": 3784,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-07.json",
+      "bytes": 1455909,
+      "sha256": "909585d02de586972164178516c1fcfb49584bf8ddc460091da547af0ae1f217",
+      "id": "AAPL_2025-07",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:26.241Z",
+      "records": 4078,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-08.json",
+      "bytes": 1371953,
+      "sha256": "16da0db41e946e7bb69baf8cd6790c8e5c7f9472b8d86e874f22a6f4dc88053a",
+      "id": "AAPL_2025-08",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:32.076Z",
+      "records": 3842,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-09.json",
+      "bytes": 1392729,
+      "sha256": "f57e22b1614d3e54ee16cbed47e449e26783b2404d5d9d15aaa6ce34a5260190",
+      "id": "AAPL_2025-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:32.436Z",
+      "records": 3900,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-10.json",
+      "bytes": 1520221,
+      "sha256": "a21cc7e4423aa99002b965a66a5c7896fb4d38c2161386424b0270cb6f2c482e",
+      "id": "AAPL_2025-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:31.972Z",
+      "records": 4264,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-11.json",
+      "bytes": 1214811,
+      "sha256": "8d2bae01656287fff45073d61e1bff99a56483412ce5cc2f2320f2e6941278f4",
+      "id": "AAPL_2025-11",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:35.834Z",
+      "records": 3412,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2025-12.json",
+      "bytes": 1356107,
+      "sha256": "c17b33539de50946e741098bd1f8b314336a8a4e2aa39b73eed92b5d061f1c71",
+      "id": "AAPL_2025-12",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:36.362Z",
+      "records": 3811,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-01.json",
+      "bytes": 1340601,
+      "sha256": "9539b4a470c29e4a788ee43274d2da0c8080c4f29fcd8024ce5c23074d328252",
+      "id": "AAPL_2026-01",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:35.659Z",
+      "records": 3758,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-02.json",
+      "bytes": 1232277,
+      "sha256": "90e6c38fec7b8252eb9c4547f8eebba5a5cf4f148a8ba0bb1fe64b50b0c5de9e",
+      "id": "AAPL_2026-02",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:42.158Z",
+      "records": 3459,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-03.json",
+      "bytes": 1392543,
+      "sha256": "b64cfbcace0d7d0cd8c28f39b19dcf6b08b838fb68e429c663e6aeb452ec4021",
+      "id": "AAPL_2026-03",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:41.959Z",
+      "records": 3917,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-04.json",
+      "bytes": 1391303,
+      "sha256": "b8545d4ac2202f0f94ac6aea88aa1dd4e639239b74e418c5114ab270e7949e6d",
+      "id": "AAPL_2026-04",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:42.208Z",
+      "records": 3899,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-05.json",
+      "bytes": 1360019,
+      "sha256": "8d93e2b2c0b0de3d54685be7785655d3ef714c516694075abc230f413bd4882c",
+      "id": "AAPL_2026-05",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:46.091Z",
+      "records": 3808,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-06.json",
+      "bytes": 1433851,
+      "sha256": "bd9f07a0e468bcff3980f04b5a0b62b714d6f4a78af9f617861f27307da9b3f8",
+      "id": "AAPL_2026-06",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:45.659Z",
+      "records": 4010,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-07.json",
+      "bytes": 1500491,
+      "sha256": "533b0af63048e9d8a8f122082a174bf56e2ed887e0c18ed90a19a9def1ffafdf",
+      "id": "AAPL_2026-07",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:46.139Z",
+      "records": 4198,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-08.json",
+      "bytes": 1439781,
+      "sha256": "aa2de3bd2778100a375f0c4b15551da4c8e1e302108faf22cba2856a7b0b9247",
+      "id": "AAPL_2026-08",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:50.497Z",
+      "records": 4022,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-09.json",
+      "bytes": 1438781,
+      "sha256": "ce86ad2481da7c0bf447d6c86828dfa3541da01389baccc5ecb4c708d169193c",
+      "id": "AAPL_2026-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:50.981Z",
+      "records": 4020,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/AAPL_2026-10.json",
+      "bytes": 820565,
+      "sha256": "1fbd44f1ccd090cc77b9f1acb0b090e8959be0d04fb5609e6421b572b2ae532e",
+      "id": "AAPL_2026-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:50.851Z",
+      "records": 2294,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2024-09.json",
+      "bytes": 1141823,
+      "sha256": "644b7842725b6e028252b78e93e4a9643620c65f2f03461deb2b6e147f9e5e04",
+      "id": "MSFT_2024-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:54.712Z",
+      "records": 3224,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2024-10.json",
+      "bytes": 1347717,
+      "sha256": "dd7b130e85f8e094d18aaa7acfb8aa9e61ce4253e07293f480db55d6e2320878",
+      "id": "MSFT_2024-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:54.390Z",
+      "records": 3800,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2024-11.json",
+      "bytes": 1175567,
+      "sha256": "0170b5615e6bcb2b1e4c901318a58d7ab8002bd37bd7d19a3dadd1d96a4b4320",
+      "id": "MSFT_2024-11",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:54.312Z",
+      "records": 3318,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2024-12.json",
+      "bytes": 1186489,
+      "sha256": "9d6ae868b75cfe2b4043aafa402ea207985187cc2f8c367540a5e2ef896b02a3",
+      "id": "MSFT_2024-12",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:59.915Z",
+      "records": 3349,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-01.json",
+      "bytes": 1227931,
+      "sha256": "35f725f1103d405a49acf598067bca627ed0ea30f2584b7fc57737e7245df381",
+      "id": "MSFT_2025-01",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:00.359Z",
+      "records": 3459,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-02.json",
+      "bytes": 1186227,
+      "sha256": "0b401897f3d9fa60016a2692a97e1915a18c0834db8adaae36313c7b73668b98",
+      "id": "MSFT_2025-02",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:00:59.941Z",
+      "records": 3341,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-03.json",
+      "bytes": 1247405,
+      "sha256": "e5a6d041252d217a5165cdbbf9ea66f62fc28dcd7acd1a499746c445edf4164e",
+      "id": "MSFT_2025-03",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:04.274Z",
+      "records": 3517,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-04.json",
+      "bytes": 1290599,
+      "sha256": "9b21b2c31c9c35421179fb18e9a5193d8431899b7a00f4088f34118a29f42257",
+      "id": "MSFT_2025-04",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:02.961Z",
+      "records": 3636,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-05.json",
+      "bytes": 1232755,
+      "sha256": "2660e4d6bad1cd60ad308dd31a5505f4b59e114a9720918180c0985a28a25b9a",
+      "id": "MSFT_2025-05",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:03.900Z",
+      "records": 3475,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-06.json",
+      "bytes": 1104013,
+      "sha256": "05029b9a998821e8f322769b93ddfe5730ddb7c2b590ee4a147f22e11ed3ef00",
+      "id": "MSFT_2025-06",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:08.027Z",
+      "records": 3114,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-07.json",
+      "bytes": 1168889,
+      "sha256": "58bc9b13b562f5c1d2cd7f5028e4a449038e89647b505258eabaec945e216315",
+      "id": "MSFT_2025-07",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:08.480Z",
+      "records": 3295,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-08.json",
+      "bytes": 1211017,
+      "sha256": "09f66b04b35d608897abb3d288506e8c3fc399468016914dc9be31d0fdc2af9b",
+      "id": "MSFT_2025-08",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:08.915Z",
+      "records": 3416,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-09.json",
+      "bytes": 1212017,
+      "sha256": "eb66dd45ddd78bbe3635cf51f9f600c70a12607cbe6bb76a906f346a8501aad4",
+      "id": "MSFT_2025-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:13.529Z",
+      "records": 3416,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-10.json",
+      "bytes": 1327857,
+      "sha256": "8b55ce7f8054f694fcadce7b7cbf80d6eaa4bec1c373dcdc6a404509c7020a11",
+      "id": "MSFT_2025-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:14.397Z",
+      "records": 3744,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-11.json",
+      "bytes": 1263481,
+      "sha256": "2fead112199a73c37b22df5fe799dc3e648696bd86b705b0148a30cc3a826979",
+      "id": "MSFT_2025-11",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:14.358Z",
+      "records": 3555,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2025-12.json",
+      "bytes": 1397197,
+      "sha256": "c7b4474227b728c33ec51009eb175718b064fb927141c763b84b9abdffbd8de7",
+      "id": "MSFT_2025-12",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:18.863Z",
+      "records": 3940,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-01.json",
+      "bytes": 1348147,
+      "sha256": "1587741d81c4dd3f276a1a011a7c38cccac3e393ad2fa008ca92de2122226106",
+      "id": "MSFT_2026-01",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:19.628Z",
+      "records": 3787,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-02.json",
+      "bytes": 1301325,
+      "sha256": "ac92d82c8515ca765bc7402caa8de73ceff982ebba37380faf12117816ceba2b",
+      "id": "MSFT_2026-02",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:18.381Z",
+      "records": 3644,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-03.json",
+      "bytes": 1495581,
+      "sha256": "817bee4c5318d86eb92153c5b7c98a8204c3eca82a384113f7d1915608e78078",
+      "id": "MSFT_2026-03",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:24.680Z",
+      "records": 4200,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-04.json",
+      "bytes": 1440505,
+      "sha256": "9ed29ab6219999519641558a3e45a7066c5ce923a40b18375a21cff6ead0069e",
+      "id": "MSFT_2026-04",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:24.621Z",
+      "records": 4031,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-05.json",
+      "bytes": 1371649,
+      "sha256": "695c086e1257c67ea230896522e8016becb7a34e3273d3b4270e710b795954f4",
+      "id": "MSFT_2026-05",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:23.991Z",
+      "records": 3840,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-06.json",
+      "bytes": 1441285,
+      "sha256": "b39ab4dec295f4d546e8a05675a34dd6c65de557f98b4a4edeb83c917163f618",
+      "id": "MSFT_2026-06",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:28.648Z",
+      "records": 4030,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-07.json",
+      "bytes": 1508757,
+      "sha256": "c48b2604b3b56a8809cd1bb0042bb00fc5358931cbf7061d91ce252bb30fc614",
+      "id": "MSFT_2026-07",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:29.347Z",
+      "records": 4223,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-08.json",
+      "bytes": 1418891,
+      "sha256": "4095f30bcf0df4b1a80e1e6a0335cc12c44c68243ecee896da511656064aa34f",
+      "id": "MSFT_2026-08",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:27.983Z",
+      "records": 3983,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-09.json",
+      "bytes": 1402583,
+      "sha256": "cdb8b46bf0b93fbb07adff7114dc49636c0d0dac3ff342d4033846eca284c987",
+      "id": "MSFT_2026-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:33.286Z",
+      "records": 3945,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/MSFT_2026-10.json",
+      "bytes": 804397,
+      "sha256": "ee4fdf8a294380ed64edba67a710aec6cda5a61f954252337b38f3e7df2f4733",
+      "id": "MSFT_2026-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:33.532Z",
+      "records": 2260,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2024-09.json",
+      "bytes": 794675,
+      "sha256": "c3811d48883102e20ea2b16ca229f43202f9ce9ba99bd775401165eff5d42939",
+      "id": "XLK_2024-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:33.308Z",
+      "records": 2259,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2024-10.json",
+      "bytes": 900559,
+      "sha256": "03e8ec85ca025519aae439b24bab79599a741a98f6b748c0a5e32e48ba2b8c70",
+      "id": "XLK_2024-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:37.548Z",
+      "records": 2561,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2024-11.json",
+      "bytes": 796867,
+      "sha256": "bcb7d7ad582ffcf573d38da944628ce57f93f413e9ad109787c348f7ca8128ef",
+      "id": "XLK_2024-11",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:36.915Z",
+      "records": 2266,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2024-12.json",
+      "bytes": 819707,
+      "sha256": "d8c1241487ab083a99f811b681eaaf326873537262e3de1145e47d4e76c79850",
+      "id": "XLK_2024-12",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:37.253Z",
+      "records": 2331,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-01.json",
+      "bytes": 855133,
+      "sha256": "a530d9adb4f16dcaf289565f04b6c99901b596da191ea3dfc9fe51da9ae4d8a7",
+      "id": "XLK_2025-01",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:40.427Z",
+      "records": 2432,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-02.json",
+      "bytes": 753681,
+      "sha256": "f06ebe175779759c6692656511f481f1f1a0c2690eaaa8b925b8a174bac235ab",
+      "id": "XLK_2025-02",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:40.548Z",
+      "records": 2142,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-03.json",
+      "bytes": 839857,
+      "sha256": "3c62efb5fa8f8c7e3f2e1721900c6f622c9c37fc2b35fc5532e73da13657e38b",
+      "id": "XLK_2025-03",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:43.565Z",
+      "records": 2388,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-04.json",
+      "bytes": 934281,
+      "sha256": "3a57c765d8b74581ee58e99061e242a4f09949c824bd5bf62197c1da89f33fc9",
+      "id": "XLK_2025-04",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:47.018Z",
+      "records": 2657,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-05.json",
+      "bytes": 883491,
+      "sha256": "b4fe73f1445d58ef1f26c3100c261bca3fa6c9d9a4fcf144e4c947e0b2d0daa0",
+      "id": "XLK_2025-05",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:47.548Z",
+      "records": 2512,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-06.json",
+      "bytes": 780445,
+      "sha256": "7a2278a1ddb4cbd17110902727971c430025302859123f262ae26e45c5ab0eca",
+      "id": "XLK_2025-06",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:47.595Z",
+      "records": 2214,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-07.json",
+      "bytes": 893283,
+      "sha256": "64ae5085694a8df51dfe9e69a86f0ffb329ab93be20900dcc765d61a11c844eb",
+      "id": "XLK_2025-07",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:51.446Z",
+      "records": 2539,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-08.json",
+      "bytes": 835599,
+      "sha256": "84941a8c6b29083f561f4cf8ea6a916ed498e63f1ebde62e787fcd338b979aa4",
+      "id": "XLK_2025-08",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:51.233Z",
+      "records": 2369,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-09.json",
+      "bytes": 871897,
+      "sha256": "dde42851832e7e43440126091f6e76e2f8b7d877792c5e513b0a2991c9ac6aaf",
+      "id": "XLK_2025-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:51.265Z",
+      "records": 2472,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-10.json",
+      "bytes": 953411,
+      "sha256": "ab5b4b70379a831d5b9df73f4d30a5429df7390d218ab83cc2b72b1a28fa52cb",
+      "id": "XLK_2025-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:54.942Z",
+      "records": 2703,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-11.json",
+      "bytes": 928463,
+      "sha256": "bd57500e64bcff9ec92cbf1014ff25ca03d38c998dad379a8025d2fddfb4ef18",
+      "id": "XLK_2025-11",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:55.220Z",
+      "records": 2640,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2025-12.json",
+      "bytes": 1021257,
+      "sha256": "4f33127a57f0516964a4ccd6da0be5afc1d65679ab5db00be53847f60b7b8d7a",
+      "id": "XLK_2025-12",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:55.347Z",
+      "records": 2899,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-01.json",
+      "bytes": 1040175,
+      "sha256": "219c2726e8b1f13b20e915ade6bcdec01f22f4e2048c4f7eae53fed45ee70f37",
+      "id": "XLK_2026-01",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:59.632Z",
+      "records": 2948,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-02.json",
+      "bytes": 970061,
+      "sha256": "f8ca42b70a18d7183725f08706afa7da0c7e02e3bb1a719defb48ad3db5d5aa8",
+      "id": "XLK_2026-02",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:59.137Z",
+      "records": 2748,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-03.json",
+      "bytes": 1206873,
+      "sha256": "3300f5a719142bc12bea29508173641e6a6d4044e1da71586f2e6b92cf348556",
+      "id": "XLK_2026-03",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:01:59.690Z",
+      "records": 3425,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-04.json",
+      "bytes": 1227147,
+      "sha256": "07fd217b5c764f22450aff8c3a0a7f4ac20dca6606297ac138f1bcaefdb18823",
+      "id": "XLK_2026-04",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:04.106Z",
+      "records": 3482,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-05.json",
+      "bytes": 1022949,
+      "sha256": "e050f67a85a4382fa383da47f7f1ac4274bf04dab60f70534f644cbaff88a713",
+      "id": "XLK_2026-05",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:03.435Z",
+      "records": 2902,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-06.json",
+      "bytes": 1120569,
+      "sha256": "e177e8e36c77e50b210a00aa52d59121c4a4941a7fe4b2802f3c644120b74347",
+      "id": "XLK_2026-06",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:04.064Z",
+      "records": 3183,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-07.json",
+      "bytes": 1052379,
+      "sha256": "d6e9f47f504f63ad686064abbd0117d0d62431c01c9f46ff19ef6df681646610",
+      "id": "XLK_2026-07",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:06.208Z",
+      "records": 2991,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-08.json",
+      "bytes": 955753,
+      "sha256": "bb95f1f7f16061cb9e1ed137e8aacfeea435ba22203db3839bdf434cb1a4ea46",
+      "id": "XLK_2026-08",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:07.342Z",
+      "records": 2720,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-09.json",
+      "bytes": 945293,
+      "sha256": "4a43977cff7d01fc92786006fdcb5593dd29ff6c923d9e01193c6152939e3cd8",
+      "id": "XLK_2026-09",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:09.119Z",
+      "records": 2687,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/XLK_2026-10.json",
+      "bytes": 586727,
+      "sha256": "b8cea488fd5d31151e95089ceb50f2d04f46f064d8a639b52cac8a7aebd01604",
+      "id": "XLK_2026-10",
+      "tool": "mcp__codex_apps__alpaca_get_stock_bars",
+      "captured_at": "2026-11-02T00:02:10.741Z",
+      "records": 1667,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/calendar.json",
+      "bytes": 100521,
+      "sha256": "c69e338a2dde4223866f94644d84cba116ea7bba379e3df5fa9cf495e68bb3bc",
+      "id": "calendar",
+      "tool": "mcp__codex_apps__alpaca_get_calendar",
+      "captured_at": "2026-11-02T00:02:12.174Z",
+      "records": null,
+      "pagination_field_present": false
+    },
+    {
+      "path": "raw/corporate_actions.json",
+      "bytes": 21217,
+      "sha256": "17ddb2f6818dd0af6fcebdff7f4f32be57fdd907ab1894b0d45e2790c19517da",
+      "id": "corporate_actions",
+      "tool": "mcp__codex_apps__alpaca_get_corporate_actions",
+      "captured_at": "2026-11-02T00:02:13.618Z",
+      "records": null,
+      "pagination_field_present": false
+    }
+  ],
+  "no_fit_no_pnl_no_order": true
+}

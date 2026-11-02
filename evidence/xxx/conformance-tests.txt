@@ -1,0 +1,19 @@
+✔ production transport uses Alpaca hosts and credentials, without local fill fabrication (5.85453ms)
+✔ production transport rejects failure and does not synthesize a successful order (1.258422ms)
+✔ stagnation closes through the broker path while entries are paused (49.260322ms)
+✔ stagnation clock excludes closed sessions and resets on an observed high (9.649243ms)
+✔ volatility trailing changes after observed quotes and never loosens an existing stop (9.358352ms)
+✔ reentry policy true is honored after a confirmed close (11.138925ms)
+✔ reentry policy false is honored after a confirmed close (9.265325ms)
+✔ sector evidence is calculated from XLK and never silently substituted with SPY (17.739569ms)
+✔ strategy variants pass their actual exit parameters into executable signals (21.578978ms)
+✔ missing observed VWAP blocks equity features instead of manufacturing VWAP from closes (13.947139ms)
+✔ native closed daily crypto channel generates an actual exit intent (8.733628ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 245.242038

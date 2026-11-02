@@ -1,0 +1,43 @@
+✔ rollovers retain the original capital, complete record export and bounded active marks (40.613713ms)
+✔ open losses, partial inventory, broker fees and external costs survive rollover without double counting (15.162866ms)
+✔ deposits and withdrawals across archive boundaries preserve pre-flow marks and account growth (13.580309ms)
+✔ incremental created-at windows retain fees created later than their settlement date (10.727544ms)
+✔ replayed archived activities are deduplicated and revisions fail closed (9.197075ms)
+✔ restart validates every archive and resumes with cumulative totals and identity (10.721165ms)
+✔ archive corruption and missing segments reject restart and complete export (5.389662ms)
+✔ archive quota and accounting boundary tampering are detected independently (5.83971ms)
+✔ segment budget survives restart and never deletes or resets capital (7.724093ms)
+✔ byte budget is checked before segment writes (4.30846ms)
+✔ failed control commit keeps old curve and durable orphan reservations are bounded (6.012401ms)
+✔ missing costs remain null through rollovers, without preventing account reconciliation (6.84063ms)
+✔ late costs contradicting a sealed prefix demand explicit restatement, never reset economic history (7.67588ms)
+✔ a delayed cost receipt preserves a closed anchor and complete historical performance across rollover (11.274179ms)
+✔ materialization refuses count and byte budgets without loading archived payloads (4.900413ms)
+✔ complete export rejects missing pages, mixed revisions and altered row payloads (8.88831ms)
+✔ offline verifier recomputes arithmetic rather than trusting rehashed accounting flags (2.448845ms)
+✔ receipt producer/importer is traceable, literal and bound to account and currency (7.829643ms)
+✔ exact example externalCosts:null configuration imports the configured receipt (7.593937ms)
+✔ missing, malformed, duplicate-key and oversized cost files cannot declare zero (3.179757ms)
+✔ receipt validator rejects absent amounts, future knowledge, incomplete categories, ambiguous links and unknown fields (0.597602ms)
+✔ changing bytes under the same receipt identity is rejected across source restarts (3.925892ms)
+✔ a rejected or missing receipt keeps declared costs unknown while reported account fees remain reconciled (5.763796ms)
+✔ archive configuration and materialization bounds are explicit (0.342768ms)
+✔ archive write failures reserve quota without advancing the committed curve (3.447801ms)
+✔ economic insolvency and accrued losses survive archival and subsequent capital contributions (5.825699ms)
+✔ a cached file remains account bound and invalid calendar dates are rejected (4.192276ms)
+✔ offline verifier rejects invented time-weighted returns despite a consistent rehashed control (2.41255ms)
+✔ production SQLite persists archives, quota and active control across a worker restart (104.977418ms)
+✔ missing broker accrual documentation remains unknown even with complete declared external expense coverage (2.663248ms)
+✔ explicit documented zero accrual is verified locally without source authentication or financial authorization (11.460962ms)
+✔ documented nonzero pending charges link to existing external costs without a second subtraction (8.493353ms)
+✔ accrual document hash, field bindings, external links and exact totals cannot be replaced by a positive flag (1.657251ms)
+✔ broker accrual coverage is account, currency, knowledge-time and applicable-category bound (0.73574ms)
+✔ delayed documentary accrual coverage verifies only the closed compared prefix (13.151201ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 391.748296

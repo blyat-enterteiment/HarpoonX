@@ -1,0 +1,105 @@
+HARPOON XXXUltimate 30.12.2 — APLICACION INTEGRAL
+Quant 1.8.0
+
+OBJETIVO Y RESULTADO
+
+La entrega corrige la consistencia de la validación del nivel 4 y automatiza
+la extracción verificable de observaciones y contabilidad. El nivel de evidencia
+continúa en 3/10. No existe una calificación estimable de rentabilidad real con
+las fuentes disponibles. No se cambia el significado de la escala: el nivel 4
+vigente acredita medición integrada y puede coexistir con pérdidas.
+
+QUE SE CORRIGIO
+
+El vínculo de la comparación con su configuración observada se verifica a lo
+largo de todas las páginas. Una frontera de página no permite ocultar un cambio
+de universo, riesgo o señal. El contrato del replay de comparación conserva una
+configuración fija; no incorpora épocas nuevas ni selección retrospectiva.
+Un snapshot íntegro y un panel causal con universo rotatorio pueden ser válidos
+para captura y seguir fuera del contrato del comparador financiado. Conservar
+el journal completo; no borrarlo, reiniciarlo ni recortarlo para eludir ese límite.
+
+El universo del comparador financiado es acciones y ETF con multiplicador 1.
+La proyección desde una captura mixta conserva todos los activos admitidos y
+elimina únicamente los que están fuera del contrato. El replay genérico admite
+cripto, pero ello no acredita una comparación económica de cripto u opciones.
+
+EXTRACCION DE EVIDENCIA
+
+Desde la raíz de esta aplicación, después de instalar sus dependencias:
+
+  node tools/collect_runtime_evidence.cjs --help
+
+El contrato y los argumentos exactos están en:
+
+  tools/RUNTIME_EVIDENCE_COLLECTION.txt
+
+Se necesita la URL legítima de la instancia, versión y cuenta esperadas y la
+contraseña del panel disponible localmente. La contraseña no se pasa por la línea
+de comandos ni se incorpora a los informes. El recolector exige HTTPS fuera de
+loopback, rechaza redirecciones, limita tiempo y bytes y usa exclusivamente GET.
+
+El resultado completo exige revisión consistente, integridad del prefijo de
+observaciones y reconstrucción del ledger. Las respuestas originales se conservan
+con sus huellas. Una ejecución incompleta conserva un recibo parcial rechazado y
+no sobrescribe una colección anterior. El colector no reinicia el motor ni pausa
+la captura para obtener una revisión. Una revisión contable que cambie entre
+páginas debe volver a descargarse después en un directorio nuevo.
+
+Sin selección causal aportada no se genera un manifiesto de calibración.
+El resultado de transporte íntegro no sustituye modelos, facturas, devengos,
+registro temporal o validez económica; tampoco prueba autenticidad externa
+independiente. Los verificadores existentes conservan los desconocidos como null.
+
+RECURSOS QUE SIGUEN FALTANDO
+
+- Instancia actual identificada y accesible, o exportaciones originales completas.
+- Observaciones causales utilizables. El contrato SVR vigente requiere al menos
+  100 sesiones distintas y 100 filas, con las demás condiciones de admisión.
+  Ese mínimo es una decisión del contrato, no una garantía universal de beneficio.
+- Historia de patrimonio, posiciones, actividades, costes y devengos del mismo
+  periodo y cuenta, conciliada sin tratar faltantes como cero.
+- Modelos Ridge/SVR fijados y disponibles antes del periodo de comparación.
+- Comparación registrada con las hipótesis de ejecución explícitas y dentro del
+  presupuesto histórico. Los periodos usados antes no se vuelven pruebas nuevas.
+
+PAPER conserva su naturaleza simulada. Rendimiento real requiere una cuenta de
+operación real y sus extractos originales. Esta entrega no cambia el entorno ni
+la autorización existente para operar.
+
+REPRODUCCION SIN ORDENES
+
+La instalación completa, sus dependencias y la actualización están documentadas
+en LEEME_INTEGRAL_30_10_1.txt, incluida en este mismo ZIP. La configuración legítima
+y las bases de datos de una instalación existente deben conservar su identidad.
+No se necesita aplicar un patch previo.
+
+  bash install.sh --check
+  bash install.sh --plan
+
+Reproducción actual de diagnósticos y ejemplos sintéticos de software:
+
+  .venv/bin/python evidence/nivel4_30_12_2/reproduce.py --app .
+
+Pruebas del nuevo recolector:
+
+  npm run test:evidence-collection
+
+La herramienta completa de verificación sigue disponible:
+
+  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-qa
+
+Las pruebas pueden necesitar sockets locales efímeros. El informe distingue las
+pruebas nuevas/repetidas de las 919 pruebas heredadas de 30.12.1. No se afirma una
+nueva ejecución total si sólo se repitieron los recorridos afectados.
+
+ALCANCE OPERACIONAL
+
+La descarga no agrega servicios permanentes ni tareas programadas. El motor
+mantiene su coordinador, límites y protecciones. Si falla la persistencia también
+pueden quedar bloqueados cierres o protecciones que requieren guardar estado;
+las solicitudes ya enviadas al broker deben reconciliarse.
+
+No se verificó una imagen Docker construida ni un despliegue actual. La prueba de
+layout comprueba los archivos distribuidos y la carga de los verificadores.
+El informe YAML actual y los manifiestos detallan los resultados ejecutados.

@@ -1,0 +1,778 @@
+--- 30.13.0/xxx/ultimate_replay.ts
++++ 30.13.1/xxx/ultimate_replay.ts
+@@ -22,6 +22,7 @@
+   probabilityBacktestOverfit,
+ } from "./ultimate_stats";
+ import { trainingFrequencies } from "./ultimate_frequency";
++import { deadlineFor } from "./policy";
+ 
+ export interface Opportunity {
+   id: string;
+@@ -53,6 +54,80 @@
+   entry: number;
+   marks: { at: number; pnl: number }[];
+   reason: string;
++  holdingDeadlineAt?: number;
++  holdingClockStartedAt?: number;
++}
++
++/** An opened position without an executable exit cannot disappear from a curve. */
++export class UnresolvedHoldingExposureError extends Error {
++  readonly code = "UNRESOLVED_HOLDING_EXPOSURE";
++  constructor(
++    readonly details: {
++      reason: string;
++      signalId: string;
++      symbol: string;
++      hypothesis: Hypothesis;
++      policy: ExitVariant;
++      openedAt: number;
++      decisionAt: number;
++      deadlineAt: number;
++      encounteredAt: number | null;
++      entryPrice: number;
++      openedQuantity: number;
++      remainingQuantity: number;
++      lastKnownMark: { at: number; pnl: number } | null;
++      realizedPnlUsd: number;
++      economicPnlUsd: null;
++    },
++  ) {
++    // ResearchLab workers persist error.message. Keep the unresolved position
++    // in that transport as well as typed details; a worker boundary must not
++    // erase inventory merely because no complete portfolio can be returned.
++    super("UNRESOLVED_HOLDING_EXPOSURE: " + JSON.stringify(details));
++    this.name = "UnresolvedHoldingExposureError";
++  }
++}
++
++/** Scheduling-only result: separates a refused entry from unresolved inventory. */
++export function planCalendarHolding(
++  signal: Opportunity,
++  firstOpen: number,
++  data: ResearchDataset,
++  p: ResearchProtocol,
++): {
++  status: "NOT_APPLICABLE" | "REFUSED_BEFORE_ENTRY" | "SCHEDULED";
++  reason: string | null;
++  decisionAt: number;
++  plannedEntryAt: number;
++  deadlineAt: number | null;
++  positionOpened: false;
++} {
++  const base = { decisionAt: signal.at, plannedEntryAt: firstOpen, positionOpened: false as const };
++  if (p.kind !== "ALPACA_PROXY" || signal.hypothesis !== "CLOSED_CHANNEL")
++    return { ...base, status: "NOT_APPLICABLE", reason: null, deadlineAt: null };
++  need(Number.isSafeInteger(firstOpen) && firstOpen >= signal.at, "planned entry chronology");
++  // An incomplete calendar is not evidence that its last listed session is the
++  // last executable session before the limit. Establish coverage first.
++  const target72h = signal.at + 72 * 3600000;
++  if (!data.sessions.some((s) => Number.isSafeInteger(s.open) &&
++    Number.isSafeInteger(s.close) && s.open < s.close && s.close >= target72h))
++    return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "CALENDAR_HORIZON_NOT_COVERED", deadlineAt: null };
++  let target: number;
++  try {
++    // Runtime anchors at decision/submission time, not a later pending fill.
++    target = deadlineFor("equity", signal.at, 72, data.sessions);
++  } catch {
++    return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_CALENDAR_HOLDING_WINDOW", deadlineAt: null };
++  }
++  const session = data.sessions.find((s) => s.open <= target && target < s.close);
++  if (!session)
++    return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_EXECUTABLE_EXIT_SESSION", deadlineAt: null };
++  // The validated resolution is five minutes. Round earlier using only the
++  // supplied session and grid, never a later price or future bar existence.
++  const deadlineAt = session.open + Math.floor((target - session.open) / 300000) * 300000;
++  return firstOpen >= deadlineAt
++    ? { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "ENTRY_AT_OR_AFTER_DEADLINE", deadlineAt }
++    : { ...base, status: "SCHEDULED", reason: null, deadlineAt };
+ }
+ export interface ReplayLimits {
+   capitalUsd: number;
+@@ -72,6 +147,120 @@
+   dailyLoss: 0.02,
+   maxDrawdown: 0.08,
+ };
++
++/** Last completed close available at the decision; a future fill is not a quote. */
++export function causalReferencePrice(signal: Opportunity, series: ResearchSeries) {
++  let latest: ResearchBar | undefined;
++  for (const bar of series.bars) {
++    if (
++      Number.isSafeInteger(bar.t) && Number.isSafeInteger(bar.end) &&
++      Number.isSafeInteger(bar.availableAt) && bar.t < bar.end &&
++      bar.end <= bar.availableAt && bar.availableAt <= signal.at &&
++      (!latest || bar.end > latest.end)
++    ) latest = bar;
++  }
++  const valid = latest !== undefined && Number.isFinite(latest.c) && latest.c > 0;
++  return {
++    status: valid ? "AVAILABLE" as const : "NO_CAUSAL_PRICE" as const,
++    price: valid ? latest!.c : null,
++    sourceBarAt: latest?.t ?? null,
++    sourceAvailableAt: latest?.availableAt ?? null,
++    decisionAt: signal.at,
++    reason: valid ? null : latest ? "INVALID_LAST_AVAILABLE_CLOSE" : "NO_AVAILABLE_COMPLETED_BAR",
++  };
++}
++
++/** Same four sizing coefficients; only the price source is causal. */
++export function planFundedEntry(
++  signal: Opportunity,
++  series: ResearchSeries,
++  p: ResearchProtocol,
++  limits: ReplayLimits,
++  state: { equity: number; openRisk: number; notional: number },
++) {
++  const reference = causalReferencePrice(signal, series);
++  if (reference.status !== "AVAILABLE")
++    return { status: "NO_CAUSAL_PRICE" as const, reference };
++  const px = reference.price!, { equity, openRisk, notional } = state;
++  need([equity, openRisk, notional].every(Number.isFinite) && equity > 0 && openRisk >= 0 && notional >= 0, "funded sizing state");
++  const riskUnit = signal.stopDistance * series.pointValue + 2 * p.costs.perSideUsd +
++    (2 * px * series.pointValue * (p.costs.spreadBps / 2 + p.costs.slippageBps)) / 10000;
++  need(Number.isFinite(riskUnit) && riskUnit > 0, "funded risk unit");
++  const quantity = Math.floor(Math.min(
++    (equity * limits.riskFraction) / riskUnit,
++    Math.max(0, equity * limits.openRiskFraction - openRisk) / riskUnit,
++    Math.max(0, equity * limits.grossFraction - notional) / px,
++    (equity * limits.assetFraction) / px,
++  ));
++  return {
++    status: "PLANNED" as const, reference, quantity, riskUnit,
++    riskBudgetUsd: Math.max(0, Math.min(equity * limits.riskFraction, equity * limits.openRiskFraction - openRisk)),
++    notionalBudgetUsd: Math.max(0, Math.min(equity * limits.assetFraction, equity * limits.grossFraction - notional)),
++  };
++}
++
++export interface FundedEntryBudgets {
++  riskBudgetUsd: number;
++  notionalBudgetUsd: number;
++  cashBudgetUsd?: number | null;
++  plannedQuantity: number;
++}
++
++/** Check a fixed-size modeled fill; never resize it using its future price. */
++export function verifyFundedEntryFill(
++  trade: ModeledCampaign,
++  signal: Opportunity,
++  series: ResearchSeries,
++  p: ResearchProtocol,
++  budgets: FundedEntryBudgets,
++) {
++  const numericalToleranceUsd = 1e-8;
++  const entry = Number.isFinite(trade.entry) && trade.entry > 0 ? trade.entry : null;
++  const qty = Number.isSafeInteger(trade.quantity) && trade.quantity > 0 ? trade.quantity : null;
++  const actualEntryNotionalUsd = entry !== null && qty !== null ? qty * entry * series.pointValue : null;
++  const entryFeeUsd = qty !== null ? qty * p.costs.perSideUsd : null;
++  const distance = Math.ceil(signal.stopDistance / series.tick) * series.tick;
++  const friction = (p.costs.spreadBps / 2 + p.costs.slippageBps) / 10000;
++  const modeledRiskUsd = entry !== null && qty !== null
++    ? qty * (distance * series.pointValue + 2 * p.costs.perSideUsd + 2 * entry * series.pointValue * friction)
++    : null;
++  const breaches: string[] = [];
++  if (trade.id !== signal.id || trade.symbol !== signal.symbol || series.symbol !== signal.symbol || trade.direction !== signal.direction)
++    breaches.push("MODELED_FILL_NOT_BOUND_TO_SIGNAL");
++  if (qty !== budgets.plannedQuantity || !Number.isSafeInteger(budgets.plannedQuantity) || budgets.plannedQuantity <= 0)
++    breaches.push("FILLED_QUANTITY_DIFFERS_FROM_EX_ANTE_PLAN");
++  if (!Number.isSafeInteger(trade.opened) || trade.opened < signal.at || entry === null)
++    breaches.push("INVALID_MODELED_FILL");
++  if (!Number.isFinite(budgets.riskBudgetUsd) || budgets.riskBudgetUsd < 0 || modeledRiskUsd === null || !Number.isFinite(modeledRiskUsd))
++    breaches.push("RISK_BUDGET_OR_FILL_RISK_UNVERIFIABLE");
++  else if (modeledRiskUsd > budgets.riskBudgetUsd + numericalToleranceUsd)
++    breaches.push("MODELED_FILL_RISK_EXCEEDS_EX_ANTE_BUDGET");
++  if (!Number.isFinite(budgets.notionalBudgetUsd) || budgets.notionalBudgetUsd < 0 || actualEntryNotionalUsd === null || !Number.isFinite(actualEntryNotionalUsd))
++    breaches.push("NOTIONAL_BUDGET_OR_FILL_UNVERIFIABLE");
++  else if (actualEntryNotionalUsd > budgets.notionalBudgetUsd + numericalToleranceUsd)
++    breaches.push("MODELED_FILL_NOTIONAL_EXCEEDS_EX_ANTE_BUDGET");
++  if (typeof budgets.cashBudgetUsd !== "number" || !Number.isFinite(budgets.cashBudgetUsd) || actualEntryNotionalUsd === null || entryFeeUsd === null)
++    breaches.push("CONSERVATIVE_CASH_BUDGET_UNVERIFIABLE");
++  else if (actualEntryNotionalUsd + entryFeeUsd > budgets.cashBudgetUsd + numericalToleranceUsd)
++    breaches.push("MODELED_FILL_COST_EXCEEDS_CONSERVATIVE_CASH");
++  return {
++    status: breaches.length ? "NO_FACTIBLE" as const : "VERIFIED" as const,
++    actualEntryNotionalUsd, modeledRiskUsd, entryFeeUsd, numericalToleranceUsd,
++    budgets: { ...budgets, cashBudgetUsd: budgets.cashBudgetUsd ?? null },
++    breaches,
++    exposure: { signalId: signal.id, symbol: signal.symbol, decisionAt: signal.at,
++      openedAt: trade.opened, entryPrice: entry, remainingQuantityAtEntry: qty },
++    economicPnlUsd: null,
++  };
++}
++
++export class FundedEntryBudgetError extends Error {
++  readonly code = "FUNDED_ENTRY_BUDGET_BREACH";
++  constructor(readonly details: ReturnType<typeof verifyFundedEntryFill>) {
++    super("FUNDED_ENTRY_BUDGET_BREACH: " + JSON.stringify(details));
++    this.name = "FundedEntryBudgetError";
++  }
++}
+ const efficiency = (a: ResearchBar[]) => {
+   const changes = a.slice(1).map((b, i) => Math.abs(b.c - a[i].c)),
+     sum = changes.reduce((x, y) => x + y, 0);
+@@ -317,14 +506,26 @@
+   const session = data.sessions.find(
+     (s) => first.t >= s.open && first.t < s.close,
+   )!;
+-  const deadline =
+-    signal.hypothesis === "CLOSED_CHANNEL"
+-      ? first.t + 72 * 3600000
+-      : Math.min(
+-          session.close - 300000,
+-          first.t +
+-            (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000),
+-        );
++  // Match the existing cash-equity runtime deadline. The supplied session
++  // calendar is the scheduling input; no later price or future bar existence
++  // chooses the deadline. Calendar publication-time provenance remains a data
++  // requirement, not something reconstructed from a successful historical fill.
++  const holdingPlan = planCalendarHolding(signal, first.t, data, p),
++    calendarHolding = holdingPlan.status !== "NOT_APPLICABLE";
++  let deadline: number;
++  if (calendarHolding) {
++    if (holdingPlan.status === "REFUSED_BEFORE_ENTRY") return null;
++    deadline = holdingPlan.deadlineAt!;
++  } else {
++    deadline =
++      signal.hypothesis === "CLOSED_CHANNEL"
++        ? first.t + 72 * 3600000
++        : Math.min(
++            session.close - 300000,
++            first.t +
++              (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000),
++          );
++  }
+   const contractDeadline =
+     Math.min(series.firstNoticeAt ?? Infinity, series.lastTradeAt ?? Infinity) -
+     86400000;
+@@ -336,6 +537,25 @@
+     return null;
+   const marks: ModeledCampaign["marks"] = [],
+     tpDone = [false, false];
++  const unresolved = (reason: string, encounteredAt: number | null): never => {
++    throw new UnresolvedHoldingExposureError({
++      reason,
++      signalId: signal.id,
++      symbol: signal.symbol,
++      hypothesis: signal.hypothesis,
++      policy,
++      openedAt: first.t,
++      decisionAt: signal.at,
++      deadlineAt: deadline,
++      encounteredAt,
++      entryPrice: entry,
++      openedQuantity: quantity,
++      remainingQuantity: remaining,
++      lastKnownMark: marks.at(-1) ?? null,
++      realizedPnlUsd: realized,
++      economicPnlUsd: null,
++    });
++  };
+   const close = (qty: number, px: number, at: number, why: string) => {
+     if (qty <= 0) return;
+     const filled = round(px * (1 - dir * friction), series.tick, dir !== 1),
+@@ -358,12 +578,20 @@
+           s.close >= b.end &&
+           prior.end === data.sessions.find((z) => z.close === prior.end)?.close,
+       )
+-    )
++    ) {
++      if (calendarHolding)
++        unresolved("MISSING_BAR_WITH_OPEN_EXPOSURE", b.t);
+       return null;
++    }
+     if (pendingStop && b.t >= pendingStop.at) {
+       stop = pendingStop.price;
+       pendingStop = undefined;
+     }
++    if (
++      calendarHolding &&
++      b.t > Math.min(deadline, contractDeadline)
++    )
++      unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+     if (b.t >= Math.min(deadline, contractDeadline)) {
+       close(
+         remaining,
+@@ -433,7 +661,11 @@
+     if (dir * (candidate - stop) > 0)
+       pendingStop = { price: candidate, at: b.availableAt };
+   }
+-  if (remaining) return null; // An incomplete path is excluded, never treated as a flat profitable trade.
++  if (remaining) {
++    if (calendarHolding)
++      unresolved("DATA_ENDED_WITH_OPEN_EXPOSURE", null);
++    return null; // Other legacy research scopes retain their explicit incomplete-path exclusion.
++  }
+   const riskUsd = quantity * distance * series.pointValue;
+   return {
+     id: signal.id,
+@@ -454,6 +686,9 @@
+     entry,
+     marks,
+     reason,
++    ...(calendarHolding
++      ? { holdingDeadlineAt: deadline, holdingClockStartedAt: signal.at }
++      : {}),
+   };
+ }
+ 
+@@ -664,6 +899,7 @@
+   // Funded replay has independent integer sizing and shared capital. Futures require historical margin observations.
+   const funded: ModeledCampaign[] = [],
+     portfolioSkips: Record<string, number> = {};
++  const pendingCashReservations = new Map<string, number>();
+   const skip = (reason: string) => {
+     portfolioSkips[reason] = (portfolioSkips[reason] || 0) + 1;
+   };
+@@ -715,27 +951,29 @@
+       skip("SYMBOL_BUSY");
+       continue;
+     }
+-    const s = bySymbol[opportunity.symbol],
+-      px = s.bars[opportunity.index].o;
+-    const riskUnit =
+-      opportunity.stopDistance * s.pointValue +
+-      2 * p.costs.perSideUsd +
+-      (2 * px * s.pointValue * (p.costs.spreadBps / 2 + p.costs.slippageBps)) /
+-        10000;
++    const s = bySymbol[opportunity.symbol];
+     const notional = active.reduce((n, t) => n + t.quantity * t.entry, 0),
+       openRisk = active.reduce((n, t) => n + t.riskUsd, 0);
+-    const quantity = Math.floor(
+-      Math.min(
+-        (equity * limits.riskFraction) / riskUnit,
+-        Math.max(0, equity * limits.openRiskFraction - openRisk) / riskUnit,
+-        Math.max(0, equity * limits.grossFraction - notional) / px,
+-        (equity * limits.assetFraction) / px,
+-      ),
+-    );
++    const plan = planFundedEntry(opportunity, s, p, limits, { equity, openRisk, notional });
++    if (plan.status !== "PLANNED") {
++      skip("NO_CAUSAL_REFERENCE_PRICE");
++      continue;
++    }
++    const quantity = plan.quantity;
+     if (quantity < 1) {
+       skip("INTEGER_RISK_OR_EXPOSURE");
+       continue;
+     }
++    // Closed campaigns release their full result. Until then, reserve original
++    // cash outlay conservatively: no credit for partial exits or unrealized PnL.
++    // Pending entries use a saved ex-ante ceiling, never their later fill price.
++    const cashBudgetUsd = limits.capitalUsd + funded.reduce((cash, prior) => {
++      if (prior.closed <= opportunity.at) return cash + prior.netUsd;
++      if (prior.opened > opportunity.at)
++        return cash - (pendingCashReservations.get(prior.id) ?? NaN);
++      const series = bySymbol[prior.symbol];
++      return cash - prior.quantity * (prior.entry * series.pointValue + p.costs.perSideUsd);
++    }, 0);
+     const t = replayCampaign(
+       opportunity,
+       s,
+@@ -744,7 +982,15 @@
+       fold.selected.split(":")[1] as ExitVariant,
+       quantity,
+     );
+-    if (t) funded.push(t);
++    if (t) {
++      const receipt = verifyFundedEntryFill(t, opportunity, s, p, {
++        plannedQuantity: quantity, riskBudgetUsd: plan.riskBudgetUsd,
++        notionalBudgetUsd: plan.notionalBudgetUsd, cashBudgetUsd,
++      });
++      if (receipt.status !== "VERIFIED") throw new FundedEntryBudgetError(receipt);
++      pendingCashReservations.set(t.id, plan.notionalBudgetUsd + quantity * p.costs.perSideUsd);
++      funded.push(t);
++    }
+     else skip("INCOMPLETE_PATH");
+   }
+   const fundedPnl = oos.map((s, i) => {
+--- 30.13.0/xxx/ultimate_lab.ts
++++ 30.13.1/xxx/ultimate_lab.ts
+@@ -72,6 +72,7 @@
+       "ultimate_replay.js",
+       "ultimate_stats.js",
+       "ultimate_frequency.js",
++      "policy.js", // Calendar-aware holding deadlines are a replay dependency.
+     ].map((f) => fs.readFileSync(path.join(__dirname, f), "utf8")),
+   );
+   private key: string;
+--- 30.13.0/runtime30/ultimate_replay.js
++++ 30.13.1/runtime30/ultimate_replay.js
+@@ -1,6 +1,10 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.DEFAULT_REPLAY_LIMITS = void 0;
++exports.FundedEntryBudgetError = exports.DEFAULT_REPLAY_LIMITS = exports.UnresolvedHoldingExposureError = void 0;
++exports.planCalendarHolding = planCalendarHolding;
++exports.causalReferencePrice = causalReferencePrice;
++exports.planFundedEntry = planFundedEntry;
++exports.verifyFundedEntryFill = verifyFundedEntryFill;
+ exports.opportunities = opportunities;
+ exports.nextTrailingStop = nextTrailingStop;
+ exports.replayCampaign = replayCampaign;
+@@ -8,6 +12,51 @@
+ const ultimate_contracts_1 = require("./ultimate_contracts");
+ const ultimate_stats_1 = require("./ultimate_stats");
+ const ultimate_frequency_1 = require("./ultimate_frequency");
++const policy_1 = require("./policy");
++/** An opened position without an executable exit cannot disappear from a curve. */
++class UnresolvedHoldingExposureError extends Error {
++    details;
++    code = "UNRESOLVED_HOLDING_EXPOSURE";
++    constructor(details) {
++        // ResearchLab workers persist error.message. Keep the unresolved position
++        // in that transport as well as typed details; a worker boundary must not
++        // erase inventory merely because no complete portfolio can be returned.
++        super("UNRESOLVED_HOLDING_EXPOSURE: " + JSON.stringify(details));
++        this.details = details;
++        this.name = "UnresolvedHoldingExposureError";
++    }
++}
++exports.UnresolvedHoldingExposureError = UnresolvedHoldingExposureError;
++/** Scheduling-only result: separates a refused entry from unresolved inventory. */
++function planCalendarHolding(signal, firstOpen, data, p) {
++    const base = { decisionAt: signal.at, plannedEntryAt: firstOpen, positionOpened: false };
++    if (p.kind !== "ALPACA_PROXY" || signal.hypothesis !== "CLOSED_CHANNEL")
++        return { ...base, status: "NOT_APPLICABLE", reason: null, deadlineAt: null };
++    (0, ultimate_contracts_1.need)(Number.isSafeInteger(firstOpen) && firstOpen >= signal.at, "planned entry chronology");
++    // An incomplete calendar is not evidence that its last listed session is the
++    // last executable session before the limit. Establish coverage first.
++    const target72h = signal.at + 72 * 3600000;
++    if (!data.sessions.some((s) => Number.isSafeInteger(s.open) &&
++        Number.isSafeInteger(s.close) && s.open < s.close && s.close >= target72h))
++        return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "CALENDAR_HORIZON_NOT_COVERED", deadlineAt: null };
++    let target;
++    try {
++        // Runtime anchors at decision/submission time, not a later pending fill.
++        target = (0, policy_1.deadlineFor)("equity", signal.at, 72, data.sessions);
++    }
++    catch {
++        return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_CALENDAR_HOLDING_WINDOW", deadlineAt: null };
++    }
++    const session = data.sessions.find((s) => s.open <= target && target < s.close);
++    if (!session)
++        return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_EXECUTABLE_EXIT_SESSION", deadlineAt: null };
++    // The validated resolution is five minutes. Round earlier using only the
++    // supplied session and grid, never a later price or future bar existence.
++    const deadlineAt = session.open + Math.floor((target - session.open) / 300000) * 300000;
++    return firstOpen >= deadlineAt
++        ? { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "ENTRY_AT_OR_AFTER_DEADLINE", deadlineAt }
++        : { ...base, status: "SCHEDULED", reason: null, deadlineAt };
++}
+ exports.DEFAULT_REPLAY_LIMITS = {
+     capitalUsd: 20000,
+     riskFraction: 0.0025,
+@@ -17,6 +66,94 @@
+     dailyLoss: 0.02,
+     maxDrawdown: 0.08,
+ };
++/** Last completed close available at the decision; a future fill is not a quote. */
++function causalReferencePrice(signal, series) {
++    let latest;
++    for (const bar of series.bars) {
++        if (Number.isSafeInteger(bar.t) && Number.isSafeInteger(bar.end) &&
++            Number.isSafeInteger(bar.availableAt) && bar.t < bar.end &&
++            bar.end <= bar.availableAt && bar.availableAt <= signal.at &&
++            (!latest || bar.end > latest.end))
++            latest = bar;
++    }
++    const valid = latest !== undefined && Number.isFinite(latest.c) && latest.c > 0;
++    return {
++        status: valid ? "AVAILABLE" : "NO_CAUSAL_PRICE",
++        price: valid ? latest.c : null,
++        sourceBarAt: latest?.t ?? null,
++        sourceAvailableAt: latest?.availableAt ?? null,
++        decisionAt: signal.at,
++        reason: valid ? null : latest ? "INVALID_LAST_AVAILABLE_CLOSE" : "NO_AVAILABLE_COMPLETED_BAR",
++    };
++}
++/** Same four sizing coefficients; only the price source is causal. */
++function planFundedEntry(signal, series, p, limits, state) {
++    const reference = causalReferencePrice(signal, series);
++    if (reference.status !== "AVAILABLE")
++        return { status: "NO_CAUSAL_PRICE", reference };
++    const px = reference.price, { equity, openRisk, notional } = state;
++    (0, ultimate_contracts_1.need)([equity, openRisk, notional].every(Number.isFinite) && equity > 0 && openRisk >= 0 && notional >= 0, "funded sizing state");
++    const riskUnit = signal.stopDistance * series.pointValue + 2 * p.costs.perSideUsd +
++        (2 * px * series.pointValue * (p.costs.spreadBps / 2 + p.costs.slippageBps)) / 10000;
++    (0, ultimate_contracts_1.need)(Number.isFinite(riskUnit) && riskUnit > 0, "funded risk unit");
++    const quantity = Math.floor(Math.min((equity * limits.riskFraction) / riskUnit, Math.max(0, equity * limits.openRiskFraction - openRisk) / riskUnit, Math.max(0, equity * limits.grossFraction - notional) / px, (equity * limits.assetFraction) / px));
++    return {
++        status: "PLANNED", reference, quantity, riskUnit,
++        riskBudgetUsd: Math.max(0, Math.min(equity * limits.riskFraction, equity * limits.openRiskFraction - openRisk)),
++        notionalBudgetUsd: Math.max(0, Math.min(equity * limits.assetFraction, equity * limits.grossFraction - notional)),
++    };
++}
++/** Check a fixed-size modeled fill; never resize it using its future price. */
++function verifyFundedEntryFill(trade, signal, series, p, budgets) {
++    const numericalToleranceUsd = 1e-8;
++    const entry = Number.isFinite(trade.entry) && trade.entry > 0 ? trade.entry : null;
++    const qty = Number.isSafeInteger(trade.quantity) && trade.quantity > 0 ? trade.quantity : null;
++    const actualEntryNotionalUsd = entry !== null && qty !== null ? qty * entry * series.pointValue : null;
++    const entryFeeUsd = qty !== null ? qty * p.costs.perSideUsd : null;
++    const distance = Math.ceil(signal.stopDistance / series.tick) * series.tick;
++    const friction = (p.costs.spreadBps / 2 + p.costs.slippageBps) / 10000;
++    const modeledRiskUsd = entry !== null && qty !== null
++        ? qty * (distance * series.pointValue + 2 * p.costs.perSideUsd + 2 * entry * series.pointValue * friction)
++        : null;
++    const breaches = [];
++    if (trade.id !== signal.id || trade.symbol !== signal.symbol || series.symbol !== signal.symbol || trade.direction !== signal.direction)
++        breaches.push("MODELED_FILL_NOT_BOUND_TO_SIGNAL");
++    if (qty !== budgets.plannedQuantity || !Number.isSafeInteger(budgets.plannedQuantity) || budgets.plannedQuantity <= 0)
++        breaches.push("FILLED_QUANTITY_DIFFERS_FROM_EX_ANTE_PLAN");
++    if (!Number.isSafeInteger(trade.opened) || trade.opened < signal.at || entry === null)
++        breaches.push("INVALID_MODELED_FILL");
++    if (!Number.isFinite(budgets.riskBudgetUsd) || budgets.riskBudgetUsd < 0 || modeledRiskUsd === null || !Number.isFinite(modeledRiskUsd))
++        breaches.push("RISK_BUDGET_OR_FILL_RISK_UNVERIFIABLE");
++    else if (modeledRiskUsd > budgets.riskBudgetUsd + numericalToleranceUsd)
++        breaches.push("MODELED_FILL_RISK_EXCEEDS_EX_ANTE_BUDGET");
++    if (!Number.isFinite(budgets.notionalBudgetUsd) || budgets.notionalBudgetUsd < 0 || actualEntryNotionalUsd === null || !Number.isFinite(actualEntryNotionalUsd))
++        breaches.push("NOTIONAL_BUDGET_OR_FILL_UNVERIFIABLE");
++    else if (actualEntryNotionalUsd > budgets.notionalBudgetUsd + numericalToleranceUsd)
++        breaches.push("MODELED_FILL_NOTIONAL_EXCEEDS_EX_ANTE_BUDGET");
++    if (typeof budgets.cashBudgetUsd !== "number" || !Number.isFinite(budgets.cashBudgetUsd) || actualEntryNotionalUsd === null || entryFeeUsd === null)
++        breaches.push("CONSERVATIVE_CASH_BUDGET_UNVERIFIABLE");
++    else if (actualEntryNotionalUsd + entryFeeUsd > budgets.cashBudgetUsd + numericalToleranceUsd)
++        breaches.push("MODELED_FILL_COST_EXCEEDS_CONSERVATIVE_CASH");
++    return {
++        status: breaches.length ? "NO_FACTIBLE" : "VERIFIED",
++        actualEntryNotionalUsd, modeledRiskUsd, entryFeeUsd, numericalToleranceUsd,
++        budgets: { ...budgets, cashBudgetUsd: budgets.cashBudgetUsd ?? null },
++        breaches,
++        exposure: { signalId: signal.id, symbol: signal.symbol, decisionAt: signal.at,
++            openedAt: trade.opened, entryPrice: entry, remainingQuantityAtEntry: qty },
++        economicPnlUsd: null,
++    };
++}
++class FundedEntryBudgetError extends Error {
++    details;
++    code = "FUNDED_ENTRY_BUDGET_BREACH";
++    constructor(details) {
++        super("FUNDED_ENTRY_BUDGET_BREACH: " + JSON.stringify(details));
++        this.details = details;
++        this.name = "FundedEntryBudgetError";
++    }
++}
++exports.FundedEntryBudgetError = FundedEntryBudgetError;
+ const efficiency = (a) => {
+     const changes = a.slice(1).map((b, i) => Math.abs(b.c - a[i].c)), sum = changes.reduce((x, y) => x + y, 0);
+     return sum > 0 ? Math.abs(a.at(-1).c - a[0].c) / sum : 0;
+@@ -179,15 +316,48 @@
+     const entry = round(first.o * (1 + dir * friction), series.tick, dir === 1), distance = Math.ceil(signal.stopDistance / series.tick) * series.tick;
+     let stop = entry - dir * distance, remaining = quantity, realized = -p.costs.perSideUsd * quantity * costMultiplier, fees = -realized, peak = entry, peakPnl = 0, ambiguous = 0, reason = "DATA_ENDED", closed = first.t, pendingStop;
+     const session = data.sessions.find((s) => first.t >= s.open && first.t < s.close);
+-    const deadline = signal.hypothesis === "CLOSED_CHANNEL"
+-        ? first.t + 72 * 3600000
+-        : Math.min(session.close - 300000, first.t +
+-            (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000));
++    // Match the existing cash-equity runtime deadline. The supplied session
++    // calendar is the scheduling input; no later price or future bar existence
++    // chooses the deadline. Calendar publication-time provenance remains a data
++    // requirement, not something reconstructed from a successful historical fill.
++    const holdingPlan = planCalendarHolding(signal, first.t, data, p), calendarHolding = holdingPlan.status !== "NOT_APPLICABLE";
++    let deadline;
++    if (calendarHolding) {
++        if (holdingPlan.status === "REFUSED_BEFORE_ENTRY")
++            return null;
++        deadline = holdingPlan.deadlineAt;
++    }
++    else {
++        deadline =
++            signal.hypothesis === "CLOSED_CHANNEL"
++                ? first.t + 72 * 3600000
++                : Math.min(session.close - 300000, first.t +
++                    (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000));
++    }
+     const contractDeadline = Math.min(series.firstNoticeAt ?? Infinity, series.lastTradeAt ?? Infinity) -
+         86400000;
+     if (data.splitEvents.some((e) => e.symbol === series.symbol && e.at > first.t && e.at <= deadline))
+         return null;
+     const marks = [], tpDone = [false, false];
++    const unresolved = (reason, encounteredAt) => {
++        throw new UnresolvedHoldingExposureError({
++            reason,
++            signalId: signal.id,
++            symbol: signal.symbol,
++            hypothesis: signal.hypothesis,
++            policy,
++            openedAt: first.t,
++            decisionAt: signal.at,
++            deadlineAt: deadline,
++            encounteredAt,
++            entryPrice: entry,
++            openedQuantity: quantity,
++            remainingQuantity: remaining,
++            lastKnownMark: marks.at(-1) ?? null,
++            realizedPnlUsd: realized,
++            economicPnlUsd: null,
++        });
++    };
+     const close = (qty, px, at, why) => {
+         if (qty <= 0)
+             return;
+@@ -204,12 +374,18 @@
+             b.t !== prior.end &&
+             !data.sessions.some((s) => s.open === b.t &&
+                 s.close >= b.end &&
+-                prior.end === data.sessions.find((z) => z.close === prior.end)?.close))
++                prior.end === data.sessions.find((z) => z.close === prior.end)?.close)) {
++            if (calendarHolding)
++                unresolved("MISSING_BAR_WITH_OPEN_EXPOSURE", b.t);
+             return null;
++        }
+         if (pendingStop && b.t >= pendingStop.at) {
+             stop = pendingStop.price;
+             pendingStop = undefined;
+         }
++        if (calendarHolding &&
++            b.t > Math.min(deadline, contractDeadline))
++            unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+         if (b.t >= Math.min(deadline, contractDeadline)) {
+             close(remaining, b.o, b.t, b.t >= contractDeadline ? "CONTRACT_DEADLINE" : "TIME");
+             marks.push({ at: b.t, pnl: realized });
+@@ -254,8 +430,11 @@
+         if (dir * (candidate - stop) > 0)
+             pendingStop = { price: candidate, at: b.availableAt };
+     }
+-    if (remaining)
+-        return null; // An incomplete path is excluded, never treated as a flat profitable trade.
++    if (remaining) {
++        if (calendarHolding)
++            unresolved("DATA_ENDED_WITH_OPEN_EXPOSURE", null);
++        return null; // Other legacy research scopes retain their explicit incomplete-path exclusion.
++    }
+     const riskUsd = quantity * distance * series.pointValue;
+     return {
+         id: signal.id,
+@@ -276,6 +455,9 @@
+         entry,
+         marks,
+         reason,
++        ...(calendarHolding
++            ? { holdingDeadlineAt: deadline, holdingClockStartedAt: signal.at }
++            : {}),
+     };
+ }
+ function windowTrades(trades, sessions, purgeMs) {
+@@ -397,6 +579,7 @@
+         : windowTrades(trades[f.selected], f.test, purge));
+     // Funded replay has independent integer sizing and shared capital. Futures require historical margin observations.
+     const funded = [], portfolioSkips = {};
++    const pendingCashReservations = new Map();
+     const skip = (reason) => {
+         portfolioSkips[reason] = (portfolioSkips[reason] || 0) + 1;
+     };
+@@ -431,20 +614,40 @@
+             skip("SYMBOL_BUSY");
+             continue;
+         }
+-        const s = bySymbol[opportunity.symbol], px = s.bars[opportunity.index].o;
+-        const riskUnit = opportunity.stopDistance * s.pointValue +
+-            2 * p.costs.perSideUsd +
+-            (2 * px * s.pointValue * (p.costs.spreadBps / 2 + p.costs.slippageBps)) /
+-                10000;
++        const s = bySymbol[opportunity.symbol];
+         const notional = active.reduce((n, t) => n + t.quantity * t.entry, 0), openRisk = active.reduce((n, t) => n + t.riskUsd, 0);
+-        const quantity = Math.floor(Math.min((equity * limits.riskFraction) / riskUnit, Math.max(0, equity * limits.openRiskFraction - openRisk) / riskUnit, Math.max(0, equity * limits.grossFraction - notional) / px, (equity * limits.assetFraction) / px));
++        const plan = planFundedEntry(opportunity, s, p, limits, { equity, openRisk, notional });
++        if (plan.status !== "PLANNED") {
++            skip("NO_CAUSAL_REFERENCE_PRICE");
++            continue;
++        }
++        const quantity = plan.quantity;
+         if (quantity < 1) {
+             skip("INTEGER_RISK_OR_EXPOSURE");
+             continue;
+         }
++        // Closed campaigns release their full result. Until then, reserve original
++        // cash outlay conservatively: no credit for partial exits or unrealized PnL.
++        // Pending entries use a saved ex-ante ceiling, never their later fill price.
++        const cashBudgetUsd = limits.capitalUsd + funded.reduce((cash, prior) => {
++            if (prior.closed <= opportunity.at)
++                return cash + prior.netUsd;
++            if (prior.opened > opportunity.at)
++                return cash - (pendingCashReservations.get(prior.id) ?? NaN);
++            const series = bySymbol[prior.symbol];
++            return cash - prior.quantity * (prior.entry * series.pointValue + p.costs.perSideUsd);
++        }, 0);
+         const t = replayCampaign(opportunity, s, data, p, fold.selected.split(":")[1], quantity);
+-        if (t)
++        if (t) {
++            const receipt = verifyFundedEntryFill(t, opportunity, s, p, {
++                plannedQuantity: quantity, riskBudgetUsd: plan.riskBudgetUsd,
++                notionalBudgetUsd: plan.notionalBudgetUsd, cashBudgetUsd,
++            });
++            if (receipt.status !== "VERIFIED")
++                throw new FundedEntryBudgetError(receipt);
++            pendingCashReservations.set(t.id, plan.notionalBudgetUsd + quantity * p.costs.perSideUsd);
+             funded.push(t);
++        }
+         else
+             skip("INCOMPLETE_PATH");
+     }
+--- 30.13.0/runtime30/ultimate_lab.js
++++ 30.13.1/runtime30/ultimate_lab.js
+@@ -33,6 +33,7 @@
+         "ultimate_replay.js",
+         "ultimate_stats.js",
+         "ultimate_frequency.js",
++        "policy.js", // Calendar-aware holding deadlines are a replay dependency.
+     ].map((f) => node_fs_1.default.readFileSync(node_path_1.default.join(__dirname, f), "utf8")));
+     key;
+     constructor(store, account, validators, limits) {
+--- 30.13.0/tools/ultimate_production_check.cjs
++++ 30.13.1/tools/ultimate_production_check.cjs
+@@ -10,17 +10,23 @@
+   for (const name of ["evidence/ultimate/report.json", "evidence/ultimate/registry.json", "evidence/tp32/report.json"]) fs.copyFileSync(path.join(root, name), path.join(directory, name));
+   const code = `
+     require('./runtime30/server.js');
+-    const fs = require('node:fs');
++    const fs = require('node:fs'), assert = require('node:assert/strict'), crypto = require('node:crypto');
+     const { ResearchLab } = require('./runtime30/ultimate_lab.js');
+     const { Validators } = require('./runtime30/validators.js');
+     const { DEFAULT_REPLAY_LIMITS } = require('./runtime30/ultimate_replay.js');
+     const lab = new ResearchLab(null, 'IMPORT_CHECK_NO_ACCOUNT', new Validators(), DEFAULT_REPLAY_LIMITS);
+-    lab.verifyBundled(JSON.parse(fs.readFileSync('./evidence/ultimate/report.json')), JSON.parse(fs.readFileSync('./evidence/ultimate/registry.json')));
++    // The retained report belongs to the old replay. Its bytes remain intact,
++    // and the current implementation must reject its old code seal.
++    const reportBytes=fs.readFileSync('./evidence/ultimate/report.json');
++    const registryBytes=fs.readFileSync('./evidence/ultimate/registry.json');
++    assert.equal(crypto.createHash('sha256').update(reportBytes).digest('hex'), '7b6fe566ac8a8ed27c5bb78be3d8e087b18a59f1b53de591324885760acaca11');
++    assert.equal(crypto.createHash('sha256').update(registryBytes).digest('hex'), 'bf7e199a75451ad7b892e4bc26ddab43d6338e1f2572a4075cfcdcc5ea81fe2c');
++    assert.throws(()=>lab.verifyBundled(JSON.parse(reportBytes),JSON.parse(registryBytes)), error=>String(error.message).includes('bundled report code/data/protocol binding'));
+     let typescriptPresent = false;
+     try { require.resolve('typescript'); typescriptPresent = true; } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; }
+     if (typescriptPresent) throw Error('Development dependency leaked');
+     const catalogSize = require('./runtime/legacy30.cjs').create().catalog().length;
+-    console.log(JSON.stringify({status:'PASS', source:'ISOLATED_NPM_CI_OFFLINE_OMIT_DEV', node:process.version, typescriptPresent, inheritedCatalogSize:catalogSize, bundledReportSeal:'PASS', externalOrders:0}));
++    console.log(JSON.stringify({status:'PASS', source:'ISOLATED_NPM_CI_OFFLINE_OMIT_DEV', node:process.version, typescriptPresent, inheritedCatalogSize:catalogSize, bundledReportSeal:'OLD_CODE_REJECTED_AS_REQUIRED', historicalBytesPreserved:true, externalOrders:0}));
+   `;
+   const result = JSON.parse(execFileSync(process.execPath, ["-e", code], { cwd: directory, encoding: "utf8" }));
+   fs.writeFileSync(path.join(process.env.HARPOON_QA_OUTPUT_DIR || path.join(root, "evidence/operational-30.3.1"), "production-import.json"), JSON.stringify(result, null, 2) + "\n");
+--- 30.13.0/package.json
++++ 30.13.1/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.13.0",
++  "version": "30.13.1",
+   "private": true,
+   "scripts": {
+     "test": "node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py",
+--- 30.13.0/package-lock.json
++++ 30.13.1/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.13.0",
++  "version": "30.13.1",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "harpoon-cloud-247",
+-      "version": "30.13.0",
++      "version": "30.13.1",
+       "dependencies": {
+         "@msgpack/msgpack": "3.1.2",
+         "ws": "8.18.3"

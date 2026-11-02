@@ -1,0 +1,47 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> harpoon-cloud-247@30.0.1 test
+> node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py
+
+{
+  "checks": 7,
+  "passed": 7,
+  "results": [
+    "SQLite durable cross-process roundtrip",
+    "Exclusive shared-volume lease cannot be released by another owner",
+    "Compare-and-swap preserves concurrent study changes",
+    "Cursor scan excludes already processed records",
+    "Restart preserves unknown intent and forbids duplicate order",
+    "Lease is verified before the first broker mutation, including initial connect",
+    "Research worker isolated and cannot invent missing evidence"
+  ],
+  "external_orders": 0,
+  "openai_calls": 0
+}
+{
+  "checks": 7,
+  "passed": 7,
+  "results": [
+    "PAPER configured startup",
+    "Unauthorized state denied",
+    "Action header required",
+    "Pause disables entries",
+    "Pause survives process restart with SQLite",
+    "Explicit PAPER resume",
+    "Current crypto plugin engine loads"
+  ],
+  "external_orders": 0,
+  "openai_calls": 0,
+  "scope": "Launcher integration uses injected engine; native engine tested separately"
+}
+{
+  checks: 11,
+  passed: 11,
+  scope: 'Controller fixtures, no model/broker calls'
+}
+{
+  checks: 8,
+  passed: 8,
+  scope: 'Actual HTTP proxy with local upstream fixture; no TLS provider deployment'
+}
+{"checks": 6, "passed": 6, "scope": "Six generated configurations; Docker schema/build not executed"}

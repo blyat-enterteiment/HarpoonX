@@ -1,0 +1,479 @@
+HARPOON XXXUltimate 30.15.0
+OPERACION DE EVIDENCIA PARA EL OBJETIVO ECONOMICO 7
+
+ALCANCE
+
+Esta guia describe el circuito existente para medir si una cartera completa
+obtiene crecimiento neto y supera sus controles con evidencia suficiente.
+La version del paquete no acredita la version desplegada, una cuenta concreta
+ni un nivel de rentabilidad. Las pruebas de software no demuestran beneficio.
+
+La unidad es una sola cuenta: efectivo, posiciones abiertas, pasivos, gastos
+y capital disponibles se arrastran entre intervalos. Una accion o un ETF puede
+perder mientras la cartera gana. El resultado debe incluir esas perdidas y
+las exposiciones correlacionadas. No se exige beneficio individual por activo.
+
+El flujo de esta guia usa recogida mediante GET y procesamiento offline.
+No envia ordenes, no despliega, no cambia PAPER a LIVE y no aumenta limites.
+SVR conserva su uso obligatorio en shadow en el motor actual. Un resultado
+de la comparacion no lo promociona. La evidencia de una cuenta manejada por
+otra politica no se atribuye a SVR por cambiar una etiqueta.
+
+Los bloqueos conservan causa y valores desconocidos. Este proceso no contiene
+un ciclo de optimizacion que pruebe hasta obtener un resultado positivo.
+No incorpora llamadas a un LLM en la ruta de decision, riesgo o proteccion:
+predictores numericos locales y validadores deterministas mantienen ese papel.
+
+Los comandos siguientes se ejecutan desde la raiz de la integral, salvo
+indicacion contraria. Los nombres evidencia/... son rutas de trabajo que deben
+prepararse con sus fuentes; esta guia no afirma que esos archivos existan.
+Cada resultado usa una ruta nueva para conservar los anteriores. Algunos CLI
+heredados admiten sobrescribir: no reutilizar el nombre de un informe sellado.
+
+1. COMPROBAR IDENTIDAD, RECURSOS Y MODO EXISTENTES
+
+Recuperar del entorno autorizado la URL de origen, identificador completo de
+cuenta, version realmente ejecutada, configuracion y estado del coordinador.
+Un sufijo de cuenta o el nombre de un ZIP no establece la identidad.
+
+La contrasena HARPOON_PANEL_PASSWORD debe estar suministrada por el entorno.
+El colector usa el usuario trader. No colocar credenciales en argumentos,
+archivos de solicitudes, URL o informes. Fuera de direcciones loopback
+literales se exige HTTPS. No es necesario instalar otro colector ni broker.
+
+Comprobaciones de sintaxis disponibles sin recopilar datos:
+
+  node tools/collect_runtime_evidence.cjs --help
+  python tools/build_causal_panel.py --help
+  python tools/measurement_registration.py --help
+  python tools/level7_workflow.py --help
+  PYTHONPATH=quant python -m harpoon_quant.economic_gate --help
+  PYTHONPATH=quant python -m harpoon_quant --help
+
+Los verificadores Node de atribucion, comparacion y readiness no tienen una
+opcion --help general. Sus argumentos se detallan mas adelante; no ejecutar
+una comparacion para averiguar su sintaxis.
+
+2. RECOGER OBSERVACIONES, LIBRO CONTABLE Y EXPORT DEL COORDINADOR
+
+Primero fijar la seleccion causal de datos para entrenamiento. El archivo de
+seleccion admitido tiene exactamente estos campos:
+
+  kind = FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID
+  timezone = America/New_York
+  local_time = hora local HH:MM fijada antes de seleccionar resultados
+  max_selection_delay_ms = entero entre 0 y 90000
+  label_quote_max_age_ms = entero entre 0 y 900000
+  label_maturity_max_delay_ms = entero entre 0 y 300000
+
+Los limites anteriores son rangos del contrato, no mediciones ni valores que
+deban rellenarse automaticamente. Seleccionar los valores con los datos y
+el protocolo disponibles. La apertura/cierre y cambios de horario se tratan
+con calendario observado. Varias capturas intradia no crean sesiones
+independientes. No inferir latencia o profundidad de milisegundos desde barras.
+
+Comando del colector, con variables no secretas previamente comprobadas:
+
+  node tools/collect_runtime_evidence.cjs \
+    --base-url "$HARPOON_EVIDENCE_BASE_URL" \
+    --expected-account "$HARPOON_EVIDENCE_ACCOUNT_ID" \
+    --expected-version "$HARPOON_EVIDENCE_RUNTIME_VERSION" \
+    --selection evidencia/selection_fijada.json \
+    --include-coordinator-export true \
+    --output evidencia/recogida_inicial_ID_UNICO
+
+--include-coordinator-export true es el opt-in expreso de GET /v1/export.
+Sin esa opcion no se recoge el export del coordinador. Sin --selection se
+conservan fuentes, pero no se produce el manifiesto para calibracion.
+
+El colector verifica /healthz y /v1/operational, fija un snapshot de
+/v1/quant/observations/snapshot, pagina sus observaciones, pagina
+/v1/accounting/history y conserva respuestas originales. Genera
+ledger_bundle.json, collection_receipt.json y, con seleccion,
+observation_manifest.json. Con el opt-in conserva coordinator_export.json.
+La lectura del snapshot fija metadatos acotados en el runtime; no es una
+orden ni una modificacion de la politica de inversion.
+
+COMPLETE_SOURCE_COLLECTION significa transporte e integridad completados.
+No significa modelo disponible, cobertura economica completa ni nivel 7.
+El libro y el coordinador se leen por separado: no son un snapshot atomico.
+Si cambia la revision contable, falta una pagina, cambia la identidad o vence
+un limite, conservar la recogida parcial y su causa. No ensamblar paginas de
+revisiones distintas ni inventar los intervalos que faltan.
+
+La captura inicial para atribucion se realiza antes del periodo final.
+Una captura terminal posterior utiliza otro directorio. Los requisitos
+temporales exactos se indican en el apartado 7.
+
+3. CERRAR LOS COSTES SIN CONFUNDIR DESCONOCIDO CON CERO
+
+El colector exporta los costes que el libro ya conoce. No genera facturas,
+comisiones, financiacion ni declaraciones de devengos pendientes.
+
+Usar el contrato HARPOON_COST_RECEIPT_1 ya integrado en NetAccountLedger.
+input.externalCosts, config.externalCosts y costReceiptFile pasan por el mismo
+validador. La configuracion de ejemplo situa estas opciones en
+quant.accounting. Recuperar la ruta realmente configurada antes de usarla.
+
+Referencia obligatoria de migracion y semantica:
+  config/examples/COST_RECEIPT_COMPATIBILITY_30_15_0.txt
+  config/examples/cost_receipt_template_30_15_0.json
+
+Exigir account_id correcto, USD, receipt_id, tiempos, referencias, categorias
+DATA/INFRASTRUCTURE/INFERENCE/OTHER, cobertura declarada y gastos documentados.
+entries:[] solo expresa cero si la cobertura esta explicitamente completa.
+broker_accrual_coverage tiene un contrato separado para los devengos del
+broker; una lista vacia de gastos no demuestra que esos devengos sean cero.
+Las comisiones incorporadas a ejecuciones o efectivo no se descuentan otra
+vez. Los costes ya registrados requieren su enlace a la actividad de cuenta.
+
+Un recibo invalido no sustituye los costes aceptados anteriormente. El NAV
+solo permanece conciliado si sus propias verificaciones pasan; las nuevas
+metricas economicas desconocidas quedan en null. Una correccion que afecta
+segmentos sellados conserva ECONOMIC_RESTATEMENT_REQUIRED hasta resolver la
+reexpresion por el procedimiento correspondiente. No borrar segmentos,
+reiniciar capital ni reutilizar un receipt_id con contenido diferente.
+
+4. CONSTRUIR EL PANEL CAUSAL Y CONGELAR MODELOS DISPONIBLES
+
+Preparar una solicitud HARPOON_CAUSAL_PANEL_REQUEST_1 con available_at,
+split_contract CURRENT_SVR_60_20_20_PURGED, configuracion, seleccion causal
+y observation_manifest referenciado por path/sha256. No mezclar ese modo
+con observation_exports heredados en la misma solicitud.
+
+  python tools/build_causal_panel.py \
+    --input evidencia/panel_request.json \
+    --output evidencia/panel_report.json
+
+  python tools/build_causal_panel.py \
+    --input evidencia/panel_request.json \
+    --verify evidencia/panel_report.json \
+    --output evidencia/panel_verificacion.json
+
+El resultado debe conservar fuentes, filas admitidas y rechazos. Comprobar
+panel.origin OBSERVED y readiness.status
+PANEL_ADMISSIBLE_NOT_FINANCIALLY_VALIDATED con accepted_rows > 0.
+La calibracion vigente requiere 100 sesiones distintas como minimo y una
+fila por activo/sesion. Ese minimo es un contrato del software, no una
+garantia estadistica de ventaja. El constructor no entrena modelos.
+
+Los datos reconstruidos desde formulas o barras historicas permanecen en su
+ambito diagnostico; no se convierten en recepciones prospectivas observadas.
+Los retornos objetivo del panel no son una cuenta financiada ni incluyen
+por si mismos el coste de ejecucion. La comparacion posterior resuelve eso.
+
+Recuperar los dos modelos numericos fijos RIDGE y SVR, sus JSON originales,
+configuracion y procedencia de entrenamiento. C0 es la politica nativa del
+coordinador, no un tercer modelo que haya que entrenar. Ambos modelos deben
+estar vinculados al panel mediante data_hash, unidades, horizonte y nombres
+de variables, con available_at anterior a su uso y al registro del periodo
+forward. Ninguna etiqueta puede usar informacion disponible despues de su
+decision. Las particiones de entrenamiento/validacion y purga se conservan.
+
+Si falta un modelo observado valido, el recurso sigue en null y la fase no
+se completa. No reemplazarlo por un modelo sintetico, no reentrenar sobre el
+periodo final y no activar optimize para buscar un resultado positivo.
+Una calibracion nueva constituye trabajo de investigacion separado que debe
+tener presupuesto y periodo de desarrollo definidos. No la ejecuta esta guia.
+
+5. FIJAR Y REGISTRAR EL PROTOCOLO V2 ANTES DEL PERIODO FINAL
+
+Completar HARPOON_ECONOMIC_PROTOCOL_2 con universo equity/etf, capital,
+fechas, calendario comun de sesiones, politica, configuracion, costes,
+comparadores, estres, incertidumbre, historial de intentos y presupuesto.
+Mantener una version congelada del control y conservar todos los intentos.
+
+La seccion forward_validation usa HARPOON_FORWARD_SPEC_1. Debe fijar
+boundary_tolerance_ms, maximum_observation_gap_ms, objetivos economicos,
+family_alpha, expected y hashes de los tres verificadores:
+
+  tools/level7_workflow.py
+  tools/verify_forward_attribution.cjs
+  quant/harpoon_quant/forward_economics.py
+
+El alpha familiar de forward mas el del gate modelado no puede superar 0.05.
+El historial de busqueda se conserva: el minimo historico exigido es 23
+intentos, y cualquier intento adicional cuenta. No es un contador que se
+reinicie al crear una version o un archivo nuevo.
+
+El limite de holding del proyecto es 72 horas y puede ser menor si la
+configuracion autorizada lo exige. No elevar drawdown ni exposicion: workflow7
+rechaza protocolos con max_drawdown_fraction > 0.08,
+max_gross_exposure_fraction > 0.5 o horizon_hours > 72. Estos techos no son
+una autorizacion para aumentar limites operacionales mas restrictivos.
+
+La API existente para sellado/registro es seal_protocol/register_protocol de
+harpoon_quant.economic_gate. No existe un CLI ficticio --register en el gate.
+Ejemplo de uso, solamente cuando el borrador ya esta completo y el periodo
+futuro todavia no comenzo:
+
+  PYTHONPATH=quant python - <<'PY'
+  import json
+  from datetime import UTC, datetime
+  from pathlib import Path
+  from harpoon_quant.core import timestamp
+  from harpoon_quant.economic_gate import seal_protocol, register_protocol
+  root = Path("evidencia")
+  draft = json.loads((root / "protocol_v2_completo.json").read_text())
+  sealed_path = root / "protocol_v2_sellado.json"
+  receipt_path = root / "protocol_v2_registro.json"
+  if sealed_path.exists() or receipt_path.exists():
+      raise SystemExit("Conservar resultados anteriores; usar rutas nuevas")
+  if timestamp(draft["period"]["test_start"]) <= datetime.now(UTC):
+      raise SystemExit("El periodo final debe comenzar despues del registro")
+  sealed = seal_protocol(draft)
+  record = register_protocol(sealed, root / "preregistration.jsonl")
+  with sealed_path.open("x", encoding="utf-8") as f:
+      json.dump(sealed, f, indent=2, allow_nan=False)
+  with receipt_path.open("x", encoding="utf-8") as f:
+      json.dump(record, f, indent=2, allow_nan=False)
+  PY
+
+No suministrar registered_at para aparentar un registro anterior: el cambio
+de reloj solo esta permitido por la API en fixtures sinteticos. La cadena y
+hora locales acreditan coherencia local, no un registro externo independiente.
+Si el periodo ya fue observado, declararlo usado y reservar otro periodo
+futuro sin mover los umbrales segun los resultados.
+
+6. EJECUTAR LA COMPARACION FIJA Y EL GATE ECONOMICO
+
+Construir HARPOON_FUNDED_COMPARISON_REQUEST_1 con C0/RIDGE/SVR fijos,
+purpose PREREGISTERED_FIXED_MODEL_MEASUREMENT y fuentes originales. Los
+modelos usan origin OBSERVED; el replay de esas observaciones ya recogidas
+usa common_request.data_origin HISTORICAL. Ese replay sigue siendo MODELED:
+no adquiere la naturaleza REAL de las operaciones que observa el libro.
+
+El adaptador actual tools/observation_replay_input.cjs es observation-only:
+no fabrica eventos de entrada ni profundidad ejecutable. Usa cantidad
+ejecutable cero como bloqueo expreso cuando no existe profundidad, no como
+una observacion de liquidez real. Sus muestras tampoco prueban continuidad
+de una trayectoria de 90 minutos. El request financiado necesita sus eventos
+de decision y supuestos de ejecucion vinculados por el validador existente.
+
+Frontera de modo vigente: el importador offline admite configuracion fuente
+con mode paper, live o real dentro de su esquema acotado. Conserva la cuenta,
+el modo declarado y el hash de configuracion originales; el modo es metadata,
+no autenticacion de ejecucion REAL. Proyecta solamente una copia PAPER con
+cuenta OFFLINE, streaming desactivado, proteccion stop y quant.enabled=false.
+Conserva quant.config tras validar su lista de parametros numericos; elimina
+rutas, ejecutables, modelos y optimizadores de la copia. El request sigue
+OFFLINE/MODELED, sin autoridad y con external_authenticity_verified=false.
+El derivador vincula la fuente original, no el hash de la copia PAPER, a la
+evidencia forward. Esto permite importar evidencia compatible; no habilita
+LIVE en el runtime vigente, que sigue limitado a PAPER, ni elimina el shadow
+de SVR. Cambiar una etiqueta o copiar un hash no acredita operacion real.
+
+Alcance actual obligatorio:
+  account_scope = CASH_ONLY_COUNTERFACTUAL_NO_EXTERNAL_FLOWS
+  initial_positions = []
+  external_flows = []
+
+El calendario de aportaciones y retiros aun no se reproduce en todos los
+controles. El libro calcula su TWR, pero workflow7 bloquea acreditar la
+comparacion cuando hay cualquier flujo externo durante el periodo, incluso
+si deposito y retiro suman cero. No borrar los flujos para superar el gate.
+Un capital inicial distinto, posiciones iniciales o flujos requieren ampliar
+y validar ese comparador; esta version no finge esa compatibilidad.
+
+Usar liquidez, comisiones, deslizamiento, gastos externos y reserva operativa
+explicitos. level5_readiness aplica el calendario verificado de gastos a las
+politicas; un coste global agregado por el comparador base no sustituye ese
+paso. La reserva de efectivo debe haberse conocido antes de decidir y debe
+afectar la capacidad real de compra de todas las politicas por igual.
+
+Cada comparacion de las tres politicas necesita su reserva en el Journal
+existente. El verificador admite una comparacion base y, como maximo, una de
+estres dentro de esa familia: 3 + 3 slots, sujetos tambien al presupuesto
+acumulado. Los comandos siguientes escriben reservas locales; solo se usan
+para el ensayo previamente definido, no para explorar variantes adicionales.
+
+  node tools/funded_comparison.cjs \
+    --registration-binding evidencia/comparison_request_sin_reserva.json \
+    --output evidencia/comparison_binding.json
+
+  python tools/measurement_registration.py \
+    --binding evidencia/comparison_binding.json \
+    --journal "$HARPOON_EVIDENCE_EXISTING_JOURNAL" \
+    --expected-head "$HARPOON_EVIDENCE_EXISTING_AUDIT_HEAD" \
+    --output evidencia/comparison_reserva.json
+
+Los hashes de codigo de la solicitud deben coincidir con
+comparisonSourceHashes(). Incorporar exactamente el recibo resultante en
+registration sin cambiar el resto de la solicitud vinculada. No crear otro
+Journal ni ampliar su limite si el presupuesto esta agotado.
+
+  node tools/funded_comparison.cjs \
+    --input evidencia/comparison_request_registrado.json \
+    --output evidencia/comparison_report.json
+
+  node tools/funded_comparison.cjs \
+    --input evidencia/comparison_request_registrado.json \
+    --verify evidencia/comparison_report.json \
+    --output evidencia/comparison_verificacion.json
+
+Preparar HARPOON_LEVEL4_READINESS_REQUEST_1 con referencias data.request/report,
+comparison.request/report y ledger.bundle. Preparar despues
+HARPOON_LEVEL5_DERIVATION_REQUEST_1 con level4.request y la unica familia de
+estres prevista. Todas las referencias enlazan archivos por path/sha256.
+
+  node tools/level4_readiness.cjs \
+    --input evidencia/level4_request.json \
+    --output evidencia/level4_report.json
+
+  node tools/level5_readiness.cjs \
+    --input evidencia/level5_request.json \
+    --output evidencia/level5_report.json
+
+El derivador no acepta curvas fabricadas por el llamador. Reejecuta las
+fuentes, coordinador y predictores. En V2, NATIVE es C0 y CASH es un cuarto
+control independiente de no abrir posiciones, con sus costes aplicables.
+La mejora debe evaluarse frente a Ridge y al control nativo, manteniendo
+capital y riesgo comparables; no se consigue elevando exposicion.
+
+Preparar HARPOON_ECONOMIC_EVIDENCE_2 con protocol_hash, generated_at,
+provenance, preregistration, search_history, history_manifest y
+derivation_request. No insertar curvas o puntuaciones externas como prueba.
+
+  PYTHONPATH=quant python -m harpoon_quant.economic_gate \
+    --protocol evidencia/protocol_v2_sellado.json \
+    --input evidencia/economic_evidence_v2.json \
+    --artifact-root evidencia \
+    --output evidencia/economic_gate_v2_report.json
+
+El modulo despacha al gate V2 por schema. El resultado debe ser reproducible,
+con crecimiento neto positivo, mejora pareada predefinida, correccion por
+busqueda, estres y riesgo dentro de limites. Perder menos o aprobar pruebas
+de codigo no satisface el objetivo.
+
+7. ATRIBUIR LA CUENTA FORWARD A SUS DECISIONES ORIGINALES
+
+Plantilla incompleta deliberada:
+  config/examples/level7_forward_attribution_template_30_15_0.json
+
+Sus null son recursos pendientes; no es evidencia y el verificador la rechaza.
+candidate_role SVR expresa la candidata solicitada por workflow7. No afirma
+que haya un SVR operando en una cuenta. execution_nature, runtime_version,
+cuenta, hashes, horas y referencias siguen desconocidos hasta comprobarlos.
+
+Completar expected con las mismas vinculaciones del protocolo y de la
+derivacion. El nivel 7 exige SVR; el verificador aislado tambien puede auditar
+NATIVE o RIDGE, lo que no modifica ese requisito del workflow.
+
+No confundir los dos tipos de hash del modelo:
+  - Las referencias de archivo y model_hashes de la comparacion verifican
+    bytes JSON originales mediante SHA-256.
+  - expected.model_hash y expected.quant_config_hash vinculan el plan numerico
+    reproducido: bindings.runtime_predictor_bindings.SVR del derivador.
+  - expected.runtime_config_hash y account_id deben coincidir con
+    bindings.observed_runtime_config_hash y observed_account_id.
+
+expected.model_available_at debe coincidir con la disponibilidad reproducida
+del modelo y preceder al registro. registered_at procede de la cadena de
+registro, sin inventar una hora anterior. Para evitar ambiguedad, usar UTC
+y milisegundos enteros de epoca en expected.period y los relojes normalizados.
+Al pasar una solicitud con expected al workflow, debe igualar exactamente el
+expected validado del protocolo, incluido registered_at y la tolerancia.
+
+Requisitos de los extremos:
+  - Export inicial reconciliado y exportado antes o al inicio solicitado.
+    La reconciliacion no puede tener mas antiguedad que el limite fijado
+    initial_snapshot_max_age_ms, entero positivo de hasta 90000 ms.
+  - Broker inicialmente sin posiciones ni ordenes pendientes; coordinador
+    sin intents no terminales ni campanas abiertas, y primera marca de libro
+    sin posiciones. No puede haber fills entre esa reconciliacion inicial
+    y la primera marca usada como baseline.
+  - Export terminal reconciliado hasta end_at + boundary_tolerance_ms y
+    exportado despues de cubrir ledger.through. Las posiciones finales se
+    reconcilian por cantidades y las ordenes pendientes por identidad.
+  - Cada fill se enlaza por order_id a intent, campana y procedencia sellada
+    de su decision. La proximidad de dos timestamps no sustituye ese enlace.
+  - El export es estado retenido, no garantia de diario historico completo.
+    Si la retencion elimino un enlace necesario, conservar el bloqueo.
+
+La edad continua se mide desde el primer fill de una campana. Las salidas
+parciales no reinician sus 72 horas. Una cancelacion solicitada no es una
+cancelacion confirmada. Las posiciones abiertas al final siguen valoradas
+y atribuidas: no se inventa una venta para mejorar el resultado.
+
+  node tools/verify_forward_attribution.cjs \
+    --input evidencia/forward_attribution_request.json \
+    --output evidencia/forward_attribution_report.json
+
+Este verificador comprueba identidad y causalidad; no concede rentabilidad,
+aprobacion financiera ni autoridad de ordenes. Un hash local tampoco
+autentica de manera independiente al broker ni a su reloj.
+
+8. EJECUTAR WORKFLOW7 Y LEER EL DICTAMEN
+
+Preparar HARPOON_LEVEL7_WORKFLOW_REQUEST_1, target 7, con las cuatro
+referencias path/sha256: panel_request, economic_protocol, economic_evidence
+y forward_attribution_request. Un recurso faltante se deja en null con su
+causa en el informe de trabajo. No fabricar una referencia que parezca real.
+
+  python tools/level7_workflow.py \
+    --input evidencia/level7_request.json \
+    --output evidencia/level7_report.json
+
+  python tools/level7_workflow.py \
+    --input evidencia/level7_request.json \
+    --verify evidencia/level7_report.json \
+    --output evidencia/level7_verificacion.json
+
+El CLI rechaza sobrescribir su salida. Reejecuta productores y verificadores
+fijos; no ajusta modelos, no reserva nuevos ensayos y no envia ordenes.
+
+Fronteras exactas: una tolerancia permite obtener un diagnostico usando la
+primera marca posterior, hasta 90000 ms despues del limite fijado. No rellena
+el movimiento omitido. Si las fronteras no son exactas, period_scope es
+EFFECTIVE_MARK_WINDOW_DIAGNOSTIC_ONLY, requested_period_economic_pnl_usd
+queda en null y workflow7 registra FORWARD_BOUNDARY_ECONOMIC_BRIDGE_REQUIRED.
+El codigo actual no implementa un puente economico que autorice ese hueco.
+Para acreditar el periodo comun se necesitan marcas exactas verificadas;
+un puente futuro requiere implementacion, evidencia y validacion propias.
+No mover los limites despues del resultado para hacerlos coincidir.
+
+El resumen de cuenta neutraliza aportaciones y retiros, resta los costes
+externos correspondientes y encadena retornos economicos ponderados por
+tiempo. Inspecciona todas las observaciones retenidas y marcas preflujo;
+una insolvencia no desaparece con una aportacion posterior. El riesgo entre
+marcas no observadas sigue desconocido. Los gastos e impuestos no calculados
+no se transforman en una afirmacion de rentabilidad despues de impuestos.
+
+El bootstrap usa sesiones de la cartera conjunta, dependencia por bloques,
+historial de busqueda y resolucion suficiente de colas. Mas remuestreos no
+crean observaciones de mercado. Una muestra insuficiente o degenerada sigue
+INCONCLUSIVE aunque su media sea positiva. Un intervalo no es una probabilidad
+garantizada de beneficio futuro.
+
+El criterio 7 requiere conjuntamente comparacion modelada admisible, cuenta
+forward REAL/LIVE atribuida al mismo modelo/configuracion, costes cerrados,
+fronteras comparables, crecimiento neto y evidencia estadistica suficientes,
+exposicion bruta/drawdown/holding dentro de lo evaluado. Los controles de
+concentracion del runtime conservan sus limites; este resumen no certifica
+una nueva medicion independiente por factor. PAPER positivo
+queda identificado como PAPER y no acredita ese criterio de rendimiento real.
+El estado shadow actual puede impedir producir esa evidencia de SVR: el
+informe conserva el recurso faltante y no promueve el motor automaticamente.
+
+Consultar level7_criterion_met, economic_score, dictamen, blockers,
+rejection_reasons y next_actions. Un score null expresa que no se ha
+acreditado el criterio; no equivale a saldo cero. Los dictamenes permitidos
+son RECHAZADO, VENTAJA_NO_DEMOSTRADA y CANDIDATO_PARA_VALIDACION_FORWARD.
+Un criterio superado describe el alcance observado, no garantiza beneficios
+futuros. execution_allowed, liveApproved, deployment_allowed y
+financial_approval siguen false en este workflow.
+
+9. CONSERVAR EL RESULTADO SIN SOBRECARGA
+
+Conservar respuestas originales, recibos, manifests, modelos originales,
+configuracion, protocolo sellado, registro, presupuesto existente, solicitudes
+vinculadas, curvas continuas y dictamenes. Incluir rechazos y resultados
+inconclusos. Una revision por otro agente no es validacion externa ciega.
+
+Ejecutar el circuito una vez por paquete de evidencia fijado; repetir para
+reproducir o resolver un recurso identificado. No crear infraestructura
+paralela, variantes sin registro, compras de datos ni aumentos de exposicion.
+Si falta la fuente, la cuenta o el periodo independiente necesario, el trabajo
+ejecutable termina en el informe reproducible de bloqueo hasta disponer de
+ese recurso. El control y las protecciones de posiciones siguen separados
+de la investigacion y no dependen de que el LLM este disponible.

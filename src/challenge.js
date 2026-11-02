@@ -1,0 +1,45 @@
+"use strict";
+var HChallenge;
+(function (HChallenge) {
+    const day = 86400000, avg = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+    function stats(a, benchmark) { const m = avg(a), v = a.reduce((s, x) => s + (x - m) ** 2, 0) / Math.max(1, a.length - 1); let equity = 1, peak = 1, dd = 0; for (const r of a) {
+        equity *= 1 + r;
+        peak = Math.max(peak, equity);
+        dd = Math.max(dd, 1 - equity / peak);
+    } const downside = Math.sqrt(avg(a.map(x => Math.min(0, x) ** 2))); let beta = null, alpha = null; if (benchmark) {
+        const b = avg(benchmark), vv = benchmark.reduce((s, x) => s + (x - b) ** 2, 0);
+        if (vv > 0) {
+            beta = a.reduce((s, x, i) => s + (x - m) * (benchmark[i] - b), 0) / vv;
+            alpha = 365 * (m - beta * b);
+        }
+    } return { net_return: equity - 1, cagr: equity ** (365 / a.length) - 1, max_drawdown: dd, sharpe: v > 0 ? m / Math.sqrt(v) * Math.sqrt(365) : null, sortino: downside > 0 ? m / downside * Math.sqrt(365) : null, beta, alpha_annual: alpha }; }
+    HChallenge.stats = stats;
+    function validateProtocol(p) { if (!p || !p.id || !Number.isFinite(p.registered_at) || !/^\d{4}-\d{2}-\d{2}$/.test(p.start) || !/^\d{4}-\d{2}-\d{2}$/.test(p.end) || !Number.isFinite(Date.parse(p.start)) || Date.parse(p.end) <= Date.parse(p.start) || Date.parse(p.start) <= p.registered_at || !(p.capital > 0) || !(p.max_drawdown > 0 && p.max_drawdown <= .5) || !Number.isInteger(p.trials) || p.trials < 1 || p.trials > 20 || !p.challenger?.trim() || !p.mandate?.trim())
+        throw Error('Protocolo inválido: periodo futuro, capital, riesgo y mandato comunes requeridos'); return structuredClone(p); }
+    HChallenge.validateProtocol = validateProtocol;
+    function evaluate(p, e) {
+        validateProtocol(p);
+        const n = e?.days?.length;
+        if (e?.schema !== 'HARPOON-XX-CHALLENGE-1' || e.protocol_id !== p.id || !['LIVE', 'PAPER', 'SYNTHETIC'].includes(e.source) || e.capital !== p.capital || !n || n > 5000 || e.harpoon?.length !== n || e.challenger?.length !== n || e.benchmark && e.benchmark.length !== n || !e.provenance?.trim())
+            throw Error('Evidencia incompatible con el protocolo');
+        for (const a of [e.harpoon, e.challenger, ...(e.benchmark ? [e.benchmark] : [])])
+            if (a.some(x => !Number.isFinite(x) || x <= -1 || x > 10))
+                throw Error('Retornos netos inválidos');
+        e.days.forEach((d, i) => { const t = Date.parse(d + 'T00:00:00Z'); if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || !Number.isFinite(t) || new Date(t).toISOString().slice(0, 10) !== d || d < p.start || d > p.end || t < p.registered_at || t + day > Date.now() || i && t - Date.parse(e.days[i - 1] + 'T00:00:00Z') !== day)
+            throw Error('Días faltantes, futuros, repetidos o fuera de protocolo'); });
+        const differences = e.harpoon.map((x, i) => x - e.challenger[i]);
+        let seed = 20261003;
+        const rng = () => { seed = (1664525 * seed + 1013904223) >>> 0; return seed / 4294967296; }, blocks = [7, 14, 28], lower = blocks.map(block => { const draws = []; for (let b = 0; b < 3000; b++) {
+            let total = 0, k = 0;
+            while (k < n) {
+                const start = Math.floor(rng() * n);
+                for (let j = 0; j < block && k < n; j++, k++)
+                    total += differences[(start + j) % n];
+            }
+            draws.push(total / n);
+        } draws.sort((a, b) => a - b); return { block, lower_daily: draws[Math.floor(3000 * .05 / p.trials)] }; });
+        const h = stats(e.harpoon, e.benchmark), f = stats(e.challenger, e.benchmark), gates = { one_year: n >= 365, complete_period: e.days[0] === p.start && e.days.at(-1) === p.end, live: e.source === 'LIVE', costs: e.costs_reconciled === true, risk: e.equal_risk === true, within_drawdown: h.max_drawdown <= p.max_drawdown && f.max_drawdown <= p.max_drawdown, positive_net: h.net_return > 0, larger_net: h.net_return > f.net_return, robust_difference: lower.every(x => x.lower_daily > 0) };
+        return { schema: 'HARPOON-XX-CHALLENGE-REPORT-1', status: Object.values(gates).every(Boolean) ? 'VENTAJA EN LA MUESTRA DECLARADA' : 'NO DEMOSTRADO', gates, harpoon: h, challenger: f, capital: p.capital, ending_harpoon: p.capital * (1 + h.net_return), ending_challenger: p.capital * (1 + f.net_return), paired_block_bootstrap: lower, observations: n, protocol: p, provenance: e.provenance, source: e.source, limitation: 'Importación autodeclarada, no auditoría independiente. Bootstrap circular, confianza unilateral y corrección por intentos declarados. No demuestra rentabilidad futura; no cambia órdenes ni capital.' };
+    }
+    HChallenge.evaluate = evaluate;
+})(HChallenge || (HChallenge = {}));

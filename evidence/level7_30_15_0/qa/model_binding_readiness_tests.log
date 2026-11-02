@@ -1,0 +1,202 @@
+TAP version 13
+# Subtest: runtime identities come from actual Python result JSON while pretty-file hashes stay distinct
+ok 1 - runtime identities come from actual Python result JSON while pretty-file hashes stay distinct
+  ---
+  duration_ms: 3613.373253
+  type: 'test'
+  ...
+# Subtest: actual receipts with two quant configurations in one role cannot supply a forward binding
+ok 2 - actual receipts with two quant configurations in one role cannot supply a forward binding
+  ---
+  duration_ms: 9.723305
+  type: 'test'
+  ...
+# Subtest: a changed runtime model digest is rejected even when enclosing local hashes are recalculated
+ok 3 - a changed runtime model digest is rejected even when enclosing local hashes are recalculated
+  ---
+  duration_ms: 9.932093
+  type: 'test'
+  ...
+# Subtest: empty, duplicated or non-reexecuted predictor roles cannot fall back to declared identities
+ok 4 - empty, duplicated or non-reexecuted predictor roles cannot fall back to declared identities
+  ---
+  duration_ms: 15.365166
+  type: 'test'
+  ...
+# Subtest: missing plan identity or calibration time is not reconstructed from enclosing model metadata
+ok 5 - missing plan identity or calibration time is not reconstructed from enclosing model metadata
+  ---
+  duration_ms: 15.255881
+  type: 'test'
+  ...
+# Subtest: changed receipt bytes, ambiguous JSON and changed source-model bindings are rejected
+ok 6 - changed receipt bytes, ambiguous JSON and changed source-model bindings are rejected
+  ---
+  duration_ms: 13.379238
+  type: 'test'
+  ...
+# Subtest: source configuration binding retains the observed original before offline replay projection
+ok 7 - source configuration binding retains the observed original before offline replay projection
+  ---
+  duration_ms: 46.831881
+  type: 'test'
+  ...
+# Subtest: strict JSON rejects overwritten evidence and nonfinite numbers
+ok 8 - strict JSON rejects overwritten evidence and nonfinite numbers
+  ---
+  duration_ms: 0.407345
+  type: 'test'
+  ...
+# Subtest: missing inputs stay at3 despite caller claims of readiness or profit
+ok 9 - missing inputs stay at3 despite caller claims of readiness or profit
+  ---
+  duration_ms: 1.738725
+  type: 'test'
+  ...
+# Subtest: valid data artifact is reconstructed but an empty panel cannot qualify
+ok 10 - valid data artifact is reconstructed but an empty panel cannot qualify
+  ---
+  duration_ms: 1314.242704
+  type: 'test'
+  ...
+# Subtest: tampered JSON report remains invalid even with a new outer file checksum
+ok 11 - tampered JSON report remains invalid even with a new outer file checksum
+  ---
+  duration_ms: 1368.738555
+  type: 'test'
+  ...
+# Subtest: mismatched source checksum cannot be treated as a verified component
+ok 12 - mismatched source checksum cannot be treated as a verified component
+  ---
+  duration_ms: 706.646139
+  type: 'test'
+  ...
+# Subtest: a declared reconciled ledger without reconstructible pages is rejected
+ok 13 - a declared reconciled ledger without reconstructible pages is rejected
+  ---
+  duration_ms: 2.781058
+  type: 'test'
+  ...
+# Subtest: real three-policy synthetic reexecution is engineering evidence and stays at3
+ok 14 - real three-policy synthetic reexecution is engineering evidence and stays at3
+  ---
+  duration_ms: 14688.179162
+  type: 'test'
+  ...
+# Subtest: relabeling and resealing synthetic comparison cannot promote it
+ok 15 - relabeling and resealing synthetic comparison cannot promote it
+  ---
+  duration_ms: 7483.587305
+  type: 'test'
+  ...
+# Subtest: market binding reads original local frames, and changed quote or bar cannot match
+ok 16 - market binding reads original local frames, and changed quote or bar cannot match
+  ---
+  duration_ms: 82.438164
+  type: 'test'
+  ...
+# Subtest: fixed source configuration has the same binding across page partitions
+ok 17 - fixed source configuration has the same binding across page partitions
+  ---
+  duration_ms: 138.505757
+  type: 'test'
+  ...
+# Subtest: configuration changes cannot be hidden across a source page boundary
+ok 18 - configuration changes cannot be hidden across a source page boundary
+  ---
+  duration_ms: 169.878317
+  type: 'test'
+  ...
+# Subtest: comparison configuration must match documented source normalization
+ok 19 - comparison configuration must match documented source normalization
+  ---
+  duration_ms: 237.208213
+  type: 'test'
+  ...
+# Subtest: mixed source capture uses exactly the funded equity ETF scope without cherry picking
+ok 20 - mixed source capture uses exactly the funded equity ETF scope without cherry picking
+  ---
+  duration_ms: 58.279571
+  type: 'test'
+  ...
+# Subtest: explicitly synthetic frames and incomplete page sets never claim observed receipts
+ok 21 - explicitly synthetic frames and incomplete page sets never claim observed receipts
+  ---
+  duration_ms: 48.603397
+  type: 'test'
+  ...
+# Subtest: self-resealed level4 score is checked by complete reexecution
+ok 22 - self-resealed level4 score is checked by complete reexecution
+  ---
+  duration_ms: 1.756591
+  type: 'test'
+  ...
+# Subtest: closed documentary coverage is usable only inside its verified period despite an unknown current tail
+ok 23 - closed documentary coverage is usable only inside its verified period despite an unknown current tail
+  ---
+  duration_ms: 0.201394
+  type: 'test'
+  ...
+# Subtest: synthetic complete base and stress reexecute all policies and preserve authority
+ok 24 - synthetic complete base and stress reexecute all policies and preserve authority
+  ---
+  duration_ms: 29578.261115
+  type: 'test'
+  ...
+# Subtest: NATIVE remains invested while CASH has same costs and no fictitious interest
+ok 25 - NATIVE remains invested while CASH has same costs and no fictitious interest
+  ---
+  duration_ms: 0.293833
+  type: 'test'
+  ...
+# Subtest: stress cannot alter predictor, signals, timestamps, capital or reduce costs
+ok 26 - stress cannot alter predictor, signals, timestamps, capital or reduce costs
+  ---
+  duration_ms: 40.082061
+  type: 'test'
+  ...
+# Subtest: a rehashed forged profit is rejected by complete replay
+ok 27 - a rehashed forged profit is rejected by complete replay
+  ---
+  duration_ms: 7726.608606
+  type: 'test'
+  ...
+# Subtest: cash insolvency is retained without borrowing or a terminal forced sale
+ok 28 - cash insolvency is retained without borrowing or a terminal forced sale
+  ---
+  duration_ms: 32.023795
+  type: 'test'
+  ...
+# Subtest: weekend accrual preserves its timestamp and belongs to next observed session
+ok 29 - weekend accrual preserves its timestamp and belongs to next observed session
+  ---
+  duration_ms: 0.31134
+  type: 'test'
+  ...
+# Subtest: cost schedule deducts fees once and keeps original account NAV
+ok 30 - cost schedule deducts fees once and keeps original account NAV
+  ---
+  duration_ms: 23.027895
+  type: 'test'
+  ...
+# Subtest: unknown evidence stays null and caller curves or a seventh slot are rejected
+ok 31 - unknown evidence stays null and caller curves or a seventh slot are rejected
+  ---
+  duration_ms: 7318.785208
+  type: 'test'
+  ...
+# Subtest: derivation verification reproduces source artifacts and rejects fabricated approval
+ok 32 - derivation verification reproduces source artifacts and rejects fabricated approval
+  ---
+  duration_ms: 14411.105244
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 89195.327162

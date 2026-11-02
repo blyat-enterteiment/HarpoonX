@@ -1,0 +1,25 @@
+✔ Ridge registration binds actual catalog recipe, risk policy, costs and server timestamp (54.016874ms)
+✔ selector data rejects future, cross-book, duplicate events and invalid feature values (11.597668ms)
+✔ historical import is immutable and idempotent; synthetic provenance is retained (11.093656ms)
+✔ operator imports after the registered cutoff cannot manufacture prospective observations (17.032658ms)
+✔ capture persists actual supplied quote tuples and never creates prices without observations (11.088899ms)
+✔ actual Ridge fitter computes finite coefficients and purges labels crossing cutoff (36.804768ms)
+✔ model validator rejects fabricated shape, feature drift and future training (11.161488ms)
+✔ selector worker runs real research and reports insufficient evidence instead of successful training (57.233767ms)
+✔ install rejects synthetic, non-prospective and incomplete acceptance reports (9.674377ms)
+✔ retirement and model revocation actually update persistent state (10.038284ms)
+✔ interrupted queued trial recovers durably and preserves account binding after restart (18.464367ms)
+✔ dataset preparation cannot hold broker authority while SQLite scans run (10.474802ms)
+✔ selector data persists through real SQLite scans and process reopen (86.00786ms)
+✔ an invalid optional model is revoked on restart without preventing position supervision (20.686604ms)
+✔ installation persistence and evaluation boundary work with an explicit internal acceptance test double (33.671655ms)
+✔ a sufficiently observed prospective holdout is consumed even by diagnostic inspection (10.721225ms)
+✔ actual selector worker evaluates all 12 folds and holdout on complete synthetic no-fill paths (3527.353517ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3992.195411

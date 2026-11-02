@@ -1,0 +1,21 @@
+✔ archive rollover preserves global frame sequence and cross-segment paginated export (7.897956ms)
+✔ restart restores continuous cursor, archive hashes and retained byte budget (6.927747ms)
+✔ altered or missing archive cannot be loaded or exported as complete evidence (2.092357ms)
+✔ failed rollover index commit retains the old control and retries without duplicate quota (2.881207ms)
+✔ archive write failure cannot advance cursor or expose the uncommitted segment (1.292029ms)
+✔ maxArchives zero retains the explicit stop after one segment without deleting evidence (0.915611ms)
+✔ archive count budget is total across restarts and never silently resets (1.725463ms)
+✔ retained byte cap is checked before immutable frame or archive writes (1.096304ms)
+✔ repeated failed commits cannot create unbudgeted orphan frames (1.341134ms)
+✔ budget and cross-segment chain tampering is rejected independently of an intact frame payload (1.097757ms)
+✔ changing retained compressed representation cannot evade its committed byte count (0.765835ms)
+✔ legacy single-segment journal migrates without rewriting retained frame chains (1.774648ms)
+✔ archive and byte configuration reject unbounded or non-integer budgets (0.240432ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 36.741337

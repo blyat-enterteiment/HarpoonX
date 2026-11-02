@@ -1,0 +1,2320 @@
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  alcance: Runtime y cuenta actuales; los datos históricos y benchmarks sintéticos se identifican aparte.
+  periodo_actual_observado: null
+  accesos:
+    at: '2026-11-01T00:38:03.549Z'
+    render:
+      selected_workspace: false
+      available_workspaces:
+      - name: A's workspace
+        id: tea-db77rsqvcj2c73cibvj0
+      required_before_read: Render connector requires user confirmation of workspace; no service/log reads performed.
+      deployments_performed: 0
+    alpaca:
+      tools:
+      - mcp__codex_apps__alpaca_get_all_assets
+      - mcp__codex_apps__alpaca_get_asset
+      - mcp__codex_apps__alpaca_get_calendar
+      - mcp__codex_apps__alpaca_get_clock
+      - mcp__codex_apps__alpaca_get_corporate_actions
+      - mcp__codex_apps__alpaca_get_crypto_bars
+      - mcp__codex_apps__alpaca_get_crypto_latest_bar
+      - mcp__codex_apps__alpaca_get_crypto_latest_orderbook
+      - mcp__codex_apps__alpaca_get_crypto_latest_quote
+      - mcp__codex_apps__alpaca_get_crypto_latest_trade
+      - mcp__codex_apps__alpaca_get_crypto_quotes
+      - mcp__codex_apps__alpaca_get_crypto_snapshot
+      - mcp__codex_apps__alpaca_get_crypto_trades
+      - mcp__codex_apps__alpaca_get_option_chain
+      - mcp__codex_apps__alpaca_get_option_contracts
+      - mcp__codex_apps__alpaca_get_option_latest_quote
+      - mcp__codex_apps__alpaca_get_option_snapshot
+      - mcp__codex_apps__alpaca_get_stock_bars
+      - mcp__codex_apps__alpaca_get_stock_latest_bar
+      - mcp__codex_apps__alpaca_get_stock_latest_quote
+      - mcp__codex_apps__alpaca_get_stock_latest_trade
+      - mcp__codex_apps__alpaca_get_stock_quotes
+      - mcp__codex_apps__alpaca_get_stock_snapshot
+      - mcp__codex_apps__alpaca_get_stock_trades
+      market_data: true
+      account: false
+      positions: false
+      orders_fills: false
+      activities: false
+      current_account_linkage: null
+    account_economic_costs:
+      available: false
+      amount_usd: null
+      reason: No observed account ledger or operating cost receipts supplied or exposed by the available broker connector.
+    external_orders: 0
+  mediciones:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos_por_segundo
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: intervalo_entre_eventos
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: frecuencia_decisiones
+    unidad: decisiones_por_segundo
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: antiguedad_dato_al_decidir
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: latencia_calculo_senal
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: latencia_envio_confirmacion
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: tiempo_hasta_ejecucion
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: latencia_cancelacion_confirmada
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: desfase_entre_relojes
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: persistencia_estimada_de_senal
+    unidad: segundos
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: spread
+    unidad: puntos_base
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: profundidad_ejecutable
+    unidad: unidades_y_USD
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: porcentaje_ejecutado
+    unidad: proporcion
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  - variable: coste_total_por_operacion
+    unidad: USD_y_puntos_base
+    valor_observado: null
+    distribucion_o_intervalo:
+      p50: null
+      p95: null
+      p99: null
+    fuente: null
+    limitacion: No hay telemetría actual de cuenta con relojes comparables. No se imputa cero ni se toma configuración
+      por medición.
+  archivo_observado:
+    source_files_verified: 37
+    raw_bars_by_symbol:
+      AAPL: 35091
+      NVDA: 35915
+      SPY: 35884
+      IWM: 35149
+    regular_bars_by_symbol:
+      AAPL: 14586
+      NVDA: 14586
+      SPY: 14586
+      IWM: 14586
+    regular_bars_total: 58344
+    distinct_sessions: 187
+    period:
+      from: '2026-01-01'
+      through: '2026-09-30'
+    historical_quote_records: 5058
+    training_rows_admissible: 0
+    prices_observed_but_original_availability_missing: true
+    external_authenticity_verified: false
+    interpretation: Complete numerical vectors do not establish original decision-time availability, labels, fills or
+      net wealth.
+  diagnosticos_de_cotizaciones:
+    schema: HARPOON_HISTORICAL_L1_DIAGNOSTICS_1
+    classification: OBSERVED_HISTORICAL_QUOTES_DESCRIPTIVE_ONLY
+    method: 10000*(ask-bid)/mid; linearly interpolated empirical quantiles by symbol and retrieval window
+    scope: Two ten-second archive probes at 10:50 and 15:20 America/New_York; not full 90 minute windows, not runtime
+      reception latency, no independent tail inference
+    rows:
+    - symbol: AAPL
+      from: '2026-09-30T14:49:50Z'
+      through: '2026-09-30T14:50:00Z'
+      retrieved_at: '2026-11-01T00:38:02.671Z'
+      records: 708
+      valid_spreads: 708
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 2.0644400206441986
+        p95: 2.6545148874035895
+        p99: 2.9494174900463865
+      source: quotes/quotes_probe_20260930_1050.json
+      source_sha256: a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528
+    - symbol: NVDA
+      from: '2026-09-30T14:49:50Z'
+      through: '2026-09-30T14:50:00Z'
+      retrieved_at: '2026-11-01T00:38:02.671Z'
+      records: 805
+      valid_spreads: 805
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.8667388949071207
+        p95: 1.3003055718094245
+        p99: 1.3003619340716994
+      source: quotes/quotes_probe_20260930_1050.json
+      source_sha256: a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528
+    - symbol: SPY
+      from: '2026-09-30T14:49:50Z'
+      through: '2026-09-30T14:50:00Z'
+      retrieved_at: '2026-11-01T00:38:02.671Z'
+      records: 912
+      valid_spreads: 912
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.2601964483182438
+        p95: 0.3903226016298924
+        p99: 0.5203928966364876
+      source: quotes/quotes_probe_20260930_1050.json
+      source_sha256: a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528
+    - symbol: IWM
+      from: '2026-09-30T14:49:50Z'
+      through: '2026-09-30T14:50:00Z'
+      retrieved_at: '2026-11-01T00:38:02.671Z'
+      records: 1359
+      valid_spreads: 1359
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.3573662110244226
+        p95: 0.7147196512161602
+        p99: 0.7147707372853654
+      source: quotes/quotes_probe_20260930_1050.json
+      source_sha256: a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528
+    - symbol: AAPL
+      from: '2026-09-30T19:19:50Z'
+      through: '2026-09-30T19:20:00Z'
+      retrieved_at: '2026-11-01T00:38:45.972Z'
+      records: 116
+      valid_spreads: 116
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.8938813819398035
+        p95: 1.4900242873945293
+        p99: 1.4900242873945293
+      source: quotes/quotes_probe_20260930_1520.json
+      source_sha256: ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237
+    - symbol: NVDA
+      from: '2026-09-30T19:19:50Z'
+      through: '2026-09-30T19:20:00Z'
+      retrieved_at: '2026-11-01T00:38:45.972Z'
+      records: 524
+      valid_spreads: 524
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.866288387403379
+        p95: 0.8664009703682988
+        p99: 1.2995733067643283
+      source: quotes/quotes_probe_20260930_1520.json
+      source_sha256: ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237
+    - symbol: SPY
+      from: '2026-09-30T19:19:50Z'
+      through: '2026-09-30T19:20:00Z'
+      retrieved_at: '2026-11-01T00:38:45.972Z'
+      records: 366
+      valid_spreads: 366
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.26086502843553366
+        p95: 0.39129499077308677
+        p99: 0.3913000945653165
+      source: quotes/quotes_probe_20260930_1520.json
+      source_sha256: ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237
+    - symbol: IWM
+      from: '2026-09-30T19:19:50Z'
+      through: '2026-09-30T19:20:00Z'
+      retrieved_at: '2026-11-01T00:38:45.972Z'
+      records: 268
+      valid_spreads: 268
+      invalid_or_crossed_quotes: 0
+      spread_bps:
+        p50: 0.35832661470898164
+        p95: 0.35832661470898164
+        p99: 0.35832661470898164
+      source: quotes/quotes_probe_20260930_1520.json
+      source_sha256: ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237
+    original_runtime_receipt_times: null
+    executable_depth: null
+    external_orders: 0
+  franjas: Las dos sondas históricas de diez segundos corresponden a10:50 y15:20 de Nueva York el30-09-2026. No acreditan
+    la cobertura completa de los90min ni actividad postcierre.
+reproduccion_de_referencia_y_discrepancias:
+  estado: RESULTADOS_HISTORICOS_CONSERVADOS_CON_HASH_NO_NUEVO_EXPERIMENTO
+  referencia:
+    classification: SYNTHETIC_ENGINEERING_ONLY
+    sources:
+    - reference_reproduction
+    - reference_forensic
+    - source_recovery
+    capital_initial_usd: 20000
+    normalized_net_pnl_usd: -282.45788903596525
+    normalized_return_fraction: -0.014122894451798262
+    maximum_drawdown_fraction: 0.01622319573258335
+    closed_trades: 15
+    capital_reset_between_folds: true
+    accepted_improvements: 0
+    forensic_sum_net_usd: -283.4582115604695
+    forensic_gross_mid_usd: -198.16843835442103
+    forensic_modeled_friction_usd: 85.28977320604848
+    interpretation: El índice normalizado y la suma entre ventanas reiniciadas tienen agregaciones distintas. El resultado
+      bruto del experimento ya es negativo antes de la fricción modelada.
+  fuente: quant/economic_experiment/reproduction/results.json
+reconciliacion_del_patrimonio:
+  cuenta_actual: null
+  patrimonio_actual: null
+  pnl_economico_actual: null
+  causa_null: El conector disponible expone mercado, no cuenta/actividades/fills; no se recibieron exports de ledger
+    ni documentos de costes.
+  capacidad_implementada:
+  - Archivo continuo sin reiniciar capital
+  - Verificación de caja/inventario/NAV/retornos
+  - Recibos de costes y cobertura documental
+  - Paginación autenticada
+  pruebas_de_software: Datos sintéticos y almacenamiento local; no validación de una cuenta conectada.
+atribucion_del_resultado:
+  perdida_actual_atribuible: null
+  causa_null: No se conoce la cuenta actual ni sus operaciones/costes.
+  referencia_sintetica:
+    bruto_mid_usd: -198.16843835442103
+    friccion_modelada_usd: 85.28977320604848
+    interpretacion: El experimento original ya era negativo antes de la fricción. No atribuirlo todo a ejecución ni extrapolar
+      a la cuenta.
+  historico_modelado:
+    classification: ESTIMACION_HISTORICA_CON_EJECUCION_MODELADA
+    universe:
+    - SPY
+    - XLK
+    period:
+      from: '2025-03-11'
+      through: '2026-07-13'
+      sessions: 336
+    capital_initial_usd: 20000
+    net_pnl_modeled_usd: 119.74999999999952
+    net_return_modeled_fraction: 0.005987500000000923
+    cost_assumptions:
+      spreadBps: 2
+      slippageBps: 2
+      perSideUsd: 0
+    external_operating_costs_usd: null
+    ridge_comparison_available: false
+    promotion: NONE
+  svr_ridge_previo:
+    classification: SYNTHETIC_ENGINEERING_ONLY
+    sources:
+    - svr_model
+    - svr_receipt
+    - svr_validation
+    metric_scope: Error predictivo en un activo ficticio; no patrimonio neto observado.
+    reported_metric_paths:
+      models.SYNTHSVR.date_counts:
+      - 179
+      - 59
+      - 60
+      models.SYNTHSVR.accepted: true
+      models.SYNTHSVR.reason: PREDICTIVE_MSE_SKILL_VS_PAST_MEAN_AND_RIDGE_NOT_PROFIT
+      models.SYNTHSVR.oos_mse: 4.2722106465637555e-07
+      models.SYNTHSVR.ridge_baseline_mse: 6.865104129132987e-05
+    oos_mse_svr: 4.2722106465637555e-07
+    oos_mse_ridge: 6.865104129132987e-05
+    synthetic_test_dates: 60
+    net_observed_profit_vs_ridge_usd: null
+    null_reason: No existe en las fuentes revisadas una comparación observada financiada del motor actual contra Ridge
+      que demuestre ventaja neta.
+    expected_net_usd_from_synthetic_receipt: 8.836689079307858
+    expected_value_is_realized_profit: false
+    research_only: true
+    execution_allowed: false
+    liveApproved: false
+  modelo_svr_previo: Los bytes del modelo Python histórico conservan su firma, pero su vínculo de implementación ya no
+    coincide con el predictor actual; no se actualizó su hash para habilitarlo.
+hipotesis_y_condiciones_de_refutacion:
+  nuevas_hipotesis_financieras_ejecutadas: 0
+  decision: Cerrar la medición antes de optimizar señal, ejecución o salidas. No hay atribución observada suficiente
+    para seleccionar H1/H2/H3.
+  criterio_congelado:
+    schema: HARPOON_LEVEL4_WORK_PROTOCOL_1
+    baseline:
+      application: 30.10.1
+      quant: 1.6.0
+      economic_readiness_score: 3
+    target_application: 30.11.0
+    target_quant: 1.7.0
+    target_score: 4
+    score_nature: Ordinal preparation milestone, not probability of profit or capital loss
+    criterion_frozen_from_previous_delivery: Datos observados causales utilizables, costes y patrimonio conciliados,
+      comparación reproducible y pareada del motor, Ridge y control.
+    required_together:
+    - Nonempty usable observed data with decision-time availability and source lineage
+    - Continuous account NAV, cash, positions and external-flow reconciliation
+    - Observed economic cost coverage; unknown expenses cannot be converted to zero
+    - C0 native, Ridge and SVR compared over the same funded interval, market input, account constraints, costs and coordinator
+      exits
+    - Numeric predictor and receipt reproductions bound to model, source, configuration and wealth-path hashes
+    - No unvalidated local software result substituted for external observation
+    does_not_require_positive_profit_at_level4: true
+    profitability_verdict_remains_separate: true
+    permitted_actions:
+    - Local implementation and validation
+    - Read-only market data and authorized resource discovery
+    - Synthetic engineering tests
+    - Preserve and update authorized deliverables
+    external_orders: false
+    deployment: false
+    paper_to_live: false
+    increase_exposure_or_budget: false
+    new_financial_searches_authorized_by_this_work_protocol: 0
+    historical_trial_counters_preserved: true
+    regression_reference:
+      node: 396
+      python: 347
+      total: 743
+    historical_quote_probe_selection: Final session of the previously retained January-September archive, at its existing
+      10:50 and15:20 diagnostic grids; no PnL used to choose it
+    historical_quote_probe_is_prospective_evidence: false
+    stop_rule: After the scoped engineering gaps are fixed and relevant tests pass, run readiness on available evidence.
+      Report exact unresolved resource requirements. Do not widen strategy search or change the score criterion to manufacture
+      level4.
+    independence: Internal review in shared workspace, not blind external validation
+cambios_implementados:
+- id: L4-01
+  problema: Retención contable finita sin archivo durable continuo.
+  remediacion: Segmentos verificables, baseline original, reinicio y exportación paginada; límites explícitos.
+  archivos:
+  - xxx/net_accounting.ts
+  - xxx/net_ledger_archive.ts
+  - xxx/net_ledger_verify.ts
+  pruebas:
+  - tools/quant_net_continuity_test.cjs
+  - tools/quant_net_ledger_test.cjs
+  estado: IMPLEMENTADO_Y_PROBADO_CON_DATOS_SINTETICOS
+- id: L4-02
+  problema: Ausencia de recibo operativo de gastos y de evidencia de cobertura de devengos del broker.
+  remediacion: Lectura y validación de recibos ligados a cuenta, periodo, documento y costes ya contabilizados, sin fabricar
+    importes ni duplicar descuentos.
+  archivos:
+  - xxx/cost_receipts.ts
+  - xxx/net_accounting.ts
+  - xxx/net_ledger_verify.ts
+  pruebas:
+  - tools/quant_net_continuity_test.cjs
+  estado: IMPLEMENTADO_SIN_RECIBOS_REALES_DISPONIBLES
+- id: L4-03
+  problema: Precios históricos confundibles con información disponible al decidir.
+  remediacion: Reconstrucción y segregación de diagnósticos; panel causal sólo con recibos originales y etiquetas disponibles.
+  archivos:
+  - quant/harpoon_quant/causal_panel.py
+  - tools/build_causal_panel.py
+  pruebas:
+  - quant/tests/test_causal_panel.py
+  estado: EJECUTADO_SOBRE_ARCHIVO_OBSERVADO_0_FILAS_CAUSALES_ADMISIBLES
+- id: L4-04
+  problema: Paridad parcial del coordinador y transporte de modelos que podía modificar su firma numérica.
+  remediacion: Comparación financiada C0/Ridge/SVR, inferencia reejecutada, bytes originales del modelo y controles comunes.
+  archivos:
+  - tools/coordinator_replay.cjs
+  - tools/funded_comparison.cjs
+  - tools/fixed_predictor_worker.cjs
+  - quant/harpoon_quant/fixed_predictor.py
+  pruebas:
+  - tools/funded_comparison_test.cjs
+  estado: COMPARACION_SINTETICA_REPRODUCIDA_MEDICION_OBSERVADA_PENDIENTE
+- id: L4-05
+  problema: Riesgo de ensayos no registrados o reinicio de presupuesto.
+  remediacion: Reserva idempotente de tres políticas en journal existente, head esperado y límite familiar de seis; sin
+    uso financiero nuevo.
+  archivos:
+  - quant/harpoon_quant/measurement_registration.py
+  - tools/measurement_registration.py
+  pruebas:
+  - quant/tests/test_measurement_registration.py
+  estado: IMPLEMENTADO_Y_PROBADO_CON_JOURNALS_SINTETICOS
+- id: L4-06
+  problema: Validadores aislados no garantizan que datos, modelos, cuenta y periodo correspondan.
+  remediacion: Verificador integral que reconstruye y contrasta componentes antes de asignar4.
+  archivos:
+  - tools/level4_readiness.cjs
+  pruebas:
+  - tools/level4_readiness_test.cjs
+  estado: EJECUTADO_NOTA_3_BLOQUEOS_EXPLICITOS
+- id: L4-07
+  problema: Coste de recalcular archivo histórico y falta de exportación protegida.
+  remediacion: Reutilización acotada de métricas del prefijo cerrado, invalidación de fuentes y exportación autenticada;
+    despliegue incluye verificadores.
+  archivos:
+  - runtime/quant_bridge.cjs
+  - xxx/server.ts
+  - deploy/Dockerfile.xxx
+  - .dockerignore
+  - deploy/dashboard30.html
+  pruebas:
+  - tools/level4_runtime_integration_test.cjs
+  - tools/integral_distribution_test.cjs
+  - tools/quant_dashboard_evidence_test.cjs
+  estado: IMPLEMENTADO_Y_PROBADO_LOCALMENTE
+resultados_de_todas_las_variantes:
+  alcance: Fixtures de software, no ensayos de rentabilidad
+  filas:
+  - candidato: C0
+    naturaleza: SYNTHETIC_ENGINEERING_ONLY_MODELED_EXECUTION
+    periodo: &id001
+      start_at: 1792078210000
+      end_at: 1792078211001
+      session_ids:
+      - '2026-10-15'
+    capital_inicial: 20000
+    patrimonio_final: 19998.527447
+    pnl_neto: -1.472552999999607
+    costes_operativos_externos: 1
+    crecimiento_geometrico_por_sesion: -7.36276499999633e-05
+    drawdown: 7.36276499999633e-05
+    diferencia_frente_al_control: 0.0
+    exposicion:
+      inventario_terminal_usd: 2325.2999999999997
+      max_fraccion_bruta_observada_en_eventos: 0.11626774713363555
+    numero_de_operaciones: null
+    numero_de_fills: 1
+    porcentaje_ejecutado: null
+    causa_metricas_null: El recibo conserva órdenes y fills; esta tabla no impone una agregación de trades o fracción
+      ejecutada sin definición.
+    intervalo_de_incertidumbre: null
+    causa_intervalo_null: Fixture de software, sin inferencia financiera.
+    dictamen: NO_ES_EVIDENCIA_DE_RENTABILIDAD
+  - candidato: RIDGE
+    naturaleza: SYNTHETIC_ENGINEERING_ONLY_MODELED_EXECUTION
+    periodo: *id001
+    capital_inicial: 20000
+    patrimonio_final: 19998.527447
+    pnl_neto: -1.472552999999607
+    costes_operativos_externos: 1
+    crecimiento_geometrico_por_sesion: -7.36276499999633e-05
+    drawdown: 7.36276499999633e-05
+    diferencia_frente_al_control: 0.0
+    exposicion:
+      inventario_terminal_usd: 2325.2999999999997
+      max_fraccion_bruta_observada_en_eventos: 0.11626774713363555
+    numero_de_operaciones: null
+    numero_de_fills: 1
+    porcentaje_ejecutado: null
+    causa_metricas_null: El recibo conserva órdenes y fills; esta tabla no impone una agregación de trades o fracción
+      ejecutada sin definición.
+    intervalo_de_incertidumbre: null
+    causa_intervalo_null: Fixture de software, sin inferencia financiera.
+    dictamen: NO_ES_EVIDENCIA_DE_RENTABILIDAD
+  - candidato: SVR
+    naturaleza: SYNTHETIC_ENGINEERING_ONLY_MODELED_EXECUTION
+    periodo: *id001
+    capital_inicial: 20000
+    patrimonio_final: 19998.527447
+    pnl_neto: -1.472552999999607
+    costes_operativos_externos: 1
+    crecimiento_geometrico_por_sesion: -7.36276499999633e-05
+    drawdown: 7.36276499999633e-05
+    diferencia_frente_al_control: 0.0
+    exposicion:
+      inventario_terminal_usd: 2325.2999999999997
+      max_fraccion_bruta_observada_en_eventos: 0.11626774713363555
+    numero_de_operaciones: null
+    numero_de_fills: 1
+    porcentaje_ejecutado: null
+    causa_metricas_null: El recibo conserva órdenes y fills; esta tabla no impone una agregación de trades o fracción
+      ejecutada sin definición.
+    intervalo_de_incertidumbre: null
+    causa_intervalo_null: Fixture de software, sin inferencia financiera.
+    dictamen: NO_ES_EVIDENCIA_DE_RENTABILIDAD
+  paridad:
+    covered_policies:
+    - C0
+    - RIDGE
+    - SVR
+    complete_policy_coverage: true
+    common_controls_verified: true
+    predictor_reexecution_verified: true
+    model_source_bindings_verified: true
+    training_provenance_verified: false
+    external_source_authenticity_verified: false
+    scope: SAME_COORDINATOR_EXITS_RISK_LIMITS_CAPITAL_UNIVERSE_EVENTS_AND_COSTS; NATIVE_C0_ENTRY_SELECTION_VS_QUANT_ALLOCATION_OVERLAYS;
+      RIDGE_VS_SVR_CHANGES_FIXED_ESTIMATOR
+  verificacion:
+    schema: HARPOON_FUNDED_COMPARISON_VERIFICATION_1
+    verified: true
+    mismatches: []
+    input_hash: 408e8c3f30862c8bb6e76e3a9eea455860f79d9484011ea7c16492c219accebc
+    expected_artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+    observed_artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+    real_coordinator_and_predictors_reexecuted: true
+    execution_allowed: false
+    liveApproved: false
+    financial_acceptance_allowed: false
+  limitaciones:
+  - All executions and their liquidity are modeled. An observed quote is not an observed fill.
+  - C0 retains native sizing; Ridge/SVR use the existing shared allocator. Their comparison against C0 is the whole entry
+    overlay, not an isolated predictor effect.
+  - No training or hyperparameter search is performed. Reproduced inference cannot certify fitted-model provenance.
+  - The shared capital account starts in cash and has no external capital flows or adopted source-account positions.
+  - External cost is an explicitly supplied lump sum charged at the final event; an unknown cost blocks rather than becomes
+    zero.
+  - Positions remaining open are marked at the modeled bid; they are not force-closed to improve the result.
+  - No statistical confidence interval, financial approval, PAPER activation or LIVE authority follows from this report.
+resultados_fuera_de_muestra_y_estres:
+  nueva_comparacion_observada: null
+  nuevo_holdout: null
+  causa_null: No existen las fuentes causales y contables necesarias.
+  estudio_sintetico_previo:
+    trayectorias: 5
+    comparaciones:
+      baseline:
+        mean_pnl_usd: -71.72000000000267
+        median_pnl_usd: -90.50000000000446
+        min_pnl_usd: -163.69999999999328
+        max_pnl_usd: 51.799999999997404
+        mean_return: -0.0035860000000001334
+        mean_daily_log_growth: -2.95073857158764e-05
+        median_sortino: -0.16023276920272422
+        max_drawdown_across_paths: 0.008254422190446364
+        mean_cvar95_fraction: 0.000787090647295884
+        cost_mean_usd: 32.38971401269344
+        closures: 23
+        positive_paths: 1
+        stock_closures: 0
+      candidate:
+        mean_pnl_usd: -38.178500541693246
+        median_pnl_usd: -42.167024852697296
+        min_pnl_usd: -115.15776502909691
+        max_pnl_usd: 19.24688892063653
+        mean_return: -0.0019089250270846623
+        mean_daily_log_growth: -1.5686595892645698e-05
+        median_sortino: -0.11073941547150752
+        max_drawdown_across_paths: 0.007608414074526171
+        mean_cvar95_fraction: 0.0006468976949843692
+        cost_mean_usd: 22.761807121189925
+        closures: 1251
+        positive_paths: 2
+        stock_closures: 1240
+      cost_1_5:
+        mean_pnl_usd: -46.75328527571753
+        median_pnl_usd: -48.2087432133782
+        min_pnl_usd: -128.58801284093335
+        max_pnl_usd: 15.824731584879181
+        mean_return: -0.0023376642637858765
+        mean_daily_log_growth: -1.9210773133112175e-05
+        median_sortino: -0.12194677465762183
+        max_drawdown_across_paths: 0.007752053947296389
+        mean_cvar95_fraction: 0.0006763011989827624
+        cost_mean_usd: 31.067373148893484
+        closures: 1251
+        positive_paths: 1
+        stock_closures: 1240
+      cost_2:
+        mean_pnl_usd: -51.43524187153137
+        median_pnl_usd: -51.6863208829288
+        min_pnl_usd: -119.81826065277534
+        max_pnl_usd: 12.402574249144038
+        mean_return: -0.0025717620935765684
+        mean_daily_log_growth: -2.1130762144179394e-05
+        median_sortino: -0.15474162603403982
+        max_drawdown_across_paths: 0.006062433836051984
+        mean_cvar95_fraction: 0.0006379536739896863
+        cost_mean_usd: 39.17651827027164
+        closures: 1251
+        positive_paths: 1
+        stock_closures: 1240
+      gaps:
+        mean_pnl_usd: -42.080500541695095
+        median_pnl_usd: -44.40202485270106
+        min_pnl_usd: -118.8077650291075
+        max_pnl_usd: 19.24688892063653
+        mean_return: -0.002104025027084755
+        mean_daily_log_growth: -1.7288483901119957e-05
+        median_sortino: -0.12275314933636003
+        max_drawdown_across_paths: 0.0072383820961521295
+        mean_cvar95_fraction: 0.0006553557106562804
+        cost_mean_usd: 26.663807121189922
+        closures: 1251
+        positive_paths: 1
+        stock_closures: 1240
+      iv_crush:
+        mean_pnl_usd: -45.9825005416894
+        median_pnl_usd: -46.6370248527026
+        min_pnl_usd: -122.45776502909366
+        max_pnl_usd: 19.24688892063653
+        mean_return: -0.00229912502708447
+        mean_daily_log_growth: -1.8890966051788265e-05
+        median_sortino: -0.1351496870629576
+        max_drawdown_across_paths: 0.006867938020094999
+        mean_cvar95_fraction: 0.0006692050263810746
+        cost_mean_usd: 30.56580712118992
+        closures: 1251
+        positive_paths: 1
+        stock_closures: 1240
+      liquidity:
+        mean_pnl_usd: -397.9955234209393
+        median_pnl_usd: -379.9720503276793
+        min_pnl_usd: -515.2866315553406
+        max_pnl_usd: -316.65778294549307
+        mean_return: -0.019899776171046966
+        mean_daily_log_growth: -0.00016480268020765867
+        median_sortino: -0.5062878327620822
+        max_drawdown_across_paths: 0.02576433157776703
+        mean_cvar95_fraction: 0.0009853996464122578
+        cost_mean_usd: 382.40184107854475
+        closures: 1249
+        positive_paths: 0
+        stock_closures: 1238
+      delay:
+        mean_pnl_usd: -29.14000000000172
+        median_pnl_usd: -10.80000000000414
+        min_pnl_usd: -104.29999999999495
+        max_pnl_usd: 59.09999999999638
+        mean_return: -0.001457000000000086
+        mean_daily_log_growth: -1.1988912530411758e-05
+        median_sortino: -0.07713018882486417
+        max_drawdown_across_paths: 0.005493461830687663
+        mean_cvar95_fraction: 0.0005214205391374518
+        cost_mean_usd: 18.397916636984554
+        closures: 12
+        positive_paths: 1
+        stock_closures: 0
+      outage:
+        mean_pnl_usd: -33.674253516249756
+        median_pnl_usd: -30.166684502459518
+        min_pnl_usd: -97.98381398472111
+        max_pnl_usd: 25.30988686130886
+        mean_return: -0.0016837126758124878
+        mean_daily_log_growth: -1.3833119457304628e-05
+        median_sortino: -0.12086524984327078
+        max_drawdown_across_paths: 0.005001366766616888
+        mean_cvar95_fraction: 0.0005217695023309859
+        cost_mean_usd: 21.22089503931672
+        closures: 1228
+        positive_paths: 2
+        stock_closures: 1218
+    dictamen: REJECTED
+  no_aumenta_evidencia_empirica: Repetir fixtures o generar escenarios sintéticos no añade observaciones de mercado.
+incertidumbre_y_limitaciones:
+  intervalo_de_beneficio_futuro: null
+  causa_null: No se estima una distribución de beneficio futuro con esta evidencia.
+  datos_admisibles:
+    prospective_frames: 0
+    causal_rows_admissible: 0
+    reconstructed_feature_rows: 8
+  registro_de_intentos_previo:
+    quant_economic:
+      sources:
+      - quant_validation
+      - economic_documentation
+      - economic_protocol
+      scope: Journal del experimento económico Quant; ResearchLab heredado tiene ledger separado.
+      prior_reconstructed: 9
+      new_reserved_in_historical_study: 14
+      recorded_total: 23
+      budget_limit: 128
+      remaining: 105
+      counter_before_review: 23
+      counter_after_review: 23
+      prior_journal_authentication: Reconstruido con script y resultados coincidentes; no original autenticado recuperado.
+    ultimate:
+      sources:
+      - ultimate_report
+      - ultimate_protocol
+      - ultimate_registry
+      reported_trial_count: 18
+      registered_slots: 18
+      registered_attempts_for_current_trial: 1
+      family_trials_bound: 72
+      policy_rows: 9
+      register_events_visible: 2
+      scope: Conteo del estudio ResearchLab Ultimate y cota familiar del protocolo. No es el contador Quant ni una cantidad
+        acreditada de ensayos independientes.
+    tp32:
+      sources:
+      - tp32_report
+      - tp32_protocol
+      reported_trial_count: 3
+      trial_budget: 3
+      scope: Tres perfiles de la comparación TP32; datos históricos pueden coincidir con Ultimate.
+    global_deduplicated_total: null
+    global_null_reason: Registros separados, definiciones distintas de intento/slot/variante y reutilización histórica
+      no reconciliadas. No sumar 23,18,3 ni interpretar 72 o128 como intentos ejecutados.
+    new_financial_trials_in_this_review: 0
+    new_financial_trials_in_release_30_10_1: 0
+    new_financial_trials_in_release_claim_basis: Alcance comunicado por el padre y fuentes financieras históricas enumeradas
+      idénticas a30.10.0. En el recibo del gate sintético solo cambian input_hash y artifact_hash; estadísticas y dictamen
+      idénticos. No se ejecutó investigación nueva en esta evaluación.
+  registro_de_esta_version:
+    nuevos_ensayos: 0
+    reservas_financieras: 0
+    entrenamientos_observados: 0
+    contadores_reiniciados: false
+  control_de_carga:
+    max_workers_existentes: 1
+    max_cola_existente: 8
+    nuevos_servicios: 0
+    nuevas_llamadas_LLM: 0
+    nuevos_sondeos_panel: 0
+    max_observaciones_materializadas: 100000
+    intervalo_reutilizacion_predeterminado_ms: 900000
+    max_segmentos_configurados: 16
+    max_bytes_archivo_configurados: 536870912
+    retencion_en_dias_garantizada: null
+    causa_null: Falta medir tamaño y frecuencia de captura del despliegue.
+  revision_interna: Agentes en workspace compartido; no auditoría externa ni evaluación ciega.
+  restricciones_de_ejecucion:
+  - Comparación inicial sólo efectivo sin flujos externos
+  - Órdenes/fills/liquidez modelados
+  - Costes externos de comparación como suma al último evento
+  - Entrenamiento de modelos no reejecutado ni autenticado externamente
+dictamen:
+  resultado: VENTAJA_NO_DEMOSTRADA
+  nota_anterior: 3
+  nota_actual: 3
+  objetivo: 4
+  nivel4_acreditado: false
+  significado: Hito ordinal de evidencia; no probabilidad de ganar ni de perder capital. Nivel4 no exige PnL positivo.
+  condicion_que_decidio: &id002
+  - OBSERVED_CAUSAL_CALIBRATION_PANEL_NOT_AVAILABLE
+  - OBSERVED_THREE_POLICY_COMPARISON_NOT_AVAILABLE
+  - COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+  - RECONCILED_ACCOUNT_HISTORY_MISSING_OR_INVALID
+  - OBSERVED_ACCOUNT_CURVE_OR_COST_COVERAGE_INCOMPLETE
+  - APPLICABLE_BROKER_ACCRUALS_NOT_VERIFIED
+  - MODEL_PANEL_HASH_OR_CHRONOLOGY_BINDING_MISSING
+  - ACCOUNT_OR_PERIOD_BINDING_MISSING
+  - COMPARISON_EXTERNAL_COST_NOT_BOUND_TO_ACCOUNT_PERIOD
+  evidencia_a_favor: Funciones nuevas probadas, fuentes históricas reconstruidas y tres rutas numéricas reejecutadas
+    en fixtures.
+  evidencia_en_contra: Cero filas causales observadas admisibles; cuenta/costes actuales ausentes; comparación observada
+    no ejecutada.
+  datos_faltantes:
+  - Exports originales del journal de observaciones con fechas de recepción y conocimiento
+  - Ledger de cuenta y sus actividades/posiciones para el periodo
+  - Recibos operativos y cobertura documental del broker
+  - Modelos observados congelados ligados al panel y datos de comparación posteriores
+  verificacion_integrada:
+    schema: HARPOON_LEVEL4_READINESS_1
+    input_hash: 3a87083a86be0b08a0350b93fe7ea694822e3ecba4f81b02922e8cd29974d981
+    source_hashes:
+    - path: data/request.json
+      sha256: 06b5b2a1994b648a55079f482f94aa897a57c8d08dcc85011a7abdb54f71e42e
+      bytes: 1019
+    - path: data/report.json
+      sha256: 5e229a172187cc90c30dca023378b3611e5a407b27d623c2dbf2f544a6a505d8
+      bytes: 29664
+    - path: external/80187c5a427cc7d16f8c244ad03fc08931d01429df340af7922f547ab9eb3f6c/synthetic_request.json
+      sha256: 80187c5a427cc7d16f8c244ad03fc08931d01429df340af7922f547ab9eb3f6c
+      bytes: 298785
+    - path: external/7233436d434b135ab92e573f3976c2fab42834fb1204666bfb68275859d6e114/synthetic_report.json
+      sha256: 7233436d434b135ab92e573f3976c2fab42834fb1204666bfb68275859d6e114
+      bytes: 3006971
+    implementation_hashes:
+      tools/level4_readiness.cjs: 013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d
+      tools/funded_comparison.cjs: bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15
+      tools/coordinator_replay.cjs: 1c2e7362d82f33168eab77b48f3421046e4051c311766e869429ded1ce3aedc7
+      tools/observation_replay_input.cjs: 3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086
+      runtime30/net_accounting.js: a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7
+      runtime30/net_ledger_verify.js: cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a
+      runtime30/net_ledger_archive.js: 84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc
+      runtime30/cost_receipts.js: e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca
+      quant/harpoon_quant/causal_panel.py: 86dc95479f5dd15ac1f47205610020d93d7ffbbeade514367ebbdfb9fc4637a7
+    score: 3
+    criterion: INTEGRATED_OBSERVED_MEASUREMENT_NOT_PROFIT_OR_AUTONOMOUS_PROMOTION
+    checks:
+    - id: data_sources_reexecuted
+      passed: true
+      evidence:
+        verified: true
+        verification:
+          schema: HARPOON_CAUSAL_PANEL_VERIFICATION_1
+          verified: true
+          input_hash: 1a29a7ee412472d1c11d1cf45fb2f5ae8f28189bf0c803e438a501f88d1712b7
+          expected_artifact_hash: 2de0d8317c6d404cb97d5e79923e327702e6d24415b98bd05ed171e919b6b8ef
+          observed_artifact_hash: 2de0d8317c6d404cb97d5e79923e327702e6d24415b98bd05ed171e919b6b8ef
+          source_recomputed: true
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+          financial_acceptance_allowed: false
+          execution_allowed: false
+        artifact_hash: 2de0d8317c6d404cb97d5e79923e327702e6d24415b98bd05ed171e919b6b8ef
+        counts:
+          prospective_frames: 0
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+        readiness:
+          status: MEDICION_BLOQUEADA
+          observed_rows: 0
+          distinct_sessions: 0
+          accepted_rows: 0
+          reason: SVR_ROW_LIMIT
+          training_executed: false
+          required_observation_unit: ONE_ROW_PER_ASSET_SESSION
+          minimum_distinct_sessions_contract: 100
+          note: Multiple decision records in replay do not create independent calibration sessions.
+          execution_allowed: false
+    - id: observed_admissible_panel
+      passed: false
+      evidence:
+        origin: OBSERVED
+        causal_rows: 0
+        reconstructed_rows: 8
+        accepted_rows: 0
+    - id: three_policy_comparison_reexecuted
+      passed: false
+      evidence:
+        verified: true
+        verification:
+          schema: HARPOON_FUNDED_COMPARISON_VERIFICATION_1
+          verified: true
+          mismatches: []
+          input_hash: 408e8c3f30862c8bb6e76e3a9eea455860f79d9484011ea7c16492c219accebc
+          expected_artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+          observed_artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+          real_coordinator_and_predictors_reexecuted: true
+          execution_allowed: false
+          liveApproved: false
+          financial_acceptance_allowed: false
+        status: ENGINEERING_ONLY
+        artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+        period:
+          start_at: 1792078210000
+          end_at: 1792078211001
+          session_ids:
+          - '2026-10-15'
+        market_binding_error: COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+    - id: comparison_market_receipts_bound
+      passed: false
+      evidence:
+        reason: COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+    - id: ledger_history_reconstructed
+      passed: false
+      evidence: null
+    - id: observed_complete_net_account_curve
+      passed: false
+      evidence: null
+    - id: applicable_broker_accruals_verified
+      passed: false
+      evidence:
+        documented_amount_usd: null
+        from: null
+        through: null
+        verified_period_from: null
+        verified_period_through: null
+        current_account_amount_usd: null
+        current_account_claim: null
+        recomputed_by_ledger_verifier: null
+        current_scope_verified: null
+    - id: models_bound_to_causal_panel_before_decisions
+      passed: false
+      evidence:
+      - model: RIDGE
+        passed: false
+        model_data_hash: null
+        panel_hash: af552e9b1fa829675665d128360fc64ed2db1cae6ba96eacb9dfe0b8416378f8
+        available_at: '2026-10-14T12:00:00+00:00'
+        comparison_start_at: 1792078210000
+      - model: SVR
+        passed: false
+        model_data_hash: null
+        panel_hash: af552e9b1fa829675665d128360fc64ed2db1cae6ba96eacb9dfe0b8416378f8
+        available_at: '2026-10-14T12:00:00+00:00'
+        comparison_start_at: 1792078210000
+    - id: account_and_measurement_periods_bound
+      passed: false
+      evidence:
+        account_id: null
+        market_account_id: null
+        ledger_from: null
+        ledger_economic_prefix_through: null
+        ledger_last_observation_at: null
+        comparison_from: 1792078210000
+        comparison_through: 1792078211001
+    - id: external_cost_total_bound
+      passed: false
+      evidence:
+        ledger_period_external_cost_usd: null
+        modeled_external_cost_usd: 1
+        cost_timing: COMPARISON_LUMP_SUM_IS_STILL_AN_EXPLICIT_MODEL
+    blockers: *id002
+    components:
+      data:
+        verified: true
+        verification:
+          schema: HARPOON_CAUSAL_PANEL_VERIFICATION_1
+          verified: true
+          input_hash: 1a29a7ee412472d1c11d1cf45fb2f5ae8f28189bf0c803e438a501f88d1712b7
+          expected_artifact_hash: 2de0d8317c6d404cb97d5e79923e327702e6d24415b98bd05ed171e919b6b8ef
+          observed_artifact_hash: 2de0d8317c6d404cb97d5e79923e327702e6d24415b98bd05ed171e919b6b8ef
+          source_recomputed: true
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+          financial_acceptance_allowed: false
+          execution_allowed: false
+        artifact_hash: 2de0d8317c6d404cb97d5e79923e327702e6d24415b98bd05ed171e919b6b8ef
+        counts:
+          prospective_frames: 0
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+        readiness:
+          status: MEDICION_BLOQUEADA
+          observed_rows: 0
+          distinct_sessions: 0
+          accepted_rows: 0
+          reason: SVR_ROW_LIMIT
+          training_executed: false
+          required_observation_unit: ONE_ROW_PER_ASSET_SESSION
+          minimum_distinct_sessions_contract: 100
+          note: Multiple decision records in replay do not create independent calibration sessions.
+          execution_allowed: false
+      comparison:
+        verified: true
+        verification:
+          schema: HARPOON_FUNDED_COMPARISON_VERIFICATION_1
+          verified: true
+          mismatches: []
+          input_hash: 408e8c3f30862c8bb6e76e3a9eea455860f79d9484011ea7c16492c219accebc
+          expected_artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+          observed_artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+          real_coordinator_and_predictors_reexecuted: true
+          execution_allowed: false
+          liveApproved: false
+          financial_acceptance_allowed: false
+        status: ENGINEERING_ONLY
+        artifact_hash: c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a
+        period:
+          start_at: 1792078210000
+          end_at: 1792078211001
+          session_ids:
+          - '2026-10-15'
+        market_binding_error: COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+      ledger: null
+    implemented:
+      causal_panel_builder: true
+      funded_three_policy_producer: true
+      ledger_history_verifier: true
+      source_reexecution_and_bindings: true
+    observed:
+      causal_data: false
+      account_and_costs: false
+      account_and_costs_scope: CLOSED_ECONOMIC_PREFIX_ONLY
+      current_account_economic_complete: null
+      three_policy_comparison: false
+      market_receipts: false
+    financial_profitability_demonstrated: false
+    full_autonomous_economic_cycle_verified: false
+    training_provenance_independently_verified: false
+    source_authenticity_independently_verified: false
+    execution_allowed: false
+    liveApproved: false
+    financial_acceptance_allowed: false
+    limitations:
+    - Score 4 concerns integrated measurement only and can coexist with losses.
+    - Quotes and local receipts do not authenticate a provider independently or establish executable depth.
+    - Comparison fills, liquidity, timing and costs retain their explicitly modeled scope.
+    - Models are checked against panel hashes and chronology; training is not rerun and independent training provenance
+      is not certified.
+    - Ledger amounts include reported and declared costs; unknown broker accruals and unspecified taxes remain outside
+      proven completeness.
+    artifact_hash: 1d2e6c743d170c2529465654f705503b3739cb9033bd8e1db9b52632b05c7812
+  verificacion_reproducida:
+    schema: HARPOON_LEVEL4_READINESS_VERIFICATION_1
+    verified: true
+    score: 3
+    expected_artifact_hash: 1d2e6c743d170c2529465654f705503b3739cb9033bd8e1db9b52632b05c7812
+    observed_artifact_hash: 1d2e6c743d170c2529465654f705503b3739cb9033bd8e1db9b52632b05c7812
+    execution_allowed: false
+    liveApproved: false
+    financial_acceptance_allowed: false
+  rubrica_conservada:
+  - score_range:
+    - 1
+    - 2
+    milestone: Idea o prototipo sin evaluación económica reproducible suficiente.
+  - score_range:
+    - 3
+    - 3
+    milestone: Motor y controles offline implementados; evidencia histórica/sintética revisable; ventaja neta actual
+      no demostrada.
+    current: true
+  - score_range:
+    - 4
+    - 4
+    milestone: Datos observados causales utilizables, costes y patrimonio conciliados, comparación reproducible y pareada
+      del motor, Ridge y control.
+  - score_range:
+    - 5
+    - 6
+    milestone: Beneficio absoluto y mejora económica frente a Ridge en prueba temporal nueva, con incertidumbre, búsqueda
+      múltiple, riesgo y estrés dentro de criterios previos.
+  - score_range:
+    - 7
+    - 7
+    milestone: Validación forward representativa de disponibilidad de precios, ejecución, costes y controles, dentro
+      del modo autorizado.
+  - score_range:
+    - 8
+    - 9
+    milestone: Resultados netos realizados, reconciliados y repetidos en periodos y condiciones distintas, sin exceder
+      capital y límites.
+  - score_range:
+    - 10
+    - 10
+    milestone: Evidencia sostenida y repetible bajo criterios exigentes; no garantiza beneficios futuros ni ganar un
+      campeonato.
+validacion_software:
+  entrega:
+    application: 30.11.0
+    quant: 1.7.0
+    distribution: INTEGRAL
+    baseline: 30.10.1
+    validated_at: '2026-11-01T01:11:43.439610+00:00'
+    tests:
+      node: 469
+      python: 384
+      total: 853
+      new_since_30_10_1: 110
+      failed: 0
+      skipped: 0
+    static_checks: PASS
+    economic_readiness_before: 3
+    economic_readiness_after: 3
+    target: 4
+    score_nature: ORDINAL_EVIDENCE_MILESTONE_NOT_PROBABILITY
+    financial_verdict: VENTAJA_NO_DEMOSTRADA
+    new_financial_trials: 0
+    new_historical_training_runs: 0
+    external_orders: 0
+    deployment: NOT_RUN
+    historical_files_preserved: 236
+    full_autonomous_economic_cycle_verified: false
+    browser_layout: NOT_RUN_CHROMIUM_UNAVAILABLE
+    docker_image_build: NOT_RUN_DOCKER_UNAVAILABLE
+    container_copy_layout: PASS_WITH_HOST_DEPENDENCIES_NOT_IMAGE_BUILD
+  resumen_y_comandos:
+    scope: Affected offline software gates; no trading performance assertion
+    suite: all
+    python: 3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+    checks:
+    - name: typescript_build
+      command:
+      - node
+      - node_modules/typescript/bin/tsc
+      - -p
+      - tsconfig.xxx.json
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 2.5284533480007667
+      log: typescript_build.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: xxx_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.6684942159990896
+      log: xxx_test.log
+      log_sha256: ae5ef8d46161aeab1b5776a90c76c676de95f4d2738980b8e47ebe320cadd70f
+      tests: 52
+      pass: 52
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_conformance_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_conformance_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.9179169189956156
+      log: xxx_conformance_test.log
+      log_sha256: a218a6fc7ced55dcaf80e466df24c751ff0f8d1bd957ad767070753363a3078c
+      tests: 13
+      pass: 13
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_health_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_health_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.5161607729969546
+      log: xxx_health_test.log
+      log_sha256: 525c17eee6fb78c5d59f893746a14c9c3001a33d28bf123763553f0b7d87dd3e
+      tests: 17
+      pass: 17
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_selector_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_selector_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 4.227494922000915
+      log: xxx_selector_test.log
+      log_sha256: d4be33839ca48b0c66be8af48ec22403eecc05fc65a133b22c77dc0f0d1a98ae
+      tests: 17
+      pass: 17
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_tp32_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_tp32_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.3653020400015521
+      log: xxx_tp32_test.log
+      log_sha256: a9a7ca968626cdbdd426a7fad11892d41fd32100d8d4282200b522f1c981dfcc
+      tests: 15
+      pass: 15
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_operational_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_operational_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.6686113609976019
+      log: xxx_operational_test.log
+      log_sha256: 2a945e7e90724849d59f68864190eb571b9f8487f68d5e80ddb772f5dfa175e5
+      tests: 30
+      pass: 30
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_partial_entry_risk_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_partial_entry_risk_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.3150319920023321
+      log: xxx_partial_entry_risk_test.log
+      log_sha256: 79aadd89200b33a3c5ca066c942c0d5ed3040282cf160979d96ae0436858c454
+      tests: 8
+      pass: 8
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: ultimate_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/ultimate_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.8165993719958351
+      log: ultimate_test.log
+      log_sha256: c81338c370d8be98d150e27934503d115398bf9986ed56e4b50511f6365d0972
+      tests: 30
+      pass: 30
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_bridge_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_bridge_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 9.843574007005373
+      log: quant_bridge_test.log
+      log_sha256: 96a2753c2558e17f0b85ed89c3986bb8136ffca1c6ce9721dd2555f41d11a106
+      tests: 16
+      pass: 16
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_svr_integration_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_svr_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 14.30987559100322
+      log: quant_svr_integration_test.log
+      log_sha256: 4e8b43afdd87e507a94efc7cb49042daf8662f3637a804d56269bcfd26a5a463
+      tests: 7
+      pass: 7
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_discovery_regression_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_discovery_regression_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.16471086199453566
+      log: quant_discovery_regression_test.log
+      log_sha256: 41dc920b615af9532c9ac8310047d15883bbfc187fbdebd6c01dff63597fb395
+      tests: 37
+      pass: 37
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: xxx_session_regression_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/xxx_session_regression_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.3653123109979788
+      log: xxx_session_regression_test.log
+      log_sha256: bf9b3cb146e7e4fd002e20828b90ae81bc19bc86c7679e38717451bf6e979a70
+      tests: 26
+      pass: 26
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_remediation_integration_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_remediation_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.31507365700235823
+      log: quant_remediation_integration_test.log
+      log_sha256: 9b5434f6204aaad4bc07cc21c1e7eced6631b5fb49b01a4aea85c63fca262a97
+      tests: 12
+      pass: 12
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_net_ledger_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_net_ledger_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.565886814998521
+      log: quant_net_ledger_test.log
+      log_sha256: 12084a41f0dfd0a9f023fcda3fdbe8601a5a6c00f8acb2ab42efb3fc30340c30
+      tests: 40
+      pass: 40
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_net_continuity_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_net_continuity_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.3653190410041134
+      log: quant_net_continuity_test.log
+      log_sha256: da163fbaba744db7a227c6016905c9de2bdeb63527a2dd965a2a46e1ce32f41a
+      tests: 35
+      pass: 35
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_coordinator_replay_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_coordinator_replay_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 2.4211746040018625
+      log: quant_coordinator_replay_test.log
+      log_sha256: 1e1fb953a7e29fcdacc6154730aa9306bdbfa9bd1eccf8ac29f8da720068d13d
+      tests: 24
+      pass: 24
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_autonomy_integration_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_autonomy_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 10.85997811100242
+      log: quant_autonomy_integration_test.log
+      log_sha256: e1fc55780490a2517fe31f7e8efc6b3f80f8e7631a8f2d85e95d583e50e55362
+      tests: 20
+      pass: 20
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_observation_archive_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_observation_archive_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.1649220300023444
+      log: quant_observation_archive_test.log
+      log_sha256: 1d30768b5af587cad9de860aa94c7d2b09444d62557ccd4db68a8149562b0221
+      tests: 13
+      pass: 13
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_dashboard_evidence_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/quant_dashboard_evidence_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.11483486100041773
+      log: quant_dashboard_evidence_test.log
+      log_sha256: 66b8686960be993f457a46e84e1b2c65e2e2f5d9707d84747ab54f47bb81481c
+      tests: 12
+      pass: 12
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: funded_comparison_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/funded_comparison_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 19.49086463599815
+      log: funded_comparison_test.log
+      log_sha256: 7ae70739fd6f0975694fbb4afdf50aa96d9c66ccc3a97483500022707beac79e
+      tests: 13
+      pass: 13
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: level4_runtime_integration_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/level4_runtime_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 27.69961651199992
+      log: level4_runtime_integration_test.log
+      log_sha256: db47ebc9148d12fdde4b0e1eb8d7d06f54286368b69e51d85586b05893423a23
+      tests: 12
+      pass: 12
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: level4_readiness_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/level4_readiness_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 28.76879271100188
+      log: level4_readiness_test.log
+      log_sha256: 214c709fce6a61e97d0f0aa39f197f361d1c3d81e76ba5a4eabc5961109b5a80
+      tests: 12
+      pass: 12
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: integral_distribution_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/integral_distribution_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 10.053598318001605
+      log: integral_distribution_test.log
+      log_sha256: caa4c40a501b4b272e67f17987fb8604fc6686ac352f15ee08327b56ba132594
+      tests: 8
+      pass: 8
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: quant_unittest
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - unittest
+      - discover
+      - -s
+      - tests
+      - -v
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0/quant
+      exit_code: 0
+      duration_seconds: 23.59001431299839
+      log: quant_unittest.log
+      log_sha256: d81d09458c26ceab731c1b10bf20e75a490ec165c4755a754b6ff6812546a9a8
+      tests: 360
+      passed: true
+    - name: integral_installer_unittest
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - unittest
+      - discover
+      - -s
+      - tools
+      - -p
+      - test_ultimate_install.py
+      - -v
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.1646631809999235
+      log: integral_installer_unittest.log
+      log_sha256: c765bbe8da7d2dafc6f1e0110221e6c555385a1f8e44cd3f1bf0188b986b696c
+      tests: 24
+      passed: true
+    - name: syntax_discovery
+      command:
+      - node
+      - --check
+      - runtime/discovery.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032378718999098055
+      log: syntax_discovery.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_bridge
+      command:
+      - node
+      - --check
+      - runtime/quant_bridge.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032267552000121213
+      log: syntax_quant_bridge.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_coordinator_replay
+      command:
+      - node
+      - --check
+      - tools/coordinator_replay.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03212625000014668
+      log: syntax_coordinator_replay.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_observation_replay_input
+      command:
+      - node
+      - --check
+      - tools/observation_replay_input.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032168014004128054
+      log: syntax_observation_replay_input.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_funded_comparison
+      command:
+      - node
+      - --check
+      - tools/funded_comparison.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03232152700365987
+      log: syntax_funded_comparison.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_fixed_predictor_worker
+      command:
+      - node
+      - --check
+      - tools/fixed_predictor_worker.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032269216993881855
+      log: syntax_fixed_predictor_worker.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_level4_readiness
+      command:
+      - node
+      - --check
+      - tools/level4_readiness.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03220192599837901
+      log: syntax_level4_readiness.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_test
+      command:
+      - node
+      - --check
+      - tools/xxx_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.0321932530059712
+      log: syntax_xxx_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_conformance_test
+      command:
+      - node
+      - --check
+      - tools/xxx_conformance_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032104197998705786
+      log: syntax_xxx_conformance_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_health_test
+      command:
+      - node
+      - --check
+      - tools/xxx_health_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03221431499696337
+      log: syntax_xxx_health_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_selector_test
+      command:
+      - node
+      - --check
+      - tools/xxx_selector_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03216572100063786
+      log: syntax_xxx_selector_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_tp32_test
+      command:
+      - node
+      - --check
+      - tools/xxx_tp32_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.06435520899685798
+      log: syntax_xxx_tp32_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_operational_test
+      command:
+      - node
+      - --check
+      - tools/xxx_operational_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032473901999765076
+      log: syntax_xxx_operational_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_partial_entry_risk_test
+      command:
+      - node
+      - --check
+      - tools/xxx_partial_entry_risk_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032182677001401316
+      log: syntax_xxx_partial_entry_risk_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_ultimate_test
+      command:
+      - node
+      - --check
+      - tools/ultimate_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032260143001622055
+      log: syntax_ultimate_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_bridge_test
+      command:
+      - node
+      - --check
+      - tools/quant_bridge_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03249297400179785
+      log: syntax_quant_bridge_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_svr_integration_test
+      command:
+      - node
+      - --check
+      - tools/quant_svr_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.0321635319996858
+      log: syntax_quant_svr_integration_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_discovery_regression_test
+      command:
+      - node
+      - --check
+      - tools/quant_discovery_regression_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032193603001360316
+      log: syntax_quant_discovery_regression_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_xxx_session_regression_test
+      command:
+      - node
+      - --check
+      - tools/xxx_session_regression_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03211918099987088
+      log: syntax_xxx_session_regression_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_remediation_integration_test
+      command:
+      - node
+      - --check
+      - tools/quant_remediation_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03224892700382043
+      log: syntax_quant_remediation_integration_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_net_ledger_test
+      command:
+      - node
+      - --check
+      - tools/quant_net_ledger_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03226566200464731
+      log: syntax_quant_net_ledger_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_net_continuity_test
+      command:
+      - node
+      - --check
+      - tools/quant_net_continuity_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032486074000189546
+      log: syntax_quant_net_continuity_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_coordinator_replay_test
+      command:
+      - node
+      - --check
+      - tools/quant_coordinator_replay_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03255895400070585
+      log: syntax_quant_coordinator_replay_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_autonomy_integration_test
+      command:
+      - node
+      - --check
+      - tools/quant_autonomy_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032182276001549326
+      log: syntax_quant_autonomy_integration_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_observation_archive_test
+      command:
+      - node
+      - --check
+      - tools/quant_observation_archive_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03323821900266921
+      log: syntax_quant_observation_archive_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_quant_dashboard_evidence_test
+      command:
+      - node
+      - --check
+      - tools/quant_dashboard_evidence_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03230307799822185
+      log: syntax_quant_dashboard_evidence_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_funded_comparison_test
+      command:
+      - node
+      - --check
+      - tools/funded_comparison_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03233908199763391
+      log: syntax_funded_comparison_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_level4_runtime_integration_test
+      command:
+      - node
+      - --check
+      - tools/level4_runtime_integration_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032197528998949565
+      log: syntax_level4_runtime_integration_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_level4_readiness_test
+      command:
+      - node
+      - --check
+      - tools/level4_readiness_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032368337000661995
+      log: syntax_level4_readiness_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: syntax_integral_distribution_test
+      command:
+      - node
+      - --check
+      - tools/integral_distribution_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032685894999303855
+      log: syntax_integral_distribution_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: ruff
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - ruff
+      - check
+      - harpoon_quant/core.py
+      - harpoon_quant/calibration.py
+      - harpoon_quant/scalar_svr.py
+      - harpoon_quant/paired_replay.py
+      - harpoon_quant/bridge.py
+      - harpoon_quant/__main__.py
+      - harpoon_quant/economic_gate.py
+      - harpoon_quant/performance.py
+      - harpoon_quant/study_integrity.py
+      - harpoon_quant/fixed_predictor.py
+      - harpoon_quant/measurement_registration.py
+      - harpoon_quant/causal_panel.py
+      - tests/test_instrument_metadata.py
+      - tests/test_paired_replay.py
+      - tests/test_runtime_observations.py
+      - tests/test_economic_gate.py
+      - tests/test_performance_provenance.py
+      - tests/test_measurement_registration.py
+      - tests/test_causal_panel.py
+      - tests/test_fixed_predictor.py
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0/quant
+      exit_code: 0
+      duration_seconds: 0.03208925599756185
+      log: ruff.log
+      log_sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+      passed: true
+    - name: mypy
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - mypy
+      - --follow-imports=silent
+      - harpoon_quant/core.py
+      - harpoon_quant/calibration.py
+      - harpoon_quant/scalar_svr.py
+      - harpoon_quant/paired_replay.py
+      - harpoon_quant/bridge.py
+      - harpoon_quant/__main__.py
+      - harpoon_quant/economic_gate.py
+      - harpoon_quant/performance.py
+      - harpoon_quant/study_integrity.py
+      - harpoon_quant/fixed_predictor.py
+      - harpoon_quant/measurement_registration.py
+      - harpoon_quant/causal_panel.py
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0/quant
+      exit_code: 0
+      duration_seconds: 1.0166699100009282
+      log: mypy.log
+      log_sha256: 8b88f6d12bd312c1b024b66d07a7f7619a68482ac4d64e475759b1823199faa5
+      passed: true
+    - name: adapters_ruff
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - ruff
+      - check
+      - tools/build_causal_panel.py
+      - tools/measurement_registration.py
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.032206643001700286
+      log: adapters_ruff.log
+      log_sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+      passed: true
+    - name: installer_ruff
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - ruff
+      - check
+      - deploy/ultimate_install.py
+      - tools/test_ultimate_install.py
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.03207228999963263
+      log: installer_ruff.log
+      log_sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+      passed: true
+    - name: installer_mypy
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - mypy
+      - --follow-imports=silent
+      - deploy/ultimate_install.py
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.6157524280060898
+      log: installer_mypy.log
+      log_sha256: 5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e
+      passed: true
+    - name: shell_install
+      command:
+      - bash
+      - -n
+      - install.sh
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.004038602004584391
+      log: shell_install.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: shell_status
+      command:
+      - bash
+      - -n
+      - status.sh
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.0037411230005091056
+      log: shell_status.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: shell_stop
+      command:
+      - bash
+      - -n
+      - stop.sh
+      cwd: /workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0
+      exit_code: 0
+      duration_seconds: 0.0037169120041653514
+      log: shell_stop.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    tests: 853
+    passed: true
+    financial_trials_created: 0
+  no_demuestra_rentabilidad: true
+  benchmark_contabilidad_local_sintetica:
+    schema: HARPOON_NET_CONTINUITY_BENCHMARK_1
+    origin: SYNTHETIC_ENGINEERING_ONLY
+    external_requests: 0
+    financial_trials: 0
+    environment:
+      node: v24.22.1
+      platform: linux
+      arch: x64
+      cpu: AMD EPYC 9V74 80-Core Processor
+      host_logical_cpus: 9
+      memory:
+        rss: 212672512
+        heapTotal: 150638592
+        heapUsed: 53599016
+        external: 2099143
+        arrayBuffers: 143695
+    workload:
+      observations: 1001
+      positions_per_observation: 1
+      activities: 0
+      declared_expenses: 0
+      explicit_synthetic_cost_coverage: true
+      active_observation_bound: 250
+      archive_segments: 4
+      archived_observations: 1000
+      active_observations: 1
+      reserved_archive_bytes: 1208249
+    refresh_before_first_rollover:
+      samples: 250
+      p50_ms: 14.036661999999978
+      p95_ms: 26.053001000000222
+      p99_ms: 29.190008999999918
+      min_ms: 1.450449000000006
+      max_ms: 29.795040999999856
+      tail_quantile_limitation: null
+    rollover:
+      samples: 4
+      p50_ms: 20.94286700000157
+      p95_ms: null
+      p99_ms: null
+      min_ms: 19.86126400000103
+      max_ms: 35.42462400000022
+      tail_quantile_limitation: INSUFFICIENT_SAMPLES_FOR_REPORTED_P99
+    refresh_after_first_rollover:
+      samples: 747
+      p50_ms: 11.466660000000047
+      p95_ms: 32.50009200000022
+      p99_ms: 36.265863000000536
+      min_ms: 0.7613380000002508
+      max_ms: 38.218479000000116
+      tail_quantile_limitation: null
+    full_export:
+      pages: 2
+      records: 1006
+      elapsed_ms: 45.931768000000375
+    offline_integrity_and_accounting_verification:
+      observations: 1001
+      elapsed_ms: 51.62299399999938
+      verified: true
+    performance_materialization:
+      returns: 1000
+      elapsed_ms: 49.4658500000005
+      bytes: 1219072
+    limitations:
+    - In-memory Store and synthetic GET responses; no broker latency or production capacity inference.
+    - Archive quota is finite; totals do not imply indefinite autonomy.
+    - Zero costs are an explicit synthetic fixture declaration, not missing actual costs imputed to zero.
+    - No comparison of investment strategies or evidence of profitability.
+reproduccion:
+  guia: LEEME_NIVEL4_30_11_0.txt
+  datos: evidence/level4_30_11_0/data/request.json
+  comparacion: quant/examples/funded_comparison/synthetic_request.json
+  readiness: evidence/level4_30_11_0/readiness_request.json
+  tests: python tools/verify_remediation.py --suite all --output /tmp/harpoon-level4-qa

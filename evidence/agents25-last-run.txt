@@ -1,0 +1,33 @@
+{
+  "checks": [
+    "HEAD routes a lead through SEARCH, RISK, two confirmations and SNIPER with persistent tasks",
+    "Parallel confirmations preserve an unbroken SHA-256 message chain",
+    "A permit is consumed once before any broker submission",
+    "Restart cannot reuse a consumed approval",
+    "LIVE requires exact authorization and rejects larger sizes",
+    "Expired approvals cannot execute",
+    "A stale confirmation rejects the lead without order authority",
+    "External universe and ambiguous inventory fail closed",
+    "Daily loss cutoff survives restart and cannot reset on the same local day",
+    "Daily close uses the last mark and excludes partial-day coverage",
+    "Next local day still requires an explicit reset",
+    "Expanding the mandate requires a policy-bound literal authorization",
+    "Coordinator, watchdog, EXIT and due reports execute real handlers",
+    "Scheduled reports are deduplicated by local day",
+    "GPT findings enter bounded research once and never become orders",
+    "Research reserves iterations before work and obeys its budget",
+    "Ambiguous report delivery is not automatically resent",
+    "Persistence failure blocks the pipeline before execution",
+    "Missing daily flow evidence does not produce invented Sharpe or alpha"
+  ],
+  "passed": 19,
+  "benchmarks": [
+    {
+      "operation": "full_5_specialist_gate_with_memory_store",
+      "ms": 10.80859799999999
+    }
+  ],
+  "externalOrders": 0,
+  "paidModelCalls": 0,
+  "scope": "Deterministic fixtures, memory store; native SQLite and HTTP tested separately"
+}

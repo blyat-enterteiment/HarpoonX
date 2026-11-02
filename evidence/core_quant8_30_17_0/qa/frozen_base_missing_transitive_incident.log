@@ -1,0 +1,19 @@
+Error: REGISTRATION_VERIFIER_FAILED:Traceback (most recent call last):
+  File "/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/tools/measurement_registration.py", line 6, in <module>
+    from harpoon_quant.measurement_registration import main
+  File "/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/quant/harpoon_quant/measurement_registration.py", line 20, in <module>
+    from .recursive import Journal
+  File "/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/quant/harpoon_quant/recursive.py", line 18, in <module>
+    from .optimization import Policy, development_score, replay, validate_window
+ModuleNotFoundError: No module named 'harpoon_quant.optimization'
+
+    at need (/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/tools/historical_bank.cjs:8:46)
+    at verifyRegistration (/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/tools/historical_bank.cjs:28:3)
+    at /workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/tools/historical_bank.cjs:146:72
+    at Array.map (<anonymous>)
+    at main (/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/tools/historical_bank.cjs:146:62)
+    at Object.<anonymous> (/workspace/scratch/5a985d680e09/harpoon_quant8/frozen_base_validation/tools/historical_bank.cjs:186:30)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)

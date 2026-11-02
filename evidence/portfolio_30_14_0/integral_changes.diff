@@ -1,0 +1,2290 @@
+--- 30.13.1/package-lock.json
++++ 30.14.0/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.13.1",
++  "version": "30.14.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "harpoon-cloud-247",
+-      "version": "30.13.1",
++      "version": "30.14.0",
+       "dependencies": {
+         "@msgpack/msgpack": "3.1.2",
+         "ws": "8.18.3"
+--- 30.13.1/package.json
++++ 30.14.0/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.13.1",
++  "version": "30.14.0",
+   "private": true,
+   "scripts": {
+     "test": "node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py",
+--- 30.13.1/runtime30/ultimate_lab.js
++++ 30.14.0/runtime30/ultimate_lab.js
+@@ -31,6 +31,7 @@
+     codeHash = (0, ultimate_contracts_1.digest)([
+         "ultimate_contracts.js",
+         "ultimate_replay.js",
++        "ultimate_reservations.js", // Shared pending-risk/capital reservations are part of the evaluated code.
+         "ultimate_stats.js",
+         "ultimate_frequency.js",
+         "policy.js", // Calendar-aware holding deadlines are a replay dependency.
+--- 30.13.1/runtime30/ultimate_replay.js
++++ 30.14.0/runtime30/ultimate_replay.js
+@@ -1,6 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.FundedEntryBudgetError = exports.DEFAULT_REPLAY_LIMITS = exports.UnresolvedHoldingExposureError = void 0;
++exports.FundedPortfolioReplayError = exports.FundedEntryBudgetError = exports.DEFAULT_REPLAY_LIMITS = exports.UnresolvedHoldingExposureError = exports.UnobservedEntryError = void 0;
++exports.planSignalEntryAt = planSignalEntryAt;
+ exports.planCalendarHolding = planCalendarHolding;
+ exports.causalReferencePrice = causalReferencePrice;
+ exports.planFundedEntry = planFundedEntry;
+@@ -9,10 +10,34 @@
+ exports.nextTrailingStop = nextTrailingStop;
+ exports.replayCampaign = replayCampaign;
+ exports.runStudy = runStudy;
++exports.replayFundedPortfolio = replayFundedPortfolio;
+ const ultimate_contracts_1 = require("./ultimate_contracts");
+ const ultimate_stats_1 = require("./ultimate_stats");
+ const ultimate_frequency_1 = require("./ultimate_frequency");
+ const policy_1 = require("./policy");
++const ultimate_reservations_1 = require("./ultimate_reservations");
++/** A missing execution observation does not prove that a planned order was unfilled. */
++class UnobservedEntryError extends Error {
++    details;
++    code = "UNOBSERVED_ENTRY";
++    constructor(details) {
++        super("UNOBSERVED_ENTRY: " + JSON.stringify(details));
++        this.details = details;
++        this.name = "UnobservedEntryError";
++    }
++}
++exports.UnobservedEntryError = UnobservedEntryError;
++/** Earliest supported bar-open execution time, determined without future bars. */
++function planSignalEntryAt(decisionAt, sessions) {
++    (0, ultimate_contracts_1.need)(Number.isSafeInteger(decisionAt), "signal decision timestamp");
++    const session = sessions.find((s) => s.open <= decisionAt && decisionAt < s.close);
++    if (!session)
++        return null;
++    const planned = session.open + Math.ceil((decisionAt - session.open) / 300000) * 300000;
++    // Preserve the existing one-bar-before-close admission boundary. This is a
++    // scheduling constraint, not a check that the historical execution exists.
++    return planned < session.close - 300000 ? planned : null;
++}
+ /** An opened position without an executable exit cannot disappear from a curve. */
+ class UnresolvedHoldingExposureError extends Error {
+     details;
+@@ -200,18 +225,28 @@
+             if (!bars.length)
+                 continue;
+             funnel.sessions++;
+-            if (bars.length !== (session.close - session.open) / 300000 ||
++            const completeSession = !(bars.length !== (session.close - session.open) / 300000 ||
+                 bars[0].t !== session.open ||
+                 bars.at(-1).end !== session.close ||
+-                bars.some((b, i) => i && b.t !== bars[i - 1].end)) {
++                bars.some((b, i) => i && b.t !== bars[i - 1].end));
++            // Full-session completeness is a retrospective diagnostic and determines
++            // whether a completed daily observation can enter subsequent history. It
++            // must never decide whether an earlier intraday signal existed.
++            if (!completeSession)
+                 funnel.incompleteSessions++;
+-                continue;
+-            }
+-            const fired = new Set(), prior = previousDays.slice(-50), daily = prior.map((x) => x.daily);
++            const fired = new Set(), prior = previousDays.filter((x) => x.daily.availableAt <= session.open).slice(-50), daily = prior.map((x) => x.daily);
+             const priorBars = prior.slice(-2).flatMap((x) => x.bars);
+-            let vol = 0, vwSum = 0, square = 0;
++            let vol = 0, vwSum = 0, square = 0, prefixComplete = true, priorAvailableAt = -Infinity;
+             for (let j = 0; j < bars.length; j++) {
+                 const b = bars[j], x = b.vw ?? (b.h + b.l + b.c) / 3;
++                prefixComplete = prefixComplete &&
++                    b.t === session.open + j * 300000 && b.end === b.t + 300000;
++                if (!prefixComplete || b.end > b.availableAt || priorAvailableAt > b.availableAt) {
++                    prefixComplete = false;
++                    funnel.dataGap++;
++                    continue;
++                }
++                priorAvailableAt = Math.max(priorAvailableAt, b.availableAt);
+                 vol += b.v;
+                 vwSum += x * b.v;
+                 square += x * x * b.v;
+@@ -219,14 +254,14 @@
+                     funnel.warmup++;
+                     continue;
+                 }
+-                const fillIndex = indexes.get(b) + (b.availableAt > b.end ? 2 : 1), next = series.bars[fillIndex];
+-                if (!next ||
+-                    next.t < b.availableAt ||
+-                    next.t - b.end > 300000 ||
+-                    next.t >= session.close - 300000) {
++                const plannedEntryAt = planSignalEntryAt(b.availableAt, data.sessions);
++                if (plannedEntryAt === null) {
+                     funnel.dataGap++;
+                     continue;
+                 }
++                // The hint is derived from the known prefix and grid. A later missing
++                // bar may invalidate it; replay resolves the exact planned timestamp.
++                const fillIndex = indexes.get(b) + (plannedEntryAt - b.t) / 300000;
+                 const observed = [...priorBars, ...bars.slice(0, j + 1)].slice(-15), risk = Math.max(series.tick * 2, atr(observed));
+                 const er = efficiency(bars.slice(Math.max(0, j - 11), j + 1));
+                 const rangeHigh = Math.max(...bars.slice(0, 3).map((z) => z.h)), rangeLow = Math.min(...bars.slice(0, 3).map((z) => z.l));
+@@ -245,6 +280,7 @@
+                         hypothesis,
+                         direction,
+                         at: b.availableAt,
++                        plannedEntryAt,
+                         index: fillIndex,
+                         stopDistance: Math.max(series.tick * 2, stopDistance),
+                         regime: er,
+@@ -277,19 +313,20 @@
+                         add("VWAP_REVERSION", -1, risk, vw);
+                 }
+             }
+-            previousDays.push({
+-                bars,
+-                daily: {
+-                    t: session.open,
+-                    end: session.close,
+-                    availableAt: session.close + 3000,
+-                    o: bars[0].o,
+-                    h: Math.max(...bars.map((b) => b.h)),
+-                    l: Math.min(...bars.map((b) => b.l)),
+-                    c: bars.at(-1).c,
+-                    v: vol,
+-                },
+-            });
++            if (completeSession && prefixComplete)
++                previousDays.push({
++                    bars,
++                    daily: {
++                        t: session.open,
++                        end: session.close,
++                        availableAt: Math.max(...bars.map((b) => b.availableAt)),
++                        o: bars[0].o,
++                        h: Math.max(...bars.map((b) => b.h)),
++                        l: Math.min(...bars.map((b) => b.l)),
++                        c: bars.at(-1).c,
++                        v: vol,
++                    },
++                });
+         }
+     }
+     return {
+@@ -310,21 +347,44 @@
+ }
+ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMultiplier = 1) {
+     (0, ultimate_contracts_1.need)(Number.isInteger(quantity) && quantity > 0 && costMultiplier >= 1, "replay size/cost");
+-    const first = series.bars[signal.index], dir = signal.direction, friction = ((p.costs.spreadBps / 2 + p.costs.slippageBps) * costMultiplier) / 10000;
+-    if (!first || first.t < signal.at)
++    const hasEntryPlan = signal.plannedEntryAt !== undefined;
++    if (hasEntryPlan) {
++        (0, ultimate_contracts_1.need)(Number.isSafeInteger(signal.plannedEntryAt) && signal.plannedEntryAt >= signal.at, "entry plan precedes signal decision");
++        (0, ultimate_contracts_1.need)(signal.plannedEntryAt === planSignalEntryAt(signal.at, data.sessions), "entry plan differs from causal calendar grid");
++    }
++    else {
++        (0, ultimate_contracts_1.need)(Number.isSafeInteger(signal.index) && signal.index >= 0, "legacy entry index");
++    }
++    const entryIndex = hasEntryPlan
++        ? series.bars.findIndex((b) => b.t === signal.plannedEntryAt)
++        : signal.index;
++    const first = series.bars[entryIndex], plannedEntryAt = signal.plannedEntryAt ?? first?.t ?? null, dir = signal.direction, friction = ((p.costs.spreadBps / 2 + p.costs.slippageBps) * costMultiplier) / 10000;
++    const unobservedEntry = (reason) => {
++        throw new UnobservedEntryError({ reason, signalId: signal.id, symbol: signal.symbol,
++            hypothesis: signal.hypothesis, policy, decisionAt: signal.at, plannedEntryAt,
++            plannedQuantity: quantity, positionOpened: null, exposureUnknown: true, economicPnlUsd: null });
++    };
++    if (plannedEntryAt === null)
++        unobservedEntry("MISSING_LEGACY_ENTRY_OBSERVATION");
++    (0, ultimate_contracts_1.need)(plannedEntryAt >= signal.at, "entry precedes signal decision");
++    // A calendar refusal is decided before asking whether an execution price is
++    // present. In contrast, missing future prices do not imply a refused order.
++    const holdingPlan = planCalendarHolding(signal, plannedEntryAt, data, p), calendarHolding = holdingPlan.status !== "NOT_APPLICABLE", strictPath = calendarHolding || hasEntryPlan;
++    if (holdingPlan.status === "REFUSED_BEFORE_ENTRY")
+         return null;
++    if (!first)
++        unobservedEntry("MISSING_PLANNED_ENTRY_BAR");
++    (0, ultimate_contracts_1.need)(first.t >= signal.at && first.t === plannedEntryAt, "entry timestamp binding");
++    const session = data.sessions.find((s) => first.t >= s.open && first.t < s.close);
++    (0, ultimate_contracts_1.need)(session !== undefined, "entry outside declared calendar");
+     const entry = round(first.o * (1 + dir * friction), series.tick, dir === 1), distance = Math.ceil(signal.stopDistance / series.tick) * series.tick;
+     let stop = entry - dir * distance, remaining = quantity, realized = -p.costs.perSideUsd * quantity * costMultiplier, fees = -realized, peak = entry, peakPnl = 0, ambiguous = 0, reason = "DATA_ENDED", closed = first.t, pendingStop;
+-    const session = data.sessions.find((s) => first.t >= s.open && first.t < s.close);
+     // Match the existing cash-equity runtime deadline. The supplied session
+     // calendar is the scheduling input; no later price or future bar existence
+     // chooses the deadline. Calendar publication-time provenance remains a data
+     // requirement, not something reconstructed from a successful historical fill.
+-    const holdingPlan = planCalendarHolding(signal, first.t, data, p), calendarHolding = holdingPlan.status !== "NOT_APPLICABLE";
+     let deadline;
+     if (calendarHolding) {
+-        if (holdingPlan.status === "REFUSED_BEFORE_ENTRY")
+-            return null;
+         deadline = holdingPlan.deadlineAt;
+     }
+     else {
+@@ -336,8 +396,11 @@
+     }
+     const contractDeadline = Math.min(series.firstNoticeAt ?? Infinity, series.lastTradeAt ?? Infinity) -
+         86400000;
+-    if (data.splitEvents.some((e) => e.symbol === series.symbol && e.at > first.t && e.at <= deadline))
++    if (data.splitEvents.some((e) => e.symbol === series.symbol && e.at > first.t && e.at <= deadline)) {
++        if (hasEntryPlan)
++            unobservedEntry("CORPORATE_ACTION_PATH_UNMODELED");
+         return null;
++    }
+     const marks = [], tpDone = [false, false];
+     const unresolved = (reason, encounteredAt) => {
+         throw new UnresolvedHoldingExposureError({
+@@ -368,14 +431,14 @@
+         closed = at;
+         reason = why;
+     };
+-    for (let i = signal.index; i < series.bars.length && remaining; i++) {
++    for (let i = entryIndex; i < series.bars.length && remaining; i++) {
+         const b = series.bars[i], prior = series.bars[i - 1];
+-        if (i > signal.index &&
++        if (i > entryIndex &&
+             b.t !== prior.end &&
+             !data.sessions.some((s) => s.open === b.t &&
+                 s.close >= b.end &&
+                 prior.end === data.sessions.find((z) => z.close === prior.end)?.close)) {
+-            if (calendarHolding)
++            if (strictPath)
+                 unresolved("MISSING_BAR_WITH_OPEN_EXPOSURE", b.t);
+             return null;
+         }
+@@ -383,7 +446,7 @@
+             stop = pendingStop.price;
+             pendingStop = undefined;
+         }
+-        if (calendarHolding &&
++        if (strictPath &&
+             b.t > Math.min(deadline, contractDeadline))
+             unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+         if (b.t >= Math.min(deadline, contractDeadline)) {
+@@ -431,7 +494,7 @@
+             pendingStop = { price: candidate, at: b.availableAt };
+     }
+     if (remaining) {
+-        if (calendarHolding)
++        if (strictPath)
+             unresolved("DATA_ENDED_WITH_OPEN_EXPOSURE", null);
+         return null; // Other legacy research scopes retain their explicit incomplete-path exclusion.
+     }
+@@ -577,95 +640,9 @@
+     const selected = folds.flatMap((f) => f.selected === "CASH"
+         ? []
+         : windowTrades(trades[f.selected], f.test, purge));
+-    // Funded replay has independent integer sizing and shared capital. Futures require historical margin observations.
+-    const funded = [], portfolioSkips = {};
+-    const pendingCashReservations = new Map();
+-    const skip = (reason) => {
+-        portfolioSkips[reason] = (portfolioSkips[reason] || 0) + 1;
+-    };
+-    let peakEquity = limits.capitalUsd;
+-    for (const opportunity of common) {
+-        const fold = folds.find((f) => opportunity.at >= f.test[0].open &&
+-            opportunity.at <= f.test.at(-1).close - purge);
+-        if (!fold ||
+-            fold.selected === "CASH" ||
+-            !fold.selected.startsWith(opportunity.hypothesis + ":"))
+-            continue;
+-        if (p.kind === "FUTURES") {
+-            skip("HISTORICAL_MARGIN_UNAVAILABLE");
+-            continue;
+-        }
+-        const active = funded.filter((t) => t.opened <= opportunity.at && t.closed > opportunity.at);
+-        const equityAt = (at) => limits.capitalUsd +
+-            funded.reduce((n, t) => n +
+-                (t.closed <= at
+-                    ? t.netUsd
+-                    : t.opened <= at
+-                        ? (t.marks.findLast((m) => m.at <= at)?.pnl ?? 0)
+-                        : 0), 0);
+-        const equity = equityAt(opportunity.at), day = data.sessions.find((s) => opportunity.at >= s.open && opportunity.at < s.close);
+-        peakEquity = Math.max(peakEquity, equity);
+-        if (equity <= peakEquity * (1 - limits.maxDrawdown) ||
+-            equity <= equityAt(day.open) * (1 - limits.dailyLoss)) {
+-            skip("LOSS_LIMIT");
+-            continue;
+-        }
+-        if (active.some((t) => t.symbol === opportunity.symbol)) {
+-            skip("SYMBOL_BUSY");
+-            continue;
+-        }
+-        const s = bySymbol[opportunity.symbol];
+-        const notional = active.reduce((n, t) => n + t.quantity * t.entry, 0), openRisk = active.reduce((n, t) => n + t.riskUsd, 0);
+-        const plan = planFundedEntry(opportunity, s, p, limits, { equity, openRisk, notional });
+-        if (plan.status !== "PLANNED") {
+-            skip("NO_CAUSAL_REFERENCE_PRICE");
+-            continue;
+-        }
+-        const quantity = plan.quantity;
+-        if (quantity < 1) {
+-            skip("INTEGER_RISK_OR_EXPOSURE");
+-            continue;
+-        }
+-        // Closed campaigns release their full result. Until then, reserve original
+-        // cash outlay conservatively: no credit for partial exits or unrealized PnL.
+-        // Pending entries use a saved ex-ante ceiling, never their later fill price.
+-        const cashBudgetUsd = limits.capitalUsd + funded.reduce((cash, prior) => {
+-            if (prior.closed <= opportunity.at)
+-                return cash + prior.netUsd;
+-            if (prior.opened > opportunity.at)
+-                return cash - (pendingCashReservations.get(prior.id) ?? NaN);
+-            const series = bySymbol[prior.symbol];
+-            return cash - prior.quantity * (prior.entry * series.pointValue + p.costs.perSideUsd);
+-        }, 0);
+-        const t = replayCampaign(opportunity, s, data, p, fold.selected.split(":")[1], quantity);
+-        if (t) {
+-            const receipt = verifyFundedEntryFill(t, opportunity, s, p, {
+-                plannedQuantity: quantity, riskBudgetUsd: plan.riskBudgetUsd,
+-                notionalBudgetUsd: plan.notionalBudgetUsd, cashBudgetUsd,
+-            });
+-            if (receipt.status !== "VERIFIED")
+-                throw new FundedEntryBudgetError(receipt);
+-            pendingCashReservations.set(t.id, plan.notionalBudgetUsd + quantity * p.costs.perSideUsd);
+-            funded.push(t);
+-        }
+-        else
+-            skip("INCOMPLETE_PATH");
+-    }
+-    const fundedPnl = oos.map((s, i) => {
+-        const at = (time) => funded.reduce((n, t) => n +
+-            (time < t.opened
+-                ? 0
+-                : time >= t.closed
+-                    ? t.netUsd
+-                    : (t.marks.findLast((m) => m.at <= time)?.pnl ?? 0)), 0);
+-        return at(s.close) - at(i ? oos[i - 1].close : s.open - 1);
+-    });
+-    let eq = limits.capitalUsd;
+-    const fundedReturns = fundedPnl.map((pnl) => {
+-        const r = pnl / eq;
+-        eq += pnl;
+-        return r;
+-    });
++    // The unit cohort is an attribution estimand. Portfolio admission consumes
++    // every raw causal signal; another policy's future path cannot remove it.
++    const fundedResult = replayFundedPortfolio(generated.signals, data, p, folds, oos, limits);
+     return {
+         schema: "HARPOON-ULTIMATE-REPORT-1",
+         generatedAt: Date.now(),
+@@ -702,13 +679,7 @@
+             })),
+             oos: evaluate(selected, oos),
+         },
+-        fundedPortfolio: {
+-            scope: "MODELED_SHARED_CAPITAL_INTEGER_LOTS",
+-            limits,
+-            oos: (0, ultimate_stats_1.metrics)(fundedReturns, funded.map((t) => t.netR)),
+-            netUsd: funded.reduce((n, t) => n + t.netUsd, 0),
+-            skipped: portfolioSkips,
+-        },
++        fundedPortfolio: fundedResult.portfolio,
+         pbo: (0, ultimate_stats_1.probabilityBacktestOverfit)(matrix),
+         dailyUnitReturns: Object.fromEntries(ids.map((id, i) => [id, matrix[i]])),
+         frequencyDiagnostics: (0, ultimate_frequency_1.trainingFrequencies)(data, folds[0].train.at(-1).close),
+@@ -726,3 +697,269 @@
+         ],
+     };
+ }
++/** A failed funded replay preserves reservations and exposure instead of a PnL. */
++class FundedPortfolioReplayError extends Error {
++    code;
++    details;
++    economicPnlUsd = null;
++    constructor(code, details) {
++        super(code + ": " + JSON.stringify(details));
++        this.code = code;
++        this.details = details;
++        this.name = "FundedPortfolioReplayError";
++    }
++}
++exports.FundedPortfolioReplayError = FundedPortfolioReplayError;
++/**
++ * Execute a supplied policy selection with one continuous capital pool.
++ * This function neither fits nor selects policies and never calls runStudy.
++ * Model observations retain their availability clocks; they are not broker
++ * receipts. All reservations are conservative approved ceilings, not estimates
++ * of remaining buying power from a broker account.
++ */
++function replayFundedPortfolio(signals, data, p, folds, sessions, limits = exports.DEFAULT_REPLAY_LIMITS) {
++    (0, ultimate_contracts_1.need)(sessions.length > 0 && sessions.every((s, i) => Number.isSafeInteger(s.open) &&
++        Number.isSafeInteger(s.close) && s.open < s.close && (!i || s.open > sessions[i - 1].close)), "funded evaluation session chronology");
++    (0, ultimate_contracts_1.need)(Object.values(limits).every(v => Number.isFinite(v) && v > 0) &&
++        [limits.riskFraction, limits.openRiskFraction, limits.grossFraction,
++            limits.assetFraction, limits.dailyLoss, limits.maxDrawdown].every(v => v <= 1) &&
++        limits.riskFraction <= limits.openRiskFraction && limits.assetFraction <= limits.grossFraction, "funded limits");
++    (0, ultimate_contracts_1.need)(new Set(signals.map(s => s.id)).size === signals.length &&
++        signals.every((s, i) => Number.isSafeInteger(s.at) && (!i || s.at >= signals[i - 1].at)), "funded signal identities and chronology");
++    (0, ultimate_contracts_1.need)(folds.every(f => f.test.length > 0 && (f.selected === "CASH" ||
++        ultimate_contracts_1.HYPOTHESES.some(h => ultimate_contracts_1.EXIT_VARIANTS.some(v => f.selected === h + ":" + v)))), "funded frozen policy selection");
++    const sessionKey = (s) => `${s.date}:${s.open}:${s.close}`;
++    const calendarKeys = new Set(data.sessions.map(sessionKey));
++    const evaluationKeys = new Set(sessions.map(sessionKey));
++    const selectedKeys = folds.flatMap(f => f.test.map(sessionKey));
++    (0, ultimate_contracts_1.need)(sessions.every(s => calendarKeys.has(sessionKey(s))) &&
++        folds.every(f => f.test.every((s, i) => evaluationKeys.has(sessionKey(s)) &&
++            (!i || s.open > f.test[i - 1].close))) &&
++        new Set(selectedKeys).size === selectedKeys.length, "funded selection must be disjoint and inside the declared evaluation calendar");
++    const bySymbol = Object.fromEntries(data.series.map(s => [s.symbol, s]));
++    const funded = [];
++    const states = [];
++    const preEntryRefusals = [];
++    const skipped = {};
++    const closeKnownAt = new Map();
++    let reservationBook = (0, ultimate_reservations_1.emptyFundedReservationBook)();
++    const purge = p.purgeHours * 3600000;
++    let peakEquity = limits.capitalUsd;
++    const pnlAt = (t, at) => {
++        if (at < t.opened)
++            return 0;
++        if ((closeKnownAt.get(t.id) ?? Infinity) <= at)
++            return t.netUsd;
++        const mark = t.marks.findLast(m => m.at <= at);
++        if (mark)
++            return mark.pnl;
++        // Before the first post-fill bar is available, the existing position still
++        // has value and execution friction. Use the same observable close basis
++        // as inventory/sizing; entry price is not a zero-PnL valuation convention.
++        const series = bySymbol[t.symbol];
++        const reference = series ? causalReferencePrice({ at }, series) : null;
++        if (reference?.status !== "AVAILABLE")
++            throw new FundedPortfolioReplayError("FUNDED_CAUSAL_VALUATION_UNAVAILABLE", { at, symbol: t.symbol, campaignId: t.id,
++                openedAt: t.opened, quantity: t.quantity, entryPrice: t.entry, reference,
++                funded, states, reservationBook, economicPnlUsd: null });
++        // Match subsequent campaign marks: entry fee already incurred plus one
++        // modeled exit-fee allowance for still-open units, each counted once.
++        return t.direction * (reference.price - t.entry) * t.quantity * series.pointValue -
++            2 * t.quantity * p.costs.perSideUsd;
++    };
++    const equityAt = (at) => limits.capitalUsd + funded.reduce((n, t) => n + pnlAt(t, at), 0);
++    const cashPoolAt = (at) => limits.capitalUsd + funded.reduce((n, t) => n + ((closeKnownAt.get(t.id) ?? Infinity) <= at ? t.netUsd : 0), 0);
++    const refuse = (signal, reason, extra = {}) => {
++        skipped[reason] = (skipped[reason] || 0) + 1;
++        preEntryRefusals.push({ signalId: signal.id, symbol: signal.symbol, decisionAt: signal.at,
++            reason, positionOpened: false, ...extra });
++    };
++    for (const rawSignal of signals) {
++        const fold = folds.find(f => rawSignal.at >= f.test[0].open &&
++            rawSignal.at <= f.test.at(-1).close - purge);
++        if (!fold || fold.selected === "CASH" || !fold.selected.startsWith(rawSignal.hypothesis + ":"))
++            continue;
++        if (p.kind === "FUTURES") {
++            refuse(rawSignal, "HISTORICAL_MARGIN_UNAVAILABLE");
++            continue;
++        }
++        if (rawSignal.direction !== 1) {
++            refuse(rawSignal, "SHORT_PROXY_EXECUTION_NOT_SUPPORTED");
++            continue;
++        }
++        const series = bySymbol[rawSignal.symbol];
++        (0, ultimate_contracts_1.need)(series !== undefined && series.pointValue === 1, "funded cash-share series scope");
++        // Derive a legacy signal's plan from its decision/calendar, never its old
++        // future-bar index. The explicit causal plan remains authoritative.
++        const plannedEntryAt = rawSignal.plannedEntryAt ?? planSignalEntryAt(rawSignal.at, data.sessions);
++        if (plannedEntryAt === null) {
++            refuse(rawSignal, "NO_CAUSAL_ENTRY_WINDOW");
++            continue;
++        }
++        const signal = { ...rawSignal, plannedEntryAt };
++        const holding = planCalendarHolding(signal, plannedEntryAt, data, p);
++        if (holding.status === "REFUSED_BEFORE_ENTRY") {
++            refuse(signal, holding.reason, { holding });
++            continue;
++        }
++        const before = (0, ultimate_reservations_1.snapshotFundedReservations)(reservationBook, signal.at);
++        const equity = equityAt(signal.at);
++        const day = data.sessions.find(s => signal.at >= s.open && signal.at < s.close);
++        (0, ultimate_contracts_1.need)(day !== undefined, "funded decision outside calendar");
++        peakEquity = Math.max(peakEquity, equity);
++        if (equity <= 0)
++            throw new FundedPortfolioReplayError("FUNDED_INSOLVENCY", {
++                signalId: signal.id, at: signal.at, equityUsd: equity, reservationBook,
++                funded, states, lastObservedReservations: before, economicPnlUsd: null
++            });
++        if (equity <= peakEquity * (1 - limits.maxDrawdown) ||
++            equity <= equityAt(day.open) * (1 - limits.dailyLoss)) {
++            refuse(signal, "LOSS_LIMIT");
++            continue;
++        }
++        if (before.symbols.includes(signal.symbol)) {
++            refuse(signal, "SYMBOL_BUSY", { reservationSnapshot: before });
++            continue;
++        }
++        // Pending entries use approved ceilings only. An observed open campaign
++        // reserves at least its original ceiling and the full original quantity
++        // marked at the latest available close. Ignoring partial-sale proceeds is
++        // conservative; no unknown remaining quantity is invented.
++        let notional = before.notionalUsd;
++        const inventoryMarks = [];
++        let missingInventoryMark = false;
++        for (const reservation of before.reservations)
++            if (reservation.state === "OPENED") {
++                const inventorySeries = bySymbol[reservation.symbol];
++                const reference = inventorySeries ? causalReferencePrice({ at: signal.at }, inventorySeries) : null;
++                if (reference?.status !== "AVAILABLE") {
++                    missingInventoryMark = true;
++                    break;
++                }
++                const marked = reservation.quantity * reference.price * inventorySeries.pointValue;
++                notional += Math.max(0, marked - reservation.notionalUsd);
++                inventoryMarks.push({ id: reservation.id, symbol: reservation.symbol, reference,
++                    fullOriginalQuantity: reservation.quantity, markedNotionalUsd: marked,
++                    reservedNotionalUsd: Math.max(reservation.notionalUsd, marked) });
++            }
++        if (missingInventoryMark) {
++            refuse(signal, "NO_CAUSAL_INVENTORY_MARK");
++            continue;
++        }
++        const openRisk = before.riskUsd;
++        const plan = planFundedEntry(signal, series, p, limits, { equity, openRisk, notional });
++        const state = { opportunity: signal, selected: fold.selected,
++            equity, openRisk, notional, reservationBefore: before, inventoryMarks, plan,
++            day, status: "PLANNED", positionOpened: false };
++        states.push(state);
++        if (plan.status !== "PLANNED") {
++            state.status = "REFUSED_BEFORE_ENTRY";
++            refuse(signal, "NO_CAUSAL_REFERENCE_PRICE");
++            continue;
++        }
++        const quantity = plan.quantity;
++        Object.assign(state, { quantity, px: plan.reference.price, riskUnit: plan.riskUnit,
++            reference: plan.reference });
++        if (quantity < 1) {
++            state.status = "REFUSED_BEFORE_ENTRY";
++            refuse(signal, "INTEGER_RISK_OR_EXPOSURE");
++            continue;
++        }
++        const cashPoolUsd = cashPoolAt(signal.at);
++        const cashBudgetUsd = cashPoolUsd - before.cashUsd;
++        const reservation = (0, ultimate_reservations_1.reserveFundedEntry)(reservationBook, {
++            id: signal.id, symbol: signal.symbol, decisionAt: signal.at, quantity,
++            riskUsd: plan.riskBudgetUsd, notionalUsd: plan.notionalBudgetUsd,
++            cashUsd: plan.notionalBudgetUsd + quantity * p.costs.perSideUsd,
++        }, { equity, cashAvailableUsd: cashPoolUsd, riskFraction: limits.riskFraction,
++            openRiskFraction: limits.openRiskFraction, grossFraction: limits.grossFraction,
++            assetFraction: limits.assetFraction });
++        Object.assign(state, { cashPoolUsd, cashBudgetUsd, reservationStatus: reservation.status,
++            reservationAfter: reservation.snapshot });
++        if (reservation.status === "REFUSED") {
++            state.status = "REFUSED_BEFORE_ENTRY";
++            refuse(signal, reservation.reason);
++            continue;
++        }
++        reservationBook = reservation.book;
++        try {
++            const trade = replayCampaign(signal, series, data, p, fold.selected.split(":")[1], quantity);
++            if (!trade)
++                throw new FundedPortfolioReplayError("FUNDED_PATH_UNRESOLVED", {
++                    signalId: signal.id, plannedEntryAt, plannedQuantity: quantity,
++                    positionOpened: null, economicPnlUsd: null
++                });
++            reservationBook = (0, ultimate_reservations_1.recordFundedReservationObservation)(reservationBook, {
++                id: trade.id, kind: "OPENED", at: trade.opened, knownAt: trade.opened,
++                remainingQuantity: trade.quantity, pendingQuantity: 0
++            });
++            const receipt = verifyFundedEntryFill(trade, signal, series, p, {
++                plannedQuantity: quantity, riskBudgetUsd: plan.riskBudgetUsd,
++                notionalBudgetUsd: plan.notionalBudgetUsd, cashBudgetUsd
++            });
++            if (receipt.status !== "VERIFIED")
++                throw new FundedEntryBudgetError(receipt);
++            const knownAt = Math.max(trade.closed, trade.marks.at(-1)?.at ?? trade.closed);
++            reservationBook = (0, ultimate_reservations_1.recordFundedReservationObservation)(reservationBook, {
++                id: trade.id, kind: "CLOSED", at: trade.closed, knownAt,
++                remainingQuantity: 0, pendingQuantity: 0
++            });
++            closeKnownAt.set(trade.id, knownAt);
++            funded.push(trade);
++            Object.assign(state, { status: "MODELED_CAMPAIGN", positionOpened: true,
++                fillBudgetReceipt: receipt, modeledOpenedAt: trade.opened,
++                modeledClosedAt: trade.closed, modeledCloseKnownAt: knownAt });
++        }
++        catch (error) {
++            const cause = error;
++            throw new FundedPortfolioReplayError(cause.code ?? "FUNDED_REPLAY_FAILURE", {
++                signalId: signal.id, symbol: signal.symbol, decisionAt: signal.at,
++                plannedEntryAt, plannedQuantity: quantity, cause: cause.details ?? cause.message ?? String(error),
++                reservationBook, decisionReservations: (0, ultimate_reservations_1.snapshotFundedReservations)(reservationBook, signal.at),
++                funded, states, lastDecision: state, economicPnlUsd: null
++            });
++        }
++    }
++    let priorEquity = limits.capitalUsd;
++    const curve = sessions.map((session, index) => {
++        const equity = equityAt(session.close), pnlUsd = equity - priorEquity;
++        const netReturn = priorEquity > 0 && equity > 0 ? pnlUsd / priorEquity : null;
++        const previousAt = index ? sessions[index - 1].close : session.open - 1;
++        const row = { session_id: session.date, start_at: previousAt, end_at: session.close,
++            equity_start_usd: priorEquity, equity_end_usd: equity, modeled_trading_pnl_usd: pnlUsd,
++            portfolio_return: netReturn, portfolio_log_return: netReturn === null ? null : Math.log1p(netReturn),
++            asset_pnl_usd: Object.fromEntries(data.series.map(s => [s.symbol, funded
++                    .filter(t => t.symbol === s.symbol).reduce((n, t) => n + pnlAt(t, session.close) - pnlAt(t, previousAt), 0)])),
++            external_costs_usd: null };
++        (0, ultimate_contracts_1.need)(Math.abs(Object.values(row.asset_pnl_usd).reduce((sum, value) => sum + value, 0) - pnlUsd) <= 1e-8, "funded asset contributions must reconcile to continuous account change");
++        priorEquity = equity;
++        return row;
++    });
++    if (curve.some(row => row.portfolio_return === null))
++        throw new FundedPortfolioReplayError("FUNDED_INSOLVENCY", {
++            curve, reservationBook, funded, states, economicPnlUsd: null
++        });
++    const terminalAt = sessions.at(-1).close;
++    const terminal = (0, ultimate_reservations_1.snapshotFundedReservations)(reservationBook, terminalAt);
++    if (terminal.reservations.length)
++        throw new FundedPortfolioReplayError("TERMINAL_FUNDED_EXPOSURE_UNRESOLVED", {
++            terminalAt, reservationBook, terminalReservations: terminal,
++            lastKnownMarks: terminal.reservations.map(r => ({ id: r.id, symbol: r.symbol,
++                fullOriginalQuantity: r.quantity, remainingQuantity: null,
++                lastKnownMark: funded.find(t => t.id === r.id)?.marks.findLast(m => m.at <= terminalAt) ?? null })),
++            curve, funded, states, economicPnlUsd: null
++        });
++    (0, ultimate_contracts_1.need)(Math.abs(funded.reduce((sum, t) => sum + t.netUsd, 0) -
++        (curve.at(-1).equity_end_usd - limits.capitalUsd)) <= 1e-8, "closed funded campaigns must reconcile to terminal account equity");
++    return {
++        portfolio: { scope: "MODELED_SHARED_CAPITAL_INTEGER_LOTS_CAUSAL_RESERVATIONS", limits,
++            oos: (0, ultimate_stats_1.metrics)(curve.map(r => r.portfolio_return), funded.map(t => t.netR)),
++            netUsd: curve.at(-1).equity_end_usd - limits.capitalUsd, skipped },
++        metadata: {
++            reservationBasis: "FULL_EX_ANTE_CEILINGS_UNTIL_OBSERVED_CLOSE;OPEN_NOTIONAL_AT_LEAST_CAUSAL_MARK",
++            closeKnowledge: "LAST_MODELED_MARK_AVAILABILITY;NOT_BROKER_RECEIPTS",
++            financialAcceptanceAllowed: false
++        },
++        funded, states, curve, preEntryRefusals, reservationBook,
++    };
++}
+--- 30.13.1/runtime30/version.js
++++ 30.14.0/runtime30/version.js
+@@ -2,4 +2,4 @@
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.ULTIMATE_VERSION = void 0;
+ // Release identity is separate from the immutable research engine code seal.
+-exports.ULTIMATE_VERSION = "30.13.0";
++exports.ULTIMATE_VERSION = "30.14.0";
+--- 30.13.1/xxx/ultimate_lab.ts
++++ 30.14.0/xxx/ultimate_lab.ts
+@@ -70,6 +70,7 @@
+     [
+       "ultimate_contracts.js",
+       "ultimate_replay.js",
++      "ultimate_reservations.js", // Shared pending-risk/capital reservations are part of the evaluated code.
+       "ultimate_stats.js",
+       "ultimate_frequency.js",
+       "policy.js", // Calendar-aware holding deadlines are a replay dependency.
+--- 30.13.1/xxx/ultimate_replay.ts
++++ 30.14.0/xxx/ultimate_replay.ts
+@@ -23,6 +23,12 @@
+ } from "./ultimate_stats";
+ import { trainingFrequencies } from "./ultimate_frequency";
+ import { deadlineFor } from "./policy";
++import {
++  emptyFundedReservationBook,
++  snapshotFundedReservations,
++  reserveFundedEntry,
++  recordFundedReservationObservation,
++} from "./ultimate_reservations";
+ 
+ export interface Opportunity {
+   id: string;
+@@ -30,10 +36,47 @@
+   hypothesis: Hypothesis;
+   direction: 1 | -1;
+   at: number;
++  /** Calendar/grid plan fixed at decision. index is only a legacy/storage hint. */
++  plannedEntryAt?: number;
+   index: number;
+   stopDistance: number;
+   regime: number;
+   target?: number;
++}
++
++/** A missing execution observation does not prove that a planned order was unfilled. */
++export class UnobservedEntryError extends Error {
++  readonly code = "UNOBSERVED_ENTRY";
++  constructor(readonly details: {
++    reason: string;
++    signalId: string;
++    symbol: string;
++    hypothesis: Hypothesis;
++    policy: ExitVariant;
++    decisionAt: number;
++    plannedEntryAt: number | null;
++    plannedQuantity: number;
++    positionOpened: null;
++    exposureUnknown: true;
++    economicPnlUsd: null;
++  }) {
++    super("UNOBSERVED_ENTRY: " + JSON.stringify(details));
++    this.name = "UnobservedEntryError";
++  }
++}
++
++/** Earliest supported bar-open execution time, determined without future bars. */
++export function planSignalEntryAt(
++  decisionAt: number,
++  sessions: ResearchDataset["sessions"],
++): number | null {
++  need(Number.isSafeInteger(decisionAt), "signal decision timestamp");
++  const session = sessions.find((s) => s.open <= decisionAt && decisionAt < s.close);
++  if (!session) return null;
++  const planned = session.open + Math.ceil((decisionAt - session.open) / 300000) * 300000;
++  // Preserve the existing one-bar-before-close admission boundary. This is a
++  // scheduling constraint, not a check that the historical execution exists.
++  return planned < session.close - 300000 ? planned : null;
+ }
+ export interface ModeledCampaign {
+   id: string;
+@@ -149,7 +192,7 @@
+ };
+ 
+ /** Last completed close available at the decision; a future fill is not a quote. */
+-export function causalReferencePrice(signal: Opportunity, series: ResearchSeries) {
++export function causalReferencePrice(signal: Pick<Opportunity, "at">, series: ResearchSeries) {
+   let latest: ResearchBar | undefined;
+   for (const bar of series.bars) {
+     if (
+@@ -321,25 +364,36 @@
+       }
+       if (!bars.length) continue;
+       funnel.sessions++;
+-      if (
++      const completeSession = !(
+         bars.length !== (session.close - session.open) / 300000 ||
+         bars[0].t !== session.open ||
+         bars.at(-1)!.end !== session.close ||
+         bars.some((b, i) => i && b.t !== bars[i - 1].end)
+-      ) {
+-        funnel.incompleteSessions++;
+-        continue;
+-      }
++      );
++      // Full-session completeness is a retrospective diagnostic and determines
++      // whether a completed daily observation can enter subsequent history. It
++      // must never decide whether an earlier intraday signal existed.
++      if (!completeSession) funnel.incompleteSessions++;
+       const fired = new Set<string>(),
+-        prior = previousDays.slice(-50),
++        prior = previousDays.filter((x) => x.daily.availableAt <= session.open).slice(-50),
+         daily = prior.map((x) => x.daily);
+       const priorBars = prior.slice(-2).flatMap((x) => x.bars);
+       let vol = 0,
+         vwSum = 0,
+-        square = 0;
++        square = 0,
++        prefixComplete = true,
++        priorAvailableAt = -Infinity;
+       for (let j = 0; j < bars.length; j++) {
+         const b = bars[j],
+           x = b.vw ?? (b.h + b.l + b.c) / 3;
++        prefixComplete = prefixComplete &&
++          b.t === session.open + j * 300000 && b.end === b.t + 300000;
++        if (!prefixComplete || b.end > b.availableAt || priorAvailableAt > b.availableAt) {
++          prefixComplete = false;
++          funnel.dataGap++;
++          continue;
++        }
++        priorAvailableAt = Math.max(priorAvailableAt, b.availableAt);
+         vol += b.v;
+         vwSum += x * b.v;
+         square += x * x * b.v;
+@@ -347,17 +401,14 @@
+           funnel.warmup++;
+           continue;
+         }
+-        const fillIndex = indexes.get(b)! + (b.availableAt > b.end ? 2 : 1),
+-          next = series.bars[fillIndex];
+-        if (
+-          !next ||
+-          next.t < b.availableAt ||
+-          next.t - b.end > 300000 ||
+-          next.t >= session.close - 300000
+-        ) {
++        const plannedEntryAt = planSignalEntryAt(b.availableAt, data.sessions);
++        if (plannedEntryAt === null) {
+           funnel.dataGap++;
+           continue;
+         }
++        // The hint is derived from the known prefix and grid. A later missing
++        // bar may invalidate it; replay resolves the exact planned timestamp.
++        const fillIndex = indexes.get(b)! + (plannedEntryAt - b.t) / 300000;
+         const observed = [...priorBars, ...bars.slice(0, j + 1)].slice(-15),
+           risk = Math.max(series.tick * 2, atr(observed));
+         const er = efficiency(bars.slice(Math.max(0, j - 11), j + 1));
+@@ -387,6 +438,7 @@
+             hypothesis,
+             direction,
+             at: b.availableAt,
++            plannedEntryAt,
+             index: fillIndex,
+             stopDistance: Math.max(series.tick * 2, stopDistance),
+             regime: er,
+@@ -428,12 +480,12 @@
+           if (b.c >= vw + 2 * sigma) add("VWAP_REVERSION", -1, risk, vw);
+         }
+       }
+-      previousDays.push({
++      if (completeSession && prefixComplete) previousDays.push({
+         bars,
+         daily: {
+           t: session.open,
+           end: session.close,
+-          availableAt: session.close + 3000,
++          availableAt: Math.max(...bars.map((b) => b.availableAt)),
+           o: bars[0].o,
+           h: Math.max(...bars.map((b) => b.h)),
+           l: Math.min(...bars.map((b) => b.l)),
+@@ -486,11 +538,40 @@
+     Number.isInteger(quantity) && quantity > 0 && costMultiplier >= 1,
+     "replay size/cost",
+   );
+-  const first = series.bars[signal.index],
++  const hasEntryPlan = signal.plannedEntryAt !== undefined;
++  if (hasEntryPlan) {
++    need(Number.isSafeInteger(signal.plannedEntryAt) && signal.plannedEntryAt! >= signal.at,
++      "entry plan precedes signal decision");
++    need(signal.plannedEntryAt === planSignalEntryAt(signal.at, data.sessions),
++      "entry plan differs from causal calendar grid");
++  } else {
++    need(Number.isSafeInteger(signal.index) && signal.index >= 0, "legacy entry index");
++  }
++  const entryIndex = hasEntryPlan
++    ? series.bars.findIndex((b) => b.t === signal.plannedEntryAt)
++    : signal.index;
++  const first = series.bars[entryIndex],
++    plannedEntryAt = signal.plannedEntryAt ?? first?.t ?? null,
+     dir = signal.direction,
+     friction =
+       ((p.costs.spreadBps / 2 + p.costs.slippageBps) * costMultiplier) / 10000;
+-  if (!first || first.t < signal.at) return null;
++  const unobservedEntry = (reason: string): never => {
++    throw new UnobservedEntryError({ reason, signalId: signal.id, symbol: signal.symbol,
++      hypothesis: signal.hypothesis, policy, decisionAt: signal.at, plannedEntryAt,
++      plannedQuantity: quantity, positionOpened: null, exposureUnknown: true, economicPnlUsd: null });
++  };
++  if (plannedEntryAt === null) unobservedEntry("MISSING_LEGACY_ENTRY_OBSERVATION");
++  need(plannedEntryAt! >= signal.at, "entry precedes signal decision");
++  // A calendar refusal is decided before asking whether an execution price is
++  // present. In contrast, missing future prices do not imply a refused order.
++  const holdingPlan = planCalendarHolding(signal, plannedEntryAt!, data, p),
++    calendarHolding = holdingPlan.status !== "NOT_APPLICABLE",
++    strictPath = calendarHolding || hasEntryPlan;
++  if (holdingPlan.status === "REFUSED_BEFORE_ENTRY") return null;
++  if (!first) unobservedEntry("MISSING_PLANNED_ENTRY_BAR");
++  need(first.t >= signal.at && first.t === plannedEntryAt, "entry timestamp binding");
++  const session = data.sessions.find((s) => first.t >= s.open && first.t < s.close);
++  need(session !== undefined, "entry outside declared calendar");
+   const entry = round(first.o * (1 + dir * friction), series.tick, dir === 1),
+     distance = Math.ceil(signal.stopDistance / series.tick) * series.tick;
+   let stop = entry - dir * distance,
+@@ -503,25 +584,19 @@
+     reason = "DATA_ENDED",
+     closed = first.t,
+     pendingStop: { price: number; at: number } | undefined;
+-  const session = data.sessions.find(
+-    (s) => first.t >= s.open && first.t < s.close,
+-  )!;
+   // Match the existing cash-equity runtime deadline. The supplied session
+   // calendar is the scheduling input; no later price or future bar existence
+   // chooses the deadline. Calendar publication-time provenance remains a data
+   // requirement, not something reconstructed from a successful historical fill.
+-  const holdingPlan = planCalendarHolding(signal, first.t, data, p),
+-    calendarHolding = holdingPlan.status !== "NOT_APPLICABLE";
+   let deadline: number;
+   if (calendarHolding) {
+-    if (holdingPlan.status === "REFUSED_BEFORE_ENTRY") return null;
+     deadline = holdingPlan.deadlineAt!;
+   } else {
+     deadline =
+       signal.hypothesis === "CLOSED_CHANNEL"
+         ? first.t + 72 * 3600000
+         : Math.min(
+-            session.close - 300000,
++            session!.close - 300000,
+             first.t +
+               (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000),
+           );
+@@ -533,8 +608,10 @@
+     data.splitEvents.some(
+       (e) => e.symbol === series.symbol && e.at > first.t && e.at <= deadline,
+     )
+-  )
++  ) {
++    if (hasEntryPlan) unobservedEntry("CORPORATE_ACTION_PATH_UNMODELED");
+     return null;
++  }
+   const marks: ModeledCampaign["marks"] = [],
+     tpDone = [false, false];
+   const unresolved = (reason: string, encounteredAt: number | null): never => {
+@@ -566,11 +643,11 @@
+     closed = at;
+     reason = why;
+   };
+-  for (let i = signal.index; i < series.bars.length && remaining; i++) {
++  for (let i = entryIndex; i < series.bars.length && remaining; i++) {
+     const b = series.bars[i],
+       prior = series.bars[i - 1];
+     if (
+-      i > signal.index &&
++      i > entryIndex &&
+       b.t !== prior.end &&
+       !data.sessions.some(
+         (s) =>
+@@ -579,7 +656,7 @@
+           prior.end === data.sessions.find((z) => z.close === prior.end)?.close,
+       )
+     ) {
+-      if (calendarHolding)
++      if (strictPath)
+         unresolved("MISSING_BAR_WITH_OPEN_EXPOSURE", b.t);
+       return null;
+     }
+@@ -588,7 +665,7 @@
+       pendingStop = undefined;
+     }
+     if (
+-      calendarHolding &&
++      strictPath &&
+       b.t > Math.min(deadline, contractDeadline)
+     )
+       unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+@@ -662,7 +739,7 @@
+       pendingStop = { price: candidate, at: b.availableAt };
+   }
+   if (remaining) {
+-    if (calendarHolding)
++    if (strictPath)
+       unresolved("DATA_ENDED_WITH_OPEN_EXPOSURE", null);
+     return null; // Other legacy research scopes retain their explicit incomplete-path exclusion.
+   }
+@@ -896,123 +973,9 @@
+       ? []
+       : windowTrades(trades[f.selected], f.test, purge),
+   );
+-  // Funded replay has independent integer sizing and shared capital. Futures require historical margin observations.
+-  const funded: ModeledCampaign[] = [],
+-    portfolioSkips: Record<string, number> = {};
+-  const pendingCashReservations = new Map<string, number>();
+-  const skip = (reason: string) => {
+-    portfolioSkips[reason] = (portfolioSkips[reason] || 0) + 1;
+-  };
+-  let peakEquity = limits.capitalUsd;
+-  for (const opportunity of common) {
+-    const fold = folds.find(
+-      (f) =>
+-        opportunity.at >= f.test[0].open &&
+-        opportunity.at <= f.test.at(-1)!.close - purge,
+-    );
+-    if (
+-      !fold ||
+-      fold.selected === "CASH" ||
+-      !fold.selected.startsWith(opportunity.hypothesis + ":")
+-    )
+-      continue;
+-    if (p.kind === "FUTURES") {
+-      skip("HISTORICAL_MARGIN_UNAVAILABLE");
+-      continue;
+-    }
+-    const active = funded.filter(
+-      (t) => t.opened <= opportunity.at && t.closed > opportunity.at,
+-    );
+-    const equityAt = (at: number) =>
+-      limits.capitalUsd +
+-      funded.reduce(
+-        (n, t) =>
+-          n +
+-          (t.closed <= at
+-            ? t.netUsd
+-            : t.opened <= at
+-              ? (t.marks.findLast((m) => m.at <= at)?.pnl ?? 0)
+-              : 0),
+-        0,
+-      );
+-    const equity = equityAt(opportunity.at),
+-      day = data.sessions.find(
+-        (s) => opportunity.at >= s.open && opportunity.at < s.close,
+-      )!;
+-    peakEquity = Math.max(peakEquity, equity);
+-    if (
+-      equity <= peakEquity * (1 - limits.maxDrawdown) ||
+-      equity <= equityAt(day.open) * (1 - limits.dailyLoss)
+-    ) {
+-      skip("LOSS_LIMIT");
+-      continue;
+-    }
+-    if (active.some((t) => t.symbol === opportunity.symbol)) {
+-      skip("SYMBOL_BUSY");
+-      continue;
+-    }
+-    const s = bySymbol[opportunity.symbol];
+-    const notional = active.reduce((n, t) => n + t.quantity * t.entry, 0),
+-      openRisk = active.reduce((n, t) => n + t.riskUsd, 0);
+-    const plan = planFundedEntry(opportunity, s, p, limits, { equity, openRisk, notional });
+-    if (plan.status !== "PLANNED") {
+-      skip("NO_CAUSAL_REFERENCE_PRICE");
+-      continue;
+-    }
+-    const quantity = plan.quantity;
+-    if (quantity < 1) {
+-      skip("INTEGER_RISK_OR_EXPOSURE");
+-      continue;
+-    }
+-    // Closed campaigns release their full result. Until then, reserve original
+-    // cash outlay conservatively: no credit for partial exits or unrealized PnL.
+-    // Pending entries use a saved ex-ante ceiling, never their later fill price.
+-    const cashBudgetUsd = limits.capitalUsd + funded.reduce((cash, prior) => {
+-      if (prior.closed <= opportunity.at) return cash + prior.netUsd;
+-      if (prior.opened > opportunity.at)
+-        return cash - (pendingCashReservations.get(prior.id) ?? NaN);
+-      const series = bySymbol[prior.symbol];
+-      return cash - prior.quantity * (prior.entry * series.pointValue + p.costs.perSideUsd);
+-    }, 0);
+-    const t = replayCampaign(
+-      opportunity,
+-      s,
+-      data,
+-      p,
+-      fold.selected.split(":")[1] as ExitVariant,
+-      quantity,
+-    );
+-    if (t) {
+-      const receipt = verifyFundedEntryFill(t, opportunity, s, p, {
+-        plannedQuantity: quantity, riskBudgetUsd: plan.riskBudgetUsd,
+-        notionalBudgetUsd: plan.notionalBudgetUsd, cashBudgetUsd,
+-      });
+-      if (receipt.status !== "VERIFIED") throw new FundedEntryBudgetError(receipt);
+-      pendingCashReservations.set(t.id, plan.notionalBudgetUsd + quantity * p.costs.perSideUsd);
+-      funded.push(t);
+-    }
+-    else skip("INCOMPLETE_PATH");
+-  }
+-  const fundedPnl = oos.map((s, i) => {
+-    const at = (time: number) =>
+-      funded.reduce(
+-        (n, t) =>
+-          n +
+-          (time < t.opened
+-            ? 0
+-            : time >= t.closed
+-              ? t.netUsd
+-              : (t.marks.findLast((m) => m.at <= time)?.pnl ?? 0)),
+-        0,
+-      );
+-    return at(s.close) - at(i ? oos[i - 1].close : s.open - 1);
+-  });
+-  let eq = limits.capitalUsd;
+-  const fundedReturns = fundedPnl.map((pnl) => {
+-    const r = pnl / eq;
+-    eq += pnl;
+-    return r;
+-  });
++  // The unit cohort is an attribution estimand. Portfolio admission consumes
++  // every raw causal signal; another policy's future path cannot remove it.
++  const fundedResult = replayFundedPortfolio(generated.signals, data, p, folds, oos, limits);
+   return {
+     schema: "HARPOON-ULTIMATE-REPORT-1",
+     generatedAt: Date.now(),
+@@ -1050,16 +1013,7 @@
+       })),
+       oos: evaluate(selected, oos),
+     },
+-    fundedPortfolio: {
+-      scope: "MODELED_SHARED_CAPITAL_INTEGER_LOTS",
+-      limits,
+-      oos: metrics(
+-        fundedReturns,
+-        funded.map((t) => t.netR),
+-      ),
+-      netUsd: funded.reduce((n, t) => n + t.netUsd, 0),
+-      skipped: portfolioSkips,
+-    },
++    fundedPortfolio: fundedResult.portfolio,
+     pbo: probabilityBacktestOverfit(matrix),
+     dailyUnitReturns: Object.fromEntries(ids.map((id, i) => [id, matrix[i]])),
+     frequencyDiagnostics: trainingFrequencies(
+@@ -1080,3 +1034,245 @@
+     ],
+   };
+ }
++
++export interface FundedReplayFold {
++  test: ResearchDataset["sessions"];
++  selected: string;
++}
++
++/** A failed funded replay preserves reservations and exposure instead of a PnL. */
++export class FundedPortfolioReplayError extends Error {
++  readonly economicPnlUsd = null;
++  constructor(readonly code: string, readonly details: Record<string, unknown>) {
++    super(code + ": " + JSON.stringify(details));
++    this.name = "FundedPortfolioReplayError";
++  }
++}
++
++/**
++ * Execute a supplied policy selection with one continuous capital pool.
++ * This function neither fits nor selects policies and never calls runStudy.
++ * Model observations retain their availability clocks; they are not broker
++ * receipts. All reservations are conservative approved ceilings, not estimates
++ * of remaining buying power from a broker account.
++ */
++export function replayFundedPortfolio(
++  signals: Opportunity[],
++  data: ResearchDataset,
++  p: ResearchProtocol,
++  folds: FundedReplayFold[],
++  sessions: ResearchDataset["sessions"],
++  limits: ReplayLimits = DEFAULT_REPLAY_LIMITS,
++) {
++  need(sessions.length > 0 && sessions.every((s, i) => Number.isSafeInteger(s.open) &&
++    Number.isSafeInteger(s.close) && s.open < s.close && (!i || s.open > sessions[i - 1].close)),
++  "funded evaluation session chronology");
++  need(Object.values(limits).every(v => Number.isFinite(v) && v > 0) &&
++    [limits.riskFraction, limits.openRiskFraction, limits.grossFraction,
++      limits.assetFraction, limits.dailyLoss, limits.maxDrawdown].every(v => v <= 1) &&
++    limits.riskFraction <= limits.openRiskFraction && limits.assetFraction <= limits.grossFraction,
++  "funded limits");
++  need(new Set(signals.map(s => s.id)).size === signals.length &&
++    signals.every((s, i) => Number.isSafeInteger(s.at) && (!i || s.at >= signals[i - 1].at)),
++  "funded signal identities and chronology");
++  need(folds.every(f => f.test.length > 0 && (f.selected === "CASH" ||
++    HYPOTHESES.some(h => EXIT_VARIANTS.some(v => f.selected === h + ":" + v)))),
++  "funded frozen policy selection");
++  const sessionKey = (s: ResearchDataset["sessions"][number]) => `${s.date}:${s.open}:${s.close}`;
++  const calendarKeys = new Set(data.sessions.map(sessionKey));
++  const evaluationKeys = new Set(sessions.map(sessionKey));
++  const selectedKeys = folds.flatMap(f => f.test.map(sessionKey));
++  need(sessions.every(s => calendarKeys.has(sessionKey(s))) &&
++    folds.every(f => f.test.every((s, i) => evaluationKeys.has(sessionKey(s)) &&
++      (!i || s.open > f.test[i - 1].close))) &&
++    new Set(selectedKeys).size === selectedKeys.length,
++  "funded selection must be disjoint and inside the declared evaluation calendar");
++  const bySymbol = Object.fromEntries(data.series.map(s => [s.symbol, s]));
++  const funded: ModeledCampaign[] = [];
++  const states: Record<string, unknown>[] = [];
++  const preEntryRefusals: Record<string, unknown>[] = [];
++  const skipped: Record<string, number> = {};
++  const closeKnownAt = new Map<string, number>();
++  let reservationBook = emptyFundedReservationBook();
++  const purge = p.purgeHours * 3600000;
++  let peakEquity = limits.capitalUsd;
++  const pnlAt = (t: ModeledCampaign, at: number): number => {
++    if (at < t.opened) return 0;
++    if ((closeKnownAt.get(t.id) ?? Infinity) <= at) return t.netUsd;
++    const mark = t.marks.findLast(m => m.at <= at);
++    if (mark) return mark.pnl;
++    // Before the first post-fill bar is available, the existing position still
++    // has value and execution friction. Use the same observable close basis
++    // as inventory/sizing; entry price is not a zero-PnL valuation convention.
++    const series = bySymbol[t.symbol];
++    const reference = series ? causalReferencePrice({ at }, series) : null;
++    if (reference?.status !== "AVAILABLE") throw new FundedPortfolioReplayError(
++      "FUNDED_CAUSAL_VALUATION_UNAVAILABLE", { at, symbol: t.symbol, campaignId: t.id,
++        openedAt: t.opened, quantity: t.quantity, entryPrice: t.entry, reference,
++        funded, states, reservationBook, economicPnlUsd: null });
++    // Match subsequent campaign marks: entry fee already incurred plus one
++    // modeled exit-fee allowance for still-open units, each counted once.
++    return t.direction * (reference.price! - t.entry) * t.quantity * series.pointValue -
++      2 * t.quantity * p.costs.perSideUsd;
++  };
++  const equityAt = (at: number) => limits.capitalUsd + funded.reduce((n, t) => n + pnlAt(t, at), 0);
++  const cashPoolAt = (at: number) => limits.capitalUsd + funded.reduce((n, t) =>
++    n + ((closeKnownAt.get(t.id) ?? Infinity) <= at ? t.netUsd : 0), 0);
++  const refuse = (signal: Opportunity, reason: string, extra: Record<string, unknown> = {}) => {
++    skipped[reason] = (skipped[reason] || 0) + 1;
++    preEntryRefusals.push({ signalId: signal.id, symbol: signal.symbol, decisionAt: signal.at,
++      reason, positionOpened: false, ...extra });
++  };
++  for (const rawSignal of signals) {
++    const fold = folds.find(f => rawSignal.at >= f.test[0].open &&
++      rawSignal.at <= f.test.at(-1)!.close - purge);
++    if (!fold || fold.selected === "CASH" || !fold.selected.startsWith(rawSignal.hypothesis + ":")) continue;
++    if (p.kind === "FUTURES") { refuse(rawSignal, "HISTORICAL_MARGIN_UNAVAILABLE"); continue; }
++    if (rawSignal.direction !== 1) { refuse(rawSignal, "SHORT_PROXY_EXECUTION_NOT_SUPPORTED"); continue; }
++    const series = bySymbol[rawSignal.symbol];
++    need(series !== undefined && series.pointValue === 1, "funded cash-share series scope");
++    // Derive a legacy signal's plan from its decision/calendar, never its old
++    // future-bar index. The explicit causal plan remains authoritative.
++    const plannedEntryAt = rawSignal.plannedEntryAt ?? planSignalEntryAt(rawSignal.at, data.sessions);
++    if (plannedEntryAt === null) { refuse(rawSignal, "NO_CAUSAL_ENTRY_WINDOW"); continue; }
++    const signal = { ...rawSignal, plannedEntryAt };
++    const holding = planCalendarHolding(signal, plannedEntryAt, data, p);
++    if (holding.status === "REFUSED_BEFORE_ENTRY") {
++      refuse(signal, holding.reason!, { holding }); continue;
++    }
++    const before = snapshotFundedReservations(reservationBook, signal.at);
++    const equity = equityAt(signal.at);
++    const day = data.sessions.find(s => signal.at >= s.open && signal.at < s.close);
++    need(day !== undefined, "funded decision outside calendar");
++    peakEquity = Math.max(peakEquity, equity);
++    if (equity <= 0) throw new FundedPortfolioReplayError("FUNDED_INSOLVENCY", {
++      signalId: signal.id, at: signal.at, equityUsd: equity, reservationBook,
++      funded, states, lastObservedReservations: before, economicPnlUsd: null });
++    if (equity <= peakEquity * (1 - limits.maxDrawdown) ||
++      equity <= equityAt(day!.open) * (1 - limits.dailyLoss)) {
++      refuse(signal, "LOSS_LIMIT"); continue;
++    }
++    if (before.symbols.includes(signal.symbol)) {
++      refuse(signal, "SYMBOL_BUSY", { reservationSnapshot: before }); continue;
++    }
++    // Pending entries use approved ceilings only. An observed open campaign
++    // reserves at least its original ceiling and the full original quantity
++    // marked at the latest available close. Ignoring partial-sale proceeds is
++    // conservative; no unknown remaining quantity is invented.
++    let notional = before.notionalUsd;
++    const inventoryMarks: Record<string, unknown>[] = [];
++    let missingInventoryMark = false;
++    for (const reservation of before.reservations) if (reservation.state === "OPENED") {
++      const inventorySeries = bySymbol[reservation.symbol];
++      const reference = inventorySeries ? causalReferencePrice({ at: signal.at }, inventorySeries) : null;
++      if (reference?.status !== "AVAILABLE") { missingInventoryMark = true; break; }
++      const marked = reservation.quantity * reference.price! * inventorySeries.pointValue;
++      notional += Math.max(0, marked - reservation.notionalUsd);
++      inventoryMarks.push({ id: reservation.id, symbol: reservation.symbol, reference,
++        fullOriginalQuantity: reservation.quantity, markedNotionalUsd: marked,
++        reservedNotionalUsd: Math.max(reservation.notionalUsd, marked) });
++    }
++    if (missingInventoryMark) { refuse(signal, "NO_CAUSAL_INVENTORY_MARK"); continue; }
++    const openRisk = before.riskUsd;
++    const plan = planFundedEntry(signal, series, p, limits, { equity, openRisk, notional });
++    const state: Record<string, unknown> = { opportunity: signal, selected: fold.selected,
++      equity, openRisk, notional, reservationBefore: before, inventoryMarks, plan,
++      day, status: "PLANNED", positionOpened: false };
++    states.push(state);
++    if (plan.status !== "PLANNED") {
++      state.status = "REFUSED_BEFORE_ENTRY";
++      refuse(signal, "NO_CAUSAL_REFERENCE_PRICE"); continue;
++    }
++    const quantity = plan.quantity;
++    Object.assign(state, { quantity, px: plan.reference.price, riskUnit: plan.riskUnit,
++      reference: plan.reference });
++    if (quantity < 1) {
++      state.status = "REFUSED_BEFORE_ENTRY";
++      refuse(signal, "INTEGER_RISK_OR_EXPOSURE"); continue;
++    }
++    const cashPoolUsd = cashPoolAt(signal.at);
++    const cashBudgetUsd = cashPoolUsd - before.cashUsd;
++    const reservation = reserveFundedEntry(reservationBook, {
++      id: signal.id, symbol: signal.symbol, decisionAt: signal.at, quantity,
++      riskUsd: plan.riskBudgetUsd, notionalUsd: plan.notionalBudgetUsd,
++      cashUsd: plan.notionalBudgetUsd + quantity * p.costs.perSideUsd,
++    }, { equity, cashAvailableUsd: cashPoolUsd, riskFraction: limits.riskFraction,
++      openRiskFraction: limits.openRiskFraction, grossFraction: limits.grossFraction,
++      assetFraction: limits.assetFraction });
++    Object.assign(state, { cashPoolUsd, cashBudgetUsd, reservationStatus: reservation.status,
++      reservationAfter: reservation.snapshot });
++    if (reservation.status === "REFUSED") {
++      state.status = "REFUSED_BEFORE_ENTRY";
++      refuse(signal, reservation.reason!); continue;
++    }
++    reservationBook = reservation.book;
++    try {
++      const trade = replayCampaign(signal, series, data, p, fold.selected.split(":")[1] as ExitVariant, quantity);
++      if (!trade) throw new FundedPortfolioReplayError("FUNDED_PATH_UNRESOLVED", {
++        signalId: signal.id, plannedEntryAt, plannedQuantity: quantity,
++        positionOpened: null, economicPnlUsd: null });
++      reservationBook = recordFundedReservationObservation(reservationBook, {
++        id: trade.id, kind: "OPENED", at: trade.opened, knownAt: trade.opened,
++        remainingQuantity: trade.quantity, pendingQuantity: 0 });
++      const receipt = verifyFundedEntryFill(trade, signal, series, p, {
++        plannedQuantity: quantity, riskBudgetUsd: plan.riskBudgetUsd,
++        notionalBudgetUsd: plan.notionalBudgetUsd, cashBudgetUsd });
++      if (receipt.status !== "VERIFIED") throw new FundedEntryBudgetError(receipt);
++      const knownAt = Math.max(trade.closed, trade.marks.at(-1)?.at ?? trade.closed);
++      reservationBook = recordFundedReservationObservation(reservationBook, {
++        id: trade.id, kind: "CLOSED", at: trade.closed, knownAt,
++        remainingQuantity: 0, pendingQuantity: 0 });
++      closeKnownAt.set(trade.id, knownAt);
++      funded.push(trade);
++      Object.assign(state, { status: "MODELED_CAMPAIGN", positionOpened: true,
++        fillBudgetReceipt: receipt, modeledOpenedAt: trade.opened,
++        modeledClosedAt: trade.closed, modeledCloseKnownAt: knownAt });
++    } catch (error) {
++      const cause = error as { code?: string; details?: unknown; message?: string };
++      throw new FundedPortfolioReplayError(cause.code ?? "FUNDED_REPLAY_FAILURE", {
++        signalId: signal.id, symbol: signal.symbol, decisionAt: signal.at,
++        plannedEntryAt, plannedQuantity: quantity, cause: cause.details ?? cause.message ?? String(error),
++        reservationBook, decisionReservations: snapshotFundedReservations(reservationBook, signal.at),
++        funded, states, lastDecision: state, economicPnlUsd: null });
++    }
++  }
++  let priorEquity = limits.capitalUsd;
++  const curve = sessions.map((session, index) => {
++    const equity = equityAt(session.close), pnlUsd = equity - priorEquity;
++    const netReturn = priorEquity > 0 && equity > 0 ? pnlUsd / priorEquity : null;
++    const previousAt = index ? sessions[index - 1].close : session.open - 1;
++    const row = { session_id: session.date, start_at: previousAt, end_at: session.close,
++      equity_start_usd: priorEquity, equity_end_usd: equity, modeled_trading_pnl_usd: pnlUsd,
++      portfolio_return: netReturn, portfolio_log_return: netReturn === null ? null : Math.log1p(netReturn),
++      asset_pnl_usd: Object.fromEntries(data.series.map(s => [s.symbol, funded
++        .filter(t => t.symbol === s.symbol).reduce((n, t) => n + pnlAt(t, session.close) - pnlAt(t, previousAt), 0)])),
++      external_costs_usd: null };
++    need(Math.abs(Object.values(row.asset_pnl_usd).reduce((sum, value) => sum + value, 0) - pnlUsd) <= 1e-8,
++      "funded asset contributions must reconcile to continuous account change");
++    priorEquity = equity;
++    return row;
++  });
++  if (curve.some(row => row.portfolio_return === null)) throw new FundedPortfolioReplayError("FUNDED_INSOLVENCY", {
++    curve, reservationBook, funded, states, economicPnlUsd: null });
++  const terminalAt = sessions.at(-1)!.close;
++  const terminal = snapshotFundedReservations(reservationBook, terminalAt);
++  if (terminal.reservations.length) throw new FundedPortfolioReplayError("TERMINAL_FUNDED_EXPOSURE_UNRESOLVED", {
++    terminalAt, reservationBook, terminalReservations: terminal,
++    lastKnownMarks: terminal.reservations.map(r => ({ id: r.id, symbol: r.symbol,
++      fullOriginalQuantity: r.quantity, remainingQuantity: null,
++      lastKnownMark: funded.find(t => t.id === r.id)?.marks.findLast(m => m.at <= terminalAt) ?? null })),
++    curve, funded, states, economicPnlUsd: null });
++  need(Math.abs(funded.reduce((sum, t) => sum + t.netUsd, 0) -
++    (curve.at(-1)!.equity_end_usd - limits.capitalUsd)) <= 1e-8,
++  "closed funded campaigns must reconcile to terminal account equity");
++  return {
++    portfolio: { scope: "MODELED_SHARED_CAPITAL_INTEGER_LOTS_CAUSAL_RESERVATIONS", limits,
++      oos: metrics(curve.map(r => r.portfolio_return!), funded.map(t => t.netR)),
++      netUsd: curve.at(-1)!.equity_end_usd - limits.capitalUsd, skipped },
++    metadata: {
++      reservationBasis: "FULL_EX_ANTE_CEILINGS_UNTIL_OBSERVED_CLOSE;OPEN_NOTIONAL_AT_LEAST_CAUSAL_MARK",
++      closeKnowledge: "LAST_MODELED_MARK_AVAILABILITY;NOT_BROKER_RECEIPTS",
++      financialAcceptanceAllowed: false },
++    funded, states, curve, preEntryRefusals, reservationBook,
++  };
++}
+--- 30.13.1/xxx/version.ts
++++ 30.14.0/xxx/version.ts
+@@ -1,2 +1,2 @@
+ // Release identity is separate from the immutable research engine code seal.
+-export const ULTIMATE_VERSION = "30.13.0";
++export const ULTIMATE_VERSION = "30.14.0";
+--- /dev/null
++++ 30.14.0/xxx/ultimate_reservations.ts
+@@ -0,0 +1,225 @@
++/**
++ * Conservative, immutable reservations for a modeled funded portfolio.
++ *
++ * This is not an order manager or broker ledger. Amounts are approved ex-ante
++ * ceilings, expressed in USD. No price, future profit or fill price is an input.
++ * An entire reservation remains encumbered until an observed complete close.
++ * Partial exposure observations never release risk, notional or cash headroom.
++ */
++export interface FundedReservation {
++  id: string;
++  symbol: string;
++  decisionAt: number;
++  quantity: number;
++  riskUsd: number;
++  notionalUsd: number;
++  cashUsd: number;
++}
++
++export interface FundedReservationObservation {
++  id: string;
++  kind: "OPENED" | "CLOSED";
++  /** Effective modeled event time, distinct from when it becomes known. */
++  at: number;
++  knownAt: number;
++  remainingQuantity: number;
++  pendingQuantity: number;
++}
++
++export interface FundedReservationRecord extends FundedReservation {
++  observations: FundedReservationObservation[];
++}
++
++export interface FundedReservationBook {
++  schema: "HARPOON_FUNDED_RESERVATIONS_1";
++  reservations: FundedReservationRecord[];
++}
++
++export interface FundedReservationCapacity {
++  /** The caller's causal, authorized equity base, including any capital cap. */
++  equity: number;
++  /**
++   * Cash pool BEFORE deducting this book's reservations. For the conservative
++   * replay this is initial cash plus the net result of fully closed campaigns.
++   * Do not pass a broker cash balance that already subtracts these purchases.
++   */
++  cashAvailableUsd: number;
++  riskFraction: number;
++  openRiskFraction: number;
++  grossFraction: number;
++  assetFraction: number;
++}
++
++const SCHEMA = "HARPOON_FUNDED_RESERVATIONS_1" as const;
++const EPSILON_USD = 1e-8;
++
++export class FundedReservationError extends Error {
++  readonly economicPnlUsd = null;
++  constructor(
++    readonly code: string,
++    readonly details: Record<string, unknown>,
++  ) {
++    // Preserve the incident at a worker boundary; never silently discard a
++    // conflicting record or a newly reported residual position.
++    super(code + ": " + JSON.stringify(details));
++    this.name = "FundedReservationError";
++  }
++}
++
++function need(ok: boolean, code: string, details: Record<string, unknown>) {
++  if (!ok) throw new FundedReservationError(code, details);
++}
++
++const positive = (v: number) => typeof v === "number" && Number.isFinite(v) && v > 0;
++const nonnegative = (v: number) => typeof v === "number" && Number.isFinite(v) && v >= 0;
++const time = (v: number) => Number.isSafeInteger(v) && v >= 0;
++
++function copyReservation(r: FundedReservation): FundedReservation {
++  return { id: r.id, symbol: r.symbol, decisionAt: r.decisionAt, quantity: r.quantity,
++    riskUsd: r.riskUsd, notionalUsd: r.notionalUsd, cashUsd: r.cashUsd };
++}
++
++function copyObservation(o: FundedReservationObservation): FundedReservationObservation {
++  return { id: o.id, kind: o.kind, at: o.at, knownAt: o.knownAt,
++    remainingQuantity: o.remainingQuantity, pendingQuantity: o.pendingQuantity };
++}
++
++function validateReservation(r: FundedReservation) {
++  need(typeof r?.id === "string" && r.id.length > 0 && typeof r.symbol === "string" &&
++    r.symbol.length > 0 && r.symbol.trim() === r.symbol && time(r.decisionAt) &&
++    Number.isSafeInteger(r.quantity) && r.quantity > 0 && positive(r.riskUsd) &&
++    positive(r.notionalUsd) && positive(r.cashUsd) && r.cashUsd + EPSILON_USD >= r.notionalUsd,
++  "INVALID_EX_ANTE_RESERVATION", { reservation: copyReservation(r) });
++}
++
++function validateObservation(o: FundedReservationObservation, r: FundedReservation) {
++  need(o?.id === r.id && (o.kind === "OPENED" || o.kind === "CLOSED") &&
++    time(o.at) && time(o.knownAt) && o.at >= r.decisionAt && o.knownAt >= o.at &&
++    Number.isSafeInteger(o.remainingQuantity) && o.remainingQuantity >= 0 &&
++    Number.isSafeInteger(o.pendingQuantity) && o.pendingQuantity >= 0 &&
++    o.remainingQuantity + o.pendingQuantity <= r.quantity,
++  "INVALID_RESERVATION_OBSERVATION", { reservation: copyReservation(r), observation: copyObservation(o) });
++  if (o.kind === "CLOSED")
++    need(o.remainingQuantity === 0 && o.pendingQuantity === 0,
++      "CLOSE_WITH_RESIDUAL_EXPOSURE", { observation: copyObservation(o) });
++  else need(o.remainingQuantity > 0, "OPEN_WITHOUT_OBSERVED_EXPOSURE", { observation: copyObservation(o) });
++}
++
++function validateBook(book: FundedReservationBook) {
++  need(book?.schema === SCHEMA && Array.isArray(book.reservations), "RESERVATION_BOOK_SCHEMA", {});
++  const seen = new Set<string>();
++  let priorDecision = -1;
++  for (const r of book.reservations) {
++    validateReservation(r);
++    need(!seen.has(r.id) && r.decisionAt >= priorDecision && Array.isArray(r.observations),
++      "RESERVATION_BOOK_ID_OR_CHRONOLOGY", { id: r.id });
++    seen.add(r.id); priorDecision = r.decisionAt;
++    let opened = false, closed = false, priorKnown = r.decisionAt, priorEffective = r.decisionAt;
++    const keys = new Set<string>();
++    for (const o of r.observations) {
++      validateObservation(o, r);
++      const key = o.kind + ":" + o.at + ":" + o.knownAt;
++      need(!keys.has(key) && o.knownAt >= priorKnown && o.at >= priorEffective && !closed,
++        "RESERVATION_OBSERVATION_CHRONOLOGY", { id: r.id, observation: copyObservation(o) });
++      if (o.kind === "CLOSED") need(opened, "CLOSE_WITHOUT_OBSERVED_OPEN", { id: r.id });
++      opened = opened || o.kind === "OPENED";
++      closed = o.kind === "CLOSED";
++      priorKnown = o.knownAt; priorEffective = o.at; keys.add(key);
++    }
++  }
++}
++
++function copyBook(book: FundedReservationBook): FundedReservationBook {
++  return { schema: SCHEMA, reservations: book.reservations.map(r => ({ ...copyReservation(r),
++    observations: r.observations.map(copyObservation) })) };
++}
++
++export function emptyFundedReservationBook(): FundedReservationBook {
++  return { schema: SCHEMA, reservations: [] };
++}
++
++export function snapshotFundedReservations(book: FundedReservationBook, at: number) {
++  validateBook(book);
++  need(time(at), "RESERVATION_SNAPSHOT_TIME", { at });
++  const retained = book.reservations.filter(r => r.decisionAt <= at).flatMap(r => {
++    const observed = r.observations.filter(o => o.at <= at && o.knownAt <= at).at(-1);
++    if (observed?.kind === "CLOSED") return [];
++    return [{ ...copyReservation(r), state: observed ? "OPENED" as const : "PENDING" as const,
++      observedAt: observed?.at ?? null, observationKnownAt: observed?.knownAt ?? null,
++      observedRemainingQuantity: observed?.remainingQuantity ?? null,
++      observedPendingQuantity: observed?.pendingQuantity ?? null }];
++  });
++  const riskUsd = retained.reduce((n, r) => n + r.riskUsd, 0);
++  const notionalUsd = retained.reduce((n, r) => n + r.notionalUsd, 0);
++  const cashUsd = retained.reduce((n, r) => n + r.cashUsd, 0);
++  need([riskUsd, notionalUsd, cashUsd].every(nonnegative), "NONFINITE_AGGREGATE_RESERVATION", { at });
++  return { at, riskUsd, notionalUsd, cashUsd,
++    symbols: [...new Set(retained.map(r => r.symbol))].sort(),
++    pending: retained.filter(r => r.state === "PENDING").length,
++    opened: retained.filter(r => r.state === "OPENED").length,
++    reservations: retained };
++}
++
++export function reserveFundedEntry(
++  book: FundedReservationBook,
++  reservation: FundedReservation,
++  capacity: FundedReservationCapacity,
++) {
++  validateBook(book); validateReservation(reservation);
++  const r = copyReservation(reservation);
++  const duplicate = book.reservations.find(x => x.id === r.id);
++  if (duplicate) {
++    need(JSON.stringify(copyReservation(duplicate)) === JSON.stringify(r),
++      "CONFLICTING_RESERVATION_ID", { existing: copyReservation(duplicate), proposed: r });
++    return { status: "UNCHANGED" as const, reason: null, book: copyBook(book),
++      snapshot: snapshotFundedReservations(book, r.decisionAt) };
++  }
++  need(r.decisionAt >= (book.reservations.at(-1)?.decisionAt ?? -1),
++    "RESERVATION_DECISION_REGRESSION", { decisionAt: r.decisionAt });
++  need(positive(capacity?.equity) && nonnegative(capacity.cashAvailableUsd) &&
++    [capacity.riskFraction, capacity.openRiskFraction, capacity.grossFraction, capacity.assetFraction]
++      .every(v => positive(v) && v <= 1) && capacity.riskFraction <= capacity.openRiskFraction &&
++    capacity.assetFraction <= capacity.grossFraction,
++  "INVALID_RESERVATION_CAPACITY", { capacity });
++  const before = snapshotFundedReservations(book, r.decisionAt);
++  const reason = before.symbols.includes(r.symbol) ? "SYMBOL_RESERVED"
++    : r.riskUsd > capacity.equity * capacity.riskFraction + EPSILON_USD ? "PER_ENTRY_RISK_CAPACITY"
++    : r.notionalUsd > capacity.equity * capacity.assetFraction + EPSILON_USD ? "PER_ENTRY_NOTIONAL_CAPACITY"
++    : before.riskUsd + r.riskUsd > capacity.equity * capacity.openRiskFraction + EPSILON_USD ? "PORTFOLIO_RISK_CAPACITY"
++    : before.notionalUsd + r.notionalUsd > capacity.equity * capacity.grossFraction + EPSILON_USD ? "PORTFOLIO_NOTIONAL_CAPACITY"
++    : before.cashUsd + r.cashUsd > capacity.cashAvailableUsd + EPSILON_USD ? "PORTFOLIO_CASH_CAPACITY"
++    : null;
++  if (reason) return { status: "REFUSED" as const, reason, book: copyBook(book), snapshot: before };
++  const next = copyBook(book);
++  next.reservations.push({ ...r, observations: [] });
++  return { status: "RESERVED" as const, reason: null, book: next,
++    snapshot: snapshotFundedReservations(next, r.decisionAt) };
++}
++
++/** Record facts in their observed order. No cancellation request releases funds. */
++export function recordFundedReservationObservation(
++  book: FundedReservationBook,
++  observation: FundedReservationObservation,
++): FundedReservationBook {
++  validateBook(book);
++  const r = book.reservations.find(x => x.id === observation.id);
++  need(!!r, "OBSERVATION_WITHOUT_RESERVATION", { observation: copyObservation(observation) });
++  validateObservation(observation, r!);
++  const o = copyObservation(observation);
++  const duplicate = r!.observations.find(x => x.kind === o.kind && x.at === o.at && x.knownAt === o.knownAt);
++  if (duplicate) {
++    need(JSON.stringify(duplicate) === JSON.stringify(o), "CONFLICTING_RESERVATION_OBSERVATION", {
++      existing: copyObservation(duplicate), proposed: o });
++    return copyBook(book);
++  }
++  const prior = r!.observations.at(-1);
++  need(prior?.kind !== "CLOSED", "EXPOSURE_REPORTED_AFTER_COMPLETE_CLOSE", {
++    reservation: copyReservation(r!), observation: o, economicPnlUsd: null });
++  need(o.knownAt >= (prior?.knownAt ?? r!.decisionAt) && o.at >= (prior?.at ?? r!.decisionAt),
++    "RESERVATION_OBSERVATION_REGRESSION", { observation: o });
++  if (o.kind === "CLOSED") need(prior?.kind === "OPENED", "CLOSE_WITHOUT_OBSERVED_OPEN", { observation: o });
++  const next = copyBook(book);
++  next.reservations.find(x => x.id === o.id)!.observations.push(o);
++  validateBook(next);
++  return next;
++}
+--- /dev/null
++++ 30.14.0/tools/ultimate_reservations_test.cjs
+@@ -0,0 +1,109 @@
++"use strict";
++// Synthetic software checks only. No optimizer, broker, fit or financial trial.
++const test=require("node:test"),assert=require("node:assert/strict"),path=require("node:path");
++const runtime=process.env.HARPOON_RESERVATIONS_TEST_MODULE||path.join(__dirname,"../runtime30/ultimate_reservations.js");
++const {emptyFundedReservationBook,snapshotFundedReservations,reserveFundedEntry,recordFundedReservationObservation,FundedReservationError}=require(runtime);
++const C={equity:20000,cashAvailableUsd:20000,riskFraction:.0025,openRiskFraction:.015,grossFraction:.5,assetFraction:.12};
++function entry(i=0,changes={}){return {id:"S"+i,symbol:"ASSET"+i,decisionAt:1000,quantity:24,riskUsd:49.44,notionalUsd:2400,cashUsd:2400,...changes};}
++function reserve(book,r=entry(),c=C){const result=reserveFundedEntry(book,r,c);assert.equal(result.status,"RESERVED");return result.book;}
++function opened(changes={}){return {id:"S0",kind:"OPENED",at:2000,knownAt:2010,remainingQuantity:24,pendingQuantity:0,...changes};}
++function closed(changes={}){return {id:"S0",kind:"CLOSED",at:5000,knownAt:5010,remainingQuantity:0,pendingQuantity:0,...changes};}
++
++test("seven simultaneous pending entries cannot spend the same notional capacity",()=>{
++  let book=emptyFundedReservationBook();const receipts=[];
++  for(let i=0;i<7;i++){const r=reserveFundedEntry(book,entry(i),C);receipts.push(r);book=r.book;}
++  assert.equal(receipts.filter(r=>r.status==="RESERVED").length,4);
++  assert(receipts.slice(4).every(r=>r.reason==="PORTFOLIO_NOTIONAL_CAPACITY"));
++  const s=snapshotFundedReservations(book,1000);
++  assert.equal(s.pending,4);assert.equal(s.notionalUsd,9600);assert.equal(s.cashUsd,9600);
++  assert(s.riskUsd<=C.equity*C.openRiskFraction);
++});
++
++test("the joint risk ceiling binds independently of available cash and notional",()=>{
++  let book=emptyFundedReservationBook();let last;
++  for(let i=0;i<7;i++){last=reserveFundedEntry(book,entry(i,{quantity:1,notionalUsd:100,cashUsd:100,riskUsd:50}),C);book=last.book;}
++  assert.equal(last.status,"REFUSED");assert.equal(last.reason,"PORTFOLIO_RISK_CAPACITY");
++  const s=snapshotFundedReservations(book,1000);assert.equal(s.riskUsd,300);assert.equal(s.cashUsd,600);
++});
++
++test("a pending symbol is busy before the first modeled fill",()=>{
++  const book=reserve(emptyFundedReservationBook());
++  const r=reserveFundedEntry(book,entry(1,{symbol:"ASSET0",decisionAt:1001}),C);
++  assert.equal(r.status,"REFUSED");assert.equal(r.reason,"SYMBOL_RESERVED");
++  assert.deepEqual(book,r.book);
++});
++
++test("release waits for the close to be known, not just its effective timestamp",()=>{
++  let book=reserve(emptyFundedReservationBook());
++  book=recordFundedReservationObservation(book,opened());
++  book=recordFundedReservationObservation(book,closed());
++  assert.equal(snapshotFundedReservations(book,2000).pending,1);
++  assert.equal(snapshotFundedReservations(book,2010).opened,1);
++  assert.equal(snapshotFundedReservations(book,5009).cashUsd,2400);
++  assert.equal(snapshotFundedReservations(book,5010).cashUsd,0);
++  const again=reserveFundedEntry(book,entry(1,{symbol:"ASSET0",decisionAt:5010}),C);
++  assert.equal(again.status,"RESERVED");
++});
++
++test("partial observations retain the full approved budgets and residual order",()=>{
++  let book=reserve(emptyFundedReservationBook());
++  book=recordFundedReservationObservation(book,opened({remainingQuantity:6,pendingQuantity:18}));
++  book=recordFundedReservationObservation(book,opened({at:3000,knownAt:3010,remainingQuantity:4,pendingQuantity:0}));
++  const s=snapshotFundedReservations(book,3010);
++  assert.equal(s.cashUsd,2400);assert.equal(s.notionalUsd,2400);assert.equal(s.riskUsd,49.44);
++  assert.equal(s.reservations[0].observedRemainingQuantity,4);
++  assert.throws(()=>recordFundedReservationObservation(book,closed({remainingQuantity:4})),/CLOSE_WITH_RESIDUAL_EXPOSURE/);
++  assert.throws(()=>recordFundedReservationObservation(book,closed({pendingQuantity:1})),/CLOSE_WITH_RESIDUAL_EXPOSURE/);
++});
++
++test("future observations and future prices cannot alter a decision-time reservation",()=>{
++  const b=reserve(emptyFundedReservationBook());
++  const atDecision=snapshotFundedReservations(b,1000);
++  let future=recordFundedReservationObservation(b,{...opened(),futureFillPrice:100000});
++  future=recordFundedReservationObservation(future,{...closed(),futurePnlUsd:999999});
++  assert.deepEqual(snapshotFundedReservations(future,1000),atDecision);
++  const changed=reserveFundedEntry(emptyFundedReservationBook(),{...entry(),futurePrice:1},C);
++  assert.deepEqual(changed.book,b);
++  assert.equal(snapshotFundedReservations(future,999).cashUsd,0);
++});
++
++test("identical retries do not duplicate capacity and conflicting ids raise an incident",()=>{
++  const empty=emptyFundedReservationBook(),book=reserve(empty);
++  assert.equal(empty.reservations.length,0,"pure function must not mutate the prior state");
++  const again=reserveFundedEntry(book,entry(),C);
++  assert.equal(again.status,"UNCHANGED");assert.deepEqual(again.book,book);
++  assert.throws(()=>reserveFundedEntry(book,entry(0,{riskUsd:48}),C),e=>e instanceof FundedReservationError&&e.code==="CONFLICTING_RESERVATION_ID"&&e.economicPnlUsd===null);
++  assert.equal(book.reservations.length,1);assert.equal(book.reservations[0].riskUsd,49.44);
++});
++
++test("duplicate exposure observations are idempotent, conflicts preserve the original record",()=>{
++  const reserved=reserve(emptyFundedReservationBook()),book=recordFundedReservationObservation(reserved,opened());
++  assert.equal(reserved.reservations[0].observations.length,0);
++  assert.deepEqual(recordFundedReservationObservation(book,opened()),book);
++  assert.throws(()=>recordFundedReservationObservation(book,opened({remainingQuantity:23})),/CONFLICTING_RESERVATION_OBSERVATION/);
++  assert.equal(book.reservations[0].observations[0].remainingQuantity,24);
++});
++
++test("unknown, regressing and post-close exposure cannot become a silent release",()=>{
++  assert.throws(()=>recordFundedReservationObservation(emptyFundedReservationBook(),opened()),/OBSERVATION_WITHOUT_RESERVATION/);
++  let book=reserve(emptyFundedReservationBook());
++  assert.throws(()=>recordFundedReservationObservation(book,closed()),/CLOSE_WITHOUT_OBSERVED_OPEN/);
++  book=recordFundedReservationObservation(book,opened());
++  assert.throws(()=>recordFundedReservationObservation(book,opened({at:1999,knownAt:2020})),/RESERVATION_OBSERVATION_REGRESSION/);
++  assert.throws(()=>recordFundedReservationObservation(book,closed({at:5000,knownAt:4999})),/INVALID_RESERVATION_OBSERVATION/);
++  book=recordFundedReservationObservation(book,closed());
++  assert.throws(()=>recordFundedReservationObservation(book,opened({at:6000,knownAt:6010,remainingQuantity:1})),e=>e.code==="EXPOSURE_REPORTED_AFTER_COMPLETE_CLOSE"&&e.details.observation.remainingQuantity===1&&e.economicPnlUsd===null);
++});
++
++test("cash fees, reduced equity and per-entry limits are enforced without loosening limits",()=>{
++  const book=reserve(emptyFundedReservationBook(),entry(0,{cashUsd:2410}));
++  let result=reserveFundedEntry(book,entry(1,{cashUsd:2410}),{...C,cashAvailableUsd:4819});
++  assert.equal(result.reason,"PORTFOLIO_CASH_CAPACITY");
++  result=reserveFundedEntry(book,entry(1),{...C,equity:10000});
++  assert.equal(result.reason,"PER_ENTRY_RISK_CAPACITY");
++  result=reserveFundedEntry(emptyFundedReservationBook(),entry(0,{riskUsd:50.01}),C);
++  assert.equal(result.reason,"PER_ENTRY_RISK_CAPACITY");
++  result=reserveFundedEntry(emptyFundedReservationBook(),entry(0,{notionalUsd:2401,cashUsd:2401}),C);
++  assert.equal(result.reason,"PER_ENTRY_NOTIONAL_CAPACITY");
++  assert.throws(()=>reserveFundedEntry(emptyFundedReservationBook(),entry(0,{cashUsd:NaN}),C),/INVALID_EX_ANTE_RESERVATION/);
++});
+--- /dev/null
++++ 30.14.0/tools/ultimate_signal_causality_test.cjs
+@@ -0,0 +1,174 @@
++"use strict";
++// Hermetic synthetic causality/execution checks, never strategy fits or financial trials.
++const test = require("node:test"), assert = require("node:assert/strict"), path = require("node:path");
++const runtime = process.env.HARPOON_CAUSALITY_RUNTIME_ROOT || path.join(__dirname, "../runtime30");
++const { opportunities, planSignalEntryAt, replayCampaign, UnobservedEntryError,
++  UnresolvedHoldingExposureError } = require(path.join(runtime, "ultimate_replay.js"));
++const BAR = 300000, DAY = 86400000;
++
++function fixture(delay = 3000) {
++  const start = Date.UTC(2025, 0, 1, 14, 30), sessions = [], bars = [];
++  for (let d = 0; d < 21; d++) {
++    const open = start + d * DAY, close = open + 10 * BAR;
++    sessions.push({ date: new Date(open).toISOString().slice(0, 10), open, close });
++    for (let j = 0; j < 10; j++) {
++      const t = open + j * BAR, price = d === 20 && j >= 3 ? 102 : 100;
++      bars.push({ t, end: t + BAR, availableAt: t + BAR + delay,
++        o: price, h: price + .2, l: price - .2, c: price, v: d === 20 ? 100 : 10 });
++    }
++  }
++  const series = { symbol: "SPY", root: "SPY", pointValue: 1, tick: .01, bars };
++  const data = { schema: "HARPOON-ULTIMATE-DATA-1", kind: "ALPACA_PROXY", sessions,
++    series: [series], splitEvents: [] };
++  const protocol = { kind: "ALPACA_PROXY", costs: { spreadBps: 2, slippageBps: 2, perSideUsd: 0 } };
++  const decision = sessions.at(-1).open + 4 * BAR + delay;
++  return { data, protocol, series, decision };
++}
++function before(f) { return opportunities(f.data, f.protocol).signals.filter(s => s.at <= f.decision); }
++function first(f) {
++  const signals = before(f); assert.equal(signals.length, 1); return signals[0];
++}
++function replay(f, signal = first(f)) {
++  return replayCampaign(signal, f.series, f.data, f.protocol, "BASELINE", 4);
++}
++function remove(f, at) { f.series.bars = f.series.bars.filter(b => b.t !== at); }
++
++test("deleting the later last bar cannot erase an earlier signal", () => {
++  const f = fixture(), expected = before(f);
++  assert.equal(expected.length, 1);
++  f.series.bars.pop();
++  assert.deepEqual(before(f), expected);
++  assert.equal(opportunities(f.data, f.protocol).funnel.incompleteSessions, 1);
++});
++
++test("future prices and future availability do not change an earlier signal", () => {
++  const f = fixture(), expected = before(f);
++  for (const b of f.series.bars) if (b.t > f.decision) {
++    for (const key of ["o", "h", "l", "c"]) b[key] *= 2;
++    b.v *= 100; b.availableAt = b.end + 60000;
++  }
++  assert.deepEqual(before(f), expected);
++});
++
++test("an observed prefix gap blocks dependent decisions without interpolation", () => {
++  const f = fixture(), gapAt = f.data.sessions.at(-1).open + 2 * BAR;
++  remove(f, gapAt);
++  assert.equal(before(f).length, 0);
++  assert.equal(opportunities(f.data, f.protocol).signals.filter(s => s.at >= gapAt).length, 0);
++});
++
++test("a future gap preserves past signals and blocks decisions after the observed gap", () => {
++  const f = fixture(), expected = before(f), gapAt = f.data.sessions.at(-1).open + 7 * BAR;
++  remove(f, gapAt);
++  const result = opportunities(f.data, f.protocol);
++  assert.deepEqual(result.signals.filter(s => s.at <= f.decision), expected);
++  assert.equal(result.signals.filter(s => s.at >= gapAt + BAR).length, 0);
++  assert(result.funnel.dataGap > 0);
++});
++
++test("entry plans use the declared grid for zero, three-second and sixty-second availability", () => {
++  for (const [delay, expectedOffset] of [[0, 4], [3000, 5], [60000, 5]]) {
++    const f = fixture(delay), signal = first(f), open = f.data.sessions.at(-1).open;
++    assert.equal(signal.plannedEntryAt, open + expectedOffset * BAR);
++    assert(signal.plannedEntryAt >= signal.at);
++    assert.equal(planSignalEntryAt(signal.at, f.data.sessions), signal.plannedEntryAt);
++  }
++});
++
++test("entry admission near session close depends on calendar, not future bars", () => {
++  const f = fixture(), session = f.data.sessions.at(-1);
++  assert.equal(planSignalEntryAt(session.close - 2 * BAR, f.data.sessions), session.close - 2 * BAR);
++  assert.equal(planSignalEntryAt(session.close - 2 * BAR + 1, f.data.sessions), null);
++  assert.equal(planSignalEntryAt(session.close, f.data.sessions), null);
++});
++
++test("a missing planned fill retains signal, quantity and unknown exposure with null PnL", () => {
++  const f = fixture(), signal = first(f); remove(f, signal.plannedEntryAt);
++  assert.deepEqual(first(f), signal);
++  assert.throws(() => replay(f, signal), error => {
++    assert(error instanceof UnobservedEntryError);
++    assert.equal(error.code, "UNOBSERVED_ENTRY");
++    assert.equal(error.details.reason, "MISSING_PLANNED_ENTRY_BAR");
++    assert.equal(error.details.plannedEntryAt, signal.plannedEntryAt);
++    assert.equal(error.details.plannedQuantity, 4);
++    assert.equal(error.details.positionOpened, null);
++    assert.equal(error.details.exposureUnknown, true);
++    assert.equal(error.details.economicPnlUsd, null);
++    const transported = JSON.parse(error.message.slice(error.message.indexOf(": ") + 2));
++    assert.deepEqual(transported, error.details);
++    return true;
++  });
++});
++
++test("execution resolves the exact planned timestamp when an earlier unavailable bar shifts the array", () => {
++  const f = fixture(), signal = first(f), expected = replay(f, signal);
++  // This bar is still unfinished at signal.at and is not an observed feature.
++  remove(f, signal.plannedEntryAt - BAR);
++  assert.deepEqual(first(f), signal);
++  assert.notEqual(f.series.bars[signal.index].t, signal.plannedEntryAt);
++  const actual = replay(f, signal);
++  assert.equal(actual.opened, signal.plannedEntryAt);
++  assert.equal(actual.entry, expected.entry);
++  assert.equal(actual.netUsd, expected.netUsd);
++});
++
++test("a caller cannot substitute a later existing fill for the causal entry plan", () => {
++  const f = fixture(), signal = first(f); signal.plannedEntryAt += BAR;
++  assert.throws(() => replay(f, signal), /entry plan differs from causal calendar grid/);
++});
++
++test("a gap after an opening-breakout fill retains the already opened position", () => {
++  const f = fixture(), signal = first(f); remove(f, signal.plannedEntryAt + 2 * BAR);
++  assert.throws(() => replay(f, signal), error => {
++    assert(error instanceof UnresolvedHoldingExposureError);
++    assert.equal(error.details.reason, "MISSING_BAR_WITH_OPEN_EXPOSURE");
++    assert.equal(error.details.openedAt, signal.plannedEntryAt);
++    assert.equal(error.details.remainingQuantity, 4);
++    assert.equal(error.details.economicPnlUsd, null);
++    return true;
++  });
++});
++
++test("truncated data after an observed fill cannot silently remove the campaign", () => {
++  const f = fixture(), signal = first(f);
++  f.series.bars = f.series.bars.filter(b => b.t <= signal.plannedEntryAt);
++  assert.throws(() => replay(f, signal), error => {
++    assert(error instanceof UnresolvedHoldingExposureError);
++    assert.equal(error.details.reason, "DATA_ENDED_WITH_OPEN_EXPOSURE");
++    assert.equal(error.details.remainingQuantity, 4);
++    assert.equal(error.details.economicPnlUsd, null);
++    return true;
++  });
++});
++
++test("an unsupported future corporate action is an incident, not a hindsight no-entry filter", () => {
++  const f = fixture(), signal = first(f);
++  f.data.splitEvents.push({ symbol: "SPY", at: signal.plannedEntryAt + BAR, ratio: 2 });
++  assert.throws(() => replay(f, signal), error => {
++    assert(error instanceof UnobservedEntryError);
++    assert.equal(error.details.reason, "CORPORATE_ACTION_PATH_UNMODELED");
++    assert.equal(error.details.economicPnlUsd, null);
++    assert.equal(error.details.exposureUnknown, true);
++    return true;
++  });
++});
++
++test("legacy signals retain valid explicit index timing but cannot enter before their decision", () => {
++  const f = fixture(), signal = first(f); delete signal.plannedEntryAt;
++  const actual = replay(f, signal);
++  assert.equal(actual.opened, f.series.bars[signal.index].t);
++  const invalid = { ...signal, at: actual.opened + 1 };
++  assert.throws(() => replay(f, invalid), /entry precedes signal decision/);
++});
++
++test("legacy missing execution observations also cannot become a flat result", () => {
++  const f = fixture(), signal = first(f); delete signal.plannedEntryAt;
++  signal.index = f.series.bars.length;
++  assert.throws(() => replay(f, signal), error => {
++    assert(error instanceof UnobservedEntryError);
++    assert.equal(error.details.reason, "MISSING_LEGACY_ENTRY_OBSERVATION");
++    assert.equal(error.details.plannedEntryAt, null);
++    assert.equal(error.details.economicPnlUsd, null);
++    return true;
++  });
++});
+--- /dev/null
++++ 30.14.0/tools/ultimate_funded_reservations_test.cjs
+@@ -0,0 +1,196 @@
++"use strict";
++// Synthetic integration only: no strategy search, provider call or external order.
++const test=require("node:test"),assert=require("node:assert/strict"),path=require("node:path");
++const root=process.env.HARPOON_FUNDED_TEST_RUNTIME||path.join(__dirname,"../runtime30");
++const R=require(path.join(root,"ultimate_replay.js"));
++const {defaultProtocol}=require(path.join(root,"ultimate_contracts.js"));
++const BAR=300000;
++const dates=["2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"];
++function fixture(count=1){
++  const sessions=dates.map(date=>({date,open:Date.parse(date+"T14:30:00Z"),close:Date.parse(date+"T21:00:00Z")}));
++  const series=Array.from({length:count},(_,i)=>({symbol:"ASSET"+i,root:"ASSET"+i,pointValue:1,tick:.01,
++    bars:sessions.flatMap(s=>Array.from({length:78},(_,j)=>({t:s.open+j*BAR,end:s.open+(j+1)*BAR,
++      availableAt:s.open+(j+1)*BAR+3000,o:100,h:100.1,l:99.9,c:100,v:1000})))}));
++  const protocol={...defaultProtocol("ALPACA_PROXY"),universe:series.map(s=>s.symbol),purgeHours:0,
++    costs:{spreadBps:0,slippageBps:0,perSideUsd:0}};
++  const data={schema:"HARPOON-ULTIMATE-DATA-1",kind:"ALPACA_PROXY",sessions,series,splitEvents:[]};
++  const signal=(i,at=sessions[0].open+2*BAR+3000,changes={})=>({id:"SIGNAL"+i+":"+at,
++    symbol:series[i].symbol,hypothesis:"OPENING_BREAKOUT",direction:1,at,
++    plannedEntryAt:R.planSignalEntryAt(at,sessions),index:3,stopDistance:2,regime:.4,...changes});
++  const signals=series.map((_,i)=>signal(i));
++  const folds=[{test:sessions,selected:"OPENING_BREAKOUT:BASELINE"}];
++  return {sessions,series,protocol,data,signals,signal,folds};
++}
++function run(f,sessions=f.sessions){return R.replayFundedPortfolio(f.signals,f.data,f.protocol,f.folds,sessions);}
++
++test("funded execution reserves simultaneous symbols, risk and notional in one cash pool",()=>{
++  const f=fixture(7),out=run(f);
++  assert.equal(out.funded.length,5);
++  assert.equal(out.portfolio.skipped.INTEGER_RISK_OR_EXPOSURE,2);
++  for(const s of out.states){
++    if(s.reservationAfter){
++      assert(s.reservationAfter.notionalUsd<=s.equity*.5+1e-8);
++      assert(s.reservationAfter.riskUsd<=s.equity*.015+1e-8);
++      assert(s.reservationAfter.cashUsd<=s.cashPoolUsd+1e-8);
++    }
++  }
++  assert.deepEqual(out.funded.map(t=>t.quantity),[24,24,24,24,4]);
++  assert.equal(out.states[1].reservationBefore.pending,1);
++  assert.equal(out.curve.length,5);
++  assert.equal(out.metadata.financialAcceptanceAllowed,false);
++});
++
++test("a duplicate symbol before its first modeled fill cannot open a second campaign",()=>{
++  const f=fixture();f.signals.push(f.signal(0,f.signals[0].at+1));
++  const out=run(f);
++  assert.equal(out.funded.length,1);assert.equal(out.portfolio.skipped.SYMBOL_BUSY,1);
++  const refusal=out.preEntryRefusals.find(x=>x.reason==="SYMBOL_BUSY");
++  assert.equal(refusal.positionOpened,false);
++  assert.equal(refusal.reservationSnapshot.pending,1);
++});
++
++test("observed close releases capacity and a later session carries the prior equity",()=>{
++  const f=fixture();
++  const deadline=f.sessions[0].close-BAR;
++  Object.assign(f.series[0].bars.find(b=>b.t===deadline),{o:110,h:110.1,l:109.9,c:110});
++  f.signals.push(f.signal(0,f.sessions[1].open+2*BAR+3000));
++  const out=run(f);
++  assert.equal(out.funded.length,2);assert.equal(out.funded[0].netUsd,240);
++  assert.equal(out.states[1].reservationBefore.cashUsd,0);
++  assert.equal(out.states[1].equity,20240);
++  assert.equal(out.curve[1].equity_start_usd,out.curve[0].equity_end_usd);
++  const compounded=out.curve.reduce((equity,r)=>equity*(1+r.portfolio_return),20000);
++  assert(Math.abs(compounded-out.curve.at(-1).equity_end_usd)<1e-8);
++  assert.equal(out.portfolio.netUsd,out.curve.at(-1).equity_end_usd-20000);
++  assert(out.curve.every(r=>r.external_costs_usd===null));
++});
++
++test("causal marks of open inventory can increase reserved exposure but pending prices cannot",()=>{
++  const f=fixture(2),first=f.signals[0];
++  const bar=f.series[0].bars.find(b=>b.t===first.plannedEntryAt);
++  Object.assign(bar,{h:200.1,l:99.9,c:200});
++  f.signals[1]=f.signal(1,bar.availableAt);
++  const out=run(f),s=out.states[1];
++  assert.equal(s.reservationBefore.opened,1);
++  assert.equal(s.inventoryMarks[0].reference.sourceAvailableAt,bar.availableAt);
++  assert.equal(s.inventoryMarks[0].markedNotionalUsd,4800);
++  assert.equal(s.notional,4800);
++  assert(s.notional>=s.reservationBefore.notionalUsd);
++});
++
++test("a future entry price cannot resize the plan; a budget breach retains its reservation",()=>{
++  const f=fixture(),baseline=run(f),before=baseline.states[0];
++  Object.assign(f.series[0].bars.find(b=>b.t===f.signals[0].plannedEntryAt),{o:150,h:150.1,l:149.9,c:150});
++  assert.throws(()=>run(f),e=>{
++    assert.equal(e.code,"FUNDED_ENTRY_BUDGET_BREACH");
++    assert.deepEqual(e.details.lastDecision.plan,before.plan);
++    assert.equal(e.details.plannedQuantity,24);
++    assert.equal(e.details.reservationBook.reservations.length,1);
++    assert.equal(e.details.cause.exposure.remainingQuantityAtEntry,24);
++    assert.equal(e.details.economicPnlUsd,null);
++    return true;
++  });
++});
++
++test("the first observed fill is marked causally before another asset compounds its size",()=>{
++  const f=fixture(2),first=f.signals[0];
++  for(const b of f.series[0].bars)if(b.t<first.plannedEntryAt)
++    Object.assign(b,{o:99,h:99.1,l:98.9,c:99});
++  f.signals[1]=f.signal(1,first.plannedEntryAt+3000);
++  const out=run(f),next=out.states[1];
++  assert.equal(out.funded[0].quantity,24);
++  assert.equal(out.funded[0].entry,100);
++  assert.equal(next.inventoryMarks[0].reference.price,99);
++  assert.equal(next.equity,19976);
++  assert.equal(next.quantity,23);
++  assert.equal(next.reservationBefore.opened,1);
++});
++
++test("entry and exit fee allowances do not jump when the first post-fill mark arrives",()=>{
++  const early=fixture(2);early.protocol.costs.perSideUsd=1;
++  early.signals[1]=early.signal(1,early.signals[0].plannedEntryAt+3000);
++  const a=run(early);
++  const later=fixture(2);later.protocol.costs.perSideUsd=1;
++  later.signals[1]=later.signal(1,later.signals[0].plannedEntryAt+BAR+3000);
++  const b=run(later);
++  assert.equal(a.funded[0].quantity,12);
++  assert.equal(a.states[1].equity,19976);
++  assert.equal(b.states[1].equity,a.states[1].equity);
++});
++
++test("an absent planned fill is an unresolved reserved exposure, never a zero-PnL skip",()=>{
++  const f=fixture();f.series[0].bars=f.series[0].bars.filter(b=>b.t!==f.signals[0].plannedEntryAt);
++  assert.throws(()=>run(f),e=>{
++    assert.equal(e.code,"UNOBSERVED_ENTRY");
++    assert.equal(e.details.cause.reason,"MISSING_PLANNED_ENTRY_BAR");
++    assert.equal(e.details.decisionReservations.cashUsd,2400);
++    assert.equal(e.details.economicPnlUsd,null);
++    assert.deepEqual(e.details.funded,[]);
++    return true;
++  });
++});
++
++test("an incomplete path after entry retains the last mark and original reserved capital",()=>{
++  const f=fixture(),missing=f.signals[0].plannedEntryAt+2*BAR;
++  f.series[0].bars=f.series[0].bars.filter(b=>b.t!==missing);
++  assert.throws(()=>run(f),e=>{
++    assert.equal(e.code,"UNRESOLVED_HOLDING_EXPOSURE");
++    assert.equal(e.details.cause.remainingQuantity,24);
++    assert(e.details.cause.lastKnownMark);
++    assert.equal(e.details.reservationBook.reservations[0].cashUsd,2400);
++    assert.equal(e.details.economicPnlUsd,null);return true;
++  });
++});
++
++test("calendar refusal occurs before requiring any later entry price",()=>{
++  const f=fixture();f.data.sessions=f.sessions.slice(0,1);
++  f.signals[0].hypothesis="CLOSED_CHANNEL";
++  f.folds=[{test:f.data.sessions,selected:"CLOSED_CHANNEL:BASELINE"}];
++  f.series[0].bars=[];
++  const out=run(f,f.data.sessions);
++  assert.equal(out.funded.length,0);
++  assert.equal(out.preEntryRefusals[0].reason,"CALENDAR_HORIZON_NOT_COVERED");
++  assert.equal(out.preEntryRefusals[0].positionOpened,false);
++  assert.equal(out.reservationBook.reservations.length,0);
++});
++
++test("missing causal reference refuses entry rather than using the future fill price",()=>{
++  const f=fixture();f.series[0].bars=f.series[0].bars.filter(b=>b.availableAt>f.signals[0].at);
++  const out=run(f);
++  assert.equal(out.funded.length,0);
++  assert.equal(out.portfolio.skipped.NO_CAUSAL_REFERENCE_PRICE,1);
++  assert.equal(out.reservationBook.reservations.length,0);
++});
++
++test("terminal open exposure is preserved with a mark and an incident, not force-closed",()=>{
++  const f=fixture();
++  const terminalSession=f.sessions[0];
++  f.signals[0].hypothesis="CLOSED_CHANNEL";
++  f.folds=[{test:[terminalSession],selected:"CLOSED_CHANNEL:BASELINE"}];
++  assert.throws(()=>run(f,[terminalSession]),e=>{
++    assert.equal(e.code,"TERMINAL_FUNDED_EXPOSURE_UNRESOLVED");
++    assert.equal(e.details.terminalReservations.opened,1);
++    assert(e.details.lastKnownMarks[0].lastKnownMark);
++    assert.equal(e.details.lastKnownMarks[0].remainingQuantity,null);
++    assert(e.details.funded[0].closed>terminalSession.close);
++    assert.equal(e.details.curve.length,1);
++    assert.equal(e.details.economicPnlUsd,null);return true;
++  });
++});
++
++test("selection outside the evaluation period cannot inject earlier account profits",()=>{
++  const f=fixture();
++  assert.throws(()=>run(f,f.sessions.slice(1)),/inside the declared evaluation calendar/);
++  f.folds.push(structuredClone(f.folds[0]));
++  assert.throws(()=>run(f),/disjoint/);
++});
++
++test("portfolio return intervals include overnight time and reconcile asset contributions",()=>{
++  const f=fixture(),out=run(f);
++  assert.equal(out.curve[0].start_at,f.sessions[0].open-1);
++  for(let i=0;i<out.curve.length;i++){
++    const row=out.curve[i];
++    if(i)assert.equal(row.start_at,out.curve[i-1].end_at);
++    assert(Math.abs(Object.values(row.asset_pnl_usd).reduce((a,b)=>a+b,0)-row.modeled_trading_pnl_usd)<1e-8);
++  }
++});
+--- /dev/null
++++ 30.14.0/tools/portfolio_validity_study.cjs
+@@ -0,0 +1,123 @@
++"use strict";
++/** One registered validity correction. This is neither a selector nor a promotion gate. */
++const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto"),assert=require("node:assert/strict");
++const ROOT=path.resolve(__dirname,".."),DIR=path.join(ROOT,"evidence/portfolio_30_14_0");
++const PREVIOUS=path.join(ROOT,"evidence/portfolio_validity_30_13_1/comparison");
++const FILES=["ultimate_replay.js","ultimate_reservations.js","ultimate_contracts.js","ultimate_stats.js","ultimate_frequency.js","policy.js","types.js","validators.js","scheduler.js","ultimate_lab.js"];
++const sha=v=>crypto.createHash("sha256").update(v).digest("hex");
++const fileHash=f=>sha(fs.readFileSync(f));
++const read=f=>JSON.parse(fs.readFileSync(f,"utf8"));
++const save=(f,v)=>fs.writeFileSync(f,JSON.stringify(v,null,2)+"\n",{flag:"wx"});
++function bindings(){
++  const relative=["tools/portfolio_validity_study.cjs",...FILES.map(x=>"runtime30/"+x),
++    "evidence/tp32/prepared.json","evidence/ultimate/report.json","evidence/ultimate/protocol.json",
++    "evidence/portfolio_validity_30_13_1/comparison/frozen_study.json",
++    "evidence/portfolio_validity_30_13_1/comparison/frozen_inputs.cjs",
++    "evidence/portfolio_validity_30_13_1/comparison/compare_frozen_portfolio.cjs",
++    "evidence/portfolio_validity_30_13_1/comparison/candidate/result.json",
++    "evidence/portfolio_validity_30_13_1/comparison/registration.json",
++    "evidence/portfolio_validity_30_13_1/comparison/continuation_journal.jsonl",
++    ...FILES.filter(x=>x!=="ultimate_reservations.js").map(x=>"evidence/portfolio_30_14_0/control_30_13_1/runtime30/"+x)];
++  return Object.fromEntries(relative.map(f=>[f,fileHash(path.join(ROOT,f))]));
++}
++function validateJournal(text,expected=null){
++  const previous=text.trim().split("\n").filter(Boolean).map(JSON.parse);
++  assert(previous.length<=2,"Only REGISTER and COMPLETE belong to this single attempt.");
++  let head=null;
++  for(const [index,r] of previous.entries()){const {hash,...body}=r;assert.equal(body.sequence,index+1);assert.equal(body.previous_hash,head);assert.equal(hash,sha(JSON.stringify(body)));assert.equal(body.kind,index===0?"REGISTER":"COMPLETE");head=hash;}
++  if(expected){
++    assert(previous.length>=1,"Missing REGISTER event.");
++    assert(previous.every(r=>r.trial_id===expected.trial_id));
++    assert.equal(previous[0].registration_sha256,expected.registration_sha256);
++    if(expected.result_sha256){assert.equal(previous.length,2);assert.equal(previous[1].result_sha256,expected.result_sha256);}
++  }
++  return previous;
++}
++function appendJournal(event){
++  const filename=path.join(DIR,"journal.jsonl");
++  const previous=validateJournal(fs.existsSync(filename)?fs.readFileSync(filename,"utf8"):"");
++  const head=previous.at(-1)?.hash??null;
++  const body={sequence:previous.length+1,previous_hash:head,...event};
++  const record={...body,hash:sha(JSON.stringify(body))};
++  validateJournal([...previous,record].map(x=>JSON.stringify(x)).join("\n"));
++  fs.appendFileSync(filename,JSON.stringify(record)+"\n");
++  return record;
++}
++function register(){
++  const filename=path.join(DIR,"registration.json");
++  const r={schema:"HARPOON_PORTFOLIO_VALIDITY_REGISTRATION_2",trial_id:"HARPOON_PORTFOLIO_CAUSAL_RESERVATIONS_20261101_01",
++    registered_at:new Date().toISOString(),purpose:"ONE_JOINT_CORRECTION_WITH_FROZEN_SELECTIONS",
++    requested_target:7,financial_acceptance_allowed:false,execution_allowed:false,liveApproved:false,
++    new_candidate_variants:1,fits_allowed:0,retuning_allowed:false,independent_external_preregistration:false,
++    previous_continuation_variants:1,continuation_variants_after_this_attempt:2,legacy_counters_reset:false,
++    global_deduplicated_search_count:null,global_count_reason:"Legacy studies use different units and overlapping histories; preserve every prior journal without inventing a combined budget.",
++    known_data_use:{out_of_sample:["2025-03-11","2026-07-13"],previously_examined_holdout:["2026-07-21","2026-10-16"],history_known_through:"2026-10-17"},
++    data_scope:"REUSED_PREPARED_HISTORY_MODELED_EXECUTION",primary_period:["2025-03-11","2026-07-13"],
++    control:"Exactly reproduce the stored 30.13.1 candidate with its original frozen runner and inputs.",
++    candidate:"Regenerate causal opportunities and use one shared reservation book; retain all sixteen original fold selections, universe, costs and risk coefficients.",
++    corrections:["Future suffix cannot erase a past signal; missing execution remains an unresolved incident.","Pending and open campaigns reserve cash, risk, notional and symbol from decision until a known complete close."],
++    primary_outputs:["evaluation_status","portfolio_net_model_pnl_usd","continuous_geometric_growth","difference_from_30_13_1","unresolved_exposure","risk_and_capital_feasibility"],
++    diagnostics:["asset_contributions","entry_and_exit_time_cohorts","concentration","drawdown","planned_vs_open_reservations"],
++    uncertainty:{method:"Existing circular block bootstrap of joint-portfolio log returns; descriptive lower bound only",runs:2000,block_sessions:5,legacy_family_parameter:72,confidence_nominal:0.95,
++      limitations:["Reused data; not an independent holdout.","Legacy family parameter is not a reconciled total of all searches.","With 2000 replicates the family-adjusted tail is sparsely resolved.","No confidence interval is a guaranteed probability of future profits."]},
++    interpretations:{unknown_external_costs:"Economic PnL remains null, not zero expenses.",unresolved_exposure:"Return null total result and retain incident and reservation state.",
++      negative_or_unchanged_result:"Publish without tuning; correctness is not selected by PnL.",
++      rating:"No profitability-level promotion is authorized by this reused-history correction."},
++    recent_data:{period:["2026-10-19","2026-10-30"],financial_execution_in_this_record:false,
++      reason:"Raw bars were captured, but a complete corporate-action manifest by effective date and account/cost receipts are not established; do not replace unknowns with an empty event list."},
++    bindings:bindings()};
++  save(filename,r);appendJournal({kind:"REGISTER",at:r.registered_at,trial_id:r.trial_id,registration_sha256:fileHash(filename)});
++  console.log(JSON.stringify({registered:true,trial_id:r.trial_id,registration_sha256:fileHash(filename),financial_acceptance_allowed:false}));
++}
++function requireRegistration(mode="run"){
++  const filename=path.join(DIR,"registration.json"),r=read(filename);
++  assert.equal(r.schema,"HARPOON_PORTFOLIO_VALIDITY_REGISTRATION_2");assert.equal(r.new_candidate_variants,1);
++  assert.equal(r.fits_allowed,0);assert.equal(r.retuning_allowed,false);assert.equal(r.financial_acceptance_allowed,false);
++  assert(Date.parse(r.registered_at)<=Date.now());assert.deepEqual(r.bindings,bindings(),"Registered bytes changed; do not silently rerun or reseal.");
++  const journal=validateJournal(fs.readFileSync(path.join(DIR,"journal.jsonl"),"utf8"),{
++    trial_id:r.trial_id,registration_sha256:fileHash(filename),
++    ...(mode==="verify"?{result_sha256:fileHash(path.join(DIR,"result.json"))}:{})});
++  if(mode==="run")assert.equal(journal.length,1,"The registered attempt is already completed.");
++  return r;
++}
++function compute(){
++  const {loadBaseline}=require(path.join(PREVIOUS,"frozen_inputs.cjs"));
++  const {replayFrozen}=require(path.join(PREVIOUS,"compare_frozen_portfolio.cjs"));
++  const frozen=read(path.join(PREVIOUS,"frozen_study.json"));
++  const {data,protocol}=loadBaseline(ROOT);
++  const old=require(path.join(DIR,"control_30_13_1/runtime30/ultimate_replay.js"));
++  const stats=require(path.join(ROOT,"runtime30/ultimate_stats.js"));
++  const control=replayFrozen(frozen,data,old.replayCampaign,stats.metrics,old.planCalendarHolding,old.causalReferencePrice,old.verifyFundedEntryFill);
++  assert.deepEqual(control,read(path.join(PREVIOUS,"candidate/result.json")).result,"Stored 30.13.1 control must reproduce exactly before evaluating the new code.");
++  const candidateCore=require(path.join(ROOT,"runtime30/ultimate_replay.js"));
++  let candidate,signalDiagnostics;
++  try{
++    const generated=candidateCore.opportunities(data,protocol);
++    signalDiagnostics={funnel:generated.funnel,generated_total:generated.signals.length,previous_frozen_common:frozen.common.length,
++      original_fold_selections:frozen.folds.map(f=>f.selected),selection_changed:false};
++    const result=candidateCore.replayFundedPortfolio(generated.signals,data,protocol,frozen.folds,frozen.oos,frozen.limits);
++    const logs=result.curve.map(x=>x.portfolio_log_return);
++    candidate={status:"COMPLETE_EXPLORATORY_ONLY",result,uncertainty:{descriptive_log_growth_lower:logs.every(Number.isFinite)?stats.bootstrapLower(logs,2000,5,72):null,
++      method:"LEGACY_CIRCULAR_BLOCK_BOOTSTRAP",sessions:logs.length,runs:2000,block_sessions:5,legacy_family_parameter:72,
++      global_multiple_testing_correction_verified:false,independent_holdout:false,financial_acceptance_allowed:false}};
++  }catch(error){
++    candidate={status:"INCOMPLETE_EVALUATION",result:null,net_model_pnl_usd:null,incident:{code:error.code||error.name||"ERROR",message:error.message,details:error.details??null,economicPnlUsd:null}};
++  }
++  return {schema:"HARPOON_PORTFOLIO_VALIDITY_RESULT_2",scope:"REUSED_HISTORY_MODELED_EXECUTION",control,signalDiagnostics:signalDiagnostics??null,candidate,
++    difference_usd:candidate.result?candidate.result.portfolio.netUsd-control.netUsd:null,
++    economic_pnl_complete_usd:null,external_operating_costs_usd:null,financial_acceptance_allowed:false,
++    real_profitability_grade:null,target_seven_accredited:false,new_fits:0,new_candidate_variants:1};
++}
++function execute(mode){
++  const r=requireRegistration(mode),attempt=path.join(DIR,"attempt_started.json"),output=path.join(DIR,"result.json");
++  if(mode==="run")save(attempt,{trial_id:r.trial_id,started_at:new Date().toISOString(),registration_sha256:fileHash(path.join(DIR,"registration.json"))});
++  else{assert.equal(read(attempt).trial_id,r.trial_id);assert.equal(read(attempt).registration_sha256,fileHash(path.join(DIR,"registration.json")));assert(fs.existsSync(output));}
++  const result=compute();
++  if(mode==="verify"){
++    assert.deepEqual(result,read(output));console.log(JSON.stringify({verified:true,new_financial_trials:0,outputs_rewritten:false,status:result.candidate.status}));return;
++  }
++  save(output,result);appendJournal({kind:"COMPLETE",at:new Date().toISOString(),trial_id:r.trial_id,result_sha256:fileHash(output),status:result.candidate.status});
++  console.log(JSON.stringify({trial_id:r.trial_id,status:result.candidate.status,control_net_usd:result.control.netUsd,candidate_net_usd:result.candidate.result?.portfolio.netUsd??null,difference_usd:result.difference_usd,target_seven_accredited:false}));
++}
++if(require.main===module){const mode=process.argv[2];if(mode==="register")register();else if(mode==="run"||mode==="verify")execute(mode);else throw Error("Use register, run or verify; no implicit search or execution.");}
++module.exports={bindings,requireRegistration,compute,validateJournal};
+--- /dev/null
++++ 30.14.0/tools/portfolio_validity_journal_test.cjs
+@@ -0,0 +1,28 @@
++"use strict";
++const test=require("node:test"),assert=require("node:assert/strict"),crypto=require("node:crypto");
++const {validateJournal}=require("./portfolio_validity_study.cjs");
++const sha=s=>crypto.createHash("sha256").update(s).digest("hex");
++function event(body){return {...body,hash:sha(JSON.stringify(body))};}
++function fixture(){
++ const first=event({sequence:1,previous_hash:null,kind:"REGISTER",trial_id:"T",registration_sha256:"a".repeat(64)});
++ const last=event({sequence:2,previous_hash:first.hash,kind:"COMPLETE",trial_id:"T",result_sha256:"b".repeat(64)});
++ return {first,last,expected:{trial_id:"T",registration_sha256:"a".repeat(64),result_sha256:"b".repeat(64)}};
++}
++test("completed result is bound to the registered identity and both content hashes",()=>{
++ const f=fixture();assert.equal(validateJournal([f.first,f.last].map(JSON.stringify).join("\n"),f.expected).length,2);
++});
++test("editing a recorded event without updating its chain is rejected",()=>{
++ const f=fixture();f.first.trial_id="OTHER";
++ assert.throws(()=>validateJournal([f.first,f.last].map(JSON.stringify).join("\n"),f.expected));
++});
++test("a rehashed substitute registration or result cannot match the fixed identity",()=>{
++ const f=fixture();const {hash,...body}=f.first;
++ body.registration_sha256="c".repeat(64);
++ assert.throws(()=>validateJournal(JSON.stringify(event(body)),{...f.expected,result_sha256:undefined}));
++ assert.throws(()=>validateJournal([f.first,f.last].map(JSON.stringify).join("\n"),{...f.expected,result_sha256:"d".repeat(64)}));
++});
++test("missing completion, extra attempt and swapped stages cannot be certified",()=>{
++ const f=fixture();assert.throws(()=>validateJournal(JSON.stringify(f.first),f.expected));
++ assert.throws(()=>validateJournal([f.first,f.last,f.last].map(JSON.stringify).join("\n"),f.expected));
++ assert.throws(()=>validateJournal([f.last,f.first].map(JSON.stringify).join("\n"),f.expected));
++});
+--- /dev/null
++++ 30.14.0/tools/verify_portfolio_validity_study.cjs
+@@ -0,0 +1,30 @@
++"use strict";
++// The registered runner/result remain immutable. Verify their persisted JSON
++// representation: optional JS fields with undefined are absent from JSON.
++const fs=require("node:fs"),path=require("node:path"),assert=require("node:assert/strict"),crypto=require("node:crypto");
++const ROOT=path.resolve(__dirname,".."),DIR=path.join(ROOT,"evidence/portfolio_30_14_0");
++const sha=v=>crypto.createHash("sha256").update(v).digest("hex");
++function serializeResult(value){
++ return JSON.stringify(value,(_key,v)=>{
++   assert(typeof v!=="number"||Number.isFinite(v),"Nonfinite numbers cannot be hidden as null in evidence JSON.");
++   return v;
++ },2)+"\n";
++}
++function verify(){
++ const registered=require("./portfolio_validity_study.cjs");
++ const r=registered.requireRegistration("verify"); // Includes all source hashes and REGISTER/COMPLETE chain.
++ const attempt=JSON.parse(fs.readFileSync(path.join(DIR,"attempt_started.json"),"utf8"));
++ assert.equal(attempt.trial_id,r.trial_id);
++ assert.equal(attempt.registration_sha256,sha(fs.readFileSync(path.join(DIR,"registration.json"))));
++ assert(Date.parse(attempt.started_at)>=Date.parse(r.registered_at));
++ const bytes=fs.readFileSync(path.join(DIR,"result.json"),"utf8");
++ const repeated=serializeResult(registered.compute());
++ assert.equal(repeated,bytes,"Persisted result bytes did not reproduce under their unchanged registered implementation.");
++ return {schema:"HARPOON_PORTFOLIO_RESULT_REPRODUCTION_1",verified:true,trial_id:r.trial_id,
++   representation:"EXACT_PERSISTED_JSON_UTF8_BYTES",result_sha256:sha(bytes),
++   registration_bindings_and_journal_verified:true,new_financial_variants:0,outputs_rewritten:false,
++   original_runner_and_result_unchanged:true,legacy_verify_limitation:"In-memory target:undefined is omitted during JSON persistence; legacy deepStrictEqual did not normalize that representation.",
++   financial_acceptance_allowed:false,target_seven_accredited:false};
++}
++if(require.main===module)console.log(JSON.stringify(verify(),null,2));
++module.exports={serializeResult,verify};
+--- /dev/null
++++ 30.14.0/tools/portfolio_validity_reproduction_test.cjs
+@@ -0,0 +1,17 @@
++"use strict";
++const test=require("node:test"),assert=require("node:assert/strict");
++const {serializeResult}=require("./verify_portfolio_validity_study.cjs");
++test("optional undefined JS target has the same persisted JSON representation as an absent target",()=>{
++ assert.equal(serializeResult({signal:{id:"S",target:undefined},pnl:91.28}),serializeResult({signal:{id:"S"},pnl:91.28}));
++});
++test("an unknown null financial amount cannot disappear during reproduction",()=>{
++ assert.notEqual(serializeResult({pnl:null}),serializeResult({}));
++});
++test("nonfinite financial values are rejected instead of normalized to unknown",()=>{
++ for(const v of [NaN,Infinity,-Infinity])assert.throws(()=>serializeResult({pnl:v}),/Nonfinite/);
++});
++test("changed profit, risk, order sequence or numeric type changes the compared bytes",()=>{
++ const original=serializeResult({pnl:91.28,risk:50,orders:["a","b"]});
++ for(const v of [{pnl:91.29,risk:50,orders:["a","b"]},{pnl:91.28,risk:51,orders:["a","b"]},
++  {pnl:91.28,risk:50,orders:["b","a"]},{pnl:"91.28",risk:50,orders:["a","b"]}])assert.notEqual(serializeResult(v),original);
++});

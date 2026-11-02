@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: replay reuses real plugin, coordinator entry, reconciliation and protection
+ok 1 - replay reuses real plugin, coordinator entry, reconciliation and protection
+  ---
+  duration_ms: 200.209974
+  type: 'test'
+  ...
+# Subtest: cost ledger includes open inventory, per-fill fees and external costs once
+ok 2 - cost ledger includes open inventory, per-fill fees and external costs once
+  ---
+  duration_ms: 45.882646
+  type: 'test'
+  ...
+# Subtest: leveraged ETF uses real ETF plugin and exposure sizing without multiplying traded share PnL twice
+ok 3 - leveraged ETF uses real ETF plugin and exposure sizing without multiplying traded share PnL twice
+  ---
+  duration_ms: 50.39654
+  type: 'test'
+  ...
+# Subtest: future bars, quotes and unordered event receipts are rejected
+ok 4 - future bars, quotes and unordered event receipts are rejected
+  ---
+  duration_ms: 5.435491
+  type: 'test'
+  ...
+# Subtest: an order cannot fill against its deciding quote or its timestamp
+ok 5 - an order cannot fill against its deciding quote or its timestamp
+  ---
+  duration_ms: 43.35038
+  type: 'test'
+  ...
+# Subtest: unknown execution costs and liquidity cannot silently become zero
+ok 6 - unknown execution costs and liquidity cannot silently become zero
+  ---
+  duration_ms: 4.937499
+  type: 'test'
+  ...
+# Subtest: replayed quote cannot create a second liquidity budget at the same market timestamp
+ok 7 - replayed quote cannot create a second liquidity budget at the same market timestamp
+  ---
+  duration_ms: 44.160998
+  type: 'test'
+  ...
+# Subtest: stale received quotes are rejected; an aging accepted quote blocks price decisions
+ok 8 - stale received quotes are rejected; an aging accepted quote blocks price decisions
+  ---
+  duration_ms: 46.627404
+  type: 'test'
+  ...
+# Subtest: cancel request acknowledgement leaves partially filled entry nonterminal and protects no fictitious flat account
+ok 9 - cancel request acknowledgement leaves partially filled entry nonterminal and protects no fictitious flat account
+  ---
+  duration_ms: 42.982515
+  type: 'test'
+  ...
+# Subtest: late fill after cancel request survives restart and real protection covers final reconciled quantity
+ok 10 - late fill after cancel request survives restart and real protection covers final reconciled quantity
+  ---
+  duration_ms: 63.188526
+  type: 'test'
+  ...
+# Subtest: partial entry protection deadline is not reset by restart or an overdue pulse
+ok 11 - partial entry protection deadline is not reset by restart or an overdue pulse
+  ---
+  duration_ms: 60.876496
+  type: 'test'
+  ...
+# Subtest: real take-profit fractions, terminal cancellation and trailing stop manage continuous inventory
+ok 12 - real take-profit fractions, terminal cancellation and trailing stop manage continuous inventory
+  ---
+  duration_ms: 50.362464
+  type: 'test'
+  ...
+# Subtest: 72-hour holding cap uses real time-exit policy and never invents a closure
+ok 13 - 72-hour holding cap uses real time-exit policy and never invents a closure
+  ---
+  duration_ms: 24.248109
+  type: 'test'
+  ...
+# Subtest: LLM transport failure cannot disable deterministic position protection
+ok 14 - LLM transport failure cannot disable deterministic position protection
+  ---
+  duration_ms: 48.218829
+  type: 'test'
+  ...
+# Subtest: offline isolation restores process APIs and bridge identity after replay
+ok 15 - offline isolation restores process APIs and bridge identity after replay
+  ---
+  duration_ms: 39.661709
+  type: 'test'
+  ...
+# Subtest: production mode, streaming, research-guard overrides and unsupported OCO are rejected
+ok 16 - production mode, streaming, research-guard overrides and unsupported OCO are rejected
+  ---
+  duration_ms: 4.36084
+  type: 'test'
+  ...
+# Subtest: forged action, inventory or cost invalidates reproducible report even after rehashing
+ok 17 - forged action, inventory or cost invalidates reproducible report even after rehashing
+  ---
+  duration_ms: 563.190293
+  type: 'test'
+  ...
+# Subtest: source or request binding tampering is rejected and exact replay verifies
+ok 18 - source or request binding tampering is rejected and exact replay verifies
+  ---
+  duration_ms: 369.796136
+  type: 'test'
+  ...
+# Subtest: paired receipt comparison changes only predictor and keeps external SVR authorization false
+ok 19 - paired receipt comparison changes only predictor and keeps external SVR authorization false
+  ---
+  duration_ms: 393.794914
+  type: 'test'
+  ...
+# Subtest: paired comparison rejects changed costs and unverifiable or future predictor receipts
+ok 20 - paired comparison rejects changed costs and unverifiable or future predictor receipts
+  ---
+  duration_ms: 10.277657
+  type: 'test'
+  ...
+# Subtest: prospective adapter verifies hashes and evaluates real plugins without manufacturing depth or fills
+ok 21 - prospective adapter verifies hashes and evaluates real plugins without manufacturing depth or fills
+  ---
+  duration_ms: 98.488323
+  type: 'test'
+  ...
+# Subtest: prospective adapter rejects altered frames and refuses unspecified hypothetical costs
+ok 22 - prospective adapter rejects altered frames and refuses unspecified hypothetical costs
+  ---
+  duration_ms: 12.441021
+  type: 'test'
+  ...
+# Subtest: missing daily history remains missing in a sampled frame and cannot claim plugin parity
+ok 23 - missing daily history remains missing in a sampled frame and cannot claim plugin parity
+  ---
+  duration_ms: 35.236173
+  type: 'test'
+  ...
+# Subtest: a repeated snapshot quote preserves original receipt and creates no extra observations of liquidity
+ok 24 - a repeated snapshot quote preserves original receipt and creates no extra observations of liquidity
+  ---
+  duration_ms: 63.679285
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2342.384679

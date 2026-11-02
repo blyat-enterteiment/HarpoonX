@@ -1,0 +1,29 @@
+{
+  "version": "25.3.2",
+  "passed": 18,
+  "checks": [
+    "Strict parameter schema rejects credentials, unknown knobs and enlarged risk/download budgets",
+    "A closed or stale regular-market clock never marks the crypto session closed; unknown regular sessions remain blocked",
+    "Broker timestamps with explicit DST offsets and early closes determine sessions without hardcoded weekday hours",
+    "Health gates independently block ambiguous inventory, risk ceiling violations, drawdown and stale native execution",
+    "Selector requires complete positive validated evidence, rejects proxy/expired/empty proofs and refuses non-comparable cohort or cooldown changes",
+    "Automatic research requires observed two-pair quote coverage and rejects gaps rather than filling them",
+    "Actual CryptoDesk, account reconciliation and native cycle continue on a closed regular-market weekend, using only fixture broker reads",
+    "A transient quote transport failure pauses native entries, then reconciled PAPER recovery reuses native resume with fresh data",
+    "Manual pause, persisted cloud pause, unknown orders and agent risk cuts cannot be overridden by automatic recovery",
+    "A manual pause arriving during automatic resume wins the race and cannot be overwritten by the recovery completion",
+    "Persistent recovery failure consumes exactly three attempts and then stops without refreshing its own budget",
+    "Watchdog never overlaps a busy canonical cycle and can revive a stale scheduler without rearming a manually paused account",
+    "Proactive preparation creates a sealed campaign and reads real-shaped history, but missing execution quotes leave zero research trials consumed",
+    "Test-only accepted evidence reaches the sole native PAPER plugin loader; flat reconciliation and COLD still govern automatic application",
+    "Validated automatic replacement can preserve an already authorized PAPER engine through its native pause, plugin update and resume",
+    "An operator pause during a native automatic plugin replacement prevents its final resume",
+    "LiftOff during a pending automatic promotion blocks its new entries and leaves the native account paused",
+    "Profile, account-scoped state and LiftOff survive a new runtime, without persisting credentials in the profile"
+  ],
+  "fixtureBrokerReads": 162,
+  "externalOrders": 0,
+  "paidModelCalls": 0,
+  "source": "Native engine and timers/policies against explicit simulated broker transport; injected strategy proofs test mechanics only.",
+  "financialPerformanceValidated": false
+}

@@ -1,0 +1,63 @@
+--- 30.12/runtime/store.py
++++ 31.4/runtime/store.py
+@@ -1,6 +1,7 @@
+ """Durable runtime storage over private stdio. No network listener or credentials."""
+ from __future__ import annotations
+ import json
++import hashlib
+ import sqlite3
+ import sys
+ import time
+@@ -11,7 +12,7 @@
+ 
+ def connect(path: str) -> sqlite3.Connection:
+     Path(path).parent.mkdir(parents=True, exist_ok=True)
+-    db = sqlite3.connect(path, timeout=30)
++    db = sqlite3.connect(path, timeout=1.0)
+     for attempt in range(50):
+         try:
+             db.execute('PRAGMA journal_mode=WAL')
+@@ -23,6 +24,7 @@
+     db.execute('PRAGMA synchronous=FULL')
+     db.execute('CREATE TABLE IF NOT EXISTS records (k TEXT PRIMARY KEY, v BLOB NOT NULL)')
+     db.execute('CREATE TABLE IF NOT EXISTS leases (name TEXT PRIMARY KEY, owner TEXT, until REAL)')
++    db.execute('CREATE TABLE IF NOT EXISTS audit_events (stream TEXT NOT NULL, seq INTEGER NOT NULL, event_id TEXT NOT NULL, previous TEXT NOT NULL, hash TEXT NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(stream,seq), UNIQUE(stream,event_id))')
+     db.commit()
+     return db
+ 
+@@ -37,6 +39,35 @@
+ 
+ def dispatch(db: sqlite3.Connection, req: dict[str, Any]) -> Any:
+     op = req['op']
++    if op == 'ping':
++        return {'ok': True}
++    if op == 'append_events':
++        events, stream = req['events'], req['stream']
++        if not isinstance(events, list) or len(events) > 1000 or not isinstance(stream, str) or len(stream) > 200:
++            raise ValueError('Invalid audit event batch')
++        with db:
++            db.execute('BEGIN IMMEDIATE')
++            tail = db.execute('SELECT seq,hash FROM audit_events WHERE stream=? ORDER BY seq DESC LIMIT 1', (stream,)).fetchone()
++            seq, previous = tail if tail else (0, 'GENESIS')
++            for event in events:
++                if not isinstance(event, dict) or not isinstance(event.get('event_id'), str) or not event['event_id']:
++                    raise ValueError('Event identity required')
++                payload = json.dumps(event, sort_keys=True, separators=(',', ':'), allow_nan=False, ensure_ascii=False)
++                old = db.execute('SELECT payload FROM audit_events WHERE stream=? AND event_id=?', (stream,event['event_id'])).fetchone()
++                if old:
++                    if old[0] != payload: raise ValueError('Event identity collision')
++                    continue
++                seq += 1
++                h = hashlib.sha256((previous+'\n'+str(seq)+'\n'+payload).encode()).hexdigest()
++                db.execute('INSERT INTO audit_events VALUES (?,?,?,?,?,?)', (stream,seq,event['event_id'],previous,h,payload))
++                previous = h
++        return {'seq':seq,'hash':previous}
++    if op == 'events':
++        limit, after = req.get('limit',1000), req.get('after',0)
++        if not isinstance(limit,int) or not 1 <= limit <= 1000 or not isinstance(after,int) or after < 0:
++            raise ValueError('Invalid audit cursor')
++        rows=db.execute('SELECT seq,event_id,previous,hash,payload FROM audit_events WHERE stream=? AND seq>? ORDER BY seq LIMIT ?', (req['stream'],after,limit)).fetchall()
++        return [{'seq':a,'event_id':b,'previous':c,'hash':d,'payload':e} for a,b,c,d,e in rows]
+     if op == 'get':
+         row = db.execute('SELECT v FROM records WHERE k=?', (req['key'],)).fetchone()
+         return decode(row[0]) if row else None

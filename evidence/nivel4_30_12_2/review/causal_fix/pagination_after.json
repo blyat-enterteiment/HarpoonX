@@ -1,0 +1,47 @@
+{
+  "nature": "SYNTHETIC_SOFTWARE_COUNTEREXAMPLE_NOT_FINANCIAL_DATA",
+  "same_frames_within_each_pair": true,
+  "only_page_partition_changed_within_pair": true,
+  "stable_configuration": {
+    "one_page": {
+      "passed": true,
+      "result": {
+        "verified": true,
+        "account_id": "SYNTHETIC_PAGINATION_ONLY",
+        "frames": 2,
+        "quotes_bound": 6,
+        "bars_bound": 2052,
+        "availability": "OBSERVED_RUNTIME_RECEIPTS",
+        "executable_depth_observed": false,
+        "external_authenticity_verified": false
+      }
+    },
+    "two_pages": {
+      "passed": true,
+      "result": {
+        "verified": true,
+        "account_id": "SYNTHETIC_PAGINATION_ONLY",
+        "frames": 2,
+        "quotes_bound": 6,
+        "bars_bound": 2052,
+        "availability": "OBSERVED_RUNTIME_RECEIPTS",
+        "executable_depth_observed": false,
+        "external_authenticity_verified": false
+      }
+    }
+  },
+  "causal_universe_change": {
+    "one_page": {
+      "passed": false,
+      "error": "SOURCE_CONFIG_CHANGED_SPLIT_REPLAY"
+    },
+    "two_pages": {
+      "passed": false,
+      "error": "SOURCE_CONFIG_CHANGED_SPLIT_REPLAY"
+    }
+  },
+  "code_hashes": {
+    "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b",
+    "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086"
+  }
+}

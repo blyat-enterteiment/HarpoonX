@@ -1,0 +1,27 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> harpoon-cloud-247@30.1.0 test:optimizer
+> node tools/optimizer3_test.cjs
+
+{
+  "version": "25.3.1",
+  "passed": 11,
+  "checks": [
+    "Search whitelist freezes capital, risk, exposures, fees, slippage and hold policy; unknown knobs and unbounded trials fail",
+    "Changing every price in the locked three-month holdout leaves search outcomes and control unchanged",
+    "Deterministic recipe exploration transitions into parameter refinement, with executed synthetic control paths and no duplicate configurations",
+    "Completed trial replay and unreserved work fail; an exhausted budget produces no simulated fills",
+    "Final selection counts all reserved attempts, including incomplete ones, and cannot promote synthetic/OHLC proxy evidence",
+    "Real lifecycle persists reservations before work, supports pause and reload, freezes data and stops after its finite trial budget",
+    "A failed worker keeps all reservations and trial penalties; resuming evaluates new configurations without repeating lost attempts",
+    "Pause arriving during a running worker is persisted immediately and prevents the following batch without refunding trials",
+    "Production worker_threads route runs parameter batches in isolation with zero broker or GPT calls",
+    "Locked holdout retains original control parameters while applying selected parameters only to the candidate; synthetic validation still rejects",
+    "Optimizer decisions preserve the existing verifiable SHA-256 audit chain"
+  ],
+  "elapsedMs": 1376,
+  "externalOrders": 0,
+  "paidModelCalls": 0,
+  "financialPerformanceValidated": false,
+  "source": "Deterministic fixtures for functional verification. No market profitability estimate."
+}

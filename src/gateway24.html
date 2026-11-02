@@ -1,0 +1,25 @@
+<div id="g24Panel" class="g24-panel">
+ <div class="ux-card-top"><h4>Gateway integrado · XXIV</h4><span id="g24State" class="ux-chip wait">COMPROBANDO</span></div>
+ <p id="g24Summary" role="status">Buscando el gateway en la dirección de esta aplicación.</p>
+ <form id="g24Login" hidden><label>Acceso privado de HARPOON<input id="g24Password" type="password" autocomplete="current-password" required minlength="32" maxlength="256"></label><p class="small">Es el acceso definido al alojar HARPOON. Tu API key OpenAI se configura después.</p><button class="primary" type="submit">Entrar al gateway</button></form>
+ <form id="g24Config" hidden>
+  <label>API key de OpenAI<input id="g24Key" type="password" autocomplete="off" maxlength="512" placeholder="sk-… · vacío conserva la clave guardada"></label>
+  <p class="small">Se envía únicamente a este gateway y se guarda cifrada en su almacenamiento persistente. No queda en el HTML ni en las exportaciones.</p>
+  <details><summary>Modelo, tarifas y techo del servicio</summary>
+   <label>Modelo<input id="g24Model" required value="gpt-6-astra" maxlength="120"></label>
+   <div class="g24-grid">
+    <label>Entrada · USD / millón<input id="g24Input" type="number" min="0.001" max="1000" step="any" value="10" required></label>
+    <label>Salida · USD / millón<input id="g24Output" type="number" min="0.001" max="1000" step="any" value="50" required></label>
+    <label>Lectura caché · USD / millón<input id="g24Cached" type="number" min="0" max="1000" step="any" value="1" required></label>
+    <label>Escritura caché · USD / millón<input id="g24Write" type="number" min="0.001" max="1000" step="any" value="12.5" required></label>
+    <label>Techo mensual · USD<input id="g24Monthly" type="number" min="0.01" max="1000" step="any" value="30" required></label>
+    <label>Techo por investigación · USD<input id="g24Run" type="number" min="0.01" max="1000" step="any" value="10" required></label>
+   </div>
+   <p class="small">Tarifas iniciales de GPT-6 Astra verificadas el 12 oct 2026. Si cambias de modelo, actualiza las cuatro tarifas. El loop conserva además sus límites diarios y de iteraciones.</p>
+  </details>
+  <div class="action-bar"><button id="g24Save" class="primary" type="submit">Guardar configuración</button><button id="g24Check" class="secondary" type="button">Comprobar clave y modelo · 0 tokens</button><button id="g24Logout" class="ghost" type="button">Cerrar sesión GPT</button></div>
+ </form>
+ <p id="g24Detail" class="small" role="status">Guardar o comprobar no activa COLD, HOT ni órdenes.</p>
+ <p id="g24Standalone" class="small" hidden>Este HTML conserva la operativa y el laboratorio local. El gateway Python está incluido en el paquete completo: al alojarlo, abre la dirección de la aplicación y se detectará automáticamente. También puedes conservar un gateway externo.</p>
+ <button id="g24Retry" class="ghost" type="button">Volver a detectar gateway</button>
+</div>

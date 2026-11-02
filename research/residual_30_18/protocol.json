@@ -1,0 +1,215 @@
+{
+  "schema": "HARPOON_INTRADAY_RESIDUAL_PROTOCOL_1",
+  "study_id": "HARPOON_INTRADAY_RESIDUAL_30_18_0",
+  "definition_recorded_at": "2026-11-01T23:52:09.940782+00:00",
+  "origin": "HISTORICAL",
+  "execution": "MODELED_OHLCV",
+  "independent_preregistration": false,
+  "seen_global_history": true,
+  "financial_acceptance_allowed": false,
+  "live_approved": false,
+  "execution_allowed": false,
+  "level8_accredited": false,
+  "hypothesis": "Conditional long-only recovery of an unusually negative stock-minus-sector 60-minute opening shock, with a fixed cost-aware recovery hurdle, improves net continuous equity against CASH, a threshold-off stock control and same-event sector control. This is not a hedged cointegration or OU strategy.",
+  "source_classification": "Fresh Alpaca receipt capture of a period previously used globally by HARPOON; different from30.17 family but NOT globally virgin or confirmatory.",
+  "universe": [
+    "AAPL",
+    "MSFT",
+    "XLK"
+  ],
+  "traded_stocks": [
+    "AAPL",
+    "MSFT"
+  ],
+  "sector_benchmark": "XLK",
+  "universe_limitations": [
+    "XLK holds AAPL/MSFT, so benchmark is not independent",
+    "Two surviving stocks, not point-in-time all-listings universe"
+  ],
+  "dataset": "evidence/residual_30_18_0/data/research_dataset.json",
+  "data_audit": "evidence/residual_30_18_0/data/data_audit.json",
+  "periods": {
+    "source_start": "2024-09-01",
+    "source_end": "2026-10-16",
+    "calendar_end": "2026-10-23",
+    "train_start": "2024-09-03",
+    "train_end": "2025-03-05",
+    "evaluation_start": "2025-03-11",
+    "evaluation_end": "2026-10-16",
+    "validation_start": "2025-03-11",
+    "validation_end": "2025-09-05",
+    "test_start": "2025-09-08",
+    "test_end": "2026-10-16"
+  },
+  "recipe": {
+    "entry_minutes": 60,
+    "entry_delay_ms": 1000,
+    "z_entry": -1.5,
+    "max_absolute_z": 8.0,
+    "recovery_fraction": 0.5,
+    "net_hurdle_bps": 5.0,
+    "atr_sessions": 14,
+    "beta_min": 0.0,
+    "beta_max": 2.0,
+    "minimum_training_sessions": 100,
+    "required_training_sessions": 126
+  },
+  "estimator": {
+    "method": "Univariate OLS with intercept on aligned open-to60minute log returns in fixed TRAIN; no daily-to-intraday beta extrapolation",
+    "beta": "cov(r_sector_60m,r_stock_60m)/var(r_sector_60m)",
+    "mu": "mean(r_stock_60m-beta*r_sector_60m)",
+    "sigma": "Sample standard deviation of regression residual, ddof1; degenerate<=1e-6 refuses model, not rescaled fiction",
+    "fit_count": "One fit perstock plus exact verification/reproduction; no hyperparameter search",
+    "available_before_evaluation": true
+  },
+  "decision": {
+    "clock": "session.open+60minutes+1000ms; bar ending+60min assumed available+1000ms; planned fill open+65min",
+    "entry_price": "Future open used only to resolve ex ante IOC ceiling; never for feature/sizing",
+    "ranking": "Minimum valid residual z amongAAPL/MSFT, alphabetical tie; one proposed stock per session",
+    "drift": "Abs(z)>8 refuses that stock for every policy, not a tradeable extreme",
+    "recovery_score": "0.5*(mu-residual) is hypothetical partial recovery, NOT a calibrated expected return or probability",
+    "cost_hurdle": "recovery_score > (spread_bps+2*slippage_bps)/10000 +2*commission_usd_per_share_per_side/known_stock_price +5bps",
+    "cost_scope": "No forward training label; modeled roundtrip friction enters admission estimate and is charged only by execution ledger, not deducted twice from cash",
+    "stop": "ATR14 from previous completed regular sessions, split-adjusted to decision share units; floor2ticks",
+    "execution_template": "CLOSED_CHANNEL:BASELINE solely for common native<=72hour exits; economic signal identity remains INTRADAY_SECTOR_RESIDUAL_RECOVERY",
+    "residual_triggered_exit_implemented": false
+  },
+  "policies": {
+    "RESIDUAL_LONG": "Selected stock only when z<=-1.5 and fixed cost hurdle passes",
+    "STOCK_THRESHOLD_OFF": "Same daily stock ranking/time/validity, but no z-entry threshold or recovery hurdle; ablation, not unconditional or market-neutral",
+    "SECTOR_TIMING_CONTROL": "XLK at the same proposed events admitted by RESIDUAL_LONG in each cost scenario; same risk budgets but not exactly beta/notional/holding matched",
+    "CASH": "No positions; same fixed session costs; derived reference"
+  },
+  "scenarios": {
+    "NOMINAL": {
+      "spread_bps": 2.0,
+      "slippage_bps": 2.0,
+      "commission_usd_per_share_per_side": 0.005,
+      "external_cost_usd_per_session": 1.0
+    },
+    "STRESS": {
+      "spread_bps": 4.0,
+      "slippage_bps": 4.0,
+      "commission_usd_per_share_per_side": 0.01,
+      "external_cost_usd_per_session": 2.0
+    }
+  },
+  "limits": {
+    "capitalUsd": 20000,
+    "riskFraction": 0.0025,
+    "openRiskFraction": 0.0025,
+    "grossFraction": 0.12,
+    "assetFraction": 0.12,
+    "dailyLoss": 0.02,
+    "maxDrawdown": 0.08
+  },
+  "risk_contract": {
+    "risk_increased": false,
+    "shared_capital_continuous": true,
+    "one_full_risk_reservation_at_a_time": true,
+    "holding_maximum_calendar_hours": 72,
+    "global_terminal_entry_cutoff_hours": 72,
+    "capital_not_reset_between_validation_test": true,
+    "no_shorts_or_leverage": true,
+    "cash_dividends": "Accrued ex-date rights, payable-date cash; split crossing and missing tape remain core fail-closed contracts",
+    "intraday_loss_limit_certified": false
+  },
+  "data_admission": {
+    "provider": "Alpaca current connected market-data access",
+    "feed": "sip",
+    "timeframe": "5Min",
+    "currency": "USD",
+    "asof": "2026-10-16",
+    "request_partition": "One symbol per calendar month; limit10000; final month ends2026-10-16T23:59:59Z",
+    "requests_count": 78,
+    "calendar_grid": "Every expected5minute RTH slot for all3symbols; no forward fills or synthetic prices",
+    "unexpected_next_page_or_count_at_limit": "REJECT_TRUNCATION; narrow interval only, never silently accept incomplete",
+    "missing_bar_policy": "At most2 targeted recapture attempts per missing interval using samefeed/symbol/time; otherwise DATA_BLOCKED, no invented no-fill",
+    "price_adjustment": "Tool has no adjustment parameter; retain documented endpoint raw default as assumption, not certification",
+    "corporate_action_window": [
+      "2024-08-01",
+      "2026-11-01"
+    ],
+    "corporate_action_dates": "process_date filter is not ex_date completeness; preserve all returned types and flags; effective dates conditional, original announcement receipts unknown",
+    "unsupported_affecting_action": "Fail closed for unresolved action in study universe/period",
+    "original_raw_required": true,
+    "prepared_old149_raw_missing": "Do not treat retained prepared artifact as reconstruction from original provider receipts; fresh captures must be retained and hashed",
+    "model_availability_is_historical_assumption": true,
+    "split_knowledge_contract": "Explicit observed knownAt required for split-crossing ATR features; absent timestamp causes affected decision refusal, never invent an announcement. Effective-date action book remains conditional historical modeling; report omitted sector events."
+  },
+  "statistics": {
+    "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+    "validation_test_descriptive_only": true,
+    "parameter_selection_from_validation": false,
+    "confidence": 0.95,
+    "block_lengths": [
+      5,
+      20
+    ],
+    "bootstrap_replicates": 120000,
+    "seed": 1811,
+    "simultaneous_endpoint_count": 24,
+    "endpoint_detail": "Perblock6absolute growth endpoints +RESIDUAL against3controls(CASH,thresholdoff,sector)x2costs=6paired;2block lengths=24",
+    "primary_candidate": "RESIDUAL_LONG",
+    "require_positive_growth_and_advantage_all_controls_nominal_stress": true,
+    "minimum_closed_candidate_campaigns": 20,
+    "minimum_observed_sessions": 100,
+    "risk_checks": "Event-mark drawdown<=8%,close-to-close daily loss<=2%; no tick-level guarantee",
+    "exposure_reporting": [
+      "average_and_max_notional",
+      "turnover_entry_exit",
+      "sessions_in_market",
+      "beta_proxy_attribution_not_hedge_pnl",
+      "difference_effective_exposure_between_controls"
+    ],
+    "global_prior_search_count": null,
+    "global_search_correction_complete": false,
+    "no_selection_of_best_post_hoc_variant": true
+  },
+  "budget": {
+    "policies": [
+      "RESIDUAL_LONG",
+      "STOCK_THRESHOLD_OFF",
+      "SECTOR_TIMING_CONTROL"
+    ],
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "new_policy_scenario_measurements": 6,
+    "source_budget_spent": 41,
+    "source_budget_limit": 128,
+    "descendant_expected_spent": 47,
+    "cash_is_derived_reference": true,
+    "unique_estimator_stock_recipes": 2,
+    "primary_fit_invocations": 2,
+    "verification_fit_invocations_per_run": 2,
+    "planned_fit_invocations_with_exact_reproduction": 8,
+    "hyperparameter_search_trials": 0,
+    "same_recipe_retry_only": true
+  },
+  "stopping_rule": "Exactly6policy/cost measurements+2CASHderived and one exact reproduction. Retain negative/sparse/refused results. No newthreshold,window,asset orperiod after returns. If rawcoverage fails, finish fail-closed admission/pipeline and report minimum original-data requirement; do not fabricate alpha.",
+  "forward_plan": {
+    "status": "PIPELINE_ONLY_NOT_ACTIVATED",
+    "first_possible_session": "2026-11-02",
+    "60th_session_if_calendar_confirmed": "2027-01-28",
+    "126th_session_if_calendar_confirmed": "2027-05-04",
+    "data_window_is_not_performance_guarantee": true,
+    "no_recurring_job_created": true,
+    "no_live_orders_authorized": true,
+    "requirements": [
+      "Freeze exact recipe and model/code identity before first observed decision",
+      "Original bar/quote first-received timestamps before decision, no modeled historical receipt promotion",
+      "Cost/fill evidence or explicitly conditional paper model; broker invoices/actualfills needed for real economics",
+      "Continuous account and corporate-action audit",
+      "Enough sessions and independent evidence;20trades alone not proof"
+    ],
+    "action_on_negative_historical_result": "Do not promote; pipeline can admit real records but does not grant strategy or trading approval"
+  },
+  "methodological_sources": [
+    {
+      "url": "https://math.nyu.edu/inmemoriam/avellaneda/AvellanedaLeeStatArb20090616.pdf",
+      "use": "Inspiration only; hedged strategy and roughly7day reversion do not validate our60minute shock entry/<=72hour long-only exit"
+    }
+  ]
+}

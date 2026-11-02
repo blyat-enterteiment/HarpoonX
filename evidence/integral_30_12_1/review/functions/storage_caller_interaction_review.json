@@ -1,0 +1,107 @@
+{
+  "schema": "HARPOON_STORAGE_CALLER_INTERACTION_REVIEW_1",
+  "reviewed_version": "30.12.1",
+  "at_mexico_city": "2026-10-31T21:26:57.671773-06:00",
+  "scope": "Read-only source review of the new SQLite transport and its existing Coordinator/server/observation callers. Internal shared-context review, not an external audit.",
+  "source_edits_by_reviewer": 0,
+  "new_tests_run_by_reviewer": 0,
+  "financial_experiments": 0,
+  "external_orders": 0,
+  "source_hashes": {
+    "runtime/store30.cjs": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+    "runtime/store.py": "fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21",
+    "xxx/coordinator.ts": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+    "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+    "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+    "xxx/operational_status.ts": "f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f",
+    "xxx/ultimate_futures.ts": "9a90f0652a00cc86c628d6f408859c9e7007ebcdabdec9f6c63b340cc11922d5",
+    "tools/store30_deadline_test.cjs": "bb9cdc72d2c8f1bb9f9e69275c41448e0cf500b5b2d00aa61dc012704b6d14e0"
+  },
+  "findings": [
+    {
+      "id": "STORE_ACK_ENVELOPE_AND_OPERATION_RESULT",
+      "origin": "Inherited response-validation gap identified while reviewing the port, not a claim that the deadline port introduced it.",
+      "mechanism": "A response with a pending id but no result, or a null batch result, could previously resolve an awaited save and allow the following broker POST without a valid commit acknowledgement.",
+      "status": "REMEDIATED_IN_REVIEWED_SOURCE",
+      "remediation": "Validate exact id/result or id/error envelope and operation-specific result before removing pending RPC; invalid acknowledgement triggers sticky failure and retains uncertain mutation status.",
+      "source": "runtime/store30.cjs: validResult and line handler",
+      "regression_cases": "tools/store30_deadline_test.cjs includes incomplete, null, false, empty-error and contradictory mutation ACKs.",
+      "execution_result": "AWAIT_IMPLEMENTER_TARGETED_TEST_SUMMARY"
+    }
+  ],
+  "caller_controls": [
+    {
+      "component": "Coordinator.save",
+      "observed_source_behavior": "Returns the rejecting write promise to the caller and sets sticky storageError; later saveQueue continuation does not turn the failed caller into success."
+    },
+    {
+      "component": "Coordinator.authority",
+      "observed_source_behavior": "Requires nonstopping state, no storageError and acknowledged exclusive account lease. A failed lease rejects authority."
+    },
+    {
+      "component": "Coordinator.submit",
+      "observed_source_behavior": "Persists the new client_order_id intent before API POST. A rejected pre-submit save prevents that POST. Uncertain broker result remains UNKNOWN, followed by persistence attempt."
+    },
+    {
+      "component": "Coordinator.cancel",
+      "observed_source_behavior": "Checks authority and persists cancelAt before DELETE. A rejected pre-cancel save prevents that DELETE. Cancellation request is not interpreted as confirmed cancellation."
+    },
+    {
+      "component": "Coordinator.reconcile/manage",
+      "observed_source_behavior": "Both await authority. Management cannot continue mutating broker state under failed persistent storage; exit protection is therefore not fully available during this failure."
+    },
+    {
+      "component": "QuantObservationJournal.capture",
+      "observed_source_behavior": "Writes reservation, immutable payload and index in order; local cursor advances only after index ACK. Lost ACK can mean committed SQLite state with stale local memory, requiring reload/reconciliation."
+    },
+    {
+      "component": "QuantObservationJournal.snapshotExport",
+      "observed_source_behavior": "Preserves the larger metadata reservation before awaiting mutable registry write; lost ACK does not release reserved capacity."
+    },
+    {
+      "component": "Server startup/shutdown",
+      "observed_source_behavior": "Awaits DurableStore.open and Coordinator.initialize before listen/start. Shutdown sets stopping and saves before releasing lease; failure exits unsuccessfully, not as a completed clean checkpoint."
+    },
+    {
+      "component": "FuturesGateway.place",
+      "observed_source_behavior": "Its existing explicit PAPER route also waits for durable intent before POST. A failed transport rejects this write as well; this does not validate futures economic performance."
+    }
+  ],
+  "transport_contract_observed": {
+    "startup": "NEW/OPENING until ping acknowledgement",
+    "failure": "Transport error, deadline, backlog or invalid ACK makes the instance FAILED and rejects pending/future RPC.",
+    "recovery": "No automatic reopen or replay; a new instance and caller reconciliation are required.",
+    "uncertainty": "Unacknowledged mutation, including lease mutation, may already have committed; uncertainty is retained.",
+    "confirmed_error": "A well-formed operation error rejects that RPC without inventing uncertain transport loss.",
+    "timeout_ms_default": 2000,
+    "timeout_ms_allowed": [
+      50,
+      5000
+    ],
+    "pending_rpc_limit": 2048,
+    "new_payload_byte_limit_added": false
+  },
+  "existing_caller_regressions": [
+    {
+      "file": "tools/xxx_test.cjs",
+      "cases": [
+        "journal persistence failure prevents POST",
+        "lost lease prevents broker mutation"
+      ]
+    },
+    {
+      "file": "tools/quant_observation_snapshot_test.cjs",
+      "case": "an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage"
+    }
+  ],
+  "limitations": [
+    "A rejected save/lease blocks the mutation that depends on it. This is not retrospective revocation of an already acknowledged intent or an in-flight broker request when another operation fails.",
+    "Existing broker-accepted protection orders remain external state; their coverage and completion require reconciliation, not assumption.",
+    "Full software-managed exit/protection continuity is not promised while durable storage is unavailable.",
+    "Health/liveness snapshots can age between asynchronous observations; HTTP_ALIVE is not order authority.",
+    "Observed production timing, account recovery and Docker runtime remain unverified.",
+    "The direct process environment supports HARPOON_STORAGE_TIMEOUT_MS; the original installer/Compose whitelist does not forward it unless the parent explicitly adds that wiring."
+  ],
+  "remaining_material_caller_change_recommended": null,
+  "economic_score_changed_by_review": false
+}

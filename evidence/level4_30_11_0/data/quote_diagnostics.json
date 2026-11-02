@@ -1,0 +1,139 @@
+{
+  "schema": "HARPOON_HISTORICAL_L1_DIAGNOSTICS_1",
+  "classification": "OBSERVED_HISTORICAL_QUOTES_DESCRIPTIVE_ONLY",
+  "method": "10000*(ask-bid)/mid; linearly interpolated empirical quantiles by symbol and retrieval window",
+  "scope": "Two ten-second archive probes at 10:50 and 15:20 America/New_York; not full 90 minute windows, not runtime reception latency, no independent tail inference",
+  "rows": [
+    {
+      "symbol": "AAPL",
+      "from": "2026-09-30T14:49:50Z",
+      "through": "2026-09-30T14:50:00Z",
+      "retrieved_at": "2026-11-01T00:38:02.671Z",
+      "records": 708,
+      "valid_spreads": 708,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 2.0644400206441986,
+        "p95": 2.6545148874035895,
+        "p99": 2.9494174900463865
+      },
+      "source": "quotes/quotes_probe_20260930_1050.json",
+      "source_sha256": "a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528"
+    },
+    {
+      "symbol": "NVDA",
+      "from": "2026-09-30T14:49:50Z",
+      "through": "2026-09-30T14:50:00Z",
+      "retrieved_at": "2026-11-01T00:38:02.671Z",
+      "records": 805,
+      "valid_spreads": 805,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.8667388949071207,
+        "p95": 1.3003055718094245,
+        "p99": 1.3003619340716994
+      },
+      "source": "quotes/quotes_probe_20260930_1050.json",
+      "source_sha256": "a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528"
+    },
+    {
+      "symbol": "SPY",
+      "from": "2026-09-30T14:49:50Z",
+      "through": "2026-09-30T14:50:00Z",
+      "retrieved_at": "2026-11-01T00:38:02.671Z",
+      "records": 912,
+      "valid_spreads": 912,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.2601964483182438,
+        "p95": 0.3903226016298924,
+        "p99": 0.5203928966364876
+      },
+      "source": "quotes/quotes_probe_20260930_1050.json",
+      "source_sha256": "a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528"
+    },
+    {
+      "symbol": "IWM",
+      "from": "2026-09-30T14:49:50Z",
+      "through": "2026-09-30T14:50:00Z",
+      "retrieved_at": "2026-11-01T00:38:02.671Z",
+      "records": 1359,
+      "valid_spreads": 1359,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.3573662110244226,
+        "p95": 0.7147196512161602,
+        "p99": 0.7147707372853654
+      },
+      "source": "quotes/quotes_probe_20260930_1050.json",
+      "source_sha256": "a70f158cc59623c78a82689bba6215f873c13b297893ae56bb920150a1100528"
+    },
+    {
+      "symbol": "AAPL",
+      "from": "2026-09-30T19:19:50Z",
+      "through": "2026-09-30T19:20:00Z",
+      "retrieved_at": "2026-11-01T00:38:45.972Z",
+      "records": 116,
+      "valid_spreads": 116,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.8938813819398035,
+        "p95": 1.4900242873945293,
+        "p99": 1.4900242873945293
+      },
+      "source": "quotes/quotes_probe_20260930_1520.json",
+      "source_sha256": "ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237"
+    },
+    {
+      "symbol": "NVDA",
+      "from": "2026-09-30T19:19:50Z",
+      "through": "2026-09-30T19:20:00Z",
+      "retrieved_at": "2026-11-01T00:38:45.972Z",
+      "records": 524,
+      "valid_spreads": 524,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.866288387403379,
+        "p95": 0.8664009703682988,
+        "p99": 1.2995733067643283
+      },
+      "source": "quotes/quotes_probe_20260930_1520.json",
+      "source_sha256": "ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237"
+    },
+    {
+      "symbol": "SPY",
+      "from": "2026-09-30T19:19:50Z",
+      "through": "2026-09-30T19:20:00Z",
+      "retrieved_at": "2026-11-01T00:38:45.972Z",
+      "records": 366,
+      "valid_spreads": 366,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.26086502843553366,
+        "p95": 0.39129499077308677,
+        "p99": 0.3913000945653165
+      },
+      "source": "quotes/quotes_probe_20260930_1520.json",
+      "source_sha256": "ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237"
+    },
+    {
+      "symbol": "IWM",
+      "from": "2026-09-30T19:19:50Z",
+      "through": "2026-09-30T19:20:00Z",
+      "retrieved_at": "2026-11-01T00:38:45.972Z",
+      "records": 268,
+      "valid_spreads": 268,
+      "invalid_or_crossed_quotes": 0,
+      "spread_bps": {
+        "p50": 0.35832661470898164,
+        "p95": 0.35832661470898164,
+        "p99": 0.35832661470898164
+      },
+      "source": "quotes/quotes_probe_20260930_1520.json",
+      "source_sha256": "ccdde6c8a4024ecc4d74f7a86afc92415cbcad695cd876e917d095dc2e7a2237"
+    }
+  ],
+  "original_runtime_receipt_times": null,
+  "executable_depth": null,
+  "external_orders": 0
+}

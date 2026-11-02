@@ -1,0 +1,144 @@
+[
+  {
+    "tool": "github_get_repo",
+    "input": {
+      "repository_full_name": "masivarecords-ship-it/HerpoonX"
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "id": "1418095498",
+        "name": "HerpoonX",
+        "owner": {
+          "login": "masivarecords-ship-it",
+          "id": 282742778,
+          "type": "User",
+          "avatar_url": "https://avatars.githubusercontent.com/u/282742778?v=4",
+          "url": "https://api.github.com/users/masivarecords-ship-it"
+        },
+        "repository_full_name": "masivarecords-ship-it/HerpoonX",
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "pull": true,
+          "push": false,
+          "triage": false
+        },
+        "allow_auto_merge": null,
+        "allow_merge_commit": null,
+        "allow_rebase_merge": null,
+        "allow_squash_merge": null,
+        "allow_update_branch": null,
+        "clone_url": "https://github.com/masivarecords-ship-it/HerpoonX.git",
+        "size": 0,
+        "default_branch": "main",
+        "git_commits_url": "https://api.github.com/repos/masivarecords-ship-it/HerpoonX/git/commits{/sha}",
+        "git_refs_url": "https://api.github.com/repos/masivarecords-ship-it/HerpoonX/git/refs{/sha}",
+        "git_url": "git://github.com/masivarecords-ship-it/HerpoonX.git",
+        "master_branch": null,
+        "visibility": "public",
+        "archived": false,
+        "is_code_search_indexed": null
+      },
+      "isError": false
+    }
+  },
+  {
+    "tool": "github_search_branches",
+    "input": {
+      "owner": "masivarecords-ship-it",
+      "repo_name": "HerpoonX",
+      "query": "",
+      "page_size": 100
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "branches": [],
+        "cursor": null
+      },
+      "isError": false
+    }
+  },
+  {
+    "tool": "github_fetch_file",
+    "input": {
+      "repository_full_name": "masivarecords-ship-it/HerpoonX",
+      "path": "README.md"
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GitHub API error 404: {\"message\":\"This repository is empty.\",\"documentation_url\":\"https://docs.github.com/v3/repos/contents/#get-contents\",\"status\":\"404\"}"
+        }
+      ],
+      "structuredContent": {
+        "error": "GitHub API error 404: {\"message\":\"This repository is empty.\",\"documentation_url\":\"https://docs.github.com/v3/repos/contents/#get-contents\",\"status\":\"404\"}",
+        "error_code": "NOT_FOUND",
+        "error_data": {
+          "message": "This repository is empty.",
+          "documentation_url": "https://docs.github.com/v3/repos/contents/#get-contents",
+          "status": "404"
+        }
+      },
+      "isError": true
+    }
+  },
+  {
+    "tool": "github_fetch_file",
+    "input": {
+      "repository_full_name": "masivarecords-ship-it/HerpoonX",
+      "path": "package.json"
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GitHub API error 404: {\"message\":\"This repository is empty.\",\"documentation_url\":\"https://docs.github.com/v3/repos/contents/#get-contents\",\"status\":\"404\"}"
+        }
+      ],
+      "structuredContent": {
+        "error": "GitHub API error 404: {\"message\":\"This repository is empty.\",\"documentation_url\":\"https://docs.github.com/v3/repos/contents/#get-contents\",\"status\":\"404\"}",
+        "error_code": "NOT_FOUND",
+        "error_data": {
+          "message": "This repository is empty.",
+          "documentation_url": "https://docs.github.com/v3/repos/contents/#get-contents",
+          "status": "404"
+        }
+      },
+      "isError": true
+    }
+  },
+  {
+    "tool": "github_list_repositories",
+    "input": {
+      "owner": "masivarecords-ship-it",
+      "page_offset": 0,
+      "page_size": 100,
+      "include_search_index_status": true
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "repositories": []
+      },
+      "isError": false
+    }
+  }
+]

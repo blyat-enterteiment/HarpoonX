@@ -1,0 +1,91 @@
+TAP version 13
+# Subtest: the final COPY layout includes verifier and bound TypeScript sources
+ok 1 - the final COPY layout includes verifier and bound TypeScript sources
+  ---
+  duration_ms: 1.494364
+  type: 'test'
+  ...
+# Subtest: Docker context retains required verification tools without test fixtures
+ok 2 - Docker context retains required verification tools without test fixtures
+  ---
+  duration_ms: 1.00755
+  type: 'test'
+  ...
+# Subtest: the actual coordinator replay verifies from the staged final layout
+ok 3 - the actual coordinator replay verifies from the staged final layout
+  ---
+  duration_ms: 320.808794
+  type: 'test'
+  ...
+# Subtest: Python gate can reexecute the coordinator from the final layout without granting financial acceptance
+ok 4 - Python gate can reexecute the coordinator from the final layout without granting financial acceptance
+  ---
+  duration_ms: 1097.341998
+  type: 'test'
+  ...
+# Subtest: fixed C0 Ridge and SVR comparison can be reproduced from the final layout
+ok 5 - fixed C0 Ridge and SVR comparison can be reproduced from the final layout
+  ---
+  duration_ms: 7902.337034
+  type: 'test'
+  ...
+# Subtest: omitting the verifier reproduces the prior distribution defect and fails closed
+ok 6 - omitting the verifier reproduces the prior distribution defect and fails closed
+  ---
+  duration_ms: 835.659413
+  type: 'test'
+  ...
+# Subtest: the level5 adapter in the final layout preserves unknown evidence and never authorizes orders
+ok 7 - the level5 adapter in the final layout preserves unknown evidence and never authorizes orders
+  ---
+  duration_ms: 39.637507
+  type: 'test'
+  ...
+# Subtest: omitting the TypeScript source cannot silently bypass source integrity
+ok 8 - omitting the TypeScript source cannot silently bypass source integrity
+  ---
+  duration_ms: 1.780125
+  type: 'test'
+  ...
+# Subtest: the delivered HTML alias and package versions agree with the active application
+ok 9 - the delivered HTML alias and package versions agree with the active application
+  ---
+  duration_ms: 1.797642
+  type: 'test'
+  ...
+# Subtest: evidence collector loads from the final COPY layout without contacting a service
+not ok 10 - evidence collector loads from the final COPY layout without contacting a service
+  ---
+  duration_ms: 40.596699
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/integral_distribution_test.cjs:158:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /fixed GET routes/. Input:
+    
+    ''
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: ''
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/integral_distribution_test.cjs:165:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10279.108479

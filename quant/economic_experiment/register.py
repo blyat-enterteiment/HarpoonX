@@ -1,0 +1,17 @@
+from pathlib import Path
+import json,hashlib,sys
+from datetime import datetime,UTC
+ROOT=Path(__file__).resolve().parent
+sys.path.insert(0,str(ROOT/'work/HarpoonX_Motor_Quant'))
+from harpoon_quant.recursive import Journal
+variants={'BASE':[],**{x:[x] for x in 'ABCDEF'},'ALL':list('ABCDEF'),**{'NO_'+x:[y for y in 'ABCDEF' if y!=x] for x in 'ABCDEF'}}
+p=dict(schema='ECONOMIC_STUDY_1',origin='SYNTHETIC_ENGINEERING_ONLY',registered_at=datetime.now(UTC).isoformat(),study_id='ECON_20261030_01',capital=20000,limits=dict(risk_fraction=.0025,open_risk_fraction=.015,gross_fraction=.5,asset_fraction=.12,factor_fraction=.5,max_positions=8,daily_loss=.02,max_drawdown=.08),variants=variants,development_seeds=[610301,610302,610303],holdout_seeds=[610311,610312,610313,610314,610315],development_end='2026-06-25',holdout_start='2026-07-01',holdout_end='2026-10-30',calendar_file_sha256=hashlib.sha256((ROOT/'evidence/alpaca_calendar.json').read_bytes()).hexdigest(),selection='Highest minimum seed daily mean log return; one finalist; cash benchmark=0; if no candidate admissible select BASE as diagnostic reference only',acceptance=dict(net_profit_positive=True,improvement_lcb_positive=True,g_log_improvement=True,min_independent_seed_blocks=5,max_drawdown=.08,min_closures=20,stress_costs=[1.5,2.0]),families={'A':'Past-only pooled AR forecast and distributional option expectation with 10% funding uncertainty reserve','B':'Choose long underlying for call direction or debit vertical/long option by expected net value per paid dollar; no shorts','C':'45 DTE 1-sigma OTM instead of 21 DTE 1.7 sigma OTM','D':'Reject >10% spreads, >30s ages or insufficient displayed depth; FOK at ask','E':'35% net take profit/stop and past-only invalidation; integer partial only with >=2 lots','F':'At most four positions, factor cap .25 and open risk .008, never raises original limits'},model='Same AR+Student-t+jump spot generator family as previous experiment, fixed regime fractions .57/.714; calendars from Alpaca. No future regime indicator exposed. European valuation proxy, no actual OPRA quotes.',execution='Synthetic ask entry/bid liquidation plus .65 per contract per side; stock10bps and zero share commissions assumption; entry at09:45 ET, monitoring10:00 and15min beforeclose; max72h exit known from calendar; no midpoint or automatic limit fills.',inference='Family-adjusted one-sided paired block-bootstrap daily log-return improvement, blocks3/5/10 sessions; estimate effective n, MDE and block/seed limitations. DSR diagnostic not acceptance. Five generated paths insufficient to infer real market probability.',stop='14 fixed configurations, no extra search, no seed replacement; terminal holdouts generated only after finalist hash frozen',external='OPRA denied by entitlement; no account permissions endpoint exposed; no broker orders authorized')
+f=ROOT/'study/protocol.json'
+assert not f.exists(),'Registration immutable'
+f.write_text(json.dumps(p,indent=2)+'\n')
+j=Journal(ROOT/'study/optimizer.sqlite3')
+with j.transaction():
+ assert j.get('budget')['spent']==9
+ assert j.get('budget')['limit']-j.get('budget')['spent']>=len(variants)
+ j.put('economic:protocol',{'hash':hashlib.sha256(f.read_bytes()).hexdigest(),'protocol':p,'source_ledger':'Reconstructed from CRC-verified legacy script and identical legacy output; original journal absent from truncated archive'},p['registered_at'])
+j.close();print(json.dumps({'protocol_sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'configurations':len(variants),'prior_spent':9,'remaining':119}))

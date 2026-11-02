@@ -1,0 +1,580 @@
+{
+  "scope": "DESCRIPTIVE_ATTRIBUTION_OF_FROZEN_REPRODUCED_MODELED_PORTFOLIO",
+  "financial_acceptance_allowed": false,
+  "new_financial_trials": 0,
+  "fits": 0,
+  "universe": [
+    "SPY",
+    "XLK"
+  ],
+  "period": [
+    "2025-03-11",
+    "2026-07-13"
+  ],
+  "initial_capital_usd": 20000,
+  "terminal_equity_usd": 20119.750000000007,
+  "net_modeled_trading_pnl_usd": 119.74999999999952,
+  "total_compounded_return": 0.0059875000000002565,
+  "external_economic_costs_usd": null,
+  "external_costs_reason": "Retained historical portfolio does not include documented data/infrastructure/inference/financing accruals.",
+  "campaigns": 31,
+  "sessions": 336,
+  "sessions_with_nonzero_pnl": 47,
+  "sessions_with_open_campaign_at_close": 30,
+  "cash_selected_folds": 9,
+  "total_folds": 16,
+  "by_asset": [
+    {
+      "group": "SPY",
+      "campaigns": 14,
+      "net_pnl_usd": -45.650000000000546,
+      "positive_campaigns": 5,
+      "negative_campaigns": 9,
+      "winning_pnl_usd": 65.17999999999927,
+      "losing_pnl_usd": -110.82999999999981,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 1,
+      "mean_holding_hours": 70.45833333333333
+    },
+    {
+      "group": "XLK",
+      "campaigns": 17,
+      "net_pnl_usd": 165.40000000000006,
+      "positive_campaigns": 11,
+      "negative_campaigns": 6,
+      "winning_pnl_usd": 325.54999999999995,
+      "losing_pnl_usd": -160.14999999999992,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 48.259803921568626
+    }
+  ],
+  "by_hypothesis_policy": [
+    {
+      "group": "CLOSED_CHANNEL:REGIME",
+      "campaigns": 15,
+      "net_pnl_usd": -52.849999999999795,
+      "positive_campaigns": 6,
+      "negative_campaigns": 9,
+      "winning_pnl_usd": 110.28999999999985,
+      "losing_pnl_usd": -163.13999999999965,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 83.16666666666667
+    },
+    {
+      "group": "CLOSED_CHANNEL:RUNNER",
+      "campaigns": 7,
+      "net_pnl_usd": 39.809999999999775,
+      "positive_campaigns": 3,
+      "negative_campaigns": 4,
+      "winning_pnl_usd": 125.6799999999999,
+      "losing_pnl_usd": -85.87000000000012,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 74.92857142857143
+    },
+    {
+      "group": "OPENING_BREAKOUT:BASELINE",
+      "campaigns": 7,
+      "net_pnl_usd": 43.339999999999804,
+      "positive_campaigns": 6,
+      "negative_campaigns": 1,
+      "winning_pnl_usd": 47.3899999999997,
+      "losing_pnl_usd": -4.049999999999898,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 4.607142857142857
+    },
+    {
+      "group": "OPENING_BREAKOUT:RUNNER",
+      "campaigns": 2,
+      "net_pnl_usd": 89.44999999999973,
+      "positive_campaigns": 1,
+      "negative_campaigns": 1,
+      "winning_pnl_usd": 107.3699999999998,
+      "losing_pnl_usd": -17.920000000000073,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 1,
+      "mean_holding_hours": 1.2916666666666667
+    }
+  ],
+  "by_entry_window": [
+    {
+      "group": "FIRST_90_MIN",
+      "campaigns": 19,
+      "net_pnl_usd": 79.07999999999942,
+      "positive_campaigns": 12,
+      "negative_campaigns": 7,
+      "winning_pnl_usd": 221.4499999999996,
+      "losing_pnl_usd": -142.37000000000018,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 48.54824561403509
+    },
+    {
+      "group": "MIDDLE_SESSION",
+      "campaigns": 12,
+      "net_pnl_usd": 40.6700000000001,
+      "positive_campaigns": 4,
+      "negative_campaigns": 8,
+      "winning_pnl_usd": 169.27999999999966,
+      "losing_pnl_usd": -128.60999999999956,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 1,
+      "mean_holding_hours": 73.70138888888889
+    }
+  ],
+  "entry_window_observed_campaign_counts": {
+    "FIRST_90_MIN": 19,
+    "MIDDLE_SESSION": 12,
+    "LAST_90_MIN": 0,
+    "OVERLAP_FIRST_LAST_90": 0,
+    "OUTSIDE_EVALUATION_REGULAR_SESSION": 0
+  },
+  "by_exit_window": [
+    {
+      "group": "FIRST_90_MIN",
+      "campaigns": 16,
+      "net_pnl_usd": 65.31000000000006,
+      "positive_campaigns": 8,
+      "negative_campaigns": 8,
+      "winning_pnl_usd": 227.39000000000004,
+      "losing_pnl_usd": -162.07999999999998,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 83.19270833333333
+    },
+    {
+      "group": "LAST_90_MIN",
+      "campaigns": 8,
+      "net_pnl_usd": 110.61999999999975,
+      "positive_campaigns": 6,
+      "negative_campaigns": 2,
+      "winning_pnl_usd": 153.7799999999996,
+      "losing_pnl_usd": -43.159999999999854,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 16.9375
+    },
+    {
+      "group": "MIDDLE_SESSION",
+      "campaigns": 7,
+      "net_pnl_usd": -56.18000000000029,
+      "positive_campaigns": 2,
+      "negative_campaigns": 5,
+      "winning_pnl_usd": 9.559999999999604,
+      "losing_pnl_usd": -65.7399999999999,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 1,
+      "mean_holding_hours": 48.607142857142854
+    }
+  ],
+  "by_asset_and_entry_window": [
+    {
+      "group": "SPY:FIRST_90_MIN",
+      "campaigns": 6,
+      "net_pnl_usd": 12.109999999999445,
+      "positive_campaigns": 3,
+      "negative_campaigns": 3,
+      "winning_pnl_usd": 46.069999999999595,
+      "losing_pnl_usd": -33.96000000000015,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 57.68055555555555
+    },
+    {
+      "group": "SPY:MIDDLE_SESSION",
+      "campaigns": 8,
+      "net_pnl_usd": -57.75999999999999,
+      "positive_campaigns": 2,
+      "negative_campaigns": 6,
+      "winning_pnl_usd": 19.109999999999673,
+      "losing_pnl_usd": -76.86999999999966,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 1,
+      "mean_holding_hours": 80.04166666666667
+    },
+    {
+      "group": "XLK:FIRST_90_MIN",
+      "campaigns": 13,
+      "net_pnl_usd": 66.96999999999997,
+      "positive_campaigns": 9,
+      "negative_campaigns": 4,
+      "winning_pnl_usd": 175.38,
+      "losing_pnl_usd": -108.41000000000003,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 44.333333333333336
+    },
+    {
+      "group": "XLK:MIDDLE_SESSION",
+      "campaigns": 4,
+      "net_pnl_usd": 98.43000000000009,
+      "positive_campaigns": 2,
+      "negative_campaigns": 2,
+      "winning_pnl_usd": 150.17,
+      "losing_pnl_usd": -51.739999999999895,
+      "modeled_commission_usd": 0,
+      "ambiguous_bar_count": 0,
+      "mean_holding_hours": 61.02083333333333
+    }
+  ],
+  "monthly_mark_to_market": [
+    {
+      "month": "2025-03",
+      "sessions": 15,
+      "equity_start_usd": 20000,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20000.0,
+      "return": 0.0
+    },
+    {
+      "month": "2025-04",
+      "sessions": 21,
+      "equity_start_usd": 20000.0,
+      "asset_pnl_usd": {
+        "SPY": -17.920000000000073,
+        "XLK": 107.3699999999998
+      },
+      "modeled_trading_pnl_usd": 89.44999999999973,
+      "equity_end_usd": 20089.45,
+      "return": 0.004472500000000101
+    },
+    {
+      "month": "2025-05",
+      "sessions": 21,
+      "equity_start_usd": 20089.45,
+      "asset_pnl_usd": {
+        "SPY": 5.929999999999609,
+        "XLK": 41.46000000000009
+      },
+      "modeled_trading_pnl_usd": 47.3899999999997,
+      "equity_end_usd": 20136.84,
+      "return": 0.0023589495979232655
+    },
+    {
+      "month": "2025-06",
+      "sessions": 20,
+      "equity_start_usd": 20136.84,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": -4.049999999999898
+      },
+      "modeled_trading_pnl_usd": -4.049999999999898,
+      "equity_end_usd": 20132.79,
+      "return": -0.00020112391020632447
+    },
+    {
+      "month": "2025-07",
+      "sessions": 22,
+      "equity_start_usd": 20132.79,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20132.79,
+      "return": 0.0
+    },
+    {
+      "month": "2025-08",
+      "sessions": 21,
+      "equity_start_usd": 20132.79,
+      "asset_pnl_usd": {
+        "SPY": -4.140000000000327,
+        "XLK": -23.58000000000004
+      },
+      "modeled_trading_pnl_usd": -27.72000000000037,
+      "equity_end_usd": 20105.07,
+      "return": -0.0013768583489919273
+    },
+    {
+      "month": "2025-09",
+      "sessions": 21,
+      "equity_start_usd": 20105.07,
+      "asset_pnl_usd": {
+        "SPY": -51.179999999999836,
+        "XLK": -27.279999999999745
+      },
+      "modeled_trading_pnl_usd": -78.45999999999958,
+      "equity_end_usd": 20026.61,
+      "return": -0.003902498225571871
+    },
+    {
+      "month": "2025-10",
+      "sessions": 23,
+      "equity_start_usd": 20026.61,
+      "asset_pnl_usd": {
+        "SPY": 10.529999999999973,
+        "XLK": 42.80000000000018
+      },
+      "modeled_trading_pnl_usd": 53.330000000000155,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0026629569357969896
+    },
+    {
+      "month": "2025-11",
+      "sessions": 19,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0
+    },
+    {
+      "month": "2025-12",
+      "sessions": 22,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0
+    },
+    {
+      "month": "2026-01",
+      "sessions": 20,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0
+    },
+    {
+      "month": "2026-02",
+      "sessions": 19,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0
+    },
+    {
+      "month": "2026-03",
+      "sessions": 22,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0
+    },
+    {
+      "month": "2026-04",
+      "sessions": 21,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20079.940000000002,
+      "return": 0.0
+    },
+    {
+      "month": "2026-05",
+      "sessions": 20,
+      "equity_start_usd": 20079.940000000002,
+      "asset_pnl_usd": {
+        "SPY": 14.729999999999905,
+        "XLK": 55.73999999999975
+      },
+      "modeled_trading_pnl_usd": 70.46999999999966,
+      "equity_end_usd": 20150.410000000003,
+      "return": 0.0035094726378666063
+    },
+    {
+      "month": "2026-06",
+      "sessions": 21,
+      "equity_start_usd": 20150.410000000003,
+      "asset_pnl_usd": {
+        "SPY": -3.5999999999997954,
+        "XLK": -27.060000000000088
+      },
+      "modeled_trading_pnl_usd": -30.659999999999883,
+      "equity_end_usd": 20119.750000000007,
+      "return": -0.0015215571296065544
+    },
+    {
+      "month": "2026-07",
+      "sessions": 8,
+      "equity_start_usd": 20119.750000000007,
+      "asset_pnl_usd": {
+        "SPY": 0.0,
+        "XLK": 0.0
+      },
+      "modeled_trading_pnl_usd": 0.0,
+      "equity_end_usd": 20119.750000000007,
+      "return": 0.0
+    }
+  ],
+  "concentration": {
+    "top_campaign_net_usd": 107.3699999999998,
+    "top_three_campaign_net_usd": 227.7199999999998,
+    "top_five_campaign_net_usd": 281.1299999999999,
+    "total_positive_campaign_pnl_usd": 390.7299999999992,
+    "worst_campaign_net_usd": -48.10000000000022,
+    "top_three": [
+      {
+        "id": "3fabf0383dd55d06cd7d74a81b4d4d49915065abaa5f37177a5d20bb537719a9",
+        "symbol": "XLK",
+        "opened_utc": "2025-04-09T17:25:00+00:00",
+        "closed_utc": "2025-04-09T19:55:00+00:00",
+        "netUsd": 107.3699999999998
+      },
+      {
+        "id": "f009bc20243ad291f31a21396f677e3877accf9de23044efa06986f2e7e9fe7c",
+        "symbol": "XLK",
+        "opened_utc": "2026-05-26T13:55:00+00:00",
+        "closed_utc": "2026-05-29T13:55:00+00:00",
+        "netUsd": 77.54999999999981
+      },
+      {
+        "id": "70cb62a3ae1be08a4f524e5efefade9d0453709c41d49860dc414ef0c81ef293",
+        "symbol": "XLK",
+        "opened_utc": "2025-10-01T15:10:00+00:00",
+        "closed_utc": "2025-10-06T13:30:00+00:00",
+        "netUsd": 42.80000000000018
+      }
+    ],
+    "worst_three": [
+      {
+        "id": "c2b6a5668a117647b1d2d0a80b22149977f618fa2451da0f7b53d5993c0462ca",
+        "symbol": "XLK",
+        "opened_utc": "2026-05-14T13:55:00+00:00",
+        "closed_utc": "2026-05-15T13:50:00+00:00",
+        "netUsd": -48.10000000000022
+      },
+      {
+        "id": "f2d92098cfc3209bcead9081ef5ada3c957013777737c364f7c8c99e136855b4",
+        "symbol": "XLK",
+        "opened_utc": "2025-09-22T14:35:00+00:00",
+        "closed_utc": "2025-09-25T13:35:00+00:00",
+        "netUsd": -29.199999999999818
+      },
+      {
+        "id": "eb44a0f0ebf3b2c3a3a5e5fa5ef7d5955ab5b87bd37570db96c9602451232f94",
+        "symbol": "XLK",
+        "opened_utc": "2025-09-15T15:35:00+00:00",
+        "closed_utc": "2025-09-17T18:50:00+00:00",
+        "netUsd": -28.159999999999854
+      }
+    ]
+  },
+  "holding_limit_diagnostic": {
+    "reference_limit_hours": 72,
+    "maximum_observed_modeled_holding_hours": 142.0,
+    "campaigns_exceeding_72_hours": 9,
+    "descriptive_pnl_of_exceeding_campaigns_usd": 90.47000000000034,
+    "campaigns": [
+      {
+        "id": "8c3404202e1a93aed5d669a9eef32f4c89bae875d157a28f058a61c24c204e85",
+        "symbol": "SPY",
+        "opened_utc": "2025-08-27T15:30:00+00:00",
+        "closed_utc": "2025-09-02T13:30:00+00:00",
+        "holding_hours": 142.0,
+        "netUsd": -27.599999999999795
+      },
+      {
+        "id": "d4125a782c55ff1027f75163f3654270d39fcf3a3e9413a8fe391e895b5bbe2a",
+        "symbol": "SPY",
+        "opened_utc": "2025-09-10T13:55:00+00:00",
+        "closed_utc": "2025-09-15T13:30:00+00:00",
+        "holding_hours": 119.58333333333333,
+        "netUsd": 18.300000000000068
+      },
+      {
+        "id": "62886dcd1dd7d470b455e07dc7b699034bb671b2daee8388d922df58906db7d1",
+        "symbol": "XLK",
+        "opened_utc": "2025-09-10T13:55:00+00:00",
+        "closed_utc": "2025-09-15T13:30:00+00:00",
+        "holding_hours": 119.58333333333333,
+        "netUsd": 2.9600000000000364
+      },
+      {
+        "id": "42a0ab154b6e9bf53f0298ac6f6ea9ea390170aed38451c6a6104f300a9dfc3b",
+        "symbol": "XLK",
+        "opened_utc": "2025-09-18T13:55:00+00:00",
+        "closed_utc": "2025-09-22T13:30:00+00:00",
+        "holding_hours": 95.58333333333333,
+        "netUsd": 27.11999999999989
+      },
+      {
+        "id": "877d928822bf9c6f4eb7c9cf41cfbe9a7b448b5281a4cbdb93742c6fcc1ce36e",
+        "symbol": "SPY",
+        "opened_utc": "2025-09-18T14:05:00+00:00",
+        "closed_utc": "2025-09-22T13:30:00+00:00",
+        "holding_hours": 95.41666666666667,
+        "netUsd": -2.8200000000001637
+      },
+      {
+        "id": "70cb62a3ae1be08a4f524e5efefade9d0453709c41d49860dc414ef0c81ef293",
+        "symbol": "XLK",
+        "opened_utc": "2025-10-01T15:10:00+00:00",
+        "closed_utc": "2025-10-06T13:30:00+00:00",
+        "holding_hours": 118.33333333333333,
+        "netUsd": 42.80000000000018
+      },
+      {
+        "id": "a22b183ca142ce561db74c96b82e22f24f062d3a423b251f4ecf06db580d2b90",
+        "symbol": "SPY",
+        "opened_utc": "2025-10-01T17:20:00+00:00",
+        "closed_utc": "2025-10-06T13:30:00+00:00",
+        "holding_hours": 116.16666666666667,
+        "netUsd": 10.529999999999973
+      },
+      {
+        "id": "abb7bbacc866c3b09c9d249cac2694b2125531a9b54c32c7351d34f388a1fd57",
+        "symbol": "SPY",
+        "opened_utc": "2026-05-13T16:30:00+00:00",
+        "closed_utc": "2026-05-18T13:30:00+00:00",
+        "holding_hours": 117.0,
+        "netUsd": -7.110000000000014
+      },
+      {
+        "id": "4d394f00fe34e73b4b328025a57244cec591c19f761abdb2f30595b77b642479",
+        "symbol": "XLK",
+        "opened_utc": "2026-05-22T13:55:00+00:00",
+        "closed_utc": "2026-05-26T13:30:00+00:00",
+        "holding_hours": 95.58333333333333,
+        "netUsd": 26.290000000000163
+      }
+    ],
+    "mechanism": "CLOSED_CHANNEL deadline is opened+72h; replayCampaign closes at the first future bar at/after deadline. Weekends, holidays and closed sessions can extend actual modeled holding beyond72h.",
+    "implication": "The positive historical aggregate cannot be represented as compliant with a strict72h maximum. No counterfactual early close or exclusion PnL is inferred here."
+  },
+  "window_definitions": {
+    "FIRST_90_MIN": "entry/exit timestamp in [session.open, session.open+90 minutes)",
+    "LAST_90_MIN": "entry/exit timestamp in [session.close-90 minutes, session.close]",
+    "OVERLAP_FIRST_LAST_90": "one exclusive bucket when short sessions make first and last windows overlap",
+    "after_close_90_min": "NOT_EVALUATED; study uses regular-session bars only",
+    "trade_window_attribution": "Full campaign PnL assigned to entry or exit bucket; not the return earned only inside that window."
+  },
+  "limitations": [
+    "No changed policy, exclusion or reallocation is evaluated. Descriptive contribution is not the counterfactual result of removing an asset or time window.",
+    "Input bars are retained history and fills modeled; no real account execution is inferred.",
+    "Only SPY and XLK are represented by this positive funded portfolio. Other assets of HarpoonX are not covered.",
+    "The historical replay and current capped runtime are not asserted to have identical sizing policies.",
+    "Raw provenance files missing from the integral cannot be freshly authenticated; prepared data and full reproduced report match retained hashes.",
+    "No claim of unseen holdout or independent financial validation is made.",
+    "Five-minute bars cannot establish order queue, millisecond liquidity or actual fill probability."
+  ]
+}

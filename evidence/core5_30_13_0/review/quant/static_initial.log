@@ -1,0 +1,29 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> quant/tests/test_core5_numeric.py:6:1
+   |
+ 4 |   """
+ 5 |
+ 6 | / import copy
+ 7 | | import unittest
+ 8 | | from datetime import UTC, datetime, timedelta
+ 9 | | from unittest.mock import patch
+10 | |
+11 | | import numpy as np
+12 | |
+13 | | from harpoon_quant import calibration as calibration_module
+14 | | from harpoon_quant.core import Config, allocate, instrument, pnl_lot, timestamp
+15 | | from test_quant import calibration, candidate, request
+   | |______________________________________________________^
+help: Organize imports
+   |
+11 | import numpy as np
+12 + from test_quant import calibration, candidate, request
+13 |
+14 | from harpoon_quant import calibration as calibration_module
+15 | from harpoon_quant.core import Config, allocate, instrument, pnl_lot, timestamp
+   - from test_quant import calibration, candidate, request
+16 |
+   |
+
+Found 1 error.
+[*] 1 fixable with `--fix`.

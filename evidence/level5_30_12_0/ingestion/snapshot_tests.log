@@ -1,0 +1,17 @@
+✔ pinned pages keep the committed header while capture and archive rotation advance (11.853203ms)
+✔ snapshot token and pages survive restart and metadata contributes to the existing byte quota (2.577278ms)
+✔ two snapshots are retained and old tokens never silently bind to the newest head (3.747254ms)
+✔ restart validates snapshot archives once and cached pages do not rescan the full history (2.67803ms)
+✔ long index validation yields cooperatively without changing the pinned prefix (512.396987ms)
+✔ an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage (1.359171ms)
+✔ mutated snapshot account, head or raw frame fails closed after restart or read (1.27244ms)
+✔ snapshot metadata cannot increase the retained byte limit (0.746135ms)
+✔ snapshot HTTP routes require existing authentication and never query a broker (2.522315ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 544.961186

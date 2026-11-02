@@ -1,0 +1,71 @@
+{
+  "nature": "HISTORICAL_PRICE_ARCHIVE_NOT_TRADING_EVIDENCE",
+  "source_files_verified": 37,
+  "analysis_script_sha256": "ab0ea8105a101fc251316c0e121a75d20e8140ae7d8136dfc915051bd7e8571f",
+  "distinct_sessions": 187,
+  "raw_records_total": 142039,
+  "regular_bars_total": 58344,
+  "regular_gaps_total": 0,
+  "panel": {
+    "rows": 1496,
+    "grids_NY": [
+      "10:50",
+      "15:20"
+    ],
+    "distinct_sessions": 187,
+    "readiness_by_symbol": {
+      "AAPL": {
+        "bar_insufficient_rows": 20,
+        "bar_sufficient_rows": 354
+      },
+      "NVDA": {
+        "bar_insufficient_rows": 20,
+        "bar_sufficient_rows": 354
+      },
+      "SPY": {
+        "bar_insufficient_rows": 20,
+        "bar_sufficient_rows": 354
+      },
+      "IWM": {
+        "bar_insufficient_rows": 20,
+        "bar_sufficient_rows": 354
+      }
+    },
+    "labels_by_symbol": {
+      "AAPL": {
+        "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+        "EXACT_OBSERVED_BAR_CLOSE": 294,
+        "OUTSIDE_COMMON_PERIOD": 2
+      },
+      "NVDA": {
+        "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+        "EXACT_OBSERVED_BAR_CLOSE": 294,
+        "OUTSIDE_COMMON_PERIOD": 2
+      },
+      "SPY": {
+        "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+        "EXACT_OBSERVED_BAR_CLOSE": 294,
+        "OUTSIDE_COMMON_PERIOD": 2
+      },
+      "IWM": {
+        "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+        "EXACT_OBSERVED_BAR_CLOSE": 294,
+        "OUTSIDE_COMMON_PERIOD": 2
+      }
+    },
+    "distinct_sessions_with_bar_history_and_24h_price_label": {
+      "AAPL": 139,
+      "NVDA": 139,
+      "SPY": 139,
+      "IWM": 139
+    },
+    "two_rows_per_day_are_diagnostics_not_two_independent_sessions": true,
+    "null_quote_features_preserved": [
+      "vwap_z",
+      "spread_fraction"
+    ],
+    "training_rows_admissible": 0
+  },
+  "lint": "All checks passed!",
+  "verification": "Source and analysis hashes match; script completed with empty stderr."
+}

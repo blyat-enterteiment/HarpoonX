@@ -1,0 +1,31 @@
+{
+  "suite": {
+    "name": "level4_readiness_test",
+    "command": [
+      "node",
+      "--no-use-env-proxy",
+      "--require",
+      "./tools/quant_clock.cjs",
+      "--test",
+      "--test-isolation=none",
+      "--test-reporter=tap",
+      "--test-force-exit",
+      "--test-timeout=30000",
+      "tools/level4_readiness_test.cjs"
+    ],
+    "cwd": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+    "exit_code": 0,
+    "duration_seconds": 28.76879271100188,
+    "log": "level4_readiness_test.log",
+    "log_sha256": "214c709fce6a61e97d0f0aa39f197f361d1c3d81e76ba5a4eabc5961109b5a80",
+    "tests": 12,
+    "pass": 12,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "passed": true
+  },
+  "global_passed": true,
+  "proof_scope": "SYNTHETIC_SOFTWARE_TESTS_AND_AVAILABLE_EVIDENCE_RECOMPUTATION_NOT_PROFIT"
+}

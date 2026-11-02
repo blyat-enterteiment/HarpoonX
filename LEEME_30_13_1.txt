@@ -1,0 +1,23 @@
+HARPOON XXXUltimate30.13.1 — Integral de investigacion y ejecucion conservada
+
+Abrir EVALUACION_ECONOMICA_HARPOONX_30_13_1.yaml para el resultado actual.
+Dos defectos del replay fueron reparados: calendario72h y precio causal de dimensionamiento.
+La unica variante registrada conserva seleccion temporal, senales, universo y limites.
+Resultado: +91.28USD/20000USD,33campanas/336sesiones, crecimiento compuesto+0.4564%.
+Es trading historico modelado antes de gastos externos desconocidos. NO acredita nivel6 ni rentabilidad real.
+SPY pierde35.33USD yXLK gana126.61USD: la evaluacion es conjunta, no por activo aislado.
+
+No se despliega ni se abren ordenes. No se eleva el techo de capital ni se cambian interfaces del coordinador.
+El informeUltimate antiguo permanece archivado con su sello original; el codigo nuevo debe rechazarlo.
+Los archivos de registro/preciosraw antiguos faltantes no se han reconstruido artificialmente.
+
+Reproduccion del candidato cerrado, desde la raiz de esta integral:
+node evidence/portfolio_validity_30_13_1/comparison/compare_frozen_portfolio.cjs verify-candidate evidence/portfolio_validity_30_13_1/control_30_13_0 . evidence/portfolio_validity_30_13_1/comparison/registration.json
+
+Pruebas de comparacion sinteticas:
+node evidence/portfolio_validity_30_13_1/comparison/runner_checks.cjs .
+
+No borrar el registro o la marca de intento para volver a explorar. El modo verify-candidate verifica mismos bytes,
+misma seleccion y mismo resultado, sin escribir ni crear una variante nueva.
+registration.json es el sello definitivo; candidate_bindings_pending_registration.json es una instantanea anterior.
+La revision de varios agentes comparte contexto y no constituye validacion externa independiente.

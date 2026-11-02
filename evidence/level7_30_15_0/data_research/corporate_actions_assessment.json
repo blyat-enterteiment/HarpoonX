@@ -1,0 +1,101 @@
+{
+  "schema": "HARPOON_CORPORATE_ACTION_SOURCE_ASSESSMENT_1",
+  "period": {
+    "from": "2026-10-19",
+    "through": "2026-10-30",
+    "symbols": [
+      "SPY",
+      "XLK"
+    ]
+  },
+  "scope": "PRIMARY_SOURCE_RESEARCH_ONLY_NO_STUDY_REWRITE",
+  "issuer_schedule": {
+    "file": "SPDR_Dividend_Distribution_Schedule_2026.pdf",
+    "sha256": "42cbffc8a7f1dcea8e480745bd810e867ac5b4592536923373367a1d20816041",
+    "url": "https://www.ssga.com/library-content/products/fund-data/etfs/us/distribution/SPDR_Dividend_Distribution_Schedule.pdf",
+    "page_one_based": 3,
+    "visual_verified": true,
+    "calendar_year": 2026,
+    "observed_schedule": {
+      "SPY": {
+        "previous_ex_date": "2026-09-18",
+        "previous_record_date": "2026-09-18",
+        "previous_payable_date": "2026-10-30",
+        "next_scheduled_ex_date": "2026-12-18",
+        "scheduled_ordinary_ex_dates_in_window": []
+      },
+      "XLK": {
+        "previous_ex_date": "2026-09-21",
+        "previous_record_date": "2026-09-21",
+        "previous_payable_date": "2026-09-23",
+        "next_scheduled_ex_date": "2026-12-21",
+        "scheduled_ordinary_ex_dates_in_window": []
+      }
+    },
+    "limitation": "Schedule is evidence of ordinary scheduled distributions. It does not certify absence of special distributions, splits or other exceptional actions; original publication-time trace is not retained."
+  },
+  "alpaca_ytd": {
+    "file": "corporate_actions_2026_ytd.json",
+    "date_filter_basis": "process_date",
+    "requested_from": "2026-01-01",
+    "requested_through": "2026-11-01",
+    "type_filter": "ALL_SUPPORTED_TYPES",
+    "returned_records": 7,
+    "returned_type_groups": [
+      "cash_dividends"
+    ],
+    "observed_split_records": [],
+    "observed_spinoff_records": [],
+    "coverage_complete_by_ex_date": null,
+    "reason": "No exclusive ex-date completeness guarantee is exposed by this process-date query; pagination field is not exposed by connector."
+  },
+  "by_class": [
+    {
+      "action_class": "ordinary_cash_dividend_schedule",
+      "finding": "No ordinary ex-date scheduled19-30October for either ETF",
+      "status": "PRIMARY_SCHEDULE_VERIFIED",
+      "complete_actual_event_history": null
+    },
+    {
+      "action_class": "cash_distribution_payable_in_window",
+      "finding": "SPY distribution1.888834USD/share payable30October arises from18September record/ex-date",
+      "status": "OBSERVED_PROVIDER_RECORD_AND_ISSUER_DATES_CONSISTENT",
+      "account_entitlement_quantity": null,
+      "account_credit_usd": null,
+      "reason": "A payment date does not establish holdings at the entitlement date; do not credit all October positions"
+    },
+    {
+      "action_class": "share_splits",
+      "finding": "No split record in retained2026YTD provider response; issuer release confirms a separate XLK2:1split effective5December2025",
+      "status": "BOUNDED_PROVIDER_SEARCH",
+      "complete_exceptional_ex_date_coverage": null
+    },
+    {
+      "action_class": "spinoffs_mergers_rights_special_distributions",
+      "finding": "No corresponding record in retained provider response",
+      "status": "BOUNDED_PROVIDER_SEARCH",
+      "complete_exceptional_ex_date_coverage": null
+    }
+  ],
+  "primary_web_sources": [
+    {
+      "url": "https://docs.alpaca.markets/us/reference/corporateactions-1",
+      "supports": "process_date query semantics"
+    },
+    {
+      "url": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+      "ref": "turn66search0",
+      "supports": "XLK split effective2025-12-05; this does not assert no later event"
+    }
+  ],
+  "importer_status": {
+    "complete_exdate_manifest": null,
+    "existing_strict_importer_not_weakened": true,
+    "new_research_dataset_emitted": false,
+    "minimum_missing_resource": "A retained provider/issuer/exchange event inventory with explicit ex-date/effective-date coverage for exceptional actions, or an explicit class-specific coverage statement and any residual unsupported actions marked unknown."
+  },
+  "strategies_executed": 0,
+  "models_trained": 0,
+  "orders_sent": 0,
+  "deployments": 0
+}

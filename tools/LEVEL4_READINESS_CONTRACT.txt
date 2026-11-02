@@ -1,0 +1,81 @@
+HARPOON — level 4 measurement readiness
+
+Purpose
+Integrate reproducible data, a complete account curve, explicit costs and the
+fixed C0/Ridge/SVR comparison. A score of 4 concerns measurement, not predicted
+profit, winning a championship, independent validation or trading permission.
+Losses remain valid measurement outcomes. Every output retains execution_allowed,
+liveApproved and financial_acceptance_allowed:false.
+
+API
+  await assessLevel4(request, baseDirectory)
+  await verifyLevel4Readiness(request, report, baseDirectory)
+
+CLI from the application root
+  node tools/level4_readiness.cjs --input readiness-request.json --output readiness.json
+  node tools/level4_readiness.cjs --input readiness-request.json --verify readiness.json --output verification.json
+
+Request
+  schema: HARPOON_LEVEL4_READINESS_REQUEST_1
+  data: null | {request:{path,sha256}, report:{path,sha256}}
+  comparison: null | {request:{path,sha256}, report:{path,sha256}}
+  ledger: null | {bundle:{path,sha256}}
+
+Each path is relative to the file containing the reference. Components missing
+or failing verification remain explicit blockers; they never become zero costs,
+zero exposure or successful checks. Request/report JSON rejects duplicate keys,
+nonfinite numbers and excessive depth. A component hash is only the first check.
+
+Reconstruction
+Data: invokes causal_panel.verify against the original request and every bound
+source, without training. Requires an admissible nonempty OBSERVED panel with
+original runtime availability, not historical reconstructed feature vectors.
+
+Comparison: invokes verifyFundedComparison, which reruns the real coordinator
+and fixed estimators. Requires C0/Ridge/SVR on the same registered HISTORICAL
+input. Synthetic engineering results are useful implementation evidence only.
+The model's original JSON bytes, content hash, data_hash, feature contract,
+horizon and available_at must bind to the reconstructed causal panel and precede
+the decision period. Independent training provenance remains unverified.
+
+Observed market binding: the comparison request may add
+  common_request.source_evidence.observation_exports: [{path,sha256}, ...]
+These references are relative to the comparison request. Original journal pages
+must form a complete, same-head/account export. Original frame hashes are checked
+through the existing observation adapter. All replay quotes and bars must match
+those observations and already have been captured by the event time. Calendars
+must match too. Prices and receipt times are not extrapolated. Liquidity remains
+the explicit replay hypothesis; a quoted size does not prove executable depth.
+
+Ledger bundle
+  {pages:[HARPOON_NET_HISTORY_PAGE_1,...], expected_integrity:<sha256>}
+verifyNetLedgerHistoryBundle reconstructs every page, source receipt, activity,
+cost, segment and accounting identity. Its closed economic prefix must cover the comparison period
+and the source account must match the market capture account. Unknown applicable
+broker accruals block; a claimed state flag without the ledger verifier's explicit
+documentary reconstruction cannot satisfy closedBrokerAccruals.verified. Only documented
+zero can become zero. External costs in the comparison must equal the reconstructed
+external costs for that period; the comparison's final lump-sum timing remains
+an assumption and is reported as such.
+The latest ledger mark may be later than the documented cost coverage. Such a
+tail remains explicitly incomplete; a complete earlier prefix is usable only
+for comparisons entirely inside it. No current-account completeness or future
+coverage is inferred from a closed historical period. Broker coverage must span
+the whole compared interval according to the reconstructed closedBrokerAccruals
+from/through and comparedFrom/comparedThrough fields. A current-only flag is
+insufficient; an uncovered current tail does not erase a verified closed prefix.
+
+Output
+HARPOON_LEVEL4_READINESS_1 records score, named checks, blockers, implemented versus
+observed capabilities, source/implementation hashes and component verification.
+Any missing condition yields 3. verifyLevel4Readiness reruns these checks and
+compares the entire report. Changing a score or re-signing its own JSON cannot
+replace original evidence. Integrity is local; it does not authenticate the
+provider independently or assert complete autonomous training/promotion.
+
+Budget
+Local JSON files are bounded to 32 MiB each and cumulative referenced inputs to
+192 MiB. The data subprocess has a 30-second deadline and no inherited credentials.
+The fixed comparison and ledger verifiers retain their own compute bounds. This
+CLI does not poll, train continuously, contact a broker or run in the execution
+protection loop.

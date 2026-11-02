@@ -1,0 +1,194 @@
+{
+  "schema": "HARPOON_STORAGE_FAILURE_REVIEW_2",
+  "reviewed_version": "30.12.1",
+  "scope": "Read-only review of the final SQLite transport and its existing Coordinator/server/observation callers, plus the explicitly authorized installer/environment wiring. Internal shared-context review; not an external independent audit or live account verification.",
+  "source_edits_by_reviewer": [
+    "deploy/ultimate_install.py",
+    "deploy/compose.xxx.json",
+    ".env.example",
+    "tools/test_ultimate_install.py"
+  ],
+  "new_tests_run_by_reviewer": {
+    "installer_suite_total": 27,
+    "preexisting_test_methods": 24,
+    "added_test_methods": 3,
+    "passed": 27,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Installer fixture with injected FakeDocker runner; no actual Docker, network, broker or deployment."
+  },
+  "financial_experiments": 0,
+  "external_orders": 0,
+  "source_hashes": {
+    "runtime/store30.cjs": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+    "runtime/store.py": "fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21",
+    "xxx/coordinator.ts": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+    "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+    "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+    "xxx/operational_status.ts": "f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f",
+    "xxx/ultimate_futures.ts": "9a90f0652a00cc86c628d6f408859c9e7007ebcdabdec9f6c63b340cc11922d5",
+    "tools/store30_deadline_test.cjs": "bb9cdc72d2c8f1bb9f9e69275c41448e0cf500b5b2d00aa61dc012704b6d14e0",
+    "deploy/ultimate_install.py": "85751c37544f68bec8e6da980a6c8f6e801dca121d3c1b4325eed6342ae9587f",
+    "deploy/compose.xxx.json": "7b181d3a500d488a60c8c3aa9ce83b819fc19943f5369e0eb9aa158f799fd43e",
+    ".env.example": "9c94013363460bbd6dec8a19bb24eab5b1734ae3530a7d177efa7a8e0a17a4d0",
+    "tools/test_ultimate_install.py": "44d704cf74b96eb02f6949ad9b8671f02979d9b724540628ba9efc8e7182daef"
+  },
+  "findings": [
+    {
+      "id": "STORE_ACK_ENVELOPE_AND_OPERATION_RESULT",
+      "origin": "Inherited response-validation gap identified while reviewing the port, not a claim that the deadline port introduced it.",
+      "mechanism": "A response with a pending id but no result, or a null batch result, could previously resolve an awaited save and allow the following broker POST without a valid commit acknowledgement.",
+      "status": "REMEDIATED_IN_REVIEWED_SOURCE",
+      "remediation": "Validate exact id/result or id/error envelope and operation-specific result before removing pending RPC; invalid acknowledgement triggers sticky failure and retains uncertain mutation status.",
+      "source": "runtime/store30.cjs: validResult and line handler",
+      "regression_cases": "tools/store30_deadline_test.cjs includes incomplete, null, false, empty-error and contradictory mutation ACKs.",
+      "execution_result": {
+        "status": "PASS",
+        "source": "consolidation_evidence/storage/port_validation.json",
+        "scope": "14/14 focused Store tests from implementer; includes five invalid ACK forms and a valid but expired ACK.",
+        "store_js_hash_matches_implementer": true,
+        "store_python_hash_matches_implementer": true
+      }
+    },
+    {
+      "id": "STORE_TIMEOUT_DOCKER_ENVIRONMENT_WIRING",
+      "mechanism": "The bounded transport accepted HARPOON_STORAGE_TIMEOUT_MS directly, but the prior installer whitelist and Compose environment did not pass this key into the container.",
+      "status": "REMEDIATED_AND_TARGETED_TESTED",
+      "remediation": "Whitelist the key, validate decimal integer 50..5000 before any command, default to 2000, pass a canonical decimal value to child processes, and explicitly inherit it through Compose.",
+      "files": [
+        "deploy/ultimate_install.py",
+        "deploy/compose.xxx.json",
+        ".env.example",
+        "tools/test_ultimate_install.py"
+      ],
+      "test_methods": [
+        "test_storage_timeout_default_boundaries_and_local_checks",
+        "test_storage_timeout_environment_overrides_file_and_reaches_install_commands",
+        "test_invalid_storage_timeout_stops_before_docker_for_install_check_and_plan"
+      ],
+      "check_plan_behavior": "The real CLI check/plan paths use local files and injected runner; all tested valid and invalid timeout cases execute zero runner commands.",
+      "precedence": "Explicit process environment overrides the literal env file; absent value uses 2000.",
+      "deployment_observed": false
+    }
+  ],
+  "caller_controls": [
+    {
+      "component": "Coordinator.save",
+      "observed_source_behavior": "Returns the rejecting write promise to the caller and sets sticky storageError; later saveQueue continuation does not turn the failed caller into success."
+    },
+    {
+      "component": "Coordinator.authority",
+      "observed_source_behavior": "Requires nonstopping state, no storageError and acknowledged exclusive account lease. A failed lease rejects authority."
+    },
+    {
+      "component": "Coordinator.submit",
+      "observed_source_behavior": "Persists the new client_order_id intent before API POST. A rejected pre-submit save prevents that POST. Uncertain broker result remains UNKNOWN, followed by persistence attempt."
+    },
+    {
+      "component": "Coordinator.cancel",
+      "observed_source_behavior": "Checks authority and persists cancelAt before DELETE. A rejected pre-cancel save prevents that DELETE. Cancellation request is not interpreted as confirmed cancellation."
+    },
+    {
+      "component": "Coordinator.reconcile/manage",
+      "observed_source_behavior": "Both await authority. Management cannot continue mutating broker state under failed persistent storage; exit protection is therefore not fully available during this failure."
+    },
+    {
+      "component": "QuantObservationJournal.capture",
+      "observed_source_behavior": "Writes reservation, immutable payload and index in order; local cursor advances only after index ACK. Lost ACK can mean committed SQLite state with stale local memory, requiring reload/reconciliation."
+    },
+    {
+      "component": "QuantObservationJournal.snapshotExport",
+      "observed_source_behavior": "Preserves the larger metadata reservation before awaiting mutable registry write; lost ACK does not release reserved capacity."
+    },
+    {
+      "component": "Server startup/shutdown",
+      "observed_source_behavior": "Awaits DurableStore.open and Coordinator.initialize before listen/start. Shutdown sets stopping and saves before releasing lease; failure exits unsuccessfully, not as a completed clean checkpoint."
+    },
+    {
+      "component": "FuturesGateway.place",
+      "observed_source_behavior": "Its existing explicit PAPER route also waits for durable intent before POST. A failed transport rejects this write as well; this does not validate futures economic performance."
+    }
+  ],
+  "transport_contract_observed": {
+    "startup": "NEW/OPENING until ping acknowledgement",
+    "failure": "Transport error, deadline, backlog or invalid ACK makes the instance FAILED and rejects pending/future RPC.",
+    "recovery": "No automatic reopen or replay; a new instance and caller reconciliation are required.",
+    "uncertainty": "Unacknowledged mutation, including lease mutation, may already have committed; uncertainty is retained.",
+    "confirmed_error": "A well-formed operation error rejects that RPC without inventing uncertain transport loss.",
+    "timeout_ms_default": 2000,
+    "timeout_ms_allowed": [
+      50,
+      5000
+    ],
+    "pending_rpc_limit": 2048,
+    "new_payload_byte_limit_added": false,
+    "time_basis": "performance.now() monotonic; the ACK handler verifies expiration before resolving even if the timer callback has not run yet.",
+    "deadline_start": "After local JSON serialization, before enqueue/write.",
+    "retry": "Existing CAS contention retries require an acknowledged false result. Lost/invalid/expired ACKs are not retried.",
+    "installer_configuration": "HARPOON_STORAGE_TIMEOUT_MS is locally validated and explicitly forwarded by installer and Compose."
+  },
+  "existing_caller_regressions": [
+    {
+      "file": "tools/xxx_test.cjs",
+      "cases": [
+        "journal persistence failure prevents POST",
+        "lost lease prevents broker mutation"
+      ]
+    },
+    {
+      "file": "tools/quant_observation_snapshot_test.cjs",
+      "case": "an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage"
+    }
+  ],
+  "limitations": [
+    "A rejected save/lease blocks the mutation that depends on it. This is not retrospective revocation of an already acknowledged intent or an in-flight broker request when another operation fails.",
+    "Existing broker-accepted protection orders remain external state; their coverage and completion require reconciliation, not assumption.",
+    "Full software-managed exit/protection continuity is not promised while durable storage is unavailable.",
+    "Health/liveness snapshots can age between asynchronous observations; HTTP_ALIVE is not order authority.",
+    "Observed production timing, account recovery and Docker runtime remain unverified.",
+    "The timeout is a logical response deadline, not a hard real-time scheduling guarantee while Node or the operating system is blocked. Local JSON serialization precedes that deadline.",
+    "Pending RPC count is bounded; byte usage is not newly capped. The 16 MiB compatibility test is not an arbitrary-size memory benchmark.",
+    "The inherited 902-test evidence was not rerun by this reviewer. Parent owns the complete final integration suite; targeted reruns are not additional unique tests."
+  ],
+  "remaining_material_caller_change_recommended": null,
+  "economic_score_changed_by_review": false,
+  "timestamp_utc": "2026-11-01T03:29:30.429193+00:00",
+  "classification": "HECHO",
+  "status": "SOURCES_FROZEN_TARGETED_CHECKS_PASS",
+  "validation": [
+    {
+      "name": "Installer unittest",
+      "command": "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m unittest discover -s tools -p test_ultimate_install.py -v",
+      "exit_code": 0,
+      "tests": 27,
+      "log": "consolidation_evidence/functions/installer_storage_timeout_unittest.log"
+    },
+    {
+      "name": "Modified Python Ruff",
+      "command": "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m ruff check deploy/ultimate_install.py tools/test_ultimate_install.py",
+      "exit_code": 0,
+      "log": "consolidation_evidence/functions/installer_storage_timeout_ruff.log"
+    },
+    {
+      "name": "Modified Python mypy",
+      "command": "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m mypy --follow-imports=silent deploy/ultimate_install.py tools/test_ultimate_install.py",
+      "exit_code": 0,
+      "log": "consolidation_evidence/functions/installer_storage_timeout_mypy.log"
+    }
+  ],
+  "evidence_sha256": {
+    "consolidation_evidence/functions/installer_storage_timeout_unittest.log": "7bbf8e38c76baead4ecd5f8fbab24b0a39a81e163de28c700ca7e9a7c4a9a4f6",
+    "consolidation_evidence/functions/installer_storage_timeout_ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "consolidation_evidence/functions/installer_storage_timeout_mypy.log": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8",
+    "consolidation_evidence/storage/port_validation.json": "c13cf22d9a12e7321fe9e1c22b7cb47ccf3954b8cb7fff38106baf02f186dac5",
+    "consolidation_evidence/storage/store30_deadline_test.log": "e224b0d1ffca865559569f30597e5e0c9ad12cda6774397911e48744d28633df"
+  },
+  "conclusion": {
+    "operational": "A rejected pre-action save or lease prevents the dependent new mutation. The failed Store stays failed and does not silently replay or reopen. A lost mutation ACK requires reconciliation of durable state and external exposure.",
+    "protection_limit": "The existing authority gate also prevents software-managed broker changes while storage is failed. Do not promise complete ongoing position protection during this outage. Already acknowledged intents and in-flight requests are not revoked.",
+    "installability": "The reviewed change is included in the complete 30.12.1 tree and adds no dependency on applying prior patches. Runtime Docker build/start and a real installed account remain unobserved.",
+    "economic_dictamen": "VENTAJA_NO_DEMOSTRADA",
+    "economic_score_changed": false,
+    "reason": "These are software and fault-handling checks; no new empirical financial observations or live performance measurements were produced."
+  }
+}

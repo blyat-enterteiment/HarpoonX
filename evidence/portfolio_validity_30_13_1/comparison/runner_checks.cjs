@@ -1,0 +1,74 @@
+"use strict";
+const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path");
+const {replayFrozen,requireRegistration}=require("./compare_frozen_portfolio.cjs");
+const session={date:"2030-01-02",open:1000,close:10000};
+const p={kind:"ALPACA_PROXY",universe:["SYNTH"],purgeHours:0,costs:{perSideUsd:0,spreadBps:0,slippageBps:0}};
+const limits={capitalUsd:1000,riskFraction:.01,openRiskFraction:.1,grossFraction:.5,assetFraction:.2,maxDrawdown:.5,dailyLoss:.5};
+const signal=(id,at,index)=>({id,symbol:"SYNTH",hypothesis:"TEST",at,index,stopDistance:1,direction:1});
+const frozen={protocol:p,limits,common:[signal("a",2000,0)],folds:[{test:[session],selected:"TEST:BASELINE"}],oos:[session]};
+const data={sessions:[session],series:[{symbol:"SYNTH",pointValue:1,bars:[{t:2000,o:10},{t:4000,o:10}]}]};
+const metrics=(returns,risks)=>({sessions:returns.length,campaigns:risks.length});
+const checks=[];
+let result=replayFrozen(frozen,data,()=>null,metrics);
+assert.equal(result.status,"INCOMPLETE_EVALUATION");assert.equal(result.netUsd,null);assert.equal(result.portfolio,null);
+assert.equal(result.incidents[0].code,"NULL_PATH_IN_FROZEN_COHORT");checks.push("Unknown null path cannot be silently excluded or valued at zero");
+result=replayFrozen(frozen,data,()=>{throw Object.assign(Error("unresolved"),{code:"UNRESOLVED_HOLDING_EXPOSURE",details:{reason:"gap"},exposure:{remainingQuantity:3,economicPnlUsd:null}});},metrics);
+assert.equal(result.netUsd,null);assert.equal(result.incidents[0].exposure.remainingQuantity,3);assert.equal(result.incidents[0].details.reason,"gap");checks.push("Unresolved exposure aborts economic result and preserves incident details");
+assert.throws(()=>requireRegistration("unused","unused",undefined),/requires a local registration/);checks.push("Candidate cannot run without a separate local registration");
+const calls=[];
+const two={...frozen,common:[signal("a",2000,0),signal("busy",2500,0),signal("b",4000,1)]};
+result=replayFrozen(two,data,(s,series,d,protocol,policy,quantity)=>{
+  calls.push({id:s.id,quantity});
+  const pnl=s.id==="a"?-20:0;
+  return {id:s.id,symbol:s.symbol,opened:s.at,closed:s.at+1000,quantity,entry:10,riskUsd:quantity,netUsd:pnl,netR:pnl/quantity,marks:[{at:s.at+1000,pnl}]};
+},metrics);
+assert.equal(result.status,"COMPLETE_EXPLORATORY_ONLY");assert.deepEqual(calls,[{id:"a",quantity:10},{id:"b",quantity:9}]);
+assert.equal(result.skipped.SYMBOL_BUSY,1);assert.equal(result.netUsd,-20);checks.push("Shared capital is carried through loss and busy symbols; positions are not independently refilled");
+result=replayFrozen(frozen,data,s=>({id:s.id,symbol:s.symbol,opened:s.at,closed:11000,quantity:1,entry:10,riskUsd:1,netUsd:50,netR:50,marks:[{at:9000,pnl:-3}]}),metrics);
+assert.equal(result.netUsd,null);assert.equal(result.status,"INCOMPLETE_EVALUATION");assert.equal(result.incidents[0].code,"OPEN_EXPOSURE_AT_EVALUATION_END");
+assert.equal(result.incidents[0].terminal_equity_mark_usd,997);checks.push("Future closure profit cannot replace marked open exposure at evaluation end");
+let rejectedCalled=false;
+const refused=(s,first)=>({status:"REFUSED_BEFORE_ENTRY",reason:"NO_EXECUTABLE_EXIT_SESSION",decisionAt:s.at,plannedEntryAt:first,deadlineAt:null,positionOpened:false});
+result=replayFrozen(frozen,data,()=>{rejectedCalled=true;throw Error("Must not replay refused entry");},metrics,refused);
+assert.equal(result.status,"COMPLETE_EXPLORATORY_ONLY");assert.equal(result.netUsd,0);assert.equal(result.funded.length,0);
+assert.equal(result.preEntryRefusals.length,1);assert.equal(rejectedCalled,false);checks.push("Explicit causal pre-entry refusal does not open exposure or hide an existing trade");
+const scheduled=(s,first)=>({status:"SCHEDULED",reason:null,decisionAt:s.at,plannedEntryAt:first,deadlineAt:9000,positionOpened:false});
+result=replayFrozen(frozen,data,()=>null,metrics,scheduled);
+assert.equal(result.netUsd,null);assert.equal(result.preEntryRefusals.length,0);checks.push("A scheduled entry followed by null cannot be relabeled as abstention");
+const causal=(s,series)=>({status:"AVAILABLE",price:10,sourceBarAt:1000,sourceAvailableAt:1500,decisionAt:s.at,reason:null});
+const moreRisk={...frozen,limits:{...limits,riskFraction:.1,openRiskFraction:1}};
+const makeTrade=(s,series,d,protocol,policy,quantity)=>({id:s.id,symbol:s.symbol,opened:s.at,closed:s.at+1000,quantity,entry:series.bars[s.index].o,riskUsd:quantity,netUsd:0,netR:0,marks:[{at:s.at+1000,pnl:0}]});
+const validateNotional=(t,s,series,protocol,budgets)=>({status:t.quantity*t.entry<=budgets.notionalBudgetUsd?"VERIFIED":"NO_FACTIBLE",exposure:{quantity:t.quantity,entry:t.entry},budgets,economicPnlUsd:null});
+const firstRun=replayFrozen(moreRisk,data,makeTrade,metrics,scheduled,causal,validateNotional);
+const changed=structuredClone(data);changed.series[0].bars[0].o=11;
+const secondRun=replayFrozen(moreRisk,changed,makeTrade,metrics,scheduled,causal,validateNotional);
+assert.equal(firstRun.states[0].quantity,20);assert.equal(secondRun.states[0].quantity,20);
+assert.equal(firstRun.status,"COMPLETE_EXPLORATORY_ONLY");assert.equal(secondRun.status,"NO_FACTIBLE");
+assert.equal(secondRun.netUsd,null);assert.equal(secondRun.funded[0].quantity,20);checks.push("Future fill price cannot resize the causal quantity; a budget excess preserves exposure and invalidates PnL");
+const pendingData={sessions:[session],series:[{symbol:"SYNTH",pointValue:1,bars:[{t:4000,o:10}]},{symbol:"OTHER",pointValue:1,bars:[{t:4000,o:10}]}]};
+const pendingFrozen={...frozen,protocol:{...p,universe:["SYNTH","OTHER"]},limits:{...limits,riskFraction:.001},
+  common:[signal("pendingA",2000,0),{...signal("pendingB",2500,0),symbol:"OTHER"}]};
+const pendingPlan=(s,first)=>({status:"SCHEDULED",reason:null,decisionAt:s.at,plannedEntryAt:first,deadlineAt:9000,positionOpened:false});
+const futureTrade=(s,series,d,protocol,policy,quantity)=>({id:s.id,symbol:s.symbol,opened:4000,closed:6000,quantity,entry:series.bars[0].o,riskUsd:quantity,netUsd:0,netR:0,marks:[{at:6000,pnl:0}]});
+const pendingA=replayFrozen(pendingFrozen,pendingData,futureTrade,metrics,pendingPlan,causal,validateNotional);
+const pendingChanged=structuredClone(pendingData);pendingChanged.series[0].bars[0].o=11;
+const pendingB=replayFrozen(pendingFrozen,pendingChanged,futureTrade,metrics,pendingPlan,causal,validateNotional);
+assert.equal(pendingA.states[1].ex_ante_budgets.cashBudgetUsd,800);
+assert.equal(pendingB.states[1].ex_ante_budgets.cashBudgetUsd,800);checks.push("Pending cash reserves use the ex-ante budget rather than an unobserved future entry price");
+if(process.argv[2]){
+  const candidate=require(path.join(path.resolve(process.argv[2]),"runtime30/ultimate_replay.js"));
+  const integratedFrozen={...moreRisk,common:[signal("real-helper-interface",2000,1)]};
+  const integratedData={sessions:[session],series:[{symbol:"SYNTH",pointValue:1,tick:.01,bars:[
+    {t:1000,end:1500,availableAt:1500,o:10,h:10,l:10,c:10,v:1000},
+    {t:2000,end:2500,availableAt:2500,o:10,h:10,l:10,c:10,v:1000}]}]};
+  const tradeWithSide=(...args)=>({...makeTrade(...args),direction:args[0].direction});
+  result=replayFrozen(integratedFrozen,integratedData,tradeWithSide,metrics,candidate.planCalendarHolding,candidate.causalReferencePrice,candidate.verifyFundedEntryFill);
+  assert.equal(result.status,"COMPLETE_EXPLORATORY_ONLY");assert.equal(result.states[0].quantity,20);
+  assert.equal(result.states[0].reference.sourceAvailableAt,1500);assert.equal(result.states[0].fill_validation.status,"VERIFIED");
+  const nativePlan=candidate.planFundedEntry(integratedFrozen.common[0],integratedData.series[0],p,moreRisk.limits,{equity:1000,notional:0,openRisk:0});
+  assert.equal(nativePlan.quantity,result.states[0].quantity);assert.equal(nativePlan.riskUnit,result.states[0].riskUnit);
+  checks.push("Actual compiled candidate helpers match runner sizing and validation on synthetic inputs");
+}
+const report={scope:"SYNTHETIC_RUNNER_VERIFICATION_ONLY",new_financial_trials:0,candidate_financial_execution:false,tests_passed:checks.length,checks};
+fs.writeFileSync(path.join(__dirname,"runner_checks.json"),JSON.stringify(report,null,2)+"\n");
+console.log(JSON.stringify(report));

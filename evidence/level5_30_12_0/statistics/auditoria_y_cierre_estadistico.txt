@@ -1,0 +1,234 @@
+HARPOONX — CIERRE ESTADÍSTICO PARA NIVEL 5
+Base inspeccionada: HARPOON_XXXUltimate_30_11_0 / Quant 1.7.0
+Naturaleza: auditoría interna adversarial del código y contratos preservados.
+No es validación externa ni ciega. No se entrenó, midió rentabilidad nueva,
+reservó presupuesto, cambió producción o modificó un contador.
+
+RESULTADO
+
+El productor de tres políticas ya existe, pero todavía no puede alimentar el
+gate económico con su contrato real. Se reprodujeron tres comprobaciones de
+software en probe_contract_gaps.py; las tres confirmaron la incompatibilidad.
+No se ejecutó ningún bootstrap ni simulación financiera nueva. La calificación
+económica preservada sigue siendo 3; esta auditoría no demuestra nivel 4 o 5.
+
+El criterio 4 queda intacto: datos observados causales, costes y patrimonio
+conciliados y comparación reproducible C0 nativo/Ridge/SVR. El criterio 5 queda
+intacto: beneficio absoluto y mejora económica frente a Ridge/control en un
+periodo temporal nuevo, con incertidumbre, búsqueda múltiple, riesgo y estrés
+dentro de criterios anteriores a observar sus resultados.
+
+CORRECCIÓN 1 — UNIR EL PRODUCTOR Y EL GATE SIN CAMBIAR EL CONTROL
+
+Hechos:
+1. economic_gate.py:_parity solo acepta HARPOON_COORDINATOR_REPLAY_1. Un reporte
+   completo HARPOON_FUNDED_COMPARISON_1 produce PARITY_RECEIPT_SCHEMA.
+2. _curves obliga a C0 a tener exposición cero e inventario terminal vacío.
+   funded_comparison.cjs define C0 como estrategia nativa activa. La prueba con
+   exposición C0=0.01 produjo C0_HAS_RISK_EXPOSURE antes de la inferencia.
+3. El gate exige financial_acceptance_allowed=true en el recibo, mientras el
+   productor completo conserva false por diseño. Ese false limita autoridad,
+   no niega que puedan analizarse estadísticamente sus resultados.
+4. El gate espera curvas y recibos contables aportados por el solicitante.
+   No deriva las curvas del reporte completo de tres políticas.
+
+Cambio acotado:
+Añadir un contrato económico v2 que reutilice el cálculo estadístico existente
+y explicite roles {C0:NATIVE_CONTROL, RIDGE:FIXED_BENCHMARK, SVR:CANDIDATE}.
+Conservar intacto el contrato legado v1, donde C0 es CASH_NO_ENTRY. No cambiar
+retrospectivamente su protocolo ni renombrar sus resultados. La referencia de
+caja puede mostrarse aparte con costes aplicables, sin reemplazar al C0 nativo.
+
+El adaptador v2 debe llamar al verificador fijo verifyFundedComparison con
+entrada y reporte originales, exigir la reejecución del coordinador y ambos
+predictores y derivar directamente de sus snapshots las tres curvas, comisiones,
+inventario, patrimonio y retornos. Vincular modelo original, hashes del código,
+configuración, riesgo, costes, universo y periodo. Los retornos de entrada del
+solicitante no pueden sobrescribir los derivados. El reporte del productor debe
+seguir manteniendo todos sus permisos false. El gate puede producir únicamente
+CANDIDATO_PARA_VALIDACION_FORWARD cuando sus propias condiciones se satisfagan.
+
+Pruebas necesarias:
+- Tres políticas sintéticas reejecutadas atraviesan el adaptador como prueba
+  de software y permanecen no elegibles financieramente.
+- C0 nativo con exposición/inventario es válido para el rol explícito v2;
+  el mismo contenido declarado como caja, o bajo v1, sigue rechazándose.
+- Alterar una curva, hash de modelo, coste o reporte y volver a firmar el JSON
+  no evita que la reejecución rechace el contenido.
+- Un recibo de C0 solo, tres nombres sin resultados o predictor no reejecutado
+  nunca acreditan paridad completa.
+
+CORRECCIÓN 2 — HACER QUE MEDICIÓN, RIESGO Y ESTRÉS SEAN PRECONDICIONES REALES
+
+Hechos:
+1. El gate económico no llama a assessLevel4 ni verifica sus fuentes.
+2. _observational_artifacts espera un export OBSERVED de registros de precios y
+   recibos normalizados HARPOON_ECONOMIC_ACCOUNT_RECEIPT_1. El circuito actual
+   integra exportaciones originales del journal y un bundle de historial de
+   cuenta reejecutado. Son contratos distintos: no basta convertir sus etiquetas.
+3. El gate solo calcula drawdown/exposición en filas por sesión. El productor
+   conserva además snapshots de cada evento y drawdown a esa resolución.
+4. economic_gate.py no tiene escenarios, referencias ni validador de estrés.
+   Una curva base favorable no puede satisfacer la parte de estrés del nivel 5.
+
+Cambio acotado:
+En la entrada v2 exigir la verificación reejecutada de nivel 4 contra exactamente
+la misma comparación, panel causal, fuente y periodo. Derivar desde los eventos
+completos la insolvencia en cualquier instante observado, drawdown máximo,
+máxima exposición e inventario residual. No reducir riesgos a la foto del cierre
+de sesión. Definir de antemano si la exposición media será ponderada por tiempo
+o muestreada regularmente; los eventos irregulares no dan una media comparable
+por sí solos. Retener el límite de 72 horas y reportar salidas no ejecutables,
+marcas obsoletas y riesgo no observable entre eventos.
+
+Agregar una lista obligatoria de escenarios de estrés preregistrados con sus
+fuentes y criterio de aceptación, verificar cada entrada/reporte con el mismo
+productor y exigir que solo cambien campos de ejecución autorizados. No copiar
+un booleano stress_passed del solicitante. Base y estrés deben usar las mismas
+señales/modelos y cronología. Todo escenario se etiqueta hipotético; no aumenta
+el número de observaciones empíricas.
+
+No fijar ahora spreads, retrasos o liquidez numéricos inventados. Deben provenir
+del diagnóstico y congelarse antes del test nuevo. La familia de medición actual
+admite seis slots y cada reporte consume tres: base más un escenario conjunto
+de estrés agota esa familia. Otros escenarios no pueden introducirse ocultamente
+ni reiniciando el contador. Si falta evidencia/escenario, conservar el bloqueo.
+
+Pruebas necesarias:
+- Reporte económico favorable con readiness de nivel 3 no sube a 5.
+- Caída intrasesión que incumple riesgo o alcanza insolvencia y recupera al
+  cierre permanece detectada. Inventario terminal no se borra ni fuerza a cerrar.
+- Costes desconocidos, cobertura del periodo insuficiente, diferencia de cuenta
+  o uso de un panel/modelo distinto impiden aprobación.
+- Estrés ausente, mutado, fuera de presupuesto o que cambia también el predictor
+  impide aprobación. Un estrés sintético favorable sigue siendo solo software.
+
+CORRECCIÓN 3 — VINCULAR EL TEST NUEVO Y LA MULTIPLICIDAD A HISTORIA REAL
+
+Hechos:
+1. _preregistration verifica la cadena local y que prior_final_test_uses==[],
+   pero esta lista y first_final_data_access_at son declaraciones de la entrada.
+2. historical_manifest_sha256 se valida como cadena hexadecimal; no se abre
+   ni compara el manifiesto al que supuestamente corresponde.
+3. El piso 23 es solo el historial Quant. El estado preservado declara que
+   global_deduplicated_total es null. Los registros Ultimate y TP32 no están
+   conciliados con ese piso. Una corrección Bonferroni sobre 23 no certifica
+   por sí sola cobertura de toda la investigación del proyecto.
+
+Cambio acotado:
+Adjuntar y abrir un manifiesto de usos previos de datos y búsqueda con referencias
+SHA-256 a diarios reales. Verificar presupuesto/audit-head del Journal existente,
+reservas, identificadores de intento y alcance de cada familia. El hash sin archivo
+o una familia relevante sin conciliar debe ser un bloqueo explícito. No sumar
+23+18+3 como si fueran ensayos independientes ni confundir límites con consumo.
+
+El plan final se registra antes del acceso al test y liga modelos exactos,
+features, calendario, periodo, umbrales, hipótesis, variantes, escenarios, métricas,
+semilla, bloques de dependencia y criterio de parada. Comprobar solapamiento del
+periodo/datos finales con el manifiesto ya consumido, y cronología del panel y
+modelos. Los periodos posteriores a la congelación evitan una declaración de
+prueba nueva basada solo en volver a descargar datos usados. Un anclaje local
+no demuestra identidad externa del proveedor ni un reloj honesto: reportarlo.
+
+Pruebas necesarias:
+- Reutilizar el holdout conocido con una lista vacía inventada no pasa.
+- Hash de manifiesto correcto en forma pero sin archivo, manifiesto alterado,
+  contador reiniciado, reserva ausente o familia sin alcance definido bloquean.
+- Leer/verificar/repetir exactamente el mismo artefacto no consume nuevos slots;
+  una comparación registrada distinta sí respeta la reserva de tres existente.
+- Cambiar fecha, umbral, modelo o bloque después de la congelación requiere un
+  protocolo nuevo y no conserva independencia del test ya observado.
+
+PROTOCOLO DE CONGELACIÓN PROPUESTO
+
+Estado actual: BORRADOR_NO_REGISTRADO. No hay parámetros económicos empíricos
+validados que se puedan copiar de fixtures sintéticos como criterio real.
+Los mínimos de 0.0001, bloques de 4 y exposición del fixture 2030 pertenecen a
+pruebas de software, no al mandato financiero actual.
+
+1. Fijar versión y roles. Conservar la versión de control y todas las fuentes.
+2. Cerrar y verificar la medición de nivel 4. Hasta entonces no lanzar una búsqueda.
+3. Resolver familias/historial y reservar el presupuesto existente. Máximo tres
+   hipótesis y seis variantes según el mandato, sin reinicios; registrar también
+   modelos/escenarios rechazados y costes de investigación.
+4. Congelar antes de observar el test: fechas nuevas, universo autorizado,
+   capital y límites existentes, efecto mínimo económico, dependencia/purga/
+   embargo, estrés y resultado terminal. Mantener campos no observados como null.
+5. Fijar calendario y sesiones completas. Apertura y cierre son diagnósticos
+   dentro de la cartera conjunta del día, no dos muestras independientes.
+   No separar activos como observaciones independientes de la cartera.
+6. Reejecutar base y escenarios permitidos y pasar los artefactos al gate v2.
+   Una modificación tras ver resultados consume intento y destruye ese holdout.
+7. Conservar el dictamen y detener la exploración al agotar el presupuesto o
+   faltar recursos decisivos. Un candidato favorable solo avanza a validación
+   forward en el modo ya autorizado.
+
+CONDICIÓN EXACTA PARA NIVEL 5
+
+Todas simultáneamente:
+- Evidencia de nivel 4 reejecutada y vinculada al mismo experimento.
+- Test temporal nuevo verificable, protocolo válido anterior al acceso, búsqueda
+  cubierta y reservada sin reset, sin fuga de información detectada.
+- Datos observados; ejecuciones, liquidez, costes y limitaciones correctamente
+  identificados. Simulación sintética nunca acredita ventaja financiera.
+- PnL económico absoluto de SVR > 0, patrimonio continuo sin insolvencia.
+- Para todos los tamaños de bloque predefinidos, límites inferiores de crecimiento
+  logarítmico SVR > 0, SVR−Ridge > mínimo económico predefinido y SVR−C0 nativo >
+  mínimo predefinido (mínimo C0 no negativo). Aplicar la corrección existente sobre
+  intentos cubiertos × tamaños de bloque × tres endpoints, con resolución de cola
+  suficiente y supuestos declarados. No reducir alpha o mínimos después de mirar.
+- Riesgo y exposición comparables dentro de los límites, con costes completos,
+  inventario terminal y estrés preregistrado que cumpla su criterio.
+- Ningún bloqueo, fuentes verificadas localmente y repetición íntegra idéntica.
+
+Cumplir lo anterior permite CANDIDATO_PARA_VALIDACION_FORWARD, manteniendo
+execution_allowed=false, liveApproved=false y financial_acceptance_allowed=false.
+No convierte resultados modelados o PAPER en rentabilidad realizada garantizada.
+Si los puntos económicos son negativos o incumplen riesgo: RECHAZADO. Si faltan
+datos, alcance, potencia o incertidumbre admisible: VENTAJA_NO_DEMOSTRADA.
+
+DATOS YA USADOS / NO SON TEST NUEVO
+
+Fuente preservada: evidence/integral_30_10_1/economic_readiness.json.
+- Ultimate: SPY/XLK, 2025-03-11 a 2026-07-13; holdout 2026-07-21 a 2026-10-16
+  declarado holdout_unused=false. Las nueve políticas ya están reportadas.
+- TP32: usa periodo histórico que puede coincidir con Ultimate; tres perfiles
+  ya observados. No se demuestra independencia por cambiar el nombre del estudio.
+- Quant sintético: holdout 2026-07-01 a 2026-10-30, cinco trayectorias artificiales
+  ya evaluadas; no son mercado observado ni nuevas observaciones al regenerarlas.
+- Gate sintético 2030, 64 sesiones: fixture de software con fechas ficticias.
+- Panel histórico Jan–Sep 2026 y sondeos L1 Sep30 revisados en nivel 4: reconstrucción
+  y diagnóstico ya usados. Los 8 vectores reconstruidos no son filas causales
+  admisibles; ninguna descarga nueva recupera automáticamente la recepción original.
+
+CONTADORES CONSERVADOS
+
+Quant: 9 previos reconstruidos + 14 reservados en el estudio = 23; límite128,
+remanente105. El diario previo original autenticado no se recuperó.
+Ultimate:18slots reportados,9filas de política, cota familiar72; contador propio.
+TP32:3perfiles, presupuesto3; posible solapamiento con Ultimate.
+Total global deduplicado:null. No sumar esos números ni convertir72/128 en ensayos.
+Nuevos ensayos, entrenamientos y reservas en esta auditoría:0.
+
+ALCANCE VERIFICABLE DEL AVANCE
+
+Se localizaron y reprodujeron dos incompatibilidades de contrato y se comprobó
+la conservación de permisos del productor. Las tres correcciones anteriores
+eliminan bloqueos de integración o de evidencia; no crean una señal rentable.
+No se recomienda otra capa de modelos, HFT, VPIN ni más variantes para resolver
+estas carencias. El siguiente resultado útil es una evaluación cerrada que pueda
+rechazar o aceptar un único candidato con los datos realmente disponibles.
+
+FUENTES LOCALES (hashes en contract_probe_results.json)
+
+quant/harpoon_quant/economic_gate.py
+tools/funded_comparison.cjs
+tools/level4_readiness.cjs
+tools/LEVEL4_READINESS_CONTRACT.txt
+quant/harpoon_quant/measurement_registration.py
+evidence/level4_30_11_0/protocol.json
+evidence/integral_30_10_1/economic_readiness.json
+
+REPRODUCCIÓN DE LOS PROBES
+
+/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python /workspace/scratch/4ecb05fdc50d/level5_evidence/statistics/probe_contract_gaps.py

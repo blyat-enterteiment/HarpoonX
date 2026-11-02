@@ -1,0 +1,61 @@
+COMPATIBILIDAD DE RECIBOS DE COSTES — 30.15.0
+
+Cambio
+Los costes de input.externalCosts, config.externalCosts y costReceiptFile
+pasan por el mismo validateCostReceipt. Antes la ruta inline aceptaba una
+cobertura temporal con entries:[] aunque faltase identidad, moneda o una
+declaracion completa. Ya no se infiere que esos campos sean correctos.
+
+Contrato de entrada
+Usar HARPOON_COST_RECEIPT_1 con account_id igual a la cuenta configurada,
+currency USD, receipt_id no vacio, coverage_complete:true, from/through/
+known_at observables, reference, las cuatro categorias y entries.
+Cada gasto necesita id, at, known_at, amount_usd, reference, category y
+already_in_account. Si ya esta descontado de la cuenta, activity_id debe
+vincularlo a la actividad conciliada correspondiente. No se resta dos veces.
+
+Un entries:[] solo declara cero gastos externos dentro de una cobertura
+expresamente completa. No demuestra que las comisiones, financiacion o
+devengos pendientes del broker sean cero: esa cobertura documental conserva
+su contrato separado broker_accrual_coverage y sus valores desconocidos.
+
+Identidad y continuidad
+Cada revision de contenido requiere un receipt_id nuevo. Una repeticion
+identica es admisible; reutilizar el mismo identificador con otro contenido
+se rechaza tambien despues de reiniciar. Los IDs de gastos ya aceptados no
+pueden desaparecer ni cambiar de importe. Las pruebas y hashes locales no
+autentican independientemente al proveedor de una factura o extracto.
+
+Comportamiento ante error
+Un error de costes deja costSource.status=REJECTED_BY_LEDGER y una causa.
+La cuenta solo sigue reconciliada si efectivo, inventario y NAV pasaron sus
+validaciones. El nuevo resultado economico y los costes desconocidos quedan
+en null; no se convierten en cero. Los costes y observaciones previamente
+aceptados se conservan. Los fallos del broker o de la conciliacion de cuenta
+continuan bloqueando la observacion conforme al contrato anterior.
+
+Cambios de costes que contradicen intervalos archivados requieren una
+reexpresion explicita. ECONOMIC_RESTATEMENT_REQUIRED no se desactiva porque
+llegue despues otro recibo invalido o un archivo ausente. No se reescriben
+segmentos sellados ni se reinicia el capital para eludir esa incidencia.
+
+Migracion
+1. Conservar los archivos y registros historicos anteriores.
+2. Completar la identidad, moneda, cobertura y referencias con documentos
+   disponibles. No rellenar importes faltantes ni afirmar cobertura completa
+   a partir de la mera existencia de un objeto o archivo.
+3. Crear un nuevo recibo con identificador nuevo, conservando los IDs y el
+   contenido de gastos previamente aceptados cuando siguen siendo correctos.
+4. Si el periodo archivado necesita corregirse, conservar la incidencia de
+   reexpresion; esta version no la elimina automaticamente.
+
+cost_receipt_template_30_15_0.json es una plantilla incompleta deliberada.
+Sus null y coverage_complete:false indican informacion pendiente; no es un
+recibo utilizable y el validador debe rechazarla mientras no se complete con
+evidencia. No cambia el modo de ejecucion ni autoriza operaciones.
+
+Las suites sinteticas de contabilidad migraron sus fixtures validos al mismo
+contrato. Los cuatro escenarios adversos de costes ahora comprueban rechazo
+economico, NAV conciliado cuando procede y preservacion del historial, en
+lugar de exigir que una factura invalida descarte una observacion de cuenta
+por lo demas conciliada. No se debilitaron las validaciones financieras.

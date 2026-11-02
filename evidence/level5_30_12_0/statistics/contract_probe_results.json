@@ -1,0 +1,43 @@
+{
+  "schema": "HARPOON_LEVEL5_STATISTICAL_CONTRACT_AUDIT_1",
+  "generated_at": "2026-11-01T01:38:29.236790+00:00",
+  "base": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+  "scope": "SYNTHETIC_SOFTWARE_CONTRACT_PROBES_AND_SOURCE_INSPECTION_ONLY",
+  "new_financial_trials": 0,
+  "training_runs": 0,
+  "financial_statistics_recomputed": false,
+  "source_mutations": 0,
+  "source_hashes": {
+    "quant/harpoon_quant/economic_gate.py": "be0c0036fdbc469900ead80cab219260813a2bd8886023aad273ec2f2e680b30",
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+    "tools/level4_readiness.cjs": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+    "tools/LEVEL4_READINESS_CONTRACT.txt": "c38b88a1ba1d2ad3acd4605ecc8c2fb458c30fa7e0d7407a358e34deb15082df",
+    "quant/harpoon_quant/measurement_registration.py": "ac6e7b748c500537037f4f3ca4f0afa3fd75f679817cd54d0ce00a2127c74883",
+    "evidence/level4_30_11_0/protocol.json": "a5daa41cf925c5b6890b77639ff438ba0984be1eee743b94fdb630161b495960",
+    "evidence/integral_30_10_1/economic_readiness.json": "c0b0556536ac5426b0bc9f6329e470eea1c28e542418407784700c5102536b7d"
+  },
+  "probes": [
+    {
+      "probe": "complete_funded_report_schema_is_rejected_before_reexecution",
+      "expected": "PARITY_RECEIPT_SCHEMA",
+      "observed": "PARITY_RECEIPT_SCHEMA",
+      "confirmed": true
+    },
+    {
+      "probe": "native_control_exposure_is_rejected_by_legacy_cash_control_contract",
+      "expected": "C0_HAS_RISK_EXPOSURE",
+      "observed": "C0_HAS_RISK_EXPOSURE",
+      "confirmed": true
+    },
+    {
+      "probe": "producer_preserves_non_authorizing_flags",
+      "observed": {
+        "execution_allowed": false,
+        "liveApproved": false,
+        "financial_acceptance_allowed": false
+      },
+      "confirmed": true
+    }
+  ],
+  "all_probes_confirmed": true
+}

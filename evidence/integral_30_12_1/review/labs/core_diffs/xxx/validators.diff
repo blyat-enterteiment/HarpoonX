@@ -1,0 +1,80 @@
+--- 30.12/xxx/validators.ts
+
++++ 31.6TP/xxx/validators.ts
+
+@@ -1,3 +1,4 @@
+
++import { ADAPTED_OPTIONS_PLUGINS, validateOptionEntryEvidence } from "./option_adaptation";
+ import { performance } from "node:perf_hooks";
+ import { fresh, positive } from "./types";
+ import type { Campaign, Instrument, Intent, Json, PositionEvaluation, OrderRetry, Signal, State } from "./types";
+@@ -55,7 +56,6 @@
+
+   "guardian-coverage",
+   "protection-retry",
+   "sell-reservation",
+-  "partial-entry-risk",
+ ];
+ export class Validators {
+   checks: Record<string, Json> = {};
+@@ -309,6 +309,8 @@
+
+   return p;
+ }
+ export function assertSignal(s: Signal, i: Instrument, now = Date.now()) {
++  if(ADAPTED_OPTIONS_PLUGINS.includes(s.plugin)&&!s.optionsEntry)throw Error("Adapted signal evidence required");
++  if(s.optionsEntry){validateOptionEntryEvidence(s.optionsEntry);if(s.book!=="options"||s.optionsEntry.underlying!==i.underlying||s.optionsEntry.plugin!==s.plugin)throw Error("Adapted signal binding");}
+   demand(
+     s && s.symbol === i.symbol && s.book === i.book,
+     "signal",
+@@ -400,13 +402,19 @@
+
+       "invalid campaign",
+     );
+   for (const c of s.campaigns) {
++    if(c.incrementalPolicy)require("./option_incremental").validateOptionsIncremental(c.incrementalPolicy);
++    if(ADAPTED_OPTIONS_PLUGINS.includes(c.plugin)&&!c.optionsEntry)throw Error("Adapted campaign evidence required");
++    if(c.optionsEntry){
++      validateOptionEntryEvidence(c.optionsEntry);
++      if(c.book!=="options"||c.optionsEntry.underlying!==c.instrument.underlying||c.optionsEntry.plugin!==c.plugin)throw Error("Adapted campaign binding");
++      if(c.optionsRuntime && (![c.optionsRuntime.peakUnderlying,c.optionsRuntime.stopUnderlying].every(positive)||!Number.isSafeInteger(c.optionsRuntime.lastUnderlyingAt)))throw Error("Adapted runtime state");
++    }
+     if (c.exitPlan) assertExitPlan(c);
+     if (c.evaluation) assertPositionEvaluation(c.evaluation, Date.now());
+     if (c.orderRetry) {
+       demand(Object.keys(c.orderRetry).every((k) => ["protect", "urgent", "profit"].includes(k)), "journal", "invalid retry class");
+       for (const retry of Object.values(c.orderRetry)) assertRetryState(retry);
+     }
+-    if (c.partialEntryRisk) assertPartialEntryRisk(c, s.intents);
+   }
+   return s;
+ }
+@@ -528,27 +536,6 @@
+
+     "protection-retry", "invalid persisted retry budget");
+   return r;
+ }
+-
+-export function assertPartialEntryRisk(c: Campaign, intents: Intent[]) {
+-  const r = c.partialEntryRisk;
+-  demand(r && r.source === "BROKER_RECONCILIATION" &&
+-    typeof r.entryId === "string" && intents.some((i) => i.id === r.entryId && i.campaign === c.id && i.kind === "entry") &&
+-    [r.firstObservedAt, r.lastObservedAt, r.deadlineAt].every(positive) &&
+-    r.lastObservedAt >= r.firstObservedAt && r.deadlineAt > r.firstObservedAt &&
+-    [r.heldQty, r.coveredQty].every((n) => Number.isFinite(n) && n >= 0) &&
+-    r.coveredQty <= r.heldQty + c.instrument.step * 1e-6 &&
+-    (r.cancelRequestedAt === null || positive(r.cancelRequestedAt)) &&
+-    ["WAIT_CANCEL", "WAIT_PROTECTION", "UNVERIFIED", "RESOLVED"].includes(r.status) &&
+-    typeof r.overdue === "boolean" &&
+-    (r.overdueAt === undefined || (positive(r.overdueAt) && r.overdueAt >= r.deadlineAt)),
+-    "partial-entry-risk", "invalid durable observation or entry identity");
+-  demand(r!.status === "RESOLVED"
+-    ? positive(r!.resolvedAt) && r!.resolvedAt! >= r!.firstObservedAt && !r!.overdue &&
+-      ["CONFIRMED_FLAT", "CONFIRMED_PROTECTION"].includes(r!.resolution || "")
+-    : r!.resolvedAt === undefined && r!.resolution === undefined,
+-    "partial-entry-risk", "invalid resolution evidence");
+-  return r!;
+-}
+ /** Count OCO siblings once, while reserving unresolved and cancel-pending quantities. */
+ export function assertSellReservation(c: Campaign, intents: Intent[], held: number, requested: number) {
+   const reservations = new Map<string, number>();

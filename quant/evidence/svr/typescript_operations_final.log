@@ -1,0 +1,34 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> harpoon-cloud-247@30.8.0 test:xxx:clocked
+> node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-timeout=30000 tools/xxx_test.cjs tools/xxx_conformance_test.cjs tools/xxx_health_test.cjs tools/xxx_selector_test.cjs tools/xxx_tp32_test.cjs tools/xxx_operational_test.cjs tools/xxx_partial_entry_risk_test.cjs
+
+✖ tools/xxx_conformance_test.cjs (1121.958667ms)
+✖ tools/xxx_health_test.cjs (624.614197ms)
+✔ tools/xxx_operational_test.cjs (1019.475493ms)
+✔ tools/xxx_partial_entry_risk_test.cjs (407.106376ms)
+✔ tools/xxx_selector_test.cjs (4870.566695ms)
+✖ tools/xxx_test.cjs (885.84561ms)
+✔ tools/xxx_tp32_test.cjs (486.167949ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 4
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4897.199567
+
+✖ failing tests:
+
+test at tools/xxx_conformance_test.cjs:1:1
+✖ tools/xxx_conformance_test.cjs (1121.958667ms)
+  'test failed'
+
+test at tools/xxx_health_test.cjs:1:1
+✖ tools/xxx_health_test.cjs (624.614197ms)
+  'test failed'
+
+test at tools/xxx_test.cjs:1:1
+✖ tools/xxx_test.cjs (885.84561ms)
+  'test failed'

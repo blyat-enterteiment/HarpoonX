@@ -1,0 +1,1132 @@
+--- a/xxx/quant_observations.ts
++++ b/xxx/quant_observations.ts
+@@ -26,6 +26,10 @@
+   private loaded = false;
+   private writing = false;
+   private budget: Json;
++  private exportRegistry: Json = {schema: "HARPOON_OBSERVATION_SNAPSHOTS_1", snapshots: []};
++  private exportRows = new Map<string, Json[]>();
++  private metadataTail: Promise<void> = Promise.resolve();
++  private exportBytes = 0;
+   readonly maxFrames: number;
+   readonly maxArchives: number;
+   readonly maxStoredBytes: number;
+@@ -82,6 +86,26 @@
+         this.budget.charged_bytes = this.index.committed_bytes;
+         if (this.budget.charged_bytes > this.maxStoredBytes) throw Error("OBSERVATION_STORAGE_BUDGET_EXHAUSTED");
+         if (this.index.total_frames) await this.store.put(this.key + "-storage-budget", {...this.budget, integrity_hash: digest(this.budget)});
++      }
++      const exports = await this.store.get(this.key + "-export-snapshots");
++      if (exports) {
++        const {integrity_hash, ...registry} = exports;
++        if (integrity_hash !== digest(registry) || registry.schema !== this.exportRegistry.schema ||
++            registry.account_id !== this.accountId || registry.configuration_hash !== this.index.configuration_hash ||
++            !Array.isArray(registry.snapshots) || registry.snapshots.length > 2 || jsonBytes(exports) > 16777216)
++          throw Error("OBSERVATION_SNAPSHOT_REGISTRY_INTEGRITY");
++        const ids = new Set<string>();
++        for (const snapshot of registry.snapshots) {
++          this.checkSnapshot(snapshot);
++          if (ids.has(snapshot.snapshot_id)) throw Error("OBSERVATION_SNAPSHOT_DUPLICATE");
++          ids.add(snapshot.snapshot_id);
++          // Verify the retained immutable chain after restart, before any page is served.
++          this.exportRows.set(snapshot.snapshot_id, await this.validatedRows(snapshot.index));
++        }
++        this.exportRegistry = registry;
++        this.exportBytes = jsonBytes(exports);
++        if (this.budget.charged_bytes + this.exportBytes > this.maxStoredBytes)
++          throw Error("OBSERVATION_STORAGE_BUDGET_EXHAUSTED");
+       }
+       this.loaded = true; this.error = null;
+       this.status = this.index.total_frames ? "RESTORED" : "WAIT_FIRST_CAPTURE";
+@@ -131,6 +155,9 @@
+           (row.stored_bytes !== undefined && (!Number.isSafeInteger(row.stored_bytes) || row.stored_bytes <= 0)))
+         throw Error("OBSERVATION_CHAIN_INTEGRITY");
+       previous = chain; at = row.at;
++      // A long export must let position-protection callbacks advance. The
++      // caller holds a committed index value, so yielding cannot change scope.
++      if ((i + 1) % 512 === 0) await new Promise<void>(resolve => setImmediate(resolve));
+     }
+     if (body.head !== previous || (body.total_frames !== undefined && body.total_frames !== rows.length))
+       throw Error("OBSERVATION_HEAD_INTEGRITY");
+@@ -139,15 +166,104 @@
+ 
+   private async reserve(parts: {key: string; bytes: number}[]) {
+     if (!parts.length) return;
++    return this.withMetadata(async () => {
+     const batch = digest(parts), bytes = parts.reduce((n, p) => n + p.bytes, 0);
+     if (this.budget.last_batch === batch) return; // Retry of the same reserved write.
+-    if (this.budget.charged_bytes + bytes > this.maxStoredBytes)
++    if (this.budget.charged_bytes + bytes + this.exportBytes > this.maxStoredBytes)
+       throw Error("OBSERVATION_STORAGE_BUDGET_EXHAUSTED");
+     const next = {...this.budget, charged_bytes: this.budget.charged_bytes + bytes, last_batch: batch, last_bytes: bytes};
+     // Reserve before immutable writes. Failed writes/commits may conservatively
+     // consume quota; they can never generate unbudgeted orphan payloads.
+     await this.store.put(this.key + "-storage-budget", {...next, integrity_hash: digest(next)});
+     this.budget = next;
++    });
++  }
++
++  private async withMetadata<T>(run: () => Promise<T>): Promise<T> {
++    const prior = this.metadataTail;
++    let release!: () => void;
++    this.metadataTail = new Promise<void>(resolve => { release = resolve; });
++    await prior;
++    try { return await run(); } finally { release(); }
++  }
++
++  private checkSnapshot(snapshot: Json) {
++    const h = snapshot?.descriptor, index = snapshot?.index;
++    if (!h || !index || h.schema !== "HARPOON_OBSERVATION_SNAPSHOT_1" ||
++        h.account_id !== this.accountId || h.configuration_hash !== this.index.configuration_hash ||
++        snapshot.snapshot_id !== digest(h) || h.index_hash !== digest(index) ||
++        h.head !== index.head || h.total_frames !== index.total_frames || h.account_id !== index.account_id ||
++        h.configuration_hash !== index.configuration_hash || !Number.isSafeInteger(h.captured_at) ||
++        h.execution_allowed !== false || h.liveApproved !== false)
++      throw Error("OBSERVATION_SNAPSHOT_BINDING");
++  }
++
++  /** Pin a committed prefix. Two bounded metadata slots survive restart; frames remain immutable. */
++  async snapshotExport(): Promise<Json> {
++    if (!this.loaded) throw Error("OBSERVATION_LOAD_REQUIRED");
++    // Capture never waits for an export scan: the index is copied before the first await.
++    const index = structuredClone(this.index);
++    const rows = await this.validatedRows(index);
++    return this.withMetadata(async () => {
++      const existing = this.exportRegistry.snapshots.find((s: Json) => s.descriptor.index_hash === digest(index));
++      if (existing) return {snapshot_id: existing.snapshot_id, ...existing.descriptor};
++      const descriptor = {schema: "HARPOON_OBSERVATION_SNAPSHOT_1", account_id: this.accountId,
++        configuration_hash: index.configuration_hash, head: index.head, total_frames: index.total_frames,
++        index_hash: digest(index), captured_at: Date.now(), execution_allowed: false, liveApproved: false};
++      const snapshot = {snapshot_id: digest(descriptor), descriptor, index};
++      const snapshots = [...this.exportRegistry.snapshots.slice(-1), snapshot];
++      const body = {schema: this.exportRegistry.schema, account_id: this.accountId,
++        configuration_hash: this.index.configuration_hash, snapshots};
++      const saved = {...body, integrity_hash: digest(body)}, bytes = jsonBytes(saved);
++      if (bytes > 16777216 || this.budget.charged_bytes + bytes > this.maxStoredBytes)
++        throw Error("OBSERVATION_SNAPSHOT_METADATA_BUDGET");
++      // A rejected store acknowledgement might still have committed the new
++      // mutable registry. Keep the larger reservation until a later ACK/load.
++      this.exportBytes = Math.max(this.exportBytes, bytes);
++      await this.store.put(this.key + "-export-snapshots", saved);
++      this.exportRegistry = body; this.exportBytes = bytes;
++      const retained = new Set(snapshots.map((s: Json) => s.snapshot_id));
++      for (const id of this.exportRows.keys()) if (!retained.has(id)) this.exportRows.delete(id);
++      this.exportRows.set(snapshot.snapshot_id, rows);
++      return {snapshot_id: snapshot.snapshot_id, ...descriptor};
++    });
++  }
++
++  async exportSnapshot(snapshotId: string, offset = 0, limit = 100): Promise<Json> {
++    if (!this.loaded) throw Error("OBSERVATION_LOAD_REQUIRED");
++    if (!/^[a-f0-9]{64}$/.test(snapshotId)) throw Error("OBSERVATION_SNAPSHOT_ID");
++    const snapshot = this.exportRegistry.snapshots.find((s: Json) => s.snapshot_id === snapshotId);
++    if (!snapshot) throw Error("OBSERVATION_SNAPSHOT_MISSING_OR_EVICTED");
++    this.checkSnapshot(snapshot);
++    boundedInt(offset, 0, 0, snapshot.descriptor.total_frames, "OFFSET");
++    boundedInt(limit, 100, 1, 100, "EXPORT_LIMIT");
++    let rows = this.exportRows.get(snapshotId);
++    if (!rows) {
++      rows = await this.validatedRows(snapshot.index);
++      // Another export may evict this token while the archive read awaits.
++      // The in-flight page remains pinned, but an evicted token is never cached again.
++      if (this.exportRegistry.snapshots.some((s: Json) => s.snapshot_id === snapshotId))
++        this.exportRows.set(snapshotId, rows);
++    }
++    const frames: Json[] = [], records: Json[] = [];
++    let bytes = 2048;
++    for (const row of rows.slice(offset, offset + limit)) {
++      const frame = {...await this.readFrame(row), source_frame_sha256: row.frame_hash};
++      const size = jsonBytes(frame) + jsonBytes(row) + 2;
++      if (bytes + size > 33554432) {
++        if (!frames.length) throw Error("OBSERVATION_EXPORT_BYTES_BOUND");
++        break;
++      }
++      bytes += size; frames.push(frame); records.push(row);
++    }
++    return {schema: "HARPOON_OBSERVATION_EXPORT_1", account_id: this.accountId,
++      head: snapshot.descriptor.head, offset, next_offset: offset + frames.length,
++      total_frames: snapshot.descriptor.total_frames, complete_export: offset === 0 && frames.length === rows.length,
++      snapshot_id: snapshotId, snapshot_descriptor: snapshot.descriptor, chain_records: records,
++      active_frames: snapshot.index.frames.length, archived_segments: snapshot.index.archives.length,
++      stored_bytes: snapshot.index.committed_bytes, frames, liveApproved: false, execution_allowed: false,
++      limitations: ["SAMPLED_QUOTES_ARE_NOT_EXECUTABLE_DEPTH", "OBSERVED_INPUTS_HAVE_NO_EXTERNAL_AUTHENTICATION",
++        "NO_IMPUTED_LABELS_OR_FUNDED_WEALTH_PATHS", "SAMPLING_DOES_NOT_ESTABLISH_INTRABAR_ORDER"]};
+   }
+ 
+   async capture(input: Json, observation: Json) {
+@@ -284,6 +400,9 @@
+       lastSuccess: last?.at || null, ageMs: age, error: this.error, frames: this.index.total_frames,
+       active_frames: this.index.frames.length, archived_segments: this.index.archives.length,
+       stored_bytes: this.budget.charged_bytes, committed_bytes: this.index.committed_bytes,
++      export_snapshot_metadata_bytes: this.exportBytes, retained_export_snapshots: this.exportRegistry.snapshots.length,
++      export_snapshot_metadata_basis: "CONSERVATIVE_RESERVED_BYTES_UNTIL_ACK_OR_VERIFIED_RELOAD",
++      total_reserved_bytes: this.budget.charged_bytes + this.exportBytes,
+       storage_budget_basis: "CONSERVATIVE_RESERVED_IMMUTABLE_JSON_BYTES_INCLUDING_ORPHANS;BOUNDED_MUTABLE_INDEX_AND_BUDGET_METADATA_EXCLUDED",
+       head: this.index.head, maxFrames: this.maxFrames, maxArchives: this.maxArchives,
+       maxStoredBytes: this.maxStoredBytes, intervalMs: this.intervalMs,
+--- a/xxx/server.ts
++++ b/xxx/server.ts
+@@ -95,10 +95,17 @@
+       const report = operationalCapabilities(engine);
+       return send(req.url === "/operational-readyz" && !report.operational_ready ? 503 : 200, report);
+     }
++    if (req.method === "GET" && req.url === "/v1/quant/observations/snapshot") {
++      try { return send(200, await engine.quantObservations.snapshotExport()); }
++      catch (error) { return send(422, {error: String(error), execution_allowed: false}); }
++    }
+     if (req.method === "GET" && req.url?.startsWith("/v1/quant/observations?")) {
+       const params = new URL(req.url, "http://localhost").searchParams;
+       try {
+-        return send(200, await engine.quantObservations.exportFrames(Number(params.get("offset") || 0), Number(params.get("limit") || 100)));
++        const offset = Number(params.get("offset") || 0), limit = Number(params.get("limit") || 100);
++        return send(200, params.has("snapshot_id") ?
++          await engine.quantObservations.exportSnapshot(params.get("snapshot_id")!, offset, limit) :
++          await engine.quantObservations.exportFrames(offset, limit));
+       } catch (error) { return send(422, {error: String(error), execution_allowed: false}); }
+     }
+     if (req.method === "GET" && (req.url === "/v1/accounting/history" || req.url?.startsWith("/v1/accounting/history?"))) {
+--- a/runtime30/quant_observations.js
++++ b/runtime30/quant_observations.js
+@@ -29,6 +29,10 @@
+     loaded = false;
+     writing = false;
+     budget;
++    exportRegistry = { schema: "HARPOON_OBSERVATION_SNAPSHOTS_1", snapshots: [] };
++    exportRows = new Map();
++    metadataTail = Promise.resolve();
++    exportBytes = 0;
+     maxFrames;
+     maxArchives;
+     maxStoredBytes;
+@@ -91,6 +95,27 @@
+                 if (this.index.total_frames)
+                     await this.store.put(this.key + "-storage-budget", { ...this.budget, integrity_hash: (0, ultimate_contracts_1.digest)(this.budget) });
+             }
++            const exports = await this.store.get(this.key + "-export-snapshots");
++            if (exports) {
++                const { integrity_hash, ...registry } = exports;
++                if (integrity_hash !== (0, ultimate_contracts_1.digest)(registry) || registry.schema !== this.exportRegistry.schema ||
++                    registry.account_id !== this.accountId || registry.configuration_hash !== this.index.configuration_hash ||
++                    !Array.isArray(registry.snapshots) || registry.snapshots.length > 2 || jsonBytes(exports) > 16777216)
++                    throw Error("OBSERVATION_SNAPSHOT_REGISTRY_INTEGRITY");
++                const ids = new Set();
++                for (const snapshot of registry.snapshots) {
++                    this.checkSnapshot(snapshot);
++                    if (ids.has(snapshot.snapshot_id))
++                        throw Error("OBSERVATION_SNAPSHOT_DUPLICATE");
++                    ids.add(snapshot.snapshot_id);
++                    // Verify the retained immutable chain after restart, before any page is served.
++                    this.exportRows.set(snapshot.snapshot_id, await this.validatedRows(snapshot.index));
++                }
++                this.exportRegistry = registry;
++                this.exportBytes = jsonBytes(exports);
++                if (this.budget.charged_bytes + this.exportBytes > this.maxStoredBytes)
++                    throw Error("OBSERVATION_STORAGE_BUDGET_EXHAUSTED");
++            }
+             this.loaded = true;
+             this.error = null;
+             this.status = this.index.total_frames ? "RESTORED" : "WAIT_FIRST_CAPTURE";
+@@ -144,6 +169,10 @@
+                 throw Error("OBSERVATION_CHAIN_INTEGRITY");
+             previous = chain;
+             at = row.at;
++            // A long export must let position-protection callbacks advance. The
++            // caller holds a committed index value, so yielding cannot change scope.
++            if ((i + 1) % 512 === 0)
++                await new Promise(resolve => setImmediate(resolve));
+         }
+         if (body.head !== previous || (body.total_frames !== undefined && body.total_frames !== rows.length))
+             throw Error("OBSERVATION_HEAD_INTEGRITY");
+@@ -152,16 +181,117 @@
+     async reserve(parts) {
+         if (!parts.length)
+             return;
+-        const batch = (0, ultimate_contracts_1.digest)(parts), bytes = parts.reduce((n, p) => n + p.bytes, 0);
+-        if (this.budget.last_batch === batch)
+-            return; // Retry of the same reserved write.
+-        if (this.budget.charged_bytes + bytes > this.maxStoredBytes)
+-            throw Error("OBSERVATION_STORAGE_BUDGET_EXHAUSTED");
+-        const next = { ...this.budget, charged_bytes: this.budget.charged_bytes + bytes, last_batch: batch, last_bytes: bytes };
+-        // Reserve before immutable writes. Failed writes/commits may conservatively
+-        // consume quota; they can never generate unbudgeted orphan payloads.
+-        await this.store.put(this.key + "-storage-budget", { ...next, integrity_hash: (0, ultimate_contracts_1.digest)(next) });
+-        this.budget = next;
++        return this.withMetadata(async () => {
++            const batch = (0, ultimate_contracts_1.digest)(parts), bytes = parts.reduce((n, p) => n + p.bytes, 0);
++            if (this.budget.last_batch === batch)
++                return; // Retry of the same reserved write.
++            if (this.budget.charged_bytes + bytes + this.exportBytes > this.maxStoredBytes)
++                throw Error("OBSERVATION_STORAGE_BUDGET_EXHAUSTED");
++            const next = { ...this.budget, charged_bytes: this.budget.charged_bytes + bytes, last_batch: batch, last_bytes: bytes };
++            // Reserve before immutable writes. Failed writes/commits may conservatively
++            // consume quota; they can never generate unbudgeted orphan payloads.
++            await this.store.put(this.key + "-storage-budget", { ...next, integrity_hash: (0, ultimate_contracts_1.digest)(next) });
++            this.budget = next;
++        });
++    }
++    async withMetadata(run) {
++        const prior = this.metadataTail;
++        let release;
++        this.metadataTail = new Promise(resolve => { release = resolve; });
++        await prior;
++        try {
++            return await run();
++        }
++        finally {
++            release();
++        }
++    }
++    checkSnapshot(snapshot) {
++        const h = snapshot?.descriptor, index = snapshot?.index;
++        if (!h || !index || h.schema !== "HARPOON_OBSERVATION_SNAPSHOT_1" ||
++            h.account_id !== this.accountId || h.configuration_hash !== this.index.configuration_hash ||
++            snapshot.snapshot_id !== (0, ultimate_contracts_1.digest)(h) || h.index_hash !== (0, ultimate_contracts_1.digest)(index) ||
++            h.head !== index.head || h.total_frames !== index.total_frames || h.account_id !== index.account_id ||
++            h.configuration_hash !== index.configuration_hash || !Number.isSafeInteger(h.captured_at) ||
++            h.execution_allowed !== false || h.liveApproved !== false)
++            throw Error("OBSERVATION_SNAPSHOT_BINDING");
++    }
++    /** Pin a committed prefix. Two bounded metadata slots survive restart; frames remain immutable. */
++    async snapshotExport() {
++        if (!this.loaded)
++            throw Error("OBSERVATION_LOAD_REQUIRED");
++        // Capture never waits for an export scan: the index is copied before the first await.
++        const index = structuredClone(this.index);
++        const rows = await this.validatedRows(index);
++        return this.withMetadata(async () => {
++            const existing = this.exportRegistry.snapshots.find((s) => s.descriptor.index_hash === (0, ultimate_contracts_1.digest)(index));
++            if (existing)
++                return { snapshot_id: existing.snapshot_id, ...existing.descriptor };
++            const descriptor = { schema: "HARPOON_OBSERVATION_SNAPSHOT_1", account_id: this.accountId,
++                configuration_hash: index.configuration_hash, head: index.head, total_frames: index.total_frames,
++                index_hash: (0, ultimate_contracts_1.digest)(index), captured_at: Date.now(), execution_allowed: false, liveApproved: false };
++            const snapshot = { snapshot_id: (0, ultimate_contracts_1.digest)(descriptor), descriptor, index };
++            const snapshots = [...this.exportRegistry.snapshots.slice(-1), snapshot];
++            const body = { schema: this.exportRegistry.schema, account_id: this.accountId,
++                configuration_hash: this.index.configuration_hash, snapshots };
++            const saved = { ...body, integrity_hash: (0, ultimate_contracts_1.digest)(body) }, bytes = jsonBytes(saved);
++            if (bytes > 16777216 || this.budget.charged_bytes + bytes > this.maxStoredBytes)
++                throw Error("OBSERVATION_SNAPSHOT_METADATA_BUDGET");
++            // A rejected store acknowledgement might still have committed the new
++            // mutable registry. Keep the larger reservation until a later ACK/load.
++            this.exportBytes = Math.max(this.exportBytes, bytes);
++            await this.store.put(this.key + "-export-snapshots", saved);
++            this.exportRegistry = body;
++            this.exportBytes = bytes;
++            const retained = new Set(snapshots.map((s) => s.snapshot_id));
++            for (const id of this.exportRows.keys())
++                if (!retained.has(id))
++                    this.exportRows.delete(id);
++            this.exportRows.set(snapshot.snapshot_id, rows);
++            return { snapshot_id: snapshot.snapshot_id, ...descriptor };
++        });
++    }
++    async exportSnapshot(snapshotId, offset = 0, limit = 100) {
++        if (!this.loaded)
++            throw Error("OBSERVATION_LOAD_REQUIRED");
++        if (!/^[a-f0-9]{64}$/.test(snapshotId))
++            throw Error("OBSERVATION_SNAPSHOT_ID");
++        const snapshot = this.exportRegistry.snapshots.find((s) => s.snapshot_id === snapshotId);
++        if (!snapshot)
++            throw Error("OBSERVATION_SNAPSHOT_MISSING_OR_EVICTED");
++        this.checkSnapshot(snapshot);
++        boundedInt(offset, 0, 0, snapshot.descriptor.total_frames, "OFFSET");
++        boundedInt(limit, 100, 1, 100, "EXPORT_LIMIT");
++        let rows = this.exportRows.get(snapshotId);
++        if (!rows) {
++            rows = await this.validatedRows(snapshot.index);
++            // Another export may evict this token while the archive read awaits.
++            // The in-flight page remains pinned, but an evicted token is never cached again.
++            if (this.exportRegistry.snapshots.some((s) => s.snapshot_id === snapshotId))
++                this.exportRows.set(snapshotId, rows);
++        }
++        const frames = [], records = [];
++        let bytes = 2048;
++        for (const row of rows.slice(offset, offset + limit)) {
++            const frame = { ...await this.readFrame(row), source_frame_sha256: row.frame_hash };
++            const size = jsonBytes(frame) + jsonBytes(row) + 2;
++            if (bytes + size > 33554432) {
++                if (!frames.length)
++                    throw Error("OBSERVATION_EXPORT_BYTES_BOUND");
++                break;
++            }
++            bytes += size;
++            frames.push(frame);
++            records.push(row);
++        }
++        return { schema: "HARPOON_OBSERVATION_EXPORT_1", account_id: this.accountId,
++            head: snapshot.descriptor.head, offset, next_offset: offset + frames.length,
++            total_frames: snapshot.descriptor.total_frames, complete_export: offset === 0 && frames.length === rows.length,
++            snapshot_id: snapshotId, snapshot_descriptor: snapshot.descriptor, chain_records: records,
++            active_frames: snapshot.index.frames.length, archived_segments: snapshot.index.archives.length,
++            stored_bytes: snapshot.index.committed_bytes, frames, liveApproved: false, execution_allowed: false,
++            limitations: ["SAMPLED_QUOTES_ARE_NOT_EXECUTABLE_DEPTH", "OBSERVED_INPUTS_HAVE_NO_EXTERNAL_AUTHENTICATION",
++                "NO_IMPUTED_LABELS_OR_FUNDED_WEALTH_PATHS", "SAMPLING_DOES_NOT_ESTABLISH_INTRABAR_ORDER"] };
+     }
+     async capture(input, observation) {
+         if (!this.loaded)
+@@ -317,6 +447,9 @@
+             lastSuccess: last?.at || null, ageMs: age, error: this.error, frames: this.index.total_frames,
+             active_frames: this.index.frames.length, archived_segments: this.index.archives.length,
+             stored_bytes: this.budget.charged_bytes, committed_bytes: this.index.committed_bytes,
++            export_snapshot_metadata_bytes: this.exportBytes, retained_export_snapshots: this.exportRegistry.snapshots.length,
++            export_snapshot_metadata_basis: "CONSERVATIVE_RESERVED_BYTES_UNTIL_ACK_OR_VERIFIED_RELOAD",
++            total_reserved_bytes: this.budget.charged_bytes + this.exportBytes,
+             storage_budget_basis: "CONSERVATIVE_RESERVED_IMMUTABLE_JSON_BYTES_INCLUDING_ORPHANS;BOUNDED_MUTABLE_INDEX_AND_BUDGET_METADATA_EXCLUDED",
+             head: this.index.head, maxFrames: this.maxFrames, maxArchives: this.maxArchives,
+             maxStoredBytes: this.maxStoredBytes, intervalMs: this.intervalMs,
+--- a/runtime30/server.js
++++ b/runtime30/server.js
+@@ -80,10 +80,21 @@
+             const report = (0, operational_status_1.operationalCapabilities)(engine);
+             return send(req.url === "/operational-readyz" && !report.operational_ready ? 503 : 200, report);
+         }
++        if (req.method === "GET" && req.url === "/v1/quant/observations/snapshot") {
++            try {
++                return send(200, await engine.quantObservations.snapshotExport());
++            }
++            catch (error) {
++                return send(422, { error: String(error), execution_allowed: false });
++            }
++        }
+         if (req.method === "GET" && req.url?.startsWith("/v1/quant/observations?")) {
+             const params = new URL(req.url, "http://localhost").searchParams;
+             try {
+-                return send(200, await engine.quantObservations.exportFrames(Number(params.get("offset") || 0), Number(params.get("limit") || 100)));
++                const offset = Number(params.get("offset") || 0), limit = Number(params.get("limit") || 100);
++                return send(200, params.has("snapshot_id") ?
++                    await engine.quantObservations.exportSnapshot(params.get("snapshot_id"), offset, limit) :
++                    await engine.quantObservations.exportFrames(offset, limit));
+             }
+             catch (error) {
+                 return send(422, { error: String(error), execution_allowed: false });
+--- a/quant/harpoon_quant/causal_panel.py
++++ b/quant/harpoon_quant/causal_panel.py
+@@ -11,6 +11,9 @@
+ import json
+ import math
+ import subprocess
++import sqlite3
++import tempfile
++from contextlib import contextmanager
+ from collections import Counter, defaultdict
+ from datetime import UTC, datetime, timedelta
+ from pathlib import Path
+@@ -27,6 +30,7 @@
+ NY = ZoneInfo("America/New_York")
+ MAX_SOURCE_BYTES = 128 * 1024 * 1024
+ MAX_FRAME_COUNT = 20000
++MAX_STREAM_FRAMES = 51200
+ FEATURE_UNITS = ["log_return", "log_return", "log_return", "rms_log_return",
+                  "log1p_volume_ratio", "standardized_log_price_ratio", "log_return", "return_fraction"]
+ _FRAME_VERIFIER = r"""
+@@ -136,6 +140,87 @@
+     return frames
+ 
+ 
++def _stream_manifest(reference: dict[str, Any], root: Path, sources: list[dict[str, Any]],
++                     selection: dict[str, Any]):
++    """Verify the complete pinned prefix once, then decode one bounded page at a time."""
++    manifest, location = _load(reference, root, sources)
++    need(manifest.get("schema") == "HARPOON_OBSERVATION_STREAM_MANIFEST_1", "STREAM_MANIFEST_SCHEMA")
++    need(manifest.get("selection") == selection, "STREAM_SELECTION_BINDING")
++    need(isinstance(manifest.get("pages"), list) and len(manifest["pages"]) <= 512 and
++         0 <= manifest.get("total_frames", -1) <= MAX_STREAM_FRAMES, "STREAM_SOURCE_BOUND")
++    verifier = Path(__file__).resolve().parents[2] / "tools" / "export_observation_snapshot.cjs"
++    process = subprocess.run(["node", str(verifier), "--verify", str(location)], capture_output=True,
++                             text=True, timeout=30, check=False)
++    need(process.returncode == 0, "STREAM_MANIFEST_RECONSTRUCTION:" + process.stderr.strip()[:512])
++    proof = json.loads(process.stdout)
++    need(proof.get("verified") is True and proof.get("total_frames") == manifest["total_frames"],
++         "STREAM_MANIFEST_VERIFIER_RESULT")
++    account = manifest["snapshot"]["account_id"]
++    previous = -1
++    count = 0
++    for ref in manifest["pages"]:
++        bundle, _ = _load(ref, location.parent, sources)
++        for frame in bundle["frames"]:
++            need(frame.get("schema") == "HARPOON_PROSPECTIVE_FRAME_1" and
++                 frame.get("financial_acceptance_allowed") is False and
++                 frame.get("external_authenticity_verified") is False, "FRAME_CONTRACT")
++            raw, observation = frame["runtime_input"], frame["observation"]
++            now = _clock(raw.get("now"))
++            need(now > previous, "FRAME_CLOCK_NOT_INCREASING")
++            previous = now
++            need(raw["config"].get("expected_account_id") == frame.get("account_id") == account,
++                 "FRAME_ACCOUNT_BINDING")
++            need(raw["config"].get("mode") == "paper", "SOURCE_PAPER_CONFIGURATION_REQUIRED")
++            need(frame.get("data_origin") in {"RUNTIME_OBSERVATION_UNVERIFIED", "SYNTHETIC_ENGINEERING_ONLY"}, "FRAME_ORIGIN")
++            need(observation.get("schema") == "HARPOON_RUNTIME_OBSERVATION_1" and
++                 observation.get("execution_allowed") is False and observation.get("liveApproved") is False and
++                 observation.get("selected") == [] and timestamp(observation["asof"]) == timestamp(ms(now)), "OBSERVATION_CONTRACT")
++            requested = {s["plugin"] + "|" + s["symbol"] for s in raw["signals"]}
++            accepted = [r["id"] for r in observation["observations"]]
++            rejected = observation["rejected"]
++            need(len(requested) == len(raw["signals"]) and len(set(accepted)) == len(accepted) and
++                 isinstance(rejected, dict) and set(accepted).isdisjoint(rejected) and
++                 set(accepted) | set(rejected) == requested, "OBSERVATION_COVERAGE_CONTRACT")
++            count += 1
++            need(count <= MAX_STREAM_FRAMES, "STREAM_FRAME_BOUND")
++            yield frame
++    need(count == manifest["total_frames"], "STREAM_FRAME_COUNT")
++
++
++class _QuoteArchive:
++    """Disk-backed causal quote lookup, capped at 128 MiB; never a fill database."""
++    def __init__(self, db: sqlite3.Connection):
++        self.db = db
++
++    def add(self, symbol: str, quote: dict[str, Any]) -> None:
++        self.db.execute("INSERT INTO quotes(symbol,market_at,captured_at,received_at,payload) VALUES(?,?,?,?,?)",
++                        (symbol, quote["market_at"], quote["captured_at"], quote["received_at"], json.dumps(quote)))
++
++    def asof(self, symbol: str, target: int, age: int, maturity: int) -> dict[str, Any] | None:
++        row = self.db.execute("SELECT payload FROM quotes WHERE symbol=? AND market_at BETWEEN ? AND ? "
++                              "AND captured_at<=? AND received_at<=? ORDER BY market_at DESC,captured_at DESC,rowid DESC LIMIT 1",
++                              (symbol, target-age, target, maturity, maturity)).fetchone()
++        return json.loads(row[0]) if row else None
++
++
++@contextmanager
++def _temporary_quote_archive():
++    with tempfile.TemporaryDirectory(prefix="harpoon-causal-quotes-") as directory:
++        connection = sqlite3.connect(str(Path(directory) / "quotes.sqlite3"))
++        try:
++            connection.execute("PRAGMA page_size=4096")
++            connection.execute("PRAGMA max_page_count=32768")
++            connection.execute("PRAGMA journal_mode=OFF")
++            connection.execute("PRAGMA temp_store=FILE")
++            connection.execute("CREATE TABLE quotes(symbol TEXT,market_at INTEGER,captured_at INTEGER,received_at INTEGER,payload TEXT)")
++            connection.execute("CREATE INDEX quotes_asof ON quotes(symbol,market_at,captured_at)")
++            yield _QuoteArchive(connection)
++        except sqlite3.Error as exc:
++            raise ValueError("STREAM_TEMP_QUOTE_ARCHIVE_FAILURE:" + str(exc)) from exc
++        finally:
++            connection.close()
++
++
+ def _split(rows: list[dict[str, Any]]) -> dict[str, Any]:
+     days = sorted({r["session"] for r in rows})
+     empty: dict[str, list[str]] = {"training": [], "validation": [], "test": [], "purged": []}
+@@ -160,7 +245,7 @@
+             "note": "This receipt does not change either existing trainer or claim they consumed these splits."}
+ 
+ 
+-def _prospective(frames: list[dict[str, Any]], request: dict[str, Any], cfg: Config) -> dict[str, Any]:
++def _prospective(frames, request: dict[str, Any], cfg: Config, quote_archive: _QuoteArchive | None = None) -> dict[str, Any]:
+     at_limit = timestamp(request["available_at"])
+     selection = request.get("selection")
+     rows: list[dict[str, Any]] = []
+@@ -182,31 +267,42 @@
+     maturity_delay = _clock(selection.get("label_maturity_max_delay_ms"))
+     need(delay <= 90000 and label_age <= cfg.max_quote_age_seconds * 1000 and maturity_delay <= 300000,
+          "SELECTION_OR_LABEL_BUDGET_EXCEEDS_CONTRACT")
+-    origins = {f["data_origin"] for f in frames}
+-    need(len(origins) == 1, "MIXED_SOURCE_NATURES")
+-    origin = "SYNTHETIC_ENGINEERING_ONLY" if "SYNTHETIC_ENGINEERING_ONLY" in origins else "OBSERVED"
++    origins: set[str] = set()
+     chosen: dict[tuple[str, str], dict[str, Any]] = {}
+     quote_history: dict[str, list[dict[str, Any]]] = defaultdict(list)
+     metadata: dict[str, Any] = {}
+     frame_times = []
++    frame_hashes = []
++    rejected_counts: Counter = Counter()
++    def reject(row):
++        rejected_counts[row["stage"]] += 1
++        if quote_archive is None or len(rejected) < 1000:
++            rejected.append(row)
+     for frame in frames:
++        origins.add(frame["data_origin"])
++        need(len(origins) == 1, "MIXED_SOURCE_NATURES")
+         raw, observation = frame["runtime_input"], frame["observation"]
+         now = raw["now"]
+         need(timestamp(ms(now)) <= at_limit, "FRAME_AFTER_BUILD_AVAILABILITY")
+         frame_times.append(now)
++        frame_hashes.append(frame["source_frame_sha256"])
+         market = raw["market"]
+         for symbol, quote in market.get("quotes", {}).items():
+             try:
+                 normalized = _quote(quote, now, min(int(cfg.max_quote_age_seconds * 1000),
+                                                    _clock(raw["config"].get("quoteAgeMs"))))
+-                quote_history[symbol].append({**normalized, "frame_hash": frame["source_frame_sha256"]})
++                quote = {**normalized, "frame_hash": frame["source_frame_sha256"]}
++                if quote_archive is None:
++                    quote_history[symbol].append(quote)
++                else:
++                    quote_archive.add(symbol, quote)
+             except (KeyError, TypeError, ValueError) as exc:
+-                rejected.append({"at": ms(now), "symbol": symbol, "stage": "quote", "reason": str(exc)})
++                reject({"at": ms(now), "symbol": symbol, "stage": "quote", "reason": str(exc)})
+         local = timestamp(ms(now)).astimezone(NY)
+         grid = datetime.fromisoformat(local.date().isoformat() + "T" + clock).replace(tzinfo=NY)
+         delta = (local - grid).total_seconds() * 1000
+         for name, reason in observation["rejected"].items():
+-            rejected.append({"at": ms(now), "id": name, "stage": "runtime_observation", "reason": reason})
++            reject({"at": ms(now), "id": name, "stage": "runtime_observation", "reason": reason})
+         for observed in sorted(observation["observations"], key=lambda r: r["id"]):
+             symbol = observed["symbol"]
+             try:
+@@ -217,6 +313,10 @@
+                      timestamp(observed["asof"]) == timestamp(ms(now)), "FEATURE_CLOCK")
+                 q = _quote(market["quotes"][symbol], now, min(int(cfg.max_quote_age_seconds * 1000),
+                                                             _clock(raw["config"].get("quoteAgeMs"))))
++                # Complete source/quote coverage is verified above. Streaming
++                # recomputes expensive features only on the preregistered grid.
++                if quote_archive is not None and not 0 <= delta <= delay:
++                    continue
+                 history = bars(market["bars"][symbol], "equity", ms(now), market["calendar"])
+                 benchmark = bars(market["bars"]["SPY"], "equity", ms(now), market["calendar"])
+                 vector = features(history, {"bid": q["bid"], "ask": q["ask"], "at": ms(q["market_at"]),
+@@ -232,15 +332,22 @@
+                      "SELECTION_OUTSIDE_OBSERVED_SESSION")
+                 key = symbol, timestamp(ms(now)).date().isoformat()
+                 if key not in chosen:
++                    if quote_archive is not None:
++                        need(len(chosen) < 5000, "STREAM_SELECTED_ROW_BOUND")
++                    semantic = {"book": asset["book"], "factor": asset.get("factor"),
++                                **{k: asset.get(k) for k in ("multiplier", "step", "minQty")}}
++                    if symbol in metadata:
++                        prior = {k: metadata[symbol].get(k) for k in semantic}
++                        need(digest(prior) == digest(semantic), "ASSET_METADATA_SEMANTICS_CHANGED_SPLIT_DATASET")
+                     chosen[key] = {"underlying": symbol, "session": key[1], "at": ms(now), "features_known_at": ms(now),
+                                    "features": vector, "source_frame_sha256": frame["source_frame_sha256"], "entry_quote": q}
+-                    metadata[symbol] = {"book": asset["book"], "factor": asset.get("factor"),
+-                                        "reference": "RUNTIME_FRAME:" + frame["source_frame_sha256"],
+-                                        **{k: asset.get(k) for k in ("multiplier", "step", "minQty")}}
++                    if symbol not in metadata:
++                        metadata[symbol] = {**semantic, "reference": "RUNTIME_FRAME:" + frame["source_frame_sha256"]}
+             except (KeyError, TypeError, ValueError) as exc:
+-                if "FEATURE_RECOMPUTATION_MISMATCH" in str(exc):
++                if any(reason in str(exc) for reason in ("FEATURE_RECOMPUTATION_MISMATCH", "STREAM_SELECTED_ROW_BOUND",
++                                                        "ASSET_METADATA_SEMANTICS_CHANGED_SPLIT_DATASET")):
+                     raise
+-                rejected.append({"at": ms(now), "symbol": symbol, "stage": "features", "reason": str(exc)})
++                reject({"at": ms(now), "symbol": symbol, "stage": "features", "reason": str(exc)})
+     quote_keys = {}
+     for symbol, history in quote_history.items():
+         history.sort(key=lambda q: (q["market_at"], q["captured_at"]))
+@@ -257,32 +364,41 @@
+             reason = "LABEL_MATURITY_RECEIPT_MISSING"
+         else:
+             name = selected["underlying"]
+-            history = quote_history[name]
+-            cursor = bisect.bisect_right(quote_keys[name], target_ms) - 1
+-            while cursor >= 0 and target_ms - history[cursor]["market_at"] <= label_age:
+-                q = history[cursor]
+-                if q["captured_at"] <= maturity and q["received_at"] <= maturity:
+-                    exit_quote = q
+-                    break
+-                cursor -= 1
++            if quote_archive is not None:
++                exit_quote = quote_archive.asof(name, target_ms, label_age, maturity)
++            else:
++                history = quote_history[name]
++                cursor = bisect.bisect_right(quote_keys[name], target_ms) - 1
++                while cursor >= 0 and target_ms - history[cursor]["market_at"] <= label_age:
++                    q = history[cursor]
++                    if q["captured_at"] <= maturity and q["received_at"] <= maturity:
++                        exit_quote = q
++                        break
++                    cursor -= 1
+             if exit_quote is None:
+                 reason = "LABEL_ASOF_QUOTE_MISSING_NO_NEAREST_FUTURE_PRICE"
+             elif timestamp(ms(maturity)) >= at_limit:
+                 reason = "LABEL_NOT_KNOWN_STRICTLY_BEFORE_BUILD_AVAILABILITY"
+         if reason:
+-            rejected.append({"at": selected["at"], "symbol": selected["underlying"], "stage": "label", "reason": reason})
++            reject({"at": selected["at"], "symbol": selected["underlying"], "stage": "label", "reason": reason})
+             continue
+         assert exit_quote is not None and maturity is not None
+         row = {**selected, "label_end": end.isoformat(), "label_known_at": ms(maturity),
+                "target_return": exit_quote["mid"] / entry["mid"] - 1,
+                "label_source": {"definition": "LAST_OBSERVED_MIDQUOTE_ASOF_FIXED_WALL_CLOCK_HORIZON",
+-                                "quote": exit_quote, "maturity_frame_sha256": frames[maturity_index]["source_frame_sha256"],
++                                "quote": exit_quote, "maturity_frame_sha256": frame_hashes[maturity_index],
+                                 "quote_age_at_horizon_ms": target_ms - exit_quote["market_at"],
+                                 "is_fill_or_trade_pnl": False, "costs_included": False}}
+         row["row_id"] = digest(row)
+         rows.append(row)
+-    return {"rows": sorted(rows, key=lambda r: (r["at"], r["underlying"])), "rejected": rejected,
+-            "origin": origin, "asset_metadata": metadata, "blocking_resources": []}
++    result = {"rows": sorted(rows, key=lambda r: (r["at"], r["underlying"])), "rejected": rejected,
++              "origin": "SYNTHETIC_ENGINEERING_ONLY" if "SYNTHETIC_ENGINEERING_ONLY" in origins else "OBSERVED",
++              "asset_metadata": metadata, "blocking_resources": [] if frame_times else ["PROSPECTIVE_OBSERVATION_EXPORTS_MISSING"],
++              "frame_count": len(frame_times)}
++    if quote_archive is not None:
++        result["rejection_sampling"] = {"sample_limit": 1000, "total": sum(rejected_counts.values()),
++                                        "by_stage": dict(rejected_counts), "complete": sum(rejected_counts.values()) <= 1000}
++    return result
+ 
+ 
+ def _archive(spec: dict[str, Any] | None, root: Path, sources: list[dict[str, Any]]) -> dict[str, Any] | None:
+@@ -414,14 +530,23 @@
+     need(request.get("split_contract") == "CURRENT_SVR_60_20_20_PURGED", "EXPLICIT_SPLIT_CONTRACT_REQUIRED")
+     cfg = Config(**request.get("config", {}))
+     sources: list[dict[str, Any]] = []
+-    frames = _exports(request.get("observation_exports", []), base_dir, sources)
+-    prospective = _prospective(frames, request, cfg)
++    stream = request.get("observation_manifest") is not None
++    if stream:
++        need(not request.get("observation_exports"), "STREAM_AND_LEGACY_EXPORTS_CANNOT_BE_MIXED")
++        with _temporary_quote_archive() as quote_archive:
++            prospective = _prospective(_stream_manifest(request["observation_manifest"], base_dir, sources,
++                                                        request.get("selection")), request, cfg, quote_archive)
++        frame_count = prospective["frame_count"]
++    else:
++        frames = _exports(request.get("observation_exports", []), base_dir, sources)
++        prospective = _prospective(frames, request, cfg)
++        frame_count = len(frames)
+     archive = _archive(request.get("archive"), base_dir, sources)
+     panel = {"origin": prospective["origin"], "observation_unit": "asset_session", "target_unit": "return_fraction",
+              "horizon_hours": cfg.horizon_hours, "feature_names": list(FEATURES), "feature_units": FEATURE_UNITS,
+              "rows": prospective["rows"], "asset_metadata": prospective["asset_metadata"],
+              "provenance": {"source": "HASH_VERIFIED_PROSPECTIVE_RUNTIME_EXPORTS", "availability":
+-                "OBSERVED_TIMESTAMPS" if frames and prospective["origin"] == "OBSERVED" else "UNAVAILABLE_OR_SYNTHETIC",
++                "OBSERVED_TIMESTAMPS" if frame_count and prospective["origin"] == "OBSERVED" else "UNAVAILABLE_OR_SYNTHETIC",
+                 "external_authenticity_verified": False, "clock_synchronization_verified": False,
+                 "latency_measurement_allowed": False, "selection": request.get("selection"),
+                 "feature_clock_basis": "INPUT_SNAPSHOT_ASOF_NOT_OBSERVED_PREDICTOR_COMPLETION",
+@@ -429,10 +554,14 @@
+     readiness = calibration_readiness(panel, request["available_at"], cfg)
+     implementation = {name: sha(Path(__file__).parent / name) for name in
+                       ("causal_panel.py", "core.py", "bridge.py", "scalar_svr.py", "paired_replay.py", "study_integrity.py")}
++    if stream:
++        app_root = Path(__file__).resolve().parents[2]
++        for name in ("tools/export_observation_snapshot.cjs", "tools/level4_readiness.cjs", "runtime30/ultimate_contracts.js"):
++            implementation[name] = sha(app_root / name)
+     report = {"schema": REPORT_SCHEMA, "input_hash": digest(request), "source_hashes": sources,
+               "implementation_hashes": implementation, "available_at": request["available_at"], "panel": panel,
+               "panel_hash": digest(panel), "archive_audit": archive, "splits": _split(prospective["rows"]),
+-              "counts": {"prospective_frames": len(frames), "causal_rows_admissible": len(prospective["rows"]),
++              "counts": {"prospective_frames": frame_count, "causal_rows_admissible": len(prospective["rows"]),
+                          "reconstructed_feature_rows": len(archive["reconstructed_rows"]) if archive else 0},
+               "readiness": readiness, "rejections": prospective["rejected"],
+               "blocking_resources": prospective["blocking_resources"],
+@@ -442,6 +571,15 @@
+               "financial_acceptance_allowed": False, "execution_allowed": False, "liveApproved": False,
+               "training_executed": False, "new_financial_trials": 0,
+               "dictamen": "PANEL_READY_FOR_PREREGISTERED_RESEARCH" if readiness["accepted_rows"] else "MEDICION_BLOQUEADA"}
++    if stream:
++        report["stream_processing"] = {"complete_pinned_prefix_verified": True, "raw_page_limit_bytes": 32*1024*1024,
++            "source_total_limit_bytes": MAX_SOURCE_BYTES, "page_count_limit": 512, "frame_count_limit": MAX_STREAM_FRAMES,
++            "temporary_quote_archive_limit_bytes": 128*1024*1024, "temporary_archive_retained": False,
++            "selected_row_limit": 5000, "rejection_sampling": prospective["rejection_sampling"],
++            "feature_recomputation_scope": "REGISTERED_LOCAL_GRID;ALL_SOURCE_FRAMES_AND_QUOTES_REMAIN_VERIFIED",
++            "universe_changes": "SOURCE_KNOWN_AT_CAPTURE;SIGNAL_CONFIGURATION_MUST_REMAIN_FIXED",
++            "session_scope": "REGULAR_SESSION_ONLY;POSTCLOSE_90_IS_CAPTURED_BUT_NOT_ADMITTED",
++            "observed_retention_sessions": None, "retention_null_cause": "NO_MEASURED_RUNTIME_BYTE_AND_CADENCE_EVIDENCE"}
+     report["artifact_hash"] = digest(report)
+     return report
+ 
+--- a/tools/export_observation_snapshot.cjs
++++ b/tools/export_observation_snapshot.cjs
+@@ -0,0 +1,67 @@
++"use strict";
++// Local source assembly/verification only. No network, broker, model fitting or order API.
++const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto");
++const {digest}=require("../runtime30/ultimate_contracts.js");
++const {parseStrictJSON}=require("./level4_readiness.cjs");
++const SCHEMA="HARPOON_OBSERVATION_STREAM_MANIFEST_1",MAX_BYTES=128*1024*1024;
++const need=(ok,code)=>{if(!ok)throw Error(code);};
++const sha=bytes=>crypto.createHash("sha256").update(bytes).digest("hex");
++function read(file){const size=fs.statSync(file).size;need(size<=32*1024*1024,"SNAPSHOT_SOURCE_SIZE_BOUND");const bytes=fs.readFileSync(file);return {body:parseStrictJSON(bytes.toString("utf8")),bytes:size,sha256:sha(bytes)};}
++function descriptor(input){const {snapshot_id,...body}=input||{};need(body.schema==="HARPOON_OBSERVATION_SNAPSHOT_1"&&snapshot_id===digest(body)&&body.execution_allowed===false&&body.liveApproved===false,"SNAPSHOT_DESCRIPTOR_BINDING");need(Number.isSafeInteger(body.total_frames)&&body.total_frames>=0,"SNAPSHOT_COUNT");return {snapshot_id,body};}
++function assemble(snapshot,pages,selection,baseDir){
++  const pin=descriptor(snapshot);need(Array.isArray(pages)&&pages.length<=512,"SNAPSHOT_PAGE_COUNT_BOUND");
++  need(selection&&typeof selection==="object"&&!Array.isArray(selection),"SNAPSHOT_SELECTION_REQUIRED");
++  let offset=0,previous="GENESIS",lastAt=-1,totalBytes=0,staticHash=null;
++  const epochs=[],references=[];
++  for(const ref of pages){
++    need(ref&&typeof ref.path==="string"&&typeof ref.sha256==="string","SNAPSHOT_PAGE_REFERENCE");
++    const p=read(path.resolve(baseDir,ref.path)),b=p.body;totalBytes+=p.bytes;
++    need(p.sha256===ref.sha256,"SNAPSHOT_PAGE_HASH");need(totalBytes<=MAX_BYTES,"SNAPSHOT_TOTAL_SOURCE_BYTES_BOUND");
++    need(b.schema==="HARPOON_OBSERVATION_EXPORT_1"&&b.execution_allowed===false&&b.liveApproved===false&&
++      b.snapshot_id===pin.snapshot_id&&digest(b.snapshot_descriptor)===pin.snapshot_id&&
++      b.account_id===pin.body.account_id&&b.head===pin.body.head&&b.total_frames===pin.body.total_frames,
++      "SNAPSHOT_PAGE_BINDING");
++    need(b.offset===offset&&Array.isArray(b.frames)&&b.frames.length>0&&b.frames.length<=100&&
++      b.next_offset===offset+b.frames.length&&Array.isArray(b.chain_records)&&b.chain_records.length===b.frames.length,
++      "SNAPSHOT_PAGE_CONTINUITY");
++    for(let i=0;i<b.frames.length;i++){
++      const f=b.frames[i],{source_frame_sha256,...payload}=f,r=b.chain_records[i],{chain_hash,...record}=r;
++      need(source_frame_sha256===sha(Buffer.from(JSON.stringify(payload)))&&r.frame_hash===source_frame_sha256,
++        "SNAPSHOT_FRAME_HASH");
++      need(r.sequence===offset+i+1&&r.previous===previous&&chain_hash===digest(record)&&r.at===f.runtime_input?.now&&
++        Number.isSafeInteger(r.at)&&r.at>lastAt,"SNAPSHOT_CHAIN_CONTINUITY");
++      need(f.account_id===pin.body.account_id&&f.runtime_input?.config?.expected_account_id===pin.body.account_id,
++        "SNAPSHOT_FRAME_ACCOUNT");
++      const config=f.runtime_input.config,{universe,...fixed}=config,cfgHash=digest(config),fixedHash=digest(fixed);
++      need(Array.isArray(universe),"SNAPSHOT_UNIVERSE_REQUIRED");
++      need(staticHash===null||staticHash===fixedHash,"SIGNAL_CONFIGURATION_CHANGED_SPLIT_DATASET");staticHash=fixedHash;
++      for(const asset of universe)need(asset?.discovered_at===undefined||Number.isSafeInteger(asset.discovered_at)&&asset.discovered_at<=r.at,"UNIVERSE_NOT_KNOWN_AT_CAPTURE");
++      const prior=epochs.at(-1);
++      if(!prior||prior.configuration_hash!==cfgHash){need(epochs.length<512,"SNAPSHOT_CONFIGURATION_EPOCH_BOUND");epochs.push({first_sequence:r.sequence,last_sequence:r.sequence,configuration_hash:cfgHash});}
++      else prior.last_sequence=r.sequence;
++      previous=chain_hash;lastAt=r.at;
++    }
++    references.push({path:ref.path,sha256:ref.sha256,offset,next_offset:b.next_offset});offset=b.next_offset;
++  }
++  need(offset===pin.body.total_frames&&previous===pin.body.head,"SNAPSHOT_INCOMPLETE_PREFIX");
++  return {schema:SCHEMA,snapshot,pages:references,selection,selection_hash:digest(selection),
++    configuration_epochs:epochs,strategy_configuration_hash:staticHash,total_source_bytes:totalBytes,
++    total_frames:offset,source_scope:"COMPLETE_PINNED_PREFIX_FROM_GENESIS",universe_policy:"OBSERVED_AT_CAPTURE_ONLY",
++    limits:{page_count:512,page_bytes:32*1024*1024,total_source_bytes:MAX_BYTES},
++    execution_allowed:false,liveApproved:false,financial_acceptance_allowed:false,
++    limitations:["LOCAL_INTEGRITY_IS_NOT_PROVIDER_AUTHENTICITY","CAPTURED_QUOTES_DO_NOT_ESTABLISH_EXECUTABLE_DEPTH",
++      "NO_TRAINING_OR_FUNDED_PATHS","MANIFEST_SELECTION_BINDING_IS_NOT_MARKET_TIME_PREREGISTRATION",
++      "RUNTIME_STORAGE_512_MIB_AND_REAL_RETENTION_REMAIN_SEPARATE_LIMITS"]};
++}
++function verifyManifest(input,baseDir){need(input?.schema===SCHEMA,"SNAPSHOT_MANIFEST_SCHEMA");const rebuilt=assemble(input.snapshot,input.pages,input.selection,baseDir);need(digest(rebuilt)===digest(input),"SNAPSHOT_MANIFEST_RECONSTRUCTION");return {verified:true,total_frames:rebuilt.total_frames,total_source_bytes:rebuilt.total_source_bytes,snapshot_id:rebuilt.snapshot.snapshot_id,configuration_epochs:rebuilt.configuration_epochs,execution_allowed:false,financial_acceptance_allowed:false};}
++function main(argv){
++  const get=k=>{const i=argv.indexOf(k);return i<0?null:argv[i+1];};
++  if(get("--verify")){const file=path.resolve(get("--verify"));console.log(JSON.stringify(verifyManifest(read(file).body,path.dirname(file))));return;}
++  const input=get("--input"),output=get("--output");need(input&&output,"USAGE_INPUT_REQUEST_OUTPUT_MANIFEST_OR_VERIFY_MANIFEST");
++  const file=path.resolve(input),spec=read(file).body;
++  const manifest=assemble(spec.snapshot,spec.pages,spec.selection,path.dirname(file));
++  const target=path.resolve(output);need(path.dirname(target)===path.dirname(file),"MANIFEST_AND_REQUEST_MUST_SHARE_REFERENCE_BASE");
++  fs.writeFileSync(target,JSON.stringify(manifest,null,2)+"\n");console.log(JSON.stringify({output:target,total_frames:manifest.total_frames,execution_allowed:false}));
++}
++module.exports={assemble,verifyManifest,SCHEMA};
++if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(e.message);process.exitCode=1;}}
+--- a/tools/quant_observation_snapshot_test.cjs
++++ b/tools/quant_observation_snapshot_test.cjs
+@@ -0,0 +1,68 @@
++"use strict";
++// Synthetic storage/transport fixtures only. No broker or financial experiment.
++const test=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),os=require("node:os"),path=require("node:path"),crypto=require("node:crypto");
++const {QuantObservationJournal}=require("../runtime30/quant_observations.js"),{server}=require("../runtime30/server.js");
++const {digest}=require("../runtime30/ultimate_contracts.js"),{assemble,verifyManifest}=require("./export_observation_snapshot.cjs");
++class Store{constructor(){this.rows=new Map();this.readHook=null;this.reads=[];}async get(k){this.reads.push(k);if(this.readHook)await this.readHook(k);return structuredClone(this.rows.get(k)||null);}async put(k,v){this.rows.set(k,structuredClone(v));return true;}}
++const at=Date.parse("2026-10-01T14:00:00Z");
++function pair(n,universe=[]){return [{now:at+n*60000,config:{mode:"paper",expected_account_id:"SYNTHETIC-SNAPSHOT",universe},signals:[],market:{calendar:[]}},
++ {schema:"HARPOON_RUNTIME_OBSERVATION_1",status:"WAIT_FEATURE_DATA",asof:new Date(at+n*60000).toISOString(),observations:[],rejected:{},selected:[],execution_allowed:false,liveApproved:false}];}
++async function fixture(cfg={}){const store=new Store(),j=new QuantObservationJournal(store,"S","SYNTHETIC-SNAPSHOT",{maxFrames:2,...cfg});await j.load();return {store,j,cfg:{maxFrames:2,...cfg}};}
++function save(root,name,body){const bytes=Buffer.from(JSON.stringify(body));fs.writeFileSync(path.join(root,name),bytes);return {path:name,sha256:crypto.createHash("sha256").update(bytes).digest("hex")};}
++test("pinned pages keep the committed header while capture and archive rotation advance",async()=>{
++ const f=await fixture();await f.j.capture(...pair(0));await f.j.capture(...pair(1));
++ const pin=await f.j.snapshotExport(),first=await f.j.exportSnapshot(pin.snapshot_id,0,1);
++ await f.j.capture(...pair(2));await f.j.capture(...pair(3));
++ const second=await f.j.exportSnapshot(pin.snapshot_id,1,100);
++ assert.equal(first.head,second.head);assert.equal(second.total_frames,2);assert.equal(second.next_offset,2);assert.equal(second.frames.length,1);assert.equal(f.j.view().frames,4);
++ const root=fs.mkdtempSync(path.join(os.tmpdir(),"harpoon-snapshot-test-"));
++ try{const refs=[save(root,"first.json",first),save(root,"second.json",second)],manifest=assemble(pin,refs,{kind:"SYNTHETIC_SELECTION"},root);assert.equal(verifyManifest(manifest,root).total_frames,2);assert.throws(()=>assemble(pin,refs.slice(1),manifest.selection,root),/CONTINUITY/);}finally{fs.rmSync(root,{recursive:true,force:true});}
++});
++test("snapshot token and pages survive restart and metadata contributes to the existing byte quota",async()=>{
++ const f=await fixture();await f.j.capture(...pair(0));const pin=await f.j.snapshotExport(),before=await f.j.exportSnapshot(pin.snapshot_id);
++ const restored=new QuantObservationJournal(f.store,"S","SYNTHETIC-SNAPSHOT",f.cfg);await restored.load();
++ assert.deepEqual(await restored.exportSnapshot(pin.snapshot_id),before);assert.deepEqual(await restored.snapshotExport(),pin);
++ assert(restored.view().export_snapshot_metadata_bytes>0);assert.equal(restored.view().total_reserved_bytes,restored.view().stored_bytes+restored.view().export_snapshot_metadata_bytes);assert(restored.view().total_reserved_bytes<=restored.maxStoredBytes);
++});
++test("two snapshots are retained and old tokens never silently bind to the newest head",async()=>{
++ const f=await fixture();await f.j.capture(...pair(0));const a=await f.j.snapshotExport();await f.j.capture(...pair(1));const b=await f.j.snapshotExport();await f.j.capture(...pair(2));const c=await f.j.snapshotExport();
++ assert.equal(f.j.view().retained_export_snapshots,2);await assert.rejects(f.j.exportSnapshot(a.snapshot_id),/MISSING_OR_EVICTED/);assert.equal((await f.j.exportSnapshot(b.snapshot_id)).total_frames,2);assert.equal((await f.j.exportSnapshot(c.snapshot_id)).total_frames,3);
++ await assert.rejects(f.j.exportSnapshot("arbitrary"),/SNAPSHOT_ID/);await assert.rejects(f.j.exportSnapshot(c.snapshot_id,4),/OFFSET/);
++});
++test("restart validates snapshot archives once and cached pages do not rescan the full history",async()=>{
++ const f=await fixture();for(let i=0;i<5;i++)await f.j.capture(...pair(i));const pin=await f.j.snapshotExport();
++ const restored=new QuantObservationJournal(f.store,"S","SYNTHETIC-SNAPSHOT",f.cfg);await restored.load();
++ f.store.reads=[];await restored.exportSnapshot(pin.snapshot_id,0,1);await restored.exportSnapshot(pin.snapshot_id,3,1);
++ assert.equal(f.store.reads.filter(k=>k.includes("-archive-")).length,0);assert.equal(f.store.reads.filter(k=>k.includes("-frame-")).length,2);
++});
++test("long index validation yields cooperatively without changing the pinned prefix",async()=>{
++ const f=await fixture({maxFrames:512});for(let i=0;i<512;i++)await f.j.capture(...pair(i));
++ let callbackRan=false;setImmediate(()=>{callbackRan=true;});const snapshot=await f.j.snapshotExport();
++ assert.equal(callbackRan,true);assert.equal(snapshot.total_frames,512);assert.equal(snapshot.head,f.j.view().head);
++});
++test("an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage",async()=>{
++ const f=await fixture();await f.j.capture(...pair(0));const put=f.store.put.bind(f.store);
++ f.store.put=async(k,v)=>{await put(k,v);if(k==="S-export-snapshots")throw Error("ACK_LOST_AFTER_WRITE");};
++ await assert.rejects(f.j.snapshotExport(),/ACK_LOST/);assert.equal(f.j.view().retained_export_snapshots,0);assert(f.j.view().export_snapshot_metadata_bytes>0);
++ f.store.put=put;const restored=new QuantObservationJournal(f.store,"S","SYNTHETIC-SNAPSHOT",f.cfg);await restored.load();
++ assert.equal(restored.view().retained_export_snapshots,1);assert(restored.view().total_reserved_bytes<=restored.maxStoredBytes);
++});
++test("mutated snapshot account, head or raw frame fails closed after restart or read",async()=>{
++ const f=await fixture();await f.j.capture(...pair(0));const pin=await f.j.snapshotExport();
++ const saved=await f.store.get("S-export-snapshots"),bad=structuredClone(saved);bad.snapshots[0].descriptor.account_id="ANOTHER";const {integrity_hash,...body}=bad;await f.store.put("S-export-snapshots",{...body,integrity_hash:digest(body)});
++ await assert.rejects(new QuantObservationJournal(f.store,"S","SYNTHETIC-SNAPSHOT",f.cfg).load(),/SNAPSHOT_BINDING/);
++ await f.store.put("S-export-snapshots",saved);const index=await f.store.get("S"),key=index.frames[0].frame_key,payload=await f.store.get(key);payload.data="tampered";await f.store.put(key,payload);
++ await assert.rejects(f.j.exportSnapshot(pin.snapshot_id),/INTEGRITY|MISMATCH|incorrect|header|buffer/i);
++});
++test("snapshot metadata cannot increase the retained byte limit",async()=>{
++ const probe=await fixture();await probe.j.capture(...pair(0));const bytes=probe.j.view().stored_bytes;
++ const f=await fixture({maxStoredBytes:Math.max(1024,bytes+100)});await f.j.capture(...pair(0));
++ await assert.rejects(f.j.snapshotExport(),/METADATA_BUDGET/);assert.equal(f.j.view().retained_export_snapshots,0);assert.equal(f.j.view().frames,1);
++});
++test("snapshot HTTP routes require existing authentication and never query a broker",async()=>{
++ const f=await fixture();await f.j.capture(...pair(0));let brokerCalls=0;
++ const engine={quantObservations:f.j,api:{request(){brokerCalls++;throw Error("NO_BROKER_ALLOWED");}}};
++ const password="synthetic-snapshot-password-at-least-32-characters",app=server(engine,password,"<html></html>");
++ function call(url,auth=true){return new Promise(resolve=>{const req={method:"GET",url,headers:auth?{authorization:"Basic "+Buffer.from("trader:"+password).toString("base64")}:{}};const res={statusCode:200,setHeader(){},end(v){resolve({status:this.statusCode,body:JSON.parse(v)});}};app.emit("request",req,res);});}
++ try{assert.equal((await call("/v1/quant/observations/snapshot",false)).status,401);const pinned=await call("/v1/quant/observations/snapshot");assert.equal(pinned.status,200);const url="/v1/quant/observations?snapshot_id="+pinned.body.snapshot_id;assert.equal((await call(url,false)).status,401);assert.equal((await call(url)).body.total_frames,1);assert.equal(brokerCalls,0);}finally{app.close();}
++});
+--- a/quant/tests/test_observation_stream.py
++++ b/quant/tests/test_observation_stream.py
+@@ -0,0 +1,151 @@
++"""Synthetic ingestion/causality tests. No financial experiment, fit or broker."""
++from __future__ import annotations
++
++import copy
++import json
++import os
++import subprocess
++import tempfile
++import unittest
++from pathlib import Path
++from unittest.mock import patch
++
++from test_causal_panel import frame, request, write_export
++from harpoon_quant.causal_panel import build, sha, verify
++
++ROOT = Path(__file__).resolve().parents[2]
++PACK = r"""
++const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
++const root=process.argv[1],app=process.argv[2],spec=JSON.parse(fs.readFileSync(path.join(root,'pack-input.json'),'utf8'));
++const {digest}=require(path.join(app,'runtime30/ultimate_contracts.js'));
++const {assemble}=require(path.join(app,'tools/export_observation_snapshot.cjs'));
++const hash=x=>crypto.createHash('sha256').update(x).digest('hex');
++let frames=spec.frames;
++if(spec.compact_count)frames=Array.from({length:spec.compact_count},(_,i)=>{
++ const now=Date.parse('2026-01-01T00:00:00Z')+i*60000;
++ return {schema:'HARPOON_PROSPECTIVE_FRAME_1',account_id:'SYNTHETIC-PANEL-ACCOUNT',data_origin:'SYNTHETIC_ENGINEERING_ONLY',external_authenticity_verified:false,
++ runtime_input:{now,config:{mode:'paper',expected_account_id:'SYNTHETIC-PANEL-ACCOUNT',universe:[],quoteAgeMs:5000},signals:[],market:{calendar:[],quotes:{}}},
++ observation:{schema:'HARPOON_RUNTIME_OBSERVATION_1',status:'WAIT_FEATURE_DATA',asof:new Date(now).toISOString(),observations:[],rejected:{},selected:[],execution_allowed:false,liveApproved:false},financial_acceptance_allowed:false};
++});
++let previous='GENESIS';const records=[];
++for(let i=0;i<frames.length;i++){const f=frames[i];delete f.source_frame_sha256;const h=hash(JSON.stringify(f));f.source_frame_sha256=h;const r={sequence:i+1,at:f.runtime_input.now,frame_hash:h,frame_key:'SYNTHETIC-frame-'+h,previous,stored_bytes:1};const chain_hash=digest(r);records.push({...r,chain_hash});previous=chain_hash;}
++const body={schema:'HARPOON_OBSERVATION_SNAPSHOT_1',account_id:'SYNTHETIC-PANEL-ACCOUNT',configuration_hash:hash('synthetic journal'),head:previous,total_frames:frames.length,index_hash:hash('synthetic index'),captured_at:frames.at(-1).runtime_input.now+1000,execution_allowed:false,liveApproved:false},snapshot={snapshot_id:digest(body),...body};
++const refs=[],size=spec.page_size||100;
++for(let i=0;i<frames.length;i+=size){const chunk=frames.slice(i,i+size),name='page-'+i+'.json';const page={schema:'HARPOON_OBSERVATION_EXPORT_1',account_id:body.account_id,head:body.head,total_frames:frames.length,snapshot_id:snapshot.snapshot_id,snapshot_descriptor:body,offset:i,next_offset:i+chunk.length,frames:chunk,chain_records:records.slice(i,i+size),execution_allowed:false,liveApproved:false};const bytes=JSON.stringify(page);fs.writeFileSync(path.join(root,name),bytes);refs.push({path:name,sha256:hash(bytes)});}
++const manifest=assemble(snapshot,refs,spec.selection,root);fs.writeFileSync(path.join(root,'stream-manifest.json'),JSON.stringify(manifest));
++"""
++
++
++class ObservationStreamTests(unittest.TestCase):
++    def setUp(self):
++        self.temporary = tempfile.TemporaryDirectory()
++        self.root = Path(self.temporary.name)
++
++    def tearDown(self):
++        self.temporary.cleanup()
++
++    def packed(self, frames=None, *, count=None, page_size=100):
++        frames = copy.deepcopy(frames)
++        if frames:
++            for f in frames:
++                f["runtime_input"]["config"].setdefault("universe", [{"symbol": "A", "book": "equity"}])
++        (self.root / "pack-input.json").write_text(json.dumps({"frames": frames, "compact_count": count,
++            "page_size": page_size, "selection": request()["selection"]}))
++        subprocess.run(["node", "-e", PACK, str(self.root), str(ROOT)], check=True,
++                       capture_output=True, text=True, timeout=30)
++        manifest = self.root / "stream-manifest.json"
++        spec = request()
++        spec["observation_manifest"] = {"path": manifest.name, "sha256": sha(manifest)}
++        return spec, frames
++
++    def reseal_manifest(self, spec, change):
++        file = self.root / "stream-manifest.json"
++        body = json.loads(file.read_text())
++        change(body)
++        file.write_text(json.dumps(body))
++        spec["observation_manifest"]["sha256"] = sha(file)
++
++    def test_stream_panel_matches_complete_legacy_panel_exactly(self):
++        spec, rows = self.packed([frame(0), frame(1), frame(2)], page_size=1)
++        streamed = build(spec, self.root)
++        original = build(request(write_export(self.root, rows)), self.root)
++        self.assertEqual(streamed["panel"], original["panel"])
++        self.assertEqual(streamed["counts"], original["counts"])
++        self.assertEqual(streamed["rejections"], original["rejections"])
++        self.assertTrue(verify(streamed, spec, self.root)["verified"])
++        self.assertFalse(streamed["training_executed"])
++        self.assertFalse(streamed["execution_allowed"])
++
++    def test_more_than_twenty_thousand_frames_do_not_create_labels_or_order_authority(self):
++        spec, _ = self.packed(count=20001)
++        result = build(spec, self.root)
++        self.assertEqual(result["counts"]["prospective_frames"], 20001)
++        self.assertEqual(result["counts"]["causal_rows_admissible"], 0)
++        self.assertEqual(result["panel"]["origin"], "SYNTHETIC_ENGINEERING_ONLY")
++        self.assertIsNone(result["coordinator_replay_request"])
++        self.assertIsNone(result["stream_processing"]["observed_retention_sessions"])
++
++    def test_missing_page_and_resealed_manifest_cannot_hide_a_gap(self):
++        spec, _ = self.packed([frame(0), frame(1), frame(2)], page_size=1)
++        self.reseal_manifest(spec, lambda m: m["pages"].pop(1))
++        with self.assertRaisesRegex(ValueError, "CONTINUITY"):
++            build(spec, self.root)
++
++    def test_selection_cannot_change_after_manifest_is_bound(self):
++        spec, _ = self.packed([frame(0), frame(1)])
++        spec["selection"]["local_time"] = "10:51"
++        with self.assertRaisesRegex(ValueError, "STREAM_SELECTION_BINDING"):
++            build(spec, self.root)
++
++    def test_universe_rotation_is_causal_but_signal_configuration_change_is_rejected(self):
++        rows = [frame(0), frame(1), frame(2)]
++        for i, f in enumerate(rows):
++            f["runtime_input"]["config"]["universe"] = [{"symbol": "A", "book": "equity"}]
++            if i:
++                f["runtime_input"]["config"]["universe"].append({"symbol": "NEW", "book": "etf", "discovered_at": rows[1]["runtime_input"]["now"]})
++        spec, _ = self.packed(rows)
++        result = build(spec, self.root)
++        self.assertGreater(result["counts"]["causal_rows_admissible"], 0)
++        rows[1]["runtime_input"]["config"]["slippageBps"] += 1
++        with self.assertRaises(subprocess.CalledProcessError) as raised:
++            self.packed(rows)
++        self.assertIn("SIGNAL_CONFIGURATION_CHANGED_SPLIT_DATASET", raised.exception.stderr)
++
++    def test_future_discovery_is_not_adopted_as_known_universe(self):
++        rows = [frame(0), frame(1)]
++        rows[0]["runtime_input"]["config"]["universe"] = [{"symbol": "A", "book": "equity", "discovered_at": rows[1]["runtime_input"]["now"]}]
++        with self.assertRaises(subprocess.CalledProcessError) as raised:
++            self.packed(rows)
++        self.assertIn("UNIVERSE_NOT_KNOWN_AT_CAPTURE", raised.exception.stderr)
++
++    def test_future_asset_semantics_cannot_relabel_earlier_equity_rows(self):
++        rows = [frame(0), frame(1), frame(2)]
++        rows[1]["runtime_input"]["market"]["assets"]["A"]["book"] = "etf"
++        spec, _ = self.packed(rows)
++        with self.assertRaisesRegex(ValueError, "ASSET_METADATA_SEMANTICS_CHANGED_SPLIT_DATASET"):
++            build(spec, self.root)
++
++    def test_future_factor_or_units_change_is_a_dataset_error_not_a_sampled_rejection(self):
++        for key, value in (("factor", "other"), ("multiplier", 100), ("step", 0.01), ("minQty", 10)):
++            with self.subTest(key=key):
++                rows = [frame(0), frame(1), frame(2)]
++                rows[1]["runtime_input"]["market"]["assets"]["A"][key] = value
++                spec, _ = self.packed(rows)
++                with self.assertRaisesRegex(ValueError, "ASSET_METADATA_SEMANTICS_CHANGED_SPLIT_DATASET"):
++                    build(spec, self.root)
++
++    def test_temporary_quote_database_is_removed_on_success_and_source_failure(self):
++        spec, _ = self.packed([frame(0), frame(1)])
++        temp = self.root / "temporary-quotes"
++        temp.mkdir()
++        with patch("harpoon_quant.causal_panel.tempfile.tempdir", str(temp)):
++            build(spec, self.root)
++            self.assertEqual(list(temp.iterdir()), [])
++            self.reseal_manifest(spec, lambda m: m["pages"].__setitem__(0, {**m["pages"][0], "sha256": "0"*64}))
++            with self.assertRaisesRegex(ValueError, "SNAPSHOT_PAGE_HASH"):
++                build(spec, self.root)
++            self.assertEqual(list(temp.iterdir()), [])
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- a/tools/OBSERVATION_SNAPSHOT_CONTRACT.txt
++++ b/tools/OBSERVATION_SNAPSHOT_CONTRACT.txt
+@@ -0,0 +1,114 @@
++HARPOON 30.12.0 — pinned observation export and bounded causal ingestion
++
++Purpose
++Export one committed account prefix while the normal capture lane keeps running.
++Verify every original page before deriving a causal price-label panel. No broker
++query, extra scheduler, model training, order, funded path or financial approval
++is added by this feature. Existing legacy exports remain supported.
++
++Authenticated HTTP API
++  GET /v1/quant/observations/snapshot
++    Returns HARPOON_OBSERVATION_SNAPSHOT_1 plus snapshot_id.
++  GET /v1/quant/observations?snapshot_id=<id>&offset=0&limit=100
++    Returns HARPOON_OBSERVATION_EXPORT_1 with pinned header, descriptor and chain
++    records. Continue at next_offset until next_offset == total_frames.
++
++Both routes are after the existing authentication/origin checks. A token is a
++binding identifier, not an authentication credential. A third distinct snapshot
++evicts the oldest of two metadata slots; it never deletes raw market evidence.
++An evicted token fails explicitly and never switches to a newer account/head.
++The descriptor and pages survive restart. The source hash chain, account, index
++hash and original frame hashes are reconstructed before use. Local hashes do
++not independently authenticate the market-data provider.
++
++One page contains at most 100 frames and 32 MiB, with byte-sensitive pagination.
++Source frames stay immutable. The copied index and cached references define the
++prefix even if capture advances during page I/O. Long index validation yields
++to the event loop every 512 records. This is not a production latency benchmark.
++At most two reference caches are retained; raw history is not cached wholesale.
++Snapshot registry metadata is bounded to 16 MiB in total and reserved inside the
++existing observation byte quota (default 512 MiB). An uncertain write retains a
++conservative reservation until acknowledgement or verified reload. The feature
++does not expand that quota, reclaim raw history or promise a retention duration.
++
++Local manifest tool
++First save the authenticated descriptor and all pages with their original JSON
++bytes. Supply a local request file in the same directory as the output:
++  {
++    "snapshot": <complete descriptor including snapshot_id>,
++    "pages": [{"path":"page-0.json","sha256":"<original bytes SHA-256>"}, ...],
++    "selection": <the existing causal selection object>
++  }
++
++  node tools/export_observation_snapshot.cjs --input export-request.json --output stream-manifest.json
++  node tools/export_observation_snapshot.cjs --verify stream-manifest.json
++
++The tool reads only local files. It checks duplicate JSON keys, the same snapshot
++header on every page, continuous offsets/sequences starting at GENESIS, original
++frame hashes, chain hashes and the final head/count. Missing/reordered pages,
++mutated frames, changed account or a substituted endpoint are errors. The
++manifest binds the complete captured prefix and selection before panel selection
++is run. That binding does not prove market-time preregistration.
++
++Causal-panel request
++The existing HARPOON_CAUSAL_PANEL_REQUEST_1 accepts an additional alternative:
++  observation_manifest: {path: "stream-manifest.json", sha256: "<file bytes SHA-256>"}
++  observation_exports: []
++  selection: <exact same selection object as the manifest>
++
++The legacy observation_exports array and the new manifest cannot be mixed.
++The existing build_causal_panel.py build/verify commands remain unchanged.
++Source pages keep HARPOON_OBSERVATION_EXPORT_1 for existing consumers.
++
++Streaming limits and causal semantics
++- Maximum 512 pages, 100 frames per page: 51,200 frames per complete prefix.
++- Maximum 32 MiB per source file and 128 MiB cumulative source bytes, including
++  the manifest when the Python panel reads it. These limits are not increased.
++- Only one raw page is decoded at a time. Timestamp/hash references are bounded
++  by the frame limit; selected rows are bounded to 5,000.
++- Quote history uses temporary SQLite capped at 128 MiB. The database is closed
++  and removed on success and failure. Quotes remain quotes, never executions.
++- At most 1,000 rejection examples are returned, with full total/stage counts.
++- Every page/frame and quote clock remains checked. Expensive feature
++  recomputation is limited to the declared local selection grid in stream mode.
++- Label maturity still requires an observed as-of quote and later captured
++  receipt; no future nearest price, fabricated label or wall-clock backdating.
++- All pages belong to the same pinned prefix. Configuration epochs may change
++  only the observed universe. Each discovery timestamp must precede capture.
++  Signal/cost/risk/configuration changes require a different dataset definition.
++- For a selected symbol, book, factor, multiplier, step and minimum quantity are
++  immutable within the dataset. A later semantic change is a hard error. Global
++  metadata remains bound to the first causal row, never overwritten by future
++  metadata. Adding/removing symbols with stable semantics remains supported.
++
++Calendar and cost limits that remain
++The runtime labels OPENING_90, PRECLOSE_90 and POSTCLOSE_90 separately, using its
++observed calendar. The causal panel still admits regular-session selections
++only. It does not turn post-close quotes into a validated post-close strategy.
++Default rotation selects 12 symbols per nominal 60-second capture. With a
++hypothetical registered universe of 40, one rotation takes about four captures;
++that does not establish complete coverage within a 90-second selection budget.
++Actual freshness, p50/p95/p99, compressed bytes per session, active universe,
++capture duty cycle and retention in sessions remain unmeasured until original
++runtime receipts are provided. No sampling cadence is changed by this release.
++
++Boundary to economic validation
++The observation replay adapter intentionally keeps executable_qty=0 and emits
++market/sessions/evaluate events, not orders/fills. This new export cannot produce
++funded C0/Ridge/SVR curves by itself. The existing comparison still requires
++original fixed model bytes, causal availability, an explicit registered
++execution hypothesis, an observed account ledger and documented costs. Its
++legacy configuration contract is unchanged; a universe-varying panel does not
++automatically make a universe-varying funded comparison admissible.
++
++Verification commands
++  npm run typecheck:xxx
++  npm run build:xxx
++  node tools/quant_observation_snapshot_test.cjs
++  node tools/quant_observation_archive_test.cjs
++  PYTHONPATH=quant:quant/tests OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 -m unittest discover -s quant/tests -p test_causal_panel.py -v
++  PYTHONPATH=quant:quant/tests OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 -m unittest discover -s quant/tests -p test_observation_stream.py -v
++
++The >20,000-frame regression fixture is compact synthetic engineering data. It
++demonstrates bounded decoding and zero invented rows, not 100 observed market
++sessions, a profitable strategy or an operational latency distribution.

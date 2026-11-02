@@ -1,0 +1,130 @@
+HARPOON XXX / 30.0.2 — VALIDACIÓN ESTRICTA
+Fecha: 2026-10-18T03:34:06.445549+00:00
+
+RESULTADO: NO CONFORME PARA "TODAS LAS FUNCIONES COMPLETAS"
+No se puede certificar que ninguna función esté incompleta. Dos variantes Ridge,
+equity-strategy-14 y etf-strategy-14, carecen de entrenamiento e instalación del
+selector conectados en XXX. No se sustituyen por modelos ni resultados ficticios.
+
+CORRECCIÓN NUEVA
+La auditoría anterior informaba esos bloqueos, pero su comando terminaba con éxito.
+Ahora `npm run audit:xxx` devuelve código 2 y estado
+NON_CONFORMING_KNOWN_INTEGRATION_GAPS. Es el rechazo de aceptación esperado.
+El panel deshabilita las dos casillas y muestra "registradas" y "bloqueadas".
+La API de control rechaza activarlas, conserva la selección y no envía órdenes.
+
+VERIFICACIÓN ACTUAL
+65/65 pruebas locales y 19/19 comprobaciones del navegador, aprobadas.
+Tipado estricto y compilación, aprobados. Las pruebas usan datos controlados.
+AST: 35 archivos, 1180 cuerpos de función;
+0 cuerpos vacíos sin explicación, 0 marcadores de stub y 0 importaciones de
+pruebas/demos desde las rutas operativas revisadas. Son controles estáticos,
+no prueba de que toda funcionalidad esté integrada ni validación independiente.
+El ZIP 30.0.1 recibido se contrastó con su SHA-256 y todos sus hashes internos.
+El nuevo ZIP tiene manifiesto y checksums actualizados.
+Regresiones heredadas y microbenchmark: se conserva la evidencia de 30.0.1,
+porque sus módulos no cambiaron en esta revisión.
+
+SIMULACIÓN Y ALCANCE
+Los mocks de QA permanecen en pruebas; no se cargan desde el arranque operativo.
+Backtests/escenarios del laboratorio son estimaciones identificadas.
+PAPER es simulación de ejecución del broker con dinero virtual:
+https://docs.alpaca.markets/us/docs/paper-trading
+No se probó arranque autenticado, feeds ni fills de este programa contra Alpaca.
+No se enviaron órdenes externas ni se habilitó LIVE. Sin publicación/despliegue.
+
+Guía: README.md. Evidencia y dictamen legibles por máquina: evidence/xxx.
+Arranque: node --env-file=.env runtime30/server.js.
+Aceptación: npm run audit:xxx (código 2 por los bloqueos pendientes).
+Pruebas: npm run typecheck:xxx; npm run test:xxx.
+
+ANTECEDENTE: REVISIÓN FUNCIONAL 30.0.1
+La siguiente sección describe las correcciones previas y sus límites.
+Sus cifras de pruebas son históricas; las cifras vigentes están arriba.
+
+HARPOON XXX / 30.0.1 — VALIDACIÓN DE FUNCIONES
+Fecha: 2026-10-18T03:27:53.560665+00:00
+
+DICTAMEN
+No se encontraron stubs ni fabricación local de cuentas, precios o fills en las
+rutas operativas revisadas tras las correcciones descritas abajo. NO se certifica
+que todas las variantes estén operativas de extremo a extremo: hay dos selectores
+Ridge sin entrenamiento/instalación conectados en XXX, y falta validación externa.
+No se ejecutó trading ni se verificó arranque autenticado contra Alpaca.
+PAPER es simulación del propio broker; no es negociación con dinero real.
+
+ALCANCE Y MÉTODO
+Entrada XXX: runtime30/server.js; fuentes xxx/*.ts.
+Se siguieron UI -> HTTP -> coordinador -> transporte/almacenamiento real.
+Revisión AST: 35 archivos y 1178 cuerpos de función.
+Cuerpos vacíos sin explicación: 0. Marcadores de implementación pendiente: 0.
+Importaciones de pruebas/demos desde la ruta operativa: 0.
+El inventario y hashes por archivo están en evidence/xxx/function-audit.json.
+La revisión la realizó el mismo colaborador que implementó el código: no es una
+auditoría independiente ni una certificación de producción.
+
+HALLAZGOS CORREGIDOS
+1. reentry se ignoraba. Ahora respeta cierre confirmado, espera de 30 minutos,
+   volumen, consolidación, nueva ruptura y máximo dos campañas por día.
+2. trailing_mode realized_vol se ignoraba. Ahora usa variación de cotizaciones
+   observadas, persiste su estado y no afloja un stop existente.
+3. stagnation_minutes/progress_r se ignoraban. Ahora se computa tiempo dentro
+   de sesiones y se envía el cierre real del adaptador, incluso con entradas pausadas.
+4. La fuerza sectorial reutilizaba SPY. Ahora descarga barras del ETF de referencia
+   sectorial; evidencia ausente queda null. Las referencias se actualizan aparte.
+5. Se podía aproximar VWAP con cierres. XXX exige VWAP observado para esas
+   características; sin él no produce la señal.
+6. Las salidas nativas de canal cripto y evidencia ASTRA se conectaron al cierre.
+7. El puente creaba ejecutores/laboratorio antiguos para obtener funciones de
+   análisis. Ahora sólo carga declaraciones y funciones. SQLite tiene su módulo real.
+8. Sin servidor, el panel conservaba el banner verde anterior. Ahora indica estado
+   sin verificar, conserva los valores como última lectura y deshabilita acciones.
+9. Se retiró un hook vacío heredado y su llamada se convirtió en extensión opcional;
+   las implementaciones de las subclases continúan activas. Regresión aprobada.
+
+BLOQUEOS QUE SIGUEN ABIERTOS
+- equity-strategy-14 y etf-strategy-14: el evaluador Ridge está implementado,
+  pero no hay entrenamiento e instalación de ese selector conectados en XXX.
+  El panel y la exportación los identifican como BLOCKED. No se sustituyen por
+  un modelo ficticio ni por aprobaciones automáticas.
+- ASTRA/OPRA/flujo y modelos económicos necesitan permisos, datos observados,
+  calentamiento o evidencia histórica válida. Estar en catálogo no prueba eso.
+- Docker/Render/GitHub y broker: sin despliegue ni publicación nuevos; no se
+  probó una sesión autenticada de este programa ni fills externos durante la revisión.
+
+PRUEBAS EJECUTADAS
+63/63 pruebas XXX, incluidas 11 nuevas de conformidad; 0 fallos.
+18/18 recorridos/comprobaciones del navegador: todos los menús y controles,
+cola y error de investigación, cierre con cancelación/fills, exportación y desconexión.
+TypeScript strict + noUnusedLocals + noUnusedParameters: aprobado.
+Sintaxis: 14 archivos Node y 2 Python, aprobada.
+npm test más suites agents, profit, warroom, options, autonomy, optimizer,
+auth y service: aprobadas. Logs en evidence/xxx.
+Las pruebas usan HTTP controlado y broker/datos sintéticos identificados.
+La prueba de transporte ejecuta el adaptador de producción, comprueba hosts,
+cabeceras y payloads, y verifica que un fallo no genere una orden exitosa local.
+Eso no reemplaza la validación contra una cuenta de Alpaca.
+
+QUÉ SIMULACIÓN SÍ EXISTE Y POR QUÉ
+- tools/*test*, xxx_fixtures.cjs y xxx_benchmark.cjs contienen dobles/datos
+  sintéticos para QA. No se importan desde el arranque operativo.
+- El laboratorio calcula backtests, bootstrap y escenarios: son estimaciones,
+  no fills del broker ni beneficios obtenidos.
+- Alpaca PAPER simula ejecución con dinero virtual. Documentación primaria:
+  https://docs.alpaca.markets/us/docs/paper-trading
+- El atributo HTML placeholder es la pista del buscador; no una función vacía.
+- Math.random se usa en reintentos/reconexión, no en precios o resultados de trading.
+- return null en filtros significa que falta señal/evidencia; no inventa un resultado.
+
+MICROBENCHMARK ACTUAL
+20000 decisiones sintéticas en 14.731 ms; p95 0.000821 ms.
+Función pura; excluye red, broker, SQLite y runtime completo. No mide rentabilidad.
+
+USO E INTEGRIDAD
+Guía: README.md. Arranque: node --env-file=.env runtime30/server.js.
+Verificación reproducible: npm run audit:xxx; npm run typecheck:xxx;
+npm run test:xxx; npm test; npm run benchmark:xxx.
+Fuente XXX: xxx/. Compilado: runtime30/. Configuración: config/examples/xxx.json.
+SHA-256 e inventario: SHA256SUMS_XXX.txt y MANIFEST_XXX.json dentro del ZIP.
+Los documentos/HTML antiguos son históricos; sus afirmaciones no validan XXX.
+No se garantiza rentabilidad, fills, precio ni plazo de cierre.

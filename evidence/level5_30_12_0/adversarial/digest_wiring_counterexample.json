@@ -1,0 +1,15 @@
+{
+  "id": "L5-B3-DIGEST-WIRING",
+  "scope": "Synthetic minimum input reaches digest invocation; not a valid accounting history or economic evidence",
+  "raw_two_arg_error": {
+    "name": "TypeError",
+    "message": "digest is not a function"
+  },
+  "public_wrapper_error": {
+    "name": "Error",
+    "message": "LEDGER_BUNDLE_CONTROL_INTEGRITY"
+  },
+  "remediation": "Use verifyNetLedgerHistoryBundle wrapper, which supplies netLedgerDigest.",
+  "reviewed_source_sha256": "4539d1102d3a0d698ce5743a8b1d7cd93aa6b77ecaa24503f923de971c848539",
+  "production_edits": 0
+}

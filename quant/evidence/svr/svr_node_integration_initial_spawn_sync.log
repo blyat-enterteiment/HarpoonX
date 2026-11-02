@@ -1,0 +1,206 @@
+✖ real Python SVR predicts a scalar and participates in bounded shadow allocation (0.554647ms)
+✖ an OBSERVED label does not authorize an SVR order (0.071508ms)
+✖ resealed permission flags cannot promote the SVR out of shadow mode (0.058939ms)
+✖ the Python worker rejects an altered SVR artifact hash (0.045008ms)
+✖ an incompatible forecast horizon cannot reach an allocation (0.05966ms)
+✖ SVR discovery leaves the universe unchanged and issues no screener request (0.051808ms)
+✖ an isolated predictor source change invalidates both binding and inference (0.04006ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2195.425245
+
+✖ failing tests:
+
+test at tools/quant_svr_integration_test.cjs:84:1
+✖ real Python SVR predicts a scalar and participates in bounded shadow allocation (0.554647ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }
+
+test at tools/quant_svr_integration_test.cjs:98:1
+✖ an OBSERVED label does not authorize an SVR order (0.071508ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }
+
+test at tools/quant_svr_integration_test.cjs:106:1
+✖ resealed permission flags cannot promote the SVR out of shadow mode (0.058939ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }
+
+test at tools/quant_svr_integration_test.cjs:112:1
+✖ the Python worker rejects an altered SVR artifact hash (0.045008ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }
+
+test at tools/quant_svr_integration_test.cjs:119:1
+✖ an incompatible forecast horizon cannot reach an allocation (0.05966ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }
+
+test at tools/quant_svr_integration_test.cjs:126:1
+✖ SVR discovery leaves the universe unchanged and issues no screener request (0.051808ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }
+
+test at tools/quant_svr_integration_test.cjs:141:1
+✖ an isolated predictor source change invalidates both binding and inference (0.04006ms)
+  <ref *1> Error: spawnSync python3 EPERM
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at execFileSync (node:child_process:972:15)
+      at TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/svr_work/HARPOON_XXXUltimate_30_8_0/tools/quant_svr_integration_test.cjs:65:18)
+      at TestHook.runInAsyncScope (node:async_hooks:227:14)
+      at TestHook.run (node:internal/test_runner/test:1402:25)
+      at TestHook.run (node:internal/test_runner/test:1757:18)
+      at TestHook.run (node:internal/util:581:20)
+      at Test.createHook (node:internal/test_runner/test:1117:33)
+      at test.before (node:internal/test_runner/harness:426:12) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync python3',
+    path: 'python3',
+    spawnargs: [ '-c', "\nimport copy, json, sys\nfrom pathlib import Path\nsys.path.insert(0, 'examples/svr')\nfrom make_fixture import build_fixture\nfrom harpoon_quant.calibration import fit\nfrom harpoon_quant.core import Config, digest, predict\n\ndestination = Path(sys.argv[1])\nfixture = build_fixture()\ncfg = Config(**fixture['config'])\nmodel = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')\nif not model['models']['SYNTHSVR']['accepted']:\n    raise AssertionError('Deterministic nonlinear software fixture was not accepted')\ncandidate = fixture['request']['candidates'][0]\nprediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)\n\ndef seal(value):\n    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})\n    return value\n\nobserved_label = copy.deepcopy(model)\nobserved_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.\nseal(observed_label)\nforged_permission = copy.deepcopy(observed_label)\nforged_permission['research_only'] = False\nforged_permission['independent_financial_validation'] = True\nseal(forged_permission)\ncorrupted = copy.deepcopy(model)\ncorrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1\nwrong_horizon = copy.deepcopy(model)\nwrong_horizon['horizon_hours'] = 12\nseal(wrong_horizon)\nfor name, value in [\n    ('model.synthetic.json', model),\n    ('observed_label_guard.json', observed_label),\n    ('forged_permission_guard.json', forged_permission),\n    ('corrupted_guard.json', corrupted),\n    ('wrong_horizon_guard.json', wrong_horizon),\n]:\n    (destination / name).write_text(json.dumps(value, allow_nan=False))\nprint(json.dumps({'request': fixture['request'], 'prediction': prediction,\n                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))\n", '/tmp/harpoon-svr-integration-C8e3KG' ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n', '' ],
+    pid: 12,
+    stdout: '{"request": {"asof": "2026-10-15T15:00:00+00:00", "account": {"equity": 20000, "cash": 20000, "buying_power": 20000, "pending_cash": 0, "daily_pnl": 0, "drawdown_fraction": 0}, "candidates": [{"id": "SYNTHSVR-equity", "symbol": "SYNTHSVR", "underlying": "SYNTHSVR", "book": "equity", "factor": "SYNTHETIC_FACTOR", "currency": "USD", "spot": 100, "bid": 99.95, "ask": 100.05, "lot_qty": 1, "multiplier": 1, "step": 1, "quote_at": "2026-10-15T15:00:00+00:00", "known_at": "2026-10-15T15:00:00+00:00", "asof": "2026-10-15T15:00:00+00:00", "features": [0.027, 0.034999999999999996, 0.084, 0.0245, 0.5599999999999999, 1.08, 0.005000000000000002, 0.00114], "max_qty": 5}], "holdings": [], "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY"}, "prediction": 0.020823770299732095, "origin": "SYNTHETIC_ENGINEERING_ONLY"}\n',
+    stderr: ''
+  }

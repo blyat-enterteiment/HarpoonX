@@ -1,0 +1,67 @@
+HARPOON XXXUltimate 30.17.0 — CORE CORREGIDO Y DIAGNÓSTICO QUANT FINITO
+
+Esta entrega parte de la integral confirmada 30.16.0 de Library. No recupera el
+workspace interrumpido ni acredita los datos parciales 2016–2026. No contiene ni
+sustituye el feed London Strategic Edge: la base histórica usa ALPACA_PROXY.
+
+Empieza por EVALUACION_ECONOMICA_HARPOONX_30_17_0.yaml. Nunca interpretes las pruebas
+unitarias, una abstención completa o una curva histórica como nivel 8 acreditado.
+
+CORRECCIONES
+1. El máximo patrimonial usa todos los eventos conocidos de la cuenta, no sólo
+   instantes con una señal admitida. Los máximos futuros no entran en la decisión.
+2. Features as-of ajustan splits: precio/VWAP/volumen, activo y benchmark. Se
+   rechaza un evento efectivo con publicación explícitamente aún desconocida.
+   Fechas/completitud corporativas siguen sin certificación contemporánea.
+3. Registro obligatorio de código/datos/recetas. El replay verifica la reserva y
+   rederiva señales, labels, features, modelos y admisiones antes de medir.
+4. Auditoría comprueba límites contra el protocolo, no contra el propio reporte.
+
+MATEMÁTICA IMPLEMENTADA, NO PROMESA DE ALPHA
+- Ridge regularizado con normalización robusta y penalización de incertidumbre.
+- Huber regularizado para reducir sensibilidad a residuos extremos.
+- Admisión sólo si retorno neto previsto menos incertidumbre aproximada de media
+  y fricción incremental de estrés supera 5 bp. La fricción nominal ya incluida
+  en el target NO se resta dos veces. Los costes externos se cobran una vez.
+- Tercer candidato Huber: abstención por volatilidad sobre percentil 80 train y
+  límites de riesgo/exposición reducidos a la mitad; no se eleva el riesgo.
+- CASH conserva el mismo presupuesto externo; efectivo fuera del sistema se
+  muestra por separado como referencia sin gastos ni interés, no como alpha.
+
+ESTUDIO CERRADO
+Tres candidatos y tres controles, dos escenarios:12 mediciones. Dos referencias
+CASH derivadas. Journal único 29→41/128. Se retienen resultados negativos, órdenes
+no ejecutadas, abstenciones y los incidentes. No se añade otra receta buscando
+un ganador. El TEST 2024 ya se había visto; este estudio es DIAGNÓSTICO.
+Capital 20.000 USD continuo entre validación y TEST, sin volver a empezar la cuenta.
+La inferencia compara sesiones pareadas de la cartera completa con bloques 5 y 20,
+120.000 remuestreos,60 endpoints ajustados. No corrige el historial global desconocido.
+
+REPRODUCIR ESTA ENTREGA (sin broker ni red de mercado)
+  npm ci
+  python -m pip install -r quant/requirements-tested.txt
+  npm run build:xxx
+  python tools/run_quant8.py --output-dir evidence/core_quant8_30_17_0/reproduction_user --verify-against evidence/core_quant8_30_17_0/run_completed
+La salida debe ser nueva. Usa la reserva existente; NO vuelvas a ejecutar un
+registrador para recuperar presupuesto. Regenerar código distinto falla cerrado.
+
+PRUEBAS
+  npm run test:quant8
+  npm run typecheck:xxx
+  npm run test:ultimate
+  PYTHONPATH=quant python -m unittest discover -s quant/tests -v
+El reloj fijado para tests sintéticos se limita al proceso de pruebas. No cambia
+fechas de mercado ni un gate histórico. Los logs conservan ejecuciones fallidas
+por usar domingo o un reloj anterior al cutoff, y la repetición con fixture válido.
+
+REPRODUCIR LOS BYTES ANTIGUOS 30.16 SIN SOBRESCRIBIR EL CORE CORREGIDO
+  python tools/reproduce_frozen_30_16.py --workspace /ruta/nueva/frozen_30_16
+El helper reconstruye código original con los datos y registro conservados.
+La comparación exacta antigua tiene su propio recibo; no se afirma que el core
+corregido sea byte-equivalente al defectuoso. Las versiones viejas de los informes
+se conservan como historial, no como estado actual.
+
+DEPLOYMENT
+Sin publicación GitHub, sin Render, sin credenciales ni órdenes broker. La
+aplicación y sus componentes previos se conservan, pero esta investigación no
+promueve modelos históricos a producción ni acredita rentabilidad real.

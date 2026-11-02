@@ -1,0 +1,127 @@
+{
+  "schema": "HARPOON_HISTORICAL_RESEARCH_METADATA_1",
+  "nature": "HISTORICAL_RETROSPECTIVE_CONDITIONAL",
+  "execution_nature": "MODELED_OHLCV",
+  "universe": [
+    "AAPL",
+    "MSFT",
+    "SPY",
+    "XLK"
+  ],
+  "period": [
+    "2022-01-01",
+    "2024-08-31"
+  ],
+  "partition": {
+    "train": [
+      "2022-01-01",
+      "2023-06-30"
+    ],
+    "validation": [
+      "2023-07-01",
+      "2023-12-31"
+    ],
+    "historical_reserved_test": [
+      "2024-01-01",
+      "2024-08-31"
+    ]
+  },
+  "calendar_study_sessions": 669,
+  "calendar_deadline_only_sessions": 4,
+  "entries_after_study_end_allowed": false,
+  "bar_granularity_seconds": 300,
+  "bar_time_semantics": {
+    "t": "Historical provider bar start",
+    "end": "t + 300000ms by timeframe",
+    "availableAt": "end + 1000ms, explicit MODEL assumption; not an observed receipt or original publication timestamp",
+    "original_market_data_receipt_timestamp": null,
+    "observed_latency_ms": null
+  },
+  "price_adjustment": {
+    "explicit_tool_parameter_available": false,
+    "official_endpoint_default": "raw",
+    "independent_server_configuration_certification": null
+  },
+  "price_tick": {
+    "value": 0.01,
+    "nature": "Replay configuration inherited for these USD stocks/ETFs; not measured quote granularity"
+  },
+  "corporate_actions": {
+    "source": {
+      "name": "raw/corporate_actions_2021-12_2024-10.json",
+      "bytes": 35908,
+      "sha256": "3198afc6a45f148bcfe0ad8aa332b98f39adc8a177143f65403e016a91232686"
+    },
+    "date_query_semantics": "process_date",
+    "observed_counts_by_class": {
+      "cash_dividends": 47,
+      "cash_mergers": 1
+    },
+    "cash_dividends_in_study": 42,
+    "split_events_in_study": 0,
+    "observed_events_not_applied": [
+      {
+        "id": "478ad092-b545-4a08-9022-938d2aac0fcc",
+        "kind": "cash_dividends",
+        "symbol": "MSFT",
+        "ex_date": "2021-11-17",
+        "reason": "EX_DATE_OUTSIDE_STUDY; original receipt retained. Initial account positions are not supplied by this dataset."
+      },
+      {
+        "id": "7cdc9442-1a32-4f40-9d2a-b721edfef9e9",
+        "kind": "cash_dividends",
+        "symbol": "SPY",
+        "ex_date": "2021-12-17",
+        "reason": "EX_DATE_OUTSIDE_STUDY; original receipt retained. Initial account positions are not supplied by this dataset."
+      },
+      {
+        "id": "0429797e-504e-4571-855d-55d29cdb63d9",
+        "kind": "cash_dividends",
+        "symbol": "SPY",
+        "ex_date": "2024-09-20",
+        "reason": "EX_DATE_OUTSIDE_STUDY; original receipt retained. Initial account positions are not supplied by this dataset."
+      },
+      {
+        "id": "7ba38001-62f1-456f-b5dd-afe0f4febd98",
+        "kind": "cash_dividends",
+        "symbol": "XLK",
+        "ex_date": "2021-12-20",
+        "reason": "EX_DATE_OUTSIDE_STUDY; original receipt retained. Initial account positions are not supplied by this dataset."
+      },
+      {
+        "id": "c86f5862-5321-4e94-a0f0-bcaa2a8e0e97",
+        "kind": "cash_dividends",
+        "symbol": "XLK",
+        "ex_date": "2024-09-23",
+        "reason": "EX_DATE_OUTSIDE_STUDY; original receipt retained. Initial account positions are not supplied by this dataset."
+      },
+      {
+        "id": "0d3df0d3-dbbb-4cd4-8920-dd552954f773",
+        "kind": "cash_mergers",
+        "acquirer_symbol": "MSFT",
+        "acquiree_symbol": "NUAN",
+        "effective_date": "2022-03-04",
+        "reason": "Cash consideration is per acquiree share. The observed event does not convert units of the acquirer held in this universe."
+      }
+    ],
+    "unresolved_observed_events": [],
+    "completeness": null,
+    "completeness_reason": "A bounded process-date response and connector without pagination/data_quality/ex_date controls do not certify all possible exceptional actions.",
+    "empty_split_inventory_means": "No applicable split returned in this request; not certified absence of all splits.",
+    "ex_at_convention": "Open of the calendar session on observed ex_date; accounting convention, not original announcement time.",
+    "payable_at_convention": "16:00 America/New_York on observed payable_date; MODELED conservative intraday cash availability, not observed broker posting. null means no payment date supplied.",
+    "cash_vs_receivable": "Unpaid entitled dividends remain receivables; a payable date beyond study end must not erase a receivable or make it reinvestable early.",
+    "original_announcement_known_at": null,
+    "signal_use": "These records support accounting only; current retrieval does not establish ex-ante signal availability."
+  },
+  "limitations": [
+    "Raw historical bars, calendar, and reported actions do not prove realized profitability, original receipt timing, executable bid/ask or actual fills.",
+    "Reserved 2024 prices precede strategy design. This is a retrospective held-out evaluation within a fixed study, not live forward validation.",
+    "The fixed four-asset scope is not a point-in-time whole-market or delisting-complete universe.",
+    "Five-minute OHLCV cannot resolve an intrabar stop/target ordering; execution rules and stress costs remain model assumptions.",
+    "Corporate action completeness remains unknown; a conditional replay must carry this limitation and cannot be promoted to a strict certified dataset.",
+    "The final four calendar sessions supply deadlines only. They have no bars and cannot manufacture fills after the study boundary."
+  ],
+  "status": "READY_FOR_CONDITIONAL_HISTORICAL_REPLAY",
+  "no_strategy_fit_or_pnl_executed": true
+}

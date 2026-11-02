@@ -1,0 +1,63 @@
+{
+  "schema": "HARPOON_INGESTION_BOUNDARY_AUDIT_1",
+  "nature": "SYNTHETIC_ENGINEERING_ONLY",
+  "observed_financial_evidence": false,
+  "source_root": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+  "checks": [
+    {
+      "name": "stable_complete_export_control",
+      "accepted": true,
+      "frames": 3,
+      "error": null
+    },
+    {
+      "name": "capture_between_pages_rejected",
+      "accepted": false,
+      "frames": null,
+      "error": "EXPORT_PAGINATION_OR_BINDING"
+    },
+    {
+      "name": "configuration_epoch_change_rejected",
+      "accepted": false,
+      "frames": null,
+      "error": "SOURCE_CONFIG_CHANGED_SPLIT_DATASET"
+    }
+  ],
+  "source_hashes": {
+    "xxx/quant_observations.ts": "badc912138ece1d0c5932d8f476185d8bce7c4c7c2cf7cc84bcd191ae48fb8c6",
+    "runtime30/quant_observations.js": "984e2c30873240d401d098f58100414db78748e80d6a02997c55c74650982b0a",
+    "xxx/server.ts": "d648fc0c7a42fadf53d728d8198b1d3f36591a0dcb613402e864a932655a8f5a",
+    "xxx/coordinator.ts": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+    "xxx/scheduler.ts": "3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1",
+    "runtime/quant_bridge.cjs": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+    "runtime/discovery.cjs": "94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157",
+    "xxx/net_accounting.ts": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+    "xxx/sessions.ts": "29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77",
+    "quant/harpoon_quant/causal_panel.py": "86dc95479f5dd15ac1f47205610020d93d7ffbbeade514367ebbdfb9fc4637a7",
+    "quant/harpoon_quant/scalar_svr.py": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+    "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+    "tools/level4_readiness.cjs": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+    "config/examples/xxx.json": "6f90f0161dbb3cf8c24c1e691efe6550c36143e832e941049427aa10dabb2d61"
+  },
+  "fixtures": {
+    "first": {
+      "path": "synthetic_transport_fixtures/page_before_capture.json",
+      "sha256": "c7812bd87b8e2c50e5dd2c3922f26c21981d0e56e5e611bb0cf567e12f6e138e"
+    },
+    "next": {
+      "path": "synthetic_transport_fixtures/page_after_capture.json",
+      "sha256": "e7e9c8837046446716a682680ee9b4e1ab42d12a1fffcf21feb959cad501872d"
+    },
+    "stable": {
+      "path": "synthetic_transport_fixtures/stable_complete.json",
+      "sha256": "aa914d2bf91d5c2dc6b23ba267bb3c1461ada8a9997124f275257ad12ff20db6"
+    },
+    "changed": {
+      "path": "synthetic_transport_fixtures/configuration_changed_complete.json",
+      "sha256": "9fe88aaab8a9782dca5e406e5d436e8ac59a81046d3f6d964345420f491a189c"
+    }
+  },
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false
+}

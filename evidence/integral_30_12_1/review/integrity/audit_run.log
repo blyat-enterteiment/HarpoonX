@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "zip": {
+    "sha256": "f428af251db5420483b518ecc5b2edba0b4ec6c517622d17d839e1031d946c81",
+    "bytes": 35761046,
+    "files": 1387,
+    "bad_crc": null,
+    "duplicate_names": [],
+    "unsafe_paths": [],
+    "symlinks": [],
+    "inventory_difference": {
+      "unlisted_zip_files": [],
+      "declared_missing_files": []
+    }
+  },
+  "current_manifests": [
+    {
+      "path": "MANIFEST_XXXUltimate.json",
+      "version": "30.12.0",
+      "files_verified": 1386,
+      "mismatches": []
+    },
+    {
+      "path": "quant/MANIFEST_QUANT.json",
+      "version": "1.8.0",
+      "files_verified": 335,
+      "mismatches": []
+    }
+  ],
+  "required_distribution_files_checked": 42,
+  "frozen_source_files_checked": 116,
+  "preserved_test_evidence": {
+    "unique_functional_cases": 902,
+    "passed": true,
+    "unique_log_files_hash_verified": 76,
+    "log_mismatches": [],
+    "initial_static_failures_retained": [
+      "ruff",
+      "mypy"
+    ],
+    "targeted_rechecks_not_added_to_count": 28,
+    "post_full_run_production_changes": [
+      "quant/harpoon_quant/causal_panel.py"
+    ],
+    "exact_two_file_static_patch_verified": true
+  },
+  "lineage": [
+    {
+      "version": "30.7.0",
+      "source": "baseline/fullapp/HARPOON_XXXUltimate_30_7_0",
+      "implementation_and_verification_files": 308,
+      "same_path_and_bytes": 269,
+      "same_path_updated": 39,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 249,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 57
+      }
+    },
+    {
+      "version": "30.8.0",
+      "source": "svr_work/HARPOON_XXXUltimate_30_8_0",
+      "implementation_and_verification_files": 317,
+      "same_path_and_bytes": 279,
+      "same_path_updated": 38,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 252,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 63
+      }
+    },
+    {
+      "version": "30.9.0",
+      "source": "remediation_work/HARPOON_XXXUltimate_30_9_0",
+      "implementation_and_verification_files": 330,
+      "same_path_and_bytes": 301,
+      "same_path_updated": 29,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 256,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 72
+      }
+    },
+    {
+      "version": "30.10.0",
+      "source": "autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "implementation_and_verification_files": 348,
+      "same_path_and_bytes": 325,
+      "same_path_updated": 23,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 263,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 83
+      }
+    },
+    {
+      "version": "30.10.1",
+      "source": "integral_work/HARPOON_XXXUltimate_30_10_1",
+      "implementation_and_verification_files": 353,
+      "same_path_and_bytes": 331,
+      "same_path_updated": 22,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 265,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 86
+      }
+    },
+    {
+      "version": "30.11.0",
+      "source": "level4_work/HARPOON_XXXUltimate_30_11_0",
+      "implementation_and_verification_files": 378,
+      "same_path_and_bytes": 362,
+      "same_path_updated": 16,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 274,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 102
+      }
+    },
+    {
+      "version": "30.12.0",
+      "source": "level5_work/HARPOON_XXXUltimate_30_12_0",
+      "implementation_and_verification_files": 389,
+      "same_path_and_bytes": 389,
+      "same_path_updated": 0,
+      "missing_at_same_path": [],
+      "class_counts": {
+        "production_or_research_implementation": 275,
+        "dependency_contract": 2,
+        "tests_or_verification_tools": 112
+      }
+    }
+  ],
+  "economic_score": 3
+}

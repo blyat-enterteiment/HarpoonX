@@ -1,0 +1,171 @@
+{
+  "schema": "HARPOON_HISTORICAL_RUN_RECEIPT_1",
+  "started_at": "2026-11-01T18:20:31.533106+00:00",
+  "protocol_sha256": "7bd7356085f248be5d47ede426648a8ad36d74fa31017edc1c2bc82b10bd6dbc",
+  "dataset_sha256": "e6874c13f812cd42861f8c2d3bb2fc9c438cba3b2be4cfe2932bd3d774850967",
+  "purpose": "EXACT_REPRODUCTION",
+  "execution_nature": "MODELED_OHLCV",
+  "data_nature": "HISTORICAL",
+  "steps": [
+    {
+      "name": "01_data_audit",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "tools/historical_bank_data_audit.py",
+        "--data-dir",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/data",
+        "--report",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/data_audit.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.372794946000795,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "02_prepare",
+      "command": [
+        "node",
+        "tools/historical_bank.cjs",
+        "prepare",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/research/historical_bank/protocol.json",
+        "--dataset",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/data/research_dataset.json",
+        "--registration-dir",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/registration",
+        "--output-dir",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.9272124790004455,
+      "log_sha256": "b0f56ebd162f568764f44e9e5691006b324b74db25751d90c96a39455315c8c6"
+    },
+    {
+      "name": "03_features",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "-m",
+        "harpoon_quant.historical_bank",
+        "features",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/research/historical_bank/protocol.json",
+        "--dataset",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/data/research_dataset.json",
+        "--signals",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/signals.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/feature_panel.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 9.193668518999402,
+      "log_sha256": "f479fa85057fcd73a48d2ffafebe68dd2cb68e0fa716aeaac92c951fabed3a63"
+    },
+    {
+      "name": "04_fit",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "-m",
+        "harpoon_quant.historical_bank",
+        "fit",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/research/historical_bank/protocol.json",
+        "--panel",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/feature_panel.json",
+        "--labels",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/training_labels.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/models.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.769859477000864,
+      "log_sha256": "f384236eeba3220b21e8a46b5a4679f03d733cc37cdf5461d93fa79ff3dfff93"
+    },
+    {
+      "name": "05_predict",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "-m",
+        "harpoon_quant.historical_bank",
+        "predict",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/research/historical_bank/protocol.json",
+        "--panel",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/feature_panel.json",
+        "--models",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/models.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/admissions.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.8662810189998709,
+      "log_sha256": "9d6893a7f6961262b98791942842a28a305bdb8076b0c565e6dd9b291b9542f6"
+    },
+    {
+      "name": "06_replay",
+      "command": [
+        "node",
+        "tools/historical_bank.cjs",
+        "replay",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/research/historical_bank/protocol.json",
+        "--dataset",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/data/research_dataset.json",
+        "--registration-dir",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/registration",
+        "--output-dir",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 16.210071924999284,
+      "log_sha256": "958a4cb8bdda1a426023b6ae410af4cbe23c74fd894b7ff93609f47cab7971af"
+    },
+    {
+      "name": "07_statistics",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "-m",
+        "harpoon_quant.historical_bank",
+        "statistics",
+        "--protocol",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/research/historical_bank/protocol.json",
+        "--reports",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/reports.json",
+        "--output",
+        "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/reproduction/statistics.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.0172799749998376,
+      "log_sha256": "c961c8e7156343fb16b82de9d6da95ba09f0afa66f7535f364f42bcb099631c9"
+    }
+  ],
+  "financial_acceptance_allowed": false,
+  "liveApproved": false,
+  "deployment_allowed": false,
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "blas_threads": 1
+  },
+  "status": "COMPLETE",
+  "completed_at": "2026-11-01T18:21:08.036925+00:00",
+  "result_hashes": {
+    "signals.json": "605521894c62d849147dd5dac03f3a9444d38228c6375547ccaa6a483261ed34",
+    "training_labels.json": "1615d1dd7831837be567046ec27d7ff177e185a7660ac1042c58058776d2ea5d",
+    "models.json": "e306d18d0498f6c7c03040ade68f9ac21f57a6d0b5cfc9cd5827544ade4df022",
+    "admissions.json": "73cb46a922af6ec2397c6eab12e30841fa5d400cce7e55bbee68e94d3dbd830c",
+    "statistics.json": "3dcdbf56a81b4da219d68a12db6e73b2728f8a7cd055b6da072dae3474622571",
+    "summary.json": "fb11ab2875b6e5777e9136ce57f73038e2efb56e5b6bbe399838b097d2a0cfeb",
+    "NOMINAL_C0.json": "e3fc8eccd1f823b20237a05aa0f0b1e366b05bf12f65f90089cac277124b1038",
+    "NOMINAL_RIDGE.json": "74f349c80e83cbdd94489342f13205aa0f4f0b480517116c5de245025d02dc10",
+    "NOMINAL_SVR.json": "b1f03bc6bdf99fd75c9773e68632192311f0e828490f37b4c3bc080b1c5641dd",
+    "STRESS_C0.json": "45b6b062b7ce76339897876a98ae63c27f5abdaac211cd9283e909091b538aef",
+    "STRESS_RIDGE.json": "303cc51682374529b4ed018509e822d99b6bdf00598c3c002bebe13eba4fe564",
+    "STRESS_SVR.json": "0021fa521f9266719b5c39fe7c2ab7faf2edc6ac51136fd4abc0e006b8b55617"
+  }
+}

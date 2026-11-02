@@ -1,0 +1,23 @@
+✔ sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision (73.957318ms)
+✔ TP survives protection cancel, restart and retracement with a durable minimum price (21.697896ms)
+✔ urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder (18.85082ms)
+✔ bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait (13.075096ms)
+✔ real native payload/reconciliation lifecycle: oco (25.960377ms)
+✔ real native payload/reconciliation lifecycle: oco_trailing (24.800507ms)
+✔ broker rejection of native OCO causes an actual full-position stop fallback (11.192415ms)
+✔ native urgent flatten cancels every group before one reconciled full exit (17.290116ms)
+✔ experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns (11.63937ms)
+✔ OPRA uses a MsgPack handshake/header and decodes observed quotes; PAPER orders use binary JSON (8.959277ms)
+✔ malformed stream frames trigger visible reconnect and invalidate flow warmup (2.922739ms)
+✔ reported fee ledger paginates, retains unpriced crypto fees and never certifies all-in net (0.68274ms)
+✔ fee pagination failure remains ERROR without manufacturing a zero successful cost (0.21225ms)
+✔ execution metrics use actual fills, explicit estimated fees and no second slippage charge (11.196071ms)
+✔ execution journal preserves event type separately from the order intent kind (8.983654ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 294.565327

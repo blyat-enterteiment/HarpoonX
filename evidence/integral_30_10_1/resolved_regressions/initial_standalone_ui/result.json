@@ -1,0 +1,21 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "--test-isolation=none",
+    "--test-reporter=tap",
+    "tools/quant_dashboard_evidence_test.cjs"
+  ],
+  "exit_code": 0,
+  "observed_at": "2026-11-01T00:13:06.985286+00:00",
+  "data_nature": "SYNTHETIC_TEST_SNAPSHOTS_NO_EXTERNAL_NETWORK",
+  "tests": {
+    "passed": 12,
+    "failed": 0
+  },
+  "test_scope": "Actual inline dashboard rendering in a minimal DOM and full inline JS syntax; does not verify browser layout, broker connectivity, performance or order execution.",
+  "source_hashes": {
+    "deploy/dashboard30.html": "a1a85a343faf3933d7ea61c7bd1e6ae03eebb0df3fd68ed86846c016d31cde31",
+    "tools/quant_dashboard_evidence_test.cjs": "253bfb407dc07149fe15303c218c91487a895d7eca6fb961516c0d2210e70e23"
+  }
+}

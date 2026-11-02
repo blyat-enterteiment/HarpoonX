@@ -1,0 +1,16 @@
+✔ partial-entry risk: pending cancellation exposes reconciled inventory and a config-based deadline without selling (54.658483ms)
+✔ partial-entry risk: timeout and cancel retries do not reset the exposure clock or repeat overdue events (14.66864ms)
+✔ partial-entry risk: restart preserves deadline and late fills update known inventory without duplicate orders (20.995677ms)
+✔ partial-entry risk: stale snapshots, local emptiness and UNKNOWN orders cannot resolve or fabricate a flat position (10.929959ms)
+✔ partial-entry risk: confirmed cancellation alone stays open until broker-confirmed protection covers late fills (11.763869ms)
+✔ partial-entry risk: another urgent position progresses and only reconciled terminal inventory resolves the tracked exposure (14.916984ms)
+✔ partial-entry risk: journal rejects malformed clocks and a risk reference to another intent (9.965055ms)
+✔ partial-entry risk: sub-step inventory stays visible and cannot be rounded into confirmed flatness (10.145455ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 191.959456

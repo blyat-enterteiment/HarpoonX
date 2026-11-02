@@ -1,0 +1,43 @@
+{
+  "source": "LOCAL_SYNTHETIC_HEALTH_AND_MINIMAL_DOM_CONTRACT_TESTS",
+  "version": "30.3.1",
+  "at": "2026-10-18T19:11:54.093Z",
+  "typecheck": {
+    "status": "PASSED",
+    "command": "node node_modules/typescript/bin/tsc -p tsconfig.xxx.json --noEmit",
+    "log": "ui-typecheck.log"
+  },
+  "build": {
+    "status": "PASSED",
+    "command": "node node_modules/typescript/bin/tsc -p tsconfig.xxx.json",
+    "log": "ui-build.log"
+  },
+  "healthAndRendering": {
+    "status": "PASSED",
+    "passed": 25,
+    "healthTests": 17,
+    "minimalDomTests": 8,
+    "command": "node --test tools/xxx_health_test.cjs tools/xxx_operational_ui_contract.cjs",
+    "log": "ui-health-contract-tests.log"
+  },
+  "htmlScriptSyntax": "PASSED",
+  "activeAndServedHtmlIdentical": true,
+  "browser": {
+    "status": "BLOCKED_BEFORE_BROWSER_ASSERTIONS",
+    "command": "CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium node tools/xxx_operational_browser.cjs",
+    "reason": "Chromium process-singleton socket() failed: Operation not permitted (1)",
+    "escalatedAttempt": "Alternate permitted execution environment could not start; no browser assertions ran.",
+    "neverRun": [
+      "operational browser assertions",
+      "existing xxx browser suite",
+      "existing Ultimate browser suite",
+      "visual screenshot inspection",
+      "responsive layout checks"
+    ],
+    "screenshotsCreated": 0
+  },
+  "externalOrders": 0,
+  "deployments": 0,
+  "publication": 0,
+  "inheritedEvidenceModified": false
+}

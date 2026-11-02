@@ -1,0 +1,78 @@
+--- 30.12/xxx/policy.ts
+
++++ 31.6TP/xxx/policy.ts
+
+@@ -1,3 +1,8 @@
+
++import { netTakeProfitAssessment } from "./option_takeprofit";
++import type { NetExitDecision } from "./option_takeprofit";
++import { incrementalRunnerStop, optionFeePerContract } from "./option_incremental";
++import { optionRunnerActive, updateRunnerPremiumStop } from "./option_adaptation";
++import { optionBudget } from "./option_contracts";
+ import { DEFAULT_EXIT, floorStep, fresh, positive, TERMINAL } from "./types";
+ import type {
+   Campaign,
+@@ -56,7 +61,7 @@
+
+   qty: number,
+   now: number,
+   cfg: Config,
+-): { kind: Intent["kind"]; qty: number } | null {
++): NetExitDecision | null {
+   const f = fills(c, intents);
+   if (qty <= 0 || !f.entry) return null;
+   if (c.flatten) return { kind: "flatten", qty };
+@@ -75,12 +80,13 @@
+
+   const cost =
+     (f.entry * friction) / 10000 +
+     (c.book === "options"
+-      ? (2 * cfg.optionsFeePerContract) / c.instrument.multiplier
++      ? (2 * optionFeePerContract(cfg)) / c.instrument.multiplier
+       : 0);
+   c.peak = Math.max(c.peak, q.bid);
+   const profit = c.peak - f.entry - cost;
+   // The trailing floor only tightens after the first target has genuinely traded in the bid.
+-  if (profit >= c.policy.tp1R * c.risk)
++  if (optionRunnerActive(c)) updateRunnerPremiumStop(c,f.entry,cost);
++  else if (profit >= c.policy.tp1R * c.risk)
+     c.stop = Math.max(
+       c.stop,
+       f.entry + cost + profit * c.policy.lockFraction,
+@@ -93,6 +99,7 @@
+
+             ? c.dynamicAtr / c.entryAtr
+             : 1),
+     );
++  incrementalRunnerStop(c,f.entry,cost);
+   if (q.bid <= c.stop) return { kind: "stop", qty };
+   const net = q.bid - f.entry - cost;
+   const target =
+@@ -101,7 +108,10 @@
+
+       : net >= c.policy.tp1R * c.risk
+         ? c.policy.tp1Fraction
+         : 0;
+-  if (target > 0) {
++  const netTake=netTakeProfitAssessment(c,f,q,qty,now,cfg);
++  if(netTake.active)c.netTakeProfitLast={...netTake,assessedAt:now};
++  if(netTake.decision)return netTake.decision;
++  if (!netTake.active && !optionRunnerActive(c) && target > 0) {
+     const wanted = floorStep(
+       Math.max(0, f.bought * target - f.tpSold),
+       c.instrument.step,
+@@ -224,11 +234,11 @@
+
+         2 * cfg.slippageBps)) /
+       10000 +
+     (asset.book === "options"
+-      ? (2 * cfg.optionsFeePerContract) / asset.multiplier
++      ? (2 * optionFeePerContract(cfg)) / asset.multiplier
+       : 0);
+   // Long-option allocation reserves the entire premium as loss, not a hypothetical stop fill.
+   const unitRisk =
+-    (asset.book === "options" ? s.entry : s.entry - s.stop) + cost;
++    asset.book === "options" ? optionBudget(s.entry,asset.multiplier,cfg,Number(account.equity)).fullPremiumRisk/asset.multiplier : s.entry-s.stop+cost;
+   const cap = Math.max(
+     0,
+     Math.min(

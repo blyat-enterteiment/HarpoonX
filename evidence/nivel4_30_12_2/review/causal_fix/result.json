@@ -1,0 +1,121 @@
+{
+  "checked_at_utc": "2026-11-01T03:59:33.880564+00:00",
+  "implementation_status": "IMPLEMENTED_AND_TARGETED_TESTS_VERIFIED",
+  "files": [
+    {
+      "path": "tools/level4_readiness.cjs",
+      "before_sha256": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+      "after_sha256": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b"
+    },
+    {
+      "path": "tools/level4_readiness_test.cjs",
+      "before_sha256": "7e60c32ff24d911d8ec07f27142447dda78088a54805f1136ae8d7272c9c4213",
+      "after_sha256": "cf7c70f8192ab1ac60d4d3d66c774b31484b4cbe017e9e057c276f3759cbae09"
+    }
+  ],
+  "tests": {
+    "tests": 16,
+    "pass": 16,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "new_cases": 4,
+  "prior_15_case_run_preserved": true,
+  "static_syntax_checks": [
+    {
+      "file": "tools/level4_readiness.cjs",
+      "exit_code": 0,
+      "log": "syntax_level4_readiness.log"
+    },
+    {
+      "file": "tools/level4_readiness_test.cjs",
+      "exit_code": 0,
+      "log": "syntax_level4_readiness_test.log"
+    }
+  ],
+  "type_check_scope": "No TypeScript interfaces changed; CJS checks here are Node syntax plus behavioral regression. No independent CJS type-check claim.",
+  "counterexample_before": "../pagination_counterexample_result.json",
+  "counterexample_after": {
+    "nature": "SYNTHETIC_SOFTWARE_COUNTEREXAMPLE_NOT_FINANCIAL_DATA",
+    "same_frames_within_each_pair": true,
+    "only_page_partition_changed_within_pair": true,
+    "stable_configuration": {
+      "one_page": {
+        "passed": true,
+        "result": {
+          "verified": true,
+          "account_id": "SYNTHETIC_PAGINATION_ONLY",
+          "frames": 2,
+          "quotes_bound": 6,
+          "bars_bound": 2052,
+          "availability": "OBSERVED_RUNTIME_RECEIPTS",
+          "executable_depth_observed": false,
+          "external_authenticity_verified": false
+        }
+      },
+      "two_pages": {
+        "passed": true,
+        "result": {
+          "verified": true,
+          "account_id": "SYNTHETIC_PAGINATION_ONLY",
+          "frames": 2,
+          "quotes_bound": 6,
+          "bars_bound": 2052,
+          "availability": "OBSERVED_RUNTIME_RECEIPTS",
+          "executable_depth_observed": false,
+          "external_authenticity_verified": false
+        }
+      }
+    },
+    "causal_universe_change": {
+      "one_page": {
+        "passed": false,
+        "error": "SOURCE_CONFIG_CHANGED_SPLIT_REPLAY"
+      },
+      "two_pages": {
+        "passed": false,
+        "error": "SOURCE_CONFIG_CHANGED_SPLIT_REPLAY"
+      }
+    },
+    "code_hashes": {
+      "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b",
+      "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086"
+    }
+  },
+  "runtime_strategy_risk_and_models_changed": false,
+  "gate_thresholds_or_score_changed": false,
+  "financial_trials": 0,
+  "model_fits": 0,
+  "orders": 0,
+  "full_suite_run_by_this_agent": false,
+  "financial_verdict": "VENTAJA_NO_DEMOSTRADA",
+  "scope_note": "The generic observation replay supports equity, ETF and crypto. The funded comparison remains whole-share equity/ETF. Exact deterministic source projection is allowed; selecting a profitable subset or changing risk/configuration is rejected. Source configuration must remain identical across the full compared export prefix. Causal-panel streaming universe rotation is untouched.",
+  "stale_report_notice": "level4_readiness.cjs is implementation-bound. Previously issued receipts keep their historical source hash; root must regenerate current-source artifacts rather than reseal the old reports.",
+  "evidence_files": [
+    {
+      "path": "initial_no_mixed_projection.log",
+      "sha256": "d7159f9908c475ac6ea772ffa39a484f85664ad06c572a332cd31180dc1f4a63"
+    },
+    {
+      "path": "level4_readiness_test.log",
+      "sha256": "7dbd495196a10b3c645a83b08e18cb801de96c954b6d385c9d8e851053a2f13b"
+    },
+    {
+      "path": "pagination_after.json",
+      "sha256": "642f04de88de70269599a8d83cfc55dceb05ebb2bb34300d8f8212a4e56a9fcb"
+    },
+    {
+      "path": "source_diff.txt",
+      "sha256": "5f015b06cb9666b917876e362367bcf238270258bdab1f5a42a42d55630e6747"
+    },
+    {
+      "path": "syntax_level4_readiness.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax_level4_readiness_test.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "created_at": "2026-10-31T21:17:41.098371+00:00",
+  "scope": "Discovery/watchlist remediation; no orders or financial variants",
+  "tests": {
+    "total": 37,
+    "pass": 37,
+    "fail": 0
+  },
+  "implemented": [
+    "Explicit ETF metadata and leverage without reclassification",
+    "Total universe cap40 shared with configuration validation; legacy48 clamped and reported",
+    "Deterministic endpoint-presence ranking with ticker tie-breaker",
+    "Full source/candidate snapshots and per-candidate exclusions",
+    "Atomic batched bootstrap and per-symbol retries",
+    "Repair of already-existing incomplete histories",
+    "Rotation limited to managed symbols without inventory/orders/options exposure and with recent reconciliation",
+    "Post-await revalidation of exposure, configuration and source freshness",
+    "READY requires current closed regular bar, verified catalog and fresh quote",
+    "Bounded canonical-hashed registry and safe restore without tradability",
+    "Broker catalog synchronizes configured and runtime tradability",
+    "SVR research-only guard preserved with zero calls"
+  ],
+  "exports": {
+    "module": "runtime/discovery.cjs",
+    "functions": [
+      "discover(engine)",
+      "restore(engine, registry)",
+      "registry(engine)"
+    ]
+  },
+  "integration_contract": [
+    "Root gates entries during discovery and durable persistence while exits remain active",
+    "Root stores registry within account/base-configuration binding before restart restore",
+    "Root persists full immutable snapshots and exposes health independently of scheduler pulse"
+  ],
+  "validation": {
+    "typescript_build": "PASS shared tsconfig.xxx.json at this run",
+    "node_syntax": "PASS discovery/bridge/test source",
+    "direct_check_js": "PASS on byte-identical module with declarations generated from xxx/types.ts in isolated QA directory; evidence check_js.json"
+  },
+  "reproduction": [
+    "node --no-use-env-proxy --test --test-isolation=none --test-reporter=tap tools/quant_discovery_regression_test.cjs",
+    "node --no-use-env-proxy tools/quant_discovery_benchmark.cjs"
+  ],
+  "benchmark": {
+    "nature": "SYNTHETIC_LOCAL_ENGINEERING_BENCHMARK",
+    "iterations": 100,
+    "candidates": 30,
+    "regular_bars_processed": 56280,
+    "api_mock_requests": 32,
+    "historical_load_calls": 2,
+    "quote_refresh_calls": 1,
+    "real_network_requests": 0,
+    "orders": 0,
+    "node": "v24.22.1",
+    "platform": "linux",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "elapsed_ms": {
+      "p50": 39.73910599999999,
+      "p95": 48.32617200000004,
+      "p99": 58.08564200000001,
+      "min": 37.33838500000002,
+      "max": 76.424556
+    },
+    "samples_ms": [
+      76.424556,
+      44.320199,
+      45.23143300000001,
+      45.57937799999999,
+      44.34573600000002,
+      45.510493999999994,
+      40.562048000000004,
+      41.63647900000001,
+      42.92496299999999,
+      43.650927999999965,
+      49.55994400000009,
+      41.44332700000007,
+      41.42226999999991,
+      41.065638000000035,
+      38.558284999999955,
+      39.94357600000001,
+      39.73910599999999,
+      41.718994000000066,
+      38.39380600000004,
+      39.16471999999999,
+      39.37920399999996,
+      41.49085000000002,
+      42.20849300000009,
+      41.220912,
+      41.47692899999993,
+      38.71566299999995,
+      38.10372899999993,
+      37.77484299999992,
+      39.40341000000012,
+      39.857565999999906,
+      40.016114000000016,
+      40.535376999999926,
+      38.955893999999944,
+      39.33939299999997,
+      39.85141700000008,
+      40.86346299999991,
+      41.16529300000002,
+      39.065270000000055,
+      39.617372999999816,
+      37.99511600000005,
+      37.79010500000004,
+      38.260084000000006,
+      39.08046300000001,
+      39.243789000000106,
+      39.13328200000001,
+      37.69801600000005,
+      39.550060999999914,
+      39.948521999999684,
+      39.9954130000001,
+      39.482528999999886,
+      42.22872200000029,
+      37.33838500000002,
+      38.31412599999976,
+      39.711635000000115,
+      37.62328400000024,
+      40.15671599999996,
+      38.452094999999645,
+      37.42610599999989,
+      39.940340000000106,
+      37.409482000000025,
+      38.929715999999644,
+      40.12089200000037,
+      39.33433600000035,
+      38.06589299999996,
+      37.92613200000005,
+      39.59187400000019,
+      39.235547000000224,
+      39.20820500000036,
+      38.55519099999992,
+      37.91411199999993,
+      39.025710000000345,
+      37.54842100000042,
+      39.34999999999991,
+      38.17367400000012,
+      39.288886999999704,
+      37.97247200000038,
+      37.78963500000009,
+      39.14753400000018,
+      47.231471000000056,
+      44.22374300000001,
+      48.32617200000004,
+      58.08564200000001,
+      54.38787300000013,
+      44.63165800000024,
+      46.666989000000285,
+      41.40471000000025,
+      41.52904699999999,
+      39.28158600000006,
+      38.990295999999944,
+      42.96748700000035,
+      40.20393800000011,
+      57.19442300000037,
+      41.001280999999835,
+      40.19922099999985,
+      40.300162999999884,
+      41.45705799999996,
+      40.894830000000184,
+      39.305561999999554,
+      40.889522999999826,
+      38.39555999999993
+    ],
+    "limitations": [
+      "Excludes broker, network, persistent-store and market-data latency.",
+      "Percentiles describe this small local fixture workload; no production service-level claim."
+    ]
+  },
+  "files": [
+    {
+      "path": "runtime/discovery.cjs",
+      "sha256": "94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157"
+    },
+    {
+      "path": "runtime/quant_bridge.cjs",
+      "sha256": "3a8da087fb6303ca163ffcc40a680e3d3b5bd7394fa1bdeeb56265104ab4c157"
+    },
+    {
+      "path": "xxx/market.ts",
+      "sha256": "ebbfc68eef3510a363e94a62700168cf207cc89467f0410188691d917d2e234b"
+    },
+    {
+      "path": "runtime30/market.js",
+      "sha256": "87f94a339b375aeace5a7a4828d26254d1fbb746a09d798d16b5dc3fc0639b5f"
+    },
+    {
+      "path": "tools/quant_discovery_fixtures.cjs",
+      "sha256": "782efbb7c326da0c580ebfc51a8e83bbe55bdb27c984264929347c6b040940f9"
+    },
+    {
+      "path": "tools/quant_discovery_regression_test.cjs",
+      "sha256": "2595d3a27a0d8b942ac1a2d9924030e47204937f32ffe34762f16a8662fada2d"
+    },
+    {
+      "path": "tools/quant_discovery_benchmark.cjs",
+      "sha256": "1cd668fc9b86f5b822c576f67ac3e3437f5468aa3dec3d4b30dafc918745b232"
+    },
+    {
+      "path": "tools/quant_bridge_test.cjs",
+      "sha256": "a6dbe616f2d45f50f9ac0829f266998eb5ce507d1b83a48f6947d7c51762effa"
+    }
+  ],
+  "limitations": [
+    "Mocked source and broker responses; not a production execution test.",
+    "Readiness does not certify predictive skill or financial edge.",
+    "The ranking is a declared coverage policy, not a validated profitable selection rule."
+  ]
+}

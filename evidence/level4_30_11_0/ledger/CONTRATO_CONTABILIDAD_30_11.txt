@@ -1,0 +1,149 @@
+CONTINUIDAD CONTABLE Y RECIBOS LOCALES — 30.11.0
+
+Alcance
+Se implementa ingeniería de conservación y validación de evidencia. No se ha
+consultado una cuenta, autenticado recibos externos, enviado órdenes ni efectuado
+un ensayo de rentabilidad. Los datos de pruebas y benchmark son sintéticos.
+
+Configuración dentro de quant.accounting
+archive: {enabled:true,maxSegments:16,maxStoredBytes:536870912,activityOverlapMs:60000}
+costReceiptFile: ruta local o null
+maxCostReceiptBytes: 8388608 por defecto; máximo 33554432
+maxMaterializationBytes: 33554432 por defecto; máximo 67108864
+
+La ausencia de archive conserva la ruta previa. El límite activo existente
+maxObservations continúa vigente. Con archivo habilitado, el control conserva
+la frontera y el tramo activo, mientras segmentos inmutables conservan marcas,
+actividades, costes y evidencia documental. La identidad, el capital inicial,
+los flujos acumulados, las pérdidas y la insolvencia nunca se reinician.
+
+La captura incremental usa ventanas created_at completas y solapadas. La fecha
+de liquidación no se usa como watermark. Se deduplican IDs tanto activos como
+archivados; cambiar la economía de un ID ya retenido requiere restatement.
+La reconciliación detecta diferencias de caja/inventario/NAV; no puede probar
+que el proveedor jamás omitió un evento no observado.
+
+Persistencia y límites
+Cada segmento tiene hash, identidad, orden y vínculo con el anterior. Se reserva
+cuota durable antes de escribirlo y se verifica la lectura antes de referenciarlo
+desde el control. El commit del control es atómico en el Store de producción.
+Reservas huérfanas después de fallos continúan consumiendo cuota; los reintentos
+no permiten almacenamiento ilimitado. No se borran segmentos automáticamente.
+Los límites cuentan bytes JSON de segmentos y reservas, no todo el gasto físico
+de SQLite, WAL, backups o filesystem. El estado activo tiene su propio límite.
+La retención es finita. Al agotarse, se conserva la evidencia y se informa bloqueo.
+
+Al cargar se validan todos los segmentos, cadena, cuotas, totales, identidad y
+frontera activa. Durante refresh no se reconstruye el historial completo.
+La deduplicación usa un filtro de pertenencia y, cuando corresponde, la lectura
+verificada del segmento; la caché mantiene como máximo un segmento.
+
+Recibo local de gastos
+Schema: HARPOON_COST_RECEIPT_1
+Campos obligatorios:
+  account_id, currency:'USD', receipt_id, coverage_complete:true,
+  from, through, known_at, reference,
+  categories:['DATA','INFRASTRUCTURE','INFERENCE','OTHER'], entries.
+Fechas: milisegundos enteros o ISO con zona; from <= through <= known_at.
+Cada entrada conserva id, at, known_at, amount_usd finito no negativo, categoría,
+referencia, already_in_account booleano y activity_id cuando ya está en la cuenta.
+
+Un importe ya incluido se vincula con una actividad reconciliada por el mismo
+importe. Un coste externo se resta una vez. No se descuentan de nuevo comisiones,
+spread o slippage ya incorporados en el NAV/precio de ejecución.
+Un recibo vacío sólo declara cero para ese periodo cuando contiene explícitamente
+todos los campos y coverage_complete:true. Archivo ausente, campo ausente, null,
+categorías incompletas o formato inválido nunca equivalen a cero.
+
+Se rechazan claves JSON duplicadas, campos desconocidos, cuenta/divisa incorrecta,
+fechas futuras, importes desconocidos, enlaces ambiguos, archivos no regulares,
+symlinks y cambios detectados durante la lectura. No se ejecuta contenido.
+Una misma identidad de recibo no puede reaparecer con bytes distintos.
+La procedencia incluye SHA-256 de los bytes, ruta, tiempo local y referencia.
+El hash no autentica al proveedor ni convierte declaraciones en observaciones.
+
+API productor: writeCostReceiptFile(filename,input,accountId,now)
+API validador: validateCostReceipt(input,accountId,now)
+El productor sólo serializa declaraciones explícitas aportadas, con reemplazo
+atómico, fsync y permisos 0600. No infiere tarifas, consume APIs de facturación
+ni genera gastos reales a partir de valores típicos. Se necesita un productor
+externo respaldado por los recibos reales para alimentar el archivo en operación.
+
+Devengos del broker: contrato opcional
+broker_accrual_coverage:
+  schema: HARPOON_BROKER_ACCRUAL_COVERAGE_1
+  account_id, currency:'USD', from, through, known_at, reference
+  applicable_categories: lista explícita sin duplicados, entre COMMISSIONS,
+    EXCHANGE_CLEARING, REGULATORY, FINANCING, BORROW, OTHER
+  coverage_complete: true
+  pending_total_usd: número finito no negativo
+  explicit_zero: true sólo para cero; false para importe positivo
+  cost_ids: IDs únicos de entradas externas existentes
+  document:
+    reference, content_type:'application/json', content, sha256, bindings
+
+content conserva el texto JSON documental original. sha256 debe corresponder
+exactamente a sus bytes UTF-8. bindings contiene JSON pointers para account_id,
+currency, from, through, known_at, applicable_categories, coverage_complete,
+pending_total_usd y explicit_zero. Todos esos valores se contrastan con el
+documento, no sólo con flags de la declaración. Se rechazan claves duplicadas,
+pointers ausentes y documentos mayores de 256 KiB.
+
+Los devengos pendientes deben estar enlazados con gastos externos ya presentes,
+por suma exacta, categoría OTHER y referencia exactamente igual a la de la
+cobertura o del documento original. Una factura DATA, INFRASTRUCTURE o INFERENCE,
+o una referencia ajena, no acredita un pasivo del broker. Un gasto ya incluido en la cuenta no sirve como coste externo
+pendiente. El importe no vuelve a descontarse. Si un gasto posteriormente pasa
+del registro externo al NAV, la reclasificación exige la reconciliación/restatement
+correspondiente; no se reescribe un ID existente de forma silenciosa.
+
+El alcance acreditable es documental local:
+DECLARED_DOCUMENT_BOUND_AND_COST_RECONCILED_NOT_EXTERNALLY_AUTHENTICATED.
+La autenticidad externa permanece false. La declaración sigue necesitando una
+fuente real; no hay documentos reales ni gastos reales aportados en esta tarea.
+La ausencia del contrato conserva null/false para los devengos no acreditados.
+
+Temporalidad de costes y retornos
+Un recibo conocido posteriormente puede completar un prefijo cerrado. La última
+marca puede continuar sin cobertura; no se le asigna artificialmente el tiempo
+del recibo. Cuando es posible, el archivo conserva una frontera económica ya
+cubierta y mantiene activo el tramo reciente aún descubierto.
+Un coste que contradice el prefijo ya sellado activa ECONOMIC_RESTATEMENT_REQUIRED.
+Ese bloqueo persiste aunque se quite el coste del archivo o se repita un recibo
+viejo. La cuenta sigue reconciliándose, pero el retorno económico no se certifica.
+Esta entrega no reescribe automáticamente un prefijo contable sellado.
+
+Exportación y verificación
+exportHistory(offset=0,limit=1000) es async; limit máximo 5000 registros.
+Los registros son HEADER, OBSERVATION, ACTIVITY y COST, agrupados por segmento
+y luego por control activo. El offset cuenta esos registros, no sólo marcas NAV.
+Terminar cuando next_offset sea null. complete_export sólo es true cuando una
+única página contiene todo. Todas las páginas deben tener ledger_integrity igual.
+
+verifyNetLedgerHistoryBundle(pages,expectedIntegrity) reconstruye los objetos,
+verifica hashes/cadena/conteos y recalcula caja, inventario, NAV, flujos, costes y
+retornos ponderados por tiempo con sus pre-flow marks. No basta una marca
+reconciled:true ni una curva con rendimientos declarados. Devuelve state y las
+arrays completas observations/activities/externalCosts, from/through/accountId,
+derived y evidencia de devengos documental recalculada.
+
+brokerAccrualsVerified/brokerAccrualsUsd se refieren a la curva actual completa.
+closedBrokerAccruals se refiere al prefijo closedEconomic.through y expone
+verified, amountUsd, from, through, comparedFrom, comparedThrough, knownAt y
+documentSha256. Todas esas fechas derivadas son milisegundos numéricos.
+Un gate que compara el prefijo debe comprobar TODO su intervalo dentro del
+contexto verified; no puede extenderlo a la cola actual descubierta.
+
+Rendimiento sin reducir falsamente la curva
+performanceInput() permanece síncrono y devuelve null/WAIT cuando hay archivos;
+no presenta la cola como historia completa. performanceInputWithArchive(now,
+maxObservations=100000) materializa explícitamente el prefijo completo, limitado
+por número de marcas y bytes, y cede el event loop entre segmentos. Si faltan
+costes, reconciliación o evidencia de retornos, retorna antes de cargar archivos.
+Los límites excedidos producen WAIT_OFFLINE_MATERIALIZATION_BUDGET.
+La integración debe espaciar esta materialización y exponer su observed_at.
+Cambios de documento de devengos también deben invalidar una caché documental.
+
+Estas funciones no elevan por sí solas la preparación económica a nivel 4.
+Siguen siendo necesarios datos observados causales, cuenta/costes conciliados y
+comparación completa del motor, Ridge y control bajo condiciones comparables.

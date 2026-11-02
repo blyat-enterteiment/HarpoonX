@@ -1,0 +1,207 @@
+HARPOON — economic gate v2 / level 5 evidence bridge
+
+Scope
+Three focused corrections: (1) bridge the complete funded comparison to the
+economic evaluator, (2) preserve event risk, chronological costs and one frozen
+stress comparison, (3) bind preregistration and search history to actual files
+and the preserved Quant journal. This is offline research. No model fitting,
+search reservation, broker call, deployment or LIVE authority occurs.
+
+Commands from the full application root
+  node tools/level5_readiness.cjs --input request.json --output derived.json
+  node tools/level5_readiness.cjs --input request.json --verify derived.json --output verification.json
+  cd quant
+  python -m harpoon_quant.economic_gate --protocol protocol.json --input evidence.json --output economic-report.json
+
+The Python command accepts legacy HARPOON_ECONOMIC_PROTOCOL_1 unchanged. V1 C0
+still means cash/no-entry. Only HARPOON_ECONOMIC_PROTOCOL_2 can emit score=5.
+Its control roles must be exactly:
+  SVR: CANDIDATE
+  RIDGE: FIXED_BENCHMARK
+  NATIVE: PRODUCER_C0
+  CASH: DETERMINISTIC_NO_ENTRY
+
+Node API
+  deriveLevel5(request, baseDirectory)
+  verifyLevel5Derivation(request, report, baseDirectory)
+
+Derivation request
+  schema: HARPOON_LEVEL5_DERIVATION_REQUEST_1
+  level4:
+    request: null | {path,sha256}
+  stress:
+    - id: frozen scenario identifier
+      request: {path,sha256}
+      report: {path,sha256}
+
+References use raw-byte SHA-256. They are relative to the JSON containing them.
+The level4 request retains its existing data/comparison/ledger contract and is
+reevaluated, not trusted from a supplied score. Its comparison request/report
+are reexecuted by the existing coordinator and fixed-estimator verifier.
+Caller-supplied curves/policies are rejected. Missing resources remain null.
+The empty request above with stress:[] is executable and returns exact blockers.
+
+Stress scope and budget
+At most one additional three-policy comparison fits the existing six-slot
+family. The base/stress historical registrations must be real verified adjacent
+three-slot reservations in the same existing journal. No slots are reserved by
+this verifier. Synthetic test fixtures perform no journal reservation and remain
+financially ineligible. CASH is an exact deterministic no-entry reference using
+the same capital and external costs, not another searched strategy or slot.
+
+Only nondecreasing fees_bps_per_side, fee_per_fill_usd and slippage_bps may differ
+between base and stress, apart from request id and registration receipt. At least
+one must increase. Models and original model bytes, all market/events/signals,
+calendar, initial capital, risk and external cost amount must match. No claimed
+stress result bypasses complete reexecution. Latency/liquidity stress is not
+implemented by this bounded adapter; it does not fabricate those distributions.
+
+Chronological account and economic equity
+Account equity and fills remain those of the original coordinator replay.
+The verified ledger's external cost entries are applied at their documented
+accrual timestamps. They must sum to the external amount in the funded request.
+Trading fees are already in cash and are never subtracted again. An inserted
+cost event carries the last observed account/inventory mark and labels that
+fact; it does not invent a fresh quote. Its real timestamp contributes to risk,
+and its return belongs to the next observed session interval. Weekends and
+after-hours costs do not create new independent market sessions.
+
+Every event reconciles cash + inventory = account equity and account equity -
+external costs = economic equity. Zero/negative equity at any event, unpaid
+economic cash, peak exposure, drawdown, stale terminal marks and observed holding
+duration remain visible even when the daily close recovers. The evaluator uses
+the maximum observed event risk and time weights last-observed exposure between
+events. Unobserved price paths are not certified. CASH earns no invented interest
+and has no transaction fees because it never trades; it pays all shared external
+costs. No terminal forced close or price interpolation is introduced.
+
+Financing contract
+The producer can explicitly reserve cash with execution_model.operating_cash_reserve:
+  amount_usd: fixed reserve R
+  known_at: observed/frozen timestamp before the replay start
+  method: FIXED_INITIAL_CASH_RESERVE
+The original cash/NAV remain unchanged; every policy's buying power and
+non-marginable buying power equal cash-R. The original coordinator reexecutes
+its sizing and fills with that reserve, and the v2 evaluator checks those fields
+at every snapshot. R is held for the entire test, a conservative assumption,
+and must cover all external costs. Costs are subtracted from economic NAV once
+when accrued, not again when reserving cash. CASH shares this reserve.
+
+If nonzero costs lack this original shared reserve or its reconstruction,
+EXTERNAL_COST_CAPITAL_RESERVE_PARITY_UNVERIFIED remains explicit. If economic
+cash cannot cover accrued costs, EXTERNAL_COST_FINANCING_NOT_AVAILABLE is
+recorded. If cash falls below the still-reserved R, RESERVED_CASH_DEFICIT is
+recorded even when total NAV stays positive. No invented broker debit, capital
+contribution or sale of unexecuted inventory funds a cost. The model reserves
+existing capital; this contract does not authorize additional spending/exposure.
+
+V2 protocol
+All v1 chronology, unit, risk, economic minimum, dependence, purge/embargo,
+bootstrap and search validations remain. Replace minimum_delta_c0_log_growth by
+minimum_delta_native_log_growth and add:
+  schema: HARPOON_ECONOMIC_PROTOCOL_2
+  policy_roles: exact roles above
+  exposure_measure: EVENT_INTERVAL_TIME_WEIGHTED_LAST_OBSERVED
+  external_cost_method: VERIFIED_LEDGER_ACCRUAL_TIMESTAMPS
+  stress_scenarios: exactly one item
+    id: exact scenario id
+    execution_overrides: exact frozen increased execution fields
+    minimum_net_pnl_usd: nonnegative, fixed before test
+    minimum_delta_ridge_usd: nonnegative, fixed before test
+    max_drawdown_fraction: positive and no higher than base risk limit
+
+The Node bindings output gives the formulas for policy_hash, risk_hash,
+cost_hash and code_hash. The policy hash includes exact model-byte hashes;
+risk binds the full coordinator configuration. The cost hash binds execution
+assumptions and the verified-accrual accounting method, not unknowable future
+realized cost totals. Code includes all executed funded sources plus both level4
+and level5 adapters; bridge hashes are captured before and after reexecution.
+Actual future receipts, totals and market input remain bound in the report.
+
+This is a schema, not a ready financial protocol. Unknown dates, adequate block
+lengths, economic minimums, cost assumptions and risk limits cannot be copied
+from synthetic tests. Register the real protocol and model bytes before the
+START of the final test. A later re-download or first_access declaration cannot
+convert old historical results into a new test. Local clocks/hash chains do not
+establish external time attestation or independent model provenance.
+
+V2 evidence
+  schema: HARPOON_ECONOMIC_EVIDENCE_2
+  protocol_hash: frozen protocol hash
+  generated_at: aware timestamp after the complete test
+  execution_allowed: false
+  liveApproved: false
+  provenance:
+    first_final_data_access_at: aware timestamp
+    prior_final_test_uses: []
+  preregistration: existing v1 local journal reference and record_hash
+  search_history: existing v1 history artifact reference
+  history_manifest: raw-byte artifact reference described below
+  derivation_request: raw-byte reference to the Node request above
+
+The Python evaluator invokes only the fixed local Node adapter and consumes its
+newly derived output. No exported report, booleans or caller curves substitute
+for reconstruction. It reuses paired_block_bootstrap without changing its
+Bonferroni family (attempts × block lengths × three endpoints), sampling unit,
+tail-resolution/compute bounds, degeneracy checks or confidence limitations.
+Its external endpoint name is svr_minus_native, not legacy cash C0.
+
+Historical manifest
+  schema: HARPOON_RESEARCH_HISTORY_MANIFEST_2
+  sources:
+    quant_journal: {path,sha256}
+    ultimate_registry: {path,sha256}
+    tp32_report: {path,sha256}
+    prior_readiness: {path,sha256}
+  quant_journal_wal: optional bound WAL reference, mandatory if nonempty
+  quant_audit_head: current existing journal head
+  historical_source_files: references keyed by relative_path in the prior audit
+  global_deduplicated_total: null until identities are actually reconciled
+  attempt_identity_map: null until source records support it
+
+The prior audit is anchored to the retained 30.10.1 bytes; Ultimate and TP32
+references must match its exact source hashes. The Quant journal is opened
+read-only, its audit chain verified, and the retained 23-slot prefix must be
+present. A coherent unrelated replacement journal fails that prefix binding.
+Every historical source named by the prior audit must also be provided by hash.
+Known prior data periods are extracted and overlap is checked. Unknown history
+coverage remains a blocker; histories are not silently summed as independent
+trials. The retained Quant prefix itself is reconstructed local evidence, not
+an externally authenticated research diary.
+
+If native records eventually support cross-family identities, each map entry
+must cover one recorded family slot and identify an actual immutable source
+record via JSON pointer (and journal_key for QUANT). The source record must
+contain attempt_id, code_hash, data_hash and policy_hash. Every known family
+slot must be covered once; reuse of a source location is rejected. Only identical
+native identities deduplicate. A claimed total is compared to the derived count.
+Current historical artifacts do not establish that map: keep total and map null.
+
+Outcome
+Level 4 must be reconstructed on these exact inputs. Level 5 additionally needs
+positive absolute net economic PnL, all corrected one-sided lower bounds above
+zero/economic minimums for SVR and its Ridge/native comparisons, comparable
+exposure, every risk/financing/freshness/history condition and the preregistered
+stress criterion. Missing evidence remains VENTAJA_NO_DEMOSTRADA; demonstrably
+negative economics or excessive candidate risk is RECHAZADO. The sole favorable
+verdict is CANDIDATO_PARA_VALIDACION_FORWARD. All execution, LIVE and financial
+authority flags stay false. Neither a score nor software tests guarantee profit.
+
+Relevant regression commands
+  HARPOON_QUANT_PYTHON=/absolute/local/python node --test-reporter=tap tools/level5_readiness_test.cjs
+  cd quant
+  python -m unittest discover -s tests -p test_economic_gate_v2.py -v
+
+Tests use synthetic fixtures and include a complete base/stress round trip
+through the real local coordinator and both fixed predictors. Their software
+success explicitly coexists with financial rejection or missing evidence.
+
+Current retained diagnostic
+  evidence/level5_30_12_0/history/manifest.json
+  evidence/level5_30_12_0/history/verification.json
+The actual retained sources reproduce QUANT=23, ULTIMATE=18 and TP32=3 within
+their separate scopes. global_deduplicated_total and the final test period remain
+null. The verifier can inspect history with a null period for this diagnostic;
+it reports test_after_known_history:null. The economic evaluator still requires
+a complete frozen protocol and blocks unresolved history/freshness. Reading the
+retained journal did not alter its bytes or consume any new reservation.

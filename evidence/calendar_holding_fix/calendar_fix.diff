@@ -1,0 +1,496 @@
+diff --git a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/xxx/ultimate_replay.ts b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/xxx/ultimate_replay.ts
+index 98ecb06..ceb46fe 100644
+--- a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/xxx/ultimate_replay.ts
++++ b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/xxx/ultimate_replay.ts
+@@ -22,6 +22,7 @@ import {
+   probabilityBacktestOverfit,
+ } from "./ultimate_stats";
+ import { trainingFrequencies } from "./ultimate_frequency";
++import { deadlineFor } from "./policy";
+ 
+ export interface Opportunity {
+   id: string;
+@@ -53,6 +54,74 @@ export interface ModeledCampaign {
+   entry: number;
+   marks: { at: number; pnl: number }[];
+   reason: string;
++  holdingDeadlineAt?: number;
++  holdingClockStartedAt?: number;
++}
++
++/** An opened position without an executable exit cannot disappear from a curve. */
++export class UnresolvedHoldingExposureError extends Error {
++  readonly code = "UNRESOLVED_HOLDING_EXPOSURE";
++  constructor(
++    readonly details: {
++      reason: string;
++      signalId: string;
++      symbol: string;
++      hypothesis: Hypothesis;
++      policy: ExitVariant;
++      openedAt: number;
++      decisionAt: number;
++      deadlineAt: number;
++      encounteredAt: number | null;
++      entryPrice: number;
++      openedQuantity: number;
++      remainingQuantity: number;
++      lastKnownMark: { at: number; pnl: number } | null;
++      realizedPnlUsd: number;
++      economicPnlUsd: null;
++    },
++  ) {
++    // ResearchLab workers persist error.message. Keep the unresolved position
++    // in that transport as well as typed details; a worker boundary must not
++    // erase inventory merely because no complete portfolio can be returned.
++    super("UNRESOLVED_HOLDING_EXPOSURE: " + JSON.stringify(details));
++    this.name = "UnresolvedHoldingExposureError";
++  }
++}
++
++/** Scheduling-only result: separates a refused entry from unresolved inventory. */
++export function planCalendarHolding(
++  signal: Opportunity,
++  firstOpen: number,
++  data: ResearchDataset,
++  p: ResearchProtocol,
++): {
++  status: "NOT_APPLICABLE" | "REFUSED_BEFORE_ENTRY" | "SCHEDULED";
++  reason: string | null;
++  decisionAt: number;
++  plannedEntryAt: number;
++  deadlineAt: number | null;
++  positionOpened: false;
++} {
++  const base = { decisionAt: signal.at, plannedEntryAt: firstOpen, positionOpened: false as const };
++  if (p.kind !== "ALPACA_PROXY" || signal.hypothesis !== "CLOSED_CHANNEL")
++    return { ...base, status: "NOT_APPLICABLE", reason: null, deadlineAt: null };
++  need(Number.isSafeInteger(firstOpen) && firstOpen >= signal.at, "planned entry chronology");
++  let target: number;
++  try {
++    // Runtime anchors at decision/submission time, not a later pending fill.
++    target = deadlineFor("equity", signal.at, 72, data.sessions);
++  } catch {
++    return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_CALENDAR_HOLDING_WINDOW", deadlineAt: null };
++  }
++  const session = data.sessions.find((s) => s.open <= target && target < s.close);
++  if (!session)
++    return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_EXECUTABLE_EXIT_SESSION", deadlineAt: null };
++  // The validated resolution is five minutes. Round earlier using only the
++  // supplied session and grid, never a later price or future bar existence.
++  const deadlineAt = session.open + Math.floor((target - session.open) / 300000) * 300000;
++  return firstOpen >= deadlineAt
++    ? { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "ENTRY_AT_OR_AFTER_DEADLINE", deadlineAt }
++    : { ...base, status: "SCHEDULED", reason: null, deadlineAt };
+ }
+ export interface ReplayLimits {
+   capitalUsd: number;
+@@ -317,14 +386,26 @@ export function replayCampaign(
+   const session = data.sessions.find(
+     (s) => first.t >= s.open && first.t < s.close,
+   )!;
+-  const deadline =
+-    signal.hypothesis === "CLOSED_CHANNEL"
+-      ? first.t + 72 * 3600000
+-      : Math.min(
+-          session.close - 300000,
+-          first.t +
+-            (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000),
+-        );
++  // Match the existing cash-equity runtime deadline. The supplied session
++  // calendar is the scheduling input; no later price or future bar existence
++  // chooses the deadline. Calendar publication-time provenance remains a data
++  // requirement, not something reconstructed from a successful historical fill.
++  const holdingPlan = planCalendarHolding(signal, first.t, data, p),
++    calendarHolding = holdingPlan.status !== "NOT_APPLICABLE";
++  let deadline: number;
++  if (calendarHolding) {
++    if (holdingPlan.status === "REFUSED_BEFORE_ENTRY") return null;
++    deadline = holdingPlan.deadlineAt!;
++  } else {
++    deadline =
++      signal.hypothesis === "CLOSED_CHANNEL"
++        ? first.t + 72 * 3600000
++        : Math.min(
++            session.close - 300000,
++            first.t +
++              (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000),
++          );
++  }
+   const contractDeadline =
+     Math.min(series.firstNoticeAt ?? Infinity, series.lastTradeAt ?? Infinity) -
+     86400000;
+@@ -336,6 +417,25 @@ export function replayCampaign(
+     return null;
+   const marks: ModeledCampaign["marks"] = [],
+     tpDone = [false, false];
++  const unresolved = (reason: string, encounteredAt: number | null): never => {
++    throw new UnresolvedHoldingExposureError({
++      reason,
++      signalId: signal.id,
++      symbol: signal.symbol,
++      hypothesis: signal.hypothesis,
++      policy,
++      openedAt: first.t,
++      decisionAt: signal.at,
++      deadlineAt: deadline,
++      encounteredAt,
++      entryPrice: entry,
++      openedQuantity: quantity,
++      remainingQuantity: remaining,
++      lastKnownMark: marks.at(-1) ?? null,
++      realizedPnlUsd: realized,
++      economicPnlUsd: null,
++    });
++  };
+   const close = (qty: number, px: number, at: number, why: string) => {
+     if (qty <= 0) return;
+     const filled = round(px * (1 - dir * friction), series.tick, dir !== 1),
+@@ -358,12 +458,20 @@ export function replayCampaign(
+           s.close >= b.end &&
+           prior.end === data.sessions.find((z) => z.close === prior.end)?.close,
+       )
+-    )
++    ) {
++      if (calendarHolding)
++        unresolved("MISSING_BAR_WITH_OPEN_EXPOSURE", b.t);
+       return null;
++    }
+     if (pendingStop && b.t >= pendingStop.at) {
+       stop = pendingStop.price;
+       pendingStop = undefined;
+     }
++    if (
++      calendarHolding &&
++      b.t > Math.min(deadline, contractDeadline)
++    )
++      unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+     if (b.t >= Math.min(deadline, contractDeadline)) {
+       close(
+         remaining,
+@@ -433,7 +541,11 @@ export function replayCampaign(
+     if (dir * (candidate - stop) > 0)
+       pendingStop = { price: candidate, at: b.availableAt };
+   }
+-  if (remaining) return null; // An incomplete path is excluded, never treated as a flat profitable trade.
++  if (remaining) {
++    if (calendarHolding)
++      unresolved("DATA_ENDED_WITH_OPEN_EXPOSURE", null);
++    return null; // Other legacy research scopes retain their explicit incomplete-path exclusion.
++  }
+   const riskUsd = quantity * distance * series.pointValue;
+   return {
+     id: signal.id,
+@@ -454,6 +566,9 @@ export function replayCampaign(
+     entry,
+     marks,
+     reason,
++    ...(calendarHolding
++      ? { holdingDeadlineAt: deadline, holdingClockStartedAt: signal.at }
++      : {}),
+   };
+ }
+ 
+
+diff --git a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/xxx/ultimate_lab.ts b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/xxx/ultimate_lab.ts
+index 8b28f90..e53ca57 100644
+--- a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/xxx/ultimate_lab.ts
++++ b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/xxx/ultimate_lab.ts
+@@ -72,6 +72,7 @@ export class ResearchLab {
+       "ultimate_replay.js",
+       "ultimate_stats.js",
+       "ultimate_frequency.js",
++      "policy.js", // Calendar-aware holding deadlines are a replay dependency.
+     ].map((f) => fs.readFileSync(path.join(__dirname, f), "utf8")),
+   );
+   private key: string;
+
+diff --git a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/runtime30/ultimate_replay.js b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/runtime30/ultimate_replay.js
+index 1f5366b..8d964b0 100644
+--- a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/runtime30/ultimate_replay.js
++++ b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/runtime30/ultimate_replay.js
+@@ -1,6 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.DEFAULT_REPLAY_LIMITS = void 0;
++exports.DEFAULT_REPLAY_LIMITS = exports.UnresolvedHoldingExposureError = void 0;
++exports.planCalendarHolding = planCalendarHolding;
+ exports.opportunities = opportunities;
+ exports.nextTrailingStop = nextTrailingStop;
+ exports.replayCampaign = replayCampaign;
+@@ -8,6 +9,45 @@ exports.runStudy = runStudy;
+ const ultimate_contracts_1 = require("./ultimate_contracts");
+ const ultimate_stats_1 = require("./ultimate_stats");
+ const ultimate_frequency_1 = require("./ultimate_frequency");
++const policy_1 = require("./policy");
++/** An opened position without an executable exit cannot disappear from a curve. */
++class UnresolvedHoldingExposureError extends Error {
++    details;
++    code = "UNRESOLVED_HOLDING_EXPOSURE";
++    constructor(details) {
++        // ResearchLab workers persist error.message. Keep the unresolved position
++        // in that transport as well as typed details; a worker boundary must not
++        // erase inventory merely because no complete portfolio can be returned.
++        super("UNRESOLVED_HOLDING_EXPOSURE: " + JSON.stringify(details));
++        this.details = details;
++        this.name = "UnresolvedHoldingExposureError";
++    }
++}
++exports.UnresolvedHoldingExposureError = UnresolvedHoldingExposureError;
++/** Scheduling-only result: separates a refused entry from unresolved inventory. */
++function planCalendarHolding(signal, firstOpen, data, p) {
++    const base = { decisionAt: signal.at, plannedEntryAt: firstOpen, positionOpened: false };
++    if (p.kind !== "ALPACA_PROXY" || signal.hypothesis !== "CLOSED_CHANNEL")
++        return { ...base, status: "NOT_APPLICABLE", reason: null, deadlineAt: null };
++    (0, ultimate_contracts_1.need)(Number.isSafeInteger(firstOpen) && firstOpen >= signal.at, "planned entry chronology");
++    let target;
++    try {
++        // Runtime anchors at decision/submission time, not a later pending fill.
++        target = (0, policy_1.deadlineFor)("equity", signal.at, 72, data.sessions);
++    }
++    catch {
++        return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_CALENDAR_HOLDING_WINDOW", deadlineAt: null };
++    }
++    const session = data.sessions.find((s) => s.open <= target && target < s.close);
++    if (!session)
++        return { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "NO_EXECUTABLE_EXIT_SESSION", deadlineAt: null };
++    // The validated resolution is five minutes. Round earlier using only the
++    // supplied session and grid, never a later price or future bar existence.
++    const deadlineAt = session.open + Math.floor((target - session.open) / 300000) * 300000;
++    return firstOpen >= deadlineAt
++        ? { ...base, status: "REFUSED_BEFORE_ENTRY", reason: "ENTRY_AT_OR_AFTER_DEADLINE", deadlineAt }
++        : { ...base, status: "SCHEDULED", reason: null, deadlineAt };
++}
+ exports.DEFAULT_REPLAY_LIMITS = {
+     capitalUsd: 20000,
+     riskFraction: 0.0025,
+@@ -179,15 +219,48 @@ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMulti
+     const entry = round(first.o * (1 + dir * friction), series.tick, dir === 1), distance = Math.ceil(signal.stopDistance / series.tick) * series.tick;
+     let stop = entry - dir * distance, remaining = quantity, realized = -p.costs.perSideUsd * quantity * costMultiplier, fees = -realized, peak = entry, peakPnl = 0, ambiguous = 0, reason = "DATA_ENDED", closed = first.t, pendingStop;
+     const session = data.sessions.find((s) => first.t >= s.open && first.t < s.close);
+-    const deadline = signal.hypothesis === "CLOSED_CHANNEL"
+-        ? first.t + 72 * 3600000
+-        : Math.min(session.close - 300000, first.t +
+-            (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000));
++    // Match the existing cash-equity runtime deadline. The supplied session
++    // calendar is the scheduling input; no later price or future bar existence
++    // chooses the deadline. Calendar publication-time provenance remains a data
++    // requirement, not something reconstructed from a successful historical fill.
++    const holdingPlan = planCalendarHolding(signal, first.t, data, p), calendarHolding = holdingPlan.status !== "NOT_APPLICABLE";
++    let deadline;
++    if (calendarHolding) {
++        if (holdingPlan.status === "REFUSED_BEFORE_ENTRY")
++            return null;
++        deadline = holdingPlan.deadlineAt;
++    }
++    else {
++        deadline =
++            signal.hypothesis === "CLOSED_CHANNEL"
++                ? first.t + 72 * 3600000
++                : Math.min(session.close - 300000, first.t +
++                    (signal.hypothesis === "VWAP_REVERSION" ? 3600000 : 86400000));
++    }
+     const contractDeadline = Math.min(series.firstNoticeAt ?? Infinity, series.lastTradeAt ?? Infinity) -
+         86400000;
+     if (data.splitEvents.some((e) => e.symbol === series.symbol && e.at > first.t && e.at <= deadline))
+         return null;
+     const marks = [], tpDone = [false, false];
++    const unresolved = (reason, encounteredAt) => {
++        throw new UnresolvedHoldingExposureError({
++            reason,
++            signalId: signal.id,
++            symbol: signal.symbol,
++            hypothesis: signal.hypothesis,
++            policy,
++            openedAt: first.t,
++            decisionAt: signal.at,
++            deadlineAt: deadline,
++            encounteredAt,
++            entryPrice: entry,
++            openedQuantity: quantity,
++            remainingQuantity: remaining,
++            lastKnownMark: marks.at(-1) ?? null,
++            realizedPnlUsd: realized,
++            economicPnlUsd: null,
++        });
++    };
+     const close = (qty, px, at, why) => {
+         if (qty <= 0)
+             return;
+@@ -204,12 +277,18 @@ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMulti
+             b.t !== prior.end &&
+             !data.sessions.some((s) => s.open === b.t &&
+                 s.close >= b.end &&
+-                prior.end === data.sessions.find((z) => z.close === prior.end)?.close))
++                prior.end === data.sessions.find((z) => z.close === prior.end)?.close)) {
++            if (calendarHolding)
++                unresolved("MISSING_BAR_WITH_OPEN_EXPOSURE", b.t);
+             return null;
++        }
+         if (pendingStop && b.t >= pendingStop.at) {
+             stop = pendingStop.price;
+             pendingStop = undefined;
+         }
++        if (calendarHolding &&
++            b.t > Math.min(deadline, contractDeadline))
++            unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+         if (b.t >= Math.min(deadline, contractDeadline)) {
+             close(remaining, b.o, b.t, b.t >= contractDeadline ? "CONTRACT_DEADLINE" : "TIME");
+             marks.push({ at: b.t, pnl: realized });
+@@ -254,8 +333,11 @@ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMulti
+         if (dir * (candidate - stop) > 0)
+             pendingStop = { price: candidate, at: b.availableAt };
+     }
+-    if (remaining)
+-        return null; // An incomplete path is excluded, never treated as a flat profitable trade.
++    if (remaining) {
++        if (calendarHolding)
++            unresolved("DATA_ENDED_WITH_OPEN_EXPOSURE", null);
++        return null; // Other legacy research scopes retain their explicit incomplete-path exclusion.
++    }
+     const riskUsd = quantity * distance * series.pointValue;
+     return {
+         id: signal.id,
+@@ -276,6 +358,9 @@ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMulti
+         entry,
+         marks,
+         reason,
++        ...(calendarHolding
++            ? { holdingDeadlineAt: deadline, holdingClockStartedAt: signal.at }
++            : {}),
+     };
+ }
+ function windowTrades(trades, sessions, purgeMs) {
+
+diff --git a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/runtime30/ultimate_lab.js b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/runtime30/ultimate_lab.js
+index 6337a8d..ac27bad 100644
+--- a/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/runtime30/ultimate_lab.js
++++ b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/runtime30/ultimate_lab.js
+@@ -33,6 +33,7 @@ class ResearchLab {
+         "ultimate_replay.js",
+         "ultimate_stats.js",
+         "ultimate_frequency.js",
++        "policy.js", // Calendar-aware holding deadlines are a replay dependency.
+     ].map((f) => node_fs_1.default.readFileSync(node_path_1.default.join(__dirname, f), "utf8")));
+     key;
+     constructor(store, account, validators, limits) {
+
+diff --git a/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_holding_deadline_test.cjs b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_holding_deadline_test.cjs
+new file mode 100644
+index 0000000..d9e25ab
+--- /dev/null
++++ b/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_holding_deadline_test.cjs
+@@ -0,0 +1,113 @@
++"use strict";
++// Synthetic execution/calendar regression cases. No strategy fits or financial trials.
++const test = require("node:test");
++const assert = require("node:assert/strict");
++const fs = require("node:fs"), path = require("node:path");
++const { defaultProtocol } = require("../runtime30/ultimate_contracts.js");
++const { replayCampaign, planCalendarHolding, UnresolvedHoldingExposureError } = require("../runtime30/ultimate_replay.js");
++const { deadlineFor } = require("../runtime30/policy.js");
++const HOUR = 3600000, BAR = 300000;
++const at = (value) => Date.parse(value);
++function session(date, open="13:30", close="20:00") {
++  return {date,open:at(date+"T"+open+":00Z"),close:at(date+"T"+close+":00Z")};
++}
++function fixture(sessions, decision, firstOpen) {
++  const bars=sessions.flatMap(s=>{
++    const out=[];
++    for(let t=s.open;t<s.close;t+=BAR)out.push({t,end:t+BAR,availableAt:t+BAR+3000,o:100,h:100.1,l:99.9,c:100,v:1000});
++    return out;
++  });
++  const series={symbol:"SPY",root:"SPY",pointValue:1,tick:.01,bars};
++  const signal={id:"SYNTHETIC-HOLDING",symbol:"SPY",hypothesis:"CLOSED_CHANNEL",direction:1,at:decision,index:bars.findIndex(b=>b.t===firstOpen),stopDistance:10,regime:.4};
++  assert(signal.index>=0);
++  return {series,signal,data:{schema:"HARPOON-ULTIMATE-DATA-1",kind:"ALPACA_PROXY",sessions,series:[series],splitEvents:[]},protocol:defaultProtocol("ALPACA_PROXY")};
++}
++function run(f) {return replayCampaign(f.signal,f.series,f.data,f.protocol,"REGIME",4);}
++function weekendFixture() {
++  return fixture([session("2026-10-15"),session("2026-10-16"),session("2026-10-19")],
++    at("2026-10-15T16:00:03Z"),at("2026-10-15T16:05:00Z"));
++}
++test("Thursday campaign exits Friday before weekend deadline using runtime calendar policy",()=>{
++  const f=weekendFixture(),r=run(f);
++  assert(r);assert.equal(r.reason,"TIME");
++  assert.equal(r.closed,at("2026-10-16T19:50:00Z"));
++  assert.equal(r.holdingDeadlineAt,deadlineFor("equity",f.signal.at,72,f.data.sessions));
++  assert(r.closed-f.signal.at<=72*HOUR);
++});
++test("Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open",()=>{
++  const f=fixture([session("2026-09-04"),session("2026-09-08")],at("2026-09-04T16:00:03Z"),at("2026-09-04T16:05:00Z"));
++  const r=run(f);assert(r);
++  assert.equal(r.closed,at("2026-09-04T19:50:00Z"));
++  assert(r.closed<f.data.sessions[1].open);
++});
++test("early close is scheduled from the supplied calendar with the same ten-minute buffer",()=>{
++  const f=fixture([session("2026-11-25","14:30","21:00"),session("2026-11-27","14:30","18:00"),session("2026-11-30","14:30","21:00")],
++    at("2026-11-25T16:00:03Z"),at("2026-11-25T16:05:00Z"));
++  const r=run(f);assert(r);
++  assert.equal(r.closed,at("2026-11-27T17:50:00Z"));
++  assert(r.closed-f.signal.at<=72*HOUR);
++});
++test("intrabar wall-clock deadline rounds earlier on the declared five-minute grid",()=>{
++  const sessions=["2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"].map(d=>session(d,"14:30","21:00"));
++  const f=fixture(sessions,at("2026-11-02T15:32:03Z"),at("2026-11-02T15:35:00Z"));
++  const r=run(f);assert(r);
++  assert.equal(r.closed,at("2026-11-05T15:30:00Z"));
++  assert.equal(r.holdingClockStartedAt,f.signal.at);
++  assert(r.closed<=f.signal.at+72*HOUR);
++});
++test("a pending entry arriving at or after the planned deadline is refused before opening",()=>{
++  const f=fixture([session("2026-10-15"),session("2026-10-16"),session("2026-10-19")],
++    at("2026-10-15T16:00:03Z"),at("2026-10-16T19:50:00Z"));
++  const plan=planCalendarHolding(f.signal,f.series.bars[f.signal.index].t,f.data,f.protocol);
++  assert.equal(plan.status,"REFUSED_BEFORE_ENTRY");
++  assert.equal(plan.positionOpened,false);
++  assert.equal(plan.reason,"ENTRY_AT_OR_AFTER_DEADLINE");
++  assert.equal(run(f),null);
++  f.signal.index=f.series.bars.findIndex(b=>b.t===at("2026-10-16T19:55:00Z"));
++  assert.equal(run(f),null);
++});
++test("an absent calendar refuses entry; no later price is used to invent an exit session",()=>{
++  const f=weekendFixture();f.data.sessions=[];
++  assert.equal(planCalendarHolding(f.signal,f.series.bars[f.signal.index].t,f.data,f.protocol).status,"REFUSED_BEFORE_ENTRY");
++  assert.equal(run(f),null);
++});
++test("missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late",()=>{
++  const f=weekendFixture(),deadline=at("2026-10-16T19:50:00Z");
++  f.series.bars=f.series.bars.filter(b=>b.t!==deadline);
++  assert.equal(planCalendarHolding(f.signal,f.series.bars[f.signal.index].t,f.data,f.protocol).status,"SCHEDULED");
++  assert.throws(()=>run(f),e=>{
++    assert(e instanceof UnresolvedHoldingExposureError);
++    assert.equal(e.code,"UNRESOLVED_HOLDING_EXPOSURE");
++    assert.equal(e.details.deadlineAt,deadline);
++    assert.equal(e.details.remainingQuantity,4);
++    assert.equal(e.details.openedAt,at("2026-10-15T16:05:00Z"));
++    assert.equal(e.details.economicPnlUsd,null);
++    const transported=JSON.parse(e.message.slice(e.message.indexOf(": ")+2));
++    assert.equal(JSON.stringify(transported),JSON.stringify(e.details));
++    assert(e.details.lastKnownMark);
++    assert(e.details.encounteredAt>deadline);
++    return true;
++  });
++});
++test("production imports remain loadable while the archived report cannot pass a new code seal",()=>{
++  const { ResearchLab }=require("../runtime30/ultimate_lab.js");
++  const { Validators }=require("../runtime30/validators.js");
++  const { DEFAULT_REPLAY_LIMITS }=require("../runtime30/ultimate_replay.js");
++  const lab=new ResearchLab({},"SYNTHETIC-SEAL-ONLY",new Validators(),DEFAULT_REPLAY_LIMITS);
++  const report=JSON.parse(fs.readFileSync(path.join(__dirname,"../evidence/ultimate/report.json"),"utf8"));
++  const registration=JSON.parse(fs.readFileSync(path.join(__dirname,"../evidence/ultimate/registry.json"),"utf8"));
++  assert.throws(()=>lab.verifyBundled(report,registration),/bundled report code\/data\/protocol binding/);
++  assert.equal(typeof require("../runtime30/server.js").server,"function");
++});
++test("data ending with an open position cannot turn into a zero-PnL excluded campaign",()=>{
++  const f=weekendFixture(),deadline=at("2026-10-16T19:50:00Z");
++  f.series.bars=f.series.bars.filter(b=>b.t<deadline);
++  assert.throws(()=>run(f),e=>{
++    assert(e instanceof UnresolvedHoldingExposureError);
++    assert.equal(e.details.reason,"DATA_ENDED_WITH_OPEN_EXPOSURE");
++    assert.equal(e.details.remainingQuantity,4);
++    assert.equal(e.details.economicPnlUsd,null);
++    assert.equal(e.details.encounteredAt,null);
++    return true;
++  });
++});

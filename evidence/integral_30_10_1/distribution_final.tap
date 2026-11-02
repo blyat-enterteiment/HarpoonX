@@ -1,0 +1,25 @@
+TAP version 13
+# Subtest: the final COPY layout includes verifier and bound TypeScript sources
+ok 1 - the final COPY layout includes verifier and bound TypeScript sources
+  ---
+  duration_ms: 2.411939
+  type: 'test'
+  ...
+# Subtest: Docker context retains only the two required verification tools
+ok 2 - Docker context retains only the two required verification tools
+  ---
+  duration_ms: 1.033058
+  type: 'test'
+  ...
+# Subtest: the actual coordinator replay verifies from the staged final layout
+ok 3 - the actual coordinator replay verifies from the staged final layout
+  ---
+  duration_ms: 294.573177
+  type: 'test'
+  ...
+# Subtest: Python gate can reexecute the coordinator from the final layout without granting financial acceptance
+ok 4 - Python gate can reexecute the coordinator from the final layout without granting financial acceptance
+  ---
+  duration_ms: 1239.420199
+  type: 'test'
+  ...

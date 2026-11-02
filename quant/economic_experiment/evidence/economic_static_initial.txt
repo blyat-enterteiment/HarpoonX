@@ -1,0 +1,1339 @@
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:81:43
+   |
+79 |         self.n = (self.marks[-1].date() - self.start).days + 1
+80 |         rng = np.random.default_rng(seed)
+81 |         self.spot = np.zeros((self.n, 24)); self.spot[0] = rng.uniform(20, 65, 24)
+   |                                           ^
+82 |         self.returns = np.zeros_like(self.spot)
+83 |         rv = rng.uniform(.45, .95, 24)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:84:43
+   |
+82 |         self.returns = np.zeros_like(self.spot)
+83 |         rv = rng.uniform(.45, .95, 24)
+84 |         self.iv = np.zeros_like(self.spot); self.iv[0] = rv * 1.15
+   |                                           ^
+85 |         for d in range(1, self.n):
+86 |             regime = 1. if d < .57 * self.n else 1.6 if d < .714 * self.n else .8
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:88:34
+   |
+86 | …     regime = 1. if d < .57 * self.n else 1.6 if d < .714 * self.n else .8
+87 | …     persistence = .18 if d < .57 * self.n else -.12 if d < .714 * self.n else .08
+88 | …     market = rng.normal(); shocks = rng.standard_t(6, 24) * math.sqrt(4 / 6)
+   |                            ^
+89 | …     jump = np.where(rng.random(24) < .008, rng.normal(0, .10, 24), 0)
+90 | …     self.returns[d] = np.clip(persistence * self.returns[d - 1] + rv / math.sqrt(365) * regime * (.4 * market + math.sqrt(.84) * sho…
+   |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:107:27
+    |
+105 |         if key in self.cache:
+106 |             return dict(self.cache[key])
+107 |         d = self.day(mark); end = int(self._exits[mark])
+    |                           ^
+108 |         h = (self.marks[end] - self.marks[mark]).total_seconds() / 86400
+109 |         s = float(self.spot[d, asset]); v = float(self.iv[d, asset])
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:109:39
+    |
+107 |         d = self.day(mark); end = int(self._exits[mark])
+108 |         h = (self.marks[end] - self.marks[mark]).total_seconds() / 86400
+109 |         s = float(self.spot[d, asset]); v = float(self.iv[d, asset])
+    |                                       ^
+110 |         days = 45 if "C" in flags else 21
+111 |         z = 1. if "C" in flags else 1.7
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:114:42
+    |
+112 |         t = days / 365
+113 |         k = s * math.exp((1 if call else -1) * z * v * math.sqrt(t))
+114 |         mid = float(bs(s, k, t, v, call)); spread = .08 + .04 * (v > .9)
+    |                                          ^
+115 |         bid, ask = quote(mid, spread)
+116 |         past = self.returns[max(1, d - 120):d + 1]
+    |
+
+RUF059 Unpacked variable `bid` is never used
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:115:9
+    |
+113 |         k = s * math.exp((1 if call else -1) * z * v * math.sqrt(t))
+114 |         mid = float(bs(s, k, t, v, call)); spread = .08 + .04 * (v > .9)
+115 |         bid, ask = quote(mid, spread)
+    |         ^^^
+116 |         past = self.returns[max(1, d - 120):d + 1]
+117 |         if "A" in flags:
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+    |
+114 |         mid = float(bs(s, k, t, v, call)); spread = .08 + .04 * (v > .9)
+    -         bid, ask = quote(mid, spread)
+115 +         _bid, ask = quote(mid, spread)
+116 |         past = self.returns[max(1, d - 120):d + 1]
+    |
+note: This is an unsafe fix and may change runtime behavior
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:142:27
+    |
+141 |     def stock(self, option: dict[str, Any]) -> dict[str, Any]:
+142 |         row = dict(option); s = float(self.spot[self.day(row["entry"]), row["asset"]])
+    |                           ^
+143 |         row.update(kind="stock", funding=s * 1.0005, risk=s * 1.0005,
+144 |                    edge=row["stock_expected"] * .9995 - s * 1.0005,
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:149:27
+    |
+148 |     def value(self, position: dict[str, Any], mark: int, stress: float, scenario: str = "base") -> tuple[float, dict[str, float], flo…
+149 |         d = self.day(mark); a = position["asset"]; s = float(self.spot[d, a])
+    |                           ^
+150 |         if position["kind"] == "stock":
+151 |             return self.scenario_mark(s * (1 - .0005 * stress), position, scenario), dict(delta=1., gamma=0., vega=0., mid_cash=s), s
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:149:50
+    |
+148 |     def value(self, position: dict[str, Any], mark: int, stress: float, scenario: str = "base") -> tuple[float, dict[str, float], flo…
+149 |         d = self.day(mark); a = position["asset"]; s = float(self.spot[d, a])
+    |                                                  ^
+150 |         if position["kind"] == "stock":
+151 |             return self.scenario_mark(s * (1 - .0005 * stress), position, scenario), dict(delta=1., gamma=0., vega=0., mid_cash=s), s
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:153:46
+    |
+151 |             return self.scenario_mark(s * (1 - .0005 * stress), position, scenario), dict(delta=1., gamma=0., vega=0., mid_cash=s), s
+152 |         elapsed = (self.marks[mark] - self.marks[position["entry"]]).total_seconds() / 86400
+153 |         t = (position["dte"] - elapsed) / 365; v = float(self.iv[d, a])
+    |                                              ^
+154 |         mid = float(bs(s, position["strike"], t, v, position["call"]))
+155 |         spread = .08 + .04 * (v > .9)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:157:66
+    |
+155 |         spread = .08 + .04 * (v > .9)
+156 |         bid, _ = quote(mid, min(.9, spread * stress))
+157 |         g = greeks(s, position["strike"], t, v, position["call"]); g["mid_cash"] = mid*100
+    |                                                                  ^
+158 |         return self.scenario_mark(bid * 100 - position["fee"] * stress, position, scenario), g, s
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:162:63
+    |
+160 |     @staticmethod
+161 |     def scenario_mark(unit: float, position: dict[str, Any], scenario: str) -> float:
+162 |         if scenario == "gaps" and position["kind"] == "option": unit *= .9
+    |                                                               ^
+163 |         if scenario == "iv_crush" and position["kind"] == "option": unit *= .8
+164 |         if scenario == "liquidity": unit -= .05 * position["funding"]
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:163:67
+    |
+161 |     def scenario_mark(unit: float, position: dict[str, Any], scenario: str) -> float:
+162 |         if scenario == "gaps" and position["kind"] == "option": unit *= .9
+163 |         if scenario == "iv_crush" and position["kind"] == "option": unit *= .8
+    |                                                                   ^
+164 |         if scenario == "liquidity": unit -= .05 * position["funding"]
+165 |         return unit
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:164:35
+    |
+162 |         if scenario == "gaps" and position["kind"] == "option": unit *= .9
+163 |         if scenario == "iv_crush" and position["kind"] == "option": unit *= .8
+164 |         if scenario == "liquidity": unit -= .05 * position["funding"]
+    |                                   ^
+165 |         return unit
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:176:25
+    |
+174 |     if not 1<=limits["max_positions"]<=8 or not 0<limits.get("capital",20000)<=20000:
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+    |                         ^
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:176:72
+    |
+174 |     if not 1<=limits["max_positions"]<=8 or not 0<limits.get("capital",20000)<=20000:
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+    |                                                                        ^
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:176:88
+    |
+174 |     if not 1<=limits["max_positions"]<=8 or not 0<limits.get("capital",20000)<=20000:
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+    |                                                                                        ^
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:177:41
+    |
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+    |                                         ^
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+179 |     def blocked(reason: str) -> None:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:177:54
+    |
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+    |                                                      ^
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+179 |     def blocked(reason: str) -> None:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:177:67
+    |
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+    |                                                                   ^
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+179 |     def blocked(reason: str) -> None:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:177:79
+    |
+175 |         raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+    |                                                                               ^
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+179 |     def blocked(reason: str) -> None:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:178:23
+    |
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |                       ^
+179 |     def blocked(reason: str) -> None:
+180 |         blocks[reason] = blocks.get(reason, 0) + 1
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:178:47
+    |
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |                                               ^
+179 |     def blocked(reason: str) -> None:
+180 |         blocks[reason] = blocks.get(reason, 0) + 1
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:178:63
+    |
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |                                                               ^
+179 |     def blocked(reason: str) -> None:
+180 |         blocks[reason] = blocks.get(reason, 0) + 1
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:178:84
+    |
+176 |     flags = policy.flags; initial = float(limits.get("capital", 20000)); cash = initial; peak = initial
+177 |     positions: list[dict[str, Any]] = []; trades = []; ledger = []; daily = {}; blocks: dict[str, int] = {}
+178 |     previous = initial; session_open = initial; last_date = ""; risk_paused = False; day_paused=False
+    |                                                                                    ^
+179 |     def blocked(reason: str) -> None:
+180 |         blocks[reason] = blocks.get(reason, 0) + 1
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:186:36
+    |
+184 |             continue
+185 |         if date != last_date:
+186 |             session_open = previous; last_date = date; day_paused=False
+    |                                    ^
+187 |         keep = []
+188 |         pre_nav = cash + sum(p["lots"]*world.value(p,i,stress,scenario)[0] for p in positions)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:186:54
+    |
+184 |             continue
+185 |         if date != last_date:
+186 |             session_open = previous; last_date = date; day_paused=False
+    |                                                      ^
+187 |         keep = []
+188 |         pre_nav = cash + sum(p["lots"]*world.value(p,i,stress,scenario)[0] for p in positions)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:219:77
+    |
+217 |                     if "B" in flags and call:
+218 |                         stock = world.stock(o)
+219 |                         if stock["edge"]/stock["risk"] > o["edge"]/o["risk"]: o = stock
+    |                                                                             ^
+220 |                     if o["exit"] <= i or world.marks[o["exit"]].date().isoformat() > end:
+221 |                         blocked("purge_deadline"); continue
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:221:50
+    |
+219 |                         if stock["edge"]/stock["risk"] > o["edge"]/o["risk"]: o = stock
+220 |                     if o["exit"] <= i or world.marks[o["exit"]].date().isoformat() > end:
+221 |                         blocked("purge_deadline"); continue
+    |                                                  ^
+222 |                     if scenario == "delay": o["edge"] -= .05 * o["funding"]
+223 |                     if scenario == "outage" and world.day(i)%11==0:
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:222:43
+    |
+220 |                     if o["exit"] <= i or world.marks[o["exit"]].date().isoformat() > end:
+221 |                         blocked("purge_deadline"); continue
+222 |                     if scenario == "delay": o["edge"] -= .05 * o["funding"]
+    |                                           ^
+223 |                     if scenario == "outage" and world.day(i)%11==0:
+224 |                         blocked("outage"); continue
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:224:42
+    |
+222 |                     if scenario == "delay": o["edge"] -= .05 * o["funding"]
+223 |                     if scenario == "outage" and world.day(i)%11==0:
+224 |                         blocked("outage"); continue
+    |                                          ^
+225 |                     if o["edge"]<=0: blocked("nonpositive_known_edge"); continue
+226 |                     if o["risk"]>min(initial,nav)*limits["risk_fraction"]: blocked("integer_risk_funding"); continue
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:225:36
+    |
+223 |                     if scenario == "outage" and world.day(i)%11==0:
+224 |                         blocked("outage"); continue
+225 |                     if o["edge"]<=0: blocked("nonpositive_known_edge"); continue
+    |                                    ^
+226 |                     if o["risk"]>min(initial,nav)*limits["risk_fraction"]: blocked("integer_risk_funding"); continue
+227 |                     if world.ages[i,a]>60 or ("D" in flags and (world.ages[i,a]>30 or o["spread"]>.10)):
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:225:71
+    |
+223 |                     if scenario == "outage" and world.day(i)%11==0:
+224 |                         blocked("outage"); continue
+225 |                     if o["edge"]<=0: blocked("nonpositive_known_edge"); continue
+    |                                                                       ^
+226 |                     if o["risk"]>min(initial,nav)*limits["risk_fraction"]: blocked("integer_risk_funding"); continue
+227 |                     if world.ages[i,a]>60 or ("D" in flags and (world.ages[i,a]>30 or o["spread"]>.10)):
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:226:74
+    |
+224 |                         blocked("outage"); continue
+225 |                     if o["edge"]<=0: blocked("nonpositive_known_edge"); continue
+226 |                     if o["risk"]>min(initial,nav)*limits["risk_fraction"]: blocked("integer_risk_funding"); continue
+    |                                                                          ^
+227 |                     if world.ages[i,a]>60 or ("D" in flags and (world.ages[i,a]>30 or o["spread"]>.10)):
+228 |                         blocked("quote_age_or_spread"); continue
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:226:107
+    |
+224 |                         blocked("outage"); continue
+225 |                     if o["edge"]<=0: blocked("nonpositive_known_edge"); continue
+226 |                     if o["risk"]>min(initial,nav)*limits["risk_fraction"]: blocked("integer_risk_funding"); continue
+    |                                                                                                           ^
+227 |                     if world.ages[i,a]>60 or ("D" in flags and (world.ages[i,a]>30 or o["spread"]>.10)):
+228 |                         blocked("quote_age_or_spread"); continue
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:228:55
+    |
+226 |                     if o["risk"]>min(initial,nav)*limits["risk_fraction"]: blocked("integer_risk_funding"); continue
+227 |                     if world.ages[i,a]>60 or ("D" in flags and (world.ages[i,a]>30 or o["spread"]>.10)):
+228 |                         blocked("quote_age_or_spread"); continue
+    |                                                       ^
+229 |                     candidates.append(o)
+230 |             for o in sorted(candidates,key=lambda x:(-x["edge"]/x["risk"],x["asset"],x["call"])):
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:231:45
+    |
+229 |                     candidates.append(o)
+230 |             for o in sorted(candidates,key=lambda x:(-x["edge"]/x["risk"],x["asset"],x["call"])):
+231 |                 if risk_paused or day_paused: blocked("risk_pause"); continue
+    |                                             ^
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:231:68
+    |
+229 |                     candidates.append(o)
+230 |             for o in sorted(candidates,key=lambda x:(-x["edge"]/x["risk"],x["asset"],x["call"])):
+231 |                 if risk_paused or day_paused: blocked("risk_pause"); continue
+    |                                                                    ^
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:232:85
+    |
+230 |             for o in sorted(candidates,key=lambda x:(-x["edge"]/x["risk"],x["asset"],x["call"])):
+231 |                 if risk_paused or day_paused: blocked("risk_pause"); continue
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+    |                                                                                     ^
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+234 |                 if "D" in flags and world.depth[i,o["asset"]]<2: blocked("depth_FOK");continue
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:232:110
+    |
+230 |             for o in sorted(candidates,key=lambda x:(-x["edge"]/x["risk"],x["asset"],x["call"])):
+231 |                 if risk_paused or day_paused: blocked("risk_pause"); continue
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+    |                                                                                                              ^
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+234 |                 if "D" in flags and world.depth[i,o["asset"]]<2: blocked("depth_FOK");continue
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:233:66
+    |
+231 |                 if risk_paused or day_paused: blocked("risk_pause"); continue
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+    |                                                                  ^
+234 |                 if "D" in flags and world.depth[i,o["asset"]]<2: blocked("depth_FOK");continue
+235 |                 # Stress is charged in actual cash, not only in a reported metric.
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:233:94
+    |
+231 |                 if risk_paused or day_paused: blocked("risk_pause"); continue
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+    |                                                                                              ^
+234 |                 if "D" in flags and world.depth[i,o["asset"]]<2: blocked("depth_FOK");continue
+235 |                 # Stress is charged in actual cash, not only in a reported metric.
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:234:64
+    |
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+234 |                 if "D" in flags and world.depth[i,o["asset"]]<2: blocked("depth_FOK");continue
+    |                                                                ^
+235 |                 # Stress is charged in actual cash, not only in a reported metric.
+236 |                 if o["kind"]=="option":
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:234:86
+    |
+232 |                 if len(positions)>= (4 if "F" in flags else limits["max_positions"]): blocked("position_cap"); continue
+233 |                 if any(p["asset"]==o["asset"] for p in positions): blocked("held_underlying");continue
+234 |                 if "D" in flags and world.depth[i,o["asset"]]<2: blocked("depth_FOK");continue
+    |                                                                                      ^
+235 |                 # Stress is charged in actual cash, not only in a reported metric.
+236 |                 if o["kind"]=="option":
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:237:77
+    |
+235 | …     # Stress is charged in actual cash, not only in a reported metric.
+236 | …     if o["kind"]=="option":
+237 | …         _,ask=quote(o["initial_mid"],min(.9,o["spread"]*stress));o["funding"]=ask*100+.65*stress;o["risk"]=o["funding"]+.65*stress
+    |                                                                   ^
+238 | …         o["entry_cost"]=o["funding"]-o["initial_mid"]*100;o["last_mid"]=o["initial_mid"]*100
+239 | …     else:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:237:109
+    |
+235 | …     # Stress is charged in actual cash, not only in a reported metric.
+236 | …     if o["kind"]=="option":
+237 | …         _,ask=quote(o["initial_mid"],min(.9,o["spread"]*stress));o["funding"]=ask*100+.65*stress;o["risk"]=o["funding"]+.65*stress
+    |                                                                                                   ^
+238 | …         o["entry_cost"]=o["funding"]-o["initial_mid"]*100;o["last_mid"]=o["initial_mid"]*100
+239 | …     else:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:238:70
+    |
+236 | …     if o["kind"]=="option":
+237 | …         _,ask=quote(o["initial_mid"],min(.9,o["spread"]*stress));o["funding"]=ask*100+.65*stress;o["risk"]=o["funding"]+.65*stress
+238 | …         o["entry_cost"]=o["funding"]-o["initial_mid"]*100;o["last_mid"]=o["initial_mid"]*100
+    |                                                            ^
+239 | …     else:
+240 | …         s=float(world.spot[world.day(i),o["asset"]]);o["funding"]=s*(1+.0005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["fund…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:240:65
+    |
+238 | …         o["entry_cost"]=o["funding"]-o["initial_mid"]*100;o["last_mid"]=o["initial_mid"]*100
+239 | …     else:
+240 | …         s=float(world.spot[world.day(i),o["asset"]]);o["funding"]=s*(1+.0005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["fund…
+    |                                                       ^
+241 | …     capital=min(initial,nav);gross=sum(p["lots"]*p["exposure"] for p in positions);factor=sum(p["lots"]*p["exposure"] for p in posi…
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:240:97
+    |
+238 | …         o["entry_cost"]=o["funding"]-o["initial_mid"]*100;o["last_mid"]=o["initial_mid"]*100
+239 | …     else:
+240 | …         s=float(world.spot[world.day(i),o["asset"]]);o["funding"]=s*(1+.0005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["fund…
+    |                                                                                       ^
+241 | …     capital=min(initial,nav);gross=sum(p["lots"]*p["exposure"] for p in positions);factor=sum(p["lots"]*p["exposure"] for p in posi…
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:240:120
+    |
+238 | …         o["entry_cost"]=o["funding"]-o["initial_mid"]*100;o["last_mid"]=o["initial_mid"]*100
+239 | …     else:
+240 | …         s=float(world.spot[world.day(i),o["asset"]]);o["funding"]=s*(1+.0005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["fund…
+    |                                                                                                              ^
+241 | …     capital=min(initial,nav);gross=sum(p["lots"]*p["exposure"] for p in positions);factor=sum(p["lots"]*p["exposure"] for p in posi…
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:240:151
+    |
+238 | …["initial_mid"]*100
+239 | …
+240 | …005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["funding"]-s;o["last_mid"]=s
+    |                                                                   ^
+241 | …ositions);factor=sum(p["lots"]*p["exposure"] for p in positions if p["asset"]//6==o["asset"]//6);risk=sum(p["lots"]*p["risk"] for p …
+242 | …
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:241:41
+    |
+239 | …     else:
+240 | …         s=float(world.spot[world.day(i),o["asset"]]);o["funding"]=s*(1+.0005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["fund…
+241 | …     capital=min(initial,nav);gross=sum(p["lots"]*p["exposure"] for p in positions);factor=sum(p["lots"]*p["exposure"] for p in posi…
+    |                               ^
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+243 | …     lots=max(0,min(5,int(capital*limits["risk_fraction"]/o["risk"]),int(max(0,cash-reserved)/o["risk"]),int(max(0,capital*limits["g…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:241:95
+    |
+239 | …     else:
+240 | …         s=float(world.spot[world.day(i),o["asset"]]);o["funding"]=s*(1+.0005*stress);o["risk"]=o["funding"];o["entry_cost"]=o["fund…
+241 | …     capital=min(initial,nav);gross=sum(p["lots"]*p["exposure"] for p in positions);factor=sum(p["lots"]*p["exposure"] for p in posi…
+    |                                                                                     ^
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+243 | …     lots=max(0,min(5,int(capital*limits["risk_fraction"]/o["risk"]),int(max(0,cash-reserved)/o["risk"]),int(max(0,capital*limits["g…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:241:182
+    |
+239 | …
+240 | …g"];o["entry_cost"]=o["funding"]-s;o["last_mid"]=s
+241 | …p["exposure"] for p in positions if p["asset"]//6==o["asset"]//6);risk=sum(p["lots"]*p["risk"] for p in positions)
+    |                                                                   ^
+242 | …
+243 | …int(max(0,capital*limits["gross_fraction"]-gross)/o["exposure"]),int(capital*limits["asset_fraction"]/o["exposure"]),int(max(0,capit…
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:244:27
+    |
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+243 | …     lots=max(0,min(5,int(capital*limits["risk_fraction"]/o["risk"]),int(max(0,cash-reserved)/o["risk"]),int(max(0,capital*limits["g…
+244 | …     if lots<=0: blocked("cash_exposure_or_openrisk");continue
+    |                 ^
+245 | …     cash-=lots*o["funding"];unit,g,s=world.value(o,i,stress,scenario)
+246 | …     o.update(lots=lots,marked=unit,exposure=abs(g["delta"])*s*(100 if o["kind"]=="option" else 1));positions.append(o)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:244:65
+    |
+242 | …     reserved=sum(p["lots"]*p["fee"]*stress for p in positions)
+243 | …     lots=max(0,min(5,int(capital*limits["risk_fraction"]/o["risk"]),int(max(0,cash-reserved)/o["risk"]),int(max(0,capital*limits["g…
+244 | …     if lots<=0: blocked("cash_exposure_or_openrisk");continue
+    |                                                       ^
+245 | …     cash-=lots*o["funding"];unit,g,s=world.value(o,i,stress,scenario)
+246 | …     o.update(lots=lots,marked=unit,exposure=abs(g["delta"])*s*(100 if o["kind"]=="option" else 1));positions.append(o)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:245:40
+    |
+243 | …     lots=max(0,min(5,int(capital*limits["risk_fraction"]/o["risk"]),int(max(0,cash-reserved)/o["risk"]),int(max(0,capital*limits["g…
+244 | …     if lots<=0: blocked("cash_exposure_or_openrisk");continue
+245 | …     cash-=lots*o["funding"];unit,g,s=world.value(o,i,stress,scenario)
+    |                              ^
+246 | …     o.update(lots=lots,marked=unit,exposure=abs(g["delta"])*s*(100 if o["kind"]=="option" else 1));positions.append(o)
+247 | …     ledger.append(dict(at=at.isoformat(),kind="ENTRY",cash_change=-lots*o["funding"],lots=lots,asset=o["asset"],risk=lots*o["risk"]…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:246:111
+    |
+244 | …             if lots<=0: blocked("cash_exposure_or_openrisk");continue
+245 | …             cash-=lots*o["funding"];unit,g,s=world.value(o,i,stress,scenario)
+246 | …             o.update(lots=lots,marked=unit,exposure=abs(g["delta"])*s*(100 if o["kind"]=="option" else 1));positions.append(o)
+    |                                                                                                             ^
+247 | …             ledger.append(dict(at=at.isoformat(),kind="ENTRY",cash_change=-lots*o["funding"],lots=lots,asset=o["asset"],risk=lots*o…
+248 | …     nav = cash+sum(p["lots"]*p["marked"] for p in positions);previous=nav
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:248:65
+    |
+246 | …             o.update(lots=lots,marked=unit,exposure=abs(g["delta"])*s*(100 if o["kind"]=="option" else 1));positions.append(o)
+247 | …             ledger.append(dict(at=at.isoformat(),kind="ENTRY",cash_change=-lots*o["funding"],lots=lots,asset=o["asset"],risk=lots*o…
+248 | …     nav = cash+sum(p["lots"]*p["marked"] for p in positions);previous=nav
+    |                                                               ^
+249 | …     daily[date]=nav
+250 | …     ledger.append(dict(at=at.isoformat(),kind="NAV",cash=cash,nav=nav,open_positions=len(positions),gamma=sum(p["lots"]*p["gamma"]*…
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:251:17
+    |
+249 |         daily[date]=nav
+250 |         ledger.append(dict(at=at.isoformat(),kind="NAV",cash=cash,nav=nav,open_positions=len(positions),gamma=sum(p["lots"]*p["gamma"…
+251 |     if positions: raise ValueError("OPEN_POSITIONS_AT_EVALUATION_END")
+    |                 ^
+252 |     dates=[];values=[]
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:252:13
+    |
+250 |         ledger.append(dict(at=at.isoformat(),kind="NAV",cash=cash,nav=nav,open_positions=len(positions),gamma=sum(p["lots"]*p["gamma"…
+251 |     if positions: raise ValueError("OPEN_POSITIONS_AT_EVALUATION_END")
+252 |     dates=[];values=[]
+    |             ^
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+254 |     while d<=stop:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:253:43
+    |
+251 |     if positions: raise ValueError("OPEN_POSITIONS_AT_EVALUATION_END")
+252 |     dates=[];values=[]
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+    |                                           ^
+254 |     while d<=stop:
+255 |         day=d.isoformat();last=daily.get(day,last);dates.append(day);values.append(last);d+=timedelta(days=1)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:253:83
+    |
+251 |     if positions: raise ValueError("OPEN_POSITIONS_AT_EVALUATION_END")
+252 |     dates=[];values=[]
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+    |                                                                                   ^
+254 |     while d<=stop:
+255 |         day=d.isoformat();last=daily.get(day,last);dates.append(day);values.append(last);d+=timedelta(days=1)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:255:26
+    |
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+254 |     while d<=stop:
+255 |         day=d.isoformat();last=daily.get(day,last);dates.append(day);values.append(last);d+=timedelta(days=1)
+    |                          ^
+256 |     returns=(np.array(values)/np.array([initial,*values[:-1]])-1).tolist()
+257 |     metrics=report(dict(origin=ORIGIN,return_basis="NET_FLOW_ADJUSTED",returns=returns,times=[d+"T23:59:59+00:00" for d in dates],ini…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:255:51
+    |
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+254 |     while d<=stop:
+255 |         day=d.isoformat();last=daily.get(day,last);dates.append(day);values.append(last);d+=timedelta(days=1)
+    |                                                   ^
+256 |     returns=(np.array(values)/np.array([initial,*values[:-1]])-1).tolist()
+257 |     metrics=report(dict(origin=ORIGIN,return_basis="NET_FLOW_ADJUSTED",returns=returns,times=[d+"T23:59:59+00:00" for d in dates],ini…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:255:69
+    |
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+254 |     while d<=stop:
+255 |         day=d.isoformat();last=daily.get(day,last);dates.append(day);values.append(last);d+=timedelta(days=1)
+    |                                                                     ^
+256 |     returns=(np.array(values)/np.array([initial,*values[:-1]])-1).tolist()
+257 |     metrics=report(dict(origin=ORIGIN,return_basis="NET_FLOW_ADJUSTED",returns=returns,times=[d+"T23:59:59+00:00" for d in dates],ini…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:255:89
+    |
+253 |     d=datetime.fromisoformat(start).date();stop=datetime.fromisoformat(end).date();last=initial
+254 |     while d<=stop:
+255 |         day=d.isoformat();last=daily.get(day,last);dates.append(day);values.append(last);d+=timedelta(days=1)
+    |                                                                                         ^
+256 |     returns=(np.array(values)/np.array([initial,*values[:-1]])-1).tolist()
+257 |     metrics=report(dict(origin=ORIGIN,return_basis="NET_FLOW_ADJUSTED",returns=returns,times=[d+"T23:59:59+00:00" for d in dates],ini…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:263:65
+    |
+262 | def run_stage(directory: Path, stage: str) -> None:
+263 |     protocol=json.loads((directory/"protocol.json").read_text());calendar=json.loads((directory.parent/"evidence/alpaca_calendar.json…
+    |                                                                 ^
+264 |     j=Journal(directory/"optimizer.sqlite3");now=datetime.now(UTC).isoformat()
+265 |     try:
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:264:45
+    |
+262 | def run_stage(directory: Path, stage: str) -> None:
+263 |     protocol=json.loads((directory/"protocol.json").read_text());calendar=json.loads((directory.parent/"evidence/alpaca_calendar.json…
+264 |     j=Journal(directory/"optimizer.sqlite3");now=datetime.now(UTC).isoformat()
+    |                                             ^
+265 |     try:
+266 |         seal=hashlib.sha256(b"".join((Path(__file__).parent/n).read_bytes() for n in ["economic_lab.py","performance.py","recursive.p…
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:273:43
+    |
+271 |         with j.transaction():
+272 |             code=j.get("economic:implementation")
+273 |             if code and code["hash"]!=seal:raise ValueError("REGISTERED_CODE_CHANGED")
+    |                                           ^
+274 |             if not code:j.put("economic:implementation",dict(hash=seal),now)
+275 |         if stage=="develop":
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:274:24
+    |
+272 |             code=j.get("economic:implementation")
+273 |             if code and code["hash"]!=seal:raise ValueError("REGISTERED_CODE_CHANGED")
+274 |             if not code:j.put("economic:implementation",dict(hash=seal),now)
+    |                        ^
+275 |         if stage=="develop":
+276 |             if j.get("economic:finalist"): raise ValueError("FINALIST_ALREADY_FROZEN")
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:276:42
+    |
+274 |             if not code:j.put("economic:implementation",dict(hash=seal),now)
+275 |         if stage=="develop":
+276 |             if j.get("economic:finalist"): raise ValueError("FINALIST_ALREADY_FROZEN")
+    |                                          ^
+277 |             development={};worlds=[World(calendar,seed) for seed in protocol["development_seeds"]]
+278 |             for name,flags in protocol["variants"].items():
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:277:27
+    |
+275 |         if stage=="develop":
+276 |             if j.get("economic:finalist"): raise ValueError("FINALIST_ALREADY_FROZEN")
+277 |             development={};worlds=[World(calendar,seed) for seed in protocol["development_seeds"]]
+    |                           ^
+278 |             for name,flags in protocol["variants"].items():
+279 |                 with j.transaction():
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:280:53
+    |
+278 |             for name,flags in protocol["variants"].items():
+279 |                 with j.transaction():
+280 |                     if j.get("economic:trial:"+name):raise ValueError("TRIAL_ALREADY_USED")
+    |                                                     ^
+281 |                     budget=j.get("budget")
+282 |                     if budget["spent"]>=budget["limit"]:raise ValueError("LIFETIME_BUDGET_EXHAUSTED")
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:282:56
+    |
+280 | …         if j.get("economic:trial:"+name):raise ValueError("TRIAL_ALREADY_USED")
+281 | …         budget=j.get("budget")
+282 | …         if budget["spent"]>=budget["limit"]:raise ValueError("LIFETIME_BUDGET_EXHAUSTED")
+    |                                              ^
+283 | …         budget["spent"]+=1;j.put("budget",budget,now);j.put("economic:trial:"+name,dict(stage="RESERVED",code_hash=seal),now)
+284 | …     runs=[replay(w,Policy("".join(flags)),"2024-07-01",protocol["development_end"],dict(protocol["limits"],capital=protocol["capita…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:283:39
+    |
+281 | …         budget=j.get("budget")
+282 | …         if budget["spent"]>=budget["limit"]:raise ValueError("LIFETIME_BUDGET_EXHAUSTED")
+283 | …         budget["spent"]+=1;j.put("budget",budget,now);j.put("economic:trial:"+name,dict(stage="RESERVED",code_hash=seal),now)
+    |                             ^
+284 | …     runs=[replay(w,Policy("".join(flags)),"2024-07-01",protocol["development_end"],dict(protocol["limits"],capital=protocol["capita…
+285 | …     admissible=all(r["metrics"]["max_drawdown"]<=protocol["limits"]["max_drawdown"] and r["metrics"]["trade_count"]>=20 for r in ru…
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:283:66
+    |
+281 | …         budget=j.get("budget")
+282 | …         if budget["spent"]>=budget["limit"]:raise ValueError("LIFETIME_BUDGET_EXHAUSTED")
+283 | …         budget["spent"]+=1;j.put("budget",budget,now);j.put("economic:trial:"+name,dict(stage="RESERVED",code_hash=seal),now)
+    |                                                        ^
+284 | …     runs=[replay(w,Policy("".join(flags)),"2024-07-01",protocol["development_end"],dict(protocol["limits"],capital=protocol["capita…
+285 | …     admissible=all(r["metrics"]["max_drawdown"]<=protocol["limits"]["max_drawdown"] and r["metrics"]["trade_count"]>=20 for r in ru…
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:289:37
+    |
+287 | …         row=dict(score=score,admissible=admissible,runs=runs)
+288 | …         development[name]=row
+289 | …         with j.transaction():j.put("economic:trial:"+name,dict(stage="COMPLETE",code_hash=seal,score=score,admissible=admissible),n…
+    |                               ^
+290 | …     candidates=[k for k,v in development.items() if k!="BASE" and v["admissible"]]
+291 | …     chosen=max(candidates,key=lambda k:development[k]["score"]) if candidates else "BASE"
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:293:95
+    |
+291 | …     chosen=max(candidates,key=lambda k:development[k]["score"]) if candidates else "BASE"
+292 | …     frozen=dict(name=chosen,flags=protocol["variants"][chosen],code_hash=seal,protocol_hash=hashlib.sha256((directory/"protocol.jso…
+293 | …     (directory/"development.json").write_text(json.dumps(development,allow_nan=False));(directory/"finalist.json").write_text(json.…
+    |                                                                                         ^
+294 | …     with j.transaction():j.put("economic:finalist",frozen,now)
+295 | …     print(json.dumps(dict(status="FROZEN",**frozen)))
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:294:33
+    |
+292 | …         frozen=dict(name=chosen,flags=protocol["variants"][chosen],code_hash=seal,protocol_hash=hashlib.sha256((directory/"protocol…
+293 | …         (directory/"development.json").write_text(json.dumps(development,allow_nan=False));(directory/"finalist.json").write_text(j…
+294 | …         with j.transaction():j.put("economic:finalist",frozen,now)
+    |                               ^
+295 | …         print(json.dumps(dict(status="FROZEN",**frozen)))
+296 | …     elif stage=="holdout":
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:298:55
+    |
+296 |         elif stage=="holdout":
+297 |             frozen=j.get("economic:finalist")
+298 |             if not frozen or frozen["code_hash"]!=seal:raise ValueError("FROZEN_CODE_REQUIRED")
+    |                                                       ^
+299 |             with j.transaction():
+300 |                 if j.get("economic:holdout"):raise ValueError("HOLDOUT_ALREADY_SPENT")
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:300:45
+    |
+298 |             if not frozen or frozen["code_hash"]!=seal:raise ValueError("FROZEN_CODE_REQUIRED")
+299 |             with j.transaction():
+300 |                 if j.get("economic:holdout"):raise ValueError("HOLDOUT_ALREADY_SPENT")
+    |                                             ^
+301 |                 domain=digest({"account":"SYNTH_48_OPTIONS","origin":ORIGIN})
+302 |                 lo,hi=protocol["holdout_start"],protocol["holdout_end"]
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:309:39
+    |
+307 | …     results=[]
+308 | …     for seed in protocol["holdout_seeds"]:
+309 | …         w=World(calendar,seed);runs={}
+    |                                 ^
+310 | …         for name,policy,stress,scenario in [("baseline",Policy(),1.,"base"),("candidate",Policy("".join(frozen["flags"])),1.,"base"…
+311 | …             if name=="cash":continue
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:311:36
+    |
+309 | …     w=World(calendar,seed);runs={}
+310 | …     for name,policy,stress,scenario in [("baseline",Policy(),1.,"base"),("candidate",Policy("".join(frozen["flags"])),1.,"base"),("…
+311 | …         if name=="cash":continue
+    |                          ^
+312 | …         runs[name]=replay(w,policy,protocol["holdout_start"],protocol["holdout_end"],dict(protocol["limits"],capital=protocol["capi…
+313 | …     results.append(dict(seed=seed,runs=runs))
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:315:33
+    |
+313 |                 results.append(dict(seed=seed,runs=runs))
+314 |             (directory/"holdout.json").write_text(json.dumps(dict(finalist=frozen,results=results),allow_nan=False))
+315 |             with j.transaction():j.put("economic:holdout",dict(stage="COMPLETE",result_hash=hashlib.sha256((directory/"holdout.json")…
+    |                                 ^
+316 |             print(json.dumps(dict(status="HOLDOUT_COMPLETE",paths=len(results),execution_allowed=False)))
+317 |     finally:j.close()
+    |
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:317:12
+    |
+315 |             with j.transaction():j.put("economic:holdout",dict(stage="COMPLETE",result_hash=hashlib.sha256((directory/"holdout.json")…
+316 |             print(json.dumps(dict(status="HOLDOUT_COMPLETE",paths=len(results),execution_allowed=False)))
+317 |     finally:j.close()
+    |            ^
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:321:51
+    |
+320 | def main() -> None:
+321 |     p=argparse.ArgumentParser(description=__doc__);p.add_argument("stage",choices=["develop","holdout"]);p.add_argument("--directory"…
+    |                                                   ^
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:321:105
+    |
+320 | def main() -> None:
+321 |     p=argparse.ArgumentParser(description=__doc__);p.add_argument("stage",choices=["develop","holdout"]);p.add_argument("--directory"…
+    |                                                                                                         ^
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:321:159
+    |
+320 | …
+321 | …"holdout"]);p.add_argument("--directory",type=Path,required=True);a=p.parse_args();run_stage(a.directory,a.stage)
+    |                                                                   ^
+
+E702 Multiple statements on one line (semicolon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:321:176
+    |
+320 | …
+321 | …_argument("--directory",type=Path,required=True);a=p.parse_args();run_stage(a.directory,a.stage)
+    |                                                                   ^
+
+E701 Multiple statements on one line (colon)
+   --> economic/work/HarpoonX_Motor_Quant/harpoon_quant/economic_lab.py:324:24
+    |
+324 | if __name__=="__main__":main()
+    |                        ^
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:31:35
+   |
+29 |         self.assertAlmostEqual(float(bs(50.,55.,.1,.6,True)-bs(50.,55.,.1,.6,False)),50-55*np.exp(-.004))
+30 |     def test_greeks_units(self):
+31 |         g=greeks(50,55,.1,.6,True);eps=.001
+   |                                   ^
+32 |         delta=float(bs(50+eps,55,.1,.6,True)-bs(50-eps,55,.1,.6,True))/(2*eps)
+33 |         self.assertAlmostEqual(delta,g['delta'],places=6)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:34:41
+   |
+32 |         delta=float(bs(50+eps,55,.1,.6,True)-bs(50-eps,55,.1,.6,True))/(2*eps)
+33 |         self.assertAlmostEqual(delta,g['delta'],places=6)
+34 |         self.assertGreater(g['gamma'],0);self.assertGreater(g['vega'],0)
+   |                                         ^
+35 |     def test_quotes_ticks(self):
+36 |         bid,ask=quote(.237,.1);self.assertLessEqual(bid,.237);self.assertGreaterEqual(ask,.237);self.assertAlmostEqual(ask*100,round(a…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:36:31
+   |
+34 |         self.assertGreater(g['gamma'],0);self.assertGreater(g['vega'],0)
+35 |     def test_quotes_ticks(self):
+36 |         bid,ask=quote(.237,.1);self.assertLessEqual(bid,.237);self.assertGreaterEqual(ask,.237);self.assertAlmostEqual(ask*100,round(a…
+   |                               ^
+37 |     def test_no_weekend_early_closes(self):
+38 |         marks=timeline(self.calendar);self.assertTrue(all(m.weekday()<5 for m in marks))
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:36:62
+   |
+34 |         self.assertGreater(g['gamma'],0);self.assertGreater(g['vega'],0)
+35 |     def test_quotes_ticks(self):
+36 |         bid,ask=quote(.237,.1);self.assertLessEqual(bid,.237);self.assertGreaterEqual(ask,.237);self.assertAlmostEqual(ask*100,round(a…
+   |                                                              ^
+37 |     def test_no_weekend_early_closes(self):
+38 |         marks=timeline(self.calendar);self.assertTrue(all(m.weekday()<5 for m in marks))
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:36:96
+   |
+34 |         self.assertGreater(g['gamma'],0);self.assertGreater(g['vega'],0)
+35 |     def test_quotes_ticks(self):
+36 |         bid,ask=quote(.237,.1);self.assertLessEqual(bid,.237);self.assertGreaterEqual(ask,.237);self.assertAlmostEqual(ask*100,round(a…
+   |                                                                                                ^
+37 |     def test_no_weekend_early_closes(self):
+38 |         marks=timeline(self.calendar);self.assertTrue(all(m.weekday()<5 for m in marks))
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:38:38
+   |
+36 |         bid,ask=quote(.237,.1);self.assertLessEqual(bid,.237);self.assertGreaterEqual(ask,.237);self.assertAlmostEqual(ask*100,round(a…
+37 |     def test_no_weekend_early_closes(self):
+38 |         marks=timeline(self.calendar);self.assertTrue(all(m.weekday()<5 for m in marks))
+   |                                      ^
+39 |         early=[m for m in marks if m.date().isoformat()=='2024-11-29'];self.assertEqual((early[-1].hour,early[-1].minute),(17,45))
+40 |     def test_friday_holiday_72h(self):
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:39:71
+   |
+37 |     def test_no_weekend_early_closes(self):
+38 |         marks=timeline(self.calendar);self.assertTrue(all(m.weekday()<5 for m in marks))
+39 |         early=[m for m in marks if m.date().isoformat()=='2024-11-29'];self.assertEqual((early[-1].hour,early[-1].minute),(17,45))
+   |                                                                       ^
+40 |     def test_friday_holiday_72h(self):
+41 |         marks=self.world.marks;i=next(i for i,m in enumerate(marks) if m.date().isoformat()=='2026-01-16' and m.hour==14 and m.minute=…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:41:31
+   |
+39 |         early=[m for m in marks if m.date().isoformat()=='2024-11-29'];self.assertEqual((early[-1].hour,early[-1].minute),(17,45))
+40 |     def test_friday_holiday_72h(self):
+41 |         marks=self.world.marks;i=next(i for i,m in enumerate(marks) if m.date().isoformat()=='2026-01-16' and m.hour==14 and m.minute=…
+   |                               ^
+42 |         j=exit_index(marks,i);self.assertEqual(marks[j].date().isoformat(),'2026-01-16');self.assertLessEqual(marks[j]-marks[i],timede…
+43 |     def test_future_prices_not_features(self):
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:42:30
+   |
+40 |     def test_friday_holiday_72h(self):
+41 |         marks=self.world.marks;i=next(i for i,m in enumerate(marks) if m.date().isoformat()=='2026-01-16' and m.hour==14 and m.minute=…
+42 |         j=exit_index(marks,i);self.assertEqual(marks[j].date().isoformat(),'2026-01-16');self.assertLessEqual(marks[j]-marks[i],timede…
+   |                              ^
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:42:89
+   |
+40 |     def test_friday_holiday_72h(self):
+41 |         marks=self.world.marks;i=next(i for i,m in enumerate(marks) if m.date().isoformat()=='2026-01-16' and m.hour==14 and m.minute=…
+42 |         j=exit_index(marks,i);self.assertEqual(marks[j].date().isoformat(),'2026-01-16');self.assertLessEqual(marks[j]-marks[i],timede…
+   |                                                                                         ^
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:44:35
+   |
+42 |         j=exit_index(marks,i);self.assertEqual(marks[j].date().isoformat(),'2026-01-16');self.assertLessEqual(marks[j]-marks[i],timede…
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+   |                                   ^
+45 |         w.spot[d+1:]*=3;w.iv[d+1:]=2;w.cache.clear();self.assertEqual(before,w.candidate(i,0,True,'A'))
+46 |     def test_risk_includes_exit_fee(self):
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:44:113
+   |
+42 |         j=exit_index(marks,i);self.assertEqual(marks[j].date().isoformat(),'2026-01-16');self.assertLessEqual(marks[j]-marks[i],timede…
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+   |                                                                                                                 ^
+45 |         w.spot[d+1:]*=3;w.iv[d+1:]=2;w.cache.clear();self.assertEqual(before,w.candidate(i,0,True,'A'))
+46 |     def test_risk_includes_exit_fee(self):
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:44:146
+   |
+42 | …6-01-16');self.assertLessEqual(marks[j]-marks[i],timedelta(hours=72))
+43 | …
+44 | …date().isoformat()=='2026-07-01');before=w.candidate(i,0,True,'A');d=w.day(i)
+   |                                                                    ^
+45 | …candidate(i,0,True,'A'))
+46 | …
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:45:24
+   |
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+45 |         w.spot[d+1:]*=3;w.iv[d+1:]=2;w.cache.clear();self.assertEqual(before,w.candidate(i,0,True,'A'))
+   |                        ^
+46 |     def test_risk_includes_exit_fee(self):
+47 |         i=next(i for i,m in enumerate(self.world.marks) if m.date().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');sel…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:45:37
+   |
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+45 |         w.spot[d+1:]*=3;w.iv[d+1:]=2;w.cache.clear();self.assertEqual(before,w.candidate(i,0,True,'A'))
+   |                                     ^
+46 |     def test_risk_includes_exit_fee(self):
+47 |         i=next(i for i,m in enumerate(self.world.marks) if m.date().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');sel…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:45:53
+   |
+43 |     def test_future_prices_not_features(self):
+44 |         w=World(self.calendar,992);i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-01');before=w.candidate(i,…
+45 |         w.spot[d+1:]*=3;w.iv[d+1:]=2;w.cache.clear();self.assertEqual(before,w.candidate(i,0,True,'A'))
+   |                                                     ^
+46 |     def test_risk_includes_exit_fee(self):
+47 |         i=next(i for i,m in enumerate(self.world.marks) if m.date().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');sel…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:47:95
+   |
+45 |         w.spot[d+1:]*=3;w.iv[d+1:]=2;w.cache.clear();self.assertEqual(before,w.candidate(i,0,True,'A'))
+46 |     def test_risk_includes_exit_fee(self):
+47 |         i=next(i for i,m in enumerate(self.world.marks) if m.date().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');sel…
+   |                                                                                               ^
+48 |     def test_negative_AR_finite(self):
+49 |         w=World(self.calendar,993);w.returns[1:]=np.array([(-1)**d*.01 for d in range(1,w.n)])[:,None];i=next(i for i,m in enumerate(w…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:47:131
+   |
+45 | …Equal(before,w.candidate(i,0,True,'A'))
+46 | …
+47 | …e().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');self.assertAlmostEqual(r['risk']-r['funding'],.65)
+   |                                                                    ^
+48 | …
+49 | …*d*.01 for d in range(1,w.n)])[:,None];i=next(i for i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-02');self.assertTrue(…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:49:35
+   |
+47 |         i=next(i for i,m in enumerate(self.world.marks) if m.date().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');sel…
+48 |     def test_negative_AR_finite(self):
+49 |         w=World(self.calendar,993);w.returns[1:]=np.array([(-1)**d*.01 for d in range(1,w.n)])[:,None];i=next(i for i,m in enumerate(w…
+   |                                   ^
+50 |     def test_funded_cash_reconciles(self):
+51 |         r=replay(self.world,Policy('B'),'2026-07-01','2026-07-31',self.limits)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:49:103
+   |
+47 |         i=next(i for i,m in enumerate(self.world.marks) if m.date().isoformat()=='2026-07-01');r=self.world.candidate(i,0,True,'');sel…
+48 |     def test_negative_AR_finite(self):
+49 |         w=World(self.calendar,993);w.returns[1:]=np.array([(-1)**d*.01 for d in range(1,w.n)])[:,None];i=next(i for i,m in enumerate(w…
+   |                                                                                                       ^
+50 |     def test_funded_cash_reconciles(self):
+51 |         r=replay(self.world,Policy('B'),'2026-07-01','2026-07-31',self.limits)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:49:181
+   |
+47 | …ate(i,0,True,'');self.assertAlmostEqual(r['risk']-r['funding'],.65)
+48 | …
+49 | …r i,m in enumerate(w.marks) if m.date().isoformat()=='2026-07-02');self.assertTrue(np.isfinite(w.candidate(i,0,True,'A')['edge']))
+   |                                                                    ^
+50 | …
+51 | …
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:53:147
+   |
+51 | …
+52 | …rics']['net_profit_usd_on_adjusted_initial_capital'],places=6)
+53 | …oformat(t['entry_at'])<=timedelta(hours=72) for t in r['trades']));self.assertFalse(r['execution_allowed'])
+   |                                                                    ^
+54 | …
+55 | …elf.assertTrue(all(e['cash']>=-1e-8 for e in r['ledger'] if e['kind']=='NAV'))
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:55:79
+   |
+53 |         self.assertTrue(all(datetime.fromisoformat(t['exit_at'])-datetime.fromisoformat(t['entry_at'])<=timedelta(hours=72) for t in r…
+54 |     def test_cash_and_lot_limits(self):
+55 |         r=replay(self.world,Policy('B'),'2026-07-01','2026-07-31',self.limits);self.assertTrue(all(e['cash']>=-1e-8 for e in r['ledger…
+   |                                                                               ^
+56 |         for e in r['ledger']:
+57 |             if e['kind']=='ENTRY':self.assertIsInstance(e['lots'],int);self.assertLessEqual(e['risk'],50+1e-8)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:57:34
+   |
+55 |         r=replay(self.world,Policy('B'),'2026-07-01','2026-07-31',self.limits);self.assertTrue(all(e['cash']>=-1e-8 for e in r['ledger…
+56 |         for e in r['ledger']:
+57 |             if e['kind']=='ENTRY':self.assertIsInstance(e['lots'],int);self.assertLessEqual(e['risk'],50+1e-8)
+   |                                  ^
+58 |     def test_liquidity_prices_lower(self):
+59 |         p=dict(kind='option',funding=40);self.assertEqual(World.scenario_mark(20,p,'liquidity'),18);self.assertEqual(World.scenario_ma…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:57:71
+   |
+55 |         r=replay(self.world,Policy('B'),'2026-07-01','2026-07-31',self.limits);self.assertTrue(all(e['cash']>=-1e-8 for e in r['ledger…
+56 |         for e in r['ledger']:
+57 |             if e['kind']=='ENTRY':self.assertIsInstance(e['lots'],int);self.assertLessEqual(e['risk'],50+1e-8)
+   |                                                                       ^
+58 |     def test_liquidity_prices_lower(self):
+59 |         p=dict(kind='option',funding=40);self.assertEqual(World.scenario_mark(20,p,'liquidity'),18);self.assertEqual(World.scenario_ma…
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:59:41
+   |
+57 |             if e['kind']=='ENTRY':self.assertIsInstance(e['lots'],int);self.assertLessEqual(e['risk'],50+1e-8)
+58 |     def test_liquidity_prices_lower(self):
+59 |         p=dict(kind='option',funding=40);self.assertEqual(World.scenario_mark(20,p,'liquidity'),18);self.assertEqual(World.scenario_ma…
+   |                                         ^
+60 |     def test_unknown_policy_stress(self):
+61 |         with self.assertRaises(ValueError):Policy('ORACLE')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:59:100
+   |
+57 |             if e['kind']=='ENTRY':self.assertIsInstance(e['lots'],int);self.assertLessEqual(e['risk'],50+1e-8)
+58 |     def test_liquidity_prices_lower(self):
+59 |         p=dict(kind='option',funding=40);self.assertEqual(World.scenario_mark(20,p,'liquidity'),18);self.assertEqual(World.scenario_ma…
+   |                                                                                                    ^
+60 |     def test_unknown_policy_stress(self):
+61 |         with self.assertRaises(ValueError):Policy('ORACLE')
+   |
+
+E701 Multiple statements on one line (colon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:61:43
+   |
+59 |         p=dict(kind='option',funding=40);self.assertEqual(World.scenario_mark(20,p,'liquidity'),18);self.assertEqual(World.scenario_ma…
+60 |     def test_unknown_policy_stress(self):
+61 |         with self.assertRaises(ValueError):Policy('ORACLE')
+   |                                           ^
+62 |         with self.assertRaises(ValueError):Policy('AA')
+63 |         with self.assertRaises(ValueError):replay(self.world,Policy(),'2026-07-01','2026-07-31',self.limits,stress=.5)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:62:43
+   |
+60 |     def test_unknown_policy_stress(self):
+61 |         with self.assertRaises(ValueError):Policy('ORACLE')
+62 |         with self.assertRaises(ValueError):Policy('AA')
+   |                                           ^
+63 |         with self.assertRaises(ValueError):replay(self.world,Policy(),'2026-07-01','2026-07-31',self.limits,stress=.5)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:63:43
+   |
+61 |         with self.assertRaises(ValueError):Policy('ORACLE')
+62 |         with self.assertRaises(ValueError):Policy('AA')
+63 |         with self.assertRaises(ValueError):replay(self.world,Policy(),'2026-07-01','2026-07-31',self.limits,stress=.5)
+   |                                           ^
+64 |
+65 |     def test_forced_stock_path_is_funded_and_nonempty(self):
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:66:35
+   |
+65 |     def test_forced_stock_path_is_funded_and_nonempty(self):
+66 |         w=World(self.calendar,995);w.spot[:]=20
+   |                                   ^
+67 |         original=w.candidate
+68 |         def candidate(i,a,call,flags):
+   |
+
+E701 Multiple statements on one line (colon)
+  --> economic/work/HarpoonX_Motor_Quant/tests/test_economic.py:78:43
+   |
+76 |         self.assertTrue(all(e["cash"]>=0 for e in r["ledger"] if e["kind"]=="NAV"))
+77 |     def test_original_risk_cannot_expand(self):
+78 |         with self.assertRaises(ValueError):replay(self.world,Policy(),"2026-07-01","2026-07-31",dict(self.limits,risk_fraction=.01))
+   |                                           ^
+
+Found 125 errors (1 fixed, 124 remaining).
+1 unsafe fix available with `--fix --unsafe-fixes`.

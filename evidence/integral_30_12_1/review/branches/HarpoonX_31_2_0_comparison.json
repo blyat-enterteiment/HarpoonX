@@ -1,0 +1,3613 @@
+{
+  "archive": "HarpoonX_31_2_0_Implementacion.zip",
+  "zip_sha256": "c2ee67b23e6ff1a7bb01f111f33cb6eae32c797466a6e00608d8528cacf452eb",
+  "root": "HarpoonX_31_2_0",
+  "files": 709,
+  "extracted": 347,
+  "production_same": [
+    "config/HARPOON_AUTOGESTION.json",
+    "config/examples/crypto-autonomous.json",
+    "config/examples/crypto.json",
+    "config/examples/equity.json",
+    "config/examples/supervision.json",
+    "deploy/Dockerfile",
+    "deploy/Dockerfile.managed",
+    "deploy/backup-loop.sh",
+    "deploy/backup.py",
+    "deploy/configure.py",
+    "deploy/dashboard.html",
+    "deploy/entry30.py",
+    "deploy/managed-entry.py",
+    "deploy/managed.cjs",
+    "research/tp32/metrics.py",
+    "research/tp32/prepare.py",
+    "research/tp32/protocol.json",
+    "research/tp32/requirements.txt",
+    "research/tp32/run.cjs",
+    "research/ultimate/run.cjs",
+    "runtime/agent_worker25.cjs",
+    "runtime/agents25.cjs",
+    "runtime/cloud.cjs",
+    "runtime/control.cjs",
+    "runtime/crypto_runner.cjs",
+    "runtime/exit_profiles32.cjs",
+    "runtime/legacy30.cjs",
+    "runtime/runner.cjs",
+    "runtime/selector30.cjs",
+    "runtime/warroom3.cjs",
+    "runtime/warroom_worker3.cjs",
+    "runtime/watchdog.cjs",
+    "runtime/worker.cjs",
+    "runtime30/accounting.js",
+    "runtime30/broker.js",
+    "runtime30/exits.js",
+    "runtime30/policy.js",
+    "runtime30/scheduler.js",
+    "runtime30/selectors.js",
+    "runtime30/ultimate_frequency.js",
+    "runtime30/ultimate_futures.js",
+    "runtime30/ultimate_worker.js",
+    "service/Dockerfile",
+    "service/README.md",
+    "service/app24.py",
+    "service/prompts.py",
+    "service/recipe_contract.json",
+    "service/requirements24.txt",
+    "service/server.py",
+    "service/supervision.py",
+    "service/test_integrated24.py",
+    "service/test_security.py",
+    "service/test_server.py",
+    "service/test_supervision.py",
+    "src/agent_adapter25.js",
+    "src/agent_research25.js",
+    "src/agents25.js",
+    "src/app.js",
+    "src/astra_app.js",
+    "src/astra_engine.js",
+    "src/autonomy3.js",
+    "src/autonomy_adapter3.js",
+    "src/canonical.js",
+    "src/challenge.d.ts",
+    "src/challenge.js",
+    "src/challenge.ts",
+    "src/contract.d.ts",
+    "src/contract.js",
+    "src/core.js",
+    "src/crypto_app.js",
+    "src/crypto_core.d.ts",
+    "src/crypto_core.js",
+    "src/crypto_engine.js",
+    "src/crypto_exits.original25_2.js",
+    "src/crypto_tape.js",
+    "src/defaults.js",
+    "src/desk25.js",
+    "src/engine.js",
+    "src/framework23.d.ts",
+    "src/framework23.js",
+    "src/framework23.ts",
+    "src/gateway24.css",
+    "src/gateway24.d.ts",
+    "src/gateway24.html",
+    "src/gateway24.js",
+    "src/gateway24.ts",
+    "src/gateway24_app.js",
+    "src/index.html",
+    "src/io.js",
+    "src/lab_app.js",
+    "src/lab_bridge.js",
+    "src/lab_controller.js",
+    "src/lab_core.js",
+    "src/lab_rules.js",
+    "src/lab_rules.ts",
+    "src/loop23.css",
+    "src/loop23.html",
+    "src/loop23_app.js",
+    "src/loop23_runtime.js",
+    "src/metrics23.d.ts",
+    "src/metrics23.js",
+    "src/metrics23.ts",
+    "src/optimizer3.js",
+    "src/optimizer_store3.js",
+    "src/options3.js",
+    "src/options_adapter3.js",
+    "src/options_payoff23.js",
+    "src/plugin_host22.d.ts",
+    "src/plugin_host22.js",
+    "src/plugin_host22.ts",
+    "src/plugin_lab22.html",
+    "src/plugin_lab22.js",
+    "src/plugin_registry.d.ts",
+    "src/plugin_registry.js",
+    "src/plugin_registry.original25_2.js",
+    "src/plugin_registry.ts",
+    "src/plugins/astra.d.ts",
+    "src/plugins/astra.js",
+    "src/plugins/astra.ts",
+    "src/plugins/catalog.d.ts",
+    "src/plugins/catalog.js",
+    "src/plugins/catalog.ts",
+    "src/plugins/crypto_exits.js",
+    "src/plugins/crypto_recovery.d.ts",
+    "src/plugins/crypto_recovery.js",
+    "src/plugins/crypto_recovery.ts",
+    "src/plugins/crypto_trend.ts",
+    "src/plugins/securities_entries.js",
+    "src/plugins/securities_entries.ts",
+    "src/plugins/securities_policies.ts",
+    "src/plugins/securities_rules.js",
+    "src/profit25.js",
+    "src/style.css",
+    "src/supervision.js",
+    "src/supervision_core.d.ts",
+    "src/supervision_core.js",
+    "src/supervision_core.ts",
+    "src/tensor_core.d.ts",
+    "src/tensor_core.js",
+    "src/tensor_core.ts",
+    "src/trade_stream.js",
+    "src/ux.css",
+    "src/ux_app.js",
+    "src/ux_app.original25_2.js",
+    "src/ux_controls.js",
+    "src/ux_credentials.html",
+    "src/ux_findings.html",
+    "src/ux_home.html",
+    "src/ux_plugins.html",
+    "src/ux_state.d.ts",
+    "src/ux_state.js",
+    "src/ux_state.ts",
+    "src/vector25.js",
+    "src/warroom3.js",
+    "src/warroom_adapter3.js",
+    "src/warroom_store3.js",
+    "src/x_app.js",
+    "src/x_core.js",
+    "src/x_core.ts",
+    "src/x_engine.js",
+    "src/x_research.js",
+    "src/xi_app.js",
+    "src/xi_core.js",
+    "src/xi_core.ts",
+    "src/xi_engine.js",
+    "src/xi_replay.js",
+    "src/xii_app.js",
+    "src/xii_core.d.ts",
+    "src/xii_core.js",
+    "src/xii_core.ts",
+    "src/xii_engine.js",
+    "src/xii_research.js",
+    "src/xiii_app.js",
+    "src/xiii_core.d.ts",
+    "src/xiii_core.js",
+    "src/xiii_core.ts",
+    "src/xiii_engine.js",
+    "src/xiii_research.js",
+    "src/xx_app.js",
+    "src/xx_app.original25_2.js",
+    "src/xx_crypto.js",
+    "src/xx_crypto.original25_2.js",
+    "src/xx_engine.js",
+    "src/xxi_app.js",
+    "src/xxi_broker.js",
+    "tools/agents25_browser.cjs",
+    "tools/agents25_cloud.cjs",
+    "tools/agents25_cloud_preload.cjs",
+    "tools/agents25_integration.cjs",
+    "tools/agents25_test.cjs",
+    "tools/auth_benchmark.cjs",
+    "tools/auth_security_test.cjs",
+    "tools/autonomy3_browser.cjs",
+    "tools/autonomy3_test.cjs",
+    "tools/cloud_preload.cjs",
+    "tools/cloud_test.cjs",
+    "tools/control_test.cjs",
+    "tools/edge_test.cjs",
+    "tools/install_test.py",
+    "tools/optimizer3_browser.cjs",
+    "tools/optimizer3_test.cjs",
+    "tools/options3_test.cjs",
+    "tools/package_xxv3.py",
+    "tools/package_xxx.py",
+    "tools/profit_vector25_test.cjs",
+    "tools/release_verify3.py",
+    "tools/runtime_fixture_config.json",
+    "tools/runtime_test.cjs",
+    "tools/ultimate_browser.cjs",
+    "tools/ultimate_fixtures.cjs",
+    "tools/verify.py",
+    "tools/verify_auth.py",
+    "tools/warroom3_browser.cjs",
+    "tools/warroom3_cloud.cjs",
+    "tools/warroom3_cloud_preload.cjs",
+    "tools/warroom3_fixtures.cjs",
+    "tools/warroom3_integration.cjs",
+    "tools/warroom3_load.cjs",
+    "tools/warroom3_panel_browser.cjs",
+    "tools/warroom3_test.cjs",
+    "tools/xxv_test.cjs",
+    "tools/xxx_benchmark.cjs",
+    "tools/xxx_browser.cjs",
+    "tools/xxx_health_test.cjs",
+    "tools/xxx_operational_test.cjs",
+    "tools/xxx_operational_ui_contract.cjs",
+    "tools/xxx_selector_test.cjs",
+    "xxx/accounting.ts",
+    "xxx/broker.ts",
+    "xxx/exits.ts",
+    "xxx/policy.ts",
+    "xxx/scheduler.ts",
+    "xxx/selectors.ts",
+    "xxx/ultimate_frequency.ts",
+    "xxx/ultimate_futures.ts",
+    "xxx/ultimate_worker.ts"
+  ],
+  "production_modified": [
+    "config/examples/xxx.json",
+    "deploy/Dockerfile.xxx",
+    "deploy/dashboard30.html",
+    "runtime/store.py",
+    "runtime/store30.cjs",
+    "runtime30/coordinator.js",
+    "runtime30/health.js",
+    "runtime30/market.js",
+    "runtime30/plugins.js",
+    "runtime30/server.js",
+    "runtime30/streams.js",
+    "runtime30/types.js",
+    "runtime30/ultimate_contracts.js",
+    "runtime30/ultimate_lab.js",
+    "runtime30/ultimate_replay.js",
+    "runtime30/ultimate_stats.js",
+    "runtime30/validators.js",
+    "runtime30/version.js",
+    "tools/package_ultimate.py",
+    "tools/ultimate_production_check.cjs",
+    "tools/ultimate_test.cjs",
+    "tools/xxx_audit.cjs",
+    "tools/xxx_conformance_test.cjs",
+    "tools/xxx_fixtures.cjs",
+    "tools/xxx_operational_browser.cjs",
+    "tools/xxx_test.cjs",
+    "tools/xxx_tp32_test.cjs",
+    "xxx/coordinator.ts",
+    "xxx/health.ts",
+    "xxx/market.ts",
+    "xxx/plugins.ts",
+    "xxx/server.ts",
+    "xxx/streams.ts",
+    "xxx/types.ts",
+    "xxx/ultimate_contracts.ts",
+    "xxx/ultimate_lab.ts",
+    "xxx/ultimate_replay.ts",
+    "xxx/ultimate_stats.ts",
+    "xxx/validators.ts",
+    "xxx/version.ts"
+  ],
+  "production_only_branch": [
+    "deploy/entry31.py",
+    "research/options/example-straddle-synthetic.json",
+    "research/ultimate/audit_recompute.cjs",
+    "research/ultimate/dataset.cjs",
+    "research/ultimate/edge_batch.cjs",
+    "research/ultimate/reproduce.cjs",
+    "runtime/execution_authority.cjs",
+    "runtime30/option_contracts.js",
+    "runtime30/option_surface.js",
+    "runtime30/options_lab.js",
+    "runtime30/portfolio_guard.js",
+    "runtime30/research_accounting.js",
+    "tools/audit_export.cjs",
+    "tools/audit_scale.cjs",
+    "tools/championship_audit.cjs",
+    "tools/championship_metrics.cjs",
+    "tools/options_benchmark.cjs",
+    "tools/options_lab.cjs",
+    "tools/package31.py",
+    "tools/package311.py",
+    "tools/package312.py",
+    "tools/paper_readonly_check.cjs",
+    "tools/stats_reference.py",
+    "tools/tca.cjs",
+    "tools/v311_test.cjs",
+    "tools/v312_options_test.cjs",
+    "tools/v31_test.cjs",
+    "tools/verify31.py",
+    "tools/verify311.py",
+    "tools/verify312.py",
+    "xxx/option_contracts.ts",
+    "xxx/option_surface.ts",
+    "xxx/options_lab.ts",
+    "xxx/portfolio_guard.ts",
+    "xxx/research_accounting.ts"
+  ],
+  "new_vs_prior_branch": [
+    "research/options/example-straddle-synthetic.json",
+    "runtime30/option_contracts.js",
+    "runtime30/option_surface.js",
+    "runtime30/options_lab.js",
+    "tools/options_benchmark.cjs",
+    "tools/options_lab.cjs",
+    "tools/package312.py",
+    "tools/v312_options_test.cjs",
+    "tools/verify312.py",
+    "xxx/option_contracts.ts",
+    "xxx/option_surface.ts",
+    "xxx/options_lab.ts"
+  ],
+  "modified_vs_prior_branch": [
+    "deploy/dashboard30.html",
+    "runtime30/coordinator.js",
+    "runtime30/market.js",
+    "runtime30/plugins.js",
+    "runtime30/server.js",
+    "runtime30/types.js",
+    "runtime30/ultimate_contracts.js",
+    "runtime30/version.js",
+    "tools/xxx_fixtures.cjs",
+    "tools/xxx_operational_browser.cjs",
+    "tools/xxx_test.cjs",
+    "xxx/coordinator.ts",
+    "xxx/market.ts",
+    "xxx/plugins.ts",
+    "xxx/server.ts",
+    "xxx/types.ts",
+    "xxx/ultimate_contracts.ts",
+    "xxx/version.ts"
+  ],
+  "removed_vs_prior_branch": [],
+  "metadata_candidates": {
+    "docs/legacy/MANIFEST.json": 27366,
+    "docs/legacy/SHA256SUMS.txt": 24683,
+    "evidence/v31/acceptance.json": 6961,
+    "evidence/v31/audit-scale.json": 353,
+    "evidence/v31/browser.log": 1366,
+    "evidence/v31/compiled-sha256.json": 2007,
+    "evidence/v31/edge/BASELINE.json": 158861,
+    "evidence/v31/edge/COST_QUALITY.json": 152683,
+    "evidence/v31/edge/TREND_ALIGNMENT.json": 157225,
+    "evidence/v31/edge/ledger.json": 643390,
+    "evidence/v31/edge/plan.json": 3471,
+    "evidence/v31/edge/summary.json": 4356,
+    "evidence/v31/edge-reproduction.log": 292,
+    "evidence/v31/function-audit.json": 302994,
+    "evidence/v31/operational-browser.json": 1494,
+    "evidence/v31/production-import.json": 207,
+    "evidence/v31/production.log": 376,
+    "evidence/v31/render-schema.json": 45751,
+    "evidence/v31/render-validation.json": 237,
+    "evidence/v31/reproduction.json": 1006,
+    "evidence/v31/static.log": 768,
+    "evidence/v31/stats-reference.json": 35172,
+    "evidence/v31/tests.log": 18875,
+    "evidence/v311/acceptance.json": 2196,
+    "evidence/v311/accounting-tests.log": 798,
+    "evidence/v311/browser.log": 1366,
+    "evidence/v311/championship-audit.json": 6084,
+    "evidence/v311/championship-check.log": 832,
+    "evidence/v311/comparison.json": 7761,
+    "evidence/v311/corrected-BASELINE.json": 633168,
+    "evidence/v311/corrected-COST_QUALITY.json": 470727,
+    "evidence/v311/corrected-TREND_ALIGNMENT.json": 634808,
+    "evidence/v311/function-audit.json": 304937,
+    "evidence/v311/operational-browser.json": 1494,
+    "evidence/v311/production-import.json": 207,
+    "evidence/v311/production.log": 376,
+    "evidence/v311/recompute.log": 5205,
+    "evidence/v311/regression-static-side-effect.json": 304937,
+    "evidence/v311/reproduce-original.log": 1192,
+    "evidence/v311/reproduce-v31.log": 292,
+    "evidence/v311/reproduction-original.json": 1006,
+    "evidence/v311/static.log": 568,
+    "evidence/v311/tests-complete.tap": 45579,
+    "evidence/v311/tests-initial-failures.log": 72894,
+    "evidence/v311/tests-stderr.log": 0,
+    "evidence/v311/tests-summary.json": 144,
+    "evidence/v311/tests.log": 3795,
+    "evidence/v312/acceptance.json": 2955,
+    "evidence/v312/alpaca-access.json": 7197,
+    "evidence/v312/browser.log": 1537,
+    "evidence/v312/function-audit.json": 310069,
+    "evidence/v312/operational-browser.json": 1675,
+    "evidence/v312/options-benchmark.json": 348,
+    "evidence/v312/options-tests.log": 0,
+    "evidence/v312/production-import.json": 207,
+    "evidence/v312/production.log": 376,
+    "evidence/v312/static.log": 568,
+    "evidence/v312/synthetic-straddle-output.json": 982,
+    "evidence/v312/tests-complete.tap": 51700,
+    "evidence/v312/tests-final-stderr.log": 0,
+    "evidence/v312/tests-final.tap": 51282,
+    "evidence/v312/tests-stderr.log": 0,
+    "evidence/v312/tests-summary.json": 143,
+    "evidence/xxv-manifest.json": 627,
+    "MANIFEST_312.json": 115792
+  },
+  "inventory": [
+    {
+      "path": ".dockerignore",
+      "bytes": 295
+    },
+    {
+      "path": ".env.example",
+      "bytes": 859
+    },
+    {
+      "path": ".github/workflows/verify31.yml",
+      "bytes": 1305
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 147
+    },
+    {
+      "path": "AUDITORIA_XXV_25_2.txt",
+      "bytes": 7543
+    },
+    {
+      "path": "AUDITORIA_XXV_3.txt",
+      "bytes": 26527
+    },
+    {
+      "path": "AUDITORIA_XXX.txt",
+      "bytes": 4832
+    },
+    {
+      "path": "AUDITORIA_XXXUltimate.txt",
+      "bytes": 6735
+    },
+    {
+      "path": "AUTHENTICATION.md",
+      "bytes": 14172
+    },
+    {
+      "path": "AUTOGESTION_R2.txt",
+      "bytes": 11678
+    },
+    {
+      "path": "DICTAMEN_RENTABILIDAD_R1.txt",
+      "bytes": 9606
+    },
+    {
+      "path": "EMPEZAR_AQUI.md",
+      "bytes": 893
+    },
+    {
+      "path": "EMPEZAR_XXV.md",
+      "bytes": 11552
+    },
+    {
+      "path": "EMPEZAR_XXV_3.md",
+      "bytes": 9844
+    },
+    {
+      "path": "HARPOON_XXIV.html",
+      "bytes": 1235919
+    },
+    {
+      "path": "HARPOON_XXV.html",
+      "bytes": 1479990
+    },
+    {
+      "path": "HARPOON_XXV_3.html",
+      "bytes": 1479990
+    },
+    {
+      "path": "HARPOON_XXX.html",
+      "bytes": 103351
+    },
+    {
+      "path": "HARPOON_XXXUltimate.html",
+      "bytes": 112249
+    },
+    {
+      "path": "INFORME_31_ES.txt",
+      "bytes": 2861
+    },
+    {
+      "path": "INICIAR_REVISION.md",
+      "bytes": 1659
+    },
+    {
+      "path": "README.md",
+      "bytes": 14026
+    },
+    {
+      "path": "README_311_ES.md",
+      "bytes": 5931
+    },
+    {
+      "path": "README_312_OPCIONES_ES.md",
+      "bytes": 10337
+    },
+    {
+      "path": "README_31_ES.md",
+      "bytes": 10958
+    },
+    {
+      "path": "WALKFORWARD_XXXUltimate.txt",
+      "bytes": 5656
+    },
+    {
+      "path": "config/HARPOON_AUTOGESTION.json",
+      "bytes": 797
+    },
+    {
+      "path": "config/examples/crypto-autonomous.json",
+      "bytes": 1348
+    },
+    {
+      "path": "config/examples/crypto.json",
+      "bytes": 422
+    },
+    {
+      "path": "config/examples/equity.json",
+      "bytes": 2016
+    },
+    {
+      "path": "config/examples/supervision.json",
+      "bytes": 184
+    },
+    {
+      "path": "config/examples/xxx.json",
+      "bytes": 2799
+    },
+    {
+      "path": "deploy/Dockerfile",
+      "bytes": 294
+    },
+    {
+      "path": "deploy/Dockerfile.managed",
+      "bytes": 405
+    },
+    {
+      "path": "deploy/Dockerfile.xxx",
+      "bytes": 1130
+    },
+    {
+      "path": "deploy/backup-loop.sh",
+      "bytes": 74
+    },
+    {
+      "path": "deploy/backup.py",
+      "bytes": 823
+    },
+    {
+      "path": "deploy/configure.py",
+      "bytes": 6752
+    },
+    {
+      "path": "deploy/dashboard.html",
+      "bytes": 31814
+    },
+    {
+      "path": "deploy/dashboard30.html",
+      "bytes": 112249
+    },
+    {
+      "path": "deploy/entry30.py",
+      "bytes": 466
+    },
+    {
+      "path": "deploy/entry31.py",
+      "bytes": 2825
+    },
+    {
+      "path": "deploy/managed-entry.py",
+      "bytes": 325
+    },
+    {
+      "path": "deploy/managed.cjs",
+      "bytes": 9500
+    },
+    {
+      "path": "docs/FRAMEWORK_311_ES.md",
+      "bytes": 7644
+    },
+    {
+      "path": "docs/HarpoonX_31_1_0_Auditoria_Framework.pdf",
+      "bytes": 69083
+    },
+    {
+      "path": "docs/HarpoonX_31_2_0_Alpaca_Opciones_Auditoria.pdf",
+      "bytes": 160207
+    },
+    {
+      "path": "docs/SELECTOR_DATA.md",
+      "bytes": 3382
+    },
+    {
+      "path": "docs/TAKE_PROFIT_32.md",
+      "bytes": 8445
+    },
+    {
+      "path": "docs/legacy/AUDITORIA_XXX_30_0_0.txt",
+      "bytes": 3817
+    },
+    {
+      "path": "docs/legacy/AUDITORIA_XXX_30_0_1.txt",
+      "bytes": 5331
+    },
+    {
+      "path": "docs/legacy/AUDITORIA_XXX_30_0_2.txt",
+      "bytes": 7736
+    },
+    {
+      "path": "docs/legacy/AUDITORIA_XXX_30_1_0.txt",
+      "bytes": 4562
+    },
+    {
+      "path": "docs/legacy/MANIFEST.json",
+      "bytes": 27366
+    },
+    {
+      "path": "docs/legacy/README.md",
+      "bytes": 9477
+    },
+    {
+      "path": "docs/legacy/README_XXX_30_0_2.md",
+      "bytes": 12178
+    },
+    {
+      "path": "docs/legacy/README_XXX_30_2_0.md",
+      "bytes": 19552
+    },
+    {
+      "path": "docs/legacy/SHA256SUMS.txt",
+      "bytes": 24683
+    },
+    {
+      "path": "docs/legacy/XXXUltimate_30_3_0/AUDITORIA_XXXUltimate.txt",
+      "bytes": 1746
+    },
+    {
+      "path": "docs/legacy/XXXUltimate_30_3_0/README.md",
+      "bytes": 10548
+    },
+    {
+      "path": "docs/legacy/research-30.3.1/types.js",
+      "bytes": 5701
+    },
+    {
+      "path": "docs/legacy/research-30.3.1/ultimate_contracts.js",
+      "bytes": 8849
+    },
+    {
+      "path": "docs/legacy/research-30.3.1/ultimate_frequency.js",
+      "bytes": 3345
+    },
+    {
+      "path": "docs/legacy/research-30.3.1/ultimate_replay.js",
+      "bytes": 26182
+    },
+    {
+      "path": "docs/legacy/research-30.3.1/ultimate_stats.js",
+      "bytes": 7993
+    },
+    {
+      "path": "docs/legacy/research-30.3.1/validators.js",
+      "bytes": 16813
+    },
+    {
+      "path": "docs/legacy/research-31.0.0/types.js",
+      "bytes": 5701
+    },
+    {
+      "path": "docs/legacy/research-31.0.0/ultimate_contracts.js",
+      "bytes": 9015
+    },
+    {
+      "path": "docs/legacy/research-31.0.0/ultimate_frequency.js",
+      "bytes": 3345
+    },
+    {
+      "path": "docs/legacy/research-31.0.0/ultimate_replay.js",
+      "bytes": 28002
+    },
+    {
+      "path": "docs/legacy/research-31.0.0/ultimate_stats.js",
+      "bytes": 9819
+    },
+    {
+      "path": "docs/legacy/research-31.0.0/validators.js",
+      "bytes": 16813
+    },
+    {
+      "path": "evidence/RESULTS.json",
+      "bytes": 250
+    },
+    {
+      "path": "evidence/agents25-browser.json",
+      "bytes": 500
+    },
+    {
+      "path": "evidence/agents25-cloud.json",
+      "bytes": 594
+    },
+    {
+      "path": "evidence/agents25-integration.json",
+      "bytes": 733
+    },
+    {
+      "path": "evidence/agents25-last-run.txt",
+      "bytes": 1576
+    },
+    {
+      "path": "evidence/agents25-types.txt",
+      "bytes": 256
+    },
+    {
+      "path": "evidence/agents25-unit.json",
+      "bytes": 1575
+    },
+    {
+      "path": "evidence/alpaca-clock-autonomy3.json",
+      "bytes": 880
+    },
+    {
+      "path": "evidence/alpaca-options-smoke3.json",
+      "bytes": 794
+    },
+    {
+      "path": "evidence/auth_benchmark.json",
+      "bytes": 379
+    },
+    {
+      "path": "evidence/auth_security_tests.json",
+      "bytes": 1272
+    },
+    {
+      "path": "evidence/auth_verification.json",
+      "bytes": 7948
+    },
+    {
+      "path": "evidence/autonomy3-browser.json",
+      "bytes": 883
+    },
+    {
+      "path": "evidence/autonomy3-tests.json",
+      "bytes": 2571
+    },
+    {
+      "path": "evidence/cloud_tests.json",
+      "bytes": 431
+    },
+    {
+      "path": "evidence/control_tests.json",
+      "bytes": 91
+    },
+    {
+      "path": "evidence/edge_tests.json",
+      "bytes": 120
+    },
+    {
+      "path": "evidence/html25-2-final.txt",
+      "bytes": 673
+    },
+    {
+      "path": "evidence/html_restoration.json",
+      "bytes": 361
+    },
+    {
+      "path": "evidence/install_tests.json",
+      "bytes": 109
+    },
+    {
+      "path": "evidence/operational-30.3.1/benchmark-run.txt",
+      "bytes": 655
+    },
+    {
+      "path": "evidence/operational-30.3.1/benchmark.json",
+      "bytes": 481
+    },
+    {
+      "path": "evidence/operational-30.3.1/browser-status.json",
+      "bytes": 536
+    },
+    {
+      "path": "evidence/operational-30.3.1/build.txt",
+      "bytes": 165
+    },
+    {
+      "path": "evidence/operational-30.3.1/function-audit.json",
+      "bytes": 292284
+    },
+    {
+      "path": "evidence/operational-30.3.1/independent-freeze.json",
+      "bytes": 5190
+    },
+    {
+      "path": "evidence/operational-30.3.1/independent-tests.tap",
+      "bytes": 39724
+    },
+    {
+      "path": "evidence/operational-30.3.1/preservation.json",
+      "bytes": 866
+    },
+    {
+      "path": "evidence/operational-30.3.1/production-import-run.txt",
+      "bytes": 376
+    },
+    {
+      "path": "evidence/operational-30.3.1/production-import.json",
+      "bytes": 207
+    },
+    {
+      "path": "evidence/operational-30.3.1/static-audit-run.txt",
+      "bytes": 733
+    },
+    {
+      "path": "evidence/operational-30.3.1/tests.tap",
+      "bytes": 39718
+    },
+    {
+      "path": "evidence/operational-30.3.1/typecheck.txt",
+      "bytes": 178
+    },
+    {
+      "path": "evidence/operational-30.3.1/ui-build.log",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/operational-30.3.1/ui-health-contract-tests.log",
+      "bytes": 2598
+    },
+    {
+      "path": "evidence/operational-30.3.1/ui-typecheck.log",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/operational-30.3.1/ui-verification.json",
+      "bytes": 1481
+    },
+    {
+      "path": "evidence/operational-30.3.1/verification-summary.json",
+      "bytes": 1220
+    },
+    {
+      "path": "evidence/optimizer3-browser.json",
+      "bytes": 718
+    },
+    {
+      "path": "evidence/optimizer3-tests.json",
+      "bytes": 1627
+    },
+    {
+      "path": "evidence/options3-tests.json",
+      "bytes": 1177
+    },
+    {
+      "path": "evidence/profit-vector25-tests.json",
+      "bytes": 1340
+    },
+    {
+      "path": "evidence/recovered-source-provenance.json",
+      "bytes": 6960
+    },
+    {
+      "path": "evidence/release25_3-verification.json",
+      "bytes": 30079
+    },
+    {
+      "path": "evidence/runtime_tests.json",
+      "bytes": 548
+    },
+    {
+      "path": "evidence/service25-2-tests.txt",
+      "bytes": 369
+    },
+    {
+      "path": "evidence/service25-tests.txt",
+      "bytes": 369
+    },
+    {
+      "path": "evidence/source_preservation.json",
+      "bytes": 10145
+    },
+    {
+      "path": "evidence/source_review.json",
+      "bytes": 1223
+    },
+    {
+      "path": "evidence/tp32/WALKFORWARD_XXX_30_2.txt",
+      "bytes": 14029
+    },
+    {
+      "path": "evidence/tp32/candidates.json",
+      "bytes": 1179447
+    },
+    {
+      "path": "evidence/tp32/core-tests.txt",
+      "bytes": 10043
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-1Day.json",
+      "bytes": 91421
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-000.json",
+      "bytes": 268713
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-001.json",
+      "bytes": 270615
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-002.json",
+      "bytes": 264367
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-003.json",
+      "bytes": 261817
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-004.json",
+      "bytes": 267625
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-005.json",
+      "bytes": 270456
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-006.json",
+      "bytes": 271219
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-007.json",
+      "bytes": 266020
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-008.json",
+      "bytes": 257732
+    },
+    {
+      "path": "evidence/tp32/data/AAPL-5Min-009.json",
+      "bytes": 226680
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-1Day.json",
+      "bytes": 150563
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-000.json",
+      "bytes": 635342
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-001.json",
+      "bytes": 639522
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-002.json",
+      "bytes": 677588
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-003.json",
+      "bytes": 725172
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-004.json",
+      "bytes": 736320
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-005.json",
+      "bytes": 711904
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-006.json",
+      "bytes": 713080
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-007.json",
+      "bytes": 772811
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-008.json",
+      "bytes": 769865
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-009.json",
+      "bytes": 773697
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-010.json",
+      "bytes": 766916
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-011.json",
+      "bytes": 789804
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-012.json",
+      "bytes": 761607
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-013.json",
+      "bytes": 738263
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-014.json",
+      "bytes": 755514
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-015.json",
+      "bytes": 771015
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-016.json",
+      "bytes": 761014
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-017.json",
+      "bytes": 757653
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-018.json",
+      "bytes": 751541
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-019.json",
+      "bytes": 740507
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-020.json",
+      "bytes": 757511
+    },
+    {
+      "path": "evidence/tp32/data/BTC_USD-5Min-021.json",
+      "bytes": 625266
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-1Day.json",
+      "bytes": 146333
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-000.json",
+      "bytes": 576124
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-001.json",
+      "bytes": 577969
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-002.json",
+      "bytes": 598554
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-003.json",
+      "bytes": 660265
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-004.json",
+      "bytes": 660432
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-005.json",
+      "bytes": 652855
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-006.json",
+      "bytes": 651620
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-007.json",
+      "bytes": 655128
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-008.json",
+      "bytes": 654090
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-009.json",
+      "bytes": 674533
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-010.json",
+      "bytes": 658875
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-011.json",
+      "bytes": 664241
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-012.json",
+      "bytes": 669378
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-013.json",
+      "bytes": 664197
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-014.json",
+      "bytes": 668403
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-015.json",
+      "bytes": 677188
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-016.json",
+      "bytes": 684385
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-017.json",
+      "bytes": 683623
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-018.json",
+      "bytes": 673880
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-019.json",
+      "bytes": 666198
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-020.json",
+      "bytes": 679365
+    },
+    {
+      "path": "evidence/tp32/data/ETH_USD-5Min-021.json",
+      "bytes": 528518
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-1Day.json",
+      "bytes": 91341
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-000.json",
+      "bytes": 296612
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-001.json",
+      "bytes": 287828
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-002.json",
+      "bytes": 288828
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-003.json",
+      "bytes": 312392
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-004.json",
+      "bytes": 293622
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-005.json",
+      "bytes": 263583
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-006.json",
+      "bytes": 255995
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-007.json",
+      "bytes": 256120
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-008.json",
+      "bytes": 257190
+    },
+    {
+      "path": "evidence/tp32/data/MSFT-5Min-009.json",
+      "bytes": 93437
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-1Day.json",
+      "bytes": 92287
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-000.json",
+      "bytes": 262086
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-001.json",
+      "bytes": 264446
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-002.json",
+      "bytes": 261213
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-003.json",
+      "bytes": 262383
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-004.json",
+      "bytes": 262417
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-005.json",
+      "bytes": 261452
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-006.json",
+      "bytes": 263815
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-007.json",
+      "bytes": 261582
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-008.json",
+      "bytes": 259353
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-009.json",
+      "bytes": 258348
+    },
+    {
+      "path": "evidence/tp32/data/NVDA-5Min-010.json",
+      "bytes": 55170
+    },
+    {
+      "path": "evidence/tp32/data/SMH-1Day.json",
+      "bytes": 90301
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-000.json",
+      "bytes": 366254
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-001.json",
+      "bytes": 360377
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-002.json",
+      "bytes": 176633
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-003.json",
+      "bytes": 187077
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-004.json",
+      "bytes": 195133
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-005.json",
+      "bytes": 163294
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-006.json",
+      "bytes": 155709
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-007.json",
+      "bytes": 140469
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-008.json",
+      "bytes": 139614
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-009.json",
+      "bytes": 135135
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-010.json",
+      "bytes": 130614
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-011.json",
+      "bytes": 130242
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-012.json",
+      "bytes": 137628
+    },
+    {
+      "path": "evidence/tp32/data/SMH-5Min-013.json",
+      "bytes": 136617
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-1Day.json",
+      "bytes": 90535
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-000.json",
+      "bytes": 306370
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-001.json",
+      "bytes": 302373
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-002.json",
+      "bytes": 278890
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-003.json",
+      "bytes": 297152
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-004.json",
+      "bytes": 153666
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-005.json",
+      "bytes": 138794
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-006.json",
+      "bytes": 150549
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-007.json",
+      "bytes": 145710
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-008.json",
+      "bytes": 137200
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-009.json",
+      "bytes": 145546
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-010.json",
+      "bytes": 144931
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-011.json",
+      "bytes": 154148
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-012.json",
+      "bytes": 163435
+    },
+    {
+      "path": "evidence/tp32/data/SPXL-5Min-013.json",
+      "bytes": 67464
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-1Day.json",
+      "bytes": 87055
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-000.json",
+      "bytes": 253333
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-001.json",
+      "bytes": 262352
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-002.json",
+      "bytes": 233897
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-003.json",
+      "bytes": 251192
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-004.json",
+      "bytes": 275131
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-005.json",
+      "bytes": 284867
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-006.json",
+      "bytes": 259338
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-007.json",
+      "bytes": 261034
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-008.json",
+      "bytes": 274066
+    },
+    {
+      "path": "evidence/tp32/data/SPXS-5Min-009.json",
+      "bytes": 5280
+    },
+    {
+      "path": "evidence/tp32/data/SPY-1Day.json",
+      "bytes": 91038
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-000.json",
+      "bytes": 260279
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-001.json",
+      "bytes": 264463
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-002.json",
+      "bytes": 256970
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-003.json",
+      "bytes": 258023
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-004.json",
+      "bytes": 260475
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-005.json",
+      "bytes": 255823
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-006.json",
+      "bytes": 258054
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-007.json",
+      "bytes": 255214
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-008.json",
+      "bytes": 253989
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-009.json",
+      "bytes": 253899
+    },
+    {
+      "path": "evidence/tp32/data/SPY-5Min-010.json",
+      "bytes": 34663
+    },
+    {
+      "path": "evidence/tp32/data/XLK-1Day.json",
+      "bytes": 90307
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-000.json",
+      "bytes": 422063
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-001.json",
+      "bytes": 403601
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-002.json",
+      "bytes": 416705
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-003.json",
+      "bytes": 196676
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-004.json",
+      "bytes": 177229
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-005.json",
+      "bytes": 166736
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-006.json",
+      "bytes": 154807
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-007.json",
+      "bytes": 158549
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-008.json",
+      "bytes": 165007
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-009.json",
+      "bytes": 185461
+    },
+    {
+      "path": "evidence/tp32/data/XLK-5Min-010.json",
+      "bytes": 113027
+    },
+    {
+      "path": "evidence/tp32/data/calendar.json",
+      "bytes": 43250
+    },
+    {
+      "path": "evidence/tp32/data/corporate-actions.json",
+      "bytes": 1340
+    },
+    {
+      "path": "evidence/tp32/data/fetch-ledger.json",
+      "bytes": 2262
+    },
+    {
+      "path": "evidence/tp32/data/spy-daily-probe.json",
+      "bytes": 119538
+    },
+    {
+      "path": "evidence/tp32/feature-parity.json",
+      "bytes": 3561163
+    },
+    {
+      "path": "evidence/tp32/prepared.json",
+      "bytes": 37386137
+    },
+    {
+      "path": "evidence/tp32/raw-results.json",
+      "bytes": 480996
+    },
+    {
+      "path": "evidence/tp32/report.json",
+      "bytes": 59521
+    },
+    {
+      "path": "evidence/tp32/validation.json",
+      "bytes": 923
+    },
+    {
+      "path": "evidence/types25-2.txt",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/ultimate/acceptance.json",
+      "bytes": 2495
+    },
+    {
+      "path": "evidence/ultimate/browser.json",
+      "bytes": 928
+    },
+    {
+      "path": "evidence/ultimate/core-tests.log",
+      "bytes": 12713
+    },
+    {
+      "path": "evidence/ultimate/execution.json",
+      "bytes": 275
+    },
+    {
+      "path": "evidence/ultimate/production-import.json",
+      "bytes": 207
+    },
+    {
+      "path": "evidence/ultimate/protocol.json",
+      "bytes": 930
+    },
+    {
+      "path": "evidence/ultimate/registry.json",
+      "bytes": 147175
+    },
+    {
+      "path": "evidence/ultimate/report.json",
+      "bytes": 120206
+    },
+    {
+      "path": "evidence/v31/acceptance.json",
+      "bytes": 6961
+    },
+    {
+      "path": "evidence/v31/audit-scale.json",
+      "bytes": 353
+    },
+    {
+      "path": "evidence/v31/browser.log",
+      "bytes": 1366
+    },
+    {
+      "path": "evidence/v31/compiled-sha256.json",
+      "bytes": 2007
+    },
+    {
+      "path": "evidence/v31/edge/BASELINE.json",
+      "bytes": 158861
+    },
+    {
+      "path": "evidence/v31/edge/COST_QUALITY.json",
+      "bytes": 152683
+    },
+    {
+      "path": "evidence/v31/edge/TREND_ALIGNMENT.json",
+      "bytes": 157225
+    },
+    {
+      "path": "evidence/v31/edge/ledger.json",
+      "bytes": 643390
+    },
+    {
+      "path": "evidence/v31/edge/plan.json",
+      "bytes": 3471
+    },
+    {
+      "path": "evidence/v31/edge/summary.json",
+      "bytes": 4356
+    },
+    {
+      "path": "evidence/v31/edge-reproduction.log",
+      "bytes": 292
+    },
+    {
+      "path": "evidence/v31/function-audit.json",
+      "bytes": 302994
+    },
+    {
+      "path": "evidence/v31/operational-browser.json",
+      "bytes": 1494
+    },
+    {
+      "path": "evidence/v31/production-import.json",
+      "bytes": 207
+    },
+    {
+      "path": "evidence/v31/production.log",
+      "bytes": 376
+    },
+    {
+      "path": "evidence/v31/render-schema.json",
+      "bytes": 45751
+    },
+    {
+      "path": "evidence/v31/render-validation.json",
+      "bytes": 237
+    },
+    {
+      "path": "evidence/v31/reproduction.json",
+      "bytes": 1006
+    },
+    {
+      "path": "evidence/v31/static.log",
+      "bytes": 768
+    },
+    {
+      "path": "evidence/v31/stats-reference.json",
+      "bytes": 35172
+    },
+    {
+      "path": "evidence/v31/tests.log",
+      "bytes": 18875
+    },
+    {
+      "path": "evidence/v311/acceptance.json",
+      "bytes": 2196
+    },
+    {
+      "path": "evidence/v311/accounting-tests.log",
+      "bytes": 798
+    },
+    {
+      "path": "evidence/v311/browser.log",
+      "bytes": 1366
+    },
+    {
+      "path": "evidence/v311/championship-audit.json",
+      "bytes": 6084
+    },
+    {
+      "path": "evidence/v311/championship-check.log",
+      "bytes": 832
+    },
+    {
+      "path": "evidence/v311/comparison.json",
+      "bytes": 7761
+    },
+    {
+      "path": "evidence/v311/corrected-BASELINE.json",
+      "bytes": 633168
+    },
+    {
+      "path": "evidence/v311/corrected-COST_QUALITY.json",
+      "bytes": 470727
+    },
+    {
+      "path": "evidence/v311/corrected-TREND_ALIGNMENT.json",
+      "bytes": 634808
+    },
+    {
+      "path": "evidence/v311/function-audit.json",
+      "bytes": 304937
+    },
+    {
+      "path": "evidence/v311/operational-browser.json",
+      "bytes": 1494
+    },
+    {
+      "path": "evidence/v311/production-import.json",
+      "bytes": 207
+    },
+    {
+      "path": "evidence/v311/production.log",
+      "bytes": 376
+    },
+    {
+      "path": "evidence/v311/recompute.log",
+      "bytes": 5205
+    },
+    {
+      "path": "evidence/v311/regression-static-side-effect.json",
+      "bytes": 304937
+    },
+    {
+      "path": "evidence/v311/reproduce-original.log",
+      "bytes": 1192
+    },
+    {
+      "path": "evidence/v311/reproduce-v31.log",
+      "bytes": 292
+    },
+    {
+      "path": "evidence/v311/reproduction-original.json",
+      "bytes": 1006
+    },
+    {
+      "path": "evidence/v311/static.log",
+      "bytes": 568
+    },
+    {
+      "path": "evidence/v311/tests-complete.tap",
+      "bytes": 45579
+    },
+    {
+      "path": "evidence/v311/tests-initial-failures.log",
+      "bytes": 72894
+    },
+    {
+      "path": "evidence/v311/tests-stderr.log",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/v311/tests-summary.json",
+      "bytes": 144
+    },
+    {
+      "path": "evidence/v311/tests.log",
+      "bytes": 3795
+    },
+    {
+      "path": "evidence/v312/acceptance.json",
+      "bytes": 2955
+    },
+    {
+      "path": "evidence/v312/alpaca-access.json",
+      "bytes": 7197
+    },
+    {
+      "path": "evidence/v312/browser.log",
+      "bytes": 1537
+    },
+    {
+      "path": "evidence/v312/function-audit.json",
+      "bytes": 310069
+    },
+    {
+      "path": "evidence/v312/operational-browser.json",
+      "bytes": 1675
+    },
+    {
+      "path": "evidence/v312/options-benchmark.json",
+      "bytes": 348
+    },
+    {
+      "path": "evidence/v312/options-tests.log",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/v312/production-import.json",
+      "bytes": 207
+    },
+    {
+      "path": "evidence/v312/production.log",
+      "bytes": 376
+    },
+    {
+      "path": "evidence/v312/static.log",
+      "bytes": 568
+    },
+    {
+      "path": "evidence/v312/synthetic-straddle-output.json",
+      "bytes": 982
+    },
+    {
+      "path": "evidence/v312/tests-complete.tap",
+      "bytes": 51700
+    },
+    {
+      "path": "evidence/v312/tests-final-stderr.log",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/v312/tests-final.tap",
+      "bytes": 51282
+    },
+    {
+      "path": "evidence/v312/tests-stderr.log",
+      "bytes": 0
+    },
+    {
+      "path": "evidence/v312/tests-summary.json",
+      "bytes": 143
+    },
+    {
+      "path": "evidence/verification.json",
+      "bytes": 2796
+    },
+    {
+      "path": "evidence/warroom3-browser.json",
+      "bytes": 1006
+    },
+    {
+      "path": "evidence/warroom3-cloud.json",
+      "bytes": 1486
+    },
+    {
+      "path": "evidence/warroom3-load.json",
+      "bytes": 432
+    },
+    {
+      "path": "evidence/warroom3-native.json",
+      "bytes": 1695
+    },
+    {
+      "path": "evidence/warroom3-panel-browser.json",
+      "bytes": 722
+    },
+    {
+      "path": "evidence/warroom3-tests.json",
+      "bytes": 2002
+    },
+    {
+      "path": "evidence/xxv-manifest.json",
+      "bytes": 627
+    },
+    {
+      "path": "evidence/xxv-tests.json",
+      "bytes": 672
+    },
+    {
+      "path": "evidence/xxv-verification.json",
+      "bytes": 995
+    },
+    {
+      "path": "evidence/xxx/audit-exit.json",
+      "bytes": 161
+    },
+    {
+      "path": "evidence/xxx/audit-run.txt",
+      "bytes": 733
+    },
+    {
+      "path": "evidence/xxx/benchmark-run.txt",
+      "bytes": 664
+    },
+    {
+      "path": "evidence/xxx/benchmark.json",
+      "bytes": 487
+    },
+    {
+      "path": "evidence/xxx/browser-run.txt",
+      "bytes": 214
+    },
+    {
+      "path": "evidence/xxx/browser.json",
+      "bytes": 1824
+    },
+    {
+      "path": "evidence/xxx/build.txt",
+      "bytes": 165
+    },
+    {
+      "path": "evidence/xxx/conformance-tests.txt",
+      "bytes": 1120
+    },
+    {
+      "path": "evidence/xxx/function-audit-run.txt",
+      "bytes": 524
+    },
+    {
+      "path": "evidence/xxx/function-audit.json",
+      "bytes": 285671
+    },
+    {
+      "path": "evidence/xxx/legacy-core.txt",
+      "bytes": 1568
+    },
+    {
+      "path": "evidence/xxx/regression-agents.txt",
+      "bytes": 2520
+    },
+    {
+      "path": "evidence/xxx/regression-auth.txt",
+      "bytes": 1288
+    },
+    {
+      "path": "evidence/xxx/regression-autonomy.txt",
+      "bytes": 2746
+    },
+    {
+      "path": "evidence/xxx/regression-base.txt",
+      "bytes": 1568
+    },
+    {
+      "path": "evidence/xxx/regression-optimizer.txt",
+      "bytes": 1804
+    },
+    {
+      "path": "evidence/xxx/regression-options.txt",
+      "bytes": 1350
+    },
+    {
+      "path": "evidence/xxx/regression-profit.txt",
+      "bytes": 1519
+    },
+    {
+      "path": "evidence/xxx/regression-service.txt",
+      "bytes": 369
+    },
+    {
+      "path": "evidence/xxx/regression-warroom.txt",
+      "bytes": 3910
+    },
+    {
+      "path": "evidence/xxx/regression.json",
+      "bytes": 1190
+    },
+    {
+      "path": "evidence/xxx/render-schema.json",
+      "bytes": 45751
+    },
+    {
+      "path": "evidence/xxx/render-validation.json",
+      "bytes": 146
+    },
+    {
+      "path": "evidence/xxx/test-agents.txt",
+      "bytes": 2520
+    },
+    {
+      "path": "evidence/xxx/test-auth.txt",
+      "bytes": 1288
+    },
+    {
+      "path": "evidence/xxx/test-autonomy.txt",
+      "bytes": 2746
+    },
+    {
+      "path": "evidence/xxx/test-optimizer.txt",
+      "bytes": 1804
+    },
+    {
+      "path": "evidence/xxx/test-options.txt",
+      "bytes": 1350
+    },
+    {
+      "path": "evidence/xxx/test-profit.txt",
+      "bytes": 1519
+    },
+    {
+      "path": "evidence/xxx/test-service.txt",
+      "bytes": 369
+    },
+    {
+      "path": "evidence/xxx/test-warroom.txt",
+      "bytes": 3910
+    },
+    {
+      "path": "evidence/xxx/tests.txt",
+      "bytes": 8508
+    },
+    {
+      "path": "evidence/xxx/typecheck.txt",
+      "bytes": 178
+    },
+    {
+      "path": "evidence/xxx/validation.json",
+      "bytes": 2488
+    },
+    {
+      "path": "install.sh",
+      "bytes": 532
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 2876
+    },
+    {
+      "path": "package.json",
+      "bytes": 3908
+    },
+    {
+      "path": "render-legacy.yaml",
+      "bytes": 554
+    },
+    {
+      "path": "render.yaml",
+      "bytes": 789
+    },
+    {
+      "path": "requirements-qa.txt",
+      "bytes": 55
+    },
+    {
+      "path": "research/options/example-straddle-synthetic.json",
+      "bytes": 733
+    },
+    {
+      "path": "research/tp32/metrics.py",
+      "bytes": 11955
+    },
+    {
+      "path": "research/tp32/prepare.py",
+      "bytes": 8220
+    },
+    {
+      "path": "research/tp32/protocol.json",
+      "bytes": 2615
+    },
+    {
+      "path": "research/tp32/requirements.txt",
+      "bytes": 13
+    },
+    {
+      "path": "research/tp32/run.cjs",
+      "bytes": 13285
+    },
+    {
+      "path": "research/ultimate/audit_recompute.cjs",
+      "bytes": 1650
+    },
+    {
+      "path": "research/ultimate/dataset.cjs",
+      "bytes": 1305
+    },
+    {
+      "path": "research/ultimate/edge_batch.cjs",
+      "bytes": 3985
+    },
+    {
+      "path": "research/ultimate/reproduce.cjs",
+      "bytes": 1181
+    },
+    {
+      "path": "research/ultimate/run.cjs",
+      "bytes": 5329
+    },
+    {
+      "path": "runtime/agent_worker25.cjs",
+      "bytes": 776
+    },
+    {
+      "path": "runtime/agents25.cjs",
+      "bytes": 3829
+    },
+    {
+      "path": "runtime/cloud.cjs",
+      "bytes": 8946
+    },
+    {
+      "path": "runtime/control.cjs",
+      "bytes": 6578
+    },
+    {
+      "path": "runtime/crypto_runner.cjs",
+      "bytes": 4785
+    },
+    {
+      "path": "runtime/execution_authority.cjs",
+      "bytes": 11569
+    },
+    {
+      "path": "runtime/exit_profiles32.cjs",
+      "bytes": 1494
+    },
+    {
+      "path": "runtime/legacy30.cjs",
+      "bytes": 1582
+    },
+    {
+      "path": "runtime/runner.cjs",
+      "bytes": 8728
+    },
+    {
+      "path": "runtime/selector30.cjs",
+      "bytes": 2304
+    },
+    {
+      "path": "runtime/store.py",
+      "bytes": 5570
+    },
+    {
+      "path": "runtime/store30.cjs",
+      "bytes": 5768
+    },
+    {
+      "path": "runtime/warroom3.cjs",
+      "bytes": 2693
+    },
+    {
+      "path": "runtime/warroom_worker3.cjs",
+      "bytes": 397
+    },
+    {
+      "path": "runtime/watchdog.cjs",
+      "bytes": 939
+    },
+    {
+      "path": "runtime/worker.cjs",
+      "bytes": 1146
+    },
+    {
+      "path": "runtime30/accounting.js",
+      "bytes": 6648
+    },
+    {
+      "path": "runtime30/broker.js",
+      "bytes": 1341
+    },
+    {
+      "path": "runtime30/coordinator.js",
+      "bytes": 88204
+    },
+    {
+      "path": "runtime30/exits.js",
+      "bytes": 7459
+    },
+    {
+      "path": "runtime30/health.js",
+      "bytes": 13452
+    },
+    {
+      "path": "runtime30/market.js",
+      "bytes": 13707
+    },
+    {
+      "path": "runtime30/option_contracts.js",
+      "bytes": 4269
+    },
+    {
+      "path": "runtime30/option_surface.js",
+      "bytes": 3739
+    },
+    {
+      "path": "runtime30/options_lab.js",
+      "bytes": 4594
+    },
+    {
+      "path": "runtime30/plugins.js",
+      "bytes": 27477
+    },
+    {
+      "path": "runtime30/policy.js",
+      "bytes": 8710
+    },
+    {
+      "path": "runtime30/portfolio_guard.js",
+      "bytes": 3191
+    },
+    {
+      "path": "runtime30/research_accounting.js",
+      "bytes": 3614
+    },
+    {
+      "path": "runtime30/scheduler.js",
+      "bytes": 3960
+    },
+    {
+      "path": "runtime30/selectors.js",
+      "bytes": 22885
+    },
+    {
+      "path": "runtime30/server.js",
+      "bytes": 12306
+    },
+    {
+      "path": "runtime30/streams.js",
+      "bytes": 10248
+    },
+    {
+      "path": "runtime30/types.js",
+      "bytes": 5839
+    },
+    {
+      "path": "runtime30/ultimate_contracts.js",
+      "bytes": 9015
+    },
+    {
+      "path": "runtime30/ultimate_frequency.js",
+      "bytes": 3345
+    },
+    {
+      "path": "runtime30/ultimate_futures.js",
+      "bytes": 23292
+    },
+    {
+      "path": "runtime30/ultimate_lab.js",
+      "bytes": 15374
+    },
+    {
+      "path": "runtime30/ultimate_replay.js",
+      "bytes": 29312
+    },
+    {
+      "path": "runtime30/ultimate_stats.js",
+      "bytes": 9819
+    },
+    {
+      "path": "runtime30/ultimate_worker.js",
+      "bytes": 695
+    },
+    {
+      "path": "runtime30/validators.js",
+      "bytes": 16813
+    },
+    {
+      "path": "runtime30/version.js",
+      "bytes": 227
+    },
+    {
+      "path": "service/Dockerfile",
+      "bytes": 324
+    },
+    {
+      "path": "service/README.md",
+      "bytes": 10712
+    },
+    {
+      "path": "service/app24.py",
+      "bytes": 20297
+    },
+    {
+      "path": "service/prompts.py",
+      "bytes": 3532
+    },
+    {
+      "path": "service/recipe_contract.json",
+      "bytes": 700
+    },
+    {
+      "path": "service/requirements24.txt",
+      "bytes": 21
+    },
+    {
+      "path": "service/server.py",
+      "bytes": 18921
+    },
+    {
+      "path": "service/supervision.py",
+      "bytes": 15232
+    },
+    {
+      "path": "service/test_integrated24.py",
+      "bytes": 12818
+    },
+    {
+      "path": "service/test_security.py",
+      "bytes": 5817
+    },
+    {
+      "path": "service/test_server.py",
+      "bytes": 8610
+    },
+    {
+      "path": "service/test_supervision.py",
+      "bytes": 10214
+    },
+    {
+      "path": "src/agent_adapter25.js",
+      "bytes": 11574
+    },
+    {
+      "path": "src/agent_research25.js",
+      "bytes": 1657
+    },
+    {
+      "path": "src/agents25.js",
+      "bytes": 28260
+    },
+    {
+      "path": "src/app.js",
+      "bytes": 21733
+    },
+    {
+      "path": "src/astra_app.js",
+      "bytes": 1999
+    },
+    {
+      "path": "src/astra_engine.js",
+      "bytes": 10837
+    },
+    {
+      "path": "src/autonomy3.js",
+      "bytes": 9811
+    },
+    {
+      "path": "src/autonomy_adapter3.js",
+      "bytes": 15361
+    },
+    {
+      "path": "src/canonical.js",
+      "bytes": 2275
+    },
+    {
+      "path": "src/challenge.d.ts",
+      "bytes": 2307
+    },
+    {
+      "path": "src/challenge.js",
+      "bytes": 4734
+    },
+    {
+      "path": "src/challenge.ts",
+      "bytes": 4182
+    },
+    {
+      "path": "src/contract.d.ts",
+      "bytes": 225
+    },
+    {
+      "path": "src/contract.js",
+      "bytes": 746
+    },
+    {
+      "path": "src/core.js",
+      "bytes": 20262
+    },
+    {
+      "path": "src/crypto_app.js",
+      "bytes": 14176
+    },
+    {
+      "path": "src/crypto_core.d.ts",
+      "bytes": 4330
+    },
+    {
+      "path": "src/crypto_core.js",
+      "bytes": 16501
+    },
+    {
+      "path": "src/crypto_engine.js",
+      "bytes": 20931
+    },
+    {
+      "path": "src/crypto_exits.original25_2.js",
+      "bytes": 574
+    },
+    {
+      "path": "src/crypto_tape.js",
+      "bytes": 3568
+    },
+    {
+      "path": "src/defaults.js",
+      "bytes": 1587
+    },
+    {
+      "path": "src/desk25.js",
+      "bytes": 2464
+    },
+    {
+      "path": "src/engine.js",
+      "bytes": 24612
+    },
+    {
+      "path": "src/framework23.d.ts",
+      "bytes": 2442
+    },
+    {
+      "path": "src/framework23.js",
+      "bytes": 11669
+    },
+    {
+      "path": "src/framework23.ts",
+      "bytes": 10665
+    },
+    {
+      "path": "src/gateway24.css",
+      "bytes": 704
+    },
+    {
+      "path": "src/gateway24.d.ts",
+      "bytes": 440
+    },
+    {
+      "path": "src/gateway24.html",
+      "bytes": 2976
+    },
+    {
+      "path": "src/gateway24.js",
+      "bytes": 1168
+    },
+    {
+      "path": "src/gateway24.ts",
+      "bytes": 991
+    },
+    {
+      "path": "src/gateway24_app.js",
+      "bytes": 6893
+    },
+    {
+      "path": "src/index.html",
+      "bytes": 86426
+    },
+    {
+      "path": "src/io.js",
+      "bytes": 8792
+    },
+    {
+      "path": "src/lab_app.js",
+      "bytes": 6742
+    },
+    {
+      "path": "src/lab_bridge.js",
+      "bytes": 8582
+    },
+    {
+      "path": "src/lab_controller.js",
+      "bytes": 18210
+    },
+    {
+      "path": "src/lab_core.js",
+      "bytes": 11078
+    },
+    {
+      "path": "src/lab_rules.js",
+      "bytes": 3051
+    },
+    {
+      "path": "src/lab_rules.ts",
+      "bytes": 3382
+    },
+    {
+      "path": "src/loop23.css",
+      "bytes": 5716
+    },
+    {
+      "path": "src/loop23.html",
+      "bytes": 7455
+    },
+    {
+      "path": "src/loop23_app.js",
+      "bytes": 37708
+    },
+    {
+      "path": "src/loop23_runtime.js",
+      "bytes": 10953
+    },
+    {
+      "path": "src/metrics23.d.ts",
+      "bytes": 2642
+    },
+    {
+      "path": "src/metrics23.js",
+      "bytes": 13222
+    },
+    {
+      "path": "src/metrics23.ts",
+      "bytes": 11866
+    },
+    {
+      "path": "src/optimizer3.js",
+      "bytes": 9183
+    },
+    {
+      "path": "src/optimizer_store3.js",
+      "bytes": 7558
+    },
+    {
+      "path": "src/options3.js",
+      "bytes": 11689
+    },
+    {
+      "path": "src/options_adapter3.js",
+      "bytes": 10110
+    },
+    {
+      "path": "src/options_payoff23.js",
+      "bytes": 4328
+    },
+    {
+      "path": "src/plugin_host22.d.ts",
+      "bytes": 4147
+    },
+    {
+      "path": "src/plugin_host22.js",
+      "bytes": 21945
+    },
+    {
+      "path": "src/plugin_host22.ts",
+      "bytes": 16793
+    },
+    {
+      "path": "src/plugin_lab22.html",
+      "bytes": 4321
+    },
+    {
+      "path": "src/plugin_lab22.js",
+      "bytes": 18061
+    },
+    {
+      "path": "src/plugin_registry.d.ts",
+      "bytes": 1483
+    },
+    {
+      "path": "src/plugin_registry.js",
+      "bytes": 6793
+    },
+    {
+      "path": "src/plugin_registry.original25_2.js",
+      "bytes": 6670
+    },
+    {
+      "path": "src/plugin_registry.ts",
+      "bytes": 6432
+    },
+    {
+      "path": "src/plugins/astra.d.ts",
+      "bytes": 6047
+    },
+    {
+      "path": "src/plugins/astra.js",
+      "bytes": 17157
+    },
+    {
+      "path": "src/plugins/astra.ts",
+      "bytes": 15919
+    },
+    {
+      "path": "src/plugins/catalog.d.ts",
+      "bytes": 183
+    },
+    {
+      "path": "src/plugins/catalog.js",
+      "bytes": 1541
+    },
+    {
+      "path": "src/plugins/catalog.ts",
+      "bytes": 1440
+    },
+    {
+      "path": "src/plugins/crypto_exits.js",
+      "bytes": 671
+    },
+    {
+      "path": "src/plugins/crypto_recovery.d.ts",
+      "bytes": 2797
+    },
+    {
+      "path": "src/plugins/crypto_recovery.js",
+      "bytes": 12138
+    },
+    {
+      "path": "src/plugins/crypto_recovery.ts",
+      "bytes": 11372
+    },
+    {
+      "path": "src/plugins/crypto_trend.ts",
+      "bytes": 14577
+    },
+    {
+      "path": "src/plugins/securities_entries.js",
+      "bytes": 2152
+    },
+    {
+      "path": "src/plugins/securities_entries.ts",
+      "bytes": 1726
+    },
+    {
+      "path": "src/plugins/securities_policies.ts",
+      "bytes": 7180
+    },
+    {
+      "path": "src/plugins/securities_rules.js",
+      "bytes": 3304
+    },
+    {
+      "path": "src/profit25.js",
+      "bytes": 7410
+    },
+    {
+      "path": "src/style.css",
+      "bytes": 28541
+    },
+    {
+      "path": "src/supervision.js",
+      "bytes": 15468
+    },
+    {
+      "path": "src/supervision_core.d.ts",
+      "bytes": 2279
+    },
+    {
+      "path": "src/supervision_core.js",
+      "bytes": 5826
+    },
+    {
+      "path": "src/supervision_core.ts",
+      "bytes": 5904
+    },
+    {
+      "path": "src/tensor_core.d.ts",
+      "bytes": 2324
+    },
+    {
+      "path": "src/tensor_core.js",
+      "bytes": 9202
+    },
+    {
+      "path": "src/tensor_core.ts",
+      "bytes": 7405
+    },
+    {
+      "path": "src/trade_stream.js",
+      "bytes": 1553
+    },
+    {
+      "path": "src/ux.css",
+      "bytes": 14218
+    },
+    {
+      "path": "src/ux_app.js",
+      "bytes": 26669
+    },
+    {
+      "path": "src/ux_app.original25_2.js",
+      "bytes": 26237
+    },
+    {
+      "path": "src/ux_controls.js",
+      "bytes": 13801
+    },
+    {
+      "path": "src/ux_credentials.html",
+      "bytes": 1862
+    },
+    {
+      "path": "src/ux_findings.html",
+      "bytes": 3482
+    },
+    {
+      "path": "src/ux_home.html",
+      "bytes": 2854
+    },
+    {
+      "path": "src/ux_plugins.html",
+      "bytes": 2859
+    },
+    {
+      "path": "src/ux_state.d.ts",
+      "bytes": 1145
+    },
+    {
+      "path": "src/ux_state.js",
+      "bytes": 2897
+    },
+    {
+      "path": "src/ux_state.ts",
+      "bytes": 2793
+    },
+    {
+      "path": "src/vector25.js",
+      "bytes": 6386
+    },
+    {
+      "path": "src/warroom3.js",
+      "bytes": 34282
+    },
+    {
+      "path": "src/warroom_adapter3.js",
+      "bytes": 20509
+    },
+    {
+      "path": "src/warroom_store3.js",
+      "bytes": 13183
+    },
+    {
+      "path": "src/x_app.js",
+      "bytes": 5026
+    },
+    {
+      "path": "src/x_core.js",
+      "bytes": 15435
+    },
+    {
+      "path": "src/x_core.ts",
+      "bytes": 7806
+    },
+    {
+      "path": "src/x_engine.js",
+      "bytes": 35467
+    },
+    {
+      "path": "src/x_research.js",
+      "bytes": 7802
+    },
+    {
+      "path": "src/xi_app.js",
+      "bytes": 5047
+    },
+    {
+      "path": "src/xi_core.js",
+      "bytes": 8093
+    },
+    {
+      "path": "src/xi_core.ts",
+      "bytes": 7937
+    },
+    {
+      "path": "src/xi_engine.js",
+      "bytes": 14060
+    },
+    {
+      "path": "src/xi_replay.js",
+      "bytes": 8639
+    },
+    {
+      "path": "src/xii_app.js",
+      "bytes": 7755
+    },
+    {
+      "path": "src/xii_core.d.ts",
+      "bytes": 4054
+    },
+    {
+      "path": "src/xii_core.js",
+      "bytes": 8678
+    },
+    {
+      "path": "src/xii_core.ts",
+      "bytes": 8152
+    },
+    {
+      "path": "src/xii_engine.js",
+      "bytes": 9141
+    },
+    {
+      "path": "src/xii_research.js",
+      "bytes": 10320
+    },
+    {
+      "path": "src/xiii_app.js",
+      "bytes": 10742
+    },
+    {
+      "path": "src/xiii_core.d.ts",
+      "bytes": 12300
+    },
+    {
+      "path": "src/xiii_core.js",
+      "bytes": 13164
+    },
+    {
+      "path": "src/xiii_core.ts",
+      "bytes": 11055
+    },
+    {
+      "path": "src/xiii_engine.js",
+      "bytes": 8719
+    },
+    {
+      "path": "src/xiii_research.js",
+      "bytes": 2359
+    },
+    {
+      "path": "src/xx_app.js",
+      "bytes": 8254
+    },
+    {
+      "path": "src/xx_app.original25_2.js",
+      "bytes": 8043
+    },
+    {
+      "path": "src/xx_crypto.js",
+      "bytes": 4745
+    },
+    {
+      "path": "src/xx_crypto.original25_2.js",
+      "bytes": 4689
+    },
+    {
+      "path": "src/xx_engine.js",
+      "bytes": 1404
+    },
+    {
+      "path": "src/xxi_app.js",
+      "bytes": 9492
+    },
+    {
+      "path": "src/xxi_broker.js",
+      "bytes": 2833
+    },
+    {
+      "path": "status.sh",
+      "bytes": 151
+    },
+    {
+      "path": "stop.sh",
+      "bytes": 212
+    },
+    {
+      "path": "strategies/HARPOON_XXV_3_WARROOM_PLUGINS.json",
+      "bytes": 3461
+    },
+    {
+      "path": "strategies/HARPOON_XXX_PLUGINS.json",
+      "bytes": 54465
+    },
+    {
+      "path": "tools/agents25_browser.cjs",
+      "bytes": 3189
+    },
+    {
+      "path": "tools/agents25_cloud.cjs",
+      "bytes": 3460
+    },
+    {
+      "path": "tools/agents25_cloud_preload.cjs",
+      "bytes": 1440
+    },
+    {
+      "path": "tools/agents25_integration.cjs",
+      "bytes": 5583
+    },
+    {
+      "path": "tools/agents25_test.cjs",
+      "bytes": 7378
+    },
+    {
+      "path": "tools/audit_export.cjs",
+      "bytes": 996
+    },
+    {
+      "path": "tools/audit_scale.cjs",
+      "bytes": 1670
+    },
+    {
+      "path": "tools/auth_benchmark.cjs",
+      "bytes": 1120
+    },
+    {
+      "path": "tools/auth_security_test.cjs",
+      "bytes": 6083
+    },
+    {
+      "path": "tools/autonomy3_browser.cjs",
+      "bytes": 7000
+    },
+    {
+      "path": "tools/autonomy3_test.cjs",
+      "bytes": 14903
+    },
+    {
+      "path": "tools/championship_audit.cjs",
+      "bytes": 5350
+    },
+    {
+      "path": "tools/championship_metrics.cjs",
+      "bytes": 1435
+    },
+    {
+      "path": "tools/cloud_preload.cjs",
+      "bytes": 899
+    },
+    {
+      "path": "tools/cloud_test.cjs",
+      "bytes": 2915
+    },
+    {
+      "path": "tools/control_test.cjs",
+      "bytes": 2055
+    },
+    {
+      "path": "tools/edge_test.cjs",
+      "bytes": 2368
+    },
+    {
+      "path": "tools/install_test.py",
+      "bytes": 905
+    },
+    {
+      "path": "tools/optimizer3_browser.cjs",
+      "bytes": 5674
+    },
+    {
+      "path": "tools/optimizer3_test.cjs",
+      "bytes": 8626
+    },
+    {
+      "path": "tools/options3_test.cjs",
+      "bytes": 5841
+    },
+    {
+      "path": "tools/options_benchmark.cjs",
+      "bytes": 1349
+    },
+    {
+      "path": "tools/options_lab.cjs",
+      "bytes": 408
+    },
+    {
+      "path": "tools/package31.py",
+      "bytes": 2052
+    },
+    {
+      "path": "tools/package311.py",
+      "bytes": 2079
+    },
+    {
+      "path": "tools/package312.py",
+      "bytes": 2079
+    },
+    {
+      "path": "tools/package_ultimate.py",
+      "bytes": 9051
+    },
+    {
+      "path": "tools/package_xxv3.py",
+      "bytes": 2682
+    },
+    {
+      "path": "tools/package_xxx.py",
+      "bytes": 3318
+    },
+    {
+      "path": "tools/paper_readonly_check.cjs",
+      "bytes": 1268
+    },
+    {
+      "path": "tools/profit_vector25_test.cjs",
+      "bytes": 6580
+    },
+    {
+      "path": "tools/release_verify3.py",
+      "bytes": 3026
+    },
+    {
+      "path": "tools/runtime_fixture_config.json",
+      "bytes": 1974
+    },
+    {
+      "path": "tools/runtime_test.cjs",
+      "bytes": 3555
+    },
+    {
+      "path": "tools/stats_reference.py",
+      "bytes": 2468
+    },
+    {
+      "path": "tools/tca.cjs",
+      "bytes": 2540
+    },
+    {
+      "path": "tools/ultimate_browser.cjs",
+      "bytes": 8343
+    },
+    {
+      "path": "tools/ultimate_fixtures.cjs",
+      "bytes": 3884
+    },
+    {
+      "path": "tools/ultimate_production_check.cjs",
+      "bytes": 2627
+    },
+    {
+      "path": "tools/ultimate_test.cjs",
+      "bytes": 17746
+    },
+    {
+      "path": "tools/v311_test.cjs",
+      "bytes": 4125
+    },
+    {
+      "path": "tools/v312_options_test.cjs",
+      "bytes": 10056
+    },
+    {
+      "path": "tools/v31_test.cjs",
+      "bytes": 13102
+    },
+    {
+      "path": "tools/verify.py",
+      "bytes": 1305
+    },
+    {
+      "path": "tools/verify31.py",
+      "bytes": 960
+    },
+    {
+      "path": "tools/verify311.py",
+      "bytes": 961
+    },
+    {
+      "path": "tools/verify312.py",
+      "bytes": 961
+    },
+    {
+      "path": "tools/verify_auth.py",
+      "bytes": 2881
+    },
+    {
+      "path": "tools/warroom3_browser.cjs",
+      "bytes": 5463
+    },
+    {
+      "path": "tools/warroom3_cloud.cjs",
+      "bytes": 8448
+    },
+    {
+      "path": "tools/warroom3_cloud_preload.cjs",
+      "bytes": 3421
+    },
+    {
+      "path": "tools/warroom3_fixtures.cjs",
+      "bytes": 1058
+    },
+    {
+      "path": "tools/warroom3_integration.cjs",
+      "bytes": 12726
+    },
+    {
+      "path": "tools/warroom3_load.cjs",
+      "bytes": 1725
+    },
+    {
+      "path": "tools/warroom3_panel_browser.cjs",
+      "bytes": 6563
+    },
+    {
+      "path": "tools/warroom3_test.cjs",
+      "bytes": 8961
+    },
+    {
+      "path": "tools/xxv_test.cjs",
+      "bytes": 5113
+    },
+    {
+      "path": "tools/xxx_audit.cjs",
+      "bytes": 10533
+    },
+    {
+      "path": "tools/xxx_benchmark.cjs",
+      "bytes": 1798
+    },
+    {
+      "path": "tools/xxx_browser.cjs",
+      "bytes": 16881
+    },
+    {
+      "path": "tools/xxx_conformance_test.cjs",
+      "bytes": 10114
+    },
+    {
+      "path": "tools/xxx_fixtures.cjs",
+      "bytes": 7282
+    },
+    {
+      "path": "tools/xxx_health_test.cjs",
+      "bytes": 12429
+    },
+    {
+      "path": "tools/xxx_operational_browser.cjs",
+      "bytes": 13357
+    },
+    {
+      "path": "tools/xxx_operational_test.cjs",
+      "bytes": 36006
+    },
+    {
+      "path": "tools/xxx_operational_ui_contract.cjs",
+      "bytes": 8732
+    },
+    {
+      "path": "tools/xxx_selector_test.cjs",
+      "bytes": 18378
+    },
+    {
+      "path": "tools/xxx_test.cjs",
+      "bytes": 24772
+    },
+    {
+      "path": "tools/xxx_tp32_test.cjs",
+      "bytes": 16351
+    },
+    {
+      "path": "tsconfig.xxx.json",
+      "bytes": 376
+    },
+    {
+      "path": "xxv/autonomy_ui3.js",
+      "bytes": 8239
+    },
+    {
+      "path": "xxv/baseline25/EMPEZAR_XXV.md",
+      "bytes": 4304
+    },
+    {
+      "path": "xxv/baseline25/desk25.js",
+      "bytes": 2264
+    },
+    {
+      "path": "xxv/baseline25_1/EMPEZAR_XXV.md",
+      "bytes": 9262
+    },
+    {
+      "path": "xxv/baseline25_1/agent_adapter25.js",
+      "bytes": 9887
+    },
+    {
+      "path": "xxv/baseline25_1/agents25.js",
+      "bytes": 25112
+    },
+    {
+      "path": "xxv/build.py",
+      "bytes": 1807
+    },
+    {
+      "path": "xxv/crypto_engine24.original.js",
+      "bytes": 18930
+    },
+    {
+      "path": "xxv/supervision24.original.js",
+      "bytes": 14571
+    },
+    {
+      "path": "xxv/ui.css",
+      "bytes": 2502
+    },
+    {
+      "path": "xxv/ui.js",
+      "bytes": 19024
+    },
+    {
+      "path": "xxv/warroom_ui3.js",
+      "bytes": 20948
+    },
+    {
+      "path": "xxx/accounting.ts",
+      "bytes": 6033
+    },
+    {
+      "path": "xxx/broker.ts",
+      "bytes": 924
+    },
+    {
+      "path": "xxx/coordinator.ts",
+      "bytes": 78608
+    },
+    {
+      "path": "xxx/exits.ts",
+      "bytes": 7550
+    },
+    {
+      "path": "xxx/health.ts",
+      "bytes": 11964
+    },
+    {
+      "path": "xxx/market.ts",
+      "bytes": 12666
+    },
+    {
+      "path": "xxx/option_contracts.ts",
+      "bytes": 3896
+    },
+    {
+      "path": "xxx/option_surface.ts",
+      "bytes": 3404
+    },
+    {
+      "path": "xxx/options_lab.ts",
+      "bytes": 4267
+    },
+    {
+      "path": "xxx/plugins.ts",
+      "bytes": 24559
+    },
+    {
+      "path": "xxx/policy.ts",
+      "bytes": 8721
+    },
+    {
+      "path": "xxx/portfolio_guard.ts",
+      "bytes": 3196
+    },
+    {
+      "path": "xxx/research_accounting.ts",
+      "bytes": 3523
+    },
+    {
+      "path": "xxx/scheduler.ts",
+      "bytes": 3706
+    },
+    {
+      "path": "xxx/selectors.ts",
+      "bytes": 21177
+    },
+    {
+      "path": "xxx/server.ts",
+      "bytes": 11366
+    },
+    {
+      "path": "xxx/streams.ts",
+      "bytes": 9313
+    },
+    {
+      "path": "xxx/types.ts",
+      "bytes": 10588
+    },
+    {
+      "path": "xxx/ultimate_contracts.ts",
+      "bytes": 10357
+    },
+    {
+      "path": "xxx/ultimate_frequency.ts",
+      "bytes": 2918
+    },
+    {
+      "path": "xxx/ultimate_futures.ts",
+      "bytes": 21118
+    },
+    {
+      "path": "xxx/ultimate_lab.ts",
+      "bytes": 13692
+    },
+    {
+      "path": "xxx/ultimate_replay.ts",
+      "bytes": 28835
+    },
+    {
+      "path": "xxx/ultimate_stats.ts",
+      "bytes": 9126
+    },
+    {
+      "path": "xxx/ultimate_worker.ts",
+      "bytes": 434
+    },
+    {
+      "path": "xxx/validators.ts",
+      "bytes": 15914
+    },
+    {
+      "path": "xxx/version.ts",
+      "bytes": 120
+    },
+    {
+      "path": "MANIFEST_312.json",
+      "bytes": 115792
+    }
+  ],
+  "selected_sha256": {
+    ".dockerignore": "bd716efd4007fcb931c3a96d9112f2eff24c186308560a4a67b00b7ab5129e50",
+    ".env.example": "6f80e951cda3cde9aa9696405febbcb87c85b5df5d01b1e04cafafbe8a2bd428",
+    ".github/workflows/verify31.yml": "5586e24286ed60a87f85fcbf41b9fb8d065d2188cf303f684282d27d620a8eed",
+    ".gitignore": "eb970ac0c351303d4fdcf192213bb4090e1623229dc8a72dee7a97faeb5d5927",
+    "AUDITORIA_XXV_25_2.txt": "1649b10dc96ebd0319f4106174c105acf8831624a4ec85a645d36311334f98c2",
+    "AUDITORIA_XXV_3.txt": "58d3cac0a6242a32131086253c2ea28c1450c4732b8f91ce81b77643ec7c0b98",
+    "AUDITORIA_XXX.txt": "9cb4ac11498237a3cc0770f7e22f5106fe18ce9a890b06987f0b1571dd5ac523",
+    "AUDITORIA_XXXUltimate.txt": "1fc98d68e149107c53894ef512799a1f4eb04a0d71acdc47ec7ea34ff3c33bfa",
+    "AUTHENTICATION.md": "ee019f1e9dd7c711ff6beca1fa3334f49bd9729449b09739f9d8dfe357b58067",
+    "AUTOGESTION_R2.txt": "ae1f0554546fec5ffb2124c9e51dbea4c613cc31e1925bcee426da05d0884b61",
+    "DICTAMEN_RENTABILIDAD_R1.txt": "7785f76240b99b26e09c2f768b9332b2e76114a5fc7871f23fdae4f95e683c44",
+    "EMPEZAR_AQUI.md": "5f0b34d24297a7b678483f3635d1448f663cd7e46b0e9dc4f510cb6bccb5e59c",
+    "EMPEZAR_XXV.md": "404d31e7f9d3f74905eabb5d7e7bb9fbe8b243ba176f718e97d5d27e8d743303",
+    "EMPEZAR_XXV_3.md": "337fb6452b777ec751338d5334d8b973715cc7d1d21ca986601b259388be3820",
+    "HARPOON_XXIV.html": "65aeeee6a06d74bf2a657095e560a567b5edebcf1258a97fec64f19a3ddcf394",
+    "HARPOON_XXV.html": "4fe4a57f98f26d6d542c8b495830c2c97e0752887745b4be44589115747d47e4",
+    "HARPOON_XXV_3.html": "4fe4a57f98f26d6d542c8b495830c2c97e0752887745b4be44589115747d47e4",
+    "HARPOON_XXX.html": "02ec6a885facd253abba854c818bc41bd564d999f85bc53263c5b9234a4ecba6",
+    "HARPOON_XXXUltimate.html": "90ce1f0169cefe047a08f49bcb14ecefe34c7becbe1462d09ce51ca57a63a81c",
+    "INFORME_31_ES.txt": "c074f1f61f5b9258794f50e4445ef16bc6e246c413bf4c05790622bf03040f5d",
+    "INICIAR_REVISION.md": "0349f8da31e99d82c02c81fe0133f4fd802a9d4f3db6499bd451c5737db5b67d",
+    "README.md": "6569b5fd9d454ba12c82fab20d49c3f87e2f5d3548ddc320e4d128a6cf876441",
+    "README_311_ES.md": "ae293b65ac6e6f71a5cff5a5edd349c0a0ce0b43a4daba6d75e83a82078ea86f",
+    "README_312_OPCIONES_ES.md": "8c550756b0c33005c84219b3ffd79af2805e31545f4e6a4f9d481db5df13db64",
+    "README_31_ES.md": "39d84ab5984901b519314cbe19c7a37fe1aea17ae9ac6d9f306327ecc1996ea4",
+    "WALKFORWARD_XXXUltimate.txt": "ce65037ec86c3a745af4838b4dc5353e464f80d0edce24fefc272f8b5d9d30a1",
+    "config/HARPOON_AUTOGESTION.json": "1a754405b8fee43e26fce59b1d2add502a85e4fa118b01423e86716d2b71e52c",
+    "config/examples/crypto-autonomous.json": "2429d33fef995e0223630786cabf1810471f73983428f264d5a1112ac718f856",
+    "config/examples/crypto.json": "35d2e477a6f7753b48c97002c4ee21d2837c190a0006d5f81742a13373f46280",
+    "config/examples/equity.json": "408ab6e01749b0c2fe9e6a9c6b99ff380e4a23c080ec1f59a781c6b67f38260d",
+    "config/examples/supervision.json": "ee18b179735060c7996cd8edb5c90a9d5cc517bffd8e6ffbf22aa99db16d4b65",
+    "config/examples/xxx.json": "1597f2ddfdd9584afebb96f1c431b9f7556223ab5eef97149ff3a53b51207b29",
+    "deploy/Dockerfile": "5b2c953b10ba5dabe706d3ddbbd854fa2f54113acaaa607f8ed96d837dc8b8c0",
+    "deploy/Dockerfile.managed": "88cfcd2287415ebf6d644005c5e746d02370cc034bb8f398d38b484dc8ed7bf0",
+    "deploy/Dockerfile.xxx": "351d5f84da39447400807049395854393e8266ba62ec18b0c8776ce620e089dc",
+    "deploy/backup-loop.sh": "7d0494fd33ecd0b5a49137861ec8965cf664c1ebcc387a3678665883fd7ef131",
+    "deploy/backup.py": "d0d2291d81becadd949abb84e8b3d2050802d091014720628ac9b44f47e71ceb",
+    "deploy/configure.py": "a55caed795931c18e2f2e4a0d1e186f88bb5a17b85aaa987d4b0c864bc6fd375",
+    "deploy/dashboard.html": "9b0a6b81828c3fffc55f4aa22bbceb09709336a636ec6f8d3b7ecf0df8a6d122",
+    "deploy/dashboard30.html": "90ce1f0169cefe047a08f49bcb14ecefe34c7becbe1462d09ce51ca57a63a81c",
+    "deploy/entry30.py": "350f11fb3e14bd1d851b70393435f1fd3915d5f4313cf77f9fd02618fd74220d",
+    "deploy/entry31.py": "0eec8105bb6721e4370e9e4365e1a250f044d5d9d8c94f44ef71a05bb724b68d",
+    "deploy/managed-entry.py": "b4848a81bee8677bd4e3165c47d9ca2a9de30b03ca6fc9fb943fda35e985fdac",
+    "deploy/managed.cjs": "3f3d2fe8b23fc5d3c5ca4d64ae750020ddf5447a85689822ed2cf129835427b8",
+    "install.sh": "679dfaae159dbde8b8044293eb712a8eba3817cda95e515600612b81ae26bcfd",
+    "package-lock.json": "1bd56c8c31c4b21a8e8e320e9213c4aced56332df8074530007590e2916ab5ae",
+    "package.json": "0a44aacfd850abe7d2f90df70691a708b3c51b59f0b06ae2a7f805de0108aab8",
+    "render-legacy.yaml": "614a56b20d0985ffe035b0b49994e7a531350d9f0eceb671014ac70b18e703f9",
+    "render.yaml": "5886b5cdbf14fe16254a9c9b475a93007941bfc206d08c6ed4790a8a697cc619",
+    "requirements-qa.txt": "6df1ea94edc303c4f156fc3e5ceac03eed65301e8a319aff8aae44d796b1cf40",
+    "research/options/example-straddle-synthetic.json": "add769b9bdbe30ff84e87aa5b3eb9b785723068d02eb35f6a1b9e7d68398c032",
+    "research/tp32/metrics.py": "f6946a987f3dc86acb6b1caf001f51a46d470383ca8fc71adb7f34d4dcf7b5bf",
+    "research/tp32/prepare.py": "9c7f741512f190ad5463518cb6e42ba4eb9c895ca5fca5d0f816f41b9c099e69",
+    "research/tp32/protocol.json": "b7e71a93952a13b72ace2190f09e7ff5714a170841773a6818d7cfbe3a3005a9",
+    "research/tp32/requirements.txt": "7bd6b8946940b79948c548c8048e545684b91c8edc9444d8dfc0c8f76a97c0a7",
+    "research/tp32/run.cjs": "d1956d38be159dbdd7e78f14a40de934de48e3de96dac1e6101fffffd1ee0453",
+    "research/ultimate/audit_recompute.cjs": "3ba878c3a947b2cfcd7cbb443f083142b3129e0af59110fe3cfef3c7f1972a28",
+    "research/ultimate/dataset.cjs": "59e40cdf6d4196b38c4161fefd8fb6632249d94911a926a8bec1a4ea2271764f",
+    "research/ultimate/edge_batch.cjs": "82ec803125be762f4d6e66912ca33cf9b1da4ee2ed1e39eef4e7bd3dccea1f69",
+    "research/ultimate/reproduce.cjs": "4cd50b44d5087b798b7ea42cf35a0985f932246d37023849d473db664e5b1d9d",
+    "research/ultimate/run.cjs": "02ed2c7498218a7e7038f7f140a7cce1ec7d24c29be21c9b430b4d45551dc2cb",
+    "runtime/agent_worker25.cjs": "cc505571fc4911396f0489ec3b2dec92afb590ba1a738b61da3ccb31ccecf1d4",
+    "runtime/agents25.cjs": "ae3061a62a59c6fbde765f51fe8ac66cb13494031877d39d456de8abddf9f8dc",
+    "runtime/cloud.cjs": "24dfc7131ff42829c07f492ce0d48254642849caa331ea58b07ddbba185bf502",
+    "runtime/control.cjs": "0e6c81f3d0991c93cc9a8ada3e5c0518965a65c54cdce723edd8b5c972bab2ff",
+    "runtime/crypto_runner.cjs": "b6775af7a9e2ad3744115c29b9fa9299c785d8fd95cba11058f7a4a833c4cbb6",
+    "runtime/execution_authority.cjs": "726bb2af13b9f28858dedfcde5f0137d23524797e4ed718c8cef65b03762aff3",
+    "runtime/exit_profiles32.cjs": "94a431033c5b999d2ad35b75897746abd7221e912f7175778465221484b9ca2f",
+    "runtime/legacy30.cjs": "e6029abe784f046fb500dbd8547ce0f6e39c5a7a6e915b59df02ea50d715093e",
+    "runtime/runner.cjs": "8157b8e24f353171cd16a5e4a83b5c6e7ed13feead5ac61c9ee608af61ec5d2b",
+    "runtime/selector30.cjs": "795f38d9732daaf256f8d1e6d6d74f315b6407ef73327c732d57b0e07d85cfa2",
+    "runtime/store.py": "5140e21598d6b8d96413fa1f93c5821dfeaa5a63408b55b7542bddd4582873de",
+    "runtime/store30.cjs": "078cfc242ce6e7f384db1d2c0c4933a32baaea9465bbf666639fac912e1ee6dd",
+    "runtime/warroom3.cjs": "deafff8b021a8cf42e14727c2424a3b7e105efa7e2853eb4180492bbd1bd0d04",
+    "runtime/warroom_worker3.cjs": "a3a5e74e8d3966d29737689b737c2d999953913cd5c470b55d4434398c6285f6",
+    "runtime/watchdog.cjs": "15f7fa38383c80b1802eaad51650e63b72a13004371a6c46e6d5208fb1bed338",
+    "runtime/worker.cjs": "db81fec87f09d9a13e7ffcedb5d59f64bf7e2bd6b07e9738e823da68489bfce3",
+    "runtime30/accounting.js": "c75b3336b90add7caa6e02a21c9780580a5de4fe77c74975281e0ab1ae339c7f",
+    "runtime30/broker.js": "49a02708812a45e3caa67d95bd748cd29f2a79a4b6d0d5d51ad60c644be0cf88",
+    "runtime30/coordinator.js": "388547a5facd01fb3ead8d5d19ad4dc289c267e468a97e60d739a8c2cef1313e",
+    "runtime30/exits.js": "07fa96909510a1aea8e200576c0e83732d4ecb4c5df703c4838d57188b458805",
+    "runtime30/health.js": "86d7777594e536a0a1f496119fff80597c6c1607acc44ced6ffbcdd973cefc1d",
+    "runtime30/market.js": "1e62138d1f5a0b95bb1fb229a912ecddc4fc69bc333ec9afba857fb062bdbe62",
+    "runtime30/option_contracts.js": "34ecb6c5d7e4167f778ff52dc6b3dd76024235be3c6c0dab28f4075c4fda08d5",
+    "runtime30/option_surface.js": "c1b7366eded522d203e19d9dec254d514d3f8f0e986b6d72ac21dd9ffbf1cc31",
+    "runtime30/options_lab.js": "9ca7b790bace350d2dcfa54105565d5615fb7cc59db82aa261d5adde29ba5e8b",
+    "runtime30/plugins.js": "29d069e6a485a584d761a43b9f578a6d41f3d9055ca6b19bd08110f803ccd59b",
+    "runtime30/policy.js": "935b0b476c0e56b1ed219f9be920bbe71596fef481b3eb09add8dec6af24270c",
+    "runtime30/portfolio_guard.js": "321906ac725f52691e4e736f787e21d97f16f690eefe8e463c94b83d35cdaa1f",
+    "runtime30/research_accounting.js": "ede864cf84b47310cb56bfdc854e340409459e43a2580ed71dbfa006864ac6fa",
+    "runtime30/scheduler.js": "a8ee53676d676a02733820115802511b125381ce0e41df864ee678eaa9d2fed2",
+    "runtime30/selectors.js": "92399c506878104dc92db20d72bc2510759884c1904bedaac7710e15d6ea9495",
+    "runtime30/server.js": "34cddd0dc77707f7e4806f78a07cdbf948548d7e5e7b4e78bc39791a70c13670",
+    "runtime30/streams.js": "47e4f4655492dfe19bea3c7e083b5b553068cffc55e795c45dff73ca18cb5a8a",
+    "runtime30/types.js": "6b1df12d104c7a14bbb654b18827350c13e4d05f7aec0622e728451a595aa520",
+    "runtime30/ultimate_contracts.js": "9c491f142d8d0dccc3d05e2f081d00d12ca4e6225035e3fd3a7284b520e89b96",
+    "runtime30/ultimate_frequency.js": "4b7644d1a3b1dd8e87be13ef9853c0d22ff4afa1cca06be9325700a47649e972",
+    "runtime30/ultimate_futures.js": "13bd8820ba4f83d53daa1d8908b348de3a7e8b0d77af45a55423d6be2cead2a6",
+    "runtime30/ultimate_lab.js": "1c221808aa76e92f4e66a5663dd471f8cd98c15e5bea2b49d448a0fd63a443f7",
+    "runtime30/ultimate_replay.js": "2982a69165c8f0c0544a22c62b5e98541292e49e7a491b4589843e72fc7646ba",
+    "runtime30/ultimate_stats.js": "d9294f795e4924f31a2d5abe1e4f10a1ee5d3b939aea60f461206893418b594c",
+    "runtime30/ultimate_worker.js": "dad087a7bb430153364018b7e26fb6d382ffe0160db253a13f18d6b4d5f54113",
+    "runtime30/validators.js": "7eb98eeb2070ef6efc72541f4094ff0aa5c483deb17430315ec90b7a408ef697",
+    "runtime30/version.js": "4a25bdc2689981bed2440d0f3b02dd9d4ff115aa0e6008996b35edea8b6904e3",
+    "service/Dockerfile": "fffb82bf4f6240111e4563d649c90f370d0b6332e4cfa683472d5bd55d392d13",
+    "service/README.md": "c6b9c52fb97d7d7d5d10f79e11df789207f816332b2cf127dc2f4e40dec22db0",
+    "service/app24.py": "2e57c1e7bf7c5db041bc92b56f117cc565d0cd23fdcc2b3ed7b6e3a37127493c",
+    "service/prompts.py": "ed0bd8d5dff3a7f9bdd68cc3e1e28753946a8f87be6536aee16a1f5549d87b08",
+    "service/recipe_contract.json": "5fa25019f12a9e5cab48d35837f7b8f3f418dc3f0e566af209a65af50c92fc56",
+    "service/requirements24.txt": "4026896996503d662ae0d9b5db045d1d5ff511c681dbfc09f5d5a11ee06b28c5",
+    "service/server.py": "56db0beab9ab994ae9fbde4b832d109c852a56c4e4268ff530cabc1104cd293e",
+    "service/supervision.py": "8571c4d349f9696525eca9ffd45b4af29076c450c719c74f94bae1c5dbd09fb7",
+    "service/test_integrated24.py": "41c8da755c23dc0c84b4527faf7dbc4439e9f63fb39356fadb374e4007ae819d",
+    "service/test_security.py": "5490b192e3d06f7f0939f3125e78493650b540a7b2ec460e889a4b67453e195a",
+    "service/test_server.py": "d8e35fb959771aee956b6d2d473cae0db7d92b13d96d005e7372fdadf9ce914a",
+    "service/test_supervision.py": "c54f61fd8b85d26dcf0e372bcf7a0d18031ba38c93a1718eec5287fe50344e95",
+    "src/agent_adapter25.js": "6edda97e1bf4917f7ed06317b07b37a63a2e9a4dd8121e07495c7d93417e54db",
+    "src/agent_research25.js": "96c8ee48498ac6381b070a16c84281fb30eb67de19902273297ede3e9ceda887",
+    "src/agents25.js": "00db52809205568ddf37c3bc8703feef25614d3c568129a923665c6cd8265d08",
+    "src/app.js": "bea92e2f3f48d7fe9493d54bec7dfa7cf068e4cd790b4dac40e355a9cd09bc22",
+    "src/astra_app.js": "2d85a8659748e4e636e2c8da10c559c4bc4398abbd75f0c918bb54b63b794a51",
+    "src/astra_engine.js": "8346b6c81cdb9a05c44f1d026a4507278437ba9935eecb03a9192e3056c953b4",
+    "src/autonomy3.js": "ebfca373a837aaec85b070efa3a86edd08b1d96facc4ead29e8e602706f8ebae",
+    "src/autonomy_adapter3.js": "b8954ac9022dbe18c32e848c429f47c69a2d6c83952f947639d5cc1f7138c90a",
+    "src/canonical.js": "7c898b63591964c5bb890c512fd13c99aa2ebf2fb845ff4fe6a25c26e71af4a2",
+    "src/challenge.d.ts": "5b0aa6bdbf1c74e21cd905da4dc36f8423ec84044061394353bedae1bdbcdb08",
+    "src/challenge.js": "d63509649b6b9209f6e11e08d74f426d8a27ad13e0ea4d5f44cb09e4561b49f2",
+    "src/challenge.ts": "46cab576ae8e13420d4e3761ba08c488184324fe017bd13d23e8986e372b2a63",
+    "src/contract.d.ts": "cf50d867fcfadf3c01c7a5c241fd663188da186d66d4fe06c4584d7defa1760a",
+    "src/contract.js": "32d62b9029c2f2e9dcab4883fcad7ff3f0a49ad3a96b38b1d65f235eeeb510b6",
+    "src/core.js": "e043dce364df2815113a6034deb4d42ba532f55d0dada8d952e2a3b78d28fc1a",
+    "src/crypto_app.js": "c34c176f03142a1649c6c0d6f1804f696c0c9434f9bb4c070308c67b1631200b",
+    "src/crypto_core.d.ts": "b7b9871a09f67cb3b6c3d794c27242bf33c1798a22c61b79092a4d205b6fe2f2",
+    "src/crypto_core.js": "86735fc9229a925492cb74374c879c431ea9977814991895b0fad5f805e0f8f1",
+    "src/crypto_engine.js": "580d3329083e3b78b517305c012d51de2e600af0c297e791cbe6b996fe6e67d8",
+    "src/crypto_exits.original25_2.js": "4b2f338d51ae5738b134fccc2634e3360703c2c2af5db599e470dfbf7c4cf084",
+    "src/crypto_tape.js": "0c154ac0d964d349e3bbda334b94331a0ffd186ae637fae91f7421f48d20fa5b",
+    "src/defaults.js": "4231edfd8ddf59004fe09f2846b464058dd0db1ee49e4d90a3456ea52cbb6ab8",
+    "src/desk25.js": "7e67b638ad652ea2467ca7c65b3970f8b32d2f7d9541bbebb7a702f8e70c897e",
+    "src/engine.js": "9236c18636d3a4426135058449032aa352b90d51feedc875bd0b2243f64dc4be",
+    "src/framework23.d.ts": "742ad1d93e2e30ce9632a471741bbfb9f7494d5d864056e1ef0f948c5babc520",
+    "src/framework23.js": "1f6b0f7e14701c343d0b1db4adf996f9e80012384ef96f081d006556f6513cca",
+    "src/framework23.ts": "000587d6c366db74946c93042639ffc61c2751375bded80e7dc2676261d45a86",
+    "src/gateway24.css": "9dde34d882d665d8a28a4b38a75e606121f15f54486a16355f98d158fadb6fc4",
+    "src/gateway24.d.ts": "690f08b6326d63ec0d46ffbab8d7d55e64be1787f90d2225d0267a7f86480a41",
+    "src/gateway24.html": "54efa6bca5c67828375991cb370fa516baf40e26005e44e2149cda8a5e13cbab",
+    "src/gateway24.js": "3f1bd6e84d83b33c073da269872f954e389edd7f8fadae2460a6c7d54362e83f",
+    "src/gateway24.ts": "33c6b07eeac5c2e1891e39f7e417a78e0e215081db503b7b3221c3a2940a88e1",
+    "src/gateway24_app.js": "ad6868caaee5d4a1d6257d83c36a16a183e4544f53d35271312b86166b6aaf73",
+    "src/index.html": "68bf60a06d9feade8e551776a9ae11f4481e3e0ad8cbc86be4c86ea8bf9702a7",
+    "src/io.js": "0f6a8f7e8bf16d340c246e6722f4c376078c06a970c5a1a8c565f3575987580c",
+    "src/lab_app.js": "3fb5efe04f25fa87e2f6120dde3f4f4ee75ec69403de32eed906dbdd1ee04b33",
+    "src/lab_bridge.js": "c6a897cc0a09afeb2ab29b6b0b1cf707ef053d39f8d6d8975ccd62f4d1c87dcd",
+    "src/lab_controller.js": "cb20ffdbabe3c3d6c0e045d29909332824189e18988a1c00345bdb2e9162fc31",
+    "src/lab_core.js": "adf3616da4823ff592eb97838b258225a9d3c81df81ba618d168a68b701f79e1",
+    "src/lab_rules.js": "a56cc76ffdd7ea99c3e2788ea30f037d66eec3da8cb1a610e15f9c8fe5726618",
+    "src/lab_rules.ts": "fdd83506a13a7da52e9623f761947cace2bc23e3d98b61a75abbfaf8140a0e47",
+    "src/loop23.css": "e732d761d2c99a51079a9c4a6dfb61abfaafb7df860b1c09f1d25ac57bca23d5",
+    "src/loop23.html": "34d3eefe8da1f388568165e26d6186467bd7763d5ef685a8a76e9991a2ecb527",
+    "src/loop23_app.js": "6b471805bcfa2bcc2276a677e6d1c7dc2641b7e3dd9e196831332d521affdde7",
+    "src/loop23_runtime.js": "4c5af8346ca5d4c86ac3062abd3344e82da47c6ed92cd40d2da51028424f4f6d",
+    "src/metrics23.d.ts": "6e303a161b6d2118756b945bec47c91a041618527db14cce63580f458513f6c1",
+    "src/metrics23.js": "c31786ba46e52cbc4a4b4325c1ecc6e1eaec3e830f0742fa2c4a1b926c60dcae",
+    "src/metrics23.ts": "bb68e7c8ae097d1009927393f4ecfcf3e5307dc4bf06ebd82a32b8d8771625aa",
+    "src/optimizer3.js": "f52efb8d2fc6cea84d20816b0ccd114846987b5b162fcb55fc3f7c44c694642c",
+    "src/optimizer_store3.js": "33a94458836dd3bf69533a00f2ab8a0d1cc7db9af038630b5c072c9f6c57a9c3",
+    "src/options3.js": "c0842d46361126b1fd6e223992ffb51022a85be83b476fa5f77d2a56933c1882",
+    "src/options_adapter3.js": "7763fc407a8c904ad5943def9e41e28d2cb63cb3de04252e53c650e5875de9c5",
+    "src/options_payoff23.js": "5f13372111b4dbe74eccd7e8592d50433fb3a228ae38e3febe4d0755242f898a",
+    "src/plugin_host22.d.ts": "b9a991582f9ae616a259743997426edab0000ac1e10dc57cec06a8e14737edfe",
+    "src/plugin_host22.js": "f469e5077ab3ccb03d19ab2a263d533a6d8f9c7484b0fe2496f0233dce8edb14",
+    "src/plugin_host22.ts": "ba3c95d8f45b7eba94625f9e7cfde167ba9febecd604afdbd526f1054936728d",
+    "src/plugin_lab22.html": "94a436d97e51b076e28b4f229666d7e2245da26f90d99c44533a245d074e4e9e",
+    "src/plugin_lab22.js": "561d762d2333e6fd8ed701cc7ee9332384bdc2eea35adbd25953ba5f1db25578",
+    "src/plugin_registry.d.ts": "8f9d6797e4ad48bb8924e292f4a9371b3337d092e341bc30f54459593ca94536",
+    "src/plugin_registry.js": "e1ff2b4874996aa966c9582ca4d98ae31cfd98b37d5c15690184690fa2654846",
+    "src/plugin_registry.original25_2.js": "f31a13dbf1ab4424600f17201c84ff98e1c5f199bf377b0c5c1a6c1b1507a27b",
+    "src/plugin_registry.ts": "18a9edc52a69e1f4f52bfcaa3bbebb11b3836cb40d65a8605091990418ce0b1c",
+    "src/plugins/astra.d.ts": "407d5907ff1a882082d98b76e55c37e61b668856729bb4ce92067a2f443fb779",
+    "src/plugins/astra.js": "2c4fdbfaa615d8304eaeb25f79e73d08701c72be284db1166d6caf4a882ca9a6",
+    "src/plugins/astra.ts": "dcd10e5912c1aa979845ae9aca010cfe2f68b70f7ef5424921c6b4d811e594ca",
+    "src/plugins/catalog.d.ts": "d5a022c0a4bacf0bbd9851f8b68102497daaeb7827103504344325b402b01b80",
+    "src/plugins/catalog.js": "545b8369b27cafe582f95c875596a3b91506dab4e8c447662ff64e9bc178d57f",
+    "src/plugins/catalog.ts": "66cea4e9166f61976d053fb06fa4ad4d29668f92ad30ee020e5d35dbd6c433b9",
+    "src/plugins/crypto_exits.js": "5231bce5e67df3f4a46683e3ab121337c62f3f6b9b0db34d1e57f36e7cad160f",
+    "src/plugins/crypto_recovery.d.ts": "0c9dd3f6bce30cb1d83b41e46d8376eac7df8899a157e558e2126d781eede093",
+    "src/plugins/crypto_recovery.js": "d9f7708a7500980b6ce45eb03af59fa076fcc78b0df3ef873ec0f8417aeb4659",
+    "src/plugins/crypto_recovery.ts": "d632ba7a5baa51b59ba2f117898d23f42865b15317491b215ee3d77d694dd48a",
+    "src/plugins/crypto_trend.ts": "d91ac49da9e390006274983207931e9df77483e9a99d698b6865ea95025cbc8e",
+    "src/plugins/securities_entries.js": "aaa5a5aaf26fe7c97e3843f6ca8b442fe581330fea13e1f521437ad3d4f9915d",
+    "src/plugins/securities_entries.ts": "21547f3d5f01226e24f857cd7cfcc289ee337dc1b3551e52dda43b67a9dc44b4",
+    "src/plugins/securities_policies.ts": "f2f0315779fd7084cfe0e9d16f4ad46888bbfdd67d3c828452850e32e0e32fcc",
+    "src/plugins/securities_rules.js": "035239f4c0ebe4cd2d66f5c25c640115c03d027a4dee9133bf590e149d93cc1e",
+    "src/profit25.js": "b46b6a4032a24d9e5ec73812348fa81532b5acc92ff5cf34f77220b7d4838424",
+    "src/style.css": "7f636748a185d457f9b33d5d7e354e006063f81083b67120da8764265c29fb6c",
+    "src/supervision.js": "e2e4f4c72e31730650b313287f4d8c6a7d9da01e476d2a5a3739a4e901629d4e",
+    "src/supervision_core.d.ts": "2eede944908a42a695fa5859b1933b7343b96646732ae24b18040841462acce5",
+    "src/supervision_core.js": "93a974000f9bff798d761fec60cdf14d7799e25f691a190ad72fdbd26f60c72f",
+    "src/supervision_core.ts": "1001d38b1b84bc45aaff9c85ebd8c789cee528a77ad2b60b7d59bff126c662b5",
+    "src/tensor_core.d.ts": "dc786def9e8e2df88253466f6ed3650fea527d0749bfd9833a0e9d8656ee2b29",
+    "src/tensor_core.js": "f733700da3f6bad3f5c49f96b1af5cd3b7814068bcce41791098f5d6157d64fd",
+    "src/tensor_core.ts": "f74cffa739a0d80db38cfc2061ec3855b392997d117f894b343fc023fc2a6f5a",
+    "src/trade_stream.js": "62f8236dd455241acf8c5a844bdee6f16eede56a84019e6fa822b13f4de38f77",
+    "src/ux.css": "222a023c6f8772e40de5a75e5edd7dbd46e1edb5a32aec9613947aa38adbdb93",
+    "src/ux_app.js": "8dcf6d22cd22219031b856e6be103a3add7eb75d743ecf227e25c1510c5f687c",
+    "src/ux_app.original25_2.js": "aff0fb5d35741ed70b6359e4f3ddd63801bcd580fab510dcba3f04776726de28",
+    "src/ux_controls.js": "94265c0018b1e85e43afa6c15a34c276694a6cad02399f43aaffc01f42bed067",
+    "src/ux_credentials.html": "33b94e734b9a6ee5bb3b6edf5f0c30213ee7aa86488f43a59df5d08a6c1f82ab",
+    "src/ux_findings.html": "83d87471bc0cc2df1b9747548f09f8d98a1334350a0c02c0f394eda674d49f15",
+    "src/ux_home.html": "7498cb38b879803a097c918443fb9df755512c9d86872b9afbc94a703cab53ac",
+    "src/ux_plugins.html": "28c62aa7acefcf2e3c8485278ef9034cd9b1a27af1ab2e8d050a00f6ebbe3f7a",
+    "src/ux_state.d.ts": "2a10db959d5ede6f10c17b31610fbf5fa47e61d560427e2acff07158c3258dcf",
+    "src/ux_state.js": "593ae405bf1c134af293e3efdc853c8a21c1a0d4fc554418502cdca32672aa2f",
+    "src/ux_state.ts": "82643474c47a0a81b760830b56b22ad71db41ca188c7988450a8bbdcfd35be0e",
+    "src/vector25.js": "bb6c97e393adc018681ce086fa68a6ab7fa9f42c2b099357027b23b81c44a9ce",
+    "src/warroom3.js": "7bff394aec81b1b80c9e217f07aa1bc0514b1c2445f0a10464a680f6dc4e6be4",
+    "src/warroom_adapter3.js": "fa6802b138e31ccc6896f31ec937b5329fc5ec536b31f76b1a613428a7edc049",
+    "src/warroom_store3.js": "0f2e1c43bdb39720d074b5df90aa6116e9cc5fd2148949719e4b014682c2a642",
+    "src/x_app.js": "56b698c3dc17d6fb41fd7ff39ab4a0dc49b322ccaca74c661223d87422e7e79b",
+    "src/x_core.js": "1e467912f78c692a054e5e034f9925f3704b88be09fe5ce59b87a1f0b999b715",
+    "src/x_core.ts": "29ead6f23246b7503491180aa673f60e370a188ad0be3f5e1d9221bde1c84481",
+    "src/x_engine.js": "9e9d62b640985e7e4c59dbabf2d0ce71c1e92348a6a6a61f56ae0864fff0f9b2",
+    "src/x_research.js": "7ba71e743b48eb4bff3a06e61aac4b0b65291f06da8cc9394e2aee398e957e77",
+    "src/xi_app.js": "b0a663b6244f3f1f0b72404636c24e2619fb5d4c9b819f1155991c97b29e14b2",
+    "src/xi_core.js": "786157864caedae492942289c317d991e5e2a8fd1a170c6188dab45ee6369fee",
+    "src/xi_core.ts": "6a56ef1195a8bb0d35b86ee7fa351ea9f0dbbb13de484a4e4872bc6a0d9e42f5",
+    "src/xi_engine.js": "99e96232a9af61cc0e3af611fae6611dda7b21b4dbb3584dd81b4d07d2ccabdb",
+    "src/xi_replay.js": "61021adfe550a1df707e7b58ce4e3162ceec740cc50d63579f57341a128ea2d7",
+    "src/xii_app.js": "283057d45b7d8a7694d999909d26cec7442b2ec629d803a2987823fd6c39f7c6",
+    "src/xii_core.d.ts": "f463b813882eb53bbf821dadd0eeded66f4257f5e0d98d366768a8b3a9729394",
+    "src/xii_core.js": "82f5d61c185e8f17f0bb7244dae518640beddb3a6db1ed2ed0f783eab93da57d",
+    "src/xii_core.ts": "4548b89b18f0a1b813272791f0ec75de5032886a2578fbfead70ac6e66b454f1",
+    "src/xii_engine.js": "aea9b0d948bc901fc743c68b903b0113db3405429b02579b6d33894cfb01a410",
+    "src/xii_research.js": "62b7cae729001e1c4f1043971bee525fbaecdaac2f2808f8f764f18f532f58b1",
+    "src/xiii_app.js": "75d8858fd30fd722304cec373fa4ad6217d621b3f60841e657ed8f9bee8e7b20",
+    "src/xiii_core.d.ts": "cfc8e2e367e1442a7e6bedfead42e9d8585c1cc25d3bb0f07102b56ec3055673",
+    "src/xiii_core.js": "544bb3347734f80275e2db41395ffbd0e2af077aa62bbe70226362489f732105",
+    "src/xiii_core.ts": "2416694ce002278a764f763c5c6e2c3373cc41bbf573c2715fed2c2b36c61494",
+    "src/xiii_engine.js": "46c47e1b242965139b81fc95e6e059a6f226f5ddb957855b66797915afb9f63a",
+    "src/xiii_research.js": "637293608b7b5293f2d9636a145b5947c40fbdccc79168da24a115a3f4bc9f34",
+    "src/xx_app.js": "b2cf513b693987914d2a83435ea8ac9d9b82f40016031ff93b86eabe0337964e",
+    "src/xx_app.original25_2.js": "7efb3c68f0f60283446483a81cb03ac0a6e99895e58f6240b247401e666e9508",
+    "src/xx_crypto.js": "29065f753c80d7bb368d70ba277dc325ddc75c2b78a12d7f145d906778118393",
+    "src/xx_crypto.original25_2.js": "efff065d6064d3f4853b72fa8dea65d7937dd412671ba4934654282d5eb438a0",
+    "src/xx_engine.js": "e05d985eb5157df3a84d4a2bc53d9661a34c4fc8bdb8f20af6e588baa4cb8729",
+    "src/xxi_app.js": "69661e7e9a2db4ba434b373055f3946b0ff342f85e16a43f1cf2b13a050239fa",
+    "src/xxi_broker.js": "c77b01d5b246350e6f772dff63d94025478f0c3f3e813d72d68e749389464961",
+    "status.sh": "0d991da2dba4732218b4b6cd63974cc2470af69b327d1a104e3a61336a328d64",
+    "stop.sh": "5d1fc6908c96585a4ffc4627acc9327acf0288d84fc7143ae8ad60a645c6266c",
+    "tools/agents25_browser.cjs": "3e9d145c8847f93b8adc8f7f5f2292e2ad9737c92c628c2792cbc22c16668c5d",
+    "tools/agents25_cloud.cjs": "f237c20333152c66c9ad738a08c6b9d0594cfeb14c6310dd57d9d8f8654b5ee3",
+    "tools/agents25_cloud_preload.cjs": "d22c697246c48fefa0352b431406bbbea47051595b4c2fab8a63d266b0429c04",
+    "tools/agents25_integration.cjs": "89ca103c2696c233288517117a33bb5bc619fb2dd2584fd1558c5769ce8573bf",
+    "tools/agents25_test.cjs": "5369b0968feace53f0f0f32c22419fdecf1997a6bd85c0aefc251b5cf59906f7",
+    "tools/audit_export.cjs": "359f101cae38300d2f56eb12217944e074a7aadc8492079de893f4c5a1cd8a58",
+    "tools/audit_scale.cjs": "40ab1c074c0bb9e82e0a6c19bc390df482e2219b68ebe97129ce2e9111e30a0e",
+    "tools/auth_benchmark.cjs": "c9368df608016ea5425ec418f01f6981f37272392c677e369d79091af4b329b3",
+    "tools/auth_security_test.cjs": "b402296a5df8dbbf22ab26a2d7e7f59c4f9e8df57a048368378e69b68531f74a",
+    "tools/autonomy3_browser.cjs": "acd47932f5d12eaf1a31297aefe5166337dd6df4d1f9936d8d996379246c9499",
+    "tools/autonomy3_test.cjs": "658d411607c1ef98cceeb1b60f30b25b1b843e029ab643765f43eb7689b7886a",
+    "tools/championship_audit.cjs": "7b3eb4066e05badfb6886fe06963ae5d3c1e6744ae0af4e76790c3a9bfa11ea8",
+    "tools/championship_metrics.cjs": "b4bf35d362ddaca0dec12b18c8dec5ae1fbde720dba80c635a41e146a3de90a9",
+    "tools/cloud_preload.cjs": "073caf684227764f2a02f8985c22fbc247041cdc4e17bcad8319a4d1b2466310",
+    "tools/cloud_test.cjs": "618205bdb7b07bfb26f2cf2eca028b7e8fdf723f858bac02dc9812f69f58306c",
+    "tools/control_test.cjs": "bb510bf5d4542381a3d5dec06253fd8afb69880f2cd2df43750d7b46a1ff6d4d",
+    "tools/edge_test.cjs": "088653731ef6e4e11ee0b474039a2c5d015856d078733fec2d12a2b14ee1a28a",
+    "tools/install_test.py": "77c70ac5bea5ae80a06d650e9da2763c7ad191f707e436774a1ac7cb075d2fa4",
+    "tools/optimizer3_browser.cjs": "48490ba1bf0bfcdae8b67985eeb556f9c5554df6753101f75ec6b47e12e3e203",
+    "tools/optimizer3_test.cjs": "721f6b4fb5b552222cf4d3f48ecd37d2afc18d837d2e3060610c6ab0c5cd16c8",
+    "tools/options3_test.cjs": "22602b44567d68e59d52713308b35091a014f7f71ea9ad7855e3a874fb656254",
+    "tools/options_benchmark.cjs": "f715c14a6f9aa1be5c475450ad5d2f1469d4f20b1e84015706ccd363a7f40393",
+    "tools/options_lab.cjs": "ed69f4d64380ae4bf00917b3c0852a1af8f89a141810a8d6fcb3955aa09fc232",
+    "tools/package31.py": "8dde655a541387287224165048701f4ce89d5610c6eaf02ae8bd3a23e26720fb",
+    "tools/package311.py": "5cce95aa45b70a89d9ad940cb766657ed6dc6feb88537e92ef20056389c55cd2",
+    "tools/package312.py": "20dde1ddb5cd96fd9ba852c7d252ef16bf2ec7b7f18537da0ab3a78524ff77a7",
+    "tools/package_ultimate.py": "980f181a14466bc6aac9bcb44d7c5e3365870ebbc61514ea2bf9f739a6a0e453",
+    "tools/package_xxv3.py": "ae776161566379cf9297ded28cec779f96be99b87cddac0190b96e11de2aae69",
+    "tools/package_xxx.py": "49f7ae1bd4e4f73cfa28947bf5bcc4a978ba2f8c7f369bda326cede53ce444f5",
+    "tools/paper_readonly_check.cjs": "d824f92626aa71b9b299f685a023391001a47d7f7f2fc976dcf0c5f8a80c4eb1",
+    "tools/profit_vector25_test.cjs": "9d2a2bdb144f3dbabac4a9f16d123773d01c522a26d2c48b486fa10c018ac5ba",
+    "tools/release_verify3.py": "6f146b1d33ccdabd9fef91883b52a0b9299c46057e26e8b85614b62f2f2cd47d",
+    "tools/runtime_fixture_config.json": "55683cbd0f2cd14e5e81d7b0699c12c216de46408d689d95cf4982a1088cd182",
+    "tools/runtime_test.cjs": "081e2a0823d80f6548c188a414aa574fed61acc8f4c1d9c7fc9fedbaab5a8923",
+    "tools/stats_reference.py": "c13ba1849fd9296e74b1bb0319f8665331122b02016480bb5fa57f595376889f",
+    "tools/tca.cjs": "3484583e7e88d3302dbacd43c7dbc11ff40d33d7f52ebebaadc593ca11bc955e",
+    "tools/ultimate_browser.cjs": "7c2dd30e78dd936e6fc13df0b121093715d8f23776373cc95c464403a21fd1cc",
+    "tools/ultimate_fixtures.cjs": "abca9495cd38c2937bac9664d0459b350db9e625b37e8f4b59248a6029948834",
+    "tools/ultimate_production_check.cjs": "12fb3c5d6e2205d02845fa2de9e53ec26bfd8afd64537000ab4bad7306d7ff7e",
+    "tools/ultimate_test.cjs": "0d358c4d32ca77247ea618d1c444709e888deaec03b9a76a457a5b7b1e2a8219",
+    "tools/v311_test.cjs": "5bf0919a0acdfd6b4d1bdec093f985523000adc058ff9164178de54625f4c202",
+    "tools/v312_options_test.cjs": "29244ae2c76273839dc66c40b8142276ab40a60c3671ae9df68a3e63f225095e",
+    "tools/v31_test.cjs": "a102edfcbb29cca11da5e81b701ed757317fee199bb9cb88f178730ca017125b",
+    "tools/verify.py": "9ef6ec8ce8e02b37eb8dad439db2295b86a7d0712275a3016250e1a0e543f6ff",
+    "tools/verify31.py": "8e9399b50de63cb700d96a31559800c320a5cfa6c285c6e364b8fc2a8cc4b294",
+    "tools/verify311.py": "970a23678ec391775617ee7a55eb4ea3d9c2ef6e20586e56108595046f5c2e17",
+    "tools/verify312.py": "ad59cba1ad3f2eb4bf2013a26509a8118afc0c92820b269ef6fecd5f6e0c248f",
+    "tools/verify_auth.py": "0d74f82926e6061fccb8dffd1c6f3f50fd4b23038f0a4da46bcb074e3ef6297f",
+    "tools/warroom3_browser.cjs": "71c73011bf3bba11f1ea4b3acc577d9afbb0c41b2875ffe7f446d1265f8bed86",
+    "tools/warroom3_cloud.cjs": "e659880c72e1513c1b43345bc4a39a317484161d9032f74be0fdba65f79f0d6a",
+    "tools/warroom3_cloud_preload.cjs": "bd2e736e9d1bb7f207967041fb07ed7fddc010d04bb006cec802fd4d7a4db842",
+    "tools/warroom3_fixtures.cjs": "64914365911838b17bf4aa100a031edfc37b314eb8bc9acb4771982dc5d78ec5",
+    "tools/warroom3_integration.cjs": "a2cb36e06ac05e714ea535c5f7f1f78de424aed6c4c5d6f42bf33da34baeaf4a",
+    "tools/warroom3_load.cjs": "32b9099e7f549a1b82630255acec5f57b68db53a645046b55229cfafdcb21e1f",
+    "tools/warroom3_panel_browser.cjs": "65911e9bb46cc65497fcc4c0f74ad7649d317bc390f9e3c10a61cd41eb4a5b40",
+    "tools/warroom3_test.cjs": "382991b75ea02fbe75d0e97e6c5e8b11020856ffbc690b815b6ea10463b8054e",
+    "tools/xxv_test.cjs": "38409327d4da646dfb58fdafab64cc98fad85f83672ff1d3c2728396f79dbfc2",
+    "tools/xxx_audit.cjs": "0d4ad93405ddda491338f967dae14b208f18f57d6c9bf1fa51b6c6b2ae9916a5",
+    "tools/xxx_benchmark.cjs": "343aacf71c247b5fcc17d5cd5ceab98b2f0e82cefc5f1fa2f8354f4d1eae4dc6",
+    "tools/xxx_browser.cjs": "27e8dcbfe38f0263ec77ba543c8569f92d234238b8217d903e51be1ed764d187",
+    "tools/xxx_conformance_test.cjs": "45db9978ad08a1bf37b6fcb5995beeb002cbdc61f6cdf48756bb05667181561f",
+    "tools/xxx_fixtures.cjs": "3e55d6eedcc45151bab1a42e3d0a6969376f3d713e6a496a7069298027aea608",
+    "tools/xxx_health_test.cjs": "c05b433d796572619174d93424843f5157dccb9be5922e62924f29d56e1c1d97",
+    "tools/xxx_operational_browser.cjs": "309863d931f5c9a8e85026b31dd8105f98f6f8009963f5bd0c96c9e5f2828a53",
+    "tools/xxx_operational_test.cjs": "99708ce43d26d76b805922f6c68c54764b606b93cdbeb772990794ac651b48d7",
+    "tools/xxx_operational_ui_contract.cjs": "6501fc518adad66e2c245e92b79a226e9c667a7d8a642ab68c2adf865f1da2df",
+    "tools/xxx_selector_test.cjs": "cb91396048b545226a9f43359c79884ffed5a62cc98ae28c04b932b3a0994e3d",
+    "tools/xxx_test.cjs": "073b19317fbf34b0a0aadd8e4e4a19cc709ded6cc3abdb74e818ecdd88e3608b",
+    "tools/xxx_tp32_test.cjs": "ff5eccf1b7ca84898df75a41dd21123236cd3973b352681a7faffa48b9ec7b1b",
+    "tsconfig.xxx.json": "d2f714ec4b116a819819b374dfea5d9e5780d3af60a57955782bd6f24f4922a6",
+    "xxx/accounting.ts": "5d25b7ec568b988a68bea291dc4a8179b6a5beebc05385a5d46e03ac5a9d010f",
+    "xxx/broker.ts": "0f6b1749766eae22c559d587aabb40ee62242536a995bdc032439138cce8ee80",
+    "xxx/coordinator.ts": "bac903788b4e77d9c62c1448577bb97b5732e5e368c05a000123611501479885",
+    "xxx/exits.ts": "e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105",
+    "xxx/health.ts": "9bf118cc39e1ef273b1bdeb055c00db306936732535efec64704892084e6c54c",
+    "xxx/market.ts": "430ce10b93e51548db01e3db105b2dce152808917d1bd7e95fb1237e7ce92134",
+    "xxx/option_contracts.ts": "657e5ff472b076ff5f9b2b9e52b3ad846a11bd8b10263eb04cb57db55c1ae629",
+    "xxx/option_surface.ts": "42b9b345d1687c21592821e57347ed0ef986ff64423923aa8d5570c92ff40f2c",
+    "xxx/options_lab.ts": "6bd04a936f74322bf1e45ddc2054662b8c43b63e1612d4355d9fcdae590f98f2",
+    "xxx/plugins.ts": "d131aefe0744855cfce544d5e0ecc69ed9e18efaedd9f9910237da2222299696",
+    "xxx/policy.ts": "d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b",
+    "xxx/portfolio_guard.ts": "a57dedc512c14da5473c046034546113b6123e79595cea437c85f2e7da568b0d",
+    "xxx/research_accounting.ts": "c35d9aa6ffa9efcdfa9e058cf76c1426fcf8b1d8e4f5ce019421491aa4b2008e",
+    "xxx/scheduler.ts": "3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1",
+    "xxx/selectors.ts": "bb8c85244627a66ac3430327d26444797ad9f00b1ab066db7a461e54efa8e066",
+    "xxx/server.ts": "ca40dedeac52e50b7a44313623e375991b9aaf0b39dd581c26a9fce766a68785",
+    "xxx/streams.ts": "f9d5749ca7478139871a2eb5e2a3e525118337628fdc8ce84d6a9d4791e83ea8",
+    "xxx/types.ts": "fd46c1978a1efb387e38b24dedc2e54ac351731f7290e1f3ffd70b61f4b891b6",
+    "xxx/ultimate_contracts.ts": "cdcf9f7f4465e04ede0796cc800dfeb565412271733c1f5b890618434ad71d36",
+    "xxx/ultimate_frequency.ts": "de5cbaaacefbe43c9384b1f3dab617eb12deb3ed59e2b71370e206bb1ab27f87",
+    "xxx/ultimate_futures.ts": "9a90f0652a00cc86c628d6f408859c9e7007ebcdabdec9f6c63b340cc11922d5",
+    "xxx/ultimate_lab.ts": "27e927557fdcd69373c13af4987819dcd1c72bf585c351fe63f77ff29cdf3c26",
+    "xxx/ultimate_replay.ts": "2b811df8b7e562eede7b1b2ac793d058a8f4972ad3999a5bde1fba12bf8ce825",
+    "xxx/ultimate_stats.ts": "ab53dd48f70047c571758edb9ba1f29431ef703c082875adb0a86df198e66732",
+    "xxx/ultimate_worker.ts": "60441dcf8c2c0c0392aae9a0989d9c06a9fa94b8368dfefbfcd93f2a3002e547",
+    "xxx/validators.ts": "e5c48e180095b2e7aba84e80a1fdb0b9973ad946bc00ae4f48c6444b9fab71c0",
+    "xxx/version.ts": "1a9af2bdcc64c7bb0047779ee3f83e05e5c114fa5f55eb1e840602791801196c",
+    "MANIFEST_312.json": "8bd84d13c0d0432090365db3645f41314bba6214a4cfbf097ce8a1b2490b0d87"
+  }
+}

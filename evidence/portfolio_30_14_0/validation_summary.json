@@ -1,0 +1,59 @@
+{
+  "schema": "HARPOON_30_14_0_VALIDATION_1",
+  "generated_at": "2026-11-01T10:44:25.193018-06:00",
+  "typescript_full_build": {
+    "status": "PASS",
+    "command": "node node_modules/typescript/bin/tsc -p tsconfig.xxx.json",
+    "log": "qa/typescript.log"
+  },
+  "scoped_core_tests": {
+    "passed": 88,
+    "failed": 0,
+    "log": "qa/core_tests_final.log"
+  },
+  "persisted_json_verifier_tests": {
+    "passed": 4,
+    "failed": 0,
+    "log": "qa/reproduction_tests.log"
+  },
+  "market_import_tests": {
+    "passed": 8,
+    "failed": 0,
+    "log": "new_market_data/test_results.log"
+  },
+  "total_software_cases_passed": 100,
+  "financial_validation_from_software_tests": false,
+  "excluded_environment_case": {
+    "test": "Ultimate HTTP requires authentication and explicit JSON action, including export",
+    "reason": "listen EPERM at127.0.0.1 in the sandbox",
+    "initial_attempt_log": "qa/core_tests.log",
+    "scoped_run": "--test-skip-pattern=Ultimate HTTP",
+    "status": "NOT_VERIFIED_IN_THIS_ENVIRONMENT"
+  },
+  "production_module_import": {
+    "status": "PASS",
+    "source": "Included existing holding-deadline regression imports runtime30/server.js"
+  },
+  "isolated_production_npm_install": {
+    "status": "NOT_RUN_THIS_TASK"
+  },
+  "financial_reproduction": {
+    "schema": "HARPOON_PORTFOLIO_RESULT_REPRODUCTION_1",
+    "verified": true,
+    "trial_id": "HARPOON_PORTFOLIO_CAUSAL_RESERVATIONS_20261101_01",
+    "representation": "EXACT_PERSISTED_JSON_UTF8_BYTES",
+    "result_sha256": "600a76b5aacd9229daa1df09eb6b8d1b5cc27c7577b7d8e88b932e26a569107f",
+    "registration_bindings_and_journal_verified": true,
+    "new_financial_variants": 0,
+    "outputs_rewritten": false,
+    "original_runner_and_result_unchanged": true,
+    "legacy_verify_limitation": "In-memory target:undefined is omitted during JSON persistence; legacy deepStrictEqual did not normalize that representation.",
+    "financial_acceptance_allowed": false,
+    "target_seven_accredited": false
+  },
+  "legacy_verification_issue": {
+    "status": "REMEDIATED_IN_SEPARATE_VERIFIER",
+    "sealed_runner_edited_after_trial": false,
+    "detail": "The original CLI verify compared in-memory undefined optional targets with JSON omission. The new verifier checks exact persisted UTF8 bytes, all registered implementation hashes and the journal; numeric/null differences remain errors."
+  }
+}

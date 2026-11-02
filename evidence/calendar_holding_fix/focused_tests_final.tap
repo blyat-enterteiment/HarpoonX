@@ -1,0 +1,238 @@
+TAP version 13
+# Subtest: Thursday campaign exits Friday before weekend deadline using runtime calendar policy
+ok 1 - Thursday campaign exits Friday before weekend deadline using runtime calendar policy
+  ---
+  duration_ms: 2.449498
+  type: 'test'
+  ...
+# Subtest: Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open
+ok 2 - Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open
+  ---
+  duration_ms: 0.402838
+  type: 'test'
+  ...
+# Subtest: early close is scheduled from the supplied calendar with the same ten-minute buffer
+ok 3 - early close is scheduled from the supplied calendar with the same ten-minute buffer
+  ---
+  duration_ms: 1.434155
+  type: 'test'
+  ...
+# Subtest: intrabar wall-clock deadline rounds earlier on the declared five-minute grid
+ok 4 - intrabar wall-clock deadline rounds earlier on the declared five-minute grid
+  ---
+  duration_ms: 0.424711
+  type: 'test'
+  ...
+# Subtest: a pending entry arriving at or after the planned deadline is refused before opening
+ok 5 - a pending entry arriving at or after the planned deadline is refused before opening
+  ---
+  duration_ms: 0.267383
+  type: 'test'
+  ...
+# Subtest: an absent calendar refuses entry; no later price is used to invent an exit session
+ok 6 - an absent calendar refuses entry; no later price is used to invent an exit session
+  ---
+  duration_ms: 0.199141
+  type: 'test'
+  ...
+# Subtest: missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late
+ok 7 - missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late
+  ---
+  duration_ms: 0.84779
+  type: 'test'
+  ...
+# Subtest: production imports remain loadable while the archived report cannot pass a new code seal
+ok 8 - production imports remain loadable while the archived report cannot pass a new code seal
+  ---
+  duration_ms: 1.736331
+  type: 'test'
+  ...
+# Subtest: data ending with an open position cannot turn into a zero-PnL excluded campaign
+ok 9 - data ending with an open position cannot turn into a zero-PnL excluded campaign
+  ---
+  duration_ms: 0.482278
+  type: 'test'
+  ...
+# Subtest: failed durable registration and queue never report a committed success
+ok 10 - failed durable registration and queue never report a committed success
+  ---
+  duration_ms: 19.928546
+  type: 'test'
+  ...
+# Subtest: autopilot blocks new allocations when the independent guardian heartbeat is stale
+ok 11 - autopilot blocks new allocations when the independent guardian heartbeat is stale
+  ---
+  duration_ms: 40.159276
+  type: 'test'
+  ...
+# Subtest: hashes are key-order independent and detect changed numerical content
+ok 12 - hashes are key-order independent and detect changed numerical content
+  ---
+  duration_ms: 0.221764
+  type: 'test'
+  ...
+# Subtest: protocol cannot reduce samples, purge or multiplicity below its universe
+ok 13 - protocol cannot reduce samples, purge or multiplicity below its universe
+  ---
+  duration_ms: 0.328116
+  type: 'test'
+  ...
+# Subtest: dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+ok 14 - dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+  ---
+  duration_ms: 33.996853
+  type: 'test'
+  ...
+# Subtest: proxy dataset cannot be presented as a dated futures dataset
+ok 15 - proxy dataset cannot be presented as a dated futures dataset
+  ---
+  duration_ms: 1.191028
+  type: 'test'
+  ...
+# Subtest: features are causal when all subsequent sessions are changed
+ok 16 - features are causal when all subsequent sessions are changed
+  ---
+  duration_ms: 45.274039
+  type: 'test'
+  ...
+# Subtest: incomplete sessions are quarantined without interpolation
+ok 17 - incomplete sessions are quarantined without interpolation
+  ---
+  duration_ms: 26.351951
+  type: 'test'
+  ...
+# Subtest: long and short trailing never loosen and require progress
+ok 18 - long and short trailing never loosen and require progress
+  ---
+  duration_ms: 0.1526
+  type: 'test'
+  ...
+# Subtest: ambiguous stop and target uses adverse stop before any profit
+ok 19 - ambiguous stop and target uses adverse stop before any profit
+  ---
+  duration_ms: 0.584403
+  type: 'test'
+  ...
+# Subtest: incomplete paths cannot become zero-PnL successful trades
+ok 20 - incomplete paths cannot become zero-PnL successful trades
+  ---
+  duration_ms: 1.322326
+  type: 'test'
+  ...
+# Subtest: bootstrap is deterministic, insufficient evidence returns null, negative data fails
+ok 21 - bootstrap is deterministic, insufficient evidence returns null, negative data fails
+  ---
+  duration_ms: 4.910644
+  type: 'test'
+  ...
+# Subtest: metrics honor compounding, drawdown and zero-information DSR
+ok 22 - metrics honor compounding, drawdown and zero-information DSR
+  ---
+  duration_ms: 0.924356
+  type: 'test'
+  ...
+# Subtest: actual study purges train/test labels, reports holdout reuse and never promotes
+ok 23 - actual study purges train/test labels, reports holdout reuse and never promotes
+  ---
+  duration_ms: 48.876847
+  type: 'test'
+  ...
+# Subtest: registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+ok 24 - registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+  ---
+  duration_ms: 114.436549
+  type: 'test'
+  ...
+# Subtest: registry survives actual SQLite reopen and rejects tampered protocol/chain
+ok 25 - registry survives actual SQLite reopen and rejects tampered protocol/chain
+  ---
+  duration_ms: 71.787644
+  type: 'test'
+  ...
+# Subtest: registry has a cumulative stop rule and cannot understate total multiplicity
+ok 26 - registry has a cumulative stop rule and cannot understate total multiplicity
+  ---
+  duration_ms: 1.971216
+  type: 'test'
+  ...
+# Subtest: restart interrupts a queued attempt instead of silently recomputing
+ok 27 - restart interrupts a queued attempt instead of silently recomputing
+  ---
+  duration_ms: 10.973807
+  type: 'test'
+  ...
+# Subtest: future contract forbids continuous symbols, mismatched roots and delivery deadlines
+ok 28 - future contract forbids continuous symbols, mismatched roots and delivery deadlines
+  ---
+  duration_ms: 0.477541
+  type: 'test'
+  ...
+# Subtest: MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+ok 29 - MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+  ---
+  duration_ms: 0.33148
+  type: 'test'
+  ...
+# Subtest: futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+ok 30 - futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+  ---
+  duration_ms: 0.521107
+  type: 'test'
+  ...
+# Subtest: futures validates fresh entitlement, loss gates and tick precision
+ok 31 - futures validates fresh entitlement, loss gates and tick precision
+  ---
+  duration_ms: 1.072629
+  type: 'test'
+  ...
+# Subtest: uncertain futures submission is durable and never resent
+ok 32 - uncertain futures submission is durable and never resent
+  ---
+  duration_ms: 0.913799
+  type: 'test'
+  ...
+# Subtest: acknowledgment is not a fill; fills and partials come from reconciliation
+ok 33 - acknowledgment is not a fill; fills and partials come from reconciliation
+  ---
+  duration_ms: 0.644273
+  type: 'test'
+  ...
+# Subtest: unknown all-in commission prevents any futures submission
+ok 34 - unknown all-in commission prevents any futures submission
+  ---
+  duration_ms: 0.42421
+  type: 'test'
+  ...
+# Subtest: Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+ok 35 - Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+  ---
+  duration_ms: 3.999898
+  type: 'test'
+  ...
+# Subtest: API connection defaults to automatic PAPER and explicit operator opt-out persists
+ok 36 - API connection defaults to automatic PAPER and explicit operator opt-out persists
+  ---
+  duration_ms: 14.01636
+  type: 'test'
+  ...
+# Subtest: autopilot exits and native protection run with entry and research pauses
+ok 37 - autopilot exits and native protection run with entry and research pauses
+  ---
+  duration_ms: 17.504966
+  type: 'test'
+  ...
+# Subtest: research worker does not block an independent async heartbeat
+ok 38 - research worker does not block an independent async heartbeat
+  ---
+  duration_ms: 106.526078
+  type: 'test'
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 644.023573

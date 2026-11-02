@@ -1,0 +1,237 @@
+--- 30.12/xxx/plugins.ts
+
++++ 31.6TP/xxx/plugins.ts
+
+@@ -1,8 +1,12 @@
+
++import { incrementalEntryReason } from "./option_incremental";
+ import { fresh, positive } from "./types";
+-import type { Book, Campaign, Config, Json, Signal, Store } from "./types";
++import type { Book, Campaign, Config, Instrument, Json, Quote, Signal, Store } from "./types";
+ import { freezeExit } from "./policy";
++import { optionBudget } from "./option_contracts";
++import { ADAPTED_OPTIONS_PLUGINS, adaptedEntryLimit, underlyingSetup, optionCostMetrics, optionTypeForPlugin, manageAdaptedOption } from "./option_adaptation";
++import type { OptionCostMetrics, OptionEntryEvidence } from "./option_adaptation";
++import { price } from "./types";
+ import { Market } from "./market";
+-import { contiguousBars, openingRange, regularClosedBars, sessionContext, streakDiagnostics } from "./sessions";
+ const avg = (a: number[]) =>
+   a.reduce((s, v) => s + v, 0) / Math.max(1, a.length);
+ export class Plugins {
+@@ -12,6 +16,8 @@
+
+   lastFeatures: Json[] = [];
+   catalog: Json[];
+   diagnostics: Json[] = [];
++  optionAccount: () => Json = () => ({});
++  optionFeasible: (signal: Signal, asset: Instrument) => number = () => 0;
+   tape: any;
+   stream: any;
+   cryptoTape: any;
+@@ -33,6 +39,7 @@
+
+         binding: "fixed",
+         params: { minDte: 7, maxDte: 45, minDelta: 0.35, maxDelta: 0.7 },
+       })),
++      ...ADAPTED_OPTIONS_PLUGINS.map(id=>({api:"harpoon.plugin/30",id,version:"31.5.0",name:id.replace("options-",""),book:"options",family:id.replace("options-",""),binding:"fixed",params:{minDte:7,maxDte:45,minDelta:.35,maxDelta:.7,adapted:true}})),
+     ];
+     this.validateSelection(cfg.enabledPlugins);
+   }
+@@ -164,6 +171,7 @@
+
+   }
+   /** Native exit evidence supplements the shared XXX stop/TP policy; absence never fabricates a signal. */
+   manageSignal(c: Campaign, m: Market, now: number, entry: number) {
++    if(c.optionsEntry)manageAdaptedOption(c,m,this.cfg,now);
+     const plugin = this.catalog.find((p) => p.id === c.plugin),
+       L = this.legacy;
+     if (!plugin) return;
+@@ -251,23 +259,21 @@
+
+         ),
+       },
+       rows: Json[] = [];
+-    const calendar = m.calendar || [], session = sessionContext(now, calendar);
+-    const histories = new Map<string, ReturnType<typeof regularClosedBars>>();
+-    const history = (s: string) => {
+-      if (!histories.has(s)) histories.set(s, regularClosedBars(m.bars[s] || [], now, calendar, false));
+-      return histories.get(s)!;
+-    };
+-    const closed = (s: string) => regularClosedBars(history(s), now, calendar),
++    const closed = (s: string) =>
++        (m.bars[s] || []).filter(
++          (b) =>
++            Date.parse(b.t) + 303000 <= now && L.ny(b.t).day === L.ny(now).day,
++        ),
+       spy = closed("SPY"),
+       spyMom =
+-        spy.length >= 4 && contiguousBars(spy.slice(-4)) ? (spy.at(-1)!.c / spy.at(-4)!.c - 1) * 10000 : null;
++        spy.length >= 4 ? (spy.at(-1)!.c / spy.at(-4)!.c - 1) * 10000 : null;
+     for (const i of this.cfg.universe.filter((x) => x.book !== "crypto")) {
+       try {
+         const q = m.quotes[i.symbol];
+         if (!fresh(q, now, this.cfg.quoteAgeMs)) throw Error("STALE_QUOTE");
+         const f = L.feature(
+             i.symbol,
+-            history(i.symbol),
++            m.bars[i.symbol] || [],
+             m.daily[i.symbol] || [],
+             q,
+             now,
+@@ -277,17 +283,14 @@
+
+           tail = bars.slice(-4),
+           prior = bars.slice(-7, -4),
+           prev = bars.slice(0, -1),
+-          v = prev.reduce((n, b) => n + b.v, 0);
+-        if (!bars.length || session.open === null) throw Error("REGULAR_SESSION_BARS_REQUIRED");
++          v = prev.reduce((n, b) => n + b.v, 0),
++          opening = bars.filter((b) => L.ny(b.t).minute < 585);
+         if (bars.some((b) => !positive(b.vw)))
+           throw Error("OBSERVED_BAR_VWAP_REQUIRED");
+         const sector = this.sector(i.factor),
+           sectorBars = closed(sector),
+           sectorMomentum =
+             sectorBars.length >= 4 &&
+-            contiguousBars(sectorBars.slice(-4)) &&
+-            Date.parse(sectorBars.at(-1)!.t) === Date.parse(bars.at(-1)!.t) &&
+-            Date.parse(sectorBars.at(-4)!.t) === Date.parse(bars.at(-4)!.t) &&
+             now - Date.parse(sectorBars.at(-1)!.t) <= 660000
+               ? (sectorBars.at(-1)!.c / sectorBars.at(-4)!.c - 1) * 10000
+               : null,
+@@ -304,12 +307,12 @@
+
+                 Math.max(1, avg(prior.map((b) => b.v)))
+               : null,
+           relative_bps:
+-            spyMom === null || !contiguousBars(bars.slice(-4)) ||
+-            Date.parse(spy.at(-1)!.t) !== Date.parse(bars.at(-1)!.t) || Date.parse(spy.at(-4)!.t) !== Date.parse(bars.at(-4)!.t)
++            spyMom === null
+               ? null
+               : f.momentum_bps - side * spyMom * i.leverage,
+-          session_minutes: Math.floor((now - session.open) / 60000),
+-          opening_high: openingRange(bars, session),
++          session_minutes: L.ny(now).minute - 570,
++          opening_high:
++            opening.length === 3 ? Math.max(...opening.map((b) => b.h)) : null,
+           previous_vwap_distance:
+             v > 0
+               ? prev.at(-1)!.c /
+@@ -326,9 +329,7 @@
+
+             (Math.max(...tail.slice(0, -1).map((b) => b.h)) -
+               Math.min(...tail.slice(0, -1).map((b) => b.l))) /
+             f.atr,
+-          session_change: Date.parse(bars[0].t) === session.open ? q.ask / bars[0].o - 1 : null,
+-          session_context: session,
+-          streak_diagnostics: streakDiagnostics(bars, history(i.symbol), session, calendar),
++          session_change: q.ask / bars[0].o - 1,
+         });
+         rows.push(f);
+       } catch (e) {
+@@ -613,6 +614,7 @@
+
+     );
+   }
+   options(p: Json, m: Market, now: number): Signal[] {
++    if(ADAPTED_OPTIONS_PLUGINS.includes(p.id))return this.adaptedOptions(p,m,now);
+     const out: Signal[] = [];
+     for (const underlying of this.cfg.optionUnderlyings) {
+       try {
+@@ -643,29 +645,28 @@
+
+                   last.c > bars.at(-2)!.c &&
+                   prior.at(-1)!.c <= avg(prior.slice(-5).map((b) => b.c));
+         if (!ok) throw Error("NO_UNDERLYING_CONFIRMATION");
++        const rejected: Json[]=[];
+         const candidates = Object.values(m.assets)
+-          .filter(
+-            (a) =>
+-              a.book === "options" &&
+-              a.underlying === underlying &&
+-              a.tradable &&
+-              m.metadata[a.symbol]?.type === (call ? "call" : "put"),
+-          )
+-          .map((a) => ({ a, q: m.quotes[a.symbol], s: m.snapshots[a.symbol] }))
+-          .filter(
+-            ({ a, q, s }) =>
+-              fresh(q, now, this.cfg.quoteAgeMs) &&
+-              now - Number(s?.observedAt) <= 60000 &&
+-              Math.abs(Number(s?.greeks?.delta)) >= 0.35 &&
+-              Math.abs(Number(s?.greeks?.delta)) <= 0.7 &&
+-              (q.ask / q.bid - 1) * 10000 <= this.cfg.maxOptionSpreadBps &&
+-              Date.parse(a.expiry! + "T00:00:00Z") - now >= 7 * 86400000 &&
+-              Number(m.metadata[a.symbol]?.open_interest) >= 100,
+-          )
+-          .sort((x, y) => x.q.ask / x.q.bid - 1 - (y.q.ask / y.q.bid - 1));
+-        if (!candidates.length) throw Error("NO_ELIGIBLE_OPRA_CONTRACT");
+-        const { a, q } = candidates[0],
+-          entry = q.ask * (1 + this.cfg.slippageBps / 10000);
++          .filter(a=>a.book==="options" && a.underlying===underlying && a.tradable && m.metadata[a.symbol]?.type===(call?"call":"put"))
++          .map(a=>{
++            const q=m.quotes[a.symbol],eligibility=m.optionEligibility(a.symbol,now,call?"call":"put");
++            const entry=q?Number(price(q.ask*(1+this.cfg.slippageBps/10000),a.tick,true)):0;
++            const budget=entry>0?optionBudget(entry,a.multiplier,this.cfg,Number(this.optionAccount().equity)):null;
++            const value=m.optionValues.assess(this.cfg,p.id,a.symbol,entry,now);
++            const probe:Signal={symbol:a.symbol,book:"options",plugin:p.id,at:now,expires:now+15000,entry,stop:Number(price(entry*.7,a.tick)),score:0,reason:p.family,exit:freezeExit({},this.cfg)};
++            const feasible=budget?.affordableByRisk && value.allowed && this.optionFeasible(probe,a)>=Number(value.quantity);
++            const incremental=incrementalEntryReason(this.cfg,a,m,Number(value.quantity||1),now);
++            const reasons=[...eligibility.reasons,...(incremental?[incremental]:[]),...(!feasible?["OPTION_PREMIUM_BUDGET"]:[]),...(!value.allowed?[value.reason]:[])];
++            if(reasons.length)rejected.push({symbol:a.symbol,reasons,budget,value});
++            return {a,q,entry,value,reasons};
++          })
++          .filter(x=>!x.reasons.length)
++          .sort((x,y)=>Number(y.value.conservativeNetUsd)-Number(x.value.conservativeNetUsd) || (x.q.ask/x.q.bid-y.q.ask/y.q.bid) || x.a.symbol.localeCompare(y.a.symbol));
++        if(!candidates.length){
++          this.diagnostics.push({book:"options",plugin:p.id,symbol:underlying,status:"WAIT",reason:"NO_AFFORDABLE_REVIEWED_VALUE_CONTRACT",rejected:rejected.slice(0,12),rejectedCount:rejected.length});
++          continue;
++        }
++        const {a,entry,value}=candidates[0];
+         const regime = this.features(m, now).find(
+           (r) => r.symbol === underlying,
+         );
+@@ -677,7 +678,7 @@
+
+           expires: now + 15000,
+           entry,
+           stop: entry * 0.7,
+-          score: 1 - (q.ask / q.bid - 1),
++          score: Number(value.conservativeNetUsd),
+           reason: p.family,
+           exit: freezeExit({}, this.cfg),
+           ...(regime
+@@ -708,4 +709,33 @@
+
+     }
+     return out;
+   }
++  adaptedOptions(p:Json,m:Market,now:number):Signal[] {
++    const out:Signal[]=[];
++    for(const underlying of this.cfg.optionUnderlyings)try {
++      const setup=underlyingSetup(p.id,underlying,m,this.cfg,now),settings=this.cfg.optionsAdaptation!;
++      const rejected:Json[]=[],choices:{asset:Instrument;quote:Quote;entry:number;value:Json;metrics:OptionCostMetrics}[]=[];
++      for(const asset of Object.values(m.assets).filter(a=>a.book==="options"&&a.underlying===underlying&&a.tradable&&m.metadata[a.symbol]?.type===setup.type))try {
++        const quote=m.quotes[asset.symbol],eligibility=m.optionEligibility(asset.symbol,now,optionTypeForPlugin(p.id));
++        if(!eligibility.allowed){rejected.push({symbol:asset.symbol,reasons:eligibility.reasons});continue;}
++        const entry=adaptedEntryLimit(quote,asset,this.cfg),metrics=optionCostMetrics(asset,quote,m.snapshots[asset.symbol],m.quotes[underlying],entry,this.cfg,Number(this.optionAccount().equity),now);
++        const value=m.optionValues.assess(this.cfg,p.id,asset.symbol,entry,now),reasons:string[]=[];
++        const incremental=incrementalEntryReason(this.cfg,asset,m,Number(value.quantity||1),now,setup.deadlineAt);if(incremental)reasons.push(incremental);
++        const probe:Signal={symbol:asset.symbol,book:"options",plugin:p.id,at:now,expires:now+15000,entry,stop:Number(price(entry*.7,asset.tick)),score:0,reason:p.family,exit:freezeExit({},this.cfg)};
++        if(metrics.fullPremiumRiskUsd>metrics.riskBudgetUsd||this.optionFeasible(probe,asset)<Number(value.quantity||1))reasons.push("ADAPTATION_FULL_PREMIUM_BUDGET");
++        if(settings.greekCostFilter&&metrics.dragToPremiumFraction>settings.maxDragFraction)reasons.push("ADAPTATION_GREEK_EXECUTION_DRAG");
++        if(!value.allowed)reasons.push(String(value.reason));
++        else if(!Number.isFinite(value.conservativeNetUsd)||!Number.isInteger(value.quantity)||value.quantity<1)reasons.push("ADAPTATION_VALUE_CONTRACT");
++        if(reasons.length){rejected.push({symbol:asset.symbol,reasons,metrics,value});continue;}
++        choices.push({asset,quote,entry,value,metrics});
++      }catch(error){rejected.push({symbol:asset.symbol,reasons:[String(error)]});}
++      const score=(row:typeof choices[number])=>Number(row.value.conservativeNetUsd)/(settings.ranking==="net_per_premium"?row.metrics.fullPremiumRiskUsd*Number(row.value.quantity):1);
++      choices.sort((a,b)=>score(b)-score(a)||a.metrics.dragToPremiumFraction-b.metrics.dragToPremiumFraction||a.asset.symbol.localeCompare(b.asset.symbol));
++      if(!choices.length){this.diagnostics.push({book:"options",plugin:p.id,symbol:underlying,status:"WAIT",reason:"ADAPTATION_NO_AFFORDABLE_REVIEWED_CONTRACT",setup,rejected:rejected.slice(0,24),rejectedCount:rejected.length});continue;}
++      const c=choices[0];
++      const evidence:OptionEntryEvidence={...setup,settings:structuredClone(settings),premiumBid:c.quote.bid,premiumAsk:c.quote.ask,premiumQuoteAt:c.quote.at,greeksReceiptAt:m.snapshots[c.asset.symbol].observedAt,metrics:c.metrics};
++      out.push({symbol:c.asset.symbol,book:"options",plugin:p.id,at:now,expires:now+15000,entry:c.entry,stop:Number(price(c.entry*.7,c.asset.tick)),score:Number(c.value.conservativeNetUsd),reason:p.family,exit:freezeExit({},this.cfg),optionsEntry:evidence});
++      this.diagnostics.push({book:"options",plugin:p.id,symbol:c.asset.symbol,status:"SIGNAL",reason:p.family,setup,metrics:c.metrics,ranking:settings.ranking,rejected:rejected.slice(0,24),rejectedCount:rejected.length});
++    }catch(error){this.diagnostics.push({book:"options",plugin:p.id,symbol:underlying,status:"WAIT",reason:String(error)});}
++    return out;
++  }
+ }

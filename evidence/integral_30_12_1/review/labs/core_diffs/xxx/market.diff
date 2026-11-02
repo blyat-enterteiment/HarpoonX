@@ -1,0 +1,304 @@
+--- 30.12/xxx/market.ts
+
++++ 31.6TP/xxx/market.ts
+
+@@ -1,7 +1,19 @@
+
++import { OptionEventCalendar } from "./option_events";
++import { optionBudget } from "./option_contracts";
++import { OptionValueBook } from "./option_value";
++import type { ExternalOptionData } from "./option_data";
++import { dataEconomics } from "./option_data";
+ import { fresh, positive } from "./types";
++import { optionEligibility, optionOrderTick } from "./option_contracts";
+ import { Validators, assertFreshQuote, assertBars } from "./validators";
+ import type { Api, Bar, Book, Config, Instrument, Json, Quote } from "./types";
+ export class Market {
++  optionsData?: ExternalOptionData;
++  readonly optionValues = new OptionValueBook();
++  readonly optionEvents = new OptionEventCalendar();
++  dataStatus(){return {...dataEconomics(this.cfg.optionsData),transport:this.optionsData?.status()||{provider:"alpaca",scope:"VIA_CANONICAL_EXECUTION_AUTHORITY"}};}
++  private requireDataProvider(){if(this.cfg.optionsData?.provider==="massive"&&!this.optionsData)throw Error("Configured Massive data adapter is not initialized");}
++
+   quotes: Record<string, Quote> = {};
+   watched: Partial<Record<Book, string[]>> = {};
+   daily: Record<string, Bar[]> = {};
+@@ -13,41 +25,13 @@
+
+   errors: Record<string, string> = {};
+   updated: Record<string, number> = {};
+   calendar: Json[] = [];
+-  chains: Record<string, { snapshots: Json; complete: boolean }> = {};
+-  microData: Record<string, Json> = {};
++  chains: Record<string, { snapshots: Json; complete: boolean; feed?: string; observedAt?: number; contracts?: number; error?: string }> = {};
+   h4: Bar[] = [];
+   constructor(
+     public api: Api,
+     public cfg: Config,
+     public validators = new Validators(),
+   ) {}
+-  recordMicro(symbol: string, raw: Json, kind: "quote" | "trade") {
+-    if (!this.cfg.quant?.microstructure?.enabled || !symbol) return;
+-    const book = this.assets[symbol]?.book || (symbol.includes("/") ? "crypto" : "equity");
+-    const feed = book === "crypto" ? "us" : book === "options" ? "opra" : this.cfg.stockFeed;
+-    const now = Date.now(), at = Date.parse(raw.t instanceof Date ? raw.t.toISOString() : raw.t);
+-    if (!Number.isFinite(at) || at > now + 1000 || now - at > 300000) return;
+-    if (kind === "quote" && ![raw.bp, raw.ap, raw.bs, raw.as].every(positive)) return;
+-    if (kind === "trade" && ![raw.p, raw.s].every(positive)) return;
+-    if (!this.microData[symbol] && Object.keys(this.microData).length >= 128) return;
+-    const data = this.microData[symbol] ||= {feed, quotes: [], trades: [], sampling_schema: "ALPACA_L1_LAST_PER_SECOND", omitted_events: 0};
+-    const key = kind === "quote" ? "quotes" : "trades", rows: Json[] = data[key];
+-    const event = {...raw, t: raw.t instanceof Date ? raw.t.toISOString() : raw.t, known_at: new Date(now).toISOString(), bucket: Math.floor(at / 1000)};
+-    const index = rows.findIndex(r => r.bucket === event.bucket);
+-    if (index >= 0) {
+-      if (rows[index].t === event.t) return;
+-      if (Date.parse(rows[index].t) <= at) rows[index] = event;
+-      data.omitted_events++;
+-    } else rows.push(event);
+-    rows.sort((a,b) => Date.parse(a.t) - Date.parse(b.t));
+-    data[key] = rows.filter(r => now - Date.parse(r.t) <= 300000).slice(-360);
+-  }
+-  resetMicro(name: string) {
+-    for (const symbol of Object.keys(this.microData)) {
+-      const book = this.assets[symbol]?.book || "equity";
+-      if (name === "stocks" && (book === "equity" || book === "etf") || name === book) delete this.microData[symbol];
+-    }
+-  }
+   async catalog() {
+     for (const i of this.cfg.universe) {
+       try {
+@@ -72,9 +56,6 @@
+
+         };
+         if (![x.step, x.minQty, x.tick].every(positive))
+           throw Error("Missing asset precision");
+-        // A restored dynamic symbol remains disabled until this broker verification.
+-        if ((i as Instrument & { discovery_managed?: boolean }).discovery_managed === true)
+-          i.tradable = x.tradable;
+         this.assets[i.symbol] = x;
+         delete this.errors["asset:" + i.symbol];
+       } catch (e) {
+@@ -84,14 +65,18 @@
+
+   }
+   async quotesFor(book: Book, held: string[] = []) {
+     const candidates = Object.values(this.assets).filter(
+-      (i) => i.book === book,
++      (i) => i.book === book && (book !== "options" || i.tradable),
+     );
+     const watched =
+       book === "options"
+         ? candidates
+             .sort(
+-              (a, b) =>
+-                Math.abs(
++              (a, b) => {
++                if(this.cfg.optionsIncremental?.enabled){
++                  const affordable=(x:Instrument)=>{const q=this.quotes[x.symbol];return q&&positive(q.ask)&&optionBudget(q.ask,x.multiplier,this.cfg,this.cfg.capitalLimit).affordableByRisk?1:0;};
++                  const band=affordable(b)-affordable(a);if(band)return band;
++                }
++                return Math.abs(
+                   Math.abs(
+                     Number(this.snapshots[a.symbol]?.greeks?.delta || 0),
+                   ) - 0.5,
+@@ -100,7 +85,8 @@
+
+                   Math.abs(
+                     Number(this.snapshots[b.symbol]?.greeks?.delta || 0),
+                   ) - 0.5,
+-                ),
++                );
++              },
+             )
+             .slice(0, 24)
+         : candidates;
+@@ -119,7 +105,8 @@
+
+         ? {}
+         : { feed: book === "options" ? "opra" : this.cfg.stockFeed }),
+     });
+-    const r = await this.api.request(p + "?" + args, "GET", undefined, true),
++    if(book==="options")this.requireDataProvider();
++    const r = book==="options" && this.optionsData ? await this.optionsData.quotes(symbols) : await this.api.request(p + "?" + args, "GET", undefined, true),
+       now = Date.now();
+     for (const s of symbols) {
+       const raw = r.quotes?.[s],
+@@ -128,13 +115,13 @@
+
+           ask: Number(raw?.ap),
+           at: Date.parse(raw?.t),
+           received: now,
++          ...(book === "options" ? {bidSize:Number(raw?.bs),askSize:Number(raw?.as)} : {}),
+         };
+       try {
+         this.validators.run("quote-" + book, () =>
+           assertFreshQuote(q, now, this.cfg.quoteAgeMs),
+         );
+         this.quotes[s] = q;
+-        this.recordMicro(s, raw, "quote");
+         delete this.errors["quote:" + s];
+       } catch {
+         delete this.quotes[s];
+@@ -217,14 +204,14 @@
+
+       symbols,
+       crypto,
+       crypto ? "15Min" : "5Min",
+-      last ? last - 1800000 : now - (crypto ? 25 : 50) * 86400000,
++      last ? last - 1800000 : now - (crypto ? 4 : 50) * 86400000,
+       now,
+     );
+     for (const s of symbols) {
+       const map = new Map((this.bars[s] || []).map((b) => [b.t, b]));
+       for (const b of raw[s] || []) map.set(b.t, b);
+       this.bars[s] = [...map.values()]
+-        .filter((b) => Date.parse(b.t) > now - (crypto ? 25 : 50) * 86400000)
++        .filter((b) => Date.parse(b.t) > now - (crypto ? 4 : 50) * 86400000)
+         .sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
+     }
+     if (
+@@ -289,97 +276,55 @@
+
+     );
+     this.h4 = r["BTC/USD"] || [];
+   }
++  optionEligibility(symbol: string, now=Date.now(), expectedType?: string) {
++    const a=this.assets[symbol];
++    const result=optionEligibility(a,this.metadata[symbol],this.snapshots[symbol],this.quotes[symbol],this.chains[a?.underlying || ""],this.cfg,now,expectedType);
++    if(!fresh(this.quotes[a?.underlying || ""],now,this.cfg.quoteAgeMs)){result.allowed=false;result.reasons.push("OPTION_UNDERLYING_QUOTE_STALE");}
++    return result;
++  }
+   async optionChains() {
+-    const now = Date.now();
+-    for (const underlying of this.cfg.optionUnderlyings) {
+-      try {
+-        const spot = this.quotes[underlying];
+-        if (!fresh(spot, now, this.cfg.quoteAgeMs)) continue;
+-        const args = new URLSearchParams({
+-          underlying_symbols: underlying,
+-          expiration_date_gte: new Date(now + 7 * 86400000)
+-            .toISOString()
+-            .slice(0, 10),
+-          expiration_date_lte: new Date(now + 45 * 86400000)
+-            .toISOString()
+-            .slice(0, 10),
+-          status: "active",
+-          limit: "1000",
+-          strike_price_gte: String(spot.bid * 0.85),
+-          strike_price_lte: String(spot.ask * 1.15),
+-        });
+-        const contracts: Json[] = [];
+-        let token = "";
+-        const seen = new Set<string>();
+-        do {
+-          const r = await this.api.request(
+-            "/v2/options/contracts?" +
+-              args +
+-              (token ? "&page_token=" + encodeURIComponent(token) : ""),
+-          );
+-          contracts.push(...(r.option_contracts || []));
+-          token = r.next_page_token || "";
+-          if (token) {
+-            if (seen.has(token) || seen.size >= 5)
+-              throw Error("Option catalog truncated");
+-            seen.add(token);
+-          }
+-        } while (token);
+-        const snap = await this.api.request(
+-          "/v1beta1/options/snapshots/" +
+-            encodeURIComponent(underlying) +
+-            "?" +
+-            new URLSearchParams({
+-              feed: "opra",
+-              limit: "1000",
+-              expiration_date_gte: new Date(now + 7 * 86400000)
+-                .toISOString()
+-                .slice(0, 10),
+-              expiration_date_lte: new Date(now + 45 * 86400000)
+-                .toISOString()
+-                .slice(0, 10),
+-              strike_price_gte: String(spot.bid * 0.85),
+-              strike_price_lte: String(spot.ask * 1.15),
+-            }),
+-          "GET",
+-          undefined,
+-          true,
+-        );
+-        this.chains[underlying] = {
+-          snapshots: snap.snapshots || {},
+-          complete: !snap.next_page_token,
++    const now=Date.now();
++    for(const underlying of this.cfg.optionUnderlyings){
++      try{
++        const spot=this.quotes[underlying];
++        if(!fresh(spot,now,this.cfg.quoteAgeMs))throw Error("Underlying quote stale");
++        const window={expiration_date_gte:new Date(now+7*86400000).toISOString().slice(0,10),expiration_date_lte:new Date(now+45*86400000).toISOString().slice(0,10),strike_price_gte:String(spot.bid*.85),strike_price_lte:String(spot.ask*1.15),limit:"1000"};
++        const pages=async(base:string,args:Json,market:boolean,key:string)=>{
++          let token="";const seen=new Set<string>(),rows:Json[]=[];
++          do{
++            if(rows.length>=(this.cfg.optionsData?.maxPages??(this.cfg.optionsData?.provider==="massive"?32:6)))throw Error("Option pagination exceeds bounded complete capture");
++            const query=new URLSearchParams({...args,...(token?{page_token:token}:{})});
++            if(market)this.requireDataProvider();
++            const r=market&&this.optionsData?await this.optionsData.snapshots(underlying,query):await this.api.request(base+"?"+query,"GET",undefined,market);
++            if(!r || typeof r[key]!=="object" || r[key]===null || (key==="option_contracts" ? !Array.isArray(r[key]) : Array.isArray(r[key])) || (r.next_page_token!==undefined && r.next_page_token!==null && typeof r.next_page_token!=="string"))throw Error("Missing or malformed option page payload");
++            if(key==="snapshots")for(const snapshot of Object.values(r[key]) as Json[])snapshot.observedAt??=Date.now();
++            rows.push(r[key]);token=r.next_page_token||"";
++            if(token){if(seen.has(token))throw Error("Repeated option pagination token");seen.add(token);}
++          }while(token);
++          return rows;
+         };
+-        // A bounded subset is sufficient for selection; no claim that a truncated chain is complete.
+-        for (const c of contracts) {
+-          const s = c.symbol,
+-            q = snap.snapshots?.[s]?.latestQuote;
+-          if (!q || c.tradable !== true || Number(c.size) !== 100) continue;
+-          this.assets[s] = {
+-            symbol: s,
+-            book: "options",
+-            factor: this.assets[underlying]?.factor || underlying,
+-            leverage: 1,
+-            multiplier: 100,
+-            step: 1,
+-            minQty: 1,
+-            tick: 0.01,
+-            underlying,
+-            expiry: c.expiration_date,
+-            tradable: true,
+-          };
+-          this.metadata[s] = c;
+-          this.snapshots[s] = { ...snap.snapshots[s], observedAt: Date.now() };
+-          this.quotes[s] = {
+-            bid: Number(q.bp),
+-            ask: Number(q.ap),
+-            at: Date.parse(q.t),
+-            received: Date.now(),
+-          };
++        const contracts=(await pages("/v2/options/contracts",{...window,underlying_symbols:underlying,status:"active"},false,"option_contracts")).flat() as Json[];
++        const snapshots:Json={};
++        for(const page of await pages("/v1beta1/options/snapshots/"+encodeURIComponent(underlying),{...window,feed:"opra"},true,"snapshots")){
++          for(const [symbol,snap] of Object.entries(page)){if(snapshots[symbol])throw Error("Duplicate contract across snapshot pages");snapshots[symbol]=snap;}
+         }
+-        delete this.errors["chain:" + underlying];
+-        this.updated["chain:" + underlying] = Date.now();
+-      } catch (e) {
+-        this.errors["chain:" + underlying] = String(e);
++        const observedAt=Date.now(),nextAssets:Record<string,Instrument>={},nextMeta:Record<string,Json>={},nextSnaps:Record<string,Json>={},nextQuotes:Record<string,Quote>={};
++        for(const c of contracts){
++          const symbol=c.symbol,q=snapshots[symbol]?.latestQuote;
++          if(typeof symbol!=="string"||!q||c.tradable!==true||Number(c.size)!==100)continue;
++          if(nextAssets[symbol])throw Error("Duplicate option metadata");
++          nextAssets[symbol]={symbol,book:"options",factor:this.assets[underlying]?.factor||underlying,leverage:1,multiplier:100,step:1,minQty:1,tick:optionOrderTick(c,this.cfg),underlying,expiry:c.expiration_date,tradable:true};
++          nextMeta[symbol]={...c,availableAt:observedAt};nextSnaps[symbol]={...snapshots[symbol],observedAt:snapshots[symbol].observedAt??observedAt,feed:"opra",dataClass:"OBSERVED_OPRA",sourceVendor:this.cfg.optionsData?.provider||"alpaca"};nextQuotes[symbol]={bid:Number(q.bp),ask:Number(q.ap),bidSize:Number(q.bs),askSize:Number(q.as),at:Date.parse(q.t),received:observedAt};
++        }
++        // Publish only after both catalogs finished. Old held-instrument quotes remain
++        // available to exit reconciliation; only current chain members may open anew.
++        this.chains[underlying]={snapshots,complete:true,feed:"opra",observedAt,contracts:contracts.length};
++        for(const [symbol,a] of Object.entries(this.assets))if(a.book==="options"&&a.underlying===underlying&&!nextAssets[symbol])a.tradable=false;
++        Object.assign(this.assets,nextAssets);Object.assign(this.metadata,nextMeta);Object.assign(this.snapshots,nextSnaps);Object.assign(this.quotes,nextQuotes);
++        delete this.errors["chain:"+underlying];this.updated["chain:"+underlying]=observedAt;
++      }catch(e){
++        this.chains[underlying]={snapshots:{},complete:false,feed:"opra",observedAt:Date.now(),error:String(e)};
++        this.errors["chain:"+underlying]=String(e);
+       }
+     }
+   }

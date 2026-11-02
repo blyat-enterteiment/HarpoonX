@@ -1,0 +1,16 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {runOne}=require('./residual_replay.cjs');
+function fixture(){
+ const protocol=JSON.parse(fs.readFileSync(path.join(__dirname,'../research/residual_30_18/protocol.json'),'utf8'));
+ const sessions=Array.from({length:216},(_,i)=>{const open=Date.UTC(2025,0,1,14,30)+i*86400000;return{date:new Date(open).toISOString().slice(0,10),open,close:open+78*300000};});
+ protocol.periods={evaluation_start:sessions[126].date,evaluation_end:sessions.at(-1).date,validation_end:sessions[160].date,validation_start:sessions[126].date,test_start:sessions[161].date,test_end:sessions.at(-1).date};
+ const data={schema:'HARPOON-ULTIMATE-DATA-1',kind:'ALPACA_PROXY',sessions,splitEvents:[],cashDividends:[],provenance:{source:'SYNTHETIC_CONTRACT_ONLY_NOT_OBSERVED',feed:'NONE',files:[{name:'synthetic_fixture',sha256:'0'.repeat(64)}],execution:'MODELED_OHLCV'},series:protocol.universe.map(symbol=>({symbol,root:symbol,pointValue:1,tick:.01,bars:sessions.flatMap(s=>Array.from({length:78},(_,i)=>({t:s.open+i*300000,end:s.open+(i+1)*300000,availableAt:s.open+(i+1)*300000+1000,o:100,h:100.1,l:99.9,c:100,v:1000})))}))};
+ const artifact={signals:{}};
+ for(const scenario of protocol.budget.scenarios){artifact.signals[scenario]={};for(const policy of protocol.budget.policies){const day=sessions[150];artifact.signals[scenario][policy]=[{id:scenario+policy,at:day.open+3600000+1000,plannedEntryAt:day.open+3900000,index:0,symbol:policy==='SECTOR_TIMING_CONTROL'?'XLK':'AAPL',hypothesis:'CLOSED_CHANNEL',direction:1,stopDistance:2,regime:.4}];}}
+ return{protocol,data,artifact};
+}
+test('cash pays same fixed costs on every session including both descriptive phases',()=>{const f=fixture();for(const scenario of f.protocol.budget.scenarios){const r=runOne(f.data,f.protocol,f.artifact,'CASH',scenario);assert.equal(r.summary.CONTINUOUS.sessions,90);assert.equal(r.summary.CONTINUOUS.economic_pnl_modeled_usd,-90*f.protocol.scenarios[scenario].external_cost_usd_per_session);assert.equal(r.summary.TEST.capital_at_phase_start,r.summary.VALIDATION.final_equity);assert.deepEqual(r.portfolio.limits,f.protocol.limits);}});
+test('three recipes preserve identical reduced caps IOC fees once and72h',()=>{const f=fixture();for(const policy of f.protocol.budget.policies){const r=runOne(f.data,f.protocol,f.artifact,policy,'NOMINAL');assert.deepEqual(r.portfolio.limits,f.protocol.limits);assert.equal(r.funded.length,1);const t=r.funded[0];assert(t.closed-r.states[0].opportunity.at<=72*3600000);assert.equal(t.feesUsd,2*t.quantity*.005);assert.equal(r.summary.CONTINUOUS.external_costs_modeled_usd,90);assert.equal(r.summary.TEST.capital_at_phase_start,r.summary.VALIDATION.final_equity);assert.equal(r.metadata.entryExecution,'IOC_LIMIT_TO_APPROVED_BUDGET');}});
+test('unregistered policy names rejected by pure replay adapter',()=>{const f=fixture();assert.throws(()=>runOne(f.data,f.protocol,f.artifact,'WINNER','NOMINAL'),/FIXED_RECIPES/);});
+test('split crossing keeps unmodeled exposure incident, never invents a no-fill',()=>{const f=fixture();f.data.splitEvents=[{symbol:'XLK',at:f.data.sessions[151].open,ratio:2}];assert.throws(()=>runOne(f.data,f.protocol,f.artifact,'SECTOR_TIMING_CONTROL','NOMINAL'),/UNOBSERVED_ENTRY/);});

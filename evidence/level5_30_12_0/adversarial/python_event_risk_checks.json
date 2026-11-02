@@ -1,0 +1,280 @@
+{
+  "scope": "Synthetic function-level adversarial checks, no market/account evidence and no financial experiment",
+  "observed_at_utc": "2026-11-01T01:57:53.473232+00:00",
+  "source_sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+  "financial_gate_executed": false,
+  "production_edits": 0,
+  "new_economic_experiments": 0,
+  "passed": 8,
+  "total": 8,
+  "tests": [
+    {
+      "id": "POSITIVE_CONTROL_EVENT_RECONCILIATION",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "SVR",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 102.0,
+          "net_pnl_usd": 2.0,
+          "insolvency": false,
+          "economic_cash_unfunded": false,
+          "maximum_drawdown_fraction": 0.0,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 0.0,
+          "mean_gross_exposure_fraction": 0.0,
+          "fees_usd": 0.0,
+          "external_cost_usd": 0.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            0.01980262729617973
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "bc8329cbc2452f72a67f317241da7ffef5346ed41745a36656330896a00ee16e",
+          "terminal_inventory": [],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": []
+      },
+      "error": null
+    },
+    {
+      "id": "L5-B1-INTRADAY_DRAWDOWN",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "SVR",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 102.0,
+          "net_pnl_usd": 2.0,
+          "insolvency": false,
+          "economic_cash_unfunded": false,
+          "maximum_drawdown_fraction": 0.4,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 0.0,
+          "mean_gross_exposure_fraction": 0.0,
+          "fees_usd": 0.0,
+          "external_cost_usd": 0.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            0.01980262729617973
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "3fcf24e42201c0223bd3a66ec55b1688f8e74be54bbc8d0438b105d7339c658b",
+          "terminal_inventory": [],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": [
+          "EVENT_DRAWDOWN_LIMIT_EXCEEDED"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "L5-B2-INTRADAY_EXPOSURE",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "SVR",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 102.0,
+          "net_pnl_usd": 2.0,
+          "insolvency": false,
+          "economic_cash_unfunded": true,
+          "maximum_drawdown_fraction": 0.0,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 1.2,
+          "mean_gross_exposure_fraction": 0.6,
+          "fees_usd": 0.0,
+          "external_cost_usd": 0.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            0.01980262729617973
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "cadda2e294d8c64127e54a62bff2fe580a3b197f84c843670b1bf929ba1372be",
+          "terminal_inventory": [],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": [
+          "EXTERNAL_COST_FINANCING_NOT_AVAILABLE",
+          "EVENT_EXPOSURE_LIMIT_EXCEEDED"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "L5-B1-INSOLVENCY_THEN_RECOVERY",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "SVR",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 102.0,
+          "net_pnl_usd": 2.0,
+          "insolvency": true,
+          "economic_cash_unfunded": true,
+          "maximum_drawdown_fraction": 1.01,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 0.0,
+          "mean_gross_exposure_fraction": 0.0,
+          "fees_usd": 0.0,
+          "external_cost_usd": 0.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            0.01980262729617973
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "a27bdac8b22a338b42465d6516032b97dc0ed87d27f26c4064f395e5b676a586",
+          "terminal_inventory": [],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": [
+          "INSOLVENCY_NOT_CLIPPED",
+          "EXTERNAL_COST_FINANCING_NOT_AVAILABLE",
+          "EVENT_DRAWDOWN_LIMIT_EXCEEDED"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "L5-C3-ECONOMIC_CASH_UNFUNDED",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "SVR",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 90.0,
+          "net_pnl_usd": -10.0,
+          "insolvency": false,
+          "economic_cash_unfunded": true,
+          "maximum_drawdown_fraction": 0.09999999999999998,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 1.1111111111111112,
+          "mean_gross_exposure_fraction": 0.5555555555555556,
+          "fees_usd": 0.0,
+          "external_cost_usd": 10.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            -0.10536051565782628
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "a1ee19a79d3b585c8e43d3189794851c506f3d0b117d0f97b1aad4414ee1e818",
+          "terminal_inventory": [
+            {
+              "symbol": "AAPL",
+              "qty": 1,
+              "market_value": 100
+            }
+          ],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": [
+          "EXTERNAL_COST_FINANCING_NOT_AVAILABLE",
+          "EVENT_EXPOSURE_LIMIT_EXCEEDED"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "L5-B3-MULTIPLE_FEES_PRESERVED",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "SVR",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 97.0,
+          "net_pnl_usd": -3.0,
+          "insolvency": false,
+          "economic_cash_unfunded": false,
+          "maximum_drawdown_fraction": 0.030000000000000027,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 0.0,
+          "mean_gross_exposure_fraction": 0.0,
+          "fees_usd": 3.0,
+          "external_cost_usd": 0.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            -0.030459207484708574
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "dd188571ce826f8f1f2c4c757272460605c525855cbb07e788e315f4f367d70e",
+          "terminal_inventory": [],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": []
+      },
+      "error": null
+    },
+    {
+      "id": "L5-C3-CASH_PAYS_IDENTICAL_COST",
+      "passed": true,
+      "result": {
+        "summary": {
+          "role": "CASH",
+          "initial_equity_usd": 100.0,
+          "final_equity_usd": 90.0,
+          "net_pnl_usd": -10.0,
+          "insolvency": false,
+          "economic_cash_unfunded": false,
+          "maximum_drawdown_fraction": 0.09999999999999998,
+          "operating_cash_reserve": null,
+          "operating_reserve_verified": false,
+          "reserved_cash_deficit": false,
+          "maximum_gross_exposure_fraction": 0.0,
+          "mean_gross_exposure_fraction": 0.0,
+          "fees_usd": 0.0,
+          "external_cost_usd": 10.0,
+          "session_count": 1,
+          "event_count": 3,
+          "log_returns": [
+            -0.10536051565782628
+          ],
+          "maximum_observed_holding_hours": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_io_failure_count": 0,
+          "curve_hash": "273f8dc8b9c0d5334f2a8649251e5226f951afb94b48c33759be70f63a44a041",
+          "terminal_inventory": [],
+          "valuation_resolution": "REPLAY_EVENTS_AND_DOCUMENTED_COST_ACCRUALS;UNOBSERVED_MARKET_PATH_UNKNOWN"
+        },
+        "risk_reasons": []
+      },
+      "error": null
+    },
+    {
+      "id": "L5-B3-FEES_CANNOT_DISAPPEAR",
+      "passed": true,
+      "error": "EVENT_COST_FLOW_SCOPE"
+    }
+  ]
+}

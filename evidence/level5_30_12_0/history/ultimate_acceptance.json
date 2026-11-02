@@ -1,0 +1,87 @@
+{
+  "version": "30.3.0",
+  "edition": "XXXUltimate",
+  "source": "LOCAL_EXECUTION_AND_STATIC_REVIEW",
+  "core": {
+    "tests": 144,
+    "pass": 144,
+    "fail": 0,
+    "cancelled": 0
+  },
+  "browser": {
+    "ultimate": 12,
+    "regression": 24
+  },
+  "static": {
+    "files": 56,
+    "functionBodies": 1826,
+    "unexplainedEmptyBodies": 0,
+    "unresolvedStubMarkers": 0,
+    "testOrDemoImports": 0
+  },
+  "strictTypes": "PASS",
+  "productionDependencyImport": "PASS",
+  "externalAuthenticatedBrokerValidation": "PENDING",
+  "dockerBuild": "NOT_EXECUTED_NO_DAEMON",
+  "deployment": "NOT_EXECUTED",
+  "externalOrdersDuringReview": 0,
+  "research": {
+    "kind": "ALPACA_PROXY",
+    "promotion": "NONE",
+    "windows": {
+      "oosFrom": "2025-03-11",
+      "oosThrough": "2026-07-13",
+      "holdoutFrom": "2026-07-21",
+      "holdoutThrough": "2026-10-16"
+    },
+    "fundedPortfolioOos": {
+      "scope": "MODELED_SHARED_CAPITAL_INTEGER_LOTS",
+      "limits": {
+        "capitalUsd": 20000,
+        "riskFraction": 0.0025,
+        "openRiskFraction": 0.015,
+        "grossFraction": 0.5,
+        "assetFraction": 0.12,
+        "dailyLoss": 0.02,
+        "maxDrawdown": 0.08
+      },
+      "oos": {
+        "campaigns": 31,
+        "sessions": 336,
+        "expectancyR": 0.19901282906120205,
+        "profitFactor": 1.4919151565616358,
+        "winRate": 0.5161290322580645,
+        "growthLog": 1.776680402688936e-05,
+        "modelReturn": 0.005987500000000923,
+        "maxDrawdown": 0.006347736227213963,
+        "sharpeHac": 0.5233987617731122,
+        "sortino": 0.7459566019603139,
+        "expectedShortfall95": 0.0012705116940696117
+      },
+      "netUsd": 119.74999999999952,
+      "skipped": {
+        "SYMBOL_BUSY": 17
+      }
+    }
+  },
+  "benchmark": {
+    "source": "SYNTHETIC_MICROBENCHMARK",
+    "node": "v24.19.0",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "iterations": 20000,
+    "elapsedMs": 15.269976999999997,
+    "operationsPerSecond": 1309759.667614431,
+    "p50Ms": 0.000400999999996543,
+    "p95Ms": 0.0005210000000062109,
+    "p99Ms": 0.001563000000004422,
+    "scope": "Pure exit decision only. Excludes network, broker, SQLite, UI and full runtime. Not a latency or profit guarantee."
+  },
+  "autopilot": {
+    "default": "AUTOMATIC_PAPER_AFTER_AUTH_AND_RECONCILIATION",
+    "operatorPauseSurvivesRestart": true,
+    "heartbeatStaleBlocksEntries": true,
+    "researchPausesDoNotPauseExits": true
+  }
+}

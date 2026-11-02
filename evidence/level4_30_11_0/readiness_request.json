@@ -1,0 +1,25 @@
+{
+  "schema": "HARPOON_LEVEL4_READINESS_REQUEST_1",
+  "data": {
+    "request": {
+      "path": "data/request.json",
+      "sha256": "06b5b2a1994b648a55079f482f94aa897a57c8d08dcc85011a7abdb54f71e42e"
+    },
+    "report": {
+      "path": "data/report.json",
+      "sha256": "5e229a172187cc90c30dca023378b3611e5a407b27d623c2dbf2f544a6a505d8"
+    }
+  },
+  "comparison": {
+    "request": {
+      "path": "../../quant/examples/funded_comparison/synthetic_request.json",
+      "sha256": "80187c5a427cc7d16f8c244ad03fc08931d01429df340af7922f547ab9eb3f6c"
+    },
+    "report": {
+      "path": "../../quant/examples/funded_comparison/synthetic_report.json",
+      "sha256": "7233436d434b135ab92e573f3976c2fab42834fb1204666bfb68275859d6e114"
+    }
+  },
+  "ledger": null,
+  "missing_ledger_reason": "Available connector exposes market data but no account, positions, activities, fills or net-ledger exports; no original operating-cost or broker-coverage documents supplied."
+}

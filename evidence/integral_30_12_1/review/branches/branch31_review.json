@@ -1,0 +1,431 @@
+{
+  "schema": "HARPOON_BRANCH31_STATIC_COMPARISON_1",
+  "checked_at_mexico_city": "2026-10-31T21:18:02.115879-06:00",
+  "scope": "Static code, archive hashes and retained evidence review of 31.0-31.4 versus 30.12. No branch code executed; no network/deployment/orders.",
+  "lineage": {
+    "branch_base_declared": "30.3.1",
+    "source": "HarpoonX_31_4_0/README_31_ES.md: Migración desde 30.3.1",
+    "branch_latest_reviewed": "31.4.0",
+    "branch_acceptance_client_date": "2026-10-25",
+    "base_application": "30.12.0",
+    "base_validated_local_date": "2026-10-31",
+    "conclusion": "Divergent implementations from a shared older codebase; numeric version order does not establish chronological or functional supersession."
+  },
+  "branch_manifests": [
+    {
+      "archive": "HarpoonX_31_0_0_Implementacion.zip",
+      "manifest": "HarpoonX_31_0_0/MANIFEST_31.json",
+      "version": "31.0.0",
+      "rows_checked": 639,
+      "mismatches": []
+    },
+    {
+      "archive": "HarpoonX_31_1_0_Implementacion.zip",
+      "manifest": "HarpoonX_31_1_0/MANIFEST_311.json",
+      "version": "31.1.0",
+      "rows_checked": 678,
+      "mismatches": []
+    },
+    {
+      "archive": "HarpoonX_31_2_0_Implementacion.zip",
+      "manifest": "HarpoonX_31_2_0/MANIFEST_312.json",
+      "version": "31.2.0",
+      "rows_checked": 708,
+      "mismatches": []
+    },
+    {
+      "archive": "HarpoonX_31_3_0_Implementacion.zip",
+      "manifest": "HarpoonX_31_3_0/MANIFEST_313.json",
+      "version": "31.3.0",
+      "rows_checked": 748,
+      "mismatches": []
+    },
+    {
+      "archive": "HarpoonX_31_4_0_Implementacion.zip",
+      "manifest": "HarpoonX_31_4_0/MANIFEST_314.json",
+      "version": "31.4.0",
+      "rows_checked": 816,
+      "mismatches": []
+    }
+  ],
+  "comparison": {
+    "same_implementation_or_verification_files": 232,
+    "modified_same_path_files": 44,
+    "branch_only_files": 64,
+    "modified_paths": [
+      "config/examples/xxx.json",
+      "deploy/Dockerfile.xxx",
+      "deploy/dashboard30.html",
+      "runtime/store.py",
+      "runtime/store30.cjs",
+      "runtime30/coordinator.js",
+      "runtime30/health.js",
+      "runtime30/market.js",
+      "runtime30/plugins.js",
+      "runtime30/policy.js",
+      "runtime30/server.js",
+      "runtime30/streams.js",
+      "runtime30/types.js",
+      "runtime30/ultimate_contracts.js",
+      "runtime30/ultimate_lab.js",
+      "runtime30/ultimate_replay.js",
+      "runtime30/ultimate_stats.js",
+      "runtime30/validators.js",
+      "runtime30/version.js",
+      "tools/package_ultimate.py",
+      "tools/ultimate_production_check.cjs",
+      "tools/ultimate_test.cjs",
+      "tools/xxx_audit.cjs",
+      "tools/xxx_conformance_test.cjs",
+      "tools/xxx_fixtures.cjs",
+      "tools/xxx_operational_browser.cjs",
+      "tools/xxx_operational_test.cjs",
+      "tools/xxx_selector_test.cjs",
+      "tools/xxx_test.cjs",
+      "tools/xxx_tp32_test.cjs",
+      "xxx/coordinator.ts",
+      "xxx/health.ts",
+      "xxx/market.ts",
+      "xxx/plugins.ts",
+      "xxx/policy.ts",
+      "xxx/server.ts",
+      "xxx/streams.ts",
+      "xxx/types.ts",
+      "xxx/ultimate_contracts.ts",
+      "xxx/ultimate_lab.ts",
+      "xxx/ultimate_replay.ts",
+      "xxx/ultimate_stats.ts",
+      "xxx/validators.ts",
+      "xxx/version.ts"
+    ],
+    "branch_only_paths": [
+      "config/examples/xxx-alpaca-paid.json",
+      "config/examples/xxx-massive.json",
+      "deploy/entry31.py",
+      "research/options/candidate_value.cjs",
+      "research/options/coordinator_replay.cjs",
+      "research/options/economics.py",
+      "research/options/example-ledger-synthetic.json",
+      "research/options/example-straddle-synthetic.json",
+      "research/options/fixtures/candidate-synthetic.json",
+      "research/options/fixtures/coordinator-synthetic.json",
+      "research/options/requirements.txt",
+      "research/options/simulate_72h.py",
+      "research/options/simulation-reference-indicative.json",
+      "research/options/test_economics.py",
+      "research/options/test_simulate_72h.py",
+      "research/ultimate/audit_recompute.cjs",
+      "research/ultimate/dataset.cjs",
+      "research/ultimate/edge_batch.cjs",
+      "research/ultimate/reproduce.cjs",
+      "runtime/execution_authority.cjs",
+      "runtime30/option_capture.js",
+      "runtime30/option_contracts.js",
+      "runtime30/option_data.js",
+      "runtime30/option_surface.js",
+      "runtime30/option_value.js",
+      "runtime30/options_lab.js",
+      "runtime30/portfolio_guard.js",
+      "runtime30/research_accounting.js",
+      "tools/audit_export.cjs",
+      "tools/audit_scale.cjs",
+      "tools/championship_audit.cjs",
+      "tools/championship_metrics.cjs",
+      "tools/options_benchmark.cjs",
+      "tools/options_capture314.cjs",
+      "tools/options_lab.cjs",
+      "tools/options_model314.cjs",
+      "tools/package31.py",
+      "tools/package311.py",
+      "tools/package312.py",
+      "tools/package313.py",
+      "tools/package314.py",
+      "tools/paid_data_check.cjs",
+      "tools/paper_readonly_check.cjs",
+      "tools/stats_reference.py",
+      "tools/tca.cjs",
+      "tools/v311_test.cjs",
+      "tools/v312_options_test.cjs",
+      "tools/v313_data_test.cjs",
+      "tools/v314_replay_test.cjs",
+      "tools/v314_value_test.cjs",
+      "tools/v31_test.cjs",
+      "tools/verify31.py",
+      "tools/verify311.py",
+      "tools/verify312.py",
+      "tools/verify313.py",
+      "tools/verify314.py",
+      "xxx/option_capture.ts",
+      "xxx/option_contracts.ts",
+      "xxx/option_data.ts",
+      "xxx/option_surface.ts",
+      "xxx/option_value.ts",
+      "xxx/options_lab.ts",
+      "xxx/portfolio_guard.ts",
+      "xxx/research_accounting.ts"
+    ],
+    "count_scope": "Includes research code, verification tools/tests and compiled duplicates; not a count of independent features."
+  },
+  "unique_feature_groups": [
+    {
+      "feature": "Bounded durable store",
+      "files": [
+        "runtime/store30.cjs",
+        "runtime/store.py"
+      ],
+      "functions": [
+        "DurableStore.rpc",
+        "DurableStore.fail",
+        "DurableStore.health",
+        "DurableStore.close",
+        "appendEvents",
+        "events"
+      ],
+      "difference": "Adds RPC deadline, pending-request limit, process failure propagation, uncertain-write marker, bounded close and durable hash-chained event rows. Current 30.12 RPC lacks a deadline. Existing operation implementations retained.",
+      "recommendation": "First integration candidate: port bounded storage and review additive schema; test stalled child/uncertain ACK/backpressure/restart with current net ledger and observation archive. Do not claim storage failure leaves software-only protection operational.",
+      "tests_present_in_branch": [
+        "tools/v31_test.cjs: SIGSTOP storage",
+        "tools/v31_test.cjs: audit beyond 300 events",
+        "tools/v31_test.cjs: stalled SQLite releases coordinator mutex"
+      ]
+    },
+    {
+      "feature": "Canonical execution authority",
+      "files": [
+        "runtime/execution_authority.cjs",
+        "deploy/entry31.py",
+        "xxx/server.ts",
+        "xxx/coordinator.ts"
+      ],
+      "functions": [
+        "ExecutionAuthority.acquire",
+        "ExecutionAuthority.check",
+        "ExecutionAuthority.request",
+        "FencedApi",
+        "runtime_environment"
+      ],
+      "difference": "Single service retains broker credentials and checks durable owner epoch immediately before broker mutation; persistent request ids prevent blind retry; Alpaca/futures share authority mutex.",
+      "recommendation": "Preserve as separate integration component until startup, streaming transport, store and reconciliation paths are tested together. Do not overwrite 30.12 server/installer. The branch disables streaming and changes credential topology."
+    },
+    {
+      "feature": "Portfolio stress and capital mandate",
+      "files": [
+        "xxx/portfolio_guard.ts",
+        "xxx/coordinator.ts"
+      ],
+      "functions": [
+        "stressPortfolio",
+        "capitalAllowance"
+      ],
+      "difference": "Gross factor exposure without inverse-ETF offset credit, full long-option premium risk and deterministic stress; explicit capital mandate for size staircase.",
+      "recommendation": "The pure risk calculator can be adapted after configuration/risk comparison; keep current account limits and default fixed capital. Do not activate capital expansion or treat policy shocks as calibrated VaR."
+    },
+    {
+      "feature": "Research accounting and bootstrap corrections",
+      "files": [
+        "xxx/research_accounting.ts",
+        "xxx/ultimate_replay.ts",
+        "xxx/ultimate_stats.ts",
+        "xxx/ultimate_contracts.ts",
+        "research/ultimate/audit_recompute.cjs",
+        "research/ultimate/edge_batch.cjs"
+      ],
+      "functions": [
+        "decisionReference",
+        "accountSnapshot",
+        "causalSize",
+        "dollarTradeMetrics",
+        "bootstrapEvidence"
+      ],
+      "difference": "Decision-time sizing, pending capital reservation, cash PnL through partial exits, future-gap causality and bootstrap Monte Carlo tail precision.",
+      "recommendation": "Preserve corrected offline research and original reproduction artifacts separately. Do not replace the Quant1.8 paired NATIVE/RIDGE/SVR/CASH evidence gate, or promote results from previously observed windows."
+    },
+    {
+      "feature": "Options eligibility, data and budget",
+      "files": [
+        "xxx/option_contracts.ts",
+        "xxx/option_data.ts",
+        "xxx/option_surface.ts",
+        "xxx/market.ts",
+        "xxx/plugins.ts",
+        "xxx/policy.ts"
+      ],
+      "functions": [
+        "optionEligibility",
+        "optionOrderTick",
+        "optionBudget",
+        "MassiveOptionData",
+        "optionResearchView"
+      ],
+      "difference": "Contract identity, OPRA chain completeness, quoted size, expiry/open interest/Greek checks, budget before rank and optional bounded external data adapter.",
+      "recommendation": "Port only through the common market/types/policy contract with current net ledger and operational gates retained. Keep licenses, budgets and permissions unassumed; do not silently switch IEX to paid SIP or enable a new provider."
+    },
+    {
+      "feature": "Options reviewed net-value boundary and capture",
+      "files": [
+        "xxx/option_value.ts",
+        "xxx/option_capture.ts",
+        "research/options/coordinator_replay.cjs",
+        "research/options/candidate_value.cjs",
+        "tools/options_model314.cjs",
+        "tools/options_capture314.cjs"
+      ],
+      "functions": [
+        "OptionValueBook",
+        "assessReceiptForecast",
+        "optionPolicyFingerprint",
+        "refreshOptionValueFile",
+        "optionCapture"
+      ],
+      "difference": "Observed-replay model declarations, pinned approval hashes, full-size forecast receipts, opening costs/data hurdle, quote/capacity recheck before send, forecast expiry cancellation, bounded context capture and offline replay of production coordinator.",
+      "recommendation": "Retain observe as default; no approved models are shipped. Self-declared review and fixed minimum sample counts do not satisfy the level5 economic gate by themselves. Contract schemas and coordinator interfaces must be merged, not copied over."
+    },
+    {
+      "feature": "Offline options structures and execution-cost analysis",
+      "files": [
+        "xxx/options_lab.ts",
+        "tools/options_lab.cjs",
+        "research/options/economics.py",
+        "research/options/simulate_72h.py",
+        "tools/tca.cjs",
+        "tools/championship_metrics.cjs",
+        "tools/championship_audit.cjs"
+      ],
+      "difference": "Payoff laboratory, option-policy simulations and execution shortfall diagnostics; no economic acceptance or automated multi-leg trading implied.",
+      "recommendation": "Suitable to retain as explicitly offline research with dependency contracts. TCA latency comparisons require clock-domain/synchronization evidence before being interpreted as measured transport latency."
+    }
+  ],
+  "must_preserve_from_30_12": [
+    {
+      "files": [
+        "quant/harpoon_quant/",
+        "runtime/quant_bridge.cjs",
+        "tools/funded_comparison.cjs",
+        "tools/level4_readiness.cjs",
+        "tools/level5_readiness.cjs"
+      ],
+      "reason": "Ridge/SVR comparison, causal models, protected experiment history and economic acceptance are absent from31.4."
+    },
+    {
+      "files": [
+        "xxx/cost_receipts.ts",
+        "xxx/net_accounting.ts",
+        "xxx/net_ledger_archive.ts",
+        "xxx/net_ledger_verify.ts",
+        "xxx/quant_observations.ts",
+        "xxx/operational_status.ts"
+      ],
+      "reason": "Observed account ledger, cost coverage, stable observation exports and entry operational gates are absent from31.4."
+    },
+    {
+      "files": [
+        "xxx/sessions.ts",
+        "xxx/plugins.ts",
+        "xxx/market.ts",
+        "runtime/discovery.cjs"
+      ],
+      "reason": "Causal session windows, equity/ETF discovery and current bounded data handling must not be lost."
+    },
+    {
+      "files": [
+        "xxx/types.ts",
+        "xxx/coordinator.ts",
+        "xxx/validators.ts"
+      ],
+      "reason": "30.12 PartialEntryRisk state and newer partial-entry exposure protections are not present in31.4 types."
+    },
+    {
+      "files": [
+        "deploy/Dockerfile.xxx",
+        "deploy/ultimate_install.py",
+        "install.sh",
+        "status.sh",
+        "stop.sh"
+      ],
+      "reason": "Current integral installation and packaged Python verifier layout must survive; branch Dockerfile omits Quant and bound TypeScript verifier sources."
+    }
+  ],
+  "unsafe_bulk_replacement_examples": [
+    "31.4 config/examples/xxx.json removes the entire quant configuration, changes stockFeed iex→sip and streaming true→false.",
+    "31.4 coordinator import set omits NetAccountLedger, QuantObservationJournal, entryOperationalFailures and sessionContext.",
+    "31.4 types remove PartialEntryRisk and MAX_UNIVERSE_SIZE while adding option-specific metadata.",
+    "31.4 Dockerfile lacks Python venv/Quant package/tools/TypeScript source verification paths included in30.12."
+  ],
+  "history_extension": {
+    "scope": "Retained archive history, no new experiment",
+    "old_trial_records": 1,
+    "new_trial_records": 4,
+    "overlapping_records": [
+      {
+        "id": "4b48429f-9c4b-4c0b-bc46-01c3ee2d0379",
+        "protocolHash": "76b98ca5befa14dda4c6c61c3dd036327acae5afad3bc205bdd1424c8db11b66",
+        "codeHash": "b154e3ce5798e1d77179954f1d3bf9f51efd21b221f52b7de357dc915a8de162",
+        "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+        "slots": 18,
+        "registeredAt": 1792346863333,
+        "status": "COMPLETE",
+        "attempts": 1,
+        "same_protocolHash": true,
+        "same_codeHash": true,
+        "same_datasetHash": true,
+        "entire_record_equal": true
+      }
+    ],
+    "additional_records": [
+      {
+        "id": "fcfe96db-4faa-482f-beb4-4efd4dfb3531",
+        "protocolHash": "af3790ab1c80326189fdae345b27b24da41bd6a65ac46b4bee9bab8f6e48edef",
+        "codeHash": "9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a",
+        "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+        "slots": 18,
+        "registeredAt": 1792956579578,
+        "status": "COMPLETE",
+        "attempts": 1
+      },
+      {
+        "id": "15cea4a9-4338-409f-a700-0dd6a78e3ebf",
+        "protocolHash": "388890ac4c300f0628a8e6a421e4bd21a7475f4e99fb492981fec57e58789ad4",
+        "codeHash": "9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a",
+        "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+        "slots": 18,
+        "registeredAt": 1792956579583,
+        "status": "COMPLETE",
+        "attempts": 1
+      },
+      {
+        "id": "57d8a60b-b2fd-4c7c-bd2b-cc7c84f97393",
+        "protocolHash": "93ba284aa1150c4c6e30f1201eb97036a619e4534491a6b101f97dbaa3f4fbde",
+        "codeHash": "9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a",
+        "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+        "slots": 18,
+        "registeredAt": 1792956579588,
+        "status": "COMPLETE",
+        "attempts": 1
+      }
+    ],
+    "old_slots": 18,
+    "branch_slots": 72,
+    "additional_slots": 54,
+    "global_deduplicated_search_total": null,
+    "null_reason": "This checks only the Ultimate family extension; other quant/options/laboratory genealogies still require reconciliation."
+  },
+  "economic_assessment": {
+    "new_forward_observations": 0,
+    "economic_level5_demonstrated": false,
+    "global_search_count": null,
+    "retained_31_result_scope": "Retrospective observed bars with modeled fills; zero promotions in preserved source results. No new evaluation executed."
+  },
+  "recommended_integration_order": [
+    "Keep30.12 as primary runtime and economic evidence base.",
+    "Port bounded storage with targeted current-runtime regression tests.",
+    "Preserve all branch/laboratory implementations under provenance-tagged research or archive paths unless their integration is actually tested.",
+    "Merge option/authority/runtime features individually with typed interfaces, keeping both sets of safety gates.",
+    "Include additional Ultimate history and require a fresh final protocol after all known previous periods."
+  ],
+  "limitations": [
+    "31.5/31.6/net_takeprofit laboratory deltas are reviewed by the laboratory-lineage agent, not this report.",
+    "Static review and retained test records do not prove a merged runtime is correct.",
+    "No branch code, paid API, external broker mutation or deployment was executed."
+  ],
+  "files_written_only_under": "consolidation_evidence/branches"
+}

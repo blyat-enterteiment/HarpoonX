@@ -1,0 +1,1500 @@
+--- /dev/null
++++ b/quant/harpoon_quant/scalar_svr.py
+@@ -0,0 +1,469 @@
++"""Purged scalar return regression, JSON inference and mandatory shadow use.
++
++This is a classical support-vector regressor, not a quantum computation.
++Predictive error gates do not establish trading profitability or authorization.
++"""
++
++from __future__ import annotations
++
++import hashlib
++import math
++import warnings
++from collections import defaultdict
++from datetime import UTC, datetime, timedelta
++from pathlib import Path
++from typing import Any
++
++import numpy as np
++
++from .calibration import block_lower, output, ridge
++from .core import FEATURES, ORIGINS, Config, digest, finite, timestamp
++
++SCHEMA = "HARPOON_QUANT_CALIBRATION_2"
++MODEL_KIND = "SVR_RBF"
++MAX_ROWS = 5000
++MAX_ROWS_PER_ASSET = 2000
++MAX_ASSETS = 16
++MAX_SUPPORT_VECTORS = 2000
++PARAMETERS = {
++    "kernel": "rbf",
++    "epsilon": 0.1,
++    "gamma": 1.0 / len(FEATURES),
++    "tol": 1e-4,
++    "cache_size": 64,
++    "max_iter": 50000,
++    "shrinking": True,
++}
++
++
++def implementation_hash() -> str:
++    root = Path(__file__).resolve().parent
++    return digest(
++        {
++            name: hashlib.sha256((root / name).read_bytes()).hexdigest()
++            for name in ("scalar_svr.py", "calibration.py", "core.py", "support.py")
++        }
++    )
++
++
++def _number(value: Any, name: str, positive: bool = False) -> float:
++    try:
++        return finite(value, name, positive)
++    except ValueError as exc:
++        raise ValueError("SVR_" + str(exc)) from exc
++
++
++def _matrix(rows: list[dict[str, Any]]) -> np.ndarray:
++    values = []
++    for row in rows:
++        x = row["features"]
++        if not isinstance(x, list) or len(x) != len(FEATURES):
++            raise ValueError("SVR_FEATURE_DOMAIN")
++        values.append([_number(v, "FEATURE") for v in x])
++    return np.asarray(values, dtype=float)
++
++
++def _mse(errors: np.ndarray) -> float:
++    with np.errstate(over="raise", invalid="raise"):
++        result = float(np.mean(np.square(errors)))
++    if not math.isfinite(result):
++        raise ValueError("SVR_NONFINITE_MSE")
++    return result
++
++
++def _scales(
++    x: np.ndarray, y: np.ndarray
++) -> tuple[np.ndarray, np.ndarray, float, float]:
++    with np.errstate(over="raise", invalid="raise"):
++        mean = x.mean(axis=0)
++        scale = np.maximum(x.std(axis=0), 1e-6)
++        target_mean = float(y.mean())
++        target_scale = max(float(y.std()), 1e-12)
++    if not np.isfinite(np.r_[mean, scale, target_mean, target_scale]).all():
++        raise ValueError("SVR_NUMERIC_SCALE")
++    return mean, scale, target_mean, target_scale
++
++
++def _fit(rows: list[dict[str, Any]], cost: float) -> tuple[Any, dict[str, Any]]:
++    # sklearn is a training dependency; inference below only evaluates JSON arrays.
++    from sklearn.exceptions import ConvergenceWarning
++    from sklearn.svm import SVR
++
++    from .support import export
++
++    x = _matrix(rows)
++    y = np.asarray([r["target_return"] for r in rows], dtype=float)
++    mean, scale, target_mean, target_scale = _scales(x, y)
++    with np.errstate(over="raise", invalid="raise"):
++        z = (x - mean) / scale
++        normalized_y = (y - target_mean) / target_scale
++    if not np.isfinite(z).all() or not np.isfinite(normalized_y).all():
++        raise ValueError("SVR_NUMERIC_SCALE")
++    estimator = SVR(C=cost, **PARAMETERS)
++    try:
++        with warnings.catch_warnings():
++            warnings.simplefilter("error", ConvergenceWarning)
++            estimator.fit(z, normalized_y)
++    except ConvergenceWarning as exc:
++        raise ValueError("SVR_NO_CONVERGENCE") from exc
++    if estimator.fit_status_ != 0:
++        raise ValueError("SVR_NO_CONVERGENCE")
++    model = {
++        "model_kind": MODEL_KIND,
++        "mean": mean.tolist(),
++        "scale": scale.tolist(),
++        "target_mean": target_mean,
++        "target_scale": target_scale,
++        "svr": export(estimator),
++        "parameters": {**PARAMETERS, "C": cost},
++        "n_support_vectors": len(estimator.support_vectors_),
++        "n_iterations": int(estimator.n_iter_),
++        "feature_dimension": len(FEATURES),
++    }
++    return estimator, model
++
++
++def _kernel(model: dict[str, Any], z: np.ndarray) -> np.ndarray:
++    """Bounded RBF evaluation; also represents a legitimate zero-vector constant fit.
++
++    The existing support kernel requires >=1 vector. Return SVR can have zero
++    vectors on constant targets, so this small inference kernel handles that case
++    and bounds batch memory. Training checks parity with sklearn.
++    """
++    kernel = model["svr"]
++    sv = np.asarray(kernel["support_vectors"], dtype=float)
++    coef = np.asarray(kernel["dual_coef"], dtype=float)
++    gamma = _number(kernel["gamma"], "GAMMA", True)
++    bias = _number(kernel["intercept"], "INTERCEPT")
++    if (
++        coef.ndim != 1
++        or len(coef) > MAX_SUPPORT_VECTORS
++        or z.ndim != 2
++        or z.shape[1] != len(FEATURES)
++        or not np.isfinite(z).all()
++        or not np.isfinite(coef).all()
++    ):
++        raise ValueError("SVR_KERNEL_SCHEMA")
++    if not len(coef):
++        if sv.shape != (0,):
++            raise ValueError("SVR_KERNEL_SCHEMA")
++        return np.full(len(z), bias)
++    if sv.shape != (len(coef), len(FEATURES)) or not np.isfinite(sv).all():
++        raise ValueError("SVR_KERNEL_SCHEMA")
++    outputs = []
++    for start in range(0, len(z), 128):
++        batch = z[start : start + 128]
++        with np.errstate(over="raise", invalid="raise"):
++            distance = np.maximum(
++                0.0,
++                np.sum(batch * batch, axis=1)[:, None]
++                + np.sum(sv * sv, axis=1)[None, :]
++                - 2 * batch @ sv.T,
++            )
++            outputs.append(np.exp(-gamma * distance) @ coef + bias)
++    return np.concatenate(outputs) if outputs else np.empty(0)
++
++
++def _output(model: dict[str, Any], x: np.ndarray, *, check_drift: bool) -> np.ndarray:
++    mean, scale = (np.asarray(model[k], dtype=float) for k in ("mean", "scale"))
++    target_mean = _number(model["target_mean"], "TARGET_MEAN")
++    target_scale = _number(model["target_scale"], "TARGET_SCALE", True)
++    if (
++        model.get("model_kind") != MODEL_KIND
++        or model.get("feature_dimension") != len(FEATURES)
++        or mean.shape != (len(FEATURES),)
++        or scale.shape != mean.shape
++        or x.ndim != 2
++        or x.shape[1] != len(FEATURES)
++        or not np.isfinite(np.r_[mean, scale]).all()
++        or not np.isfinite(x).all()
++        or (scale <= 0).any()
++    ):
++        raise ValueError("SVR_FEATURE_DOMAIN")
++    with np.errstate(over="raise", invalid="raise"):
++        z = (x - mean) / scale
++    if not np.isfinite(z).all():
++        raise ValueError("SVR_FEATURE_DOMAIN")
++    if check_drift and np.max(np.abs(z)) > 8:
++        raise ValueError("SVR_FEATURE_DRIFT")
++    with np.errstate(over="raise", invalid="raise"):
++        predictions = target_mean + target_scale * _kernel(model, z)
++    if not np.isfinite(predictions).all() or (predictions < -1).any():
++        raise ValueError("SVR_PREDICTION_DOMAIN")
++    return predictions
++
++
++def _panel(
++    data: dict[str, Any], available_at: str, cfg: Config
++) -> list[dict[str, Any]]:
++    if data.get("origin") not in ORIGINS:
++        raise ValueError("SVR_ORIGIN")
++    if data.get("target_unit", "return_fraction") != "return_fraction":
++        raise ValueError("SVR_TARGET_UNIT")
++    if data.get("feature_names", list(FEATURES)) != list(FEATURES):
++        raise ValueError("SVR_MODEL_SCHEMA")
++    if (
++        _number(data.get("horizon_hours", cfg.horizon_hours), "HORIZON", True)
++        != cfg.horizon_hours
++    ):
++        raise ValueError("SVR_LABEL_HORIZON")
++    raw_rows = data["rows"]
++    if not isinstance(raw_rows, list) or not 100 <= len(raw_rows) <= MAX_ROWS:
++        raise ValueError("SVR_ROW_LIMIT")
++    when = timestamp(available_at)
++    rows = []
++    seen = set()
++    counts: dict[str, int] = defaultdict(int)
++    for original in raw_rows:
++        row = dict(original)
++        name = row["underlying"]
++        if not isinstance(name, str) or not name or len(name) > 64:
++            raise ValueError("SVR_ASSET_SCHEMA")
++        at, end, known, features_at = (
++            timestamp(row[k])
++            for k in ("at", "label_end", "label_known_at", "features_known_at")
++        )
++        if (
++            features_at > at
++            or not at < end <= known < when
++            or abs((end - at).total_seconds() / 3600 - cfg.horizon_hours) > 1e-6
++            or row["session"] != at.date().isoformat()
++        ):
++            raise ValueError("SVR_LABEL_CLOCK")
++        key = (name, row["session"])
++        if key in seen:
++            raise ValueError("SVR_DUPLICATE_ASSET_SESSION")
++        seen.add(key)
++        counts[name] += 1
++        target = _number(row["target_return"], "TARGET_RETURN")
++        if target < -1:
++            raise ValueError("SVR_SIMPLE_RETURN_DOMAIN")
++        row.update(
++            at=at.isoformat(),
++            label_end=end.isoformat(),
++            label_known_at=known.isoformat(),
++            features_known_at=features_at.isoformat(),
++            target_return=target,
++        )
++        if "iv_change" in row:
++            row["iv_change"] = _number(row["iv_change"], "IV_CHANGE")
++        rows.append(row)
++    if len(counts) > MAX_ASSETS:
++        raise ValueError("SVR_ASSET_LIMIT")
++    if max(counts.values()) > MAX_ROWS_PER_ASSET:
++        raise ValueError("SVR_ROW_LIMIT_PER_ASSET")
++    if len({r["session"] for r in rows}) < 100:
++        raise ValueError("SVR_100_DISTINCT_SESSIONS_REQUIRED")
++    if when - max(timestamp(r["label_end"]) for r in rows) > timedelta(
++        days=cfg.max_model_age_days
++    ):
++        raise ValueError("SVR_STALE_OBSERVATIONS")
++    _matrix(rows)
++    return sorted(rows, key=lambda r: (r["at"], r["underlying"]))
++
++
++def fit_scalar_svr(
++    data: dict[str, Any], available_at: str, cfg: Config
++) -> dict[str, Any]:
++    import sklearn
++
++    rows = _panel(data, available_at, cfg)
++    days = sorted({r["session"] for r in rows})
++    val_start, test_start = days[int(0.6 * len(days))], days[int(0.8 * len(days))]
++    val_time = datetime.fromisoformat(val_start).replace(tzinfo=UTC)
++    test_time = datetime.fromisoformat(test_start).replace(tzinfo=UTC)
++    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
++    for row in rows:
++        grouped[row["underlying"]].append(row)
++    models = {}
++    family_tests = 6 * 2 * len(grouped)
++    for name, rs in sorted(grouped.items()):
++        train = [
++            r
++            for r in rs
++            if r["session"] < val_start
++            and timestamp(r["label_end"]) < val_time
++            and timestamp(r["label_known_at"]) < val_time
++        ]
++        validation = [
++            r
++            for r in rs
++            if val_start <= r["session"] < test_start
++            and timestamp(r["label_end"]) < test_time
++            and timestamp(r["label_known_at"]) < test_time
++        ]
++        test = [r for r in rs if r["session"] >= test_start]
++        counts = [len(split) for split in (train, validation, test)]
++        meta = data.get("asset_metadata", {}).get(name, {})
++        common = dict(
++            model_kind=MODEL_KIND,
++            book=meta.get("book", "UNCLASSIFIED"),
++            factor=meta.get("factor", name),
++            metadata_reference=meta.get("reference"),
++            date_counts=counts,
++            last_observation_at=max(r["label_end"] for r in rs),
++        )
++        if any(a < b for a, b in zip(counts, (40, 10, 20), strict=True)):
++            models[name] = {
++                **common,
++                "accepted": False,
++                "reason": "INSUFFICIENT_PURGED_DATE_COUNTS",
++                "trials": [],
++            }
++            continue
++        validation_x = _matrix(validation)
++        validation_y = np.array([r["target_return"] for r in validation])
++        trials: list[dict[str, Any]] = []
++        for cost in (0.5, 2.0, 8.0):
++            _, candidate = _fit(train, cost)
++            error = _output(candidate, validation_x, check_drift=False) - validation_y
++            trials.append(dict(estimator="svr", C=cost, validation_mse=_mse(error)))
++        for penalty in (0.1, 10.0, 100.0):
++            candidate = ridge(train, penalty)
++            trials.append(
++                dict(
++                    estimator="ridge",
++                    ridge_lambda=penalty,
++                    validation_mse=_mse(output(candidate, validation) - validation_y),
++                )
++            )
++        best_svr = min(
++            (t for t in trials if t["estimator"] == "svr"),
++            key=lambda t: (t["validation_mse"], t["C"]),
++        )
++        best_ridge = min(
++            (t for t in trials if t["estimator"] == "ridge"),
++            key=lambda t: (t["validation_mse"], t["ridge_lambda"]),
++        )
++        for trial in trials:
++            trial["selected_within_estimator"] = (
++                trial is best_svr or trial is best_ridge
++            )
++        fit_rows = train + validation
++        estimator, final = _fit(fit_rows, best_svr["C"])
++        ridge_final = ridge(fit_rows, best_ridge["ridge_lambda"])
++        x = _matrix(test)
++        prediction = _output(final, x, check_drift=False)
++        z = (x - np.array(final["mean"])) / np.array(final["scale"])
++        reference = final["target_mean"] + final["target_scale"] * estimator.predict(z)
++        if not np.allclose(prediction, reference, atol=1e-10, rtol=1e-9):
++            raise ArithmeticError("SVR_EXPORT_PARITY")
++        target = np.array([r["target_return"] for r in test])
++        residual = target - prediction
++        historical_mean = float(np.mean([r["target_return"] for r in fit_rows]))
++        mean_errors = target - historical_mean
++        ridge_errors = target - output(ridge_final, test)
++        lower_mean = block_lower(mean_errors**2 - residual**2, attempts=family_tests)
++        lower_ridge = block_lower(ridge_errors**2 - residual**2, attempts=family_tests)
++        final.update(
++            **common,
++            accepted=bool(lower_mean > 0 and lower_ridge > 0),
++            reason="PREDICTIVE_MSE_SKILL_VS_PAST_MEAN_AND_RIDGE_NOT_PROFIT",
++            skill_lower=min(lower_mean, lower_ridge),
++            skill_lower_vs_mean=lower_mean,
++            skill_lower_vs_ridge=lower_ridge,
++            oos_mse=_mse(residual),
++            historical_mean_mse=_mse(mean_errors),
++            ridge_mse=_mse(ridge_errors),
++            ridge_baseline_mse=_mse(ridge_errors),
++            zero_forecast_mse=_mse(target),
++            historical_mean=historical_mean,
++            residuals={
++                r["session"]: float(e) for r, e in zip(test, residual, strict=True)
++            },
++            train_max_label_end=max(r["label_end"] for r in fit_rows),
++            train_max_label_known_at=max(r["label_known_at"] for r in fit_rows),
++            first_test_at=min(r["at"] for r in test),
++            selection_train_max_label_end=max(r["label_end"] for r in train),
++            selection_train_max_label_known_at=max(r["label_known_at"] for r in train),
++            first_validation_at=min(r["at"] for r in validation),
++            trials=trials,
++            selected_ridge_lambda=best_ridge["ridge_lambda"],
++            hypothesis_comparisons=2,
++            family_tests=family_tests,
++            oos_feature_drift_fraction=float(np.mean(np.max(np.abs(z), axis=1) > 8)),
++            independent_financial_validation=False,
++        )
++        if all("iv_change" in r for r in test):
++            final["iv_residuals"] = {r["session"]: float(r["iv_change"]) for r in test}
++        models[name] = final
++    result = dict(
++        schema=SCHEMA,
++        model_kind=MODEL_KIND,
++        research_only=True,
++        origin=data["origin"],
++        available_at=timestamp(available_at).isoformat(),
++        last_observation_at=max(r["label_end"] for r in rows),
++        horizon_hours=cfg.horizon_hours,
++        target_unit="return_fraction",
++        feature_names=list(FEATURES),
++        feature_dimension=len(FEATURES),
++        models=models,
++        data_hash=digest(data),
++        implementation_hash=implementation_hash(),
++        validation_start=val_start,
++        test_start=test_start,
++        liveApproved=False,
++        execution_allowed=False,
++        independent_financial_validation=False,
++        training_configurations_per_asset=6,
++        training_configuration_count=sum(len(m["trials"]) for m in models.values()),
++        predefined_configuration_capacity=6 * len(grouped),
++        family_tests=family_tests,
++        method_version="SVR_RETURN_1",
++        sklearn_version=sklearn.__version__,
++        numpy_version=np.__version__,
++        limits=dict(
++            total_rows=MAX_ROWS,
++            rows_per_asset=MAX_ROWS_PER_ASSET,
++            assets=MAX_ASSETS,
++            support_vectors_per_asset=MAX_SUPPORT_VECTORS,
++            cache_mb=64,
++            max_iter=50000,
++        ),
++        method="SVR RBF; 3 C and 3 ridge baselines; chronological 60/20/20 purged by label end AND label availability; X/y scaling on fit rows; test never fitted; joint family correction of two MSE comparisons; mandatory shadow allocation",
++        scope="Predictive calibration only. No model or flag in this schema grants order authority, even for declared OBSERVED data.",
++    )
++    result["artifact_hash"] = digest(result)
++    return result
++
++
++def predict_scalar(
++    cal: dict[str, Any], underlying: str, x: list[float], when: str, cfg: Config
++) -> float:
++    if cal.get("artifact_hash") != digest(
++        {k: v for k, v in cal.items() if k != "artifact_hash"}
++    ):
++        raise ValueError("SVR_ARTIFACT_INTEGRITY")
++    if cal.get("research_only") is not True:
++        raise ValueError("SVR_RESEARCH_ONLY_REQUIRED")
++    if (
++        cal.get("schema") != SCHEMA
++        or cal.get("model_kind") != MODEL_KIND
++        or cal.get("target_unit") != "return_fraction"
++        or cal.get("feature_names") != list(FEATURES)
++        or _number(cal.get("horizon_hours"), "HORIZON", True) != cfg.horizon_hours
++        or cal.get("origin") not in ORIGINS
++        or not isinstance(cal.get("models"), dict)
++        or not 1 <= len(cal["models"]) <= MAX_ASSETS
++    ):
++        raise ValueError("SVR_MODEL_SCHEMA_OR_HORIZON")
++    if cal.get("implementation_hash") != implementation_hash():
++        raise ValueError("SVR_IMPLEMENTATION_CHANGED")
++    now, available, last = (
++        timestamp(v) for v in (when, cal["available_at"], cal["last_observation_at"])
++    )
++    if not available < now or now - available > timedelta(days=cfg.max_model_age_days):
++        raise ValueError("SVR_MODEL_AGE_OR_FUTURE")
++    if not last < available or now - last > timedelta(days=cfg.max_model_age_days):
++        raise ValueError("SVR_STALE_OBSERVATIONS")
++    model = cal["models"].get(underlying)
++    if model is None or model.get("accepted") is not True:
++        raise ValueError("NO_CALIBRATED_MODEL:" + underlying)
++    if model.get("model_kind") != MODEL_KIND:
++        raise ValueError("SVR_MODEL_SCHEMA")
++    asset_last = timestamp(model["last_observation_at"])
++    if not asset_last <= last or now - asset_last > timedelta(days=cfg.max_model_age_days):
++        raise ValueError("SVR_STALE_OBSERVATIONS")
++    values = _matrix([{"features": x}])
++    return float(_output(model, values, check_drift=True)[0])
+--- a/quant/harpoon_quant/calibration.py
++++ b/quant/harpoon_quant/calibration.py
+@@ -59,7 +59,15 @@
+     return np.c_[np.ones(len(x)), z] @ np.array(model["beta"])
+ 
+ 
+-def fit(data: dict[str, Any], available_at: str, cfg: Config) -> dict[str, Any]:
++def fit(
++    data: dict[str, Any], available_at: str, cfg: Config, *, estimator: str = "ridge"
++) -> dict[str, Any]:
++    if estimator == "svr":
++        from .scalar_svr import fit_scalar_svr
++
++        return fit_scalar_svr(data, available_at, cfg)
++    if estimator != "ridge":
++        raise ValueError("UNKNOWN_CALIBRATION_ESTIMATOR")
+     origin = data["origin"]
+     when = timestamp(available_at)
+     if origin not in ORIGINS:
+--- a/quant/harpoon_quant/core.py
++++ b/quant/harpoon_quant/core.py
+@@ -437,6 +437,24 @@
+ def predict(
+     cal: dict[str, Any], underlying: str, x: list[float], when: str, cfg: Config
+ ) -> float:
++    kind = cal.get("model_kind")
++    models = cal.get("models", {})
++    if not isinstance(models, dict):
++        raise ValueError("MODEL_SCHEMA")
++    asset_model = models.get(underlying, {})
++    if not isinstance(asset_model, dict):
++        raise ValueError("MODEL_SCHEMA")
++    asset_kind = asset_model.get("model_kind")
++    if (
++        kind == "SVR_RBF"
++        or asset_kind == "SVR_RBF"
++        or cal.get("schema") == "HARPOON_QUANT_CALIBRATION_2"
++    ):
++        from .scalar_svr import predict_scalar
++
++        return predict_scalar(cal, underlying, x, when, cfg)
++    if kind not in (None, "RIDGE") or asset_kind not in (None, "RIDGE"):
++        raise ValueError("UNKNOWN_MODEL_KIND")
+     if (
+         cal.get("feature_names") != list(FEATURES)
+         or float(cal["horizon_hours"]) != cfg.horizon_hours
+@@ -471,6 +489,17 @@
+     when = request["asof"]
+     now = timestamp(when)
+     origin = calibration.get("origin")
++    models = calibration.get("models", {})
++    if not isinstance(models, dict):
++        raise ValueError("MODEL_SCHEMA")
++    scalar_shadow = (
++        calibration.get("schema") == "HARPOON_QUANT_CALIBRATION_2"
++        or calibration.get("model_kind") == "SVR_RBF"
++        or any(
++            isinstance(m, dict) and m.get("model_kind") == "SVR_RBF"
++            for m in models.values()
++        )
++    )
+     receipt: dict[str, Any] = {
+         "engine": "HARPOON_QUANT_1",
+         "asof": when,
+@@ -482,6 +511,13 @@
+         "config_hash": digest(asdict(cfg)),
+         "model_hash": digest(calibration),
+     }
++    if scalar_shadow:
++        receipt.update(
++            forecast_model_kind="SVR_RBF",
++            research_only=True,
++            status="SHADOW_RESEARCH_ONLY",
++            forecasts={},
++        )
+     if origin not in ORIGINS:
+         raise ValueError("EXPLICIT_CALIBRATION_ORIGIN")
+     a = request["account"]
+@@ -538,6 +574,8 @@
+             receipt["rejected"][c["id"]] = str(exc)
+     if not accepted:
+         return {**receipt, "reason": "NO_ADMISSIBLE_CALIBRATED_CANDIDATES"}
++    if scalar_shadow:
++        receipt["forecasts"] = dict(forecasts)
+     base, shock, n_eff = scenarios(calibration, forecasts, cfg)
+     # Repricing needs no future prices. Missing calibration for a held name blocks entry.
+     existing = np.zeros(cfg.scenarios)
+@@ -741,7 +779,7 @@
+         **receipt,
+         "selected": selected,
+         "reason": "CONDITIONAL_MODEL_ALLOCATION",
+-        "execution_allowed": origin == "OBSERVED",
++        "execution_allowed": origin == "OBSERVED" and not scalar_shadow,
+         "expected_net_usd": float(portfolio.mean()),
+         "robust_incremental_usd": robust_value,
+         "cvar_usd": es,
+--- a/quant/harpoon_quant/__main__.py
++++ b/quant/harpoon_quant/__main__.py
+@@ -24,8 +24,14 @@
+     parser.add_argument("--config", type=Path)
+     parser.add_argument("--output", type=Path)
+     parser.add_argument("--available-at")
++    parser.add_argument(
++        "--estimator", choices=["ridge", "svr"],
++        help="Return estimator for fit; the saved artifact controls inference",
++    )
+     args = parser.parse_args()
+     try:
++        if args.estimator is not None and args.action != "fit":
++            raise ValueError("ESTIMATOR_ONLY_FOR_FIT")
+         cfg = Config(**json.loads(args.config.read_text())) if args.config else Config()
+         data = (
+             json.loads(args.input.read_text()) if args.input else json.load(sys.stdin)
+@@ -44,7 +50,7 @@
+         elif args.action == "fit":
+             if not args.available_at:
+                 raise ValueError("AVAILABLE_AT_REQUIRED")
+-            result = fit(data, args.available_at, cfg)
++            result = fit(data, args.available_at, cfg, estimator=args.estimator or "ridge")
+         else:
+             model = args.model or Path("quant_calibration.json")
+             if not model.is_file():
+--- a/quant/harpoon_quant/__init__.py
++++ b/quant/harpoon_quant/__init__.py
+@@ -1,3 +1,3 @@
+ """Harpoon Quant 1.0: conditional forecasts, common scenarios and funded allocation."""
+ 
+-__version__ = "1.3.1"
++__version__ = "1.4.0"
+--- /dev/null
++++ b/quant/tests/test_scalar_svr.py
+@@ -0,0 +1,310 @@
++"""Adversarial software checks; synthetic predictive skill is not trading alpha."""
++
++from __future__ import annotations
++
++import copy
++import importlib.util
++import json
++import os
++import subprocess
++import sys
++import tempfile
++import unittest
++from datetime import timedelta
++from pathlib import Path
++from unittest.mock import patch
++
++import numpy as np
++from sklearn.preprocessing import StandardScaler
++from sklearn.svm import SVR
++
++from harpoon_quant.calibration import fit
++from harpoon_quant.core import FEATURES, Config, allocate, digest, predict, timestamp
++
++ROOT = Path(__file__).resolve().parents[1]
++SPEC = importlib.util.spec_from_file_location("scalar_svr_fixture", ROOT / "examples/svr/make_fixture.py")
++assert SPEC is not None and SPEC.loader is not None
++FIXTURE = importlib.util.module_from_spec(SPEC)
++SPEC.loader.exec_module(FIXTURE)
++
++
++def reseal(model):
++    model["artifact_hash"] = digest({k: v for k, v in model.items() if k != "artifact_hash"})
++    return model
++
++
++def final_rows(data, model):
++    """Reconstruct permitted dates independently from the exported model fields."""
++    validation = timestamp(model["validation_start"] + "T00:00:00+00:00")
++    test = timestamp(model["test_start"] + "T00:00:00+00:00")
++    selected = []
++    for row in data["rows"]:
++        at = timestamp(row["at"])
++        boundary = validation if at < validation else test
++        if at < test and max(timestamp(row["label_end"]), timestamp(row["label_known_at"])) < boundary:
++            selected.append(row)
++    return selected
++
++
++class ScalarSVRTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.fixture = FIXTURE.build_fixture()
++        cls.data = cls.fixture["data"]
++        cls.available = cls.fixture["available_at"]
++        cls.request = cls.fixture["request"]
++        cls.cfg = Config(**cls.fixture["config"])
++        cls.model = fit(cls.data, cls.available, cls.cfg, estimator="svr")
++
++    def score(self, model=None, vector=None, when=None):
++        return predict(
++            model or self.model,
++            "SYNTHSVR",
++            vector if vector is not None else self.request["candidates"][0]["features"],
++            when or self.request["asof"],
++            self.cfg,
++        )
++
++    def test_artifact_has_explicit_scalar_units_and_safe_json(self):
++        model = self.model
++        self.assertEqual(model["schema"], "HARPOON_QUANT_CALIBRATION_2")
++        self.assertEqual(model["target_unit"], "return_fraction")
++        self.assertTrue(model["research_only"])
++        self.assertFalse(model["independent_financial_validation"])
++        self.assertEqual(model["feature_names"], list(FEATURES))
++        restored = json.loads(json.dumps(model, allow_nan=False))
++        self.assertEqual(model, restored)
++        self.assertEqual(self.score(model), self.score(restored))
++
++    def test_json_prediction_matches_independent_sklearn_fit(self):
++        selected = final_rows(self.data, self.model)
++        x = np.array([row["features"] for row in selected])
++        y = np.array([row["target_return"] for row in selected])
++        xm = StandardScaler().fit(x)
++        ym = StandardScaler().fit(y[:, None])
++        deployed = self.model["models"]["SYNTHSVR"]
++        independent = SVR(**deployed["parameters"])
++        independent.fit(xm.transform(x), ym.transform(y[:, None]).ravel())
++        probes = np.array([FIXTURE.vector(0.9, 0.7), FIXTURE.vector(0, -0.5), FIXTURE.vector(-0.5, 0.2)])
++        expected = ym.inverse_transform(independent.predict(xm.transform(probes))[:, None]).ravel()
++        actual = [self.score(vector=probe.tolist()) for probe in probes]
++        np.testing.assert_allclose(actual, expected, rtol=1e-9, atol=1e-11)
++        np.testing.assert_allclose(deployed["mean"], xm.mean_, atol=1e-12)
++        np.testing.assert_allclose(deployed["scale"], xm.scale_, atol=1e-12)
++        self.assertAlmostEqual(deployed["target_mean"], float(ym.mean_[0]))
++        self.assertAlmostEqual(deployed["target_scale"], float(ym.scale_[0]))
++
++    def test_small_return_scale_and_negative_forecasts_are_preserved(self):
++        model = self.model["models"]["SYNTHSVR"]
++        self.assertLess(model["target_scale"], 0.05)
++        self.assertEqual(model["parameters"]["epsilon"], 0.1)
++        self.assertGreater(self.score(vector=FIXTURE.vector(0.9, 0.7)), 0)
++        self.assertLess(self.score(vector=FIXTURE.vector(0, -0.5)), 0)
++        self.assertLess(abs(self.score()), 0.10)
++
++    def test_fixed_nonlinear_fixture_beats_both_predictive_controls(self):
++        model = self.model["models"]["SYNTHSVR"]
++        self.assertTrue(model["accepted"], model)
++        self.assertEqual(len(model["trials"]), 6)
++        self.assertLess(model["oos_mse"], model["historical_mean_mse"])
++        self.assertLess(model["oos_mse"], model["ridge_baseline_mse"])
++
++    def test_holdout_changes_cannot_retrain_or_select_parameters(self):
++        changed = copy.deepcopy(self.data)
++        cutoff = self.model["test_start"]
++        for row in changed["rows"]:
++            if row["session"] >= cutoff:
++                row["target_return"] = -0.8 + 0.001 * len(row["session"])
++                row["features"] = [value * 1.1 for value in row["features"]]
++        actual = fit(changed, self.available, self.cfg, estimator="svr")
++        old, new = self.model["models"]["SYNTHSVR"], actual["models"]["SYNTHSVR"]
++        for key in ["mean", "scale", "target_mean", "target_scale", "parameters", "svr", "trials"]:
++            self.assertEqual(old[key], new[key], key)
++
++    def test_late_published_label_is_purged_even_if_horizon_ended(self):
++        changed = copy.deepcopy(self.data)
++        changed["rows"][10]["label_known_at"] = self.model["test_start"] + "T16:00:00+00:00"
++        changed["rows"][10]["target_return"] = 0.5
++        model = fit(changed, self.available, self.cfg, estimator="svr")
++        selected = final_rows(changed, model)
++        self.assertNotIn(changed["rows"][10], selected)
++        deployed = model["models"]["SYNTHSVR"]
++        self.assertAlmostEqual(deployed["target_mean"], float(np.mean([row["target_return"] for row in selected])))
++        self.assertLess(timestamp(deployed["train_max_label_known_at"]), timestamp(deployed["first_test_at"]))
++
++    def test_training_rejects_future_or_unzoned_timestamps(self):
++        for key, value in [
++            ("features_known_at", self.available),
++            ("label_known_at", self.available),
++            ("at", self.data["rows"][0]["at"].replace("+00:00", "")),
++        ]:
++            with self.subTest(key=key):
++                bad = copy.deepcopy(self.data)
++                bad["rows"][0][key] = value
++                with self.assertRaises(ValueError):
++                    fit(bad, self.available, self.cfg, estimator="svr")
++
++    def test_training_rejects_wrong_dimensions_nonfinite_and_invalid_return(self):
++        for kind in ["shape", "nan_feature", "infinite_target", "below_minus_one", "boolean_feature"]:
++            with self.subTest(kind=kind):
++                bad = copy.deepcopy(self.data)
++                if kind == "shape":
++                    bad["rows"][0]["features"].pop()
++                elif kind == "nan_feature":
++                    bad["rows"][0]["features"][0] = float("nan")
++                elif kind == "infinite_target":
++                    bad["rows"][0]["target_return"] = float("inf")
++                elif kind == "below_minus_one":
++                    bad["rows"][0]["target_return"] = -1.01
++                else:
++                    bad["rows"][0]["features"][0] = True
++                with self.assertRaises(ValueError):
++                    fit(bad, self.available, self.cfg, estimator="svr")
++
++    def test_training_rejects_duplicate_rows_wrong_horizon_and_compute_overflow(self):
++        duplicate = copy.deepcopy(self.data)
++        duplicate["rows"].append(copy.deepcopy(duplicate["rows"][0]))
++        too_many = copy.deepcopy(self.data)
++        too_many["rows"] = [too_many["rows"][0]] * 5001
++        for bad, config in [(duplicate, self.cfg), (self.data, Config(horizon_hours=48)), (too_many, self.cfg)]:
++            with self.subTest(rows=len(bad["rows"]), horizon=config.horizon_hours), self.assertRaises(ValueError):
++                fit(bad, self.available, config, estimator="svr")
++
++    def test_nonconvergence_is_rejected(self):
++        original_fit = SVR.fit
++
++        def fail_fit(estimator, *args, **kwargs):
++            result = original_fit(estimator, *args, **kwargs)
++            estimator.fit_status_ = 1
++            return result
++
++        with patch.object(SVR, "fit", fail_fit), self.assertRaises(ValueError):
++            fit(self.data, self.available, self.cfg, estimator="svr")
++
++    def test_no_relation_fixture_can_be_rejected(self):
++        data = copy.deepcopy(self.data)
++        noise = np.random.default_rng(404).normal(0, 0.01, len(data["rows"]))
++        for row, target in zip(data["rows"], noise, strict=True):
++            row["target_return"] = float(target)
++        rejected = fit(data, self.available, self.cfg, estimator="svr")
++        self.assertFalse(rejected["models"]["SYNTHSVR"]["accepted"])
++
++    def test_unaccepted_model_cannot_predict(self):
++        model = copy.deepcopy(self.model)
++        model["models"]["SYNTHSVR"]["accepted"] = False
++        with self.assertRaises(ValueError):
++            self.score(reseal(model))
++
++    def test_hash_and_unknown_model_kind_fail_closed(self):
++        changed = copy.deepcopy(self.model)
++        changed["models"]["SYNTHSVR"]["svr"]["intercept"] += 0.01
++        with self.assertRaises(ValueError):
++            self.score(changed)
++        changed = copy.deepcopy(self.model)
++        changed["models"]["SYNTHSVR"]["model_kind"] = "UNRECOGNIZED_MODEL"
++        with self.assertRaises(ValueError):
++            self.score(reseal(changed))
++
++    def test_malformed_export_is_rejected_after_resealing(self):
++        for kind in ["zero_scale", "zero_target_scale", "zero_gamma", "dimension", "coefficient_count"]:
++            with self.subTest(kind=kind):
++                model = copy.deepcopy(self.model)
++                inner = model["models"]["SYNTHSVR"]
++                if kind == "zero_scale":
++                    inner["scale"][0] = 0
++                elif kind == "zero_target_scale":
++                    inner["target_scale"] = 0
++                elif kind == "zero_gamma":
++                    inner["svr"]["gamma"] = 0
++                elif kind == "dimension":
++                    inner["svr"]["support_vectors"][0].pop()
++                else:
++                    inner["svr"]["dual_coef"].pop()
++                with self.assertRaises(ValueError):
++                    self.score(reseal(model))
++
++    def test_inference_rejects_input_shape_nonfinite_order_and_drift(self):
++        for x in [[0.0] * 7, [float("nan")] * 8, [1e9] * 8]:
++            with self.subTest(features=x), self.assertRaises(ValueError):
++                self.score(vector=x)
++        model = copy.deepcopy(self.model)
++        model["feature_names"] = list(reversed(model["feature_names"]))
++        with self.assertRaises(ValueError):
++            self.score(reseal(model))
++
++    def test_expired_model_and_stale_observations_are_rejected(self):
++        for when in [self.available, (timestamp(self.available) + timedelta(days=31)).isoformat()]:
++            with self.subTest(when=when), self.assertRaises(ValueError):
++                self.score(when=when)
++        model = copy.deepcopy(self.model)
++        model["last_observation_at"] = (timestamp(self.available) - timedelta(days=31)).isoformat()
++        with self.assertRaises(ValueError):
++            self.score(reseal(model))
++
++    def test_scalar_return_below_minus_one_is_rejected_not_clipped(self):
++        model = copy.deepcopy(self.model)
++        model["models"]["SYNTHSVR"]["svr"]["intercept"] = -1e6
++        with self.assertRaises(ValueError):
++            self.score(reseal(model))
++
++    def test_allocator_uses_svr_and_keeps_cash_quantity_and_risk_bounds(self):
++        result = allocate(self.request, self.model, self.cfg)
++        self.assertTrue(result["selected"], result)
++        self.assertFalse(result["execution_allowed"])
++        self.assertFalse(result["liveApproved"])
++        self.assertLessEqual(result["cash_committed_usd"], 20000)
++        self.assertLessEqual(result["cvar_usd"], 20000 * self.cfg.cvar_fraction + 1e-6)
++        self.assertLessEqual(result["stress_worst_loss_usd"], 20000 * self.cfg.stress_fraction + 1e-6)
++        self.assertLessEqual(result["selected"][0]["quantity"], 5)
++
++    def test_observed_or_financial_flags_cannot_authorize_svr_orders(self):
++        model = copy.deepcopy(self.model)
++        model.update(origin="OBSERVED", independent_financial_validation=True, liveApproved=True, trade_authorization=True)
++        result = allocate(self.request, reseal(model), self.cfg)
++        self.assertFalse(result["execution_allowed"])
++        self.assertFalse(result["liveApproved"])
++        model["research_only"] = False
++        try:
++            result = allocate(self.request, reseal(model), self.cfg)
++        except ValueError:
++            return
++        self.assertFalse(result["execution_allowed"])
++        self.assertEqual(result["selected"], [])
++
++    def test_legacy_ridge_default_and_artefact_remain_compatible(self):
++        automatic = fit(self.data, self.available, self.cfg)
++        explicit = fit(self.data, self.available, self.cfg, estimator="ridge")
++        self.assertEqual(automatic, explicit)
++        legacy = {
++            "origin": "SYNTHETIC_ENGINEERING_ONLY",
++            "available_at": self.available,
++            "horizon_hours": 24,
++            "feature_names": list(FEATURES),
++            "models": {"SYNTHSVR": {"accepted": True, "mean": [0] * 8, "scale": [1] * 8, "beta": [0.02] + [0] * 8}},
++        }
++        self.assertEqual(self.score(legacy), 0.02)
++
++    def test_cli_fit_and_allocate_use_real_python_paths(self):
++        with tempfile.TemporaryDirectory() as td:
++            tmp = Path(td)
++            for name, value in [("panel.json", self.data), ("request.json", self.request), ("config.json", self.fixture["config"])]:
++                (tmp / name).write_text(json.dumps(value, allow_nan=False))
++            env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", OPENBLAS_NUM_THREADS="1", OMP_NUM_THREADS="1")
++            training = subprocess.run(
++                [sys.executable, "-m", "harpoon_quant", "fit", "--input", str(tmp / "panel.json"), "--config", str(tmp / "config.json"), "--output", str(tmp / "model.json"), "--available-at", self.available, "--estimator", "svr"],
++                cwd=ROOT, env=env, capture_output=True, text=True, timeout=30,
++            )
++            self.assertEqual(training.returncode, 0, training.stdout + training.stderr)
++            scored = subprocess.run(
++                [sys.executable, "-m", "harpoon_quant", "allocate", "--input", str(tmp / "request.json"), "--config", str(tmp / "config.json"), "--model", str(tmp / "model.json")],
++                cwd=ROOT, env=env, capture_output=True, text=True, timeout=30,
++            )
++            self.assertEqual(scored.returncode, 0, scored.stdout + scored.stderr)
++            result = json.loads(scored.stdout)
++            self.assertTrue(result["selected"], result)
++            self.assertFalse(result["execution_allowed"])
++            self.assertEqual(result["model_hash"], digest(json.loads((tmp / "model.json").read_text())))
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ b/quant/examples/svr/make_fixture.py
+@@ -0,0 +1,145 @@
++"""Generate a deterministic scalar-regression software fixture, never market data.
++
++The nonlinear teacher and daily observations are artificial. The fixture is
++independent of every preserved HarpoonX financial study and cannot validate
++trading profitability, fill realism or activation of a broker account.
++"""
++
++from __future__ import annotations
++
++import argparse
++import json
++import math
++from datetime import UTC, datetime, timedelta
++from pathlib import Path
++from typing import Any
++
++import numpy as np
++
++
++def vector(u: float, v: float) -> list[float]:
++    """Eight synthetic feature coordinates in the canonical engine order."""
++    return [
++        0.03 * u,
++        0.05 * v,
++        0.10 * (0.7 * u + 0.3 * v),
++        0.02 + 0.005 * u,
++        0.8 * v,
++        1.2 * u,
++        0.025 * (u - v),
++        0.001 + 0.0002 * v,
++    ]
++
++
++def build_fixture() -> dict[str, Any]:
++    rng = np.random.default_rng(731104)
++    available = datetime(2026, 10, 14, 15, tzinfo=UTC)
++    beginning = available - timedelta(days=302)
++    rows = []
++    for day in range(300):
++        at = beginning + timedelta(days=day)
++        end = at + timedelta(hours=24)
++        u, v = rng.uniform(-1, 1, 2)
++        target = (
++            0.020 * (u * u - 0.35)
++            + 0.012 * math.sin(math.pi * v)
++            + 0.004 * u * v
++            + rng.normal(0, 0.0002)
++        )
++        rows.append(
++            {
++                "underlying": "SYNTHSVR",
++                "session": at.date().isoformat(),
++                "at": at.isoformat(),
++                "features_known_at": (at - timedelta(seconds=1)).isoformat(),
++                "label_end": end.isoformat(),
++                "label_known_at": (end + timedelta(minutes=5)).isoformat(),
++                "features": vector(float(u), float(v)),
++                "target_return": float(target),
++                "iv_change": float(0.001 * u),
++            }
++        )
++    asof = (available + timedelta(days=1)).isoformat()
++    data = {
++        "origin": "SYNTHETIC_ENGINEERING_ONLY",
++        "target_unit": "return_fraction",
++        "rows": rows,
++        "asset_metadata": {
++            "SYNTHSVR": {
++                "book": "equity",
++                "factor": "SYNTHETIC_FACTOR",
++                "reference": "SOFTWARE_FIXTURE_NOT_A_MARKET_ASSET",
++            }
++        },
++        "provenance": {
++            "generator": "examples/svr/make_fixture.py",
++            "seed": 731104,
++            "purpose": "Verify nonlinear scalar regression and engine contracts",
++            "market_observations": False,
++            "financial_holdouts_reused": False,
++        },
++    }
++    request = {
++        "asof": asof,
++        "account": {
++            "equity": 20000,
++            "cash": 20000,
++            "buying_power": 20000,
++            "pending_cash": 0,
++            "daily_pnl": 0,
++            "drawdown_fraction": 0,
++        },
++        "candidates": [
++            {
++                "id": "SYNTHSVR-equity",
++                "symbol": "SYNTHSVR",
++                "underlying": "SYNTHSVR",
++                "book": "equity",
++                "factor": "SYNTHETIC_FACTOR",
++                "currency": "USD",
++                "spot": 100,
++                "bid": 99.95,
++                "ask": 100.05,
++                "lot_qty": 1,
++                "multiplier": 1,
++                "step": 1,
++                "quote_at": asof,
++                "known_at": asof,
++                "asof": asof,
++                "features": vector(0.9, 0.7),
++                "max_qty": 5,
++            }
++        ],
++        "holdings": [],
++        "fixture_origin": "SYNTHETIC_ENGINEERING_ONLY",
++    }
++    config = {
++        "horizon_hours": 24,
++        "max_positions": 8,
++        "gross_fraction": 0.5,
++        "asset_fraction": 0.12,
++        "factor_fraction": 0.5,
++        "daily_loss_fraction": 0.02,
++        "drawdown_fraction": 0.08,
++    }
++    return {"data": data, "available_at": available.isoformat(), "request": request, "config": config}
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--directory", type=Path, default=Path(__file__).resolve().parent)
++    args = parser.parse_args()
++    args.directory.mkdir(parents=True, exist_ok=True)
++    fixture = build_fixture()
++    for name, value in [
++        ("panel.synthetic.json", fixture["data"]),
++        ("request.synthetic.json", fixture["request"]),
++        ("config.synthetic.json", fixture["config"]),
++        ("fixture_manifest.json", {k: v for k, v in fixture.items() if k not in {"data", "request", "config"}}),
++    ]:
++        (args.directory / name).write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
++    print(json.dumps({"origin": "SYNTHETIC_ENGINEERING_ONLY", "rows": len(fixture["data"]["rows"]), "available_at": fixture["available_at"], "directory": str(args.directory)}))
++
++
++if __name__ == "__main__":
++    main()
+--- /dev/null
++++ b/quant/benchmark_scalar_svr.py
+@@ -0,0 +1,96 @@
++"""Reproduce bounded local SVR timing on an explicit synthetic software fixture."""
++
++from __future__ import annotations
++
++import importlib.util
++import json
++import platform
++import resource
++import sys
++from datetime import UTC, datetime
++from pathlib import Path
++from time import perf_counter
++
++import numpy as np
++import scipy
++import sklearn
++
++from harpoon_quant.calibration import fit
++from harpoon_quant.core import Config, allocate, digest, predict
++
++ROOT = Path(__file__).resolve().parent
++
++
++def main() -> None:
++    spec = importlib.util.spec_from_file_location("svr_fixture", ROOT / "examples/svr/make_fixture.py")
++    if spec is None or spec.loader is None:
++        raise ValueError("FIXTURE_MODULE_UNAVAILABLE")
++    fixture_module = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(fixture_module)
++    fixture = fixture_module.build_fixture()
++    cfg = Config(**fixture["config"])
++    out = ROOT / "evidence/svr"
++    out.mkdir(parents=True, exist_ok=True)
++
++    fit_seconds = []
++    models = []
++    for _ in range(3):
++        start = perf_counter()
++        models.append(fit(fixture["data"], fixture["available_at"], cfg, estimator="svr"))
++        fit_seconds.append(perf_counter() - start)
++    model = models[-1]
++    if len({m["artifact_hash"] for m in models}) != 1:
++        raise ValueError("NONDETERMINISTIC_ARTIFACT")
++    symbol = "SYNTHSVR"
++    x = fixture["request"]["candidates"][0]["features"]
++    asof = fixture["request"]["asof"]
++    for _ in range(10):
++        predict(model, symbol, x, asof, cfg)
++    prediction_ms = []
++    for _ in range(500):
++        start = perf_counter()
++        prediction = predict(model, symbol, x, asof, cfg)
++        prediction_ms.append((perf_counter() - start) * 1000)
++
++    allocation_ms = []
++    receipts = []
++    for _ in range(10):
++        start = perf_counter()
++        receipts.append(allocate(fixture["request"], model, cfg))
++        allocation_ms.append((perf_counter() - start) * 1000)
++    if any(r["execution_allowed"] for r in receipts):
++        raise ValueError("SYNTHETIC_MODEL_AUTHORIZED_EXECUTION")
++    receipt = receipts[-1]
++    (ROOT / "examples/svr/model.synthetic.json").write_text(json.dumps(model, indent=2, allow_nan=False) + "\n")
++    (ROOT / "examples/svr/receipt.synthetic.json").write_text(json.dumps(receipt, indent=2, allow_nan=False) + "\n")
++    result = {
++        "origin": "SYNTHETIC_ENGINEERING_ONLY",
++        "generated_at_utc": datetime.now(UTC).isoformat(),
++        "environment": {"python": sys.version, "platform": platform.platform(),
++                        "numpy": np.__version__, "scipy": scipy.__version__, "sklearn": sklearn.__version__,
++                        "processor": platform.processor()},
++        "shape": {"rows": len(fixture["data"]["rows"]), "features": len(x), "assets": 1},
++        "fit_seconds": fit_seconds,
++        "fit_repetitions": 3,
++        "model_hash_identical_across_fits": True,
++        "prediction_repetitions": len(prediction_ms),
++        "prediction_ms": dict(zip(["p50", "p95", "p99"], np.quantile(prediction_ms, [.5, .95, .99]).tolist(), strict=True)),
++        "allocation_repetitions": len(allocation_ms),
++        "allocation_ms": {"min": min(allocation_ms), "median": float(np.median(allocation_ms)), "max": max(allocation_ms)},
++        "process_peak_rss_bytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024,
++        "memory_scope": "Linux process high-water RSS, including interpreter, libraries, training and benchmark",
++        "prediction_scope": "Warm in-process single prediction with artifact/implementation checks; excludes worker startup, initial JSON input/model loading and network; includes reading the four bound source files for implementation integrity",
++        "allocation_scope": "Local model plus scenario generation and constrained allocator, single synthetic candidate; not order latency",
++        "probe_prediction_return_fraction": prediction,
++        "model_artifact_hash": model["artifact_hash"],
++        "input_hash": digest(fixture["data"]),
++        "execution_allowed": receipt["execution_allowed"],
++        "financial_profit_measured": False,
++        "limitations": "Artificial nonlinear target; does not establish empirical predictability or profitability. No broker requests or orders.",
++    }
++    (out / "benchmark.synthetic.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
++    print(json.dumps(result, indent=2, allow_nan=False))
++
++
++if __name__ == "__main__":
++    main()
+--- a/quant/pyproject.toml
++++ b/quant/pyproject.toml
+@@ -4,7 +4,7 @@
+ 
+ [project]
+ name = "harpoon-quant"
+-version = "1.3.1"
++version = "1.4.0"
+ description = "Scenario-based multiasset research and allocation engine for HarpoonX"
+ requires-python = ">=3.11"
+ dependencies = ["numpy>=2.0,<3", "scipy>=1.14,<2", "scikit-learn>=1.8,<2"]
+--- a/quant/README_ES.md
++++ b/quant/README_ES.md
+@@ -1,6 +1,29 @@
+-# HarpoonX · motor cuantitativo multi activo 1.3.1
++# HarpoonX · motor cuantitativo multi activo 1.4.0
+ 
+-Implementación de investigación y asignación, integrada en el coordinador XXXUltimate 30.7.1. La entrega añade una decisión económica común para acciones, ETF, cripto y opciones; el núcleo también valora futuros mediante entradas normalizadas. No acredita rentabilidad observada, participación en un campeonato ni una tecnología propietaria de Citadel o Jane Street.
++Implementación de investigación y asignación, integrada en el coordinador XXXUltimate 30.8.0. La entrega añade una decisión económica común para acciones, ETF, cripto y opciones; el núcleo también valora futuros mediante entradas normalizadas. No acredita rentabilidad observada, participación en un campeonato ni una tecnología propietaria de Citadel o Jane Street.
++
++## Regresión de salida escalar mediante SVR · 1.4.0
++
++El estimador opcional `svr` aprende el retorno simple del subyacente para el horizonte configurado. Recibe las ocho variables existentes del motor y devuelve un escalar en fracción: `0.01` significa 1 %. El kernel RBF permite relaciones no lineales. El escalado de variables y del objetivo se ajusta sólo con las observaciones de entrenamiento, y la salida se devuelve a sus unidades originales. Las predicciones negativas se conservan.
++
++La calibración compara tres valores de C con la media pasada y con tres configuraciones del modelo ridge. Usa separación temporal y purga por fin de etiqueta y por fecha de disponibilidad. Un menor error predictivo no acredita rentabilidad. El artefacto SVR está sellado como investigación: el asignador calcula escenarios y cantidades en sombra, pero `execution_allowed` permanece falso incluso si el origen declarado es observado. No se incluye un mecanismo de activación financiera de SVR en esta entrega. Los modelos ridge anteriores conservan su ruta; sin `--estimator`, `fit` sigue usando ridge.
++
++Esta SVR de retornos es distinta de `support.py`, que ya estima costes adicionales, y de la máquina de una clase usada para detectar novedad. Se mantiene un único worker Python. No se añaden servicios ni llamadas a modelos de lenguaje.
++
++### Ejemplo reproducible de software
++
++El panel de `examples/svr` es artificial y se generó para comprobar regresión no lineal, unidades y contratos; no contiene observaciones de mercado. Desde esta carpeta, tras instalar `requirements-tested.txt`:
++
++```bash
++python examples/svr/make_fixture.py
++python -m harpoon_quant fit --estimator svr --input examples/svr/panel.synthetic.json --config examples/svr/config.synthetic.json --available-at 2026-10-14T15:00:00+00:00 --output examples/svr/model.synthetic.json
++python -m harpoon_quant allocate --input examples/svr/request.synthetic.json --config examples/svr/config.synthetic.json --model examples/svr/model.synthetic.json --output examples/svr/receipt.synthetic.json
++python -m unittest discover -s tests -p test_scalar_svr.py -v
++```
++
++`--estimator` se admite únicamente en `fit`; al inferir se utiliza el tipo sellado del artefacto. Los modelos SVR se vinculan al código del predictor: cambiarlo exige regenerar y revisar la calibración. Los hashes verifican consistencia local; no certifican autenticidad de las observaciones. Un modelo caducado, alterado, fuera de dominio o con habilidad predictiva insuficiente bloquea su uso para nuevas propuestas.
++
++Los detalles ejecutados y sus limitaciones se conservan en `SVR_VALIDACION_1_4_0.yaml` y `evidence/svr/`. El estudio económico histórico y su journal se mantienen congelados.
+ 
+ ## Auditoría adversarial 1.3.1
+ 
+@@ -37,7 +60,7 @@
+ ## Qué decide
+ 
+ 1. Construye ocho variables reproducibles con barras cerradas y conocidas: momentum de 1, 3 y 12 barras, volatilidad de 12 intervalos contiguos de una sesión, RVOL, desviación de VWAP, fuerza relativa de 3 barras y spread relativo. RVOL compara el volumen acumulado al mismo horario con al menos 10 sesiones anteriores, hasta 20. El adaptador exige calendario real para acciones y SPY alineado como benchmark. Las barras cripto son de 15 minutos; las de acciones, de 5. Los coeficientes se calibran por subyacente.
+-2. Ajusta Ridge mediante partición cronológica 60/20/20 y purga etiquetas que cruzan fronteras. Elige entre tres penalizaciones con validación. El test compara MSE frente a la media histórica del tramo anterior con bootstrap de bloques de cinco sesiones y ajuste por familia. Superar esta prueba significa habilidad predictiva modelada; no significa beneficio económico.
++2. Ajusta Ridge por defecto, o SVR al seleccionar `--estimator svr`. La variante SVR se describe arriba y permanece en sombra. La ruta Ridge usa partición cronológica 60/20/20 y purga etiquetas que cruzan fronteras. Elige entre tres penalizaciones con validación. El test compara MSE frente a la media histórica del tramo anterior con bootstrap de bloques de cinco sesiones y ajuste por familia. Superar esta prueba significa habilidad predictiva modelada; no significa beneficio económico.
+ 3. Usa fechas comunes de residuos fuera de muestra para generar escenarios conjuntos. Los mismos índices conservan dependencia transversal. La covarianza con contracción diagonal y corrección PSD escala los escenarios extremos. Los extremos no reciben probabilidades inventadas dentro de la esperanza.
+ 4. Revalora cada lote en USD al horizonte de 1–72 horas, por defecto 24. Incluye BBO, deslizamiento y comisiones declaradas de entrada y salida. Las opciones usan árbol americano de 128 pasos o Black–Scholes europeo y variaciones conjuntas de IV; el modelo se ancla al midpoint observado para no convertir una diferencia de precio teórico en alfa.
+ 5. Resuelve una asignación entera con SciPy/HiGHS: efectivo, buying power, inventario, reservas pendientes, exposición bruta, factores, máximo de campañas, CVaR y pérdidas de estrés. Resta una penalización heurística de incertidumbre al beneficio medio; no es un intervalo de confianza formal. Puede elegir cero operaciones.
+@@ -80,7 +103,7 @@
+ python -m unittest discover -s tests -v
+ ```
+ 
+-`evidence/validation.json` contiene el resultado final, alcance y exclusiones. `evidence/benchmark.json` mide únicamente valoración CPU y MILP con 48 candidatos y 256 escenarios fabricados, tres repeticiones. No mide red, arranque del worker, liquidez ni latencia de fills. Los logs `diagnostics_initial/` conservan intentos fallidos de diagnóstico y no se suman a los resultados finales. El paquete completo contiene las pruebas del coordinador y del puente; este núcleo funciona de forma independiente.
++`SVR_VALIDACION_1_4_0.yaml` y `evidence/svr/release_validation.json` contienen la verificación de esta entrega. `evidence/validation.json` conserva la validación histórica del motor anterior. `evidence/benchmark.json` mide únicamente valoración CPU y MILP con 48 candidatos y 256 escenarios fabricados, tres repeticiones. No mide red, arranque del worker, liquidez ni latencia de fills. Los logs `diagnostics_initial/` conservan intentos fallidos de diagnóstico y no se suman a los resultados finales. El paquete completo contiene las pruebas del coordinador y del puente; este núcleo funciona de forma independiente.
+ 
+ ## Qué falta para atribuir ventaja económica
+ 
+@@ -88,6 +111,8 @@
+ 
+ ## Fuentes primarias de diseño
+ 
++- scikit-learn 1.8, SVR: https://scikit-learn.org/1.8/modules/generated/sklearn.svm.SVR.html
++- scikit-learn 1.8, prevención de fugas de información: https://scikit-learn.org/1.8/common_pitfalls.html
+ - SciPy `milp`: https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html
+ - Lobo, Fazel y Boyd, optimización de cartera con costes: https://stanford.edu/~boyd/papers/portfolio.html
+ - Alpaca clases de activos: https://docs.alpaca.markets/us/docs/about-alpaca
+--- a/runtime/quant_bridge.cjs
++++ b/runtime/quant_bridge.cjs
+@@ -33,6 +33,10 @@
+  const model=process.env.HARPOON_QUANT_MODEL||cfg.calibrationFile||path.join(process.env.HARPOON_DATA||'/var/data','quant_calibration.json');
+  if(!fs.existsSync(model))return {status:'BLOCKED',reason:'CALIBRATION_FILE_REQUIRED',added:[]};
+  const cal=JSON.parse(fs.readFileSync(model,'utf8')),now=Date.now();
++ // Scalar-return SVR artifacts are research/shadow only. Discovery must not
++ // mutate the trading universe or spend screener requests using such a model.
++ if(cal.schema==='HARPOON_QUANT_CALIBRATION_2'||cal.model_kind==='SVR_RBF'||cal.estimator==='svr'||Object.values(cal.models||{}).some(m=>m?.model_kind==='SVR_RBF'||m?.kind==='SVR_RBF'))
++  return {status:'BLOCKED',reason:'SVR_RESEARCH_ONLY',added:[]};
+  if(cal.origin!=='OBSERVED'||!Number.isFinite(Date.parse(cal.available_at))||Date.parse(cal.available_at)>=now||now-Date.parse(cal.available_at)>30*86400000)
+   return {status:'BLOCKED',reason:'OBSERVED_CURRENT_CALIBRATION_REQUIRED',added:[]};
+  const movers=await engine.api.request('/v1beta1/screener/stocks/movers?top=50','GET',undefined,true);
+@@ -66,7 +70,7 @@
+ function binding(engine){
+  const fs=require('node:fs'),crypto=require('node:crypto'),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
+  const cfg=engine.cfg,model=process.env.HARPOON_QUANT_MODEL||cfg.quant?.calibrationFile||'/var/data/quant_calibration.json';
+- const sources=['../runtime30/policy.js','../runtime30/exits.js','../runtime30/plugins.js','../quant/harpoon_quant/core.py','../quant/harpoon_quant/optimization.py','../quant/harpoon_quant/recursive.py'];
++ const sources=['../runtime30/policy.js','../runtime30/exits.js','../runtime30/plugins.js','../quant/harpoon_quant/core.py','../quant/harpoon_quant/optimization.py','../quant/harpoon_quant/recursive.py','../quant/harpoon_quant/calibration.py','../quant/harpoon_quant/scalar_svr.py','../quant/harpoon_quant/support.py'];
+  return {account_id:cfg.expected_account_id,legacy_research_head:engine.ultimateLab?.state.chain.at(-1)?.hash||'GENESIS',execution_hash:hash(sources.map(p=>fs.readFileSync(path.join(__dirname,p),'utf8')).join('\n')),forecast_hash:fs.existsSync(model)?hash(fs.readFileSync(model)):'MISSING',configuration_hash:hash(JSON.stringify({quant:cfg.quant?.config||{},exit:cfg.exit,profile:engine.state.exitProfile,fees:[cfg.slippageBps,cfg.cryptoFeeBps,cfg.optionsFeePerContract],stockFeed:cfg.stockFeed,optionFeed:cfg.optionFeed,quoteAgeMs:cfg.quoteAgeMs})),
+   universe_hash:hash(JSON.stringify([cfg.universe,cfg.optionUnderlyings,cfg.enabledPlugins,engine.state.plugins])),
+   risk_limits:{initial_equity:cfg.capitalLimit,base_quality_bps:cfg.quant?.config?.min_robust_return_bps||0,risk_fraction:cfg.riskFraction,open_risk_fraction:cfg.openRiskFraction,gross_fraction:cfg.totalExposure,asset_fraction:cfg.assetExposure,factor_fraction:cfg.factorExposure,max_positions:cfg.maxPositions,max_drawdown:cfg.maxDrawdown}};
+--- /dev/null
++++ b/tools/quant_svr_integration_test.cjs
+@@ -0,0 +1,170 @@
++'use strict';
++
++// End-to-end numerical integration only. Fixtures are generated locally;
++// an OBSERVED label is deliberately forged in one guard test, not market data.
++const test = require('node:test');
++const assert = require('node:assert/strict');
++const fs = require('node:fs');
++const os = require('node:os');
++const path = require('node:path');
++const {execFile} = require('node:child_process');
++const {promisify} = require('node:util');
++const execute = promisify(execFile);
++const bridge = require('../runtime/quant_bridge.cjs');
++
++const app = path.resolve(__dirname, '..');
++const python = process.env.HARPOON_QUANT_PYTHON || 'python3';
++let directory, fixture, originalModelEnvironment;
++
++test.before(async () => {
++  directory = fs.mkdtempSync(path.join(os.tmpdir(), 'harpoon-svr-integration-'));
++  originalModelEnvironment = process.env.HARPOON_QUANT_MODEL;
++  delete process.env.HARPOON_QUANT_MODEL;
++  const program = String.raw`
++import copy, json, sys
++from pathlib import Path
++sys.path.insert(0, 'examples/svr')
++from make_fixture import build_fixture
++from harpoon_quant.calibration import fit
++from harpoon_quant.core import Config, digest, predict
++
++destination = Path(sys.argv[1])
++fixture = build_fixture()
++cfg = Config(**fixture['config'])
++model = fit(fixture['data'], fixture['available_at'], cfg, estimator='svr')
++if not model['models']['SYNTHSVR']['accepted']:
++    raise AssertionError('Deterministic nonlinear software fixture was not accepted')
++candidate = fixture['request']['candidates'][0]
++prediction = predict(model, 'SYNTHSVR', candidate['features'], fixture['request']['asof'], cfg)
++
++def seal(value):
++    value['artifact_hash'] = digest({k: v for k, v in value.items() if k != 'artifact_hash'})
++    return value
++
++observed_label = copy.deepcopy(model)
++observed_label['origin'] = 'OBSERVED'  # Deliberate provenance forgery in a guard test.
++seal(observed_label)
++forged_permission = copy.deepcopy(observed_label)
++forged_permission['research_only'] = False
++forged_permission['independent_financial_validation'] = True
++seal(forged_permission)
++corrupted = copy.deepcopy(model)
++corrupted['models']['SYNTHSVR']['svr']['intercept'] += 0.1
++wrong_horizon = copy.deepcopy(model)
++wrong_horizon['horizon_hours'] = 12
++seal(wrong_horizon)
++for name, value in [
++    ('model.synthetic.json', model),
++    ('observed_label_guard.json', observed_label),
++    ('forged_permission_guard.json', forged_permission),
++    ('corrupted_guard.json', corrupted),
++    ('wrong_horizon_guard.json', wrong_horizon),
++]:
++    (destination / name).write_text(json.dumps(value, allow_nan=False))
++print(json.dumps({'request': fixture['request'], 'prediction': prediction,
++                  'origin': 'SYNTHETIC_ENGINEERING_ONLY'}))
++`;
++  const {stdout} = await execute(python, ['-c', program, directory], {
++    cwd: path.join(app, 'quant'), encoding: 'utf8', timeout: 30000,
++    env: {...process.env, OPENBLAS_NUM_THREADS: '1', OMP_NUM_THREADS: '1', PYTHONDONTWRITEBYTECODE: '1'},
++  });
++  fixture = JSON.parse(stdout);
++});
++
++test.after(() => {
++  if (directory) fs.rmSync(directory, {recursive: true, force: true});
++  if (originalModelEnvironment === undefined) delete process.env.HARPOON_QUANT_MODEL;
++  else process.env.HARPOON_QUANT_MODEL = originalModelEnvironment;
++});
++
++function worker(name, implementation = bridge) {
++  return implementation.worker(fixture.request, {
++    calibrationFile: path.join(directory, name), python, timeoutMs: 8000,
++  });
++}
++
++test('real Python SVR predicts a scalar and participates in bounded shadow allocation', async () => {
++  const result = await worker('model.synthetic.json');
++  assert.equal(result.forecast_model_kind, 'SVR_RBF');
++  assert.equal(result.research_only, true);
++  assert.equal(result.execution_allowed, false);
++  assert.equal(result.liveApproved, false);
++  assert.equal(fixture.origin, 'SYNTHETIC_ENGINEERING_ONLY');
++  assert.ok(fixture.prediction > 0.01 && fixture.prediction < 0.04);
++  assert.ok(Math.abs(result.forecasts.SYNTHSVR - fixture.prediction) < 1e-12);
++  assert.ok(result.selected.length > 0, JSON.stringify(result));
++  assert.ok(result.selected.every(item => item.quantity > 0 && item.quantity <= 5));
++  assert.ok(result.cash_committed_usd <= fixture.request.account.cash);
++});
++
++test('an OBSERVED label does not authorize an SVR order', async () => {
++  const result = await worker('observed_label_guard.json');
++  assert.equal(result.execution_allowed, false);
++  assert.equal(result.research_only, true);
++  assert.ok(result.selected.length > 0, JSON.stringify(result));
++  assert.ok(Math.abs(result.forecasts.SYNTHSVR - fixture.prediction) < 1e-12);
++});
++
++test('resealed permission flags cannot promote the SVR out of shadow mode', async () => {
++  const result = await worker('forged_permission_guard.json');
++  assert.equal(result.execution_allowed, false);
++  assert.equal(result.liveApproved, false);
++});
++
++test('the Python worker rejects an altered SVR artifact hash', async () => {
++  const result = await worker('corrupted_guard.json');
++  assert.equal(result.execution_allowed, false);
++  assert.deepEqual(result.selected, []);
++  assert.match(JSON.stringify(result), /INTEGRITY/);
++});
++
++test('an incompatible forecast horizon cannot reach an allocation', async () => {
++  const result = await worker('wrong_horizon_guard.json');
++  assert.equal(result.execution_allowed, false);
++  assert.deepEqual(result.selected, []);
++  assert.match(JSON.stringify(result), /HORIZON/);
++});
++
++test('SVR discovery leaves the universe unchanged and issues no screener request', async () => {
++  let requests = 0;
++  const engine = {
++    cfg: {universe: [{symbol: 'HELD', book: 'equity'}], quant: {
++      calibrationFile: path.join(directory, 'observed_label_guard.json'), discoveryLimit: 48,
++    }},
++    api: {request: async () => { requests++; throw Error('NETWORK_MUST_NOT_BE_USED'); }},
++  };
++  const result = await bridge.discover(engine);
++  assert.equal(result.reason, 'SVR_RESEARCH_ONLY');
++  assert.deepEqual(result.added, []);
++  assert.deepEqual(engine.cfg.universe, [{symbol: 'HELD', book: 'equity'}]);
++  assert.equal(requests, 0);
++});
++
++test('an isolated predictor source change invalidates both binding and inference', async () => {
++  const isolated = path.join(directory, 'source-change');
++  fs.mkdirSync(path.join(isolated, 'runtime'), {recursive: true});
++  fs.mkdirSync(path.join(isolated, 'runtime30'), {recursive: true});
++  fs.mkdirSync(path.join(isolated, 'quant'), {recursive: true});
++  fs.copyFileSync(path.join(app, 'runtime/quant_bridge.cjs'), path.join(isolated, 'runtime/quant_bridge.cjs'));
++  for (const name of ['policy.js', 'exits.js', 'plugins.js'])
++    fs.copyFileSync(path.join(app, 'runtime30', name), path.join(isolated, 'runtime30', name));
++  fs.cpSync(path.join(app, 'quant/harpoon_quant'), path.join(isolated, 'quant/harpoon_quant'), {
++    recursive: true, filter: source => !source.includes('__pycache__'),
++  });
++  const isolatedBridge = require(path.join(isolated, 'runtime/quant_bridge.cjs'));
++  const engine = {cfg: {
++    expected_account_id: 'SYNTHETIC_TEST_ACCOUNT',
++    quant: {calibrationFile: path.join(directory, 'model.synthetic.json')},
++    universe: [], enabledPlugins: [], exit: {},
++  }, state: {exitProfile: {}, plugins: []}};
++  const before = isolatedBridge.binding(engine);
++  assert.equal(before.execution_hash, bridge.binding(engine).execution_hash);
++  fs.appendFileSync(path.join(isolated, 'quant/harpoon_quant/scalar_svr.py'), '\n# Synthetic integrity regression: isolated source alteration.\n');
++  const after = isolatedBridge.binding(engine);
++  assert.notEqual(after.execution_hash, before.execution_hash);
++  assert.equal(after.forecast_hash, before.forecast_hash);
++  const result = await worker('model.synthetic.json', isolatedBridge);
++  assert.equal(result.execution_allowed, false);
++  assert.deepEqual(result.selected, []);
++  assert.match(JSON.stringify(result), /SVR_IMPLEMENTATION_CHANGED/);
++});
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.7.1",
++  "version": "30.8.0",
+   "private": true,
+   "scripts": {
+     "test": "node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py",
+@@ -34,6 +34,7 @@
+     "test:operational": "node --test tools/xxx_operational_test.cjs tools/xxx_operational_ui_contract.cjs",
+     "test:operational:browser": "node tools/xxx_operational_browser.cjs",
+     "test:quant": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-timeout=30000 tools/quant_bridge_test.cjs",
++    "test:svr": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-timeout=30000 tools/quant_svr_integration_test.cjs",
+     "test:xxx:clocked": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-timeout=30000 tools/xxx_test.cjs tools/xxx_conformance_test.cjs tools/xxx_health_test.cjs tools/xxx_selector_test.cjs tools/xxx_tp32_test.cjs tools/xxx_operational_test.cjs tools/xxx_partial_entry_risk_test.cjs"
+   },
+   "devDependencies": {
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.7.1",
++  "version": "30.8.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "harpoon-cloud-247",
+-      "version": "30.7.1",
++      "version": "30.8.0",
+       "dependencies": {
+         "@msgpack/msgpack": "3.1.2",
+         "ws": "8.18.3"
+--- a/xxx/version.ts
++++ b/xxx/version.ts
+@@ -1,2 +1,2 @@
+ // Release identity is separate from the immutable research engine code seal.
+-export const ULTIMATE_VERSION = "30.7.1";
++export const ULTIMATE_VERSION = "30.8.0";
+--- a/runtime30/version.js
++++ b/runtime30/version.js
+@@ -2,4 +2,4 @@
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.ULTIMATE_VERSION = void 0;
+ // Release identity is separate from the immutable research engine code seal.
+-exports.ULTIMATE_VERSION = "30.7.1";
++exports.ULTIMATE_VERSION = "30.8.0";
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,10 @@
+-# HARPOON XXXUltimate 30.7.1
++# HARPOON XXXUltimate 30.8.0
+ 
+ Coordinador Alpaca PAPER con piloto automático, protección durable y laboratorio cuantitativo. El conector adicional Ironbeam utiliza exclusivamente la API de simulación del broker. El software no acredita rentabilidad ni participación en Championship.
++
++## SVR de retorno escalar · 30.8.0
++
++Integra el motor 1.4.0 con regresión de vectores de soporte para el retorno del subyacente. El predictor utiliza el worker numérico existente y alimenta los escenarios/asignación en modo sombra. Entrenamiento, inferencia y controles están implementados; esta entrega no activa órdenes a partir de la SVR. Los artefactos ridge anteriores mantienen su compatibilidad y el predictor de costes SVR existente conserva su función. Instrucciones reproducibles: `quant/README_ES.md`; resultados de verificación: `SVR_VALIDACION_1_4_0.yaml`. La prueba completa del nuevo recorrido Node → Python se ejecuta con `npm run test:svr`.
+ 
+ ## Auditoría adversarial 30.7.1
+ 
+@@ -20,7 +24,7 @@
+ 
+ ## Motor cuantitativo común 30.4.0
+ 
+-La configuración de ejemplo activa `quant.enabled=true`. Las entradas requieren ahora un modelo observado vigente y una asignación económica admisible; sin calibración se bloquean las entradas y continúa la gestión de posiciones. No se entrega un modelo financiero aprobado. Lee [la guía de esta versión](docs/QUANT_30_4_ES.md) y [el motor](quant/README_ES.md) antes de arrancar. La verificación actual está en `quant/evidence/validation.json`; la evidencia 30.3.1 permanece como histórica.
++La configuración de ejemplo activa `quant.enabled=true`. Las entradas requieren ahora un modelo observado vigente y una asignación económica admisible; sin calibración se bloquean las entradas y continúa la gestión de posiciones. No se entrega un modelo financiero aprobado. Lee [la guía de esta versión](docs/QUANT_30_4_ES.md) y [el motor](quant/README_ES.md) antes de arrancar. La verificación histórica del motor está en `quant/evidence/validation.json`; la de esta entrega 30.8.0 está en `SVR_VALIDACION_1_4_0.yaml` y `quant/evidence/svr/`.
+ 
+ ## Arranque automático
+ 

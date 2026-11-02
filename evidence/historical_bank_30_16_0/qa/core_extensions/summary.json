@@ -1,0 +1,60 @@
+{
+  "schema": "HARPOON_HISTORICAL_CORE_QA_1",
+  "runtime": "APP/runtime30",
+  "runtime_sha256": {
+    "ultimate_replay.js": "2d7145d0f1a3276dbbfc5b82e6464fe1e8e77e6f06794a8785fc824126546c0b",
+    "ultimate_contracts.js": "d00f42541909a2f2433d8c60e27413104805b1165c02a426a34047340c9c1691",
+    "ultimate_reservations.js": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494"
+  },
+  "same_bytes_as_isolated_compilation": true,
+  "tests": 60,
+  "pass": 60,
+  "fail": 0,
+  "skipped": 0,
+  "counts_are_this_execution_not_cumulative": true,
+  "financial_trials": 0,
+  "synthetic_only": true,
+  "legacy_equivalence_control": "evidence/historical_bank_30_16_0/frozen_control_30_15_0/runtime30",
+  "suites": [
+    {
+      "source": "tools/ultimate_historical_portfolio_test.cjs",
+      "source_sha256": "8572c2d587289c9432770890180481ccc17271178391b3a39f4d544ada143dc8",
+      "log": "historical_portfolio.log",
+      "log_sha256": "07737d78dfd495d7e921f8284693bd1c352cdc57c5da8a47103c41726b2de91a",
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "source": "tools/ultimate_funded_reservations_test.cjs",
+      "source_sha256": "248030349f6cfb98dae4d035a063cea758695765c5054055252296ff58f52c26",
+      "log": "funded_reservations.log",
+      "log_sha256": "df7059d0b3691937ae70c1eeccdb0f6de86972b8e35bda4b5dc34bebb416e3ff",
+      "tests": 14,
+      "pass": 14,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "source": "tools/ultimate_signal_causality_test.cjs",
+      "source_sha256": "801a6db5c6f9283b9010539536a638d259b29be59d4d89ea5d740b44b4a420e3",
+      "log": "signal_causality.log",
+      "log_sha256": "1835156fd94ff7f7e0c113680fcfde880a8d51fd7998cbf2214743b04c9d7619",
+      "tests": 14,
+      "pass": 14,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "source": "tools/ultimate_reservations_test.cjs",
+      "source_sha256": "f3a50f94cbba67d21654bc74c9948d5b8d36e0ce11b8cc5351c8dc590ef7358c",
+      "log": "reservation_book.log",
+      "log_sha256": "f1f4d038cc897e03e37e9bc677572e14e2d208edb5ab44ca5f3d2c5575252866",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "skipped": 0
+    }
+  ]
+}

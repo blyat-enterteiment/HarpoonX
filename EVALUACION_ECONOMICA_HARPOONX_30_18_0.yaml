@@ -1,0 +1,568 @@
+schema: HARPOON_EVALUACION_RESIDUAL_30_18_0_1
+fecha_utc: '2026-11-02T00:10:25.484912+00:00'
+version_entrega: 30.18.0
+version_aplicacion_base_preservada: 30.17.0
+naturaleza: Extensión offline de investigación con fuente completa; no despliegue ni cambio del runtime base medido.
+dictamen:
+  nivel_8_acreditado: false
+  nota_numerica: null
+  nota_no_inferida_de_numero_de_tests: true
+  estrategia_aprobada: false
+  live_approved: false
+  orders_allowed: false
+  rentabilidad_real_validada: false
+  resultado: 'Hipótesis residual no aprobada: negativa neta en ambos costes y peor que su control sin umbral. Diferencia
+    positiva frente a CASH no es ventaja estadística acreditada.'
+  avances_reales:
+  - Nueva hipótesis económica y controles preregistrados, no simple reedición de nota.
+  - Recaptura de 80 originales y reconstrucción exacta, sin sustituir los 149 originales ausentes del estudio antiguo.
+  - Seis contrastes acotados, ocho cuentas completas con CASH, reproducción exacta y revisión independiente.
+  - Camino prospectivo de admisión de registros originales implementado; no activado ni suficiente para economía
+    real.
+lectura_ejecutiva:
+  periodo:
+  - '2025-03-11'
+  - '2026-10-16'
+  sesiones: 404
+  capital_inicial_usd: 20000
+  residual_neto_nominal_usd: -118.64999999999782
+  residual_neto_stress_usd: -598.3700000000026
+  campanas_por_escenario: 67
+  frente_a_cash_nominal_usd: 285.3500000000022
+  frente_a_cash_stress_usd: 209.62999999999738
+  frente_control_sin_umbral_nominal_usd: -333.0599999999977
+  frente_control_sin_umbral_stress_usd: -133.22999999999956
+  interpretacion: Los 67 trades superan el mínimo de conteo; el fallo ya no es simplemente abstención/sparsity.
+    El filtro z/hurdle no muestra incremento neto frente al mismo ranking sin ambos filtros.
+  control_positivo_no_promovido: STOCK_THRESHOLD_OFF obtiene +214,41 USD nominal, pero −465,14 USD con estrés y
+    límites inferiores de crecimiento negativos. No se elige como nuevo ganador tras ver resultados.
+  comparacion_30_17: El periodo, mecanismo y universo difieren de 30.17. No comparar sus PnL en dólares como si
+    fueran un A/B sobre el mismo intervalo.
+hipotesis_y_controles:
+  formula: r_s=log(P_60/P_open); e=r_stock−beta*r_XLK; z=(e−mu)/sigma. beta,mu,sigma se fijan únicamente en TRAIN.
+  train:
+  - '2024-09-03'
+  - '2025-03-05'
+  train_sesiones: 126
+  observaciones_por_modelo: 126
+  acciones:
+  - AAPL
+  - MSFT
+  sector: XLK
+  modelo: OLS intradía con intercepto; beta en [0,2], sigma sample ddof1. Rechazo fuera de contrato, sin clipping
+    para crear señales.
+  entry: Decisión open+60min+1s; entrada IOC modelada al siguiente open+65min.
+  residual: Elegir menor z válido; z<=−1,5 y recuperación hipotética 0,5*(mu−e) mayor que fricción roundtrip+5bp;
+    |z|>8 rehúsa.
+  hurdle_es_prediccion_calibrada: false
+  STOCK_THRESHOLD_OFF: 'Conserva exactamente ranking por menor z, hora, filtros de validez/drift, activos, sizing
+    y salida. Elimina AMBOS requisitos: umbral z de entrada y hurdle de recuperación/costes. No es compra incondicional
+    ni otro alpha aprobado.'
+  SECTOR_TIMING_CONTROL: XLK en eventos propuestos por residual cuando ATR sector es válido; mismo presupuesto de
+    riesgo, no mismo notional, fill, holding, beta ni exposición efectiva.
+  CASH: 'Sin posiciones, misma cuenta/periodo/coste fijo modelado. No representa todo depósito bancario real: no
+    se observa remuneración del efectivo ni facturas reales.'
+  salida: Plantilla nativa CLOSED_CHANNEL:BASELINE sólo reutiliza stop/targets/deadline<=72h. Identidad económica
+    distinta INTRADAY_SECTOR_RESIDUAL_RECOVERY; no salida gatillada por residual, no hedge, OU ni cointegración.
+  costes:
+    NOMINAL:
+      spread_bps: 2.0
+      slippage_bps: 2.0
+      commission_usd_per_share_per_side: 0.005
+      external_cost_usd_per_session: 1.0
+    STRESS:
+      spread_bps: 4.0
+      slippage_bps: 4.0
+      commission_usd_per_share_per_side: 0.01
+      external_cost_usd_per_session: 2.0
+  limits:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.0025
+    grossFraction: 0.12
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  costes_cobrados_una_vez: true
+  riesgo_no_ampliado: true
+preregistro_y_ledger:
+  protocolo: research/residual_30_18/protocol.json
+  protocol_file_sha256: 159358061b6593fc4a6c18d77e93498b8e496f8012f1a585ab8852b2758515e3
+  traza_revision:
+    initial_shared_file_sha256: 67a1d2b5eea945f265c200c08d94a81604f740fe1b7761d32e3bced73434e54d
+    reserved_file_sha256: 159358061b6593fc4a6c18d77e93498b8e496f8012f1a585ab8852b2758515e3
+    changes_before_reservation:
+    - Text sigma degeneration <1e-6 clarified to <=1e-6, matching conservative estimator contract
+    - 'Added explicit split_knowledge_contract: no invented knownAt; affected crossing ATR decisions refused and
+      sector event differences reported'
+    economic_thresholds_windows_universe_or_budget_changed: false
+    reserved_at: '2026-11-01T23:55:32.369901+00:00'
+    first_bar_capture_at: '2026-11-01T23:59:30.158Z'
+    source: Retained protocol binding, raw receipts and agent messages; local clock not independent attestation
+  reserva:
+    audit_head_at_reservation: e0bd5df08662ba27cdab4a540f28e342cfee2cec1c7e7c3b35abc11bd317c22f
+    audit_sequence_at_reservation: 86
+    budget_path:
+    - 41
+    - 47
+    execution_allowed: false
+    financial_acceptance_allowed: false
+    fresh_global_holdout: false
+    independent_preregistration: false
+    live_approved: false
+    offline_replay_admitted: false
+    recipe_identity_hash: 5e016fd3556d092e54898d0f3437ada5d2fe50ebaf62c50428ca2ff4c3ac7220
+    registered_at: '2026-11-01T23:55:32.369901+00:00'
+    registered_at_clock: EXECUTOR_SYSTEM_UTC_NOT_INDEPENDENT_ATTESTATION
+    reservation_hash: 5efc77fa294f2673c5bd86ea4e9be9d26e530c3e35fa18f9a381825eaafc7198
+    schema: HARPOON_RESIDUAL_REGISTRATION_1
+    seen_global_history: true
+    slots: 6
+    stage: RESERVED_BEFORE_DATA_ADMISSION
+    verified: true
+  admision:
+    admission_identity_hash: dfaba5d6802513a92e8e9a40037c1d9a9985f942765de3b8d092aa44cf80b6e6
+    admission_record_hash: 7379a1b3833abda9236bf009085e137ab7aaf018b7d7efba892a6b95cde39cee
+    admitted_at: '2026-11-02T00:05:49.909785+00:00'
+    admitted_at_clock: EXECUTOR_SYSTEM_UTC_NOT_INDEPENDENT_ATTESTATION
+    audit_head: 2dce075a3ecce304c7e3a2b6d8cf0bd38b6f83c1c4d8f513f0e3fe03eb609f72
+    audit_sequence: 87
+    budget:
+      limit: 128
+      spent: 47
+    execution_allowed: false
+    financial_acceptance_allowed: false
+    fresh_global_holdout: false
+    independent_preregistration: false
+    live_approved: false
+    offline_replay_admitted: true
+    schema: HARPOON_RESIDUAL_REGISTRATION_1
+    scope: Local integrity admission for six offline retrospective diagnostics only; not independent data authentication
+      or a fresh global holdout.
+    seen_global_history: true
+    stage: IMMUTABLE_DATA_CODE_ADMISSION
+    verified: true
+  source_manifest_sha256: acc9b83c2daa3a9b500e3a0aa1bc1d8b9b52681b70488ae9b1827d5e0803bdc6
+  source_bindings: 323
+  presupuesto:
+  - 41
+  - 47
+  - 128
+  slots_nuevos: 6
+  cash_derivado: 2
+  variantes_post_resultado: 0
+  unicos_modelos: 2
+  invocaciones_fit_primary_y_verify_por_pasada: 4
+  invocaciones_fit_total_con_reproduccion: 8
+  search_hyperparameters: 0
+  stopping_rule: Familia concluida; no reoptimización para encontrar un ganador. Nueva investigación requeriría
+    nuevo preregistro y conservar historial.
+  timestamp_independientemente_atestiguado: false
+datos:
+  clasificacion: Recaptura nueva de periodo ya usado globalmente. Diagnóstico de familia nueva, NO holdout global
+    virgen, NO evaluación prospectiva.
+  lineage: evidence/residual_30_18_0/lineage/lineage_audit.json
+  origen: Alpaca SIP mediante acceso conectado existente; no London Strategic Edge ni fuente2016–2026 recuperada.
+  originales: 80
+  requests_bars: 78
+  calendar_requests: 1
+  corporate_requests: 1
+  fuente_sesiones: 533
+  calendario_extra_deadline_sesiones: 5
+  train_sesiones: 126
+  purga_entre_train_y_eval_sesiones: 3
+  evaluacion_sesiones: 404
+  barras_RTH: 124182
+  barras_por_activo: 41394
+  missing: 0
+  relleno_sintetico: 0
+  recapturas: 0
+  dataset_sha256: 5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530
+  raw_provenance_reconstruible: true
+  fuente_independientemente_autenticada: false
+  capturas_precios_posteriores_reserva: true
+  primera_captura: '2026-11-01T23:59:30.158000Z'
+  ultima_captura: '2026-11-02T00:02:10.741000Z'
+  datos_economicos_condicionales:
+  - Bars assumed available end+1s, not original historical first-received timestamps.
+  - Endpoint raw default assumed because wrapper has no adjustment parameter.
+  - RTH completeness against received calendar, not independent exchange-calendar reconstruction.
+  - 27 dividends returned; 25 applicable and 1 XLK split. process_date filtering does not certify exhaustive ex-date/announcement
+    coverage.
+  - No knownAt invented for split. Affected features refused; cash payable16:00NY is modeled.
+  - Quotes, depth, queue, actual fills, spreads, commissions, infrastructure invoices, taxes and cash yield are
+    not fully observed.
+  antiguos_149_originales: Siguen ausentes del prepared antiguo. No se declaró reconstruido ese dataset; esta familia
+    conserva sus propios 80 recibos nuevos.
+resultados_completos:
+  NOMINAL:RESIDUAL_LONG:
+    neto_modelado_usd: -118.64999999999782
+    equity_final_usd: 19881.350000000002
+    retorno_total: -0.005932499999999896
+    campanas_cerradas: 67
+    costes_fijos_modelados_usd: 404
+    dividendos_devengados_usd: 1.82
+    max_drawdown_eventos: 0.028539437955721447
+    peor_sesion_close_to_close: -0.00859201606525904
+    holding_max_decision_a_cierre_h: 71.99972222222222
+    exposicion_media_cost_basis_usd: 420.83253716406483
+    exposicion_max_cost_basis_usd: 2378.7
+    turnover_total_usd: 245209.37
+    sesiones_con_posicion: 176
+    capital_test_igual_final_validation: true
+  NOMINAL:STOCK_THRESHOLD_OFF:
+    neto_modelado_usd: 214.40999999999985
+    equity_final_usd: 20214.41
+    retorno_total: 0.01072049999999991
+    campanas_cerradas: 184
+    costes_fijos_modelados_usd: 404
+    dividendos_devengados_usd: 4.55
+    max_drawdown_eventos: 0.03233885588449947
+    peor_sesion_close_to_close: -0.006217871917624413
+    holding_max_decision_a_cierre_h: 71.99972222222222
+    exposicion_media_cost_basis_usd: 1150.143204529424
+    exposicion_max_cost_basis_usd: 2414.3399999999997
+    turnover_total_usd: 697514.0300000001
+    sesiones_con_posicion: 403
+    capital_test_igual_final_validation: true
+  NOMINAL:SECTOR_TIMING_CONTROL:
+    neto_modelado_usd: -430.1800000000003
+    equity_final_usd: 19569.82
+    retorno_total: -0.021509
+    campanas_cerradas: 68
+    costes_fijos_modelados_usd: 404
+    dividendos_devengados_usd: 0
+    max_drawdown_eventos: 0.03372705969351297
+    peor_sesion_close_to_close: -0.004133491580535609
+    holding_max_decision_a_cierre_h: 71.99972222222222
+    exposicion_media_cost_basis_usd: 423.49991857484
+    exposicion_max_cost_basis_usd: 2354.2400000000002
+    turnover_total_usd: 267429.95000000007
+    sesiones_con_posicion: 168
+    capital_test_igual_final_validation: true
+  NOMINAL:CASH:
+    neto_modelado_usd: -404
+    equity_final_usd: 19596
+    retorno_total: -0.020199999999999996
+    campanas_cerradas: 0
+    costes_fijos_modelados_usd: 404
+    dividendos_devengados_usd: 0
+    max_drawdown_eventos: 0.020199999999999996
+    peor_sesion_close_to_close: -5.1028218604888504e-05
+    holding_max_decision_a_cierre_h: 0.0
+    exposicion_media_cost_basis_usd: 0.0
+    exposicion_max_cost_basis_usd: 0.0
+    turnover_total_usd: 0.0
+    sesiones_con_posicion: 0
+    capital_test_igual_final_validation: true
+  STRESS:RESIDUAL_LONG:
+    neto_modelado_usd: -598.3700000000026
+    equity_final_usd: 19401.629999999997
+    retorno_total: -0.02991850000000018
+    campanas_cerradas: 67
+    costes_fijos_modelados_usd: 808
+    dividendos_devengados_usd: 1.82
+    max_drawdown_eventos: 0.044055019849134736
+    peor_sesion_close_to_close: -0.007406241205249389
+    holding_max_decision_a_cierre_h: 71.99972222222222
+    exposicion_media_cost_basis_usd: 400.1226331411794
+    exposicion_max_cost_basis_usd: 2339.5
+    turnover_total_usd: 235193.01000000004
+    sesiones_con_posicion: 176
+    capital_test_igual_final_validation: true
+  STRESS:STOCK_THRESHOLD_OFF:
+    neto_modelado_usd: -465.14000000000306
+    equity_final_usd: 19534.859999999997
+    retorno_total: -0.023257000000000194
+    campanas_cerradas: 185
+    costes_fijos_modelados_usd: 808
+    dividendos_devengados_usd: 4.55
+    max_drawdown_eventos: 0.042813445006881
+    peor_sesion_close_to_close: -0.005454992707806919
+    holding_max_decision_a_cierre_h: 71.99972222222222
+    exposicion_media_cost_basis_usd: 1093.7043563104196
+    exposicion_max_cost_basis_usd: 2393.8
+    turnover_total_usd: 675689.3099999998
+    sesiones_con_posicion: 403
+    capital_test_igual_final_validation: true
+  STRESS:SECTOR_TIMING_CONTROL:
+    neto_modelado_usd: -898.7799999999988
+    equity_final_usd: 19101.22
+    retorno_total: -0.04493899999999995
+    campanas_cerradas: 68
+    costes_fijos_modelados_usd: 808
+    dividendos_devengados_usd: 0
+    max_drawdown_eventos: 0.04782949999999986
+    peor_sesion_close_to_close: -0.004211326948289141
+    holding_max_decision_a_cierre_h: 71.99972222222222
+    exposicion_media_cost_basis_usd: 411.97302554600805
+    exposicion_max_cost_basis_usd: 2347.7400000000002
+    turnover_total_usd: 259832.74
+    sesiones_con_posicion: 168
+    capital_test_igual_final_validation: true
+  STRESS:CASH:
+    neto_modelado_usd: -808
+    equity_final_usd: 19192
+    retorno_total: -0.04039999999999999
+    campanas_cerradas: 0
+    costes_fijos_modelados_usd: 808
+    dividendos_devengados_usd: 0
+    max_drawdown_eventos: 0.04039999999999999
+    peor_sesion_close_to_close: -0.00010419922892570594
+    holding_max_decision_a_cierre_h: 0.0
+    exposicion_media_cost_basis_usd: 0.0
+    exposicion_max_cost_basis_usd: 0.0
+    turnover_total_usd: 0.0
+    sesiones_con_posicion: 0
+    capital_test_igual_final_validation: true
+pareamiento_propuestas:
+  NOMINAL:
+    pairing_is_execution_match: false
+    residual_proposed_events: 88
+    sector_proposed_events: 86
+    unmatched_residual_events: 2
+  STRESS:
+    pairing_is_execution_match: false
+    residual_proposed_events: 88
+    sector_proposed_events: 86
+    unmatched_residual_events: 2
+refusals_features:
+  BENCHMARK_SPLIT_KNOWLEDGE_AMBIGUOUS: 2
+campanas_no_cruzan_split: true
+incidentes_replay: 0
+estadistica:
+  metodo: Paired circular moving-block bootstrap of aligned whole-account session log returns; both fixed block
+    lengths required
+  periodo_primario: Cuenta continua completa; VALIDATION y TEST sólo descriptivos, sin selección/refit.
+  bootstrap_bloques:
+  - 5
+  - 20
+  replicas_por_bloque: 120000
+  seed: 1811
+  endpoints_simultaneos: 24
+  alpha_cola_inferior: 0.002083333333333335
+  correccion_global_todos_ensayos_previos_completa: false
+  fresh_global_holdout: false
+  gates:
+    candidate: RESIDUAL_LONG
+    checks:
+      NOMINAL:close_daily_loss_cap: true
+      NOMINAL:maximum_72h_holding: true
+      NOMINAL:minimum_closed_campaigns: true
+      NOMINAL:native_event_drawdown_cap: true
+      STRESS:close_daily_loss_cap: true
+      STRESS:maximum_72h_holding: true
+      STRESS:minimum_closed_campaigns: true
+      STRESS:native_event_drawdown_cap: true
+      block20:NOMINAL:beats_CASH: false
+      block20:NOMINAL:beats_SECTOR_TIMING_CONTROL: false
+      block20:NOMINAL:beats_STOCK_THRESHOLD_OFF: false
+      block20:NOMINAL:positive_growth: false
+      block20:STRESS:beats_CASH: false
+      block20:STRESS:beats_SECTOR_TIMING_CONTROL: false
+      block20:STRESS:beats_STOCK_THRESHOLD_OFF: false
+      block20:STRESS:positive_growth: false
+      block5:NOMINAL:beats_CASH: false
+      block5:NOMINAL:beats_SECTOR_TIMING_CONTROL: false
+      block5:NOMINAL:beats_STOCK_THRESHOLD_OFF: false
+      block5:NOMINAL:positive_growth: false
+      block5:STRESS:beats_CASH: false
+      block5:STRESS:beats_SECTOR_TIMING_CONTROL: false
+      block5:STRESS:beats_STOCK_THRESHOLD_OFF: false
+      block5:STRESS:positive_growth: false
+      minimum_observed_sessions: true
+    conditional_diagnostic_pass: false
+    financial_acceptance_allowed: false
+    level8_accredited: false
+  conclusion: Ningún requisito económico de crecimiento positivo/ventaja del candidato supera los límites inferiores
+    familiares. Los checks de riesgo y cantidad no rescatan la hipótesis.
+  intervalos_y_tablas: evidence/residual_30_18_0/run_completed/statistics.json
+  beta_proxy: 'beta_proxy_attribution.json contiene sólo proxy de precio sectorial por beta/notional inicial: excluye
+    dividendos/fees sectoriales, salidas parciales y diferencias de reloj. NO hedge PnL ni alpha.'
+  exposicion: Promedio notional ponderado por tiempo a coste de entrada, incluyendo noches/fines de semana; no promedio
+    mark-to-market. Turnover usa gross entry/exit modelado. Controles no neutralizados.
+  limitaciones_modelo_y_dependencia:
+  - The same historical period has been used globally; local preregistration and family correction do not make it
+    a fresh holdout.
+  - Moving blocks assume sufficient local stationarity; 5/20-session sensitivity does not guarantee long-memory
+    or finite-sample coverage.
+  - Exposure differences are reported, not neutralized. Long-only stock minus sector diagnostic is not a hedged
+    strategy or causal alpha attribution.
+  - Event-mark drawdown and close-to-close loss checks are not tick-level, intraday liquidation or execution guarantees.
+  - Costs, fills, source adjustment and corporate-action completeness remain conditional historical assumptions.
+  - Twenty campaigns and one hundred sessions are minimum diagnostic gates, not sufficient evidence of real profitability.
+  riesgo_no_certificado: Event-mark drawdown y pérdida diaria close-to-close no garantizan límites intradía ni tick-level;
+    OHLCV no observa toda trayectoria ejecutable.
+rubrica_para_acreditar_8:
+  regla: Conjunción de condiciones sustantivas, no suma de tests ni nota autoconcedida. No queda acreditado.
+  criterios:
+  - id: R1
+    criterio: Hipótesis económica identificada, horizonte y benchmark claros
+    estado: IMPLEMENTADO_NO_VALIDADO
+  - id: R2
+    criterio: Origen íntegro y corporate actions/timing suficientes
+    estado: INTEGRIDAD_PASS_ECONOMIA_CONDICIONAL
+  - id: R3
+    criterio: Capital, riesgo, costes una vez, continuidad y72h correctos
+    estado: PASS_EN_MODELO_NO_CERTIFICACION_INTRADIA_REAL
+  - id: R4
+    criterio: Resultado neto positivo con costes realistas y estrés
+    estado: FAIL
+  - id: R5
+    criterio: Valor incremental frente a CASH y controles con incertidumbre
+    estado: FAIL
+  - id: R6
+    criterio: Evidencia no reutilizada globalmente y múltiples ensayos completos
+    estado: BLOQUEADO
+  - id: R7
+    criterio: Reproducción, ledger continuo y revisión independiente
+    estado: PASS_ALCANCE_OFFLINE
+  - id: R8
+    criterio: Registros prospectivos, costes/fills y reconciliación económica suficientes
+    estado: DATA_BLOCKED
+qa_y_reproduccion:
+  python_nuevo:
+    pass: 132
+    fail: 0
+    skip: 0
+  node_residual:
+    pass: 4
+    fail: 0
+  independiente_python:
+    pass: 132
+    fail: 0
+  independiente_node_regresiones:
+    pass: 53
+    fail: 0
+    skip: 1
+    skip_razon: Fixture optativa de byte-equivalence legacy; no contada como PASS. Baseline30.17 tiene247bindings
+      preservados y evidencia previa exacta incluida.
+  no_sumar_suites_solapadas: true
+  incidente_de_instalacion: Un import ws faltaba en checkout nuevo; npm ci offline desde caché existente instaló6paquetes
+    y rerun cerró fallo. Logs anteriores y corregidos retenidos.
+  accounting_reportes: 8
+  hashes_resultados_iguales: 17
+  reproduccion:
+    files_compared: 17
+    mismatches: []
+    new_policy_variants: 0
+    verified: true
+  base_30_17_preservacion:
+    verified: true
+    bindings: 247
+    differences: []
+    scope: Original30.17 measuring sources and data unchanged. New residual tools are additive, not an alteration
+      of old measured runtime.
+  independent_review: evidence/residual_30_18_0/independent_review.md
+  source_manifest: research/residual_30_18/source_manifest.json
+pipeline_prospectivo:
+  estado: IMPLEMENTADO_NO_ACTIVADO
+  freeze_file: evidence/residual_30_18_0/forward/freeze.json
+  freeze_file_sha256: a4234980eb225447b456f8775279a89b7734213ce41f66405dd81929c586ed1c
+  frozen_at_utc: '2026-11-02T00:07:35.081000+00:00'
+  estrategia_aprobada: false
+  real_economics_evidence_complete: false
+  modulo_solo_admision_estructural: true
+  validacion_bundle_vacio:
+    blocking_reasons:
+    - code: SESSION_CALENDAR_REQUIRED
+      path: session_calendar
+    - code: OBSERVED_DECISIONS_REQUIRED
+      path: decisions
+    - code: OBSERVED_CORPORATE_ACTION_COVERAGE_REQUIRED
+      path: corporate_action_coverage
+    - code: CONTINUOUS_ALL_SESSION_ACCOUNT_REQUIRED
+      path: account
+    closed_campaigns: 0
+    economic_evidence_class: CONDITIONAL_PAPER_ONLY
+    execution_allowed: false
+    fill_pnl_to_account_mark_ledger_reconciliation_required: true
+    financial_acceptance_allowed: false
+    level8_accredited: false
+    live_approved: false
+    minimum_count_gates:
+      campaigns: false
+      sessions: false
+      sufficient_for_level8: false
+    observed_execution_receipts_structurally_complete: false
+    observed_sessions: 0
+    orders_allowed: false
+    real_economics_evidence_complete: false
+    real_profitability_validated: false
+    risk_limits_or_intraday_execution_certified: false
+    schema: HARPOON_RESIDUAL_FORWARD_GATE_1
+    source_authenticity_independently_verified: false
+    status: DATA_BLOCKED
+    strategy_approved: false
+    strategy_performance_or_signal_derivation_validated_by_this_module: false
+    valid: false
+  primera_sesion_posible: '2026-11-02'
+  sesion_60_calendario: '2027-01-28'
+  sesion_126_calendario: '2027-05-04'
+  fechas_no_garantizan_resultados_ni_8: true
+  minimos_100_sesiones_y_20_campanas_no_suficientes: true
+  tarea_programada_creada: false
+  ordenes_creadas: false
+  solicitud_minima_datos:
+  - Bars/quotes originales con timestamp de primera recepción anterior a cada decisión y hashes.
+  - Calendario observado y cobertura corporate actions con publicación conocida oportunamente; no sólo efectiva
+    histórica.
+  - Ledger continuo de caja/posiciones/marks/dividendos más fills y costes originales por evento, sin reutilizar
+    recibos.
+  - Reconciliación fill→inventory→cash/marks y facturas autenticadas, aún no implementada por el gate estructural.
+  advertencia: No activar esta estrategia negativa por el hecho de existir un freeze. El paquete habilita validar
+    entradas reales futuras, no fabricar un estudio virgen ni aprobar ejecución.
+soluciones_priorizadas_no_ejecutadas:
+- prioridad: 1
+  accion: No promover la regla residual ni seleccionar post hoc STOCK_THRESHOLD_OFF
+  motivo: La condición z/hurdle no mejoró su propio control; el nominal positivo del control no resiste estrés ni
+    incertidumbre.
+- prioridad: 2
+  accion: Cerrar medición de costes, quotes y capacidad con registros originales
+  motivo: Calibrar fricciones observadas y reconciliar ledger, sin bajar costes supuestos para volver positivo el
+    histórico.
+- prioridad: 3
+  accion: Mantener asignación robusta con abstención, incertidumbre de media y covarianza regularizada
+  motivo: Son defensas/controles de riesgo, no fuente demostrada de alpha; la familia30.17 ya quedó negativa.
+- prioridad: 4
+  accion: Una hipótesis residual verdaderamente cubierta requeriría nuevo diseño y datos de ambas patas/borrow,
+    universo point-in-time y horizonte72h contrastado
+  motivo: Avellaneda–Lee no valida automáticamente esta variante long-only; su reversión aproximadamente7d no prueba
+    <=72h. No se lanzó otra familia tras el negativo.
+- prioridad: 5
+  accion: Modelar splits abiertos con inventario, órdenes ajustadas y cash-in-lieu bajo nueva revisión, antes de
+    aplicar a periodos con cruces
+  motivo: En esta muestra no hubo cruce; no implica soporte general de splits ni licencia para omitir incidentes.
+- prioridad: 6
+  accion: Opciones continúa DATA_BLOCKED
+  motivo: Necesita cadenas históricas bid/ask, identificadores/multiplicadores/vencimientos, marks, assignment y
+    colas; IV-RV por sí solo no es beneficio ejecutable.
+fuentes_metodologicas:
+- url: https://math.nyu.edu/inmemoriam/avellaneda/AvellanedaLeeStatArb20090616.pdf
+  uso: Inspiración residual, no validación empírica de la regla implementada ni su horizonte.
+- url: https://web.stanford.edu/~boyd/papers/pdf/markowitz.pdf
+  uso: Costes, incertidumbre y asignación robusta como control, no prueba de rentabilidad.
+integridad_identidades:
+  protocol_file_sha256: 159358061b6593fc4a6c18d77e93498b8e496f8012f1a585ab8852b2758515e3
+  data_audit_protocol_payload_sha256: 33c98ffb4aa4cec92bc686a160c1c25b3e0e47ed9d2d366325d6ad7e7caee2c0
+  forward_protocol_sha256_scope: Canonical JSON object digest in forward module, NOT original protocol file bytes;
+    do not compare differing serialization hashes as corruption.
+  result_hashes:
+    NOMINAL_CASH.json: 1a07091a24ecd9825fbf4d1bc30f5b7514728739c2265c421270d88d890ebb2c
+    NOMINAL_RESIDUAL_LONG.json: dd8b5f81aa0f3c09f197f2157000be1af3511b36d6b66d86e7ee2334fc186d19
+    NOMINAL_SECTOR_TIMING_CONTROL.json: 04e17e6b7c102238ee48afd5904269ffb2b5d652219e9180150ead026be18102
+    NOMINAL_STOCK_THRESHOLD_OFF.json: e47502f7fc9bcdd5b89a7c440fdbeefee57c3f7b31e656032ac3f57b8164b3c8
+    STRESS_CASH.json: 3629b2598d52785cb053bd815d7a03b3915c6bb061518d2839cf56a40b3c9977
+    STRESS_RESIDUAL_LONG.json: 541166f9533d119cfb6cc876ea16036a136aee9f8c6f6be81fa8142bfb98db20
+    STRESS_SECTOR_TIMING_CONTROL.json: c3abc4a28a4194d27576f3fd671d5592c0b17b602bc4f2c609fb59c9634a219c
+    STRESS_STOCK_THRESHOLD_OFF.json: e4425a18c09ad1838b880ee2f4e944d99e115414d5d009a78c1daa68506061be
+    accounting_audit.json: 44da2737c521e3693d7a2fa3972d0f19dac9c01ba335deb6031ba085e3687ab1
+    beta_proxy_attribution.json: ec085923afdcd937c3e62fbd306bcda0eff98cafc281c2e4e838600a45aa7ed4
+    derivation_verification.json: ca9790f9691591d2631a7fab1502fb5c7f73b288173f0644d19d45f7d36cabb7
+    incidents.json: ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356
+    models.json: 2a72d5bb5537099e08da5dd3400369f621dfb36d64f86ee5aeb1c0a09263c2f4
+    reports.json: 707303e1e56f2b7eb9fcc0804c2416566c565f8b3832297c8af91570aab3e9fa
+    signals.json: 72f6b853cab4743f8111510dea55bdce454e4df6fb7f9b6c564090763f3db0a7
+    statistics.json: 031ae4487e05b8e41ca9e61af5fc53d570154eae3354d6f4796c69973837ca77
+    summary.json: 8b2b98c3d4a927d7efeceb9eb01c0666edda637685e1dfb2d9537bdef2fb6b3c
+  no_secrets_orders_deployment_or_github_changes: true

@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0",
+  "scope": "Read-only source and evidence-location audit; no trading performance validation",
+  "observed_at_utc": "2026-11-01T01:40:22.727189+00:00",
+  "observed_at_mexico_city": "2026-10-31T19:40:22.727189-06:00",
+  "candidates": [
+    {
+      "requested": "masivarecords-ship-it/HerpoonX",
+      "canonical": "masivarecords-ship-it/HerpoonX",
+      "repository_id": "1418095498",
+      "accessible": true,
+      "visibility": "public",
+      "status": "EMPTY_REPOSITORY",
+      "evidence": "github_reads.json; get_repo, search_branches=[] and fetch_file exact error This repository is empty.",
+      "default_branch_declared": "main",
+      "observed_branch": null,
+      "commit": null,
+      "application_version": null
+    },
+    {
+      "requested": "masivarecords-ship-i/HarpoonX",
+      "canonical": "masivarecords-ship-i/HarpoonX",
+      "repository_id": "1420258391",
+      "accessible": true,
+      "visibility": "private",
+      "status": "NO_APPLICATION_SOURCE_AT_INSPECTED_REF",
+      "observed_branch": "main",
+      "commit": "f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63",
+      "root_entries": 1,
+      "application_version": null,
+      "note": "Root contains one repository exclusion file only. README fetch returns Not Found. Repo is not wholly empty."
+    },
+    {
+      "requested": "Blyat2020/NewRepo",
+      "canonical": "masivarecords-ship-i/NewRepo",
+      "repository_id": "646399061",
+      "accessible": true,
+      "visibility": "private",
+      "status": "LEGACY_HARPOON_SOURCE_IDENTIFIED",
+      "default_branch_declared": "master",
+      "observed_branch": "harpoon-cloud",
+      "commit": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+      "commit_created_at": "2026-10-13T22:58:16Z",
+      "application_name": "harpoon-cloud-247",
+      "application_version": "24.3.1",
+      "tree_entries": 178,
+      "files": 169,
+      "tree_truncated": false
+    }
+  ],
+  "relationship_to_local_30_11_0": {
+    "classification": "HECHO",
+    "method": "Compare remote Git blob SHA-1 to blob hashes calculated from same local src/ paths",
+    "remote_source_files": 111,
+    "identical_files": 102,
+    "different_files": 9,
+    "missing_local_files": 0,
+    "interpretation": "Shared byte-identical source plus later local modifications; Git ancestry and deployed identity are not established."
+  },
+  "evidence_inventory": {
+    "software_evidence_files": [
+      "evidence/cloud_tests.json",
+      "evidence/control_tests.json",
+      "evidence/edge_tests.json",
+      "evidence/install_tests.json",
+      "evidence/runtime_tests.json",
+      "evidence/setup_tests.json",
+      "evidence/source_preservation.json",
+      "evidence/verification.json"
+    ],
+    "example_configurations": [
+      "config/examples/crypto.json",
+      "config/examples/equity.json",
+      "config/examples/supervision.json"
+    ],
+    "runtime_source_files": [
+      "runtime/cloud.cjs",
+      "runtime/control.cjs",
+      "runtime/crypto_runner.cjs",
+      "runtime/runner.cjs",
+      "runtime/store.py",
+      "runtime/watchdog.cjs",
+      "runtime/worker.cjs"
+    ],
+    "workflow_files": [],
+    "github_actions_runs_on_branch": 0,
+    "quant_directory_present": false,
+    "runtime_sqlite_file_present_in_tree": false,
+    "market_exports_identified_in_tree": [],
+    "account_exports_identified_in_tree": [],
+    "fills_or_account_activity_exports_identified_in_tree": [],
+    "observed_calibrated_models_identified_in_tree": [],
+    "cost_receipts_identified_in_tree": [],
+    "limitation": "Complete tree audit for this commit only. Data outside Git, uninspected refs, runtime services and other accounts are not covered."
+  },
+  "deployment": {
+    "declared_config_file": "render.yaml",
+    "declared_service_name": "harpoon-paper",
+    "declared_mode": "PAPER",
+    "declared_branch": "harpoon-cloud",
+    "verified_running_service": null,
+    "verified_deployed_commit": null,
+    "reason": "Repository deployment configuration is not a runtime observation. Parent reports Render workspace accessible but list_services returned null twice.",
+    "README_assertions": [
+      "Prepared package, not a deployment attestation.",
+      "No new profitability evidence.",
+      "Original core source from 24.2."
+    ],
+    "README_assertions_are_runtime_verification": false
+  },
+  "economic_validation": {
+    "result": "VENTAJA_NO_DEMOSTRADA",
+    "new_market_observations_retrieved": 0,
+    "new_account_observations_retrieved": 0,
+    "new_economic_experiments": 0,
+    "net_return": null,
+    "ridge_comparison": null,
+    "reason": "Code identity and software fixtures do not supply observed market/account/cost evidence."
+  },
+  "concrete_missing_resources": [
+    {
+      "id": "SOURCE_RUNTIME",
+      "resource": "Exact active service identifier and deployed commit/config digest plus read-only telemetry route, or an exported status manifest from the running engine.",
+      "purpose": "Establish actual deployed version without touching configuration."
+    },
+    {
+      "id": "MARKET_EVIDENCE",
+      "resource": "Original timestamped market receipts and causal observation records with market/receive/decision timestamps, instrument/universe and feed provenance for an unseen temporal period.",
+      "purpose": "Construct admissible data for net OOS comparison vs Ridge and control."
+    },
+    {
+      "id": "ACCOUNT_EVIDENCE",
+      "resource": "Read-only export of the corresponding account ledger, opening and closing position/account snapshots, orders, fills, external capital flows and broker activities with pagination/coverage metadata.",
+      "purpose": "Reconcile continuous equity, inventory, fees and execution."
+    },
+    {
+      "id": "COST_EVIDENCE",
+      "resource": "Verified fee schedules and dated infrastructure, market-data and inference costs for the same period, with allocation rules.",
+      "purpose": "Measure economic return without substituting unknown costs with zero."
+    }
+  ],
+  "operations": {
+    "remote_writes": 0,
+    "broker_orders": 0,
+    "deployments": 0,
+    "risk_limit_changes": 0,
+    "paid_data_purchases": 0,
+    "baseline_source_changes": 0
+  },
+  "artifacts": {
+    "github_reads.json": {
+      "bytes": 4300,
+      "sha256": "fb6791e52c6d81baf1ad8ded651ad13841f3ea9abe4d024de3da8412b974f60b"
+    },
+    "audit.json": {
+      "bytes": 3056,
+      "sha256": "83309e79eeb2229817c82289bd98398292606666393cdd52b8ac2a5e466821a5"
+    },
+    "github_additional_reads.json": {
+      "bytes": 82876,
+      "sha256": "d356628345cdc4dbc061f0015fed14568f1dd050cba08438bc263fd113094929"
+    },
+    "legacy_to_30_11_source_comparison.json": {
+      "bytes": 42410,
+      "sha256": "55bbd2d4da67ed5087b39f03b3f8368ada1849d70e4a0a979656e86f495a298e"
+    }
+  },
+  "source_urls": {
+    "original_candidate": "https://github.com/masivarecords-ship-it/HerpoonX",
+    "private_candidate": "https://github.com/masivarecords-ship-i/HarpoonX/tree/f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63",
+    "legacy_requested": "https://github.com/Blyat2020/NewRepo/tree/harpoon-cloud",
+    "legacy_canonical_commit": "https://github.com/masivarecords-ship-i/NewRepo/commit/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+    "legacy_pinned_tree": "https://github.com/masivarecords-ship-i/NewRepo/tree/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+    "legacy_package": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/package.json",
+    "legacy_README": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/README.md",
+    "legacy_deployment_declaration": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/render.yaml",
+    "legacy_source_preservation_claim": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/evidence/source_preservation.json",
+    "legacy_tests_claim": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/evidence/verification.json"
+  }
+}

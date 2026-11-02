@@ -1,0 +1,137 @@
+{
+  "schema": "HARPOON_RUNTIME_COLLECTOR_VALIDATION_1",
+  "application": "30.12.2",
+  "checked_at_mexico_city": "2026-10-31T22:05:19.807484-06:00",
+  "implemented": true,
+  "real_external_collection_executed": false,
+  "external_collection_blocker": "No verified runtime URL, panel authentication and expected account are available in this task.",
+  "test_nature": "SYNTHETIC_ENGINEERING_ONLY",
+  "tests": {
+    "tests": 29,
+    "pass": 29,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "total_suite_duration_ms": 551.305439,
+  "checks": [
+    {
+      "name": "collector_tests",
+      "command": "HARPOON_QA_OUTPUT_DIR=<evidence_directory> node --test --test-isolation=none --test-reporter=tap --test-timeout=15000 tools/collect_runtime_evidence_test.cjs",
+      "exit_code": 0,
+      "log": "tests.log",
+      "log_sha256": "ca165941447870a65d3974e4e64d7660d274f7f9f6ca34a0c0975431fc5fdadc"
+    },
+    {
+      "name": "js_types",
+      "command": "node node_modules/typescript/bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node tools/collect_runtime_evidence.cjs",
+      "exit_code": 0,
+      "log": "checkjs.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "collector_syntax",
+      "command": "node --check tools/collect_runtime_evidence.cjs",
+      "exit_code": 0,
+      "log": "syntax_collector.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "test_syntax",
+      "command": "node --check tools/collect_runtime_evidence_test.cjs",
+      "exit_code": 0,
+      "log": "syntax_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "help",
+      "command": "node tools/collect_runtime_evidence.cjs --help",
+      "exit_code": 0,
+      "log": "help.log",
+      "log_sha256": "2566535ca8bc65ea7b81b7cfac21b9a9034577d94a1466bee2f1058ac75299b5"
+    }
+  ],
+  "source_sha256": {
+    "tools/collect_runtime_evidence.cjs": "8113c0861113a65779b811df5f99ce32362c99cb4de9cf99f6e428f3a5f89659",
+    "tools/collect_runtime_evidence_test.cjs": "1964a501e9b6cd0d1fb1a59cc50aaf9f3154811106fd05128093ede17cf51ae3",
+    "tools/RUNTIME_EVIDENCE_COLLECTION.txt": "1806672f3f79317bd6b1360e46c76c4099eb74ba3a78c90113f550a763d6526d"
+  },
+  "source_file_bytes": {
+    "tools/collect_runtime_evidence.cjs": 26302,
+    "tools/collect_runtime_evidence_test.cjs": 21267,
+    "tools/RUNTIME_EVIDENCE_COLLECTION.txt": 8331
+  },
+  "new_dependencies": [],
+  "new_permanent_processes": 0,
+  "external_orders": 0,
+  "model_fits": 0,
+  "new_financial_trials": 0,
+  "level4_assessed": false,
+  "financial_acceptance_allowed": false,
+  "economic_score": null,
+  "software_scope": [
+    "one-shot fixed-route GET-only authenticated runtime evidence collector",
+    "version checked before credentials; account bound in both source families",
+    "original complete response bodies plus SHA-256; private exclusive output",
+    "pinned observation prefix verified with existing assembler",
+    "account history semantic verification with verifyNetLedgerHistoryBundle, including rejection of rehashed false PnL",
+    "bounded time/pages/requests/bytes; no automatic restart for mixed ledger revisions",
+    "no calibration manifest without an explicitly supplied selection",
+    "final completion receipt only after both verifications and unchanged runtime identity",
+    "credential reflection rejected before persistence, including JSON escaped echoes",
+    "documented remaining causal/model/cost/protocol requirements"
+  ],
+  "benchmark": {
+    "nature": "SYNTHETIC_ENGINEERING_ONLY",
+    "samples": 1,
+    "transport": "LOCAL_LOOPBACK_HTTP",
+    "duration_ms": 38.437394,
+    "requests": 9,
+    "network_bytes_seen": 19020,
+    "artifact_bytes": 30092,
+    "observation_frames": 3,
+    "ledger_observations": 3,
+    "node_version": "v24.22.1",
+    "platform": "linux",
+    "node_process_rss_bytes": 58376192,
+    "source_account": "SYNTHETIC-COLLECTOR-ACCOUNT",
+    "broker_calls_during_collection": 0,
+    "limitations": [
+      "One local synthetic sample; no latency percentile or production improvement is inferred.",
+      "RSS includes test/runtime modules; it is not isolated collector memory.",
+      "No financial performance conclusion."
+    ]
+  },
+  "development_findings": [
+    {
+      "kind": "TEST_FIXTURE",
+      "detail": "Initial fixture lacked Store.lease; added it. Child CLI help test removed inherited NODE_TEST_CONTEXT."
+    },
+    {
+      "kind": "TEST_ASSERTION",
+      "detail": "Recorded initial transport run was 27/29. Raw-body test map overwrote the first health response with the last; fixed to preserve each response."
+    },
+    {
+      "kind": "IMPLEMENTATION",
+      "detail": "The initial overall deadline could be reported as request timeout after timer rounding. Deadline kind is now fixed by the limiting budget and delay is rounded upward."
+    }
+  ],
+  "initial_transport_run": {
+    "log": "initial_transport_tests.log",
+    "log_sha256": "d314a876847ac92b6d87374904ddebadf66bb21b16d8976df37ceebc55760be9",
+    "tests": 29,
+    "passed": 27,
+    "failed": 2
+  },
+  "limitations": [
+    "Local source integrity does not independently authenticate broker/provider or training provenance.",
+    "The snapshot GET persists bounded metadata in the existing runtime; there are no broker/order/configuration calls.",
+    "Complete collection is transport/integrity completion, not economic completeness or level 4.",
+    "No observed account collection was performed.",
+    "One local synthetic timing sample is not a production latency percentile or performance improvement.",
+    "Account pages are revision-bound and fail on change; there is no cross-request ledger snapshot or infinite retry.",
+    "Deadlines depend on event-loop resumption; byte limits apply to retained application data, not already-in-flight socket bytes.",
+    "POSIX permissions are not a portable privacy guarantee on every filesystem."
+  ]
+}

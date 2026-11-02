@@ -1,0 +1,385 @@
+protocolo: HARPOONX_CARTERA_COMPUESTA_REPARACION_DE_VALIDEZ
+version_integral: 30.13.1
+fecha_cliente: '2026-11-01T00:45:36.602174-06:00'
+objetivo: Crecimiento neto compuesto de toda la cartera; no se exige beneficio aislado por activo.
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  mediciones_reales:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos_por_segundo
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: intervalo_entre_eventos
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: frecuencia_decisiones
+    unidad: decisiones_por_segundo
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: antiguedad_dato_al_decidir
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: latencia_calculo_senal
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: latencia_envio_confirmacion
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: tiempo_hasta_ejecucion
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: latencia_cancelacion_confirmada
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: desfase_entre_relojes
+    unidad: ms
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: persistencia_estimada_de_senal
+    unidad: segundos
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: spread_real
+    unidad: bps
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: profundidad_ejecutable
+    unidad: unidades_y_USD
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: porcentaje_ejecutado_real
+    unidad: proporcion
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  - variable: coste_total_real_por_operacion
+    unidad: USD_y_bps
+    valor_observado: null
+    fuente: null
+    limitacion: Sin telemetria original de cuenta/ejecucion para este periodo
+  datos_del_modelo:
+    barras_ms: 300000
+    retraso_disponibilidad_asumido_ms: 3000
+    spread_completo_asumido_bps: 2
+    slippage_asumido_por_lado_bps: 2
+    comision_modelada_por_lado_usd: 0
+  universo_evaluado:
+  - SPY
+  - XLK
+  acciones_y_otros_activos_evaluados_por_este_ensayo: false
+  raw_originales_revalidados: 0
+  raw_originales_referenciados: 149
+  dataset_preparado: SHA256 y datasetHash coinciden; reproduccion exacta, no nueva autenticacion externa.
+  cuenta_real_ledger_conciliado: null
+reproduccion_de_referencia_y_discrepancias:
+  control_exacto: true
+  campo_excluido_de_igualdad: generatedAt
+  control_pnl_usd: 119.74999999999952
+  control_campanas: 31
+  fallos_hallados:
+  - id: HOLDING_CALENDAR
+    hecho: 9 de31 campanas superaban72h; max142h.
+    contribucion_descriptiva_usd: 90.47
+  - id: FUTURE_SIZE_PRICE
+    hecho: 31 de31 estados de tamano usaban apertura de fill297segundos posterior a decision.
+  control_admisible_para_aprobar_rentabilidad: false
+reconciliacion_del_patrimonio:
+  capital_inicial_usd: 20000
+  patrimonio_final_modelado_usd: 20091.28
+  pnl_trading_modelado_usd: 91.27999999999918
+  pnl_economico_completo_usd: null
+  causa_pnl_economico_null: Gastos externos no documentados; no se sustituyen por cero.
+  continuidad_sesiones: 336
+  reinicios_de_capital: false
+  retorno_compuesto: 0.004564000000000457
+  comparador_contable: Modelo de cartera con comprobacion conservadora de caja; no ledger del broker.
+atribucion_del_resultado:
+  por_activo:
+  - group: SPY
+    baseline_campaigns: 14
+    candidate_campaigns: 15
+    baseline_pnl_usd: -45.650000000000546
+    candidate_pnl_usd: -35.33000000000072
+    difference_usd: 10.319999999999823
+  - group: XLK
+    baseline_campaigns: 17
+    candidate_campaigns: 18
+    baseline_pnl_usd: 165.40000000000006
+    candidate_pnl_usd: 126.6099999999999
+    difference_usd: -38.79000000000016
+  por_ventana_de_entrada:
+  - group: FIRST_90_MIN
+    baseline_campaigns: 19
+    candidate_campaigns: 21
+    baseline_pnl_usd: 79.07999999999942
+    candidate_pnl_usd: 59.819999999999055
+    difference_usd: -19.26000000000036
+  - group: MIDDLE_SESSION
+    baseline_campaigns: 12
+    candidate_campaigns: 12
+    baseline_pnl_usd: 40.6700000000001
+    candidate_pnl_usd: 31.46000000000012
+    difference_usd: -9.20999999999998
+  entradas_ultimos_90_minutos: 0
+  por_ventana_de_salida:
+  - group: FIRST_90_MIN
+    baseline_campaigns: 16
+    candidate_campaigns: 9
+    baseline_pnl_usd: 65.31000000000006
+    candidate_pnl_usd: -11.23000000000033
+    difference_usd: -76.54000000000039
+  - group: LAST_90_MIN
+    baseline_campaigns: 8
+    candidate_campaigns: 17
+    baseline_pnl_usd: 110.61999999999975
+    candidate_pnl_usd: 156.8599999999996
+    difference_usd: 46.23999999999984
+  - group: MIDDLE_SESSION
+    baseline_campaigns: 7
+    candidate_campaigns: 7
+    baseline_pnl_usd: -56.18000000000029
+    candidate_pnl_usd: -54.35000000000008
+    difference_usd: 1.8300000000002115
+  interpretacion_ventanas: Resultado completo de campanas agrupadas por entrada o salida; no PnL ocurrido solo dentro
+    de90min. Agrupaciones alternativas, no se suman.
+  despues_del_cierre_90_min: No evaluado; datos de sesiones regulares.
+  delta_paquete_usd: -28.47000000000034
+  descomposicion_delta:
+    common_campaign_delta_usd: -44.9700000000002
+    introduced_campaign_pnl_usd: 16.499999999999858
+    absent_campaign_component_usd: 0
+    sum_usd: -28.47000000000034
+  cantidad_cambiada_en_31_campanas_comunes: 0
+  concentracion:
+    mejor_campana_usd: 107.37
+    resto_de_campanas_neto_usd: -16.090000000000828
+    sesiones_con_pnl_no_cero: 44
+    folds_cash: 9
+    folds_totales: 16
+hipotesis_y_condiciones_de_refutacion:
+  variante: Una reparacion conjunta de calendario y precio causal; selecciones originales congeladas.
+  registro:
+    schema: HARPOON_EXPLORATORY_CORRECTION_REGISTRATION_1
+    purpose: ONE_VALIDITY_REPAIR_FIXED_SELECTION
+    trial_id: HARPOON_VALIDITY_REPAIR_20261101_01
+    registered_at: '2026-11-01T06:40:37.373784+00:00'
+    registered_before_candidate_execution: true
+    new_variant_count: 1
+    fits_allowed: 0
+    original_selection_frozen: true
+    financial_acceptance_allowed: false
+    execution_allowed: false
+    liveApproved: false
+    independent_external_preregistration: false
+    data_scope: REUSED_HISTORICAL_PREPARED_BARS_MODELED_EXECUTION
+    information_already_observed: Original 31 campaigns, 119.75 USD and attribution; the candidate result has not
+      been evaluated.
+    corrections:
+    - Calendar-feasible CLOSED_CHANNEL deadline anchored at decision; no late fictional exit or discarded open exposure.
+    - Quantity from a price available at the decision; fixed quantity at later modeled fill, with conservative capital/risk
+      feasibility checks.
+    unchanged_choices:
+    - universe SPY/XLK
+    - 433 original opportunities
+    - 16 original fold selections
+    - initial capital and exposure ceilings
+    - cost coefficients
+    - signal thresholds
+    - exit variants other than admissible holding deadline
+    - observation period
+    primary_outputs:
+    - evaluation completeness
+    - modeled trading PnL
+    - continuous portfolio growth
+    - maximum modeled holding time
+    - open unresolved exposure
+    - fill feasibility incidents
+    secondary_outputs:
+    - difference from forensic control
+    - asset contributions
+    - entry/exit cohorts
+    - number of campaigns
+    - maximum drawdown
+    - capital release and skipped opportunities
+    interpretation_precommitted:
+      effect_attribution: Combined repair package; neither individual correction is causally isolated.
+      technical_acceptance: No unresolved exposure, no future input used for quantity, no modeled holding over72h,
+        all fill feasibility checks pass.
+      incomplete_or_unfunded_path: Retain exposure and incident; total PnL is null; do not resize, censor or impute
+        zero.
+      unknown_external_costs: Remain null, so a positive modeled trading PnL is not complete economic profitability.
+      financial_acceptance: No level6 or other financial promotion. This is not a new holdout and does not compare
+        against Ridge.
+      unfavorable_result: Publish without retuning; an operational correctness repair is not selected by whether
+        its PnL rises.
+    exploration_accounting:
+      preserved_legacy_history:
+        ultimate_export_sha256: bf7e199a75451ad7b892e4bc26ddab43d6338e1f2572a4075cfcdcc5ea81fe2c
+        ultimate_chain_head: 4452b01a1c426bb616628ef0d361fb348ec33e23512c88e9e3f6404cbf7a509a
+        ultimate_preserved_trial_slots: 18
+        quant_journal_sha256: c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd
+        quant_budget_unchanged:
+          limit: 128
+          spent: 23
+        quant_audit_head:
+          sequence: 78
+          hash: df39e861ed2aa086dfb80c782d7924bead338fa6dfc1a28dc202616d5c3c1208
+      new_joint_repair_variants: 1
+      new_search_budget_created: false
+      global_deduplicated_total: null
+      global_total_reason: Legacy studies use different slot definitions and overlapping periods; do not sum their
+        counters.
+      legacy_journal_mutations: 0
+      retuning_or_additional_variants_allowed_by_this_record: false
+    bindings:
+      runner_sha256: 1e5e44137db4af40174c3e4d0a074e2a05a1e4c876e156aeeb7ff85dc8256de7
+      helper_sha256: fb452c245a714c583a61d958c2a5a5775aed399ffd916dc8f42ff3a42699002a
+      frozen_inputs_sha256: 3eab3afe73d2df56e0bd96c73d460df243266870994514f269986d1635327c6c
+      baseline_runtime_sha256:
+        runtime30/ultimate_replay.js: f47455ababf30c07f40b9913b07b8c0b25e6c4670ffabbc8a711643ea5dd2979
+        runtime30/ultimate_contracts.js: 782dc639435eb3f517ff4b6423d7ffe8ef3b4fc3067ea4de2f9be0ce086b7679
+        runtime30/ultimate_stats.js: 7e00fe13f18a8d1e1a9a2f721fee06831422d1491f3c97cc653084d4ae220361
+        runtime30/ultimate_frequency.js: 4b7644d1a3b1dd8e87be13ef9853c0d22ff4afa1cca06be9325700a47649e972
+        runtime30/policy.js: 935b0b476c0e56b1ed219f9be920bbe71596fef481b3eb09add8dec6af24270c
+        runtime30/types.js: 9757735ff525746516e53afe0f751e2479115bd9c7bdcd56dba29469d9026754
+        runtime30/ultimate_lab.js: baadba950e9992b0541ba81de408c9d8c8f6787d5b759ec2edbbd47373642063
+        runtime30/validators.js: e024563cd70cd0465782611a344bb53396cb66489bf2381696514e94451c2ff9
+        runtime30/scheduler.js: a8ee53676d676a02733820115802511b125381ce0e41df864ee678eaa9d2fed2
+      candidate_runtime_sha256:
+        runtime30/ultimate_replay.js: 8c24ef4a129b8311cb1b8800c18329a0c8f8d5a1441dc80e27120dc3c2aede5d
+        runtime30/ultimate_contracts.js: 782dc639435eb3f517ff4b6423d7ffe8ef3b4fc3067ea4de2f9be0ce086b7679
+        runtime30/ultimate_stats.js: 7e00fe13f18a8d1e1a9a2f721fee06831422d1491f3c97cc653084d4ae220361
+        runtime30/ultimate_frequency.js: 4b7644d1a3b1dd8e87be13ef9853c0d22ff4afa1cca06be9325700a47649e972
+        runtime30/policy.js: 935b0b476c0e56b1ed219f9be920bbe71596fef481b3eb09add8dec6af24270c
+        runtime30/types.js: 9757735ff525746516e53afe0f751e2479115bd9c7bdcd56dba29469d9026754
+        runtime30/ultimate_lab.js: f7dcf9b959dfe7faef194710462f8ac597f075d0fe7d5322f323cf342155581f
+        runtime30/validators.js: e024563cd70cd0465782611a344bb53396cb66489bf2381696514e94451c2ff9
+        runtime30/scheduler.js: a8ee53676d676a02733820115802511b125381ce0e41df864ee678eaa9d2fed2
+      prepared_sha256: d548fcdaa16e9241c2b4b6177dc150f86df6990563241938a82ed76d9c1a3c69
+      baseline_report_sha256: 7b6fe566ac8a8ed27c5bb78be3d8e087b18a59f1b53de591324885760acaca11
+    calendar_and_cost_provenance: Retained modeled assumptions; original149raw source files and actual account evidence
+      are absent.
+  fallo_ante_exposicion_no_resuelta: PnL null; conservar incidente/posicion, sin redimensionar ni censurar.
+  resultado_adverso: Se publica sin retocar parametros.
+  efecto_individual_de_cada_arreglo: No aislado por este unico contraste.
+cambios_implementados:
+- deadlineFor del runtime, anclado en decision y con margen de cierre; cobertura de72h obligatoria.
+- Precio de cantidad desde ultima barra completada disponible; identidad temporal en el recibo.
+- Cantidad fija; comprobaciones de riesgo, nominal y caja al fill; fallo con exposicion preservada.
+- Reservas pendientes exante y caja conservadora sin acreditar parciales o ganancias abiertas.
+- Sello de ResearchLab incluye policy.js; informe antiguo conservado y rechazado con el codigo nuevo.
+resultados_de_todas_las_variantes:
+- candidato: CONTROL_FORENSE_30_13_0
+  naturaleza: historico_preparado_reutilizado_ejecucion_modelada
+  periodo:
+  - '2025-03-11'
+  - '2026-07-13'
+  capital_inicial_usd: 20000
+  patrimonio_final_modelado_usd: 20119.75
+  pnl_trading_modelado_usd: 119.74999999999952
+  costes_operativos_externos_usd: null
+  causa_coste_null: Sin devengos originales documentados
+  retorno_compuesto: 0.005987500000000923
+  drawdown_maximo: 0.006347736227213963
+  campanas: 31
+  sesiones: 336
+  holding_maximo_horas: 142
+  holding_mayor_72h: 9
+  intervalo_incertidumbre: null
+  causa_intervalo_null: No se registro inferencia para promocion; historia ya utilizada
+- candidato: REPARACION_30_13_1
+  naturaleza: historico_preparado_reutilizado_ejecucion_modelada
+  periodo:
+  - '2025-03-11'
+  - '2026-07-13'
+  capital_inicial_usd: 20000
+  patrimonio_final_modelado_usd: 20091.28
+  pnl_trading_modelado_usd: 91.27999999999918
+  costes_operativos_externos_usd: null
+  causa_coste_null: Sin devengos originales documentados
+  retorno_compuesto: 0.004564000000000457
+  drawdown_maximo: 0.00687187489762886
+  campanas: 33
+  sesiones: 336
+  holding_maximo_horas: 71.91666666666667
+  holding_mayor_72h: 0
+  intervalo_incertidumbre: null
+  causa_intervalo_null: No se registro inferencia para promocion; historia ya utilizada
+resultados_fuera_de_muestra_y_estres:
+  nuevo_holdout_intacto: false
+  historia_reutilizada: true
+  comparacion_nueva_frente_a_ridge: null
+  causa_ridge_null: Faltan panel/modelos causales y evidencia de cuenta vinculada para comparador vigente.
+  nuevos_escenarios_financieros_de_estres: 0
+  limite: Las pruebas de errores de software no son escenarios financieros ni evidencia de rentabilidad.
+incertidumbre_y_limitaciones:
+- UnicamenteSPY yXLK, no toda la red de acciones/ETF.
+- Gastos externos, recibos originales de ejecucion y ledger real ausentes.
+- Fills e intrabar modelados; la causalidad del precio se comprueba respecto a availableAt modelado.
+- Calendario suministrado sin nueva autenticacion de su fecha historica de publicacion.
+- Mejor operacion107.37USD supera el beneficio total91.28USD; el resto compensa parte de esa ganancia.
+- Exposicion y parciales del replay no equivalen a un libro completo reconciliado del coordinador real.
+- No se estudia ampliar capitalLimit ni se eleva exposicion para producir el resultado.
+punto_de_equilibrio_condicionado:
+  costes_adicionales_totales_que_anularian_beneficio_usd: 91.27999999999918
+  por_sesion_equivalente_usd: 0.2716666666666642
+  metodo: Resta sobre trayectoria y cantidades congeladas; no estima gastos reales ni recalcula su efecto sobre
+    capital.
+validacion_de_software:
+  focused_software_tests_passed: 56
+  composition:
+    calendar: 10
+    causal_sizing_and_budgets: 7
+    existing_ultimate: 29
+    comparison_runner: 10
+  typescript: PASS
+  candidate_reproduction: verify-candidate returned verified:true without changing original outputs
+  read_only_adversarial_checks: Separate identity and accounting review; not counted as software tests or independent
+    external validation
+  limitations:
+  - check: HTTP integration
+    status: ENVIRONMENT_BLOCKED
+    cause: listen EPERM in existing HTTP test; excluded from focused final run
+  - check: isolated npm production dependency install
+    status: ENVIRONMENT_BLOCKED
+    cause: spawnSync npm EPERM; no successful isolated npm-ci claim
+  compiled_module_import: PASS in focused test; does not replace isolated npm-ci verification
+  historical_files_preserved: 1429
+  new_financial_variants: 1
+  fits: 0
+  external_orders: 0
+  deployment: false
+dictamen:
+  resultado: VENTAJA_NO_DEMOSTRADA
+  reparacion_tecnica: ACEPTADA_EN_ALCANCE_PROBADO
+  mejora_economica_frente_a_control_forense: false
+  diferencia_pnl_usd: -28.47000000000034
+  nivel_6_acreditado: false
+  calificacion_interna_de_evidencia_anterior: 3
+  calificacion_rentabilidad_real: null
+  causa_calificacion_null: Sin rentabilidad de cuenta real verificada.
+  aprobacion_financiera: false
+  despliegue: false
+  a_favor: Cartera compuesta positiva despues de costes de trading del modelo; plazo corregido, precio causal y
+    conciliaciones reproducibles.
+  en_contra: Menor PnL y mayor drawdown que referencia forense; costes economicos incompletos, concentracion, historia
+    reutilizada y Ridge pendiente.
+  siguiente_recurso_decisivo: Observaciones y exportaciones originales de cuenta del mismo periodo, o instancia
+    identificada accesible, para conciliar costes y realizar validacion temporal nueva.

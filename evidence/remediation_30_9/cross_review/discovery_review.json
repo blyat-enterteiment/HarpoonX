@@ -1,0 +1,45 @@
+{
+  "nature": "READONLY_CROSS_REVIEW_SYNTHETIC_FIXTURES",
+  "source_sha256": "bcaf7c2495b9a0729a4d4e6ea8a826b02bfaee4ed74d435368f0d242f91bb095",
+  "results": [
+    {
+      "id": "CR1_OPTION_UNDERLYING",
+      "removed": [
+        "OLD"
+      ],
+      "retained_underlying": false,
+      "underlying_bar_present": false,
+      "health": "READY"
+    },
+    {
+      "id": "CR2_STALE_BARS_READY",
+      "health": "READY",
+      "ready": [
+        "NEW"
+      ],
+      "last_bar_end": "2026-10-29T14:50:00.000Z",
+      "at": "2026-10-30T15:00:00.000Z",
+      "latest_bar_age_ms": 87000000
+    },
+    {
+      "id": "CR3_FUTURE_METADATA",
+      "added": [
+        "NEW"
+      ],
+      "rejected": {},
+      "metadata_available_at": "2026-10-31T15:00:00.000Z",
+      "at": "2026-10-30T15:00:00.000Z"
+    },
+    {
+      "id": "CR4_SCREENER_AGE_AT_COMMIT",
+      "added": [
+        "NEW"
+      ],
+      "health": "READY",
+      "reason": "WATCHLIST_DATA_READY",
+      "published": "2026-10-30T15:00:00.000Z",
+      "completed": "2026-10-30T15:15:01.000Z",
+      "age_at_commit_ms": 901000
+    }
+  ]
+}

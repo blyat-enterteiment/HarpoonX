@@ -1,0 +1,87 @@
+{
+  "version": "12.0.0",
+  "settings": {
+    "mode": "paper",
+    "feed": "iex",
+    "equities": [
+      "AAPL",
+      "MSFT",
+      "NVDA",
+      "AMD",
+      "TSLA",
+      "AMZN"
+    ],
+    "etf_pairs": [
+      "TQQQ",
+      "SOXL",
+      "SPXL"
+    ],
+    "equity_factors": {
+      "AAPL": "technology",
+      "MSFT": "technology",
+      "NVDA": "semiconductors",
+      "AMD": "semiconductors",
+      "TSLA": "consumer",
+      "AMZN": "consumer"
+    },
+    "starting_budget": 20000,
+    "capital_limit": 50000,
+    "risk_pct": 0.0035,
+    "open_risk_pct": 0.015,
+    "gross_pct": 0.75,
+    "symbol_pct": 0.12,
+    "factor_pct": 0.6,
+    "equity_book_pct": 0.45,
+    "etf_book_pct": 0.3,
+    "max_symbols": 4,
+    "daily_loss_pct": 0.02,
+    "max_drawdown_pct": 0.08,
+    "reserve_pct": 0.2,
+    "growth_cap": 1.03,
+    "breakout_pct": 0.003,
+    "chase_pct": 0.012,
+    "max_spread_bps": 25,
+    "slippage_bps": 10,
+    "quote_age_seconds": 15,
+    "poll_seconds": 10,
+    "close_minutes": 10,
+    "max_hold_minutes": 2880,
+    "auto_ml": true,
+    "auto_resume": false,
+    "profile": {
+      "name": "balanced",
+      "min_rvol": 2,
+      "momentum_bps": 20,
+      "tp1_r": 1.5,
+      "tp2_r": 3,
+      "trail_atr": 2.5,
+      "lock_fraction": 0.55,
+      "prediction_floor": 0.0005,
+      "tp1_fraction": 0.25,
+      "tp2_fraction": 0.25,
+      "reentry": false,
+      "selective": false
+    },
+    "min_plan_qty": 8,
+    "x": {
+      "dynamic_universe": true,
+      "stream": true,
+      "max_dynamic": 6,
+      "min_dollar_volume": 1000000,
+      "max_cost_r": 0.5,
+      "manual_reentry": false,
+      "sample_minutes": 30,
+      "samples_per_symbol_day": 4,
+      "hold_hours": 48
+    },
+    "xi": {
+      "options_enabled": true,
+      "options_feed": "opra",
+      "data_cost_total": 0,
+      "infra_cost_total": 0,
+      "external_costs_confirmed": false
+    }
+  },
+  "execution_authority": "dedicated_remote_account",
+  "note": "Test fixture, no credentials"
+}

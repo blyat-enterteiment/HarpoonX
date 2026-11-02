@@ -1,0 +1,55 @@
+HARPOON XXXUltimate — exploración retrospectiva de proxies
+Fuente: barras observadas Alpaca SIP; spreads y fills modelados.
+No es una cuenta ni una prueba independiente del historial ya observado.
+Ventanas: {"oosFrom": "2025-03-11", "oosThrough": "2026-07-13", "holdoutFrom": "2026-07-21", "holdoutThrough": "2026-10-16"}
+Trials por activo: 9; total 18. Corrección por presupuesto completo.
+
+OPENING_BREAKOUT:BASELINE
+OOS 44 campañas; expectativa R -0.1944954169752893; holdout 8 campañas, R -0.3562229830822919.
+Gates: {"oosSample": false, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": false, "dsr": false, "maxDrawdown": true, "tpImprovement": true, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+OPENING_BREAKOUT:RUNNER
+OOS 44 campañas; expectativa R -0.23947073325786608; holdout 8 campañas, R -0.4213607048376615.
+Gates: {"oosSample": false, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": false, "dsr": false, "maxDrawdown": true, "tpImprovement": false, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+OPENING_BREAKOUT:REGIME
+OOS 44 campañas; expectativa R -0.21602453367035962; holdout 8 campañas, R -0.3720959989553074.
+Gates: {"oosSample": false, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": false, "dsr": false, "maxDrawdown": true, "tpImprovement": false, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+CLOSED_CHANNEL:BASELINE
+OOS 139 campañas; expectativa R 0.13880271622847412; holdout 16 campañas, R 0.0411892658651659.
+Gates: {"oosSample": true, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": true, "dsr": false, "maxDrawdown": true, "tpImprovement": true, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+CLOSED_CHANNEL:RUNNER
+OOS 139 campañas; expectativa R 0.1459329796181309; holdout 16 campañas, R 0.04900176586516598.
+Gates: {"oosSample": true, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": true, "dsr": false, "maxDrawdown": true, "tpImprovement": false, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+CLOSED_CHANNEL:REGIME
+OOS 139 campañas; expectativa R 0.14238012858655255; holdout 16 campañas, R 0.0411892658651659.
+Gates: {"oosSample": true, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": true, "dsr": false, "maxDrawdown": true, "tpImprovement": false, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+VWAP_REVERSION:BASELINE
+OOS 92 campañas; expectativa R -0.6078093356521103; holdout 17 campañas, R -0.6042127232717738.
+Gates: {"oosSample": false, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": false, "dsr": false, "maxDrawdown": false, "tpImprovement": true, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+VWAP_REVERSION:RUNNER
+OOS 92 campañas; expectativa R -0.6229842184665967; holdout 17 campañas, R -0.6042127232717738.
+Gates: {"oosSample": false, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": false, "dsr": false, "maxDrawdown": false, "tpImprovement": false, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+VWAP_REVERSION:REGIME
+OOS 92 campañas; expectativa R -0.6078093356521103; holdout 17 campañas, R -0.6042127232717738.
+Gates: {"oosSample": false, "holdoutSample": false, "oosLowerPositive": false, "holdoutLowerPositive": false, "doubleCostEvidence": false, "dsr": false, "maxDrawdown": false, "tpImprovement": false, "untouchedHoldout": false, "actualFutures": false, "authenticatedExecution": false}
+
+Cartera financiada OOS modelada: {"scope": "MODELED_SHARED_CAPITAL_INTEGER_LOTS", "limits": {"capitalUsd": 20000, "riskFraction": 0.0025, "openRiskFraction": 0.015, "grossFraction": 0.5, "assetFraction": 0.12, "dailyLoss": 0.02, "maxDrawdown": 0.08}, "oos": {"campaigns": 31, "sessions": 336, "expectancyR": 0.19901282906120205, "profitFactor": 1.4919151565616358, "winRate": 0.5161290322580645, "growthLog": 1.776680402688936e-05, "modelReturn": 0.005987500000000923, "maxDrawdown": 0.006347736227213963, "sharpeHac": 0.5233987617731122, "sortino": 0.7459566019603139, "expectedShortfall95": 0.0012705116940696117}, "netUsd": 119.74999999999952, "skipped": {"SYMBOL_BUSY": 17}}
+Promoción: NONE
+Límites:
+Historical fills, spreads and queue positions are modeled; no authenticated fills are inferred.
+Common-cohort exit attribution and funded portfolio are separate estimands.
+All nine variants per root count toward multiplicity; row intervals depend on block and stationarity assumptions.
+DSR uses HAC effective sample approximation; PBO is a diagnostic, not prospective proof.
+A reused or preregistration-preceding holdout cannot authorize promotion.
+Proxy data cannot validate futures execution, basis, shorts or contract rolls.
+Stops have adverse precedence; close-derived trailing activates only after availability.
+Portfolio marks are bar-based; intrabar margin calls, settlement and market impact require additional observations.
+Futures funded results require historical margin data; absence is not zero margin.
+Contract commissions are a floor; exchange, clearing and data fees must be added to supplied assumptions.

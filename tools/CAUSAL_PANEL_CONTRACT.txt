@@ -1,0 +1,93 @@
+HARPOON causal panel adapter — offline contract
+
+Purpose
+Build one auditable feature/price-label panel for a later preregistered comparison.
+No training, parameter search, allocation, broker calls or order permission.
+An admitted row is not evidence of profitable execution.
+
+Python API
+  harpoon_quant.causal_panel.build(request, base_dir) -> report
+  harpoon_quant.causal_panel.verify(report, request, base_dir) -> verification
+
+CLI from the application root
+  python3 tools/build_causal_panel.py --input request.json --output report.json
+  python3 tools/build_causal_panel.py --input request.json --verify report.json --output verification.json
+
+Node is required only to verify source frame hashes with the same JSON number
+serialization as the TypeScript journal. This subprocess reads local JSON only.
+Sources must have SHA-256 bindings. JSON duplicate keys and nonfinite values fail.
+Relative paths are resolved from the request file directory. Relocating a complete
+tree with the same relative request does not change its report hash.
+
+Request fields
+  schema: HARPOON_CAUSAL_PANEL_REQUEST_1
+  available_at: explicit UTC-offset timestamp; labels must be known before it
+  config: existing Config parameters (no threshold is silently changed)
+  split_contract: CURRENT_SVR_60_20_20_PURGED
+  observation_exports: [{path, sha256}, ...]
+  selection: null if no prospective exports; otherwise explicit object below
+  archive: optional {manifest:{path,sha256}, diagnostic_panel:{path,sha256},
+                    quotes:[{path,sha256},...], start_date, end_date}
+
+Prospective selection object
+  kind: FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID
+  timezone: America/New_York
+  local_time: HH:MM (choose before inspecting outcome labels)
+  max_selection_delay_ms: integer, at most 90000
+  label_quote_max_age_ms: integer, at most 1000 * Config.max_quote_age_seconds
+  label_maturity_max_delay_ms: integer, at most 300000
+
+These values specify a dataset definition, not a recommendation or an experiment
+already registered. Keep one definition fixed for all compared estimators.
+The first eligible feature row per asset/UTC session is chosen before labels.
+A missing label never causes selection of a more favorable later decision.
+
+Prospective source contract
+Complete contiguous HARPOON_OBSERVATION_EXPORT_1 pages must share account, head
+and total count. Frames retain original raw inputs and SHA-256 values. Runtime
+configuration must remain constant. The adapter supports equity and ETF here.
+It recomputes the current eight features with core.features and bridge.bars and
+checks the recorded vector. Missing bar receipt times are conservatively known
+at first capture, exactly as the existing bridge; never backdated to bar close.
+The code does not assert external authenticity or synchronized exchange clocks.
+It does not estimate network latency from those different clock domains.
+The feature clock denotes input availability at capture, not an observed
+predictor-completion timestamp; execution feasibility needs its own receipts.
+
+Label definition
+Simple underlying midquote return from the selected observed quote to the last
+observed quote at or before a fixed wall-clock horizon. The ending quote must
+meet the declared age bound. Its reception and a later maturity capture must be
+observed before the build cutoff. A nearest future price is never substituted.
+This is a price-response label. It excludes fills, costs, financing and account
+capital and cannot be used as a realized trade or continuous wealth path.
+
+Splits
+One row per asset/session, with the existing 60/20/20 date boundaries; remove
+training/validation rows whose label end or availability reaches the next part.
+The report records explicit row IDs. It does not certify that an unchanged
+trainer has consumed those rows. In particular, the older standalone Ridge
+trainer has a different label-availability purge; common trainer parity must be
+verified before any model-comparison claim. No trainer runs in this adapter.
+
+Historical archive isolation
+The archive reconstructs numerical formulas using observed provider bar VWAP,
+volume and quote prices. Its temporary availability projection is explicitly
+counterfactual and used only to evaluate the existing numerical feature function.
+Original features_known_at and original_received_at remain null. Reconstructed
+rows never enter panel.rows, even if all eight numbers are finite.
+Quote size does not become executable depth. Backfill retrieval time is preserved
+as retrieval time and never substituted for original runtime reception.
+
+Report fields used by operational validation
+  schema: HARPOON_CAUSAL_PANEL_BUILD_1
+  input_hash / source_hashes / implementation_hashes / artifact_hash
+  counts.prospective_frames / causal_rows_admissible / reconstructed_feature_rows
+  panel / panel_hash / archive_audit / splits / readiness / rejections
+  models: null, with NO_TRAINING_AUTHORIZED_OR_EXECUTED
+  coordinator_replay_request: null, with explicit missing execution-path scope
+  execution_allowed: false; liveApproved: false; financial_acceptance_allowed: false
+
+Use verify(), which reconstructs original sources and all report values. Do not
+accept a caller's count, readiness flag, self-resealed report or monetary result
+as a replacement for that reconstruction. Synthetic source nature is preserved.

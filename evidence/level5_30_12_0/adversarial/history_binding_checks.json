@@ -1,0 +1,129 @@
+{
+  "scope": "Preserved local history integrity and synthetic mutation checks; no journal writes, financial search or source authenticity claim",
+  "source_sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+  "passed": 6,
+  "total": 6,
+  "tests": [
+    {
+      "id": "L5-C1-RETAINED-HISTORY-REMAINS-UNRESOLVED",
+      "passed": true,
+      "expected_error": null,
+      "error": null,
+      "result": {
+        "source_bytes_and_quant_journal_verified": true,
+        "family_counts": {
+          "QUANT": 23,
+          "ULTIMATE": 18,
+          "TP32": 3
+        },
+        "global_deduplicated_total": null,
+        "global_null_reason": "Native per-attempt identities across historical families remain unresolved; separate counters are not summed.",
+        "known_test_overlap": false,
+        "known_periods": [
+          {
+            "family": "observed_bars_modeled_funded_portfolio",
+            "from": "2025-03-11",
+            "through": "2026-07-13"
+          },
+          {
+            "family": "observed_bars_modeled_funded_portfolio",
+            "from": "2026-07-21",
+            "through": "2026-10-16"
+          },
+          {
+            "family": "synthetic_economic_study",
+            "from": "2026-07-01",
+            "through": "2026-10-30"
+          },
+          {
+            "family": "TP32",
+            "from": "2025-05-30",
+            "through": "2026-10-16"
+          }
+        ],
+        "test_after_known_history": true,
+        "freshness_null_reason": null,
+        "quant_measurement_reservation_heads": [],
+        "search_coverage_verified": false,
+        "manifest_sha256": "4f374aecd3e6264d172eef127859eee56b080b1513a0921dc30746eeee73b6e6",
+        "external_authentication": false
+      }
+    },
+    {
+      "id": "L5-C1-REPLACEMENT-FAMILY-WITH-VALID-HASH",
+      "passed": true,
+      "expected_error": "HISTORICAL_FAMILY_NOT_BOUND_TO_PRIOR_AUDIT",
+      "error": "HISTORICAL_FAMILY_NOT_BOUND_TO_PRIOR_AUDIT",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-INVENTED-GLOBAL-TOTAL",
+      "passed": true,
+      "expected_error": "GLOBAL_COUNT_NOT_DERIVED_FROM_SOURCE_IDENTITIES",
+      "error": "GLOBAL_COUNT_NOT_DERIVED_FROM_SOURCE_IDENTITIES",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-OMITTED-PRESERVED-SOURCE",
+      "passed": true,
+      "expected_error": "PRIOR_HISTORY_SOURCE_NOT_BOUND",
+      "error": "PRIOR_HISTORY_SOURCE_NOT_BOUND",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-BACKDATED-PRIOR-AND-REHASH",
+      "passed": true,
+      "expected_error": "PRIOR_AUDIT_RELEASE_ANCHOR_MISMATCH",
+      "error": "PRIOR_AUDIT_RELEASE_ANCHOR_MISMATCH",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-OLD-TEST-CANNOT-BECOME-FRESH",
+      "passed": true,
+      "expected_error": "FRESHNESS_FALSE",
+      "error": null,
+      "result": {
+        "source_bytes_and_quant_journal_verified": true,
+        "family_counts": {
+          "QUANT": 23,
+          "ULTIMATE": 18,
+          "TP32": 3
+        },
+        "global_deduplicated_total": null,
+        "global_null_reason": "Native per-attempt identities across historical families remain unresolved; separate counters are not summed.",
+        "known_test_overlap": true,
+        "known_periods": [
+          {
+            "family": "observed_bars_modeled_funded_portfolio",
+            "from": "2025-03-11",
+            "through": "2026-07-13"
+          },
+          {
+            "family": "observed_bars_modeled_funded_portfolio",
+            "from": "2026-07-21",
+            "through": "2026-10-16"
+          },
+          {
+            "family": "synthetic_economic_study",
+            "from": "2026-07-01",
+            "through": "2026-10-30"
+          },
+          {
+            "family": "TP32",
+            "from": "2025-05-30",
+            "through": "2026-10-16"
+          }
+        ],
+        "test_after_known_history": false,
+        "freshness_null_reason": null,
+        "quant_measurement_reservation_heads": [],
+        "search_coverage_verified": false,
+        "manifest_sha256": "4f374aecd3e6264d172eef127859eee56b080b1513a0921dc30746eeee73b6e6",
+        "external_authentication": false
+      }
+    }
+  ],
+  "production_edits": 0,
+  "new_economic_experiments": 0,
+  "journal_writes": 0
+}

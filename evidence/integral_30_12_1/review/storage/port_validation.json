@@ -1,0 +1,157 @@
+{
+  "schema": "HARPOON_STORAGE_PORT_VALIDATION_1",
+  "timestamp_utc": "2026-11-01T03:27:57.860Z",
+  "classification": "HECHO",
+  "scope": {
+    "base": "Harpoon XXXUltimate 30.12.0 / Quant 1.8.0",
+    "destination": "/workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1",
+    "status": "SOURCES_FROZEN_FOCUSED_VALIDATION_PASS",
+    "source_of_mechanism": "Recovered 31.0–31.4 bounded SQLite transport; reviewed and adapted to current 30.12 contracts",
+    "authorized_source_changes": [
+      "runtime/store30.cjs",
+      "runtime/store.py",
+      "tools/store30_deadline_test.cjs"
+    ],
+    "full_regression": "Not executed by this agent; parent is responsible for final integrated verification",
+    "data": "Synthetic local values with real local SQLite processes and deliberate transport/process faults",
+    "external_actions": "None: no network, broker orders, deployment, credentials, model fit, financial experiment or exposure changes"
+  },
+  "modified": [
+    {
+      "path": "runtime/store30.cjs",
+      "sha256": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+      "bytes": 10423,
+      "change": "Startup handshake, bounded pending RPCs, deadlines, fatal process/transport errors, strict operation ACK validation, monotonic expiry at ACK processing, health, uncertain writes, no automatic replay/reopen, bounded close, JSDoc"
+    },
+    {
+      "path": "runtime/store.py",
+      "sha256": "fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21",
+      "bytes": 3356,
+      "change": "Add startup ping; SQLite lock wait reduced from 30 to 1 second; import spacing"
+    },
+    {
+      "path": "tools/store30_deadline_test.cjs",
+      "sha256": "bb9cdc72d2c8f1bb9f9e69275c41448e0cf500b5b2d00aa61dc012704b6d14e0",
+      "bytes": 12133,
+      "change": "14 real local transport fault/compatibility tests"
+    }
+  ],
+  "contract": {
+    "open": "Returns a promise resolving to this store only after a valid real SQLite ping ACK. Concurrent calls share the opening promise and child. READY cannot precede that ACK. Existing current runtime/server/crypto/cloud callers await open and remain compatible.",
+    "operation_compatibility": [
+      "get",
+      "put",
+      "batch",
+      "scan",
+      "scanAfter",
+      "scanFrom",
+      "atomic",
+      "lease",
+      "loadKeys",
+      "saveKeys"
+    ],
+    "acknowledgement": "Exactly id plus either result or nonempty string error. Success result is validated against the pending operation: ping {ok:true}; batch true; CAS/lease boolean; scan up to 500 [string key, value] rows; get arbitrary JSON. Unknown/late IDs do not resolve pending work; malformed JSON never acknowledges it.",
+    "time": "RPC expiry uses performance.now(), a monotonic clock, starting after local serialization and before enqueue/write. A valid ACK processed at or beyond deadline fails the store even if I/O ran before the overdue timer callback.",
+    "timeout_ms": {
+      "default": 2000,
+      "minimum": 50,
+      "maximum": 5000,
+      "configuration": "constructor options.timeoutMs or HARPOON_STORAGE_TIMEOUT_MS"
+    },
+    "pending_limit": 2048,
+    "overflow": "Reject overflow and all outstanding operations, latch FAILED, mark pending mutations uncertain, terminate worker; do not retry.",
+    "transport_failure": "Process spawn/error/exit, stdin/write error, RPC expiry or invalid response latches FAILED, rejects pending operations, releases timers and terminates the child.",
+    "uncertainWrite": "Sticky true if a mutation was awaiting ACK when transport failed, ACK was invalid/late, or close began. Not proof the mutation committed or rolled back. A read-only failure does not invent uncertain writes.",
+    "definite_errors": "Serialization failure before send and explicit valid operation error ACK reject without inventing transport uncertainty.",
+    "automatic_replay": false,
+    "same_instance_reopen_after_failure_or_close": false,
+    "atomic_retry": "Existing up to four CAS attempts only after a valid false CAS result; no retry after lost/invalid/late ACK.",
+    "reconciliation": "A deliberately new store instance may inspect durable state after failed one is closed; caller must reconcile durable records and external exposure before resuming actions.",
+    "close": "Idempotent promise; reject pending RPCs and retain uncertainty; end input, then SIGKILL if close timeout elapses. CLOSED with uncertainWrite=true still requires reconciliation.",
+    "schema": "Existing records/leases schema retained; no audit_events or append_events ledger added.",
+    "payload": "No new smaller IPC byte limit. Existing upstream observation/registry limits remain unchanged. A 16 MiB value round-trip was explicitly verified."
+  },
+  "tests": {
+    "command": "node --test --test-isolation=none --test-reporter=tap --test-timeout=15000 tools/store30_deadline_test.cjs",
+    "log": "consolidation_evidence/storage/store30_deadline_test.log",
+    "tests": 14,
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "tap_duration_ms": 1875.307573,
+    "cases": [
+      "Constructor deadline bounds",
+      "NEW/OPENING/READY startup ping and concurrent open compatibility",
+      "Spawn failure with sticky failure and no reopen",
+      "Suspended child deadline, released pending work and no retry",
+      "Committed CAS with ACK dropped, no CAS replay, explicit fresh reader finds one persisted increment",
+      "Five invalid mutation ACK envelopes/results: missing result, null, false, empty error, simultaneous result/error",
+      "Valid committed ACK after monotonic deadline rejected inside I/O callback before overdue timer can run",
+      "Pending queue capped at 2048 with read-only uncertainty semantics",
+      "Process death while mutation is pending",
+      "Close while mutation is pending; bounded stopped-child termination and retained uncertainty",
+      "Close unopened/closed store idempotently",
+      "Batch/get, 601-row pagination, scanAfter/limit, CAS/atomic and leases between two real SQLite processes",
+      "16 MiB stored value round-trip without smaller IPC cap",
+      "Local serialization and acknowledged unsupported operation errors preserve READY and definite-error semantics"
+    ],
+    "statistical_meaning": "Software/transport regression only; not evidence of economic profitability."
+  },
+  "checks": [
+    {
+      "name": "JSDoc JavaScript types",
+      "command": "node node_modules/typescript/bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime/store30.cjs",
+      "exit_code": 0,
+      "log": "consolidation_evidence/storage/store30_typecheck.log"
+    },
+    {
+      "name": "Python Ruff",
+      "command": "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m ruff check --select E4,E7,E9,F,I,UP,B,RUF --target-version py312 runtime/store.py",
+      "exit_code": 0,
+      "log": "consolidation_evidence/storage/store_python_ruff.log"
+    },
+    {
+      "name": "Python mypy",
+      "command": "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m mypy --ignore-missing-imports runtime/store.py",
+      "exit_code": 0,
+      "log": "consolidation_evidence/storage/store_python_mypy.log"
+    },
+    {
+      "name": "Store JavaScript syntax",
+      "command": "node --check runtime/store30.cjs",
+      "exit_code": 0,
+      "log": "consolidation_evidence/storage/store_js_syntax.log"
+    },
+    {
+      "name": "Test JavaScript syntax",
+      "command": "node --check tools/store30_deadline_test.cjs",
+      "exit_code": 0,
+      "log": "consolidation_evidence/storage/store_test_syntax.log"
+    }
+  ],
+  "environment": {
+    "node": "v24.22.1",
+    "python": "3.12.14",
+    "platform": "Linux",
+    "cwd": "consolidation_work/HARPOON_XXXUltimate_30_12_1"
+  },
+  "limits": [
+    "Node timers do not guarantee real-time termination while the event loop or OS is blocked; monotonic ACK validation prevents acceptance after logical expiry once processing resumes.",
+    "The RPC deadline begins after local JSON serialization. Serialization time and total caller work are not included in that bound.",
+    "The pending count is bounded, not total transport memory in bytes. Existing upstream payload quotas still apply; 16 MiB repeated-string compatibility is not an arbitrary-size memory benchmark.",
+    "Health READY reflects startup and last acknowledged operations; this port does not add a periodic independent health probe.",
+    "A storage failure may occur after an external broker request was already authorized or sent. This transport does not revoke external requests or guarantee protection operations while storage is unavailable.",
+    "No independent process supervisor or automatic external reconciliation was added; reactivation requires explicit current-runtime reconciliation.",
+    "POSIX signal fault tests are skipped on Windows by design; no such skip occurred on this Linux run.",
+    "No financial observations were created and no economic gate was advanced."
+  ],
+  "references": {
+    "branch_comparison": "consolidation_evidence/branches/branch31_review.json",
+    "branch_history_extension": "consolidation_evidence/branches/history_extension.json",
+    "base_integrity": "consolidation_evidence/integrity/integral_audit.json",
+    "raw_tool_receipts": "consolidation_evidence/storage/final_validation_tool_results.json",
+    "peer_caller_audit": "Performed read-only by integral_function_audit; not an independent external validation"
+  },
+  "economic_dictamen": "VENTAJA_NO_DEMOSTRADA"
+}

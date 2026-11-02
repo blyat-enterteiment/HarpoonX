@@ -1,0 +1,57 @@
+{
+  "status": "IMPLEMENTED_EXECUTED_VERIFIED_LOCAL",
+  "source_files": [
+    "xxx/plugins.ts",
+    "xxx/sessions.ts",
+    "tools/xxx_session_regression_test.cjs",
+    "tools/xxx_session_benchmark.cjs"
+  ],
+  "tests": {
+    "total": 26,
+    "passed": 26,
+    "failed": 0,
+    "log": "regression.tap",
+    "nature": "SYNTHETIC_ENGINEERING_ONLY",
+    "command": "node --no-use-env-proxy --test --test-isolation=none --test-reporter=tap tools/xxx_session_regression_test.cjs"
+  },
+  "static_checks": {
+    "typescript_strict_isolated_build": "PASS: targeted plugins.ts and sessions.ts plus dependencies; full coordinator build is owned by root",
+    "node_syntax": "PASS"
+  },
+  "corrected": [
+    "Premarket no longer changes regular opening_high/session_change/dollar_volume or opening_range eligibility",
+    "Opening range requires exactly three contiguous available bars from session open",
+    "Full calendar boundaries honor early closes; unknown or duplicate calendar sessions fail closed",
+    "Explicit future/delayed known_at and received bars are excluded until available",
+    "Relative momentum requires matching time interval and continuity of benchmark bars",
+    "Text timestamps without explicit Z or UTC offset cannot establish bar or receipt availability"
+  ],
+  "diagnostics_only": [
+    "Session windows with exact half-open boundaries and overlap membership flags",
+    "Close-to-close same-session streak with zero and missing-bar breaks",
+    "Observed prior regular-bar gap separated from verified-complete prior-close overnight gap"
+  ],
+  "preserved": [
+    "Eight quantitative core features",
+    "Entry and exit risk limits",
+    "Ten-minute preclose entry cutoff controlled by coordinator",
+    "SVR shadow-only authorization",
+    "No afterhours trading enabled"
+  ],
+  "compatibility": "Empty calendar retains explicit unverified legacy time filtering; helper always has authorizes_orders=false. Non-empty calendar with missing date never fabricates a session.",
+  "limitations": [
+    "Local synthetic tests do not demonstrate production feed incidence or profitability",
+    "Session benchmark measures helper work only; excludes plugins, allocation, broker and fills",
+    "Observed known_at is nullable; the inherited three-second close buffer is labeled as a snapshot/nominal rule, not measured receive latency"
+  ],
+  "sha256": {
+    "xxx/plugins.ts": "3d22028610403f399b5f9d0d789130eefc863fa3f37e0e52bdba111dce8c0ac6",
+    "xxx/sessions.ts": "29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77",
+    "tools/xxx_session_regression_test.cjs": "cdf292068f92a00968c79a5a138cb7462413bfc4bb1843c2525176ac3f404969",
+    "tools/xxx_session_benchmark.cjs": "03f1f6fa936421718118e00586c5a7465b094150fe4e529668237124942936d3"
+  },
+  "red_green": {
+    "red": "timezone_red.tap: previous helper passes25 and fails unzoned timestamp case",
+    "green": "regression.tap: final helper passes26"
+  }
+}

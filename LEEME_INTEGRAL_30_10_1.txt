@@ -1,0 +1,179 @@
+HARPOON XXXUltimate 30.10.1 — DISTRIBUCIÓN INTEGRAL
+Motor Quant 1.6.0 · Aplicación Node/TypeScript y cálculo Python en CPU
+
+1. ESTADO ECONÓMICO
+
+Valoración actual: 3/10 en una escala ordinal de preparación para demostrar
+rentabilidad económica. No es una probabilidad de ganar ni una estimación del
+riesgo de perder el capital. No se ha verificado el saldo de una cuenta actual.
+
+Hay código, controles y experimentos reproducibles. Un estudio histórico heredado
+con SPY/XLK muestra +119,75 USD sobre 20000 USD, con ejecución y costes modelados,
+31 campañas y 336 sesiones. Sus costes externos no están acreditados, su historial
+ya fue utilizado y ninguna variante recibió promoción. Otros estudios resultaron
+negativos. El ejemplo donde SVR mejora a Ridge mide error predictivo sintético;
+no demuestra una mejora del patrimonio con datos de mercado.
+
+Dictamen: VENTAJA_NO_DEMOSTRADA. La nota económica se mantiene en 3/10 tras esta
+revisión porque las correcciones de distribución no añaden evidencia financiera.
+Fuentes, periodos, resultados y criterios: EVALUACION_ECONOMICA_HARPOONX_30_10_1.yaml.
+
+2. QUÉ CONTIENE
+
+- UI activa: deploy/dashboard30.html y copia idéntica HARPOON_XXXUltimate.html.
+- Coordinador y protecciones: xxx/ y runtime30/ compilado.
+- Motor Python, Ridge/SVR, métricas y gate económico: quant/.
+- Ledger neto, captura prospectiva, validadores y replay del coordinador.
+- Configuración de ejemplo, instalación Docker XXXUltimate y blueprint Render.
+- Código de pruebas, evidencia, informes financieros históricos y hashes SHA-256.
+
+Es una distribución completa del código y sus componentes. Para operar requiere
+dependencias, credenciales, una cuenta PAPER dedicada y datos/modelos admisibles.
+Abrir el HTML como archivo no inicia el motor ni conecta la cuenta.
+
+3. CORRECCIONES DE ESTA REVISIÓN
+
+El instalador principal apunta al coordinador XXXUltimate. El camino legacy se
+selecciona explícitamente con --legacy y requiere un compose.json ya existente.
+Nunca se invoca automáticamente el configurador legacy que consulta la cuenta.
+
+El monitor muestra la versión que informa el servidor, los motivos de bloqueo,
+la contabilidad neta, costes desconocidos, cobertura de captura y archivo, estado
+de evidencia económica y autonomía. Usa la consulta de estado existente; no añade
+llamadas a modelos ni nuevas peticiones de polling.
+
+El diseño de la imagen ahora incluye tools/coordinator_replay.cjs,
+tools/observation_replay_input.cjs y xxx/*.ts, necesarios para la verificación de
+fuentes y reejecución del gate. La prueba de disposición de archivos ejecutó ese
+recorrido con dependencias del entorno local. No se construyó una imagen Docker.
+
+4. PRIMERA INSTALACIÓN CON DOCKER
+
+Requisitos: Docker Engine con Compose v2 y Python >=3.11 en el host. La imagen instala
+sus propias dependencias Node/Python. Configura los valores de .env.example en
+un archivo .env privado o en el entorno del proceso:
+
+  APCA_API_KEY_ID               clave PAPER de la cuenta dedicada
+  APCA_API_SECRET_KEY           secreto correspondiente
+  HARPOON_PANEL_PASSWORD        contraseña de al menos 32 caracteres
+  HARPOON_DATA                  directorio persistente del host
+  HARPOON_CONFIG                JSON original de configuración, fuera de DATA
+  HARPOON_START_PAPER           1 para conservar el arranque automático previsto;
+                               0 para iniciar con nuevas entradas pausadas
+  BIND_HOST                    127.0.0.1 por defecto
+  PORT                         10000 por defecto
+  HARPOON_PUBLIC_ORIGIN         http://127.0.0.1:10000 para ese origen local
+
+El archivo .env se interpreta como datos: no se ejecuta ni expande comandos.
+No incluyas credenciales en el código o en los informes. La ruta de instalación
+Docker pasa los secretos por entorno; Docker conserva sus metadatos habituales
+de entorno. Los archivos de secretos del host no se montan automáticamente.
+
+La configuración se monta como solo lectura y debe ser legible por UID1000 del
+contenedor. El instalador no cambia sus permisos ni reescribe su contenido.
+El directorio de datos se monta en /var/data y conserva el SQLite de la cuenta.
+El Python cuantitativo del contenedor usa la venv prevista en Dockerfile.xxx,
+independientemente del Python configurado en el host.
+
+Desde el directorio descomprimido:
+
+  bash install.sh --check
+  bash install.sh --plan
+
+Esas dos órdenes validan y muestran el plan local sin invocar Docker, consultar
+la cuenta ni enviar órdenes. Un resultado local correcto no acredita permisos
+del broker, contabilidad, calibración ni ventaja económica.
+
+Cuando se ejecuta la instalación dentro de la autorización operacional vigente:
+
+  bash install.sh
+  bash status.sh
+
+El primer comando construye y solicita el arranque de un único servicio
+xxxultimate. El segundo informa contenedores y salud HTTP. La versión entregada
+no fue desplegada ni arrancada contra una cuenta desde el entorno de evaluación.
+El runtime realiza la vinculación de cuenta y las comprobaciones del journal.
+Una instancia legacy activa bloquea un arranque simultáneo de la ruta nueva.
+
+Panel local predeterminado: http://127.0.0.1:10000
+Usuario: trader. Contraseña: HARPOON_PANEL_PASSWORD.
+Para un origen externo se exige HTTPS; este paquete no crea automáticamente un
+dominio ni un proxy TLS. render.yaml conserva la ruta de despliegue documentada.
+
+5. ACTUALIZAR UNA INSTALACIÓN EXISTENTE
+
+Conserva el mismo HARPOON_DATA, el SQLite y el JSON de configuración vinculados
+a esa cuenta. No sustituyas límites o identidad por los del ejemplo. No borres
+historiales para superar un bloqueo. La pausa persistida sobrevive al reinicio.
+
+Conserva una copia recuperable del estado antes de sustituir una instalación.
+La gestión de posiciones debe coordinarse con la interrupción del proceso: no
+ejecutes dos motores sobre la misma cuenta para intentar evitar esa interrupción.
+El comando stop.sh detiene el contenedor y advierte que interrumpe protección y
+salidas por software. No envía cierres/cancelaciones ni elimina el journal.
+
+  bash stop.sh
+
+La compatibilidad legacy es explícita:
+
+  bash status.sh --legacy
+  bash stop.sh --legacy
+
+Estos comandos se limitan al compose.json legacy existente. No implican migración
+automática de posiciones, secretos o configuración entre las dos arquitecturas.
+
+6. RUTA LOCAL SIN DOCKER Y VALIDACIÓN OFFLINE
+
+Requisitos comprobados para las pruebas: Node 24 y Python 3.12. El motor admite
+Python>=3.11; la matriz de dependencias probada está en quant/requirements-tested.txt.
+
+  npm ci
+  python3 -m venv .venv
+  .venv/bin/pip install -r quant/requirements-tested.txt -r quant/requirements-dev.txt
+  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-integral-qa
+
+El comando anterior ejecuta pruebas de software con datos sintéticos identificados.
+No lanza el servidor, no opera en el broker y no añade ensayos financieros.
+
+Para el arranque local previsto por el proyecto, con el entorno real ya configurado:
+
+  npm run build:xxx
+  export HARPOON_QUANT_PYTHON="$PWD/.venv/bin/python"
+  npm run start:ultimate
+
+En esta ruta Node no carga .env automáticamente: las variables deben existir
+en el entorno del proceso. La instalación Docker sí dispone del lector literal
+del archivo. Estas instrucciones no modifican PAPER a LIVE ni aumentan exposición.
+
+7. COMPROBAR EL ESTADO
+
+/healthz: proceso HTTP vivo; no acredita que pueda abrir operaciones.
+/v1/operational: estado y evidencia por capacidad; requiere autenticación.
+/operational-readyz: disponibilidad operacional; requiere autenticación.
+/v1/quant/observations?offset=0&limit=100: captura paginada autenticada.
+
+El monitor diferencia reconciliación, protección de posiciones, ledger, costes,
+captura, modelo/plan y gate económico. Sin modelo observado admisible o sin datos
+suficientes puede permanecer en espera. Un gate sintético favorable no habilita
+operaciones. SVR conserva su condición de investigación/sombra.
+
+8. ALCANCE VERIFICADO Y PENDIENTES
+
+La regresión ejecutada está en evidence/integral_30_10_1/final_regression/.
+Los checksums del paquete cubren los archivos entregados. Los hashes verifican
+integridad local; no autentican datos de mercado ni una cuenta externa.
+
+Las pruebas de interfaz usaron el código real de render sobre un DOM mínimo.
+No había Chromium ni Docker disponibles: la inspección visual del navegador,
+la construcción de imagen y el arranque de contenedor permanecen sin ejecutar.
+
+Continúan pendientes el productor de trayectorias financiadas comparables del
+motor/Ridge/control, los recibos de costes observados y el archivado automático
+del ledger contable. Su límite predeterminado es de 10000 marcas y 32 MiB, aproximadamente
+6,94 jornadas de 24 horas a una marca nominal por minuto. El journal de observaciones
+sí archiva segmentos, también con presupuesto finito.
+
+La autonomía económica integral y el entrenamiento/promoción automáticos no se
+declaran verificados. La siguiente puerta es producir evidencia neta admisible
+y contrastarla fuera de muestra; otra función o un nuevo modelo por sí solos no
+elevan la valoración económica.

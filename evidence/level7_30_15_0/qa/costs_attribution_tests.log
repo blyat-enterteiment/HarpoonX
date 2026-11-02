@@ -1,0 +1,616 @@
+TAP version 13
+# Subtest: exact fill links reconstruct accounting and holding, without financial authority
+ok 1 - exact fill links reconstruct accounting and holding, without financial authority
+  ---
+  duration_ms: 23.178418
+  type: 'test'
+  ...
+# Subtest: partial fills and open inventory remain attributed and valued
+ok 2 - partial fills and open inventory remain attributed and valued
+  ---
+  duration_ms: 10.401922
+  type: 'test'
+  ...
+# Subtest: a partial exit does not reset continuous holding age
+ok 3 - a partial exit does not reset continuous holding age
+  ---
+  duration_ms: 7.187014
+  type: 'test'
+  ...
+# Subtest: file tampering and rehashed provenance tampering are different explicit failures
+ok 4 - file tampering and rehashed provenance tampering are different explicit failures
+  ---
+  duration_ms: 14.325717
+  type: 'test'
+  ...
+# Subtest: missing legacy provenance cannot be repaired by timestamp proximity
+ok 5 - missing legacy provenance cannot be repaired by timestamp proximity
+  ---
+  duration_ms: 8.934472
+  type: 'test'
+  ...
+# Subtest: unknown broker order ID and duplicate ownership both block attribution
+ok 6 - unknown broker order ID and duplicate ownership both block attribution
+  ---
+  duration_ms: 7.379222
+  type: 'test'
+  ...
+# Subtest: future decision knowledge is rejected even after valid resealing
+ok 7 - future decision knowledge is rejected even after valid resealing
+  ---
+  duration_ms: 12.686351
+  type: 'test'
+  ...
+# Subtest: rehashing normalized fill timestamps cannot move real raw fills outside the period
+ok 8 - rehashing normalized fill timestamps cannot move real raw fills outside the period
+  ---
+  duration_ms: 13.16839
+  type: 'test'
+  ...
+# Subtest: initial inventory, pending intent and missing initial export never become zero
+ok 9 - initial inventory, pending intent and missing initial export never become zero
+  ---
+  duration_ms: 18.412416
+  type: 'test'
+  ...
+# Subtest: account and PAPER/REAL contradictions cannot certify real execution
+ok 10 - account and PAPER/REAL contradictions cannot certify real execution
+  ---
+  duration_ms: 10.781488
+  type: 'test'
+  ...
+# Subtest: missing tolerance is unknown, and an uncovered late-fill window is not certified
+ok 11 - missing tolerance is unknown, and an uncovered late-fill window is not certified
+  ---
+  duration_ms: 7.368225
+  type: 'test'
+  ...
+# Subtest: late fills inside the preregistered boundary tolerance cannot be dropped
+ok 12 - late fills inside the preregistered boundary tolerance cannot be dropped
+  ---
+  duration_ms: 25.883395
+  type: 'test'
+  ...
+# Subtest: numerical model receipt must match the frozen model and actual selected decision
+ok 13 - numerical model receipt must match the frozen model and actual selected decision
+  ---
+  duration_ms: 18.851001
+  type: 'test'
+  ...
+# Subtest: coordinator persists native provenance with the intent before the synthetic POST
+ok 14 - coordinator persists native provenance with the intent before the synthetic POST
+  ---
+  duration_ms: 69.303489
+  type: 'test'
+  ...
+# Subtest: CLI cannot overwrite its input or an existing report
+ok 15 - CLI cannot overwrite its input or an existing report
+  ---
+  duration_ms: 132.769372
+  type: 'test'
+  ...
+# Subtest: inline account, currency and explicit complete coverage use the shared receipt validator
+ok 16 - inline account, currency and explicit complete coverage use the shared receipt validator
+  ---
+  duration_ms: 3.524339
+  type: 'test'
+  ...
+# Subtest: legacy unbound inline coverage cannot silently declare an economic zero
+ok 17 - legacy unbound inline coverage cannot silently declare an economic zero
+  ---
+  duration_ms: 0.657952
+  type: 'test'
+  ...
+# Subtest: config.externalCosts and direct refresh reject the same incomplete or wrong-account receipt
+ok 18 - config.externalCosts and direct refresh reject the same incomplete or wrong-account receipt
+  ---
+  duration_ms: 2.008627
+  type: 'test'
+  ...
+# Subtest: only a complete explicit zero is accepted; a missing amount or receipt remains unknown
+ok 19 - only a complete explicit zero is accepted; a missing amount or receipt remains unknown
+  ---
+  duration_ms: 1.894067
+  type: 'test'
+  ...
+# Subtest: future knowledge cannot certify current costs or erase an accepted expense
+ok 20 - future knowledge cannot certify current costs or erase an accepted expense
+  ---
+  duration_ms: 2.645989
+  type: 'test'
+  ...
+# Subtest: receipt identity is immutable across persistence and reload
+ok 21 - receipt identity is immutable across persistence and reload
+  ---
+  duration_ms: 3.61861
+  type: 'test'
+  ...
+# Subtest: an invoice cannot disappear or mutate and a broker-booked fee is not subtracted twice
+ok 22 - an invoice cannot disappear or mutate and a broker-booked fee is not subtracted twice
+  ---
+  duration_ms: 4.457082
+  type: 'test'
+  ...
+# Subtest: valid file and inline receipts retain the same costs and economic account result
+ok 23 - valid file and inline receipts retain the same costs and economic account result
+  ---
+  duration_ms: 33.531147
+  type: 'test'
+  ...
+# Subtest: a malformed inline override cannot be replaced silently by a valid configured file
+ok 24 - a malformed inline override cannot be replaced silently by a valid configured file
+  ---
+  duration_ms: 3.176079
+  type: 'test'
+  ...
+# Subtest: deposits and withdrawals stay neutral while real-dated declared costs affect compound
+ok 25 - deposits and withdrawals stay neutral while real-dated declared costs affect compound
+  ---
+  duration_ms: 3.3774
+  type: 'test'
+  ...
+# Subtest: invalid receipts cannot clear the restatement latch or rewrite sealed accounting evidence
+ok 26 - invalid receipts cannot clear the restatement latch or rewrite sealed accounting evidence
+  ---
+  duration_ms: 7.353864
+  type: 'test'
+  ...
+# Subtest: rollovers retain the original capital, complete record export and bounded active marks
+ok 27 - rollovers retain the original capital, complete record export and bounded active marks
+  ---
+  duration_ms: 27.025699
+  type: 'test'
+  ...
+# Subtest: open losses, partial inventory, broker fees and external costs survive rollover without double counting
+ok 28 - open losses, partial inventory, broker fees and external costs survive rollover without double counting
+  ---
+  duration_ms: 12.711659
+  type: 'test'
+  ...
+# Subtest: deposits and withdrawals across archive boundaries preserve pre-flow marks and account growth
+ok 29 - deposits and withdrawals across archive boundaries preserve pre-flow marks and account growth
+  ---
+  duration_ms: 10.100112
+  type: 'test'
+  ...
+# Subtest: incremental created-at windows retain fees created later than their settlement date
+ok 30 - incremental created-at windows retain fees created later than their settlement date
+  ---
+  duration_ms: 5.755178
+  type: 'test'
+  ...
+# Subtest: replayed archived activities are deduplicated and revisions fail closed
+ok 31 - replayed archived activities are deduplicated and revisions fail closed
+  ---
+  duration_ms: 5.853515
+  type: 'test'
+  ...
+# Subtest: restart validates every archive and resumes with cumulative totals and identity
+ok 32 - restart validates every archive and resumes with cumulative totals and identity
+  ---
+  duration_ms: 6.114665
+  type: 'test'
+  ...
+# Subtest: archive corruption and missing segments reject restart and complete export
+ok 33 - archive corruption and missing segments reject restart and complete export
+  ---
+  duration_ms: 3.483419
+  type: 'test'
+  ...
+# Subtest: archive quota and accounting boundary tampering are detected independently
+ok 34 - archive quota and accounting boundary tampering are detected independently
+  ---
+  duration_ms: 3.919449
+  type: 'test'
+  ...
+# Subtest: segment budget survives restart and never deletes or resets capital
+ok 35 - segment budget survives restart and never deletes or resets capital
+  ---
+  duration_ms: 4.73095
+  type: 'test'
+  ...
+# Subtest: byte budget is checked before segment writes
+ok 36 - byte budget is checked before segment writes
+  ---
+  duration_ms: 2.25125
+  type: 'test'
+  ...
+# Subtest: failed control commit keeps old curve and durable orphan reservations are bounded
+ok 37 - failed control commit keeps old curve and durable orphan reservations are bounded
+  ---
+  duration_ms: 3.588465
+  type: 'test'
+  ...
+# Subtest: missing costs remain null through rollovers, without preventing account reconciliation
+ok 38 - missing costs remain null through rollovers, without preventing account reconciliation
+  ---
+  duration_ms: 3.321256
+  type: 'test'
+  ...
+# Subtest: late costs contradicting a sealed prefix demand explicit restatement, never reset economic history
+ok 39 - late costs contradicting a sealed prefix demand explicit restatement, never reset economic history
+  ---
+  duration_ms: 6.509704
+  type: 'test'
+  ...
+# Subtest: a delayed cost receipt preserves a closed anchor and complete historical performance across rollover
+ok 40 - a delayed cost receipt preserves a closed anchor and complete historical performance across rollover
+  ---
+  duration_ms: 7.913389
+  type: 'test'
+  ...
+# Subtest: materialization refuses count and byte budgets without loading archived payloads
+ok 41 - materialization refuses count and byte budgets without loading archived payloads
+  ---
+  duration_ms: 3.499412
+  type: 'test'
+  ...
+# Subtest: complete export rejects missing pages, mixed revisions and altered row payloads
+ok 42 - complete export rejects missing pages, mixed revisions and altered row payloads
+  ---
+  duration_ms: 7.001357
+  type: 'test'
+  ...
+# Subtest: offline verifier recomputes arithmetic rather than trusting rehashed accounting flags
+ok 43 - offline verifier recomputes arithmetic rather than trusting rehashed accounting flags
+  ---
+  duration_ms: 1.609161
+  type: 'test'
+  ...
+# Subtest: receipt producer/importer is traceable, literal and bound to account and currency
+ok 44 - receipt producer/importer is traceable, literal and bound to account and currency
+  ---
+  duration_ms: 3.408827
+  type: 'test'
+  ...
+# Subtest: exact example externalCosts:null configuration imports the configured receipt
+ok 45 - exact example externalCosts:null configuration imports the configured receipt
+  ---
+  duration_ms: 9.403333
+  type: 'test'
+  ...
+# Subtest: missing, malformed, duplicate-key and oversized cost files cannot declare zero
+ok 46 - missing, malformed, duplicate-key and oversized cost files cannot declare zero
+  ---
+  duration_ms: 3.077568
+  type: 'test'
+  ...
+# Subtest: receipt validator rejects absent amounts, future knowledge, incomplete categories, ambiguous links and unknown fields
+ok 47 - receipt validator rejects absent amounts, future knowledge, incomplete categories, ambiguous links and unknown fields
+  ---
+  duration_ms: 0.523441
+  type: 'test'
+  ...
+# Subtest: changing bytes under the same receipt identity is rejected across source restarts
+ok 48 - changing bytes under the same receipt identity is rejected across source restarts
+  ---
+  duration_ms: 3.770987
+  type: 'test'
+  ...
+# Subtest: a rejected or missing receipt keeps declared costs unknown while reported account fees remain reconciled
+ok 49 - a rejected or missing receipt keeps declared costs unknown while reported account fees remain reconciled
+  ---
+  duration_ms: 4.167189
+  type: 'test'
+  ...
+# Subtest: archive configuration and materialization bounds are explicit
+ok 50 - archive configuration and materialization bounds are explicit
+  ---
+  duration_ms: 0.2147
+  type: 'test'
+  ...
+# Subtest: archive write failures reserve quota without advancing the committed curve
+ok 51 - archive write failures reserve quota without advancing the committed curve
+  ---
+  duration_ms: 2.685818
+  type: 'test'
+  ...
+# Subtest: economic insolvency and accrued losses survive archival and subsequent capital contributions
+ok 52 - economic insolvency and accrued losses survive archival and subsequent capital contributions
+  ---
+  duration_ms: 4.498102
+  type: 'test'
+  ...
+# Subtest: a cached file remains account bound and invalid calendar dates are rejected
+ok 53 - a cached file remains account bound and invalid calendar dates are rejected
+  ---
+  duration_ms: 5.003537
+  type: 'test'
+  ...
+# Subtest: offline verifier rejects invented time-weighted returns despite a consistent rehashed control
+ok 54 - offline verifier rejects invented time-weighted returns despite a consistent rehashed control
+  ---
+  duration_ms: 1.71552
+  type: 'test'
+  ...
+# Subtest: production SQLite persists archives, quota and active control across a worker restart
+ok 55 - production SQLite persists archives, quota and active control across a worker restart
+  ---
+  duration_ms: 112.96198
+  type: 'test'
+  ...
+# Subtest: missing broker accrual documentation remains unknown even with complete declared external expense coverage
+ok 56 - missing broker accrual documentation remains unknown even with complete declared external expense coverage
+  ---
+  duration_ms: 1.919194
+  type: 'test'
+  ...
+# Subtest: explicit documented zero accrual is verified locally without source authentication or financial authorization
+ok 57 - explicit documented zero accrual is verified locally without source authentication or financial authorization
+  ---
+  duration_ms: 12.697699
+  type: 'test'
+  ...
+# Subtest: documented nonzero pending charges link to existing external costs without a second subtraction
+ok 58 - documented nonzero pending charges link to existing external costs without a second subtraction
+  ---
+  duration_ms: 7.378371
+  type: 'test'
+  ...
+# Subtest: accrual document hash, field bindings, external links and exact totals cannot be replaced by a positive flag
+ok 59 - accrual document hash, field bindings, external links and exact totals cannot be replaced by a positive flag
+  ---
+  duration_ms: 1.43394
+  type: 'test'
+  ...
+# Subtest: broker accrual coverage is account, currency, knowledge-time and applicable-category bound
+ok 60 - broker accrual coverage is account, currency, knowledge-time and applicable-category bound
+  ---
+  duration_ms: 0.48894
+  type: 'test'
+  ...
+# Subtest: delayed documentary accrual coverage verifies only the closed compared prefix
+ok 61 - delayed documentary accrual coverage verifies only the closed compared prefix
+  ---
+  duration_ms: 13.371685
+  type: 'test'
+  ...
+# Subtest: incremental integrity hashing preserves canonical JSON bytes, including Unicode and number values
+ok 62 - incremental integrity hashing preserves canonical JSON bytes, including Unicode and number values
+  ---
+  duration_ms: 0.361189
+  type: 'test'
+  ...
+# Subtest: baseline is a current observation, with atomic complete evidence and no external writes
+ok 63 - baseline is a current observation, with atomic complete evidence and no external writes
+  ---
+  duration_ms: 1.325728
+  type: 'test'
+  ...
+# Subtest: missing external cost evidence remains null while account NAV and PnL are reconciled
+ok 64 - missing external cost evidence remains null while account NAV and PnL are reconciled
+  ---
+  duration_ms: 0.715597
+  type: 'test'
+  ...
+# Subtest: partial fills are counted by delta qty; later cancellation contributes no invented fill
+ok 65 - partial fills are counted by delta qty; later cancellation contributes no invented fill
+  ---
+  duration_ms: 1.853807
+  type: 'test'
+  ...
+# Subtest: open position losses are included, independently of realized trade profit
+ok 66 - open position losses are included, independently of realized trade profit
+  ---
+  duration_ms: 1.725685
+  type: 'test'
+  ...
+# Subtest: reported fee is already in NAV: one subtraction, and replay is idempotent
+ok 67 - reported fee is already in NAV: one subtraction, and replay is idempotent
+  ---
+  duration_ms: 2.714781
+  type: 'test'
+  ...
+# Subtest: operating cost booked in broker cash is linked and never charged a second time
+ok 68 - operating cost booked in broker cash is linked and never charged a second time
+  ---
+  duration_ms: 1.381722
+  type: 'test'
+  ...
+# Subtest: ambiguous embedded trade fee or net-amount commission cannot be silently counted twice
+ok 69 - ambiguous embedded trade fee or net-amount commission cannot be silently counted twice
+  ---
+  duration_ms: 2.994839
+  type: 'test'
+  ...
+# Subtest: deposits and withdrawals neutralize economic PnL; day-only flow times block TWR
+ok 70 - deposits and withdrawals neutralize economic PnL; day-only flow times block TWR
+  ---
+  duration_ms: 1.358076
+  type: 'test'
+  ...
+# Subtest: flow value alone is insufficient for TWR even when transaction time is known
+ok 71 - flow value alone is insufficient for TWR even when transaction time is known
+  ---
+  duration_ms: 1.278648
+  type: 'test'
+  ...
+# Subtest: hash-bound pre-flow evidence permits exact subperiod TWR without turning a flow into profit
+ok 72 - hash-bound pre-flow evidence permits exact subperiod TWR without turning a flow into profit
+  ---
+  duration_ms: 2.695372
+  type: 'test'
+  ...
+# Subtest: TWR chains price gains before and after capital flows, with external costs at their actual periods
+ok 73 - TWR chains price gains before and after capital flows, with external costs at their actual periods
+  ---
+  duration_ms: 2.730285
+  type: 'test'
+  ...
+# Subtest: pre-flow marks must bind both numeric values and original receipt hash
+ok 74 - pre-flow marks must bind both numeric values and original receipt hash
+  ---
+  duration_ms: 1.636962
+  type: 'test'
+  ...
+# Subtest: late-reported settlement fees are consumed by creation coverage, never skipped by date
+ok 75 - late-reported settlement fees are consumed by creation coverage, never skipped by date
+  ---
+  duration_ms: 1.457595
+  type: 'test'
+  ...
+# Subtest: complete pagination uses last activity id, and persisted id history cannot disappear
+ok 76 - complete pagination uses last activity id, and persisted id history cannot disappear
+  ---
+  duration_ms: 2.810845
+  type: 'test'
+  ...
+# Subtest: page overlap, repeated cursor, and truncation at page limit block certification
+ok 77 - page overlap, repeated cursor, and truncation at page limit block certification
+  ---
+  duration_ms: 3.140857
+  type: 'test'
+  ...
+# Subtest: unknown currency or activity type cannot become a zero-cost activity
+ok 78 - unknown currency or activity type cannot become a zero-cost activity
+  ---
+  duration_ms: 5.8833
+  type: 'test'
+  ...
+# Subtest: missing account currency, missing NAV, and missing position marks are rejected
+ok 79 - missing account currency, missing NAV, and missing position marks are rejected
+  ---
+  duration_ms: 3.689276
+  type: 'test'
+  ...
+# Subtest: cash, inventory, and NAV discrepancies preserve the prior accepted curve
+ok 80 - cash, inventory, and NAV discrepancies preserve the prior accepted curve
+  ---
+  duration_ms: 4.935556
+  type: 'test'
+  ...
+# Subtest: account identity and unmodeled option multipliers are verified
+ok 81 - account identity and unmodeled option multipliers are verified
+  ---
+  duration_ms: 3.862794
+  type: 'test'
+  ...
+# Subtest: future transaction, creation, cost-known-at, and snapshot times cannot certify evidence
+ok 82 - future transaction, creation, cost-known-at, and snapshot times cannot certify evidence
+  ---
+  duration_ms: 6.46623
+  type: 'test'
+  ...
+# Subtest: stale receipt and explicitly stale snapshot disable current metrics
+ok 83 - stale receipt and explicitly stale snapshot disable current metrics
+  ---
+  duration_ms: 1.671244
+  type: 'test'
+  ...
+# Subtest: state changes within non-atomic API collection are rejected
+ok 84 - state changes within non-atomic API collection are rejected
+  ---
+  duration_ms: 1.502272
+  type: 'test'
+  ...
+# Subtest: persistence failure cannot advance in-memory NAV or activate derived performance
+ok 85 - persistence failure cannot advance in-memory NAV or activate derived performance
+  ---
+  duration_ms: 2.521383
+  type: 'test'
+  ...
+# Subtest: restart restores exact capital, activities, costs, and idempotent fill inventory
+ok 86 - restart restores exact capital, activities, costs, and idempotent fill inventory
+  ---
+  duration_ms: 3.26994
+  type: 'test'
+  ...
+# Subtest: state integrity and policy mismatch reject an unsafe restart
+ok 87 - state integrity and policy mismatch reject an unsafe restart
+  ---
+  duration_ms: 1.024159
+  type: 'test'
+  ...
+# Subtest: an activity with the same id but changed economics requires explicit restatement
+ok 88 - an activity with the same id but changed economics requires explicit restatement
+  ---
+  duration_ms: 1.994307
+  type: 'test'
+  ...
+# Subtest: late cost receipts reconstruct historical economics while retaining actual knowledge time
+ok 89 - late cost receipts reconstruct historical economics while retaining actual knowledge time
+  ---
+  duration_ms: 1.729761
+  type: 'test'
+  ...
+# Subtest: real receipt clock exports the closed covered prefix while the current mark remains uncovered
+ok 90 - real receipt clock exports the closed covered prefix while the current mark remains uncovered
+  ---
+  duration_ms: 289.40944
+  type: 'test'
+  ...
+# Subtest: a cost cannot disappear, mutate under the same id, or link the same account fee twice
+ok 91 - a cost cannot disappear, mutate under the same id, or link the same account fee twice
+  ---
+  duration_ms: 5.20221
+  type: 'test'
+  ...
+# Subtest: economic insolvency remains recorded after subsequent deposits and never clips the loss
+ok 92 - economic insolvency remains recorded after subsequent deposits and never clips the loss
+  ---
+  duration_ms: 1.935955
+  type: 'test'
+  ...
+# Subtest: actual account equity at zero is stored as insolvency, not hidden by flow or closed-trade metrics
+ok 93 - actual account equity at zero is stored as insolvency, not hidden by flow or closed-trade metrics
+  ---
+  duration_ms: 2.084009
+  type: 'test'
+  ...
+# Subtest: comparable finite period exporter has no implied annualization or source authentication
+ok 94 - comparable finite period exporter has no implied annualization or source authentication
+  ---
+  duration_ms: 1.749985
+  type: 'test'
+  ...
+# Subtest: irregular observations retain continuous PnL but cannot manufacture comparable Sharpe periods
+ok 95 - irregular observations retain continuous PnL but cannot manufacture comparable Sharpe periods
+  ---
+  duration_ms: 1.526456
+  type: 'test'
+  ...
+# Subtest: history bounds stop, preserve evidence and do not reset the capital curve
+ok 96 - history bounds stop, preserve evidence and do not reset the capital curve
+  ---
+  duration_ms: 1.572356
+  type: 'test'
+  ...
+# Subtest: summary avoids exporting full activity or NAV arrays on operational health paths
+ok 97 - summary avoids exporting full activity or NAV arrays on operational health paths
+  ---
+  duration_ms: 0.63504
+  type: 'test'
+  ...
+# Subtest: invalid timestamp does not permanently latch the in-process refresh guard
+ok 98 - invalid timestamp does not permanently latch the in-process refresh guard
+  ---
+  duration_ms: 1.112981
+  type: 'test'
+  ...
+# Subtest: overlapping refresh is rejected while the first operation remains valid
+ok 99 - overlapping refresh is rejected while the first operation remains valid
+  ---
+  duration_ms: 1.177258
+  type: 'test'
+  ...
+# Subtest: two instances sharing one Store cannot race its same-owner lease
+ok 100 - two instances sharing one Store cannot race its same-owner lease
+  ---
+  duration_ms: 1.376961
+  type: 'test'
+  ...
+# Subtest: production SQLite transport persists one complete ledger record across process restarts
+ok 101 - production SQLite transport persists one complete ledger record across process restarts
+  ---
+  duration_ms: 92.988104
+  type: 'test'
+  ...
+1..101
+# tests 101
+# suites 0
+# pass 101
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1255.00103

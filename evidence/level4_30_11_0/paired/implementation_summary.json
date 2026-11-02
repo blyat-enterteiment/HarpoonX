@@ -1,0 +1,227 @@
+{
+  "schema": "HARPOON_FUNDED_COMPARISON_IMPLEMENTATION_1",
+  "at": "2026-11-01T01:08:58.120246+00:00",
+  "classification": "SOFTWARE_VALIDATION_SYNTHETIC_ONLY",
+  "financial_trials_added": 0,
+  "model_training_executed": false,
+  "hyperparameter_search_executed": false,
+  "external_orders_sent": 0,
+  "deployment_performed": false,
+  "implemented": [
+    "Fixed JSON models evaluated through existing Python runtime bridge and allocator.",
+    "Native C0 and numerical Ridge/SVR use actual isolated Coordinator lifecycle, shared event/capital/cost/risk/exit settings.",
+    "Exact original model JSON bytes preserved separately from semantic content hash.",
+    "Real reexecution verifies decisions, fills, continuous account and economic wealth, including terminal inventory.",
+    "Historical measurement requires verified reservation in an existing Journal and bound current sources.",
+    "Missing inputs return null curves and explicit blockers; no reservation is created by this producer."
+  ],
+  "scope": "Initial cash-only counterfactual accounts; no capital flows or adopted live positions. All fills are modeled. C0 comparison measures the complete quantitative entry overlay; Ridge/SVR share allocator. External economic expense is an explicit terminal lump sum paid outside the broker account.",
+  "synthetic_result": {
+    "status": "ENGINEERING_ONLY",
+    "period": {
+      "start_at": 1792078210000,
+      "end_at": 1792078211001,
+      "session_ids": [
+        "2026-10-15"
+      ]
+    },
+    "parity": {
+      "covered_policies": [
+        "C0",
+        "RIDGE",
+        "SVR"
+      ],
+      "complete_policy_coverage": true,
+      "common_controls_verified": true,
+      "predictor_reexecution_verified": true,
+      "model_source_bindings_verified": true,
+      "training_provenance_verified": false,
+      "external_source_authenticity_verified": false,
+      "scope": "SAME_COORDINATOR_EXITS_RISK_LIMITS_CAPITAL_UNIVERSE_EVENTS_AND_COSTS; NATIVE_C0_ENTRY_SELECTION_VS_QUANT_ALLOCATION_OVERLAYS; RIDGE_VS_SVR_CHANGES_FIXED_ESTIMATOR"
+    },
+    "metrics": {
+      "C0": {
+        "initial_cash_usd": 20000,
+        "account_equity_final_usd": 19999.527447,
+        "account_pnl_net_usd": -0.472552999999607,
+        "fees_usd": 0.24255300000000002,
+        "external_cost_usd": 1,
+        "economic_pnl_net_usd": -1.472552999999607,
+        "open_inventory": [
+          {
+            "symbol": "AAPL",
+            "qty": "23",
+            "market_value": "2325.2999999999997",
+            "avg_entry_price": "101.11000000000001"
+          }
+        ],
+        "valuation": "BID_MODEL",
+        "stale_valuation_symbols": [],
+        "realized_pnl_only": false,
+        "economic_max_drawdown_fraction": 7.36276499999633e-05,
+        "economic_total_return": -7.36276499999633e-05,
+        "geometric_mean_per_session": -7.36276499999633e-05,
+        "terminal_inventory_included": true,
+        "external_cost_timing": "EXPLICIT_LUMP_SUM_AT_FINAL_EVENT_PAID_OUTSIDE_BROKER_ACCOUNT",
+        "cash_flows_scope": "EXPLICITLY_NONE_COUNTERFACTUAL",
+        "session_count": 1,
+        "accounting_reconciled": true
+      },
+      "RIDGE": {
+        "initial_cash_usd": 20000,
+        "account_equity_final_usd": 19999.527447,
+        "account_pnl_net_usd": -0.472552999999607,
+        "fees_usd": 0.24255300000000002,
+        "external_cost_usd": 1,
+        "economic_pnl_net_usd": -1.472552999999607,
+        "open_inventory": [
+          {
+            "symbol": "AAPL",
+            "qty": "23",
+            "market_value": "2325.2999999999997",
+            "avg_entry_price": "101.11000000000001"
+          }
+        ],
+        "valuation": "BID_MODEL",
+        "stale_valuation_symbols": [],
+        "realized_pnl_only": false,
+        "economic_max_drawdown_fraction": 7.36276499999633e-05,
+        "economic_total_return": -7.36276499999633e-05,
+        "geometric_mean_per_session": -7.36276499999633e-05,
+        "terminal_inventory_included": true,
+        "external_cost_timing": "EXPLICIT_LUMP_SUM_AT_FINAL_EVENT_PAID_OUTSIDE_BROKER_ACCOUNT",
+        "cash_flows_scope": "EXPLICITLY_NONE_COUNTERFACTUAL",
+        "session_count": 1,
+        "accounting_reconciled": true
+      },
+      "SVR": {
+        "initial_cash_usd": 20000,
+        "account_equity_final_usd": 19999.527447,
+        "account_pnl_net_usd": -0.472552999999607,
+        "fees_usd": 0.24255300000000002,
+        "external_cost_usd": 1,
+        "economic_pnl_net_usd": -1.472552999999607,
+        "open_inventory": [
+          {
+            "symbol": "AAPL",
+            "qty": "23",
+            "market_value": "2325.2999999999997",
+            "avg_entry_price": "101.11000000000001"
+          }
+        ],
+        "valuation": "BID_MODEL",
+        "stale_valuation_symbols": [],
+        "realized_pnl_only": false,
+        "economic_max_drawdown_fraction": 7.36276499999633e-05,
+        "economic_total_return": -7.36276499999633e-05,
+        "geometric_mean_per_session": -7.36276499999633e-05,
+        "terminal_inventory_included": true,
+        "external_cost_timing": "EXPLICIT_LUMP_SUM_AT_FINAL_EVENT_PAID_OUTSIDE_BROKER_ACCOUNT",
+        "cash_flows_scope": "EXPLICITLY_NONE_COUNTERFACTUAL",
+        "session_count": 1,
+        "accounting_reconciled": true
+      }
+    },
+    "financial_acceptance_allowed": false,
+    "execution_allowed": false,
+    "liveApproved": false,
+    "artifact_hash": "c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a"
+  },
+  "verification": {
+    "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+    "verified": true,
+    "mismatches": [],
+    "input_hash": "408e8c3f30862c8bb6e76e3a9eea455860f79d9484011ea7c16492c219accebc",
+    "expected_artifact_hash": "c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a",
+    "observed_artifact_hash": "c0935a10286916d8a21e6fbfb507794fd58b863ccb67f23b6e2c8f5cc2cf7f5a",
+    "real_coordinator_and_predictors_reexecuted": true,
+    "execution_allowed": false,
+    "liveApproved": false,
+    "financial_acceptance_allowed": false
+  },
+  "observed_inputs_status": {
+    "status": "MEDICION_BLOQUEADA",
+    "curves": null,
+    "blockers": [
+      "COMMON_COORDINATOR_REQUEST_REQUIRED",
+      "FIXED_MODEL_REQUIRED:RIDGE",
+      "FIXED_MODEL_REQUIRED:SVR",
+      "HISTORICAL_MEASUREMENT_ORIGIN_REQUIRED",
+      "REGISTERED_SOURCE_BINDING_REQUIRED",
+      "VERIFIED_JOURNAL_RESERVATION_REQUIRED"
+    ],
+    "new_reservations": 0
+  },
+  "tests": {
+    "python": {
+      "tests": 9,
+      "passed": 9,
+      "failed": 0,
+      "log": "python_fixed_predictor_tests.txt"
+    },
+    "node": {
+      "test_definitions": 13,
+      "full_suite_result": null,
+      "reason": "Parent mainrunner executes this suite after freeze; not double-counted here."
+    },
+    "ruff": "PASS",
+    "mypy": "PASS"
+  },
+  "historical_svr_fixture": "Preserved prior Python artifact passes its own artifact integrity through transport and is rejected as SVR_IMPLEMENTATION_CHANGED; it was not rehashed or refitted to become current.",
+  "limits": [
+    "No empirically admissible observed comparison was executed.",
+    "Reproduced numerical predictions do not certify training provenance.",
+    "No new statistical confidence interval or financial acceptance test was performed.",
+    "Fee assumptions in the predictor and the execution model must be audited separately against real resources.",
+    "External authenticity and model training provenance remain unverified."
+  ],
+  "source_manifest": {
+    "tools/coordinator_replay.cjs": "1c2e7362d82f33168eab77b48f3421046e4051c311766e869429ded1ce3aedc7",
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+    "tools/fixed_predictor_worker.cjs": "1c8ddfcf5e9b975edb4c57ba4877b52cacaa017975f509b069a15dc58119aa26",
+    "quant/harpoon_quant/fixed_predictor.py": "40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b",
+    "tools/fixtures/funded_comparison_fixture.cjs": "dd0547a304d05c26f7171727249d33baece1ddda99b203f4610109dac1685efe",
+    "tools/funded_comparison_test.cjs": "7a3e39d11d4a704e7b68236386343cd9f117c5dd378046ecf70ddd6ce5a95fd0",
+    "quant/tests/test_fixed_predictor.py": "a8092c52d34c26c1fbe9034586d3ebf23fbf86787e80d27cd8a7273f1b77189f",
+    "quant/examples/funded_comparison/README.txt": "e3f85051472ccbbe788465febb613df0fe3a50241bfbd48edab17d00b4ef267c"
+  },
+  "artifact_manifest": {
+    "synthetic_report.json": "7233436d434b135ab92e573f3976c2fab42834fb1204666bfb68275859d6e114",
+    "observed_missing_report.json": "d330db7d08058546a4fdd81e82560bc13561736814c08c5ccc34cf267526fc68",
+    "synthetic_request.json": "80187c5a427cc7d16f8c244ad03fc08931d01429df340af7922f547ab9eb3f6c",
+    "observed_missing_request.json": "62dd8390fbc8092f808779fa73bffcc5358cbffdbffb94d2e22a707125b23bf4",
+    "synthetic_verification.json": "f55b42fd40042263f320571e5153e47bae75c3440911c0e56c87a8473e30010a"
+  },
+  "final_global_validation": {
+    "source": "../final_regression/all_summary.json",
+    "node_suite": {
+      "name": "funded_comparison_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/funded_comparison_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+      "exit_code": 0,
+      "duration_seconds": 19.49086463599815,
+      "log": "funded_comparison_test.log",
+      "log_sha256": "7ae70739fd6f0975694fbb4afdf50aa96d9c66ccc3a97483500022707beac79e",
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    "global_passed": true,
+    "global_tests": 853
+  }
+}

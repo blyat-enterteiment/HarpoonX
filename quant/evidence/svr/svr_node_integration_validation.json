@@ -1,0 +1,21 @@
+{
+  "scope": "SYNTHETIC_NODE_TO_PYTHON_INTEGRATION_ONLY",
+  "tests": 7,
+  "passed": 7,
+  "failed": 0,
+  "duration_ms": 14669.125734,
+  "external_broker_requests": 0,
+  "external_orders": 0,
+  "syntax_checks": "PASS",
+  "command": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-timeout=30000 tools/quant_svr_integration_test.cjs",
+  "files": {
+    "runtime/quant_bridge.cjs": "125bf095c6ea568268a3b380af4a5a91650ae8a3082950cf491d1c7f9006b4d0",
+    "tools/quant_svr_integration_test.cjs": "a44bbf0941143014ee4252acfc9268f34d49195acf80702c5271ab9947293463"
+  },
+  "logs": [
+    "svr_node_integration.log",
+    "svr_node_integration_initial_spawn_sync.log"
+  ],
+  "initial_failure": "Synchronous Python fixture subprocess returned EPERM in the sandbox harness; async execFile succeeded without changing production inference or escalating permissions.",
+  "meaning": "Verifies scalar SVR inference and shadow allocation, denial of forged execution flags, corrupt hash/horizon/source rejection and discovery without requests. Does not establish predictive skill on observed data or financial profit."
+}

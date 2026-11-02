@@ -1,0 +1,86 @@
+✔ known account peak between admitted signals enforces drawdown (20.605879ms)
+✔ adding a model-rejected signal at the peak cannot change risk enforcement (7.034555ms)
+✔ future price peaks do not tighten a prior decision's drawdown threshold (9.443994ms)
+✔ CASH still observes every session's external charge on the event clock (1.051186ms)
+✔ cash pays same fixed costs on every session including both descriptive phases (95.860116ms)
+✔ three recipes preserve identical reduced caps IOC fees once and72h (87.330872ms)
+✔ unregistered policy names rejected by pure replay adapter (7.689427ms)
+✔ split crossing keeps unmodeled exposure incident, never invents a no-fill (21.399053ms)
+✔ funded execution reserves simultaneous symbols, risk and notional in one cash pool (22.982033ms)
+✔ a duplicate symbol before its first modeled fill cannot open a second campaign (2.226684ms)
+✔ observed close releases capacity and a later session carries the prior equity (3.910855ms)
+✔ causal marks of open inventory can increase reserved exposure but pending prices cannot (4.350515ms)
+✔ a future entry price cannot resize the plan; a budget breach retains its reservation (2.429101ms)
+✔ the first observed fill is marked causally before another asset compounds its size (1.668333ms)
+✔ entry and exit fee allowances do not jump when the first post-fill mark arrives (3.217412ms)
+✔ an absent planned fill is an unresolved reserved exposure, never a zero-PnL skip (2.466549ms)
+✔ an incomplete path after entry retains the last mark and original reserved capital (1.549812ms)
+✔ calendar refusal occurs before requiring any later entry price (0.753555ms)
+✔ missing causal reference refuses entry rather than using the future fill price (0.653214ms)
+✔ terminal open exposure is preserved with a mark and an incident, not force-closed (2.56414ms)
+✔ selection outside the evaluation period cannot inject earlier account profits (0.63592ms)
+✔ portfolio return intervals include overnight time and reconcile asset contributions (1.2318ms)
+﹣ legacy replay without options is byte-equivalent to the frozen control (2.278222ms) # SKIP
+✔ ALL:BASELINE admits all fixed native hypotheses only under explicit options (25.475474ms)
+✔ continuous mode preserves a position and capital across adjacent fold boundaries (6.727505ms)
+✔ continuous account cannot drop an intervening evaluation session (0.93227ms)
+✔ a missing entire tape session preserves open exposure as an incident (3.665974ms)
+✔ each external session cost debits equity and cash once before sizing, including inactive sessions (2.621629ms)
+✔ missing external costs remain null and cannot become complete economic profitability (1.702478ms)
+✔ external costs can cause insolvency even with no trades; equity is not clipped (0.842168ms)
+✔ admission rank only resolves simultaneous competition; missing and denied ids cannot enter (7.140999ms)
+✔ a modeled IOC gap produces a zero-exposure resolution, never an unauthorized fill (2.549815ms)
+✔ IOC keeps capacity encumbered until resolution and missing opening remains an incident (3.461476ms)
+✔ IOC price ceiling is fixed before a future opening and includes rounded stop and commissions (3.119815ms)
+✔ NO_FILL cannot erase an observed position, release early or reopen a resolved reservation (2.205433ms)
+✔ partial sales before ex date reduce the dividend right; economic label keeps price PnL separate (1.647159ms)
+✔ ex-date ordering awards held shares before a same-time sale and excludes same-time purchase (1.685811ms)
+✔ dividend receivable changes equity at ex date, cash only on payment, with no second income (5.908416ms)
+✔ payment beyond terminal or unknown payment date leaves receivable without spendable cash (10.623035ms)
+✔ future dividend and payment edits cannot change the earlier decision state (5.100994ms)
+✔ prices, explicit trading fees, external costs and dividend income reconcile separately (5.004596ms)
+✔ malformed dividends cannot be silently interpreted as zero cash flows (0.837215ms)
+✔ window filtering precedes daily fired quota and preserves the full causal prefix (19.747404ms)
+✔ OPEN90 and CLOSE90 form a union without resetting the daily quota (3.999949ms)
+✔ Thursday campaign exits Friday before weekend deadline using runtime calendar policy (5.084204ms)
+✔ Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open (1.823077ms)
+✔ early close is scheduled from the supplied calendar with the same ten-minute buffer (0.907222ms)
+✔ intrabar wall-clock deadline rounds earlier on the declared five-minute grid (1.136907ms)
+✔ a pending entry arriving at or after the planned deadline is refused before opening (0.591611ms)
+✔ an absent calendar refuses entry; no later price is used to invent an exit session (0.295823ms)
+✔ a calendar truncated before 72 hours cannot invent an earlier last trading session (0.486047ms)
+✔ missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late (2.36953ms)
+✖ production imports remain loadable while the archived report cannot pass a new code seal (46.553246ms)
+✔ data ending with an open position cannot turn into a zero-PnL excluded campaign (0.930271ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 52
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 385.728378
+
+✖ failing tests:
+
+test at tools/ultimate_holding_deadline_test.cjs:102:1
+✖ production imports remain loadable while the archived report cannot pass a new code seal (46.553246ms)
+  Error: Cannot find module 'ws'
+  Require stack:
+  - /workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/streams.js
+  - /workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/coordinator.js
+  - /workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/server.js
+  - /workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/tools/ultimate_holding_deadline_test.cjs
+      at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)
+      at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+      at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+      at Module._load (node:internal/modules/cjs/loader:1341:5)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+      at Module.require (node:internal/modules/cjs/loader:1674:12)
+      at require (node:internal/modules/helpers:157:16)
+      at Object.<anonymous> (/workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/streams.js:7:30)
+      at Module._compile (node:internal/modules/cjs/loader:1929:14) {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [ '/workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/streams.js', '/workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/coordinator.js', '/workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/runtime30/server.js', '/workspace/scratch/5a985d680e09/harpoon_residual8/core/HARPOON_XXXUltimate_30_18_0/tools/ultimate_holding_deadline_test.cjs' ]
+  }

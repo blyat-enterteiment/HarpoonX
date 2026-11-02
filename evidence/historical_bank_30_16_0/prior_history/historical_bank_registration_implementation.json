@@ -1,0 +1,83 @@
+{
+  "schema": "HARPOON_HISTORICAL_REGISTRATION_IMPLEMENTATION_REVIEW_1",
+  "recorded_at": "2026-11-01T18:12:49.869788+00:00",
+  "implementation": {
+    "files": [
+      {
+        "path": "tools/historical_bank_register.py",
+        "sha256": "fce8bc1d17461df3ddb88249abc40f08da17ee6cef8b935812c322e6e61b1782"
+      },
+      {
+        "path": "tools/test_historical_bank_register.py",
+        "sha256": "c918af1aa60418c8530f38b419278039661771056b65852f4b385b1e7e0dfd1e"
+      }
+    ]
+  },
+  "verification": {
+    "command": "python -m unittest discover -s tools -p test_historical_bank_register.py -v",
+    "tests": 18,
+    "passed": 18,
+    "failed": 0,
+    "wall_time_reported_seconds": 0.784,
+    "scope": "Synthetic registration contracts on temporary journal copies. No fit, replay, definitive study reservation, or order."
+  },
+  "source_journal": {
+    "path": "quant/economic_experiment/study/optimizer.sqlite3",
+    "sha256": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd",
+    "retained_budget_spent": 23,
+    "retained_budget_limit": 128
+  },
+  "current_design": {
+    "universe": [
+      "AAPL",
+      "MSFT",
+      "SPY",
+      "XLK"
+    ],
+    "training": [
+      "2022-01-01",
+      "2023-06-30"
+    ],
+    "validation": [
+      "2023-07-01",
+      "2023-12-31"
+    ],
+    "test": [
+      "2024-01-01",
+      "2024-08-31"
+    ],
+    "source_dataset_sha256": "e6874c13f812cd42861f8c2d3bb2fc9c438cba3b2be4cfe2932bd3d774850967",
+    "source_dataset_reference": "../data_capture/research_dataset.json",
+    "design_note": "Supersedes the earlier preliminary six-asset data proposal; no source audit history is rewritten."
+  },
+  "registration": {
+    "definitive_reservation_executed": false,
+    "expected_local_budget_path": [
+      23,
+      26,
+      29
+    ],
+    "lifetime_limit_unchanged": 128,
+    "family_measurements": 6,
+    "global_deduplicated_search_total": null
+  },
+  "scope": {
+    "reviewer_also_implemented_registration_and_earlier_causality": true,
+    "shared_project_context": true,
+    "independent_external_validation": false,
+    "financial_acceptance_allowed": false,
+    "real_level7_accredited": false
+  },
+  "pending_review_findings": [
+    {
+      "file": "tools/historical_bank.cjs",
+      "function": "main replay / verifyRegistration",
+      "issue": "Derived signals/admissions need a retained input/output derivation binding before replay."
+    },
+    {
+      "file": "quant/harpoon_quant/historical_bank.py",
+      "function": "statistical_evaluation",
+      "issue": "Confidence lower bound for absolute test-return difference must be calculated from paired compounded returns; log growth ratio is a different estimand."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "L5-C1-C2-HISTORICAL_SOURCE_CONTRACT",
+  "source_path": "/workspace/scratch/4ecb05fdc50d/level5_work/HARPOON_XXXUltimate_30_12_0/evidence/integral_30_10_1/economic_readiness.json",
+  "source_sha256": "c0b0556536ac5426b0bc9f6329e470eea1c28e542418407784700c5102536b7d",
+  "original_source_array_path": "/provenance/sources",
+  "source_array_count": 22,
+  "has_sources_artifacts": false,
+  "family_bindings": [
+    {
+      "id": "ultimate_registry",
+      "relative_path": "evidence/ultimate/registry.json",
+      "sha256": "bf7e199a75451ad7b892e4bc26ddab43d6338e1f2572a4075cfcdcc5ea81fe2c"
+    },
+    {
+      "id": "tp32_report",
+      "relative_path": "evidence/tp32/report.json",
+      "sha256": "09ba82404ab8447f109d680b58e3b60643ae0c84bf7091bb3db6447f557bcf4f"
+    },
+    {
+      "id": "economic_protocol",
+      "relative_path": "quant/economic_experiment/study/protocol.json",
+      "sha256": "af021845764df5a119b601d718ac11d3e7fec7d9c407d5e6a69bc13b98cbc88d"
+    },
+    {
+      "id": "quant_validation",
+      "relative_path": "quant/evidence/validation.json",
+      "sha256": "e1902112ee8fed2eef57220f78a66cbc0cffef2547c1fcd1a1d6dddfc2d823a6"
+    }
+  ],
+  "quant_prior_authentication": "Reconstruido con script y resultados coincidentes; no original autenticado recuperado.",
+  "global_deduplicated_total": null,
+  "global_null_reason": "Registros separados, definiciones distintas de intento/slot/variante y reutilización histórica no reconciliadas. No sumar 23,18,3 ni interpretar 72 o128 como intentos ejecutados.",
+  "counterexample": "Keep all prior historical files unchanged, but point new top-level family refs to new self-consistent clone files. Require family-specific linkage to /provenance/sources; a raw reference hash only identifies supplied bytes.",
+  "classification": "Source-contract observation and proposed adversarial mutation; not an executed full-gate bypass",
+  "production_edits": 0
+}

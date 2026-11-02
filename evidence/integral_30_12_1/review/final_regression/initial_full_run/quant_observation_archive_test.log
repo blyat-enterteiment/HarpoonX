@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: archive rollover preserves global frame sequence and cross-segment paginated export
+ok 1 - archive rollover preserves global frame sequence and cross-segment paginated export
+  ---
+  duration_ms: 9.442246
+  type: 'test'
+  ...
+# Subtest: restart restores continuous cursor, archive hashes and retained byte budget
+ok 2 - restart restores continuous cursor, archive hashes and retained byte budget
+  ---
+  duration_ms: 5.073444
+  type: 'test'
+  ...
+# Subtest: altered or missing archive cannot be loaded or exported as complete evidence
+ok 3 - altered or missing archive cannot be loaded or exported as complete evidence
+  ---
+  duration_ms: 2.954838
+  type: 'test'
+  ...
+# Subtest: failed rollover index commit retains the old control and retries without duplicate quota
+ok 4 - failed rollover index commit retains the old control and retries without duplicate quota
+  ---
+  duration_ms: 2.218177
+  type: 'test'
+  ...
+# Subtest: archive write failure cannot advance cursor or expose the uncommitted segment
+ok 5 - archive write failure cannot advance cursor or expose the uncommitted segment
+  ---
+  duration_ms: 1.364839
+  type: 'test'
+  ...
+# Subtest: maxArchives zero retains the explicit stop after one segment without deleting evidence
+ok 6 - maxArchives zero retains the explicit stop after one segment without deleting evidence
+  ---
+  duration_ms: 1.077025
+  type: 'test'
+  ...
+# Subtest: archive count budget is total across restarts and never silently resets
+ok 7 - archive count budget is total across restarts and never silently resets
+  ---
+  duration_ms: 2.720584
+  type: 'test'
+  ...
+# Subtest: retained byte cap is checked before immutable frame or archive writes
+ok 8 - retained byte cap is checked before immutable frame or archive writes
+  ---
+  duration_ms: 1.535386
+  type: 'test'
+  ...
+# Subtest: repeated failed commits cannot create unbudgeted orphan frames
+ok 9 - repeated failed commits cannot create unbudgeted orphan frames
+  ---
+  duration_ms: 1.515045
+  type: 'test'
+  ...
+# Subtest: budget and cross-segment chain tampering is rejected independently of an intact frame payload
+ok 10 - budget and cross-segment chain tampering is rejected independently of an intact frame payload
+  ---
+  duration_ms: 1.904374
+  type: 'test'
+  ...
+# Subtest: changing retained compressed representation cannot evade its committed byte count
+ok 11 - changing retained compressed representation cannot evade its committed byte count
+  ---
+  duration_ms: 0.794539
+  type: 'test'
+  ...
+# Subtest: legacy single-segment journal migrates without rewriting retained frame chains
+ok 12 - legacy single-segment journal migrates without rewriting retained frame chains
+  ---
+  duration_ms: 1.463008
+  type: 'test'
+  ...
+# Subtest: archive and byte configuration reject unbounded or non-integer budgets
+ok 13 - archive and byte configuration reject unbounded or non-integer budgets
+  ---
+  duration_ms: 0.279381
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 70.719594

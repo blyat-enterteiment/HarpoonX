@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: archived metrics materialize complete history once and label reused statistics with original calculation time
+ok 1 - archived metrics materialize complete history once and label reused statistics with original calculation time
+  ---
+  duration_ms: 2072.01565
+  type: 'test'
+  ...
+# Subtest: missing costs and insolvency suppress archived performance without reading segments or starting inference
+ok 2 - missing costs and insolvency suppress archived performance without reading segments or starting inference
+  ---
+  duration_ms: 0.964926
+  type: 'test'
+  ...
+# Subtest: a closed cost-covered prefix remains measurable when the latest account mark is not yet covered
+ok 3 - a closed cost-covered prefix remains measurable when the latest account mark is not yet covered
+  ---
+  duration_ms: 2065.232892
+  type: 'test'
+  ...
+# Subtest: a reconciliation failure invalidates previously cached statistics before the next safe refresh
+ok 4 - a reconciliation failure invalidates previously cached statistics before the next safe refresh
+  ---
+  duration_ms: 4256.37971
+  type: 'test'
+  ...
+# Subtest: archive head, account, policy and cost changes force recomputation instead of cross-binding cache reuse
+ok 5 - archive head, account, policy and cost changes force recomputation instead of cross-binding cache reuse
+  ---
+  duration_ms: 15263.312524
+  type: 'test'
+  ...
+# Subtest: archive refresh interval expiry causes a new calculation with bounded observation count
+ok 6 - archive refresh interval expiry causes a new calculation with bounded observation count
+  ---
+  duration_ms: 4142.06602
+  type: 'test'
+  ...
+# Subtest: invalid archive memory or refresh budgets fail before materialization
+ok 7 - invalid archive memory or refresh budgets fail before materialization
+  ---
+  duration_ms: 1.156364
+  type: 'test'
+  ...
+# Subtest: without an archive the existing accounting path remains the source of metrics
+ok 8 - without an archive the existing accounting path remains the source of metrics
+  ---
+  duration_ms: 2051.162386
+  type: 'test'
+  ...
+# Subtest: account history export requires authentication and same-origin context before touching account data
+ok 9 - account history export requires authentication and same-origin context before touching account data
+  ---
+  duration_ms: 2.953636
+  type: 'test'
+  ...
+# Subtest: account export carries exact pagination arguments and does not invoke the broker
+ok 10 - account export carries exact pagination arguments and does not invoke the broker
+  ---
+  duration_ms: 1.71644
+  type: 'test'
+  ...
+# Subtest: malformed pagination is an explicit 422 with no execution authority
+ok 11 - malformed pagination is an explicit 422 with no execution authority
+  ---
+  duration_ms: 0.806056
+  type: 'test'
+  ...
+# Subtest: history export has no mutation route
+ok 12 - history export has no mutation route
+  ---
+  duration_ms: 0.256597
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 29911.495997

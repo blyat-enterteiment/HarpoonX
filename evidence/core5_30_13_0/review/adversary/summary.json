@@ -1,0 +1,28 @@
+{
+  "review_type": "INTERNAL_ADVERSARIAL_REVIEW",
+  "application": "30.13.0",
+  "new_material_defects_reported": 1,
+  "reported_defect": "Explicit core limits overwritten by wider account limits in bridge",
+  "reported_defect_remediated": true,
+  "original_counterexamples_executed_before_after": 13,
+  "new_material_findings_in_peer_diffs": 0,
+  "reviewed_peer_files": [
+    "quant/harpoon_quant/core.py",
+    "quant/harpoon_quant/calibration.py",
+    "xxx/coordinator.ts"
+  ],
+  "financial_trials": 0,
+  "external_orders": 0,
+  "deployment": false,
+  "real_performance_score": null,
+  "economic_gate_changed": false,
+  "artifacts": [
+    "bridge_limits_before.json",
+    "bridge_limits_after.json",
+    "reproduce_bridge_limits.py",
+    "acceptance_matrix.json",
+    "python_cross_review.json",
+    "runtime_cross_review.json"
+  ],
+  "external_independent_validation": false
+}

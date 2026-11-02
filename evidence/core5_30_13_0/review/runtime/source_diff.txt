@@ -1,0 +1,34 @@
+--- 30.12.2/xxx/coordinator.ts
++++ 30.13.0/xxx/coordinator.ts
+@@ -592,7 +592,14 @@
+       if (existing) {
+         if (existing.parentId !== parent.id)
+           throw Error("Native child ownership conflict");
+-        if (Number(o.filled_qty) >= Number(existing.order?.filled_qty || 0)) {
++        const priorFilled = Number(existing.order?.filled_qty || 0),
++          observedFilled = Number(o.filled_qty);
++        // Nested parent responses can arrive after a terminal child update.
++        // Apply the same monotonicity rule as the direct trade-update path;
++        // a genuinely larger cumulative fill must still reach reconciliation.
++        if (TERMINAL.has(existing.status) && !TERMINAL.has(o.status) &&
++            observedFilled === priorFilled) continue;
++        if (observedFilled >= priorFilled) {
+           existing.order = o;
+           existing.status = o.status;
+         }
+@@ -1299,7 +1306,14 @@
+       const priority = (c: Campaign) => c.exitPlan && c.exitPlan.status !== "COMPLETE" && urgentExit(c.exitPlan.kind) ? 0 : c.exitPlan && c.exitPlan.status !== "COMPLETE" ? 1 : 2;
+       const candidates = rotated.sort((a, b) => priority(a) - priority(b));
+       for (const c of candidates) {
+-        if (["ERROR", "STALE_RECONCILIATION", "OWNERSHIP_UNCERTAIN", "STALE_SESSION", "MARKET_CLOSED"].includes(this.positionEvaluations[c.id].outcome)) continue;
++        const outcome = this.positionEvaluations[c.id].outcome;
++        if (["ERROR", "STALE_RECONCILIATION", "OWNERSHIP_UNCERTAIN", "STALE_SESSION"].includes(outcome)) continue;
++        // Session closure gates new sale/protection orders, not cancellation
++        // of a known remaining entry. evaluatePosition has already verified
++        // fresh ownership; managePosition's entry branch can only cancel and
++        // returns before every sale or protection path. Cancellation remains
++        // pending until the next broker reconciliation confirms the result.
++        if (outcome === "MARKET_CLOSED" && !this.pending(c).some(i => i.kind === "entry")) continue;
+         try { await this.managePosition(c); }
+         catch (e) {
+           this.exitErrors[c.id] = { at: Date.now(), symbol: c.symbol, error: String(e) };

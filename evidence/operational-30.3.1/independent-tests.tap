@@ -1,0 +1,1102 @@
+TAP version 13
+# Subtest: failed durable registration and queue never report a committed success
+ok 1 - failed durable registration and queue never report a committed success
+  ---
+  duration_ms: 37.784554
+  type: 'test'
+  ...
+# Subtest: autopilot blocks new allocations when the independent guardian heartbeat is stale
+ok 2 - autopilot blocks new allocations when the independent guardian heartbeat is stale
+  ---
+  duration_ms: 57.385877
+  type: 'test'
+  ...
+# Subtest: hashes are key-order independent and detect changed numerical content
+ok 3 - hashes are key-order independent and detect changed numerical content
+  ---
+  duration_ms: 0.475657
+  type: 'test'
+  ...
+# Subtest: protocol cannot reduce samples, purge or multiplicity below its universe
+ok 4 - protocol cannot reduce samples, purge or multiplicity below its universe
+  ---
+  duration_ms: 0.693025
+  type: 'test'
+  ...
+# Subtest: dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+ok 5 - dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+  ---
+  duration_ms: 36.954962
+  type: 'test'
+  ...
+# Subtest: proxy dataset cannot be presented as a dated futures dataset
+ok 6 - proxy dataset cannot be presented as a dated futures dataset
+  ---
+  duration_ms: 1.249074
+  type: 'test'
+  ...
+# Subtest: features are causal when all subsequent sessions are changed
+ok 7 - features are causal when all subsequent sessions are changed
+  ---
+  duration_ms: 68.296928
+  type: 'test'
+  ...
+# Subtest: incomplete sessions are quarantined without interpolation
+ok 8 - incomplete sessions are quarantined without interpolation
+  ---
+  duration_ms: 24.959977
+  type: 'test'
+  ...
+# Subtest: long and short trailing never loosen and require progress
+ok 9 - long and short trailing never loosen and require progress
+  ---
+  duration_ms: 0.280183
+  type: 'test'
+  ...
+# Subtest: ambiguous stop and target uses adverse stop before any profit
+ok 10 - ambiguous stop and target uses adverse stop before any profit
+  ---
+  duration_ms: 0.82188
+  type: 'test'
+  ...
+# Subtest: incomplete paths cannot become zero-PnL successful trades
+ok 11 - incomplete paths cannot become zero-PnL successful trades
+  ---
+  duration_ms: 0.672254
+  type: 'test'
+  ...
+# Subtest: bootstrap is deterministic, insufficient evidence returns null, negative data fails
+ok 12 - bootstrap is deterministic, insufficient evidence returns null, negative data fails
+  ---
+  duration_ms: 5.439743
+  type: 'test'
+  ...
+# Subtest: metrics honor compounding, drawdown and zero-information DSR
+ok 13 - metrics honor compounding, drawdown and zero-information DSR
+  ---
+  duration_ms: 0.603149
+  type: 'test'
+  ...
+# Subtest: actual study purges train/test labels, reports holdout reuse and never promotes
+ok 14 - actual study purges train/test labels, reports holdout reuse and never promotes
+  ---
+  duration_ms: 80.316195
+  type: 'test'
+  ...
+# Subtest: registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+ok 15 - registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+  ---
+  duration_ms: 328.868867
+  type: 'test'
+  ...
+# Subtest: registry survives actual SQLite reopen and rejects tampered protocol/chain
+ok 16 - registry survives actual SQLite reopen and rejects tampered protocol/chain
+  ---
+  duration_ms: 78.586506
+  type: 'test'
+  ...
+# Subtest: registry has a cumulative stop rule and cannot understate total multiplicity
+ok 17 - registry has a cumulative stop rule and cannot understate total multiplicity
+  ---
+  duration_ms: 3.552277
+  type: 'test'
+  ...
+# Subtest: restart interrupts a queued attempt instead of silently recomputing
+ok 18 - restart interrupts a queued attempt instead of silently recomputing
+  ---
+  duration_ms: 13.916217
+  type: 'test'
+  ...
+# Subtest: future contract forbids continuous symbols, mismatched roots and delivery deadlines
+ok 19 - future contract forbids continuous symbols, mismatched roots and delivery deadlines
+  ---
+  duration_ms: 0.378672
+  type: 'test'
+  ...
+# Subtest: MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+ok 20 - MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+  ---
+  duration_ms: 0.26512
+  type: 'test'
+  ...
+# Subtest: futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+ok 21 - futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+  ---
+  duration_ms: 0.594396
+  type: 'test'
+  ...
+# Subtest: futures validates fresh entitlement, loss gates and tick precision
+ok 22 - futures validates fresh entitlement, loss gates and tick precision
+  ---
+  duration_ms: 1.244937
+  type: 'test'
+  ...
+# Subtest: uncertain futures submission is durable and never resent
+ok 23 - uncertain futures submission is durable and never resent
+  ---
+  duration_ms: 0.971726
+  type: 'test'
+  ...
+# Subtest: acknowledgment is not a fill; fills and partials come from reconciliation
+ok 24 - acknowledgment is not a fill; fills and partials come from reconciliation
+  ---
+  duration_ms: 0.607987
+  type: 'test'
+  ...
+# Subtest: unknown all-in commission prevents any futures submission
+ok 25 - unknown all-in commission prevents any futures submission
+  ---
+  duration_ms: 0.262406
+  type: 'test'
+  ...
+# Subtest: Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+ok 26 - Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+  ---
+  duration_ms: 3.597816
+  type: 'test'
+  ...
+# Subtest: API connection defaults to automatic PAPER and explicit operator opt-out persists
+ok 27 - API connection defaults to automatic PAPER and explicit operator opt-out persists
+  ---
+  duration_ms: 28.119917
+  type: 'test'
+  ...
+# Subtest: autopilot exits and native protection run with entry and research pauses
+ok 28 - autopilot exits and native protection run with entry and research pauses
+  ---
+  duration_ms: 27.894057
+  type: 'test'
+  ...
+# Subtest: research worker does not block an independent async heartbeat
+ok 29 - research worker does not block an independent async heartbeat
+  ---
+  duration_ms: 147.786962
+  type: 'test'
+  ...
+# Subtest: Ultimate HTTP requires authentication and explicit JSON action, including export
+ok 30 - Ultimate HTTP requires authentication and explicit JSON action, including export
+  ---
+  duration_ms: 52.38385
+  type: 'test'
+  ...
+# Subtest: connected selectors can be selected but require installed evidence before an entry
+ok 31 - connected selectors can be selected but require installed evidence before an entry
+  ---
+  duration_ms: 64.340467
+  type: 'test'
+  ...
+# Subtest: strict audit requires connected selector lifecycle and still disclaims external certification
+ok 32 - strict audit requires connected selector lifecycle and still disclaims external certification
+  ---
+  duration_ms: 614.569254
+  type: 'test'
+  ...
+# Subtest: production transport uses Alpaca hosts and credentials, without local fill fabrication
+ok 33 - production transport uses Alpaca hosts and credentials, without local fill fabrication
+  ---
+  duration_ms: 8.490255
+  type: 'test'
+  ...
+# Subtest: production transport rejects failure and does not synthesize a successful order
+ok 34 - production transport rejects failure and does not synthesize a successful order
+  ---
+  duration_ms: 1.536628
+  type: 'test'
+  ...
+# Subtest: stagnation closes through the broker path while entries are paused
+ok 35 - stagnation closes through the broker path while entries are paused
+  ---
+  duration_ms: 27.999171
+  type: 'test'
+  ...
+# Subtest: stagnation clock excludes closed sessions and resets on an observed high
+ok 36 - stagnation clock excludes closed sessions and resets on an observed high
+  ---
+  duration_ms: 15.250129
+  type: 'test'
+  ...
+# Subtest: volatility trailing changes after observed quotes and never loosens an existing stop
+ok 37 - volatility trailing changes after observed quotes and never loosens an existing stop
+  ---
+  duration_ms: 12.941122
+  type: 'test'
+  ...
+# Subtest: reentry policy true is honored after a confirmed close
+ok 38 - reentry policy true is honored after a confirmed close
+  ---
+  duration_ms: 15.944256
+  type: 'test'
+  ...
+# Subtest: reentry policy false is honored after a confirmed close
+ok 39 - reentry policy false is honored after a confirmed close
+  ---
+  duration_ms: 13.79272
+  type: 'test'
+  ...
+# Subtest: sector evidence is calculated from XLK and never silently substituted with SPY
+ok 40 - sector evidence is calculated from XLK and never silently substituted with SPY
+  ---
+  duration_ms: 23.729241
+  type: 'test'
+  ...
+# Subtest: strategy variants pass their actual exit parameters into executable signals
+ok 41 - strategy variants pass their actual exit parameters into executable signals
+  ---
+  duration_ms: 25.981242
+  type: 'test'
+  ...
+# Subtest: missing observed VWAP blocks equity features instead of manufacturing VWAP from closes
+ok 42 - missing observed VWAP blocks equity features instead of manufacturing VWAP from closes
+  ---
+  duration_ms: 13.011873
+  type: 'test'
+  ...
+# Subtest: native closed daily crypto channel generates an actual exit intent
+ok 43 - native closed daily crypto channel generates an actual exit intent
+  ---
+  duration_ms: 12.434864
+  type: 'test'
+  ...
+# Subtest: validators record the actual outcome, including asynchronous durable failure
+ok 44 - validators record the actual outcome, including asynchronous durable failure
+  ---
+  duration_ms: 1.944883
+  type: 'test'
+  ...
+# Subtest: account contracts reject missing numeric values and wrong identities
+ok 45 - account contracts reject missing numeric values and wrong identities
+  ---
+  duration_ms: 0.400814
+  type: 'test'
+  ...
+# Subtest: clock and quote contracts reject stale, future and crossed observations
+ok 46 - clock and quote contracts reject stale, future and crossed observations
+  ---
+  duration_ms: 0.788079
+  type: 'test'
+  ...
+# Subtest: position and fill contracts reject duplicate inventory and impossible fills
+ok 47 - position and fill contracts reject duplicate inventory and impossible fills
+  ---
+  duration_ms: 0.462257
+  type: 'test'
+  ...
+# Subtest: order-intent and signal contracts enforce executable precision and exit bounds
+ok 48 - order-intent and signal contracts enforce executable precision and exit bounds
+  ---
+  duration_ms: 61.370152
+  type: 'test'
+  ...
+# Subtest: journal and bar contracts reject malformed stored execution state
+ok 49 - journal and bar contracts reject malformed stored execution state
+  ---
+  duration_ms: 17.453611
+  type: 'test'
+  ...
+# Subtest: scheduler ALIVE requires completion; a failure cannot advance lastSuccess
+ok 50 - scheduler ALIVE requires completion; a failure cannot advance lastSuccess
+  ---
+  duration_ms: 0.666154
+  type: 'test'
+  ...
+# Subtest: observed API reports actual latency, failures and inflight requests without secrets
+ok 51 - observed API reports actual latency, failures and inflight requests without secrets
+  ---
+  duration_ms: 1.679393
+  type: 'test'
+  ...
+# Subtest: runtime process metrics come from Node and have no seeded CPU/sample values
+ok 52 - runtime process metrics come from Node and have no seeded CPU/sample values
+  ---
+  duration_ms: 111.626849
+  type: 'test'
+  ...
+# Subtest: system health exposes missing quotes, closed sessions, validator faults and broker staleness
+ok 53 - system health exposes missing quotes, closed sessions, validator faults and broker staleness
+  ---
+  duration_ms: 35.164051
+  type: 'test'
+  ...
+# Subtest: pending cancellation and undersized stop never count as confirmed native protection
+ok 54 - pending cancellation and undersized stop never count as confirmed native protection
+  ---
+  duration_ms: 23.850028
+  type: 'test'
+  ...
+# Subtest: failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success
+ok 55 - failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success
+  ---
+  duration_ms: 14.824958
+  type: 'test'
+  ...
+# Subtest: authenticated health endpoints return real process state and no credentials
+ok 56 - authenticated health endpoints return real process state and no credentials
+  ---
+  duration_ms: 109.779528
+  type: 'test'
+  ...
+# Subtest: optional contracts are visible as NOT_RUN until actually exercised
+ok 57 - optional contracts are visible as NOT_RUN until actually exercised
+  ---
+  duration_ms: 17.85665
+  type: 'test'
+  ...
+# Subtest: caught per-position exit failure remains visible in system health
+ok 58 - caught per-position exit failure remains visible in system health
+  ---
+  duration_ms: 26.315286
+  type: 'test'
+  ...
+# Subtest: new entry allocation waits for full confirmed protection, including pending-cancel transitions
+ok 59 - new entry allocation waits for full confirmed protection, including pending-cancel transitions
+  ---
+  duration_ms: 29.883928
+  type: 'test'
+  ...
+# Subtest: book coverage distinguishes expired observations and partially covered option watchlists
+ok 60 - book coverage distinguishes expired observations and partially covered option watchlists
+  ---
+  duration_ms: 9.411514
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later stop exit
+ok 61 - first-campaign protection rejection cannot starve later stop exit
+  ---
+  duration_ms: 76.083256
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later flatten exit
+ok 62 - first-campaign protection rejection cannot starve later flatten exit
+  ---
+  duration_ms: 21.994274
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later time exit
+ok 63 - first-campaign protection rejection cannot starve later time exit
+  ---
+  duration_ms: 21.729359
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later signal exit
+ok 64 - first-campaign protection rejection cannot starve later signal exit
+  ---
+  duration_ms: 17.927797
+  type: 'test'
+  ...
+# Subtest: rejected first protection does not monopolize routine protection for later campaigns
+ok 65 - rejected first protection does not monopolize routine protection for later campaigns
+  ---
+  duration_ms: 24.236261
+  type: 'test'
+  ...
+# Subtest: one stale position remains visibly unmonitored while another position completes
+ok 66 - one stale position remains visibly unmonitored while another position completes
+  ---
+  duration_ms: 22.039427
+  type: 'test'
+  ...
+# Subtest: per-position evaluation failure preserves prior completion and cannot be masked by later success
+ok 67 - per-position evaluation failure preserves prior completion and cannot be masked by later success
+  ---
+  duration_ms: 23.921216
+  type: 'test'
+  ...
+# Subtest: restart never treats persisted position evaluations as current-run monitoring
+ok 68 - restart never treats persisted position evaluations as current-run monitoring
+  ---
+  duration_ms: 29.677215
+  type: 'test'
+  ...
+# Subtest: UNKNOWN exit blocks duplicate submission across pulses and restart without starving another urgent campaign
+ok 69 - UNKNOWN exit blocks duplicate submission across pulses and restart without starving another urgent campaign
+  ---
+  duration_ms: 30.467117
+  type: 'test'
+  ...
+# Subtest: young TP cancellation and partial fill reconcile before one urgent remainder sale
+ok 70 - young TP cancellation and partial fill reconcile before one urgent remainder sale
+  ---
+  duration_ms: 30.930476
+  type: 'test'
+  ...
+# Subtest: pause and disabled plugins preserve per-campaign urgent exits
+ok 71 - pause and disabled plugins preserve per-campaign urgent exits
+  ---
+  duration_ms: 18.800593
+  type: 'test'
+  ...
+# Subtest: tick-scale protection drift remains visible and prevents risk expansion until reconciled
+ok 72 - tick-scale protection drift remains visible and prevents risk expansion until reconciled
+  ---
+  duration_ms: 16.876232
+  type: 'test'
+  ...
+# Subtest: definitive rejection retry is bounded, persisted, capped and recovered after broker acceptance
+ok 73 - definitive rejection retry is bounded, persisted, capped and recovered after broker acceptance
+  ---
+  duration_ms: 76.944559
+  type: 'test'
+  ...
+# Subtest: a protection rejection cooldown never delays a new urgent exit in that campaign
+ok 74 - a protection rejection cooldown never delays a new urgent exit in that campaign
+  ---
+  duration_ms: 14.423902
+  type: 'test'
+  ...
+# Subtest: stale global reconciliation records attempts without completing checks or mutating broker state
+ok 75 - stale global reconciliation records attempts without completing checks or mutating broker state
+  ---
+  duration_ms: 40.999281
+  type: 'test'
+  ...
+# Subtest: closed equity sessions stay visibly incomplete while crypto urgent exits remain active
+ok 76 - closed equity sessions stay visibly incomplete while crypto urgent exits remain active
+  ---
+  duration_ms: 15.557943
+  type: 'test'
+  ...
+# Subtest: stale OPRA data cannot manufacture a completed option check or an executable option close
+ok 77 - stale OPRA data cannot manufacture a completed option check or an executable option close
+  ---
+  duration_ms: 14.054907
+  type: 'test'
+  ...
+# Subtest: fresh global reconciliation cannot refresh stale per-position coverage or permit new allocation
+ok 78 - fresh global reconciliation cannot refresh stale per-position coverage or permit new allocation
+  ---
+  duration_ms: 16.016714
+  type: 'test'
+  ...
+# Subtest: a remembered TP cannot become a stale-quote market sale after protection cancellation
+ok 79 - a remembered TP cannot become a stale-quote market sale after protection cancellation
+  ---
+  duration_ms: 19.712468
+  type: 'test'
+  ...
+# Subtest: partial entry waits for confirmed cancellation and reconciles late fills before urgent sale
+ok 80 - partial entry waits for confirmed cancellation and reconciles late fills before urgent sale
+  ---
+  duration_ms: 17.966475
+  type: 'test'
+  ...
+# Subtest: an eight-campaign pulse observes every position before mutation and stops at its work budget
+ok 81 - an eight-campaign pulse observes every position before mutation and stops at its work budget
+  ---
+  duration_ms: 47.378321
+  type: 'test'
+  ...
+# Subtest: cancel-pending native protection still reserves inventory at the final submit guard
+ok 82 - cancel-pending native protection still reserves inventory at the final submit guard
+  ---
+  duration_ms: 13.900944
+  type: 'test'
+  ...
+# Subtest: more campaigns than the pulse budget receive fair work across bounded successive pulses
+ok 83 - more campaigns than the pulse budget receive fair work across bounded successive pulses
+  ---
+  duration_ms: 70.187971
+  type: 'test'
+  ...
+# Subtest: concurrent pulse wakeups coalesce and cannot duplicate urgent exits
+ok 84 - concurrent pulse wakeups coalesce and cannot duplicate urgent exits
+  ---
+  duration_ms: 13.205515
+  type: 'test'
+  ...
+# Subtest: standalone held stop is not confirmed protection and cannot unlock new allocation
+ok 85 - standalone held stop is not confirmed protection and cannot unlock new allocation
+  ---
+  duration_ms: 13.544496
+  type: 'test'
+  ...
+# Subtest: held OCO stop leg requires its same-campaign live uncanceled OCO parent
+ok 86 - held OCO stop leg requires its same-campaign live uncanceled OCO parent
+  ---
+  duration_ms: 9.085753
+  type: 'test'
+  ...
+# Subtest: accepted OCO siblings cannot clear a rejected runner cooldown across reconciliation and restart
+ok 87 - accepted OCO siblings cannot clear a rejected runner cooldown across reconciliation and restart
+  ---
+  duration_ms: 36.437957
+  type: 'test'
+  ...
+# Subtest: freshly verified protected closed equity permits independent crypto entry without fake price completion
+ok 88 - freshly verified protected closed equity permits independent crypto entry without fake price completion
+  ---
+  duration_ms: 12.450582
+  type: 'test'
+  ...
+# Subtest: stale closed-session clock and reopening transition block crypto allocation until a current evaluation
+ok 89 - stale closed-session clock and reopening transition block crypto allocation until a current evaluation
+  ---
+  duration_ms: 14.772308
+  type: 'test'
+  ...
+# Subtest: closed-session entry safety still rejects stop drift, cancellation, unresolved exits and retry backoff
+ok 90 - closed-session entry safety still rejects stop drift, cancellation, unresolved exits and retry backoff
+  ---
+  duration_ms: 13.915687
+  type: 'test'
+  ...
+# Subtest: active and deployed HTML are byte-identical and explicitly separate futures demo/PAPER
+ok 91 - active and deployed HTML are byte-identical and explicitly separate futures demo/PAPER
+  ---
+  duration_ms: 1.909329
+  type: 'test'
+  ...
+# Subtest: partial coverage never promotes healthy lane/global timestamp to exit ALIVE
+ok 92 - partial coverage never promotes healthy lane/global timestamp to exit ALIVE
+  ---
+  duration_ms: 116.873317
+  type: 'test'
+  ...
+# Subtest: coverage states and per-position ages, outcomes and failure details render without freshening
+ok 93 - coverage states and per-position ages, outcomes and failure details render without freshening
+  ---
+  duration_ms: 104.311762
+  type: 'test'
+  ...
+# Subtest: missing coverage falls back to WAITING without trusting campaign persisted evaluation
+ok 94 - missing coverage falls back to WAITING without trusting campaign persisted evaluation
+  ---
+  duration_ms: 57.784575
+  type: 'test'
+  ...
+# Subtest: held native and stale/future reconciliation render separately without green protection confidence
+ok 95 - held native and stale/future reconciliation render separately without green protection confidence
+  ---
+  duration_ms: 78.380685
+  type: 'test'
+  ...
+# Subtest: session-gated coverage remains WAITING while a separately safe entry gate allows unrelated books
+ok 96 - session-gated coverage remains WAITING while a separately safe entry gate allows unrelated books
+  ---
+  duration_ms: 31.27162
+  type: 'test'
+  ...
+# Subtest: acknowledged held OCO child stays distinct as contingent coverage when parent linkage is valid
+ok 97 - acknowledged held OCO child stays distinct as contingent coverage when parent linkage is valid
+  ---
+  duration_ms: 55.709045
+  type: 'test'
+  ...
+# Subtest: missing entry-safety contract fails closed even with no confirmed inventory
+ok 98 - missing entry-safety contract fails closed even with no confirmed inventory
+  ---
+  duration_ms: 24.326376
+  type: 'test'
+  ...
+# Subtest: Ridge registration binds actual catalog recipe, risk policy, costs and server timestamp
+ok 99 - Ridge registration binds actual catalog recipe, risk policy, costs and server timestamp
+  ---
+  duration_ms: 65.355683
+  type: 'test'
+  ...
+# Subtest: selector data rejects future, cross-book, duplicate events and invalid feature values
+ok 100 - selector data rejects future, cross-book, duplicate events and invalid feature values
+  ---
+  duration_ms: 21.202766
+  type: 'test'
+  ...
+# Subtest: historical import is immutable and idempotent; synthetic provenance is retained
+ok 101 - historical import is immutable and idempotent; synthetic provenance is retained
+  ---
+  duration_ms: 15.494026
+  type: 'test'
+  ...
+# Subtest: operator imports after the registered cutoff cannot manufacture prospective observations
+ok 102 - operator imports after the registered cutoff cannot manufacture prospective observations
+  ---
+  duration_ms: 11.960157
+  type: 'test'
+  ...
+# Subtest: capture persists actual supplied quote tuples and never creates prices without observations
+ok 103 - capture persists actual supplied quote tuples and never creates prices without observations
+  ---
+  duration_ms: 17.065918
+  type: 'test'
+  ...
+# Subtest: actual Ridge fitter computes finite coefficients and purges labels crossing cutoff
+ok 104 - actual Ridge fitter computes finite coefficients and purges labels crossing cutoff
+  ---
+  duration_ms: 32.151377
+  type: 'test'
+  ...
+# Subtest: model validator rejects fabricated shape, feature drift and future training
+ok 105 - model validator rejects fabricated shape, feature drift and future training
+  ---
+  duration_ms: 11.598111
+  type: 'test'
+  ...
+# Subtest: selector worker runs real research and reports insufficient evidence instead of successful training
+ok 106 - selector worker runs real research and reports insufficient evidence instead of successful training
+  ---
+  duration_ms: 164.245989
+  type: 'test'
+  ...
+# Subtest: install rejects synthetic, non-prospective and incomplete acceptance reports
+ok 107 - install rejects synthetic, non-prospective and incomplete acceptance reports
+  ---
+  duration_ms: 29.9581
+  type: 'test'
+  ...
+# Subtest: retirement and model revocation actually update persistent state
+ok 108 - retirement and model revocation actually update persistent state
+  ---
+  duration_ms: 18.513219
+  type: 'test'
+  ...
+# Subtest: interrupted queued trial recovers durably and preserves account binding after restart
+ok 109 - interrupted queued trial recovers durably and preserves account binding after restart
+  ---
+  duration_ms: 27.870121
+  type: 'test'
+  ...
+# Subtest: dataset preparation cannot hold broker authority while SQLite scans run
+ok 110 - dataset preparation cannot hold broker authority while SQLite scans run
+  ---
+  duration_ms: 17.04809
+  type: 'test'
+  ...
+# Subtest: selector data persists through real SQLite scans and process reopen
+ok 111 - selector data persists through real SQLite scans and process reopen
+  ---
+  duration_ms: 139.090672
+  type: 'test'
+  ...
+# Subtest: an invalid optional model is revoked on restart without preventing position supervision
+ok 112 - an invalid optional model is revoked on restart without preventing position supervision
+  ---
+  duration_ms: 41.978347
+  type: 'test'
+  ...
+# Subtest: installation persistence and evaluation boundary work with an explicit internal acceptance test double
+ok 113 - installation persistence and evaluation boundary work with an explicit internal acceptance test double
+  ---
+  duration_ms: 43.805604
+  type: 'test'
+  ...
+# Subtest: a sufficiently observed prospective holdout is consumed even by diagnostic inspection
+ok 114 - a sufficiently observed prospective holdout is consumed even by diagnostic inspection
+  ---
+  duration_ms: 10.721689
+  type: 'test'
+  ...
+# Subtest: actual selector worker evaluates all 12 folds and holdout on complete synthetic no-fill paths
+ok 115 - actual selector worker evaluates all 12 folds and holdout on complete synthetic no-fill paths
+  ---
+  duration_ms: 3351.912924
+  type: 'test'
+  ...
+# Subtest: catalog preserves 58 inherited plugins and adds 3 option strategies
+ok 116 - catalog preserves 58 inherited plugins and adds 3 option strategies
+  ---
+  duration_ms: 49.911356
+  type: 'test'
+  ...
+# Subtest: reject invalid config: live
+ok 117 - reject invalid config: live
+  ---
+  duration_ms: 0.728609
+  type: 'test'
+  ...
+# Subtest: reject invalid config: risk
+ok 118 - reject invalid config: risk
+  ---
+  duration_ms: 0.255756
+  type: 'test'
+  ...
+# Subtest: reject invalid config: NaN exit
+ok 119 - reject invalid config: NaN exit
+  ---
+  duration_ms: 0.175906
+  type: 'test'
+  ...
+# Subtest: reject invalid config: bad universe
+ok 120 - reject invalid config: bad universe
+  ---
+  duration_ms: 0.226802
+  type: 'test'
+  ...
+# Subtest: reject invalid config: inconsistent exposure
+ok 121 - reject invalid config: inconsistent exposure
+  ---
+  duration_ms: 0.221954
+  type: 'test'
+  ...
+# Subtest: reject invalid config: option feed
+ok 122 - reject invalid config: option feed
+  ---
+  duration_ms: 0.107973
+  type: 'test'
+  ...
+# Subtest: equity: entry, broker protection, confirmed cancel, TP and re-protection
+ok 123 - equity: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 38.846695
+  type: 'test'
+  ...
+# Subtest: etf: entry, broker protection, confirmed cancel, TP and re-protection
+ok 124 - etf: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 19.551897
+  type: 'test'
+  ...
+# Subtest: crypto: entry, broker protection, confirmed cancel, TP and re-protection
+ok 125 - crypto: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 27.327372
+  type: 'test'
+  ...
+# Subtest: options: entry, broker protection, confirmed cancel, TP and re-protection
+ok 126 - options: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 18.561653
+  type: 'test'
+  ...
+# Subtest: paused entries still take profit; plugin OFF does not orphan campaign
+ok 127 - paused entries still take profit; plugin OFF does not orphan campaign
+  ---
+  duration_ms: 21.141083
+  type: 'test'
+  ...
+# Subtest: global allocation serializes simultaneous books
+ok 128 - global allocation serializes simultaneous books
+  ---
+  duration_ms: 12.229122
+  type: 'test'
+  ...
+# Subtest: unknown POST persists before send and cannot duplicate after restart
+ok 129 - unknown POST persists before send and cannot duplicate after restart
+  ---
+  duration_ms: 27.658922
+  type: 'test'
+  ...
+# Subtest: timeout after accepted reconciles existing client_order_id
+ok 130 - timeout after accepted reconciles existing client_order_id
+  ---
+  duration_ms: 14.506557
+  type: 'test'
+  ...
+# Subtest: journal persistence failure prevents POST
+ok 131 - journal persistence failure prevents POST
+  ---
+  duration_ms: 13.757477
+  type: 'test'
+  ...
+# Subtest: lost lease prevents broker mutation
+ok 132 - lost lease prevents broker mutation
+  ---
+  duration_ms: 11.439843
+  type: 'test'
+  ...
+# Subtest: first deployment refuses unrelated inventory
+ok 133 - first deployment refuses unrelated inventory
+  ---
+  duration_ms: 11.831524
+  type: 'test'
+  ...
+# Subtest: external orders and positions block new entries
+ok 134 - external orders and positions block new entries
+  ---
+  duration_ms: 12.336355
+  type: 'test'
+  ...
+# Subtest: account ID mismatch refuses start
+ok 135 - account ID mismatch refuses start
+  ---
+  duration_ms: 10.186852
+  type: 'test'
+  ...
+# Subtest: pause survives restart
+ok 136 - pause survives restart
+  ---
+  duration_ms: 24.000655
+  type: 'test'
+  ...
+# Subtest: risk configuration mutation cannot overwrite persistent account limits
+ok 137 - risk configuration mutation cannot overwrite persistent account limits
+  ---
+  duration_ms: 47.401916
+  type: 'test'
+  ...
+# Subtest: session closure blocks securities and permits crypto
+ok 138 - session closure blocks securities and permits crypto
+  ---
+  duration_ms: 11.744793
+  type: 'test'
+  ...
+# Subtest: missing options permission fails closed
+ok 139 - missing options permission fails closed
+  ---
+  duration_ms: 12.071555
+  type: 'test'
+  ...
+# Subtest: stale quote blocks entry
+ok 140 - stale quote blocks entry
+  ---
+  duration_ms: 12.018766
+  type: 'test'
+  ...
+# Subtest: daily loss latches and exit management remains enabled
+ok 141 - daily loss latches and exit management remains enabled
+  ---
+  duration_ms: 12.960946
+  type: 'test'
+  ...
+# Subtest: cancellation acknowledgement is not treated as cancellation confirmation
+ok 142 - cancellation acknowledgement is not treated as cancellation confirmation
+  ---
+  duration_ms: 23.512428
+  type: 'test'
+  ...
+# Subtest: options sizing reserves whole premium times multiplier
+ok 143 - options sizing reserves whole premium times multiplier
+  ---
+  duration_ms: 0.250508
+  type: 'test'
+  ...
+# Subtest: take profit uses net-of-configured-friction bid
+ok 144 - take profit uses net-of-configured-friction bid
+  ---
+  duration_ms: 0.413554
+  type: 'test'
+  ...
+# Subtest: one option contract exits whole at TP2
+ok 145 - one option contract exits whole at TP2
+  ---
+  duration_ms: 0.226171
+  type: 'test'
+  ...
+# Subtest: partial TP fills count cumulatively; no duplicate 25 percent sale
+ok 146 - partial TP fills count cumulatively; no duplicate 25 percent sale
+  ---
+  duration_ms: 0.236807
+  type: 'test'
+  ...
+# Subtest: ratchet never lowers stop after quote retracement
+ok 147 - ratchet never lowers stop after quote retracement
+  ---
+  duration_ms: 0.319952
+  type: 'test'
+  ...
+# Subtest: deadline and expiration continue without a quote
+ok 148 - deadline and expiration continue without a quote
+  ---
+  duration_ms: 0.231769
+  type: 'test'
+  ...
+# Subtest: stale quote is never used to invent a take profit
+ok 149 - stale quote is never used to invent a take profit
+  ---
+  duration_ms: 0.202976
+  type: 'test'
+  ...
+# Subtest: slow or failed research cannot stop exits/quotes or overlap itself
+ok 150 - slow or failed research cannot stop exits/quotes or overlap itself
+  ---
+  duration_ms: 42.141154
+  type: 'test'
+  ...
+# Subtest: priority mutex schedules queued exits ahead of queued entries
+ok 151 - priority mutex schedules queued exits ahead of queued entries
+  ---
+  duration_ms: 0.40426
+  type: 'test'
+  ...
+# Subtest: stock data error does not erase working crypto quote
+ok 152 - stock data error does not erase working crypto quote
+  ---
+  duration_ms: 0.461646
+  type: 'test'
+  ...
+# Subtest: bar pagination returns all pages and rejects repeated tokens
+ok 153 - bar pagination returns all pages and rejects repeated tokens
+  ---
+  duration_ms: 1.18716
+  type: 'test'
+  ...
+# Subtest: HTTP panel authentication, CSRF gate, controls and export
+ok 154 - HTTP panel authentication, CSRF gate, controls and export
+  ---
+  duration_ms: 95.830592
+  type: 'test'
+  ...
+# Subtest: evidence retains fills and campaigns after a position is closed
+ok 155 - evidence retains fills and campaigns after a position is closed
+  ---
+  duration_ms: 18.860499
+  type: 'test'
+  ...
+# Subtest: SQLite journal survives closing/reopening and enforces shared-file lease
+ok 156 - SQLite journal survives closing/reopening and enforces shared-file lease
+  ---
+  duration_ms: 50.257492
+  type: 'test'
+  ...
+# Subtest: legacy R2 option lane is scheduled outside research and enabled gate
+ok 157 - legacy R2 option lane is scheduled outside research and enabled gate
+  ---
+  duration_ms: 0.303999
+  type: 'test'
+  ...
+# Subtest: 72-hour limit rolls back to executable Friday close if it falls on weekend
+ok 158 - 72-hour limit rolls back to executable Friday close if it falls on weekend
+  ---
+  duration_ms: 0.316107
+  type: 'test'
+  ...
+# Subtest: malformed market OHLCV is rejected before signal generation
+ok 159 - malformed market OHLCV is rejected before signal generation
+  ---
+  duration_ms: 0.347224
+  type: 'test'
+  ...
+# Subtest: negative or mismatched broker fills cannot be reconciled into owned inventory
+ok 160 - negative or mismatched broker fills cannot be reconciled into owned inventory
+  ---
+  duration_ms: 13.923769
+  type: 'test'
+  ...
+# Subtest: real crypto trend plugin produces a signal only from closed daily breakout bars
+ok 161 - real crypto trend plugin produces a signal only from closed daily breakout bars
+  ---
+  duration_ms: 6.882419
+  type: 'test'
+  ...
+# Subtest: real options plugin evaluates call-breakout using bounded OPRA contract
+ok 162 - real options plugin evaluates call-breakout using bounded OPRA contract
+  ---
+  duration_ms: 5.03947
+  type: 'test'
+  ...
+# Subtest: real options plugin evaluates put-breakdown using bounded OPRA contract
+ok 163 - real options plugin evaluates put-breakdown using bounded OPRA contract
+  ---
+  duration_ms: 5.053191
+  type: 'test'
+  ...
+# Subtest: real options plugin evaluates call-pullback using bounded OPRA contract
+ok 164 - real options plugin evaluates call-pullback using bounded OPRA contract
+  ---
+  duration_ms: 3.93262
+  type: 'test'
+  ...
+# Subtest: research error consumes bounded run and never disables position management
+ok 165 - research error consumes bounded run and never disables position management
+  ---
+  duration_ms: 63.166758
+  type: 'test'
+  ...
+# Subtest: injected holdout lock is rejected without internal training evidence
+ok 166 - injected holdout lock is rejected without internal training evidence
+  ---
+  duration_ms: 20.304737
+  type: 'test'
+  ...
+# Subtest: research budget cannot be increased by an incoming request
+ok 167 - research budget cannot be increased by an incoming request
+  ---
+  duration_ms: 12.395853
+  type: 'test'
+  ...
+# Subtest: sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision
+ok 168 - sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision
+  ---
+  duration_ms: 67.407186
+  type: 'test'
+  ...
+# Subtest: TP survives protection cancel, restart and retracement with a durable minimum price
+ok 169 - TP survives protection cancel, restart and retracement with a durable minimum price
+  ---
+  duration_ms: 28.774455
+  type: 'test'
+  ...
+# Subtest: urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder
+ok 170 - urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder
+  ---
+  duration_ms: 18.348501
+  type: 'test'
+  ...
+# Subtest: bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait
+ok 171 - bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait
+  ---
+  duration_ms: 20.620198
+  type: 'test'
+  ...
+# Subtest: real native payload/reconciliation lifecycle: oco
+ok 172 - real native payload/reconciliation lifecycle: oco
+  ---
+  duration_ms: 42.359052
+  type: 'test'
+  ...
+# Subtest: real native payload/reconciliation lifecycle: oco_trailing
+ok 173 - real native payload/reconciliation lifecycle: oco_trailing
+  ---
+  duration_ms: 40.483523
+  type: 'test'
+  ...
+# Subtest: broker rejection of native OCO causes an actual full-position stop fallback
+ok 174 - broker rejection of native OCO causes an actual full-position stop fallback
+  ---
+  duration_ms: 19.755493
+  type: 'test'
+  ...
+# Subtest: native urgent flatten cancels every group before one reconciled full exit
+ok 175 - native urgent flatten cancels every group before one reconciled full exit
+  ---
+  duration_ms: 23.703687
+  type: 'test'
+  ...
+# Subtest: experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns
+ok 176 - experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns
+  ---
+  duration_ms: 17.304967
+  type: 'test'
+  ...
+# Subtest: OPRA uses a MsgPack handshake/header and decodes observed quotes; PAPER orders use binary JSON
+ok 177 - OPRA uses a MsgPack handshake/header and decodes observed quotes; PAPER orders use binary JSON
+  ---
+  duration_ms: 9.235168
+  type: 'test'
+  ...
+# Subtest: malformed stream frames trigger visible reconnect and invalidate flow warmup
+ok 178 - malformed stream frames trigger visible reconnect and invalidate flow warmup
+  ---
+  duration_ms: 0.909182
+  type: 'test'
+  ...
+# Subtest: reported fee ledger paginates, retains unpriced crypto fees and never certifies all-in net
+ok 179 - reported fee ledger paginates, retains unpriced crypto fees and never certifies all-in net
+  ---
+  duration_ms: 0.925516
+  type: 'test'
+  ...
+# Subtest: fee pagination failure remains ERROR without manufacturing a zero successful cost
+ok 180 - fee pagination failure remains ERROR without manufacturing a zero successful cost
+  ---
+  duration_ms: 0.309597
+  type: 'test'
+  ...
+# Subtest: execution metrics use actual fills, explicit estimated fees and no second slippage charge
+ok 181 - execution metrics use actual fills, explicit estimated fees and no second slippage charge
+  ---
+  duration_ms: 20.99345
+  type: 'test'
+  ...
+# Subtest: execution journal preserves event type separately from the order intent kind
+ok 182 - execution journal preserves event type separately from the order intent kind
+  ---
+  duration_ms: 19.465045
+  type: 'test'
+  ...
+1..182
+# tests 182
+# suites 0
+# pass 182
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4185.407038

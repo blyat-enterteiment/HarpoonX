@@ -1,0 +1,40 @@
+✔ validators record the actual outcome, including asynchronous durable failure (1.641727ms)
+✔ account contracts reject missing numeric values and wrong identities (1.028833ms)
+✔ clock and quote contracts reject stale, future and crossed observations (0.90772ms)
+✔ position and fill contracts reject duplicate inventory and impossible fills (0.412693ms)
+✔ order-intent and signal contracts enforce executable precision and exit bounds (57.106338ms)
+✔ journal and bar contracts reject malformed stored execution state (11.062941ms)
+✔ scheduler ALIVE requires completion; a failure cannot advance lastSuccess (0.453915ms)
+✔ observed API reports actual latency, failures and inflight requests without secrets (1.202084ms)
+✔ runtime process metrics come from Node and have no seeded CPU/sample values (112.087598ms)
+✔ system health exposes missing quotes, closed sessions, validator faults and broker staleness (17.977949ms)
+✔ pending cancellation and undersized stop never count as confirmed native protection (19.795215ms)
+✔ failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success (12.746651ms)
+✖ authenticated health endpoints return real process state and no credentials (19.157213ms)
+✔ optional contracts are visible as NOT_RUN until actually exercised (10.857281ms)
+✔ caught per-position exit failure remains visible in system health (11.860103ms)
+✔ new entry allocation waits for full confirmed protection, including pending-cancel transitions (12.705308ms)
+✔ book coverage distinguishes expired observations and partially covered option watchlists (8.11896ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 16
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 354.374647
+
+✖ failing tests:
+
+test at tools/xxx_health_test.cjs:292:1
+✖ authenticated health endpoints return real process state and no credentials (19.157213ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }

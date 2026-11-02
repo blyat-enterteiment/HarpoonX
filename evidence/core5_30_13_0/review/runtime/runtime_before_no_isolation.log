@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: core5 native leg: delayed nested report cannot revive canceled protection
+not ok 1 - core5 native leg: delayed nested report cannot revive canceled protection
+  ---
+  duration_ms: 46.604616
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:42:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    An unchanged cumulative fill cannot undo a terminal broker observation
+    
+    'held' !== 'canceled'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'canceled'
+  actual: 'held'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:48:14)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: core5 native leg: delayed nested report cannot revive expired protection
+not ok 2 - core5 native leg: delayed nested report cannot revive expired protection
+  ---
+  duration_ms: 10.031411
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:42:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    An unchanged cumulative fill cannot undo a terminal broker observation
+    
+    'held' !== 'expired'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'expired'
+  actual: 'held'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:48:14)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 native leg: delayed nested report cannot revive rejected protection
+not ok 3 - core5 native leg: delayed nested report cannot revive rejected protection
+  ---
+  duration_ms: 10.809203
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:42:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    An unchanged cumulative fill cannot undo a terminal broker observation
+    
+    'held' !== 'rejected'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'rejected'
+  actual: 'held'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:48:14)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 native leg: delayed nested report cannot revive replaced protection
+not ok 4 - core5 native leg: delayed nested report cannot revive replaced protection
+  ---
+  duration_ms: 9.296263
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:42:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    An unchanged cumulative fill cannot undo a terminal broker observation
+    
+    'held' !== 'replaced'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'replaced'
+  actual: 'held'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:48:14)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 native leg: filled stop cannot become pending from equal-fill stale nested state
+not ok 5 - core5 native leg: filled stop cannot become pending from equal-fill stale nested state
+  ---
+  duration_ms: 9.155379
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:55:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'partially_filled'
+    - 'filled'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'filled'
+  actual: 'partially_filled'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:61:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 native leg: later cumulative fill is preserved after cancellation
+ok 6 - core5 native leg: later cumulative fill is preserved after cancellation
+  ---
+  duration_ms: 10.111601
+  type: 'test'
+  ...
+# Subtest: core5 native leg: regressed cumulative quantity never overwrites the newer fill
+ok 7 - core5 native leg: regressed cumulative quantity never overwrites the newer fill
+  ---
+  duration_ms: 8.34096
+  type: 'test'
+  ...
+# Subtest: core5 closed session: cancels remaining partial entry without needing a quote or submitting a sale
+not ok 8 - core5 closed session: cancels remaining partial entry without needing a quote or submitting a sale
+  ---
+  duration_ms: 10.75365
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:106:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Known remaining entry risk must still be cancelable outside the session
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:110:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 closed session: pending cancellation preserves its retry interval and confirmed inventory
+not ok 9 - core5 closed session: pending cancellation preserves its retry interval and confirmed inventory
+  ---
+  duration_ms: 9.760912
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:118:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:123:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 closed session: confirmed cancellation waits for opening before protecting remaining inventory
+not ok 10 - core5 closed session: confirmed cancellation waits for opening before protecting remaining inventory
+  ---
+  duration_ms: 11.613266
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'partially_filled'
+    - 'canceled'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'canceled'
+  actual: 'partially_filled'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0/tools/core5_runtime_test.cjs:134:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: core5 closed session: fill during cancellation changes remaining protection only after reconciliation
+ok 11 - core5 closed session: fill during cancellation changes remaining protection only after reconciliation
+  ---
+  duration_ms: 11.833257
+  type: 'test'
+  ...
+# Subtest: core5 closed session: uncertain ownership or stale reconciliation cannot authorize cancel mutations
+ok 12 - core5 closed session: uncertain ownership or stale reconciliation cannot authorize cancel mutations
+  ---
+  duration_ms: 8.654173
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 4
+# fail 8
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 240.084156

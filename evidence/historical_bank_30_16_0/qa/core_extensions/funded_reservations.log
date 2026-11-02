@@ -1,0 +1,22 @@
+✔ funded execution reserves simultaneous symbols, risk and notional in one cash pool (9.998544ms)
+✔ a duplicate symbol before its first modeled fill cannot open a second campaign (0.696331ms)
+✔ observed close releases capacity and a later session carries the prior equity (2.08685ms)
+✔ causal marks of open inventory can increase reserved exposure but pending prices cannot (1.170317ms)
+✔ a future entry price cannot resize the plan; a budget breach retains its reservation (1.035994ms)
+✔ the first observed fill is marked causally before another asset compounds its size (1.314455ms)
+✔ entry and exit fee allowances do not jump when the first post-fill mark arrives (1.42394ms)
+✔ an absent planned fill is an unresolved reserved exposure, never a zero-PnL skip (3.600395ms)
+✔ an incomplete path after entry retains the last mark and original reserved capital (3.825957ms)
+✔ calendar refusal occurs before requiring any later entry price (0.54353ms)
+✔ missing causal reference refuses entry rather than using the future fill price (0.530771ms)
+✔ terminal open exposure is preserved with a mark and an incident, not force-closed (1.19239ms)
+✔ selection outside the evaluation period cannot inject earlier account profits (1.577632ms)
+✔ portfolio return intervals include overnight time and reconcile asset contributions (0.368747ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 38.341982

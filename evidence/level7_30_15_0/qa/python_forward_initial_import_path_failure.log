@@ -1,0 +1,21 @@
+test_forward_economics (unittest.loader._FailedTest.test_forward_economics) ... ERROR
+
+======================================================================
+ERROR: test_forward_economics (unittest.loader._FailedTest.test_forward_economics)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_forward_economics
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/workspace/scratch/4ecb05fdc50d/nivel7_completion/HARPOON_XXXUltimate_30_15_0/quant/tests/test_forward_economics.py", line 18, in <module>
+    from harpoon_quant.forward_economics import (
+ModuleNotFoundError: No module named 'harpoon_quant'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

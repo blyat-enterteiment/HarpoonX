@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: complete collection uses actual runtime capture, ledger and server and retains original bytes
+ok 1 - complete collection uses actual runtime capture, ledger and server and retains original bytes
+  ---
+  duration_ms: 71.188316
+  type: 'test'
+  ...
+# Subtest: no supplied selection verifies transport without creating a calibration manifest or training request
+ok 2 - no supplied selection verifies transport without creating a calibration manifest or training request
+  ---
+  duration_ms: 25.496845
+  type: 'test'
+  ...
+# Subtest: coordinator export opt-in retains original bytes and explicit identity without certifying history
+ok 3 - coordinator export opt-in retains original bytes and explicit identity without certifying history
+  ---
+  duration_ms: 23.650095
+  type: 'test'
+  ...
+# Subtest: coordinator export rejects explicit inconsistent identity: coordinator_wrong_version
+ok 4 - coordinator export rejects explicit inconsistent identity: coordinator_wrong_version
+  ---
+  duration_ms: 23.084992
+  type: 'test'
+  ...
+# Subtest: coordinator export rejects explicit inconsistent identity: coordinator_wrong_account
+ok 5 - coordinator export rejects explicit inconsistent identity: coordinator_wrong_account
+  ---
+  duration_ms: 21.325063
+  type: 'test'
+  ...
+# Subtest: coordinator export rejects explicit inconsistent identity: coordinator_forward_wrong_account
+ok 6 - coordinator export rejects explicit inconsistent identity: coordinator_forward_wrong_account
+  ---
+  duration_ms: 20.471114
+  type: 'test'
+  ...
+# Subtest: coordinator export preserves missing full identity as unknown despite matching suffix and health
+ok 7 - coordinator export preserves missing full identity as unknown despite matching suffix and health
+  ---
+  duration_ms: 22.812931
+  type: 'test'
+  ...
+# Subtest: coordinator export reuses secret checks before persisting its body
+ok 8 - coordinator export reuses secret checks before persisting its body
+  ---
+  duration_ms: 23.295259
+  type: 'test'
+  ...
+# Subtest: coordinator export is subject to the existing response byte cap
+ok 9 - coordinator export is subject to the existing response byte cap
+  ---
+  duration_ms: 22.026533
+  type: 'test'
+  ...
+# Subtest: pure coordinator identity inspection never upgrades unknown identity or incomplete history
+ok 10 - pure coordinator identity inspection never upgrades unknown identity or incomplete history
+  ---
+  duration_ms: 0.257429
+  type: 'test'
+  ...
+# Subtest: pure coordinator identity inspection rejects conflicting claims and versions
+ok 11 - pure coordinator identity inspection rejects conflicting claims and versions
+  ---
+  duration_ms: 0.340625
+  type: 'test'
+  ...
+# Subtest: pure coordinator export option accepts only explicit booleans
+ok 12 - pure coordinator export option accepts only explicit booleans
+  ---
+  duration_ms: 0.533686
+  type: 'test'
+  ...
+# Subtest: wrong version is rejected on the public health check before sending credentials
+ok 13 - wrong version is rejected on the public health check before sending credentials
+  ---
+  duration_ms: 7.420558
+  type: 'test'
+  ...
+# Subtest: wrong expected account rejects the snapshot before requesting market or ledger pages
+ok 14 - wrong expected account rejects the snapshot before requesting market or ledger pages
+  ---
+  duration_ms: 8.324004
+  type: 'test'
+  ...
+# Subtest: invalid authentication preserves only the completed public response
+ok 15 - invalid authentication preserves only the completed public response
+  ---
+  duration_ms: 8.415643
+  type: 'test'
+  ...
+# Subtest: rejects bad_frame and preserves a clearly rejected partial collection
+ok 16 - rejects bad_frame and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 12.844292
+  type: 'test'
+  ...
+# Subtest: rejects reordered_observation_page and preserves a clearly rejected partial collection
+ok 17 - rejects reordered_observation_page and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 17.54003
+  type: 'test'
+  ...
+# Subtest: rejects observation_wrong_account and preserves a clearly rejected partial collection
+ok 18 - rejects observation_wrong_account and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 12.568276
+  type: 'test'
+  ...
+# Subtest: rejects ledger_revision and preserves a clearly rejected partial collection
+ok 19 - rejects ledger_revision and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 18.821361
+  type: 'test'
+  ...
+# Subtest: rejects reordered_ledger_page and preserves a clearly rejected partial collection
+ok 20 - rejects reordered_ledger_page and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 18.764786
+  type: 'test'
+  ...
+# Subtest: rejects ledger_wrong_account and preserves a clearly rejected partial collection
+ok 21 - rejects ledger_wrong_account and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 18.995154
+  type: 'test'
+  ...
+# Subtest: rejects rehashed_fake_pnl and preserves a clearly rejected partial collection
+ok 22 - rejects rehashed_fake_pnl and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 21.990142
+  type: 'test'
+  ...
+# Subtest: rejects restart and preserves a clearly rejected partial collection
+ok 23 - rejects restart and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 23.846032
+  type: 'test'
+  ...
+# Subtest: redirects are not followed with credentials
+ok 24 - redirects are not followed with credentials
+  ---
+  duration_ms: 6.053003
+  type: 'test'
+  ...
+# Subtest: rejects credential reflection before persisting password_echo
+ok 25 - rejects credential reflection before persisting password_echo
+  ---
+  duration_ms: 6.498918
+  type: 'test'
+  ...
+# Subtest: rejects credential reflection before persisting authorization_echo
+ok 26 - rejects credential reflection before persisting authorization_echo
+  ---
+  duration_ms: 8.695915
+  type: 'test'
+  ...
+# Subtest: rejects credential reflection before persisting escaped_password_echo
+ok 27 - rejects credential reflection before persisting escaped_password_echo
+  ---
+  duration_ms: 5.895045
+  type: 'test'
+  ...
+# Subtest: request timeout is bounded and does not retry
+ok 28 - request timeout is bounded and does not retry
+  ---
+  duration_ms: 58.942457
+  type: 'test'
+  ...
+# Subtest: total deadline expires independently of a longer request timeout
+ok 29 - total deadline expires independently of a longer request timeout
+  ---
+  duration_ms: 56.466538
+  type: 'test'
+  ...
+# Subtest: response byte cap rejects oversized without saving an incomplete body
+ok 30 - response byte cap rejects oversized without saving an incomplete body
+  ---
+  duration_ms: 8.432848
+  type: 'test'
+  ...
+# Subtest: response byte cap rejects chunk_oversized without saving an incomplete body
+ok 31 - response byte cap rejects chunk_oversized without saving an incomplete body
+  ---
+  duration_ms: 22.593235
+  type: 'test'
+  ...
+# Subtest: aggregate source and serialized-ledger budgets cannot be enlarged beyond the gate
+ok 32 - aggregate source and serialized-ledger budgets cannot be enlarged beyond the gate
+  ---
+  duration_ms: 13.372488
+  type: 'test'
+  ...
+# Subtest: ledger bundle limit is enforced before a complete receipt
+ok 33 - ledger bundle limit is enforced before a complete receipt
+  ---
+  duration_ms: 21.058136
+  type: 'test'
+  ...
+# Subtest: page and request count limits prevent unbounded collection
+ok 34 - page and request count limits prevent unbounded collection
+  ---
+  duration_ms: 15.629155
+  type: 'test'
+  ...
+# Subtest: duplicate JSON keys are rejected without saving ambiguous source bytes
+ok 35 - duplicate JSON keys are rejected without saving ambiguous source bytes
+  ---
+  duration_ms: 8.624466
+  type: 'test'
+  ...
+# Subtest: an existing output is never overwritten and is rejected before network access
+ok 36 - an existing output is never overwritten and is rejected before network access
+  ---
+  duration_ms: 5.607029
+  type: 'test'
+  ...
+# Subtest: unsafe endpoint forms and missing environment credentials fail before creating output
+ok 37 - unsafe endpoint forms and missing environment credentials fail before creating output
+  ---
+  duration_ms: 3.779137
+  type: 'test'
+  ...
+# Subtest: invalid causal selection is rejected without generating a training input
+ok 38 - invalid causal selection is rejected without generating a training input
+  ---
+  duration_ms: 3.308277
+  type: 'test'
+  ...
+# Subtest: help runs without credentials or network and documents the restricted scope
+ok 39 - help runs without credentials or network and documents the restricted scope
+  ---
+  duration_ms: 59.997368
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 791.728407

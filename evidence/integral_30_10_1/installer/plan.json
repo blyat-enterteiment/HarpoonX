@@ -1,0 +1,87 @@
+{
+  "schema": "HARPOON_INSTALL_PLAN_1",
+  "mode": "XXXULTIMATE",
+  "action": "install",
+  "status": "LOCAL_VALIDATION_PASSED",
+  "planned_only": true,
+  "project": "harpoon-xxxultimate",
+  "compose_file": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/deploy/compose.xxx.json",
+  "configuration": {
+    "source": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/config/examples/xxx.json",
+    "target": "/run/harpoon/config.json",
+    "read_only": true,
+    "sha256": "e59e03b2f187fc2b57e4618aeef4b3d0ee1f47af5d0d3d4cf893caeb82c6744f"
+  },
+  "persistent_data": {
+    "source": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/data/xxx",
+    "target": "/var/data"
+  },
+  "host_bind": {
+    "address": "127.0.0.1",
+    "port": 10000
+  },
+  "environment_names": [
+    "APCA_API_KEY_ID",
+    "APCA_API_SECRET_KEY",
+    "HARPOON_FUTURES_PAPER_ORDERS",
+    "HARPOON_PANEL_PASSWORD",
+    "HARPOON_PUBLIC_ORIGIN",
+    "HARPOON_START_PAPER"
+  ],
+  "commands": [
+    [
+      "docker",
+      "compose",
+      "--env-file",
+      "/dev/null",
+      "--project-directory",
+      "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1",
+      "--project-name",
+      "harpoon-xxxultimate",
+      "-f",
+      "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/deploy/compose.xxx.json",
+      "config",
+      "--quiet"
+    ],
+    [
+      "docker",
+      "compose",
+      "--env-file",
+      "/dev/null",
+      "--project-directory",
+      "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1",
+      "--project-name",
+      "harpoon-xxxultimate",
+      "-f",
+      "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/deploy/compose.xxx.json",
+      "build",
+      "xxxultimate"
+    ],
+    [
+      "docker",
+      "compose",
+      "--env-file",
+      "/dev/null",
+      "--project-directory",
+      "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1",
+      "--project-name",
+      "harpoon-xxxultimate",
+      "-f",
+      "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/deploy/compose.xxx.json",
+      "up",
+      "-d",
+      "--no-build",
+      "--scale",
+      "xxxultimate=1",
+      "xxxultimate"
+    ]
+  ],
+  "secret_values_in_plan": false,
+  "docker_schema_build_and_runtime_verified": false,
+  "broker_account_verified": false,
+  "account_binding": "PENDING_RUNTIME_AND_EXISTING_JOURNAL_CHECKS",
+  "persisted_pause": "PRESERVED_BY_RUNTIME_JOURNAL; START_PAPER_DOES_NOT_CLEAR_IT",
+  "financial_authorization": false,
+  "runtime_readiness_verified": false,
+  "stop_notice": null
+}

@@ -1,0 +1,1013 @@
+--- before/harpoon_quant/__init__.py
++++ after/harpoon_quant/__init__.py
+@@ -1,3 +1,3 @@
+ """Harpoon Quant 1.0: conditional forecasts, common scenarios and funded allocation."""
+ 
+-__version__ = "1.2.0"
++__version__ = "1.3.0"
+--- before/harpoon_quant/economic_lab.py
++++ after/harpoon_quant/economic_lab.py
+@@ -0,0 +1,795 @@
++"""Registered offline research: funded event replay, bounded hypotheses, no orders.
++
++All generated prices are SYNTHETIC_ENGINEERING_ONLY. Calendar can be observed.
++No runtime promotion, no account permission inference, no production model fitting.
++"""
++
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++import math
++from dataclasses import asdict, dataclass
++from datetime import UTC, datetime, timedelta
++from pathlib import Path
++from typing import Any
++from zoneinfo import ZoneInfo
++
++import numpy as np
++from scipy.special import ndtr
++
++from .core import digest
++from .performance import report
++from .recursive import Journal
++
++ORIGIN = "SYNTHETIC_ENGINEERING_ONLY"
++NY = ZoneInfo("America/New_York")
++
++
++def bs(s: Any, k: Any, t: Any, v: Any, call: bool) -> Any:
++    t = np.maximum(t, 1e-9)
++    d1 = (np.log(s / k) + (0.04 + 0.5 * v * v) * t) / (v * np.sqrt(t))
++    d2 = d1 - v * np.sqrt(t)
++    c = s * ndtr(d1) - k * np.exp(-0.04 * t) * ndtr(d2)
++    return np.maximum(0, c if call else c - s + k * np.exp(-0.04 * t))
++
++
++def greeks(s: float, k: float, t: float, v: float, call: bool) -> dict[str, float]:
++    d1 = (math.log(s / k) + (0.04 + 0.5 * v * v) * t) / (v * math.sqrt(t))
++    density = math.exp(-d1 * d1 / 2) / math.sqrt(2 * math.pi)
++    return dict(
++        delta=float(ndtr(d1)) - (0 if call else 1),
++        gamma=density / (s * v * math.sqrt(t)),
++        vega=s * density * math.sqrt(t),
++    )
++
++
++def quote(mid: float, relative_spread: float) -> tuple[float, float]:
++    """Cent ticks, natural sides; never substitute midpoint for a fill."""
++    return max(0.0, math.floor(mid * (1 - relative_spread / 2) * 100) / 100), math.ceil(
++        mid * (1 + relative_spread / 2) * 100
++    ) / 100
++
++
++def timeline(calendar: dict[str, Any]) -> list[datetime]:
++    marks = []
++    for row in calendar["calendar"]:
++        opening = datetime.fromisoformat(row["open"]).replace(tzinfo=NY)
++        closing = datetime.fromisoformat(row["close"]).replace(tzinfo=NY)
++        marks += [
++            opening + timedelta(minutes=15),
++            opening + timedelta(minutes=30),
++            closing - timedelta(minutes=15),
++        ]
++    return sorted({m.astimezone(UTC) for m in marks})
++
++
++def exit_index(marks: list[datetime], i: int) -> int:
++    deadline = marks[i] + timedelta(hours=72)
++    j = (
++        int(
++            np.searchsorted(
++                [m.timestamp() for m in marks], deadline.timestamp(), side="right"
++            )
++        )
++        - 1
++    )
++    return min(j, len(marks) - 1)
++
++
++@dataclass(frozen=True)
++class Policy:
++    flags: str = ""
++
++    def __post_init__(self) -> None:
++        if any(c not in "ABCDEF" for c in self.flags) or len(set(self.flags)) != len(
++            self.flags
++        ):
++            raise ValueError("UNKNOWN_ECONOMIC_POLICY")
++
++
++class World:
++    def __init__(self, calendar: dict[str, Any], seed: int):
++        self.seed = seed
++        self.marks = timeline(calendar)
++        self._exits = np.minimum(
++            np.searchsorted(
++                np.array([m.timestamp() for m in self.marks]),
++                np.array([m.timestamp() for m in self.marks]) + 72 * 3600,
++                side="right",
++            )
++            - 1,
++            len(self.marks) - 1,
++        )
++        self.start = self.marks[0].date()
++        self.n = (self.marks[-1].date() - self.start).days + 1
++        rng = np.random.default_rng(seed)
++        self.spot = np.zeros((self.n, 24))
++        self.spot[0] = rng.uniform(20, 65, 24)
++        self.returns = np.zeros_like(self.spot)
++        rv = rng.uniform(0.45, 0.95, 24)
++        self.iv = np.zeros_like(self.spot)
++        self.iv[0] = rv * 1.15
++        for d in range(1, self.n):
++            regime = 1.0 if d < 0.57 * self.n else 1.6 if d < 0.714 * self.n else 0.8
++            persistence = (
++                0.18 if d < 0.57 * self.n else -0.12 if d < 0.714 * self.n else 0.08
++            )
++            market = rng.normal()
++            shocks = rng.standard_t(6, 24) * math.sqrt(4 / 6)
++            jump = np.where(rng.random(24) < 0.008, rng.normal(0, 0.10, 24), 0)
++            self.returns[d] = np.clip(
++                persistence * self.returns[d - 1]
++                + rv
++                / math.sqrt(365)
++                * regime
++                * (0.4 * market + math.sqrt(0.84) * shocks)
++                + jump,
++                -0.3,
++                0.3,
++            )
++            self.spot[d] = self.spot[d - 1] * np.exp(self.returns[d])
++            self.iv[d] = np.clip(
++                0.94 * self.iv[d - 1]
++                + 0.06 * rv * regime * 1.15
++                + rng.normal(0, 0.015, 24),
++                0.2,
++                2,
++            )
++        # Execution proxies are declared synthetic; shared for every policy.
++        ex = np.random.default_rng(seed + 917)
++        self.ages = ex.exponential(15, (len(self.marks), 24))
++        self.depth = ex.integers(1, 8, (len(self.marks), 24))
++        self.nodes, self.weights = np.polynomial.hermite.hermgauss(12)
++        self.cache: dict[Any, Any] = {}
++
++    def day(self, mark: int) -> int:
++        return (self.marks[mark].date() - self.start).days
++
++    def candidate(
++        self, mark: int, asset: int, call: bool, flags: str
++    ) -> dict[str, Any]:
++        key = (mark, asset, call, "A" in flags, "C" in flags)
++        if key in self.cache:
++            return dict(self.cache[key])
++        d = self.day(mark)
++        end = int(self._exits[mark])
++        h = (self.marks[end] - self.marks[mark]).total_seconds() / 86400
++        s = float(self.spot[d, asset])
++        v = float(self.iv[d, asset])
++        days = 45 if "C" in flags else 21
++        z = 1.0 if "C" in flags else 1.7
++        t = days / 365
++        k = s * math.exp((1 if call else -1) * z * v * math.sqrt(t))
++        mid = float(bs(s, k, t, v, call))
++        spread = 0.08 + 0.04 * (v > 0.9)
++        _bid, ask = quote(mid, spread)
++        past = self.returns[max(1, d - 120) : d + 1]
++        if "A" in flags:
++            xs, ys = past[:-1].ravel(), past[1:].ravel()
++            beta = (
++                float(np.clip(np.dot(xs, ys) / (np.dot(xs, xs) + 0.05), -0.5, 0.5))
++                if len(xs)
++                else 0
++            )
++            mu = float(
++                np.clip(
++                    sum(beta**k for k in range(1, max(1, math.ceil(h)) + 1))
++                    * h
++                    / max(1, math.ceil(h))
++                    * self.returns[d, asset],
++                    -0.05,
++                    0.05,
++                )
++            )
++            sigma = max(0.25, float(np.std(past[-20:, asset])) * math.sqrt(365))
++            samples = s * np.exp(
++                mu + math.sqrt(2 * sigma * sigma * h / 365) * self.nodes
++            )
++            expected_mid = float(
++                np.dot(self.weights, bs(samples, k, t - h / 365, v, call))
++                / math.sqrt(math.pi)
++            )
++            expected_stock = s * math.exp(mu + 0.5 * sigma * sigma * h / 365)
++            reserve = 0.10
++        else:
++            mu = h * float(
++                np.clip(
++                    0.12 * self.returns[d, asset]
++                    + 0.04 * self.returns[max(0, d - 2) : d + 1, asset].mean(),
++                    -0.012,
++                    0.012,
++                )
++            )
++            expected_stock = s * math.exp(mu)
++            expected_mid = float(bs(expected_stock, k, t - h / 365, v, call))
++            reserve = 0.02
++        funding = ask * 100 + 0.65
++        expected = expected_mid * (1 - spread / 2) * 100 - 0.65
++        g = greeks(s, k, t, v, call)
++        row = dict(
++            asset=asset,
++            call=call,
++            entry=mark,
++            exit=end,
++            strike=k,
++            dte=days,
++            funding=funding,
++            risk=funding + 0.65,
++            edge=expected - funding - reserve * funding,
++            spread=spread,
++            exposure=abs(g["delta"]) * s * 100,
++            kind="option",
++            fee=0.65,
++            stock_expected=expected_stock,
++            initial_mid=mid,
++            **g,
++        )
++        self.cache[key] = dict(row)
++        return row
++
++    def stock(self, option: dict[str, Any]) -> dict[str, Any]:
++        row = dict(option)
++        s = float(self.spot[self.day(row["entry"]), row["asset"]])
++        row.update(
++            kind="stock",
++            funding=s * 1.0005,
++            risk=s * 1.0005,
++            edge=row["stock_expected"] * 0.9995 - s * 1.0005,
++            exposure=s,
++            fee=0.0,
++            delta=1.0,
++            gamma=0.0,
++            vega=0.0,
++        )
++        return row
++
++    def value(
++        self, position: dict[str, Any], mark: int, stress: float, scenario: str = "base"
++    ) -> tuple[float, dict[str, float], float]:
++        d = self.day(mark)
++        a = position["asset"]
++        s = float(self.spot[d, a])
++        if position["kind"] == "stock":
++            return (
++                self.scenario_mark(s * (1 - 0.0005 * stress), position, scenario),
++                dict(delta=1.0, gamma=0.0, vega=0.0, mid_cash=s),
++                s,
++            )
++        elapsed = (
++            self.marks[mark] - self.marks[position["entry"]]
++        ).total_seconds() / 86400
++        t = (position["dte"] - elapsed) / 365
++        v = float(self.iv[d, a])
++        mid = float(bs(s, position["strike"], t, v, position["call"]))
++        spread = 0.08 + 0.04 * (v > 0.9)
++        bid, _ = quote(mid, min(0.9, spread * stress))
++        g = greeks(s, position["strike"], t, v, position["call"])
++        g["mid_cash"] = mid * 100
++        return (
++            self.scenario_mark(
++                bid * 100 - position["fee"] * stress, position, scenario
++            ),
++            g,
++            s,
++        )
++
++    @staticmethod
++    def scenario_mark(unit: float, position: dict[str, Any], scenario: str) -> float:
++        if scenario == "gaps" and position["kind"] == "option":
++            unit *= 0.9
++        if scenario == "iv_crush" and position["kind"] == "option":
++            unit *= 0.8
++        if scenario == "liquidity":
++            unit -= 0.05 * position["funding"]
++        return unit
++
++
++def replay(
++    world: World,
++    policy: Policy,
++    start: str,
++    end: str,
++    limits: dict[str, Any],
++    *,
++    stress: float = 1.0,
++    scenario: str = "base",
++) -> dict[str, Any]:
++    if stress < 1 or scenario not in {
++        "base",
++        "gaps",
++        "iv_crush",
++        "liquidity",
++        "delay",
++        "outage",
++    }:
++        raise ValueError("STRESS_DOMAIN")
++    for key, upper in {
++        "risk_fraction": 0.0025,
++        "open_risk_fraction": 0.015,
++        "gross_fraction": 0.5,
++        "asset_fraction": 0.12,
++        "factor_fraction": 0.5,
++        "max_drawdown": 0.08,
++        "daily_loss": 0.02,
++    }.items():
++        if not math.isfinite(limits[key]) or not 0 < limits[key] <= upper:
++            raise ValueError("ORIGINAL_LIMIT_ENVELOPE:" + key)
++    if (
++        not 1 <= limits["max_positions"] <= 8
++        or not 0 < limits.get("capital", 20000) <= 20000
++    ):
++        raise ValueError("CAPITAL_OR_POSITION_ENVELOPE")
++    flags = policy.flags
++    initial = float(limits.get("capital", 20000))
++    cash = initial
++    peak = initial
++    positions: list[dict[str, Any]] = []
++    trades = []
++    ledger = []
++    daily = {}
++    blocks: dict[str, int] = {}
++    previous = initial
++    session_open = initial
++    last_date = ""
++    risk_paused = False
++    day_paused = False
++
++    def blocked(reason: str) -> None:
++        blocks[reason] = blocks.get(reason, 0) + 1
++
++    for i, at in enumerate(world.marks):
++        date = at.date().isoformat()
++        if not start <= date <= end:
++            continue
++        if date != last_date:
++            session_open = previous
++            last_date = date
++            day_paused = False
++        keep = []
++        pre_nav = cash + sum(
++            p["lots"] * world.value(p, i, stress, scenario)[0] for p in positions
++        )
++        peak = max(peak, pre_nav)
++        risk_paused = risk_paused or 1 - pre_nav / peak >= limits["max_drawdown"]
++        day_paused = day_paused or pre_nav / session_open - 1 <= -limits.get(
++            "daily_loss", 0.02
++        )
++        for p in positions:
++            unit, g, s = world.value(p, i, stress, scenario)
++            ratio = (unit - p["funding"]) / p["funding"]
++            invalidated = "E" in flags and (
++                (world.returns[world.day(i), p["asset"]] < 0) == p["call"]
++            )
++            due = (
++                i >= p["exit"]
++                or risk_paused
++                or day_paused
++                or ("E" in flags and (ratio >= 0.35 or ratio <= -0.35 or invalidated))
++            )
++            partial = (
++                "E" in flags
++                and ratio >= 0.35
++                and p["lots"] >= 2
++                and i < p["exit"]
++                and not risk_paused
++                and not day_paused
++            )
++            quantity = max(1, p["lots"] // 2) if partial else p["lots"] if due else 0
++            if quantity:
++                cash += quantity * unit
++                trades.append(
++                    dict(
++                        asset=p["asset"],
++                        kind=p["kind"],
++                        entry_at=world.marks[p["entry"]].isoformat(),
++                        exit_at=at.isoformat(),
++                        lots=quantity,
++                        net_pnl_usd=quantity * (unit - p["funding"]),
++                        cost_usd=quantity
++                        * (p["entry_cost"] + max(0.0, g["mid_cash"] - unit)),
++                        reason="partial"
++                        if partial
++                        else "deadline"
++                        if i >= p["exit"]
++                        else "signal_or_risk",
++                    )
++                )
++                p["lots"] -= quantity
++            if p["lots"]:
++                p.update(
++                    marked=unit,
++                    exposure=abs(g["delta"])
++                    * s
++                    * (100 if p["kind"] == "option" else 1),
++                    gamma=g["gamma"],
++                    vega=g["vega"],
++                )
++                keep.append(p)
++        positions = keep
++        nav = cash + sum(p["lots"] * p["marked"] for p in positions)
++        peak = max(peak, nav)
++        risk_paused = risk_paused or 1 - nav / peak >= limits["max_drawdown"]
++        day_paused = day_paused or nav / session_open - 1 <= -limits.get(
++            "daily_loss", 0.02
++        )
++        candidates = []
++        # Entry snapshots are known at 09:45, monitoring marks do not create new signals.
++        if (
++            at.astimezone(NY).time().hour == 9
++            and at.astimezone(NY).time().minute == 45
++            and world.day(i) >= 121
++        ):
++            for a in range(24):
++                for call in (True, False):
++                    o = world.candidate(i, a, call, flags)
++                    if "B" in flags and call:
++                        stock = world.stock(o)
++                        if stock["edge"] / stock["risk"] > o["edge"] / o["risk"]:
++                            o = stock
++                    if (
++                        o["exit"] <= i
++                        or world.marks[o["exit"]].date().isoformat() > end
++                    ):
++                        blocked("purge_deadline")
++                        continue
++                    if scenario == "delay":
++                        o["edge"] -= 0.05 * o["funding"]
++                    if scenario == "outage" and world.day(i) % 11 == 0:
++                        blocked("outage")
++                        continue
++                    if o["edge"] <= 0:
++                        blocked("nonpositive_known_edge")
++                        continue
++                    if o["risk"] > min(initial, nav) * limits["risk_fraction"]:
++                        blocked("integer_risk_funding")
++                        continue
++                    if world.ages[i, a] > 60 or (
++                        "D" in flags and (world.ages[i, a] > 30 or o["spread"] > 0.10)
++                    ):
++                        blocked("quote_age_or_spread")
++                        continue
++                    candidates.append(o)
++            for o in sorted(
++                candidates,
++                key=lambda x: (-x["edge"] / x["risk"], x["asset"], x["call"]),
++            ):
++                if risk_paused or day_paused:
++                    blocked("risk_pause")
++                    continue
++                if len(positions) >= (4 if "F" in flags else limits["max_positions"]):
++                    blocked("position_cap")
++                    continue
++                if any(p["asset"] == o["asset"] for p in positions):
++                    blocked("held_underlying")
++                    continue
++                if "D" in flags and world.depth[i, o["asset"]] < 2:
++                    blocked("depth_FOK")
++                    continue
++                # Stress is charged in actual cash, not only in a reported metric.
++                if o["kind"] == "option":
++                    _, ask = quote(o["initial_mid"], min(0.9, o["spread"] * stress))
++                    o["funding"] = ask * 100 + 0.65 * stress
++                    o["risk"] = o["funding"] + 0.65 * stress
++                    o["entry_cost"] = o["funding"] - o["initial_mid"] * 100
++                    o["last_mid"] = o["initial_mid"] * 100
++                else:
++                    s = float(world.spot[world.day(i), o["asset"]])
++                    o["funding"] = s * (1 + 0.0005 * stress)
++                    o["risk"] = o["funding"]
++                    o["entry_cost"] = o["funding"] - s
++                    o["last_mid"] = s
++                capital = min(initial, nav)
++                gross = sum(p["lots"] * p["exposure"] for p in positions)
++                factor = sum(
++                    p["lots"] * p["exposure"]
++                    for p in positions
++                    if p["asset"] // 6 == o["asset"] // 6
++                )
++                risk = sum(p["lots"] * p["risk"] for p in positions)
++                reserved = sum(p["lots"] * p["fee"] * stress for p in positions)
++                lots = max(
++                    0,
++                    min(
++                        5,
++                        int(capital * limits["risk_fraction"] / o["risk"]),
++                        int(max(0, cash - reserved) / o["risk"]),
++                        int(
++                            max(0, capital * limits["gross_fraction"] - gross)
++                            / o["exposure"]
++                        ),
++                        int(capital * limits["asset_fraction"] / o["exposure"]),
++                        int(
++                            max(
++                                0,
++                                capital
++                                * (0.25 if "F" in flags else limits["factor_fraction"])
++                                - factor,
++                            )
++                            / o["exposure"]
++                        ),
++                        int(
++                            max(
++                                0,
++                                capital
++                                * (
++                                    0.008
++                                    if "F" in flags
++                                    else limits["open_risk_fraction"]
++                                )
++                                - risk,
++                            )
++                            / o["risk"]
++                        ),
++                        int(world.depth[i, o["asset"]]),
++                    ),
++                )
++                if lots <= 0:
++                    blocked("cash_exposure_or_openrisk")
++                    continue
++                cash -= lots * o["funding"]
++                unit, g, s = world.value(o, i, stress, scenario)
++                o.update(
++                    lots=lots,
++                    marked=unit,
++                    exposure=abs(g["delta"])
++                    * s
++                    * (100 if o["kind"] == "option" else 1),
++                )
++                positions.append(o)
++                ledger.append(
++                    dict(
++                        at=at.isoformat(),
++                        kind="ENTRY",
++                        cash_change=-lots * o["funding"],
++                        lots=lots,
++                        asset=o["asset"],
++                        risk=lots * o["risk"],
++                    )
++                )
++        nav = cash + sum(p["lots"] * p["marked"] for p in positions)
++        previous = nav
++        daily[date] = nav
++        ledger.append(
++            dict(
++                at=at.isoformat(),
++                kind="NAV",
++                cash=cash,
++                nav=nav,
++                open_positions=len(positions),
++                gamma=sum(p["lots"] * p["gamma"] * 100 for p in positions),
++                vega=sum(p["lots"] * p["vega"] * 100 for p in positions),
++            )
++        )
++    if positions:
++        raise ValueError("OPEN_POSITIONS_AT_EVALUATION_END")
++    dates = []
++    values = []
++    d = datetime.fromisoformat(start).date()
++    stop = datetime.fromisoformat(end).date()
++    last = initial
++    while d <= stop:
++        day = d.isoformat()
++        last = daily.get(day, last)
++        dates.append(day)
++        values.append(last)
++        d += timedelta(days=1)
++    returns = (np.array(values) / np.array([initial, *values[:-1]]) - 1).tolist()
++    metrics = report(
++        dict(
++            origin=ORIGIN,
++            return_basis="NET_FLOW_ADJUSTED",
++            returns=returns,
++            times=[d + "T23:59:59+00:00" for d in dates],
++            initial_equity=initial,
++            periods_per_year=365,
++            sampling="DAILY_UTC_CALENDAR",
++            trades=trades,
++        )
++    )
++    assert abs(sum(t["net_pnl_usd"] for t in trades) - (values[-1] - initial)) < 1e-7
++    return dict(
++        metrics=metrics,
++        mean_log_growth=float(np.log1p(returns).mean()),
++        dates=dates,
++        returns=returns,
++        trades=trades,
++        blocks=blocks,
++        ledger=ledger,
++        policy=asdict(policy),
++        risk_paused=risk_paused,
++        origin=ORIGIN,
++        execution_allowed=False,
++    )
++
++
++def run_stage(directory: Path, stage: str) -> None:
++    protocol = json.loads((directory / "protocol.json").read_text())
++    calendar = json.loads(
++        (directory.parent / "evidence/alpaca_calendar.json").read_text()
++    )
++    j = Journal(directory / "optimizer.sqlite3")
++    now = datetime.now(UTC).isoformat()
++    try:
++        seal = hashlib.sha256(
++            b"".join(
++                (Path(__file__).parent / n).read_bytes()
++                for n in ["economic_lab.py", "performance.py", "recursive.py"]
++            )
++        ).hexdigest()
++        if (
++            hashlib.sha256((directory / "protocol.json").read_bytes()).hexdigest()
++            != j.get("economic:protocol")["hash"]
++        ):
++            raise ValueError("REGISTERED_PROTOCOL_CHANGED")
++        if (
++            hashlib.sha256(
++                (directory.parent / "evidence/alpaca_calendar.json").read_bytes()
++            ).hexdigest()
++            != protocol["calendar_file_sha256"]
++        ):
++            raise ValueError("REGISTERED_CALENDAR_CHANGED")
++        with j.transaction():
++            code = j.get("economic:implementation")
++            if code and code["hash"] != seal:
++                raise ValueError("REGISTERED_CODE_CHANGED")
++            if not code:
++                j.put("economic:implementation", dict(hash=seal), now)
++        if stage == "develop":
++            if j.get("economic:finalist"):
++                raise ValueError("FINALIST_ALREADY_FROZEN")
++            development = {}
++            worlds = [World(calendar, seed) for seed in protocol["development_seeds"]]
++            for name, flags in protocol["variants"].items():
++                with j.transaction():
++                    if j.get("economic:trial:" + name):
++                        raise ValueError("TRIAL_ALREADY_USED")
++                    budget = j.get("budget")
++                    if budget["spent"] >= budget["limit"]:
++                        raise ValueError("LIFETIME_BUDGET_EXHAUSTED")
++                    budget["spent"] += 1
++                    j.put("budget", budget, now)
++                    j.put(
++                        "economic:trial:" + name,
++                        dict(stage="RESERVED", code_hash=seal),
++                        now,
++                    )
++                runs = [
++                    replay(
++                        w,
++                        Policy("".join(flags)),
++                        "2024-07-01",
++                        protocol["development_end"],
++                        dict(protocol["limits"], capital=protocol["capital"]),
++                    )
++                    for w in worlds
++                ]
++                admissible = all(
++                    r["metrics"]["max_drawdown"] <= protocol["limits"]["max_drawdown"]
++                    and r["metrics"]["trade_count"] >= 20
++                    for r in runs
++                )
++                score = min(r["mean_log_growth"] for r in runs) if admissible else -1e6
++                row = dict(score=score, admissible=admissible, runs=runs)
++                development[name] = row
++                with j.transaction():
++                    j.put(
++                        "economic:trial:" + name,
++                        dict(
++                            stage="COMPLETE",
++                            code_hash=seal,
++                            score=score,
++                            admissible=admissible,
++                        ),
++                        now,
++                    )
++            candidates = [
++                k for k, v in development.items() if k != "BASE" and v["admissible"]
++            ]
++            chosen = (
++                max(candidates, key=lambda k: development[k]["score"])
++                if candidates
++                else "BASE"
++            )
++            frozen = dict(
++                name=chosen,
++                flags=protocol["variants"][chosen],
++                code_hash=seal,
++                protocol_hash=hashlib.sha256(
++                    (directory / "protocol.json").read_bytes()
++                ).hexdigest(),
++                at=now,
++                admissible=bool(candidates),
++                score=development[chosen]["score"],
++            )
++            (directory / "development.json").write_text(
++                json.dumps(development, allow_nan=False)
++            )
++            (directory / "finalist.json").write_text(json.dumps(frozen, indent=2))
++            with j.transaction():
++                j.put("economic:finalist", frozen, now)
++            print(json.dumps(dict(status="FROZEN", **frozen)))
++        elif stage == "holdout":
++            frozen = j.get("economic:finalist")
++            if not frozen or frozen["code_hash"] != seal:
++                raise ValueError("FROZEN_CODE_REQUIRED")
++            with j.transaction():
++                if j.get("economic:holdout"):
++                    raise ValueError("HOLDOUT_ALREADY_SPENT")
++                domain = digest({"account": "SYNTH_48_OPTIONS", "origin": ORIGIN})
++                lo, hi = protocol["holdout_start"], protocol["holdout_end"]
++                if j.db.execute(
++                    "SELECT 1 FROM optimizer_holdouts WHERE domain=? AND NOT(hi<? OR lo>?)",
++                    (domain, lo, hi),
++                ).fetchone():
++                    raise ValueError("HOLDOUT_INTERVAL_ALREADY_USED")
++                j.db.execute(
++                    "INSERT INTO optimizer_holdouts VALUES(?,?,?,?)",
++                    (lo, hi, domain, protocol["study_id"]),
++                )
++                j.put("economic:holdout", dict(stage="RESERVED", finalist=frozen), now)
++            results = []
++            for seed in protocol["holdout_seeds"]:
++                w = World(calendar, seed)
++                hold_runs: dict[str, Any] = {}
++                for name, policy, stress, scenario in [
++                    ("baseline", Policy(), 1.0, "base"),
++                    ("candidate", Policy("".join(frozen["flags"])), 1.0, "base"),
++                    ("cash", Policy(), 1.0, "base"),
++                    ("cost_1_5", Policy("".join(frozen["flags"])), 1.5, "base"),
++                    ("cost_2", Policy("".join(frozen["flags"])), 2.0, "base"),
++                ] + [
++                    (s, Policy("".join(frozen["flags"])), 1.0, s)
++                    for s in ["gaps", "iv_crush", "liquidity", "delay", "outage"]
++                ]:
++                    if name == "cash":
++                        continue
++                    hold_runs[name] = replay(
++                        w,
++                        policy,
++                        protocol["holdout_start"],
++                        protocol["holdout_end"],
++                        dict(protocol["limits"], capital=protocol["capital"]),
++                        stress=stress,
++                        scenario=scenario,
++                    )
++                results.append(dict(seed=seed, runs=hold_runs))
++            (directory / "holdout.json").write_text(
++                json.dumps(dict(finalist=frozen, results=results), allow_nan=False)
++            )
++            with j.transaction():
++                j.put(
++                    "economic:holdout",
++                    dict(
++                        stage="COMPLETE",
++                        result_hash=hashlib.sha256(
++                            (directory / "holdout.json").read_bytes()
++                        ).hexdigest(),
++                        execution_allowed=False,
++                    ),
++                    datetime.now(UTC).isoformat(),
++                )
++            print(
++                json.dumps(
++                    dict(
++                        status="HOLDOUT_COMPLETE",
++                        paths=len(results),
++                        execution_allowed=False,
++                    )
++                )
++            )
++    finally:
++        j.close()
++
++
++def main() -> None:
++    p = argparse.ArgumentParser(description=__doc__)
++    p.add_argument("stage", choices=["develop", "holdout"])
++    p.add_argument("--directory", type=Path, required=True)
++    a = p.parse_args()
++    run_stage(a.directory, a.stage)
++
++
++if __name__ == "__main__":
++    main()
+--- before/pyproject.toml
++++ after/pyproject.toml
+@@ -4,7 +4,7 @@
+ 
+ [project]
+ name = "harpoon-quant"
+-version = "1.2.0"
++version = "1.3.0"
+ description = "Scenario-based multiasset research and allocation engine for HarpoonX"
+ requires-python = ">=3.11"
+ dependencies = ["numpy>=2.0,<3", "scipy>=1.14,<2", "scikit-learn>=1.8,<2"]
+--- before/tests/test_economic.py
++++ after/tests/test_economic.py
+@@ -0,0 +1,194 @@
++"""Engineering checks, not proof of financial alpha."""
++
++import json
++import unittest
++from datetime import datetime, timedelta
++from pathlib import Path
++
++import numpy as np
++
++from harpoon_quant.economic_lab import (
++    Policy,
++    World,
++    bs,
++    exit_index,
++    greeks,
++    quote,
++    replay,
++    timeline,
++)
++
++ROOT = Path(__file__).resolve().parents[1]
++
++
++class EconomicTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.calendar = json.loads((ROOT / "evidence/alpaca_calendar.json").read_text())
++        cls.world = World(cls.calendar, 991)
++        cls.limits = dict(
++            capital=20000,
++            risk_fraction=0.0025,
++            open_risk_fraction=0.015,
++            gross_fraction=0.5,
++            asset_fraction=0.12,
++            factor_fraction=0.5,
++            max_positions=8,
++            daily_loss=0.02,
++            max_drawdown=0.08,
++        )
++
++    def test_parity(self):
++        self.assertAlmostEqual(
++            float(bs(50.0, 55.0, 0.1, 0.6, True) - bs(50.0, 55.0, 0.1, 0.6, False)),
++            50 - 55 * np.exp(-0.004),
++        )
++
++    def test_greeks_units(self):
++        g = greeks(50, 55, 0.1, 0.6, True)
++        eps = 0.001
++        delta = float(
++            bs(50 + eps, 55, 0.1, 0.6, True) - bs(50 - eps, 55, 0.1, 0.6, True)
++        ) / (2 * eps)
++        self.assertAlmostEqual(delta, g["delta"], places=6)
++        self.assertGreater(g["gamma"], 0)
++        self.assertGreater(g["vega"], 0)
++
++    def test_quotes_ticks(self):
++        bid, ask = quote(0.237, 0.1)
++        self.assertLessEqual(bid, 0.237)
++        self.assertGreaterEqual(ask, 0.237)
++        self.assertAlmostEqual(ask * 100, round(ask * 100))
++
++    def test_no_weekend_early_closes(self):
++        marks = timeline(self.calendar)
++        self.assertTrue(all(m.weekday() < 5 for m in marks))
++        early = [m for m in marks if m.date().isoformat() == "2024-11-29"]
++        self.assertEqual((early[-1].hour, early[-1].minute), (17, 45))
++
++    def test_friday_holiday_72h(self):
++        marks = self.world.marks
++        i = next(
++            i
++            for i, m in enumerate(marks)
++            if m.date().isoformat() == "2026-01-16" and m.hour == 14 and m.minute == 45
++        )
++        j = exit_index(marks, i)
++        self.assertEqual(marks[j].date().isoformat(), "2026-01-16")
++        self.assertLessEqual(marks[j] - marks[i], timedelta(hours=72))
++
++    def test_future_prices_not_features(self):
++        w = World(self.calendar, 992)
++        i = next(
++            i for i, m in enumerate(w.marks) if m.date().isoformat() == "2026-07-01"
++        )
++        before = w.candidate(i, 0, True, "A")
++        d = w.day(i)
++        w.spot[d + 1 :] *= 3
++        w.iv[d + 1 :] = 2
++        w.cache.clear()
++        self.assertEqual(before, w.candidate(i, 0, True, "A"))
++
++    def test_risk_includes_exit_fee(self):
++        i = next(
++            i
++            for i, m in enumerate(self.world.marks)
++            if m.date().isoformat() == "2026-07-01"
++        )
++        r = self.world.candidate(i, 0, True, "")
++        self.assertAlmostEqual(r["risk"] - r["funding"], 0.65)
++
++    def test_negative_AR_finite(self):
++        w = World(self.calendar, 993)
++        w.returns[1:] = np.array([(-1) ** d * 0.01 for d in range(1, w.n)])[:, None]
++        i = next(
++            i for i, m in enumerate(w.marks) if m.date().isoformat() == "2026-07-02"
++        )
++        self.assertTrue(np.isfinite(w.candidate(i, 0, True, "A")["edge"]))
++
++    def test_funded_cash_reconciles(self):
++        r = replay(self.world, Policy("B"), "2026-07-01", "2026-07-31", self.limits)
++        self.assertAlmostEqual(
++            sum(t["net_pnl_usd"] for t in r["trades"]),
++            r["metrics"]["net_profit_usd_on_adjusted_initial_capital"],
++            places=6,
++        )
++        self.assertTrue(
++            all(
++                datetime.fromisoformat(t["exit_at"])
++                - datetime.fromisoformat(t["entry_at"])
++                <= timedelta(hours=72)
++                for t in r["trades"]
++            )
++        )
++        self.assertFalse(r["execution_allowed"])
++
++    def test_cash_and_lot_limits(self):
++        r = replay(self.world, Policy("B"), "2026-07-01", "2026-07-31", self.limits)
++        self.assertTrue(
++            all(e["cash"] >= -1e-8 for e in r["ledger"] if e["kind"] == "NAV")
++        )
++        for e in r["ledger"]:
++            if e["kind"] == "ENTRY":
++                self.assertIsInstance(e["lots"], int)
++                self.assertLessEqual(e["risk"], 50 + 1e-8)
++
++    def test_liquidity_prices_lower(self):
++        p = dict(kind="option", funding=40)
++        self.assertEqual(World.scenario_mark(20, p, "liquidity"), 18)
++        self.assertEqual(World.scenario_mark(20, p, "iv_crush"), 16)
++
++    def test_unknown_policy_stress(self):
++        with self.assertRaises(ValueError):
++            Policy("ORACLE")
++        with self.assertRaises(ValueError):
++            Policy("AA")
++        with self.assertRaises(ValueError):
++            replay(
++                self.world,
++                Policy(),
++                "2026-07-01",
++                "2026-07-31",
++                self.limits,
++                stress=0.5,
++            )
++
++    def test_forced_stock_path_is_funded_and_nonempty(self):
++        w = World(self.calendar, 995)
++        w.spot[:] = 20
++        original = w.candidate
++
++        def candidate(i, a, call, flags):
++            o = original(i, a, call, flags)
++            o.update(
++                kind="stock",
++                funding=20.01,
++                risk=20.01,
++                edge=1 if a == 0 and call else -1,
++                exposure=20,
++                fee=0,
++                delta=1,
++                gamma=0,
++                vega=0,
++            )
++            return o
++
++        w.candidate = candidate
++        r = replay(w, Policy(), "2026-07-01", "2026-07-15", self.limits)
++        self.assertGreater(len(r["trades"]), 0)
++        self.assertAlmostEqual(
++            sum(t["net_pnl_usd"] for t in r["trades"]),
++            r["metrics"]["net_profit_usd_on_adjusted_initial_capital"],
++            places=6,
++        )
++        self.assertTrue(all(e["cash"] >= 0 for e in r["ledger"] if e["kind"] == "NAV"))
++
++    def test_original_risk_cannot_expand(self):
++        with self.assertRaises(ValueError):
++            replay(
++                self.world,
++                Policy(),
++                "2026-07-01",
++                "2026-07-31",
++                dict(self.limits, risk_fraction=0.01),
++            )

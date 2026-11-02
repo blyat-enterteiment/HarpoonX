@@ -1,0 +1,283 @@
+{
+  "schema": "HARPOON_PORTFOLIO_CONTINUATION_ADVERSARIAL_REVIEW_1",
+  "status": "DESCRIPTIVE_ATTRIBUTION_VERIFIED_CALENDAR_PARITY_REMEDIATION_REQUIRED",
+  "scope": "READ_ONLY_SOURCES_AND_DIAGNOSTIC_REPORTS",
+  "new_trials": 0,
+  "fits": 0,
+  "reservations": 0,
+  "source_mutations": 0,
+  "findings": [
+    {
+      "id": "R0_REPRODUCTION_RUNNER_MUTATES_RESEARCH",
+      "severity": "operational",
+      "evidence": "research/ultimate/run.cjs invokes lab.register(protocol) and writes evidence/ultimate/research.sqlite, protocol.json and report.json",
+      "action": "Do not use runner for exact diagnostic reproduction; use pure runStudy with retained inputs, no registration and separate outputs."
+    },
+    {
+      "id": "R1_POSITIVE_PORTFOLIO_TWO_ETFS_ONLY",
+      "severity": "scope",
+      "universe": [
+        "SPY",
+        "XLK"
+      ],
+      "historical_slots": 18,
+      "message": "119.75USD is not the complete stock/ETF fishing net. 3 hypotheses x 3 exits x 2 symbols were explored."
+    },
+    {
+      "id": "R2_RETAINED_REPORT_MISSING_FUNDED_ROWS",
+      "severity": "reproducibility",
+      "message": "The retained report exports funded aggregates, but no funded campaign list or financed daily curve. dailyUnitReturns belongs to overlapping unit-risk opportunities; it is not substitute account evidence."
+    },
+    {
+      "id": "R3_NO_FINANCIAL_TRIAL_FOR_EXACT_ATTRIBUTION",
+      "severity": "method",
+      "message": "Exporting unchanged financed campaigns and decomposing their existing result is descriptive reproduction. Removing symbols, changing timing filters, size, cap or re-entry rules creates new policy variants even without model fitting."
+    },
+    {
+      "id": "R4_REGISTRIES_HAVE_DISTINCT_FAMILIES",
+      "severity": "method",
+      "message": "Quant measurement registration requires exact C0/RIDGE/SVR schema,3 slots and at most6. Ultimate reserves9*universe slots. Do not register a cap/asset ablation as a fixed model comparison or reset a journal."
+    },
+    {
+      "id": "R5_CAP_CONTRAST_MAY_BE_IDENTICAL",
+      "severity": "method",
+      "message": "With initial equity=hard cap=20000, min(current equity,initial equity) and min(current equity,cap) are identical. A comparison must not manufacture a distinct reinvestment policy from these labels."
+    },
+    {
+      "id": "R6_CAPITAL_IDLE_INFERENCE",
+      "severity": "diagnostic",
+      "inference": "Two symbols with12% maximum allocation each imply about24% combined entry-notional headroom at the sizing equity; this is not observed mean exposure. Measure actual exposure and cash time from financed marks."
+    }
+  ],
+  "reproduction_acceptance": [
+    "Retained dataset, protocol and computation source identities are recorded.",
+    "Pure replay reproduces full stable report (excluding generatedAt) before trusting new rows.",
+    "Campaign count31 and total net119.74999999999952 reconcile within declared float tolerance.",
+    "Sum per-symbol dollars and each exclusive entry-window cohort reconcile to the SAME portfolio dollars.",
+    "Daily portfolio PnL sums to terminal net; day-linked equity starts20000 and ends20119.75 with no resets.",
+    "Product daily(1+portfolio return) equals terminal equity ratio within declared tolerance.",
+    "No per-asset return aggregation with incompatible capital denominators.",
+    "Opening first90minutes and closing final90minutes use actual retained session boundaries; at most one bucket per trade, with an explicit overlap bucket if session length permits overlap.",
+    "Cohort attribution uses entry time and is labeled separately from PnL occurring in a time-of-day window.",
+    "Open terminal marks and costs are retained; no synthetic end liquidation."
+  ],
+  "next_study": {
+    "status": "SELECT_ONE_HYPOTHESIS_AFTER_DESCRIPTIVE_DIAGNOSIS_NOT_EXECUTED",
+    "max_new_hypotheses": 1,
+    "max_new_candidate_policies": 1,
+    "scope": "Retrospective exploration is allowed with present bars, but cannot authorize profitability6 or be relabeled a fresh final test.",
+    "principle": "Compare one candidate to the frozen native portfolio with same capital, cost assumptions, observations and event timeline; Ridge requires its authentic frozen model and causal training provenance.",
+    "budget": "Declare the baseline/reproduction vs new variant accounting and bind to existing cumulative history before any new candidate run; no reservation made in this review.",
+    "forbidden_shortcuts": [
+      "Drop a losing ETF after observing this period and call the same period out of sample.",
+      "Increase exposure and call dollar profit growth strategy alpha.",
+      "Accept individual rows of unit-curve metrics as financed portfolio performance.",
+      "Treat100 causal sessions as a universal mathematical requirement for exploratory diagnostics.",
+      "Treat a small genuinely unseen period as sufficient proof of profit merely because it is new."
+    ]
+  },
+  "sources": {
+    "research/ultimate/run.cjs": "02ed2c7498218a7e7038f7f140a7cce1ec7d24c29be21c9b430b4d45551dc2cb",
+    "xxx/ultimate_replay.ts": "2d0c903a329b7b3646e813ae270ef5582cf854d13bc6fd1c60f086a968670c7d",
+    "xxx/ultimate_contracts.ts": "f64568a6339fea29a89d9c41d97032f47d8060944604f0bec19031cef0a148c5",
+    "xxx/ultimate_lab.ts": "083e28adff0c8d11ffbae687131605a617a38d3b5bfabf35e7995e3805e784a5",
+    "quant/harpoon_quant/measurement_registration.py": "ac6e7b748c500537037f4f3ca4f0afa3fd75f679817cd54d0ce00a2127c74883",
+    "evidence/ultimate/protocol.json": "7b62561cbba9792727b1cd1814d153530d440b72af09f41c53e89763fe16ebfc",
+    "evidence/ultimate/report.json": "7b6fe566ac8a8ed27c5bb78be3d8e087b18a59f1b53de591324885760acaca11"
+  },
+  "verification_results": {
+    "checks": [
+      {
+        "id": "stable_report_reproduces",
+        "passed": true,
+        "details": []
+      },
+      {
+        "id": "campaign_count",
+        "passed": true,
+        "details": 31
+      },
+      {
+        "id": "terminal_net",
+        "passed": true,
+        "details": 119.74999999999952
+      },
+      {
+        "id": "aggregation_by_asset",
+        "passed": true,
+        "details": 119.74999999999952
+      },
+      {
+        "id": "aggregation_by_hypothesis_policy",
+        "passed": true,
+        "details": 119.74999999999952
+      },
+      {
+        "id": "aggregation_by_entry_window",
+        "passed": true,
+        "details": 119.74999999999952
+      },
+      {
+        "id": "aggregation_by_exit_window",
+        "passed": true,
+        "details": 119.74999999999952
+      },
+      {
+        "id": "aggregation_by_asset_and_entry_window",
+        "passed": true,
+        "details": 119.74999999999952
+      },
+      {
+        "id": "daily_pnl_reconciles",
+        "passed": true,
+        "details": 336
+      },
+      {
+        "id": "daily_contributions_reconcile",
+        "passed": true,
+        "details": "Common portfolio prior equity denominator"
+      },
+      {
+        "id": "compound_terminal_ratio",
+        "passed": true,
+        "details": 0.005987500000000923
+      },
+      {
+        "id": "all_sessions_continuous",
+        "passed": true,
+        "details": 336
+      }
+    ],
+    "checks_passed": 12,
+    "independent_external_validation": false,
+    "reviewers_share_context": true,
+    "source_prepared_bytes_match": true,
+    "raw_sources_verified": 0,
+    "raw_sources_unavailable": 149
+  },
+  "new_material_finding": {
+    "id": "CALENDAR_DEADLINE_PARITY",
+    "count_over_72_hours": 9,
+    "maximum_holding_hours": 142.0,
+    "contribution_of_overdue_cohort_usd": 90.47000000000034,
+    "not_a_counterfactual_removal_result": true,
+    "frozen_replay_rule": "CLOSED_CHANNEL target first.t+72h; fills at first available later bar when deadline passes",
+    "runtime_rule": "deadlineFor uses latest applicable calendar session and min(target,session.close-10min)",
+    "runtime_source": "xxx/policy.ts:270-294",
+    "frozen_source": "xxx/ultimate_replay.ts:320-369",
+    "affected": [
+      {
+        "id": "8c3404202e1a93aed5d669a9eef32f4c89bae875d157a28f058a61c24c204e85",
+        "symbol": "SPY",
+        "opened_utc": "2025-08-27T15:30:00+00:00",
+        "closed_utc": "2025-09-02T13:30:00+00:00",
+        "holding_hours": 142.0,
+        "net_usd": -27.599999999999795
+      },
+      {
+        "id": "d4125a782c55ff1027f75163f3654270d39fcf3a3e9413a8fe391e895b5bbe2a",
+        "symbol": "SPY",
+        "opened_utc": "2025-09-10T13:55:00+00:00",
+        "closed_utc": "2025-09-15T13:30:00+00:00",
+        "holding_hours": 119.58333333333333,
+        "net_usd": 18.300000000000068
+      },
+      {
+        "id": "62886dcd1dd7d470b455e07dc7b699034bb671b2daee8388d922df58906db7d1",
+        "symbol": "XLK",
+        "opened_utc": "2025-09-10T13:55:00+00:00",
+        "closed_utc": "2025-09-15T13:30:00+00:00",
+        "holding_hours": 119.58333333333333,
+        "net_usd": 2.9600000000000364
+      },
+      {
+        "id": "42a0ab154b6e9bf53f0298ac6f6ea9ea390170aed38451c6a6104f300a9dfc3b",
+        "symbol": "XLK",
+        "opened_utc": "2025-09-18T13:55:00+00:00",
+        "closed_utc": "2025-09-22T13:30:00+00:00",
+        "holding_hours": 95.58333333333333,
+        "net_usd": 27.11999999999989
+      },
+      {
+        "id": "877d928822bf9c6f4eb7c9cf41cfbe9a7b448b5281a4cbdb93742c6fcc1ce36e",
+        "symbol": "SPY",
+        "opened_utc": "2025-09-18T14:05:00+00:00",
+        "closed_utc": "2025-09-22T13:30:00+00:00",
+        "holding_hours": 95.41666666666667,
+        "net_usd": -2.8200000000001637
+      },
+      {
+        "id": "70cb62a3ae1be08a4f524e5efefade9d0453709c41d49860dc414ef0c81ef293",
+        "symbol": "XLK",
+        "opened_utc": "2025-10-01T15:10:00+00:00",
+        "closed_utc": "2025-10-06T13:30:00+00:00",
+        "holding_hours": 118.33333333333333,
+        "net_usd": 42.80000000000018
+      },
+      {
+        "id": "a22b183ca142ce561db74c96b82e22f24f062d3a423b251f4ecf06db580d2b90",
+        "symbol": "SPY",
+        "opened_utc": "2025-10-01T17:20:00+00:00",
+        "closed_utc": "2025-10-06T13:30:00+00:00",
+        "holding_hours": 116.16666666666667,
+        "net_usd": 10.529999999999973
+      },
+      {
+        "id": "abb7bbacc866c3b09c9d249cac2694b2125531a9b54c32c7351d34f388a1fd57",
+        "symbol": "SPY",
+        "opened_utc": "2026-05-13T16:30:00+00:00",
+        "closed_utc": "2026-05-18T13:30:00+00:00",
+        "holding_hours": 117.0,
+        "net_usd": -7.110000000000014
+      },
+      {
+        "id": "4d394f00fe34e73b4b328025a57244cec591c19f761abdb2f30595b77b642479",
+        "symbol": "XLK",
+        "opened_utc": "2026-05-22T13:55:00+00:00",
+        "closed_utc": "2026-05-26T13:30:00+00:00",
+        "holding_hours": 95.58333333333333,
+        "net_usd": 26.290000000000163
+      }
+    ]
+  },
+  "recommended_single_next_study": {
+    "hypothesis_id": "H_CALENDAR_PARITY",
+    "purpose": "Correct calendar feasibility in the financed replay using existing runtime deadline semantics, preserving the frozen fold selection map.",
+    "new_candidate_portfolio_variants": 1,
+    "new_model_fits": 0,
+    "baseline": "Exact reproduced original portfolio with119.75USD and31campaigns, retained unchanged.",
+    "changed_dimension_only": "Calendar-aware maximum-holding deadline for CLOSED_CHANNEL execution.",
+    "execution_requirement": "Replay all control common opportunities routed by the fixed fold map, including prior SYMBOL_BUSY skips. Carry cash, inventory, partial-exit changes and sizing forward.",
+    "do_not": "Re-evaluate and select nine policy variants, replay only31 old fills, subtract90.47USD, or scale PnL by quantity ratios.",
+    "clock_requirement": "Document whether runtime deadline is anchored at decision/creation time or modeled fill time. Do not silently use a future fill to calculate a decision available earlier.",
+    "bar_resolution": "Execute with the established observed-bar price/availability convention. Missing executable bars remain incidents; never fill retrospectively at a fabricated deadline price.",
+    "primary_outputs": [
+      "modeled_trading_pnl",
+      "continuous_equity",
+      "increment_vs_original",
+      "position_count",
+      "holding_overruns",
+      "risk_and_capital_usage",
+      "changed_decisions"
+    ],
+    "economic_costs": "External economic costs remain unknown unless provided, so modeled PnL must not be called complete economic profit.",
+    "acceptance": "Correctness and attributed change only; no financial promotion and no new out-of-sample label.",
+    "budget_registration": {
+      "method": "Append-only continuation record bound before execution to original protocol, dataset, candidate source, fold map, existing exported registry and available Quant journal identity.",
+      "legacy_ultimate_slots_observed": 18,
+      "legacy_quant_slots_observed": 23,
+      "new_correction_variants": 1,
+      "legacy_counter_mutations": 0,
+      "global_deduplicated_trial_count": null,
+      "restriction": "Do not claim that the legacy Ultimate ledger became19 or that a new six-slot budget resets prior attempts. Retain distinct counting units and every outcome.",
+      "evidence_note": "Integral contains registry export but no evidence/ultimate/research.sqlite; local continuation chain is not externally independent preregistration.",
+      "status": "PROPOSED_NOT_RESERVED_BY_THIS_REVIEW"
+    }
+  },
+  "input_artifact_hashes": {
+    "attribution/portfolio_attribution.json": "0f9bb64d925a19b19d97e56ed900255dad829284f947944e0d5541d89ece012a",
+    "attribution/funded_campaigns.json": "f7f025b3d3232ccb9f78640d5a088a22fbd030a523438c5a6ef540baa84da2e7",
+    "attribution/continuous_portfolio_curve.json": "444a073443007535307f1347b2d5b6bb121816942a50ec7fdafefb1210d32cb4",
+    "attribution/reproduction_verification.json": "51a6e9125993712930e4360b81dcca3fba944e813173966bd85533f265b9da62"
+  }
+}

@@ -1,0 +1,220 @@
+TAP version 13
+# Subtest: rollovers retain the original capital, complete record export and bounded active marks
+ok 1 - rollovers retain the original capital, complete record export and bounded active marks
+  ---
+  duration_ms: 33.03849
+  type: 'test'
+  ...
+# Subtest: open losses, partial inventory, broker fees and external costs survive rollover without double counting
+ok 2 - open losses, partial inventory, broker fees and external costs survive rollover without double counting
+  ---
+  duration_ms: 11.065462
+  type: 'test'
+  ...
+# Subtest: deposits and withdrawals across archive boundaries preserve pre-flow marks and account growth
+ok 3 - deposits and withdrawals across archive boundaries preserve pre-flow marks and account growth
+  ---
+  duration_ms: 9.427552
+  type: 'test'
+  ...
+# Subtest: incremental created-at windows retain fees created later than their settlement date
+ok 4 - incremental created-at windows retain fees created later than their settlement date
+  ---
+  duration_ms: 5.379095
+  type: 'test'
+  ...
+# Subtest: replayed archived activities are deduplicated and revisions fail closed
+ok 5 - replayed archived activities are deduplicated and revisions fail closed
+  ---
+  duration_ms: 6.472544
+  type: 'test'
+  ...
+# Subtest: restart validates every archive and resumes with cumulative totals and identity
+ok 6 - restart validates every archive and resumes with cumulative totals and identity
+  ---
+  duration_ms: 9.733189
+  type: 'test'
+  ...
+# Subtest: archive corruption and missing segments reject restart and complete export
+ok 7 - archive corruption and missing segments reject restart and complete export
+  ---
+  duration_ms: 3.688274
+  type: 'test'
+  ...
+# Subtest: archive quota and accounting boundary tampering are detected independently
+ok 8 - archive quota and accounting boundary tampering are detected independently
+  ---
+  duration_ms: 3.385898
+  type: 'test'
+  ...
+# Subtest: segment budget survives restart and never deletes or resets capital
+ok 9 - segment budget survives restart and never deletes or resets capital
+  ---
+  duration_ms: 4.743666
+  type: 'test'
+  ...
+# Subtest: byte budget is checked before segment writes
+ok 10 - byte budget is checked before segment writes
+  ---
+  duration_ms: 2.666963
+  type: 'test'
+  ...
+# Subtest: failed control commit keeps old curve and durable orphan reservations are bounded
+ok 11 - failed control commit keeps old curve and durable orphan reservations are bounded
+  ---
+  duration_ms: 4.234017
+  type: 'test'
+  ...
+# Subtest: missing costs remain null through rollovers, without preventing account reconciliation
+ok 12 - missing costs remain null through rollovers, without preventing account reconciliation
+  ---
+  duration_ms: 4.810217
+  type: 'test'
+  ...
+# Subtest: late costs contradicting a sealed prefix demand explicit restatement, never reset economic history
+ok 13 - late costs contradicting a sealed prefix demand explicit restatement, never reset economic history
+  ---
+  duration_ms: 6.938197
+  type: 'test'
+  ...
+# Subtest: a delayed cost receipt preserves a closed anchor and complete historical performance across rollover
+ok 14 - a delayed cost receipt preserves a closed anchor and complete historical performance across rollover
+  ---
+  duration_ms: 10.170848
+  type: 'test'
+  ...
+# Subtest: materialization refuses count and byte budgets without loading archived payloads
+ok 15 - materialization refuses count and byte budgets without loading archived payloads
+  ---
+  duration_ms: 3.389473
+  type: 'test'
+  ...
+# Subtest: complete export rejects missing pages, mixed revisions and altered row payloads
+ok 16 - complete export rejects missing pages, mixed revisions and altered row payloads
+  ---
+  duration_ms: 7.168284
+  type: 'test'
+  ...
+# Subtest: offline verifier recomputes arithmetic rather than trusting rehashed accounting flags
+ok 17 - offline verifier recomputes arithmetic rather than trusting rehashed accounting flags
+  ---
+  duration_ms: 1.734116
+  type: 'test'
+  ...
+# Subtest: receipt producer/importer is traceable, literal and bound to account and currency
+ok 18 - receipt producer/importer is traceable, literal and bound to account and currency
+  ---
+  duration_ms: 14.195864
+  type: 'test'
+  ...
+# Subtest: exact example externalCosts:null configuration imports the configured receipt
+ok 19 - exact example externalCosts:null configuration imports the configured receipt
+  ---
+  duration_ms: 8.721132
+  type: 'test'
+  ...
+# Subtest: missing, malformed, duplicate-key and oversized cost files cannot declare zero
+ok 20 - missing, malformed, duplicate-key and oversized cost files cannot declare zero
+  ---
+  duration_ms: 2.924271
+  type: 'test'
+  ...
+# Subtest: receipt validator rejects absent amounts, future knowledge, incomplete categories, ambiguous links and unknown fields
+ok 21 - receipt validator rejects absent amounts, future knowledge, incomplete categories, ambiguous links and unknown fields
+  ---
+  duration_ms: 0.435177
+  type: 'test'
+  ...
+# Subtest: changing bytes under the same receipt identity is rejected across source restarts
+ok 22 - changing bytes under the same receipt identity is rejected across source restarts
+  ---
+  duration_ms: 4.479618
+  type: 'test'
+  ...
+# Subtest: a rejected or missing receipt keeps declared costs unknown while reported account fees remain reconciled
+ok 23 - a rejected or missing receipt keeps declared costs unknown while reported account fees remain reconciled
+  ---
+  duration_ms: 4.885545
+  type: 'test'
+  ...
+# Subtest: archive configuration and materialization bounds are explicit
+ok 24 - archive configuration and materialization bounds are explicit
+  ---
+  duration_ms: 0.253503
+  type: 'test'
+  ...
+# Subtest: archive write failures reserve quota without advancing the committed curve
+ok 25 - archive write failures reserve quota without advancing the committed curve
+  ---
+  duration_ms: 2.380181
+  type: 'test'
+  ...
+# Subtest: economic insolvency and accrued losses survive archival and subsequent capital contributions
+ok 26 - economic insolvency and accrued losses survive archival and subsequent capital contributions
+  ---
+  duration_ms: 3.885502
+  type: 'test'
+  ...
+# Subtest: a cached file remains account bound and invalid calendar dates are rejected
+ok 27 - a cached file remains account bound and invalid calendar dates are rejected
+  ---
+  duration_ms: 4.974805
+  type: 'test'
+  ...
+# Subtest: offline verifier rejects invented time-weighted returns despite a consistent rehashed control
+ok 28 - offline verifier rejects invented time-weighted returns despite a consistent rehashed control
+  ---
+  duration_ms: 1.812084
+  type: 'test'
+  ...
+# Subtest: production SQLite persists archives, quota and active control across a worker restart
+ok 29 - production SQLite persists archives, quota and active control across a worker restart
+  ---
+  duration_ms: 102.876964
+  type: 'test'
+  ...
+# Subtest: missing broker accrual documentation remains unknown even with complete declared external expense coverage
+ok 30 - missing broker accrual documentation remains unknown even with complete declared external expense coverage
+  ---
+  duration_ms: 2.04853
+  type: 'test'
+  ...
+# Subtest: explicit documented zero accrual is verified locally without source authentication or financial authorization
+ok 31 - explicit documented zero accrual is verified locally without source authentication or financial authorization
+  ---
+  duration_ms: 9.973295
+  type: 'test'
+  ...
+# Subtest: documented nonzero pending charges link to existing external costs without a second subtraction
+ok 32 - documented nonzero pending charges link to existing external costs without a second subtraction
+  ---
+  duration_ms: 7.493194
+  type: 'test'
+  ...
+# Subtest: accrual document hash, field bindings, external links and exact totals cannot be replaced by a positive flag
+ok 33 - accrual document hash, field bindings, external links and exact totals cannot be replaced by a positive flag
+  ---
+  duration_ms: 1.452561
+  type: 'test'
+  ...
+# Subtest: broker accrual coverage is account, currency, knowledge-time and applicable-category bound
+ok 34 - broker accrual coverage is account, currency, knowledge-time and applicable-category bound
+  ---
+  duration_ms: 0.569809
+  type: 'test'
+  ...
+# Subtest: delayed documentary accrual coverage verifies only the closed compared prefix
+ok 35 - delayed documentary accrual coverage verifies only the closed compared prefix
+  ---
+  duration_ms: 10.038174
+  type: 'test'
+  ...
+1..35
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 335.337711

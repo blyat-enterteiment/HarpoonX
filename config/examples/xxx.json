@@ -1,0 +1,206 @@
+{
+  "mode": "paper",
+  "execution_authority": "dedicated_remote_account",
+  "expected_account_id": "",
+  "stockFeed": "iex",
+  "optionFeed": "opra",
+  "capitalLimit": 20000,
+  "riskFraction": 0.0025,
+  "openRiskFraction": 0.015,
+  "totalExposure": 0.5,
+  "assetExposure": 0.12,
+  "factorExposure": 0.5,
+  "dailyLoss": 0.02,
+  "maxDrawdown": 0.08,
+  "quoteAgeMs": 15000,
+  "orderTtlMs": 20000,
+  "slippageBps": 10,
+  "cryptoFeeBps": 25,
+  "optionsFeePerContract": 0.05,
+  "maxSpreadBps": 30,
+  "maxOptionSpreadBps": 300,
+  "maxPositions": 8,
+  "universe": [
+    {
+      "symbol": "AAPL",
+      "book": "equity",
+      "factor": "technology",
+      "leverage": 1,
+      "multiplier": 1,
+      "step": 1,
+      "minQty": 1,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "MSFT",
+      "book": "equity",
+      "factor": "technology",
+      "leverage": 1,
+      "multiplier": 1,
+      "step": 1,
+      "minQty": 1,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "NVDA",
+      "book": "equity",
+      "factor": "semiconductors",
+      "leverage": 1,
+      "multiplier": 1,
+      "step": 1,
+      "minQty": 1,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "SPY",
+      "book": "etf",
+      "factor": "sp500",
+      "leverage": 1,
+      "multiplier": 1,
+      "step": 1,
+      "minQty": 1,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "SPXL",
+      "book": "etf",
+      "factor": "sp500",
+      "leverage": 3,
+      "multiplier": 1,
+      "step": 1,
+      "minQty": 1,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "SPXS",
+      "book": "etf",
+      "factor": "sp500",
+      "leverage": 3,
+      "multiplier": 1,
+      "step": 1,
+      "minQty": 1,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "BTC/USD",
+      "book": "crypto",
+      "factor": "crypto",
+      "leverage": 1,
+      "multiplier": 1,
+      "step": 1e-08,
+      "minQty": 0.0001,
+      "tick": 0.01,
+      "tradable": false
+    },
+    {
+      "symbol": "ETH/USD",
+      "book": "crypto",
+      "factor": "crypto",
+      "leverage": 1,
+      "multiplier": 1,
+      "step": 1e-08,
+      "minQty": 0.0001,
+      "tick": 0.01,
+      "tradable": false
+    }
+  ],
+  "optionUnderlyings": [
+    "SPY",
+    "AAPL"
+  ],
+  "enabledPlugins": [
+    "equity-canonical-host",
+    "etf-canonical-host",
+    "crypto-canonical-host",
+    "options-call-breakout",
+    "options-put-breakdown",
+    "options-call-pullback"
+  ],
+  "exit": {
+    "tp1R": 1.5,
+    "tp2R": 3,
+    "tp1Fraction": 0.25,
+    "tp2Fraction": 0.25,
+    "lockFraction": 0.6,
+    "trailR": 1.5,
+    "maxHoldHours": 72
+  },
+  "researchMaxRuns": 16,
+  "nativeProtection": "oco",
+  "protectionRefreshMs": 5000,
+  "streaming": true,
+  "quant": {
+    "enabled": true,
+    "calibrationFile": "/var/data/quant_calibration.json",
+    "timeoutMs": 8000,
+    "config": {
+      "horizon_hours": 24
+    },
+    "discovery": true,
+    "discoveryLimit": 40,
+    "microstructure": {
+      "enabled": true,
+      "required": true,
+      "windowSeconds": 300,
+      "minQuoteEvents": 20,
+      "minCoverageSeconds": 60,
+      "maxQuoteAgeSeconds": 5,
+      "curveMaxSymbols": 12,
+      "curveEmbargoSeconds": 86400,
+      "registryPath": "/var/data/quant_curves.sqlite3",
+      "modelFile": "/var/data/micro_support.json",
+      "regimeModelFile": "/var/data/correlation_regime.json",
+      "minWindowCoverageFraction": 0.5
+    },
+    "optimizer": {
+      "enabled": true,
+      "autoPaper": true,
+      "statePath": "/var/data/quant_optimizer.sqlite3",
+      "panelFile": "/var/data/quant_opportunities.json",
+      "performanceFile": "/var/data/quant_performance.json",
+      "lifetimeTrials": 128,
+      "maxTrials": 24,
+      "maxGenerations": 3,
+      "cpuSeconds": 5,
+      "minGainUsd": 5,
+      "minHoldoutTrades": 20,
+      "minSortinoPerPeriod": 0
+    },
+    "observations": {
+      "intervalMs": 60000,
+      "maxAgeMs": 180000,
+      "maxSymbolsPerCapture": 12,
+      "maxFrames": 10000,
+      "maxFrameBytes": 4194304,
+      "maxArchives": 16,
+      "maxStoredBytes": 536870912
+    },
+    "accounting": {
+      "currency": "USD",
+      "maxAgeMs": 180000,
+      "performanceIntervalMs": 60000,
+      "performanceToleranceMs": 5000,
+      "externalCosts": null,
+      "archive": {
+        "enabled": true,
+        "maxSegments": 16,
+        "maxStoredBytes": 536870912,
+        "activityOverlapMs": 60000
+      },
+      "costReceiptFile": null,
+      "maxCostReceiptBytes": 2097152,
+      "performanceArchiveRefreshMs": 900000,
+      "performanceArchiveMaxObservations": 100000
+    },
+    "operational": {
+      "requireAccountLedgerForEntries": true,
+      "requireObservationJournalForEntries": true
+    }
+  }
+}

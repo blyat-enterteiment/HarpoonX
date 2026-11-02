@@ -1,0 +1,64 @@
+HARPOON XXXUltimate 30.14.0 — INTEGRAL COMPLETA
+
+Objetivo solicitado: 7 de rentabilidad de la cartera conjunta y compuesta.
+Resultado financiero: VENTAJA_NO_DEMOSTRADA. El 7 no está acreditado.
+
+El control 30.13.1 y la candidata 30.14.0 producen el mismo resultado a precisión
+monetaria: +91,28 USD sobre 20.000 USD; 33 campañas en 336 sesiones,
+desde el 11 de marzo de 2025 hasta el 13 de julio de 2026.
+Patrimonio final modelado: 20.091,28 USD. Retorno compuesto: 0,4564%.
+Caída máxima desde un máximo anterior (drawdown): 0,68719%.
+Gastos operativos externos y cuenta real: sin verificar.
+Rentabilidad económica completa: null.
+
+REMEDIACIONES
+1. Generación de señales usando el prefijo conocido y horario de entrada por calendario.
+2. Reserva conjunta de caja, riesgo, nominal y símbolo desde la decisión; incluye pendientes.
+3. Valoración causal de una posición antes de su primera marca posterior a la ejecución.
+4. Integridad del registro y coherencia de versión de API y paquete: 30.14.0.
+Son cambios del evaluador financiero del core. La política del broker conserva sus límites.
+
+EVIDENCIA Y REPRODUCCION
+Informe: EVALUACION_ECONOMICA_HARPOONX_30_14_0.yaml
+Registro, resultado, curva, campañas, pruebas, diff y datos: evidence/portfolio_30_14_0/
+
+Desde la raíz de esta aplicación, con Node y dependencias locales compatibles:
+  node tools/verify_portfolio_validity_study.cjs
+Esta orden verifica hashes y diario, reproduce el resultado guardado y no crea otro ensayo.
+El ejecutor sellado tools/portfolio_validity_study.cjs conserva sus bytes registrados.
+Su antigua modalidad verify distingue un atributo JavaScript undefined de su ausencia
+en JSON. Usa el verificador anterior: compara exactamente los bytes JSON guardados,
+sin cambiar el ensayo ni sus números. No borres attempt_started.json, no reescribas
+registration.json y no vuelvas a sellar los informes antiguos.
+
+Compilacion:
+  npm ci --ignore-scripts --no-audit --no-fund
+  npm run build:xxx
+
+Pruebas del alcance cambiado:
+  node --test --test-isolation=none --test-skip-pattern='Ultimate HTTP' tools/ultimate_test.cjs tools/ultimate_holding_deadline_test.cjs tools/ultimate_causal_sizing_test.cjs tools/ultimate_signal_causality_test.cjs tools/ultimate_reservations_test.cjs tools/ultimate_funded_reservations_test.cjs tools/portfolio_validity_journal_test.cjs
+  node --test --test-isolation=none tools/portfolio_validity_reproduction_test.cjs
+  python3 -m unittest discover -s evidence/portfolio_30_14_0/new_market_data -p test_import_market_data.py -v
+Se aprobaron 100 casos de software. El caso HTTP local está bloqueado por listen EPERM
+en este entorno. No se declaran reejecutadas las 990 pruebas de una entrega anterior.
+
+DATOS RECIENTES
+Se conservaron 1.560 barras regulares de SPY y XLK, del 19 al 30 de octubre de 2026,
+sin huecos en las sesiones regulares. No se calculó rentabilidad con ellas: falta
+completar la cobertura de eventos corporativos por fecha efectiva.
+La captura de barras no sustituye observaciones originales de la cuenta ni costes reales.
+El periodo del 21 de julio al 16 de octubre ya había sido examinado; sigue etiquetado
+como historia utilizada.
+
+SIGUIENTE RECURSO
+Identifica el workspace de Render que contiene HarpoonX. La conexión muestra
+A's workspace. Otra entrada válida son las exportaciones originales de observaciones
+y del libro contable de la misma cuenta.
+Ya existen collect_runtime_evidence.cjs, funded_comparison.cjs, level5_readiness.cjs y
+economic_gate_v2.py. Están preparados para contrastar datos vinculados a la cuenta.
+
+LIMITES
+Órdenes externas y despliegues realizados en esta entrega: cero.
+El modo autorizado, el límite de 72 horas y los controles financieros existentes
+permanecen. Una solicitud de cancelación conserva las reservas de una posición
+u orden cuyo estado siga sin resolver.

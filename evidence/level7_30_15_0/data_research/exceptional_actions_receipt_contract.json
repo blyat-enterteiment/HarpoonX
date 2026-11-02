@@ -1,0 +1,99 @@
+{
+  "schema": "HARPOON_EXCEPTIONAL_ACTION_RECEIPT_CONTRACT_1",
+  "purpose": "Bind an ex-date/effective-date event inventory to immutable raw responses; no independent source authenticity guarantee from hashes",
+  "scope": {
+    "symbols": [
+      "SPY",
+      "XLK"
+    ],
+    "identity": {
+      "SPY": {
+        "cusip": "78462F103"
+      },
+      "XLK": {
+        "cusip": "81369Y803"
+      }
+    },
+    "from": "2026-10-19",
+    "through": "2026-10-30",
+    "timezone": "America/New_York"
+  },
+  "classes_required": [
+    "forward_split",
+    "reverse_split",
+    "unit_split",
+    "stock_dividend",
+    "spin_off",
+    "cash_merger",
+    "stock_merger",
+    "stock_and_cash_merger",
+    "redemption",
+    "name_change",
+    "worthless_removal",
+    "rights_distribution",
+    "special_cash_dividend"
+  ],
+  "source_receipt_required": [
+    "provider",
+    "endpoint_or_issuer_document_url",
+    "request_exact",
+    "response_bytes_sha256",
+    "retrieved_at_utc",
+    "filter_date_basis",
+    "requested_period",
+    "supported_event_classes",
+    "pagination_or_document_coverage",
+    "declared_source_scope"
+  ],
+  "event_required": [
+    "provider_event_id",
+    "action_type",
+    "symbol_or_verified_identifier",
+    "effective_or_ex_date",
+    "status",
+    "raw_record_binding"
+  ],
+  "event_fields_when_applicable": {
+    "old_rate": null,
+    "new_rate": null,
+    "cash_per_share": null,
+    "currency": null,
+    "ex_date": null,
+    "record_date": null,
+    "payable_date": null,
+    "process_date": null,
+    "published_at": null,
+    "original_known_at": null
+  },
+  "coverage_states": [
+    "COVERED_WITHIN_RETAINED_SOURCE_SCOPE",
+    "PARTIAL",
+    "UNKNOWN"
+  ],
+  "rules": [
+    "An empty event list is acceptable only for a source query/document explicitly covering the requested identity, event class and date basis; otherwise events remain null.",
+    "Process-date inventory is not silently relabeled ex-date inventory.",
+    "An issuer ordinary dividend schedule cannot cover exceptional actions.",
+    "Preserve both positive and negative receipts, every page and cancellations/corrections.",
+    "Convert split ratio only from documentednew_rate/old_rate; never infer it from price movement.",
+    "Keep original_known_at null when the publication/receipt clock was not observed; retrieval time is not historical availability.",
+    "Deduplicate by provider event ID and revision, rejecting inconsistent duplicates.",
+    "Residual unsupported classes remain declared; coverage is scoped to the provider, not a claim about all conceivable events.",
+    "A newly detected unresolved event invalidates dependent historical valuations or signals; retain position/entitlement state, do not silently erase it or reset equity."
+  ],
+  "handoff_to_existing_importer": {
+    "schema": "HARPOON_EXDATE_ACTION_COVERAGE_1",
+    "coverage_complete": null,
+    "date_basis": "ex_date",
+    "from": "2026-10-19",
+    "through": "2026-10-30",
+    "symbols": [
+      "SPY",
+      "XLK"
+    ],
+    "splitEvents": null,
+    "unhandled_actions": null,
+    "sources": null
+  },
+  "current_missing": "Complete supported exceptional-action ex-date/effective-date receipt for the stated scope"
+}

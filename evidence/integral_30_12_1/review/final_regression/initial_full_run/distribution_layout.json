@@ -1,0 +1,127 @@
+{
+  "scope": "SYNTHETIC_OFFLINE_FINAL_COPY_LAYOUT",
+  "docker_image_built": false,
+  "host_dependencies_used": true,
+  "external_orders": 0,
+  "new_financial_trials": 0,
+  "checks": [
+    "FINAL_COPY_REQUIRED_FILES",
+    "CONTEXT_EXCEPTIONS_WITHOUT_TEST_FIXTURES",
+    "REAL_OFFLINE_REPLAY_FROM_FINAL_LAYOUT",
+    "GATE_REEXECUTES_AND_REMAINS_BLOCKED_FINANCIALLY",
+    "THREE_FIXED_POLICIES_REPRODUCED_FROM_FINAL_LAYOUT",
+    "MISSING_VERIFIER_FAILS_CLOSED",
+    "LEVEL5_MISSING_EVIDENCE_REMAINS_BLOCKED_FROM_FINAL_LAYOUT",
+    "MISSING_BOUND_SOURCE_REJECTED",
+    "ACTIVE_UI_AND_VERSIONS_AGREE"
+  ],
+  "replay": {
+    "schema": "HARPOON_COORDINATOR_REPLAY_VERIFICATION_1",
+    "verified": true,
+    "mismatches": [],
+    "input_hash": "e85d051355b2bf81ba17637fd096fed3ef9a2c45e9299fbd1c72750e1c1bd85c",
+    "observed_artifact_hash": "1aed3a885f5465b025748908690b1518722cb0ac6e28116cc4d622515ef3ea26",
+    "expected_artifact_hash": "1aed3a885f5465b025748908690b1518722cb0ac6e28116cc4d622515ef3ea26",
+    "external_execution_allowed": false,
+    "financial_acceptance_allowed": false
+  },
+  "gate": {
+    "parity": {
+      "checks_verified": [
+        "execution_actions",
+        "positions_and_exit_state",
+        "account_cash_fees_and_costs",
+        "real_plugin_and_receipt_decisions",
+        "causal_fills"
+      ],
+      "complete_paired_policy_coverage": false,
+      "covered_policies": [
+        "C0"
+      ],
+      "economic_bindings_verified": false,
+      "execution_origin": "MODELED",
+      "external_validation": false,
+      "financial_acceptance_allowed_by_receipt": false,
+      "policy_parity_verified": true,
+      "predictor_parity_verified": false,
+      "real_coordinator_reexecuted": true,
+      "receipt_integrity_verified": true,
+      "receipt_predictor_parity_verified_within_its_scope": true,
+      "scope": {
+        "books": [
+          "equity"
+        ],
+        "components": [
+          "Coordinator.initialize",
+          "Coordinator.reconcile",
+          "Plugins.evaluate",
+          "Coordinator.entries",
+          "Coordinator.manage",
+          "policy.exitDecision",
+          "exits"
+        ],
+        "entry_predictor": "NATIVE_C0",
+        "event_types": [
+          "entries",
+          "evaluate",
+          "manage",
+          "market",
+          "reconcile"
+        ],
+        "execution_model": "EXPLICIT_MODELED_CROSSING_AND_LIQUIDITY",
+        "inventory": "LONG_ONLY_CASH",
+        "native_protection": "stop",
+        "not_covered": [
+          "live_broker_execution",
+          "queue_priority",
+          "hidden_liquidity",
+          "options",
+          "native_oco",
+          "shorts",
+          "production_scheduler_concurrency",
+          "empirical_model_edge",
+          "exhaustive_multiasset_parity"
+        ],
+        "observation_adapter": null,
+        "restart_count": 0
+      }
+    },
+    "dictamen": "VENTAJA_NO_DEMOSTRADA",
+    "financial_blockers": [
+      "SYNTHETIC_IS_NOT_FINANCIAL_EVIDENCE",
+      "OBSERVED_PRICES_REQUIRED",
+      "OBSERVED_AVAILABILITY_REQUIRED",
+      "PARITY_ECONOMIC_BINDINGS_NOT_VERIFIED",
+      "PAIRED_POLICY_PARITY_INCOMPLETE",
+      "PREDICTOR_PARITY_NOT_VERIFIED",
+      "PARITY_RECEIPT_NOT_FINANCIALLY_ELIGIBLE",
+      "OBSERVATIONAL_EVIDENCE: 'observed_prices'"
+    ]
+  },
+  "funded": {
+    "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+    "verified": true,
+    "mismatches": [],
+    "input_hash": "84464706828af5a6608f928b5958bcba048b8ce74f62acafe4457292543ea647",
+    "expected_artifact_hash": "0b50b6606e3067c8f37d97cae14970a63041aac878274cf1b5f85188bcc499a2",
+    "observed_artifact_hash": "0b50b6606e3067c8f37d97cae14970a63041aac878274cf1b5f85188bcc499a2",
+    "real_coordinator_and_predictors_reexecuted": true,
+    "execution_allowed": false,
+    "liveApproved": false,
+    "financial_acceptance_allowed": false
+  },
+  "missing_verifier": [
+    "SYNTHETIC_IS_NOT_FINANCIAL_EVIDENCE",
+    "OBSERVED_PRICES_REQUIRED",
+    "OBSERVED_AVAILABILITY_REQUIRED",
+    "PARITY_EVIDENCE: COORDINATOR_VERIFIER_MISSING",
+    "OBSERVATIONAL_EVIDENCE: 'observed_prices'"
+  ],
+  "level5": {
+    "scope": "MISSING_EVIDENCE_PATH_FROM_STAGED_LAYOUT",
+    "blockers": [
+      "DERIVATION_EVIDENCE:BOUND_SOURCE_REFERENCE_REQUIRED"
+    ]
+  },
+  "application": "30.12.1"
+}

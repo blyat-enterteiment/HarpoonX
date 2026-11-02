@@ -1,0 +1,77 @@
+{
+  "schema": "HARPOON_INSTALLER_OFFLINE_EVIDENCE_1",
+  "generated_at": "2026-11-01T00:23:39.217578+00:00",
+  "app": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1",
+  "scope": "Installer planning, local validation and subprocess argument behavior tested with doubles only.",
+  "results": {
+    "unittest": {
+      "passed": 24,
+      "failed": 0,
+      "command": "python3 -m unittest discover -s tools -p test_ultimate_install.py -v",
+      "log": "tests.log"
+    },
+    "ruff": {
+      "status": "PASS",
+      "command": "ruff check deploy/ultimate_install.py tools/test_ultimate_install.py",
+      "log": "ruff.log"
+    },
+    "mypy": {
+      "status": "PASS",
+      "command": "mypy --strict deploy/ultimate_install.py",
+      "log": "mypy.log"
+    },
+    "bash_syntax": {
+      "status": "PASS",
+      "command": "bash -n install.sh status.sh stop.sh"
+    }
+  },
+  "actions_performed": {
+    "docker": false,
+    "broker_requests": false,
+    "deployment": false,
+    "dependency_installation": false,
+    "financial_experiments": false
+  },
+  "properties_verified_offline": [
+    "Default path targets deploy/Dockerfile.xxx and exactly one XXXUltimate coordinator.",
+    "Config mounted outside DATA as read-only; DATA survives stop/reinstall.",
+    "Environment parsed as literal data; no source/eval/shell expansion.",
+    "Secret values excluded from installer arguments, plans and error/status output.",
+    "Host Quant Python override does not replace image virtual environment.",
+    "PAPER mode/permissions and persisted pause retained; empty expected account id accepted.",
+    "Running legacy/other-project instances block install before and after build.",
+    "Config/Compose changes during build block up.",
+    "Explicit legacy path requires existing compose.json and never invokes configure.py.",
+    "Status uses container inventory only; stop warns about software protection interruption."
+  ],
+  "limitations": [
+    "Docker is unavailable here; real Compose schema, image build and container startup remain unverified.",
+    "Plan used synthetic credentials only and does not verify account identity or grant financial authority.",
+    "Runtime remains responsible for account binding, broker reconciliation and operational readiness.",
+    "Conflict inventory covers the selected Docker daemon, not other hosts or unrelated native processes.",
+    "Config source must be readable by container UID 1000; installer does not change source permissions.",
+    "Container health indicates HTTP liveness only, not strategy profitability or operational readiness.",
+    "Secrets exist in Docker runtime environment metadata as with ordinary environment injection; installer does not print or persist their values."
+  ],
+  "wrapper_modes": {
+    "install.sh": "0o644",
+    "status.sh": "0o644",
+    "stop.sh": "0o644"
+  },
+  "invocation": [
+    "bash install.sh --check",
+    "bash install.sh --plan",
+    "bash install.sh",
+    "bash status.sh",
+    "bash stop.sh",
+    "bash install.sh --legacy --plan"
+  ],
+  "sha256": {
+    "install.sh": "90fa268145e55af4d8b6c28a6ee25e4741a74bc281a8ce39585551d507e84697",
+    "status.sh": "e35eeda5586c6bec6e3f488bf2a06833bcea96dc2e5557d8ce3d80503802fa56",
+    "stop.sh": "0e025de3b9e02de9cb138c9e424a41f55efc9c2ace71be2e94ef1d91366b0de2",
+    "deploy/compose.xxx.json": "8ddc08f19d5f5dd999ea5656f55ab7e14bd11b044fb20e5617e7855e2c2aed32",
+    "deploy/ultimate_install.py": "7f18ddc1382be4045ff94baa055b6e610479db2446469de26d9a185fb0e0a93c",
+    "tools/test_ultimate_install.py": "98290a63e96bd49601b599600c01efb782fadfbaa360ffd2003548e387bface7"
+  }
+}

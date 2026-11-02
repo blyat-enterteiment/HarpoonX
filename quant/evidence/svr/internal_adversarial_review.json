@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-10-31T17:46:55.406915+00:00",
+  "kind": "internal_static_adversarial_review",
+  "shared_context": true,
+  "external_independent_validation": false,
+  "files": [
+    "harpoon_quant/scalar_svr.py",
+    "harpoon_quant/core.py",
+    "harpoon_quant/calibration.py"
+  ],
+  "blocking_findings_detected": [],
+  "checks": [
+    "SVR dispatch markers also enforce shadow allocation",
+    "Schema, kind, research-only flag, source hash and availability are enforced",
+    "Removing markers does not preserve SVR inference in the Ridge route because beta is absent",
+    "Features and labels availability are checked and both label_end and label_known_at are purged at cuts",
+    "Scalers and selected refit exclude test data",
+    "New scalar transformation does not change or double-charge transaction fees",
+    "Executed trial count is separate from predefined capacity"
+  ],
+  "limits": "Read-only review by another agent sharing context; not blind, external, or a financial validation."
+}

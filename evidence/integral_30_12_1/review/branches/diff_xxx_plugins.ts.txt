@@ -1,0 +1,144 @@
+--- 30.12/xxx/plugins.ts
++++ 31.4/xxx/plugins.ts
+@@ -1,7 +1,8 @@
+ import { fresh, positive } from "./types";
+-import type { Book, Campaign, Config, Json, Signal, Store } from "./types";
++import type { Book, Campaign, Config, Instrument, Json, Signal, Store } from "./types";
+ import { freezeExit } from "./policy";
++import { optionBudget } from "./option_contracts";
++import { price } from "./types";
+ import { Market } from "./market";
+-import { contiguousBars, openingRange, regularClosedBars, sessionContext, streakDiagnostics } from "./sessions";
+ const avg = (a: number[]) =>
+   a.reduce((s, v) => s + v, 0) / Math.max(1, a.length);
+@@ -13,4 +14,6 @@
+   catalog: Json[];
+   diagnostics: Json[] = [];
++  optionAccount: () => Json = () => ({});
++  optionFeasible: (signal: Signal, asset: Instrument) => number = () => 0;
+   tape: any;
+   stream: any;
+@@ -252,14 +255,12 @@
+       },
+       rows: Json[] = [];
+-    const calendar = m.calendar || [], session = sessionContext(now, calendar);
+-    const histories = new Map<string, ReturnType<typeof regularClosedBars>>();
+-    const history = (s: string) => {
+-      if (!histories.has(s)) histories.set(s, regularClosedBars(m.bars[s] || [], now, calendar, false));
+-      return histories.get(s)!;
+-    };
+-    const closed = (s: string) => regularClosedBars(history(s), now, calendar),
++    const closed = (s: string) =>
++        (m.bars[s] || []).filter(
++          (b) =>
++            Date.parse(b.t) + 303000 <= now && L.ny(b.t).day === L.ny(now).day,
++        ),
+       spy = closed("SPY"),
+       spyMom =
+-        spy.length >= 4 && contiguousBars(spy.slice(-4)) ? (spy.at(-1)!.c / spy.at(-4)!.c - 1) * 10000 : null;
++        spy.length >= 4 ? (spy.at(-1)!.c / spy.at(-4)!.c - 1) * 10000 : null;
+     for (const i of this.cfg.universe.filter((x) => x.book !== "crypto")) {
+       try {
+@@ -268,5 +269,5 @@
+         const f = L.feature(
+             i.symbol,
+-            history(i.symbol),
++            m.bars[i.symbol] || [],
+             m.daily[i.symbol] || [],
+             q,
+@@ -278,6 +279,6 @@
+           prior = bars.slice(-7, -4),
+           prev = bars.slice(0, -1),
+-          v = prev.reduce((n, b) => n + b.v, 0);
+-        if (!bars.length || session.open === null) throw Error("REGULAR_SESSION_BARS_REQUIRED");
++          v = prev.reduce((n, b) => n + b.v, 0),
++          opening = bars.filter((b) => L.ny(b.t).minute < 585);
+         if (bars.some((b) => !positive(b.vw)))
+           throw Error("OBSERVED_BAR_VWAP_REQUIRED");
+@@ -286,7 +287,4 @@
+           sectorMomentum =
+             sectorBars.length >= 4 &&
+-            contiguousBars(sectorBars.slice(-4)) &&
+-            Date.parse(sectorBars.at(-1)!.t) === Date.parse(bars.at(-1)!.t) &&
+-            Date.parse(sectorBars.at(-4)!.t) === Date.parse(bars.at(-4)!.t) &&
+             now - Date.parse(sectorBars.at(-1)!.t) <= 660000
+               ? (sectorBars.at(-1)!.c / sectorBars.at(-4)!.c - 1) * 10000
+@@ -305,10 +303,10 @@
+               : null,
+           relative_bps:
+-            spyMom === null || !contiguousBars(bars.slice(-4)) ||
+-            Date.parse(spy.at(-1)!.t) !== Date.parse(bars.at(-1)!.t) || Date.parse(spy.at(-4)!.t) !== Date.parse(bars.at(-4)!.t)
++            spyMom === null
+               ? null
+               : f.momentum_bps - side * spyMom * i.leverage,
+-          session_minutes: Math.floor((now - session.open) / 60000),
+-          opening_high: openingRange(bars, session),
++          session_minutes: L.ny(now).minute - 570,
++          opening_high:
++            opening.length === 3 ? Math.max(...opening.map((b) => b.h)) : null,
+           previous_vwap_distance:
+             v > 0
+@@ -327,7 +325,5 @@
+               Math.min(...tail.slice(0, -1).map((b) => b.l))) /
+             f.atr,
+-          session_change: Date.parse(bars[0].t) === session.open ? q.ask / bars[0].o - 1 : null,
+-          session_context: session,
+-          streak_diagnostics: streakDiagnostics(bars, history(i.symbol), session, calendar),
++          session_change: q.ask / bars[0].o - 1,
+         });
+         rows.push(f);
+@@ -644,27 +640,25 @@
+                   prior.at(-1)!.c <= avg(prior.slice(-5).map((b) => b.c));
+         if (!ok) throw Error("NO_UNDERLYING_CONFIRMATION");
++        const rejected: Json[]=[];
+         const candidates = Object.values(m.assets)
+-          .filter(
+-            (a) =>
+-              a.book === "options" &&
+-              a.underlying === underlying &&
+-              a.tradable &&
+-              m.metadata[a.symbol]?.type === (call ? "call" : "put"),
+-          )
+-          .map((a) => ({ a, q: m.quotes[a.symbol], s: m.snapshots[a.symbol] }))
+-          .filter(
+-            ({ a, q, s }) =>
+-              fresh(q, now, this.cfg.quoteAgeMs) &&
+-              now - Number(s?.observedAt) <= 60000 &&
+-              Math.abs(Number(s?.greeks?.delta)) >= 0.35 &&
+-              Math.abs(Number(s?.greeks?.delta)) <= 0.7 &&
+-              (q.ask / q.bid - 1) * 10000 <= this.cfg.maxOptionSpreadBps &&
+-              Date.parse(a.expiry! + "T00:00:00Z") - now >= 7 * 86400000 &&
+-              Number(m.metadata[a.symbol]?.open_interest) >= 100,
+-          )
+-          .sort((x, y) => x.q.ask / x.q.bid - 1 - (y.q.ask / y.q.bid - 1));
+-        if (!candidates.length) throw Error("NO_ELIGIBLE_OPRA_CONTRACT");
+-        const { a, q } = candidates[0],
+-          entry = q.ask * (1 + this.cfg.slippageBps / 10000);
++          .filter(a=>a.book==="options" && a.underlying===underlying && a.tradable && m.metadata[a.symbol]?.type===(call?"call":"put"))
++          .map(a=>{
++            const q=m.quotes[a.symbol],eligibility=m.optionEligibility(a.symbol,now,call?"call":"put");
++            const entry=q?Number(price(q.ask*(1+this.cfg.slippageBps/10000),a.tick,true)):0;
++            const budget=entry>0?optionBudget(entry,a.multiplier,this.cfg,Number(this.optionAccount().equity)):null;
++            const value=m.optionValues.assess(this.cfg,p.id,a.symbol,entry,now);
++            const probe:Signal={symbol:a.symbol,book:"options",plugin:p.id,at:now,expires:now+15000,entry,stop:Number(price(entry*.7,a.tick)),score:0,reason:p.family,exit:freezeExit({},this.cfg)};
++            const feasible=budget?.affordableByRisk && value.allowed && this.optionFeasible(probe,a)>=Number(value.quantity);
++            const reasons=[...eligibility.reasons,...(!feasible?["OPTION_PREMIUM_BUDGET"]:[]),...(!value.allowed?[value.reason]:[])];
++            if(reasons.length)rejected.push({symbol:a.symbol,reasons,budget,value});
++            return {a,q,entry,value,reasons};
++          })
++          .filter(x=>!x.reasons.length)
++          .sort((x,y)=>Number(y.value.conservativeNetUsd)-Number(x.value.conservativeNetUsd) || (x.q.ask/x.q.bid-y.q.ask/y.q.bid) || x.a.symbol.localeCompare(y.a.symbol));
++        if(!candidates.length){
++          this.diagnostics.push({book:"options",plugin:p.id,symbol:underlying,status:"WAIT",reason:"NO_AFFORDABLE_REVIEWED_VALUE_CONTRACT",rejected:rejected.slice(0,12),rejectedCount:rejected.length});
++          continue;
++        }
++        const {a,entry,value}=candidates[0];
+         const regime = this.features(m, now).find(
+           (r) => r.symbol === underlying,
+@@ -678,5 +672,5 @@
+           entry,
+           stop: entry * 0.7,
+-          score: 1 - (q.ask / q.bid - 1),
++          score: Number(value.conservativeNetUsd),
+           reason: p.family,
+           exit: freezeExit({}, this.cfg),

@@ -1,0 +1,115 @@
+{
+  "nature": "SYNTHETIC_ENGINEERING_ONLY",
+  "app": "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2",
+  "source": "quant/benchmark.py::run; __main__ not executed",
+  "package_benchmark_calls": 5,
+  "allocator_calls": 15,
+  "candidate_count": 48,
+  "scenario_count": 256,
+  "median_seconds": 0.01721726099640364,
+  "min_seconds": 0.0163951310023549,
+  "max_seconds": 0.02007073599816067,
+  "runs": [
+    {
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "candidate_count": 48,
+      "scenario_count": 256,
+      "seconds": [
+        0.02007073599816067,
+        0.018742972002655733,
+        0.018669031000172254
+      ],
+      "median_seconds": 0.018742972002655733,
+      "solver_status": 0,
+      "selection_count": 1,
+      "execution_allowed": false,
+      "scope": "CPU valuation plus MILP, no network or fill latency; no profit demonstration"
+    },
+    {
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "candidate_count": 48,
+      "scenario_count": 256,
+      "seconds": [
+        0.016708754003047943,
+        0.01673460299934959,
+        0.01721726099640364
+      ],
+      "median_seconds": 0.01673460299934959,
+      "solver_status": 0,
+      "selection_count": 1,
+      "execution_allowed": false,
+      "scope": "CPU valuation plus MILP, no network or fill latency; no profit demonstration"
+    },
+    {
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "candidate_count": 48,
+      "scenario_count": 256,
+      "seconds": [
+        0.016555894006160088,
+        0.01647731499542715,
+        0.0163951310023549
+      ],
+      "median_seconds": 0.01647731499542715,
+      "solver_status": 0,
+      "selection_count": 1,
+      "execution_allowed": false,
+      "scope": "CPU valuation plus MILP, no network or fill latency; no profit demonstration"
+    },
+    {
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "candidate_count": 48,
+      "scenario_count": 256,
+      "seconds": [
+        0.016514030001417268,
+        0.017739349001203664,
+        0.01677452399599133
+      ],
+      "median_seconds": 0.01677452399599133,
+      "solver_status": 0,
+      "selection_count": 1,
+      "execution_allowed": false,
+      "scope": "CPU valuation plus MILP, no network or fill latency; no profit demonstration"
+    },
+    {
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "candidate_count": 48,
+      "scenario_count": 256,
+      "seconds": [
+        0.01738352199754445,
+        0.017302979998930823,
+        0.01722357100516092
+      ],
+      "median_seconds": 0.017302979998930823,
+      "solver_status": 0,
+      "selection_count": 1,
+      "execution_allowed": false,
+      "scope": "CPU valuation plus MILP, no network or fill latency; no profit demonstration"
+    }
+  ],
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39"
+  },
+  "financial_trials": 0,
+  "external_orders": 0,
+  "limitations": [
+    "Each unchanged run() contains three allocator calls; five repetitions therefore measure fifteen calls.",
+    "Local synthetic CPU workload; no broker, network, production latency or profitability evidence.",
+    "Serial samples and descriptive medians; no percentile or statistical speedup claim."
+  ]
+}

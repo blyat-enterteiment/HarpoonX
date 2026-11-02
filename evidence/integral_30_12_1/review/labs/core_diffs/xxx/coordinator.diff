@@ -1,0 +1,883 @@
+--- 30.12/xxx/coordinator.ts
+
++++ 31.6TP/xxx/coordinator.ts
+
+@@ -1,3 +1,9 @@
+
++import { assertNetTransport, assertNetProfitPayload, netTakeProfitStatus } from "./option_takeprofit";
++import { incrementalEntryReason, incrementalPendingReason, incrementalOrderBudget, incrementalAllocationReason, incrementalVersionView } from "./option_incremental";
++import { refreshOptionEventFile } from "./option_events";
++import { ADAPTED_OPTIONS_PLUGINS, optionTypeForPlugin, adaptationPriceAllowed, adaptationEntryReason, adaptationAllocationReason, manageAdaptedOption, canUseMarketOptionExit } from "./option_adaptation";
++import { optionResearchView } from "./option_surface";
++import { optionBudget } from "./option_contracts";
+ import { createHash, randomUUID } from "node:crypto";
+ import fs from "node:fs";
+ import path from "node:path";
+@@ -12,6 +18,7 @@
+
+   State,
+   Store,
+   PositionEvaluation,
++  Signal,
+ } from "./types";
+ import {
+   availableSize,
+@@ -37,14 +44,11 @@
+
+   sampleProtection,
+ } from "./exits";
+ import { FeeLedger, executionMetrics } from "./accounting";
+-import { NetAccountLedger } from "./net_accounting";
+-import { QuantObservationJournal } from "./quant_observations";
+-import { entryOperationalFailures, operationalCapabilities } from "./operational_status";
+ import { ResearchLab } from "./ultimate_lab";
++import { stressPortfolio, capitalAllowance } from "./portfolio_guard";
++import type { Exposure } from "./portfolio_guard";
+ import { FuturesGateway } from "./ultimate_futures";
+ import { ULTIMATE_VERSION } from "./version";
+-import { sessionContext } from "./sessions";
+-import { digest } from "./ultimate_contracts";
+ import {
+   Validators,
+   CORE_CONTRACTS,
+@@ -61,7 +65,6 @@
+
+   assertOperationalCoverage,
+   assertRetryState,
+   assertSellReservation,
+-  assertPartialEntryRisk,
+ } from "./validators";
+ const same = (a: string, b: string) =>
+   a.replace("/", "") === b.replace("/", "");
+@@ -73,12 +76,6 @@
+
+   selectors: Selectors;
+   streams: AlpacaStreams;
+   fees: FeeLedger;
+-  netLedger: NetAccountLedger;
+-  quantObservations: QuantObservationJournal;
+-  netAccountingError = "";
+-  quantObservationError = "";
+-  quantLastPlan: Json = {status: "NOT_RUN"};
+-  quantEconomicGate: Json = {status: "NOT_EVALUATED", dictamen: "VENTAJA_NO_DEMOSTRADA", execution_allowed: false, liveApproved: false};
+   exitResearchReport: Json;
+   ultimateLab: ResearchLab;
+   futures: FuturesGateway;
+@@ -96,12 +93,6 @@
+
+   positionEvaluations: Record<string, PositionEvaluation> = {};
+   private lastActionCampaign = "";
+   metricHistory: Json[] = [];
+-  quantResearch: Json = {status: "NOT_RUN"};
+-  quantPerformance: Json = {status: "WAIT_RECONCILED_PERFORMANCE"};
+-  quantDiscovery: Json = {status: "NOT_RUN", health: "WAITING", reason: "Aún no observado"};
+-  discoveryHold = false;
+-  private decisionSequence = 0;
+-  private readonly decisionRunId = randomUUID();
+   state!: State;
+   market: Market;
+   plugins: Plugins;
+@@ -122,6 +113,10 @@
+
+   pendingResearch: Json | null = null;
+   preparingResearch = false;
+   saveQueue: Promise<unknown> = Promise.resolve();
++  auditPending = 0;
++  capitalMandate?: Json;
++  auditQueue: Promise<unknown> = Promise.resolve();
++  auditHead: Json = { status: "STARTING" };
+   constructor(
+     public store: Store,
+     public api: Api,
+@@ -133,9 +128,6 @@
+
+     this.broker = new ObservedApi(api);
+     this.api = this.broker;
+     this.fees = new FeeLedger(this.api, store, this.key + "-reported-fees");
+-    this.netLedger = new NetAccountLedger(store, this.api, this.key + "-net-account", cfg.expected_account_id,
+-      {...cfg.quant?.accounting, executionNature: cfg.mode.toUpperCase()});
+-    this.quantObservations = new QuantObservationJournal(store, this.key + "-quant-observations", cfg.expected_account_id, cfg.quant?.observations || {});
+     this.ultimateLab = new ResearchLab(
+       store,
+       cfg.expected_account_id,
+@@ -174,7 +166,7 @@
+
+             ),
+           );
+         });
+-        this.bundledUltimateReport = report;
++        this.bundledUltimateReport = {...report, codeScope:"ARCHIVED_30_3_1_HISTORICAL_NOT_CURRENT_PROMOTION"};
+       } catch (e) {
+         this.bundledUltimateReport = {
+           status: "INVALID",
+@@ -203,25 +195,23 @@
+
+         promotion: "NONE",
+       };
+     }
+-    this.market = new Market(this.api, this.cfg, this.validators);
++    this.market = new Market(this.api, cfg, this.validators);
+     this.streams = new AlpacaStreams(
+       this.api,
+       cfg,
+       (symbol, raw) => this.onQuote(symbol, raw),
+       async (raw) => this.onTradeUpdate(raw),
+-      (raw) => {
+-        this.plugins.sharedFlow(raw);
+-        if (raw.T === "t") this.market.recordMicro(raw.S, raw, "trade");
+-      },
++      (raw) => this.plugins.sharedFlow(raw),
+       (name) => {
+         this.plugins.sharedReset(name);
+-        this.market.resetMicro(name);
+         if (name === "orders") this.syncAt = 0;
+       },
+       undefined,
+       (name) => name === "crypto" || this.session("equity"),
+     );
+     this.plugins = new Plugins(store, cfg);
++    this.plugins.optionAccount=()=>this.account;
++    this.plugins.optionFeasible=(s,a)=>availableSize(s,a,this.riskConfig(),this.account,this.positions,this.state?.campaigns||[],this.state?.intents||[]);
+     this.selectors = new Selectors(
+       store,
+       cfg,
+@@ -231,6 +221,8 @@
+
+     );
+   }
+   async save() {
++    await this.auditQueue;
++    if (this.store.health?.().status === "FAILED") this.storageError = String(this.store.health().error);
+     const snapshot = structuredClone(this.state);
+     const work = this.saveQueue.then(() =>
+       this.validators.check("journal-write", () =>
+@@ -248,7 +240,15 @@
+
+       detail.intentKind = detail.kind;
+       delete detail.kind;
+     }
+-    this.state.events.push({ ...detail, at: Date.now(), kind });
++    const event = { ...detail, at: Date.now(), kind, event_id: randomUUID() };
++    this.state.events.push(event);
++    if (this.store.appendEvents) {
++      if (++this.auditPending > 2000) { this.storageError = "Audit backlog exceeded; entry disabled"; this.auditPending--; return; }
++      const work = this.auditQueue.then(() => this.store.appendEvents!(this.key, [event]));
++      this.auditQueue = work.then(head => { this.auditHead = {status:"DURABLE",...head}; }, e => {
++        this.storageError = String(e); this.auditHead = {status:"ERROR",error:String(e)};
++      }).finally(() => { this.auditPending--; });
++    } else this.auditHead = {status:"UNAVAILABLE_TEST_STORE"};
+     this.state.events = this.state.events.slice(-300);
+   }
+   async initialize(startPaper = false) {
+@@ -319,37 +319,19 @@
+
+     await this.ultimateLab.load();
+     await this.futures.load();
+     await this.fees.load();
+-    try { await this.netLedger.load(); } catch (error) { this.netAccountingError = String(error); }
+-    try { await this.quantObservations.load(); } catch (error) { this.quantObservationError = String(error); }
+     this.plugins.selectors = this.selectors.state.models;
+     this.plugins.validateSelection(this.state.plugins);
+     await this.store.put(this.key + "-config", fingerprint);
+-    if (this.cfg.quant?.enabled && this.cfg.quant.discovery) {
+-      this.discoveryHold = true;
+-      try {
+-        const saved = await this.store.get(this.key + "-discovery-registry");
+-        if (saved) {
+-          if (saved.accountId !== account.id || saved.baseConfigHash !== fingerprint)
+-            throw Error("DISCOVERY_REGISTRY_ACCOUNT_OR_CONFIG_MISMATCH");
+-          const restored = require("../runtime/discovery.cjs").restore(this, saved.registry);
+-          if (restored.status === "BLOCKED") throw Error(restored.reason);
+-          this.quantDiscovery = {status: "RESTORED_WAITING", health: "WAITING",
+-            reason: "Vigilancia restaurada; requiere datos actuales", restored,
+-            at: saved.registry.at || null};
+-        }
+-      } catch (error) {
+-        this.quantDiscovery = {status: "BLOCKED", health: "BLOCKED", reason: String(error)};
+-        this.event("QUANT_DISCOVERY_RESTORE_BLOCKED", this.quantDiscovery);
+-      }
+-    }
+     await this.save();
+     for (const c of this.state.campaigns.filter((c) => !c.closed))
+       this.market.assets[c.symbol] = c.instrument;
+     await this.reconcile();
+     await this.sessions();
++    if(process.env.HARPOON_OPTION_EVENTS_FILE)refreshOptionEventFile(this.market.optionEvents,process.env.HARPOON_OPTION_EVENTS_FILE);
+     this.configureLanes();
+   }
+   configureLanes() {
++    this.scheduler.add("option-event-calendar", 15000, async () => { if(process.env.HARPOON_OPTION_EVENTS_FILE)refreshOptionEventFile(this.market.optionEvents,process.env.HARPOON_OPTION_EVENTS_FILE); });
+     this.scheduler.add("ultimate-research-worker", 3000, async () => {
+       if (!this.state.researchPaused) await this.ultimateLab.tick();
+     });
+@@ -360,13 +342,6 @@
+
+       this.futures.refreshMarket(),
+     );
+     this.scheduler.add("account-reconciliation", 5000, () => this.reconcile());
+-    if (this.cfg.quant?.enabled) {
+-      this.scheduler.add("net-account-ledger", 60000, () => this.refreshNetAccounting());
+-      this.scheduler.add("quant-prospective-observations", this.quantObservations.intervalMs, () => this.captureQuantObservations());
+-      this.scheduler.add("quant-economic-evidence", 900000, async () => {
+-        this.quantEconomicGate = await require("../runtime/quant_bridge.cjs").verifyEconomicGate(this);
+-      });
+-    }
+     this.scheduler.add("positions-and-take-profit", 1000, async () => {
+       await this.pulse();
+       this.validators.run("guardian-coverage", () => assertOperationalCoverage(this.exitCoverage()));
+@@ -389,38 +364,11 @@
+
+         );
+       this.scheduler.add("entries-" + book, 15000, () => this.entries(book));
+     }
+-    if (this.cfg.quant?.enabled && this.cfg.quant.discovery) {
+-      this.scheduler.add("quant-stock-discovery", 900000, () => this.discoverStocks());
+-    }
+-    if (this.cfg.quant?.microstructure?.enabled) {
+-      this.scheduler.add("quant-calibration-context", 900000, async () => {
+-        const result = await require("../runtime/quant_bridge.cjs").context(this);
+-        this.event("QUANT_CALIBRATION_CONTEXT", {
+-          status: result.status, curve: result.curve,
+-          microstructure: Object.fromEntries(Object.entries(result.microstructure || {}).map(([s, value]) =>
+-            [s, {status: (value as Json).status, reason: (value as Json).reason, quote_events: (value as Json).quote_events}])),
+-        });
+-        if (result.status !== "CALIBRATION_CONTEXT") throw Error("Quant context worker unavailable");
+-      });
+-    }
+-    if (this.cfg.quant?.enabled) {
+-      this.scheduler.add("quant-performance", 60000, async () => {
+-        if (Date.now() - this.syncAt > 15000) {
+-          this.quantPerformance = {status: "STALE_ACCOUNT"};
+-          return;
+-        }
+-        this.quantPerformance = await require("../runtime/quant_bridge.cjs").performance(this);
+-      });
+-    }
+-    if (this.cfg.quant?.optimizer?.enabled) {
+-      this.scheduler.add("quant-recursive-calibration", 900000, async () => {
+-        if (this.state.researchPaused) {this.quantResearch = {status:"PAUSED"};return;}
+-        this.quantResearch = await require("../runtime/quant_bridge.cjs").optimize(this);
+-        this.event("QUANT_RECURSIVE_CALIBRATION", {status: this.quantResearch.status, campaign: this.quantResearch.campaign?.id, budget: this.quantResearch.budget});
+-      });
+-    }
+     this.scheduler.add("options-context", 60000, async () => {
+-      if (this.session("options")) await this.market.optionChains();
++      if (this.session("options")) {
++        await this.market.optionChains();
++        for(const [underlying,c] of Object.entries(this.market.chains))this.event("OPTIONS_CHAIN_STATE",{underlying,complete:c.complete,feed:c.feed,observedAt:c.observedAt,contracts:c.contracts,snapshots:Object.keys(c.snapshots).length,error:c.error});
++      }
+     });
+     this.scheduler.add("plugin-flow-history", 60000, async () => {
+       this.plugins.updateStreams(
+@@ -454,6 +402,7 @@
+
+     this.scheduler.add("execution-streams", 15000, async () => {
+       this.updateStreams();
+     });
++    this.scheduler.add("audit-durability", 1000, async () => { await this.auditQueue; if (this.storageError) throw Error(this.storageError); });
+     this.scheduler.add("reported-fees", 60000, () =>
+       this.fees.refresh(
+         Math.min(Date.now(), ...this.state.campaigns.map((c) => c.created)),
+@@ -507,7 +456,6 @@
+
+     const prior = this.market.quotes[symbol];
+     if (prior && q.at < prior.at) return;
+     this.market.quotes[symbol] = q;
+-    this.market.recordMicro(symbol, raw, "quote");
+     if (
+       this.streamWork ||
+       now - this.streamWakeAt < 100 ||
+@@ -641,6 +589,8 @@
+
+     return this.positions.find((p) => same(p.symbol, s));
+   }
+   async authority() {
++    const storage = this.store.health?.();
++    if (storage?.status === "FAILED") this.storageError = String(storage.error);
+     if (
+       this.stopping ||
+       this.storageError ||
+@@ -667,7 +617,7 @@
+
+       const rows = await this.api.request(
+         "/v2/calendar?" +
+           new URLSearchParams({
+-            start: new Date(now - 55 * 86400000).toISOString().slice(0, 10),
++            start: new Date(now - 35 * 86400000).toISOString().slice(0, 10),
+             end: new Date(now + 60 * 86400000).toISOString().slice(0, 10),
+           }),
+       );
+@@ -815,11 +765,6 @@
+
+         this.state.halt = "DRAWDOWN";
+       if (this.state.halt) for (const c of this.active()) c.flatten = true;
+       this.syncAt = Date.now();
+-      // Include just-closed campaigns: only reconciled terminal inventory may
+-      // resolve a persisted partial-entry exposure, never a missing local row.
+-      for (const c of this.state.campaigns)
+-        if (!c.closed || (c.partialEntryRisk && c.partialEntryRisk.status !== "RESOLVED"))
+-          this.observePartialEntryRisk(c, this.syncAt);
+       this.metricHistory.push({
+         at: this.syncAt,
+         equity: Number(account.equity),
+@@ -831,7 +776,7 @@
+
+       await this.save();
+     });
+   }
+-  own(c: Campaign) {
++  own(c: Campaign, locallySubmittingIntent?:string) {
+     const qty = Number(this.position(c.symbol)?.qty || 0),
+       f = fills(c, this.state.intents),
+       tol =
+@@ -849,70 +794,8 @@
+
+           same(o.symbol, c.symbol) &&
+           !this.state.intents.some((i) => i.id === o.client_order_id),
+       ) &&
+-      !this.pending(c).some((i) => ["UNKNOWN", "SUBMITTING"].includes(i.status))
++      !this.pending(c).some((i) => i.id!==locallySubmittingIntent && ["UNKNOWN", "SUBMITTING"].includes(i.status))
+     );
+-  }
+-  private partialEntryObservationFresh(c: Campaign, now: number) {
+-    return !!this.syncAt && now >= this.syncAt && now - this.syncAt <= 10000 &&
+-      !this.reconcileError && this.own(c) &&
+-      (!c.partialEntryRisk || this.syncAt >= c.partialEntryRisk.lastObservedAt);
+-  }
+-  private partialEntryRiskSnapshot(c: Campaign, now: number) {
+-    const r = c.partialEntryRisk;
+-    if (!r) return null;
+-    const observationFresh = this.partialEntryObservationFresh(c, now);
+-    const status = r.status !== "RESOLVED" && !observationFresh ? "UNVERIFIED" : r.status;
+-    return { ...r, status, observationFresh, quantityBasis: "LAST_RECONCILED",
+-      overdue: status !== "RESOLVED" && (r.overdue || now >= r.deadlineAt),
+-      elapsedMs: now < r.firstObservedAt ? null : (r.resolvedAt || now) - r.firstObservedAt };
+-  }
+-  private observePartialEntryRisk(c: Campaign, now: number) {
+-    let r = c.partialEntryRisk;
+-    if (r?.status === "RESOLVED") return;
+-    const verified = this.partialEntryObservationFresh(c, now);
+-    const entry = this.pending(c).find((i) => i.kind === "entry");
+-    // Telemetry uses broker inventory, not executable rounded-down order size.
+-    const qty = verified ? Number(this.position(c.symbol)?.qty || 0) : null;
+-    const coverage = qty !== null ? protectionSnapshot(c, this.state.intents, qty, now) : null;
+-    if (!r) {
+-      if (!verified || !entry || !(Number(entry.order?.filled_qty) > 0) ||
+-        qty === null || qty <= 0 || !coverage || coverage.aligned) return;
+-      r = c.partialEntryRisk = { source: "BROKER_RECONCILIATION", entryId: entry.id,
+-        firstObservedAt: this.syncAt, lastObservedAt: this.syncAt, deadlineAt: this.syncAt + this.cfg.orderTtlMs,
+-        heldQty: qty, coveredQty: Math.min(qty, coverage.covered),
+-        cancelRequestedAt: entry.cancelAt || null, status: "WAIT_CANCEL", overdue: false };
+-      this.event("PARTIAL_ENTRY_UNPROTECTED", { symbol: c.symbol, entryId: entry.id,
+-        heldQty: qty, coveredQty: r.coveredQty, deadlineAt: r.deadlineAt });
+-    }
+-    if (!verified || qty === null || !coverage) {
+-      r.status = "UNVERIFIED"; // Retain last-known quantities; absence is not flatness.
+-    } else {
+-      r.lastObservedAt = this.syncAt;
+-      r.heldQty = qty;
+-      r.coveredQty = Math.min(qty, coverage.covered);
+-      if (entry?.cancelAt)
+-        r.cancelRequestedAt = r.cancelRequestedAt === null ? entry.cancelAt : Math.min(r.cancelRequestedAt, entry.cancelAt);
+-      if (!entry && (qty === 0 || coverage.aligned)) {
+-        r.status = "RESOLVED";
+-        r.overdue = false;
+-        r.resolvedAt = now;
+-        r.resolution = qty === 0 ? "CONFIRMED_FLAT" : "CONFIRMED_PROTECTION";
+-        this.event("PARTIAL_ENTRY_PROTECTION_RESOLVED", { symbol: c.symbol, entryId: r.entryId,
+-          resolution: r.resolution, heldQty: qty, coveredQty: r.coveredQty,
+-          elapsedMs: now - r.firstObservedAt });
+-      } else r.status = entry ? "WAIT_CANCEL" : "WAIT_PROTECTION";
+-    }
+-    if (r.status !== "RESOLVED" && now >= r.deadlineAt) {
+-      r.overdue = true;
+-      if (r.overdueAt === undefined) {
+-        r.overdueAt = now;
+-        this.event("PARTIAL_ENTRY_PROTECTION_OVERDUE", { symbol: c.symbol, entryId: r.entryId,
+-          status: r.status, heldQty: r.heldQty, coveredQty: r.coveredQty,
+-          firstObservedAt: r.firstObservedAt, lastObservedAt: r.lastObservedAt,
+-          deadlineAt: r.deadlineAt });
+-      }
+-    }
+-    this.validators.run("partial-entry-risk", () => assertPartialEntryRisk(c, this.state.intents));
+   }
+   private retryClass(kind: Intent["kind"]): "protect" | "urgent" | "profit" {
+     return kind === "protect" ? "protect" : urgentExit(kind) ? "urgent" : "profit";
+@@ -941,6 +824,8 @@
+
+     payload: Json,
+     meta: { nativeRole?: Intent["nativeRole"] } = {},
+   ) {
++    assertNetTransport(this.cfg,(this.api as Json).simulationOnly,c);
++    assertNetProfitPayload(c,payload,kind);
+     await this.authority();
+     if (kind !== "entry" && (c.orderRetry?.[this.retryClass(kind)]?.nextAt || 0) > Date.now()) return;
+     this.validators.run("intent", () => assertIntent(payload, c.instrument));
+@@ -977,6 +862,21 @@
+
+     }
+     await this.save();
+     try {
++      if(kind==="entry" && c.book==="options"){
++        const settings={...this.riskConfig(),exit:c.policy},q=this.market.quotes[c.symbol],entry=Number(payload.limit_price),qty=Number(payload.qty);
++        const value=this.market.optionValues.assess(settings,c.plugin,c.symbol,entry,Date.now(),qty);
++        const probe:Signal={symbol:c.symbol,book:"options",plugin:c.plugin,at:Date.now(),expires:Date.now()+1000,entry,stop:c.stop,score:0,reason:"FINAL_ENTRY_CHECK",exit:c.policy};
++        const incremental=incrementalEntryReason(settings,c.instrument,this.market,qty,Date.now(),c.deadline);
++        const orderBudget=incrementalOrderBudget(settings,this.state.intents.filter(x=>x.id!==i.id),Date.now(),kind);
++        const allocation=incrementalAllocationReason(settings,this.market,c.instrument,qty,this.positions,Number(this.account.equity),Date.now());
++        if(incremental||orderBudget||!allocation.allowed)throw Object.assign(Error("INCREMENTAL_FINAL_ENTRY_NOT_SENT:"+(incremental||orderBudget||allocation.reasons.join(','))),{not_sent:true});
++        const capacity=availableSize(probe,c.instrument,settings,this.account,this.positions,this.state.campaigns.filter(x=>x.id!==c.id),this.state.intents.filter(x=>x.id!==i.id));
++        if((ADAPTED_OPTIONS_PLUGINS.includes(c.plugin)&&!c.optionsEntry) || !value.allowed || value.quantity!==qty || Date.now()>=(c.entryValueValidUntil||0) || !this.market.optionEligibility(c.symbol,Date.now(),optionTypeForPlugin(c.plugin)).allowed || !fresh(q,Date.now(),this.cfg.quoteAgeMs) || !adaptationPriceAllowed(c.optionsEntry,q,entry,c.instrument.tick) || adaptationEntryReason(c.optionsEntry,c.instrument,this.market,this.cfg,Date.now(),c.entryCeiling) || capacity<qty || Math.floor(q.askSize||0)<qty || Date.now()-this.syncAt>10000 || !this.session("options",true))
++          throw Object.assign(Error("OPTION_ENTRY_REVALIDATION_NOT_SENT"),{not_sent:true});
++      }
++      if(c.optionsEntry && c.book==="options" && payload.side==="sell" && payload.type==="market" &&
++          (!urgentExit(kind) || !canUseMarketOptionExit(c,this.market.quotes[c.symbol],Number(payload.qty),this.cfg,Date.now()) || !this.syncAt || Date.now()-this.syncAt>10000 || !this.own(c,i.id) || !this.session("options")))
++        throw Object.assign(Error("OPTION_CLOSE_LIQUIDITY_REVALIDATION_NOT_SENT"),{not_sent:true});
+       const response = await this.api.request("/v2/orders", "POST", i.payload);
+       const o = this.validators.run("order-response", () =>
+         normalizeOrder(response, id),
+@@ -1085,14 +985,16 @@
+
+       kind === "signal" ||
+       kind === "flatten"
+     ) {
+-      if (!option) return { ...base, type: "market" };
++      if (!option || canUseMarketOptionExit(c,q,qty,this.cfg,Date.now())) return { ...base, type: "market" };
+     }
+     return {
+       ...base,
+       type: "limit",
+       limit_price: price(
+         Math.max(
+-          q.bid * (1 - this.cfg.slippageBps / 10000),
++          c.exitPlan?.minimumNetUsd !== undefined && kind === c.exitPlan.kind
++            ? q.bid - (c.netTakeProfitPolicy?.extraExitTicks || 0) * i.tick
++            : q.bid * (1 - this.cfg.slippageBps / 10000),
+           kind === c.exitPlan?.kind ? c.exitPlan.minimumPrice || 0 : 0,
+         ),
+         i.tick,
+@@ -1166,7 +1068,6 @@
+
+     c.evaluation = r; // Durable diagnostics only; never restored as current-runtime coverage.
+     delete this.exitErrors[c.id];
+     try {
+-      this.observePartialEntryRisk(c, now);
+       if (!this.syncAt || now - this.syncAt < 0 || now - this.syncAt > 10000) {
+         r.outcome = "STALE_RECONCILIATION";
+         r.detail = "Fresh reconciliation required";
+@@ -1215,7 +1116,6 @@
+
+   exitCoverage(now = Date.now()) {
+     const positions = this.active().map((c) => {
+       const r = this.positionEvaluations[c.id];
+-      const partialEntryRisk = this.partialEntryRiskSnapshot(c, now);
+       const ageMs = r?.lastCompleted ? now - r.lastCompleted : null;
+       const qty = Number(this.position(c.symbol)?.qty || 0);
+       const retry = Object.values(c.orderRetry || {}).find((x) => x.nextAt > now);
+@@ -1249,16 +1149,11 @@
+
+       } else if (this.pending(c).some((i) => i.kind !== "protect")) {
+         state = "DEGRADED"; detail = "Entry or exit order still pending confirmation";
+       }
+-      if (partialEntryRisk && partialEntryRisk.status !== "RESOLVED") {
+-        if (state === "ALIVE" || state === "MARKET_CLOSED") state = "DEGRADED";
+-        detail += "; PARTIAL_ENTRY_UNPROTECTED " + partialEntryRisk.status +
+-          (partialEntryRisk.overdue ? " OVERDUE" : "") + "; deadline=" + partialEntryRisk.deadlineAt;
+-      }
+       return { campaign: c.id, symbol: c.symbol, book: c.book,
+         lastAttempt: r?.lastAttempt || 0, lastCompleted: r?.lastCompleted || 0,
+         ageMs, outcome: r?.outcome || "NOT_EVALUATED", detail, state,
+         entrySafe: state === "ALIVE" || state === "MARKET_CLOSED",
+-        quoteAt: r?.quoteAt || 0, syncAt: r?.syncAt || 0, partialEntryRisk };
++        quoteAt: r?.quoteAt || 0, syncAt: r?.syncAt || 0 };
+     });
+     const completed = positions.filter((p) => ["EVALUATED", "NO_INVENTORY", "PENDING_ENTRY"].includes(p.outcome) && p.lastCompleted >= p.lastAttempt && p.lastCompleted > 0).length;
+     const freshCount = positions.filter((p) => p.state === "ALIVE").length;
+@@ -1317,7 +1212,13 @@
+
+     const pending = this.pending(c),
+       entry = pending.find((i) => i.kind === "entry");
+     if (entry) {
++      if(c.optionsEntry)manageAdaptedOption(c,this.market,this.cfg,Date.now());
++      const adaptationCanceled=c.optionsEntry?!!adaptationEntryReason(c.optionsEntry,c.instrument,this.market,this.cfg,Date.now(),c.entryCeiling)||!!c.strategyClose:false;
++      const optionApproval=c.book==="options"?this.market.optionValues.assess({...this.riskConfig(),exit:c.policy},c.plugin,c.symbol,Number(entry.payload.limit_price),Date.now(),Number(entry.payload.qty)):null;
++      const expiredOption=c.book==="options" && (!optionApproval?.allowed || Date.now()>=(c.entryValueValidUntil||0));
+       if (
++        expiredOption || adaptationCanceled || incrementalPendingReason(c,this.market.quotes[c.symbol],Date.now(),entry.at) ||
++        (c.incrementalPolicy?.enabled && incrementalEntryReason({...this.cfg,optionsIncremental:c.incrementalPolicy},c.instrument,this.market,Number(entry.payload.qty),Date.now(),c.deadline)) ||
+         this.state.paused ||
+         this.state.halt ||
+         Date.now() - entry.at >= this.cfg.orderTtlMs ||
+@@ -1534,6 +1435,41 @@
+
+       return;
+     }
+   }
++  riskConfig() {
++    return {...this.cfg, capitalLimit: capitalAllowance(Number(this.account.equity), this.cfg.capitalLimit, this.capitalMandate)};
++  }
++  portfolioGate(extra?: Exposure) {
++    const exposures: Exposure[] = [];
++    const factor = (name: string) => /crypto/i.test(name) ? "CRYPTO" : /gold/i.test(name) ? "GOLD" : /wti|oil/i.test(name) ? "WTI" : /eur/i.test(name) ? "EURUSD" : "US_EQUITY";
++    for (const c of this.active()) {
++      const f = fills(c, this.state.intents), position = this.position(c.symbol);
++      const reserved = this.pending(c).filter(i => i.kind === "entry").reduce((n, i) => n + Math.max(0, Number(i.payload.qty) - Number(i.order?.filled_qty || 0)), 0);
++      const notional = Math.max(f.qty * f.entry * c.instrument.multiplier, Math.abs(Number(position?.market_value || 0))) + reserved * (c.entryCeiling || f.entry) * c.instrument.multiplier;
++      if (notional > 0) exposures.push({symbol:c.symbol,notional,stopRisk:c.book === "options" ? notional : (f.qty + reserved) * c.risk * c.instrument.multiplier, factor:factor(c.instrument.factor), signedLeverage:c.instrument.leverage * (c.symbol === "SPXS" ? -1 : 1), kind:c.book === "options" ? "long_option" : "linear"});
++    }
++    if (this.positions.some(p => !this.active().some(c => c.symbol.replace("/", "") === String(p.symbol).replace("/", "")))) throw Error("Unowned portfolio position");
++    const future = this.futures.view();
++    if (future.configured) {
++      if (future.account.state !== "ALIVE") throw Error("Futures account must reconcile before shared allocation");
++      // No invented cross-broker marks: unmodeled or pending futures inventory reserves the entire global budget.
++      if (future.positions.length || future.orders.some((o: Json) => !["FILLED", "CANCELLED", "REJECTED", "EXPIRED", "REPLACED", "COMPLETE", "DONE_FOR_DAY"].includes(o.status)) || future.intents.some((i: Json) => ["SENDING", "UNKNOWN", "PENDING_ACK"].includes(i.state)))
++        throw Error("Futures inventory reserves global capital; simultaneous cross-broker allocation disabled");
++    }
++    if (extra) exposures.push(extra);
++    const cfg = this.riskConfig();
++    return stressPortfolio(exposures, Math.min(Number(this.account.equity), cfg.capitalLimit), {gross:cfg.totalExposure,risk:cfg.openRiskFraction,factor:cfg.factorExposure,stress:cfg.maxDrawdown / 2});
++  }
++  async placeFutures(raw: Json) {
++    return this.mutex.run(2, async () => {
++      await this.authority();
++      if (Date.now() - this.syncAt > 10000 || this.reconcileError || this.positions.length || this.active().length || this.pending().length) throw Error("Global capital reserved by Alpaca or reconciliation stale");
++      const gate = this.portfolioGate();
++      if (!gate.allowed) throw Error(gate.reasons.join(","));
++      this.event("FUTURES_ALLOCATION", {symbol:raw.symbol,scope:"EXCLUSIVE_SHARED_CAPITAL"});
++      await this.save();
++      return this.futures.place(raw);
++    });
++  }
+   entryReady() {
+     const heartbeat = this.scheduler.lanes.find(
+       (l) => l.name === "positions-and-take-profit",
+@@ -1551,6 +1487,7 @@
+
+       !this.state.paused &&
+       !this.state.halt &&
+       !this.storageError &&
++      this.store.health?.().status !== "FAILED" &&
+       !this.reconcileError &&
+       Date.now() - this.syncAt < 10000 &&
+       this.account.status === "ACTIVE" &&
+@@ -1560,143 +1497,21 @@
+
+       !this.pending().some((i) => i.kind !== "protect")
+     );
+   }
+-  async discoverStocks() {
+-    const at = Date.now(), context = sessionContext(at, this.market.calendar);
+-    if (!this.cfg.quant?.enabled || !this.cfg.quant.discovery) return;
+-    if (!this.session("equity", true)) {
+-      this.quantDiscovery = {...this.quantDiscovery, health: "WAITING",
+-        reason: "Fuera de la ventana autorizada de nuevas entradas",
+-        attempt_at: at, session_context: context};
+-      return;
+-    }
+-    this.discoveryHold = true;
+-    let result: Json;
+-    try {
+-      result = await require("../runtime/quant_bridge.cjs").discover(this);
+-      this.quantDiscovery = {...result, session_context: context, persisted: false};
+-      if (typeof result.snapshot_id !== "string" || !/^[a-f0-9]{64}$/.test(result.snapshot_id))
+-        throw Error("DISCOVERY_SNAPSHOT_ID_REQUIRED");
+-      if (digest(result.snapshot) !== result.snapshot_id)
+-        throw Error("DISCOVERY_SNAPSHOT_HASH_MISMATCH");
+-      const snapshotKey = this.key + "-discovery-snapshot-" + result.snapshot_id;
+-      const existing = await this.store.get(snapshotKey);
+-      const record: Json = {...result, session_context: context, accountId: this.cfg.expected_account_id};
+-      if (existing && (digest(existing.snapshot) !== digest(record.snapshot) || existing.accountId !== record.accountId))
+-        throw Error("DISCOVERY_SNAPSHOT_IMMUTABILITY");
+-      if (!existing) await this.store.put(snapshotKey, record);
+-      if (result.registry) {
+-        const baseConfigHash = await this.store.get(this.key + "-config");
+-        await this.store.put(this.key + "-discovery-registry", {
+-          accountId: this.cfg.expected_account_id, baseConfigHash, registry: result.registry,
+-        });
+-      }
+-      await this.store.put(this.key + "-discovery-latest", {
+-        snapshot_id: result.snapshot_id, at: result.at, health: result.health,
+-      });
+-      this.quantDiscovery.persisted = true;
+-      this.event("QUANT_STOCK_NET", this.quantDiscovery);
+-    } catch (error) {
+-      this.quantDiscovery = {...this.quantDiscovery, status: "BLOCKED", health: "BLOCKED",
+-        reason: String(error), attempt_at: at, persisted: false, session_context: context};
+-      this.event("QUANT_STOCK_NET", this.quantDiscovery);
+-      throw error;
+-    }
+-    // A completed, durably recorded discovery cannot freeze other asset engines.
+-    // Candidate-specific failures remain excluded by readiness and entry gates.
+-    this.discoveryHold = false;
+-    if (result.health === "BLOCKED" || result.health === "DEGRADED")
+-      throw Error("DISCOVERY_" + result.health + ": " + result.reason);
+-  }
+-  async refreshNetAccounting() {
+-    try {
+-      await this.netLedger.refresh({instruments: {...Object.fromEntries(this.cfg.universe.map(i => [i.symbol, i])), ...this.market.assets}});
+-      this.netAccountingError = "";
+-    } catch (error) { this.netAccountingError = String(error); throw error; }
+-  }
+-  async captureQuantObservations() {
+-    try {
+-      await require("../runtime/quant_bridge.cjs").observe(this);
+-      this.quantObservationError = "";
+-    } catch (error) { this.quantObservationError = String(error); throw error; }
+-  }
+   async entries(book: Book) {
+-    const operationalFailures = entryOperationalFailures(this);
+-    if (operationalFailures.length) {
+-      this.event("ENTRY_GATE", {book, reason: "OPERATIONAL_VALIDATORS", failures: operationalFailures});
+-      return;
+-    }
+-    if (this.discoveryHold) {
+-      this.event("ENTRY_GATE", {book, reason: "DISCOVERY_OR_PERSISTENCE_UNRESOLVED"});
+-      return;
+-    }
+     if (!this.session(book, true)) return;
+-    const decisionAt = Date.now();
+-    const decisionId = this.decisionRunId + ":" + (++this.decisionSequence);
+-    let signals = this.plugins.evaluate(
++    const signals = this.plugins.evaluate(
+       book,
+       this.market,
+       this.state.plugins,
+     );
+-    let quantPlan: Json | null = null;
+-    const quantState = () => JSON.stringify([
+-      this.account.equity, this.account.cash, this.account.buying_power,
+-      this.positions, this.pending(), this.active().map(c => [c.id, c.symbol, c.closed]),
+-      this.state.dayEquity, this.state.peakEquity, this.cfg.universe, this.discoveryHold,
+-    ]);
+-    const quantSnapshot = this.cfg.quant?.enabled ? quantState() : null;
+-    if (this.cfg.quant?.enabled) {
+-      // Run numerical work outside the order mutex: exits retain priority.
+-      // One joint snapshot includes every book's currently eligible signals.
+-      const all = ["equity", "etf", "crypto", "options"].flatMap((b) =>
+-        this.session(b as Book, true) ? this.plugins.evaluate(b as Book, this.market, this.state.plugins) : []);
+-      const opportunitySnapshot = all.map(s => ({id: s.plugin + "|" + s.symbol,
+-        symbol: s.symbol, book: s.book, at: s.at, expires: s.expires,
+-        quote: structuredClone(this.market.quotes[s.symbol] || null)}));
+-      quantPlan = await require("../runtime/quant_bridge.cjs").plan(this, all);
+-      this.quantLastPlan = {status: quantPlan?.status || "UNCLASSIFIED", reason: quantPlan?.reason || null,
+-        completed_at: Date.now(), model_hash: quantPlan?.model_hash || null,
+-        engine: quantPlan?.engine || null, origin: quantPlan?.decision_inputs?.origin || null,
+-        research_only: quantPlan?.research_only === true,
+-        execution_allowed: quantPlan?.execution_allowed === true};
+-      const decisionRecord: Json = { reason: quantPlan?.reason, execution_allowed: quantPlan?.execution_allowed === true,
+-        selected: quantPlan?.selected || [], rejected: quantPlan?.rejected || {},
+-        model_hash: quantPlan?.model_hash, config_hash: quantPlan?.config_hash,
+-        decision_id: decisionId, decision_at: decisionAt, completed_at: Date.now(),
+-        session_context: sessionContext(decisionAt, this.market.calendar),
+-        discovery_snapshot_id: this.quantDiscovery.snapshot_id || null,
+-        account_id: this.cfg.expected_account_id, requested_book: book,
+-        decision_inputs: quantPlan?.decision_inputs || null,
+-        opportunities: opportunitySnapshot};
+-      // Persist signal-bearing decisions before any external order; no full history duplication.
+-      if (all.length) {
+-        try { await this.store.put(this.key + "-quant-decision-" + decisionId, decisionRecord); }
+-        catch (error) {
+-          this.event("QUANT_TRACE_BLOCKED", {decision_id: decisionId, reason: String(error)});
+-          throw error;
+-        }
+-      }
+-      this.event("QUANT_PLAN", decisionRecord);
+-      const chosen = quantPlan?.execution_allowed === true ? quantPlan.selected as Json[] : [];
+-      signals = signals.filter((s) => chosen.some((x) => x.id === s.plugin + "|" + s.symbol))
+-        .sort((a,b) => Number(chosen.find((x) => x.id === b.plugin + "|" + b.symbol)?.robust_net_usd || 0) -
+-          Number(chosen.find((x) => x.id === a.plugin + "|" + a.symbol)?.robust_net_usd || 0));
+-    }
++    if(book==="options")for(const d of this.plugins.diagnostics.filter(x=>x.book==="options")){
++      const reasonCounts:Record<string,number>={};for(const row of d.rejected||[])for(const reason of row.reasons||[])reasonCounts[reason]=(reasonCounts[reason]||0)+1;
++      this.event("OPTION_SCREEN",{plugin:d.plugin,underlying:d.symbol,status:d.status,reason:d.reason,rejectedCount:d.rejectedCount||0,sampledRejectionReasons:reasonCounts,detailSha256:createHash("sha256").update(JSON.stringify(d)).digest("hex"),scope:"DECISION_SUMMARY_FULL_MARKET_CONTEXT_REQUIRES_CAPTURE"});
++    }
++    for (const signal of signals) this.event("SIGNAL_EVALUATED", {symbol:signal.symbol,plugin:signal.plugin,atSignal:signal.at,entry:signal.entry,stop:signal.stop});
+     return this.mutex.run(2, async () => {
+-      const failures = entryOperationalFailures(this);
+-      if (failures.length) {
+-        this.event("ENTRY_GATE", {book, decision_id: decisionId, reason: "OPERATIONAL_VALIDATORS", failures});
+-        return;
+-      }
+-      if (this.discoveryHold) {
+-        this.event("ENTRY_GATE", {book, decision_id: decisionId, reason: "DISCOVERY_OR_PERSISTENCE_UNRESOLVED"});
+-        return;
+-      }
+       await this.authority();
+-      if (quantSnapshot !== null && quantSnapshot !== quantState()) {
+-        this.event("QUANT_PLAN_INVALIDATED", { reason: "ACCOUNT_OR_INVENTORY_CHANGED" });
+-        return;
+-      }
+-      if (!this.entryReady()) return;
++      if (!this.entryReady()) { if (signals.length) this.event("ENTRY_GATE", {book,reason:"RUNTIME_NOT_READY",signals:signals.length}); return; }
+       // Protect every filled position before allocating another dollar.
+       if (
+         this.active().some(
+@@ -1719,15 +1534,20 @@
+
+           !this.state.plugins.includes(signal.plugin)
+         )
+           return;
+-        if (this.active().some((c) => c.symbol === signal.symbol)) continue;
++        if (this.active().some((c) => c.symbol === signal.symbol)) { this.event("ENTRY_GATE", {symbol:signal.symbol,reason:"SYMBOL_BUSY"}); continue; }
+         const q = this.market.quotes[signal.symbol],
+           asset = this.market.assets[signal.symbol];
+         if (
+           !asset ||
+           !fresh(q, Date.now(), this.cfg.quoteAgeMs) ||
+-          q.ask > signal.entry
+-        )
++          !adaptationPriceAllowed(signal.optionsEntry,q,signal.entry,asset.tick)
++        ) {
++          this.event("ENTRY_GATE", {symbol:signal.symbol,reason:!asset ? "ASSET_UNAVAILABLE" : !fresh(q, Date.now(), this.cfg.quoteAgeMs) ? "QUOTE_STALE" : "ENTRY_PRICE_EXCEEDED"});
+           continue;
++        }
++        if(ADAPTED_OPTIONS_PLUGINS.includes(signal.plugin)&&!signal.optionsEntry){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:"ADAPTATION_EVIDENCE_REQUIRED"});continue;}
++        const adaptationBlock=adaptationEntryReason(signal.optionsEntry,asset,this.market,this.cfg,Date.now(),signal.entry)||adaptationAllocationReason(signal.optionsEntry,this.state.campaigns,Date.now());
++        if(adaptationBlock){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:adaptationBlock});continue;}
+         signal = {
+           ...signal,
+           entry: Number(price(signal.entry, asset.tick, true)),
+@@ -1751,13 +1571,18 @@
+
+           });
+           continue;
+         }
+-        if (signal.stop <= 0 || signal.stop >= signal.entry) continue;
++        if (signal.stop <= 0 || signal.stop >= signal.entry) { this.event("ENTRY_GATE", {symbol:signal.symbol,reason:"STOP_INVALID"}); continue; }
+         this.validators.run("signal", () => assertSignal(signal, asset));
+-        if (
+-          book === "options" &&
+-          !(Number(this.account.options_trading_level) >= 2)
+-        )
+-          continue;
++        let optionValueQuantity=0,optionValueValidUntil=0,optionValueModelSha256="";
++        if(book==="options"){
++          if(!(Number(this.account.options_trading_level)>=2)){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:"OPTION_PERMISSION"});continue;}
++          const eligibility=this.market.optionEligibility(signal.symbol,Date.now(),optionTypeForPlugin(signal.plugin));
++          if(!eligibility.allowed){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:"OPTION_ELIGIBILITY",...eligibility});continue;}
++          const value=this.market.optionValues.assess({...this.riskConfig(),exit:signal.exit},signal.plugin,signal.symbol,signal.entry);
++          if(!value.allowed){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:"OPTION_VALUE",value});continue;}
++          optionValueQuantity=Number(value.quantity);optionValueValidUntil=Number(value.validUntil);optionValueModelSha256=String(value.modelSha256||"");
++          this.event("OPTION_VALUE_ACCEPTED",{symbol:signal.symbol,plugin:signal.plugin,value});
++        }
+         const history = this.state.campaigns.filter(
+           (c) =>
+             c.symbol === signal.symbol &&
+@@ -1786,17 +1611,28 @@
+
+         let qty = availableSize(
+           signal,
+           asset,
+-          this.cfg,
++          this.riskConfig(),
+           this.account,
+           this.positions,
+           this.state.campaigns,
+           this.state.intents,
+         );
+-        if (this.cfg.quant?.enabled) {
+-          const item = quantPlan?.selected?.find((x: Json) => x.id === signal.plugin + "|" + signal.symbol);
+-          qty = floorStep(Math.min(qty, Number(item?.quantity || 0)), asset.step);
++        if(book==="options"){
++          if(!Number.isInteger(optionValueQuantity)||optionValueQuantity<1||qty<optionValueQuantity||Math.floor(q.askSize||0)<optionValueQuantity){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:"OPTION_FORECAST_QUANTITY_NOT_FEASIBLE"});continue;}
++          qty=optionValueQuantity;
+         }
+-        if (!qty) continue;
++        if(book==="options"){
++          const incremental=incrementalEntryReason(this.cfg,asset,this.market,qty,Date.now(),signal.optionsEntry?.deadlineAt)||incrementalOrderBudget(this.cfg,this.state.intents,Date.now(),"entry");
++          const allocation=incrementalAllocationReason(this.cfg,this.market,asset,qty,this.positions,Number(this.account.equity),Date.now());
++          if(incremental||!allocation.allowed){this.event("ENTRY_GATE",{symbol:signal.symbol,reason:incremental||allocation.reasons.join(','),incrementalAllocation:allocation});continue;}
++        }
++        if (!qty) { this.event("ENTRY_GATE", {symbol:signal.symbol,reason:book==="options"?"OPTION_PREMIUM_OR_DISPLAYED_SIZE_BUDGET":"SIZING_ZERO",...(book==="options"?optionBudget(signal.entry,asset.multiplier,this.riskConfig(),Number(this.account.equity)):{})}); continue; }
++        try {
++          const notional = qty * signal.entry * asset.multiplier;
++          const gate = this.portfolioGate({symbol:asset.symbol,notional,stopRisk:qty * (book === "options" ? signal.entry : signal.entry - signal.stop) * asset.multiplier, factor:book === "crypto" ? "CRYPTO" : "US_EQUITY", signedLeverage:asset.leverage * (asset.symbol === "SPXS" ? -1 : 1),kind:book === "options" ? "long_option" : "linear"});
++          if (!gate.allowed) throw Error(gate.reasons.join(","));
++          this.event("PORTFOLIO_GATE", {symbol:signal.symbol,...gate});
++        } catch (e) { this.event("ENTRY_GATE", {symbol:signal.symbol,reason:String(e)}); continue; }
+         const c: Campaign = {
+           id: "c" + (this.state.sequence + 1) + "-" + Date.now(),
+           symbol: signal.symbol,
+@@ -1811,7 +1647,11 @@
+
+           closed: false,
+           intents: [],
+           entryCeiling: signal.entry,
++          ...(book==="options"?{entryValueValidUntil:optionValueValidUntil,entryValueModelSha256:optionValueModelSha256}:{}),
+           entryAtr: signal.entryAtr,
++          ...(book==="options"&&this.cfg.optionsIncremental?.enabled?{incrementalPolicy:structuredClone(this.cfg.optionsIncremental)}:{}),
++          ...(book==="options"&&this.cfg.optionsTakeProfitNet?.enabled?{netTakeProfitPolicy:structuredClone(this.cfg.optionsTakeProfitNet)}:{}),
++          ...(signal.optionsEntry?{optionsEntry:structuredClone(signal.optionsEntry),optionsRuntime:{peakUnderlying:signal.optionsEntry.entryUnderlying,stopUnderlying:signal.optionsEntry.invalidation,lastUnderlyingAt:signal.optionsEntry.at,lastReason:"ENTRY"}}:{}),
+           exitProfile: profileId,
+           exitRegime,
+           deadline: deadlineFor(
+@@ -1822,11 +1662,14 @@
+
+             asset.expiry,
+           ),
+         };
++        if(c.optionsEntry)c.deadline=Math.min(c.deadline!,c.optionsEntry.deadlineAt);
+         this.state.campaigns.push(c);
+         this.event("ENTRY_SIGNAL", {
+           symbol: c.symbol,
+           plugin: c.plugin,
+           reason: signal.reason,
++          ...(signal.optionsEntry?{adaptation:signal.optionsEntry}:{}),
++          ...(book==="options"?{optionEvidence:{metadata:this.market.metadata[c.symbol],quote:this.market.quotes[c.symbol],snapshot:this.market.snapshots[c.symbol],chainObservedAt:this.market.chains[asset.underlying!]?.observedAt,budget:optionBudget(signal.entry,asset.multiplier,this.riskConfig(),Number(this.account.equity))}}:{}),
+         });
+         await this.submit(c, "entry", {
+           symbol: c.symbol,
+@@ -2152,14 +1995,12 @@
+
+       .find((l) => l.name === "positions-and-take-profit");
+     const operationalCoverage = this.exitCoverage();
+     return {
++      optionsTakeProfitNet: netTakeProfitStatus(this.cfg,this.state.campaigns),
++      optionsIncremental: {...incrementalVersionView(this.cfg),events:this.market.optionEvents.status},
++      optionData: this.market.dataStatus(),
++      optionsValue: {...this.market.optionValues.status,mode:this.cfg.optionsValuation?.mode||"observe",profitability:"NOT_ESTABLISHED"},
++      optionsLab: optionResearchView(this.market,this.riskConfig(),Number(this.account.equity)),
+       operationalCoverage,
+-      operationalCapabilities: operationalCapabilities(this),
+-      netAccountLedger: this.netLedger.view(),
+-      prospectiveQuantObservations: this.quantObservations.view(),
+-      economicGate: this.quantEconomicGate,
+-      quantitativePerformance: this.quantPerformance,
+-      recursiveCalibration: this.quantResearch,
+-      stockEtfDiscovery: {...this.quantDiscovery, entryHold: this.discoveryHold},
+       version: ULTIMATE_VERSION,
+       edition: "XXXUltimate",
+       autopilot: {
+@@ -2212,7 +2053,12 @@
+
+       halt: this.state.halt,
+       reconciliation: this.reconcileError || "OK",
+       syncAt: this.syncAt,
+-      storageError: this.storageError,
++      capitalPolicy: {base:this.cfg.capitalLimit,mandate:this.capitalMandate || null,scope:"STAIRCASE_REQUIRES_REVIEWED_MANDATE"},
++      storageError: this.storageError || this.store.health?.().error || "",
++      executionAuthority: this.broker.authorityStatus(),
++      feedContract: {historicalEquityFeed:"sip",runtimeEquityFeed:this.cfg.stockFeed,aligned:this.cfg.stockFeed === "sip",liveFillValidation:"PENDING"},
++      audit: {...this.auditHead,pending:this.auditPending},
++      storage: this.store.health?.() || {status:"TEST_STORE"},
+       account: {
+         equity: this.account.equity,
+         cash: this.account.cash,
+@@ -2254,7 +2100,6 @@
+
+       })),
+       positions: this.active().map((c) => ({
+         ...c,
+-        partialEntryRisk: this.partialEntryRiskSnapshot(c, Date.now()),
+         evaluation: operationalCoverage.positions.find((p) => p.campaign === c.id),
+         quantity: Number(this.position(c.symbol)?.qty || 0),
+         fills: fills(c, this.state.intents),
+@@ -2306,6 +2151,7 @@
+
+     await this.pulseJob;
+     await this.save();
+     await this.store.lease(this.leaseName, true);
++    await this.auditQueue;
+     await this.store.close();
+   }
+ }

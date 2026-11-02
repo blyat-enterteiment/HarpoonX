@@ -1,0 +1,75 @@
+--- 30.12/xxx/ultimate_stats.ts
+
++++ 31.6TP/xxx/ultimate_stats.ts
+
+@@ -11,37 +11,44 @@
+
+     lo = Math.floor(i);
+   return z[lo] + (z[Math.ceil(i)] - z[lo]) * (i - lo);
+ }
+-export function bootstrapLower(
+-  a: number[],
+-  runs: number,
+-  block: number,
+-  family: number,
+-  seed = 30301,
+-): number | null {
+-  if (a.length < Math.max(30, block * 6)) return null;
+-  need(
+-    a.every(Number.isFinite) && runs >= 500 && block > 0 && family >= 1,
+-    "bootstrap inputs",
+-  );
++/** Circular moving-block bootstrap. Prefix sums reduce O(runs*N) to O(runs*N/block). */
++function bootstrapSamples(a: number[], runs: number, block: number, seed: number) {
++  need(a.length > 0 && a.every(Number.isFinite) && Number.isInteger(runs) && runs >= 500 && runs <= 500000 && Number.isInteger(block) && block > 0 && block <= a.length && (seed >>> 0) !== 0, "bootstrap inputs");
+   let state = seed >>> 0;
+-  const next = () => {
+-    state ^= state << 13;
+-    state ^= state >>> 17;
+-    state ^= state << 5;
+-    return (state >>> 0) / 4294967296;
+-  };
++  const next = () => { state ^= state << 13; state ^= state >>> 17; state ^= state << 5; return (state >>> 0) / 4294967296; };
++  const prefix = [0];
++  for (let i = 0; i < a.length + block; i++) prefix.push(prefix[i] + a[i % a.length]);
+   const samples: number[] = [];
+   for (let k = 0; k < runs; k++) {
+-    let sum = 0,
+-      count = 0;
+-    while (count < a.length) {
+-      const start = Math.floor(next() * a.length);
+-      for (let j = 0; j < block && count < a.length; j++, count++)
+-        sum += a[(start + j) % a.length];
++    let sum = 0;
++    for (let count = 0; count < a.length; count += block) {
++      const start = Math.floor(next() * a.length), length = Math.min(block, a.length - count);
++      sum += prefix[start + length] - prefix[start];
+     }
+     samples.push(sum / a.length);
+   }
+-  return quantile(samples, 0.05 / family);
++  return samples.sort((x, y) => x - y);
++}
++function sortedQuantile(z: number[], q: number) {
++  const i = (z.length - 1) * q, lo = Math.floor(i);
++  return z[lo] + (z[Math.ceil(i)] - z[lo]) * (i - lo);
++}
++export function bootstrapLower(a: number[], runs: number, block: number, family: number, seed = 30301): number | null {
++  need(Number.isInteger(family) && family >= 1, "bootstrap family");
++  if (a.length < Math.max(30, block * 6)) return null;
++  return sortedQuantile(bootstrapSamples(a, runs, block, seed), 0.05 / family);
++}
++/** Monte Carlo precision is distinct from statistical coverage or economic evidence. */
++export function bootstrapEvidence(a: number[], runs: number, block: number, family: number) {
++  const alpha = 0.05 / family, expectedTail = runs * alpha;
++  if (a.length < Math.max(30, block * 6)) return { lower: null, conservativeMcLower: null, precision: false, expectedTail, seeds: [] as number[], status: "INSUFFICIENT_SAMPLE" };
++  need(Number.isInteger(family) && family >= 1, "bootstrap family");
++  const samples = [30301, 91817, 20261025].map(seed => bootstrapSamples(a, runs, block, seed));
++  const seeds = samples.map(z => sortedQuantile(z, alpha));
++  // Normal approximation to quantile-rank Monte Carlo uncertainty, admissible only with >=50 expected tail draws.
++  const rankLow = Math.max(0, alpha - 1.96 * Math.sqrt(alpha * (1 - alpha) / runs));
++  const conservativeMcLower = Math.min(...samples.map(z => sortedQuantile(z, rankLow)));
++  return {lower: seeds[0], conservativeMcLower, precision: expectedTail >= 50, expectedTail, seeds, status: expectedTail >= 50 ? "MC_PRECISION_ADEQUATE" : "MC_TAIL_UNDERSAMPLED"};
+ }
+ export function metrics(returns: number[], campaignR: number[]) {
+   need([...returns, ...campaignR].every(Number.isFinite), "nonfinite metrics");

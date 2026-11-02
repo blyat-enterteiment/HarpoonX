@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python",
+    "tools/historical_bank_data_audit.py",
+    "--data-dir",
+    "evidence/historical_bank_30_16_0/data",
+    "--report",
+    "evidence/historical_bank_30_16_0/data_audit.json",
+    "--rebuild-dataset",
+    "../data_audit/rebuilt_package_dataset.json"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 3.3220537579991287,
+  "mode": "HISTORICAL_DATA_ONLY_NO_PNL",
+  "report": "evidence/historical_bank_30_16_0/data_audit.json",
+  "report_sha256": "a0c99df7036b2f22aef82e9939ca75780b38cd36818bacfe4a1033b37f2469d3",
+  "rebuilt_sha256": "e6874c13f812cd42861f8c2d3bb2fc9c438cba3b2be4cfe2932bd3d774850967"
+}

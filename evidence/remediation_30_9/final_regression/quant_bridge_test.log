@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: missing calibration returns BLOCKED through the actual Python worker
+ok 1 - missing calibration returns BLOCKED through the actual Python worker
+  ---
+  duration_ms: 1967.968472
+  type: 'test'
+  ...
+# Subtest: quant gate blocks a stock order without a calibrated allocation
+ok 2 - quant gate blocks a stock order without a calibrated allocation
+  ---
+  duration_ms: 2390.881963
+  type: 'test'
+  ...
+# Subtest: quantified quantity caps the existing broker risk size
+ok 3 - quantified quantity caps the existing broker risk size
+  ---
+  duration_ms: 14.8448
+  type: 'test'
+  ...
+# Subtest: subprocess failure cannot authorize an order
+ok 4 - subprocess failure cannot authorize an order
+  ---
+  duration_ms: 3.328781
+  type: 'test'
+  ...
+# Subtest: stock net discovers only classified calibrated names and preserves inventory
+ok 5 - stock net discovers only classified calibrated names and preserves inventory
+  ---
+  duration_ms: 7.393482
+  type: 'test'
+  ...
+# Subtest: slow numerical planning does not hold the order mutex needed by exits
+ok 6 - slow numerical planning does not hold the order mutex needed by exits
+  ---
+  duration_ms: 11.842822
+  type: 'test'
+  ...
+# Subtest: account changes during numerical planning invalidate entry authority
+ok 7 - account changes during numerical planning invalidate entry authority
+  ---
+  duration_ms: 12.580615
+  type: 'test'
+  ...
+# Subtest: sized live quote reaches the L1 cache through the actual coordinator callback
+ok 8 - sized live quote reaches the L1 cache through the actual coordinator callback
+  ---
+  duration_ms: 10.402971
+  type: 'test'
+  ...
+# Subtest: L1 sampling is bounded per second and records omitted events
+ok 9 - L1 sampling is bounded per second and records omitted events
+  ---
+  duration_ms: 11.107975
+  type: 'test'
+  ...
+# Subtest: missing L1 sizes are not fabricated and reconnect clears its book history
+ok 10 - missing L1 sizes are not fabricated and reconnect clears its book history
+  ---
+  duration_ms: 8.966624
+  type: 'test'
+  ...
+# Subtest: calibration context runs through Python independently of a return calibration file
+ok 11 - calibration context runs through Python independently of a return calibration file
+  ---
+  duration_ms: 2002.410295
+  type: 'test'
+  ...
+# Subtest: microstructure preflight rejects malformed switches and unbounded settings
+ok 12 - microstructure preflight rejects malformed switches and unbounded settings
+  ---
+  duration_ms: 2.117154
+  type: 'test'
+  ...
+# Subtest: performance worker computes Sortino and drawdown without authorizing trades
+ok 13 - performance worker computes Sortino and drawdown without authorizing trades
+  ---
+  duration_ms: 1939.331026
+  type: 'test'
+  ...
+# Subtest: recursive calibrator runs without an opportunity panel and waits explicitly
+ok 14 - recursive calibrator runs without an opportunity panel and waits explicitly
+  ---
+  duration_ms: 2352.458185
+  type: 'test'
+  ...
+# Subtest: NAV capture does not mislabel unconfirmed cashflows as trading returns
+ok 15 - NAV capture does not mislabel unconfirmed cashflows as trading returns
+  ---
+  duration_ms: 14.232577
+  type: 'test'
+  ...
+# Subtest: optimizer preflight rejects infinite budgets and malformed controls
+ok 16 - optimizer preflight rejects infinite budgets and malformed controls
+  ---
+  duration_ms: 1.388404
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10809.016558

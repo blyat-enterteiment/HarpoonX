@@ -1,0 +1,81 @@
+AUDITORÍA PORTÁTIL DEL BANCO HISTÓRICO 30.16.0
+
+Ejecutar desde la raíz de esta entrega, con Python 3.10 o posterior y una
+base de zonas horarias que incluya America/New_York. No requiere credenciales,
+cuenta, conexión a un broker ni red.
+
+  python tools/historical_bank_data_audit.py \
+    --data-dir evidence/historical_bank_30_16_0/data \
+    --report evidence/historical_bank_30_16_0/data_audit.json
+
+Reproducir además los bytes del dataset a un archivo nuevo:
+
+  python tools/historical_bank_data_audit.py \
+    --data-dir evidence/historical_bank_30_16_0/data \
+    --report evidence/historical_bank_30_16_0/data_audit.json \
+    --rebuild-dataset evidence/historical_bank_30_16_0/rebuilt_research_dataset.json
+
+Pruebas sintéticas focalizadas:
+
+  python -m unittest discover -s tools -p test_historical_bank_data_audit.py -v
+
+SALIDA Y VERIFICACIÓN
+
+Código de salida 0: PASS_CONDITIONAL_HISTORICAL_ONLY. Se han verificado los
+hashes, la reconstrucción idéntica y la cobertura descrita. Código 2: faltante,
+corrupción o incoherencia; el informe JSON conserva la causa. El auditor no
+entrena modelos, no calcula PnL, no abre órdenes y no acredita un nivel de
+rentabilidad. El informe no incorpora la hora actual ni rutas absolutas del
+workspace, para que el mismo banco produzca el mismo JSON tras relocalizarlo.
+
+Se verifican los hashes SHA-256 de source_manifest.json y manifest.json,
+130 recibos originales retenidos, los archivos derivados y el dataset. La
+reconstrucción lee los recibos locales; no ejecuta el builder archivado ni
+depende de herramientas de captura. Rechaza rutas de manifiesto que escapan
+del directorio del banco, símbolos ajenos, calendarios incoherentes, barras
+faltantes o duplicadas, precios/unidades inválidos y disponibilidad alterada.
+
+ORIGEN Y ALCANCE
+
+Cuatro activos fijados antes de evaluar: AAPL, MSFT, SPY y XLK. Ventana:
+2022-01-01 a 2024-08-31, con 669 sesiones y 208.152 barras regulares de cinco
+minutos. Los 128 recibos de barras contienen también datos fuera de sesión;
+se conservan íntegros y la selección RTH usa exclusivamente el calendario.
+Hay cuatro sesiones de calendario adicionales, del 3 al 6 de septiembre,
+para fechas límite. No contienen barras y no autorizan fills de salida.
+
+El proveedor se consultó mediante el conector Alpaca, feed SIP, USD. El
+conector no expone un argumento explícito de ajuste; la documentación de la
+API indica raw por defecto. Ese supuesto figura en metadata.json. Los bytes
+retenidos son la serialización completa de la respuesta de herramienta, con
+su contenido de texto original, no una captura firmada del transporte HTTP.
+Los hashes demuestran consistencia local; no certifican independientemente
+la autenticidad del proveedor.
+
+Las 42 distribuciones aplicables provienen de eventos observados. exAt usa
+la apertura de la sesión de ex_date; payableAt modela las 16:00 de Nueva York
+en payable_date. Una fecha desconocida permanece null. Un derecho ya ganado
+no desaparece por pagarse después del final; tampoco habilita reinversión
+antes de su fecha modelada. El evento MSFT/NUAN es una adquisición en efectivo
+de NUAN y no convierte unidades de MSFT. splitEvents vacío significa que la
+consulta no devolvió splits aplicables; no prueba ausencia exhaustiva.
+
+La API de acciones filtra por process_date. La completitud respecto de todos
+los eventos excepcionales sigue siendo null. Esa limitación permite el
+replay histórico condicional declarado; no convierte este banco en fuente
+certificada ni debilita el importador estricto previo.
+
+availableAt = fin de barra + 1.000 ms es una hipótesis de disponibilidad.
+Las latencias reales de recepción, decisión y ejecución permanecen null.
+Las barras no observan spread ejecutable, prioridad de cola, fills ni orden
+intrabar. El periodo de prueba histórico precede al diseño de la estrategia:
+no equivale a una observación prospectiva ni a rentabilidad de cuenta real.
+
+PORTABILIDAD DEL BUILDER ARCHIVADO
+
+build_research_dataset.py dentro del banco se conserva con su hash original
+como recibo del proceso de captura. Ese script original compara el calendario
+con una carpeta hermana de auditoría y no es el comando portátil de esta
+entrega. La reproducción autónoma del paquete es --rebuild-dataset del
+auditor, que usa únicamente los 130 recibos incluidos y exige el mismo hash
+del dataset sellado. No sobreescribe un destino existente con bytes distintos.

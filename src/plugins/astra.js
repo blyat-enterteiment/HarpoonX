@@ -1,0 +1,186 @@
+"use strict";
+/** ASTRA 6: pure strategy. No credentials, network, order authority or model calls. */
+var HAstra;
+(function (HAstra) {
+    HAstra.VERSION = '1.0.0';
+    HAstra.FAMILY = 'astra_second_wave';
+    HAstra.defaults = { impulseMinutes: 5, pauseMinutes: 5, minHistoryDays: 10, impulseZ: 2, minRvol: 2, minRetained: .6, minRelativeBps: 10, minFlowImbalance: .15, minClassifiedFraction: .5, minFlowTrades: 10, maxSpreadBps: 12, maxChaseAtr: .25, costMultiple: 3, tpR: 2, partialFraction: .2, trailAtr: 2.5, lockFraction: .5, stagnationMinutes: 30, holdHours: 72, optionsRequired: false, maxIvRatio: 3, maxPutSkew: .2 };
+    const bounds = { impulseMinutes: [3, 10], pauseMinutes: [3, 15], minHistoryDays: [5, 20], impulseZ: [1, 5], minRvol: [1.2, 5], minRetained: [.3, .9], minRelativeBps: [0, 100], minFlowImbalance: [.05, .8], minClassifiedFraction: [.3, 1], minFlowTrades: [5, 1000], maxSpreadBps: [2, 25], maxChaseAtr: [.05, .5], costMultiple: [2, 8], tpR: [1, 2.5], partialFraction: [0, .35], trailAtr: [1.5, 4], lockFraction: [.35, .7], stagnationMinutes: [10, 60], holdHours: [1.5, 72], maxIvRatio: [1, 5], maxPutSkew: [0, .6] };
+    function validate(raw) { if (!raw || typeof raw !== 'object' || Array.isArray(raw))
+        throw Error('ASTRA: parámetros inválidos'); const p = raw; if (Object.keys(p).sort().join() !== Object.keys(HAstra.defaults).sort().join() || typeof p.optionsRequired !== 'boolean')
+        throw Error('ASTRA: campos no permitidos'); for (const [k, [a, b]] of Object.entries(bounds)) {
+        const v = p[k];
+        if (typeof v !== 'number' || !Number.isFinite(v) || v < a || v > b)
+            throw Error('ASTRA: fuera de límites ' + k);
+    } for (const k of ['impulseMinutes', 'pauseMinutes', 'minHistoryDays', 'minFlowTrades'])
+        if (!Number.isInteger(p[k]))
+            throw Error('ASTRA: entero requerido ' + k); if (![1.5, 24, 48, 72].includes(p.holdHours))
+        throw Error('ASTRA: plazo inválido'); return structuredClone(p); }
+    HAstra.validate = validate;
+    const avg = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);
+    const variance = (a) => a.length > 1 ? a.reduce((x, y) => x + (y - avg(a)) ** 2, 0) / (a.length - 1) : 0;
+    function validQuote(q, now) { return q && [q.at, q.received, q.bid, q.ask, now].every(Number.isFinite) && q.at <= now && q.received <= now && now - q.at <= 15000 && now - q.received <= 15000 && q.bid > 0 && q.ask >= q.bid; }
+    HAstra.validQuote = validQuote;
+    const validBar = (b, now) => [b.t, b.available, b.o, b.h, b.l, b.c, b.v, b.minute].every(Number.isFinite) && b.t + 60000 <= now - 3000 && b.available <= now && b.available >= b.t + 60000 && b.o > 0 && b.c > 0 && b.l > 0 && b.h >= Math.max(b.o, b.c) && b.l <= Math.min(b.o, b.c) && b.h >= b.l && b.v >= 0;
+    function clean(a, now) { return a.filter(b => validBar(b, now)).sort((a, b) => a.t - b.t); }
+    function alignedReturn(bars, start, end) { const a = bars.find(b => b.t === start), b = bars.find(b => b.t === end); return a && b ? (b.c / a.o - 1) * 10000 : null; }
+    /** Two-factor ridge fit, on historical matched intervals only. Coefficients are dimensionless. */
+    function residual(history, y, m, s) { const my = avg(history.map(x => x[0])), mm = avg(history.map(x => x[1])), ms = avg(history.map(x => x[2])); let aa = 1, bb = 1, ab = 0, ay = 0, by = 0; for (const [v, u, w] of history) {
+        const x = u - mm, z = w - ms;
+        aa += x * x;
+        bb += z * z;
+        ab += x * z;
+        ay += x * (v - my);
+        by += z * (v - my);
+    } const det = aa * bb - ab * ab, bm = (ay * bb - by * ab) / det, bs = (by * aa - ay * ab) / det; return { value: y - (my + bm * (m - mm) + bs * (s - ms)), marketBeta: bm, sectorBeta: bs }; }
+    function evaluate(snapshot, p) {
+        validate(p);
+        const s = snapshot, now = s.at, reasons = [], out = { version: HAstra.VERSION, asof: now, source: s.source, ready: false, reasons, metrics: {}, impulseId: '', trigger: null, stop: null, options: s.options };
+        if (!['ALPACA_OBSERVED', 'RECORDED', 'SYNTHETIC'].includes(s.source) || !Number.isFinite(now) || !Number.isFinite(s.sessionOpen) || !Number.isFinite(s.slippageBps) || s.slippageBps < 0) {
+            reasons.push('Snapshot inválido');
+            return out;
+        }
+        if (s.feed !== 'sip')
+            reasons.push('ASTRA requiere SIP; no mezcla IEX con volumen consolidado');
+        if (!validQuote(s.quote, now)) {
+            reasons.push('Cotización vencida, futura o inválida');
+            return out;
+        }
+        const all = clean(s.bars, now), market = clean(s.market, now), sector = clean(s.sector, now), today = all.filter(b => b.t >= s.sessionOpen), need = p.impulseMinutes + p.pauseMinutes + 1;
+        if (today.length < Math.max(20, need)) {
+            reasons.push('Faltan barras completas de un minuto');
+            return out;
+        }
+        const recent = today.slice(-need), impulse = recent.slice(0, p.impulseMinutes), pause = recent.slice(p.impulseMinutes, -1), last = recent.at(-1);
+        if (recent.some((b, i) => i > 0 && b.t - recent[i - 1].t !== 60000) || now - (last.t + 60000) > 90000) {
+            reasons.push('Hueco o retraso en barras de un minuto');
+            return out;
+        }
+        const tr = today.slice(-21).slice(1).map((b, i) => Math.max(b.h - b.l, Math.abs(b.h - today.slice(-21)[i].c), Math.abs(b.l - today.slice(-21)[i].c))), atr = avg(tr), start = impulse[0], end = impulse.at(-1), move = end.c - start.o, high = Math.max(...pause.map(b => b.h)), low = Math.min(...pause.map(b => b.l)), retained = move > 0 ? (low - start.o) / move : -1;
+        const historical = [];
+        for (const day of [...new Set(all.filter(b => b.day < start.day).map(b => b.day))].slice(-20)) {
+            const rows = all.filter(b => b.day === day && b.minute >= start.minute && b.minute < start.minute + p.impulseMinutes);
+            if (rows.length !== p.impulseMinutes || rows.some((b, i) => i > 0 && b.t - rows[i - 1].t !== 60000))
+                continue;
+            const mr = alignedReturn(market, rows[0].t, rows.at(-1).t), sr = alignedReturn(sector, rows[0].t, rows.at(-1).t);
+            if (mr === null || sr === null)
+                continue;
+            historical.push({ day, ret: (rows.at(-1).c / rows[0].o - 1) * 10000, volume: rows.reduce((v, b) => v + b.v, 0), mr, sr });
+        }
+        const mr = alignedReturn(market, start.t, end.t), sr = alignedReturn(sector, start.t, end.t), returns = historical.map(x => x.ret), moveBps = (end.c / start.o - 1) * 10000, z = (moveBps - avg(returns)) / Math.max(5, Math.sqrt(variance(returns))), rvol = impulse.reduce((v, b) => v + b.v, 0) / Math.max(1, avg(historical.map(x => x.volume))), rel = mr !== null && sr !== null ? residual(historical.map(x => [x.ret, x.mr, x.sr]), moveBps, mr, sr) : null;
+        const closedMinute = Math.floor((now - 3000) / 60000) * 60000 - 60000, flow = s.flows.filter(f => (f.minute === closedMinute || f.minute === closedMinute - 60000) && [f.buy, f.sell, f.unknown, f.trades].every(v => Number.isFinite(v) && v >= 0)), buy = flow.reduce((v, f) => v + f.buy, 0), sell = flow.reduce((v, f) => v + f.sell, 0), unknown = flow.reduce((v, f) => v + f.unknown, 0), classified = buy + sell, imbalance = (buy - sell) / Math.max(1, classified), coverage = classified / Math.max(1, classified + unknown), trades = flow.reduce((v, f) => v + f.trades, 0), spread = (s.quote.ask / s.quote.bid - 1) * 10000;
+        const fmr = alignedReturn(market, last.t - 60000, last.t), fsr = alignedReturn(sector, last.t - 60000, last.t), own = alignedReturn(today, last.t - 60000, last.t), weak = own !== null && fmr !== null && fsr !== null ? own - Math.max(fmr, fsr) : null;
+        out.impulseId = s.symbol + ':' + start.t;
+        out.trigger = high;
+        out.stop = Math.floor((low - .15 * atr) * 100) / 100;
+        out.metrics = { atr, impulse_z: z, impulse_bps: moveBps, rvol, retained, relative_bps: rel?.value ?? null, market_beta: rel?.marketBeta ?? null, sector_beta: rel?.sectorBeta ?? null, history_days: historical.length, flow_imbalance: imbalance, classified_fraction: coverage, flow_trades: trades, flow_minute: closedMinute, flow_valid: flow.length === 2 && new Set(flow.map(f => f.minute)).size === 2 && flow.every(f => f.covered) ? 1 : 0, recent_relative_bps: weak, spread_bps: spread, pause_high: high, pause_low: low, move, latest_bar: last.t };
+        if (!s.sectorSymbol || mr === null || sr === null || historical.length < p.minHistoryDays)
+            reasons.push('Historia de mercado/sector insuficiente');
+        if (!(atr > 0 && move > 0 && z >= p.impulseZ && rvol >= p.minRvol))
+            reasons.push('Impulso no excepcional');
+        if (retained < p.minRetained || high > end.c + atr || last.c <= high)
+            reasons.push('Pausa o reanudación no confirmada');
+        if ((rel?.value ?? -Infinity) < p.minRelativeBps)
+            reasons.push('Sin fortaleza residual');
+        if (flow.length !== 2 || new Set(flow.map(f => f.minute)).size !== 2 || flow.some(f => !f.covered) || trades < p.minFlowTrades || coverage < p.minClassifiedFraction || imbalance < p.minFlowImbalance)
+            reasons.push('Flujo comprador no confirmado');
+        if (spread > p.maxSpreadBps)
+            reasons.push('Spread ASTRA excesivo');
+        if (s.quote.ask <= high || s.quote.ask > high + p.maxChaseAtr * atr)
+            reasons.push('Fuera de la entrada limitada');
+        const costs = s.quote.ask * (spread + 2 * s.slippageBps) / 10000, room = Math.min(move, 2 * atr);
+        out.metrics.roundtrip_cost = costs;
+        out.metrics.observed_room = room;
+        if (room < p.costMultiple * costs)
+            reasons.push('Recorrido observado insuficiente para costes; no es expectativa estimada');
+        if (p.optionsRequired) {
+            const o = s.options;
+            if (!o?.valid || o.feed !== 'opra' || o.proxy || o.underlying !== s.symbol || !Number.isFinite(o.asof) || now - o.asof > 60000 || o.asof > now || !Number.isFinite(o.quote_at) || now - o.quote_at > 60000 || o.quote_at > now || !(typeof o.iv_rv === 'number' && o.iv_rv > 0 && o.iv_rv <= p.maxIvRatio) || !(typeof o.skew25 === 'number' && Number.isFinite(o.skew25) && o.skew25 <= p.maxPutSkew) || !(typeof o.term_slope === 'number' && Number.isFinite(o.term_slope)) || !(typeof o.expiry_at === 'number' && o.expiry_at - now >= p.holdHours * 3600000))
+                reasons.push('Contexto OPRA incompleto, vencido o fuera de límites');
+        }
+        out.ready = reasons.length === 0;
+        return out;
+    }
+    HAstra.evaluate = evaluate;
+    function levels(row, slippage, p) { const cap = row.astra?.trigger && row.astra.metrics.atr ? Math.floor((row.astra.trigger + p.maxChaseAtr * row.astra.metrics.atr) * 100) / 100 : Infinity, entry = Math.min(cap, Math.ceil(row.ask * (1 + slippage / 10000) * 100) / 100), raw = row.astra?.stop, stop = Math.floor(Math.min(raw && raw > 0 ? raw : row.bid * .98, row.bid - .02) * 100) / 100, risk = entry - stop; return { trigger: row.astra?.trigger ?? entry, limit: entry, stop, risk_unit: risk, tp1: Math.ceil((entry + p.tpR * risk) / (1 - slippage / 10000) * 100) / 100, tp2: Math.ceil((entry + 4 * risk) / (1 - slippage / 10000) * 100) / 100, trail_distance: p.trailAtr * (row.astra?.metrics.atr || risk) }; }
+    HAstra.levels = levels;
+    function entryReasons(row, now, p) { const a = row.astra; if (!a || now - a.asof > 30000 || a.asof > now)
+        return ['ASTRA: señal ausente o vencida']; const reasons = [...a.reasons]; if (row.ask < 5)
+        reasons.push('PRECIO < 5 USD'); if (!(row.ask > (a.trigger ?? Infinity) && row.ask <= (a.trigger ?? 0) + p.maxChaseAtr * (a.metrics.atr || 0)))
+        reasons.push('ASTRA: precio fuera del límite'); if ((row.ask / row.bid - 1) * 10000 > p.maxSpreadBps)
+        reasons.push('ASTRA: spread cambió'); return reasons; }
+    HAstra.entryReasons = entryReasons;
+    function exit(c, bid, now, p) {
+        if (!Number.isFinite(bid) || bid <= 0)
+            return;
+        const a = c.astraLatest, valid = a && a.asof <= now && now - a.asof <= 30000, atr = valid && a.metrics.atr && a.metrics.atr > 0 ? a.metrics.atr : c.atr;
+        c.peak = Math.max(c.peak, bid);
+        c.virtual_stop = Math.max(c.virtual_stop, c.peak - p.trailAtr * atr);
+        if (c.peak >= c.entry + 2.5 * c.risk_unit)
+            c.virtual_stop = Math.max(c.virtual_stop, c.entry + p.lockFraction * (c.peak - c.entry));
+        if (c.tp1_filled)
+            c.virtual_stop = Math.max(c.virtual_stop, c.entry / (1 - c.exit_cost_bps / 10000));
+        if (bid <= c.virtual_stop)
+            c.closing ||= 'ASTRA · PROTECCIÓN / TRAIL';
+        if (valid && a.metrics.flow_valid === 1 && (a.metrics.classified_fraction ?? 0) >= p.minClassifiedFraction && (a.metrics.flow_trades ?? 0) >= p.minFlowTrades && a.metrics.flow_minute !== null && a.metrics.flow_minute > (c.astraState?.minute ?? 0)) {
+            const minute = a.metrics.flow_minute, weak = (a.metrics.flow_imbalance ?? 0) < -p.minFlowImbalance && (a.metrics.recent_relative_bps ?? Infinity) < 0;
+            const previous = c.astraState;
+            c.astraState = { minute, weak: weak ? (previous && minute - previous.minute === 60000 ? previous.weak + 1 : 1) : 0 };
+            if (c.astraState.weak >= 2)
+                c.closing ||= 'ASTRA · FLUJO Y FORTALEZA AGOTADOS';
+        }
+        if ((c.stagnationMs ?? now - c.peakAt) >= p.stagnationMinutes * 60000 && bid - c.entry < c.risk_unit)
+            c.closing ||= 'ASTRA · SIN CONTINUIDAD';
+    }
+    HAstra.exit = exit;
+    function profile(p) { validate(p); return { name: 'ASTRA 6 · segunda ola' + (p.optionsRequired ? ' · OPRA' : ''), hypothesis: 'Hipótesis experimental sin rentabilidad acreditada.', family: 'canonical_exit', min_rvol: 2, momentum_bps: 20, tp1_r: p.tpR, tp2_r: 4, trail_atr: p.trailAtr, lock_fraction: p.lockFraction, tp1_fraction: p.partialFraction, tp2_fraction: 0, hold_hours: p.holdHours, reentry: false, stagnation_minutes: p.stagnationMinutes, progress_r: 1, selection_filter: 'none', trailing_mode: 'entry_atr', exit_layout: 'single_target', selective: false, prediction_floor: 0, astra: structuredClone(p) }; }
+    HAstra.profile = profile;
+    function manifests() { return ['equity', 'etf'].flatMap(book => [false, true].map(optionsRequired => ({ api: 'harpoon.plugin/1', id: 'astra6-' + book + (optionsRequired ? '-opra' : '-flow'), version: HAstra.VERSION, name: 'ASTRA 6 · segunda ola · ' + (optionsRequired ? 'flujo + OPRA' : 'flujo'), book, family: HAstra.FAMILY, binding: 'fixed', params: { ...HAstra.defaults, optionsRequired } }))); }
+    HAstra.manifests = manifests;
+    /** Bounded quote/trade classifier. Only observed stream data; no reconstructed buyer identity. */
+    class Tape {
+        quotes = new Map();
+        buckets = new Map();
+        seen = new Map();
+        started = new Map();
+        reset() { this.quotes.clear(); this.buckets.clear(); this.seen.clear(); this.started.clear(); }
+        quote(symbol, q) { if (!validQuote(q, q.received))
+            return; const list = this.quotes.get(symbol) || []; if (list.length && q.at <= list.at(-1).at)
+            return; this.quotes.set(symbol, [...list, q].slice(-100)); if (!this.started.has(symbol))
+            this.started.set(symbol, q.received); }
+        trade(r, received) {
+            const at = Date.parse(r.t);
+            if (!Number.isFinite(at) || at > received || received - at > 10000 || !Number.isFinite(r.p) || r.p <= 0 || !Number.isFinite(r.s) || r.s <= 0 || r.i === undefined)
+                return;
+            const key = r.S + ':' + (r.x || '') + ':' + r.i + ':' + r.t;
+            if (this.seen.has(key))
+                return;
+            this.seen.set(key, received);
+            if (this.seen.size > 30000)
+                for (const [k, v] of this.seen)
+                    if (received - v > 180000)
+                        this.seen.delete(k);
+            if (this.seen.size > 60000) {
+                this.reset();
+                return;
+            }
+            const minute = Math.floor(at / 60000) * 60000, buckets = this.buckets.get(r.S) || new Map(), f = buckets.get(minute) || { minute, buy: 0, sell: 0, unknown: 0, trades: 0, covered: (this.started.get(r.S) ?? Infinity) <= minute };
+            const quote = (this.quotes.get(r.S) || []).findLast(q => q.at <= at && at - q.at <= 5000 && q.received <= received);
+            f.trades++;
+            const regular = !(r.c || []).some(c => !['@', 'I'].includes(c));
+            if (regular && quote && r.p >= quote.ask)
+                f.buy += r.s;
+            else if (regular && quote && r.p <= quote.bid)
+                f.sell += r.s;
+            else
+                f.unknown += r.s;
+            buckets.set(minute, f);
+            for (const t of buckets.keys())
+                if (t < minute - 1200000)
+                    buckets.delete(t);
+            this.buckets.set(r.S, buckets);
+        }
+        flow(symbol) { return [...(this.buckets.get(symbol)?.values() || [])].map(f => ({ ...f })); }
+    }
+    HAstra.Tape = Tape;
+})(HAstra || (HAstra = {}));

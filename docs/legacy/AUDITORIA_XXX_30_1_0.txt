@@ -1,0 +1,78 @@
+HARPOON XXX / 30.1.0 — IMPLEMENTACIÓN Y VALIDACIÓN LOCAL
+Fecha: 2026-10-18T06:41:02.648078+00:00
+
+RESULTADO DE IMPLEMENTACIÓN
+Ciclo Ridge conectado: registro, importación/captura, entrenamiento real,
+validación temporal, instalación, persistencia, evaluación y revocación.
+Sin brechas de conexión conocidas en las dos variantes Ridge de XXX.
+Estado de aceptación: STATIC_REVIEW_ONLY_EXTERNAL_VALIDATION_PENDING.
+El código completo no implica un modelo financieramente aceptado ni operación
+acreditada contra Alpaca. No se entrega un modelo de muestra instalado.
+
+NOVEDADES VERIFICADAS
+- 18 contratos core registrados; NOT_RUN hasta ejecutar su comprobación.
+- Contadores reales de validación, ACK SQLite, broker, latencias y errores.
+- CPU, RSS/heap, event loop, uptime y liveness de 19 ciclos independientes.
+- Estados de inicio, espera, mercado cerrado, atraso, atasco y fallo visibles.
+- Guardia de posiciones/take profit con intervalo objetivo de un segundo;
+  investigación en worker y preparación de datasets fuera de autoridad broker.
+- Órdenes pendientes de cancelación o insuficientes no acreditan protección.
+- Errores capturados por posición quedan visibles en la salud agregada.
+- UI de siete espacios, escritorio/móvil, curva sólo de patrimonio observado,
+  TP1/TP2 calculados, stops, órdenes, datos y bitácora.
+- Ante desconexión se retiran badges verdes operativos y se bloquean acciones.
+- Modelos inválidos/expirados se revocan sin detener supervisión de posiciones.
+
+PRUEBAS ACTUALES
+99/99 pruebas XXX, 0 fallos, 0 omitidas.
+22/22 comprobaciones reales de navegador local, 0 excepciones JS.
+Tipado TypeScript estricto y compilación: aprobados (Node 24.19.0, TS 5.9.3).
+Regresiones actuales: base/instalación, agentes, profit/vector, WarRoom,
+opciones, autonomía, optimizador, autenticación y servicio Python, aprobadas.
+El servicio Python ejecutó 73 pruebas; autenticación, 26 comprobaciones.
+Logs: evidence/xxx/tests.txt, browser.json, typecheck.txt, build.txt y regression.json.
+
+La nueva prueba profunda ejecuta el worker real con 384 sesiones y 1.152
+trayectorias sintéticas sin fills: calcula 12 folds y 63 sesiones de holdout,
+rechaza el candidato y no instala ni ejecuta nada. Otra prueba ajusta pesos
+Ridge reales y verifica purga temporal. El camino positivo de instalación usa
+un doble de aceptación interna explícito y aislado para probar persistencia,
+evaluación, reinicio y revocación; no representa aceptación financiera real.
+Los tests cubren cancelación, TP y reprotección para las cuatro clases,
+órdenes inciertas, riesgo, SQLite, reinicios, fallos y flujo de UI/HTTP.
+
+INVENTARIO ESTÁTICO DE RUTAS OPERATIVAS REVISADAS
+Archivos: 45; cuerpos de función: 1472.
+Cuerpos vacíos inexplicados: 0.
+Marcadores de implementación pendiente: 0.
+Importaciones operativas de tests/demos: 0.
+Inventario completo y hashes: evidence/xxx/function-audit.json.
+Auditoría de código estática y QA local; no es certificación independiente
+ni una prueba absoluta de todo camino posible en fuentes históricas.
+
+SIMULACIÓN Y PROCEDENCIA
+El monitor no genera cuentas, precios, curvas, latencias ni fills de muestra.
+Usa resultados del runtime y respuestas del transporte configurado.
+Los dobles de broker y datos sintéticos sólo viven en las pruebas.
+El laboratorio identifica replay/escenarios como estimaciones históricas.
+Alpaca PAPER simula ejecución con dinero virtual. LIVE permanece deshabilitado.
+https://docs.alpaca.markets/us/docs/paper-trading
+
+ALCANCE PENDIENTE
+No se enviaron órdenes externas ni se hicieron llamadas GPT pagadas.
+No se verificaron startup autenticado, permisos/feeds ni fills contra Alpaca.
+No se publicó en GitHub, no se desplegó y no se construyó Docker aquí.
+No se acredita rentabilidad, superioridad mundial ni resultados futuros.
+Ridge requiere evidencia suficiente y holdout prospectivo del servidor.
+Importar un histórico no acredita su origen; un diagnóstico no autoriza instalar.
+Cuatro clases con universo configurable no significa todos los símbolos ni
+spreads/naked options/futuros/forex. Consulta README.md y docs/SELECTOR_DATA.md.
+
+MICROBENCHMARK
+20000 decisiones de salida puras; p95 0.000501 ms.
+Excluye red, broker, SQLite, UI y runtime completo; no garantiza latencia ni beneficio.
+
+INTEGRIDAD Y REPRODUCCIÓN
+MANIFEST_XXX.json y SHA256SUMS_XXX.txt cubren los archivos distribuidos.
+SHA256_XXX.txt externo identifica ZIP y auditoría. Los hashes históricos se
+conservan como trazabilidad; los vigentes están en la raíz de la entrega.

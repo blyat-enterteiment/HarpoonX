@@ -1,0 +1,74 @@
+{
+  "scope": "SYNTHETIC_ENGINEERING_ONLY",
+  "baseline_application": "30.12.2",
+  "target_application": "30.13.0",
+  "source": "xxx/coordinator.ts",
+  "findings": [
+    {
+      "id": "CORE5-RUNTIME-01",
+      "mechanism": "adoptLegs overwrote terminal OCO child with delayed nonterminal status at unchanged cumulative fill; protectionSnapshot could report canceled protection as covered.",
+      "remediation": "Preserve terminal state for unchanged fills; retain larger cumulative fills for reconciliation.",
+      "tests": "Native leg unit cases and full reconcile case."
+    },
+    {
+      "id": "CORE5-RUNTIME-02",
+      "mechanism": "manage skipped MARKET_CLOSED campaigns before managePosition could cancel a partially filled pending entry.",
+      "remediation": "Permit only pending-entry management branch for a fresh, owned MARKET_CLOSED evaluation; branch cancels then returns before every sell/protection path.",
+      "tests": "Closed-session cancellation, bounded retry, reopen protection, late fill and stale/uncertain ownership rejection."
+    }
+  ],
+  "baseline_tests": {
+    "tests": 13,
+    "pass": 4,
+    "fail": 9,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "corrected_tests": {
+    "tests": 13,
+    "pass": 13,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "regression_tests": {
+    "tests": 53,
+    "pass": 53,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typescript_build_exit_code": 0,
+  "new_cases": 13,
+  "existing_cases_reexecuted": 53,
+  "commands": {
+    "build": "node node_modules/typescript/bin/tsc -p tsconfig.xxx.json",
+    "new_cases": "node --no-use-env-proxy --test --test-isolation=none --test-reporter=tap tools/core5_runtime_test.cjs",
+    "regression": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-reporter=tap tools/xxx_operational_test.cjs tools/xxx_tp32_test.cjs tools/xxx_partial_entry_risk_test.cjs"
+  },
+  "files": {
+    "xxx/coordinator.ts": "718834333f7fc29f9c564168ccb3486414ce404e4f6b152d52b32999726be249",
+    "runtime30/coordinator.js": "543d3cc38361101f7971975c170720383c759e74c89862e02053bc66772f3ff5",
+    "tools/core5_runtime_test.cjs": "af067bc4a06a12302fcc193e0b72dd705780d820c1a5e9f03b85bd947da19430"
+  },
+  "logs": {
+    "runtime_initial_after.log": "eb8a808d41c7345f741df0bcca83ab2d8c3d7d7612d9377928530167258d15f9",
+    "baseline_initial13.log": "c2f61d53ca06ca7535e4aacc581cafcac9e25f35f2fead082f3095ce6c6cbd50",
+    "targeted_regression.log": "874e7355798a0e5f29c4a6842920e1133d1ab383afe6264d56ec1865190a5a78",
+    "runtime_after.log": "446a313102567ace903ebb64993fdb8d626afaae8a0956e750e73f122dd9a5ed",
+    "runtime_build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime_before.log": "4c774945391c7926ddf9baef5ca9641d10df922fb1932505c3720eb000e15f15",
+    "runtime_before_no_isolation.log": "9310e13268d1e2c4ec3a93f2b6a70ba04f66795b882b8f1025e1dadfa83c19ec",
+    "baseline_full13.log": "d78e9a38f98c2b58124c65e7a8f4a82249dcaa3282879fe78443f3ff35fdcf0a"
+  },
+  "limitations": [
+    "All broker events are synthetic in-memory fixtures; no market/account or real latency evidence.",
+    "Cancel request does not establish cancellation; syncAt invalidated and ownership must be reconciled.",
+    "No outside-session sales/protection order activation, risk expansion, model promotion, deployment or external order.",
+    "Initial process-isolated runner returned generic test-process failure; non-isolated runner executed every test with explicit counts.",
+    "Initial full-reconcile fixture shared a nested object and did not inject stale status; corrected fixture and both historical outputs retained."
+  ],
+  "financial_profitability_demonstrated": false,
+  "execution_authority_expanded": false,
+  "deployment_executed": false
+}

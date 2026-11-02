@@ -1,0 +1,199 @@
+{
+  "application": "30.12.2",
+  "quant": "1.8.0",
+  "passed": true,
+  "distinct_functional_cases_executed": 64,
+  "new_functional_cases": 34,
+  "previous_919_cases_rerun_in_full": false,
+  "historical_full_validation": {
+    "application": "30.12.1",
+    "cases": 919,
+    "path": "evidence/integral_30_12_1/review/final_regression/all_summary.json"
+  },
+  "checks": [
+    {
+      "name": "causal_configuration_regression",
+      "tests": 16,
+      "passed": true,
+      "log": "causal_fix/level4_readiness_test.log",
+      "log_sha256": "7dbd495196a10b3c645a83b08e18cb801de96c954b6d385c9d8e851053a2f13b"
+    },
+    {
+      "name": "runtime_evidence_collection",
+      "tests": 29,
+      "passed": true,
+      "log": "collector/tests.log",
+      "log_sha256": "ca165941447870a65d3974e4e64d7660d274f7f9f6ca34a0c0975431fc5fdadc"
+    },
+    {
+      "name": "level5_readiness_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test-reporter=tap",
+        "tools/level5_readiness_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2",
+      "exit_code": 0,
+      "duration_seconds": 62.35183708299883,
+      "log": "parent_checks/level5_readiness_test.log",
+      "log_sha256": "0d288737bee7d0c3d171526a0a0944da4b6f72a64ffe7e8c3c32356bcb89ac7f",
+      "tests": 9,
+      "pass": 9,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "integral_distribution_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/integral_distribution_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2",
+      "exit_code": 0,
+      "duration_seconds": 10.047470140001678,
+      "log": "parent_checks/integral_distribution_test.log",
+      "log_sha256": "34103bf33d68c10e356fe0cf650f678c585801595192d8520bcdd3b727988d02",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "runner_ruff",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "tools/verify_remediation.py"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2",
+      "exit_code": 0,
+      "duration_seconds": 0.03233763699972769,
+      "log": "parent_checks/runner_ruff.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "passed": true
+    },
+    {
+      "name": "js_types",
+      "command": "node node_modules/typescript/bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node tools/collect_runtime_evidence.cjs",
+      "exit_code": 0,
+      "log": "collector/checkjs.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "collector_syntax",
+      "command": "node --check tools/collect_runtime_evidence.cjs",
+      "exit_code": 0,
+      "log": "collector/syntax_collector.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "test_syntax",
+      "command": "node --check tools/collect_runtime_evidence_test.cjs",
+      "exit_code": 0,
+      "log": "collector/syntax_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "help",
+      "command": "node tools/collect_runtime_evidence.cjs --help",
+      "exit_code": 0,
+      "log": "collector/help.log",
+      "log_sha256": "2566535ca8bc65ea7b81b7cfac21b9a9034577d94a1466bee2f1058ac75299b5",
+      "passed": true
+    },
+    {
+      "name": "causal_syntax_level4_readiness",
+      "log": "causal_fix/syntax_level4_readiness.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "causal_syntax_level4_readiness_test",
+      "log": "causal_fix/syntax_level4_readiness_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "typescript_build_and_type_verification",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.xxx.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log": "reproduction_logs/build.log"
+    }
+  ],
+  "reproduction": {
+    "passed": true,
+    "steps": 15,
+    "expected_missing_economic_inputs": true
+  },
+  "benchmark": {
+    "nature": "SYNTHETIC_ENGINEERING_ONLY",
+    "samples": 1,
+    "transport": "LOCAL_LOOPBACK_HTTP",
+    "duration_ms": 38.437394,
+    "requests": 9,
+    "network_bytes_seen": 19020,
+    "artifact_bytes": 30092,
+    "observation_frames": 3,
+    "ledger_observations": 3,
+    "node_version": "v24.22.1",
+    "platform": "linux",
+    "node_process_rss_bytes": 58376192,
+    "source_account": "SYNTHETIC-COLLECTOR-ACCOUNT",
+    "broker_calls_during_collection": 0,
+    "limitations": [
+      "One local synthetic sample; no latency percentile or production improvement is inferred.",
+      "RSS includes test/runtime modules; it is not isolated collector memory.",
+      "No financial performance conclusion."
+    ]
+  },
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "node": "v24.22.1",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "docker_build_executed": false,
+    "browser_visual_validation_executed": false
+  },
+  "source_hashes_bound": true,
+  "initial_runs_retained": true,
+  "distribution_launch_restriction": {
+    "initial_error": "EPERM despite status0 for nested spawnSync in restricted environment",
+    "remedy": "Assert result.error absent and signal null; rerun with approved subprocess permission, retaining all content checks",
+    "diagnostic": "collector/help_spawn_diagnostic.json"
+  },
+  "model_fits": 0,
+  "financial_trials": 0,
+  "external_orders": 0,
+  "external_observed_collection": false,
+  "financial_performance_demonstrated": false,
+  "economic_evidence_score": 3,
+  "real_performance_score": null
+}

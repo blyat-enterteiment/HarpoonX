@@ -1,0 +1,80 @@
+{
+  "schema": "HARPOON_NET_CONTINUITY_BENCHMARK_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "external_requests": 0,
+  "financial_trials": 0,
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "host_logical_cpus": 9,
+    "memory": {
+      "rss": 212672512,
+      "heapTotal": 150638592,
+      "heapUsed": 53599016,
+      "external": 2099143,
+      "arrayBuffers": 143695
+    }
+  },
+  "workload": {
+    "observations": 1001,
+    "positions_per_observation": 1,
+    "activities": 0,
+    "declared_expenses": 0,
+    "explicit_synthetic_cost_coverage": true,
+    "active_observation_bound": 250,
+    "archive_segments": 4,
+    "archived_observations": 1000,
+    "active_observations": 1,
+    "reserved_archive_bytes": 1208249
+  },
+  "refresh_before_first_rollover": {
+    "samples": 250,
+    "p50_ms": 14.036661999999978,
+    "p95_ms": 26.053001000000222,
+    "p99_ms": 29.190008999999918,
+    "min_ms": 1.450449000000006,
+    "max_ms": 29.795040999999856,
+    "tail_quantile_limitation": null
+  },
+  "rollover": {
+    "samples": 4,
+    "p50_ms": 20.94286700000157,
+    "p95_ms": null,
+    "p99_ms": null,
+    "min_ms": 19.86126400000103,
+    "max_ms": 35.42462400000022,
+    "tail_quantile_limitation": "INSUFFICIENT_SAMPLES_FOR_REPORTED_P99"
+  },
+  "refresh_after_first_rollover": {
+    "samples": 747,
+    "p50_ms": 11.466660000000047,
+    "p95_ms": 32.50009200000022,
+    "p99_ms": 36.265863000000536,
+    "min_ms": 0.7613380000002508,
+    "max_ms": 38.218479000000116,
+    "tail_quantile_limitation": null
+  },
+  "full_export": {
+    "pages": 2,
+    "records": 1006,
+    "elapsed_ms": 45.931768000000375
+  },
+  "offline_integrity_and_accounting_verification": {
+    "observations": 1001,
+    "elapsed_ms": 51.62299399999938,
+    "verified": true
+  },
+  "performance_materialization": {
+    "returns": 1000,
+    "elapsed_ms": 49.4658500000005,
+    "bytes": 1219072
+  },
+  "limitations": [
+    "In-memory Store and synthetic GET responses; no broker latency or production capacity inference.",
+    "Archive quota is finite; totals do not imply indefinite autonomy.",
+    "Zero costs are an explicit synthetic fixture declaration, not missing actual costs imputed to zero.",
+    "No comparison of investment strategies or evidence of profitability."
+  ]
+}

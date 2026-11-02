@@ -1,0 +1,66 @@
+{
+  "timestamp_utc": "2026-11-01T03:26:57.599Z",
+  "scope": "Directed storage transport verification; no full regression or external execution",
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "0ee743",
+        "wall_time_seconds": 1.834914397,
+        "exit_code": 0,
+        "original_token_count": 883,
+        "output": "TAP version 13\n# Subtest: storage validates its RPC deadline bounds\nok 1 - storage validates its RPC deadline bounds\n  ---\n  duration_ms: 2.327832\n  type: 'test'\n  ...\n# Subtest: startup is not READY until the real SQLite ping is acknowledged; concurrent opens share one child\nok 2 - startup is not READY until the real SQLite ping is acknowledged; concurrent opens share one child\n  ---\n  duration_ms: 39.348465\n  type: 'test'\n  ...\n# Subtest: spawn failure rejects startup and remains failed without automatic reopen\nok 3 - spawn failure rejects startup and remains failed without automatic reopen\n  ---\n  duration_ms: 3.240669\n  type: 'test'\n  ...\n# Subtest: a suspended SQLite child reaches a deadline, releases pending RPCs and never retries\nok 4 - a suspended SQLite child reaches a deadline, releases pending RPCs and never retries\n  ---\n  duration_ms: 180.361466\n  type: 'test'\n  ...\n# Subtest: a committed CAS with a lost ACK is uncertain and atomic never replays it\nok 5 - a committed CAS with a lost ACK is uncertain and atomic never replays it\n  ---\n  duration_ms: 339.873247\n  type: 'test'\n  ...\n# Subtest: incomplete, null, false and contradictory mutation ACKs cannot acknowledge a durable commit\nok 6 - incomplete, null, false and contradictory mutation ACKs cannot acknowledge a durable commit\n  ---\n  duration_ms: 234.181637\n  type: 'test'\n  ...\n# Subtest: a valid ACK delivered after the monotonic deadline is rejected before the overdue timer can run\nok 7 - a valid ACK delivered after the monotonic deadline is rejected before the overdue timer can run\n  ---\n  duration_ms: 311.287999\n  type: 'test'\n  ...\n# Subtest: backpressure caps the pending RPC count and a read-only backlog does not invent uncertain writes\nok 8 - backpressure caps the pending RPC count and a read-only backlog does not invent uncertain writes\n  ---\n  duration_ms: 84.846748\n  type: 'test'\n  ...\n# Subtest: child death rejects a pending mutation and latches its uncertain status\nok 9 - child death rejects a pending mutation and latches its uncertain status\n  ---\n  duration_ms: 32.886116\n  type: 'test'\n  ...\n# Subtest: close with an unacknowledged mutation preserves uncertainty and terminates a stopped child within its bound\nok 10 - close with an unacknowledged mutation preserves uncertainty and terminates a stopped child within its bound\n  ---\n  duration_ms: 179.128315\n  type: 'test'\n  ...\n# Subtest: closing an unopened or already closed store is safe and never advertises READY\nok 11 - closing an unopened or already closed store is safe and never advertises READY\n  ---\n  duration_ms: 0.521356\n  type: 'test'\n  ...\n# Subtest: batch, get, paginated scan, scanAfter, CAS and cross-process leases retain their existing contracts\nok 12 - batch, get, paginated scan, scanAfter, CAS and cross-process leases retain their existing contracts\n  ---\n  duration_ms: 90.034044\n  type: 'test'\n  ...\n# Subtest: 16 MiB values still round-trip; deadline hardening does not impose a smaller IPC byte limit\nok 13 - 16 MiB values still round-trip; deadline hardening does not impose a smaller IPC byte limit\n  ---\n  duration_ms: 305.11004\n  type: 'test'\n  ...\n# Subtest: local serialization errors and acknowledged operation errors do not become uncertain transport writes\nok 14 - local serialization errors and acknowledged operation errors do not become uncertain transport writes\n  ---\n  duration_ms: 38.549941\n  type: 'test'\n  ...\n1..14\n# tests 14\n# suites 0\n# pass 14\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1875.307573\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "f5de82",
+        "wall_time_seconds": 0.769682234,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "fccc3a",
+        "wall_time_seconds": 0.000046295,
+        "exit_code": 0,
+        "original_token_count": 5,
+        "output": "All checks passed!\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "d4d8ed",
+        "wall_time_seconds": 0.812887258,
+        "exit_code": 0,
+        "original_token_count": 11,
+        "output": "Success: no issues found in 1 source file\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "448759",
+        "wall_time_seconds": 0.000026272,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "afc557",
+        "wall_time_seconds": 0.000030365,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "release": "Harpoon Quant 1.1.0 / XXXUltimate 30.5.0",
+  "date": "2026-10-29",
+  "previous_archive_sha256": "fe49651a23e2d2eeb3b3c8db2fe8b2e228275727fb966be3ae1ad478f1a98d7c",
+  "tests": {
+    "python": 87,
+    "coordinator_regression": 144,
+    "integration_bridge": 12,
+    "distinct_total": 243,
+    "failed": 0,
+    "skipped": 0,
+    "note": "TP32 assertions and prior operational logs overlap with the coordinator suite; not counted twice."
+  },
+  "cli_flows": {
+    "count": 6,
+    "status": "PASS",
+    "calibration_source": "SYNTHETIC_ENGINEERING_ONLY",
+    "observed_flows": [
+      "micro",
+      "curves"
+    ]
+  },
+  "build": "PASS",
+  "typescript_strict": "PASS",
+  "ruff": "PASS",
+  "mypy": "PASS_12_FILES",
+  "python_311_syntax": "PASS_NOT_RUNTIME_TEST",
+  "observed": {
+    "provider": "ALPACA_CONNECTOR",
+    "feed": "sip",
+    "regular_session_bars": 2496,
+    "symbols": [
+      "AAPL",
+      "NVDA",
+      "SPY",
+      "IWM"
+    ],
+    "sessions": 8,
+    "l1_events_raw": 888,
+    "l1_window_seconds": 2,
+    "curve_dimension": 126,
+    "stored_snapshots": 7,
+    "clock": "EVENT_TIME_REPLAY",
+    "historical_live_neighbors": 0,
+    "pagination": "Connector tokens not exposed; final per-symbol requests below limit; completeness not independently established."
+  },
+  "benchmark": {
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0",
+    "microstructure": {
+      "assets": 48,
+      "quote_events_each": 301,
+      "seconds": [
+        0.3415662649967999,
+        0.3201246899989201,
+        0.31830897699910565
+      ],
+      "median_seconds": 0.3201246899989201
+    },
+    "curves": {
+      "assets": 12,
+      "bars_each": 300,
+      "vector_dimension": 660,
+      "seconds": [
+        0.3991226629987068,
+        0.3410059080015344,
+        0.3590048519981792
+      ],
+      "median_seconds": 0.3590048519981792
+    },
+    "scope": "CPU only, three runs; excludes API/network, worker cold start, database I/O and fills. No profit or latency guarantee."
+  },
+  "external": {
+    "market_data_retrieval": "EXECUTED",
+    "observed_support_training": "INSUFFICIENT_DATA_NOT_RUN",
+    "authenticated_trading_account": "NOT_RUN",
+    "broker_orders": 0,
+    "docker_build": "NOT_RUN",
+    "deployment": "NOT_RUN",
+    "financial_edge": "NOT_DEMONSTRATED"
+  },
+  "safety_contracts": [
+    "Observed and synthetic data segregated",
+    "Live receipts and event replay segregated",
+    "No future neighbor retrieval",
+    "Schema/feed/universe/sampling/asset-scope binding",
+    "Additional modeled cost never decreases baseline friction",
+    "Model and source observation expiry",
+    "No pickle deserialization",
+    "Exits independent of calibration and research",
+    "No automated model fitting or promotion",
+    "Per-domain support bundle selection; unmatched domains remain explicitly uncalibrated"
+  ],
+  "limits": [
+    "L1 samples are not full depth or complete tape",
+    "OFI and trade side are proxies",
+    "Correlation confidence approximations are descriptive with no surface-wide family correction",
+    "Regime novelty is not directional alpha",
+    "Cost buffer has no coverage guarantee under drift",
+    "No observed 1-3 day execution cost labels in this sample",
+    "Futures microstructure requires external data adapter"
+  ]
+}

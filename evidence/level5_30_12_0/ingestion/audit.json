@@ -1,0 +1,222 @@
+{
+  "schema": "HARPOON_LEVEL5_INGESTION_AUDIT_1",
+  "fecha_revision_utc": "2026-11-01T01:53:04.050115+00:00",
+  "base_congelada": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+  "implementacion_revisada": "/workspace/scratch/4ecb05fdc50d/level5_work/HARPOON_XXXUltimate_30_12_0",
+  "alcance": "Captura, exportación estable, ingestión causal acotada y contratos hacia validación; sin broker, entrenamiento, investigación financiera ni promoción.",
+  "naturaleza": "HECHOS_DE_CODIGO_Y_PRUEBAS_SINTETICAS_DE_INGENIERIA",
+  "auditoria_independiente_externa": false,
+  "tabla_tecnica": [
+    {
+      "variable": "intervalo_captura_configurado",
+      "unidad": "ms",
+      "valor": 60000,
+      "clase": "HECHO_DE_CONFIGURACION",
+      "valor_observado": null,
+      "causa_null": "No se midió un runtime del usuario.",
+      "fuente": "config/examples/xxx.json / xxx/scheduler.ts"
+    },
+    {
+      "variable": "simbolos_por_captura",
+      "unidad": "simbolos",
+      "valor": 12,
+      "clase": "HECHO_DE_CONFIGURACION",
+      "valor_observado": null,
+      "fuente": "config/examples/xxx.json"
+    },
+    {
+      "variable": "limite_de_universo_descubrimiento",
+      "unidad": "simbolos",
+      "valor": 40,
+      "clase": "HECHO_DE_CONFIGURACION",
+      "valor_observado": null,
+      "fuente": "config/examples/xxx.json"
+    },
+    {
+      "variable": "ciclo_nominal_12_de_40",
+      "unidad": "capturas",
+      "valor": 4,
+      "clase": "ESTIMACION_CONDICIONAL",
+      "supuestos": "40 símbolos registrados; 12 por captura; no fallos, retrasos ni cambios de universo.",
+      "periodo_observado": null
+    },
+    {
+      "variable": "latencia_captura_a_decision_p50_p95_p99",
+      "unidad": "ms",
+      "valor_observado": null,
+      "causa_null": "Sin trazas de tiempos de producción."
+    },
+    {
+      "variable": "profundidad_ejecutable",
+      "unidad": "unidades_y_USD",
+      "valor_observado": null,
+      "causa_null": "El journal conserva sampled_execution_depth=null; no se infiere de cotizaciones."
+    },
+    {
+      "variable": "retencion_real_en_sesiones",
+      "unidad": "sesiones",
+      "valor_observado": null,
+      "causa_null": "Sin distribución observada de tamaño comprimido, cadencia efectiva o actividad."
+    },
+    {
+      "variable": "coste_economico_incremental",
+      "unidad": "USD",
+      "valor_observado": null,
+      "causa_null": "No se aportaron recibos de infraestructura/datos/inferencia para este periodo."
+    }
+  ],
+  "hallazgos_y_remediaciones_priorizadas": [
+    {
+      "prioridad": 1,
+      "id": "EXPORTACION_VIVA_SIN_CABECERA_FIJA",
+      "hallazgo": "En 30.11.0 la página inicial y la siguiente podían tener distinto head/total si capture avanzaba; causal_panel exige identidad común.",
+      "mecanismo": "exportFrames consulta this.index vivo después de await; no había token de snapshot persistente.",
+      "estado": "IMPLEMENTADO_Y_VERIFICADO_EN_SOFTWARE",
+      "remediacion": "snapshotExport/exportSnapshot fija un prefijo confirmado, persiste hasta 2 descriptores, verifica cuenta/head/indexhash/chain y devuelve páginas sensibles a bytes. Reutiliza autenticación existente. No hay nueva agenda.",
+      "pruebas": [
+        "captura y rollover entre páginas",
+        "reinicio y reutilización de caché",
+        "token evictado no cambia de cabeza",
+        "alteración de cuenta/frame",
+        "cuota de 512 MiB incluye metadata",
+        "ACK perdido conserva reserva",
+        "callback progresa durante scan",
+        "HTTP autenticado sin broker"
+      ],
+      "fuentes": [
+        "xxx/quant_observations.ts",
+        "xxx/server.ts",
+        "tools/quant_observation_snapshot_test.cjs"
+      ]
+    },
+    {
+      "prioridad": 2,
+      "id": "CONTRATO_DE_PANEL_INCOMPATIBLE_CON_CAPTURA_LARGA_Y_ROTACION",
+      "hallazgo": "La ruta legacy limita el histórico completo a20.000 frames y a una config idéntica; la captura continua cada 60 s y la rotación discovery del universo chocan con la necesidad de100 sesiones del SVR.",
+      "mecanismo": "La unidad de límite era todo el histórico bruto; cualquier config.universe nueva invalidaba la exportación completa.",
+      "estado": "IMPLEMENTADO_ACOTADO_SIN_GARANTIA_DE_RETENCION",
+      "remediacion": "Un manifest fija todo el prefijo GENESIS→head y su selección. Ingestión página a página de hasta 51.200 frames y 512 páginas con fuentes de 128 MiB; quotes maduran en SQLite temporal de 128 MiB. Sólo universe puede variar causalmente; cambios de señal o de semántica del activo bloquean. No se aumenta cuota de 512 MiB ni se borra bruto.",
+      "pruebas": [
+        "20.001 frames sintéticos sin crear etiquetas",
+        "paridad exacta de panel con legacy",
+        "hueco en páginas aunque se vuelva a firmar",
+        "selección cambiada",
+        "universo conocido frente a descubrimiento futuro",
+        "cambio de book/factor/unidades bloquea globalmente",
+        "limpieza de SQLite éxito/fallo"
+      ],
+      "limitaciones": [
+        "51.200 frames y 128 MiB siguen siendo límites de la ruta; no equivalen a100 sesiones reales.",
+        "100 sesiones no están garantizadas en un runtime 24/7 con captura nominal de 60 s.",
+        "La rejilla acepta un primer frame por activo/sesión y no acredita continuidad de la ventana de 90 min.",
+        "POSTCLOSE_90 se etiqueta en captura pero el panel sigue limitado a sesión regular.",
+        "La comparación financiada legacy conserva su contrato de config constante por página."
+      ],
+      "fuentes": [
+        "quant/harpoon_quant/causal_panel.py",
+        "quant/harpoon_quant/scalar_svr.py",
+        "runtime/discovery.cjs",
+        "tools/export_observation_snapshot.cjs",
+        "quant/tests/test_observation_stream.py"
+      ]
+    },
+    {
+      "prioridad": 3,
+      "id": "OBSERVACIONES_NO_SON_CURVAS_FINANCIADAS",
+      "hallazgo": "observation_replay_input emite market/sessions/evaluate con executable_qty=0; no produce entradas/fills ni curva económica control/Ridge/SVR.",
+      "estado": "LIMITACION_REAL_CONSERVADA",
+      "remediacion": "El único puente añadido termina en export/manifest/panel verificable. Las siguientes etapas permanecen bloqueadas hasta disponer de modelos originales fijos, ledger y costes documentados, hipótesis de ejecución prerregistrada y evidencia causal compatible.",
+      "recursos_exactos": [
+        "HARPOON_OBSERVATION_EXPORT_1 original y completo de la cuenta vinculada.",
+        "Bytes JSON originales de RIDGE y SVR con data_hash, feature_names, horizon y available_at anteriores a decisiones.",
+        "HARPOON_NET_HISTORY_PAGE_1 completo con expected_integrity y recibos de /v2/account, /v2/positions y /v2/account/activities verificados por NetAccountLedger.",
+        "Cobertura documentada de costes externos y devengos del broker para todo el periodo comparado.",
+        "HARPOON_FUNDED_COMPARISON_REQUEST_1 con eventos entries y un modelo de ejecución explícito; cotización no acredita fill."
+      ],
+      "datos_disponibles_en_esta_auditoria": null,
+      "causa_null": "Auditoría de código offline; no se atribuye acceso a cuenta, recibos originales ni modelos desplegados.",
+      "fuentes": [
+        "tools/observation_replay_input.cjs",
+        "tools/funded_comparison.cjs",
+        "tools/level4_readiness.cjs",
+        "xxx/net_accounting.ts"
+      ]
+    }
+  ],
+  "limites_verificados_en_codigo": {
+    "snapshot_tokens": 2,
+    "snapshot_registry_max_bytes": 16777216,
+    "runtime_observation_default_bytes": 536870912,
+    "stream_source_total_bytes": 134217728,
+    "source_page_max_bytes": 33554432,
+    "stream_pages": 512,
+    "stream_frames": 51200,
+    "temporary_sqlite_bytes": 134217728,
+    "selected_rows": 5000,
+    "rejection_examples": 1000,
+    "cooperative_index_yield_every_records": 512
+  },
+  "validacion": {
+    "compilacion_typescript": "PASS",
+    "tests_snapshot_nuevos": 9,
+    "tests_stream_nuevos": 9,
+    "regresion_archive_existente": 13,
+    "regresion_causal_existente": 19,
+    "total_en_alcance": 50,
+    "naturaleza": "PRUEBAS_SINTETICAS_DE_SOFTWARE",
+    "rentabilidad_demostrada": null,
+    "latencia_produccion_demostrada": null
+  },
+  "ensayos_financieros_nuevos": 0,
+  "entrenamientos_nuevos": 0,
+  "ordenes_externas": 0,
+  "agenda_runtime_nueva": false,
+  "score_economico_ascendido_por_esta_auditoria": false,
+  "dictamen": "VENTAJA_NO_DEMOSTRADA",
+  "fuentes_y_diffs": {
+    "xxx/quant_observations.ts": {
+      "base_sha256": "badc912138ece1d0c5932d8f476185d8bce7c4c7c2cf7cc84bcd191ae48fb8c6",
+      "nuevo_sha256": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c"
+    },
+    "xxx/server.ts": {
+      "base_sha256": "d648fc0c7a42fadf53d728d8198b1d3f36591a0dcb613402e864a932655a8f5a",
+      "nuevo_sha256": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7"
+    },
+    "runtime30/quant_observations.js": {
+      "base_sha256": "984e2c30873240d401d098f58100414db78748e80d6a02997c55c74650982b0a",
+      "nuevo_sha256": "8674e9e39fddd9e59072fc472f2a29fb882ab05244c32b0921ac6a7155bc6e21"
+    },
+    "runtime30/server.js": {
+      "base_sha256": "0f20c22982a3aaa8438cd4a091e4d27216762a8bb3781217e06dbece6c0bb0a5",
+      "nuevo_sha256": "2234f96ea13cc72aff1e981241438f2d5ad8d652211fce7bf048edc843d42ebb"
+    },
+    "quant/harpoon_quant/causal_panel.py": {
+      "base_sha256": "86dc95479f5dd15ac1f47205610020d93d7ffbbeade514367ebbdfb9fc4637a7",
+      "nuevo_sha256": "70f846d68d570c41925c8239d139817056c42d2b15cfe4d76aa5b2398169eb7a"
+    },
+    "tools/export_observation_snapshot.cjs": {
+      "base_sha256": null,
+      "nuevo_sha256": "33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a"
+    },
+    "tools/quant_observation_snapshot_test.cjs": {
+      "base_sha256": null,
+      "nuevo_sha256": "07e4f9f2acfdb197ca104cd43a83d9abe200bb257f67b7e7769efc408eae9465"
+    },
+    "quant/tests/test_observation_stream.py": {
+      "base_sha256": null,
+      "nuevo_sha256": "7c1bf056e46564ca94b5bccbbdce1d19a4163a992ef76832e80a3e2cdc1bb5d6"
+    },
+    "tools/OBSERVATION_SNAPSHOT_CONTRACT.txt": {
+      "base_sha256": null,
+      "nuevo_sha256": "1101d9cf3e2f3b433c3a7c438c2adb149079c727323d67fbc37a38bf06363f48"
+    }
+  },
+  "artefactos": [
+    "snapshot_tests.log",
+    "archive_regression.log",
+    "causal_panel_regression.log",
+    "stream_tests.log",
+    "ingestion.patch",
+    "reproduction_results.json"
+  ]
+}

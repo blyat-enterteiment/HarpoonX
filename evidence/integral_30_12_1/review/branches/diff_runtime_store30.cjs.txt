@@ -1,0 +1,98 @@
+--- 30.12/runtime/store30.cjs
++++ 31.4/runtime/store30.cjs
+@@ -5,8 +5,14 @@
+   { createInterface } = require("node:readline"),
+   { randomUUID } = require("node:crypto");
+ class DurableStore {
+-  constructor(database) {
++  constructor(database, options = {}) {
+     this.database = database;
++    this.timeoutMs = Number(options.timeoutMs ?? process.env.HARPOON_STORAGE_TIMEOUT_MS ?? 2000);
++    if (!Number.isInteger(this.timeoutMs) || this.timeoutMs < 50 || this.timeoutMs > 5000) throw Error("Storage timeout must be 50..5000ms");
++    this.failed = "";
++    this.closing = false;
++    this.lastSuccess = 0;
++    this.uncertainWrite = false;
+     this.pending = new Map();
+     this.seq = 0;
+     this.owner = randomUUID();
+@@ -28,31 +34,49 @@
+       const p = this.pending.get(msg.id);
+       if (p) {
+         this.pending.delete(msg.id);
++        clearTimeout(p.timer);
++        this.lastSuccess = Date.now();
+         msg.error ? p.reject(Error(msg.error)) : p.resolve(msg.result);
+       }
+     });
++    this.process.on("error", (e) => this.fail("Storage process error: " + e.message));
++    this.process.stdin.on("error", (e) => this.fail("Storage input error: " + e.message));
+     this.process.on("exit", () => {
+-      for (const p of this.pending.values())
+-        p.reject(Error("Storage process exited"));
+-      this.pending.clear();
++      if (!this.closing || this.pending.size) this.fail("Storage process exited");
+     });
++    await this.rpc({op:"ping"});
+     return this;
+   }
++  fail(message) {
++    if (!this.failed) this.failed = message;
++    for (const p of this.pending.values()) {
++      clearTimeout(p.timer);
++      if (p.mutation) this.uncertainWrite = true;
++      p.reject(Error(this.failed));
++    }
++    this.pending.clear();
++    // Timeout does not authorize replay: a write may have committed before losing its ACK.
++    if (this.process && !this.closing) this.process.kill("SIGKILL");
++  }
+   rpc(data) {
++    if (this.failed || this.closing || !this.process)
++      return Promise.reject(Error(this.failed || "Storage not open"));
++    if (this.pending.size >= 2048) {
++      this.fail("Storage backlog limit exceeded");
++      return Promise.reject(Error(this.failed));
++    }
+     return new Promise((resolve, reject) => {
+       const id = ++this.seq;
+-      this.pending.set(id, { resolve, reject });
+-      this.process.stdin.write(
+-        JSON.stringify({ id, ...data }) + "\n",
+-        (error) => {
+-          if (error) {
+-            this.pending.delete(id);
+-            reject(error);
+-          }
+-        },
+-      );
++      const timer = setTimeout(() => this.fail("Storage RPC deadline exceeded; reconciliation required"), this.timeoutMs);
++      this.pending.set(id, {resolve, reject, timer, mutation: !["get","scan","ping","events"].includes(data.op)});
++      this.process.stdin.write(JSON.stringify({id,...data})+"\n", error => {
++        if (error) this.fail("Storage write failed: " + error.message);
++      });
+     });
+   }
++  health() { return {status:this.failed?"FAILED":this.closing?"CLOSED":"READY", error:this.failed, pending:this.pending.size,lastSuccess:this.lastSuccess,uncertainWrite:this.uncertainWrite,timeoutMs:this.timeoutMs}; }
++  appendEvents(stream, events) { return this.rpc({op:"append_events",stream,events}); }
++  events(stream, after = 0, limit = 1000) { return this.rpc({op:"events",stream,after,limit}); }
+   get(key) {
+     return this.rpc({ op: "get", key });
+   }
+@@ -117,7 +141,15 @@
+     return this.rpc({ op: "lease", name, owner: this.owner, release });
+   }
+   async close() {
+-    this.process.stdin.end();
++    this.closing = true;
++    if (!this.process || this.process.exitCode !== null || this.process.signalCode !== null) return;
++    for (const p of this.pending.values()) { clearTimeout(p.timer); p.reject(Error("Storage closed")); }
++    this.pending.clear();
++    await new Promise(resolve => {
++      const timer = setTimeout(() => { this.process.kill("SIGKILL"); resolve(); }, this.timeoutMs);
++      this.process.once("exit", () => { clearTimeout(timer); resolve(); });
++      this.process.stdin.end();
++    });
+   }
+ }
+ module.exports = { DurableStore };

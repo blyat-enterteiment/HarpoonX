@@ -1,0 +1,63 @@
+{
+  "schema": "HARPOON_PRE_REGISTRATION_CODE_REVIEW_1",
+  "scope": "STATIC_REVIEW_OF_ONE_EXPLORATORY_VALIDITY_REPAIR",
+  "decision": "NO_NEW_MATERIAL_BLOCKER_IN_REVIEWED_SCOPE",
+  "financial_acceptance_allowed": false,
+  "candidate_financial_evaluation_executed_by_reviewer": false,
+  "source_edits_by_reviewer": 0,
+  "checks": [
+    {
+      "id": "PRICE_CAUSALITY",
+      "result": "Price comes from last completed bar with availableAt<=decision; candidate quantity does not use later modeled open."
+    },
+    {
+      "id": "IMMUTABLE_QUANTITY",
+      "result": "Fill validator binds quantity to planned quantity. Breach yields NO_FACTIBLE with exposure and null portfolio PnL, never resize or zero-trade deletion."
+    },
+    {
+      "id": "PENDING_RESERVES",
+      "result": "Cash floor for not-yet-filled earlier campaigns uses stored ex-ante notional budget plus fee, not their future fill price."
+    },
+    {
+      "id": "CASH_SCOPE",
+      "result": "Cash computation deliberately withholds partial-exit/unrealized credits; it is a conservative floor, not complete broker buying-power accounting."
+    },
+    {
+      "id": "HOLDING_CLOCK",
+      "result": "Deadline anchors on decision; calendar and five-minute grid set the deadline without later prices."
+    },
+    {
+      "id": "TRUNCATED_CALENDAR",
+      "result": "New coverage guard refuses before opening unless a valid session closes at or after decision+72h; avoids dataset-end artificial close."
+    },
+    {
+      "id": "UNRESOLVED_EXPOSURE",
+      "result": "Missing bars/deadline after entry preserve quantity and mark details in typed error and JSON message; runner sets evaluation incomplete."
+    },
+    {
+      "id": "CODE_BINDING",
+      "result": "Registration runner includes policy/types/lab/validators/scheduler plus Ultimate source modules, and exact inputs/fold-map hash."
+    },
+    {
+      "id": "RESEARCH_SCOPE",
+      "result": "One fixed-fold candidate, all433 opportunities preserved; no refits, nine-policy reselection or new holdout claim."
+    },
+    {
+      "id": "HISTORY_REGISTRATION",
+      "result": "One local continuation is bound to existing18-slot Ultimate export and23-slot Quant journal; does not rewrite legacy counters or claim global deduplication."
+    }
+  ],
+  "limits": [
+    "No independent external validation; reviewers share context.",
+    "Historical modeled execution and fixed original selection remain limited evidence.",
+    "Conservative per-entry cash/risk checks do not establish complete current-account margin, settlement, liquidity or price-impact parity.",
+    "Positive modeled result, if any, cannot accredit profitability6."
+  ],
+  "hashes": {
+    "candidate/HARPOON_XXXUltimate_30_13_1/xxx/ultimate_replay.ts": "3b1ea9276dcf834cbf2572899371a195cad72d33befed83168be80eb66b2b736",
+    "candidate/HARPOON_XXXUltimate_30_13_1/runtime30/ultimate_replay.js": "8c24ef4a129b8311cb1b8800c18329a0c8f8d5a1441dc80e27120dc3c2aede5d",
+    "candidate/HARPOON_XXXUltimate_30_13_1/xxx/ultimate_lab.ts": "2d6bf5a1a137fe541c464d8b0858e23d2359466a30d6b69aa173955d11f68ef4",
+    "comparison/compare_frozen_portfolio.cjs": "1e5e44137db4af40174c3e4d0a074e2a05a1e4c876e156aeeb7ff85dc8256de7",
+    "register_validity_correction.py": "b06cd3dd4afb1180e8c07c7f029b206bcd08dbd8ee65e201f0ea551fcea7e2f9"
+  }
+}

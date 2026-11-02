@@ -1,0 +1,152 @@
+{
+  "schema": "HARPOON_HISTORICAL_EQUITY_PLOT_1",
+  "scope": "DESCRIPTIVE_PLOT_OF_COMPLETED_FROZEN_RUN",
+  "new_financial_variants": 0,
+  "model_training_or_replay_executed": false,
+  "sources": [
+    {
+      "name": "reports.json",
+      "sha256": "6619cad22eb6bf4e7a572a55365b2376856f397a92b505d1a04007b221a75aed"
+    },
+    {
+      "name": "NOMINAL_C0.json",
+      "sha256": "e3fc8eccd1f823b20237a05aa0f0b1e366b05bf12f65f90089cac277124b1038"
+    },
+    {
+      "name": "NOMINAL_RIDGE.json",
+      "sha256": "74f349c80e83cbdd94489342f13205aa0f4f0b480517116c5de245025d02dc10"
+    },
+    {
+      "name": "NOMINAL_SVR.json",
+      "sha256": "b1f03bc6bdf99fd75c9773e68632192311f0e828490f37b4c3bc080b1c5641dd"
+    },
+    {
+      "name": "STRESS_C0.json",
+      "sha256": "45b6b062b7ce76339897876a98ae63c27f5abdaac211cd9283e909091b538aef"
+    },
+    {
+      "name": "STRESS_RIDGE.json",
+      "sha256": "303cc51682374529b4ed018509e822d99b6bdf00598c3c002bebe13eba4fe564"
+    },
+    {
+      "name": "STRESS_SVR.json",
+      "sha256": "0021fa521f9266719b5c39fe7c2ab7faf2edc6ac51136fd4abc0e006b8b55617"
+    }
+  ],
+  "script_sha256": "fe8b34f07762d6ad432b39649f65f552c53a0c84b01dea85d6ca174b143955c6",
+  "matplotlib_version": "3.10.8",
+  "session_count": 294,
+  "validation_sessions": 126,
+  "test_sessions": 168,
+  "common_y_limits_usd": [
+    18960,
+    20140
+  ],
+  "initial_capital_usd": 20000.0,
+  "capital_reset_between_phases": false,
+  "annualization": false,
+  "smoothing": false,
+  "projection": false,
+  "curves": [
+    {
+      "scenario": "NOMINAL",
+      "policy": "C0",
+      "source": "NOMINAL_C0.json",
+      "source_field": "curve[].equity_end_usd",
+      "session_field": "curve[].session_id",
+      "points": 294,
+      "initial_equity_usd": 20000,
+      "final_equity_usd_original_precision": 19575.064168,
+      "final_equity_label_six_decimals": "19.575,064168"
+    },
+    {
+      "scenario": "NOMINAL",
+      "policy": "RIDGE",
+      "source": "NOMINAL_RIDGE.json",
+      "source_field": "curve[].equity_end_usd",
+      "session_field": "curve[].session_id",
+      "points": 294,
+      "initial_equity_usd": 20000,
+      "final_equity_usd_original_precision": 19633.12,
+      "final_equity_label_six_decimals": "19.633,120000"
+    },
+    {
+      "scenario": "NOMINAL",
+      "policy": "SVR",
+      "source": "NOMINAL_SVR.json",
+      "source_field": "curve[].equity_end_usd",
+      "session_field": "curve[].session_id",
+      "points": 294,
+      "initial_equity_usd": 20000,
+      "final_equity_usd_original_precision": 19518.444168,
+      "final_equity_label_six_decimals": "19.518,444168"
+    },
+    {
+      "scenario": "NOMINAL",
+      "policy": "CASH",
+      "nature": "DERIVED_DESCRIPTIVE_COST_REFERENCE",
+      "formula": "20000 - cost_per_session_usd * completed_session_count",
+      "cost_per_session_usd": 1,
+      "points": 294,
+      "final_equity_usd_original_precision": 19706.0,
+      "final_equity_label_six_decimals": "19.706,000000",
+      "assumed_interest_and_trading_pnl_usd": 0
+    },
+    {
+      "scenario": "STRESS",
+      "policy": "C0",
+      "source": "STRESS_C0.json",
+      "source_field": "curve[].equity_end_usd",
+      "session_field": "curve[].session_id",
+      "points": 294,
+      "initial_equity_usd": 20000,
+      "final_equity_usd_original_precision": 19106.324168,
+      "final_equity_label_six_decimals": "19.106,324168"
+    },
+    {
+      "scenario": "STRESS",
+      "policy": "RIDGE",
+      "source": "STRESS_RIDGE.json",
+      "source_field": "curve[].equity_end_usd",
+      "session_field": "curve[].session_id",
+      "points": 294,
+      "initial_equity_usd": 20000,
+      "final_equity_usd_original_precision": 19226.02,
+      "final_equity_label_six_decimals": "19.226,020000"
+    },
+    {
+      "scenario": "STRESS",
+      "policy": "SVR",
+      "source": "STRESS_SVR.json",
+      "source_field": "curve[].equity_end_usd",
+      "session_field": "curve[].session_id",
+      "points": 294,
+      "initial_equity_usd": 20000,
+      "final_equity_usd_original_precision": 19106.374168000002,
+      "final_equity_label_six_decimals": "19.106,374168"
+    },
+    {
+      "scenario": "STRESS",
+      "policy": "CASH",
+      "nature": "DERIVED_DESCRIPTIVE_COST_REFERENCE",
+      "formula": "20000 - cost_per_session_usd * completed_session_count",
+      "cost_per_session_usd": 2,
+      "points": 294,
+      "final_equity_usd_original_precision": 19412.0,
+      "final_equity_label_six_decimals": "19.412,000000",
+      "assumed_interest_and_trading_pnl_usd": 0
+    }
+  ],
+  "outputs": [
+    {
+      "name": "curvas_patrimonio.png",
+      "bytes": 533992,
+      "sha256": "f6f84cd1973d2a900e644538eef4d9d9e91bd19335aded23aa5a422bdb6c0f8a"
+    },
+    {
+      "name": "curvas_patrimonio.svg",
+      "bytes": 190880,
+      "sha256": "430f923c656aa02fc8ce97829b0b25df083795dd1bdfc31fb5900c8e85b77b67"
+    }
+  ]
+}

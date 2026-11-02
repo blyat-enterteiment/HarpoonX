@@ -1,0 +1,1655 @@
+{
+  "scope": "Read-only GitHub source audit; no runtime/account values retrieved",
+  "records": [
+    {
+      "tool": "github_get_repo",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/HarpoonX"
+      },
+      "response": {
+        "id": "1420258391",
+        "name": "HarpoonX",
+        "owner": {
+          "login": "masivarecords-ship-i",
+          "id": 50280196,
+          "type": "User",
+          "avatar_url": "https://avatars.githubusercontent.com/u/50280196?v=4",
+          "url": "https://api.github.com/users/masivarecords-ship-i"
+        },
+        "repository_full_name": "masivarecords-ship-i/HarpoonX",
+        "permissions": {
+          "admin": true,
+          "maintain": true,
+          "pull": true,
+          "push": true,
+          "triage": true
+        },
+        "allow_auto_merge": false,
+        "allow_merge_commit": true,
+        "allow_rebase_merge": true,
+        "allow_squash_merge": true,
+        "allow_update_branch": false,
+        "clone_url": "https://github.com/masivarecords-ship-i/HarpoonX.git",
+        "size": 0,
+        "default_branch": "main",
+        "git_commits_url": "https://api.github.com/repos/masivarecords-ship-i/HarpoonX/git/commits{/sha}",
+        "git_refs_url": "https://api.github.com/repos/masivarecords-ship-i/HarpoonX/git/refs{/sha}",
+        "git_url": "git://github.com/masivarecords-ship-i/HarpoonX.git",
+        "master_branch": null,
+        "visibility": "private",
+        "archived": false,
+        "is_code_search_indexed": null
+      }
+    },
+    {
+      "tool": "github_get_repo",
+      "request": {
+        "repository_full_name": "Blyat2020/NewRepo"
+      },
+      "response": {
+        "id": "646399061",
+        "name": "NewRepo",
+        "owner": {
+          "login": "masivarecords-ship-i",
+          "id": 50280196,
+          "type": "User",
+          "avatar_url": "https://avatars.githubusercontent.com/u/50280196?v=4",
+          "url": "https://api.github.com/users/masivarecords-ship-i"
+        },
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "permissions": {
+          "admin": true,
+          "maintain": true,
+          "pull": true,
+          "push": true,
+          "triage": true
+        },
+        "allow_auto_merge": false,
+        "allow_merge_commit": true,
+        "allow_rebase_merge": true,
+        "allow_squash_merge": true,
+        "allow_update_branch": false,
+        "clone_url": "https://github.com/masivarecords-ship-i/NewRepo.git",
+        "size": 600,
+        "default_branch": "master",
+        "git_commits_url": "https://api.github.com/repos/masivarecords-ship-i/NewRepo/git/commits{/sha}",
+        "git_refs_url": "https://api.github.com/repos/masivarecords-ship-i/NewRepo/git/refs{/sha}",
+        "git_url": "git://github.com/masivarecords-ship-i/NewRepo.git",
+        "master_branch": null,
+        "visibility": "private",
+        "archived": false,
+        "is_code_search_indexed": null
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/HarpoonX",
+        "path": "README.md"
+      },
+      "is_error": true,
+      "response": {
+        "error": "GitHub API error 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#get-repository-content\",\"status\":\"404\"}",
+        "error_code": "NOT_FOUND",
+        "error_data": {
+          "message": "Not Found",
+          "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content",
+          "status": "404"
+        }
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "harpoon-cloud",
+        "path": "README.md"
+      },
+      "is_error": false,
+      "response": {
+        "content": "> Código publicado en Blyat2020/NewRepo, rama harpoon-cloud. No es necesario volver a subirlo. El archivo original 24.2 completo permanece en el paquete descargable; no se duplica el ZIP binario en este repositorio.\n\n# Ruta recomendada: servicio gestionado Render\n\nLee **EMPEZAR_AQUI.md** para la instalación 24.3 sin VPS ni dominio propio. Las instrucciones siguientes conservan la alternativa Docker Compose para un VPS. El panel nuevo ya incluye controles HOT/COLD, política por ventanas, investigación manual y hallazgos. Las limitaciones antiguas sobre ausencia de esos controles quedan sustituidas por EMPEZAR_AQUI.md; chat libre y administración completa de plugins todavía permanecen en el original.\n\n# HARPOON Cloud 24/7 — paquete de instalación PAPER\n\n**Estado: paquete preparado y pruebas locales aprobadas; NO desplegado en un VPS.** No se enviaron órdenes ni consultas pagadas. No hay evidencia nueva de rentabilidad. Un proceso encendido no implica señales ni fills.\n\nEste paquete ejecuta el motor en Node 24 con SQLite durable, independiente del navegador. Codex Cloud conserva su función de desarrollo y revisión; el runtime requiere un servidor permanente propio. No se ha contratado infraestructura ni creado una cuenta cloud.\n\n## Instalar\n\n1. Prepara un VPS Linux con Docker Engine, plugin Compose y Python 3. Como punto de partida operativo para dos motores y laboratorio: 4 vCPU, 8 GB RAM y disco SSD persistente; mide consumo real antes de ampliar. Apunta un dominio al VPS. Permite 80/443 y restringe SSH. Mantén sincronizado el reloj del servidor.\n2. Extrae este ZIP en un directorio privado del VPS. Copia allí tus JSON exportados de runtime. `config/examples` contiene configuraciones de referencia **no optimizadas** para ensayar en PAPER.\n3. Detén cualquier otra instancia que opere las cuentas elegidas. Esta primera migración exige cuentas PAPER dedicadas sin posiciones ni órdenes: no importa el diario del navegador ni liquida posiciones. No borres un diario para eludir esta condición.\n4. Ejecuta `sudo bash install.sh`. El asistente pide dominio, contraseña del panel, JSON de cada libro y claves PAPER mediante entrada oculta. Comprueba cuenta y ausencia de inventario mediante consultas GET. Ambos motores requieren cuentas Alpaca diferentes; si sólo tienes una, elige uno.\n5. Abre `https://TU_DOMINIO` con usuario `trader` y tu contraseña. El panel muestra ON/OFF, conciliación, antigüedad del pulso, posiciones, órdenes y supervisión. PAPER arranca automáticamente sujeto a las validaciones nativas. Pausar entradas conserva salidas; reanudar usa las barreras del core.\n6. Verifica `sudo docker compose -f compose.json ps` y los registros. Prueba un reinicio del host en PAPER y comprueba conciliación con Alpaca antes de considerar la instalación aceptada. Aún no se ha realizado esa prueba aquí.\n\nDocker para Ubuntu: https://docs.docker.com/engine/install/ubuntu/\n\n## Qué se conserva y qué está adaptado\n\n| Componente | Alcance de esta entrega |\n|---|---|\n| Fuentes del core y plugins | Copia byte a byte de `harpoon-src/src` de la aplicación actual; evidencia de hashes incluida. |\n| Acciones, ETF y rutas de opciones existentes | AstraEngine actual sobre adaptador remoto. Las opciones dependen de permisos, configuración y reglas existentes; no se fuerza una entrada. |\n| Cripto | XXCryptoDesk actual, activo continuamente; BTC/USD y ETH/USD canónicos. No se convierte una estrategia diaria en scalping. |\n| Calendario | El core conserva calendario/reloj Alpaca para instrumentos con sesión. |\n| Journal | SQLite WAL, transacciones y lease. Una réplica por cuenta. Verificación de lease antes de mutaciones. |\n| Salidas y compuesto | Reglas nativas conservadas, sin aumentar riesgo ni modificar TP por instalar el cloud. |\n| Investigación | LabController remoto existente para securities y supervisor por ventanas para ambos libros. La investigación cripto ampliada continúa en el sandbox original. |\n| UI completa, chat 24.2 y loop visual XXIII | Se conservan en `HARPOON_original_24_2_0.zip`. No se han convertido todas estas pantallas en controles remotos. El nuevo panel controla exclusivamente los ejecutores cloud. |\n| LIVE | No habilitado por este instalador. Cambiar un campo a live provoca rechazo. Las fuentes originales se conservan. |\n\nLa aplicación HTML anterior NO observa automáticamente la base SQLite del VPS. No conectes su modo operativo a las mismas cuentas. Este paquete no presenta un panel reducido como si fuera una migración completa de toda la UX.\n\n## GPT y control de costes\n\nEl asistente puede instalar el gateway original en un servicio independiente con base persistente. Pide modelo disponible en tu cuenta, tarifas y techos reales; no presupone precios. La clave OpenAI sólo se guarda en el gateway. El ejecutor recibe el token del gateway.\n\nEl JSON de arranque puede contener `supervision` según `config/examples/supervision.json`. Por defecto está desactivada; para ventanas de cinco minutos usa `enabled:true`, `mode:\"periodic\"`, `interval_seconds:300` ANTES de la primera instalación. Una revisión admitida no es autorización de órdenes ni cambio libre de estrategia. La caída de GPT no detiene salidas. No se ha probado inferencia real aquí. El panel muestra estado, pero no incorpora chat ni un nuevo control LiftOn/LiftOff. El chat original permanece en el archivo completo.\n\nLa configuración inicial se fija en el diario. No cambies silenciosamente archivos con campañas abiertas. Para modificar estrategias o políticas persistidas hace falta una migración controlada; este instalador no resuelve todavía esa administración remota completa.\n\n## Continuidad, seguridad y recuperación\n\n- `unless-stopped` recupera procesos después de fallos/reinicio de Docker. Una detención manual permanece detenida. No usar réplicas múltiples, rolling updates ni bases separadas para una misma cuenta.\n- Watchdog supervisa que el proceso responda, con margen de arranque. No reinicia porque falten señales o el motor esté pausado. El pulso de mercado se muestra por separado. No equivale a un SLA ni a una alerta externa: configura monitoreo externo del VPS.\n- Claves fuera de imagen y repo, permisos restringidos. Volúmenes contienen historial financiero; permisos no equivalen a cifrado en disco. Mantén el VPS y sus backups privados.\n- Backups SQLite consistentes cada seis horas en `backups/`, con comprobación de integridad. Son locales al VPS: configura copia cifrada fuera del servidor. No hay retención automática; vigila disco.\n- Para backup manual: `sudo docker compose -f compose.json exec backups python /app/backup.py`.\n- Restauración: detener el motor, archivar su directorio completo, restaurar un backup verificado como `data/BOOK/runtime.sqlite` con UID/GID 1000, retirar WAL/SHM del directorio restaurado y reiniciar. **Un backup atrasado puede carecer de fills/intentos: conciliar contra Alpaca antes de reanudar; nunca reenviar por intuición una orden ambigua.** Para el gateway conservar reservas de presupuesto; no restaurarlo para reiniciar gasto.\n- `sudo bash stop.sh` detiene procesos, no cierra posiciones. Salidas gestionadas por software dejan de ejecutarse durante la parada; stops ya aceptados permanecen sujetos a condiciones del broker.\n- El lease evita duplicados sobre la misma base, no bloquea otros equipos o aplicaciones que usen la cuenta.\n\n## Evidencia y pendientes\n\n`node tools/runtime_test.cjs`: 7 pruebas del adaptador/core, incluidas persistencia, lease y orden ambigua sin duplicación.\n`node tools/cloud_test.cjs`: 7 pruebas de arranque/panel/pausa persistente con motor inyectado y carga del motor cripto actual.\n`python3 tools/install_test.py`: comprobaciones de configuración de instalación.\nLas pruebas no consumen Alpaca/OpenAI. No se construyó la imagen: el entorno de trabajo no dispone de Docker. Pendientes: build real, DNS/TLS, arranque/reinicio en VPS, feeds y permisos, estrategia con datos reales, fills PAPER y costes reales de GPT. No se certifica rentabilidad, operación LIVE ni migración completa del chat/loop visual.\n\nReferencias técnicas: https://docs.docker.com/engine/containers/start-containers-automatically/ · https://caddyserver.com/docs/command-line#caddy-hash-password\n",
+        "encoding": "utf-8",
+        "sha": "373c624713769b8591c3019e844e2021c0e28902",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/README.md",
+        "display_title": "README.md"
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "harpoon-cloud",
+        "path": "package.json"
+      },
+      "is_error": false,
+      "response": {
+        "content": "{\n  \"name\": \"harpoon-cloud-247\",\n  \"version\": \"24.3.1\",\n  \"private\": true,\n  \"scripts\": {\n    \"test\": \"node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py && node tools/setup_test.cjs\",\n    \"typecheck\": \"tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime/control.cjs deploy/managed.cjs\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"5.9.3\",\n    \"@types/node\": \"22.19.19\"\n  }\n}\n",
+        "encoding": "utf-8",
+        "sha": "cdf33a96f454c9b0c67c255de3deeca728f1ff56",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/package.json",
+        "display_title": "package.json"
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "harpoon-cloud",
+        "path": "AGENTS.md"
+      },
+      "is_error": true,
+      "response": {
+        "error": "GitHub API error 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#get-repository-content\",\"status\":\"404\"}",
+        "error_code": "NOT_FOUND",
+        "error_data": {
+          "message": "Not Found",
+          "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content",
+          "status": "404"
+        }
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "harpoon-cloud",
+        "path": "render.yaml"
+      },
+      "is_error": false,
+      "response": {
+        "content": "services:\n  - type: web\n    name: harpoon-paper\n    runtime: docker\n    repo: https://github.com/Blyat2020/NewRepo\n    branch: harpoon-cloud\n    plan: standard\n    region: oregon\n    dockerfilePath: ./deploy/Dockerfile.managed\n    healthCheckPath: /healthz\n    autoDeployTrigger: \"off\"\n    maxShutdownDelaySeconds: 60\n    disk:\n      name: harpoon-journal\n      mountPath: /var/data\n      sizeGB: 10\n    envVars:\n      - key: HARPOON_BOOKS\n      - key: HARPOON_PANEL_PASSWORD\n        generateValue: true\n      - key: CRYPTO_APCA_KEY\n        sync: false\n      - key: CRYPTO_APCA_SECRET\n        sync: false\n",
+        "encoding": "utf-8",
+        "sha": "c24c4a018ebfd005cd351c4c6348ae3eeb9f27be",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/render.yaml",
+        "display_title": "render.yaml",
+        "content_redaction": "envVar values omitted"
+      }
+    },
+    {
+      "tool": "github_search_branches",
+      "request": {
+        "owner": "masivarecords-ship-i",
+        "repo_name": "HarpoonX",
+        "query": "",
+        "page_size": 100
+      },
+      "is_error": false,
+      "response": {
+        "branches": [
+          {
+            "branch": "main"
+          }
+        ],
+        "cursor": "MQ"
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "path": "EMPEZAR_AQUI.md"
+      },
+      "is_error": false,
+      "response": {
+        "content": "> Código publicado en Blyat2020/NewRepo, rama harpoon-cloud. No es necesario volver a subirlo. El archivo original 24.2 completo permanece en el paquete descargable; no se duplica el ZIP binario en este repositorio.\n\n# HARPOON 24.3 — alojamiento gestionado, sin administrar VPS\n\nLa instalación recomendada está declarada en `render.yaml`. Render construye el contenedor, proporciona HTTPS en su subdominio y monta un disco persistente. No necesitas comprar dominio ni mantener una terminal abierta.\n\n**Entregado y probado localmente. Aún no desplegado ni conectado a tus cuentas.** El entorno de esta sesión no tiene Docker, acceso a tu cuenta Render ni permiso de facturación configurado.\n\n## Tres pasos del titular\n\n1. Sube el contenido extraído del paquete a un repositorio **privado** de GitHub/GitLab conectado a Render. No subas claves. `render.yaml` debe quedar en la raíz. El archivo original completo se conserva en el ZIP interior; no hace falta subir ese ZIP al repositorio de despliegue.\n2. En https://dashboard.render.com selecciona **New → Blueprint**, conecta ese repositorio y revisa el coste antes de crear el servicio. El archivo selecciona un servicio pagado Standard, 10 GB de disco y una sola instancia. El plan Free no sustituye este montaje persistente. No hay despliegues automáticos al cambiar código.\n3. Introduce `CRYPTO_APCA_KEY` y `CRYPTO_APCA_SECRET` de una cuenta **PAPER dedicada y sin posiciones ni órdenes**, con su instancia anterior detenida. Tras desplegar, abre la URL que Render asigna. Usuario: `trader`. Contraseña: valor generado de `HARPOON_PANEL_PASSWORD`, consultable por ti en Environment.\n\nEl arranque predeterminado usa cripto y los parámetros canónicos de referencia. No son parámetros optimizados ni una demostración de rentabilidad. PAPER puede entrar cuando sus reglas encuentren señales; no se garantiza que haya operaciones inmediatamente. El navegador sólo muestra y controla: el proceso sigue en el servicio.\n\nReferencia oficial del servicio Standard de 2 GB: USD 25/mes según la comparación publicada por Render; disco, uso adicional, impuestos y GPT se cobran aparte. **El importe vigente mostrado al crear el servicio prevalece.** No se ha contratado ni cobrado nada en esta sesión.\n\n## Acciones/ETF/opciones y configuraciones propias\n\nPara sólo securities, cambia `HARPOON_BOOKS` a `equity` y agrega secretos `EQUITY_APCA_KEY` y `EQUITY_APCA_SECRET`. Para ambos: `HARPOON_BOOKS=equity,crypto` y las dos parejas de claves, de cuentas diferentes. No cambies una cuenta ya vinculada a un diario. Para ambos motores y COLD concurrente, mide memoria/CPU antes de habilitar todo; el plan inicial no está certificado para esa carga.\n\nAntes del primer arranque puedes definir `EQUITY_CONFIG_JSON` y/o `CRYPTO_CONFIG_JSON` con tus configuraciones exportadas completas. Al existir diario/configuración persistente, el archivo guardado prevalece. No se reemplazan reglas abiertas con una variable nueva. Los presets sólo cubren PAPER.\n\nOpciones conserva las rutas del core securities y depende de sus permisos/configuración. Este despliegue no agrega ni garantiza permisos de opciones ni estrategias nuevas.\n\n## GPT y loop remoto\n\nEl gateway es opcional. Para instalarlo agrega en Environment:\n\n- `OPENAI_API_KEY`: secreto de OpenAI.\n- `OPENAI_MODEL`: identificador exacto al que tiene acceso tu cuenta.\n- `OPENAI_INPUT_USD_PER_MILLION`, `OPENAI_OUTPUT_USD_PER_MILLION`: tarifas vigentes del modelo.\n- `HARPOON_MONTHLY_CAP`, `HARPOON_RUN_CAP`: límites de gasto global y por investigación.\n\nDespués despliega la revisión. En **Límites y supervisión**, guarda la política: ventana de 5 minutos o la elegida, cuotas y límite de salida. En **Loop y hallazgos**, pulsa HOT LiftOn o Revisar una vez. Configurar una clave no activa inferencia continua.\n\n- HOT: supervisor original, decisiones y evidencia observada; sin autoridad para enviar órdenes.\n- COLD: laboratorio remoto de securities, proveedor local o GPT, presupuesto e iteraciones limitadas. Guarda sus parámetros y usa LiftOn o una investigación manual.\n- Promoción automática: desactivada al crear un laboratorio nuevo; sólo al marcarla y superar las barreras nativas se aplica a nuevas campañas PAPER. LiftOff detiene nuevas promociones/ciclos y conserva reservas pendientes.\n- Los hallazgos, pruebas, costes y motivos se muestran sin convertir ausencia de datos en métricas ficticias.\n- La política GPT del gateway es compartida. Cada libro conserva su interruptor HOT local; se sincroniza política durante supervisión activa.\n- El panel no incorpora el chat libre de la UI 24.2 ni toda la administración de plugins del HTML. Ambos permanecen en el original; no conectes el HTML operativo a las mismas cuentas. El sandbox cripto ampliado permanece allí.\n\n## Continuidad y aceptación\n\n`/healthz` acredita que el supervisor responde, no que el broker esté conciliado ni que la estrategia tenga ventaja. El panel diferencia conexión, pulso y ON/OFF. Los watchdogs supervisan procesos; GPT puede reiniciarse sin detener el motor. El disco evita perder diario en redespliegues. Un único disco/host no equivale a alta disponibilidad.\n\nLos backups SQLite se generan cada seis horas en el mismo disco. Debes habilitar copia fuera del proveedor y alarmas externas; no se configuraron destinatarios ni se contrataron servicios de alertas. Un fallo completo del host puede interrumpir salidas de software. Comprueba órdenes pendientes directamente en Alpaca.\n\nAceptación pendiente en tu servicio: construcción Docker, acceso HTTPS, feeds y permisos de Alpaca, primera conciliación, un ciclo PAPER con datos reales, reinicio con diario conservado y una consulta GPT acotada si lo habilitas. No escales a LIVE por el simple hecho de ver ON.\n\n## Verificar el paquete\n\n`MANIFEST.json` contiene SHA-256 de los archivos incluidos. Para reproducir:\n\n```sh\nnpm install\npython3 tools/verify.py\n```\n\nHay 39 comprobaciones locales: 7 núcleo/persistencia, 7 arranque y pausa con motor inyectado, 11 controles del loop, 8 proxy HTTP con servicio local simulado, 6 configuraciones de instalación. TypeScript comprueba los nuevos módulos de control/proxy con `checkJs`; no es una comprobación exhaustiva de tipos del core heredado. También se verifica sintaxis Node. Las duraciones de las pruebas están registradas; no representan latencia de trading ni benchmark del proveedor. Cero órdenes externas y cero consultas pagadas.\n\nFuentes consultadas el 13 de octubre de 2026:\n- https://render.com/docs/blueprint-spec\n- https://render.com/docs/disks\n- https://render.com/docs/environment-variables\n- https://render.com/docs/render-vs-heroku-comparison\n- https://render.com/pricing\n",
+        "encoding": "utf-8",
+        "sha": "f301272103a3eee77e84858fb345096886f294d1",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/EMPEZAR_AQUI.md",
+        "display_title": "EMPEZAR_AQUI.md"
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "path": ".gitignore"
+      },
+      "is_error": false,
+      "response": {
+        "content": "secrets/*\ndata/*\nbackups/*\n.env\ndeploy/Caddyfile\ncompose.json\n**/__pycache__/\n\nnode_modules/\n",
+        "encoding": "utf-8",
+        "sha": "9dcfff83e3415afb53e8cc0d6a81cd560927deba",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/.gitignore",
+        "display_title": ".gitignore"
+      }
+    },
+    {
+      "tool": "github_fetch_commit",
+      "request": {
+        "repo_full_name": "masivarecords-ship-i/NewRepo",
+        "commit_sha": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9"
+      },
+      "is_error": false,
+      "response": {
+        "sha": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "message": "Add cloud setup status and require persistent disk before starting trading engines",
+        "created_at": "2026-10-13T22:58:16Z",
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/commit/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "files": [
+          {
+            "path": "CONFIGURACION_CLOUD.md"
+          },
+          {
+            "path": "MANIFEST.json"
+          },
+          {
+            "path": "deploy/managed-entry.py"
+          },
+          {
+            "path": "deploy/setup.cjs"
+          },
+          {
+            "path": "evidence/setup_tests.json"
+          },
+          {
+            "path": "package.json"
+          },
+          {
+            "path": "tools/setup_test.cjs"
+          },
+          {
+            "path": "tools/verify.py"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "github_fetch",
+      "request": {
+        "url": "https://api.github.com/repos/masivarecords-ship-i/NewRepo/git/trees/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9?recursive=1"
+      },
+      "is_error": false,
+      "response": {
+        "sha": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "truncated": false,
+        "tree": [
+          {
+            "path": ".dockerignore",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "64638dbc4cbdd7bd94fc1670c06a6117bb16ae42",
+            "size": 81
+          },
+          {
+            "path": ".gitignore",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "9dcfff83e3415afb53e8cc0d6a81cd560927deba",
+            "size": 93
+          },
+          {
+            "path": "CONFIGURACION_CLOUD.md",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "47a0c181e215d8a7abe0c3f1348e51d18df1fac0",
+            "size": 2126
+          },
+          {
+            "path": "EMPEZAR_AQUI.md",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "f301272103a3eee77e84858fb345096886f294d1",
+            "size": 6725
+          },
+          {
+            "path": "MANIFEST.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "dce6fcf488db5b2a768edd0609b0eb75879ed07b",
+            "size": 15633
+          },
+          {
+            "path": "README.md",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "373c624713769b8591c3019e844e2021c0e28902",
+            "size": 8291
+          },
+          {
+            "path": "config",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "946be24a58e8fad67ff15b32a5ca58ea52d887a1"
+          },
+          {
+            "path": "config/examples",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "1bfcb91ad47d67b15d984606dbcce4a92b9acac7"
+          },
+          {
+            "path": "config/examples/crypto.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "f5ff86930fba4363093d1c79bb71dae6abc92d5d",
+            "size": 422
+          },
+          {
+            "path": "config/examples/equity.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b8da870de5deed8103efe84e9454c02c0ebf06c4",
+            "size": 2016
+          },
+          {
+            "path": "config/examples/supervision.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d5e12ea541fbfc1cbb92b5713af4deb2eccee9f3",
+            "size": 184
+          },
+          {
+            "path": "deploy",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "4d9648a5edf2ce24ead01d2bcbe6ce73199049b8"
+          },
+          {
+            "path": "deploy/Dockerfile",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "e12d07f2d6cb74675cfec379ad3989448bc7369d",
+            "size": 294
+          },
+          {
+            "path": "deploy/Dockerfile.managed",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "0a3ec141979efde9c476bc59e067b08873179d5f",
+            "size": 405
+          },
+          {
+            "path": "deploy/backup-loop.sh",
+            "mode": "100755",
+            "type": "blob",
+            "sha": "65c3958e44dd33486844d1866b21c9ab0b5557e3",
+            "size": 74
+          },
+          {
+            "path": "deploy/backup.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "3e09f892231ee0e2da0f85d25a2eab15607646ed",
+            "size": 823
+          },
+          {
+            "path": "deploy/configure.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "e95b3ca4ca113722c5768d93594f81f3cef4ab4b",
+            "size": 6540
+          },
+          {
+            "path": "deploy/dashboard.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "73ecc18404b630a558fdf6d3a0ccde1637923aef",
+            "size": 10787
+          },
+          {
+            "path": "deploy/managed-entry.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d706bd936d0554af516adbc9ba849b7edc5d9769",
+            "size": 666
+          },
+          {
+            "path": "deploy/managed.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "60a39cc2e948bcebb92630769c3bd9ce0676e40d",
+            "size": 8141
+          },
+          {
+            "path": "deploy/setup.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d6189730e1cc2993c108a042bc376ea2def425d0",
+            "size": 5802
+          },
+          {
+            "path": "evidence",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "126fe1cbae727a5cc96e2bda4d343bb353c27df8"
+          },
+          {
+            "path": "evidence/cloud_tests.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b0f771c582da4b2fbc21a85aa15d56e87bfe2706",
+            "size": 431
+          },
+          {
+            "path": "evidence/control_tests.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4b33cfc6fd98df8532db9fa0e43fdd2a14e0dc80",
+            "size": 91
+          },
+          {
+            "path": "evidence/edge_tests.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "415812731e1322a08c0c47d7d92837be784081a6",
+            "size": 120
+          },
+          {
+            "path": "evidence/install_tests.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "a201fa50027e82bc5969a170bf69fb8debd6aa27",
+            "size": 109
+          },
+          {
+            "path": "evidence/runtime_tests.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ef0b69bd82ecb7664b7ba533567aff97d5fadf9f",
+            "size": 548
+          },
+          {
+            "path": "evidence/setup_tests.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "71bce4eecb2a9a81ddd08f2fba1a84d2c091aeaa",
+            "size": 274
+          },
+          {
+            "path": "evidence/source_preservation.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "9c927434e761d54d8282ee19f0103644d494a724",
+            "size": 10145
+          },
+          {
+            "path": "evidence/verification.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "7438d5bdf68ad31fd675cf7ae6c127c9456248fa",
+            "size": 2796
+          },
+          {
+            "path": "install.sh",
+            "mode": "100755",
+            "type": "blob",
+            "sha": "1397a1e25e4914d56db4ba9a9f9c9278b732354a",
+            "size": 532
+          },
+          {
+            "path": "package.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "cdf33a96f454c9b0c67c255de3deeca728f1ff56",
+            "size": 525
+          },
+          {
+            "path": "render.yaml",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c24c4a018ebfd005cd351c4c6348ae3eeb9f27be",
+            "size": 627
+          },
+          {
+            "path": "runtime",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "1d647e3c85c28029ddbdcb81bea4b62eb91e536d"
+          },
+          {
+            "path": "runtime/cloud.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "565e913c60c8bc5e86276b71027fbd35690e6601",
+            "size": 7347
+          },
+          {
+            "path": "runtime/control.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c5b92abd85eaee7a299326df6c84548861e57553",
+            "size": 6136
+          },
+          {
+            "path": "runtime/crypto_runner.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "39d563ca708b84aaa37f9af9152254d638a569bf",
+            "size": 4074
+          },
+          {
+            "path": "runtime/runner.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d74b38c59408a365476d7143171bccf609edc5a6",
+            "size": 11111
+          },
+          {
+            "path": "runtime/store.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "19883fd31f72e266e01ba123193ceb2f49f7e271",
+            "size": 3305
+          },
+          {
+            "path": "runtime/watchdog.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "97bb2bc19cf887882f81002870a1002041b0e5b0",
+            "size": 939
+          },
+          {
+            "path": "runtime/worker.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6bf7bfc306bcef5c6cb9f3e4304828abbe420cf2",
+            "size": 1146
+          },
+          {
+            "path": "service",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "a19cb0f7b270dcc62f8c720d63b854d38d16cc68"
+          },
+          {
+            "path": "service/Dockerfile",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "73b3f04b44d74bf9be90b07314750a163a29fa32",
+            "size": 324
+          },
+          {
+            "path": "service/README.md",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b648a8eb57991f36dc1f293f355fe98ee57d7fb5",
+            "size": 10712
+          },
+          {
+            "path": "service/app24.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1ff879dc12b540e0b8987d05ef4e5394c2626122",
+            "size": 19634
+          },
+          {
+            "path": "service/prompts.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "722f189f3173eb00e190f1c3e7a59dca484fecb4",
+            "size": 3532
+          },
+          {
+            "path": "service/recipe_contract.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b17b61206188cf20de8f5587f63c252ad38d1ff6",
+            "size": 700
+          },
+          {
+            "path": "service/requirements24.txt",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1943c4daf920199f2cd1751bf2cd09c5ee778e3b",
+            "size": 21
+          },
+          {
+            "path": "service/server.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "5ee828c171208a543363e412a736fb0c6a22e805",
+            "size": 17861
+          },
+          {
+            "path": "service/supervision.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4696375c6aa5e4c618231d4c63848f149e1144c6",
+            "size": 15232
+          },
+          {
+            "path": "service/test_integrated24.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "53012583b5129a7135e1a6b5455ad2d7d803caa4",
+            "size": 11771
+          },
+          {
+            "path": "service/test_server.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1d0f4c8f7f1fc048793746b4fdf1180e2f0fba66",
+            "size": 8610
+          },
+          {
+            "path": "service/test_supervision.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b437b95ebdc21b991fb768908f2d0a14d0d49334",
+            "size": 10214
+          },
+          {
+            "path": "src",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "eaa87652faea4e4c94e9f42e73b99b5278bbf25c"
+          },
+          {
+            "path": "src/app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4e16ba38b4d9c9b7cbd62dfc29fccb5c73d032cb",
+            "size": 21733
+          },
+          {
+            "path": "src/astra_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "09d937662d7b4827c2915a126dd087da526e3ad1",
+            "size": 1999
+          },
+          {
+            "path": "src/astra_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ac6eca22ae49bb2ff12924e3662065228556b9c9",
+            "size": 10837
+          },
+          {
+            "path": "src/canonical.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "881030fe65a5bf9deae99313f1dd2dc42cd80842",
+            "size": 2275
+          },
+          {
+            "path": "src/challenge.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "f7b0ea872fc0e2acb333620ff19b6e0a0e045463",
+            "size": 2307
+          },
+          {
+            "path": "src/challenge.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "891251e0c87999a707dea2b6da6b98a418f9f98f",
+            "size": 4734
+          },
+          {
+            "path": "src/challenge.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "68143860702c5cf573b93d5dafb28e8e9fb6b426",
+            "size": 4182
+          },
+          {
+            "path": "src/contract.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1d23f6e6d175892f6ec20756fe9e037dfc3d3bfc",
+            "size": 225
+          },
+          {
+            "path": "src/contract.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c148cddd631f7eebba6bd50ff0710edb9445b3e1",
+            "size": 746
+          },
+          {
+            "path": "src/core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "370fee461ac7eb0d154692a54f19987c7a96943b",
+            "size": 20262
+          },
+          {
+            "path": "src/crypto_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b88061bfc3355700e19d885a5cd617a94a9137d7",
+            "size": 14176
+          },
+          {
+            "path": "src/crypto_core.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "09750613f902f28e32674aabe803032380657747",
+            "size": 4330
+          },
+          {
+            "path": "src/crypto_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "5051b42aeb38c2c4ec5c14a06c51afde2439f318",
+            "size": 16501
+          },
+          {
+            "path": "src/crypto_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "e80ac416fa901ef5c3200ac995546f456081f5ff",
+            "size": 18930
+          },
+          {
+            "path": "src/crypto_tape.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "044f89fce2cb791f8767fa264502e0ee7d05840b",
+            "size": 3568
+          },
+          {
+            "path": "src/defaults.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "523f81159f846c7222a7f9c2972ee6ecc54e3909",
+            "size": 1587
+          },
+          {
+            "path": "src/engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ad9090de8784252eb7dd29d7d59e03dd7b3711b4",
+            "size": 24635
+          },
+          {
+            "path": "src/framework23.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "7e81ca37458acbefb8ebf3d886512f2e92bde2ef",
+            "size": 2442
+          },
+          {
+            "path": "src/framework23.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "f8239109bf01a763f99737d88e19e7837b54b8db",
+            "size": 11669
+          },
+          {
+            "path": "src/framework23.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "831bfb1b546c359c22aa10da784386cbaa1c7e80",
+            "size": 10665
+          },
+          {
+            "path": "src/gateway24.css",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "bad3d23c378b6c89b1aafea546fba04b5b9ecade",
+            "size": 704
+          },
+          {
+            "path": "src/gateway24.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1c46468c7fd87756d7ed98eb5e566d8fb412c499",
+            "size": 440
+          },
+          {
+            "path": "src/gateway24.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d1654e966fb43315a18350b67645d9e6c4753310",
+            "size": 2976
+          },
+          {
+            "path": "src/gateway24.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "27415f70b73144bd7f72f57ceeaee71b15cc64ae",
+            "size": 1168
+          },
+          {
+            "path": "src/gateway24.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ac95066943104614b8010cf485fb6c30ee6ae07e",
+            "size": 991
+          },
+          {
+            "path": "src/gateway24_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b6318a11ed9e2ce0c0d5a8a234c6b44e938f0b3f",
+            "size": 6893
+          },
+          {
+            "path": "src/index.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "8129ecc7c4a7ecdc750474b57ab8f92d99ba216c",
+            "size": 86426
+          },
+          {
+            "path": "src/io.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "88091b8552a0d8e3b869b85ab41317e08291d5d5",
+            "size": 8792
+          },
+          {
+            "path": "src/lab_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "bbce459ac53861c28f0ab77f9fb6c8193b3ce066",
+            "size": 6742
+          },
+          {
+            "path": "src/lab_bridge.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c69789eed7f87e70d300c5e40653703c5791767d",
+            "size": 8582
+          },
+          {
+            "path": "src/lab_controller.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "0fad7a2609ab2101c273e40987314ca1716bb352",
+            "size": 18210
+          },
+          {
+            "path": "src/lab_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "070ca7335fda2500bbbf707001b966ab7bde53f3",
+            "size": 11078
+          },
+          {
+            "path": "src/lab_rules.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "0341ac1e8372cce2ffa706a012ac9b64d69e6258",
+            "size": 3051
+          },
+          {
+            "path": "src/lab_rules.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "057c0861851caa16012cb89fc6dffd363ade98c5",
+            "size": 3382
+          },
+          {
+            "path": "src/loop23.css",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "fa5c5339fb884fb3592b5afe77c08cff28f995ae",
+            "size": 5716
+          },
+          {
+            "path": "src/loop23.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "db1538561751a92191400d51e34598d7b32b080e",
+            "size": 7455
+          },
+          {
+            "path": "src/loop23_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "77ced3c8da06b8dfb0c384479d246dabe149349e",
+            "size": 37708
+          },
+          {
+            "path": "src/loop23_runtime.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "fd8231b96df20c6def1468bf341ce1976d5bea53",
+            "size": 10953
+          },
+          {
+            "path": "src/metrics23.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "596012a99670b80e5057a97d6fff3c8c47c67eab",
+            "size": 2642
+          },
+          {
+            "path": "src/metrics23.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "824cca6fef07935190f384b498198de2db155054",
+            "size": 13222
+          },
+          {
+            "path": "src/metrics23.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6636a2ca34aa23f14ba3017b7950a5f19280138c",
+            "size": 11866
+          },
+          {
+            "path": "src/options_payoff23.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1f8ceecd453e3fb7f682214bb4a79a3bcc7a4a77",
+            "size": 4328
+          },
+          {
+            "path": "src/plugin_host22.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "30ea5562bd6b72c26da9d2076d3f7a69c3090067",
+            "size": 4147
+          },
+          {
+            "path": "src/plugin_host22.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ee454c254e8223ff629ee2c7762884e3a3e02ced",
+            "size": 21945
+          },
+          {
+            "path": "src/plugin_host22.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c21e3300a2d3e3cb4bb2afc635104d0f01b87e7f",
+            "size": 16793
+          },
+          {
+            "path": "src/plugin_lab22.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b3b02d6beca0cda67c5b0dbb8d7b4f33b8b4f749",
+            "size": 4321
+          },
+          {
+            "path": "src/plugin_lab22.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6f2f39c1c703528766f1cfad0cc4e726e4ac2099",
+            "size": 18061
+          },
+          {
+            "path": "src/plugin_registry.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4fc4376d55690b11369afbb104ca19e92258841b",
+            "size": 1483
+          },
+          {
+            "path": "src/plugin_registry.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "0c0bee1ce6326b0ef2977293cc8c5db8bb1da373",
+            "size": 6670
+          },
+          {
+            "path": "src/plugin_registry.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "55176d47c0a2262788986b986c468c214bcbdbbc",
+            "size": 6277
+          },
+          {
+            "path": "src/plugins",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "a4267b3d58069d1a9678f13e4ea9b576763fdb6c"
+          },
+          {
+            "path": "src/plugins/astra.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b4cdc764672108c712339e2dd270550f44fbb82c",
+            "size": 6047
+          },
+          {
+            "path": "src/plugins/astra.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c108a57b3137619de4b3d5dbdf78c95a28c162be",
+            "size": 17157
+          },
+          {
+            "path": "src/plugins/astra.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "39f1bb77c9ec3811a7741036f6a46a0339b9063f",
+            "size": 15919
+          },
+          {
+            "path": "src/plugins/catalog.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "9c7a577bbc84401391ba9536265928ab3a862686",
+            "size": 183
+          },
+          {
+            "path": "src/plugins/catalog.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "8a2d561f961192d03fb5aa306073a20b1b26afee",
+            "size": 1541
+          },
+          {
+            "path": "src/plugins/catalog.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "55212e3003262fd3ffe7ad736f7766698734c4e5",
+            "size": 1440
+          },
+          {
+            "path": "src/plugins/crypto_exits.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1f7aeea3889066534fe5c6996a15ab7cb91228b9",
+            "size": 574
+          },
+          {
+            "path": "src/plugins/crypto_recovery.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "15c29250e7de12d79befe3b2ede295c1d56af956",
+            "size": 2797
+          },
+          {
+            "path": "src/plugins/crypto_recovery.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1f18e10b501d90277bab4e2e3415df79910b5988",
+            "size": 12138
+          },
+          {
+            "path": "src/plugins/crypto_recovery.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ae269d5d3774e39dae5fbb4717f97d9308f55ad0",
+            "size": 11372
+          },
+          {
+            "path": "src/plugins/crypto_trend.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "dc9c89680e4081ae35f04fdaeb70c2c0ce75518a",
+            "size": 14577
+          },
+          {
+            "path": "src/plugins/securities_entries.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d8e351939b7d91ce1b9c979bc30b6e7760f581ec",
+            "size": 2152
+          },
+          {
+            "path": "src/plugins/securities_entries.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b909987f042a89817402300976f6366e8bd7f552",
+            "size": 1726
+          },
+          {
+            "path": "src/plugins/securities_policies.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "524b210885111b9583ff30cec529d5e59d1ae926",
+            "size": 7180
+          },
+          {
+            "path": "src/plugins/securities_rules.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "cc0717470715ca22709c1cf9501e5ad4a10fb528",
+            "size": 3304
+          },
+          {
+            "path": "src/style.css",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "daf9493f8537ebe55ef7f872b2dc4241df2c94bb",
+            "size": 28541
+          },
+          {
+            "path": "src/supervision.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "58fa2177d30ab78bb3770240ea110c0e26bbe218",
+            "size": 14571
+          },
+          {
+            "path": "src/supervision_core.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "2d5b00670f651cc593b900e729a60074361ed19e",
+            "size": 2279
+          },
+          {
+            "path": "src/supervision_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ca5767acbdad70d3dbe66951466f9af06a301171",
+            "size": 5826
+          },
+          {
+            "path": "src/supervision_core.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6c522f02f4aaea747a1994b8bb480f91ad74e2e5",
+            "size": 5904
+          },
+          {
+            "path": "src/tensor_core.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "faa537687d5b8cd496271043761f53abbb70aa09",
+            "size": 2324
+          },
+          {
+            "path": "src/tensor_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "9f70ece9d53491818a0a477bb2803b8f3d75d1e9",
+            "size": 9202
+          },
+          {
+            "path": "src/tensor_core.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "fb056ebbd086a3b2aac72163dca4baf775219f36",
+            "size": 7405
+          },
+          {
+            "path": "src/trade_stream.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "0891b8138d6b46fd93fa70da3b05820de8bf3651",
+            "size": 1553
+          },
+          {
+            "path": "src/ux.css",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "37e3e8c2a62af3bd69af6b4c98d331cc49b97c9a",
+            "size": 14218
+          },
+          {
+            "path": "src/ux_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "e1d8fde99d2993d8646edee09002a432742622dd",
+            "size": 26237
+          },
+          {
+            "path": "src/ux_controls.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "bf82e89d2e5b75cd2f321840ccec2b74a23278ad",
+            "size": 13801
+          },
+          {
+            "path": "src/ux_credentials.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "81557e9f91af38f89edd05508fe2c9b25acf9ec2",
+            "size": 1862
+          },
+          {
+            "path": "src/ux_findings.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c4b824a4ea50dab94c7f61a47e73ae46a5aaaedf",
+            "size": 3482
+          },
+          {
+            "path": "src/ux_home.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "181de1eb9441f037782c340a60a94689734793f5",
+            "size": 2854
+          },
+          {
+            "path": "src/ux_plugins.html",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "e0e805246a2b797f8f4d5217758ad42de136f79b",
+            "size": 2859
+          },
+          {
+            "path": "src/ux_state.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "68a1070401618ae1c6aa6c7fadec30dc7065a8c2",
+            "size": 1145
+          },
+          {
+            "path": "src/ux_state.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ecabaee8292f4f37a4d901d86e4f4e54b59207cb",
+            "size": 2897
+          },
+          {
+            "path": "src/ux_state.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4f602ddc08b23dcc23d2dfd1f6f1416349e469f9",
+            "size": 2793
+          },
+          {
+            "path": "src/x_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d44a0283f18fd70d949e3f8d3d422d41e3ff52ab",
+            "size": 5026
+          },
+          {
+            "path": "src/x_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c2cee79594aa51a959f2d70af741d23b3d9a7073",
+            "size": 15435
+          },
+          {
+            "path": "src/x_core.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "923dab752fe5d051b66e3778b4afe309140dcc65",
+            "size": 7806
+          },
+          {
+            "path": "src/x_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "a423591833b600219441a054a460d1305c76ccbc",
+            "size": 35467
+          },
+          {
+            "path": "src/x_research.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "abeb3ab620d8f1fe27414a98590716ef1c9c507c",
+            "size": 7802
+          },
+          {
+            "path": "src/xi_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c21e68420b00ca3fdf7152bf886d562a892de369",
+            "size": 5047
+          },
+          {
+            "path": "src/xi_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1d83815674a4c15c1632f0deab63c682c0dbaf29",
+            "size": 8093
+          },
+          {
+            "path": "src/xi_core.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "30f8083742a7bb2a35fd3d3bffc14f98ebd7488f",
+            "size": 7937
+          },
+          {
+            "path": "src/xi_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b77f5fbdf14e29a6c0841a2ef78d7ef6eeace1dd",
+            "size": 14060
+          },
+          {
+            "path": "src/xi_replay.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "7a642e3d64c7c9d9fa4a26bf575b63888be9581b",
+            "size": 8639
+          },
+          {
+            "path": "src/xii_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "ea0501fd116d01ef924db5004d8729742230037b",
+            "size": 7755
+          },
+          {
+            "path": "src/xii_core.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "550576e6516131877b7781a1200538fc48edf88e",
+            "size": 4054
+          },
+          {
+            "path": "src/xii_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "76005b1a2f8b7a4c259f7a9aaacfb8a24cd5ad3a",
+            "size": 8678
+          },
+          {
+            "path": "src/xii_core.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "2905dba0b6e0a687dd9c4a3685a1e8f4fe8cb23b",
+            "size": 8152
+          },
+          {
+            "path": "src/xii_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b0054082cb854ec72cc3f26b569cc092e38ca473",
+            "size": 9141
+          },
+          {
+            "path": "src/xii_research.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6647e6e78473e6f4fb7d61672ca3a697af66f20c",
+            "size": 10320
+          },
+          {
+            "path": "src/xiii_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "b9c9cf9e5459d9acbb5cee36a96bbd9bd5e4f4ac",
+            "size": 10742
+          },
+          {
+            "path": "src/xiii_core.d.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "0e4b5eb1c1467f0cfbdaac146fbeea4d5982485b",
+            "size": 12300
+          },
+          {
+            "path": "src/xiii_core.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "db05b97b9d13f44e54baedfdb7df31f458d5311b",
+            "size": 13164
+          },
+          {
+            "path": "src/xiii_core.ts",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1121260e4143cef27c14bbebd3a2bcbd2358934f",
+            "size": 11055
+          },
+          {
+            "path": "src/xiii_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "7cbf86192cc1b7a9a99cbb0e2206503b82817440",
+            "size": 8719
+          },
+          {
+            "path": "src/xiii_research.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "1e7427e07723652f730cd9ecaa3a7e8a9ee7ea82",
+            "size": 2359
+          },
+          {
+            "path": "src/xx_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "4fd302c3d9b14e319bb924133882be00fc49e452",
+            "size": 8043
+          },
+          {
+            "path": "src/xx_crypto.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "8e994f92b5ace62588f0984cdb2f74efe6ac90fc",
+            "size": 4689
+          },
+          {
+            "path": "src/xx_engine.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c15965387e5af5bdbad09f76cba30207fa5ffe74",
+            "size": 1404
+          },
+          {
+            "path": "src/xxi_app.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "bffa0eac6222b986c3df5c25fad9da87c86c2ca4",
+            "size": 9492
+          },
+          {
+            "path": "src/xxi_broker.js",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d13923854bb584480f34fd35f180ea5b3bcf5d0f",
+            "size": 2833
+          },
+          {
+            "path": "status.sh",
+            "mode": "100755",
+            "type": "blob",
+            "sha": "b578178bf3755f201e67e80c1c6930a6d9e4f23f",
+            "size": 151
+          },
+          {
+            "path": "stop.sh",
+            "mode": "100755",
+            "type": "blob",
+            "sha": "1c32dad872880f37c7c898ff70339dd95b72df82",
+            "size": 212
+          },
+          {
+            "path": "tools",
+            "mode": "040000",
+            "type": "tree",
+            "sha": "93534264e07a5c9cb1defdb0b786a11e3bc9dc26"
+          },
+          {
+            "path": "tools/cloud_preload.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "c316c9844018358f3108c620a846aba096fcb989",
+            "size": 899
+          },
+          {
+            "path": "tools/cloud_test.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "d4eee74aa014a47930970b798e1af0358b0f0677",
+            "size": 2915
+          },
+          {
+            "path": "tools/control_test.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "caa067accd08dcc188f027cf025a4bcb7656a360",
+            "size": 2055
+          },
+          {
+            "path": "tools/edge_test.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "2cdcd2eacacdcfe9aaf2863f23b41a4514c09178",
+            "size": 2368
+          },
+          {
+            "path": "tools/install_test.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "668939cf328ab1b274b029bc4cdf9f2a25c0ccb1",
+            "size": 905
+          },
+          {
+            "path": "tools/runtime_fixture_config.json",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "6480299b59fc27aa2950711d2ad63f707cb40b90",
+            "size": 1974
+          },
+          {
+            "path": "tools/runtime_test.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "9d968eb701bccb47a689233bf579c78999e77860",
+            "size": 3555
+          },
+          {
+            "path": "tools/setup_test.cjs",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "761f2655898731d41c8ab3b7c869bf2caa2e865d",
+            "size": 2522
+          },
+          {
+            "path": "tools/verify.py",
+            "mode": "100644",
+            "type": "blob",
+            "sha": "eb44c28430a685651f3eff1c4afd69e4ee6ebdca",
+            "size": 1337
+          }
+        ]
+      }
+    },
+    {
+      "tool": "github_fetch",
+      "request": {
+        "url": "https://api.github.com/repos/masivarecords-ship-i/HarpoonX/contents?ref=main"
+      },
+      "is_error": false,
+      "response": [
+        {
+          "name": ".gitignore",
+          "path": ".gitignore",
+          "sha": "953959e08030dfb04a848c65fb4e9e167c64cd47",
+          "size": 147,
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "tool": "github_fetch",
+      "request": {
+        "url": "https://api.github.com/repos/masivarecords-ship-i/NewRepo/actions/runs?branch=harpoon-cloud&per_page=100"
+      },
+      "is_error": false,
+      "response": {
+        "total_count": 0,
+        "workflow_runs": []
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "path": "evidence/source_preservation.json"
+      },
+      "is_error": false,
+      "response": {
+        "content": "{\n  \"source_commit\": \"8ea311f026c16c29e48c93540555f0c2f6edf5a1\",\n  \"unchanged_source_files\": 111,\n  \"sha256\": {\n    \"loop23_app.js\": \"6b471805bcfa2bcc2276a677e6d1c7dc2641b7e3dd9e196831332d521affdde7\",\n    \"contract.js\": \"32d62b9029c2f2e9dcab4883fcad7ff3f0a49ad3a96b38b1d65f235eeeb510b6\",\n    \"defaults.js\": \"4231edfd8ddf59004fe09f2846b464058dd0db1ee49e4d90a3456ea52cbb6ab8\",\n    \"xiii_core.ts\": \"2416694ce002278a764f763c5c6e2c3373cc41bbf573c2715fed2c2b36c61494\",\n    \"ux_credentials.html\": \"33b94e734b9a6ee5bb3b6edf5f0c30213ee7aa86488f43a59df5d08a6c1f82ab\",\n    \"io.js\": \"0f6a8f7e8bf16d340c246e6722f4c376078c06a970c5a1a8c565f3575987580c\",\n    \"crypto_engine.js\": \"a22c2af2f4c5d4f267c6aa65f832679c2a4745bf88462838814a71885e83d1d8\",\n    \"ux.css\": \"222a023c6f8772e40de5a75e5edd7dbd46e1edb5a32aec9613947aa38adbdb93\",\n    \"crypto_core.js\": \"86735fc9229a925492cb74374c879c431ea9977814991895b0fad5f805e0f8f1\",\n    \"canonical.js\": \"7c898b63591964c5bb890c512fd13c99aa2ebf2fb845ff4fe6a25c26e71af4a2\",\n    \"xiii_core.d.ts\": \"cfc8e2e367e1442a7e6bedfead42e9d8585c1cc25d3bb0f07102b56ec3055673\",\n    \"framework23.ts\": \"000587d6c366db74946c93042639ffc61c2751375bded80e7dc2676261d45a86\",\n    \"xx_engine.js\": \"e05d985eb5157df3a84d4a2bc53d9661a34c4fc8bdb8f20af6e588baa4cb8729\",\n    \"ux_controls.js\": \"94265c0018b1e85e43afa6c15a34c276694a6cad02399f43aaffc01f42bed067\",\n    \"xi_engine.js\": \"99e96232a9af61cc0e3af611fae6611dda7b21b4dbb3584dd81b4d07d2ccabdb\",\n    \"trade_stream.js\": \"62f8236dd455241acf8c5a844bdee6f16eede56a84019e6fa822b13f4de38f77\",\n    \"gateway24.d.ts\": \"690f08b6326d63ec0d46ffbab8d7d55e64be1787f90d2225d0267a7f86480a41\",\n    \"xiii_core.js\": \"544bb3347734f80275e2db41395ffbd0e2af077aa62bbe70226362489f732105\",\n    \"app.js\": \"bea92e2f3f48d7fe9493d54bec7dfa7cf068e4cd790b4dac40e355a9cd09bc22\",\n    \"gateway24.html\": \"54efa6bca5c67828375991cb370fa516baf40e26005e44e2149cda8a5e13cbab\",\n    \"supervision_core.js\": \"93a974000f9bff798d761fec60cdf14d7799e25f691a190ad72fdbd26f60c72f\",\n    \"astra_app.js\": \"2d85a8659748e4e636e2c8da10c559c4bc4398abbd75f0c918bb54b63b794a51\",\n    \"ux_state.js\": \"593ae405bf1c134af293e3efdc853c8a21c1a0d4fc554418502cdca32672aa2f\",\n    \"xi_core.js\": \"786157864caedae492942289c317d991e5e2a8fd1a170c6188dab45ee6369fee\",\n    \"loop23.css\": \"e732d761d2c99a51079a9c4a6dfb61abfaafb7df860b1c09f1d25ac57bca23d5\",\n    \"xii_engine.js\": \"aea9b0d948bc901fc743c68b903b0113db3405429b02579b6d33894cfb01a410\",\n    \"xi_app.js\": \"b0a663b6244f3f1f0b72404636c24e2619fb5d4c9b819f1155991c97b29e14b2\",\n    \"xi_core.ts\": \"6a56ef1195a8bb0d35b86ee7fa351ea9f0dbbb13de484a4e4872bc6a0d9e42f5\",\n    \"metrics23.js\": \"c31786ba46e52cbc4a4b4325c1ecc6e1eaec3e830f0742fa2c4a1b926c60dcae\",\n    \"plugin_lab22.js\": \"561d762d2333e6fd8ed701cc7ee9332384bdc2eea35adbd25953ba5f1db25578\",\n    \"gateway24.css\": \"9dde34d882d665d8a28a4b38a75e606121f15f54486a16355f98d158fadb6fc4\",\n    \"xiii_research.js\": \"637293608b7b5293f2d9636a145b5947c40fbdccc79168da24a115a3f4bc9f34\",\n    \"plugin_registry.d.ts\": \"8f9d6797e4ad48bb8924e292f4a9371b3337d092e341bc30f54459593ca94536\",\n    \"lab_core.js\": \"adf3616da4823ff592eb97838b258225a9d3c81df81ba618d168a68b701f79e1\",\n    \"supervision_core.ts\": \"1001d38b1b84bc45aaff9c85ebd8c789cee528a77ad2b60b7d59bff126c662b5\",\n    \"supervision.js\": \"5425e7e0c580c2baa53a4f6b193d7dfbc72fb12f3dd7b136bf08292b6d87ce9e\",\n    \"challenge.d.ts\": \"5b0aa6bdbf1c74e21cd905da4dc36f8423ec84044061394353bedae1bdbcdb08\",\n    \"metrics23.ts\": \"bb68e7c8ae097d1009927393f4ecfcf3e5307dc4bf06ebd82a32b8d8771625aa\",\n    \"xiii_app.js\": \"75d8858fd30fd722304cec373fa4ad6217d621b3f60841e657ed8f9bee8e7b20\",\n    \"lab_controller.js\": \"cb20ffdbabe3c3d6c0e045d29909332824189e18988a1c00345bdb2e9162fc31\",\n    \"loop23_runtime.js\": \"4c5af8346ca5d4c86ac3062abd3344e82da47c6ed92cd40d2da51028424f4f6d\",\n    \"options_payoff23.js\": \"5f13372111b4dbe74eccd7e8592d50433fb3a228ae38e3febe4d0755242f898a\",\n    \"xii_core.js\": \"82f5d61c185e8f17f0bb7244dae518640beddb3a6db1ed2ed0f783eab93da57d\",\n    \"crypto_app.js\": \"c34c176f03142a1649c6c0d6f1804f696c0c9434f9bb4c070308c67b1631200b\",\n    \"gateway24.js\": \"3f1bd6e84d83b33c073da269872f954e389edd7f8fadae2460a6c7d54362e83f\",\n    \"crypto_tape.js\": \"0c154ac0d964d349e3bbda334b94331a0ffd186ae637fae91f7421f48d20fa5b\",\n    \"plugin_registry.js\": \"f31a13dbf1ab4424600f17201c84ff98e1c5f199bf377b0c5c1a6c1b1507a27b\",\n    \"style.css\": \"7f636748a185d457f9b33d5d7e354e006063f81083b67120da8764265c29fb6c\",\n    \"plugin_host22.d.ts\": \"b9a991582f9ae616a259743997426edab0000ac1e10dc57cec06a8e14737edfe\",\n    \"crypto_core.d.ts\": \"b7b9871a09f67cb3b6c3d794c27242bf33c1798a22c61b79092a4d205b6fe2f2\",\n    \"x_engine.js\": \"9e9d62b640985e7e4c59dbabf2d0ce71c1e92348a6a6a61f56ae0864fff0f9b2\",\n    \"xii_app.js\": \"283057d45b7d8a7694d999909d26cec7442b2ec629d803a2987823fd6c39f7c6\",\n    \"plugin_lab22.html\": \"94a436d97e51b076e28b4f229666d7e2245da26f90d99c44533a245d074e4e9e\",\n    \"tensor_core.ts\": \"f74cffa739a0d80db38cfc2061ec3855b392997d117f894b343fc023fc2a6f5a\",\n    \"ux_findings.html\": \"83d87471bc0cc2df1b9747548f09f8d98a1334350a0c02c0f394eda674d49f15\",\n    \"xii_core.d.ts\": \"f463b813882eb53bbf821dadd0eeded66f4257f5e0d98d366768a8b3a9729394\",\n    \"x_core.js\": \"1e467912f78c692a054e5e034f9925f3704b88be09fe5ce59b87a1f0b999b715\",\n    \"gateway24.ts\": \"33c6b07eeac5c2e1891e39f7e417a78e0e215081db503b7b3221c3a2940a88e1\",\n    \"xxi_broker.js\": \"c77b01d5b246350e6f772dff63d94025478f0c3f3e813d72d68e749389464961\",\n    \"contract.d.ts\": \"cf50d867fcfadf3c01c7a5c241fd663188da186d66d4fe06c4584d7defa1760a\",\n    \"challenge.js\": \"d63509649b6b9209f6e11e08d74f426d8a27ad13e0ea4d5f44cb09e4561b49f2\",\n    \"tensor_core.d.ts\": \"dc786def9e8e2df88253466f6ed3650fea527d0749bfd9833a0e9d8656ee2b29\",\n    \"engine.js\": \"1c4fcafeb4724d4c71c7fc4a3b9657a79815a4f3b794ac3a2030cb220bd659a7\",\n    \"plugin_host22.js\": \"f469e5077ab3ccb03d19ab2a263d533a6d8f9c7484b0fe2496f0233dce8edb14\",\n    \"ux_app.js\": \"aff0fb5d35741ed70b6359e4f3ddd63801bcd580fab510dcba3f04776726de28\",\n    \"lab_rules.ts\": \"fdd83506a13a7da52e9623f761947cace2bc23e3d98b61a75abbfaf8140a0e47\",\n    \"gateway24_app.js\": \"ad6868caaee5d4a1d6257d83c36a16a183e4544f53d35271312b86166b6aaf73\",\n    \"framework23.js\": \"1f6b0f7e14701c343d0b1db4adf996f9e80012384ef96f081d006556f6513cca\",\n    \"loop23.html\": \"34d3eefe8da1f388568165e26d6186467bd7763d5ef685a8a76e9991a2ecb527\",\n    \"lab_rules.js\": \"a56cc76ffdd7ea99c3e2788ea30f037d66eec3da8cb1a610e15f9c8fe5726618\",\n    \"metrics23.d.ts\": \"6e303a161b6d2118756b945bec47c91a041618527db14cce63580f458513f6c1\",\n    \"index.html\": \"68bf60a06d9feade8e551776a9ae11f4481e3e0ad8cbc86be4c86ea8bf9702a7\",\n    \"ux_home.html\": \"7498cb38b879803a097c918443fb9df755512c9d86872b9afbc94a703cab53ac\",\n    \"framework23.d.ts\": \"742ad1d93e2e30ce9632a471741bbfb9f7494d5d864056e1ef0f948c5babc520\",\n    \"x_app.js\": \"56b698c3dc17d6fb41fd7ff39ab4a0dc49b322ccaca74c661223d87422e7e79b\",\n    \"xi_replay.js\": \"61021adfe550a1df707e7b58ce4e3162ceec740cc50d63579f57341a128ea2d7\",\n    \"xxi_app.js\": \"69661e7e9a2db4ba434b373055f3946b0ff342f85e16a43f1cf2b13a050239fa\",\n    \"xiii_engine.js\": \"46c47e1b242965139b81fc95e6e059a6f226f5ddb957855b66797915afb9f63a\",\n    \"xx_app.js\": \"7efb3c68f0f60283446483a81cb03ac0a6e99895e58f6240b247401e666e9508\",\n    \"supervision_core.d.ts\": \"2eede944908a42a695fa5859b1933b7343b96646732ae24b18040841462acce5\",\n    \"lab_bridge.js\": \"c6a897cc0a09afeb2ab29b6b0b1cf707ef053d39f8d6d8975ccd62f4d1c87dcd\",\n    \"core.js\": \"e043dce364df2815113a6034deb4d42ba532f55d0dada8d952e2a3b78d28fc1a\",\n    \"xii_core.ts\": \"4548b89b18f0a1b813272791f0ec75de5032886a2578fbfead70ac6e66b454f1\",\n    \"xx_crypto.js\": \"efff065d6064d3f4853b72fa8dea65d7937dd412671ba4934654282d5eb438a0\",\n    \"lab_app.js\": \"3fb5efe04f25fa87e2f6120dde3f4f4ee75ec69403de32eed906dbdd1ee04b33\",\n    \"ux_plugins.html\": \"28c62aa7acefcf2e3c8485278ef9034cd9b1a27af1ab2e8d050a00f6ebbe3f7a\",\n    \"plugin_host22.ts\": \"ba3c95d8f45b7eba94625f9e7cfde167ba9febecd604afdbd526f1054936728d\",\n    \"challenge.ts\": \"46cab576ae8e13420d4e3761ba08c488184324fe017bd13d23e8986e372b2a63\",\n    \"tensor_core.js\": \"f733700da3f6bad3f5c49f96b1af5cd3b7814068bcce41791098f5d6157d64fd\",\n    \"x_core.ts\": \"29ead6f23246b7503491180aa673f60e370a188ad0be3f5e1d9221bde1c84481\",\n    \"plugin_registry.ts\": \"4061465aa213219365550decd78b083ce516ccba48e5edb66e60e0e5d6d194c3\",\n    \"astra_engine.js\": \"8346b6c81cdb9a05c44f1d026a4507278437ba9935eecb03a9192e3056c953b4\",\n    \"ux_state.d.ts\": \"2a10db959d5ede6f10c17b31610fbf5fa47e61d560427e2acff07158c3258dcf\",\n    \"ux_state.ts\": \"82643474c47a0a81b760830b56b22ad71db41ca188c7988450a8bbdcfd35be0e\",\n    \"x_research.js\": \"7ba71e743b48eb4bff3a06e61aac4b0b65291f06da8cc9394e2aee398e957e77\",\n    \"xii_research.js\": \"62b7cae729001e1c4f1043971bee525fbaecdaac2f2808f8f764f18f532f58b1\",\n    \"plugins/securities_entries.js\": \"aaa5a5aaf26fe7c97e3843f6ca8b442fe581330fea13e1f521437ad3d4f9915d\",\n    \"plugins/astra.ts\": \"dcd10e5912c1aa979845ae9aca010cfe2f68b70f7ef5424921c6b4d811e594ca\",\n    \"plugins/catalog.d.ts\": \"d5a022c0a4bacf0bbd9851f8b68102497daaeb7827103504344325b402b01b80\",\n    \"plugins/astra.d.ts\": \"407d5907ff1a882082d98b76e55c37e61b668856729bb4ce92067a2f443fb779\",\n    \"plugins/securities_entries.ts\": \"21547f3d5f01226e24f857cd7cfcc289ee337dc1b3551e52dda43b67a9dc44b4\",\n    \"plugins/crypto_recovery.d.ts\": \"0c9dd3f6bce30cb1d83b41e46d8376eac7df8899a157e558e2126d781eede093\",\n    \"plugins/crypto_recovery.js\": \"d9f7708a7500980b6ce45eb03af59fa076fcc78b0df3ef873ec0f8417aeb4659\",\n    \"plugins/crypto_trend.ts\": \"d91ac49da9e390006274983207931e9df77483e9a99d698b6865ea95025cbc8e\",\n    \"plugins/crypto_recovery.ts\": \"d632ba7a5baa51b59ba2f117898d23f42865b15317491b215ee3d77d694dd48a\",\n    \"plugins/securities_policies.ts\": \"f2f0315779fd7084cfe0e9d16f4ad46888bbfdd67d3c828452850e32e0e32fcc\",\n    \"plugins/crypto_exits.js\": \"4b2f338d51ae5738b134fccc2634e3360703c2c2af5db599e470dfbf7c4cf084\",\n    \"plugins/catalog.js\": \"545b8369b27cafe582f95c875596a3b91506dab4e8c447662ff64e9bc178d57f\",\n    \"plugins/astra.js\": \"2c4fdbfaa615d8304eaeb25f79e73d08701c72be284db1166d6caf4a882ca9a6\",\n    \"plugins/securities_rules.js\": \"035239f4c0ebe4cd2d66f5c25c640115c03d027a4dee9133bf590e149d93cc1e\",\n    \"plugins/catalog.ts\": \"66cea4e9166f61976d053fb06fa4ad4d29668f92ad30ee020e5d35dbd6c433b9\"\n  }\n}",
+        "encoding": "utf-8",
+        "sha": "9c927434e761d54d8282ee19f0103644d494a724",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/evidence/source_preservation.json",
+        "display_title": "source_preservation.json"
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "path": "evidence/runtime_tests.json"
+      },
+      "is_error": false,
+      "response": {
+        "content": "{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"SQLite durable cross-process roundtrip\",\n    \"Exclusive shared-volume lease cannot be released by another owner\",\n    \"Compare-and-swap preserves concurrent study changes\",\n    \"Cursor scan excludes already processed records\",\n    \"Restart preserves unknown intent and forbids duplicate order\",\n    \"Lease is verified before the first broker mutation, including initial connect\",\n    \"Research worker isolated and cannot invent missing evidence\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0\n}",
+        "encoding": "utf-8",
+        "sha": "ef0b69bd82ecb7664b7ba533567aff97d5fadf9f",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/evidence/runtime_tests.json",
+        "display_title": "runtime_tests.json"
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "request": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+        "path": "evidence/verification.json"
+      },
+      "is_error": false,
+      "response": {
+        "content": "{\n  \"results\": [\n    {\n      \"command\": [\n        \"node\",\n        \"tools/runtime_test.cjs\"\n      ],\n      \"exit_code\": 0,\n      \"elapsed_ms\": 225.59,\n      \"output\": \"{\\n  \\\"checks\\\": 7,\\n  \\\"passed\\\": 7,\\n  \\\"results\\\": [\\n    \\\"SQLite durable cross-process roundtrip\\\",\\n    \\\"Exclusive shared-volume lease cannot be released by another owner\\\",\\n    \\\"Compare-and-swap preserves concurrent study changes\\\",\\n    \\\"Cursor scan excludes already processed records\\\",\\n    \\\"Restart preserves unknown intent and forbids duplicate order\\\",\\n    \\\"Lease is verified before the first broker mutation, including initial connect\\\",\\n    \\\"Research worker isolated and cannot invent missing evidence\\\"\\n  ],\\n  \\\"external_orders\\\": 0,\\n  \\\"openai_calls\\\": 0\\n}\\n\"\n    },\n    {\n      \"command\": [\n        \"node\",\n        \"tools/cloud_test.cjs\"\n      ],\n      \"exit_code\": 0,\n      \"elapsed_ms\": 318.91,\n      \"output\": \"{\\n  \\\"checks\\\": 7,\\n  \\\"passed\\\": 7,\\n  \\\"results\\\": [\\n    \\\"PAPER configured startup\\\",\\n    \\\"Unauthorized state denied\\\",\\n    \\\"Action header required\\\",\\n    \\\"Pause disables entries\\\",\\n    \\\"Pause survives process restart with SQLite\\\",\\n    \\\"Explicit PAPER resume\\\",\\n    \\\"Current crypto plugin engine loads\\\"\\n  ],\\n  \\\"external_orders\\\": 0,\\n  \\\"openai_calls\\\": 0,\\n  \\\"scope\\\": \\\"Launcher integration uses injected engine; native engine tested separately\\\"\\n}\\n\"\n    },\n    {\n      \"command\": [\n        \"node\",\n        \"tools/control_test.cjs\"\n      ],\n      \"exit_code\": 0,\n      \"elapsed_ms\": 66.94,\n      \"output\": \"{\\n  checks: 11,\\n  passed: 11,\\n  scope: 'Controller fixtures, no model/broker calls'\\n}\\n\"\n    },\n    {\n      \"command\": [\n        \"node\",\n        \"tools/edge_test.cjs\"\n      ],\n      \"exit_code\": 0,\n      \"elapsed_ms\": 159.41,\n      \"output\": \"{\\n  checks: 8,\\n  passed: 8,\\n  scope: 'Actual HTTP proxy with local upstream fixture; no TLS provider deployment'\\n}\\n\"\n    },\n    {\n      \"command\": [\n        \"python3\",\n        \"tools/install_test.py\"\n      ],\n      \"exit_code\": 0,\n      \"elapsed_ms\": 59.78,\n      \"output\": \"{\\\"checks\\\": 6, \\\"passed\\\": 6, \\\"scope\\\": \\\"Six generated configurations; Docker schema/build not executed\\\"}\\n\"\n    },\n    {\n      \"command\": [\n        \"node\",\n        \"node_modules/typescript/bin/tsc\",\n        \"--allowJs\",\n        \"--checkJs\",\n        \"--noEmit\",\n        \"--skipLibCheck\",\n        \"--target\",\n        \"ES2022\",\n        \"--module\",\n        \"node16\",\n        \"--types\",\n        \"node\",\n        \"runtime/control.cjs\",\n        \"deploy/managed.cjs\"\n      ],\n      \"exit_code\": 0,\n      \"elapsed_ms\": 864.24,\n      \"output\": \"\"\n    }\n  ],\n  \"external_orders\": 0,\n  \"paid_model_calls\": 0,\n  \"docker_build_executed\": false,\n  \"timing_scope\": \"Test-suite elapsed time, not trading latency or provider benchmark\"\n}",
+        "encoding": "utf-8",
+        "sha": "7438d5bdf68ad31fd675cf7ae6c127c9456248fa",
+        "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9/evidence/verification.json",
+        "display_title": "verification.json"
+      }
+    },
+    {
+      "tool": "github_compare_commits",
+      "request": {
+        "repo_full_name": "masivarecords-ship-i/NewRepo",
+        "base": "harpoon-cloud",
+        "head": "harpoon-cloud"
+      },
+      "is_error": false,
+      "response": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "base": "harpoon-cloud",
+        "head": "harpoon-cloud",
+        "status": "identical",
+        "ahead_by": 0,
+        "behind_by": 0,
+        "total_commits": 0,
+        "too_large": null,
+        "base_commit": {
+          "sha": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+          "url": "https://api.github.com/repos/masivarecords-ship-i/NewRepo/commits/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+          "html_url": "https://github.com/masivarecords-ship-i/NewRepo/commit/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9"
+        },
+        "merge_base_commit": {
+          "sha": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+          "url": "https://api.github.com/repos/masivarecords-ship-i/NewRepo/commits/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+          "html_url": "https://github.com/masivarecords-ship-i/NewRepo/commit/9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9"
+        },
+        "files": []
+      }
+    },
+    {
+      "tool": "github_compare_commits",
+      "request": {
+        "repo_full_name": "masivarecords-ship-i/HarpoonX",
+        "base": "main",
+        "head": "main"
+      },
+      "is_error": false,
+      "response": {
+        "repository_full_name": "masivarecords-ship-i/HarpoonX",
+        "base": "main",
+        "head": "main",
+        "status": "identical",
+        "ahead_by": 0,
+        "behind_by": 0,
+        "total_commits": 0,
+        "too_large": null,
+        "base_commit": {
+          "sha": "f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63",
+          "url": "https://api.github.com/repos/masivarecords-ship-i/HarpoonX/commits/f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63",
+          "html_url": "https://github.com/masivarecords-ship-i/HarpoonX/commit/f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63"
+        },
+        "merge_base_commit": {
+          "sha": "f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63",
+          "url": "https://api.github.com/repos/masivarecords-ship-i/HarpoonX/commits/f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63",
+          "html_url": "https://github.com/masivarecords-ship-i/HarpoonX/commit/f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63"
+        },
+        "files": []
+      }
+    }
+  ],
+  "redactions": [
+    "Temporary download URLs omitted from directory listings.",
+    "render.yaml envVar values omitted.",
+    "Commit patches omitted; commit metadata and filenames retained."
+  ],
+  "mutations": {
+    "remote_writes": 0,
+    "broker_orders": 0,
+    "baseline_changes": 0
+  }
+}

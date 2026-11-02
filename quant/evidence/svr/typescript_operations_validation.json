@@ -1,0 +1,149 @@
+{
+  "suites": [
+    {
+      "file": "xxx_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_test.cjs.log",
+      "tests": 52,
+      "pass": 52,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "file": "xxx_conformance_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_conformance_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_conformance_test.cjs.log",
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "file": "xxx_health_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_health_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_health_test.cjs.log",
+      "tests": 17,
+      "pass": 17,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "file": "xxx_selector_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_selector_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_selector_test.cjs.log",
+      "tests": 17,
+      "pass": 17,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "file": "xxx_tp32_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_tp32_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_tp32_test.cjs.log",
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "file": "xxx_operational_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_operational_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_operational_test.cjs.log",
+      "tests": 30,
+      "pass": 30,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "file": "xxx_partial_entry_risk_test.cjs",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-timeout=30000",
+        "tools/xxx_partial_entry_risk_test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "xxx_partial_entry_risk_test.cjs.log",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  ],
+  "all_succeeded": true,
+  "tests": 152,
+  "passed": 152,
+  "failed": 0,
+  "scope": "Existing application tests; HTTP fixtures use 127.0.0.1; no external orders"
+}

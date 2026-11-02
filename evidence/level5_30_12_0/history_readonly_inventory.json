@@ -1,0 +1,224 @@
+{
+  "scope": "Local preserved journals, not globally deduplicated external preregistration",
+  "global_deduplicated_trial_count": null,
+  "null_reason": "Cross-engine identities and historical full search lineage are not independently established",
+  "journals": [
+    {
+      "path": "quant/economic_experiment/reproduction/optimizer.sqlite3",
+      "sha256": "299d4c4e67479ff481e6d1f323b6c09d54b4ebe1570b479684227e16641b8c91",
+      "tables": [
+        "optimizer_audit",
+        "optimizer_holdouts",
+        "optimizer_state"
+      ],
+      "integrity_verified": true,
+      "integrity_report": {
+        "state": "AUDIT_CONSISTENT",
+        "holdout_rows": 2,
+        "audit_linked_holdouts": 0,
+        "legacy_holdouts": [
+          {
+            "lo": "2026-02-26",
+            "hi": "2026-04-26",
+            "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          },
+          {
+            "lo": "2026-04-27",
+            "hi": "2026-06-25",
+            "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          }
+        ],
+        "coverage": "LEGACY_PARTIAL",
+        "external_authentication": false
+      },
+      "budget": {
+        "limit": 128,
+        "spent": 9
+      },
+      "trial_keys": [
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122"
+      ],
+      "holdouts": [
+        {
+          "lo": "2026-02-26",
+          "hi": "2026-04-26",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27"
+        },
+        {
+          "lo": "2026-04-27",
+          "hi": "2026-06-25",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9"
+        }
+      ],
+      "audit_head": "bcade627a0e84f301521a7238ccb4795ed4e9c573fa857ffc39ce52960038d8b"
+    },
+    {
+      "path": "quant/economic_experiment/study/initial_optimizer.sqlite3",
+      "sha256": "299d4c4e67479ff481e6d1f323b6c09d54b4ebe1570b479684227e16641b8c91",
+      "tables": [
+        "optimizer_audit",
+        "optimizer_holdouts",
+        "optimizer_state"
+      ],
+      "integrity_verified": true,
+      "integrity_report": {
+        "state": "AUDIT_CONSISTENT",
+        "holdout_rows": 2,
+        "audit_linked_holdouts": 0,
+        "legacy_holdouts": [
+          {
+            "lo": "2026-02-26",
+            "hi": "2026-04-26",
+            "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          },
+          {
+            "lo": "2026-04-27",
+            "hi": "2026-06-25",
+            "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          }
+        ],
+        "coverage": "LEGACY_PARTIAL",
+        "external_authentication": false
+      },
+      "budget": {
+        "limit": 128,
+        "spent": 9
+      },
+      "trial_keys": [
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122"
+      ],
+      "holdouts": [
+        {
+          "lo": "2026-02-26",
+          "hi": "2026-04-26",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27"
+        },
+        {
+          "lo": "2026-04-27",
+          "hi": "2026-06-25",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9"
+        }
+      ],
+      "audit_head": "bcade627a0e84f301521a7238ccb4795ed4e9c573fa857ffc39ce52960038d8b"
+    },
+    {
+      "path": "quant/economic_experiment/study/optimizer.sqlite3",
+      "sha256": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd",
+      "tables": [
+        "optimizer_audit",
+        "optimizer_holdouts",
+        "optimizer_state"
+      ],
+      "integrity_verified": true,
+      "integrity_report": {
+        "state": "AUDIT_CONSISTENT",
+        "holdout_rows": 3,
+        "audit_linked_holdouts": 0,
+        "legacy_holdouts": [
+          {
+            "lo": "2026-02-26",
+            "hi": "2026-04-26",
+            "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          },
+          {
+            "lo": "2026-04-27",
+            "hi": "2026-06-25",
+            "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          },
+          {
+            "lo": "2026-07-01",
+            "hi": "2026-10-30",
+            "campaign": "ECON_20261030_01",
+            "interval_verified": true,
+            "scope": "ALL_DOMAINS"
+          }
+        ],
+        "coverage": "LEGACY_PARTIAL",
+        "external_authentication": false
+      },
+      "budget": {
+        "limit": 128,
+        "spent": 23
+      },
+      "trial_keys": [
+        "economic:trial:A",
+        "economic:trial:ALL",
+        "economic:trial:B",
+        "economic:trial:BASE",
+        "economic:trial:C",
+        "economic:trial:D",
+        "economic:trial:E",
+        "economic:trial:F",
+        "economic:trial:NO_A",
+        "economic:trial:NO_B",
+        "economic:trial:NO_C",
+        "economic:trial:NO_D",
+        "economic:trial:NO_E",
+        "economic:trial:NO_F",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+        "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122"
+      ],
+      "holdouts": [
+        {
+          "lo": "2026-02-26",
+          "hi": "2026-04-26",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27"
+        },
+        {
+          "lo": "2026-04-27",
+          "hi": "2026-06-25",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9"
+        },
+        {
+          "lo": "2026-07-01",
+          "hi": "2026-10-30",
+          "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+          "campaign": "ECON_20261030_01"
+        }
+      ],
+      "audit_head": "df39e861ed2aa086dfb80c782d7924bead338fa6dfc1a28dc202616d5c3c1208"
+    }
+  ],
+  "writes": 0
+}

@@ -1,0 +1,40 @@
+{
+  "engine": "HARPOON_QUANT_1",
+  "asof": "2026-10-15T15:00:00+00:00",
+  "status": "SHADOW_RESEARCH_ONLY",
+  "liveApproved": false,
+  "execution_allowed": false,
+  "selected": [
+    {
+      "id": "SYNTHSVR-equity",
+      "symbol": "SYNTHSVR",
+      "book": "equity",
+      "quantity": 5.0,
+      "lots": 5,
+      "expected_net_usd": 8.836689079307856,
+      "robust_net_usd": 8.645338878566687,
+      "cash_committed_usd": 500.75024999999994
+    }
+  ],
+  "rejected": {},
+  "config_hash": "c132a1198dd6d39dbc5c7e635d804e0e675f309d3b778a71b7ed8cda68b8b95b",
+  "model_hash": "00a7ad7e065ee73abd5cd4433d23b46d6295d7362eff46081b55709330994f5d",
+  "forecast_model_kind": "SVR_RBF",
+  "research_only": true,
+  "forecasts": {
+    "SYNTHSVR": 0.020823770299732095
+  },
+  "reason": "CONDITIONAL_MODEL_ALLOCATION",
+  "expected_net_usd": 8.836689079307858,
+  "robust_incremental_usd": 8.645338878566687,
+  "cvar_usd": -8.385014872594041,
+  "partial_fill_cvar_upper_usd": 0.0,
+  "stress_worst_loss_usd": 101.5,
+  "partial_fill_stress_upper_usd": 101.5,
+  "cash_committed_usd": 500.75024999999994,
+  "scenario_count": 256,
+  "joint_residual_dates": 60,
+  "uncertainty_effective_dates_approx": 12.0,
+  "solver_status": 0,
+  "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit."
+}

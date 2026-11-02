@@ -1,0 +1,270 @@
+{
+  "schema": "HARPOON_HISTORICAL_BANK_ADVERSARIAL_AUDIT_1",
+  "generated_at": "2026-11-01T17:56:24.973676+00:00",
+  "status": "AUDIT_COMPLETE_REGISTRATION_DRAFT_WAITING_FOR_DATA_AND_FROZEN_IMPLEMENTATION",
+  "inventory": {
+    "path": "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/adversarial/retained_history_inventory.json",
+    "sha256": "2c4143fab34804f7932d40ba67409ccc21a0eea37363907301fc61239ef20c52"
+  },
+  "verdict": {
+    "historical_diagnostic_reconstruction_allowed_in_task_scope": true,
+    "historical_measurements_executed_by_this_review": 0,
+    "formal_v2_acceptance_available_now": false,
+    "real_level7_available_from_historical_bank": false,
+    "global_deduplicated_search_total": null
+  },
+  "priority_findings": [
+    {
+      "id": "HIST01",
+      "classification": "HECHO",
+      "finding": "El journal Quant original conserva 23/128, 78 eventos y 0 reservas measurement; integridad consistente, WAL vacío. La capacidad 105 es aritmética del journal, no presupuesto global ni permiso para exploración adicional.",
+      "evidence": "retained_history_inventory.json#/quant",
+      "remediation": "Una sola rama derivada del journal íntegro, antecedente SHA/head, reservas 3+3 y conservación del descendiente 29/128; no cambiar original ni límite."
+    },
+    {
+      "id": "HIST02",
+      "classification": "HECHO",
+      "finding": "El export Ultimate contiene un objeto de 18 slots pero 10 eventos de cadena y 2 IDs registrados; falta el objeto completo del primero. Una revisión retenida documenta además 54 slots de 31.x; no se recuperó el store original de esas ramas desde esta integral.",
+      "evidence": "retained_history_inventory.json#/ultimate",
+      "remediation": "Preservar IDs/cadenas y pedir recuperación de los stores completos por hash; no convertir 18, 72 o una suma de familias en total global certificado."
+    },
+    {
+      "id": "HIST03",
+      "classification": "HECHO",
+      "finding": "Las correcciones 30.13.1 y 30.14 consumieron una variante conjunta cada una y prohíben retuning. Sus cadenas y vínculos a registros verifican; no figuran como reservas Quant.",
+      "evidence": "retained_history_inventory.json#/correction_continuations",
+      "remediation": "Añadir ambas continuaciones a la genealogía del banco, con unidades separadas. No reescribir ni resetear sus journals."
+    },
+    {
+      "id": "HIST04",
+      "classification": "HECHO",
+      "finding": "Ultimate usó OOS 2025-03-11..2026-07-13; TP32 usó OOS 2025-05-30..2026-07-20. Ambos examinaron holdout 2026-07-21..2026-10-16. Quant tiene reservas legacy ALL_DOMAINS hasta 2026-10-30, aunque sus trayectorias son sintéticas.",
+      "evidence": [
+        "evidence/ultimate/report.json#/windows",
+        "evidence/tp32/report.json#/windows",
+        "retained_history_inventory.json#/quant/integrity/legacy_holdouts"
+      ],
+      "remediation": "Etiquetar todo uso retrospectivo como desarrollo o diagnóstico; no vender ese periodo como holdout nuevo ni cambiar domain para eludir la reserva conservadora."
+    },
+    {
+      "id": "HIST05",
+      "classification": "HECHO",
+      "finding": "V2 exige registro anterior al comienzo de la prueba, fuentes del historial y total global reconciliado. Los 23 registros Quant no aportan en su raíz el cuarteto de identidad nativa exigido; manifest.global_deduplicated_total sigue null.",
+      "evidence": [
+        "quant/harpoon_quant/economic_gate_v2.py::evaluate",
+        "quant/harpoon_quant/economic_gate_v2.py::verify_history",
+        "retained_history_inventory.json#/quant/trial_records_with_native_v2_identity_at_top_level"
+      ],
+      "remediation": "No alterar gates ni retrofechar registros/modelos. Publicar ahora resultados HISTORICAL diagnósticos; separar prueba final prospectiva que transcurra después de su registro."
+    },
+    {
+      "id": "HIST06",
+      "classification": "HECHO",
+      "finding": "calibration.fit explora 3 penalizaciones; scalar_svr.fit compara 3 C y 3 Ridge por activo. Ejecutarlos no es cero exploración.",
+      "evidence": [
+        "quant/harpoon_quant/calibration.py::fit",
+        "quant/harpoon_quant/scalar_svr.py::fit"
+      ],
+      "remediation": "Usar kernels directos calibration.ridge y scalar_svr._fit con hiperparámetros y procedimiento congelados. Registrar cada fit; ninguna selección retrospectiva por PnL, MSE o Sharpe del test."
+    },
+    {
+      "id": "HIST07",
+      "classification": "HECHO",
+      "finding": "La importación reciente SPY/XLK 19..30 octubre tiene 10 sesiones y 1560 barras regulares; la completitud de acciones corporativas por ex-date permanece null en 30.15.",
+      "evidence": [
+        "evidence/portfolio_30_14_0/new_market_data/import_assessment.json",
+        "evidence/level7_30_15_0/data_research/corporate_actions_assessment.json"
+      ],
+      "remediation": "Conservar la recuperación histórica y la cobertura de cada clase de acción; no sustituir null por lista vacía. Fijar universo/fechas sólo al recibir inventario definitivo; no inferir recepción real o microestructura desde barras."
+    }
+  ],
+  "budget_branch_contract": {
+    "original_path": "/workspace/scratch/4ecb05fdc50d/nivel7_completion/HARPOON_XXXUltimate_30_15_0/quant/economic_experiment/study/optimizer.sqlite3",
+    "original_sha256": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd",
+    "original_audit_head": "df39e861ed2aa086dfb80c782d7924bead338fa6dfc1a28dc202616d5c3c1208",
+    "original_audit_sequence": 78,
+    "original_budget": {
+      "limit": 128,
+      "spent": 23
+    },
+    "fork_requires": [
+      "Verificar bytes y WAL antes de copiar.",
+      "Registrar ruta ySHA de origen, audithead, ancestors de Ultimate/TP32/correcciones y copia exacta.",
+      "Mantener una sola copia de trabajo para el banco y todos sus reintentos.",
+      "Verificar integridad de copia antes y después de cada reserva.",
+      "Reservar antes de medir y conservar resultado o interrupción, incluso si es desfavorable.",
+      "ComprobarSHA del original sin cambios después de terminar.",
+      "Futuro estudio debe heredar el descendiente con 29 gastados; no volver a copiar 23 para recuperar capacidad."
+    ],
+    "nominal": {
+      "slots": 3,
+      "roles": [
+        "C0",
+        "RIDGE",
+        "SVR"
+      ],
+      "budget_before": 23,
+      "budget_after": 26,
+      "family_slots_after": 3
+    },
+    "stress": {
+      "slots": 3,
+      "roles": [
+        "C0",
+        "RIDGE",
+        "SVR"
+      ],
+      "budget_before": 26,
+      "budget_after": 29,
+      "family_slots_after": 6
+    },
+    "cash_control": {
+      "slots_added": 0,
+      "definition": "Mismo capital, calendario y costes operativos declarados; sin órdenes, sin comisiones de transacción; financiación/interés sólo con supuesto explícito."
+    },
+    "measurement_family_limit": 6,
+    "lifetime_limit": 128,
+    "global_total": null,
+    "registration_api": "quant/harpoon_quant/measurement_registration.py::reserve(path,request_canonical,expected_head)",
+    "registered_bindings": "Código y dependencias, dataset/manifiesto, calendario, universo, reglas C0, modelos o procedimiento causal fijo, supuestos de costes, riesgo, periodos y política de eventos faltantes.",
+    "idempotency": "Reejecutar exactamente el mismo binding usa la misma reserva; cambiar una decisión/configuración es otro intento, nunca borrado del anterior.",
+    "fit_accounting": "Cero selección de hiperparámetros. Los ajustes deterministas predefinidos por activo/fold se registran con trainmaxlabel, seed, parámetros y hashes. Las 6 mediciones no autorizan probar nuevos modelos después del resultado."
+  },
+  "acceptance_and_refutation": {
+    "estimand": "Una cartera financiada con patrimonio continuo, flujo externo modelado cero, tamaño causal y reinversión mediante patrimonio disponible; no promedio de porcentajes de activos ni capital por motor.",
+    "scope_labels": [
+      "HISTORICAL_OBSERVED_BARS_MODELED_EXECUTION",
+      "RETROSPECTIVE_DIAGNOSTIC_NOT_INDEPENDENT_FINAL_TEST"
+    ],
+    "controls": [
+      "C0=NATIVE definido y sellado, sin redefinirlo como efectivo.",
+      "RIDGE fijo y SVR fijo comparten señales admisibles, calendario, universo, riesgo y capital.",
+      "CASH determinista incluye costes aplicables, sin generar una tercera familia de búsqueda."
+    ],
+    "primary_endpoints": [
+      "PnL económico MODELADO de cartera después de ejecución y gastos declarados.",
+      "Media del logaritmo del rendimiento neto por sesión y producto acumulado sin reinicios.",
+      "Diferencia pareada SVR-RIDGE y SVR-C0 por sesión de la misma cartera."
+    ],
+    "minimum_practical_improvement": null,
+    "minimum_practical_improvement_reason": "Fijar en USD y crecimiento log por sesión con costes/recursos conocidos antes de ver resultados; no inventar ni derivar del PnL ganador.",
+    "statistical_rule": "Mantener criteriosV2: crecimiento SVR>0, delta Ridge>mínimo positivo, delta Native>mínimo no negativo, y límites inferiores ajustados mayores que esos mínimos para todos los bloques preregistrados. Historial global incompleto o datos reutilizados impiden aceptación formal aunque los números diagnósticos sean favorables.",
+    "uncertainty": "Bootstrap por bloques de vectores conjuntos de retornos de cartera. Longitud por dependencia/horizonte, no por resultado. Muestra insuficiente o varianza degenerada→inconcluso.",
+    "bootstrap_feasibility": {
+      "alpha_historical_proposed": 0.025,
+      "alpha_forward_reserved": 0.025,
+      "minimum_tail_draws_existing_gate": 20,
+      "minimum_replicates_formula": "ceil(minimum_tail_draws * total_attempts * block_length_count * 3 / family_alpha)",
+      "maximum_replicates_formula": "min(500000, floor(100000000/(session_count*block_length_count)))",
+      "rule": "Comprobar viabilidad antes de ejecutar; no rebajar multiplicidad ni aumentar precisión declarada si falta resolución. total_attempts sigue null hasta conciliación."
+    },
+    "risk": [
+      "Horizonte máximo 72h de calendario desde decisión/primera exposición según contrato de motor; sesiones/feriados considerados antes de entrar.",
+      "Drawdown≤8%, gross≤50%, riesgo por entrada≤0.25%, riesgo abierto≤1.5%, activo≤12% salvo límite vigente más restrictivo.",
+      "Capital, reservas de efectivo, órdenes pendientes, posiciones y comisiones compartidos entre activos.",
+      "Comparar exposiciónmedia temporal y máxima; más apalancamiento no puede confundirse con mejor señal.",
+      "No insolvencia recortada, pérdidas abiertas omitidas ni cierres ficticios al cortar ventanas."
+    ],
+    "costs": [
+      "Distinguir costes reales desconocidos:null de costes de simulación explícitos:valor/parámetro/fuente.",
+      "Precio ejecutado ya incluye spread/slippage; no descontarlos dos veces.",
+      "Gastos de datos/infraestructura/inferencia se aplican cronológicamente con reserva de caja idéntica en controles; si faltan reales, resultadoeconómico REAL permanece null.",
+      "Un solo escenario adverso congelado antes: elevar costes modelados especificados; replay completo de decisiones/caja, no restar al PnL final de manera decorativa.",
+      "Estrés exige PnL SVR neto>mínimo y delta Ridge>mínimo con mismo riesgo, según gate vigente; resultado desfavorable se publica sin retuning."
+    ],
+    "calendar_and_purging": [
+      "Conservar calendario fuente, zona America/New_York, horario de verano, cierres anticipados y datos de sesiones posteriores necesarios para 72h.",
+      "Train/valid/test cronológicos; todo label_end y label_known_at debe preceder la decisión de ajuste.",
+      "Purgar por intervalo real de labels/posiciones; el nominal 72h no equivale siempre a tres sesiones. Embargo y bloques deben cubrir dependencia material estimada sólo en entrenamiento.",
+      "La partición de archivo o fold no reinicia capital ni vende posiciones; atravesar fold mantiene inventario y versión de la política asociada."
+    ],
+    "refutation": [
+      "Resultado SVR neto no positivo.",
+      "Mejora frenteaRidge/C0 desaparece tras costes o tiene signo incierto.",
+      "Ganancia depende de sizing con preciofuturo, fill imposible, barrafaltante censurada o selección retrospectiva del universo.",
+      "Riesgo/capital/72h incumplidos.",
+      "Concentración extrema en un activo/fecha se informa; no retirar ese dato y volver a seleccionar tras observarlo.",
+      "No operar o cobrar interés no prueba por sísolo una estrategia ganadora."
+    ],
+    "historical_decision_labels": [
+      "RECHAZADO_EN_SIMULACION_HISTORICA",
+      "VENTAJA_HISTORICA_NO_DEMOSTRADA",
+      "RESULTADO_HISTORICO_DIAGNOSTICO_FAVORABLE_NO_VALIDACION_REAL"
+    ],
+    "does_not_change_v2_or_real_gate": true,
+    "does_not_accredit_real7": true
+  },
+  "metamorphic_tests_to_design_before_evaluation": [
+    {
+      "id": "PREFIX_CAUSALITY",
+      "transformation": "Alterar/eliminar barras estrictamente posteriores a T.",
+      "invariant": "Señales, características, decisiones y cantidad calculada hasta T deben ser idénticas; los resultados posteriores pueden cambiar."
+    },
+    {
+      "id": "NEXT_BAR_GAP",
+      "transformation": "Cambiar sólo el precio de la barra de ejecución posterior; otra variante omite esa barra.",
+      "invariant": "La cantidad ya decidida no se ajusta usando el nuevo precio; si no hay barra, incidencia/exposición no resuelta y PnLnull, sin saltar a otro fill."
+    },
+    {
+      "id": "LABEL_CUTOFF",
+      "transformation": "Mover label_known_at de una fila desde antes hasta después del corte de entrenamiento.",
+      "invariant": "La fila sale del fit; ninguna estadística/modelo previo al corte puede contener su target."
+    },
+    {
+      "id": "CHUNK_CONTINUITY",
+      "transformation": "Procesar la misma secuencia en un bloque o en segmentos conservando estado.",
+      "invariant": "Efectivo, inventario, reservas, coste acumulado y NAV deben reconciliar exactamente; no reset porfold."
+    },
+    {
+      "id": "SHARED_CAPITAL",
+      "transformation": "Dos señales simultáneas de diferentes activos compiten por la misma caja; reordenar entrada con desempate canónico.",
+      "invariant": "No usar dos veces capital ni reducir reservas al cancelar sin confirmación; mismos resultados con igual orden canónico."
+    },
+    {
+      "id": "FIXED_FILL_COST_MONOTONICITY",
+      "transformation": "En ledger de fills congelados aumentar una comisión confirmada Δ.",
+      "invariant": "El patrimonio económico baja exactamente Δ; no descuento doble. En replay con decisiones adaptativas no se afirma monotonicidad del PnL, se compara ruta completa."
+    },
+    {
+      "id": "TERMINAL_OPEN_LOSS",
+      "transformation": "Cortar observación mientras queda posición perdedora abierta.",
+      "invariant": "NAV incluye pérdida no realizada y pasivos, o declara marca ausente/PnL null; no conserva sólo ganancias realizadas."
+    }
+  ],
+  "pending_data_for_final_registration": {
+    "universe": null,
+    "periods": null,
+    "source_manifest": null,
+    "corporate_actions_policy": null,
+    "fixed_model_parameters": null,
+    "training_update_schedule": null,
+    "cost_scenario": null,
+    "frozen_wrapper_hash": null,
+    "reason": "Esperar inventario final de datos y procedimiento offline antes de sellar; este documento no es reserva ni fuente de aprobación.",
+    "candidate_data_bank_proposal": {
+      "status": "PROPOSED_BY_PARENT_NOT_REGISTERED",
+      "universe": [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "SPY",
+        "XLK",
+        "SMH"
+      ],
+      "from": "2022-01",
+      "through": "2024-08",
+      "calendar_sessions_reported_by_data_agent": 669,
+      "expected_regular_bars_if_complete": 312228,
+      "limitation": "Sólo propuesta y prueba de acceso de un día; esperar captura y manifiesto verificados antes de completar registro. Fecha real de recuperación no equivale a disponibilidad histórica."
+    }
+  },
+  "reviewer_independence": {
+    "external": false,
+    "shared_history": true,
+    "previously_implemented_causality_and_forward_attribution": true
+  },
+  "execution_allowed": false,
+  "deployment_allowed": false,
+  "financial_acceptance_allowed": false,
+  "budget_reservations_created": 0
+}

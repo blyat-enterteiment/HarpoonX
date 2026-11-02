@@ -1,0 +1,29 @@
+{
+  "schema": "HARPOON_RAW_TOOL_RETRIEVAL_1",
+  "tool": "mcp__codex_apps__alpaca_get_corporate_actions",
+  "name": "corporate_actions_2026-10-19_2026-10-30",
+  "request": {
+    "symbols": [
+      "SPY",
+      "XLK"
+    ],
+    "start": "2026-10-19",
+    "end": "2026-10-30",
+    "limit": 1000,
+    "sort": "asc"
+  },
+  "request_started_utc": "2026-11-01 16:24:35 UTC",
+  "response_completed_utc": "2026-11-01 16:24:36 UTC",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"request\":{\"ca_types\":null,\"start\":\"2026-10-19\",\"end\":\"2026-10-30\",\"symbols\":[\"SPY\",\"XLK\"],\"cusips\":null,\"ids\":null,\"limit\":1000,\"sort\":\"asc\"},\"announcements\":{\"cash_dividends\":[{\"id\":\"2f18deca-9def-4e0b-b7cf-56f8a76612eb\",\"corporate_action_type\":\"cash_dividends\",\"symbol\":\"SPY\",\"cusip\":\"78462F103\",\"rate\":1.888834,\"special\":false,\"foreign\":false,\"process_date\":\"2026-10-30\",\"ex_date\":\"2026-09-18\",\"record_date\":\"2026-09-18\",\"payable_date\":\"2026-10-30\",\"due_bill_on_date\":null,\"due_bill_off_date\":null}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": "{\"request\":{\"ca_types\":null,\"start\":\"2026-10-19\",\"end\":\"2026-10-30\",\"symbols\":[\"SPY\",\"XLK\"],\"cusips\":null,\"ids\":null,\"limit\":1000,\"sort\":\"asc\"},\"announcements\":{\"cash_dividends\":[{\"id\":\"2f18deca-9def-4e0b-b7cf-56f8a76612eb\",\"corporate_action_type\":\"cash_dividends\",\"symbol\":\"SPY\",\"cusip\":\"78462F103\",\"rate\":1.888834,\"special\":false,\"foreign\":false,\"process_date\":\"2026-10-30\",\"ex_date\":\"2026-09-18\",\"record_date\":\"2026-09-18\",\"payable_date\":\"2026-10-30\",\"due_bill_on_date\":null,\"due_bill_off_date\":null}]}}"
+    },
+    "isError": false
+  }
+}

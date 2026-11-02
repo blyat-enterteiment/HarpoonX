@@ -1,0 +1,1607 @@
+[
+  {
+    "file": "HarpoonX_Auditoria_Forense_Reproducible_2026_10_27/HarpoonX_Auditoria_Forense_Rentabilidad_2026_10_27/audit.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "collections",
+      "csv",
+      "gzip",
+      "hashlib",
+      "io",
+      "itertools",
+      "json",
+      "math",
+      "statistics",
+      "zipfile",
+      "dataclasses",
+      "pathlib",
+      "typing",
+      "economics"
+    ],
+    "definitions": [
+      "save",
+      "cdf",
+      "price",
+      "shapley",
+      "eligible",
+      "audit_case",
+      "cohort",
+      "public_frontier",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Auditoria_Forense_Reproducible_2026_10_27/HarpoonX_Auditoria_Forense_Rentabilidad_2026_10_27/convex_basket.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "math",
+      "statistics",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "zoneinfo"
+    ],
+    "definitions": [
+      "Bar",
+      "returns",
+      "features",
+      "correlation",
+      "winner_count_distribution",
+      "basket_economics",
+      "build",
+      "_provider_payload",
+      "contract_scope"
+    ]
+  },
+  {
+    "file": "HarpoonX_Auditoria_Forense_Reproducible_2026_10_27/HarpoonX_Auditoria_Forense_Rentabilidad_2026_10_27/economics.py",
+    "imports": [
+      "__future__",
+      "math",
+      "dataclasses",
+      "decimal"
+    ],
+    "definitions": [
+      "_finite",
+      "_d",
+      "PnlParts",
+      "decompose",
+      "expectancy",
+      "break_even_probability",
+      "executable_sell_gate",
+      "annualized_target_multiple",
+      "edge_gate",
+      "debit_budget"
+    ]
+  },
+  {
+    "file": "HarpoonX_Canasta48_2026_10_28/HarpoonX_Canasta48/baseline/lab.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "sqlite3",
+      "statistics",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "zoneinfo",
+      "numpy",
+      "numpy.typing"
+    ],
+    "definitions": [
+      "dump",
+      "iso",
+      "dt",
+      "clock",
+      "digest",
+      "load_database",
+      "save_database",
+      "insert",
+      "bs",
+      "quote_ok",
+      "costs",
+      "returns",
+      "features",
+      "provider_payload",
+      "build",
+      "catalog",
+      "validate",
+      "Row",
+      "rows_for_training",
+      "purge",
+      "matrix",
+      "fit",
+      "predict",
+      "fit_metrics",
+      "bench",
+      "train",
+      "import_opra",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Canasta48_2026_10_28/HarpoonX_Canasta48/swing_remedies.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "math",
+      "sqlite3",
+      "statistics",
+      "sys",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "lab"
+    ],
+    "definitions": [
+      "annual_goal",
+      "admission",
+      "debit_vertical_bounds",
+      "admissible",
+      "make_horizons",
+      "replay",
+      "forensic",
+      "run"
+    ]
+  },
+  {
+    "file": "HarpoonX_Canasta48_2026_10_28/HarpoonX_Canasta48/validate_expansion.py",
+    "imports": [
+      "json",
+      "sys",
+      "pathlib",
+      "lab"
+    ],
+    "definitions": [
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Estrategias_Publicas_Investigacion_2026_10_27/HarpoonX_Estrategias_Publicas_2026_10_27/research_adapter.py",
+    "imports": [
+      "__future__",
+      "json",
+      "math",
+      "pathlib",
+      "typing"
+    ],
+    "definitions": [
+      "finite",
+      "relative_vol_feature",
+      "contractual_risk",
+      "assess_research_entry",
+      "compare_metrics",
+      "training_coverage",
+      "choose_for_shadow",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/alpaca_adapter.py",
+    "imports": [
+      "__future__",
+      "json",
+      "os",
+      "time",
+      "typing",
+      "urllib.error",
+      "urllib.parse",
+      "urllib.request"
+    ],
+    "definitions": [
+      "APIError",
+      "Transport",
+      "HTTPTransport",
+      "Alpaca"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/apply_all.py",
+    "imports": [
+      "json",
+      "pathlib",
+      "dynamic_universe",
+      "engine",
+      "engineering_fixture",
+      "research"
+    ],
+    "definitions": [
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/benchmark.py",
+    "imports": [
+      "__future__",
+      "json",
+      "platform",
+      "statistics",
+      "time",
+      "pathlib",
+      "coordinator",
+      "dynamic_universe",
+      "engine",
+      "engineering_fixture"
+    ],
+    "definitions": [
+      "run"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/capture_service.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "asyncio",
+      "hashlib",
+      "json",
+      "os",
+      "datetime",
+      "pathlib",
+      "typing",
+      "alpaca_adapter",
+      "engine",
+      "normalization",
+      "streams"
+    ],
+    "definitions": [
+      "Buffer",
+      "pages",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/coordinator.py",
+    "imports": [
+      "__future__",
+      "datetime",
+      "typing",
+      "dynamic_universe",
+      "engine"
+    ],
+    "definitions": [
+      "step"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/dynamic_universe.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "math",
+      "datetime",
+      "pathlib",
+      "typing",
+      "engine"
+    ],
+    "definitions": [
+      "volatility_rank",
+      "refresh",
+      "pilot"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/engine.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "calendar",
+      "itertools",
+      "json",
+      "math",
+      "re",
+      "dataclasses",
+      "datetime",
+      "functools",
+      "pathlib",
+      "typing",
+      "zoneinfo",
+      "profit_framework",
+      "settings"
+    ],
+    "definitions": [
+      "ts",
+      "instant_ns",
+      "iso",
+      "parse_payload",
+      "validate",
+      "Tape",
+      "thresholds",
+      "signal",
+      "_deadline",
+      "_prices",
+      "campaign",
+      "Label",
+      "purged",
+      "fit_expected_r",
+      "pick_basket",
+      "portfolio",
+      "apply_pilot"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/engineering_fixture.py",
+    "imports": [
+      "__future__",
+      "datetime",
+      "engine"
+    ],
+    "definitions": [
+      "build"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/export_oos.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "pathlib",
+      "typing",
+      "engine"
+    ],
+    "definitions": [
+      "export"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/ingest.py",
+    "imports": [
+      "argparse",
+      "hashlib",
+      "json",
+      "pathlib",
+      "engine"
+    ],
+    "definitions": [
+      "ingest"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/normalization.py",
+    "imports": [
+      "__future__",
+      "hashlib",
+      "datetime",
+      "typing",
+      "engine"
+    ],
+    "definitions": [
+      "normalize_contract",
+      "normalize_quote",
+      "normalize_trade",
+      "normalize_bars",
+      "required_subscriptions",
+      "CaptureQuality"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/order_manager.py",
+    "imports": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "sqlite3",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "alpaca_adapter",
+      "engine",
+      "settings"
+    ],
+    "definitions": [
+      "Manager"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/paper_service.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "asyncio",
+      "json",
+      "time",
+      "datetime",
+      "pathlib",
+      "typing",
+      "alpaca_adapter",
+      "coordinator",
+      "engine",
+      "order_manager",
+      "research_validation",
+      "selection",
+      "settings"
+    ],
+    "definitions": [
+      "monitor",
+      "cycle",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/profit_framework.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "itertools",
+      "json",
+      "math",
+      "collections.abc",
+      "dataclasses",
+      "datetime",
+      "pathlib"
+    ],
+    "definitions": [
+      "number",
+      "clock",
+      "Scenarios",
+      "Candidate",
+      "State",
+      "Bounds",
+      "select",
+      "current_readiness"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/research.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "statistics",
+      "datetime",
+      "pathlib",
+      "typing",
+      "dynamic_universe",
+      "engine"
+    ],
+    "definitions": [
+      "training_correlations",
+      "run",
+      "run_file"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/research_validation.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "random",
+      "datetime",
+      "pathlib",
+      "typing",
+      "engine"
+    ],
+    "definitions": [
+      "validate_oos",
+      "model_direction"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/selection.py",
+    "imports": [
+      "__future__",
+      "datetime",
+      "typing"
+    ],
+    "definitions": [
+      "choose"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/settings.py",
+    "imports": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "dataclasses",
+      "pathlib"
+    ],
+    "definitions": [
+      "Settings",
+      "load"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Aplicado_1_2_2026_10_29/HarpoonX_Framework_Aplicado/streams.py",
+    "imports": [
+      "__future__",
+      "asyncio",
+      "json",
+      "sqlite3",
+      "collections.abc",
+      "datetime",
+      "pathlib",
+      "typing",
+      "alpaca_adapter",
+      "normalization"
+    ],
+    "definitions": [
+      "Recorder"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Mejora_Incremental_1_6/HarpoonX_Framework_Mejora_Incremental_1_6/incremental_auditor.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "datetime",
+      "pathlib",
+      "typing",
+      "numpy",
+      "numpy.typing"
+    ],
+    "definitions": [
+      "finite",
+      "target_hurdle",
+      "micro_savings",
+      "credit_cap",
+      "economic_net",
+      "lower_bounds",
+      "assess"
+    ]
+  },
+  {
+    "file": "HarpoonX_Framework_Mejora_Incremental_1_6/HarpoonX_Framework_Mejora_Incremental_1_6/make_framework.py",
+    "imports": [
+      "pathlib",
+      "hashlib",
+      "json",
+      "platform",
+      "importlib.metadata",
+      "ast",
+      "time",
+      "incremental_auditor",
+      "numpy"
+    ],
+    "definitions": []
+  },
+  {
+    "file": "HarpoonX_Microestructura_Investigacion_2026_10_27/HarpoonX_Microestructura_2026_10_27/analyze.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "collections",
+      "csv",
+      "hashlib",
+      "io",
+      "json",
+      "statistics",
+      "tempfile",
+      "zipfile",
+      "dataclasses",
+      "datetime",
+      "decimal",
+      "pathlib",
+      "typing",
+      "microstructure",
+      "vertical"
+    ],
+    "definitions": [
+      "save",
+      "unpack",
+      "stats",
+      "money",
+      "synthetic",
+      "vertical_frontier",
+      "public_samples",
+      "run"
+    ]
+  },
+  {
+    "file": "HarpoonX_Microestructura_Investigacion_2026_10_27/HarpoonX_Microestructura_2026_10_27/benchmark.py",
+    "imports": [
+      "__future__",
+      "json",
+      "platform",
+      "statistics",
+      "sys",
+      "time",
+      "pathlib",
+      "microstructure"
+    ],
+    "definitions": [
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Microestructura_Investigacion_2026_10_27/HarpoonX_Microestructura_2026_10_27/microstructure.py",
+    "imports": [
+      "__future__",
+      "math",
+      "dataclasses",
+      "decimal",
+      "typing"
+    ],
+    "definitions": [
+      "NonExecutablePrice",
+      "_finite",
+      "_whole",
+      "_d",
+      "Quote",
+      "QuoteMetrics",
+      "quote_metrics",
+      "asof_rejections",
+      "rounded_execution",
+      "RoundTripCost",
+      "round_trip_cost",
+      "displayed_capacity",
+      "ofi_increment",
+      "Markout",
+      "markout",
+      "first_order_underlying_move",
+      "passive_order_value",
+      "ExitForecast",
+      "ShadowEntry",
+      "assess_shadow_entry"
+    ]
+  },
+  {
+    "file": "HarpoonX_Microestructura_Investigacion_2026_10_27/HarpoonX_Microestructura_2026_10_27/normalize_alpaca.py",
+    "imports": [
+      "__future__",
+      "re",
+      "datetime",
+      "typing",
+      "microstructure"
+    ],
+    "definitions": [
+      "rfc3339_ns",
+      "_price",
+      "_size",
+      "normalize_quote"
+    ]
+  },
+  {
+    "file": "HarpoonX_Microestructura_Investigacion_2026_10_27/HarpoonX_Microestructura_2026_10_27/vertical.py",
+    "imports": [
+      "__future__",
+      "dataclasses",
+      "datetime",
+      "decimal",
+      "typing",
+      "microstructure"
+    ],
+    "definitions": [
+      "OptionLeg",
+      "VerticalSnapshotCost",
+      "vertical_snapshot_cost"
+    ]
+  },
+  {
+    "file": "HarpoonX_Options_Evidence_Framework_1_4/HarpoonX_Options_Evidence_Framework_1_4/evidence_math.py",
+    "imports": [
+      "__future__",
+      "dataclasses",
+      "json",
+      "math",
+      "pathlib",
+      "typing"
+    ],
+    "definitions": [
+      "finite",
+      "compound_growth",
+      "calendar_year_cagr_pct",
+      "comparable_periods",
+      "integrated_variance_gap",
+      "risk_budget_usd",
+      "planned_fixed_cost_hurdle",
+      "business_net_usd",
+      "StructureBudget",
+      "structure_budget",
+      "benchmark_results"
+    ]
+  },
+  {
+    "file": "HarpoonX_Options_Lab_2026_10_28/HarpoonX_Options_Lab_2026_10_28/lab.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "sqlite3",
+      "statistics",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "zoneinfo",
+      "numpy",
+      "numpy.typing"
+    ],
+    "definitions": [
+      "dump",
+      "iso",
+      "dt",
+      "clock",
+      "digest",
+      "load_database",
+      "save_database",
+      "insert",
+      "bs",
+      "quote_ok",
+      "costs",
+      "returns",
+      "features",
+      "provider_payload",
+      "build",
+      "catalog",
+      "validate",
+      "Row",
+      "rows_for_training",
+      "purge",
+      "matrix",
+      "fit",
+      "predict",
+      "fit_metrics",
+      "bench",
+      "train",
+      "import_opra",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/benchmark.py",
+    "imports": [
+      "argparse",
+      "copy",
+      "json",
+      "os",
+      "platform",
+      "resource",
+      "statistics",
+      "tempfile",
+      "time",
+      "pathlib",
+      "hx_common",
+      "hx_capture_io"
+    ],
+    "definitions": [
+      "benchmark"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/benchmark_micro.py",
+    "imports": [
+      "argparse",
+      "json",
+      "resource",
+      "statistics",
+      "subprocess",
+      "sys",
+      "tempfile",
+      "time",
+      "pathlib",
+      "hx_common"
+    ],
+    "definitions": [
+      "benchmark"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_capture_io.py",
+    "imports": [
+      "gzip",
+      "json",
+      "os",
+      "stat",
+      "hx_common"
+    ],
+    "definitions": [
+      "load_capture",
+      "save_capture"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_common.py",
+    "imports": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "stat",
+      "subprocess",
+      "datetime",
+      "pathlib",
+      "zoneinfo"
+    ],
+    "definitions": [
+      "number",
+      "integer",
+      "stamp",
+      "now_ms",
+      "day",
+      "iso",
+      "utc",
+      "canonical",
+      "digest",
+      "file_sha",
+      "decode_json",
+      "load",
+      "save",
+      "bridge",
+      "kit_hash",
+      "verify_seal",
+      "seal",
+      "policy",
+      "check_registry",
+      "economic_plan",
+      "features",
+      "entry_limit"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_install_options.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "pathlib",
+      "shutil",
+      "stat",
+      "typing",
+      "zipfile"
+    ],
+    "definitions": [
+      "sha256",
+      "safe_path",
+      "verify_core",
+      "install",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_micro.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "gzip",
+      "json",
+      "math",
+      "resource",
+      "time",
+      "dataclasses",
+      "pathlib",
+      "typing",
+      "numpy",
+      "scipy.special",
+      "scipy.stats",
+      "hx_common",
+      "hx_synthetic"
+    ],
+    "definitions": [
+      "Geometry",
+      "validate_spec",
+      "validate_input",
+      "delta",
+      "make_geometry",
+      "select_geometry",
+      "generate_tape",
+      "price_outcomes",
+      "raw_candidate",
+      "fit_hurdle",
+      "account_months",
+      "summarize",
+      "exact_shapley",
+      "paired_intervals",
+      "save_arrays",
+      "study",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_micro_audit.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "math",
+      "zipfile",
+      "pathlib",
+      "typing",
+      "numpy",
+      "hx_common",
+      "hx_synthetic",
+      "hx_micro"
+    ],
+    "definitions": [
+      "load_npz_bounded",
+      "metric_equal",
+      "regime_metrics",
+      "audit_study"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_model.py",
+    "imports": [
+      "__future__",
+      "math",
+      "tempfile",
+      "pathlib",
+      "hx_capture_io",
+      "hx_common"
+    ],
+    "definitions": [
+      "capture_policy",
+      "labels_from_replay",
+      "collect_labels",
+      "fit",
+      "forecast",
+      "inject_candidates"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_options_adaptation.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "datetime",
+      "gzip",
+      "hashlib",
+      "json",
+      "math",
+      "pathlib",
+      "subprocess",
+      "typing"
+    ],
+    "definitions": [
+      "iso",
+      "digest",
+      "marginal_attribution",
+      "save",
+      "european_proxy",
+      "path_value",
+      "tape",
+      "run",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_profit.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "re",
+      "sys",
+      "tempfile",
+      "pathlib",
+      "hx_common",
+      "hx_model",
+      "hx_capture_io",
+      "hx_targets"
+    ],
+    "definitions": [
+      "validate_spec",
+      "register",
+      "evaluate",
+      "run_continuous",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_synthetic.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "gzip",
+      "json",
+      "math",
+      "os",
+      "pathlib",
+      "typing",
+      "numpy",
+      "scipy.special",
+      "hx_common"
+    ],
+    "definitions": [
+      "bs",
+      "contract_reference",
+      "monthly_metrics",
+      "account_proxy",
+      "generate"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_targets.py",
+    "imports": [
+      "__future__",
+      "math",
+      "typing",
+      "hx_common"
+    ],
+    "definitions": [
+      "frontier"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_uplift.py",
+    "imports": [
+      "__future__",
+      "math",
+      "pathlib",
+      "typing",
+      "numpy",
+      "hx_common",
+      "hx_capture_io"
+    ],
+    "definitions": [
+      "paired_bounds",
+      "reconcile_report",
+      "_daily",
+      "compare"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_3/HarpoonX_Profit_Framework_1_3/hx_validate.py",
+    "imports": [
+      "__future__",
+      "math",
+      "datetime",
+      "pathlib",
+      "numpy",
+      "hx_capture_io",
+      "hx_common"
+    ],
+    "definitions": [
+      "months_between",
+      "max_drawdown",
+      "bootstrap_lowers",
+      "verify_evaluation",
+      "phase_report",
+      "audit"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/benchmark.py",
+    "imports": [
+      "argparse",
+      "copy",
+      "json",
+      "os",
+      "platform",
+      "resource",
+      "statistics",
+      "tempfile",
+      "time",
+      "pathlib",
+      "hx_common",
+      "hx_capture_io"
+    ],
+    "definitions": [
+      "benchmark"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/benchmark_micro.py",
+    "imports": [
+      "argparse",
+      "json",
+      "resource",
+      "statistics",
+      "subprocess",
+      "sys",
+      "tempfile",
+      "time",
+      "pathlib",
+      "hx_common"
+    ],
+    "definitions": [
+      "benchmark"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_capture_io.py",
+    "imports": [
+      "gzip",
+      "json",
+      "os",
+      "stat",
+      "hx_common"
+    ],
+    "definitions": [
+      "load_capture",
+      "save_capture"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_common.py",
+    "imports": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "stat",
+      "subprocess",
+      "datetime",
+      "pathlib",
+      "zoneinfo"
+    ],
+    "definitions": [
+      "number",
+      "integer",
+      "stamp",
+      "now_ms",
+      "day",
+      "iso",
+      "utc",
+      "canonical",
+      "digest",
+      "file_sha",
+      "decode_json",
+      "load",
+      "save",
+      "bridge",
+      "kit_hash",
+      "verify_seal",
+      "seal",
+      "policy",
+      "check_registry",
+      "economic_plan",
+      "features",
+      "entry_limit"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_incremental.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "copy",
+      "json",
+      "subprocess",
+      "math",
+      "gzip",
+      "pathlib",
+      "typing",
+      "hx_options_adaptation"
+    ],
+    "definitions": [
+      "designed",
+      "run"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_install_incremental.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "shutil",
+      "pathlib",
+      "typing",
+      "hx_install_options"
+    ],
+    "definitions": [
+      "checked_file",
+      "verify_core",
+      "install",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_install_options.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "pathlib",
+      "shutil",
+      "stat",
+      "typing",
+      "zipfile"
+    ],
+    "definitions": [
+      "sha256",
+      "safe_path",
+      "verify_core",
+      "install",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_micro.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "gzip",
+      "json",
+      "math",
+      "resource",
+      "time",
+      "dataclasses",
+      "pathlib",
+      "typing",
+      "numpy",
+      "scipy.special",
+      "scipy.stats",
+      "hx_common",
+      "hx_synthetic"
+    ],
+    "definitions": [
+      "Geometry",
+      "validate_spec",
+      "validate_input",
+      "delta",
+      "make_geometry",
+      "select_geometry",
+      "generate_tape",
+      "price_outcomes",
+      "raw_candidate",
+      "fit_hurdle",
+      "account_months",
+      "summarize",
+      "exact_shapley",
+      "paired_intervals",
+      "save_arrays",
+      "study",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_micro_audit.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "math",
+      "zipfile",
+      "pathlib",
+      "typing",
+      "numpy",
+      "hx_common",
+      "hx_synthetic",
+      "hx_micro"
+    ],
+    "definitions": [
+      "load_npz_bounded",
+      "metric_equal",
+      "regime_metrics",
+      "audit_study"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_model.py",
+    "imports": [
+      "__future__",
+      "math",
+      "tempfile",
+      "pathlib",
+      "hx_capture_io",
+      "hx_common"
+    ],
+    "definitions": [
+      "capture_policy",
+      "labels_from_replay",
+      "collect_labels",
+      "fit",
+      "forecast",
+      "inject_candidates"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_options_adaptation.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "datetime",
+      "gzip",
+      "hashlib",
+      "json",
+      "math",
+      "pathlib",
+      "subprocess",
+      "typing"
+    ],
+    "definitions": [
+      "iso",
+      "digest",
+      "marginal_attribution",
+      "save",
+      "european_proxy",
+      "path_value",
+      "tape",
+      "run",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_profit.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "re",
+      "sys",
+      "tempfile",
+      "pathlib",
+      "hx_common",
+      "hx_model",
+      "hx_capture_io",
+      "hx_targets"
+    ],
+    "definitions": [
+      "validate_spec",
+      "register",
+      "evaluate",
+      "run_continuous",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_synthetic.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "gzip",
+      "json",
+      "math",
+      "os",
+      "pathlib",
+      "typing",
+      "numpy",
+      "scipy.special",
+      "hx_common"
+    ],
+    "definitions": [
+      "bs",
+      "contract_reference",
+      "monthly_metrics",
+      "account_proxy",
+      "generate"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_targets.py",
+    "imports": [
+      "__future__",
+      "math",
+      "typing",
+      "hx_common"
+    ],
+    "definitions": [
+      "frontier"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_uplift.py",
+    "imports": [
+      "__future__",
+      "math",
+      "pathlib",
+      "typing",
+      "numpy",
+      "hx_common",
+      "hx_capture_io"
+    ],
+    "definitions": [
+      "paired_bounds",
+      "reconcile_report",
+      "_daily",
+      "compare"
+    ]
+  },
+  {
+    "file": "HarpoonX_Profit_Framework_1_7/HarpoonX_Profit_Framework_1_7/hx_validate.py",
+    "imports": [
+      "__future__",
+      "math",
+      "datetime",
+      "pathlib",
+      "numpy",
+      "hx_capture_io",
+      "hx_common"
+    ],
+    "definitions": [
+      "months_between",
+      "max_drawdown",
+      "bootstrap_lowers",
+      "verify_evaluation",
+      "phase_report",
+      "audit"
+    ]
+  },
+  {
+    "file": "HarpoonX_Swing_Remediacion_2026_10_28/HarpoonX_Swing_Remediacion_2026_10_28/baseline/lab.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "sqlite3",
+      "statistics",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "zoneinfo",
+      "numpy",
+      "numpy.typing"
+    ],
+    "definitions": [
+      "dump",
+      "iso",
+      "dt",
+      "clock",
+      "digest",
+      "load_database",
+      "save_database",
+      "insert",
+      "bs",
+      "quote_ok",
+      "costs",
+      "returns",
+      "features",
+      "provider_payload",
+      "build",
+      "catalog",
+      "validate",
+      "Row",
+      "rows_for_training",
+      "purge",
+      "matrix",
+      "fit",
+      "predict",
+      "fit_metrics",
+      "bench",
+      "train",
+      "import_opra",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_Swing_Remediacion_2026_10_28/HarpoonX_Swing_Remediacion_2026_10_28/swing_remedies.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "json",
+      "math",
+      "sqlite3",
+      "statistics",
+      "sys",
+      "dataclasses",
+      "datetime",
+      "pathlib",
+      "typing",
+      "lab"
+    ],
+    "definitions": [
+      "annual_goal",
+      "admission",
+      "debit_vertical_bounds",
+      "admissible",
+      "make_horizons",
+      "replay",
+      "forensic",
+      "run"
+    ]
+  },
+  {
+    "file": "HarpoonX_TP_Neto_Codigo_Validadores_2026_10_27/HarpoonX_TP_Neto_2026_10_27/install_overlay.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "shutil",
+      "pathlib"
+    ],
+    "definitions": [
+      "digest",
+      "install"
+    ]
+  },
+  {
+    "file": "HarpoonX_WalkForward_Purgado_2026_10_27/package/replicate.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "copy",
+      "json",
+      "statistics",
+      "time",
+      "pathlib",
+      "typing",
+      "wf_engine",
+      "wf_data",
+      "verify_run"
+    ],
+    "definitions": [
+      "validate_plan",
+      "replicate",
+      "main"
+    ]
+  },
+  {
+    "file": "HarpoonX_WalkForward_Purgado_2026_10_27/package/wf_data.py",
+    "imports": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "datetime",
+      "pathlib",
+      "typing",
+      "zoneinfo",
+      "numpy"
+    ],
+    "definitions": [
+      "seal",
+      "finite",
+      "stamp",
+      "prices",
+      "bbo",
+      "quote_entry",
+      "budget",
+      "validate_calendar",
+      "generate",
+      "save_json"
+    ]
+  },
+  {
+    "file": "HarpoonX_WalkForward_Purgado_2026_10_27/package/wf_engine.py",
+    "imports": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "math",
+      "subprocess",
+      "time",
+      "sys",
+      "platform",
+      "collections",
+      "pathlib",
+      "typing",
+      "numpy",
+      "numpy.typing",
+      "wf_data"
+    ],
+    "definitions": [
+      "code_hashes",
+      "validate_protocol",
+      "candidate_reason",
+      "splits",
+      "fit_fold",
+      "forecast",
+      "value_math",
+      "account",
+      "intervals",
+      "core_call",
+      "run",
+      "main"
+    ]
+  }
+]

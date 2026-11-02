@@ -1,0 +1,111 @@
+{
+  "schema": "HARPOON_HISTORICAL_FINAL_DESIGN_REVIEW_1",
+  "recorded_at": "2026-11-01T18:15:00.099199+00:00",
+  "read_snapshot": [
+    {
+      "path": "tools/historical_bank_register.py",
+      "sha256": "332d93a80225e9e0b94d55fd2311249bdc3920ee0f308dfae1115638ad873248"
+    },
+    {
+      "path": "tools/test_historical_bank_register.py",
+      "sha256": "c1106d79ca593801911b4efc4b2bc256051914b77323c7c4af645f23fb2a6f9c"
+    },
+    {
+      "path": "tools/historical_bank.cjs",
+      "sha256": "4d1f82a26d4a2716e2e49aabe6830349b04275953a840c506369d4a7528addee"
+    },
+    {
+      "path": "quant/harpoon_quant/historical_bank.py",
+      "sha256": "77a835f398b1b2bdf0d426c4b1393da628d9e46290ab91edcb1a567a1a4642f2"
+    },
+    {
+      "path": "xxx/ultimate_replay.ts",
+      "sha256": "0a07d8248520fe28bf1cb1ac695cf3dde00fbb8504882f282773b20f3c5605b8"
+    },
+    {
+      "path": "xxx/ultimate_reservations.ts",
+      "sha256": "2a3bc2e491c582c5389b2bf2b11f2f1c2bb14df6c6644d133f1da83c615c6883"
+    },
+    {
+      "path": "tools/historical_bank_data_audit.py",
+      "sha256": "5384272e3bdc29bb22a04668edd4319033a4a245673e36827c972e8fad4183f3"
+    },
+    {
+      "path": "research/historical_bank/protocol.json",
+      "sha256": "e06aacc6917a72420049e390d81c089fd2a7388a51eb2e0141fb087f2b26255c"
+    }
+  ],
+  "status": "NO_ADDITIONAL_MATERIAL_DEFECT_FOUND_IN_SCOPED_REVIEW",
+  "registration_verification": {
+    "command": "python -m unittest discover -s tools -p test_historical_bank_register.py -v",
+    "tests": 20,
+    "passed": 20,
+    "failed": 0,
+    "wall_time_reported_seconds": 0.841,
+    "scope": "Temporary synthetic contract fixtures, including exact retained-journal copies; no actual study reservation."
+  },
+  "source_journal": {
+    "sha256": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd",
+    "audit_seq": 78,
+    "audit_head": "df39e861ed2aa086dfb80c782d7924bead338fa6dfc1a28dc202616d5c3c1208",
+    "budget": {
+      "limit": 128,
+      "spent": 23
+    },
+    "bytes_unchanged": true
+  },
+  "remediated_findings": [
+    {
+      "id": "HIST_DERIVED_ARTIFACT_BINDING",
+      "path": "tools/historical_bank.cjs and quant/harpoon_quant/historical_bank.py::verify_derivation",
+      "remedy": "Regenerate native signals and labels from sealed source; regenerate feature panel, fixed fits and predictions before funded replay; compare derivation identities apart from benchmark clock."
+    },
+    {
+      "id": "HIST_INCREMENTAL_ESTIMAND",
+      "path": "quant/harpoon_quant/historical_bank.py::statistical_evaluation",
+      "remedy": "Compute the adjusted lower quantile of paired compounded return differences; keep relative log growth ratio diagnostic only."
+    }
+  ],
+  "scoped_core_review": {
+    "paths": [
+      "planFundedIocLimit",
+      "replayCampaign inventoryEvents and dividendEntitlements",
+      "replayFundedPortfolio reservation timing, cashPoolAt, equityAt, continuous curve"
+    ],
+    "result": "No further concrete defect identified from this read; does not certify exhaustive correctness.",
+    "new_financial_experiments_executed": 0
+  },
+  "frozen_design_limits": {
+    "universe": [
+      "AAPL",
+      "MSFT",
+      "SPY",
+      "XLK"
+    ],
+    "measurements": 6,
+    "local_budget_path": [
+      23,
+      26,
+      29
+    ],
+    "unique_model_fit_recipes": 8,
+    "primary_fit_invocations": 8,
+    "total_fit_invocations_including_exact_verification": 32,
+    "validation": "DESCRIPTIVE_ONLY",
+    "inferential_period": "TEST_ONLY",
+    "multiplicity_endpoints": 12,
+    "global_deduplicated_search_total": null,
+    "corporate_action_completeness": null,
+    "corporate_announcement_known_at_original": null,
+    "corporate_clock": "Ex-date and payable time are historical model assumptions, not contemporary publication or broker receipt evidence."
+  },
+  "scope": {
+    "reviewer_also_implemented_registrar_and_earlier_core_causality": true,
+    "shared_history_and_workspace": true,
+    "external_independent_validation": false,
+    "definitive_reservation_by_reviewer": false,
+    "execution_allowed": false,
+    "financial_acceptance_allowed": false,
+    "REAL_level7_accredited": false
+  }
+}

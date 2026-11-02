@@ -1,0 +1,84 @@
+{
+  "schema": "HARPOON_PROSPECTIVE_FEATURE_PIPELINE_CONTRACT_1",
+  "reuse_existing": true,
+  "pipeline": [
+    {
+      "path": "runtime/quant_bridge.cjs",
+      "function": "observationInput/observe",
+      "role": "Copy current source snapshot before worker wait; price-independent rotation and explicit coverage"
+    },
+    {
+      "path": "xxx/quant_observations.ts",
+      "function": "QuantObservationJournal.capture",
+      "role": "Validate and persist immutable input+feature frame with account/configuration binding; no orders"
+    },
+    {
+      "path": "tools/export_observation_snapshot.cjs",
+      "role": "Export a pinned complete snapshot prefix instead of unrelated pages"
+    },
+    {
+      "path": "tools/build_causal_panel.py",
+      "function": "main",
+      "role": "Build/verify through existing harpoon_quant.causal_panel without fitting"
+    },
+    {
+      "path": "quant/harpoon_quant/causal_panel.py",
+      "function": "_prospective/build",
+      "role": "Recompute eight existing features, select preregistered grid causally, assign labels only after observed maturity"
+    },
+    {
+      "path": "tools/funded_comparison.cjs",
+      "function": "runFundedComparison",
+      "role": "Later fixed C0/RIDGE/SVR comparison under common controls and separate journal reservation"
+    }
+  ],
+  "clocks": {
+    "market_timestamp": "Provider event time; retain as received",
+    "quote_received_at": "Actual local receipt recorded by runtime",
+    "snapshot_asof": "Time snapshot contents demonstrably existed in memory",
+    "predictor_completion_at": "Separate measured completion time; not inferred from snapshot",
+    "historic_retrieval_at": "Current retrieval only; cannot recreate old receipt times"
+  },
+  "allowed_conservative_bar_rule": "If an original bar receipt is absent but the bar is inside an immutable real snapshot, the snapshot time is a conservative first-known bound. Label that basis explicitly; it is not a measured per-bar transport timestamp.",
+  "prohibited": [
+    "Historical bar end+3s presented as original reception",
+    "Filling unknown L1 quotes or executable depth from OHLCV",
+    "Marking reconstructed historical rows as prospective",
+    "Treating sample midquote label as trade/net-account PnL",
+    "Fabricating model OBSERVED origin or complete-account costs",
+    "Using all profitable assets only to build selection"
+  ],
+  "current_build_request_template": {
+    "schema": "HARPOON_CAUSAL_PANEL_REQUEST_1",
+    "available_at": null,
+    "split_contract": "CURRENT_SVR_60_20_20_PURGED",
+    "config": null,
+    "observation_manifest": null,
+    "selection": {
+      "kind": "FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID",
+      "timezone": "America/New_York",
+      "local_time": null,
+      "max_selection_delay_ms": null,
+      "label_quote_max_age_ms": null,
+      "label_maturity_max_delay_ms": null
+    }
+  },
+  "minimum_runtime_inputs": [
+    "identified account and unchanged configuration",
+    "complete source observation snapshot/manifest",
+    "original quotes with market and receipt timestamps",
+    "calendar visible to the snapshot",
+    "closed bars present in snapshot",
+    "asset metadata present at capture",
+    "later observed quote/maturity frames for labels"
+  ],
+  "model_comparison_additional_inputs": [
+    "fixed observed Ridge and SVR model bytes/provenance from admissible training data",
+    "same test-period universe, capital, risk and cost model",
+    "observed cost/ledger receipts",
+    "reserved experiment identity and whole search history"
+  ],
+  "current_status": "NO_NEW_PROSPECTIVE_FRAMES_OR_MODELS_CREATED_IN_THIS_REVIEW",
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false
+}

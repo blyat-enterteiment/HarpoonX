@@ -1,0 +1,52 @@
+HARPOON XXXUltimate 30.3.1 · Corrección operacional
+Fecha de comprobación: 2026-10-18 UTC
+Estado: LOCAL_OFFLINE_VERIFIED_EXTERNAL_EXECUTION_AND_BROWSER_VALIDATION_PENDING
+
+RESULTADO EJECUTADO EN ESTA ENTREGA
+Una segunda revisión local repitió las 182 pruebas, verificó tipos, y recompiló los 22 módulos TypeScript en un árbol aislado: todos los JavaScript emitidos coincidieron byte a byte. No es auditoría externa ni validación de broker.
+- 182/182 pruebas aprobadas: 144 heredadas del núcleo, 30 regresiones operacionales nuevas y 8 contratos de renderizado con DOM mínimo. Fallidas0, omitidas0, pendientes0.
+- TypeScript estricto y compilación: PASS.
+- Importación aislada con npm ci --offline --omit=dev: PASS. No se incluyó TypeScript en producción. Sello del informe histórico incluido: PASS.
+- Auditoría estática: 57 archivos, 1868 cuerpos de función, 0 cuerpos vacíos sin explicar, 0 marcadores inconclusos, 0 imports de fixtures de pruebas/demo en las rutas revisadas.
+- Benchmark puro de decisiones repetido; valores en evidence/operational-30.3.1/benchmark.json. Excluye broker, red, SQLite e interfaz. No es una promesa de latencia ni de rentabilidad.
+- Pruebas reales de navegador: BLOQUEADAS antes de ejecutar sus aserciones por creación de socket de Chromium no permitida en el entorno. Los 8 contratos DOM no sustituyen validación visual ni navegador.
+
+INCIDENCIAS CORREGIDAS Y VALIDADORES OPERACIONALES
+1. Una protección rechazada en la primera campaña ya no consume indefinidamente el recorrido: primero se observan todas, se priorizan globalmente las salidas urgentes y se rotan turnos dentro de cada prioridad.
+2. Cada pulso tiene hasta 8 rondas de mutación/conciliación; las campañas restantes conservan el turno para el siguiente. No se calcula otra venta sobre cantidades anteriores a una mutación.
+3. Se registran intentos, finalizaciones reales, antigüedad y resultados por posición. Una evaluación parcial, fallida, vencida o aún no realizada no produce ALIVE por el éxito de otra posición.
+4. Nuevos validadores en runtime: position-evaluation, position-coverage, guardian-coverage, protection-retry y sell-reservation. La guardia y las entradas usan cobertura efectiva y reservas de inventario, además de las puertas ya existentes.
+5. Espera persistida de rechazos definitivos: 2/4/8/16/32 segundos, máximo60 entre intentos por clase y campaña. Las confirmaciones de hermanos OCO anteriores no borran el presupuesto del tramo rechazado. UNKNOWN no autoriza reenvíos automáticos.
+6. Un TP persistido no se transforma en venta a mercado al vencer su cotización. El mínimo durable se conserva y se espera dato válido.
+7. Un cierre urgente incorpora fills de entrada tardíos confirmados durante la cancelación y vende el remanente conciliado. Las reservas activas, incluidas cancelaciones aún no confirmadas, impiden sobreventa; patas OCO vinculadas se cuentan una sola vez.
+8. Una orden standalone held no acredita protección. Una pata held contingente solo cuenta con padre OCO confirmado, vigente, del mismo dueño/campaña y sin cancelación solicitada.
+9. Tras reiniciar, el historial de evaluación queda como diagnóstico; la cobertura del proceso nuevo comienza sin validación. Pausa manual y backoff sobreviven. El laboratorio sigue separado de las salidas.
+10. Una posición con mercado cerrado se etiqueta MARKET_CLOSED sin simular comprobación de precio. Solo permite entradas en otros mercados si sesión cerrada, reloj reciente, protección alineada, inventario y ausencia de órdenes pendientes/reintentos han sido comprobados. La reapertura o el reloj vencido invalidan esa excepción.
+
+REGRESIONES CUBIERTAS
+Rechazo repetido seguido de STOP/flatten/time/signal en otra posición; más campañas que el presupuesto de un pulso; cancelación retrasada; fills parciales; respuesta incierta antes/después de envío; reinicio; pausa; backoff exponencial; fallo aislado de evaluador; cotización/clock/snapshot vencidos; OPRA ausente; TP persistido; prioridad STOP sobre TP joven; late fill de entrada; OCO y runner rechazado; stop held; deriva de tick; eventos concurrentes y coalescencia de pulsos; independencia de entradas cripto frente a posiciones seguras en sesión cerrada.
+
+PRESERVACIÓN Y ALCANCE
+ZIP de partida: SHA256 4b29f281b4251e97c98b45ebade4c0481bab8d13e0958626393c2938f0f30b33.
+Toda la evidencia histórica se mantiene byte a byte. Los cuatro módulos compilados sellados del motor de investigación también son idénticos. Los hashes y el recuento están en preservation.json. La identidad de versión operativa está separada del sello de investigación para no reescribir resultados antiguos.
+La política predeterminada sigue siendo BASELINE_30_1, con promotion NONE. No se ha repetido ni promovido el walk-forward en esta tarea. Los informes y cifras anteriores son evidencia histórica y no pruebas nuevas de esta corrección.
+El conector Ironbeam sigue siendo demo/PAPER, separado del gestor autónomo de equity, ETF, cripto spot y opciones compradas. Su bracket exige orden explícita; no se ha activado un gestor autónomo de futuros.
+
+LÍMITES RESIDUALES
+No se han ejecutado órdenes externas, pruebas autenticadas Alpaca/Ironbeam, construcción Docker, despliegues ni publicaciones GitHub en esta tarea. La corrección se validó con dobles de broker sintéticos aislados en tools. Los plazos del planificador y de evaluación son objetivos/umbrales; no garantizan ejecución ante bloqueos de red, broker, gaps, suspensiones o pérdida de datos. La auditoría estática y la revisión de código no certifican ausencia de todos los errores ni rentabilidad.
+
+REPRODUCCIÓN LOCAL
+npm ci --ignore-scripts
+npm run typecheck:xxx
+npm run build:xxx
+npm run test:xxx
+npm run test:ultimate
+npm run test:operational
+npm run audit:xxx
+npm run benchmark:xxx
+npm run verify:ultimate:production
+Las pruebas de navegador quedan disponibles: test:xxx:browser, test:ultimate:browser y test:operational:browser, pero requieren un entorno de navegador que funcione.
+Resultados de esta ejecución: evidence/operational-30.3.1/tests.tap, typecheck.txt, build.txt, production-import.json, function-audit.json, verification-summary.json y browser-status.json.
+
+ACTUALIZACIÓN SIN PERDER ESTADO
+Detener el runtime anterior y hacer copia de seguridad del SQLite y la configuración originales antes de sustituir código. Conservar el journal, sus pausas, credenciales externas y límites vinculados; no borrar datos para eludir una discrepancia. Arrancar solo una instancia y comprobar conciliación, cobertura por posición y estado PAPER antes de permitir entradas. La configuración y los parámetros de riesgo incluidos no se han cambiado.

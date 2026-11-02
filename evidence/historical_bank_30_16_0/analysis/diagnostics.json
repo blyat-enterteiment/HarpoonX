@@ -1,0 +1,3926 @@
+{
+  "schema": "HARPOON_HISTORICAL_POST_ANALYSIS_1",
+  "nature": "DESCRIPTIVE_ATTRIBUTION_NO_NEW_POLICY_TRIAL",
+  "selected_policy": null,
+  "real_profitability_grade": null,
+  "target_seven_accredited": false,
+  "data_gap_legacy_field": {
+    "value": 5192,
+    "interpretation": "Legacy funnel counter also includes unavailable causal entry window at session end; source grid has zero missing bars",
+    "calendar_identity": 5192
+  },
+  "cases": {
+    "NOMINAL:C0": {
+      "accounting": {
+        "modeledPricePnlUsd": -124.91999999999939,
+        "modeledTradingFeesUsd": 18.459999999999965,
+        "modeledTradingPnlUsd": -143.3799999999999,
+        "dividendAccruedUsd": 12.444168000000001,
+        "dividendPaidUsd": 12.444168000000001,
+        "dividendReceivableUsd": 0,
+        "modeledExternalCostsUsd": 294,
+        "terminalConservativeCashPoolUsd": 19575.064168,
+        "netEconomicUsd": -424.9358319999992,
+        "reconciliationResidualUsd": 6.821210263296962e-13
+      },
+      "by_hypothesis": {
+        "VWAP_REVERSION": {
+          "campaigns": 67,
+          "trading_net_usd": -92.99000000000076,
+          "dividends_usd": 0
+        },
+        "OPENING_BREAKOUT": {
+          "campaigns": 56,
+          "trading_net_usd": 0.37000000000074706,
+          "dividends_usd": 0
+        },
+        "CLOSED_CHANNEL": {
+          "campaigns": 103,
+          "trading_net_usd": -50.75999999999969,
+          "dividends_usd": 12.444168000000001
+        }
+      },
+      "by_entry_window": {
+        "OPEN90": {
+          "campaigns": 157,
+          "trading_net_usd": 2.2400000000002365,
+          "dividends_usd": 9.564168
+        },
+        "CLOSE90": {
+          "campaigns": 69,
+          "trading_net_usd": -145.61999999999995,
+          "dividends_usd": 2.88
+        }
+      },
+      "before_external_cost_pnl_usd": -130.93583199999992,
+      "holding_hours": {
+        "p50": 5.625,
+        "p95": 71.91666666666667,
+        "p99": 71.91666666666667,
+        "max": 71.91666666666667
+      },
+      "quantity_distribution": {
+        "p50": 7.0,
+        "p95": 13.0,
+        "max": 14.0
+      },
+      "actual_fill_probability": null,
+      "model_filled_ratio": 0.9855846235985051
+    },
+    "NOMINAL:RIDGE": {
+      "accounting": {
+        "modeledPricePnlUsd": -67.46000000000072,
+        "modeledTradingFeesUsd": 8.54,
+        "modeledTradingPnlUsd": -76.0000000000007,
+        "dividendAccruedUsd": 3.12,
+        "dividendPaidUsd": 3.12,
+        "dividendReceivableUsd": 0,
+        "modeledExternalCostsUsd": 294,
+        "terminalConservativeCashPoolUsd": 19633.12,
+        "netEconomicUsd": -366.880000000001,
+        "reconciliationResidualUsd": -3.410605131648481e-13
+      },
+      "by_hypothesis": {
+        "CLOSED_CHANNEL": {
+          "campaigns": 49,
+          "trading_net_usd": 17.340000000000316,
+          "dividends_usd": 3.12
+        },
+        "VWAP_REVERSION": {
+          "campaigns": 21,
+          "trading_net_usd": -26.240000000000762,
+          "dividends_usd": 0
+        },
+        "OPENING_BREAKOUT": {
+          "campaigns": 21,
+          "trading_net_usd": -67.10000000000024,
+          "dividends_usd": 0
+        }
+      },
+      "by_entry_window": {
+        "CLOSE90": {
+          "campaigns": 23,
+          "trading_net_usd": -104.53999999999975,
+          "dividends_usd": 3.12
+        },
+        "OPEN90": {
+          "campaigns": 68,
+          "trading_net_usd": 28.53999999999915,
+          "dividends_usd": 0
+        }
+      },
+      "before_external_cost_pnl_usd": -72.88000000000069,
+      "holding_hours": {
+        "p50": 20.416666666666668,
+        "p95": 71.91666666666667,
+        "p99": 71.91666666666667,
+        "max": 71.91666666666667
+      },
+      "quantity_distribution": {
+        "p50": 10.0,
+        "p95": 13.0,
+        "max": 14.0
+      },
+      "actual_fill_probability": null,
+      "model_filled_ratio": 1
+    },
+    "NOMINAL:SVR": {
+      "accounting": {
+        "modeledPricePnlUsd": -188.28999999999894,
+        "modeledTradingFeesUsd": 7.21,
+        "modeledTradingPnlUsd": -195.4999999999992,
+        "dividendAccruedUsd": 7.944168,
+        "dividendPaidUsd": 7.944168,
+        "dividendReceivableUsd": 0,
+        "modeledExternalCostsUsd": 294,
+        "terminalConservativeCashPoolUsd": 19518.444168,
+        "netEconomicUsd": -481.5558319999982,
+        "reconciliationResidualUsd": 1.0231815394945443e-12
+      },
+      "by_hypothesis": {
+        "CLOSED_CHANNEL": {
+          "campaigns": 48,
+          "trading_net_usd": -145.26999999999896,
+          "dividends_usd": 7.944168
+        },
+        "OPENING_BREAKOUT": {
+          "campaigns": 19,
+          "trading_net_usd": -7.919999999999391,
+          "dividends_usd": 0
+        },
+        "VWAP_REVERSION": {
+          "campaigns": 19,
+          "trading_net_usd": -42.310000000000755,
+          "dividends_usd": 0
+        }
+      },
+      "by_entry_window": {
+        "CLOSE90": {
+          "campaigns": 29,
+          "trading_net_usd": -50.0399999999997,
+          "dividends_usd": 2.88
+        },
+        "OPEN90": {
+          "campaigns": 57,
+          "trading_net_usd": -145.45999999999952,
+          "dividends_usd": 5.0641680000000004
+        }
+      },
+      "before_external_cost_pnl_usd": -187.5558319999992,
+      "holding_hours": {
+        "p50": 21.708333333333332,
+        "p95": 71.91666666666667,
+        "p99": 71.91666666666667,
+        "max": 71.91666666666667
+      },
+      "quantity_distribution": {
+        "p50": 8.5,
+        "p95": 13.0,
+        "max": 13.0
+      },
+      "actual_fill_probability": null,
+      "model_filled_ratio": 1
+    },
+    "STRESS:C0": {
+      "accounting": {
+        "modeledPricePnlUsd": -281.5600000000008,
+        "modeledTradingFeesUsd": 36.55999999999991,
+        "modeledTradingPnlUsd": -318.12000000000154,
+        "dividendAccruedUsd": 12.444168000000001,
+        "dividendPaidUsd": 12.444168000000001,
+        "dividendReceivableUsd": 0,
+        "modeledExternalCostsUsd": 588,
+        "terminalConservativeCashPoolUsd": 19106.324168,
+        "netEconomicUsd": -893.6758320000008,
+        "reconciliationResidualUsd": 6.821210263296962e-13
+      },
+      "by_hypothesis": {
+        "VWAP_REVERSION": {
+          "campaigns": 70,
+          "trading_net_usd": -178.89000000000058,
+          "dividends_usd": 0
+        },
+        "OPENING_BREAKOUT": {
+          "campaigns": 55,
+          "trading_net_usd": -73.34000000000138,
+          "dividends_usd": 0
+        },
+        "CLOSED_CHANNEL": {
+          "campaigns": 101,
+          "trading_net_usd": -65.8899999999991,
+          "dividends_usd": 12.444168000000001
+        }
+      },
+      "by_entry_window": {
+        "OPEN90": {
+          "campaigns": 155,
+          "trading_net_usd": -75.53000000000198,
+          "dividends_usd": 9.564168
+        },
+        "CLOSE90": {
+          "campaigns": 71,
+          "trading_net_usd": -242.58999999999904,
+          "dividends_usd": 2.88
+        }
+      },
+      "before_external_cost_pnl_usd": -305.67583200000155,
+      "holding_hours": {
+        "p50": 5.25,
+        "p95": 71.91666666666667,
+        "p99": 71.91666666666667,
+        "max": 71.91666666666667
+      },
+      "quantity_distribution": {
+        "p50": 7.0,
+        "p95": 13.0,
+        "max": 14.0
+      },
+      "actual_fill_probability": null,
+      "model_filled_ratio": 0.989713048186248
+    },
+    "STRESS:RIDGE": {
+      "accounting": {
+        "modeledPricePnlUsd": -171.98000000000016,
+        "modeledTradingFeesUsd": 16.88,
+        "modeledTradingPnlUsd": -188.86000000000004,
+        "dividendAccruedUsd": 2.88,
+        "dividendPaidUsd": 2.88,
+        "dividendReceivableUsd": 0,
+        "modeledExternalCostsUsd": 588,
+        "terminalConservativeCashPoolUsd": 19226.02,
+        "netEconomicUsd": -773.9799999999996,
+        "reconciliationResidualUsd": 4.547473508864641e-13
+      },
+      "by_hypothesis": {
+        "CLOSED_CHANNEL": {
+          "campaigns": 49,
+          "trading_net_usd": -46.55999999999992,
+          "dividends_usd": 2.88
+        },
+        "VWAP_REVERSION": {
+          "campaigns": 21,
+          "trading_net_usd": -55.370000000000005,
+          "dividends_usd": 0
+        },
+        "OPENING_BREAKOUT": {
+          "campaigns": 21,
+          "trading_net_usd": -86.93000000000023,
+          "dividends_usd": 0
+        }
+      },
+      "by_entry_window": {
+        "CLOSE90": {
+          "campaigns": 23,
+          "trading_net_usd": -138.14999999999918,
+          "dividends_usd": 2.88
+        },
+        "OPEN90": {
+          "campaigns": 68,
+          "trading_net_usd": -50.710000000000825,
+          "dividends_usd": 0
+        }
+      },
+      "before_external_cost_pnl_usd": -185.98000000000005,
+      "holding_hours": {
+        "p50": 20.416666666666668,
+        "p95": 71.91666666666667,
+        "p99": 71.91666666666667,
+        "max": 71.91666666666667
+      },
+      "quantity_distribution": {
+        "p50": 10.0,
+        "p95": 13.0,
+        "max": 14.0
+      },
+      "actual_fill_probability": null,
+      "model_filled_ratio": 1
+    },
+    "STRESS:SVR": {
+      "accounting": {
+        "modeledPricePnlUsd": -299.329999999999,
+        "modeledTradingFeesUsd": 14.24,
+        "modeledTradingPnlUsd": -313.5699999999993,
+        "dividendAccruedUsd": 7.944168,
+        "dividendPaidUsd": 7.944168,
+        "dividendReceivableUsd": 0,
+        "modeledExternalCostsUsd": 588,
+        "terminalConservativeCashPoolUsd": 19106.374168000002,
+        "netEconomicUsd": -893.6258319999979,
+        "reconciliationResidualUsd": 1.3642420526593924e-12
+      },
+      "by_hypothesis": {
+        "CLOSED_CHANNEL": {
+          "campaigns": 48,
+          "trading_net_usd": -197.43999999999946,
+          "dividends_usd": 7.944168
+        },
+        "OPENING_BREAKOUT": {
+          "campaigns": 19,
+          "trading_net_usd": -48.30000000000021,
+          "dividends_usd": 0
+        },
+        "VWAP_REVERSION": {
+          "campaigns": 19,
+          "trading_net_usd": -67.82999999999952,
+          "dividends_usd": 0
+        }
+      },
+      "by_entry_window": {
+        "CLOSE90": {
+          "campaigns": 29,
+          "trading_net_usd": -96.99999999999916,
+          "dividends_usd": 2.88
+        },
+        "OPEN90": {
+          "campaigns": 57,
+          "trading_net_usd": -216.57000000000008,
+          "dividends_usd": 5.0641680000000004
+        }
+      },
+      "before_external_cost_pnl_usd": -305.6258319999993,
+      "holding_hours": {
+        "p50": 21.708333333333332,
+        "p95": 71.91666666666667,
+        "p99": 71.91666666666667,
+        "max": 71.91666666666667
+      },
+      "quantity_distribution": {
+        "p50": 8.0,
+        "p95": 13.0,
+        "max": 13.0
+      },
+      "actual_fill_probability": null,
+      "model_filled_ratio": 1
+    }
+  },
+  "cash_reference": {
+    "NOMINAL": {
+      "capital_initial": 20000,
+      "equity_final": 19706.0,
+      "net_economic_pnl_usd": -294.0,
+      "return_fraction": -0.014700000000000046,
+      "external_costs_usd": 294.0,
+      "orders": 0,
+      "cash_interest_assumption": 0,
+      "status": "DERIVED_NO_TRADING_REFERENCE_NOT_PROFIT",
+      "test_initial_equity": 19874.0,
+      "test_final_equity": 19706.0,
+      "test_pnl_usd": -168.0,
+      "curve": [
+        {
+          "session_id": "2023-07-03",
+          "equity_start_usd": 20000.0,
+          "equity_end_usd": 19999.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-05",
+          "equity_start_usd": 19999.0,
+          "equity_end_usd": 19998.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-06",
+          "equity_start_usd": 19998.0,
+          "equity_end_usd": 19997.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-07",
+          "equity_start_usd": 19997.0,
+          "equity_end_usd": 19996.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-10",
+          "equity_start_usd": 19996.0,
+          "equity_end_usd": 19995.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-11",
+          "equity_start_usd": 19995.0,
+          "equity_end_usd": 19994.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-12",
+          "equity_start_usd": 19994.0,
+          "equity_end_usd": 19993.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-13",
+          "equity_start_usd": 19993.0,
+          "equity_end_usd": 19992.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-14",
+          "equity_start_usd": 19992.0,
+          "equity_end_usd": 19991.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-17",
+          "equity_start_usd": 19991.0,
+          "equity_end_usd": 19990.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-18",
+          "equity_start_usd": 19990.0,
+          "equity_end_usd": 19989.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-19",
+          "equity_start_usd": 19989.0,
+          "equity_end_usd": 19988.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-20",
+          "equity_start_usd": 19988.0,
+          "equity_end_usd": 19987.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-21",
+          "equity_start_usd": 19987.0,
+          "equity_end_usd": 19986.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-24",
+          "equity_start_usd": 19986.0,
+          "equity_end_usd": 19985.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-25",
+          "equity_start_usd": 19985.0,
+          "equity_end_usd": 19984.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-26",
+          "equity_start_usd": 19984.0,
+          "equity_end_usd": 19983.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-27",
+          "equity_start_usd": 19983.0,
+          "equity_end_usd": 19982.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-28",
+          "equity_start_usd": 19982.0,
+          "equity_end_usd": 19981.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-07-31",
+          "equity_start_usd": 19981.0,
+          "equity_end_usd": 19980.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-01",
+          "equity_start_usd": 19980.0,
+          "equity_end_usd": 19979.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-02",
+          "equity_start_usd": 19979.0,
+          "equity_end_usd": 19978.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-03",
+          "equity_start_usd": 19978.0,
+          "equity_end_usd": 19977.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-04",
+          "equity_start_usd": 19977.0,
+          "equity_end_usd": 19976.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-07",
+          "equity_start_usd": 19976.0,
+          "equity_end_usd": 19975.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-08",
+          "equity_start_usd": 19975.0,
+          "equity_end_usd": 19974.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-09",
+          "equity_start_usd": 19974.0,
+          "equity_end_usd": 19973.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-10",
+          "equity_start_usd": 19973.0,
+          "equity_end_usd": 19972.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-11",
+          "equity_start_usd": 19972.0,
+          "equity_end_usd": 19971.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-14",
+          "equity_start_usd": 19971.0,
+          "equity_end_usd": 19970.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-15",
+          "equity_start_usd": 19970.0,
+          "equity_end_usd": 19969.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-16",
+          "equity_start_usd": 19969.0,
+          "equity_end_usd": 19968.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-17",
+          "equity_start_usd": 19968.0,
+          "equity_end_usd": 19967.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-18",
+          "equity_start_usd": 19967.0,
+          "equity_end_usd": 19966.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-21",
+          "equity_start_usd": 19966.0,
+          "equity_end_usd": 19965.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-22",
+          "equity_start_usd": 19965.0,
+          "equity_end_usd": 19964.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-23",
+          "equity_start_usd": 19964.0,
+          "equity_end_usd": 19963.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-24",
+          "equity_start_usd": 19963.0,
+          "equity_end_usd": 19962.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-25",
+          "equity_start_usd": 19962.0,
+          "equity_end_usd": 19961.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-28",
+          "equity_start_usd": 19961.0,
+          "equity_end_usd": 19960.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-29",
+          "equity_start_usd": 19960.0,
+          "equity_end_usd": 19959.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-30",
+          "equity_start_usd": 19959.0,
+          "equity_end_usd": 19958.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-08-31",
+          "equity_start_usd": 19958.0,
+          "equity_end_usd": 19957.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-01",
+          "equity_start_usd": 19957.0,
+          "equity_end_usd": 19956.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-05",
+          "equity_start_usd": 19956.0,
+          "equity_end_usd": 19955.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-06",
+          "equity_start_usd": 19955.0,
+          "equity_end_usd": 19954.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-07",
+          "equity_start_usd": 19954.0,
+          "equity_end_usd": 19953.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-08",
+          "equity_start_usd": 19953.0,
+          "equity_end_usd": 19952.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-11",
+          "equity_start_usd": 19952.0,
+          "equity_end_usd": 19951.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-12",
+          "equity_start_usd": 19951.0,
+          "equity_end_usd": 19950.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-13",
+          "equity_start_usd": 19950.0,
+          "equity_end_usd": 19949.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-14",
+          "equity_start_usd": 19949.0,
+          "equity_end_usd": 19948.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-15",
+          "equity_start_usd": 19948.0,
+          "equity_end_usd": 19947.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-18",
+          "equity_start_usd": 19947.0,
+          "equity_end_usd": 19946.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-19",
+          "equity_start_usd": 19946.0,
+          "equity_end_usd": 19945.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-20",
+          "equity_start_usd": 19945.0,
+          "equity_end_usd": 19944.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-21",
+          "equity_start_usd": 19944.0,
+          "equity_end_usd": 19943.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-22",
+          "equity_start_usd": 19943.0,
+          "equity_end_usd": 19942.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-25",
+          "equity_start_usd": 19942.0,
+          "equity_end_usd": 19941.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-26",
+          "equity_start_usd": 19941.0,
+          "equity_end_usd": 19940.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-27",
+          "equity_start_usd": 19940.0,
+          "equity_end_usd": 19939.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-28",
+          "equity_start_usd": 19939.0,
+          "equity_end_usd": 19938.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-09-29",
+          "equity_start_usd": 19938.0,
+          "equity_end_usd": 19937.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-02",
+          "equity_start_usd": 19937.0,
+          "equity_end_usd": 19936.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-03",
+          "equity_start_usd": 19936.0,
+          "equity_end_usd": 19935.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-04",
+          "equity_start_usd": 19935.0,
+          "equity_end_usd": 19934.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-05",
+          "equity_start_usd": 19934.0,
+          "equity_end_usd": 19933.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-06",
+          "equity_start_usd": 19933.0,
+          "equity_end_usd": 19932.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-09",
+          "equity_start_usd": 19932.0,
+          "equity_end_usd": 19931.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-10",
+          "equity_start_usd": 19931.0,
+          "equity_end_usd": 19930.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-11",
+          "equity_start_usd": 19930.0,
+          "equity_end_usd": 19929.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-12",
+          "equity_start_usd": 19929.0,
+          "equity_end_usd": 19928.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-13",
+          "equity_start_usd": 19928.0,
+          "equity_end_usd": 19927.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-16",
+          "equity_start_usd": 19927.0,
+          "equity_end_usd": 19926.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-17",
+          "equity_start_usd": 19926.0,
+          "equity_end_usd": 19925.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-18",
+          "equity_start_usd": 19925.0,
+          "equity_end_usd": 19924.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-19",
+          "equity_start_usd": 19924.0,
+          "equity_end_usd": 19923.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-20",
+          "equity_start_usd": 19923.0,
+          "equity_end_usd": 19922.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-23",
+          "equity_start_usd": 19922.0,
+          "equity_end_usd": 19921.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-24",
+          "equity_start_usd": 19921.0,
+          "equity_end_usd": 19920.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-25",
+          "equity_start_usd": 19920.0,
+          "equity_end_usd": 19919.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-26",
+          "equity_start_usd": 19919.0,
+          "equity_end_usd": 19918.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-27",
+          "equity_start_usd": 19918.0,
+          "equity_end_usd": 19917.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-30",
+          "equity_start_usd": 19917.0,
+          "equity_end_usd": 19916.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-10-31",
+          "equity_start_usd": 19916.0,
+          "equity_end_usd": 19915.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-01",
+          "equity_start_usd": 19915.0,
+          "equity_end_usd": 19914.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-02",
+          "equity_start_usd": 19914.0,
+          "equity_end_usd": 19913.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-03",
+          "equity_start_usd": 19913.0,
+          "equity_end_usd": 19912.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-06",
+          "equity_start_usd": 19912.0,
+          "equity_end_usd": 19911.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-07",
+          "equity_start_usd": 19911.0,
+          "equity_end_usd": 19910.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-08",
+          "equity_start_usd": 19910.0,
+          "equity_end_usd": 19909.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-09",
+          "equity_start_usd": 19909.0,
+          "equity_end_usd": 19908.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-10",
+          "equity_start_usd": 19908.0,
+          "equity_end_usd": 19907.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-13",
+          "equity_start_usd": 19907.0,
+          "equity_end_usd": 19906.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-14",
+          "equity_start_usd": 19906.0,
+          "equity_end_usd": 19905.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-15",
+          "equity_start_usd": 19905.0,
+          "equity_end_usd": 19904.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-16",
+          "equity_start_usd": 19904.0,
+          "equity_end_usd": 19903.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-17",
+          "equity_start_usd": 19903.0,
+          "equity_end_usd": 19902.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-20",
+          "equity_start_usd": 19902.0,
+          "equity_end_usd": 19901.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-21",
+          "equity_start_usd": 19901.0,
+          "equity_end_usd": 19900.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-22",
+          "equity_start_usd": 19900.0,
+          "equity_end_usd": 19899.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-24",
+          "equity_start_usd": 19899.0,
+          "equity_end_usd": 19898.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-27",
+          "equity_start_usd": 19898.0,
+          "equity_end_usd": 19897.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-28",
+          "equity_start_usd": 19897.0,
+          "equity_end_usd": 19896.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-29",
+          "equity_start_usd": 19896.0,
+          "equity_end_usd": 19895.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-11-30",
+          "equity_start_usd": 19895.0,
+          "equity_end_usd": 19894.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-01",
+          "equity_start_usd": 19894.0,
+          "equity_end_usd": 19893.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-04",
+          "equity_start_usd": 19893.0,
+          "equity_end_usd": 19892.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-05",
+          "equity_start_usd": 19892.0,
+          "equity_end_usd": 19891.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-06",
+          "equity_start_usd": 19891.0,
+          "equity_end_usd": 19890.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-07",
+          "equity_start_usd": 19890.0,
+          "equity_end_usd": 19889.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-08",
+          "equity_start_usd": 19889.0,
+          "equity_end_usd": 19888.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-11",
+          "equity_start_usd": 19888.0,
+          "equity_end_usd": 19887.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-12",
+          "equity_start_usd": 19887.0,
+          "equity_end_usd": 19886.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-13",
+          "equity_start_usd": 19886.0,
+          "equity_end_usd": 19885.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-14",
+          "equity_start_usd": 19885.0,
+          "equity_end_usd": 19884.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-15",
+          "equity_start_usd": 19884.0,
+          "equity_end_usd": 19883.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-18",
+          "equity_start_usd": 19883.0,
+          "equity_end_usd": 19882.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-19",
+          "equity_start_usd": 19882.0,
+          "equity_end_usd": 19881.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-20",
+          "equity_start_usd": 19881.0,
+          "equity_end_usd": 19880.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-21",
+          "equity_start_usd": 19880.0,
+          "equity_end_usd": 19879.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-22",
+          "equity_start_usd": 19879.0,
+          "equity_end_usd": 19878.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-26",
+          "equity_start_usd": 19878.0,
+          "equity_end_usd": 19877.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-27",
+          "equity_start_usd": 19877.0,
+          "equity_end_usd": 19876.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-28",
+          "equity_start_usd": 19876.0,
+          "equity_end_usd": 19875.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2023-12-29",
+          "equity_start_usd": 19875.0,
+          "equity_end_usd": 19874.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-02",
+          "equity_start_usd": 19874.0,
+          "equity_end_usd": 19873.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-03",
+          "equity_start_usd": 19873.0,
+          "equity_end_usd": 19872.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-04",
+          "equity_start_usd": 19872.0,
+          "equity_end_usd": 19871.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-05",
+          "equity_start_usd": 19871.0,
+          "equity_end_usd": 19870.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-08",
+          "equity_start_usd": 19870.0,
+          "equity_end_usd": 19869.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-09",
+          "equity_start_usd": 19869.0,
+          "equity_end_usd": 19868.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-10",
+          "equity_start_usd": 19868.0,
+          "equity_end_usd": 19867.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-11",
+          "equity_start_usd": 19867.0,
+          "equity_end_usd": 19866.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-12",
+          "equity_start_usd": 19866.0,
+          "equity_end_usd": 19865.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-16",
+          "equity_start_usd": 19865.0,
+          "equity_end_usd": 19864.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-17",
+          "equity_start_usd": 19864.0,
+          "equity_end_usd": 19863.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-18",
+          "equity_start_usd": 19863.0,
+          "equity_end_usd": 19862.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-19",
+          "equity_start_usd": 19862.0,
+          "equity_end_usd": 19861.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-22",
+          "equity_start_usd": 19861.0,
+          "equity_end_usd": 19860.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-23",
+          "equity_start_usd": 19860.0,
+          "equity_end_usd": 19859.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-24",
+          "equity_start_usd": 19859.0,
+          "equity_end_usd": 19858.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-25",
+          "equity_start_usd": 19858.0,
+          "equity_end_usd": 19857.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-26",
+          "equity_start_usd": 19857.0,
+          "equity_end_usd": 19856.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-29",
+          "equity_start_usd": 19856.0,
+          "equity_end_usd": 19855.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-30",
+          "equity_start_usd": 19855.0,
+          "equity_end_usd": 19854.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-01-31",
+          "equity_start_usd": 19854.0,
+          "equity_end_usd": 19853.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-01",
+          "equity_start_usd": 19853.0,
+          "equity_end_usd": 19852.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-02",
+          "equity_start_usd": 19852.0,
+          "equity_end_usd": 19851.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-05",
+          "equity_start_usd": 19851.0,
+          "equity_end_usd": 19850.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-06",
+          "equity_start_usd": 19850.0,
+          "equity_end_usd": 19849.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-07",
+          "equity_start_usd": 19849.0,
+          "equity_end_usd": 19848.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-08",
+          "equity_start_usd": 19848.0,
+          "equity_end_usd": 19847.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-09",
+          "equity_start_usd": 19847.0,
+          "equity_end_usd": 19846.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-12",
+          "equity_start_usd": 19846.0,
+          "equity_end_usd": 19845.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-13",
+          "equity_start_usd": 19845.0,
+          "equity_end_usd": 19844.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-14",
+          "equity_start_usd": 19844.0,
+          "equity_end_usd": 19843.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-15",
+          "equity_start_usd": 19843.0,
+          "equity_end_usd": 19842.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-16",
+          "equity_start_usd": 19842.0,
+          "equity_end_usd": 19841.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-20",
+          "equity_start_usd": 19841.0,
+          "equity_end_usd": 19840.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-21",
+          "equity_start_usd": 19840.0,
+          "equity_end_usd": 19839.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-22",
+          "equity_start_usd": 19839.0,
+          "equity_end_usd": 19838.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-23",
+          "equity_start_usd": 19838.0,
+          "equity_end_usd": 19837.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-26",
+          "equity_start_usd": 19837.0,
+          "equity_end_usd": 19836.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-27",
+          "equity_start_usd": 19836.0,
+          "equity_end_usd": 19835.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-28",
+          "equity_start_usd": 19835.0,
+          "equity_end_usd": 19834.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-02-29",
+          "equity_start_usd": 19834.0,
+          "equity_end_usd": 19833.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-01",
+          "equity_start_usd": 19833.0,
+          "equity_end_usd": 19832.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-04",
+          "equity_start_usd": 19832.0,
+          "equity_end_usd": 19831.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-05",
+          "equity_start_usd": 19831.0,
+          "equity_end_usd": 19830.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-06",
+          "equity_start_usd": 19830.0,
+          "equity_end_usd": 19829.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-07",
+          "equity_start_usd": 19829.0,
+          "equity_end_usd": 19828.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-08",
+          "equity_start_usd": 19828.0,
+          "equity_end_usd": 19827.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-11",
+          "equity_start_usd": 19827.0,
+          "equity_end_usd": 19826.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-12",
+          "equity_start_usd": 19826.0,
+          "equity_end_usd": 19825.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-13",
+          "equity_start_usd": 19825.0,
+          "equity_end_usd": 19824.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-14",
+          "equity_start_usd": 19824.0,
+          "equity_end_usd": 19823.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-15",
+          "equity_start_usd": 19823.0,
+          "equity_end_usd": 19822.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-18",
+          "equity_start_usd": 19822.0,
+          "equity_end_usd": 19821.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-19",
+          "equity_start_usd": 19821.0,
+          "equity_end_usd": 19820.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-20",
+          "equity_start_usd": 19820.0,
+          "equity_end_usd": 19819.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-21",
+          "equity_start_usd": 19819.0,
+          "equity_end_usd": 19818.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-22",
+          "equity_start_usd": 19818.0,
+          "equity_end_usd": 19817.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-25",
+          "equity_start_usd": 19817.0,
+          "equity_end_usd": 19816.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-26",
+          "equity_start_usd": 19816.0,
+          "equity_end_usd": 19815.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-27",
+          "equity_start_usd": 19815.0,
+          "equity_end_usd": 19814.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-03-28",
+          "equity_start_usd": 19814.0,
+          "equity_end_usd": 19813.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-01",
+          "equity_start_usd": 19813.0,
+          "equity_end_usd": 19812.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-02",
+          "equity_start_usd": 19812.0,
+          "equity_end_usd": 19811.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-03",
+          "equity_start_usd": 19811.0,
+          "equity_end_usd": 19810.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-04",
+          "equity_start_usd": 19810.0,
+          "equity_end_usd": 19809.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-05",
+          "equity_start_usd": 19809.0,
+          "equity_end_usd": 19808.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-08",
+          "equity_start_usd": 19808.0,
+          "equity_end_usd": 19807.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-09",
+          "equity_start_usd": 19807.0,
+          "equity_end_usd": 19806.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-10",
+          "equity_start_usd": 19806.0,
+          "equity_end_usd": 19805.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-11",
+          "equity_start_usd": 19805.0,
+          "equity_end_usd": 19804.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-12",
+          "equity_start_usd": 19804.0,
+          "equity_end_usd": 19803.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-15",
+          "equity_start_usd": 19803.0,
+          "equity_end_usd": 19802.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-16",
+          "equity_start_usd": 19802.0,
+          "equity_end_usd": 19801.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-17",
+          "equity_start_usd": 19801.0,
+          "equity_end_usd": 19800.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-18",
+          "equity_start_usd": 19800.0,
+          "equity_end_usd": 19799.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-19",
+          "equity_start_usd": 19799.0,
+          "equity_end_usd": 19798.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-22",
+          "equity_start_usd": 19798.0,
+          "equity_end_usd": 19797.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-23",
+          "equity_start_usd": 19797.0,
+          "equity_end_usd": 19796.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-24",
+          "equity_start_usd": 19796.0,
+          "equity_end_usd": 19795.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-25",
+          "equity_start_usd": 19795.0,
+          "equity_end_usd": 19794.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-26",
+          "equity_start_usd": 19794.0,
+          "equity_end_usd": 19793.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-29",
+          "equity_start_usd": 19793.0,
+          "equity_end_usd": 19792.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-04-30",
+          "equity_start_usd": 19792.0,
+          "equity_end_usd": 19791.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-01",
+          "equity_start_usd": 19791.0,
+          "equity_end_usd": 19790.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-02",
+          "equity_start_usd": 19790.0,
+          "equity_end_usd": 19789.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-03",
+          "equity_start_usd": 19789.0,
+          "equity_end_usd": 19788.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-06",
+          "equity_start_usd": 19788.0,
+          "equity_end_usd": 19787.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-07",
+          "equity_start_usd": 19787.0,
+          "equity_end_usd": 19786.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-08",
+          "equity_start_usd": 19786.0,
+          "equity_end_usd": 19785.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-09",
+          "equity_start_usd": 19785.0,
+          "equity_end_usd": 19784.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-10",
+          "equity_start_usd": 19784.0,
+          "equity_end_usd": 19783.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-13",
+          "equity_start_usd": 19783.0,
+          "equity_end_usd": 19782.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-14",
+          "equity_start_usd": 19782.0,
+          "equity_end_usd": 19781.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-15",
+          "equity_start_usd": 19781.0,
+          "equity_end_usd": 19780.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-16",
+          "equity_start_usd": 19780.0,
+          "equity_end_usd": 19779.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-17",
+          "equity_start_usd": 19779.0,
+          "equity_end_usd": 19778.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-20",
+          "equity_start_usd": 19778.0,
+          "equity_end_usd": 19777.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-21",
+          "equity_start_usd": 19777.0,
+          "equity_end_usd": 19776.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-22",
+          "equity_start_usd": 19776.0,
+          "equity_end_usd": 19775.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-23",
+          "equity_start_usd": 19775.0,
+          "equity_end_usd": 19774.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-24",
+          "equity_start_usd": 19774.0,
+          "equity_end_usd": 19773.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-28",
+          "equity_start_usd": 19773.0,
+          "equity_end_usd": 19772.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-29",
+          "equity_start_usd": 19772.0,
+          "equity_end_usd": 19771.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-30",
+          "equity_start_usd": 19771.0,
+          "equity_end_usd": 19770.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-05-31",
+          "equity_start_usd": 19770.0,
+          "equity_end_usd": 19769.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-03",
+          "equity_start_usd": 19769.0,
+          "equity_end_usd": 19768.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-04",
+          "equity_start_usd": 19768.0,
+          "equity_end_usd": 19767.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-05",
+          "equity_start_usd": 19767.0,
+          "equity_end_usd": 19766.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-06",
+          "equity_start_usd": 19766.0,
+          "equity_end_usd": 19765.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-07",
+          "equity_start_usd": 19765.0,
+          "equity_end_usd": 19764.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-10",
+          "equity_start_usd": 19764.0,
+          "equity_end_usd": 19763.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-11",
+          "equity_start_usd": 19763.0,
+          "equity_end_usd": 19762.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-12",
+          "equity_start_usd": 19762.0,
+          "equity_end_usd": 19761.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-13",
+          "equity_start_usd": 19761.0,
+          "equity_end_usd": 19760.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-14",
+          "equity_start_usd": 19760.0,
+          "equity_end_usd": 19759.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-17",
+          "equity_start_usd": 19759.0,
+          "equity_end_usd": 19758.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-18",
+          "equity_start_usd": 19758.0,
+          "equity_end_usd": 19757.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-20",
+          "equity_start_usd": 19757.0,
+          "equity_end_usd": 19756.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-21",
+          "equity_start_usd": 19756.0,
+          "equity_end_usd": 19755.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-24",
+          "equity_start_usd": 19755.0,
+          "equity_end_usd": 19754.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-25",
+          "equity_start_usd": 19754.0,
+          "equity_end_usd": 19753.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-26",
+          "equity_start_usd": 19753.0,
+          "equity_end_usd": 19752.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-27",
+          "equity_start_usd": 19752.0,
+          "equity_end_usd": 19751.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-06-28",
+          "equity_start_usd": 19751.0,
+          "equity_end_usd": 19750.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-01",
+          "equity_start_usd": 19750.0,
+          "equity_end_usd": 19749.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-02",
+          "equity_start_usd": 19749.0,
+          "equity_end_usd": 19748.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-03",
+          "equity_start_usd": 19748.0,
+          "equity_end_usd": 19747.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-05",
+          "equity_start_usd": 19747.0,
+          "equity_end_usd": 19746.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-08",
+          "equity_start_usd": 19746.0,
+          "equity_end_usd": 19745.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-09",
+          "equity_start_usd": 19745.0,
+          "equity_end_usd": 19744.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-10",
+          "equity_start_usd": 19744.0,
+          "equity_end_usd": 19743.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-11",
+          "equity_start_usd": 19743.0,
+          "equity_end_usd": 19742.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-12",
+          "equity_start_usd": 19742.0,
+          "equity_end_usd": 19741.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-15",
+          "equity_start_usd": 19741.0,
+          "equity_end_usd": 19740.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-16",
+          "equity_start_usd": 19740.0,
+          "equity_end_usd": 19739.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-17",
+          "equity_start_usd": 19739.0,
+          "equity_end_usd": 19738.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-18",
+          "equity_start_usd": 19738.0,
+          "equity_end_usd": 19737.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-19",
+          "equity_start_usd": 19737.0,
+          "equity_end_usd": 19736.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-22",
+          "equity_start_usd": 19736.0,
+          "equity_end_usd": 19735.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-23",
+          "equity_start_usd": 19735.0,
+          "equity_end_usd": 19734.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-24",
+          "equity_start_usd": 19734.0,
+          "equity_end_usd": 19733.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-25",
+          "equity_start_usd": 19733.0,
+          "equity_end_usd": 19732.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-26",
+          "equity_start_usd": 19732.0,
+          "equity_end_usd": 19731.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-29",
+          "equity_start_usd": 19731.0,
+          "equity_end_usd": 19730.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-30",
+          "equity_start_usd": 19730.0,
+          "equity_end_usd": 19729.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-07-31",
+          "equity_start_usd": 19729.0,
+          "equity_end_usd": 19728.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-01",
+          "equity_start_usd": 19728.0,
+          "equity_end_usd": 19727.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-02",
+          "equity_start_usd": 19727.0,
+          "equity_end_usd": 19726.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-05",
+          "equity_start_usd": 19726.0,
+          "equity_end_usd": 19725.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-06",
+          "equity_start_usd": 19725.0,
+          "equity_end_usd": 19724.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-07",
+          "equity_start_usd": 19724.0,
+          "equity_end_usd": 19723.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-08",
+          "equity_start_usd": 19723.0,
+          "equity_end_usd": 19722.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-09",
+          "equity_start_usd": 19722.0,
+          "equity_end_usd": 19721.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-12",
+          "equity_start_usd": 19721.0,
+          "equity_end_usd": 19720.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-13",
+          "equity_start_usd": 19720.0,
+          "equity_end_usd": 19719.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-14",
+          "equity_start_usd": 19719.0,
+          "equity_end_usd": 19718.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-15",
+          "equity_start_usd": 19718.0,
+          "equity_end_usd": 19717.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-16",
+          "equity_start_usd": 19717.0,
+          "equity_end_usd": 19716.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-19",
+          "equity_start_usd": 19716.0,
+          "equity_end_usd": 19715.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-20",
+          "equity_start_usd": 19715.0,
+          "equity_end_usd": 19714.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-21",
+          "equity_start_usd": 19714.0,
+          "equity_end_usd": 19713.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-22",
+          "equity_start_usd": 19713.0,
+          "equity_end_usd": 19712.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-23",
+          "equity_start_usd": 19712.0,
+          "equity_end_usd": 19711.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-26",
+          "equity_start_usd": 19711.0,
+          "equity_end_usd": 19710.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-27",
+          "equity_start_usd": 19710.0,
+          "equity_end_usd": 19709.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-28",
+          "equity_start_usd": 19709.0,
+          "equity_end_usd": 19708.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-29",
+          "equity_start_usd": 19708.0,
+          "equity_end_usd": 19707.0,
+          "cost_usd": 1.0
+        },
+        {
+          "session_id": "2024-08-30",
+          "equity_start_usd": 19707.0,
+          "equity_end_usd": 19706.0,
+          "cost_usd": 1.0
+        }
+      ]
+    },
+    "STRESS": {
+      "capital_initial": 20000,
+      "equity_final": 19412.0,
+      "net_economic_pnl_usd": -588.0,
+      "return_fraction": -0.02939999999999998,
+      "external_costs_usd": 588.0,
+      "orders": 0,
+      "cash_interest_assumption": 0,
+      "status": "DERIVED_NO_TRADING_REFERENCE_NOT_PROFIT",
+      "test_initial_equity": 19748.0,
+      "test_final_equity": 19412.0,
+      "test_pnl_usd": -336.0,
+      "curve": [
+        {
+          "session_id": "2023-07-03",
+          "equity_start_usd": 20000.0,
+          "equity_end_usd": 19998.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-05",
+          "equity_start_usd": 19998.0,
+          "equity_end_usd": 19996.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-06",
+          "equity_start_usd": 19996.0,
+          "equity_end_usd": 19994.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-07",
+          "equity_start_usd": 19994.0,
+          "equity_end_usd": 19992.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-10",
+          "equity_start_usd": 19992.0,
+          "equity_end_usd": 19990.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-11",
+          "equity_start_usd": 19990.0,
+          "equity_end_usd": 19988.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-12",
+          "equity_start_usd": 19988.0,
+          "equity_end_usd": 19986.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-13",
+          "equity_start_usd": 19986.0,
+          "equity_end_usd": 19984.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-14",
+          "equity_start_usd": 19984.0,
+          "equity_end_usd": 19982.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-17",
+          "equity_start_usd": 19982.0,
+          "equity_end_usd": 19980.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-18",
+          "equity_start_usd": 19980.0,
+          "equity_end_usd": 19978.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-19",
+          "equity_start_usd": 19978.0,
+          "equity_end_usd": 19976.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-20",
+          "equity_start_usd": 19976.0,
+          "equity_end_usd": 19974.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-21",
+          "equity_start_usd": 19974.0,
+          "equity_end_usd": 19972.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-24",
+          "equity_start_usd": 19972.0,
+          "equity_end_usd": 19970.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-25",
+          "equity_start_usd": 19970.0,
+          "equity_end_usd": 19968.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-26",
+          "equity_start_usd": 19968.0,
+          "equity_end_usd": 19966.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-27",
+          "equity_start_usd": 19966.0,
+          "equity_end_usd": 19964.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-28",
+          "equity_start_usd": 19964.0,
+          "equity_end_usd": 19962.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-07-31",
+          "equity_start_usd": 19962.0,
+          "equity_end_usd": 19960.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-01",
+          "equity_start_usd": 19960.0,
+          "equity_end_usd": 19958.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-02",
+          "equity_start_usd": 19958.0,
+          "equity_end_usd": 19956.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-03",
+          "equity_start_usd": 19956.0,
+          "equity_end_usd": 19954.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-04",
+          "equity_start_usd": 19954.0,
+          "equity_end_usd": 19952.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-07",
+          "equity_start_usd": 19952.0,
+          "equity_end_usd": 19950.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-08",
+          "equity_start_usd": 19950.0,
+          "equity_end_usd": 19948.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-09",
+          "equity_start_usd": 19948.0,
+          "equity_end_usd": 19946.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-10",
+          "equity_start_usd": 19946.0,
+          "equity_end_usd": 19944.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-11",
+          "equity_start_usd": 19944.0,
+          "equity_end_usd": 19942.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-14",
+          "equity_start_usd": 19942.0,
+          "equity_end_usd": 19940.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-15",
+          "equity_start_usd": 19940.0,
+          "equity_end_usd": 19938.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-16",
+          "equity_start_usd": 19938.0,
+          "equity_end_usd": 19936.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-17",
+          "equity_start_usd": 19936.0,
+          "equity_end_usd": 19934.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-18",
+          "equity_start_usd": 19934.0,
+          "equity_end_usd": 19932.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-21",
+          "equity_start_usd": 19932.0,
+          "equity_end_usd": 19930.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-22",
+          "equity_start_usd": 19930.0,
+          "equity_end_usd": 19928.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-23",
+          "equity_start_usd": 19928.0,
+          "equity_end_usd": 19926.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-24",
+          "equity_start_usd": 19926.0,
+          "equity_end_usd": 19924.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-25",
+          "equity_start_usd": 19924.0,
+          "equity_end_usd": 19922.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-28",
+          "equity_start_usd": 19922.0,
+          "equity_end_usd": 19920.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-29",
+          "equity_start_usd": 19920.0,
+          "equity_end_usd": 19918.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-30",
+          "equity_start_usd": 19918.0,
+          "equity_end_usd": 19916.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-08-31",
+          "equity_start_usd": 19916.0,
+          "equity_end_usd": 19914.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-01",
+          "equity_start_usd": 19914.0,
+          "equity_end_usd": 19912.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-05",
+          "equity_start_usd": 19912.0,
+          "equity_end_usd": 19910.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-06",
+          "equity_start_usd": 19910.0,
+          "equity_end_usd": 19908.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-07",
+          "equity_start_usd": 19908.0,
+          "equity_end_usd": 19906.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-08",
+          "equity_start_usd": 19906.0,
+          "equity_end_usd": 19904.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-11",
+          "equity_start_usd": 19904.0,
+          "equity_end_usd": 19902.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-12",
+          "equity_start_usd": 19902.0,
+          "equity_end_usd": 19900.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-13",
+          "equity_start_usd": 19900.0,
+          "equity_end_usd": 19898.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-14",
+          "equity_start_usd": 19898.0,
+          "equity_end_usd": 19896.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-15",
+          "equity_start_usd": 19896.0,
+          "equity_end_usd": 19894.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-18",
+          "equity_start_usd": 19894.0,
+          "equity_end_usd": 19892.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-19",
+          "equity_start_usd": 19892.0,
+          "equity_end_usd": 19890.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-20",
+          "equity_start_usd": 19890.0,
+          "equity_end_usd": 19888.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-21",
+          "equity_start_usd": 19888.0,
+          "equity_end_usd": 19886.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-22",
+          "equity_start_usd": 19886.0,
+          "equity_end_usd": 19884.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-25",
+          "equity_start_usd": 19884.0,
+          "equity_end_usd": 19882.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-26",
+          "equity_start_usd": 19882.0,
+          "equity_end_usd": 19880.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-27",
+          "equity_start_usd": 19880.0,
+          "equity_end_usd": 19878.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-28",
+          "equity_start_usd": 19878.0,
+          "equity_end_usd": 19876.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-09-29",
+          "equity_start_usd": 19876.0,
+          "equity_end_usd": 19874.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-02",
+          "equity_start_usd": 19874.0,
+          "equity_end_usd": 19872.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-03",
+          "equity_start_usd": 19872.0,
+          "equity_end_usd": 19870.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-04",
+          "equity_start_usd": 19870.0,
+          "equity_end_usd": 19868.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-05",
+          "equity_start_usd": 19868.0,
+          "equity_end_usd": 19866.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-06",
+          "equity_start_usd": 19866.0,
+          "equity_end_usd": 19864.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-09",
+          "equity_start_usd": 19864.0,
+          "equity_end_usd": 19862.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-10",
+          "equity_start_usd": 19862.0,
+          "equity_end_usd": 19860.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-11",
+          "equity_start_usd": 19860.0,
+          "equity_end_usd": 19858.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-12",
+          "equity_start_usd": 19858.0,
+          "equity_end_usd": 19856.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-13",
+          "equity_start_usd": 19856.0,
+          "equity_end_usd": 19854.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-16",
+          "equity_start_usd": 19854.0,
+          "equity_end_usd": 19852.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-17",
+          "equity_start_usd": 19852.0,
+          "equity_end_usd": 19850.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-18",
+          "equity_start_usd": 19850.0,
+          "equity_end_usd": 19848.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-19",
+          "equity_start_usd": 19848.0,
+          "equity_end_usd": 19846.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-20",
+          "equity_start_usd": 19846.0,
+          "equity_end_usd": 19844.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-23",
+          "equity_start_usd": 19844.0,
+          "equity_end_usd": 19842.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-24",
+          "equity_start_usd": 19842.0,
+          "equity_end_usd": 19840.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-25",
+          "equity_start_usd": 19840.0,
+          "equity_end_usd": 19838.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-26",
+          "equity_start_usd": 19838.0,
+          "equity_end_usd": 19836.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-27",
+          "equity_start_usd": 19836.0,
+          "equity_end_usd": 19834.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-30",
+          "equity_start_usd": 19834.0,
+          "equity_end_usd": 19832.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-10-31",
+          "equity_start_usd": 19832.0,
+          "equity_end_usd": 19830.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-01",
+          "equity_start_usd": 19830.0,
+          "equity_end_usd": 19828.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-02",
+          "equity_start_usd": 19828.0,
+          "equity_end_usd": 19826.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-03",
+          "equity_start_usd": 19826.0,
+          "equity_end_usd": 19824.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-06",
+          "equity_start_usd": 19824.0,
+          "equity_end_usd": 19822.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-07",
+          "equity_start_usd": 19822.0,
+          "equity_end_usd": 19820.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-08",
+          "equity_start_usd": 19820.0,
+          "equity_end_usd": 19818.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-09",
+          "equity_start_usd": 19818.0,
+          "equity_end_usd": 19816.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-10",
+          "equity_start_usd": 19816.0,
+          "equity_end_usd": 19814.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-13",
+          "equity_start_usd": 19814.0,
+          "equity_end_usd": 19812.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-14",
+          "equity_start_usd": 19812.0,
+          "equity_end_usd": 19810.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-15",
+          "equity_start_usd": 19810.0,
+          "equity_end_usd": 19808.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-16",
+          "equity_start_usd": 19808.0,
+          "equity_end_usd": 19806.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-17",
+          "equity_start_usd": 19806.0,
+          "equity_end_usd": 19804.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-20",
+          "equity_start_usd": 19804.0,
+          "equity_end_usd": 19802.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-21",
+          "equity_start_usd": 19802.0,
+          "equity_end_usd": 19800.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-22",
+          "equity_start_usd": 19800.0,
+          "equity_end_usd": 19798.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-24",
+          "equity_start_usd": 19798.0,
+          "equity_end_usd": 19796.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-27",
+          "equity_start_usd": 19796.0,
+          "equity_end_usd": 19794.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-28",
+          "equity_start_usd": 19794.0,
+          "equity_end_usd": 19792.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-29",
+          "equity_start_usd": 19792.0,
+          "equity_end_usd": 19790.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-11-30",
+          "equity_start_usd": 19790.0,
+          "equity_end_usd": 19788.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-01",
+          "equity_start_usd": 19788.0,
+          "equity_end_usd": 19786.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-04",
+          "equity_start_usd": 19786.0,
+          "equity_end_usd": 19784.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-05",
+          "equity_start_usd": 19784.0,
+          "equity_end_usd": 19782.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-06",
+          "equity_start_usd": 19782.0,
+          "equity_end_usd": 19780.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-07",
+          "equity_start_usd": 19780.0,
+          "equity_end_usd": 19778.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-08",
+          "equity_start_usd": 19778.0,
+          "equity_end_usd": 19776.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-11",
+          "equity_start_usd": 19776.0,
+          "equity_end_usd": 19774.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-12",
+          "equity_start_usd": 19774.0,
+          "equity_end_usd": 19772.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-13",
+          "equity_start_usd": 19772.0,
+          "equity_end_usd": 19770.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-14",
+          "equity_start_usd": 19770.0,
+          "equity_end_usd": 19768.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-15",
+          "equity_start_usd": 19768.0,
+          "equity_end_usd": 19766.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-18",
+          "equity_start_usd": 19766.0,
+          "equity_end_usd": 19764.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-19",
+          "equity_start_usd": 19764.0,
+          "equity_end_usd": 19762.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-20",
+          "equity_start_usd": 19762.0,
+          "equity_end_usd": 19760.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-21",
+          "equity_start_usd": 19760.0,
+          "equity_end_usd": 19758.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-22",
+          "equity_start_usd": 19758.0,
+          "equity_end_usd": 19756.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-26",
+          "equity_start_usd": 19756.0,
+          "equity_end_usd": 19754.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-27",
+          "equity_start_usd": 19754.0,
+          "equity_end_usd": 19752.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-28",
+          "equity_start_usd": 19752.0,
+          "equity_end_usd": 19750.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2023-12-29",
+          "equity_start_usd": 19750.0,
+          "equity_end_usd": 19748.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-02",
+          "equity_start_usd": 19748.0,
+          "equity_end_usd": 19746.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-03",
+          "equity_start_usd": 19746.0,
+          "equity_end_usd": 19744.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-04",
+          "equity_start_usd": 19744.0,
+          "equity_end_usd": 19742.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-05",
+          "equity_start_usd": 19742.0,
+          "equity_end_usd": 19740.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-08",
+          "equity_start_usd": 19740.0,
+          "equity_end_usd": 19738.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-09",
+          "equity_start_usd": 19738.0,
+          "equity_end_usd": 19736.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-10",
+          "equity_start_usd": 19736.0,
+          "equity_end_usd": 19734.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-11",
+          "equity_start_usd": 19734.0,
+          "equity_end_usd": 19732.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-12",
+          "equity_start_usd": 19732.0,
+          "equity_end_usd": 19730.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-16",
+          "equity_start_usd": 19730.0,
+          "equity_end_usd": 19728.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-17",
+          "equity_start_usd": 19728.0,
+          "equity_end_usd": 19726.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-18",
+          "equity_start_usd": 19726.0,
+          "equity_end_usd": 19724.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-19",
+          "equity_start_usd": 19724.0,
+          "equity_end_usd": 19722.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-22",
+          "equity_start_usd": 19722.0,
+          "equity_end_usd": 19720.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-23",
+          "equity_start_usd": 19720.0,
+          "equity_end_usd": 19718.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-24",
+          "equity_start_usd": 19718.0,
+          "equity_end_usd": 19716.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-25",
+          "equity_start_usd": 19716.0,
+          "equity_end_usd": 19714.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-26",
+          "equity_start_usd": 19714.0,
+          "equity_end_usd": 19712.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-29",
+          "equity_start_usd": 19712.0,
+          "equity_end_usd": 19710.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-30",
+          "equity_start_usd": 19710.0,
+          "equity_end_usd": 19708.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-01-31",
+          "equity_start_usd": 19708.0,
+          "equity_end_usd": 19706.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-01",
+          "equity_start_usd": 19706.0,
+          "equity_end_usd": 19704.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-02",
+          "equity_start_usd": 19704.0,
+          "equity_end_usd": 19702.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-05",
+          "equity_start_usd": 19702.0,
+          "equity_end_usd": 19700.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-06",
+          "equity_start_usd": 19700.0,
+          "equity_end_usd": 19698.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-07",
+          "equity_start_usd": 19698.0,
+          "equity_end_usd": 19696.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-08",
+          "equity_start_usd": 19696.0,
+          "equity_end_usd": 19694.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-09",
+          "equity_start_usd": 19694.0,
+          "equity_end_usd": 19692.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-12",
+          "equity_start_usd": 19692.0,
+          "equity_end_usd": 19690.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-13",
+          "equity_start_usd": 19690.0,
+          "equity_end_usd": 19688.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-14",
+          "equity_start_usd": 19688.0,
+          "equity_end_usd": 19686.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-15",
+          "equity_start_usd": 19686.0,
+          "equity_end_usd": 19684.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-16",
+          "equity_start_usd": 19684.0,
+          "equity_end_usd": 19682.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-20",
+          "equity_start_usd": 19682.0,
+          "equity_end_usd": 19680.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-21",
+          "equity_start_usd": 19680.0,
+          "equity_end_usd": 19678.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-22",
+          "equity_start_usd": 19678.0,
+          "equity_end_usd": 19676.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-23",
+          "equity_start_usd": 19676.0,
+          "equity_end_usd": 19674.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-26",
+          "equity_start_usd": 19674.0,
+          "equity_end_usd": 19672.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-27",
+          "equity_start_usd": 19672.0,
+          "equity_end_usd": 19670.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-28",
+          "equity_start_usd": 19670.0,
+          "equity_end_usd": 19668.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-02-29",
+          "equity_start_usd": 19668.0,
+          "equity_end_usd": 19666.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-01",
+          "equity_start_usd": 19666.0,
+          "equity_end_usd": 19664.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-04",
+          "equity_start_usd": 19664.0,
+          "equity_end_usd": 19662.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-05",
+          "equity_start_usd": 19662.0,
+          "equity_end_usd": 19660.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-06",
+          "equity_start_usd": 19660.0,
+          "equity_end_usd": 19658.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-07",
+          "equity_start_usd": 19658.0,
+          "equity_end_usd": 19656.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-08",
+          "equity_start_usd": 19656.0,
+          "equity_end_usd": 19654.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-11",
+          "equity_start_usd": 19654.0,
+          "equity_end_usd": 19652.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-12",
+          "equity_start_usd": 19652.0,
+          "equity_end_usd": 19650.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-13",
+          "equity_start_usd": 19650.0,
+          "equity_end_usd": 19648.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-14",
+          "equity_start_usd": 19648.0,
+          "equity_end_usd": 19646.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-15",
+          "equity_start_usd": 19646.0,
+          "equity_end_usd": 19644.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-18",
+          "equity_start_usd": 19644.0,
+          "equity_end_usd": 19642.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-19",
+          "equity_start_usd": 19642.0,
+          "equity_end_usd": 19640.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-20",
+          "equity_start_usd": 19640.0,
+          "equity_end_usd": 19638.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-21",
+          "equity_start_usd": 19638.0,
+          "equity_end_usd": 19636.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-22",
+          "equity_start_usd": 19636.0,
+          "equity_end_usd": 19634.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-25",
+          "equity_start_usd": 19634.0,
+          "equity_end_usd": 19632.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-26",
+          "equity_start_usd": 19632.0,
+          "equity_end_usd": 19630.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-27",
+          "equity_start_usd": 19630.0,
+          "equity_end_usd": 19628.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-03-28",
+          "equity_start_usd": 19628.0,
+          "equity_end_usd": 19626.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-01",
+          "equity_start_usd": 19626.0,
+          "equity_end_usd": 19624.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-02",
+          "equity_start_usd": 19624.0,
+          "equity_end_usd": 19622.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-03",
+          "equity_start_usd": 19622.0,
+          "equity_end_usd": 19620.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-04",
+          "equity_start_usd": 19620.0,
+          "equity_end_usd": 19618.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-05",
+          "equity_start_usd": 19618.0,
+          "equity_end_usd": 19616.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-08",
+          "equity_start_usd": 19616.0,
+          "equity_end_usd": 19614.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-09",
+          "equity_start_usd": 19614.0,
+          "equity_end_usd": 19612.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-10",
+          "equity_start_usd": 19612.0,
+          "equity_end_usd": 19610.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-11",
+          "equity_start_usd": 19610.0,
+          "equity_end_usd": 19608.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-12",
+          "equity_start_usd": 19608.0,
+          "equity_end_usd": 19606.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-15",
+          "equity_start_usd": 19606.0,
+          "equity_end_usd": 19604.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-16",
+          "equity_start_usd": 19604.0,
+          "equity_end_usd": 19602.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-17",
+          "equity_start_usd": 19602.0,
+          "equity_end_usd": 19600.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-18",
+          "equity_start_usd": 19600.0,
+          "equity_end_usd": 19598.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-19",
+          "equity_start_usd": 19598.0,
+          "equity_end_usd": 19596.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-22",
+          "equity_start_usd": 19596.0,
+          "equity_end_usd": 19594.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-23",
+          "equity_start_usd": 19594.0,
+          "equity_end_usd": 19592.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-24",
+          "equity_start_usd": 19592.0,
+          "equity_end_usd": 19590.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-25",
+          "equity_start_usd": 19590.0,
+          "equity_end_usd": 19588.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-26",
+          "equity_start_usd": 19588.0,
+          "equity_end_usd": 19586.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-29",
+          "equity_start_usd": 19586.0,
+          "equity_end_usd": 19584.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-04-30",
+          "equity_start_usd": 19584.0,
+          "equity_end_usd": 19582.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-01",
+          "equity_start_usd": 19582.0,
+          "equity_end_usd": 19580.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-02",
+          "equity_start_usd": 19580.0,
+          "equity_end_usd": 19578.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-03",
+          "equity_start_usd": 19578.0,
+          "equity_end_usd": 19576.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-06",
+          "equity_start_usd": 19576.0,
+          "equity_end_usd": 19574.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-07",
+          "equity_start_usd": 19574.0,
+          "equity_end_usd": 19572.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-08",
+          "equity_start_usd": 19572.0,
+          "equity_end_usd": 19570.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-09",
+          "equity_start_usd": 19570.0,
+          "equity_end_usd": 19568.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-10",
+          "equity_start_usd": 19568.0,
+          "equity_end_usd": 19566.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-13",
+          "equity_start_usd": 19566.0,
+          "equity_end_usd": 19564.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-14",
+          "equity_start_usd": 19564.0,
+          "equity_end_usd": 19562.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-15",
+          "equity_start_usd": 19562.0,
+          "equity_end_usd": 19560.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-16",
+          "equity_start_usd": 19560.0,
+          "equity_end_usd": 19558.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-17",
+          "equity_start_usd": 19558.0,
+          "equity_end_usd": 19556.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-20",
+          "equity_start_usd": 19556.0,
+          "equity_end_usd": 19554.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-21",
+          "equity_start_usd": 19554.0,
+          "equity_end_usd": 19552.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-22",
+          "equity_start_usd": 19552.0,
+          "equity_end_usd": 19550.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-23",
+          "equity_start_usd": 19550.0,
+          "equity_end_usd": 19548.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-24",
+          "equity_start_usd": 19548.0,
+          "equity_end_usd": 19546.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-28",
+          "equity_start_usd": 19546.0,
+          "equity_end_usd": 19544.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-29",
+          "equity_start_usd": 19544.0,
+          "equity_end_usd": 19542.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-30",
+          "equity_start_usd": 19542.0,
+          "equity_end_usd": 19540.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-05-31",
+          "equity_start_usd": 19540.0,
+          "equity_end_usd": 19538.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-03",
+          "equity_start_usd": 19538.0,
+          "equity_end_usd": 19536.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-04",
+          "equity_start_usd": 19536.0,
+          "equity_end_usd": 19534.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-05",
+          "equity_start_usd": 19534.0,
+          "equity_end_usd": 19532.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-06",
+          "equity_start_usd": 19532.0,
+          "equity_end_usd": 19530.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-07",
+          "equity_start_usd": 19530.0,
+          "equity_end_usd": 19528.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-10",
+          "equity_start_usd": 19528.0,
+          "equity_end_usd": 19526.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-11",
+          "equity_start_usd": 19526.0,
+          "equity_end_usd": 19524.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-12",
+          "equity_start_usd": 19524.0,
+          "equity_end_usd": 19522.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-13",
+          "equity_start_usd": 19522.0,
+          "equity_end_usd": 19520.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-14",
+          "equity_start_usd": 19520.0,
+          "equity_end_usd": 19518.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-17",
+          "equity_start_usd": 19518.0,
+          "equity_end_usd": 19516.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-18",
+          "equity_start_usd": 19516.0,
+          "equity_end_usd": 19514.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-20",
+          "equity_start_usd": 19514.0,
+          "equity_end_usd": 19512.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-21",
+          "equity_start_usd": 19512.0,
+          "equity_end_usd": 19510.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-24",
+          "equity_start_usd": 19510.0,
+          "equity_end_usd": 19508.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-25",
+          "equity_start_usd": 19508.0,
+          "equity_end_usd": 19506.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-26",
+          "equity_start_usd": 19506.0,
+          "equity_end_usd": 19504.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-27",
+          "equity_start_usd": 19504.0,
+          "equity_end_usd": 19502.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-06-28",
+          "equity_start_usd": 19502.0,
+          "equity_end_usd": 19500.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-01",
+          "equity_start_usd": 19500.0,
+          "equity_end_usd": 19498.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-02",
+          "equity_start_usd": 19498.0,
+          "equity_end_usd": 19496.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-03",
+          "equity_start_usd": 19496.0,
+          "equity_end_usd": 19494.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-05",
+          "equity_start_usd": 19494.0,
+          "equity_end_usd": 19492.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-08",
+          "equity_start_usd": 19492.0,
+          "equity_end_usd": 19490.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-09",
+          "equity_start_usd": 19490.0,
+          "equity_end_usd": 19488.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-10",
+          "equity_start_usd": 19488.0,
+          "equity_end_usd": 19486.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-11",
+          "equity_start_usd": 19486.0,
+          "equity_end_usd": 19484.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-12",
+          "equity_start_usd": 19484.0,
+          "equity_end_usd": 19482.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-15",
+          "equity_start_usd": 19482.0,
+          "equity_end_usd": 19480.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-16",
+          "equity_start_usd": 19480.0,
+          "equity_end_usd": 19478.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-17",
+          "equity_start_usd": 19478.0,
+          "equity_end_usd": 19476.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-18",
+          "equity_start_usd": 19476.0,
+          "equity_end_usd": 19474.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-19",
+          "equity_start_usd": 19474.0,
+          "equity_end_usd": 19472.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-22",
+          "equity_start_usd": 19472.0,
+          "equity_end_usd": 19470.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-23",
+          "equity_start_usd": 19470.0,
+          "equity_end_usd": 19468.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-24",
+          "equity_start_usd": 19468.0,
+          "equity_end_usd": 19466.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-25",
+          "equity_start_usd": 19466.0,
+          "equity_end_usd": 19464.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-26",
+          "equity_start_usd": 19464.0,
+          "equity_end_usd": 19462.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-29",
+          "equity_start_usd": 19462.0,
+          "equity_end_usd": 19460.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-30",
+          "equity_start_usd": 19460.0,
+          "equity_end_usd": 19458.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-07-31",
+          "equity_start_usd": 19458.0,
+          "equity_end_usd": 19456.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-01",
+          "equity_start_usd": 19456.0,
+          "equity_end_usd": 19454.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-02",
+          "equity_start_usd": 19454.0,
+          "equity_end_usd": 19452.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-05",
+          "equity_start_usd": 19452.0,
+          "equity_end_usd": 19450.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-06",
+          "equity_start_usd": 19450.0,
+          "equity_end_usd": 19448.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-07",
+          "equity_start_usd": 19448.0,
+          "equity_end_usd": 19446.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-08",
+          "equity_start_usd": 19446.0,
+          "equity_end_usd": 19444.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-09",
+          "equity_start_usd": 19444.0,
+          "equity_end_usd": 19442.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-12",
+          "equity_start_usd": 19442.0,
+          "equity_end_usd": 19440.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-13",
+          "equity_start_usd": 19440.0,
+          "equity_end_usd": 19438.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-14",
+          "equity_start_usd": 19438.0,
+          "equity_end_usd": 19436.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-15",
+          "equity_start_usd": 19436.0,
+          "equity_end_usd": 19434.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-16",
+          "equity_start_usd": 19434.0,
+          "equity_end_usd": 19432.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-19",
+          "equity_start_usd": 19432.0,
+          "equity_end_usd": 19430.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-20",
+          "equity_start_usd": 19430.0,
+          "equity_end_usd": 19428.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-21",
+          "equity_start_usd": 19428.0,
+          "equity_end_usd": 19426.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-22",
+          "equity_start_usd": 19426.0,
+          "equity_end_usd": 19424.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-23",
+          "equity_start_usd": 19424.0,
+          "equity_end_usd": 19422.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-26",
+          "equity_start_usd": 19422.0,
+          "equity_end_usd": 19420.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-27",
+          "equity_start_usd": 19420.0,
+          "equity_end_usd": 19418.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-28",
+          "equity_start_usd": 19418.0,
+          "equity_end_usd": 19416.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-29",
+          "equity_start_usd": 19416.0,
+          "equity_end_usd": 19414.0,
+          "cost_usd": 2.0
+        },
+        {
+          "session_id": "2024-08-30",
+          "equity_start_usd": 19414.0,
+          "equity_end_usd": 19412.0,
+          "cost_usd": 2.0
+        }
+      ]
+    }
+  },
+  "hypotheses_for_future_not_tested": [
+    {
+      "id": "SIGNAL_AND_MODEL_ADMISSION",
+      "reason": "Observed nominal SVR reduced native trading-plus-dividend contribution and did not beat Ridge. Test a causal signal/regime change against frozen controls in a separately preregistered study; no post-hoc winners are selected here."
+    },
+    {
+      "id": "WALK_FORWARD_RECALIBRATION",
+      "reason": "This study used one fixed fit per asset. A rolling or expanding fit schedule must be separately preregistered with purged labels; it has not been tested and cannot rescue this result retrospectively."
+    }
+  ]
+}

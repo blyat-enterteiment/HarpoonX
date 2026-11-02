@@ -1,0 +1,101 @@
+HARPOON XXXUltimate 30.13.0 — CORE REVISADO, APLICACION INTEGRAL
+Motor Python Quant 1.8.1
+
+ALCANCE
+
+Esta entrega prepara el core para una evaluación económica de nivel 5 antes
+del despliegue. Contiene la aplicación completa, cinco remediaciones concretas,
+pruebas reproducibles y evidencia de los contraejemplos anteriores.
+El informe actual distingue preparación técnica y rendimiento económico.
+La versión del software no es una calificación de rentabilidad.
+
+CINCO REMEDIACIONES
+
+1. Ridge purga por fin de etiqueta Y por instante de disponibilidad, tanto en
+   selección como en evaluación. Los ajustes nuevos conservan esos límites.
+2. La reserva de efectivo utiliza la misma base de entrada y slippage que el
+   resultado modelado. Los futuros conservan su margen explícito.
+3. El puente conserva la cota más restrictiva entre core y cuenta. Valida ambas
+   configuraciones antes de combinarlas; una cota cero no equivale a ausente.
+4. Una respuesta anidada retrasada no reactiva una protección ya terminal con
+   la misma cantidad ejecutada. Las nuevas ejecuciones siguen conciliándose.
+5. El cierre de sesión permite solicitar la cancelación de una entrada parcial
+   pendiente cuando propiedad y conciliación están verificadas. La solicitud
+   no confirma cancelación; se conserva exposición residual hasta conciliar.
+
+COMPROBAR SIN DESPLEGAR
+
+Usar Python 3.12 y Node con las dependencias fijadas del proyecto. La instalación
+está descrita en LEEME_INTEGRAL_30_10_1.txt; --check y --plan no despliegan.
+Desde la raíz de la aplicación:
+
+  bash install.sh --check
+  bash install.sh --plan
+
+Primero reconstruir los ejemplos de software contra las fuentes actuales:
+
+  .venv/bin/python evidence/core5_30_13_0/reproduce.py --app .
+
+Después ejecutar el conjunto de validadores del paquete:
+
+  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-core-qa
+
+El ejecutor incluye compilación, regresión de Node, pruebas Python, análisis
+estático y verificación de tipos. Los tests usan cuentas y brokers sintéticos,
+procesos hijos y sockets locales. No necesitan credenciales de una cuenta.
+El informe de esta entrega indica qué comandos se ejecutaron y sus resultados.
+
+RUTA DE LOS CAMBIOS
+
+  quant/harpoon_quant/calibration.py
+  quant/harpoon_quant/core.py
+  quant/harpoon_quant/bridge.py
+  xxx/coordinator.ts
+
+Regresiones nuevas:
+
+  quant/tests/test_core5_numeric.py
+  quant/tests/test_core5_bridge_limits.py
+  tools/core5_runtime_test.cjs
+
+El compilado correspondiente está incluido en runtime30. La aplicación conserva
+sus interfaces y el recolector original de 30.12.2. Los resultados y comandos
+de reproducción están en evidence/core5_30_13_0.
+
+MODELOS Y DATOS HISTORICOS
+
+Corregir el entrenador no modifica la procedencia de un Ridge anterior ni
+certifica su causalidad retroactivamente. Para evaluar el entrenador corregido
+se necesita una calibración nueva con observaciones admisibles, separación
+temporal y registro de investigación.
+
+El cambio de fuentes invalida por diseño las huellas de implementacion de los
+modelos SVR anteriores. No cambiar el hash de un modelo para aceptarlo. Los
+modelos originales y experimentos históricos se conservan. La reproducción
+renueva únicamente los ejemplos sintéticos identificados de comparación.
+Los ejemplos antiguos de SVR se conservan como antecedentes; las pruebas de
+integración generan sus propios modelos sintéticos temporales.
+
+CRITERIO ECONOMICO
+
+El gate existente exige evidencia observada íntegra, cuenta/costes conciliados,
+modelos disponibles antes de decidir, comparación neta frente a Ridge/control,
+incertidumbre, límites de riesgo y pruebas de estrés. Sigue aplicándose.
+Una etiqueta OBSERVED no acredita por sí sola la autenticidad de una fuente.
+Un resultado PAPER o una prueba sintética no es rentabilidad de una cuenta real.
+
+No hubo un nuevo ensayo financiero ni reinicio del presupuesto de investigación.
+Faltan observaciones originales y contabilidad del mismo periodo para demostrar
+ventaja. La calificación de rendimiento real sigue siendo no evaluable.
+
+LIMITES DE LA VERIFICACION
+
+La revisión de otros agentes comparte entorno y no es auditoría externa.
+La prueba de distribución verifica el contenido y su ejecución local; no es
+una imagen Docker construida ni un despliegue validado. No se ha desplegado esta
+entrega. Los benchmarks son de CPU local con entradas sintéticas; no miden red,
+prioridad de cola, fills de mercado ni rentabilidad.
+
+Las protecciones que requieren persistir estado siguen necesitando persistencia
+disponible. Una solicitud enviada con resultado incierto requiere conciliación;
+la corrección no inventa una cancelación o una ejecución confirmada.

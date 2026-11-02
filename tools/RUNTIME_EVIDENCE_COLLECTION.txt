@@ -1,0 +1,155 @@
+HARPOON — RECOLECCION ACOTADA DE EVIDENCIA DEL RUNTIME
+
+ALCANCE
+
+collect_runtime_evidence.cjs descarga una vez los recibos que ya conserva una
+instancia identificada. Comprueba transporte, identidad, continuidad y aritmética
+contable con los verificadores de la aplicación. No calcula una nota económica,
+no entrena modelos, no reserva ensayos y no envía órdenes.
+
+El resultado COMPLETE_SOURCE_COLLECTION significa que se recogieron y verificaron
+las fuentes solicitadas. No significa nivel 4, rentabilidad, ejecución LIVE ni
+validación independiente del proveedor. Los campos de autoridad permanecen false
+y economic_score permanece null.
+
+REQUISITOS
+
+- Node y las dependencias ya declaradas en esta distribución.
+- URL exacta del origen de una instancia conocida, sin ruta, query ni credenciales.
+- Identificador esperado de cuenta y versión esperada de esa instancia.
+- Contraseña legítima del panel disponible en HARPOON_PANEL_PASSWORD mediante
+  el mecanismo de secretos del entorno. El usuario Basic es trader.
+- Un directorio de salida nuevo cuyo directorio padre ya exista.
+
+La URL debe utilizar HTTPS. Se permite HTTP únicamente para direcciones literales
+de loopback 127.0.0.0/8 o ::1. El nombre localhost no es una excepción de transporte.
+Los redirects se rechazan y la verificación TLS permanece habilitada.
+Nunca pasar la contraseña como argumento ni incorporarla a la URL o a un JSON.
+
+USO
+
+Ayuda local sin credenciales, red ni creación de directorios:
+
+  node tools/collect_runtime_evidence.cjs --help
+
+Después de suministrar los valores reales mediante el entorno de esa instalación:
+
+  node tools/collect_runtime_evidence.cjs \
+    --base-url "$HARPOON_PUBLIC_ORIGIN" \
+    --expected-account "$HARPOON_EXPECTED_ACCOUNT_ID" \
+    --expected-version "$HARPOON_EXPECTED_VERSION" \
+    --output "$HARPOON_EVIDENCE_OUTPUT"
+
+HARPOON_EXPECTED_VERSION es la versión esperada del servidor que se va a consultar.
+No asumir que es la misma que la del equipo desde el que se ejecuta el recolector.
+Las otras variables del ejemplo deben contener el origen, cuenta y ruta de salida
+legítimos. No se proporcionan valores ficticios para activar una cuenta.
+
+Opciones adicionales:
+
+  --selection /ruta/a/seleccion_original.json
+  --timeout-ms 300000
+  --request-timeout-ms 10000
+
+La selección es opcional. Si se aporta, se conserva sin modificar y debe usar el
+contrato FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID, America/New_York, local_time y
+los tres presupuestos de retraso/edad definidos por el panel causal. El recolector
+comprueba su forma y límites; no afirma que haya sido fijada antes de observar los
+resultados. El constructor del panel conserva sus controles de fechas y configuración.
+
+Sin selección se verifica el prefijo original, pero no se escribe un manifiesto
+de calibración ni una solicitud de entrenamiento. No se inventan horas, ventanas,
+etiquetas, costes, modelos ni supuestos de profundidad ejecutable.
+
+RECORRIDO
+
+1. GET /healthz verifica versión antes de transmitir la autenticación Basic.
+2. GET /v1/operational conserva el estado operacional original, aunque esté
+   esperando datos o modelos; ese estado no autoriza una operación.
+3. GET /v1/quant/observations/snapshot fija el prefijo de observaciones y permite
+   comprobar la cuenta esperada. Este GET guarda metadatos acotados de snapshot
+   dentro del runtime; no modifica órdenes, estrategia ni límites de riesgo.
+4. GET /v1/quant/observations?snapshot_id=... descarga todas las páginas del
+   prefijo fijado. Las cadenas, frames, cuenta y configuración se contrastan con
+   assemble del exportador existente. Se admite un prefijo vacío, identificado
+   expresamente como cero observaciones.
+5. GET /v1/accounting/history descarga páginas contables de una sola revisión.
+   verifyNetLedgerHistoryBundle reconstruye y comprueba el estado, caja, inventario,
+   actividades, costes y retornos disponibles. Una hash coherente por sí sola no
+   basta para aceptar aritmética falsa.
+6. GET /healthz comprueba que la instancia y versión no cambiaron durante la
+   colección. Solo entonces se publica collection_receipt.json.
+
+Todas las rutas son fijas y todas las peticiones son GET. El recolector no tiene
+transporte al broker ni ruta de control de operaciones. Los snapshots de mercado
+y contabilidad se fijan por separado; su cuenta coincidente no afirma simultaneidad.
+
+LIMITES
+
+- 32 MiB por respuesta HTTP.
+- 128 MiB de respuestas originales de observaciones, incluido su descriptor.
+- 32 MiB de páginas contables originales y 32 MiB del bundle contable serializado,
+  compatibles con el límite por archivo del gate existente.
+- 192 MiB de artefactos totales, reservando 1 MiB para el recibo de estado.
+- 512 páginas por familia; 100 frames por página de observaciones y 1000 registros
+  contables por página como valores predeterminados.
+- 1030 peticiones como máximo, sin reintentos ni reinicios automáticos.
+- 300 segundos totales y 10 segundos por petición de forma predeterminada;
+  máximos configurables de 600 y 30 segundos, respectivamente.
+
+Los límites actúan sobre bytes retenidos por la aplicación y archivos. Pueden
+existir bytes de red en tránsito cuando se corta una respuesta excedida. Los
+plazos se comprueban con reloj monotónico; el event loop y el sistema operativo
+no ofrecen una garantía de tiempo real.
+
+SALIDAS E INTEGRIDAD
+
+El directorio se crea exclusivamente con permiso 0700 y sus archivos con 0600
+en sistemas que aplican permisos POSIX. Un directorio ya existente se rechaza
+antes de realizar la primera petición; no se mezcla con una colección anterior.
+
+Se conservan los bytes originales completos de cada respuesta JSON aceptable,
+su tamaño y SHA-256. Se rechazan JSON ambiguos, UTF-8 inválido y respuestas que
+reflejen literalmente la contraseña o el token Basic, incluidas cadenas JSON
+escapadas. No se redactan bytes para hacer que una respuesta alterada parezca
+original. La detección de esos reflejos no es un clasificador universal de secretos.
+
+ledger_bundle.json es una derivación explícita de páginas originales verificadas.
+observation_manifest.json se genera únicamente cuando existe selección aportada.
+collection_receipt.json diferencia datos recogidos, verificación local y recursos
+todavía necesarios para la evaluación económica.
+
+Si una etapa falla, no aparece un recibo de colección completa. Se mantienen las
+respuestas completas ya obtenidas y collection_failed.json, marcado
+PARTIAL_COLLECTION_REJECTED. El cuerpo incompleto de la respuesta fallida no se
+guarda. Si el disco también falla, puede faltar ese recibo de error; la ausencia
+de collection_receipt.json nunca equivale a una colección aceptada.
+
+Una revisión contable que cambia entre páginas produce
+LEDGER_REVISION_CHANGED_NO_AUTOMATIC_RESTART. El runtime verifica cada página,
+pero no proporciona un snapshot contable inmutable entre peticiones. El recolector
+no detiene la gestión del motor ni repite indefinidamente para ocultar esa condición.
+Para otra ejecución se necesita un directorio nuevo; el intento anterior se conserva.
+
+DESPUES DE RECOGER LAS FUENTES
+
+El panel causal y los modelos se verifican mediante las herramientas existentes.
+El contrato SVR actual requiere 100 sesiones distintas de observaciones causales;
+repetir capturas de un día no satisface ese requisito. Un bundle contable válido
+puede tener costes económicos desconocidos y conserva esos importes como null.
+
+Para evaluar nivel 4 siguen siendo necesarios panel causal admisible, modelos
+observados disponibles antes de las decisiones, comparación fija registrada,
+cuenta y periodo vinculados, y costes/devengos documentados. La ruta de evaluación
+permanece tools/level4_readiness.cjs. Recoger fuentes no cambia sus criterios.
+
+PRUEBAS
+
+  node --test --test-isolation=none --test-reporter=tap \
+    --test-timeout=15000 tools/collect_runtime_evidence_test.cjs
+
+Las pruebas usan clases reales de journal, ledger y servidor de la aplicación
+con datos y broker doble identificados como sintéticos. El transporte HTTP es
+loopback. Incluyen identidad, autenticación, páginas/cadenas alteradas, PnL falso
+con hashes rehechos, cambios de revisión, límites, plazos, redirects, reflejo de
+credenciales y preservación de salidas. No conectan con cuentas de inversión.

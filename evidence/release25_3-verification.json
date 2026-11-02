@@ -1,0 +1,231 @@
+{
+  "version": "25.3.2",
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 884,
+      "output": "\n> harpoon-cloud-247@25.3.2 test\n> node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py\n\n{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"SQLite durable cross-process roundtrip\",\n    \"Exclusive shared-volume lease cannot be released by another owner\",\n    \"Compare-and-swap preserves concurrent study changes\",\n    \"Cursor scan excludes already processed records\",\n    \"Restart preserves unknown intent and forbids duplicate order\",\n    \"Lease is verified before the first broker mutation, including initial connect\",\n    \"Research worker isolated and cannot invent missing evidence\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0\n}\n{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"PAPER configured startup\",\n    \"Unauthorized state denied\",\n    \"Action header required\",\n    \"Pause disables entries\",\n    \"Pause survives process restart with SQLite\",\n    \"Explicit PAPER resume\",\n    \"Current crypto plugin engine loads\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0,\n  \"scope\": \"Launcher integration uses injected engine; native engine tested separately\"\n}\n{\n  checks: 11,\n  passed: 11,\n  scope: 'Controller fixtures, no model/broker calls'\n}\n{\n  checks: 8,\n  passed: 8,\n  scope: 'Actual HTTP proxy with local upstream fixture; no TLS provider deployment'\n}\n{\"checks\": 6, \"passed\": 6, \"scope\": \"Six generated configurations; Docker schema/build not executed\"}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:auth"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 244,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:auth\n> node tools/auth_security_test.cjs\n\n{\"checks\":26,\"passed\":26,\"results\":[\"Valid Basic header accepted\",\"Case insensitive scheme accepted\",\"Missing Basic scheme rejected\",\"Invalid base64 characters rejected\",\"Wrong user rejected\",\"Wrong password rejected\",\"Gateway child excludes broker and panel secrets\",\"Gateway listens on loopback in managed deployment\",\"Optional inference settings reach gateway\",\"Incomplete inference configuration fails before launch\",\"Header without scheme denied over HTTP\",\"Missing action header denied\",\"Cross origin action denied before proxy\",\"Null origin denied before proxy\",\"Cross site fetch denied before proxy\",\"Non JSON body denied before proxy\",\"Same origin action accepted\",\"Panel credentials replaced by internal token\",\"Panel password absent from upstream request\",\"CLI action with no browser origin preserved\",\"Oversized JSON rejected before proxy\",\"Panel Basic cannot authenticate to GPT\",\"Gateway bearer cannot control a book\",\"Gateway bearer reaches GPT only\",\"Gateway token preserved for gateway\",\"Unconfigured book rejected\"],\"provider\":\"local synthetic fixtures\",\"external_orders\":0,\"paid_model_calls\":0}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:service"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 22347,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:service\n> python3 -m unittest discover -s service -p test_*.py\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n.........................................................................\n----------------------------------------------------------------------\nRan 73 tests in 22.125s\n\nOK\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:xxv"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 281,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:xxv\n> node tools/xxv_test.cjs\n\n{\n  \"checks\": [\n    \"Valid Alpaca crypto limit buy accepted\",\n    \"External pairs and equities rejected\",\n    \"Eligibility and asset class verified\",\n    \"Minimum and increments verified\",\n    \"Stale quotes blocked\",\n    \"Catalog refreshed before buy\",\n    \"Catalog outage blocks buys without blocking exits\",\n    \"Disconnected executor is OFF\",\n    \"CSP permits every emitted script and stylesheet by exact hash\",\n    \"Original HTML preserved outside exact reviewed replacements and agent modules\",\n    \"All HTML scripts parse\"\n  ],\n  \"passed\": 11,\n  \"external_orders\": 0,\n  \"paid_gpt_calls\": 0,\n  \"scope\": \"Unit and syntax tests, no live trading or profitability test\"\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:agents"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 493,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:agents\n> node tools/agents25_test.cjs && node tools/agents25_integration.cjs\n\n{\n  \"checks\": [\n    \"HEAD routes a lead through SEARCH, RISK, two confirmations and SNIPER with persistent tasks\",\n    \"Parallel confirmations preserve an unbroken SHA-256 message chain\",\n    \"A permit is consumed once before any broker submission\",\n    \"Restart cannot reuse a consumed approval\",\n    \"LIVE requires exact authorization and rejects larger sizes\",\n    \"Expired approvals cannot execute\",\n    \"A stale confirmation rejects the lead without order authority\",\n    \"External universe and ambiguous inventory fail closed\",\n    \"Daily loss cutoff survives restart and cannot reset on the same local day\",\n    \"Daily close uses the last mark and excludes partial-day coverage\",\n    \"Next local day still requires an explicit reset\",\n    \"Expanding the mandate requires a policy-bound literal authorization\",\n    \"Coordinator, watchdog, EXIT and due reports execute real handlers\",\n    \"Scheduled reports are deduplicated by local day\",\n    \"GPT findings enter bounded research once and never become orders\",\n    \"Research reserves iterations before work and obeys its budget\",\n    \"Ambiguous report delivery is not automatically resent\",\n    \"Persistence failure blocks the pipeline before execution\",\n    \"Missing daily flow evidence does not produce invented Sharpe or alpha\"\n  ],\n  \"passed\": 19,\n  \"benchmarks\": [\n    {\n      \"operation\": \"full_5_specialist_gate_with_memory_store\",\n      \"ms\": 8.275608000000005\n    }\n  ],\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"scope\": \"Deterministic fixtures, memory store; native SQLite and HTTP tested separately\"\n}\n{\n  \"checks\": [\n    \"Native crypto entry traverses real agent handlers and produces one fixture order\",\n    \"Broker-observed fill links back to the same lead ID\",\n    \"Native stop-limit protection is preserved\",\n    \"Second cycle and direct purchase cannot bypass the gate\",\n    \"SQLite stores tasks, state and append-only coordination messages\",\n    \"Native exits continue with agents disabled and an injected agent-storage outage\",\n    \"Two plugins on the same pair cannot exchange their permits\",\n    \"Take-profit telemetry is linked to the native campaign\",\n    \"Activity collection cannot cross a day boundary and acquire the wrong period\"\n  ],\n  \"passed\": 9,\n  \"externalOrders\": 0,\n  \"fixtureOrders\": 3,\n  \"paidModelCalls\": 0\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:profit"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 870,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:profit\n> node tools/profit_vector25_test.cjs\n\n{\n  \"passed\": 9,\n  \"checks\": [\n    \"Observed take-profit fills, cost provision, MFE, capture and giveback agree in USD\",\n    \"A reconstructed historic close cannot invent a 100% capture trajectory\",\n    \"Partials and stale quotes cannot masquerade as a completed realized profit\",\n    \"Float64 feature matrices retain exact dimensions and explicit missingness masks\",\n    \"Linear hinge SVM fits a separable functional fixture with label-end purge and 72h embargo\",\n    \"Test-period changes cannot alter training normalization or model weights\",\n    \"Masks, corrupt scalers, mixed origins and synthetic production labels fail closed\",\n    \"A label requires pre-entry features and an unambiguous completed campaign; SVM remains shadow only\",\n    \"Batch matrix margins match per-row inference to numerical tolerance\"\n  ],\n  \"benchmark\": {\n    \"rows\": 5000,\n    \"features\": 7,\n    \"training600RowsMs\": 53.52011099999999,\n    \"matrixProjectionMs\": 0.19947329999999966,\n    \"matrixDesignAndProjectionMs\": 12.479255799999999,\n    \"perRowDesignAndScoreMs\": 41.9219957,\n    \"scope\": \"Local CPU, synthetic functional fixtures; excludes network, model accuracy on real trades and brokerage latency\"\n  },\n  \"externalOrders\": 0,\n  \"paidGptCalls\": 0,\n  \"source\": \"SYNTHETIC TEST FIXTURES ONLY; PAPER-shaped records test the contract, not financial performance\"\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:options"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 217,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:options\n> node tools/options3_test.cjs\n\n{\n  \"passed\": 11,\n  \"checks\": [\n    \"Canonical HXI option evidence is reused with catalog-verified OPRA, not duplicated or called L2\",\n    \"Incomplete chains, closed market, stale spot and INDICATIVE all remain non-operative\",\n    \"Old quotes and absent displayed size cannot validate options liquidity\",\n    \"Premium and round-trip friction use actual contract multiplier, fee and slippage\",\n    \"Lagged OI is dated; missing OI never becomes signed dealer gamma or inferred buying pressure\",\n    \"Unverified snapshots cannot leak into the canonical ATM context\",\n    \"Feature matrices retain Float64 values and explicit masks for missing open interest\",\n    \"Crypto proxies align identical session-close intervals and reject stale or insufficient pairs\",\n    \"Future proxy observations cannot change the current correlation\",\n    \"Actual crypto book depth is venue-specific and expires independently of option quotes\",\n    \"Opportunity hypotheses cannot become orders or unmeasured profit claims; query policy is bounded\"\n  ],\n  \"source\": \"Deterministic options and aligned-session fixtures; no real market performance measured\",\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:warroom"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 2515,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:warroom\n> node tools/warroom3_test.cjs && node tools/warroom3_integration.cjs\n\n{\n  \"passed\": 20,\n  \"checks\": [\n    \"Sealed protocol enforces eleven calendar months, one-year train and 72h embargo\",\n    \"Exactly eight immutable plugin contracts; arbitrary code and unknown parameters rejected\",\n    \"Missing bars fail closed and open bars are not observations\",\n    \"Signal and regime cannot read future closed bars\",\n    \"Economic labels mature before the embargo cutoff; daily proxy never validates execution\",\n    \"Freshness, cost stress and causal model guards reject unfunded expected edge\",\n    \"Adaptive trailing never loosens and a completed partial cannot trigger twice\",\n    \"Control preserves canonical daily trailing and 72-hour variant has a hard deadline\",\n    \"Continuous portfolio, cash, positions and signal memory survive monthly boundaries\",\n    \"Bootstrap is deterministic; absent variance and losses do not manufacture infinite ratios\",\n    \"Actual isolated worker computes all eight variants and rejects synthetic/proxy promotion\",\n    \"Held-out worker continues frozen normal and stressed portfolios without re-fitting or accepting synthetic performance\",\n    \"Aggregate eleven-month report preserves terminal equity and cannot bypass final or full-period gates\",\n    \"Trials, frozen data and consumed evaluation persist and cannot be silently restarted\",\n    \"A holdout already observed by the inherited research ledger is marked contaminated and cannot promote\",\n    \"Native decisions form a verifiable SHA-256-linked history\",\n    \"Pre-call GPT reservations deduplicate IDs, cap eight requests and retain unknown cost reserves\",\n    \"Concurrent recorder flushes retain every accepted event without overwriting chunks\",\n    \"Recorder saturation is visible and invalidates promotion instead of hiding data loss\",\n    \"Worker crash consumes its reserved trials; research failure has no order authority\"\n  ],\n  \"workerMs\": 552,\n  \"source\": \"Synthetic fixtures for software verification, not performance evidence\",\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0\n}\n{\n  \"passed\": 13,\n  \"checks\": [\n    \"C7 patient buy passes the real multi-agent permit and reaches the sole native executor as GTC\",\n    \"Zero-fill patient cancellation is reconciled before one fresh, smaller-or-equal IOC fallback and broker protection\",\n    \"Campaign hash, frozen risk and PAPER-only scope are checked in the operational entry path\",\n    \"Opt-in automatic PAPER promotion waits for a flat idle core, stops under COLD LiftOff and cannot replace open inventory\",\n    \"Only reconciled own residual below the broker minimum can survive a flat strategy change; external small inventory blocks it\",\n    \"C5 takes one net-triggered 20% partial, reconciles it and re-protects the actual remaining inventory\",\n    \"72-hour exit executes with new entries paused\",\n    \"Ambiguous patient cancellation cannot create or send a duplicate fallback\",\n    \"War-room storage failure does not interrupt the original position exit\",\n    \"A test-only downstream parameter proof reaches the sole native PAPER executor while preserving core config and risk; changed risk or search seal blocks new entries\",\n    \"Native COLD advances bounded parameter batches without a daily delay; LiftOff blocks the next batch and rejected research preserves the running plugin\",\n    \"Actual GPT request bridge blocks the ninth campaign review before reaching network or inference\",\n    \"Recorder and live crypto L2 reuse one native data session; deltas, disconnect reset and OFF cleanup are effective\"\n  ],\n  \"fixtureOrders\": 18,\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"scope\": \"Native executor and SQLite with deterministic broker transport and injected downstream proofs; not profitability validation\"\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:warroom:cloud"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 2873,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:warroom:cloud\n> node tools/warroom3_cloud.cjs\n\n{\n  \"passed\": 11,\n  \"checks\": [\n    \"Native cloud War Room endpoint requires control authentication and explicit action header\",\n    \"Actual HTTP worker study consumes eight trials, rejects OHLC-only promotion and preserves the native strategy\",\n    \"Read-only Alpaca chain, catalog, stock quote and crypto book integrate through the actual cloud controller\",\n    \"OPRA permission failure is visible and never silently falls back to indicative prices\",\n    \"Explicit indicative feed stays research-only and broker clock closes option context while crypto state remains available\",\n    \"Cloud COLD and global LiftOff control the same native research flag; auto-PAPER remains opt-in and gated\",\n    \"Campaign consumption and options settings survive a real service and SQLite restart\",\n    \"Authenticated cloud optimizer routes seal budgets, pause and compute real isolated parameter batches\",\n    \"Cloud and SQLite restart retain parameter reservations, finish at the sealed limit and reject synthetic promotion without changing plugins\",\n    \"Native cloud exposes the proactive supervisor, strict persistent profile and LiftOff through the authenticated controller\",\n    \"Every broker request in this end-to-end test is read-only; no GPT inference or trading call occurred\"\n  ],\n  \"fixtureBrokerReads\": 65,\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"scope\": \"Actual HTTP processes, native modules, worker_threads and SQLite; simulated broker data, not real market profitability\"\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:optimizer"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 1621,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:optimizer\n> node tools/optimizer3_test.cjs\n\n{\n  \"version\": \"25.3.1\",\n  \"passed\": 11,\n  \"checks\": [\n    \"Search whitelist freezes capital, risk, exposures, fees, slippage and hold policy; unknown knobs and unbounded trials fail\",\n    \"Changing every price in the locked three-month holdout leaves search outcomes and control unchanged\",\n    \"Deterministic recipe exploration transitions into parameter refinement, with executed synthetic control paths and no duplicate configurations\",\n    \"Completed trial replay and unreserved work fail; an exhausted budget produces no simulated fills\",\n    \"Final selection counts all reserved attempts, including incomplete ones, and cannot promote synthetic/OHLC proxy evidence\",\n    \"Real lifecycle persists reservations before work, supports pause and reload, freezes data and stops after its finite trial budget\",\n    \"A failed worker keeps all reservations and trial penalties; resuming evaluates new configurations without repeating lost attempts\",\n    \"Pause arriving during a running worker is persisted immediately and prevents the following batch without refunding trials\",\n    \"Production worker_threads route runs parameter batches in isolation with zero broker or GPT calls\",\n    \"Locked holdout retains original control parameters while applying selected parameters only to the candidate; synthetic validation still rejects\",\n    \"Optimizer decisions preserve the existing verifiable SHA-256 audit chain\"\n  ],\n  \"elapsedMs\": 1421,\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"financialPerformanceValidated\": false,\n  \"source\": \"Deterministic fixtures for functional verification. No market profitability estimate.\"\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:autonomy"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 1164,
+      "output": "\n> harpoon-cloud-247@25.3.2 test:autonomy\n> node tools/autonomy3_test.cjs\n\n{\n  \"version\": \"25.3.2\",\n  \"passed\": 18,\n  \"checks\": [\n    \"Strict parameter schema rejects credentials, unknown knobs and enlarged risk/download budgets\",\n    \"A closed or stale regular-market clock never marks the crypto session closed; unknown regular sessions remain blocked\",\n    \"Broker timestamps with explicit DST offsets and early closes determine sessions without hardcoded weekday hours\",\n    \"Health gates independently block ambiguous inventory, risk ceiling violations, drawdown and stale native execution\",\n    \"Selector requires complete positive validated evidence, rejects proxy/expired/empty proofs and refuses non-comparable cohort or cooldown changes\",\n    \"Automatic research requires observed two-pair quote coverage and rejects gaps rather than filling them\",\n    \"Actual CryptoDesk, account reconciliation and native cycle continue on a closed regular-market weekend, using only fixture broker reads\",\n    \"A transient quote transport failure pauses native entries, then reconciled PAPER recovery reuses native resume with fresh data\",\n    \"Manual pause, persisted cloud pause, unknown orders and agent risk cuts cannot be overridden by automatic recovery\",\n    \"A manual pause arriving during automatic resume wins the race and cannot be overwritten by the recovery completion\",\n    \"Persistent recovery failure consumes exactly three attempts and then stops without refreshing its own budget\",\n    \"Watchdog never overlaps a busy canonical cycle and can revive a stale scheduler without rearming a manually paused account\",\n    \"Proactive preparation creates a sealed campaign and reads real-shaped history, but missing execution quotes leave zero research trials consumed\",\n    \"Test-only accepted evidence reaches the sole native PAPER plugin loader; flat reconciliation and COLD still govern automatic application\",\n    \"Validated automatic replacement can preserve an already authorized PAPER engine through its native pause, plugin update and resume\",\n    \"An operator pause during a native automatic plugin replacement prevents its final resume\",\n    \"LiftOff during a pending automatic promotion blocks its new entries and leaves the native account paused\",\n    \"Profile, account-scoped state and LiftOff survive a new runtime, without persisting credentials in the profile\"\n  ],\n  \"fixtureBrokerReads\": 162,\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"source\": \"Native engine and timers/policies against explicit simulated broker transport; injected strategy proofs test mechanics only.\",\n  \"financialPerformanceValidated\": false\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/agents25_cloud.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 834,
+      "output": "{\n  \"passed\": 7,\n  \"checks\": [\n    \"Native crypto cloud boots with persistent agents and paused entries\",\n    \"Agent HTTP commands require action header and authentication\",\n    \"Invented approvals are rejected\",\n    \"Manual report uses observed PAPER state\",\n    \"Worker performs bounded walk-forward and cannot promote a plugin\",\n    \"Policy and consumed research budget survive service restart\",\n    \"No broker mutation or paid GPT call in this test\"\n  ],\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"source\": \"Synthetic OHLC fixtures for functional tests only; no profitability claim\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/agents25_browser.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 2402,
+      "output": "{\n  \"passed\": 9,\n  \"checks\": [\n    \"Full HTML starts in a real Chromium browser\",\n    \"Eight agent cards render without a connected account\",\n    \"Take-profit cards, vector export and SVM controls open\",\n    \"Opportunity approval controls open\",\n    \"GPT and sandbox controls open\",\n    \"Policy form opens\",\n    \"Report controls open\",\n    \"Modal reopens and fits a mobile viewport\",\n    \"No JS runtime or CSP execution errors\"\n  ],\n  \"externalRequests\": 0,\n  \"brokerOrders\": 0,\n  \"paidGptCalls\": 0\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/warroom3_browser.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 2060,
+      "output": "{\n  \"passed\": 8,\n  \"checks\": [\n    \"War Room is a native visible tab with honest OFF/WAIT status and no unsolicited network access\",\n    \"Campaign is sealed from native risk settings and an explicit-source dataset imports through the real form\",\n    \"Real Blob WebWorker runs eight experiments under CSP, renders failures and keeps promotion disabled\",\n    \"Options controls persist a chosen feed, distinguish L1 from crypto L2 and require broker connection before reads\",\n    \"Decision trace and actual review budget have a dedicated native view\",\n    \"New native controls fit a mobile viewport without whole-page horizontal overflow\",\n    \"A real browser reload preserves consumed experiments and selected option feed\",\n    \"No uncaught JavaScript, CSP execution failure, external broker request or paid model call\"\n  ],\n  \"externalRequests\": 0,\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"source\": \"Chromium UI, IndexedDB and WebWorker with explicit synthetic test input; not trading performance\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/warroom3_panel_browser.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 5946,
+      "output": "{\n  \"passed\": 5,\n  \"checks\": [\n    \"Cloud optimizer controls seal selected trial/time budgets, render status and persist pause through native action requests\",\n    \"Cloud dashboard creates the same sealed campaign through its actual form and refuses premature study\",\n    \"Option feed configuration is sent through the native action route and reflected in state\",\n    \"Cloud pulse tab sends profile ON/OFF, parameter changes and a one-shot pulse through real controls without rearming entries\",\n    \"Cloud War Room renders without JavaScript errors or mobile page overflow\"\n  ],\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"scope\": \"Browser against local controller fixture; native HTTP controller tested separately\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/optimizer3_browser.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 6710,
+      "output": "{\n  \"version\": \"25.3.1\",\n  \"passed\": 4,\n  \"checks\": [\n    \"Actual form seals a bounded parameter campaign and runs the isolated optimizer Blob worker under the HTML CSP\",\n    \"Browser COLD automatically starts another batch within the short polling cycle, then explicit pause blocks further work\",\n    \"Reload keeps consumed reservations; resumed search stops at sixteen trials, renders rejection reasons and preserves the current strategy\",\n    \"Optimizer controls fit mobile and generate no uncaught errors, CSP failure, broker request or GPT inference\"\n  ],\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"source\": \"Real Chromium, IndexedDB, timer and Blob workers with synthetic data; not market profitability.\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/autonomy3_browser.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 7287,
+      "output": "{\n  \"version\": \"25.3.2\",\n  \"passed\": 5,\n  \"checks\": [\n    \"Native pulse tab clearly waits for an account and does not pretend that disconnected engines are operating\",\n    \"One activation persists COLD and proactive preparation, shows closed regular markets, and keeps a paused PAPER account paused\",\n    \"The supervisor keeps its own pulse after the operator closes the dialog, with the browser tab still alive\",\n    \"Parameter edits and validated JSON import work through real controls; expanded risk is rejected and LiftOff stops research and promotions\",\n    \"Profile persists across browser reload, fits mobile and generates no uncaught errors, CSP failures or external broker/model requests\"\n  ],\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0,\n  \"source\": \"Chromium, IndexedDB and actual UI/timers; account and market inputs are explicit fixtures, not profitability evidence.\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/warroom3_load.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 659,
+      "output": "{\n  \"passed\": 2,\n  \"checks\": [\n    \"86,400 compact quotes are decoded and replayed in the actual bounded worker for eight recipes plus stress\",\n    \"A month of minute quotes cannot pretend to cover eight months or authorize promotion\"\n  ],\n  \"events\": 86400,\n  \"encodedBytes\": 7334963,\n  \"elapsedMs\": 501,\n  \"source\": \"Synthetic load and coverage test only; no market return estimate\",\n  \"externalOrders\": 0,\n  \"paidModelCalls\": 0\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/6fda71ed1d94/HARPOON_XXV/node_modules/typescript/bin/tsc",
+        "--allowJs",
+        "--checkJs",
+        "--noEmit",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "node16",
+        "--types",
+        "node",
+        "--typeRoots",
+        "/workspace/scratch/6fda71ed1d94/HARPOON_XXV/node_modules/@types",
+        "runtime/control.cjs",
+        "deploy/managed.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 663,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/6fda71ed1d94/HARPOON_XXV/node_modules/typescript/bin/tsc",
+        "--allowJs",
+        "--checkJs",
+        "--noEmit",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "node16",
+        "--types",
+        "node",
+        "--typeRoots",
+        "/workspace/scratch/6fda71ed1d94/HARPOON_XXV/node_modules/@types",
+        "src/agents25.js",
+        "src/profit25.js",
+        "src/vector25.js"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 782,
+      "output": ""
+    }
+  ],
+  "passed_commands": 20,
+  "syntax_files": 112,
+  "broker_orders_sent": 0,
+  "paid_model_calls": 0,
+  "deployed": false,
+  "financial_performance_validated": false,
+  "scope": "Functional, failure, persistence, controller, browser, load and existing type checks. Broker inputs in tests are fixtures; separate Alpaca connector entitlement smoke test is read-only."
+}

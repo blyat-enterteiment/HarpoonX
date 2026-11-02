@@ -1,0 +1,65 @@
+HARPOON XXX / 30.0.0 — DICTAMEN DE ENTREGA
+Fecha de verificación: 2026-10-18T02:22:15.163665+00:00
+
+ESTADO
+Código implementado y verificado localmente con broker simulado.
+No desplegado. No publicado en GitHub. Sin nuevas órdenes externas.
+No se acredita rentabilidad ni liderazgo mundial en Alpaca.
+
+QUÉ CAMBIA
+- Un coordinador de cartera y riesgo para acciones, ETF, cripto y opciones.
+- 18 ciclos independientes. Investigación en worker; no condiciona salidas,
+  cotizaciones, sesiones ni refresco de opciones.
+- 61 plugins registrados: 22 acciones, 22 ETF, 14 cripto y 3 opciones.
+  Se conservan las reglas identificadas y los requisitos de datos/evidencia.
+  Seis seleccionados de inicio. Catálogo no equivale a rentabilidad probada.
+- Take profit por fills reales, parciales acumulativos y costes estimados;
+  trailing que sólo estrecha; prioridad de salidas frente a entradas.
+- Protección nativa por libro, cancelación confirmada, idempotencia por
+  client_order_id y persistencia antes de enviar órdenes.
+- Una cuenta PAPER dedicada; capital, reservas y riesgo compartidos.
+- Opciones largas call/put: contratos enteros, multiplicador 100, OPRA,
+  permiso >= 2, prima completa como riesgo y vigilancia de vencimiento.
+- Pausar entradas o investigación mantiene vigilancia de posiciones.
+- Exportación incluye campañas cerradas e intentos/fills; eventos limitados.
+- Panel autenticado con controles funcionales y configuración Render nueva.
+- Corrección adicional del orden de tareas en src/autonomy_adapter3.js.
+  Los HTML históricos XXV no se recompilaron; el ejecutor entregado es XXX.
+
+VERIFICACIÓN
+52/52 pruebas XXX; cero fallos. Broker y datos simulados.
+10/10 comprobaciones del navegador en 1440 y 420 px; sin errores JavaScript.
+TypeScript strict, noUnusedLocals y noUnusedParameters: aprobado.
+Sintaxis Node: 14 archivos; sintaxis Python del nuevo arranque: aprobada.
+npm test y suites agents, profit, warroom, options, autonomy, optimizer,
+auth y service: aprobadas. Evidencia en evidence/xxx.
+Render: YAML válido contra el esquema oficial; Docker no disponible para build.
+
+MICROBENCHMARK
+20000 decisiones sintéticas de salida en 13.265 ms.
+p50 0.000411 ms; p95 0.000781 ms; p99 0.001583 ms.
+Sólo función pura. Excluye red, broker, SQLite, UI y runtime completo.
+No demuestra latencia operativa, capacidad de cartera ni rendimiento económico.
+
+ALCANCE Y PENDIENTES
+Universo inicial: AAPL, MSFT, NVDA, SPY, SPXL, SPXS, BTC/USD, ETH/USD;
+opciones sobre SPY y AAPL. Configurable; no escanea todos los símbolos.
+No implementa cortos, spreads de opciones, futuros ni forex.
+Plugins con datos/modelos insuficientes permanecen bloqueados.
+No se probó el arranque autenticado contra Alpaca ni fills PAPER externos.
+Stops, límites y plazo de 72 horas no garantizan fill, precio ni plazo efectivo.
+El lease sólo coordina procesos que comparten el mismo archivo SQLite.
+Primera instalación: cuenta vacía; sin adopción de posiciones R2.
+Los costes son estimaciones y el PnL de fills es bruto, no neto auditado.
+No se instalaron backups ni alertas externas. No hay archivo de todos los ticks.
+El repositorio encontrado masivarecords-ship-it/HerpoonX estaba vacío y sin push.
+Falta build Docker, despliegue, reinicio/reconciliación contra broker y evaluación
+prospectiva con fills, costes, drawdown y referencia. El código no habilita LIVE.
+
+PROCEDENCIA
+Base recuperada: HARPOON_XXV_3_Alpaca.zip, versión de archivo 2.
+SHA-256 base: 2bd6b7b7e9fa94375fabf30609ceb9037ca3e64e607c79da83e6cb6f1afd5199
+Nuevos fuentes: xxx/. Compilado: runtime30/. Puente: runtime/legacy30.cjs.
+Arranque: README.md; node --env-file=.env runtime30/server.js.
+Checksums de esta entrega: MANIFEST_XXX.json y SHA256SUMS_XXX.txt.
+Los documentos, HTML y evidencias de versiones previas son históricos.

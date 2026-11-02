@@ -1,0 +1,1499 @@
+informe:
+  proyecto: HarpoonX
+  version_integral: 30.16.0
+  fecha: '2026-11-01'
+  idioma: español
+  alcance: Banco histórico reconstruido, seis mediciones y una reproducción exacta
+  resultado_principal: Ninguna política produjo crecimiento económico neto positivo bajo los supuestos registrados
+  nivel_7_rentabilidad_real_acreditado: false
+  calificacion_numerica_real: null
+  causa_calificacion_null: No existe una escala probabilística 1–10 calibrada ni un resultado real acreditado
+  definiciones:
+    HECHO: Resultado de una ejecución identificada o archivo con hash
+    ESTIMACION: Cálculo condicional con supuestos e incertidumbre
+    HIPOTESIS: Mecanismo pendiente de nueva contrastación
+    SVR: Regresión por vectores de soporte, algoritmo clásico
+    Ridge: Regresión lineal con penalización L2
+    OHLCV: Apertura, máximo, mínimo, cierre y volumen agregados
+    IOC: Orden inmediata o cancelada; aquí ejecución hipotética acotada al open
+    C0: NATIVE_HISTORICAL_ULTIMATE; no identidad con Coordinator de producción
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  clasificacion: HECHO_DE_CAPTURA_Y_LIMITACIONES
+  datos:
+    universe:
+    - AAPL
+    - MSFT
+    - SPY
+    - XLK
+    periodo:
+    - '2022-01-01'
+    - '2024-08-31'
+    barras_regulares: 208152
+    fuentes_originales: 130
+    sesiones: 669
+    entrenamiento: 375
+    validacion: 126
+    prueba: 168
+    resolucion_segundos: 300
+    huecos: 0
+    duplicados: 0
+    dividendos_observados: 42
+    completitud_eventos_corporativos: null
+    datos_reales_de_cuenta: null
+    dataset:
+      path: evidence/historical_bank_30_16_0/data/research_dataset.json
+      sha256: e6874c13f812cd42861f8c2d3bb2fc9c438cba3b2be4cfe2932bd3d774850967
+  filas:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos_por_segundo
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: No existen recibos originales de streaming
+  - variable: intervalo_entre_eventos
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Las barras agregadas no son eventos de recepción
+  - variable: frecuencia_decisiones
+    unidad: decisiones_por_segundo
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Hay decisiones de replay; no una tasa observada de producción
+  - variable: antiguedad_dato_al_decidir
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Disponibilidad end+1000ms asumida; recepción original desconocida
+  - variable: latencia_calculo_senal
+    unidad: milisegundos
+    valor_observado: 8.4252300002845
+    distribucion_o_intervalo: &id001
+      p50: 8.4252300002845
+      p95: 10.261565700056963
+      p99: 13.181889219522409
+    fuente:
+      path: evidence/historical_bank_30_16_0/run_completed/feature_panel.json
+      sha256: 082989e843b058e2b2bce17de655285ed8ac287ab03fca0a7555c604cb4617b2
+    limitacion: Benchmark LOCAL de reconstrucción de features, no latencia total de ejecución ni de red
+  - variable: latencia_envio_confirmacion
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Sin envíos ni confirmaciones del broker
+  - variable: tiempo_hasta_ejecucion
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Ejecución modelada en la siguiente apertura de barra admisible
+  - variable: latencia_cancelacion_confirmada
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Sin cancelaciones externas observadas
+  - variable: desfase_entre_relojes
+    unidad: milisegundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: No se dispone de sincronización entre mercado, cliente y broker
+  - variable: persistencia_estimada_de_senal
+    unidad: segundos
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: No se estimó una semivida ni un alpha decay intrabar
+  - variable: spread
+    unidad: puntos_base
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: No se capturaron bid y ask contemporáneos
+  - variable: profundidad_ejecutable
+    unidad: unidades_y_USD
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: OHLCV no es libro de órdenes
+  - variable: porcentaje_ejecutado
+    unidad: proporcion
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: Los fills son modelados, no recibos de ejecución
+  - variable: coste_total_por_operacion
+    unidad: USD_y_puntos_base
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: metadata.json y protocolo histórico
+    limitacion: No hay facturas y fills reales que acrediten coste total observado
+  supuestos_de_replay:
+    disponibilidad: Fin de barra + 1000 ms; reloj modelado
+    espera_hasta_open_siguiente: 299000ms para señales en esta malla; programación de replay, no medición de red
+    ventanas: Primeros y últimos90 minutos de la sesión regular según calendario; en sesión completa09:30–11:00
+      y14:30–16:00 America/New_York
+    admisiones_cerca_del_cierre: El margen de salida y grid rechazan entradas tardías; el contador legacy dataGap
+      incluye5192 de estos rechazos
+    sesion_extendida: No evaluada
+    HFT_VPIN_icebergs: No incorporados con estas barras; no se inventan eventos de microestructura
+  accesos:
+    codigo: Integral30.15.0 verificable, ampliada a30.16.0
+    datos: Captura histórica Alpaca conservada
+    repositorio_candidato: masivarecords-ship-it/HerpoonX
+    identidad_git_actual_verificada: false
+    version_desplegada: null
+    cuenta_real_usada: false
+reproduccion_de_referencia_y_discrepancias:
+  referencia_heredada_verificada:
+    schema: HARPOON_LEGACY_CONTROL_REFERENCE_1
+    scope: REPRODUCTION_OF_ALREADY_REGISTERED_REUSED_HISTORY_MODELED_EXECUTION
+    period:
+    - '2025-03-11'
+    - '2026-07-13'
+    universe:
+    - SPY
+    - XLK
+    source_result_sha256: 600a76b5aacd9229daa1df09eb6b8d1b5cc27c7577b7d8e88b932e26a569107f
+    control_30_13_1:
+      status: COMPLETE_EXPLORATORY_ONLY
+      net_model_pnl_usd: 91.27999999999918
+      portfolio:
+        scope: MODELED_SHARED_CAPITAL_INTEGER_LOTS
+        limits:
+          capitalUsd: 20000
+          riskFraction: 0.0025
+          openRiskFraction: 0.015
+          grossFraction: 0.5
+          assetFraction: 0.12
+          dailyLoss: 0.02
+          maxDrawdown: 0.08
+        oos:
+          campaigns: 33
+          sessions: 336
+          expectancyR: 0.1705900209918034
+          profitFactor: 1.5016345106392588
+          winRate: 0.5151515151515151
+          growthLog: 1.3552430159049619e-05
+          modelReturn: 0.004564000000000457
+          maxDrawdown: 0.00687187489762886
+          sharpeHac: 0.44095532191279413
+          sortino: 0.5884989254609102
+          expectedShortfall95: 0.0011980637960140132
+        netUsd: 91.27999999999918
+        skipped:
+          SYMBOL_BUSY: 15
+      uncertainty: null
+    candidate_30_14_0_retained_30_15_0:
+      status: COMPLETE_EXPLORATORY_ONLY
+      net_model_pnl_usd: 91.27999999999884
+      portfolio:
+        scope: MODELED_SHARED_CAPITAL_INTEGER_LOTS_CAUSAL_RESERVATIONS
+        limits:
+          capitalUsd: 20000
+          riskFraction: 0.0025
+          openRiskFraction: 0.015
+          grossFraction: 0.5
+          assetFraction: 0.12
+          dailyLoss: 0.02
+          maxDrawdown: 0.08
+        oos:
+          campaigns: 33
+          sessions: 336
+          expectancyR: 0.1705900209918034
+          profitFactor: 1.5016345106392588
+          winRate: 0.5151515151515151
+          growthLog: 1.3552430159049577e-05
+          modelReturn: 0.0045640000000000125
+          maxDrawdown: 0.006871874897629304
+          sharpeHac: 0.4409553219127902
+          sortino: 0.5884989254608991
+          expectedShortfall95: 0.0011980637960140312
+        netUsd: 91.27999999999884
+        skipped:
+          SYMBOL_BUSY: 15
+      uncertainty:
+        descriptive_log_growth_lower: -6.43075062324828e-05
+        method: LEGACY_CIRCULAR_BLOCK_BOOTSTRAP
+        sessions: 336
+        runs: 2000
+        block_sessions: 5
+        legacy_family_parameter: 72
+        global_multiple_testing_correction_verified: false
+        independent_holdout: false
+        financial_acceptance_allowed: false
+    difference_usd: -3.410605131648481e-13
+    economic_pnl_complete_usd: null
+    external_operating_costs_usd: null
+    real_profitability_grade: null
+    target_seven_accredited: false
+    not_same_control_as_new_four_asset_three_hypothesis_historical_study: true
+    new_trials_or_fits: 0
+  verificador_portable: evidence/historical_bank_30_16_0/frozen_control_30_15_0/tools/verify_portfolio_validity_study.cjs
+  comparabilidad: La referencia heredada SPY/XLK2025–2026 y el nuevo control de cuatro activos2023–2024 tienen distinto
+    periodo y selección; no calcular mejora económica entre ambos
+  referencia_sintetica_del_prompt:
+    capital_usd: 20000
+    pnl_usd: -282.457889
+    status: PROPORCIONADA_NO_REPRODUCIDA_AQUI
+    causa: No se identificó una receta ejecutable original para esos15 trades; se conserva sin sustituirla por el
+      resultado de otro estudio
+  reproduccion_del_banco_nuevo:
+    schema: HARPOON_HISTORICAL_EXACT_REPRODUCTION_1
+    verified: true
+    mismatches: []
+    files_compared: 12
+    new_policy_variants: 0
+    same_descendant_journal: true
+    financial_acceptance_allowed: false
+  incidente_de_entorno:
+    schema: HARPOON_ENVIRONMENT_INCIDENT_1
+    phase: registration_verification_before_training
+    interrupted_run: run
+    sandbox_probe:
+      node_python_stdin: ETIMEDOUT
+      seconds: 5
+      same_python_direct: PASS
+    authorized_execution_probe:
+      same_command: PASS
+      seconds: 0.57
+    new_policy_variants: 0
+    model_fit_invocations_before_interruption: 0
+    parameters_changed: false
+    code_changed: false
+    budget_reset: false
+    retained_descendant_spent: 29
+    retry_directory: run_completed
+reconciliacion_del_patrimonio:
+  clasificacion: HECHO_DEL_REPLAY_CONDICIONAL
+  formula: E_final = 20000 + PnL_en_precios_modelados - comisiones + dividendos_devengados - costes_externos_modelados
+  compound: El tamaño depende del patrimonio y efectivo continuo; no se reinicia capital entre validación y TEST
+  dividendos: Derecho en exAt, efectivo sólo en payableAt; pendientes no se reinvierten
+  contabilidad_por_caso:
+    NOMINAL:C0:
+      modeledPricePnlUsd: -124.91999999999939
+      modeledTradingFeesUsd: 18.459999999999965
+      modeledTradingPnlUsd: -143.3799999999999
+      dividendAccruedUsd: 12.444168000000001
+      dividendPaidUsd: 12.444168000000001
+      dividendReceivableUsd: 0
+      modeledExternalCostsUsd: 294
+      terminalConservativeCashPoolUsd: 19575.064168
+      netEconomicUsd: -424.9358319999992
+      reconciliationResidualUsd: 6.821210263296962e-13
+    NOMINAL:RIDGE:
+      modeledPricePnlUsd: -67.46000000000072
+      modeledTradingFeesUsd: 8.54
+      modeledTradingPnlUsd: -76.0000000000007
+      dividendAccruedUsd: 3.12
+      dividendPaidUsd: 3.12
+      dividendReceivableUsd: 0
+      modeledExternalCostsUsd: 294
+      terminalConservativeCashPoolUsd: 19633.12
+      netEconomicUsd: -366.880000000001
+      reconciliationResidualUsd: -3.410605131648481e-13
+    NOMINAL:SVR:
+      modeledPricePnlUsd: -188.28999999999894
+      modeledTradingFeesUsd: 7.21
+      modeledTradingPnlUsd: -195.4999999999992
+      dividendAccruedUsd: 7.944168
+      dividendPaidUsd: 7.944168
+      dividendReceivableUsd: 0
+      modeledExternalCostsUsd: 294
+      terminalConservativeCashPoolUsd: 19518.444168
+      netEconomicUsd: -481.5558319999982
+      reconciliationResidualUsd: 1.0231815394945443e-12
+    STRESS:C0:
+      modeledPricePnlUsd: -281.5600000000008
+      modeledTradingFeesUsd: 36.55999999999991
+      modeledTradingPnlUsd: -318.12000000000154
+      dividendAccruedUsd: 12.444168000000001
+      dividendPaidUsd: 12.444168000000001
+      dividendReceivableUsd: 0
+      modeledExternalCostsUsd: 588
+      terminalConservativeCashPoolUsd: 19106.324168
+      netEconomicUsd: -893.6758320000008
+      reconciliationResidualUsd: 6.821210263296962e-13
+    STRESS:RIDGE:
+      modeledPricePnlUsd: -171.98000000000016
+      modeledTradingFeesUsd: 16.88
+      modeledTradingPnlUsd: -188.86000000000004
+      dividendAccruedUsd: 2.88
+      dividendPaidUsd: 2.88
+      dividendReceivableUsd: 0
+      modeledExternalCostsUsd: 588
+      terminalConservativeCashPoolUsd: 19226.02
+      netEconomicUsd: -773.9799999999996
+      reconciliationResidualUsd: 4.547473508864641e-13
+    STRESS:SVR:
+      modeledPricePnlUsd: -299.329999999999
+      modeledTradingFeesUsd: 14.24
+      modeledTradingPnlUsd: -313.5699999999993
+      dividendAccruedUsd: 7.944168
+      dividendPaidUsd: 7.944168
+      dividendReceivableUsd: 0
+      modeledExternalCostsUsd: 588
+      terminalConservativeCashPoolUsd: 19106.374168000002
+      netEconomicUsd: -893.6258319999979
+      reconciliationResidualUsd: 1.3642420526593924e-12
+  auditoria:
+    path: evidence/historical_bank_30_16_0/qa/results_audit_final.json
+    sha256: a6efb1c4841d3189387f647bf212a058f2802fb7f8917deb93f38d08fc342553
+  auditoria_status: PASS_CONSISTENCY_ONLY
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  aportaciones_y_retiros: Ninguno por diseño de esta cuenta contrafactual
+  tributacion: Antes de impuestos; no se modelaron impuestos ni retenciones
+atribucion_de_perdidas:
+  clasificacion: HECHO_DEL_REPLAY_Y_DESCRIPCION_POSTERIOR
+  por_activo:
+    NOMINAL:C0:
+      AAPL: 23.25000000000004
+      MSFT: -229.46999999999872
+      SPY: -75.36999999999998
+      XLK: 150.65416799999883
+    NOMINAL:RIDGE:
+      AAPL: -37.300000000000324
+      MSFT: -119.82000000000022
+      SPY: 9.700000000000344
+      XLK: 74.5399999999995
+    NOMINAL:SVR:
+      AAPL: -0.6900000000002393
+      MSFT: -155.72999999999922
+      SPY: -12.699999999999964
+      XLK: -18.435831999999756
+    STRESS:C0:
+      AAPL: -16.009999999999373
+      MSFT: -243.06
+      SPY: -147.150000000001
+      XLK: 100.54416799999899
+    STRESS:RIDGE:
+      AAPL: -84.22999999999949
+      MSFT: -145.62000000000083
+      SPY: 1.5100000000003604
+      XLK: 42.35999999999988
+    STRESS:SVR:
+      AAPL: -36.999999999999574
+      MSFT: -188.7699999999996
+      SPY: -35.06000000000036
+      XLK: -44.795831999999656
+  por_horario_entrada:
+    NOMINAL:C0:
+      OPEN90:
+        campaigns: 157
+        trading_net_usd: 2.2400000000002365
+        dividends_usd: 9.564168
+      CLOSE90:
+        campaigns: 69
+        trading_net_usd: -145.61999999999995
+        dividends_usd: 2.88
+    NOMINAL:RIDGE:
+      CLOSE90:
+        campaigns: 23
+        trading_net_usd: -104.53999999999975
+        dividends_usd: 3.12
+      OPEN90:
+        campaigns: 68
+        trading_net_usd: 28.53999999999915
+        dividends_usd: 0
+    NOMINAL:SVR:
+      CLOSE90:
+        campaigns: 29
+        trading_net_usd: -50.0399999999997
+        dividends_usd: 2.88
+      OPEN90:
+        campaigns: 57
+        trading_net_usd: -145.45999999999952
+        dividends_usd: 5.0641680000000004
+    STRESS:C0:
+      OPEN90:
+        campaigns: 155
+        trading_net_usd: -75.53000000000198
+        dividends_usd: 9.564168
+      CLOSE90:
+        campaigns: 71
+        trading_net_usd: -242.58999999999904
+        dividends_usd: 2.88
+    STRESS:RIDGE:
+      CLOSE90:
+        campaigns: 23
+        trading_net_usd: -138.14999999999918
+        dividends_usd: 2.88
+      OPEN90:
+        campaigns: 68
+        trading_net_usd: -50.710000000000825
+        dividends_usd: 0
+    STRESS:SVR:
+      CLOSE90:
+        campaigns: 29
+        trading_net_usd: -96.99999999999916
+        dividends_usd: 2.88
+      OPEN90:
+        campaigns: 57
+        trading_net_usd: -216.57000000000008
+        dividends_usd: 5.0641680000000004
+  por_hipotesis_nativa:
+    NOMINAL:C0:
+      VWAP_REVERSION:
+        campaigns: 67
+        trading_net_usd: -92.99000000000076
+        dividends_usd: 0
+      OPENING_BREAKOUT:
+        campaigns: 56
+        trading_net_usd: 0.37000000000074706
+        dividends_usd: 0
+      CLOSED_CHANNEL:
+        campaigns: 103
+        trading_net_usd: -50.75999999999969
+        dividends_usd: 12.444168000000001
+    NOMINAL:RIDGE:
+      CLOSED_CHANNEL:
+        campaigns: 49
+        trading_net_usd: 17.340000000000316
+        dividends_usd: 3.12
+      VWAP_REVERSION:
+        campaigns: 21
+        trading_net_usd: -26.240000000000762
+        dividends_usd: 0
+      OPENING_BREAKOUT:
+        campaigns: 21
+        trading_net_usd: -67.10000000000024
+        dividends_usd: 0
+    NOMINAL:SVR:
+      CLOSED_CHANNEL:
+        campaigns: 48
+        trading_net_usd: -145.26999999999896
+        dividends_usd: 7.944168
+      OPENING_BREAKOUT:
+        campaigns: 19
+        trading_net_usd: -7.919999999999391
+        dividends_usd: 0
+      VWAP_REVERSION:
+        campaigns: 19
+        trading_net_usd: -42.310000000000755
+        dividends_usd: 0
+    STRESS:C0:
+      VWAP_REVERSION:
+        campaigns: 70
+        trading_net_usd: -178.89000000000058
+        dividends_usd: 0
+      OPENING_BREAKOUT:
+        campaigns: 55
+        trading_net_usd: -73.34000000000138
+        dividends_usd: 0
+      CLOSED_CHANNEL:
+        campaigns: 101
+        trading_net_usd: -65.8899999999991
+        dividends_usd: 12.444168000000001
+    STRESS:RIDGE:
+      CLOSED_CHANNEL:
+        campaigns: 49
+        trading_net_usd: -46.55999999999992
+        dividends_usd: 2.88
+      VWAP_REVERSION:
+        campaigns: 21
+        trading_net_usd: -55.370000000000005
+        dividends_usd: 0
+      OPENING_BREAKOUT:
+        campaigns: 21
+        trading_net_usd: -86.93000000000023
+        dividends_usd: 0
+    STRESS:SVR:
+      CLOSED_CHANNEL:
+        campaigns: 48
+        trading_net_usd: -197.43999999999946
+        dividends_usd: 7.944168
+      OPENING_BREAKOUT:
+        campaigns: 19
+        trading_net_usd: -48.30000000000021
+        dividends_usd: 0
+      VWAP_REVERSION:
+        campaigns: 19
+        trading_net_usd: -67.82999999999952
+        dividends_usd: 0
+  costes_fijos: 294USD nominales /588USD estrés en294 sesiones, asignación de presupuesto modelado
+  SVR_nominal:
+    operaciones_mas_dividendos_antes_gastos_externos: -187.5558319999992
+    gastos_externos: 294
+    neto: -481.5558319999982
+    lectura: Coste externo cero no habría convertido esta trayectoria en positiva
+  limite_de_atribucion: PnL en precios ya incorpora spread/slippage; no equivale a ventaja bruta sin fricción. Horarios
+    y activos son desgloses posteriores, no nuevas estrategias validadas
+hipotesis_y_condiciones_de_refutacion:
+  ensayada:
+    mecanismo: Filtro de retorno neto previsto con8 features, comparando Ridge y SVR contra señales nativas
+    parametros:
+      RIDGE:
+        ridge_lambda: 1.0
+        fit_function: calibration.ridge
+        hyperparameter_search: false
+      SVR:
+        C: 1.0
+        kernel: rbf
+        epsilon: 0.1
+        gamma: 0.125
+        tol: 0.0001
+        max_iter: 50000
+        fit_function: scalar_svr._fit
+        hyperparameter_search: false
+    umbral_admision_bps: 5
+    refutacion: Crecimiento neto no positivo o mejora frente a controles no demostrada
+    resultado: RECHAZADA_EN_ESTA_PARAMETRIZACION_Y_MUESTRA
+  continuidad_del_estudio:
+    una_cartera_por_politica: true
+    positividad_por_activo_exigida: false
+    presupuesto_nuevas_mediciones: 6
+    mediciones_ejecutadas: 6
+    busqueda_hiperparametros: 0
+    recetas_modelo_unicas: 8
+    invocaciones_historicas_con_reproducciones: 32
+    modelos:
+      AAPL:
+        rows: 110
+        sessions: 97
+        status: FITTED_ONCE
+        svr_json_max_abs_error: 5.0523821237824507e-17
+        svr_support_vectors: 94
+        training_max_label_known_at: '2023-06-26T18:30:00.000Z'
+      MSFT:
+        rows: 87
+        sessions: 76
+        status: FITTED_ONCE
+        svr_json_max_abs_error: 3.642919299551295e-17
+        svr_support_vectors: 78
+        training_max_label_known_at: '2023-06-16T19:50:00.000Z'
+      SPY:
+        rows: 111
+        sessions: 101
+        status: FITTED_ONCE
+        svr_json_max_abs_error: 2.168404344971009e-17
+        svr_support_vectors: 90
+        training_max_label_known_at: '2023-06-16T19:50:00.000Z'
+      XLK:
+        rows: 117
+        sessions: 95
+        status: FITTED_ONCE
+        svr_json_max_abs_error: 4.683753385137379e-17
+        svr_support_vectors: 108
+        training_max_label_known_at: '2023-06-16T19:50:00.000Z'
+    filas_entrenamiento: 425
+  proximas_hipotesis_no_ejecutadas:
+  - id: SIGNAL_AND_MODEL_ADMISSION
+    reason: Observed nominal SVR reduced native trading-plus-dividend contribution and did not beat Ridge. Test
+      a causal signal/regime change against frozen controls in a separately preregistered study; no post-hoc winners
+      are selected here.
+  - id: WALK_FORWARD_RECALIBRATION
+    reason: This study used one fixed fit per asset. A rolling or expanding fit schedule must be separately preregistered
+      with purged labels; it has not been tested and cannot rescue this result retrospectively.
+  regla: Conservar todos los resultados; no quitar MSFT ni la ventana de cierre después de observarlos y llamar
+    independiente al mismo TEST
+cambios_implementados:
+- archivo: xxx/ultimate_replay.ts
+  funciones:
+  - opportunities
+  - replayCampaign
+  - replayFundedPortfolio
+  - planFundedIocLimit
+  efecto: Ventanas causales, capital compartido continuo, costes antes de sizing, dividendos y límites ex ante
+- archivo: xxx/ultimate_contracts.ts
+  funcion: assertCashDividends
+  efecto: Contrato explícito de derechos y pagos
+- archivo: xxx/ultimate_reservations.ts
+  efecto: NO_FILL terminal conserva reserva hasta resolución; nunca borra exposición abierta
+- archivo: quant/harpoon_quant/historical_bank.py
+  funciones:
+  - feature_panel
+  - training_rows
+  - fit_fixed
+  - predict_fixed
+  - verify_derivation
+  - statistical_evaluation
+  efecto: Ajustes fijos, purga temporal, verificación de derivados e inferencia pareada
+- archivo: tools/historical_bank_register.py
+  efecto: Una rama de historial23→26→29, sin reiniciar ni ampliar128
+- archivo: tools/historical_bank_data_audit.py
+  efecto: Reconstrucción portable desde130fuentes y rechazo de corrupción
+- archivo: tools/run_historical_bank.py
+  efecto: Ejecución y reproducción automática; conserva incidentes y evita sobreescritura de resultados
+- archivo: tools/audit_historical_results.py
+  efecto: Auditoría posterior de contabilidad, datos derivados, reservas y estadísticas
+resultados_de_todas_las_variantes:
+- candidato: C0
+  escenario: NOMINAL
+  naturaleza_de_datos_y_ejecucion: HISTORICAL / MODELED_OHLCV
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  capital_inicial: 20000
+  patrimonio_final: 19575.064168
+  pnl_neto: -424.9358319999992
+  costes_operativos_externos: 294
+  crecimiento_geometrico_neto_por_sesion: -7.304411318200854e-05
+  retorno_total_pct: -2.124679159999998
+  diferencia_frente_al_control_usd: 0.0
+  intervalo_de_incertidumbre: Inferencia primaria sólo en TEST, tabla específica posterior
+  drawdown_cierres_pct: 2.865434659999988
+  exposicion:
+    maximum_reserved_notional_usd: 9501.584732640002
+    maximum_reserved_risk_usd: 197.94968193000005
+    actual_market_depth: null
+    actual_market_depth_null_reason: OHLCV only
+  numero_de_operaciones: 226
+  unidad_operacion: campaña, distinta de eventos de salida parcial
+  porcentaje_ejecutado_modelado: 0.9855846235985051
+  porcentaje_ejecutado_real: null
+  dictamen: RECHAZADO_EN_ESTE_ENSAYO
+  fuente:
+    path: evidence/historical_bank_30_16_0/run_completed/NOMINAL_C0.json
+    sha256: e3fc8eccd1f823b20237a05aa0f0b1e366b05bf12f65f90089cac277124b1038
+- candidato: RIDGE
+  escenario: NOMINAL
+  naturaleza_de_datos_y_ejecucion: HISTORICAL / MODELED_OHLCV
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  capital_inicial: 20000
+  patrimonio_final: 19633.12
+  pnl_neto: -366.880000000001
+  costes_operativos_externos: 294
+  crecimiento_geometrico_neto_por_sesion: -6.297195425112838e-05
+  retorno_total_pct: -1.8344000000000027
+  diferencia_frente_al_control_usd: 58.05583199999819
+  intervalo_de_incertidumbre: Inferencia primaria sólo en TEST, tabla específica posterior
+  drawdown_cierres_pct: 2.000286876212931
+  exposicion:
+    maximum_reserved_notional_usd: 9447.955487999998
+    maximum_reserved_risk_usd: 196.832406
+    actual_market_depth: null
+    actual_market_depth_null_reason: OHLCV only
+  numero_de_operaciones: 91
+  unidad_operacion: campaña, distinta de eventos de salida parcial
+  porcentaje_ejecutado_modelado: 1
+  porcentaje_ejecutado_real: null
+  dictamen: RECHAZADO_EN_ESTE_ENSAYO
+  fuente:
+    path: evidence/historical_bank_30_16_0/run_completed/NOMINAL_RIDGE.json
+    sha256: 74f349c80e83cbdd94489342f13205aa0f4f0b480517116c5de245025d02dc10
+- candidato: SVR
+  escenario: NOMINAL
+  naturaleza_de_datos_y_ejecucion: HISTORICAL / MODELED_OHLCV
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  capital_inicial: 20000
+  patrimonio_final: 19518.444168
+  pnl_neto: -481.5558319999982
+  costes_operativos_externos: 294
+  crecimiento_geometrico_neto_por_sesion: -8.289588453747732e-05
+  retorno_total_pct: -2.40777915999999
+  diferencia_frente_al_control_usd: -56.61999999999898
+  intervalo_de_incertidumbre: Inferencia primaria sólo en TEST, tabla específica posterior
+  drawdown_cierres_pct: 2.5411846599999843
+  exposicion:
+    maximum_reserved_notional_usd: 9392.91108864
+    maximum_reserved_risk_usd: 195.68564768000002
+    actual_market_depth: null
+    actual_market_depth_null_reason: OHLCV only
+  numero_de_operaciones: 86
+  unidad_operacion: campaña, distinta de eventos de salida parcial
+  porcentaje_ejecutado_modelado: 1
+  porcentaje_ejecutado_real: null
+  dictamen: RECHAZADO_EN_ESTE_ENSAYO
+  fuente:
+    path: evidence/historical_bank_30_16_0/run_completed/NOMINAL_SVR.json
+    sha256: b1f03bc6bdf99fd75c9773e68632192311f0e828490f37b4c3bc080b1c5641dd
+- candidato: C0
+  escenario: STRESS
+  naturaleza_de_datos_y_ejecucion: HISTORICAL / MODELED_OHLCV
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  capital_inicial: 20000
+  patrimonio_final: 19106.324168
+  pnl_neto: -893.6758320000008
+  costes_operativos_externos: 588
+  crecimiento_geometrico_neto_por_sesion: -0.00015547391619280754
+  retorno_total_pct: -4.468379160000002
+  diferencia_frente_al_control_usd: 0.0
+  intervalo_de_incertidumbre: Inferencia primaria sólo en TEST, tabla específica posterior
+  drawdown_cierres_pct: 4.523979160000002
+  exposicion:
+    maximum_reserved_notional_usd: 9405.215856
+    maximum_reserved_risk_usd: 195.94199700000001
+    actual_market_depth: null
+    actual_market_depth_null_reason: OHLCV only
+  numero_de_operaciones: 226
+  unidad_operacion: campaña, distinta de eventos de salida parcial
+  porcentaje_ejecutado_modelado: 0.989713048186248
+  porcentaje_ejecutado_real: null
+  dictamen: RECHAZADO_EN_ESTE_ENSAYO
+  fuente:
+    path: evidence/historical_bank_30_16_0/run_completed/STRESS_C0.json
+    sha256: 45b6b062b7ce76339897876a98ae63c27f5abdaac211cd9283e909091b538aef
+- candidato: RIDGE
+  escenario: STRESS
+  naturaleza_de_datos_y_ejecucion: HISTORICAL / MODELED_OHLCV
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  capital_inicial: 20000
+  patrimonio_final: 19226.02
+  pnl_neto: -773.9799999999996
+  costes_operativos_externos: 588
+  crecimiento_geometrico_neto_por_sesion: -0.00013423487966813006
+  retorno_total_pct: -3.869899999999993
+  diferencia_frente_al_control_usd: 119.69583200000125
+  intervalo_de_incertidumbre: Inferencia primaria sólo en TEST, tabla específica posterior
+  drawdown_cierres_pct: 3.9369999999999905
+  exposicion:
+    maximum_reserved_notional_usd: 9257.252688
+    maximum_reserved_risk_usd: 192.859431
+    actual_market_depth: null
+    actual_market_depth_null_reason: OHLCV only
+  numero_de_operaciones: 91
+  unidad_operacion: campaña, distinta de eventos de salida parcial
+  porcentaje_ejecutado_modelado: 1
+  porcentaje_ejecutado_real: null
+  dictamen: RECHAZADO_EN_ESTE_ENSAYO
+  fuente:
+    path: evidence/historical_bank_30_16_0/run_completed/STRESS_RIDGE.json
+    sha256: 303cc51682374529b4ed018509e822d99b6bdf00598c3c002bebe13eba4fe564
+- candidato: SVR
+  escenario: STRESS
+  naturaleza_de_datos_y_ejecucion: HISTORICAL / MODELED_OHLCV
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  capital_inicial: 20000
+  patrimonio_final: 19106.374168000002
+  pnl_neto: -893.6258319999979
+  costes_operativos_externos: 588
+  crecimiento_geometrico_neto_por_sesion: -0.00015546501645035343
+  retorno_total_pct: -4.4681291599999895
+  diferencia_frente_al_control_usd: 0.05000000000291038
+  intervalo_de_incertidumbre: Inferencia primaria sólo en TEST, tabla específica posterior
+  drawdown_cierres_pct: 4.52372915999999
+  exposicion:
+    maximum_reserved_notional_usd: 9199.78270464
+    maximum_reserved_risk_usd: 191.66213968000002
+    actual_market_depth: null
+    actual_market_depth_null_reason: OHLCV only
+  numero_de_operaciones: 86
+  unidad_operacion: campaña, distinta de eventos de salida parcial
+  porcentaje_ejecutado_modelado: 1
+  porcentaje_ejecutado_real: null
+  dictamen: RECHAZADO_EN_ESTE_ENSAYO
+  fuente:
+    path: evidence/historical_bank_30_16_0/run_completed/STRESS_SVR.json
+    sha256: 0021fa521f9266719b5c39fe7c2ab7faf2edc6ac51136fd4abc0e006b8b55617
+resultados_fuera_de_muestra_y_estres:
+  diseño:
+    method: FIXED_TRAIN_THEN_CONTINUOUS_TEMPORAL_VALIDATION_AND_TEST
+    parameter_selection_from_validation: false
+    refit_count_per_model_asset: 1
+    refit_after_validation: false
+    purge_hours: 72
+    terminal_entry_cutoff_hours: 72
+    positions_and_cash_continue_between_phases: true
+    test_is_prospective: false
+    deviation_from_walk_forward: One fixed fit per asset and estimator avoids extra searches and isolates the models.
+      No rolling reoptimization is claimed; later rolling research would consume a separately retained attempt.
+  nota_walk_forward: Se evaluó un ajuste fijo con validación temporal y TEST; no se ejecutó recalibración walk-forward.
+    Permanece como experimento posterior, no como requisito cumplido
+  TEST:
+  - caso: NOMINAL:C0
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19685.634168000004
+    final_equity: 19575.064168
+    economic_pnl_modeled_usd: -110.57000000000335
+    total_return_fraction: -0.005616786284677655
+    geometric_mean_per_session: -3.352693644406453e-05
+    max_drawdown_close_fraction: 0.01842283619951557
+    closed_campaigns: 135
+    closed_campaign_trading_pnl_usd: 57.429999999999815
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 2.6799999999998434
+      MSFT: -9.939999999999323
+      SPY: -77.08000000000007
+      XLK: 141.76999999999924
+    contribution_residual_usd: 3.0411229090532288e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 78.73999999999992
+      net_excluding_largest_trade_usd: -21.31000000000011
+    return_is_after_tax: false
+    real_profitability: null
+  - caso: NOMINAL:RIDGE
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19812.57
+    final_equity: 19633.12
+    economic_pnl_modeled_usd: -179.45000000000073
+    total_return_fraction: -0.009057381248369079
+    geometric_mean_per_session: -5.415715665212483e-05
+    max_drawdown_close_fraction: 0.013792192932271186
+    closed_campaigns: 58
+    closed_campaign_trading_pnl_usd: -11.45000000000073
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -46.09000000000046
+      MSFT: -39.580000000000595
+      SPY: 1.1600000000000144
+      XLK: 73.06000000000039
+    contribution_residual_usd: 5.684341886080802e-14
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 47.94000000000024
+      net_excluding_largest_trade_usd: -59.39000000000097
+    return_is_after_tax: false
+    real_profitability: null
+  - caso: NOMINAL:SVR
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19729.174168000005
+    final_equity: 19518.444168
+    economic_pnl_modeled_usd: -210.7300000000032
+    total_return_fraction: -0.010681136382373224
+    geometric_mean_per_session: -6.39181309191936e-05
+    max_drawdown_close_fraction: 0.012277316192130239
+    closed_campaigns: 55
+    closed_campaign_trading_pnl_usd: -42.7300000000011
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -7.410000000000295
+      MSFT: -40.24000000000032
+      SPY: -28.270000000000188
+      XLK: 33.189999999999706
+    contribution_residual_usd: 2.1032064978498966e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 47.94000000000024
+      net_excluding_largest_trade_usd: -90.67000000000134
+    return_is_after_tax: false
+    real_profitability: null
+  - caso: STRESS:C0
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19501.114168
+    final_equity: 19106.324168
+    economic_pnl_modeled_usd: -394.7900000000009
+    total_return_fraction: -0.020244484320174116
+    geometric_mean_per_session: -0.00012173194862081584
+    max_drawdown_close_fraction: 0.025473925963061084
+    closed_campaigns: 136
+    closed_campaign_trading_pnl_usd: -58.79000000000123
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -9.609999999999904
+      MSFT: -36.650000000000276
+      SPY: -122.32000000000019
+      XLK: 109.78999999999911
+    contribution_residual_usd: -3.979039320256561e-13
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 77.52000000000002
+      net_excluding_largest_trade_usd: -136.31000000000125
+    return_is_after_tax: false
+    real_profitability: null
+  - caso: STRESS:RIDGE
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19644.25
+    final_equity: 19226.02
+    economic_pnl_modeled_usd: -418.22999999999956
+    total_return_fraction: -0.021290199422222766
+    geometric_mean_per_session: -0.00012808765754700638
+    max_drawdown_close_fraction: 0.02197335098056674
+    closed_campaigns: 58
+    closed_campaign_trading_pnl_usd: -82.2299999999999
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -78.86999999999938
+      MSFT: -56.30000000000098
+      SPY: -4.619999999999456
+      XLK: 57.559999999999945
+    contribution_residual_usd: -3.410605131648481e-13
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 46.630000000000194
+      net_excluding_largest_trade_usd: -128.8600000000001
+    return_is_after_tax: false
+    real_profitability: null
+  - caso: STRESS:SVR
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19555.454168000004
+    final_equity: 19106.374168000002
+    economic_pnl_modeled_usd: -449.08000000000175
+    total_return_fraction: -0.022964437243030877
+    geometric_mean_per_session: -0.0001382775081045636
+    max_drawdown_close_fraction: 0.02353307655482939
+    closed_campaigns: 55
+    closed_campaign_trading_pnl_usd: -113.08000000000052
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -36.99999999999942
+      MSFT: -51.420000000000215
+      SPY: -44.66000000000037
+      XLK: 19.99999999999951
+    contribution_residual_usd: 1.2505552149377763e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 46.630000000000194
+      net_excluding_largest_trade_usd: -159.71000000000072
+    return_is_after_tax: false
+    real_profitability: null
+  VALIDACION_descriptiva:
+    NOMINAL:C0:
+      period:
+      - '2023-07-03'
+      - '2023-12-29'
+      sessions: 126
+      capital_at_phase_start: 20000
+      final_equity: 19685.634168000004
+      economic_pnl_modeled_usd: -314.36583199999586
+      total_return_fraction: -0.015718291599999823
+      geometric_mean_per_session: -0.00012573125292831107
+      max_drawdown_close_fraction: 0.024555000000000105
+      closed_campaigns: 91
+      closed_campaign_trading_pnl_usd: -200.8099999999994
+      external_costs_modeled_usd: 126
+      dividend_income_usd: 12.444168000000001
+      contribution_by_asset_usd:
+        AAPL: 20.57000000000021
+        MSFT: -219.52999999999915
+        SPY: 1.7100000000001145
+        XLK: 8.88416799999958
+      contribution_residual_usd: -3.353761712787673e-12
+      positions_carried_in: 0
+      positions_carried_out: 0
+      closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+      closed_trade_concentration:
+        largest_net_trade_usd: 46.91000000000004
+        net_excluding_largest_trade_usd: -247.71999999999946
+      return_is_after_tax: false
+      real_profitability: null
+    NOMINAL:RIDGE:
+      period:
+      - '2023-07-03'
+      - '2023-12-29'
+      sessions: 126
+      capital_at_phase_start: 20000
+      final_equity: 19812.57
+      economic_pnl_modeled_usd: -187.4300000000003
+      total_return_fraction: -0.009371499999999977
+      geometric_mean_per_session: -7.472489684234992e-05
+      max_drawdown_close_fraction: 0.012522596499610517
+      closed_campaigns: 33
+      closed_campaign_trading_pnl_usd: -64.54999999999998
+      external_costs_modeled_usd: 126
+      dividend_income_usd: 3.12
+      contribution_by_asset_usd:
+        AAPL: 8.790000000000134
+        MSFT: -80.23999999999957
+        SPY: 8.540000000000326
+        XLK: 1.4799999999991282
+      contribution_residual_usd: 3.126388037344441e-13
+      positions_carried_in: 0
+      positions_carried_out: 0
+      closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+      closed_trade_concentration:
+        largest_net_trade_usd: 44.30999999999992
+        net_excluding_largest_trade_usd: -108.8599999999999
+      return_is_after_tax: false
+      real_profitability: null
+    NOMINAL:SVR:
+      period:
+      - '2023-07-03'
+      - '2023-12-29'
+      sessions: 126
+      capital_at_phase_start: 20000
+      final_equity: 19729.174168000005
+      economic_pnl_modeled_usd: -270.825831999995
+      total_return_fraction: -0.013541291599999727
+      geometric_mean_per_session: -0.00010819899575257462
+      max_drawdown_close_fraction: 0.014504999999999879
+      closed_campaigns: 31
+      closed_campaign_trading_pnl_usd: -152.7699999999981
+      external_costs_modeled_usd: 126
+      dividend_income_usd: 7.944168
+      contribution_by_asset_usd:
+        AAPL: 6.720000000000049
+        MSFT: -115.48999999999882
+        SPY: 15.57000000000022
+        XLK: -51.625831999999505
+      contribution_residual_usd: -3.069544618483633e-12
+      positions_carried_in: 0
+      positions_carried_out: 0
+      closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+      closed_trade_concentration:
+        largest_net_trade_usd: 44.30999999999992
+        net_excluding_largest_trade_usd: -197.07999999999802
+      return_is_after_tax: false
+      real_profitability: null
+    STRESS:C0:
+      period:
+      - '2023-07-03'
+      - '2023-12-29'
+      sessions: 126
+      capital_at_phase_start: 20000
+      final_equity: 19501.114168
+      economic_pnl_modeled_usd: -498.88583199999994
+      total_return_fraction: -0.0249442916
+      geometric_mean_per_session: -0.00020046143504812554
+      max_drawdown_close_fraction: 0.0288775
+      closed_campaigns: 90
+      closed_campaign_trading_pnl_usd: -259.33000000000015
+      external_costs_modeled_usd: 252
+      dividend_income_usd: 12.444168000000001
+      contribution_by_asset_usd:
+        AAPL: -6.399999999999455
+        MSFT: -206.40999999999974
+        SPY: -24.83000000000071
+        XLK: -9.245832000000107
+      contribution_residual_usd: -1.1368683772161603e-13
+      positions_carried_in: 0
+      positions_carried_out: 0
+      closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+      closed_trade_concentration:
+        largest_net_trade_usd: 45.739999999999974
+        net_excluding_largest_trade_usd: -305.0700000000001
+      return_is_after_tax: false
+      real_profitability: null
+    STRESS:RIDGE:
+      period:
+      - '2023-07-03'
+      - '2023-12-29'
+      sessions: 126
+      capital_at_phase_start: 20000
+      final_equity: 19644.25
+      economic_pnl_modeled_usd: -355.75
+      total_return_fraction: -0.017787499999999956
+      geometric_mean_per_session: -0.00014243111704027642
+      max_drawdown_close_fraction: 0.01875799999999994
+      closed_campaigns: 33
+      closed_campaign_trading_pnl_usd: -106.63000000000024
+      external_costs_modeled_usd: 252
+      dividend_income_usd: 2.88
+      contribution_by_asset_usd:
+        AAPL: -5.360000000000099
+        MSFT: -89.3199999999999
+        SPY: 6.129999999999813
+        XLK: -15.200000000000081
+      contribution_residual_usd: -2.2737367544323206e-13
+      positions_carried_in: 0
+      positions_carried_out: 0
+      closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+      closed_trade_concentration:
+        largest_net_trade_usd: 42.93000000000021
+        net_excluding_largest_trade_usd: -149.56000000000046
+      return_is_after_tax: false
+      real_profitability: null
+    STRESS:SVR:
+      period:
+      - '2023-07-03'
+      - '2023-12-29'
+      sessions: 126
+      capital_at_phase_start: 20000
+      final_equity: 19555.454168000004
+      economic_pnl_modeled_usd: -444.54583199999615
+      total_return_fraction: -0.02222729159999981
+      geometric_mean_per_session: -0.00017838123465471092
+      max_drawdown_close_fraction: 0.02222729159999981
+      closed_campaigns: 31
+      closed_campaign_trading_pnl_usd: -200.48999999999884
+      external_costs_modeled_usd: 252
+      dividend_income_usd: 7.944168
+      contribution_by_asset_usd:
+        AAPL: -1.5631940186722204e-13
+        MSFT: -137.34999999999945
+        SPY: 9.600000000000025
+        XLK: -64.79583199999917
+      contribution_residual_usd: -2.6147972675971687e-12
+      positions_carried_in: 0
+      positions_carried_out: 0
+      closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+      closed_trade_concentration:
+        largest_net_trade_usd: 42.93000000000021
+        net_excluding_largest_trade_usd: -243.41999999999905
+      return_is_after_tax: false
+      real_profitability: null
+  CASH_derivado:
+    NOMINAL:
+      capital_initial: 20000
+      equity_final: 19706.0
+      net_economic_pnl_usd: -294.0
+      return_fraction: -0.014700000000000046
+      external_costs_usd: 294.0
+      orders: 0
+      cash_interest_assumption: 0
+      status: DERIVED_NO_TRADING_REFERENCE_NOT_PROFIT
+      test_initial_equity: 19874.0
+      test_final_equity: 19706.0
+      test_pnl_usd: -168.0
+    STRESS:
+      capital_initial: 20000
+      equity_final: 19412.0
+      net_economic_pnl_usd: -588.0
+      return_fraction: -0.02939999999999998
+      external_costs_usd: 588.0
+      orders: 0
+      cash_interest_assumption: 0
+      status: DERIVED_NO_TRADING_REFERENCE_NOT_PROFIT
+      test_initial_equity: 19748.0
+      test_final_equity: 19412.0
+      test_pnl_usd: -336.0
+  costes_nominal_y_estres:
+    NOMINAL:
+      spread_bps: 2.0
+      slippage_bps: 2.0
+      commission_usd_per_share_per_side: 0.005
+      external_cost_usd_per_session: 1.0
+    STRESS:
+      spread_bps: 4.0
+      slippage_bps: 4.0
+      commission_usd_per_share_per_side: 0.01
+      external_cost_usd_per_session: 2.0
+  costes_observados: false
+  liquidez_parcialidades_y_latencia_reales: 'No contrastadas: los datos disponibles no acreditan su distribución;
+    las salidas parciales de la estrategia sí se contabilizan'
+  seis_resultados_negativos: true
+incertidumbre_y_limitaciones:
+  clasificacion: ESTIMACION_CONDICIONAL
+  intervalos_TEST:
+  - caso: NOMINAL:C0
+    retorno_test_pct: -0.561678628467761
+    intervalo_95_descriptivo_retorno_test_pct:
+    - -3.518807820619769
+    - 2.7680124321386987
+    limite_inferior_ajustado_por_12_endpoints_pct: -4.479222216726524
+    probabilidad_garantizada_de_beneficio_futuro: null
+  - caso: NOMINAL:RIDGE
+    retorno_test_pct: -0.9057381248369127
+    intervalo_95_descriptivo_retorno_test_pct:
+    - -2.694439522480827
+    - 1.1001054370878538
+    limite_inferior_ajustado_por_12_endpoints_pct: -3.3321617491838604
+    probabilidad_garantizada_de_beneficio_futuro: null
+  - caso: NOMINAL:SVR
+    retorno_test_pct: -1.0681136382373244
+    intervalo_95_descriptivo_retorno_test_pct:
+    - -2.7206335248555433
+    - 0.6829183148524861
+    limite_inferior_ajustado_por_12_endpoints_pct: -3.2983300621856526
+    probabilidad_garantizada_de_beneficio_futuro: null
+  - caso: STRESS:C0
+    retorno_test_pct: -2.0244484320174094
+    intervalo_95_descriptivo_retorno_test_pct:
+    - -4.8812751629583175
+    - 1.1853733957566706
+    limite_inferior_ajustado_por_12_endpoints_pct: -5.814246962317898
+    probabilidad_garantizada_de_beneficio_futuro: null
+  - caso: STRESS:RIDGE
+    retorno_test_pct: -2.1290199422222766
+    intervalo_95_descriptivo_retorno_test_pct:
+    - -3.8729900841317138
+    - -0.19819510419553146
+    limite_inferior_ajustado_por_12_endpoints_pct: -4.474008294618762
+    probabilidad_garantizada_de_beneficio_futuro: null
+  - caso: STRESS:SVR
+    retorno_test_pct: -2.296443724303083
+    intervalo_95_descriptivo_retorno_test_pct:
+    - -3.9104236175038305
+    - -0.6019413314876664
+    limite_inferior_ajustado_por_12_endpoints_pct: -4.470569085472988
+    probabilidad_garantizada_de_beneficio_futuro: null
+  comparaciones_pareadas:
+    NOMINAL:RIDGE_minus_C0:
+      absolute_test_return_difference: -0.003440594963691518
+      future_profit_probability: null
+      interpretation: Compounded relative growth ratio minus one; not dollar PnL difference
+      interval_95_absolute_test_return_difference:
+      - -0.027412379150747398
+      - 0.01583726136328484
+      interval_95_mean_log_return:
+      - -0.00016197959797757943
+      - 9.620138010953941e-05
+      lower_absolute_test_return_difference_family_adjusted: -0.036385195773156465
+      lower_compounded_return_over_observed_length: -0.035370952431564705
+      lower_mean_log_return_family_adjusted: -0.0002143551083998027
+      lower_tail_alpha: 0.00416666666666667
+      mean_log_return_per_session: -2.0631124719522917e-05
+      sessions: 168
+      total_log_return: -0.00346602895287985
+      total_return_fraction: -0.003460029208293243
+    NOMINAL:SVR_minus_C0:
+      absolute_test_return_difference: -0.005064350097695634
+      future_profit_probability: null
+      interpretation: Compounded relative growth ratio minus one; not dollar PnL difference
+      interval_95_absolute_test_return_difference:
+      - -0.027943197323417022
+      - 0.012940783943487487
+      interval_95_mean_log_return:
+      - -0.00016468046937753326
+      - 7.898659641852597e-05
+      lower_absolute_test_return_difference_family_adjusted: -0.03755791503051195
+      lower_compounded_return_over_observed_length: -0.03645025880060866
+      lower_mean_log_return_family_adjusted: -0.00022101885076776593
+      lower_tail_alpha: 0.00416666666666667
+      mean_log_return_per_session: -3.0392675285614132e-05
+      sessions: 168
+      total_log_return: -0.005105969447983174
+      total_return_fraction: -0.00509295614391323
+    NOMINAL:SVR_minus_RIDGE:
+      absolute_test_return_difference: -0.0016237551340041161
+      future_profit_probability: null
+      interpretation: Compounded relative growth ratio minus one; not dollar PnL difference
+      interval_95_absolute_test_return_difference:
+      - -0.013699216141452874
+      - 0.009915219484200037
+      interval_95_mean_log_return:
+      - -8.208985071998279e-05
+      - 6.001289245057458e-05
+      lower_absolute_test_return_difference_family_adjusted: -0.0179086985696923
+      lower_compounded_return_over_observed_length: -0.017773009399210633
+      lower_mean_log_return_family_adjusted: -0.00010674313103803382
+      lower_tail_alpha: 0.00416666666666667
+      mean_log_return_per_session: -9.761550566091202e-06
+      sessions: 168
+      total_log_return: -0.001639940495103322
+      total_return_fraction: -0.001638596527465624
+    STRESS:RIDGE_minus_C0:
+      absolute_test_return_difference: -0.0010457151020486707
+      future_profit_probability: null
+      interpretation: Compounded relative growth ratio minus one; not dollar PnL difference
+      interval_95_absolute_test_return_difference:
+      - -0.024341063940895184
+      - 0.017477999398217575
+      interval_95_mean_log_return:
+      - -0.00014583847555513506
+      - 0.00010761148184417712
+      lower_absolute_test_return_difference_family_adjusted: -0.03358780483303618
+      lower_compounded_return_over_observed_length: -0.03309193409496271
+      lower_mean_log_return_family_adjusted: -0.0002003086875079075
+      lower_tail_alpha: 0.00416666666666667
+      mean_log_return_per_session: -6.35650291573961e-06
+      sessions: 168
+      total_log_return: -0.0010678924898442545
+      total_return_fraction: -0.0010673224955749096
+    STRESS:SVR_minus_C0:
+      absolute_test_return_difference: -0.002719952922856733
+      future_profit_probability: null
+      interpretation: Compounded relative growth ratio minus one; not dollar PnL difference
+      interval_95_absolute_test_return_difference:
+      - -0.025718587442524563
+      - 0.015450639606356105
+      interval_95_mean_log_return:
+      - -0.00015336385489001439
+      - 9.53680882870405e-05
+      lower_absolute_test_return_difference_family_adjusted: -0.03518762943259154
+      lower_compounded_return_over_observed_length: -0.03442433408304418
+      lower_mean_log_return_family_adjusted: -0.00020851672924832677
+      lower_tail_alpha: 0.00416666666666667
+      mean_log_return_per_session: -1.6547710764768174e-05
+      sessions: 168
+      total_log_return: -0.002780015408481053
+      total_return_fraction: -0.0027761547440428866
+    STRESS:SVR_minus_RIDGE:
+      absolute_test_return_difference: -0.0016742378208080624
+      future_profit_probability: null
+      interpretation: Compounded relative growth ratio minus one; not dollar PnL difference
+      interval_95_absolute_test_return_difference:
+      - -0.013487704624620924
+      - 0.009420511583968534
+      interval_95_mean_log_return:
+      - -8.194488841114715e-05
+      - 5.7651967515287295e-05
+      lower_absolute_test_return_difference_family_adjusted: -0.017559221200728375
+      lower_compounded_return_over_observed_length: -0.017645097895520368
+      lower_mean_log_return_family_adjusted: -0.00010596802667403731
+      lower_tail_alpha: 0.00416666666666667
+      mean_log_return_per_session: -1.0191207849028588e-05
+      sessions: 168
+      total_log_return: -0.0017121229186368029
+      total_return_fraction: -0.0017106580723107953
+  metodo: Paired circular moving-block bootstrap of entire portfolio session log returns
+  sesiones_prueba: 168
+  bloques_de_5_sesiones_completos: 33
+  replicas: 20000
+  contrastes_simultaneos: 12
+  replicas_no_son_observaciones_nuevas: true
+  historia:
+    presupuesto_rama:
+      limit: 128
+      spent: 29
+    familia_nueva: 6
+    total_global_deduplicado: null
+    causa: Genealogía incompleta y unidades distintas en familias heredadas
+  sesgos_restantes:
+  - Universo cerrado de cuatro instrumentos supervivientes, no universo completo punto en el tiempo
+  - Diseño registrado hoy sobre precios pasados; no validación prospectiva
+  - Un ajuste por activo puede deteriorarse en el tiempo; no se probó recalibración
+  - Bid/ask, cola, capacidad instantánea, fills, cancelaciones y latencias no observados
+  - Dividendos por fechas recuperadas hoy; anuncio contemporáneo y completitud no acreditados
+  - Bloques de5sesiones pueden no capturar dependencia de regímenes largos
+  - Las restricciones evitan nuevas entradas excesivas; no garantizan pérdidas máximas entre observaciones
+  revision: Agentes comparten contexto y parte de implementación; revisión no ciega ni externa
+  pruebas_software:
+    total_casos_sin_sumar_repeticiones: 123
+    core_y_regresiones: 60
+    datos: 19
+    registro: 20
+    features_modelos_estadistica: 11
+    auditoria_resultados: 13
+    tipo: Fixtures sintéticos y regresiones; no acreditan rentabilidad
+    compilacion_typescript: PASS
+    reproduccion_exacta_archivos_resultado: 12
+    analisis_estatico:
+      schema: HARPOON_FINAL_STATIC_INTEGRITY_1
+      python_ast_compile: PASS
+      python_modules:
+      - quant/harpoon_quant/historical_bank.py
+      - tools/historical_bank_register.py
+      - tools/historical_bank_data_audit.py
+      - tools/run_historical_bank.py
+      - tools/audit_historical_results.py
+      - tools/build_historical_delivery_report.py
+      - tools/plot_historical_bank.py
+      typescript_strict: PASS
+      python_full_type_checker: null
+      python_full_type_checker_reason: mypy is not installed in this runtime; no claim of a full Python type audit
+      sealed_measurement_files: 81
+      sealed_files_unchanged: true
+      python: 3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+      platform: Linux-6.18.57-x86_64-with-glibc2.39
+      packages:
+        numpy: 2.3.5
+        scipy: 1.17.0
+        scikit-learn: 1.8.0
+        matplotlib: 3.10.8
+        PyYAML: 6.0.3
+  benchmark_local:
+    pipeline_primario_segundos: 36.52155450599821
+    features:
+      count: 787
+      milliseconds: *id001
+      nature: LOCAL_OFFLINE_FEATURE_COMPUTATION_NOT_NETWORK_LATENCY
+    replay:
+      schema: HARPOON_HISTORICAL_LOCAL_BENCHMARK_1
+      mode: replay
+      elapsed_seconds: 14.663732279
+      max_rss_kib: 376316
+      node_version: v24.22.1
+      platform: linux
+      architecture: x64
+      nature: LOCAL_OFFLINE_COMPUTATION_NOT_TRADING_LATENCY
+    latencia_de_broker: null
+dictamen:
+  valor: VENTAJA_NO_DEMOSTRADA
+  nivel_7: false
+  mejoras_economicas_aceptadas: 0
+  candidato_seleccionado: null
+  gate_condicional:
+    RIDGE:
+      REAL_level7: false
+      checks:
+        NOMINAL_improves_C0: false
+        NOMINAL_observed_close_risk_within_limits: true
+        NOMINAL_positive_growth_lower: false
+        STRESS_improves_C0: false
+        STRESS_observed_close_risk_within_limits: true
+        STRESS_positive_growth_lower: false
+      conditional_statistical_gate: false
+      financial_acceptance_allowed: false
+    SVR:
+      REAL_level7: false
+      checks:
+        NOMINAL_improves_C0: false
+        NOMINAL_improves_RIDGE: false
+        NOMINAL_observed_close_risk_within_limits: true
+        NOMINAL_positive_growth_lower: false
+        STRESS_improves_C0: false
+        STRESS_improves_RIDGE: false
+        STRESS_observed_close_risk_within_limits: true
+        STRESS_positive_growth_lower: false
+      conditional_statistical_gate: false
+      financial_acceptance_allowed: false
+  evidencia_a_favor:
+  - Datos reconstruidos y contabilidad conciliada
+  - Riesgo observado a cierre dentro de límites
+  - Reproducción exacta de12archivos
+  evidencia_en_contra:
+  - Seis carteras con resultado económico negativo
+  - SVR peor que Ridge en TEST nominal y estrés
+  - Límites inferiores de crecimiento negativos
+  - Resultados sin operar con iguales gastos superan a las tres políticas en el acumulado
+  condicion_decisiva: No hay crecimiento neto positivo; no basta perder menos o aprobar software
+  recurso_decisivo_para_siguiente_paso: Una hipótesis de señal mejor especificada y un nuevo estudio preregistrado;
+    el presupuesto de seis mediciones de esta familia ya está consumido
+  estado_motor: Investigación offline; modelos históricos separados y sin promoción a operación real
+  trabajo_ejecutable_completado: Captura, reconstrucción, código, pruebas, seis mediciones, estrés, atribución,
+    auditoría y reproducción
+  despliegue: Diferido conforme al alcance previo
+comandos_de_reproduccion:
+- npm ci && npm run build:xxx
+- python tools/run_historical_bank.py --data-dir evidence/historical_bank_30_16_0/data --registration-dir evidence/historical_bank_30_16_0/registration
+  --output-dir evidence/historical_bank_30_16_0/reproduction_user --verify-against evidence/historical_bank_30_16_0/run_completed
+- python tools/audit_historical_results.py --run-dir evidence/historical_bank_30_16_0/run_completed --output evidence/historical_bank_30_16_0/qa/audit_user.json
+- python tools/plot_historical_bank.py --run-dir evidence/historical_bank_30_16_0/run_completed --output-dir evidence/historical_bank_30_16_0/analysis_user
+fuentes_documentales:
+- url: https://docs.alpaca.markets/us/reference/stockbars
+  uso: Agregaciones, ordenación, límite y ajuste raw por defecto; el conector no expone ajuste explícito
+- url: https://docs.alpaca.markets/us/reference/corporateactions-1
+  uso: Consulta por fecha de procesamiento y limitaciones de disponibilidad de eventos corporativos
+artefactos_clave:
+- path: research/historical_bank/protocol.json
+  sha256: 7bd7356085f248be5d47ede426648a8ad36d74fa31017edc1c2bc82b10bd6dbc
+- path: historical_bank_source_hashes.json
+  sha256: ca94a92f5c7d9996043006327dd76f0ec35a7b2ae027d0a02ebd61f4d80cc3b0
+- path: evidence/historical_bank_30_16_0/registration/historical_bank_registration.json
+  sha256: a6e55bacaf07782d3be0ff7d710b31b7461ef012a7a2318188d50a57f3cda15a
+- path: evidence/historical_bank_30_16_0/run_completed/result_hashes.json
+  sha256: 90c9356295bf4281222228663b30df1528fe0f3476aac8e8fa9d307a1d3a80c9
+- path: evidence/historical_bank_30_16_0/reproduction/reproduction_verification.json
+  sha256: b351e65e77cfd354b9ba4d539502aa17b09f64984276657a13e2bd25ead60545
+- path: evidence/historical_bank_30_16_0/qa/results_audit_final.json
+  sha256: a6efb1c4841d3189387f647bf212a058f2802fb7f8917deb93f38d08fc342553

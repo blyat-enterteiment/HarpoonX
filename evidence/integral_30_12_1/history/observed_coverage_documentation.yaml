@@ -1,0 +1,763 @@
+entrega:
+  id: HARPOONX_REMEDIATION_30_9_0
+  fecha: '2026-10-31'
+  idioma: español
+  aplicacion: 30.9.0
+  quant: 1.5.0
+  estado: CODIGO_IMPLEMENTADO_Y_PRUEBAS_OFFLINE_EJECUTADAS
+  baseline: 30.8.0 / Quant1.4.0
+  baseline_archive_sha256: 81c01eb39d49dbf49a743352e41a0d922e526da5a571f7ebe20d14d0de71705e
+  despliegue: NO_EJECUTADO
+  ordenes_externas: 0
+  cambios_de_modo_o_exposicion: 0
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  alcance: Archivo recuperado, pruebas locales y precios históricos descargados; no telemetría del despliegue actual.
+  acceso:
+    codigo_local: VERIFICADO
+    datos_historicos: VERIFICADOS
+    cuenta_actual: null
+    version_desplegada: null
+    logs_operativos_actuales: null
+    causa_null: No recuperados ni verificados dentro de este alcance.
+  parametros_programados_no_medidos:
+    cotizaciones_intervalo_ms: 3000
+    historial_intervalo_ms: 60000
+    evaluacion_entradas_intervalo_ms: 15000
+    descubrimiento_intervalo_ms: 900000
+    antiguedad_maxima_screener_ms: 900000
+    nuevas_entradas_bloqueadas_minutos_antes_cierre: 10
+    scheduler: Retraso fijo después de completar la función; no garantiza alineación con apertura ni frecuencia
+      efectiva.
+    fuente: xxx/coordinator.ts y xxx/scheduler.ts
+    distincion: Intervalos configurados no son mediciones de eventos, decisiones ni latencia.
+  columnas:
+  - variable
+  - unidad
+  - valor_observado
+  - distribucion_o_intervalo
+  - fuente
+  - limitacion
+  filas:
+  - - frecuencia_eventos_recibidos
+    - eventos_por_segundo
+    - null
+    - null
+    - null
+    - Sin telemetría de recepción.
+  - - intervalo_entre_eventos
+    - milisegundos
+    - null
+    - null
+    - null
+    - Las barras de cinco minutos no miden eventos recibidos.
+  - - frecuencia_decisiones
+    - decisiones_por_segundo
+    - null
+    - null
+    - null
+    - Programación de tareas no equivale a decisiones efectivas.
+  - - antiguedad_dato_al_decidir
+    - milisegundos
+    - null
+    - null
+    - null
+    - Backfill sin recepción histórica original.
+  - - latencia_calculo_senal
+    - milisegundos
+    - null
+    - null
+    - null
+    - El benchmark sintético previo no mide la ruta operativa completa.
+  - - latencia_envio_confirmacion
+    - milisegundos
+    - null
+    - null
+    - null
+    - Sin trazas de órdenes.
+  - - tiempo_hasta_ejecucion
+    - milisegundos
+    - null
+    - null
+    - null
+    - Sin trazas de fills.
+  - - latencia_cancelacion_confirmada
+    - milisegundos
+    - null
+    - null
+    - null
+    - Sin confirmaciones observadas.
+  - - desfase_entre_relojes
+    - milisegundos
+    - null
+    - null
+    - null
+    - Sin medición de sincronización.
+  - - persistencia_estimada_de_senal
+    - segundos
+    - null
+    - null
+    - null
+    - Sin estudio causal de señal y horizonte.
+  - - spread_representativo_por_franja
+    - puntos_base
+    - null
+    - null
+    - null
+    - El archivo L1 de dos segundos no representa las franjas de noventa minutos.
+  - - profundidad_ejecutable
+    - unidades_y_USD
+    - null
+    - null
+    - null
+    - Sin libro y prioridad de ejecución representativos.
+  - - porcentaje_ejecutado
+    - proporcion
+    - null
+    - null
+    - null
+    - Sin log de órdenes y ejecuciones.
+  - - coste_total_por_operacion
+    - USD_y_puntos_base
+    - null
+    - null
+    - null
+    - Sin contabilidad de ejecuciones de la estrategia.
+  nueva_medida_de_rejilla:
+    intervalo_regular_segundos:
+      p50: 300
+      p95: 300
+      p99: 300
+    unidad: barras5Min
+    no_equivale_a:
+    - frecuencia de eventos recibidos
+    - latencia
+    - precisión del reloj
+    fuente: observed_extension/coverage_contract_2026_01_09.json
+reproduccion_de_referencia_y_discrepancias:
+  referencia_original_sintetica:
+    naturaleza: simulacion_sintetica_con_reinicios_por_ventana
+    capital_normalizado_USD: 20000
+    retorno_pct: -1.412289
+    operaciones_cerradas: 15
+    mejoras_aceptadas: 0
+  repeticion_del_backtest_original_por_ventanas_en_esta_entrega: false
+  verificacion_historica_ejecutada: 'La suite vuelve a analizar los snapshots congelados: misma decisión REJECTED,45runs
+    verificados,23intentos y journal sin cambios.'
+  prueba: quant/tests/test_study_integrity.py:test_historical_analysis_is_numerically_identical_and_read_only
+  archivos_historicos_comparados_SHA256: 145
+  cambios_detectados: 0
+  evidencia: historical_integrity.json
+reconciliacion_del_patrimonio:
+  cuenta_real:
+    patrimonio: null
+    estado: NO_RECONCILIADA_EN_ESTE_ALCANCE
+    causa: Faltan extractos y ledger observados de la cuenta.
+  replay:
+    estado: CONSISTENCIA_INTERNA_VERIFICADA
+    metodo: Reductor separado de eventos y comprobación de caja, cantidades, fees y NAV.
+    capital_continuo: true
+    posiciones_abiertas: Valoradas al bid declarado; cierre terminal no fabricado.
+    insolvencia: Persistente aunque se aporte capital después.
+    costes: Fees una vez; spread/slippage en fills; operación externa como gasto; costes faltantes bloquean.
+    flujos: Valorar justo antes de neutralizar; enlazar rendimiento de subperiodos.
+    fiscalidad: No calculada; no se afirma rentabilidad después de impuestos.
+atribucion_de_perdidas:
+  clasificacion: MECANISMOS_DE_SOFTWARE_REPRODUCIDOS_NO_ATRIBUCION_CAUSAL_DEL_PNL_REAL
+  pnl_actual_USD: null
+  impacto_USD_por_defecto: null
+  causa_null: Sin candidatos, decisiones, cotizaciones, fills y patrimonio observados y enlazados no puede cuantificarse
+    lucro cesante ni distribución de costes.
+  mecanismos_corregidos:
+  - coberturaETF
+  - rotación bloqueada
+  - cargas incompletas
+  - mezcla premarket
+  - selección accidental por orden
+  - pérdida de trazabilidad
+  - errores contables del replay
+hipotesis_y_condiciones_de_refutacion:
+  nuevas_variantes_financieras: 0
+  intentos_historicos_preservados: 23
+  holdouts_historicos: YA_CONSUMIDOS_NO_REUTILIZADOS_COMO_INDEPENDIENTES
+  decision: No seleccionar una política financiera nueva con las pruebas de ingeniería. Faltan recursos para la
+    comparación neta observada admisible.
+  condicion_para_continuar: Mismo universo causal, datos/costes medidos, política completa común y protocolo temporal/estadístico
+    fijado antes de observar una prueba final.
+cambios_implementados:
+- id: FISH-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: ETF correctamente clasificado era rechazado por discovery.
+  remediacion: Admisión diferenciada de equity/etf y conservación de clase, factor, apalancamiento, referencia y
+    unidades.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - runtime/discovery.cjs
+  - quant/harpoon_quant/calibration.py
+  - quant/harpoon_quant/scalar_svr.py
+  prueba:
+  - tools/quant_discovery_regression_test.cjs
+  - quant/tests/test_instrument_metadata.py
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: FISH-02
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Universo aditivo sin rotación ni explicación completa de capacidad.
+  remediacion: Sólo rotan nombres discovery_managed sin exposición; se preservan estáticos, campañas, posiciones,
+    órdenes y subyacentes de opciones. La conciliación se revisa también tras las esperas.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - runtime/discovery.cjs
+  prueba:
+  - dynamic watchlist rotates only unexposed managed instruments
+  - late fill while historical data loads
+  - open option campaign protects its instrument underlying
+  - uncertain reconciliation blocks rotation
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: FISH-03
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Un fallo de carga dejaba símbolos incorporados pero incompletos y sin reintento.
+  remediacion: Carga histórica atómica antes del commit, reintento completo y reparación de símbolos existentes.
+    READY exige catálogo, barra actual cerrada y cotización vigente.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - runtime/discovery.cjs
+  - xxx/market.ts
+  prueba:
+  - failed 5Min bootstrap is atomic
+  - failed 1Day bootstrap is atomic
+  - failed repair preserves existing partial history
+  - fresh quote and complete historical warmup cannot mask missing current-session bars
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: FISH-04
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Discovery48 acciones y validateConfig40 instrumentos totales eran incompatibles.
+  remediacion: MAX_UNIVERSE_SIZE=40 compartido; el valor legado48 se limita a40 explícitamente. El ejemplo actual
+    utiliza40; no cambian exposición ni maxPositions.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - xxx/types.ts
+  - runtime/discovery.cjs
+  - config/examples/xxx.json
+  prueba:
+  - legacy discovery limit48 is clamped to40 total across books
+  - a full static universe is preserved
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: FISH-05
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: La concatenación de screeners determinaba la admisión accidentalmente.
+  remediacion: Orden determinista por número de fuentes descendente y símbolo ascendente; cada candidato conserva
+    fuentes, rango y motivo de descarte.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - runtime/discovery.cjs
+  prueba:
+  - candidate ranking is invariant to screener concatenation and row ordering
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: Es una política de cobertura; no se ha demostrado que maximice beneficio.
+- id: FISH-06
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Faltaba atribución temporal por las franjas de90min y evidencia de actualidad al terminar la
+    carga.
+  remediacion: Etiquetas por calendario, publicación y recepción de screeners, snapshots durables, decisión/completitud
+    e identidad. Revalidar antigüedad inmediatamente antes de incorporar. Conservar frecuencia15min hasta medir
+    su efecto.
+  estado: INSTRUMENTACION_VERIFICADA_TELEMETRIA_OPERATIVA_PENDIENTE
+  codigo:
+  - xxx/sessions.ts
+  - runtime/discovery.cjs
+  - xxx/coordinator.ts
+  prueba:
+  - stale or future snapshot is blocked
+  - snapshot expiring while bootstrap runs cannot commit
+  - two decisions in one session retain unique durable identities
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: Todavía no hay distribución observada de recepción-decisión ni supervivencia de oportunidades en el
+    despliegue.
+- id: FISH-07
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Factor ausente se convertía en ticker y el apalancamiento podía quedar fijado en1.
+  remediacion: Metadatos faltantes permanecen null; rechazo de clase/factor/unidades inválidos y disponibilidad
+    futura. ETF exige apalancamiento declarado; exportadores Ridge/SVR conservan el contrato.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - runtime/discovery.cjs
+  - quant/harpoon_quant/calibration.py
+  - quant/harpoon_quant/scalar_svr.py
+  prueba:
+  - missing factor, metadata and ETF leverage cannot be invented
+  - test_invalid_units_and_classification_fail_closed
+  - declared metadata time must be valid and available
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: Una referencia declarada no autentica por sí sola al proveedor de metadatos.
+- id: FISH-08
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Premarket alteraba variables regulares como session_change, opening_high y dollar_volume.
+  remediacion: Selección compartida de barras regulares cerradas por calendario; apertura anclada a las tres barras
+    contiguas; faltantes y duplicados no se rellenan. Separar gap, retorno intradía y racha.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - xxx/sessions.ts
+  - xxx/plugins.ts
+  prueba:
+  - tools/xxx_session_regression_test.cjs:26 casos
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: Las ocho variables y el horizonte del predictor se conservan; las nuevas rachas son diagnósticos.
+- id: FISH-CONTROL-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: La investigación SVR no debe promover el universo operativo.
+  remediacion: Conservar cero consultas y cero modificaciones de discovery ante un artefacto SVR research-only.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - runtime/discovery.cjs
+  - runtime/quant_bridge.cjs
+  prueba:
+  - SVR research guard makes zero requests and preserves universe
+  - tools/quant_svr_integration_test.cjs
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: TRACE-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Snapshots y decisiones podían perder contexto o confundirse dentro de una sesión.
+  remediacion: Persistir snapshot con SHA256 canónico, cuenta y configuración; IDs de decisión UUID+secuencia y
+    cotización previa al worker. Persistencia antes de enviar; error bloquea nuevas entradas. Estado ALIVE se distingue
+    de datos READY.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - xxx/coordinator.ts
+  - xxx/health.ts
+  - quant/harpoon_quant/core.py
+  prueba:
+  - tools/quant_remediation_integration_test.cjs:12 casos
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: Sólo se persisten decisiones con señales; no se registra un ledger nuevo de cada tick vacío.
+- id: RESTART-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Actualizar tradable del universo estático cambiaba la huella de configuración y rompía reinicios.
+  remediacion: Catálogo operativo separado de configuración estática; sincronización de tradable sólo para instrumentos
+    dinámicos gestionados. El reinicio conserva la vinculación al journal.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - xxx/market.ts
+  prueba:
+  - catalog verification does not mutate static configuration or break a journal-bound restart
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: REPLAY-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Faltaba una comparación ejecutable pareada de contabilidad y asignación Ridge/SVR.
+  remediacion: Nuevo replay offline C0/RIDGE/SVR, universo común causal, asignador real, patrimonio continuo, salidas
+    comunes, parciales, nofill, costes y valoración terminal. Reductor independiente de eventos concilia caja e
+    inventario.
+  estado: REPLAY_DE_ASIGNADOR_VERIFICADO_PARIDAD_MOTOR_COMPLETO_PENDIENTE
+  codigo:
+  - quant/harpoon_quant/paired_replay.py
+  prueba:
+  - quant/tests/test_paired_replay.py:38 casos
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: No reproduce todos los plugins/trailing/parciales del coordinador; policy_parity_verified y financial_acceptance_allowed
+    siguen false.
+- id: REPLAY-02
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Una aportación podía diluir el rendimiento ganado antes de recibir el capital.
+  remediacion: 'Valorar posiciones justo antes del flujo y enlazar subperiodos: (E_preflujo/E_anterior)*(E_final/(E_preflujo+F))-1.
+    Gastos operativos son gastos, no flujos neutralizados.'
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - quant/harpoon_quant/paired_replay.py
+  prueba:
+  - test_deposit_does_not_dilute_price_gain_before_the_cash_flow
+  - test_external_costs_reduce_equity_and_are_not_neutralized_as_capital
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: REPLAY-03
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: ETF apalancado, financiación implícita o modelo mal identificado podían producir una comparación
+    fuera del contrato.
+  remediacion: Bloquear leverage distinto de1 hasta disponer del adaptador; bloquear crédito no modelado preservando
+    trazas; validar familia superior/interna y fechas normalizadas únicas. No multiplicar PnL de ETF por leverage.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - quant/harpoon_quant/paired_replay.py
+  prueba:
+  - cross_review/paired_replay_guards_verified.json:4/4
+  - quant/tests/test_paired_replay.py
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: CAL-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Multiplicar decisiones intradía podía confundirse con más sesiones o sobrescribir residuos.
+  remediacion: Mantener una fila por activo/sesión y residuos por sesión. Replay permite IDs intradía distintos;
+    calibración por decisión se rechaza con motivo explícito hasta versionar el contrato.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - quant/harpoon_quant/scalar_svr.py
+  - quant/harpoon_quant/paired_replay.py
+  prueba:
+  - test_eight_sessions_with_many_assets_do_not_pass_training_gate
+  - test_intraday_training_change_requires_versioned_residual_contract
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+- id: QA-01
+  clasificacion: HECHO
+  periodo_de_prueba: '2026-10-31'
+  defecto_o_brecha: Fixtures legacy incluían fines de semana y el reloj global precedía al corte histórico de Ultimate.
+  remediacion: Usar13 sesiones laborables explícitas; reloj exclusivo de pruebas configurable. Ultimate se ejecuta
+    el30/oct; sus contratos y datos históricos no se alteran para aceptar información futura.
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO
+  codigo:
+  - tools/xxx_conformance_test.cjs
+  - tools/quant_clock.cjs
+  - tools/ultimate_test.cjs
+  - tools/verify_remediation.py
+  prueba:
+  - conformance:13/13
+  - ultimate:30/30
+  - final_regression/ultimate_clock_baseline_reproduction.json
+  impacto_economico_USD: null
+  causa_impacto_null: No se midió el efecto en una cuenta observada.
+  limitacion: null
+resultados_de_todas_las_variantes:
+  naturaleza: No se entrenaron ni eligieron variantes financieras con el nuevo archivo observado.
+  pruebas:
+    tabla:
+    - grupo: Python completo
+      casos: 249
+      nuevos: 42
+      resultado: PASS
+      evidencia: final_regression/quant_unittest.log
+    - grupo: Coordinador heredado, siete suites
+      casos: 152
+      nuevos: 0
+      resultado: PASS
+    - grupo: Laboratorio Ultimate heredado
+      casos: 30
+      nuevos: 0
+      resultado: PASS
+      evidencia: final_regression/ultimate_test.log
+    - grupo: Puente cuantitativo
+      casos: 16
+      nuevos: 0
+      resultado: PASS
+    - grupo: Integración Node-Python SVR
+      casos: 7
+      nuevos: 0
+      resultado: PASS
+    - grupo: Discovery acciones/ETF
+      casos: 37
+      nuevos: 37
+      resultado: PASS
+    - grupo: Sesiones/franjas/rachas
+      casos: 26
+      nuevos: 26
+      resultado: PASS
+    - grupo: Integración de remediaciones
+      casos: 12
+      nuevos: 12
+      resultado: PASS
+    total: 529
+    aprobadas: 529
+    nuevas_distintas: 117
+    fallos: 0
+    omitidas: 0
+    detalle_nuevas_python:
+      replay: 38
+      metadatos: 4
+    otras_comprobaciones_no_sumadas:
+      contraejemplos_revision: 4
+      analizador_datos: 5
+    registros_finales:
+    - final_regression/node_summary.json
+    - final_regression/python_summary.json
+    diagnosticos_iniciales: Se conservan fallos, restricciones EPERM de loopback, fixtures desalineados y reloj
+      incorrecto; no se cuentan como pruebas aprobadas adicionales.
+  validacion_estatica:
+    TypeScript_strict_y_build: PASS
+    sintaxis_CJS: PASS
+    Ruff_modulos_y_tests_modificados: PASS
+    Mypy_4_modulos: PASS
+    checkJs_discovery: PASS_con_declaraciones_generadas_de_types.ts_sobre_copia_identica
+    fuente: final_regression/static_summary.json
+  incidentes_obligatorios:
+  - incidente: timeout después de envío aceptado
+    suite: xxx_test
+    prueba: timeout after accepted reconciles existing client_order_id
+    resultado: PASS
+  - incidente: reintento/duplicación tras reinicio
+    suite: xxx_test
+    prueba: unknown POST persists before send and cannot duplicate after restart
+    resultado: PASS
+  - incidente: fill parcial y cancelación
+    suite: xxx_operational_test
+    prueba: partial entry waits for confirmed cancellation and reconciles late fills before urgent sale
+    resultado: PASS
+  - incidente: fill tardío tras solicitud de cancelación
+    suite: xxx_partial_entry_risk_test
+    prueba: restart preserves deadline and late fills update known inventory without duplicate orders
+    resultado: PASS
+  - incidente: reconexión con posición abierta
+    suite: xxx_operational_test
+    prueba: UNKNOWN exit blocks duplicate submission across pulses and restart
+    resultado: PASS
+  - incidente: estado local distinto del broker
+    suite: xxx_test
+    prueba: external orders and positions block new entries
+    resultado: PASS
+  - incidente: datos obsoletos con posiciones
+    suite: xxx_operational_test
+    prueba: one stale position remains visibly unmonitored while another position completes
+    resultado: PASS
+  - incidente: LLM/investigación no disponible
+    suite: quant_remediation_integration_test
+    prueba: LLM/research failure does not prevent deterministic exit management
+    resultado: PASS
+  ejemplo_contable_sintetico:
+    fuente: replay/synthetic_replay_result.json
+    estado: ENGINEERING_ONLY
+    uso: Comprobar software, no retorno de mercado.
+    filas:
+    - politica: C0
+      patrimonio_inicial: 1000.0
+      patrimonio_final: 1000.0
+      pnl_neto_sintetico: 0.0
+      gastos_operativos: 0.0
+      decisiones: 3
+    - politica: RIDGE
+      patrimonio_inicial: 1000.0
+      patrimonio_final: 1000.0
+      pnl_neto_sintetico: 0.0
+      gastos_operativos: 0.0
+      decisiones: 3
+    - politica: SVR
+      patrimonio_inicial: 1000.0
+      patrimonio_final: 1000.0
+      pnl_neto_sintetico: 0.0
+      gastos_operativos: 0.0
+      decisiones: 3
+resultados_fuera_de_muestra_y_estres:
+  comparacion_observada_SVR_Ridge:
+    ejecutada: false
+    pnl_SVR_USD: null
+    pnl_Ridge_USD: null
+    diferencia_USD: null
+    intervalo: null
+    dictamen: VENTAJA_NO_DEMOSTRADA
+    causa: Datos y paridad de política insuficientes; no sustituir por resultados sintéticos.
+  estres_de_ingenieria_ejecutado:
+  - fills parciales y ausentes
+  - salto de precio sin sobregirar caja
+  - aportaciones y retiros
+  - posición abierta perdedora
+  - insolvencia y recuperación posterior
+  - metadatos futuros
+  - timeout y fills tardíos
+  - persistencia fallida
+  - LLM caído
+  estres_economico_observado: NO_EJECUTADO
+  simulaciones_adicionales_no_aumentan_evidencia_de_mercado: true
+datos_observados_ampliados:
+  periodo_comun:
+  - '2026-01-02'
+  - '2026-09-30'
+  instrumentos:
+  - AAPL
+  - NVDA
+  - SPY
+  - IWM
+  proveedor_declarado: ALPACA_CONNECTOR
+  feed_solicitado: sip
+  fuentes: 37
+  sesiones_comunes: 187
+  barras_regulares: 58344
+  barras_regulares_por_activo: 14586
+  huecos_regulares: 0
+  barras_por_franja_y_activo:
+    apertura90: 3366
+    precierre90: 3366
+  rejilla_segundos: 300
+  panel:
+    rows: 1496
+    grids_NY:
+    - '10:50'
+    - '15:20'
+    distinct_sessions: 187
+    readiness_by_symbol:
+      AAPL:
+        bar_insufficient_rows: 20
+        bar_sufficient_rows: 354
+      NVDA:
+        bar_insufficient_rows: 20
+        bar_sufficient_rows: 354
+      SPY:
+        bar_insufficient_rows: 20
+        bar_sufficient_rows: 354
+      IWM:
+        bar_insufficient_rows: 20
+        bar_sufficient_rows: 354
+    labels_by_symbol:
+      AAPL:
+        NO_REGULAR_SESSION_ON_LABEL_DATE: 78
+        EXACT_OBSERVED_BAR_CLOSE: 294
+        OUTSIDE_COMMON_PERIOD: 2
+      NVDA:
+        NO_REGULAR_SESSION_ON_LABEL_DATE: 78
+        EXACT_OBSERVED_BAR_CLOSE: 294
+        OUTSIDE_COMMON_PERIOD: 2
+      SPY:
+        NO_REGULAR_SESSION_ON_LABEL_DATE: 78
+        EXACT_OBSERVED_BAR_CLOSE: 294
+        OUTSIDE_COMMON_PERIOD: 2
+      IWM:
+        NO_REGULAR_SESSION_ON_LABEL_DATE: 78
+        EXACT_OBSERVED_BAR_CLOSE: 294
+        OUTSIDE_COMMON_PERIOD: 2
+    distinct_sessions_with_bar_history_and_24h_price_label:
+      AAPL: 139
+      NVDA: 139
+      SPY: 139
+      IWM: 139
+    two_rows_per_day_are_diagnostics_not_two_independent_sessions: true
+    null_quote_features_preserved:
+    - vwap_z
+    - spread_fraction
+    training_rows_admissible: 0
+  cotizaciones_bid_ask_y_recepcion_original: null
+  ajuste_corporativo:
+    valor: null
+    causa: Payload no expone ajuste; runtime usa adjustment=split y debe reconciliarse.
+  ultimo_cierre_comun: '2026-09-30T20:00:00Z'
+  frescura_operativa_al31oct: Supera30dias; no prueba calibración vigente.
+  octubre: SPY octubre se conserva como fuente suplementaria. Las otras tres consultas no produjeron un archivo
+    guardado; octubre no forma parte de la cobertura común.
+  fuente: observed_extension/coverage_contract_2026_01_09.json
+benchmark_y_complejidad:
+  naturaleza: LOCAL_SINTETICA
+  tabla:
+  - componente: discovery local
+    carga: 100 repeticiones;30 candidatos;56280 barras
+    p50_ms: 39.73910599999999
+    p95_ms: 48.32617200000004
+    p99_ms: 58.08564200000001
+    fuente: discovery/benchmark.json
+  - componente: sesiones y rachas
+    carga: 100 lotes;40 símbolos×3900 barras
+    p50_ms: 240.1600639999997
+    p95_ms: 279.43912999999884
+    p99_ms: 316.56694400000197
+    fuente: sessions/benchmark.json
+  - componente: replay pareado
+    carga: 30 repeticiones;3 decisiones×3 políticas;64 escenarios
+    p50_ms: 18.4857225
+    p95_ms: 21.64888345
+    p99_ms: 21.990425169999998
+    fuente: replay/benchmark.json
+  entorno:
+    node: 24.22.1
+    python: 3.12.14
+    numpy: 2.3.5
+    scipy: 1.17.0
+    sklearn: 1.8.0
+    cpu: AMD EPYC9V74;hostcompartido
+  limitaciones: No mide red, broker, datos, colas, despliegue ni entrenamiento. Percentiles empíricos de muestras
+    pequeñas. No sumar p99 de componentes.
+  expansion: Sin GPU, nuevos servicios, nuevos predictores ni inferencia remota adicional; se conserva un worker
+    numérico.
+incertidumbre_y_limitaciones:
+  estadistica: No se ejecutó bootstrap de rendimientos observados ni corrección por búsqueda para este comparador;
+    intervalo null.
+  review: Agentes separados y revisión cruzada del mismo equipo; no es validación externa ni ciega.
+  software: Las pruebas cubren casos documentados, no demuestran ausencia exhaustiva de fallos ni rentabilidad.
+  pendientes_decisivos:
+  - id: DATA-L1
+    recurso: Bid/ask histórico disponible al decidir y al ejecutar, con tamaños y semántica de timestamps.
+    remediacion_concreta: Completar inputquotes del replay y medir spread/markout porfranja. Mantener null si no
+      existe; no inferirlo deOHLCV.
+    estado: NO_DISPONIBLE
+  - id: DATA-PIT
+    recurso: Recepción/publicación originales y universo de screeners disponible en cada decisión.
+    remediacion_concreta: Recoger snapshots durables ya implementados en el modo autorizado y enlazarlos por snapshot_id/decision_id;
+      no reconstruir un screener pasado con su lista actual.
+    estado: INSTRUMENTACION_LISTA_HISTORIA_AUSENTE
+  - id: DATA-ADJUST
+    recurso: Política de ajustes corporativos y metadatos verificables por fecha.
+    remediacion_concreta: Verificar ajuste de la fuente, conciliación con split del runtime y contratos/factores
+      por fecha antes del panel de calibración.
+    estado: PENDIENTE_VERIFICACION_DE_FUENTE
+  - id: ACCOUNT
+    recurso: Extractos y ledger de señales, órdenes, fills, fees, financiación, costes fijos, aportaciones y patrimonio.
+    remediacion_concreta: Conciliar efectivo+posiciones+pasivos contra broker antes de medir crecimiento económico;
+      incluir infraestructura/inferencia y fiscalidad definida.
+    estado: NO_DISPONIBLE
+  - id: POLICY
+    recurso: Secuencia reproducible de la política completa del coordinador y todas sus salidas.
+    remediacion_concreta: Conservar el gate false; contrastar el replay con trazas del coordinador y extender adaptadores
+      de trailing, parciales e inventario sólo con prueba de equivalencia. La implementación actual no cierra esta
+      paridad.
+    estado: PARCIAL_NO_VALIDADA
+  - id: STAT
+    recurso: Serie neta pareada admisible y periodo final no usado para selección.
+    remediacion_concreta: Preregistrar mínimo económico, límites y bloques/purga según dependencia; corregir búsqueda
+      acumulada sin reiniciar23intentos y luego evaluar límite inferior y controlRidge.
+    estado: NO_EJECUTABLE_CON_EL_PANEL_ACTUAL
+  - id: OPS
+    recurso: Versión desplegada, configuración, cuotas y logs24/7 de la infraestructura real.
+    remediacion_concreta: Verificar identidad y reconciliación en lectura; no identificar este ZIP con el despliegue
+      sin esa evidencia.
+    estado: NO_VERIFICADO
+dictamen:
+  software: REMEDIACIONES_DOCUMENTADAS_VERIFICADAS_EN_ENTORNO_OFFLINE
+  economico: VENTAJA_NO_DEMOSTRADA
+  evidencia_a_favor:
+  - 529 pruebas aprobadas
+  - 117 pruebas nuevas
+  - defectos concretos reproducidos y corregidos
+  - 187 sesiones observadas comunes
+  - 145 archivos históricos conservados
+  evidencia_en_contra_de_aceptar_rentabilidad:
+  - sin panel completo de cotizaciones y disponibilidad
+  - sin ledger observado de cuenta
+  - sin paridad del motor completo
+  - sin prueba final económica
+  condicion_decisiva: La corrección de software y la cobertura de barras no bastan para aprobar ventaja neta.
+  aceptacion_forward: false
+reproduccion:
+  aplicacion: python tools/verify_remediation.py --suite all --output /tmp/harpoon-remediation-qa
+  python: cd quant; python -m unittest discover -s tests -v
+  replay: cd quant; python -m harpoon_quant.paired_replay --input examples/paired_replay/synthetic_request.json
+    --output /tmp/paired-result.json
+  datos: python remediation_evidence/observed_extension/analyze_observed_data.py
+  revision: HARPOON_APP_ROOT=/ruta/HARPOON_XXXUltimate_30_9_0 python remediation_evidence/cross_review/verify_paired_replay_guards.py
+  instalacion: npm ci; venvPython3.12; pip install -r quant/requirements-tested.txt -r quant/requirements-dev.txt.
+    Node24. Las suitesHTTP requieren loopbacklocal.

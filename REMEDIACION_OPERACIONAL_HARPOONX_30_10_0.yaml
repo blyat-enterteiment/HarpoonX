@@ -1,0 +1,696 @@
+entrega:
+  id: HARPOONX_OPERATIONAL_REMEDIATION_30_10_0
+  fecha: '2026-10-31'
+  created_at: '2026-11-01T00:01:31.827470+00:00'
+  application: 30.10.0
+  quant: 1.6.0
+  baseline_application: 30.9.0
+  tests:
+    node: 377
+    python: 323
+    total: 700
+    new: 171
+    failed: 0
+    skipped: 0
+  static: PASS
+  history_files_unchanged: 236
+  new_financial_trials: 0
+  historical_financial_trials: 23
+  financial_verdict: VENTAJA_NO_DEMOSTRADA
+  deployment: NOT_RUN
+  external_orders: 0
+  full_autonomous_economic_cycle_verified: false
+  alcance: Código y pruebas locales; evidencia sintética de ingeniería; sin despliegue ni operaciones externas
+  baseline_archive_sha256: bea7f024959a97e1d4230bdf946d14900b896bf77d008ce76ad3d27618cad893
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  codigo_local: VERIFICADO
+  cuenta_actual: null
+  version_desplegada: null
+  causa_datos_operativos_null: Sin acceso verificado a cuenta, telemetría y despliegue actuales en esta entrega.
+  filas:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos/s
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: intervalo_entre_eventos
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: frecuencia_decisiones
+    unidad: decisiones/s
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: antiguedad_dato_al_decidir
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: latencia_calculo_senal
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: latencia_envio_confirmacion
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: tiempo_hasta_ejecucion
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: latencia_cancelacion_confirmada
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: desfase_relojes
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: persistencia_senal
+    unidad: s
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: spread
+    unidad: bps
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: profundidad_ejecutable
+    unidad: unidades y USD
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: porcentaje_ejecutado
+    unidad: proporción
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  - variable: coste_total_por_operacion
+    unidad: USD y bps
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se midió en el despliegue ni contra un broker externo.
+  parametros_programados_no_mediciones:
+    ledger_ms: 60000
+    captura_ms: 60000
+    simbolos_por_captura: 12
+    guardian_ms: 1000
+    max_workers_python: 1
+    max_pendientes_python: 8
+    precision: Scheduler de demora fija; el tiempo de trabajo se añade al intervalo programado.
+reproduccion_de_referencia_y_discrepancias:
+  referencia_sintetica_proporcionada_por_usuario:
+    capital_normalizado_usd: 20000
+    pnl_usd: -282.457889
+    retorno_pct: -1.412289
+    drawdown_maximo_pct: 1.62232
+    sortino_diario: -0.247577
+    operaciones_cerradas: 15
+    capital_reiniciado_por_ventana: true
+  nuevo_backtest_financiero_ejecutado: false
+  comparacion_historica: 236 archivos sin cambios; suite de integridad vuelve a analizar recibos sellados con el formato
+    V1 original.
+  correccion_de_compatibilidad: V2 añade procedencia; reconciliación histórica conserva campos/valores V1 sin modificar
+    recibos ni relajar la igualdad estricta.
+  saldo_actual_inferible: false
+reconciliacion_del_patrimonio:
+  implementada: true
+  validada_con_broker_externo: false
+  formula: PnL cuenta = E_final - E_inicial - aportaciones + retiros
+  economico: PnL económico = PnL cuenta - gastos externos no incluidos en NAV
+  alcance: Marcas de broker y cargos reportados; costes externos declarados; impuestos adicionales no calculados.
+  resultados_de_cuenta_actual: null
+  evidencia: ledger/report.json
+atribucion_del_resultado:
+  atribucion_financiera_observada: null
+  motivo: No existe un ledger actual observado ni una comparación financiada completa en esta entrega.
+  defectos_de_medicion_reproducidos_y_corregidos:
+  - Igualdad imposible de cobertura con reloj posterior a HTTP
+  - Costes desconocidos convertidos en cero
+  - Fecha inicial de drawdown inferida 365 días antes
+  no_atribuir: Estos defectos de medición no prueban que expliquen las pérdidas reales o la simulación de referencia.
+hipotesis_y_condiciones_de_refutacion:
+  nuevas_hipotesis_financieras_probadas: 0
+  presupuesto_historico: 23
+  test_holdout_reutilizado_como_nuevo: false
+  condicion_para_modelo_candidato: Crecimiento neto absoluto positivo, mejora económica mínima frente a Ridge, riesgo
+    comparable, incertidumbre predefinida y evidencia verificable.
+cambios_implementados:
+- id: NET-01
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: NAV diario sin productor conectado de contabilidad neta.
+  remediacion: Ledger interno de cuenta, posiciones y actividades; persistencia atómica; patrimonio continuo y separación
+    entre cuenta y sistema económico.
+  funciones:
+  - NetAccountLedger.load
+  - NetAccountLedger.refresh
+  - NetAccountLedger.view
+  - NetAccountLedger.exportState
+  - NetAccountLedger.performanceInput
+  - Coordinator.refreshNetAccounting
+  validadores_operacionales:
+  - Identidad/currency/unidades
+  - Paginación completa e idempotencia
+  - Caja e inventario derivados vs snapshot
+  - NAV y pérdidas abiertas
+  - Flujos externos separados
+  - Costes sin doble descuento
+  - Insolvencia persistida
+  - Lease/escritura/reinicio
+  pruebas:
+  - tools/quant_net_ledger_test.cjs:40
+  - tools/quant_autonomy_integration_test.cjs
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Cobertura de cargos reportados y gastos declarados AS-OF; no autentica al broker ni acredita cargos aún no
+    publicados. Retención finita.
+- id: NET-02
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: Un recibo previo de costes no podía cubrir el reloj posterior a las consultas HTTP.
+  remediacion: Reconstruir prefijo histórico cerrado cubierto por recibos posteriores; conservar actual descubierto como
+    null y known_at real.
+  funciones:
+  - NetAccountLedger.performanceInput
+  - NetAccountLedger.refresh
+  validadores_operacionales:
+  - coverage_through < latest_uncovered_at cuando corresponde
+  - Prefijo sin huecos ni selección por beneficio
+  - No backdating de costes
+  - Marcas preflujo explícitas
+  pruebas:
+  - ledger/real_clock_closed_prefix_test.json
+  - economic_gate/cross_review_closed_prefix_after_fix_input.json
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: La cuenta actual puede estar conciliada y su resultado económico actual seguir desconocido.
+- id: NET-03
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: Ausencia de tabla de trades se convertía en costes cero y el baseline de drawdown se infería 365 días antes.
+  remediacion: Informe HARPOON_PERFORMANCE_2 con initial_at observado, costes desconocidos null y desglose con alcance.
+    El verificador de estudios sellados solicita explícitamente el formato histórico V1.
+  funciones:
+  - harpoon_quant.performance.report
+  - harpoon_quant.study_integrity._reconcile_run
+  validadores_operacionales:
+  - Reloj inicial requerido para intervalos fijos
+  - Conflictos de fechas rechazados
+  - Total desconocido permanece null
+  - Retornos ya netos no vuelven a descontar costes
+  - V1 sólo para entradas diarias completas compatibles
+  pruebas:
+  - quant/tests/test_performance_provenance.py:15
+  - quant/tests/test_study_integrity.py
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Los consumidores nuevos deben admitir schema V2 y null; métricas de un prefijo cerrado no se presentan como
+    actualidad de toda la cuenta.
+- id: DATA-01
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: La recolección dependía de un modelo válido y de un panel elaborado externamente.
+  remediacion: Captura causal sin calibración; reutiliza características del bridge y congela input antes de esperar
+    al worker. Conserva barras, quotes, proxies, cobertura y rechazos.
+  funciones:
+  - runtime/quant_bridge.cjs:observationInput
+  - runtime/quant_bridge.cjs:observe
+  - harpoon_quant.bridge.from_runtime(observation_only=True)
+  - QuantObservationJournal.capture
+  validadores_operacionales:
+  - Recepción/mercado/decisión separados
+  - Datos futuros y quotes obsoletos excluidos
+  - Cobertura exhaustiva del lote
+  - Sin etiqueta futura ni profundidad inventadas
+  - Sin orden ni allocation
+  pruebas:
+  - quant/tests/test_runtime_observations.py:10
+  - tools/quant_autonomy_integration_test.cjs
+  estado: CAPTURA_VERIFICADA_PANEL_ECONOMICO_COMPLETO_PENDIENTE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Captura prospectiva implementada; productor completo de trayectorias financiadas del optimizer aún pendiente.
+- id: DATA-02
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: Un índice único detenía la captura al llenarse y los fallos de commit podían dejar huérfanos sin contar.
+  remediacion: Archivar índices por segmentos inmutables; conservar cursor global; reservar bytes antes de escribir;
+    verificar hash/cadena en restore y exportación.
+  funciones:
+  - QuantObservationJournal.load
+  - QuantObservationJournal.capture
+  - QuantObservationJournal.exportFrames
+  validadores_operacionales:
+  - Commit atómico del índice
+  - Reintento idempotente
+  - Huérfanos consumen presupuesto
+  - Cuenta/configuración vinculadas
+  - Límite de bytes/segmentos
+  - No borrar historia
+  pruebas:
+  - tools/quant_observation_archive_test.cjs:13
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Hasta 16 segmentos archivados y 512 MiB de objetos inmutables por defecto; no almacenamiento infinito ni medición
+    física del disco.
+- id: REPLAY-01
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: El replay Python no ejercitaba todas las salidas del coordinador.
+  remediacion: Replay offline con Plugins/Coordinator/policy/exits reales y broker modelado; verifica nuevamente acciones,
+    cuenta, fills e inventario.
+  funciones:
+  - runReplay
+  - executeReplay
+  - verifyReport
+  - compareReplays
+  - SimulatedReplayBroker
+  validadores_operacionales:
+  - Fill estrictamente posterior a decisión
+  - Liquidez explícita
+  - TP/trailing/stop reales
+  - Parcial tardío y cancelación confirmada
+  - Reinicio con posición
+  - Holding72h
+  - ETF apalancado sin multiplicar PnL dos veces
+  pruebas:
+  - tools/quant_coordinator_replay_test.cjs:24
+  - final_examples.json
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Paridad acotada de políticas; no replica cola, opciones, OCO, shorts ni concurrencia completa. Los recibos
+    Ridge/SVR no prueban por sí mismos el predictor.
+- id: REPLAY-02
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: La captura parcial podía presentarse como evidencia de fills o universo completo.
+  remediacion: Adaptador de frames conserva cobertura, known_at y faltantes; genera evaluate/sessions sin entradas ni
+    adopción de posiciones.
+  funciones:
+  - fromObservationExport
+  validadores_operacionales:
+  - SHA de cada frame
+  - Configuración consistente
+  - Costes hipotéticos explícitos
+  - executable_qty=0 si profundidad ausente
+  - Sin eventos entries
+  pruebas:
+  - tools/quant_coordinator_replay_test.cjs
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Sirve para investigar señales; no produce una curva económica ejecutable.
+- id: GATE-01
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: Mejora predictiva frente a Ridge no equivalía a crecimiento neto de la cuenta.
+  remediacion: Gate económico pareado con protocolo previo, curvas continuas, costes/riesgo comunes, mínimo económico
+    e inferencia por bloques de sesiones.
+  funciones:
+  - seal_protocol
+  - register_protocol
+  - evaluate_gate
+  - paired_block_bootstrap
+  - verify_gate_report
+  validadores_operacionales:
+  - 23 intentos históricos preservados
+  - Bloqueo si la prueba final ya fue utilizada
+  - Flujos/costes/NAV/inventario
+  - Insolvencia y exposición
+  - Crecimiento absoluto y mejora neta sobre Ridge
+  - Corrección familiar
+  - Reejecución del coordinador y artefactos; bloqueo de paridad predictiva incompleta
+  pruebas:
+  - quant/tests/test_economic_gate.py:49
+  - quant/examples/economic_gate/coordinator_fixture/report.json
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Sintético no promociona. Un recibo C0 no certifica la comparación C0/Ridge/SVR. Faltan datos observados completos
+    y ejecución representativa.
+- id: OPS-01
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: Proceso vivo, pausa y un boolean de informe podían confundirse con disponibilidad operacional.
+  remediacion: Validador por capacidades; revalidación dentro del mutex de órdenes; gate ligado al runtime y fresco;
+    endpoints autenticados separados de HTTP_ALIVE.
+  funciones:
+  - entryOperationalFailures
+  - operationalCapabilities
+  - Coordinator.entries
+  - verifyEconomicGate
+  validadores_operacionales:
+  - Pausa/parada/riesgo/bloqueo de broker
+  - Actualidad de reconciliación y ledger
+  - Protección por posición
+  - Persistencia de observaciones
+  - Origen y alcance del plan
+  - Reejecución de evidencia y binding
+  pruebas:
+  - tools/quant_autonomy_integration_test.cjs:20
+  - coordinator_replay/review_probe.json
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: Un estado operativo no es prueba de ventaja; full_autonomous_economic_cycle_verified permanece false.
+- id: RES-01
+  clasificacion: HECHO
+  periodo: '2026-10-31'
+  brecha: Nuevas tareas numéricas podían multiplicar procesos simultáneos y esperas sin límite.
+  remediacion: Un proceso Python activo, ocho solicitudes pendientes, prioridad de decisiones y vencimiento que incluye
+    cola; input/output acotados.
+  funciones:
+  - worker
+  - drainWorkers
+  - spawnWorker
+  - workerStatus
+  validadores_operacionales:
+  - Capacidad y deadline
+  - SIGKILL seguido de confirmación de cierre
+  - Contrato stdout
+  - Ninguna autorización al fallar
+  - Guardian fuera de esta cola
+  pruebas:
+  - tools/quant_autonomy_integration_test.cjs
+  estado: IMPLEMENTADO_EJECUTADO_VERIFICADO_OFFLINE
+  impacto_economico_observado_USD: null
+  causa_impacto_null: Sin medición de cuenta o comparación financiera observada en esta entrega.
+  limite: No es una medición de capacidad de Render ni de latencia real del broker.
+resultados_de_todas_las_variantes:
+  variantes_financieras_nuevas: []
+  naturaleza_de_las_pruebas: SYNTHETIC_ENGINEERING_ONLY; ajustes de modelos sintéticos sólo dentro de regresiones de
+    software
+  pruebas_por_suite:
+  - suite: xxx_test
+    casos: 52
+    resultado: PASS
+    log: xxx_test.log
+    sha256: 22ab19040bcbfce25e169fa1fb095545426ec92c1b324d0d0a04aefa42d72f65
+  - suite: xxx_conformance_test
+    casos: 13
+    resultado: PASS
+    log: xxx_conformance_test.log
+    sha256: 331f58facbce7dba6962f87ce6dc186097d3d16a57d240da6fbd633db56aa6ae
+  - suite: xxx_health_test
+    casos: 17
+    resultado: PASS
+    log: xxx_health_test.log
+    sha256: ddffbdf77ba578da99e95b97eb34f8a0e69c7035d9fab5f0e53f02ea3e050a1c
+  - suite: xxx_selector_test
+    casos: 17
+    resultado: PASS
+    log: xxx_selector_test.log
+    sha256: 913f179e4a65f1ea48f3ecdd84e65a37b4151020abda352b058b6f9b8fa43da5
+  - suite: xxx_tp32_test
+    casos: 15
+    resultado: PASS
+    log: xxx_tp32_test.log
+    sha256: caa673995f8d5ed82d70ec9879e6b0f87ec27066ffa30f8a7dba8f6bbf1d4c17
+  - suite: xxx_operational_test
+    casos: 30
+    resultado: PASS
+    log: xxx_operational_test.log
+    sha256: 921b5ddb1e5704a2dd0a6f40804cc9d3efb17e12c4f945535e3244fcac6a4b87
+  - suite: xxx_partial_entry_risk_test
+    casos: 8
+    resultado: PASS
+    log: xxx_partial_entry_risk_test.log
+    sha256: e973711be3a32cce209897197d5d848dbe9ec67f7e0bacae42c08c2f43a0e257
+  - suite: ultimate_test
+    casos: 30
+    resultado: PASS
+    log: ultimate_test.log
+    sha256: b1e01b8924da62958ca4f3c7b6fad5057a4b42dfe21d3f070d6f77a66a3bf87a
+  - suite: quant_bridge_test
+    casos: 16
+    resultado: PASS
+    log: quant_bridge_test.log
+    sha256: c7aa74168db68924e4b4e49e696d0862ce59fad809b5615b718037439c695104
+  - suite: quant_svr_integration_test
+    casos: 7
+    resultado: PASS
+    log: quant_svr_integration_test.log
+    sha256: 4ae3a72bc4196e46683483ac780ae8239437250d0ffbf568f28e7f2a2d14073a
+  - suite: quant_discovery_regression_test
+    casos: 37
+    resultado: PASS
+    log: quant_discovery_regression_test.log
+    sha256: fc3337883a55bb1caa7da2e4934454f0c2e5766425c0fa857dd9f74f5aed37b1
+  - suite: xxx_session_regression_test
+    casos: 26
+    resultado: PASS
+    log: xxx_session_regression_test.log
+    sha256: 3c1e31eeba08a73812436a055e3a86667a615969ccd78328de9ec48c9e79a297
+  - suite: quant_remediation_integration_test
+    casos: 12
+    resultado: PASS
+    log: quant_remediation_integration_test.log
+    sha256: 14bc02e1b061a63000b819d71518a429823daeaf69231df6b87770b8560f91ac
+  - suite: quant_net_ledger_test
+    casos: 40
+    resultado: PASS
+    log: quant_net_ledger_test.log
+    sha256: 13fa6fc70bb735e2230ae45bf8d1e5d289095248bbfc6f4c6e8f6ae77b17597b
+  - suite: quant_coordinator_replay_test
+    casos: 24
+    resultado: PASS
+    log: quant_coordinator_replay_test.log
+    sha256: 8e71643e953c828295f0735368e762555931a0d962a0422402e35ee846aabcad
+  - suite: quant_autonomy_integration_test
+    casos: 20
+    resultado: PASS
+    log: quant_autonomy_integration_test.log
+    sha256: 02165e19ca54130648ade227418d6184160b94e89ad208307c2f5120483ab16e
+  - suite: quant_observation_archive_test
+    casos: 13
+    resultado: PASS
+    log: quant_observation_archive_test.log
+    sha256: 4bd96021aba45072f264dbc09fbf6e15a2f69c12134db7bce524ff683f07c386
+  - suite: quant_unittest
+    casos: 323
+    resultado: PASS
+    log: quant_unittest.log
+    sha256: 083dbba81b93d45f8b4b8bcddaa55dfeec6a0fe27c4069e8f8c953a8ba660eb1
+  total: 700
+  nuevas_frente_a_30_9: 171
+  fallidas: 0
+  omitidas: 0
+  regresiones_iniciales_resueltas:
+  - 'Formato nuevo de métricas incompatible con campos de recibos históricos: versionado explícito'
+  - 'Fixture aislado SVR incompleto tras ampliar source binding: copiar todo el conjunto compilado'
+  evidencia: final_regression/all_summary.json
+resultados_fuera_de_muestra_y_estres:
+  fuera_de_muestra_observado: null
+  estres_de_ingenieria:
+  - Fallo disco/commit
+  - Huérfano/corrupción de hash
+  - Timeout de worker y saturación de cola
+  - Fill parcial y cancelación tardía
+  - Pausa/parada/bloqueo de broker
+  - Dato futuro/obsoleto
+  - Coste tardío/reloj real
+  - Manipulación de protocolo, resultados o contador
+  dictamen_del_fixture_estadistico: VENTAJA_NO_DEMOSTRADA
+  paridad_replay:
+    checks_verified:
+    - execution_actions
+    - positions_and_exit_state
+    - account_cash_fees_and_costs
+    - real_plugin_and_receipt_decisions
+    - causal_fills
+    complete_paired_policy_coverage: false
+    covered_policies:
+    - C0
+    economic_bindings_verified: false
+    execution_origin: MODELED
+    external_validation: false
+    financial_acceptance_allowed_by_receipt: false
+    policy_parity_verified: true
+    predictor_parity_verified: false
+    real_coordinator_reexecuted: true
+    receipt_integrity_verified: true
+    receipt_predictor_parity_verified_within_its_scope: true
+    scope:
+      books:
+      - equity
+      components:
+      - Coordinator.initialize
+      - Coordinator.reconcile
+      - Plugins.evaluate
+      - Coordinator.entries
+      - Coordinator.manage
+      - policy.exitDecision
+      - exits
+      entry_predictor: NATIVE_C0
+      event_types:
+      - entries
+      - evaluate
+      - manage
+      - market
+      - reconcile
+      execution_model: EXPLICIT_MODELED_CROSSING_AND_LIQUIDITY
+      inventory: LONG_ONLY_CASH
+      native_protection: stop
+      not_covered:
+      - live_broker_execution
+      - queue_priority
+      - hidden_liquidity
+      - options
+      - native_oco
+      - shorts
+      - production_scheduler_concurrency
+      - empirical_model_edge
+      - exhaustive_multiasset_parity
+      observation_adapter: null
+      restart_count: 0
+  incremento_evidencia_empirica_por_simular: false
+incertidumbre_y_limitaciones:
+  rentabilidad_real: null
+  probabilidad_de_ser_ganador: null
+  efecto_economico_de_las_remediaciones: null
+  no_estimable_con: Pruebas de software, fixtures sintéticos y ausencia de datos de cuenta actual.
+  bootstrap: Pareado por bloques de cartera/sesión; corrección Bonferroni preregistrada; cobertura aproximada bajo dependencia
+    apropiada, no garantía futura.
+  retencion_ledger: 10000 marcas y 32 MiB por defecto; aproximadamente 6,94 días a una marca/min. No se implementó archivador
+    del ledger contable.
+  retencion_observaciones: Archivado automático de índices con 16 segmentos y 512 MiB predeterminados; límites explícitos,
+    sin borrado de evidencia.
+  datos_pendientes:
+  - Cuenta/despliegue/logs actuales
+  - Costes externos auténticos y madurez de cargos reportados
+  - Curvas C0/Ridge/SVR observadas y comparables
+  - Paridad predictiva reproducible
+  - Ejecución representativa/capacidad/latencia
+  - Definición y vinculación inequívoca de cada política de control
+  construccion_pendiente:
+  - Productor completo de trayectorias financiadas para optimizer
+  - Archivado contable automático verificable
+  - Entrenamiento/promoción automática validada dentro de permisos
+  autonomia_economica_indefinida: false
+  revision_por_agentes: Revisión cruzada con el mismo workspace; no validación externa ni ciega.
+benchmark_ingenieria:
+  schema: HARPOON_LEDGER_ENGINEERING_BENCHMARK_1
+  nature: SYNTHETIC_ENGINEERING_ONLY
+  environment:
+    node: v24.22.1
+    platform: linux
+    architecture: x64
+    cpu: AMD EPYC 9V74 80-Core Processor
+  load:
+    observations: 10000
+    activities: 2000
+    read_requests_per_refresh: 25
+    persisted_bytes: 9711060
+  summary:
+    n: 2000
+    p50_ms: 0.01407100000005812
+    p95_ms: 0.01635500000020329
+    p99_ms: 0.034042000000226835
+    max_ms: 0.28218599999991056
+    small_sample_high_quantiles_not_reported: false
+  export_full:
+    n: 5
+    p50_ms: 54.10034200000018
+    p95_ms: null
+    p99_ms: null
+    max_ms: 66.54658800000016
+    small_sample_high_quantiles_not_reported: true
+  refresh_with_memory_store:
+    n: 3
+    p50_ms: 645.7309530000002
+    p95_ms: null
+    p99_ms: null
+    max_ms: 742.889921
+    small_sample_high_quantiles_not_reported: true
+  rss_bytes: 400515072
+  peak_rss_bytes: 400515072
+  source_authenticity_verified: false
+  financial_advantage_demonstrated: false
+  limitations:
+  - No network or actual broker latency is measured.
+  - Full history for the benchmark is manufactured and is not a financial experiment.
+  - Memory Store timings do not measure production disk/network throughput.
+  - Repeated samples share one process and are not independent hardware trials.
+  summary_avoids_full_row_copy: true
+  retention_policy: Bounded journal stops certification at configured limits; no capital reset or silent truncation.
+dictamen:
+  software: REMEDIACIONES_FUNCIONALES_VALIDADAS_OFFLINE_CON_ALCANCE_EXPLICITO
+  financiero: VENTAJA_NO_DEMOSTRADA
+  candidato_para_validacion_forward: false
+  execution_allowed_por_gate: false
+  liveApproved: false
+  evidencia_a_favor:
+  - 700 tests PASS
+  - Validadores ejecutados en flujos reales de código
+  - Replay y gate reejecutados
+  - 236 archivos históricos intactos
+  evidencia_en_contra_de_afirmar_ganador:
+  - Sin resultados netos observados de cuenta actual
+  - Paridad financiera completa no verificada
+  - Costes y fuentes todavía no autenticados
+  - Autonomía integral incompleta y retención finita
+  condicion_decisiva: Falta evidencia económica admisible; tests aprobados no sustituyen crecimiento neto fuera de muestra.
+comandos:
+- python tools/verify_remediation.py --suite all --output /tmp/harpoon-autonomy-qa
+- node tools/coordinator_replay.cjs --input quant/examples/coordinator_replay/synthetic_request.json --output /tmp/coordinator-report.json
+- cd quant; python -m harpoon_quant.economic_gate --protocol examples/economic_gate/synthetic_fixture/protocol.json --input
+  examples/economic_gate/synthetic_fixture/input.json --output /tmp/gate-report.json --artifact-root examples/economic_gate/synthetic_fixture
+fuentes_primarias:
+- https://docs.alpaca.markets/us/reference/getaccountactivities-2
+- https://docs.alpaca.markets/us/docs/account-activities

@@ -1,0 +1,142 @@
+HARPOON XXXUltimate 30.12.1 — APLICACION INTEGRAL
+Motor cuantitativo Quant 1.8.0
+
+1. ARCHIVO QUE DEBES USAR
+
+Este directorio contiene la aplicación completa, con interfaz, fuentes,
+runtime compilado, configuración, instalador, motor Python, verificadores,
+pruebas y evidencia. No requiere aplicar patches ni copiar otra versión encima.
+Las dependencias de Node/Python y los servicios externos no están incorporados
+como ejecutables universales: se instalan con los archivos de dependencias.
+
+La versión de aplicación es 30.12.1. El módulo Quant conserva 1.8.0 porque
+no se modificaron sus modelos ni se cambió la lógica financiera.
+
+2. QUE SE REVISO Y QUE SE CORRIGIO
+
+La revisión comparó la línea 30.7–30.12, las ramas 31.0–31.4, el core 31.6
+contenido en TP-NET y los laboratorios de beneficio, opciones, microestructura,
+walk-forward, auditoría forense, Swing, Canasta48 y Framework Aplicado Python.
+REVISION_INTEGRAL_PROYECTO_30_12_1.yaml conserva el inventario por fuente,
+funciones, hashes, duplicidades, límites y decisiones de incorporación.
+
+La base activa es 30.12 con Quant 1.8 y un solo coordinador. Se incorpora el
+endurecimiento del almacenamiento identificado en 31.x: plazo por solicitud,
+cola limitada, comprobación de arranque, fallo retenido en esa instancia y
+reconocimiento de escritura incierta. Ese indicador no sustituye la reconciliación
+después de reiniciar el proceso.
+Una escritura puede haberse confirmado en SQLite antes de perderse su respuesta.
+El transporte no la reenvía automáticamente ni interpreta un timeout como rollback.
+
+La rama de opciones 31.6/TP-NET y Framework Aplicado Python son implementaciones
+separadas. Su código fue comparado y está identificado en el informe; sus
+coordinadores, estrategias y límites no se activan dentro de esta aplicación.
+Unir archivos sin reconciliar autoridad, capital, posiciones y pruebas no sería
+una integración operativa. Los originales siguen identificados por sus enlaces
+y huellas en el catálogo, sin presentarlos como funciones activas del núcleo.
+
+3. NOTA ECONOMICA
+
+El resultado verificable sigue en 3/10: VENTAJA_NO_DEMOSTRADA.
+La escala es ordinal y no estima la probabilidad de ganar o perder capital.
+Las pruebas de software y los replays sintéticos no demuestran beneficio real.
+EVALUACION_ECONOMICA_HARPOONX_30_12_1.yaml contiene la evaluación actual.
+
+Faltan una instancia PAPER identificada o sus exportaciones originales, datos
+causales utilizables, patrimonio y gastos reconciliados, modelos fijados antes
+de la prueba y un periodo final nuevo. El nivel 4 exige medición observada y
+comparación reproducible; el 5 exige además crecimiento neto positivo y mejora
+frente a Ridge y al motor vigente bajo el criterio estadístico y de riesgo.
+
+La revisión encontró más investigación previa: las 18 plazas Ultimate iniciales
+están incluidas en las 72 de la familia 31.x, con 54 adicionales. No son 90.
+Otros estudios comparten datos y resultados. El total global deduplicado permanece
+desconocido. No reiniciar contadores ni tratar los periodos ya utilizados como
+pruebas finales nuevas. El catálogo actual amplía los inventarios históricos.
+
+4. INSTALACION Y ESTADO
+
+Ruta principal: Docker Engine con Compose v2 y Python >=3.11 en el host.
+Los valores y contratos vigentes están en .env.example, config/examples/xxx.json
+y LEEME_INTEGRAL_30_10_1.txt, incluido el procedimiento de actualización.
+Esa guía está incluida como documentación; no es una dependencia de otro ZIP.
+
+Desde la raíz de esta distribución:
+
+  bash install.sh --check
+  bash install.sh --plan
+
+Esos comandos revisan y muestran el plan sin consultar el broker ni enviar órdenes.
+Con una configuración y una cuenta PAPER dedicadas dentro del alcance autorizado:
+
+  bash install.sh
+  bash status.sh
+
+El instalador inicia un único servicio xxxultimate. Las credenciales y el JSON
+de cuenta deben ser los legítimos de esa instalación; no usar valores sintéticos
+de pruebas para operar. En una actualización se conservan configuración, datos,
+SQLite e identidad de cuenta. Abrir HARPOON_XXXUltimate.html como archivo no inicia
+el backend. El panel servido usa el origen y la contraseña configurados.
+
+Esta entrega se verificó offline. No se construyó una imagen Docker ni se desplegó
+contra un broker desde el entorno de evaluación. No hay una instancia actual
+verificada por el hecho de existir este ZIP. El runtime de opciones alternativo
+no debe arrancarse sobre la misma cuenta como si fuera parte del coordinador.
+
+5. REPRODUCCION Y PRUEBAS SIN ORDENES
+
+Entorno de pruebas: Node 24 y Python 3.12. Dependencias numéricas probadas en
+quant/requirements-tested.txt y herramientas en quant/requirements-dev.txt.
+
+  npm ci
+  python3 -m venv .venv
+  .venv/bin/pip install -r quant/requirements-tested.txt -r quant/requirements-dev.txt
+  .venv/bin/python evidence/integral_30_12_1/reproduce.py --app .
+  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-qa
+
+El primer comando de reproducción conserva el diagnóstico de falta de evidencia
+y regenera los ejemplos sintéticos vinculados a las fuentes actuales. No consulta
+mercado, no entrena modelos financieros, no registra otro ensayo económico y no
+envía órdenes. La suite de software sí ajusta modelos con datos sintéticos.
+Los tests pueden necesitar sockets efímeros locales en 127.0.0.1.
+
+Pruebas específicas del transporte SQLite:
+
+  npm run test:storage
+
+Los resultados ejecutados, condiciones del entorno y comprobaciones de integridad
+se encuentran en evidence/integral_30_12_1/. El benchmark local de almacenamiento
+no mide la latencia del broker ni constituye una recomendación de frecuencia.
+
+6. FALLOS Y AUTONOMIA
+
+Los carriles de gestión de posiciones e investigación están separados y las
+salidas deterministas no necesitan una respuesta del modelo de lenguaje.
+Esto no elimina la dependencia de una persistencia y un broker disponibles.
+Si falla el Store, se rechazan las solicitudes posteriores al almacenamiento;
+un save o lease rechazado impide la orden que dependía de esa confirmación.
+También pueden quedar bloqueadas protecciones o cierres que requieren persistencia.
+Esto no revoca órdenes ya autorizadas ni peticiones al broker que estén en vuelo.
+Las órdenes que éste ya hubiese aceptado conservan su estado en el broker.
+La exposición debe reconciliarse antes de reanudar; no hay reintento automático
+ciego ni una promesa de recuperación integral demostrada en una cuenta real.
+
+No se agregan servicios permanentes, tareas programadas ni llamadas al modelo.
+No se elevan exposición, capital, presupuesto de investigación o límites de riesgo.
+
+7. FRANJAS Y UNIVERSO
+
+La aplicación distingue apertura, precierre y poscierre, y conserva el límite
+configurado de 72 horas. El panel causal vigente admite sesión regular.
+POSTCLOSE_90 no habilita una estrategia ni prueba ejecución poscierre.
+El replay económico financiado tiene el alcance descrito en su contrato: posiciones
+largas al contado en acciones, ETF y cripto. No valida opciones o futuros por el
+hecho de que existan funciones de análisis para esos instrumentos.
+
+8. INTEGRIDAD
+
+MANIFEST_XXXUltimate.json y MANIFEST.sha256 enumeran los archivos de esta entrega.
+quant/MANIFEST_QUANT.json conserva el detalle del motor Python. Los informes y
+pruebas anteriores mantienen su fecha y alcance; la revisión actual está separada.
+El inventario identifica un ZIP antiguo de simulación48 truncado: no se usa como
+fuente íntegra, no se reconstruyen sus resultados ausentes y no altera el motor.

@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: Ridge registration binds actual catalog recipe, risk policy, costs and server timestamp
+ok 1 - Ridge registration binds actual catalog recipe, risk policy, costs and server timestamp
+  ---
+  duration_ms: 41.767112
+  type: 'test'
+  ...
+# Subtest: selector data rejects future, cross-book, duplicate events and invalid feature values
+ok 2 - selector data rejects future, cross-book, duplicate events and invalid feature values
+  ---
+  duration_ms: 11.479669
+  type: 'test'
+  ...
+# Subtest: historical import is immutable and idempotent; synthetic provenance is retained
+ok 3 - historical import is immutable and idempotent; synthetic provenance is retained
+  ---
+  duration_ms: 13.988244
+  type: 'test'
+  ...
+# Subtest: operator imports after the registered cutoff cannot manufacture prospective observations
+ok 4 - operator imports after the registered cutoff cannot manufacture prospective observations
+  ---
+  duration_ms: 8.383147
+  type: 'test'
+  ...
+# Subtest: capture persists actual supplied quote tuples and never creates prices without observations
+ok 5 - capture persists actual supplied quote tuples and never creates prices without observations
+  ---
+  duration_ms: 9.600153
+  type: 'test'
+  ...
+# Subtest: actual Ridge fitter computes finite coefficients and purges labels crossing cutoff
+ok 6 - actual Ridge fitter computes finite coefficients and purges labels crossing cutoff
+  ---
+  duration_ms: 20.83938
+  type: 'test'
+  ...
+# Subtest: model validator rejects fabricated shape, feature drift and future training
+ok 7 - model validator rejects fabricated shape, feature drift and future training
+  ---
+  duration_ms: 8.542808
+  type: 'test'
+  ...
+# Subtest: selector worker runs real research and reports insufficient evidence instead of successful training
+ok 8 - selector worker runs real research and reports insufficient evidence instead of successful training
+  ---
+  duration_ms: 50.282339
+  type: 'test'
+  ...
+# Subtest: install rejects synthetic, non-prospective and incomplete acceptance reports
+ok 9 - install rejects synthetic, non-prospective and incomplete acceptance reports
+  ---
+  duration_ms: 9.825183
+  type: 'test'
+  ...
+# Subtest: retirement and model revocation actually update persistent state
+ok 10 - retirement and model revocation actually update persistent state
+  ---
+  duration_ms: 8.911915
+  type: 'test'
+  ...
+# Subtest: interrupted queued trial recovers durably and preserves account binding after restart
+ok 11 - interrupted queued trial recovers durably and preserves account binding after restart
+  ---
+  duration_ms: 15.528428
+  type: 'test'
+  ...
+# Subtest: dataset preparation cannot hold broker authority while SQLite scans run
+ok 12 - dataset preparation cannot hold broker authority while SQLite scans run
+  ---
+  duration_ms: 9.057464
+  type: 'test'
+  ...
+# Subtest: selector data persists through real SQLite scans and process reopen
+ok 13 - selector data persists through real SQLite scans and process reopen
+  ---
+  duration_ms: 94.106655
+  type: 'test'
+  ...
+# Subtest: an invalid optional model is revoked on restart without preventing position supervision
+ok 14 - an invalid optional model is revoked on restart without preventing position supervision
+  ---
+  duration_ms: 15.113832
+  type: 'test'
+  ...
+# Subtest: installation persistence and evaluation boundary work with an explicit internal acceptance test double
+ok 15 - installation persistence and evaluation boundary work with an explicit internal acceptance test double
+  ---
+  duration_ms: 28.978679
+  type: 'test'
+  ...
+# Subtest: a sufficiently observed prospective holdout is consumed even by diagnostic inspection
+ok 16 - a sufficiently observed prospective holdout is consumed even by diagnostic inspection
+  ---
+  duration_ms: 9.30622
+  type: 'test'
+  ...
+# Subtest: actual selector worker evaluates all 12 folds and holdout on complete synthetic no-fill paths
+ok 17 - actual selector worker evaluates all 12 folds and holdout on complete synthetic no-fill paths
+  ---
+  duration_ms: 3162.444928
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3572.647823

@@ -1,0 +1,55 @@
+HARPOON XXXUltimate 30.15.0 — INTEGRAL COMPLETA
+
+Objetivo: crecimiento económico de toda la cartera con capitalización continua.
+Resultado: VENTAJA_NO_DEMOSTRADA. El nivel 7 de rentabilidad real no está acreditado.
+Puntuación real: null, por falta de evidencia observada suficiente.
+
+NOVEDADES VERIFICADAS
+1. Validación de recibos de costes en archivo, entrada inline y configuración.
+2. Procedencia decisión → intención → orden → ejecución, vinculada a cuenta,
+   configuración y modelo; verificador offline de inventario y relojes.
+3. Colector de lectura con export del coordinador opcional y autenticado.
+4. Vínculos entre predictor Ridge/SVR evaluado y candidata forward.
+5. Economía de cuenta continua y workflow de evidencia nivel 7 reproducible.
+6. Importación de fuentes paper/live/real a una copia offline sin autoridad.
+7. 230 pruebas aprobadas y compilación TypeScript completa incluida.
+
+REFERENCIA FINANCIERA
+Se reprodujo exactamente el estudio 30.14.0: +91,28 USD modelados sobre
+20.000 USD, 33 campañas, 336 sesiones, 2025-03-11 a 2026-07-13.
+Patrimonio final modelado 20.091,28 USD; retorno compuesto 0,4564%.
+No es una nueva prueba independiente de 30.15.0 ni un saldo observado.
+La mejor campaña aporta 107,37 USD; el resto combinado pierde 16,09 USD.
+Gastos externos reales desconocidos; resultado económico completo null.
+
+EMPEZAR
+Lee docs/LEVEL7_OPERACION_30_15_0.txt y el informe YAML de esta versión.
+Las plantillas con null no son datos ni protocolos registrados.
+La evaluación ejecutada está en evidence/level7_30_15_0/final_workflow_report.json.
+
+REPRODUCCIÓN OFFLINE (directorio raíz de la aplicación)
+  python3 tools/level7_workflow.py --input evidence/level7_30_15_0/current_workflow_request.json --verify evidence/level7_30_15_0/final_workflow_report.json --output evidence/level7_30_15_0/reproduccion_usuario_nueva.json
+  node tools/verify_portfolio_validity_study.cjs
+Usa un nombre nuevo de salida; los resultados previos se conservan.
+
+PRUEBAS
+  npm run test:forward-economics
+  npm run test:level7-workflow
+El informe contiene los otros grupos y sus logs; no se declara reejecutada
+toda la suite heredada. Las pruebas usan fixtures/mocks de software.
+
+ALCANCE Y RECURSOS PENDIENTES
+Faltan cuenta y servicio identificados, observaciones prospectivas suficientes,
+recibos completos, modelos comparables y un periodo nuevo preregistrado.
+Las fronteras económicas desplazadas sólo sirven de diagnóstico; sin marcas
+exactas, se debe construir y conciliar el puente del intervalo omitido.
+El comparador actual no replica aportaciones/retiros dentro del periodo.
+El runtime vigente admite PAPER; SVR continúa en shadow/research-only.
+La importación offline de fuentes live/real no habilita una ejecución LIVE.
+No se habilitaron órdenes o despliegue.
+El informe nunca concede autorización de broker aunque cumpla el criterio 7.
+No se exige beneficio positivo por activo. Un único patrimonio financia todo.
+
+REEL
+No se pudo recuperar contenido verificable del enlace DfKbxYOAKZv.
+Se necesita vídeo/transcripción/capturas para evaluar su afirmación concreta.

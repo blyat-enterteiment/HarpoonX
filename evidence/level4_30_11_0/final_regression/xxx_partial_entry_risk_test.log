@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: partial-entry risk: pending cancellation exposes reconciled inventory and a config-based deadline without selling
+ok 1 - partial-entry risk: pending cancellation exposes reconciled inventory and a config-based deadline without selling
+  ---
+  duration_ms: 56.142018
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: timeout and cancel retries do not reset the exposure clock or repeat overdue events
+ok 2 - partial-entry risk: timeout and cancel retries do not reset the exposure clock or repeat overdue events
+  ---
+  duration_ms: 20.755954
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: restart preserves deadline and late fills update known inventory without duplicate orders
+ok 3 - partial-entry risk: restart preserves deadline and late fills update known inventory without duplicate orders
+  ---
+  duration_ms: 25.255403
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: stale snapshots, local emptiness and UNKNOWN orders cannot resolve or fabricate a flat position
+ok 4 - partial-entry risk: stale snapshots, local emptiness and UNKNOWN orders cannot resolve or fabricate a flat position
+  ---
+  duration_ms: 13.291884
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: confirmed cancellation alone stays open until broker-confirmed protection covers late fills
+ok 5 - partial-entry risk: confirmed cancellation alone stays open until broker-confirmed protection covers late fills
+  ---
+  duration_ms: 14.477417
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: another urgent position progresses and only reconciled terminal inventory resolves the tracked exposure
+ok 6 - partial-entry risk: another urgent position progresses and only reconciled terminal inventory resolves the tracked exposure
+  ---
+  duration_ms: 18.934557
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: journal rejects malformed clocks and a risk reference to another intent
+ok 7 - partial-entry risk: journal rejects malformed clocks and a risk reference to another intent
+  ---
+  duration_ms: 12.497635
+  type: 'test'
+  ...
+# Subtest: partial-entry risk: sub-step inventory stays visible and cannot be rounded into confirmed flatness
+ok 8 - partial-entry risk: sub-step inventory stays visible and cannot be rounded into confirmed flatness
+  ---
+  duration_ms: 12.28862
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 232.917675

@@ -1,0 +1,63 @@
+{
+  "status": "IMPLEMENTED_AND_TARGETED_TESTS_PASSED",
+  "new_paired_tests": 38,
+  "total_targeted_tests": 59,
+  "files": [
+    "harpoon_quant/paired_replay.py",
+    "harpoon_quant/scalar_svr.py",
+    "tests/test_paired_replay.py",
+    "examples/paired_replay/README.txt",
+    "examples/paired_replay/benchmark.py",
+    "examples/paired_replay/synthetic_request.json",
+    "examples/paired_replay/synthetic_result.json"
+  ],
+  "qa": [
+    {
+      "check": "ruff",
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    {
+      "check": "mypy",
+      "exit_code": 0,
+      "output": "Success: no issues found in 2 source files"
+    },
+    {
+      "check": "cli",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "check": "benchmark",
+      "exit_code": 0,
+      "output": "{\"repetitions\": 30, \"p50_ms\": 18.4857225, \"p95_ms\": 21.64888345, \"p99_ms\": 21.990425169999998}"
+    }
+  ],
+  "scope": "Paired allocator for unleveraged whole-share equity/ETF accounts without margin borrowing, under common time/invalidation policy; not full coordinator/plugin parity.",
+  "financial_gate": false,
+  "source_policy_parity": false,
+  "confidence_interval": "null until statistical design is preregistered",
+  "new_financial_trials": 0,
+  "calibration_contract": "One asset/session row retained; intraday decision trace supported independently.",
+  "flow_return_formula": "(E_pre_flow/E_previous)*(E_end/(E_pre_flow+F))-1",
+  "cross_review_remediations": [
+    {
+      "finding": "leveraged_factor_exposure_not_supported",
+      "action": "Reject leverage != 1 before replay; do not multiply ETF price PnL."
+    },
+    {
+      "finding": "relabelled_svr_inside_ridge_slot",
+      "action": "Require supported header and every internal model family to match its comparison slot."
+    },
+    {
+      "finding": "model_versions_with_equal_timestamp_instants",
+      "action": "Compare normalized UTC instants; retain source timestamp strings."
+    },
+    {
+      "finding": "positive_nav_with_unmodeled_negative_cash",
+      "action": "Block measurement while retaining flow/cost/fill, negative cash, inventory and incident in partial traces; preserve insolvency evidence."
+    }
+  ],
+  "cross_review_reproduction": "/workspace/scratch/4ecb05fdc50d/remediation_evidence/cross_review/paired_replay_guards_verified.json",
+  "evidence": "/workspace/scratch/4ecb05fdc50d/remediation_evidence/replay"
+}

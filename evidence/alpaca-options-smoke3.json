@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-17",
+  "scope": "Connected market-data connector only; not a validation of credentials installed in HARPOON or a trading deployment.",
+  "clock": {
+    "result": "{\"timestamp\":\"2026-10-17T15:58:20.323748-04:00\",\"is_open\":false,\"next_open\":\"2026-10-19T09:30:00-04:00\",\"next_close\":\"2026-10-19T16:00:00-04:00\"}"
+  },
+  "options": {
+    "tool": "get_option_chain",
+    "error": {
+      "code": "internal_error",
+      "message": "Failed to retrieve option chain.",
+      "details": {
+        "underlying_symbol": "SPY",
+        "original_error": "{\"message\":\"subscription does not permit querying OPRA data\"}\n"
+      }
+    },
+    "error_code": "INVALID_ARGUMENT"
+  },
+  "externalOrders": 0,
+  "paidModelCalls": 0,
+  "opraEntitlementConfirmed": false
+}

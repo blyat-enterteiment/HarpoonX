@@ -1,0 +1,294 @@
+{
+  "schema": "HARPOON_LEVEL4_READINESS_1",
+  "input_hash": "8c6c3c058975dc0956fbc8ac2d100627e91b1a7c1443c6c05c0797631155dfad",
+  "source_hashes": [
+    {
+      "path": "data/request.json",
+      "sha256": "b25d746132b05ba2831c8189d51a861886c7ab7c4191fe4257cd622f083989d8",
+      "bytes": 1123
+    },
+    {
+      "path": "data/report.json",
+      "sha256": "2287ad6ea910ea9b03168b3c0077ae5b8ecfeba24deaa5ae7f0aa3211d7f3701",
+      "bytes": 32908
+    },
+    {
+      "path": "external/cfc0bfe99dab3322ee1fb73797a76ecbe080ea683a7addfe54b588bf62cd6b15/synthetic_request.json",
+      "sha256": "cfc0bfe99dab3322ee1fb73797a76ecbe080ea683a7addfe54b588bf62cd6b15",
+      "bytes": 294483
+    },
+    {
+      "path": "external/ddc582e86531ae6752aa712b21b45a34ed02d905da5c50655f80ea0bf7441193/synthetic_report.json",
+      "sha256": "ddc582e86531ae6752aa712b21b45a34ed02d905da5c50655f80ea0bf7441193",
+      "bytes": 3007665
+    }
+  ],
+  "implementation_hashes": {
+    "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b",
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+    "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+    "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+    "runtime30/net_accounting.js": "a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7",
+    "runtime30/net_ledger_verify.js": "cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a",
+    "runtime30/net_ledger_archive.js": "84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc",
+    "runtime30/cost_receipts.js": "e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca",
+    "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8"
+  },
+  "score": 3,
+  "criterion": "INTEGRATED_OBSERVED_MEASUREMENT_NOT_PROFIT_OR_AUTONOMOUS_PROMOTION",
+  "checks": [
+    {
+      "id": "data_sources_reexecuted",
+      "passed": true,
+      "evidence": {
+        "verified": true,
+        "verification": {
+          "schema": "HARPOON_CAUSAL_PANEL_VERIFICATION_1",
+          "verified": true,
+          "input_hash": "c19f0fcb9c9dcae203a0aff350cbc5c14732e1df2f203509ec011fa068f8feb1",
+          "expected_artifact_hash": "0bcbb91d21942003d3f3edb793495c6a7bcd3dd5c3d210775793b05f5f442a59",
+          "observed_artifact_hash": "0bcbb91d21942003d3f3edb793495c6a7bcd3dd5c3d210775793b05f5f442a59",
+          "source_recomputed": true,
+          "causal_rows_admissible": 0,
+          "reconstructed_feature_rows": 8,
+          "financial_acceptance_allowed": false,
+          "execution_allowed": false
+        },
+        "artifact_hash": "0bcbb91d21942003d3f3edb793495c6a7bcd3dd5c3d210775793b05f5f442a59",
+        "counts": {
+          "prospective_frames": 0,
+          "causal_rows_admissible": 0,
+          "reconstructed_feature_rows": 8
+        },
+        "readiness": {
+          "status": "MEDICION_BLOQUEADA",
+          "observed_rows": 0,
+          "distinct_sessions": 0,
+          "accepted_rows": 0,
+          "reason": "SVR_ROW_LIMIT",
+          "training_executed": false,
+          "required_observation_unit": "ONE_ROW_PER_ASSET_SESSION",
+          "minimum_distinct_sessions_contract": 100,
+          "note": "Multiple decision records in replay do not create independent calibration sessions.",
+          "execution_allowed": false
+        }
+      }
+    },
+    {
+      "id": "observed_admissible_panel",
+      "passed": false,
+      "evidence": {
+        "origin": "OBSERVED",
+        "causal_rows": 0,
+        "reconstructed_rows": 8,
+        "accepted_rows": 0
+      }
+    },
+    {
+      "id": "three_policy_comparison_reexecuted",
+      "passed": false,
+      "evidence": {
+        "verified": true,
+        "verification": {
+          "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+          "verified": true,
+          "mismatches": [],
+          "input_hash": "e5d67de6dc0448499c7bcfa5cc2e170fdff8133b53317687549e95b48fad34e0",
+          "expected_artifact_hash": "efd8e1a53839bb89caa9defaa0f21308c2f68791fa292a2ae0ccf46b92696637",
+          "observed_artifact_hash": "efd8e1a53839bb89caa9defaa0f21308c2f68791fa292a2ae0ccf46b92696637",
+          "real_coordinator_and_predictors_reexecuted": true,
+          "execution_allowed": false,
+          "liveApproved": false,
+          "financial_acceptance_allowed": false
+        },
+        "status": "ENGINEERING_ONLY",
+        "artifact_hash": "efd8e1a53839bb89caa9defaa0f21308c2f68791fa292a2ae0ccf46b92696637",
+        "period": {
+          "start_at": 1792078210000,
+          "end_at": 1792078211001,
+          "session_ids": [
+            "2026-10-15"
+          ]
+        },
+        "market_binding_error": "COMPARISON_MARKET_RECEIPT_BINDING_MISSING"
+      }
+    },
+    {
+      "id": "comparison_market_receipts_bound",
+      "passed": false,
+      "evidence": {
+        "reason": "COMPARISON_MARKET_RECEIPT_BINDING_MISSING"
+      }
+    },
+    {
+      "id": "ledger_history_reconstructed",
+      "passed": false,
+      "evidence": null
+    },
+    {
+      "id": "observed_complete_net_account_curve",
+      "passed": false,
+      "evidence": null
+    },
+    {
+      "id": "applicable_broker_accruals_verified",
+      "passed": false,
+      "evidence": {
+        "documented_amount_usd": null,
+        "from": null,
+        "through": null,
+        "verified_period_from": null,
+        "verified_period_through": null,
+        "current_account_amount_usd": null,
+        "current_account_claim": null,
+        "recomputed_by_ledger_verifier": null,
+        "current_scope_verified": null
+      }
+    },
+    {
+      "id": "models_bound_to_causal_panel_before_decisions",
+      "passed": false,
+      "evidence": [
+        {
+          "model": "RIDGE",
+          "passed": false,
+          "model_data_hash": null,
+          "panel_hash": "af552e9b1fa829675665d128360fc64ed2db1cae6ba96eacb9dfe0b8416378f8",
+          "available_at": "2026-10-14T12:00:00+00:00",
+          "comparison_start_at": 1792078210000
+        },
+        {
+          "model": "SVR",
+          "passed": false,
+          "model_data_hash": null,
+          "panel_hash": "af552e9b1fa829675665d128360fc64ed2db1cae6ba96eacb9dfe0b8416378f8",
+          "available_at": "2026-10-14T12:00:00+00:00",
+          "comparison_start_at": 1792078210000
+        }
+      ]
+    },
+    {
+      "id": "account_and_measurement_periods_bound",
+      "passed": false,
+      "evidence": {
+        "account_id": null,
+        "market_account_id": null,
+        "ledger_from": null,
+        "ledger_economic_prefix_through": null,
+        "ledger_last_observation_at": null,
+        "comparison_from": 1792078210000,
+        "comparison_through": 1792078211001
+      }
+    },
+    {
+      "id": "external_cost_total_bound",
+      "passed": false,
+      "evidence": {
+        "ledger_period_external_cost_usd": null,
+        "modeled_external_cost_usd": 1,
+        "cost_timing": "COMPARISON_LUMP_SUM_IS_STILL_AN_EXPLICIT_MODEL"
+      }
+    }
+  ],
+  "blockers": [
+    "OBSERVED_CAUSAL_CALIBRATION_PANEL_NOT_AVAILABLE",
+    "OBSERVED_THREE_POLICY_COMPARISON_NOT_AVAILABLE",
+    "COMPARISON_MARKET_RECEIPT_BINDING_MISSING",
+    "RECONCILED_ACCOUNT_HISTORY_MISSING_OR_INVALID",
+    "OBSERVED_ACCOUNT_CURVE_OR_COST_COVERAGE_INCOMPLETE",
+    "APPLICABLE_BROKER_ACCRUALS_NOT_VERIFIED",
+    "MODEL_PANEL_HASH_OR_CHRONOLOGY_BINDING_MISSING",
+    "ACCOUNT_OR_PERIOD_BINDING_MISSING",
+    "COMPARISON_EXTERNAL_COST_NOT_BOUND_TO_ACCOUNT_PERIOD"
+  ],
+  "components": {
+    "data": {
+      "verified": true,
+      "verification": {
+        "schema": "HARPOON_CAUSAL_PANEL_VERIFICATION_1",
+        "verified": true,
+        "input_hash": "c19f0fcb9c9dcae203a0aff350cbc5c14732e1df2f203509ec011fa068f8feb1",
+        "expected_artifact_hash": "0bcbb91d21942003d3f3edb793495c6a7bcd3dd5c3d210775793b05f5f442a59",
+        "observed_artifact_hash": "0bcbb91d21942003d3f3edb793495c6a7bcd3dd5c3d210775793b05f5f442a59",
+        "source_recomputed": true,
+        "causal_rows_admissible": 0,
+        "reconstructed_feature_rows": 8,
+        "financial_acceptance_allowed": false,
+        "execution_allowed": false
+      },
+      "artifact_hash": "0bcbb91d21942003d3f3edb793495c6a7bcd3dd5c3d210775793b05f5f442a59",
+      "counts": {
+        "prospective_frames": 0,
+        "causal_rows_admissible": 0,
+        "reconstructed_feature_rows": 8
+      },
+      "readiness": {
+        "status": "MEDICION_BLOQUEADA",
+        "observed_rows": 0,
+        "distinct_sessions": 0,
+        "accepted_rows": 0,
+        "reason": "SVR_ROW_LIMIT",
+        "training_executed": false,
+        "required_observation_unit": "ONE_ROW_PER_ASSET_SESSION",
+        "minimum_distinct_sessions_contract": 100,
+        "note": "Multiple decision records in replay do not create independent calibration sessions.",
+        "execution_allowed": false
+      }
+    },
+    "comparison": {
+      "verified": true,
+      "verification": {
+        "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+        "verified": true,
+        "mismatches": [],
+        "input_hash": "e5d67de6dc0448499c7bcfa5cc2e170fdff8133b53317687549e95b48fad34e0",
+        "expected_artifact_hash": "efd8e1a53839bb89caa9defaa0f21308c2f68791fa292a2ae0ccf46b92696637",
+        "observed_artifact_hash": "efd8e1a53839bb89caa9defaa0f21308c2f68791fa292a2ae0ccf46b92696637",
+        "real_coordinator_and_predictors_reexecuted": true,
+        "execution_allowed": false,
+        "liveApproved": false,
+        "financial_acceptance_allowed": false
+      },
+      "status": "ENGINEERING_ONLY",
+      "artifact_hash": "efd8e1a53839bb89caa9defaa0f21308c2f68791fa292a2ae0ccf46b92696637",
+      "period": {
+        "start_at": 1792078210000,
+        "end_at": 1792078211001,
+        "session_ids": [
+          "2026-10-15"
+        ]
+      },
+      "market_binding_error": "COMPARISON_MARKET_RECEIPT_BINDING_MISSING"
+    },
+    "ledger": null
+  },
+  "implemented": {
+    "causal_panel_builder": true,
+    "funded_three_policy_producer": true,
+    "ledger_history_verifier": true,
+    "source_reexecution_and_bindings": true
+  },
+  "observed": {
+    "causal_data": false,
+    "account_and_costs": false,
+    "account_and_costs_scope": "CLOSED_ECONOMIC_PREFIX_ONLY",
+    "current_account_economic_complete": null,
+    "three_policy_comparison": false,
+    "market_receipts": false
+  },
+  "financial_profitability_demonstrated": false,
+  "full_autonomous_economic_cycle_verified": false,
+  "training_provenance_independently_verified": false,
+  "source_authenticity_independently_verified": false,
+  "execution_allowed": false,
+  "liveApproved": false,
+  "financial_acceptance_allowed": false,
+  "limitations": [
+    "Score 4 concerns integrated measurement only and can coexist with losses.",
+    "Quotes and local receipts do not authenticate a provider independently or establish executable depth.",
+    "Comparison fills, liquidity, timing and costs retain their explicitly modeled scope.",
+    "Models are checked against panel hashes and chronology; training is not rerun and independent training provenance is not certified.",
+    "Ledger amounts include reported and declared costs; unknown broker accruals and unspecified taxes remain outside proven completeness."
+  ],
+  "artifact_hash": "cd7e4530ec72d5e322b7165840ee443cac97ef781876f2e9ed69f59ff4b537c1"
+}

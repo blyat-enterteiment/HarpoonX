@@ -1,0 +1,110 @@
+{
+  "scope": "Core numérico Python; causalidad de Ridge y coherencia monetaria del asignador",
+  "nature": "SYNTHETIC_ENGINEERING_ONLY",
+  "findings": [
+    {
+      "id": "CORE5-Q1",
+      "mechanism": "Ridge entrenaba y elegía parámetros con etiquetas cuya publicación era posterior a la frontera de validación o prueba, aunque el horizonte ya había terminado.",
+      "remediation": "Purga estricta por label_end y label_known_at en ambas fronteras; metadatos de disponibilidad y frontera exportados para ajustes nuevos.",
+      "evidence": [
+        "before.json",
+        "after.json",
+        "counterexamples.py"
+      ],
+      "functions": [
+        "harpoon_quant.calibration.fit"
+      ],
+      "new_provenance_fields": [
+        "train_max_label_known_at",
+        "selection_train_max_label_end",
+        "selection_train_max_label_known_at",
+        "first_validation_at"
+      ]
+    },
+    {
+      "id": "CORE5-Q2",
+      "mechanism": "El coste de financiación utilizaba entry por debajo de ask, mientras el PnL simulaba max(ask,entry), permitiendo reservar menos efectivo que el necesario.",
+      "remediation": "Instrument() reserva el mismo precio base y slippage referido a ask que pnl_lot(), más ambas comisiones; valida quotes, entry, costes y cantidades monetarias finitas. El contrato de margen de futuros se conserva.",
+      "evidence": [
+        "before.json",
+        "after.json",
+        "counterexamples.py"
+      ],
+      "functions": [
+        "harpoon_quant.core.instrument"
+      ],
+      "before_cash_available_usd": 250,
+      "before_selected_quantity": 49,
+      "before_reported_reservation_usd": 49.049,
+      "before_modeled_execution_need_usd": 4907.35245,
+      "after_selected_quantity": 2,
+      "after_reservation_and_modeled_execution_need_usd": 200.3001
+    }
+  ],
+  "tests": [
+    {
+      "log": "new_tests_final.log",
+      "tests": 12,
+      "seconds": 0.045,
+      "passed": true,
+      "sha256": "12f9f6e9dc228807840a15b7e5dc8a9a2be7bb9f5e426e61e0ec7657c0325cc4"
+    },
+    {
+      "log": "core_regression.log",
+      "tests": 37,
+      "seconds": 1.55,
+      "passed": true,
+      "sha256": "6de697e6d68bf18048e9fb5cbf3f7823bbb5d33ddba1835f7391319390950f24"
+    },
+    {
+      "log": "svr_regression.log",
+      "tests": 21,
+      "seconds": 4.078,
+      "passed": true,
+      "sha256": "82bd336cafbbffcfdfe3991c10960540bd869dfc7236e2e9397362a0734e94c3"
+    }
+  ],
+  "functional_tests_executed": 70,
+  "new_tests": 12,
+  "static": {
+    "ruff_passed": true,
+    "log": "static.log",
+    "initial_import_order_failure_retained": "static_initial.log"
+  },
+  "types": {
+    "mypy_passed": true,
+    "source_files": 2,
+    "log": "types.log"
+  },
+  "source_hashes": {
+    "quant/harpoon_quant/core.py": "41eb71676d3da5089d4d1cd162451ad707670afef22b7d9f4d9c816bcfab6317",
+    "quant/harpoon_quant/calibration.py": "dcdeead19082a666883b1528403cd01ca8f10020fb15b45bb4f4294d2eddd8c1",
+    "quant/tests/test_core5_numeric.py": "4acc7f6c06ffe95057b3fd3c02827c7bcf0950ded11a42739fcab1ffafe50fb2"
+  },
+  "benchmark": {
+    "source": "quant/benchmark.py::run",
+    "calls_per_version": 5,
+    "allocator_calls_per_version": 15,
+    "candidates": 48,
+    "scenarios": 256,
+    "before_median_ms": 17.21726099640364,
+    "after_median_ms": 16.43140600208426,
+    "logs": [
+      "benchmark_48_before.json",
+      "benchmark_48_after.json"
+    ],
+    "interpretation": "Solo medición descriptiva local de CPU; no se afirma mejora estadística de velocidad ni de rentabilidad. Primer microbenchmark exploratorio de 3 candidatos conservado por separado y no utilizado para inferencia."
+  },
+  "limitations": [
+    "Modelos Ridge anteriores no adquieren purga causal retroactiva; se conservan originales y su procedencia. Aplicar el ajuste corregido requiere nuevos artefactos de entrenamiento admisible y evaluación temporal nueva cuando corresponda.",
+    "Los metadatos son recibos locales del cálculo, no autenticación externa independiente de disponibilidad de etiquetas.",
+    "Cambiar core.py o calibration.py invalida por diseño implementation_hash de modelos SVR sellados con otra implementación; nunca cambiar sus hashes para forzar aceptación. Solo fixtures sintéticos explícitos pueden regenerarse como pruebas.",
+    "No se realizaron nuevos ensayos financieros, ni se elevaron límites o calificación económica; los ajustes de prueba usan exclusivamente datos sintéticos.",
+    "El asignador conserva ejecución modelada agresiva a ask. Una sugerencia entry inferior no implementa prioridad de cola ni una ejecución pasiva realizable."
+  ],
+  "financial_trials": 0,
+  "real_account_orders": 0,
+  "economic_score_changed": false,
+  "external_validation": false,
+  "cross_review": "requested_from_core5_adversary; same workspace, not independent external validation"
+}

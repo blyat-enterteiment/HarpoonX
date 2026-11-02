@@ -1,0 +1,87 @@
+{
+  "scope": "INTERNAL_ADVERSARIAL_REVIEW_NOT_EXTERNAL_VALIDATION",
+  "source_hashes": {
+    "quant/harpoon_quant/bridge.py": "977695014bf04388465e06aef442a836a0848741247351bb9af22520ead72d1e",
+    "quant/harpoon_quant/core.py": "41eb71676d3da5089d4d1cd162451ad707670afef22b7d9f4d9c816bcfab6317",
+    "quant/harpoon_quant/calibration.py": "dcdeead19082a666883b1528403cd01ca8f10020fb15b45bb4f4294d2eddd8c1"
+  },
+  "bridge_counterexamples": [
+    {
+      "case": "original_fixture",
+      "passed": true,
+      "reason": "CONDITIONAL_MODEL_ALLOCATION"
+    },
+    {
+      "case": "stricter_asset_cap",
+      "passed": true,
+      "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY"
+    },
+    {
+      "case": "stricter_gross_cap",
+      "passed": true,
+      "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY"
+    },
+    {
+      "case": "stricter_factor_cap",
+      "passed": true,
+      "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY"
+    },
+    {
+      "case": "stricter_daily_loss",
+      "passed": true,
+      "reason": "ACCOUNT_RISK_PAUSE"
+    },
+    {
+      "case": "stricter_drawdown",
+      "passed": true,
+      "reason": "ACCOUNT_RISK_PAUSE"
+    },
+    {
+      "case": "larger_slippage_assumption",
+      "passed": true,
+      "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY"
+    },
+    {
+      "case": "zero_quote_age",
+      "passed": true,
+      "reason": "NO_ADMISSIBLE_CALIBRATED_CANDIDATES"
+    },
+    {
+      "case": "zero_daily_loss",
+      "passed": true,
+      "reason": "ACCOUNT_RISK_PAUSE"
+    },
+    {
+      "case": "zero_drawdown",
+      "passed": true,
+      "reason": "ACCOUNT_RISK_PAUSE"
+    },
+    {
+      "case": "invalid_zero_positions",
+      "passed": true,
+      "reason": "COMPUTE_BUDGET"
+    },
+    {
+      "case": "negative_risk_rejected_direct_but_ignored_in_bridge",
+      "passed": true,
+      "reason": "NEGATIVE_gross_fraction"
+    },
+    {
+      "case": "boolean_risk_rejected_direct_but_ignored_in_bridge",
+      "passed": true,
+      "reason": "INVALID_gross_fraction"
+    }
+  ],
+  "bridge_passed": true,
+  "numeric_code_review": {
+    "files": [
+      "quant/harpoon_quant/core.py",
+      "quant/harpoon_quant/calibration.py"
+    ],
+    "findings_new_material": [],
+    "method": "Reviewed funding against pnl_lot for cash products/options and explicit futures margin special case; reviewed train/validation/test availability boundaries and regression tests. Execution evidence is supplied by implementation agent separately.",
+    "limitation": "Not an exhaustive audit of the whole quant package."
+  },
+  "economic_score_changed": false,
+  "financial_approval": false
+}

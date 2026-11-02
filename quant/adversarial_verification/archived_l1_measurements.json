@@ -1,0 +1,52 @@
+{
+  "origin": "OBSERVED_ARCHIVED_BACKFILL",
+  "period": [
+    "2026-10-28T14:00:00+00:00",
+    "2026-10-28T14:00:02+00:00"
+  ],
+  "limitations": [
+    "Market-event clock; original receive, decision and execution timestamps absent",
+    "Two-second sample; empirical percentiles do not estimate stable tail latency",
+    "Top of book quotes do not guarantee executable depth or fill probability",
+    "Raw archived events filtered only for positive prices/sizes and ask above bid"
+  ],
+  "assets": {
+    "AAPL": {
+      "raw_quotes": 231,
+      "valid_quotes": 231,
+      "first_event": "2026-10-28T14:00:00.002385+00:00",
+      "last_event": "2026-10-28T14:00:01.403436+00:00",
+      "interevent_samples": 230,
+      "market_quote_events_per_second": 164.16247517042564,
+      "market_interevent_ms": {
+        "p50": 0.0635,
+        "p95": 31.642849999999942,
+        "p99": 125.98963000000028
+      },
+      "spread_bps": {
+        "p50": 1.1603283729301326,
+        "p95": 2.030721923351998,
+        "p99": 2.320818322179998
+      }
+    },
+    "NVDA": {
+      "raw_quotes": 179,
+      "valid_quotes": 175,
+      "first_event": "2026-10-28T14:00:00.006877+00:00",
+      "last_event": "2026-10-28T14:00:01.971243+00:00",
+      "interevent_samples": 174,
+      "market_quote_events_per_second": 88.57819774929926,
+      "market_interevent_ms": {
+        "p50": 0.16949999999999998,
+        "p95": 71.33124999999994,
+        "p99": 129.62560000000025
+      },
+      "spread_bps": {
+        "p50": 0.9178522257921172,
+        "p95": 1.376809931389024,
+        "p99": 1.376809931389024
+      }
+    }
+  },
+  "trade_execution_allowed": false
+}

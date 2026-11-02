@@ -1,0 +1,13 @@
+'use strict';
+const assert=require('node:assert/strict'),http=require('http'),{once}=require('events'),{edge,route}=require('../deploy/managed.cjs'),fs=require('fs'),path=require('path');
+(async()=>{let received;const upstream=http.createServer(async(req,res)=>{let body='';for await(const c of req)body+=c;received={url:req.url,auth:req.headers.authorization,length:req.headers['content-length'],body};res.setHeader('Content-Type','application/json');res.end('{"ok":true}')});upstream.listen(0,'127.0.0.1');await once(upstream,'listening');const port=upstream.address().port;const server=edge({password:'p'.repeat(32),token:'engine-secret',gptToken:'gpt-secret',workers:new Map([['crypto',{}],['gpt',{}]]),ports:{crypto:port,gpt:port},html:Buffer.from('HARPOON')});server.listen(0,'127.0.0.1');await once(server,'listening');const base='http://127.0.0.1:'+server.address().port;let n=0;const auth='Basic '+Buffer.from('trader:'+'p'.repeat(32)).toString('base64');
+try{assert.equal((await fetch(base+'/')).status,401);n++;
+assert.equal(await(await fetch(base+'/',{headers:{Authorization:auth}})).text(),'HARPOON');n++;
+assert.equal((await fetch(base+'/crypto/v1/pause',{method:'POST',headers:{Authorization:auth}})).status,403);n++;
+const r=await fetch(base+'/crypto/v1/gates',{method:'POST',headers:{Authorization:auth,'X-Harpoon-Action':'1','Content-Type':'application/json'},body:'{"hot":false,"cold":false}'});assert.equal(r.status,200);assert.equal(received.auth,'Bearer engine-secret');assert.equal(Number(received.length),Buffer.byteLength(received.body));n++;
+assert.equal((await fetch(base+'/gpt/v1/health',{headers:{Authorization:auth}})).status,401);n++;
+assert.equal((await fetch(base+'/gpt/v1/health',{headers:{Authorization:'Bearer gpt-secret'}})).status,200);assert.equal(received.auth,'Bearer gpt-secret');n++;
+assert.equal((await fetch(base+'/equity/v1/state',{headers:{Authorization:auth}})).status,404);n++;
+assert.equal(route('/anything/secret'),null);n++;
+const report={checks:n,passed:n,scope:'Actual HTTP proxy with local upstream fixture; no TLS provider deployment'};fs.writeFileSync(path.join(__dirname,'../evidence/edge_tests.json'),JSON.stringify(report,null,2));console.log(report);
+}finally{server.closeAllConnections();upstream.closeAllConnections();server.close();upstream.close();}})().catch(e=>{console.error(e);process.exitCode=1});

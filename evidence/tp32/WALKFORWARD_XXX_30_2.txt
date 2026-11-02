@@ -1,0 +1,303 @@
+HARPOON XXX 30.2 — TAKE PROFIT / WALK-FORWARD
+Fecha: 2026-10-18T16:46:57.513832+00:00
+
+RESULTADO: BASELINE_30_1
+Activación automática: NO. Las ejecuciones se modelaron sobre barras reales, no son fills ni rendimientos reales.
+
+MÉTODO
+Tres políticas registradas antes del cálculo. 12 ventanas de prueba de 21 sesiones, entrenamiento previo de 126 sesiones, purga de 72 horas y embargo de 3 sesiones. Holdout final separado de 63 sesiones.
+OOS: 2025-05-30 a 2026-07-20. Holdout: 2026-07-21 a 2026-10-16.
+Intervalos bootstrap por bloques de 5 sesiones; 4,000 remuestreos; confianza ajustada por 3 ensayos: 0.9833333333333333
+
+COMPARACIÓN A ENTRADAS Y RIESGO FIJOS (NO ES RENTABILIDAD DE UNA CUENTA)
+
+BASELINE_30_1
+oos: 7 operaciones; neto estimado USD -53.12; retorno sobre unidad de capital -0.27%; DD diario 0.45%; Sharpe HAC -0.9753154863515144; Sortino -1.1010869372867271; PF 0.4101177567064756; esperanza R -0.12449222103561643.
+holdout: 5 operaciones; neto estimado USD -45.68; retorno sobre unidad de capital -0.23%; DD diario 0.23%; Sharpe HAC -3.893151514610357; Sortino -4.047523042085304; PF 0.0; esperanza R -0.48335886194420774.
+stressOos: 0 operaciones; neto estimado USD 0.00; retorno sobre unidad de capital 0.00%; DD diario 0.00%; Sharpe HAC None; Sortino None; PF None; esperanza R None.
+stressHoldout: 0 operaciones; neto estimado USD 0.00; retorno sobre unidad de capital 0.00%; DD diario 0.00%; Sharpe HAC None; Sortino None; PF None; esperanza R None.
+delayedOos: 5 operaciones; neto estimado USD -18.25; retorno sobre unidad de capital -0.09%; DD diario 0.21%; Sharpe HAC -0.4831313476968033; Sortino -0.6203844659299588; PF 0.6086136473998678; esperanza R -0.019198034255611583.
+partialOos: 7 operaciones; neto estimado USD -26.66; retorno sobre unidad de capital -0.13%; DD diario 0.22%; Sharpe HAC -1.0425699689736763; Sortino -1.160318856792241; PF 0.3840731399620933; esperanza R -0.1208458519143122.
+
+TREND_RUNNER
+oos: 7 operaciones; neto estimado USD -113.81; retorno sobre unidad de capital -0.57%; DD diario 0.67%; Sharpe HAC -1.8531090877995946; Sortino -1.8649857417207436; PF 0.14800572358273156; esperanza R -0.49603453856157376.
+holdout: 5 operaciones; neto estimado USD -6.43; retorno sobre unidad de capital -0.03%; DD diario 0.17%; Sharpe HAC -0.37919473815032406; Sortino -0.4337295583523793; PF 0.9096399452258416; esperanza R 0.0934778224203685.
+stressOos: 0 operaciones; neto estimado USD 0.00; retorno sobre unidad de capital 0.00%; DD diario 0.00%; Sharpe HAC None; Sortino None; PF None; esperanza R None.
+stressHoldout: 0 operaciones; neto estimado USD 0.00; retorno sobre unidad de capital 0.00%; DD diario 0.00%; Sharpe HAC None; Sortino None; PF None; esperanza R None.
+delayedOos: 5 operaciones; neto estimado USD -48.09; retorno sobre unidad de capital -0.24%; DD diario 0.34%; Sharpe HAC -1.2016339758901924; Sortino -1.368305715196323; PF 0.29929104752441965; esperanza R -0.2744592879300233.
+partialOos: 7 operaciones; neto estimado USD -57.01; retorno sobre unidad de capital -0.29%; DD diario 0.32%; Sharpe HAC -1.9521349901126526; Sortino -1.9282563036247329; PF 0.12171627227402812; esperanza R -0.510214885843908.
+Criterios: {"gates": {"oosSample": false, "holdoutSample": false, "oosPositive": false, "holdoutPositive": false, "pairedOosLowerPositive": false, "pairedHoldoutLowerPositive": false, "oosDrawdownNoWorse": false, "holdoutDrawdownNoWorse": true, "tailNoWorse": false, "doubleCostsPositive": false, "doubleCostsPairedLowerPositive": false, "improvedFoldFraction": false}, "passed": false, "pairedDailyExcessLower": -2.8256207246240116e-05, "holdoutPairedDailyExcessLower": -1.757545025306107e-05, "doubleCostsDailyExcessLower": 0.0}
+
+REGIME_ADAPTIVE
+oos: 7 operaciones; neto estimado USD -90.77; retorno sobre unidad de capital -0.45%; DD diario 0.54%; Sharpe HAC -1.6216917571184224; Sortino -1.641338213637602; PF 0.1626473203503369; esperanza R -0.33874347908970076.
+holdout: 5 operaciones; neto estimado USD -50.09; retorno sobre unidad de capital -0.25%; DD diario 0.25%; Sharpe HAC -3.6722269406004537; Sortino -3.662232244073338; PF 0.0; esperanza R -0.5241772338757101.
+stressOos: 0 operaciones; neto estimado USD 0.00; retorno sobre unidad de capital 0.00%; DD diario 0.00%; Sharpe HAC None; Sortino None; PF None; esperanza R None.
+stressHoldout: 0 operaciones; neto estimado USD 0.00; retorno sobre unidad de capital 0.00%; DD diario 0.00%; Sharpe HAC None; Sortino None; PF None; esperanza R None.
+delayedOos: 5 operaciones; neto estimado USD -40.23; retorno sobre unidad de capital -0.20%; DD diario 0.23%; Sharpe HAC -1.361124403489541; Sortino -1.3555911808007293; PF 0.15602722923785958; esperanza R -0.23193902245821885.
+partialOos: 7 operaciones; neto estimado USD -44.52; retorno sobre unidad de capital -0.22%; DD diario 0.26%; Sharpe HAC -1.6613234026869923; Sortino -1.6700460829653125; PF 0.1510607279250212; esperanza R -0.33714430160874176.
+Criterios: {"gates": {"oosSample": false, "holdoutSample": false, "oosPositive": false, "holdoutPositive": false, "pairedOosLowerPositive": false, "pairedHoldoutLowerPositive": false, "oosDrawdownNoWorse": false, "holdoutDrawdownNoWorse": false, "tailNoWorse": false, "doubleCostsPositive": false, "doubleCostsPairedLowerPositive": false, "improvedFoldFraction": false}, "passed": false, "pairedDailyExcessLower": -2.262517104912364e-05, "holdoutPairedDailyExcessLower": -1.8929271621429197e-05, "doubleCostsDailyExcessLower": 0.0}
+
+CARTERA CON RESTRICCIONES DE CAPITAL / HOLDOUT
+{
+  "BASELINE_30_1": {
+    "base": {
+      "trades": 5,
+      "sessions": 63,
+      "netUsd": -45.677984985198236,
+      "netReturn": -0.002283899249259912,
+      "sharpeHac": -3.893151514610357,
+      "sortino": -4.047523042085304,
+      "maxDrawdownDaily": 0.002283899249259957,
+      "expectedShortfall95Daily": 0.0005280860195749825,
+      "profitFactor": 0.0,
+      "winRate": 0.0,
+      "expectancyUsd": -9.135596997039647,
+      "expectancyR": -0.48335886194420774,
+      "feesEstimatedUsd": 0,
+      "observedBarMfeGivebackUsd": 65.53604965919976,
+      "captureOfPositivePeak": -1.9423024050120823,
+      "ambiguousStopTargetBars": 0
+    },
+    "stress": {
+      "trades": 0,
+      "sessions": 63,
+      "netUsd": 0,
+      "netReturn": 0.0,
+      "sharpeHac": null,
+      "sortino": null,
+      "maxDrawdownDaily": 0.0,
+      "expectedShortfall95Daily": -0.0,
+      "profitFactor": null,
+      "winRate": null,
+      "expectancyUsd": null,
+      "expectancyR": null,
+      "feesEstimatedUsd": 0,
+      "observedBarMfeGivebackUsd": 0,
+      "captureOfPositivePeak": null,
+      "ambiguousStopTargetBars": 0
+    }
+  },
+  "TREND_RUNNER": {
+    "base": {
+      "trades": 5,
+      "sessions": 63,
+      "netUsd": -6.429623905355584,
+      "netReturn": -0.0003214811952677792,
+      "sharpeHac": -0.37919473815032406,
+      "sortino": -0.4337295583523793,
+      "maxDrawdownDaily": 0.0016947837668151004,
+      "expectedShortfall95Daily": 0.000693861535035694,
+      "profitFactor": 0.9096399452258416,
+      "winRate": 0.2,
+      "expectancyUsd": -1.2859247810711167,
+      "expectancyR": 0.0934778224203685,
+      "feesEstimatedUsd": 0,
+      "observedBarMfeGivebackUsd": 111.85014261685683,
+      "captureOfPositivePeak": 0.05866948763143661,
+      "ambiguousStopTargetBars": 1
+    },
+    "stress": {
+      "trades": 0,
+      "sessions": 63,
+      "netUsd": 0,
+      "netReturn": 0.0,
+      "sharpeHac": null,
+      "sortino": null,
+      "maxDrawdownDaily": 0.0,
+      "expectedShortfall95Daily": -0.0,
+      "profitFactor": null,
+      "winRate": null,
+      "expectancyUsd": null,
+      "expectancyR": null,
+      "feesEstimatedUsd": 0,
+      "observedBarMfeGivebackUsd": 0,
+      "captureOfPositivePeak": null,
+      "ambiguousStopTargetBars": 0
+    }
+  },
+  "REGIME_ADAPTIVE": {
+    "base": {
+      "trades": 5,
+      "sessions": 63,
+      "netUsd": -50.09340314719839,
+      "netReturn": -0.0025046701573599194,
+      "sharpeHac": -3.6722269406004537,
+      "sortino": -3.662232244073338,
+      "maxDrawdownDaily": 0.002504670157359942,
+      "expectedShortfall95Daily": 0.0005854887913399806,
+      "profitFactor": 0.0,
+      "winRate": 0.0,
+      "expectancyUsd": -10.018680629439677,
+      "expectancyR": -0.5241772338757101,
+      "feesEstimatedUsd": 0,
+      "observedBarMfeGivebackUsd": 69.95146782119991,
+      "captureOfPositivePeak": -2.15408785389857,
+      "ambiguousStopTargetBars": 0
+    },
+    "stress": {
+      "trades": 0,
+      "sessions": 63,
+      "netUsd": 0,
+      "netReturn": 0.0,
+      "sharpeHac": null,
+      "sortino": null,
+      "maxDrawdownDaily": 0.0,
+      "expectedShortfall95Daily": -0.0,
+      "profitFactor": null,
+      "winRate": null,
+      "expectancyUsd": null,
+      "expectancyR": null,
+      "feesEstimatedUsd": 0,
+      "observedBarMfeGivebackUsd": 0,
+      "captureOfPositivePeak": null,
+      "ambiguousStopTargetBars": 0
+    }
+  }
+}
+
+COBERTURA
+{
+  "AAPL": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "MSFT": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "NVDA": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "SPY": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "SPXL": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "SPXS": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "BTC/USD": {
+    "observedBars": 129978,
+    "expectedBars": 223488,
+    "missingBarCount": 93510,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 88232,
+    "duplicateIdentical": 0,
+    "first": 1725154800000,
+    "last": 1792195200000
+  },
+  "ETH/USD": {
+    "observedBars": 89536,
+    "expectedBars": 223488,
+    "missingBarCount": 133952,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 128249,
+    "duplicateIdentical": 0,
+    "first": 1725155400000,
+    "last": 1792195200000
+  },
+  "XLK": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  },
+  "SMH": {
+    "observedBars": 41394,
+    "expectedBars": 41394,
+    "missingBarCount": 0,
+    "quarantinedInvalidBars": 0,
+    "zeroVolumeBarsExcluded": 0,
+    "duplicateIdentical": 0,
+    "first": 1725370200000,
+    "last": 1792180500000
+  }
+}
+
+EXCLUSIONES
+{
+  "BASELINE_30_1": {
+    "CRYPTO_DATA_GAP": 75,
+    "ENTRY_DATA_GAP": 12,
+    "UNFILLED_ENTRY_LIMIT": 12
+  },
+  "TREND_RUNNER": {
+    "CRYPTO_DATA_GAP": 63,
+    "ENTRY_DATA_GAP": 12,
+    "UNFILLED_ENTRY_LIMIT": 12
+  },
+  "REGIME_ADAPTIVE": {
+    "CRYPTO_DATA_GAP": 52,
+    "ENTRY_DATA_GAP": 12,
+    "UNFILLED_ENTRY_LIMIT": 12
+  }
+}
+
+LIMITACIONES
+- Prices are historical OHLCV/VWAP; bid/ask and all fills are modeled, not observed NBBO.
+- Configured canonical entries only; 61 plugin variants are not 61 independently validated strategies.
+- No historical option quotes available through connected source; no option PnL simulated.
+- Missing bars are not interpolated; fills across data gaps excluded.
+- Universe chosen by existing release, not a point-in-time broad stock universe.
+- Three-second bar-arrival and 15-second signal/20-second order TTL cannot be reconstructed; bar fills are comparative research only.
+- Funded portfolio models single long entry, shared capital/exposure constraints and no borrowing; broker queue/impact and settlement not reproduced.
+- Intrabar adverse stop precedence; trailing updates at bar close, not a one-second production replay.
+- Crypto channel exit shared with native signal; no proprietary tape/ASTRA/options-context reconstruction.
+- Daily HAC Sharpe, Sortino and tail risk use exchange sessions; weekend crypto marks accumulate into the next exchange close.
+- Fixed entry cohort comparison is an opportunity study with overlapping positions; funded portfolio is reported separately.
+- Purged window ends exclude opportunities whose complete maximum-hold label would cross the boundary.
+- Bar MFE capture is relative to observed close marks; it is not intrabar omniscient maximum or guaranteed attainable profit.
+- No account-level real returns, no championship-equivalent futures/forex adapter or contest registration.
+- Historical stock/ETF feed is SIP; runtime default is IEX. Matching-feed prospective validation and feed permissions remain required.
+
+LECTURA CORRECTA
+No se promete una mejora drástica. Si ningún candidato supera todos los criterios se conserva la referencia. Los arreglos de cancelación, stop y reconciliación se validan con pruebas de fallos, no se les atribuye PnL que estas barras no permiten medir.
+El 11,376% de Larry Williams corresponde a 1987 según la organización. La competición es de futuros/forex; Alpaca acciones/ETF/cripto/opciones no equivale a esas divisiones.
+https://www.worldcupchampionships.com/
+https://docs.alpaca.markets/us/docs/orders-at-alpaca
+https://docs.alpaca.markets/us/docs/websocket-streaming

@@ -1,0 +1,48 @@
+--- before/quant/harpoon_quant/causal_panel.py
++++ after/quant/harpoon_quant/causal_panel.py
+@@ -10,11 +10,11 @@
+ import hashlib
+ import json
+ import math
++import sqlite3
+ import subprocess
+-import sqlite3
+ import tempfile
++from collections import Counter, defaultdict
+ from contextlib import contextmanager
+-from collections import Counter, defaultdict
+ from datetime import UTC, datetime, timedelta
+ from pathlib import Path
+ from typing import Any
+@@ -533,9 +533,12 @@
+     stream = request.get("observation_manifest") is not None
+     if stream:
+         need(not request.get("observation_exports"), "STREAM_AND_LEGACY_EXPORTS_CANNOT_BE_MIXED")
++        selection = request.get("selection")
++        if not isinstance(selection, dict):
++            raise ValueError("EXPLICIT_CAUSAL_SELECTION_REQUIRED")
+         with _temporary_quote_archive() as quote_archive:
+             prospective = _prospective(_stream_manifest(request["observation_manifest"], base_dir, sources,
+-                                                        request.get("selection")), request, cfg, quote_archive)
++                                                        selection), request, cfg, quote_archive)
+         frame_count = prospective["frame_count"]
+     else:
+         frames = _exports(request.get("observation_exports", []), base_dir, sources)
+--- before/quant/tests/test_observation_stream.py
++++ after/quant/tests/test_observation_stream.py
+@@ -3,7 +3,6 @@
+ 
+ import copy
+ import json
+-import os
+ import subprocess
+ import tempfile
+ import unittest
+@@ -11,6 +10,7 @@
+ from unittest.mock import patch
+ 
+ from test_causal_panel import frame, request, write_export
++
+ from harpoon_quant.causal_panel import build, sha, verify
+ 
+ ROOT = Path(__file__).resolve().parents[2]

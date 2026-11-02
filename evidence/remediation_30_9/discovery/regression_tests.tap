@@ -1,0 +1,232 @@
+TAP version 13
+# Subtest: discovery preserves ETF classification, leverage and separate quote book
+ok 1 - discovery preserves ETF classification, leverage and separate quote book
+  ---
+  duration_ms: 23.935573
+  type: 'test'
+  ...
+# Subtest: missing factor, metadata and ETF leverage cannot be invented by discovery
+ok 2 - missing factor, metadata and ETF leverage cannot be invented by discovery
+  ---
+  duration_ms: 1.092669
+  type: 'test'
+  ...
+# Subtest: legacy discovery limit48 is clamped to40 total across books and records every exclusion
+ok 3 - legacy discovery limit48 is clamped to40 total across books and records every exclusion
+  ---
+  duration_ms: 1.726965
+  type: 'test'
+  ...
+# Subtest: a full static universe is preserved and every new candidate is rejected explicitly
+ok 4 - a full static universe is preserved and every new candidate is rejected explicitly
+  ---
+  duration_ms: 1.093349
+  type: 'test'
+  ...
+# Subtest: dynamic watchlist rotates only unexposed managed instruments and preserves configured names
+ok 5 - dynamic watchlist rotates only unexposed managed instruments and preserves configured names
+  ---
+  duration_ms: 1.63704
+  type: 'test'
+  ...
+# Subtest: watchlist protects position
+ok 6 - watchlist protects position
+  ---
+  duration_ms: 1.098517
+  type: 'test'
+  ...
+# Subtest: watchlist protects partial fill pending cancellation
+ok 7 - watchlist protects partial fill pending cancellation
+  ---
+  duration_ms: 1.347794
+  type: 'test'
+  ...
+# Subtest: watchlist protects cancel requested without confirmation
+ok 8 - watchlist protects cancel requested without confirmation
+  ---
+  duration_ms: 0.692234
+  type: 'test'
+  ...
+# Subtest: watchlist protects open broker order
+ok 9 - watchlist protects open broker order
+  ---
+  duration_ms: 0.851755
+  type: 'test'
+  ...
+# Subtest: watchlist protects active campaign
+ok 10 - watchlist protects active campaign
+  ---
+  duration_ms: 1.123926
+  type: 'test'
+  ...
+# Subtest: late fill while historical data loads prevents a planned watchlist eviction
+ok 11 - late fill while historical data loads prevents a planned watchlist eviction
+  ---
+  duration_ms: 1.270166
+  type: 'test'
+  ...
+# Subtest: failed 5Min bootstrap is atomic and retries the complete range
+ok 12 - failed 5Min bootstrap is atomic and retries the complete range
+  ---
+  duration_ms: 1.653074
+  type: 'test'
+  ...
+# Subtest: failed 1Day bootstrap is atomic and retries the complete range
+ok 13 - failed 1Day bootstrap is atomic and retries the complete range
+  ---
+  duration_ms: 1.389256
+  type: 'test'
+  ...
+# Subtest: partial history admits ready symbols and retries missing symbols without polluting universe
+ok 14 - partial history admits ready symbols and retries missing symbols without polluting universe
+  ---
+  duration_ms: 2.926425
+  type: 'test'
+  ...
+# Subtest: candidate ranking is invariant to screener concatenation and row ordering
+ok 15 - candidate ranking is invariant to screener concatenation and row ordering
+  ---
+  duration_ms: 2.23346
+  type: 'test'
+  ...
+# Subtest: stale or future snapshot is blocked: -900001
+ok 16 - stale or future snapshot is blocked: -900001
+  ---
+  duration_ms: 0.717863
+  type: 'test'
+  ...
+# Subtest: stale or future snapshot is blocked: 2000
+ok 17 - stale or future snapshot is blocked: 2000
+  ---
+  duration_ms: 0.61595
+  type: 'test'
+  ...
+# Subtest: invalid symbols remain visible as rejected observations without broker requests
+ok 18 - invalid symbols remain visible as rejected observations without broker requests
+  ---
+  duration_ms: 0.761138
+  type: 'test'
+  ...
+# Subtest: SVR research guard makes zero requests and preserves universe
+ok 19 - SVR research guard makes zero requests and preserves universe
+  ---
+  duration_ms: 0.698564
+  type: 'test'
+  ...
+# Subtest: concurrent discovery calls share one preparation and cannot duplicate symbols
+ok 20 - concurrent discovery calls share one preparation and cannot duplicate symbols
+  ---
+  duration_ms: 1.074381
+  type: 'test'
+  ...
+# Subtest: configuration replaced while history loads aborts admission
+ok 21 - configuration replaced while history loads aborts admission
+  ---
+  duration_ms: 0.774859
+  type: 'test'
+  ...
+# Subtest: quote failure stays degraded after history preparation and never reports ready
+ok 22 - quote failure stays degraded after history preparation and never reports ready
+  ---
+  duration_ms: 1.724963
+  type: 'test'
+  ...
+# Subtest: broker identity mismatch cannot admit a candidate
+ok 23 - broker identity mismatch cannot admit a candidate
+  ---
+  duration_ms: 0.746487
+  type: 'test'
+  ...
+# Subtest: source request failure is an explicit blocked receipt
+ok 24 - source request failure is an explicit blocked receipt
+  ---
+  duration_ms: 0.665364
+  type: 'test'
+  ...
+# Subtest: an existing protected symbol left with incomplete history is backfilled without reclassification
+ok 25 - an existing protected symbol left with incomplete history is backfilled without reclassification
+  ---
+  duration_ms: 1.189765
+  type: 'test'
+  ...
+# Subtest: failed repair preserves existing partial history and retries without removing inventory
+ok 26 - failed repair preserves existing partial history and retries without removing inventory
+  ---
+  duration_ms: 1.409176
+  type: 'test'
+  ...
+# Subtest: open option campaign protects its instrument underlying from rotation
+ok 27 - open option campaign protects its instrument underlying from rotation
+  ---
+  duration_ms: 0.722079
+  type: 'test'
+  ...
+# Subtest: uncertain reconciliation blocks rotation: stale
+ok 28 - uncertain reconciliation blocks rotation: stale
+  ---
+  duration_ms: 0.773927
+  type: 'test'
+  ...
+# Subtest: uncertain reconciliation blocks rotation: error
+ok 29 - uncertain reconciliation blocks rotation: error
+  ---
+  duration_ms: 0.84814
+  type: 'test'
+  ...
+# Subtest: fresh quote and complete historical warmup cannot mask missing current-session bars
+ok 30 - fresh quote and complete historical warmup cannot mask missing current-session bars
+  ---
+  duration_ms: 1.390438
+  type: 'test'
+  ...
+# Subtest: persisted registry rehydrates a restart without authorizing tradability or losing metadata
+ok 31 - persisted registry rehydrates a restart without authorizing tradability or losing metadata
+  ---
+  duration_ms: 2.132447
+  type: 'test'
+  ...
+# Subtest: tampered registry and insufficient capacity for exposed symbols fail without partial restore
+ok 32 - tampered registry and insufficient capacity for exposed symbols fail without partial restore
+  ---
+  duration_ms: 1.936893
+  type: 'test'
+  ...
+# Subtest: declared metadata time must be valid and available: future
+ok 33 - declared metadata time must be valid and available: future
+  ---
+  duration_ms: 0.832727
+  type: 'test'
+  ...
+# Subtest: declared metadata time must be valid and available: invalid
+ok 34 - declared metadata time must be valid and available: invalid
+  ---
+  duration_ms: 0.526374
+  type: 'test'
+  ...
+# Subtest: snapshot expiring while bootstrap runs cannot commit a candidate
+ok 35 - snapshot expiring while bootstrap runs cannot commit a candidate
+  ---
+  duration_ms: 1.230687
+  type: 'test'
+  ...
+# Subtest: restart reaches READY only after actual catalog verification and restored history loading
+ok 36 - restart reaches READY only after actual catalog verification and restored history loading
+  ---
+  duration_ms: 5.050079
+  type: 'test'
+  ...
+# Subtest: registry checksum survives JSON object key reordering by a persistent store
+ok 37 - registry checksum survives JSON object key reordering by a persistent store
+  ---
+  duration_ms: 2.077745
+  type: 'test'
+  ...
+1..37
+# tests 37
+# suites 0
+# pass 37
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91.1424

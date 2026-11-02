@@ -1,0 +1,1877 @@
+{
+  "schema": "HARPOON_LEVEL5_DERIVED_EVIDENCE_1",
+  "input_hash": "4c1bfc58437b2121927ab4864dcec34f9a80d2b2ff0ee7d654f40333cfcbea0a",
+  "execution_allowed": false,
+  "liveApproved": false,
+  "financial_acceptance_allowed": false,
+  "readiness": {
+    "schema": "HARPOON_LEVEL4_READINESS_1",
+    "input_hash": "3dc7cabf9ef8cc7916d5f1985325eff42bce8410ebb98ccc728b6c380d5e9ffe",
+    "source_hashes": [
+      {
+        "path": "base_request.json",
+        "sha256": "d9307596ddd56579cb255532ed2da8ee42f0fc1acab8bdba864579dcb91272ce",
+        "bytes": 294633
+      },
+      {
+        "path": "base_report.json",
+        "sha256": "1a3dbed03631d46431aa37eca40897d859ebeacdc12ceb854aff46298e43737b",
+        "bytes": 3010197
+      }
+    ],
+    "implementation_hashes": {
+      "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b",
+      "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+      "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+      "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+      "runtime30/net_accounting.js": "a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7",
+      "runtime30/net_ledger_verify.js": "cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a",
+      "runtime30/net_ledger_archive.js": "84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc",
+      "runtime30/cost_receipts.js": "e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca",
+      "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8"
+    },
+    "score": 3,
+    "criterion": "INTEGRATED_OBSERVED_MEASUREMENT_NOT_PROFIT_OR_AUTONOMOUS_PROMOTION",
+    "checks": [
+      {
+        "id": "data_sources_reexecuted",
+        "passed": false,
+        "evidence": null
+      },
+      {
+        "id": "observed_admissible_panel",
+        "passed": false,
+        "evidence": null
+      },
+      {
+        "id": "three_policy_comparison_reexecuted",
+        "passed": false,
+        "evidence": {
+          "verified": true,
+          "verification": {
+            "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+            "verified": true,
+            "mismatches": [],
+            "input_hash": "ed9a62b8c21572d87dcda622edce973354541297964be7f4b7276eb4e95682d6",
+            "expected_artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+            "observed_artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+            "real_coordinator_and_predictors_reexecuted": true,
+            "execution_allowed": false,
+            "liveApproved": false,
+            "financial_acceptance_allowed": false
+          },
+          "status": "ENGINEERING_ONLY",
+          "artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+          "period": {
+            "start_at": 1792078210000,
+            "end_at": 1792078211001,
+            "session_ids": [
+              "2026-10-15"
+            ]
+          },
+          "market_binding_error": "COMPARISON_MARKET_RECEIPT_BINDING_MISSING"
+        }
+      },
+      {
+        "id": "comparison_market_receipts_bound",
+        "passed": false,
+        "evidence": {
+          "reason": "COMPARISON_MARKET_RECEIPT_BINDING_MISSING"
+        }
+      },
+      {
+        "id": "ledger_history_reconstructed",
+        "passed": false,
+        "evidence": null
+      },
+      {
+        "id": "observed_complete_net_account_curve",
+        "passed": false,
+        "evidence": null
+      },
+      {
+        "id": "applicable_broker_accruals_verified",
+        "passed": false,
+        "evidence": {
+          "documented_amount_usd": null,
+          "from": null,
+          "through": null,
+          "verified_period_from": null,
+          "verified_period_through": null,
+          "current_account_amount_usd": null,
+          "current_account_claim": null,
+          "recomputed_by_ledger_verifier": null,
+          "current_scope_verified": null
+        }
+      },
+      {
+        "id": "models_bound_to_causal_panel_before_decisions",
+        "passed": false,
+        "evidence": [
+          {
+            "model": "RIDGE",
+            "passed": false,
+            "model_data_hash": null,
+            "panel_hash": null,
+            "available_at": "2026-10-14T12:00:00+00:00",
+            "comparison_start_at": 1792078210000
+          },
+          {
+            "model": "SVR",
+            "passed": false,
+            "model_data_hash": null,
+            "panel_hash": null,
+            "available_at": "2026-10-14T12:00:00+00:00",
+            "comparison_start_at": 1792078210000
+          }
+        ]
+      },
+      {
+        "id": "account_and_measurement_periods_bound",
+        "passed": false,
+        "evidence": {
+          "account_id": null,
+          "market_account_id": null,
+          "ledger_from": null,
+          "ledger_economic_prefix_through": null,
+          "ledger_last_observation_at": null,
+          "comparison_from": 1792078210000,
+          "comparison_through": 1792078211001
+        }
+      },
+      {
+        "id": "external_cost_total_bound",
+        "passed": false,
+        "evidence": {
+          "ledger_period_external_cost_usd": null,
+          "modeled_external_cost_usd": 1,
+          "cost_timing": "COMPARISON_LUMP_SUM_IS_STILL_AN_EXPLICIT_MODEL"
+        }
+      }
+    ],
+    "blockers": [
+      "CAUSAL_DATA_ARTIFACT_MISSING_OR_INVALID",
+      "OBSERVED_CAUSAL_CALIBRATION_PANEL_NOT_AVAILABLE",
+      "OBSERVED_THREE_POLICY_COMPARISON_NOT_AVAILABLE",
+      "COMPARISON_MARKET_RECEIPT_BINDING_MISSING",
+      "RECONCILED_ACCOUNT_HISTORY_MISSING_OR_INVALID",
+      "OBSERVED_ACCOUNT_CURVE_OR_COST_COVERAGE_INCOMPLETE",
+      "APPLICABLE_BROKER_ACCRUALS_NOT_VERIFIED",
+      "MODEL_PANEL_HASH_OR_CHRONOLOGY_BINDING_MISSING",
+      "ACCOUNT_OR_PERIOD_BINDING_MISSING",
+      "COMPARISON_EXTERNAL_COST_NOT_BOUND_TO_ACCOUNT_PERIOD"
+    ],
+    "components": {
+      "data": null,
+      "comparison": {
+        "verified": true,
+        "verification": {
+          "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+          "verified": true,
+          "mismatches": [],
+          "input_hash": "ed9a62b8c21572d87dcda622edce973354541297964be7f4b7276eb4e95682d6",
+          "expected_artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+          "observed_artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+          "real_coordinator_and_predictors_reexecuted": true,
+          "execution_allowed": false,
+          "liveApproved": false,
+          "financial_acceptance_allowed": false
+        },
+        "status": "ENGINEERING_ONLY",
+        "artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+        "period": {
+          "start_at": 1792078210000,
+          "end_at": 1792078211001,
+          "session_ids": [
+            "2026-10-15"
+          ]
+        },
+        "market_binding_error": "COMPARISON_MARKET_RECEIPT_BINDING_MISSING"
+      },
+      "ledger": null
+    },
+    "implemented": {
+      "causal_panel_builder": true,
+      "funded_three_policy_producer": true,
+      "ledger_history_verifier": true,
+      "source_reexecution_and_bindings": true
+    },
+    "observed": {
+      "causal_data": false,
+      "account_and_costs": false,
+      "account_and_costs_scope": "CLOSED_ECONOMIC_PREFIX_ONLY",
+      "current_account_economic_complete": null,
+      "three_policy_comparison": false,
+      "market_receipts": false
+    },
+    "financial_profitability_demonstrated": false,
+    "full_autonomous_economic_cycle_verified": false,
+    "training_provenance_independently_verified": false,
+    "source_authenticity_independently_verified": false,
+    "execution_allowed": false,
+    "liveApproved": false,
+    "financial_acceptance_allowed": false,
+    "limitations": [
+      "Score 4 concerns integrated measurement only and can coexist with losses.",
+      "Quotes and local receipts do not authenticate a provider independently or establish executable depth.",
+      "Comparison fills, liquidity, timing and costs retain their explicitly modeled scope.",
+      "Models are checked against panel hashes and chronology; training is not rerun and independent training provenance is not certified.",
+      "Ledger amounts include reported and declared costs; unknown broker accruals and unspecified taxes remain outside proven completeness."
+    ],
+    "artifact_hash": "7f52b0b84c3af1c2b8e7e0f6c125c381e4f5a57c73da6d2af902015dc11a6711"
+  },
+  "comparison": {
+    "artifact_hash": "f808407b57de84460d94db80cc066e6202399fd78d30627aa3167689c31a2d95",
+    "input_hash": "ed9a62b8c21572d87dcda622edce973354541297964be7f4b7276eb4e95682d6",
+    "status": "ENGINEERING_ONLY",
+    "data_origin": "SYNTHETIC",
+    "execution_origin": "MODELED",
+    "registration": {
+      "required": false,
+      "verified": false,
+      "scope": "SYNTHETIC_SOFTWARE_TEST_ONLY",
+      "execution_allowed": false,
+      "liveApproved": false,
+      "financial_acceptance_allowed": false
+    },
+    "request_sha256": "d9307596ddd56579cb255532ed2da8ee42f0fc1acab8bdba864579dcb91272ce"
+  },
+  "bindings": {
+    "policy_hash": "4fe41876e49532d3a69dddbd07be5e247114d74f5ed63e110e4c94331361e26a",
+    "risk_hash": "5a915b3be86b47e3e073a7eee9eb3f80dd49d174fb207446fab76a23cd9fcbea",
+    "cost_hash": "05672f670dd5c2a42aeeba1b2f5417e3c7a71fd08ed222d4e3191516734c51e4",
+    "code_hash": "fc07a23a61c0bb2e9ca891939177483e8070f0f00c7e51345016a16cd9884038",
+    "model_hashes": {
+      "RIDGE": "a3863f816bc703e103e62bcedde9eab41c71653d073ba61a4d6faabbbfdad25f",
+      "SVR": "fe63dfc1932b01e5e5ff9e6444f9f8bcafc850bc8892b3cda60a8ac9f3c6cb90"
+    },
+    "universe": [
+      "AAPL"
+    ],
+    "initial_equity_usd": 20000,
+    "period": {
+      "start_at": 1792078210000,
+      "end_at": 1792078211001
+    },
+    "maximum_holding_hours": 72,
+    "execution_model": {
+      "origin": "MODELED",
+      "causal_fills": "STRICTLY_LATER_QUOTE",
+      "mark_method": "BID",
+      "cancel_mode": "EXPLICIT_CONFIRMATION",
+      "fees_bps_per_side": 1,
+      "fee_per_fill_usd": 0.01,
+      "slippage_bps": 0,
+      "external_cost_usd": 1,
+      "ack_latency_ms": 0,
+      "liquidity_assumption": "Explicit executable quantity per future quote is a synthetic scenario, not observed depth or queue priority.",
+      "operating_cash_reserve": {
+        "amount_usd": 2,
+        "known_at": 1792078209999,
+        "method": "FIXED_INITIAL_CASH_RESERVE"
+      }
+    },
+    "common_request_hash": "e09288dae43dc31dafc620871071d0eed81d6b744ae803c1ed4a90326ffedb54",
+    "implementation_hashes": {
+      "quant/harpoon_quant/__init__.py": "81092f4af9bb6f35c55875d257dbe9ad3f2baa6f62c8c16b4d90db9f2762e149",
+      "quant/harpoon_quant/__main__.py": "5088807894ba96ba6ecd7dc14f3270d2c8a596b396ae25959e086cc37eb6061b",
+      "quant/harpoon_quant/bridge.py": "977695014bf04388465e06aef442a836a0848741247351bb9af22520ead72d1e",
+      "quant/harpoon_quant/calibration.py": "dcdeead19082a666883b1528403cd01ca8f10020fb15b45bb4f4294d2eddd8c1",
+      "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+      "quant/harpoon_quant/context.py": "019bc343631b383ace5987a124f1ae70c3241e52facd799723e2d8151cffdf6f",
+      "quant/harpoon_quant/core.py": "41eb71676d3da5089d4d1cd162451ad707670afef22b7d9f4d9c816bcfab6317",
+      "quant/harpoon_quant/curves.py": "de60b9c979a96afa02554e36ae22d50ab912bd27749b25fa66160642852ed508",
+      "quant/harpoon_quant/data_client.py": "f5299509f9c4829a8d99fc7eb94e0c49de1316ce73ea92749c83b2c57eeef751",
+      "quant/harpoon_quant/economic_gate.py": "66fd7c9612040b73a4b0c7c53da29d8a342eb29773bcbcc30e349045914c65ae",
+      "quant/harpoon_quant/economic_gate_v2.py": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+      "quant/harpoon_quant/economic_lab.py": "9c0575d541a8fa406e3c2c56dd952cb5b57d0ee8cdf59642e04008e0aad9af8e",
+      "quant/harpoon_quant/fixed_predictor.py": "40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b",
+      "quant/harpoon_quant/lab.py": "c9eac92b217038f14a16d84f62d4706626e9496c51b44c781501fbc6cf7a709b",
+      "quant/harpoon_quant/ledger.py": "adbe9215ee44ac2b0482aada2f6a5569c9683ceac9691e05555bd72e204fee61",
+      "quant/harpoon_quant/measurement_registration.py": "ac6e7b748c500537037f4f3ca4f0afa3fd75f679817cd54d0ce00a2127c74883",
+      "quant/harpoon_quant/microstructure.py": "f8bfb598f21d39961a4814d82a1a5582abbf1e266799d0af08fbae7fb661d4b0",
+      "quant/harpoon_quant/optimization.py": "b5ebf7cf1337865c2815d21a17304d162b6058f361c4604149d785a73028821a",
+      "quant/harpoon_quant/paired_replay.py": "9366b2364e557ad1bcd2b5bda5cd581646e44e8dc69d8cd562c2214d99f6cdf0",
+      "quant/harpoon_quant/performance.py": "617511a405f5a25355da7546e475408a172c9d4e6bc2def4b15b09a3f31eb6a0",
+      "quant/harpoon_quant/recursive.py": "d6b15eb8a906e6c4b2cf38cb9c3202ae335e9b21c3b0fe4dcbe956797e233e4b",
+      "quant/harpoon_quant/regimes.py": "361d7e95ba866bd3f48975260a0b1448ed6a84ef00c7327bc0e2e57cac803874",
+      "quant/harpoon_quant/scalar_svr.py": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+      "quant/harpoon_quant/study_integrity.py": "3299f9bf7e1d14769b979a29392e4977290240c8faa0c05aabf115068773d953",
+      "quant/harpoon_quant/support.py": "69978c4d0d05be01b33f3e117998e1a1328c36afad2dc2816576e03bea08619b",
+      "runtime/exit_profiles32.cjs": "94a431033c5b999d2ad35b75897746abd7221e912f7175778465221484b9ca2f",
+      "runtime/legacy30.cjs": "e6029abe784f046fb500dbd8547ce0f6e39c5a7a6e915b59df02ea50d715093e",
+      "runtime/quant_bridge.cjs": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+      "runtime30/accounting.js": "c75b3336b90add7caa6e02a21c9780580a5de4fe77c74975281e0ab1ae339c7f",
+      "runtime30/broker.js": "49a02708812a45e3caa67d95bd748cd29f2a79a4b6d0d5d51ad60c644be0cf88",
+      "runtime30/coordinator.js": "543d3cc38361101f7971975c170720383c759e74c89862e02053bc66772f3ff5",
+      "runtime30/cost_receipts.js": "e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca",
+      "runtime30/exits.js": "07fa96909510a1aea8e200576c0e83732d4ecb4c5df703c4838d57188b458805",
+      "runtime30/health.js": "8e862f403da39496892868801a9f9d21040e4b20574ee143196d1ff1fb094505",
+      "runtime30/market.js": "9f7472b6046014afabd3d6b887e975ef433a81cf192d93c8818319a4f1e6d526",
+      "runtime30/net_accounting.js": "a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7",
+      "runtime30/net_ledger_archive.js": "84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc",
+      "runtime30/net_ledger_verify.js": "cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a",
+      "runtime30/operational_status.js": "54fa5361e28891f452f9541d69c926e06d8d38c3088ce9c355efd362b896d7d3",
+      "runtime30/plugins.js": "dbc761e23fbe6331235b919d9e9622f6f5c6343513d90868b6fe8fba3c4501f8",
+      "runtime30/policy.js": "935b0b476c0e56b1ed219f9be920bbe71596fef481b3eb09add8dec6af24270c",
+      "runtime30/quant_observations.js": "8674e9e39fddd9e59072fc472f2a29fb882ab05244c32b0921ac6a7155bc6e21",
+      "runtime30/scheduler.js": "a8ee53676d676a02733820115802511b125381ce0e41df864ee678eaa9d2fed2",
+      "runtime30/selectors.js": "92399c506878104dc92db20d72bc2510759884c1904bedaac7710e15d6ea9495",
+      "runtime30/server.js": "2234f96ea13cc72aff1e981241438f2d5ad8d652211fce7bf048edc843d42ebb",
+      "runtime30/sessions.js": "9a03fc71322f6c24c82b019c4018042116888b5982171f482e1ac1ce9e8d9973",
+      "runtime30/streams.js": "f4917aa40a6a8c862b3d317cdd2d8343e2d66f3b41114d00114b091cb9ad3259",
+      "runtime30/types.js": "9757735ff525746516e53afe0f751e2479115bd9c7bdcd56dba29469d9026754",
+      "runtime30/ultimate_contracts.js": "782dc639435eb3f517ff4b6423d7ffe8ef3b4fc3067ea4de2f9be0ce086b7679",
+      "runtime30/ultimate_frequency.js": "4b7644d1a3b1dd8e87be13ef9853c0d22ff4afa1cca06be9325700a47649e972",
+      "runtime30/ultimate_futures.js": "13bd8820ba4f83d53daa1d8908b348de3a7e8b0d77af45a55423d6be2cead2a6",
+      "runtime30/ultimate_lab.js": "baadba950e9992b0541ba81de408c9d8c8f6787d5b759ec2edbbd47373642063",
+      "runtime30/ultimate_replay.js": "f47455ababf30c07f40b9913b07b8c0b25e6c4670ffabbc8a711643ea5dd2979",
+      "runtime30/ultimate_stats.js": "7e00fe13f18a8d1e1a9a2f721fee06831422d1491f3c97cc653084d4ae220361",
+      "runtime30/ultimate_worker.js": "dad087a7bb430153364018b7e26fb6d382ffe0160db253a13f18d6b4d5f54113",
+      "runtime30/validators.js": "e024563cd70cd0465782611a344bb53396cb66489bf2381696514e94451c2ff9",
+      "runtime30/version.js": "84be174428cbd836bf837a3aac19b369ad340bd57a5c82f566038431c31a3115",
+      "src/canonical.js": "7c898b63591964c5bb890c512fd13c99aa2ebf2fb845ff4fe6a25c26e71af4a2",
+      "src/contract.js": "32d62b9029c2f2e9dcab4883fcad7ff3f0a49ad3a96b38b1d65f235eeeb510b6",
+      "src/core.js": "e043dce364df2815113a6034deb4d42ba532f55d0dada8d952e2a3b78d28fc1a",
+      "src/crypto_core.js": "86735fc9229a925492cb74374c879c431ea9977814991895b0fad5f805e0f8f1",
+      "src/crypto_tape.js": "0c154ac0d964d349e3bbda334b94331a0ffd186ae637fae91f7421f48d20fa5b",
+      "src/defaults.js": "4231edfd8ddf59004fe09f2846b464058dd0db1ee49e4d90a3456ea52cbb6ab8",
+      "src/engine.js": "9236c18636d3a4426135058449032aa352b90d51feedc875bd0b2243f64dc4be",
+      "src/io.js": "0f6a8f7e8bf16d340c246e6722f4c376078c06a970c5a1a8c565f3575987580c",
+      "src/lab_rules.js": "a56cc76ffdd7ea99c3e2788ea30f037d66eec3da8cb1a610e15f9c8fe5726618",
+      "src/plugin_registry.js": "e1ff2b4874996aa966c9582ca4d98ae31cfd98b37d5c15690184690fa2654846",
+      "src/plugins/astra.js": "2c4fdbfaa615d8304eaeb25f79e73d08701c72be284db1166d6caf4a882ca9a6",
+      "src/plugins/catalog.js": "545b8369b27cafe582f95c875596a3b91506dab4e8c447662ff64e9bc178d57f",
+      "src/plugins/crypto_recovery.js": "d9f7708a7500980b6ce45eb03af59fa076fcc78b0df3ef873ec0f8417aeb4659",
+      "src/plugins/securities_entries.js": "aaa5a5aaf26fe7c97e3843f6ca8b442fe581330fea13e1f521437ad3d4f9915d",
+      "src/plugins/securities_rules.js": "035239f4c0ebe4cd2d66f5c25c640115c03d027a4dee9133bf590e149d93cc1e",
+      "src/tensor_core.js": "f733700da3f6bad3f5c49f96b1af5cd3b7814068bcce41791098f5d6157d64fd",
+      "src/warroom3.js": "7bff394aec81b1b80c9e217f07aa1bc0514b1c2445f0a10464a680f6dc4e6be4",
+      "src/x_core.js": "1e467912f78c692a054e5e034f9925f3704b88be09fe5ce59b87a1f0b999b715",
+      "src/x_engine.js": "9e9d62b640985e7e4c59dbabf2d0ce71c1e92348a6a6a61f56ae0864fff0f9b2",
+      "src/xi_core.js": "786157864caedae492942289c317d991e5e2a8fd1a170c6188dab45ee6369fee",
+      "src/xii_core.js": "82f5d61c185e8f17f0bb7244dae518640beddb3a6db1ed2ed0f783eab93da57d",
+      "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+      "tools/fixed_predictor_worker.cjs": "1c8ddfcf5e9b975edb4c57ba4877b52cacaa017975f509b069a15dc58119aa26",
+      "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+      "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+      "xxx/accounting.ts": "5d25b7ec568b988a68bea291dc4a8179b6a5beebc05385a5d46e03ac5a9d010f",
+      "xxx/broker.ts": "0f6b1749766eae22c559d587aabb40ee62242536a995bdc032439138cce8ee80",
+      "xxx/coordinator.ts": "718834333f7fc29f9c564168ccb3486414ce404e4f6b152d52b32999726be249",
+      "xxx/cost_receipts.ts": "50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a",
+      "xxx/exits.ts": "e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105",
+      "xxx/health.ts": "02aca94ca692053c299a0d310dad49afce3e85f72ef2741a385a957d4646cb12",
+      "xxx/market.ts": "500646e8bacdd19bb139905b13cb84c5db4a9c9f5966c36d58f4f41dc93729f7",
+      "xxx/net_accounting.ts": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+      "xxx/net_ledger_archive.ts": "4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2",
+      "xxx/net_ledger_verify.ts": "d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477",
+      "xxx/operational_status.ts": "f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f",
+      "xxx/plugins.ts": "3d22028610403f399b5f9d0d789130eefc863fa3f37e0e52bdba111dce8c0ac6",
+      "xxx/policy.ts": "d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b",
+      "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+      "xxx/scheduler.ts": "3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1",
+      "xxx/selectors.ts": "bb8c85244627a66ac3430327d26444797ad9f00b1ab066db7a461e54efa8e066",
+      "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+      "xxx/sessions.ts": "29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77",
+      "xxx/streams.ts": "790c7418a524471972ee3ff4743849838743b4fe416ee0a66eb85c4018880bdb",
+      "xxx/types.ts": "a753ed4d6b52ff775bc134464fcbc46f946e107662712ee95938f80754324222",
+      "xxx/ultimate_contracts.ts": "f64568a6339fea29a89d9c41d97032f47d8060944604f0bec19031cef0a148c5",
+      "xxx/ultimate_frequency.ts": "de5cbaaacefbe43c9384b1f3dab617eb12deb3ed59e2b71370e206bb1ab27f87",
+      "xxx/ultimate_futures.ts": "9a90f0652a00cc86c628d6f408859c9e7007ebcdabdec9f6c63b340cc11922d5",
+      "xxx/ultimate_lab.ts": "083e28adff0c8d11ffbae687131605a617a38d3b5bfabf35e7995e3805e784a5",
+      "xxx/ultimate_replay.ts": "2d0c903a329b7b3646e813ae270ef5582cf854d13bc6fd1c60f086a968670c7d",
+      "xxx/ultimate_stats.ts": "5ab159047335e2af12e06b4902f9543219bdd0d964d20e76b01e3113b906fd06",
+      "xxx/ultimate_worker.ts": "60441dcf8c2c0c0392aae9a0989d9c06a9fa94b8368dfefbfcd93f2a3002e547",
+      "xxx/validators.ts": "70e7eb11f991635596f5e1c3a6caedb22ebb93c5c1ae298e6d17985b6396b43c",
+      "xxx/version.ts": "2aeb83db991a6bed799b14ddad55ae1aff28a781ea6d072c4c8191e5679da066",
+      "tools/measurement_registration.py": "60054e9524909da2bc78fddcd8fd6334f07e600be87308d06d93803719ebf1cb",
+      "tools/level5_readiness.cjs": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+      "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b"
+    }
+  },
+  "policies": {
+    "NATIVE": {
+      "role": "NATIVE",
+      "source_policy": "C0",
+      "initial_equity_usd": 20000,
+      "operating_cash_reserve": {
+        "amount_usd": 2,
+        "known_at": 1792078209999,
+        "method": "FIXED_INITIAL_CASH_RESERVE"
+      },
+      "events": [
+        {
+          "event_id": "history",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "plugin-evaluation",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry",
+          "at": 1792078210001,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "future-fill-quote",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry-reconciliation",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protect",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protection-reconciliation",
+          "at": 1792078211001,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19998.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 1,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        }
+      ],
+      "maximum_observed_holding_hours": 0.0002777777777777778,
+      "execution_io_failure_count": 0,
+      "stale_terminal_valuation_symbols": [],
+      "execution_trace_hash": "22c520b5f7074e78e2927c2b57aff2d7fe4d1f4937edbfade5660cbfd8297bdb",
+      "terminal_inventory_forced_closed": false
+    },
+    "RIDGE": {
+      "role": "RIDGE",
+      "source_policy": "RIDGE",
+      "initial_equity_usd": 20000,
+      "operating_cash_reserve": {
+        "amount_usd": 2,
+        "known_at": 1792078209999,
+        "method": "FIXED_INITIAL_CASH_RESERVE"
+      },
+      "events": [
+        {
+          "event_id": "history",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "plugin-evaluation",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry",
+          "at": 1792078210001,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "future-fill-quote",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry-reconciliation",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protect",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protection-reconciliation",
+          "at": 1792078211001,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19998.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 1,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        }
+      ],
+      "maximum_observed_holding_hours": 0.0002777777777777778,
+      "execution_io_failure_count": 0,
+      "stale_terminal_valuation_symbols": [],
+      "execution_trace_hash": "7b5fb88582eafa7c0d1e22217bd3cb8d8c75d9e5b549b300310a0b8609a9dd84",
+      "terminal_inventory_forced_closed": false
+    },
+    "SVR": {
+      "role": "SVR",
+      "source_policy": "SVR",
+      "initial_equity_usd": 20000,
+      "operating_cash_reserve": {
+        "amount_usd": 2,
+        "known_at": 1792078209999,
+        "method": "FIXED_INITIAL_CASH_RESERVE"
+      },
+      "events": [
+        {
+          "event_id": "history",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "plugin-evaluation",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry",
+          "at": 1792078210001,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "future-fill-quote",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry-reconciliation",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protect",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19999.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protection-reconciliation",
+          "at": 1792078211001,
+          "session_id": "2026-10-15",
+          "cash_usd": 17674.227447,
+          "inventory_value_usd": 2325.2999999999997,
+          "account_equity_usd": 19999.527447,
+          "economic_equity_usd": 19998.527447,
+          "cumulative_fees_usd": 0.24255300000000002,
+          "cumulative_external_cost_usd": 1,
+          "external_flow_usd": 0,
+          "positions": [
+            {
+              "symbol": "AAPL",
+              "qty": "23",
+              "market_value": "2325.2999999999997",
+              "avg_entry_price": "101.11000000000001"
+            }
+          ],
+          "buying_power_usd": 17672.227447,
+          "non_marginable_buying_power_usd": 17672.227447,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        }
+      ],
+      "maximum_observed_holding_hours": 0.0002777777777777778,
+      "execution_io_failure_count": 0,
+      "stale_terminal_valuation_symbols": [],
+      "execution_trace_hash": "eb63df947d712b33776f711c32e930452ceaed3b783a5f63f10876a48822e59a",
+      "terminal_inventory_forced_closed": false
+    },
+    "CASH": {
+      "role": "CASH",
+      "source_policy": "DETERMINISTIC_NO_ENTRY",
+      "initial_equity_usd": 20000,
+      "operating_cash_reserve": {
+        "amount_usd": 2,
+        "known_at": 1792078209999,
+        "method": "FIXED_INITIAL_CASH_RESERVE"
+      },
+      "events": [
+        {
+          "event_id": "history",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "plugin-evaluation",
+          "at": 1792078210000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry",
+          "at": 1792078210001,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "future-fill-quote",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "entry-reconciliation",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protect",
+          "at": 1792078211000,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 20000,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 0,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        },
+        {
+          "event_id": "protection-reconciliation",
+          "at": 1792078211001,
+          "session_id": "2026-10-15",
+          "cash_usd": 20000,
+          "inventory_value_usd": 0,
+          "account_equity_usd": 20000,
+          "economic_equity_usd": 19999,
+          "cumulative_fees_usd": 0,
+          "cumulative_external_cost_usd": 1,
+          "external_flow_usd": 0,
+          "positions": [],
+          "buying_power_usd": 19998,
+          "non_marginable_buying_power_usd": 19998,
+          "operating_cash_reserve_usd": 2,
+          "operating_reserve_known_at": 1792078209999
+        }
+      ],
+      "stale_terminal_valuation_symbols": [],
+      "execution_trace_hash": null,
+      "terminal_inventory_forced_closed": false,
+      "maximum_observed_holding_hours": 0,
+      "execution_io_failure_count": 0,
+      "research_slots_added": 0,
+      "cost_scope": "SAME_SHARED_EXTERNAL_COSTS;NO_TRADES_NO_TRANSACTION_FEES;NO_INTEREST_ASSUMED"
+    }
+  },
+  "stress": [
+    {
+      "id": "COST_STRESS",
+      "scope": "HYPOTHETICAL_COST_AND_SLIPPAGE_STRESS",
+      "changes": {
+        "slippage_bps": 1
+      },
+      "verification": {
+        "schema": "HARPOON_FUNDED_COMPARISON_VERIFICATION_1",
+        "verified": true,
+        "mismatches": [],
+        "input_hash": "87bc0feef4ac8d83a5cf9c878da4c3c9948dabc2137d55fbc0cf5241d909383c",
+        "expected_artifact_hash": "8f91e5e5b4069191747b658fd37e5648cb417b7085a682f62fcd370975ba78ae",
+        "observed_artifact_hash": "8f91e5e5b4069191747b658fd37e5648cb417b7085a682f62fcd370975ba78ae",
+        "real_coordinator_and_predictors_reexecuted": true,
+        "execution_allowed": false,
+        "liveApproved": false,
+        "financial_acceptance_allowed": false
+      },
+      "artifact_hash": "8f91e5e5b4069191747b658fd37e5648cb417b7085a682f62fcd370975ba78ae",
+      "registration": {
+        "required": false,
+        "verified": false,
+        "scope": "SYNTHETIC_SOFTWARE_TEST_ONLY",
+        "execution_allowed": false,
+        "liveApproved": false,
+        "financial_acceptance_allowed": false
+      },
+      "reservation_verified": false,
+      "policies": {
+        "NATIVE": {
+          "role": "NATIVE",
+          "source_policy": "C0",
+          "initial_equity_usd": 20000,
+          "operating_cash_reserve": {
+            "amount_usd": 2,
+            "known_at": 1792078209999,
+            "method": "FIXED_INITIAL_CASH_RESERVE"
+          },
+          "events": [
+            {
+              "event_id": "history",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "plugin-evaluation",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry",
+              "at": 1792078210001,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "future-fill-quote",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry-reconciliation",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protect",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protection-reconciliation",
+              "at": 1792078211001,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19998.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 1,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            }
+          ],
+          "maximum_observed_holding_hours": 0.0002777777777777778,
+          "execution_io_failure_count": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_trace_hash": "8f2ed56dc97d31209788e7ad02aee74a78e9dcd2a90affddd6e1ce5b28ba86ef",
+          "terminal_inventory_forced_closed": false
+        },
+        "RIDGE": {
+          "role": "RIDGE",
+          "source_policy": "RIDGE",
+          "initial_equity_usd": 20000,
+          "operating_cash_reserve": {
+            "amount_usd": 2,
+            "known_at": 1792078209999,
+            "method": "FIXED_INITIAL_CASH_RESERVE"
+          },
+          "events": [
+            {
+              "event_id": "history",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "plugin-evaluation",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry",
+              "at": 1792078210001,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "future-fill-quote",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry-reconciliation",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protect",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protection-reconciliation",
+              "at": 1792078211001,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19998.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 1,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            }
+          ],
+          "maximum_observed_holding_hours": 0.0002777777777777778,
+          "execution_io_failure_count": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_trace_hash": "1bb81f1bf7893df1e7477f70a7a0562925e4476d1e28713b565925e7ff2bded0",
+          "terminal_inventory_forced_closed": false
+        },
+        "SVR": {
+          "role": "SVR",
+          "source_policy": "SVR",
+          "initial_equity_usd": 20000,
+          "operating_cash_reserve": {
+            "amount_usd": 2,
+            "known_at": 1792078209999,
+            "method": "FIXED_INITIAL_CASH_RESERVE"
+          },
+          "events": [
+            {
+              "event_id": "history",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "plugin-evaluation",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry",
+              "at": 1792078210001,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "future-fill-quote",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry-reconciliation",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protect",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19999.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protection-reconciliation",
+              "at": 1792078211001,
+              "session_id": "2026-10-15",
+              "cash_usd": 17673.9948707447,
+              "inventory_value_usd": 2325.2999999999997,
+              "account_equity_usd": 19999.2948707447,
+              "economic_equity_usd": 19998.2948707447,
+              "cumulative_fees_usd": 0.24257625530000002,
+              "cumulative_external_cost_usd": 1,
+              "external_flow_usd": 0,
+              "positions": [
+                {
+                  "symbol": "AAPL",
+                  "qty": "23",
+                  "market_value": "2325.2999999999997",
+                  "avg_entry_price": "101.120111"
+                }
+              ],
+              "buying_power_usd": 17671.9948707447,
+              "non_marginable_buying_power_usd": 17671.9948707447,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            }
+          ],
+          "maximum_observed_holding_hours": 0.0002777777777777778,
+          "execution_io_failure_count": 0,
+          "stale_terminal_valuation_symbols": [],
+          "execution_trace_hash": "a1c35aaa46c1f94d2b89a11b99567d3b551c56f87f636b3bc9fc17a282313e86",
+          "terminal_inventory_forced_closed": false
+        },
+        "CASH": {
+          "role": "CASH",
+          "source_policy": "DETERMINISTIC_NO_ENTRY",
+          "initial_equity_usd": 20000,
+          "operating_cash_reserve": {
+            "amount_usd": 2,
+            "known_at": 1792078209999,
+            "method": "FIXED_INITIAL_CASH_RESERVE"
+          },
+          "events": [
+            {
+              "event_id": "history",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "plugin-evaluation",
+              "at": 1792078210000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry",
+              "at": 1792078210001,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "future-fill-quote",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "entry-reconciliation",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protect",
+              "at": 1792078211000,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 20000,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 0,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            },
+            {
+              "event_id": "protection-reconciliation",
+              "at": 1792078211001,
+              "session_id": "2026-10-15",
+              "cash_usd": 20000,
+              "inventory_value_usd": 0,
+              "account_equity_usd": 20000,
+              "economic_equity_usd": 19999,
+              "cumulative_fees_usd": 0,
+              "cumulative_external_cost_usd": 1,
+              "external_flow_usd": 0,
+              "positions": [],
+              "buying_power_usd": 19998,
+              "non_marginable_buying_power_usd": 19998,
+              "operating_cash_reserve_usd": 2,
+              "operating_reserve_known_at": 1792078209999
+            }
+          ],
+          "stale_terminal_valuation_symbols": [],
+          "execution_trace_hash": null,
+          "terminal_inventory_forced_closed": false,
+          "maximum_observed_holding_hours": 0,
+          "execution_io_failure_count": 0,
+          "research_slots_added": 0,
+          "cost_scope": "SAME_SHARED_EXTERNAL_COSTS;NO_TRADES_NO_TRANSACTION_FEES;NO_INTEREST_ASSUMED"
+        }
+      },
+      "bindings": {
+        "policy_hash": "4fe41876e49532d3a69dddbd07be5e247114d74f5ed63e110e4c94331361e26a",
+        "risk_hash": "5a915b3be86b47e3e073a7eee9eb3f80dd49d174fb207446fab76a23cd9fcbea",
+        "cost_hash": "9c60b0b2d0dbb9d4095bad17572f17ba484337ebffb14ecb2713b7692a2975cd",
+        "code_hash": "fc07a23a61c0bb2e9ca891939177483e8070f0f00c7e51345016a16cd9884038",
+        "model_hashes": {
+          "RIDGE": "a3863f816bc703e103e62bcedde9eab41c71653d073ba61a4d6faabbbfdad25f",
+          "SVR": "fe63dfc1932b01e5e5ff9e6444f9f8bcafc850bc8892b3cda60a8ac9f3c6cb90"
+        },
+        "universe": [
+          "AAPL"
+        ],
+        "initial_equity_usd": 20000,
+        "period": {
+          "start_at": 1792078210000,
+          "end_at": 1792078211001
+        },
+        "maximum_holding_hours": 72,
+        "execution_model": {
+          "origin": "MODELED",
+          "causal_fills": "STRICTLY_LATER_QUOTE",
+          "mark_method": "BID",
+          "cancel_mode": "EXPLICIT_CONFIRMATION",
+          "fees_bps_per_side": 1,
+          "fee_per_fill_usd": 0.01,
+          "slippage_bps": 1,
+          "external_cost_usd": 1,
+          "ack_latency_ms": 0,
+          "liquidity_assumption": "Explicit executable quantity per future quote is a synthetic scenario, not observed depth or queue priority.",
+          "operating_cash_reserve": {
+            "amount_usd": 2,
+            "known_at": 1792078209999,
+            "method": "FIXED_INITIAL_CASH_RESERVE"
+          }
+        },
+        "common_request_hash": "417371dd4f376fe16c6ff4819b909784123faefb4e422ba5d37163c509a8136a",
+        "implementation_hashes": {
+          "quant/harpoon_quant/__init__.py": "81092f4af9bb6f35c55875d257dbe9ad3f2baa6f62c8c16b4d90db9f2762e149",
+          "quant/harpoon_quant/__main__.py": "5088807894ba96ba6ecd7dc14f3270d2c8a596b396ae25959e086cc37eb6061b",
+          "quant/harpoon_quant/bridge.py": "977695014bf04388465e06aef442a836a0848741247351bb9af22520ead72d1e",
+          "quant/harpoon_quant/calibration.py": "dcdeead19082a666883b1528403cd01ca8f10020fb15b45bb4f4294d2eddd8c1",
+          "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+          "quant/harpoon_quant/context.py": "019bc343631b383ace5987a124f1ae70c3241e52facd799723e2d8151cffdf6f",
+          "quant/harpoon_quant/core.py": "41eb71676d3da5089d4d1cd162451ad707670afef22b7d9f4d9c816bcfab6317",
+          "quant/harpoon_quant/curves.py": "de60b9c979a96afa02554e36ae22d50ab912bd27749b25fa66160642852ed508",
+          "quant/harpoon_quant/data_client.py": "f5299509f9c4829a8d99fc7eb94e0c49de1316ce73ea92749c83b2c57eeef751",
+          "quant/harpoon_quant/economic_gate.py": "66fd7c9612040b73a4b0c7c53da29d8a342eb29773bcbcc30e349045914c65ae",
+          "quant/harpoon_quant/economic_gate_v2.py": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+          "quant/harpoon_quant/economic_lab.py": "9c0575d541a8fa406e3c2c56dd952cb5b57d0ee8cdf59642e04008e0aad9af8e",
+          "quant/harpoon_quant/fixed_predictor.py": "40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b",
+          "quant/harpoon_quant/lab.py": "c9eac92b217038f14a16d84f62d4706626e9496c51b44c781501fbc6cf7a709b",
+          "quant/harpoon_quant/ledger.py": "adbe9215ee44ac2b0482aada2f6a5569c9683ceac9691e05555bd72e204fee61",
+          "quant/harpoon_quant/measurement_registration.py": "ac6e7b748c500537037f4f3ca4f0afa3fd75f679817cd54d0ce00a2127c74883",
+          "quant/harpoon_quant/microstructure.py": "f8bfb598f21d39961a4814d82a1a5582abbf1e266799d0af08fbae7fb661d4b0",
+          "quant/harpoon_quant/optimization.py": "b5ebf7cf1337865c2815d21a17304d162b6058f361c4604149d785a73028821a",
+          "quant/harpoon_quant/paired_replay.py": "9366b2364e557ad1bcd2b5bda5cd581646e44e8dc69d8cd562c2214d99f6cdf0",
+          "quant/harpoon_quant/performance.py": "617511a405f5a25355da7546e475408a172c9d4e6bc2def4b15b09a3f31eb6a0",
+          "quant/harpoon_quant/recursive.py": "d6b15eb8a906e6c4b2cf38cb9c3202ae335e9b21c3b0fe4dcbe956797e233e4b",
+          "quant/harpoon_quant/regimes.py": "361d7e95ba866bd3f48975260a0b1448ed6a84ef00c7327bc0e2e57cac803874",
+          "quant/harpoon_quant/scalar_svr.py": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+          "quant/harpoon_quant/study_integrity.py": "3299f9bf7e1d14769b979a29392e4977290240c8faa0c05aabf115068773d953",
+          "quant/harpoon_quant/support.py": "69978c4d0d05be01b33f3e117998e1a1328c36afad2dc2816576e03bea08619b",
+          "runtime/exit_profiles32.cjs": "94a431033c5b999d2ad35b75897746abd7221e912f7175778465221484b9ca2f",
+          "runtime/legacy30.cjs": "e6029abe784f046fb500dbd8547ce0f6e39c5a7a6e915b59df02ea50d715093e",
+          "runtime/quant_bridge.cjs": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+          "runtime30/accounting.js": "c75b3336b90add7caa6e02a21c9780580a5de4fe77c74975281e0ab1ae339c7f",
+          "runtime30/broker.js": "49a02708812a45e3caa67d95bd748cd29f2a79a4b6d0d5d51ad60c644be0cf88",
+          "runtime30/coordinator.js": "543d3cc38361101f7971975c170720383c759e74c89862e02053bc66772f3ff5",
+          "runtime30/cost_receipts.js": "e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca",
+          "runtime30/exits.js": "07fa96909510a1aea8e200576c0e83732d4ecb4c5df703c4838d57188b458805",
+          "runtime30/health.js": "8e862f403da39496892868801a9f9d21040e4b20574ee143196d1ff1fb094505",
+          "runtime30/market.js": "9f7472b6046014afabd3d6b887e975ef433a81cf192d93c8818319a4f1e6d526",
+          "runtime30/net_accounting.js": "a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7",
+          "runtime30/net_ledger_archive.js": "84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc",
+          "runtime30/net_ledger_verify.js": "cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a",
+          "runtime30/operational_status.js": "54fa5361e28891f452f9541d69c926e06d8d38c3088ce9c355efd362b896d7d3",
+          "runtime30/plugins.js": "dbc761e23fbe6331235b919d9e9622f6f5c6343513d90868b6fe8fba3c4501f8",
+          "runtime30/policy.js": "935b0b476c0e56b1ed219f9be920bbe71596fef481b3eb09add8dec6af24270c",
+          "runtime30/quant_observations.js": "8674e9e39fddd9e59072fc472f2a29fb882ab05244c32b0921ac6a7155bc6e21",
+          "runtime30/scheduler.js": "a8ee53676d676a02733820115802511b125381ce0e41df864ee678eaa9d2fed2",
+          "runtime30/selectors.js": "92399c506878104dc92db20d72bc2510759884c1904bedaac7710e15d6ea9495",
+          "runtime30/server.js": "2234f96ea13cc72aff1e981241438f2d5ad8d652211fce7bf048edc843d42ebb",
+          "runtime30/sessions.js": "9a03fc71322f6c24c82b019c4018042116888b5982171f482e1ac1ce9e8d9973",
+          "runtime30/streams.js": "f4917aa40a6a8c862b3d317cdd2d8343e2d66f3b41114d00114b091cb9ad3259",
+          "runtime30/types.js": "9757735ff525746516e53afe0f751e2479115bd9c7bdcd56dba29469d9026754",
+          "runtime30/ultimate_contracts.js": "782dc639435eb3f517ff4b6423d7ffe8ef3b4fc3067ea4de2f9be0ce086b7679",
+          "runtime30/ultimate_frequency.js": "4b7644d1a3b1dd8e87be13ef9853c0d22ff4afa1cca06be9325700a47649e972",
+          "runtime30/ultimate_futures.js": "13bd8820ba4f83d53daa1d8908b348de3a7e8b0d77af45a55423d6be2cead2a6",
+          "runtime30/ultimate_lab.js": "baadba950e9992b0541ba81de408c9d8c8f6787d5b759ec2edbbd47373642063",
+          "runtime30/ultimate_replay.js": "f47455ababf30c07f40b9913b07b8c0b25e6c4670ffabbc8a711643ea5dd2979",
+          "runtime30/ultimate_stats.js": "7e00fe13f18a8d1e1a9a2f721fee06831422d1491f3c97cc653084d4ae220361",
+          "runtime30/ultimate_worker.js": "dad087a7bb430153364018b7e26fb6d382ffe0160db253a13f18d6b4d5f54113",
+          "runtime30/validators.js": "e024563cd70cd0465782611a344bb53396cb66489bf2381696514e94451c2ff9",
+          "runtime30/version.js": "84be174428cbd836bf837a3aac19b369ad340bd57a5c82f566038431c31a3115",
+          "src/canonical.js": "7c898b63591964c5bb890c512fd13c99aa2ebf2fb845ff4fe6a25c26e71af4a2",
+          "src/contract.js": "32d62b9029c2f2e9dcab4883fcad7ff3f0a49ad3a96b38b1d65f235eeeb510b6",
+          "src/core.js": "e043dce364df2815113a6034deb4d42ba532f55d0dada8d952e2a3b78d28fc1a",
+          "src/crypto_core.js": "86735fc9229a925492cb74374c879c431ea9977814991895b0fad5f805e0f8f1",
+          "src/crypto_tape.js": "0c154ac0d964d349e3bbda334b94331a0ffd186ae637fae91f7421f48d20fa5b",
+          "src/defaults.js": "4231edfd8ddf59004fe09f2846b464058dd0db1ee49e4d90a3456ea52cbb6ab8",
+          "src/engine.js": "9236c18636d3a4426135058449032aa352b90d51feedc875bd0b2243f64dc4be",
+          "src/io.js": "0f6a8f7e8bf16d340c246e6722f4c376078c06a970c5a1a8c565f3575987580c",
+          "src/lab_rules.js": "a56cc76ffdd7ea99c3e2788ea30f037d66eec3da8cb1a610e15f9c8fe5726618",
+          "src/plugin_registry.js": "e1ff2b4874996aa966c9582ca4d98ae31cfd98b37d5c15690184690fa2654846",
+          "src/plugins/astra.js": "2c4fdbfaa615d8304eaeb25f79e73d08701c72be284db1166d6caf4a882ca9a6",
+          "src/plugins/catalog.js": "545b8369b27cafe582f95c875596a3b91506dab4e8c447662ff64e9bc178d57f",
+          "src/plugins/crypto_recovery.js": "d9f7708a7500980b6ce45eb03af59fa076fcc78b0df3ef873ec0f8417aeb4659",
+          "src/plugins/securities_entries.js": "aaa5a5aaf26fe7c97e3843f6ca8b442fe581330fea13e1f521437ad3d4f9915d",
+          "src/plugins/securities_rules.js": "035239f4c0ebe4cd2d66f5c25c640115c03d027a4dee9133bf590e149d93cc1e",
+          "src/tensor_core.js": "f733700da3f6bad3f5c49f96b1af5cd3b7814068bcce41791098f5d6157d64fd",
+          "src/warroom3.js": "7bff394aec81b1b80c9e217f07aa1bc0514b1c2445f0a10464a680f6dc4e6be4",
+          "src/x_core.js": "1e467912f78c692a054e5e034f9925f3704b88be09fe5ce59b87a1f0b999b715",
+          "src/x_engine.js": "9e9d62b640985e7e4c59dbabf2d0ce71c1e92348a6a6a61f56ae0864fff0f9b2",
+          "src/xi_core.js": "786157864caedae492942289c317d991e5e2a8fd1a170c6188dab45ee6369fee",
+          "src/xii_core.js": "82f5d61c185e8f17f0bb7244dae518640beddb3a6db1ed2ed0f783eab93da57d",
+          "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+          "tools/fixed_predictor_worker.cjs": "1c8ddfcf5e9b975edb4c57ba4877b52cacaa017975f509b069a15dc58119aa26",
+          "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+          "tools/observation_replay_input.cjs": "3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086",
+          "xxx/accounting.ts": "5d25b7ec568b988a68bea291dc4a8179b6a5beebc05385a5d46e03ac5a9d010f",
+          "xxx/broker.ts": "0f6b1749766eae22c559d587aabb40ee62242536a995bdc032439138cce8ee80",
+          "xxx/coordinator.ts": "718834333f7fc29f9c564168ccb3486414ce404e4f6b152d52b32999726be249",
+          "xxx/cost_receipts.ts": "50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a",
+          "xxx/exits.ts": "e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105",
+          "xxx/health.ts": "02aca94ca692053c299a0d310dad49afce3e85f72ef2741a385a957d4646cb12",
+          "xxx/market.ts": "500646e8bacdd19bb139905b13cb84c5db4a9c9f5966c36d58f4f41dc93729f7",
+          "xxx/net_accounting.ts": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+          "xxx/net_ledger_archive.ts": "4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2",
+          "xxx/net_ledger_verify.ts": "d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477",
+          "xxx/operational_status.ts": "f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f",
+          "xxx/plugins.ts": "3d22028610403f399b5f9d0d789130eefc863fa3f37e0e52bdba111dce8c0ac6",
+          "xxx/policy.ts": "d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b",
+          "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+          "xxx/scheduler.ts": "3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1",
+          "xxx/selectors.ts": "bb8c85244627a66ac3430327d26444797ad9f00b1ab066db7a461e54efa8e066",
+          "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+          "xxx/sessions.ts": "29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77",
+          "xxx/streams.ts": "790c7418a524471972ee3ff4743849838743b4fe416ee0a66eb85c4018880bdb",
+          "xxx/types.ts": "a753ed4d6b52ff775bc134464fcbc46f946e107662712ee95938f80754324222",
+          "xxx/ultimate_contracts.ts": "f64568a6339fea29a89d9c41d97032f47d8060944604f0bec19031cef0a148c5",
+          "xxx/ultimate_frequency.ts": "de5cbaaacefbe43c9384b1f3dab617eb12deb3ed59e2b71370e206bb1ab27f87",
+          "xxx/ultimate_futures.ts": "9a90f0652a00cc86c628d6f408859c9e7007ebcdabdec9f6c63b340cc11922d5",
+          "xxx/ultimate_lab.ts": "083e28adff0c8d11ffbae687131605a617a38d3b5bfabf35e7995e3805e784a5",
+          "xxx/ultimate_replay.ts": "2d0c903a329b7b3646e813ae270ef5582cf854d13bc6fd1c60f086a968670c7d",
+          "xxx/ultimate_stats.ts": "5ab159047335e2af12e06b4902f9543219bdd0d964d20e76b01e3113b906fd06",
+          "xxx/ultimate_worker.ts": "60441dcf8c2c0c0392aae9a0989d9c06a9fa94b8368dfefbfcd93f2a3002e547",
+          "xxx/validators.ts": "70e7eb11f991635596f5e1c3a6caedb22ebb93c5c1ae298e6d17985b6396b43c",
+          "xxx/version.ts": "2aeb83db991a6bed799b14ddad55ae1aff28a781ea6d072c4c8191e5679da066",
+          "tools/measurement_registration.py": "60054e9524909da2bc78fddcd8fd6334f07e600be87308d06d93803719ebf1cb",
+          "tools/level5_readiness.cjs": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+          "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b"
+        }
+      }
+    }
+  ],
+  "financial_blockers": [
+    "LEVEL4_OBSERVED_MEASUREMENT_INCOMPLETE",
+    "OBSERVED_COST_TIMING_NOT_RECONCILED:Cannot read properties of null (reading 'bundle')",
+    "OBSERVED_REGISTERED_MEASUREMENT_REQUIRED",
+    "STRESS_SIX_SLOT_RESERVATIONS_NOT_VERIFIED"
+  ],
+  "limitations": [
+    "All fills and executable liquidity remain modeled.",
+    "Risk is observed at replay-event resolution; unobserved intraperiod paths are not certified.",
+    "Local hashes and journals do not independently authenticate a provider, clock or research history.",
+    "CASH is a deterministic no-entry reference, not another searched strategy; it pays the same shared external costs."
+  ],
+  "external_cost_schedule": null,
+  "sources": [
+    {
+      "sha256": "9909fb5de3d6b30bddcbf13d7ab9744368edec9bead318e56977585c1f12f66c",
+      "bytes": 391
+    },
+    {
+      "sha256": "d9307596ddd56579cb255532ed2da8ee42f0fc1acab8bdba864579dcb91272ce",
+      "bytes": 294633
+    },
+    {
+      "sha256": "1a3dbed03631d46431aa37eca40897d859ebeacdc12ceb854aff46298e43737b",
+      "bytes": 3010197
+    },
+    {
+      "sha256": "06b5938123cc48c1197a31a6b375883744f3ed7420512f43aa2dcc5d35303080",
+      "bytes": 294640
+    },
+    {
+      "sha256": "f31bb65b625e5497d8802ad056989d9ea70335fd72f91a4d5aab45e447ea2093",
+      "bytes": 3010419
+    }
+  ],
+  "complete_derived_comparison": true,
+  "artifact_hash": "dcc3733f11e43347f7cfe999d9c8e2a906514aa76e839602370fa4c9e76c7829"
+}

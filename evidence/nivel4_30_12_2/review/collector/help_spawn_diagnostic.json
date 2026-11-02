@@ -1,0 +1,62 @@
+{
+  "schema": "HARPOON_COLLECTOR_HELP_SPAWN_DIAGNOSTIC_1",
+  "checked_at": "2026-11-01T04:12:16.964532+00:00",
+  "scope": "READ_ONLY_LOCAL_PROCESS_DIAGNOSTIC",
+  "collector_sha256": "8113c0861113a65779b811df5f99ce32362c99cb4de9cf99f6e428f3a5f89659",
+  "collector_bytes": 26302,
+  "restricted_execution": {
+    "cases": [
+      {
+        "case": "source_with_project_cwd",
+        "status": 0,
+        "error_code": "EPERM",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "case": "source_with_staged_cwd",
+        "status": 0,
+        "error_code": "EPERM",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "case": "copied_with_project_cwd",
+        "status": 0,
+        "error_code": "EPERM",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      },
+      {
+        "case": "copied_with_staged_cwd",
+        "status": 0,
+        "error_code": "EPERM",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0
+      }
+    ],
+    "source_and_copy_sha256_equal": true,
+    "node_test_context_removed": true,
+    "panel_password_removed": true
+  },
+  "approved_escalated_execution": {
+    "same_spawnSync_call": true,
+    "status": 0,
+    "error_code": null,
+    "stdout_bytes": 766,
+    "stderr_bytes": 0,
+    "required_help_text_present": true,
+    "node_test_context_removed": true,
+    "panel_password_removed": true
+  },
+  "finding": "The restricted nested process launch returns EPERM even though status is zero. Inspecting only status misclassifies a failed launch as successful execution.",
+  "remediation": "Assert result.error is absent and execute the targeted local distribution test using the approved process-launch environment. Preserve exact stdout assertions.",
+  "collector_change_required": false,
+  "complete_distribution_layout_not_rerun_in_this_diagnostic": true,
+  "external_requests": 0,
+  "external_orders": 0,
+  "model_fits": 0,
+  "new_financial_trials": 0,
+  "financial_acceptance_allowed": false,
+  "economic_score": null
+}

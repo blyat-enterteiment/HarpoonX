@@ -1,0 +1,38 @@
+{
+  "schema": "HARPOON_HISTORICAL_RESULTS_AUDIT_TEST_RECEIPT_1",
+  "recorded_at": "2026-11-01T18:26:36.033881+00:00",
+  "new_post_analysis_files": [
+    {
+      "path": "tools/audit_historical_results.py",
+      "sha256": "6fb811c809fab3615ce0abe30b2588ba0d1b8cc1653d05557227a6f24d4d3b52"
+    },
+    {
+      "path": "tools/test_audit_historical_results.py",
+      "sha256": "71e950e70c0fc848629690c17b9eb616be2a9d16554207c992041746f5f4243b"
+    }
+  ],
+  "command": "python -B -m unittest discover -s tools -p test_audit_historical_results.py -v",
+  "tests": 13,
+  "passed": 13,
+  "failed": 0,
+  "unittest_duration_seconds": 0.008,
+  "synthetic_scope": "Accounting, costs, carry, missing values, counts, reservation knowledge, payment timing, absolute-vs-relative increment and calendar counter contracts; no fits or strategy executions.",
+  "audit_report": {
+    "path": "evidence/historical_bank_30_16_0/qa/results_audit_final.json",
+    "sha256": "a6efb1c4841d3189387f647bf212a058f2802fb7f8917deb93f38d08fc342553",
+    "status": "PASS_CONSISTENCY_ONLY",
+    "issues": []
+  },
+  "sealed_measuring_sources_unchanged": 81,
+  "retained_journal_budget": {
+    "limit": 128,
+    "spent": 29
+  },
+  "post_analysis_auditor_is_outside_original_measurement_hashes": true,
+  "reviewer_previously_implemented_registration_and_causality": true,
+  "independent_external_validation": false,
+  "financial_acceptance_allowed": false,
+  "new_model_fits": 0,
+  "new_policy_scenario_trials": 0,
+  "REAL_level7": false
+}

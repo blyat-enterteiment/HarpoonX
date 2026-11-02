@@ -1,0 +1,1198 @@
+Comparación de fuentes 30.12.1 -> 30.12.2. Los cambios ya están incluidos en la aplicación integral.
+
+--- 30.12.1/.dockerignore
++++ 30.12.2/.dockerignore
+@@ -17,6 +17,7 @@
+ !tools/level4_readiness.cjs
+ !tools/level5_readiness.cjs
+ !tools/export_observation_snapshot.cjs
++!tools/collect_runtime_evidence.cjs
+ evidence/*
+ !evidence/tp32/
+ evidence/tp32/*
+--- 30.12.1/LEEME_PRIMERO_30_12_2.txt
++++ 30.12.2/LEEME_PRIMERO_30_12_2.txt
+@@ -0,0 +1,105 @@
++HARPOON XXXUltimate 30.12.2 — APLICACION INTEGRAL
++Quant 1.8.0
++
++OBJETIVO Y RESULTADO
++
++La entrega corrige la consistencia de la validación del nivel 4 y automatiza
++la extracción verificable de observaciones y contabilidad. El nivel de evidencia
++continúa en 3/10. No existe una calificación estimable de rentabilidad real con
++las fuentes disponibles. No se cambia el significado de la escala: el nivel 4
++vigente acredita medición integrada y puede coexistir con pérdidas.
++
++QUE SE CORRIGIO
++
++El vínculo de la comparación con su configuración observada se verifica a lo
++largo de todas las páginas. Una frontera de página no permite ocultar un cambio
++de universo, riesgo o señal. El contrato del replay de comparación conserva una
++configuración fija; no incorpora épocas nuevas ni selección retrospectiva.
++Un snapshot íntegro y un panel causal con universo rotatorio pueden ser válidos
++para captura y seguir fuera del contrato del comparador financiado. Conservar
++el journal completo; no borrarlo, reiniciarlo ni recortarlo para eludir ese límite.
++
++El universo del comparador financiado es acciones y ETF con multiplicador 1.
++La proyección desde una captura mixta conserva todos los activos admitidos y
++elimina únicamente los que están fuera del contrato. El replay genérico admite
++cripto, pero ello no acredita una comparación económica de cripto u opciones.
++
++EXTRACCION DE EVIDENCIA
++
++Desde la raíz de esta aplicación, después de instalar sus dependencias:
++
++  node tools/collect_runtime_evidence.cjs --help
++
++El contrato y los argumentos exactos están en:
++
++  tools/RUNTIME_EVIDENCE_COLLECTION.txt
++
++Se necesita la URL legítima de la instancia, versión y cuenta esperadas y la
++contraseña del panel disponible localmente. La contraseña no se pasa por la línea
++de comandos ni se incorpora a los informes. El recolector exige HTTPS fuera de
++loopback, rechaza redirecciones, limita tiempo y bytes y usa exclusivamente GET.
++
++El resultado completo exige revisión consistente, integridad del prefijo de
++observaciones y reconstrucción del ledger. Las respuestas originales se conservan
++con sus huellas. Una ejecución incompleta conserva un recibo parcial rechazado y
++no sobrescribe una colección anterior. El colector no reinicia el motor ni pausa
++la captura para obtener una revisión. Una revisión contable que cambie entre
++páginas debe volver a descargarse después en un directorio nuevo.
++
++Sin selección causal aportada no se genera un manifiesto de calibración.
++El resultado de transporte íntegro no sustituye modelos, facturas, devengos,
++registro temporal o validez económica; tampoco prueba autenticidad externa
++independiente. Los verificadores existentes conservan los desconocidos como null.
++
++RECURSOS QUE SIGUEN FALTANDO
++
++- Instancia actual identificada y accesible, o exportaciones originales completas.
++- Observaciones causales utilizables. El contrato SVR vigente requiere al menos
++  100 sesiones distintas y 100 filas, con las demás condiciones de admisión.
++  Ese mínimo es una decisión del contrato, no una garantía universal de beneficio.
++- Historia de patrimonio, posiciones, actividades, costes y devengos del mismo
++  periodo y cuenta, conciliada sin tratar faltantes como cero.
++- Modelos Ridge/SVR fijados y disponibles antes del periodo de comparación.
++- Comparación registrada con las hipótesis de ejecución explícitas y dentro del
++  presupuesto histórico. Los periodos usados antes no se vuelven pruebas nuevas.
++
++PAPER conserva su naturaleza simulada. Rendimiento real requiere una cuenta de
++operación real y sus extractos originales. Esta entrega no cambia el entorno ni
++la autorización existente para operar.
++
++REPRODUCCION SIN ORDENES
++
++La instalación completa, sus dependencias y la actualización están documentadas
++en LEEME_INTEGRAL_30_10_1.txt, incluida en este mismo ZIP. La configuración legítima
++y las bases de datos de una instalación existente deben conservar su identidad.
++No se necesita aplicar un patch previo.
++
++  bash install.sh --check
++  bash install.sh --plan
++
++Reproducción actual de diagnósticos y ejemplos sintéticos de software:
++
++  .venv/bin/python evidence/nivel4_30_12_2/reproduce.py --app .
++
++Pruebas del nuevo recolector:
++
++  npm run test:evidence-collection
++
++La herramienta completa de verificación sigue disponible:
++
++  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-qa
++
++Las pruebas pueden necesitar sockets locales efímeros. El informe distingue las
++pruebas nuevas/repetidas de las 919 pruebas heredadas de 30.12.1. No se afirma una
++nueva ejecución total si sólo se repitieron los recorridos afectados.
++
++ALCANCE OPERACIONAL
++
++La descarga no agrega servicios permanentes ni tareas programadas. El motor
++mantiene su coordinador, límites y protecciones. Si falla la persistencia también
++pueden quedar bloqueados cierres o protecciones que requieren guardar estado;
++las solicitudes ya enviadas al broker deben reconciliarse.
++
++No se verificó una imagen Docker construida ni un despliegue actual. La prueba de
++layout comprueba los archivos distribuidos y la carga de los verificadores.
++El informe YAML actual y los manifiestos detallan los resultados ejecutados.
+--- 30.12.1/README.md
++++ 30.12.2/README.md
+@@ -1,4 +1,19 @@
+-# HARPOON XXXUltimate 30.12.1
++# HARPOON XXXUltimate 30.12.2
++
++## Medición observada y consistencia de evidencia · Quant 1.8.0
++
++Esta aplicación integral incorpora un recolector autenticado de evidencia y corrige el vínculo entre la configuración observada y la comparación del nivel 4. La aceptación de un prefijo de observaciones debe ser la misma cualquiera que sea su división en páginas. El contrato de comparación conserva una configuración fija y admite únicamente acciones y ETF al contado, con multiplicador 1. El replay genérico dispone de un alcance distinto que también admite cripto; eso no amplía la comparación financiada del nivel 4.
++
++`LEEME_PRIMERO_30_12_2.txt` es la guía actual. `EVALUACION_ECONOMICA_HARPOONX_30_12_2.yaml` distingue la evidencia económica, el resultado de acceso y las pruebas efectivamente ejecutadas. Las guías e informes anteriores conservan su fecha y alcance.
++
++El nivel 4 existente significa medición observada integrada y puede coexistir con pérdidas. No es una calificación de rentabilidad real. Sin observaciones y cuenta conciliadas, la nota de evidencia permanece en 3 y la calificación de rendimiento real es desconocida. La revisión no modifica umbrales, modelos, capital, riesgo ni presupuesto para obtener una nota mayor.
++
++El recolector realiza una única descarga por GET desde una instancia identificada. Conserva bytes originales, verifica páginas de observaciones y reconstruye el historial contable con los verificadores vigentes. Una revisión contable cambiante interrumpe la descarga y deja un resultado parcial no aceptado. No convierte un paquete íntegro en validación económica, no crea modelos ni recibos de costes, y no otorga autoridad para operar.
++
++La instancia actual y su acceso siguen sin identificarse en los recursos comprobados. Los datos sintéticos de las pruebas están separados de la evidencia económica. Las fuentes nuevas y los recibos de esta revisión están en `evidence/nivel4_30_12_2/`.
++
++## Antecedente integral 30.12.1
++
+ 
+ ## Integral revisada del proyecto · 30.12.1 / Quant 1.8.0
+ 
+--- 30.12.1/deploy/Dockerfile.xxx
++++ 30.12.2/deploy/Dockerfile.xxx
+@@ -14,7 +14,7 @@
+ COPY xxx ./xxx
+ COPY src ./src
+ COPY runtime ./runtime
+-COPY tools/coordinator_replay.cjs tools/observation_replay_input.cjs tools/funded_comparison.cjs tools/fixed_predictor_worker.cjs tools/measurement_registration.py tools/build_causal_panel.py tools/level4_readiness.cjs tools/level5_readiness.cjs tools/export_observation_snapshot.cjs ./tools/
++COPY tools/coordinator_replay.cjs tools/observation_replay_input.cjs tools/funded_comparison.cjs tools/fixed_predictor_worker.cjs tools/measurement_registration.py tools/build_causal_panel.py tools/level4_readiness.cjs tools/level5_readiness.cjs tools/export_observation_snapshot.cjs tools/collect_runtime_evidence.cjs ./tools/
+ COPY quant/harpoon_quant ./quant/harpoon_quant
+ COPY quant/requirements-tested.txt ./quant/requirements-tested.txt
+ RUN python3 -m venv /opt/harpoon-quant && /opt/harpoon-quant/bin/pip install --no-cache-dir -r quant/requirements-tested.txt
+--- 30.12.1/package-lock.json
++++ 30.12.2/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.12.1",
++  "version": "30.12.2",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "harpoon-cloud-247",
+-      "version": "30.12.1",
++      "version": "30.12.2",
+       "dependencies": {
+         "@msgpack/msgpack": "3.1.2",
+         "ws": "8.18.3"
+--- 30.12.1/package.json
++++ 30.12.2/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.12.1",
++  "version": "30.12.2",
+   "private": true,
+   "scripts": {
+     "test": "node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py",
+@@ -38,7 +38,9 @@
+     "test:xxx:clocked": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-timeout=30000 tools/xxx_test.cjs tools/xxx_conformance_test.cjs tools/xxx_health_test.cjs tools/xxx_selector_test.cjs tools/xxx_tp32_test.cjs tools/xxx_operational_test.cjs tools/xxx_partial_entry_risk_test.cjs",
+     "test:remediation": "python3 tools/verify_remediation.py --suite all",
+     "evidence:level5": "node tools/level5_readiness.cjs",
+-    "test:storage": "node --test tools/store30_deadline_test.cjs"
++    "test:storage": "node --test tools/store30_deadline_test.cjs",
++    "evidence:collect": "node tools/collect_runtime_evidence.cjs",
++    "test:evidence-collection": "node --test tools/collect_runtime_evidence_test.cjs"
+   },
+   "devDependencies": {
+     "@types/node": "22.19.19",
+--- 30.12.1/quant/README_ES.md
++++ 30.12.2/quant/README_ES.md
+@@ -1,6 +1,6 @@
+ # HarpoonX · motor cuantitativo multi activo 1.8.0
+ 
+-Implementación de investigación y asignación, integrada en el coordinador XXXUltimate 30.12.1. El núcleo formula una decisión económica común para acciones, ETF, cripto y opciones; también valora futuros mediante entradas normalizadas. No acredita rentabilidad observada, participación en un campeonato ni una tecnología propietaria de Citadel o Jane Street.
++Implementación de investigación y asignación, integrada en el coordinador XXXUltimate 30.12.2. El núcleo formula una decisión económica común para acciones, ETF, cripto y opciones; también valora futuros mediante entradas normalizadas. No acredita rentabilidad observada, participación en un campeonato ni una tecnología propietaria de Citadel o Jane Street.
+ 
+ ## Puente económico y observaciones · 1.8.0
+ 
+--- 30.12.1/runtime30/version.js
++++ 30.12.2/runtime30/version.js
+@@ -2,4 +2,4 @@
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.ULTIMATE_VERSION = void 0;
+ // Release identity is separate from the immutable research engine code seal.
+-exports.ULTIMATE_VERSION = "30.12.1";
++exports.ULTIMATE_VERSION = "30.12.2";
+--- 30.12.1/tools/RUNTIME_EVIDENCE_COLLECTION.txt
++++ 30.12.2/tools/RUNTIME_EVIDENCE_COLLECTION.txt
+@@ -0,0 +1,155 @@
++HARPOON — RECOLECCION ACOTADA DE EVIDENCIA DEL RUNTIME
++
++ALCANCE
++
++collect_runtime_evidence.cjs descarga una vez los recibos que ya conserva una
++instancia identificada. Comprueba transporte, identidad, continuidad y aritmética
++contable con los verificadores de la aplicación. No calcula una nota económica,
++no entrena modelos, no reserva ensayos y no envía órdenes.
++
++El resultado COMPLETE_SOURCE_COLLECTION significa que se recogieron y verificaron
++las fuentes solicitadas. No significa nivel 4, rentabilidad, ejecución LIVE ni
++validación independiente del proveedor. Los campos de autoridad permanecen false
++y economic_score permanece null.
++
++REQUISITOS
++
++- Node y las dependencias ya declaradas en esta distribución.
++- URL exacta del origen de una instancia conocida, sin ruta, query ni credenciales.
++- Identificador esperado de cuenta y versión esperada de esa instancia.
++- Contraseña legítima del panel disponible en HARPOON_PANEL_PASSWORD mediante
++  el mecanismo de secretos del entorno. El usuario Basic es trader.
++- Un directorio de salida nuevo cuyo directorio padre ya exista.
++
++La URL debe utilizar HTTPS. Se permite HTTP únicamente para direcciones literales
++de loopback 127.0.0.0/8 o ::1. El nombre localhost no es una excepción de transporte.
++Los redirects se rechazan y la verificación TLS permanece habilitada.
++Nunca pasar la contraseña como argumento ni incorporarla a la URL o a un JSON.
++
++USO
++
++Ayuda local sin credenciales, red ni creación de directorios:
++
++  node tools/collect_runtime_evidence.cjs --help
++
++Después de suministrar los valores reales mediante el entorno de esa instalación:
++
++  node tools/collect_runtime_evidence.cjs \
++    --base-url "$HARPOON_PUBLIC_ORIGIN" \
++    --expected-account "$HARPOON_EXPECTED_ACCOUNT_ID" \
++    --expected-version "$HARPOON_EXPECTED_VERSION" \
++    --output "$HARPOON_EVIDENCE_OUTPUT"
++
++HARPOON_EXPECTED_VERSION es la versión esperada del servidor que se va a consultar.
++No asumir que es la misma que la del equipo desde el que se ejecuta el recolector.
++Las otras variables del ejemplo deben contener el origen, cuenta y ruta de salida
++legítimos. No se proporcionan valores ficticios para activar una cuenta.
++
++Opciones adicionales:
++
++  --selection /ruta/a/seleccion_original.json
++  --timeout-ms 300000
++  --request-timeout-ms 10000
++
++La selección es opcional. Si se aporta, se conserva sin modificar y debe usar el
++contrato FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID, America/New_York, local_time y
++los tres presupuestos de retraso/edad definidos por el panel causal. El recolector
++comprueba su forma y límites; no afirma que haya sido fijada antes de observar los
++resultados. El constructor del panel conserva sus controles de fechas y configuración.
++
++Sin selección se verifica el prefijo original, pero no se escribe un manifiesto
++de calibración ni una solicitud de entrenamiento. No se inventan horas, ventanas,
++etiquetas, costes, modelos ni supuestos de profundidad ejecutable.
++
++RECORRIDO
++
++1. GET /healthz verifica versión antes de transmitir la autenticación Basic.
++2. GET /v1/operational conserva el estado operacional original, aunque esté
++   esperando datos o modelos; ese estado no autoriza una operación.
++3. GET /v1/quant/observations/snapshot fija el prefijo de observaciones y permite
++   comprobar la cuenta esperada. Este GET guarda metadatos acotados de snapshot
++   dentro del runtime; no modifica órdenes, estrategia ni límites de riesgo.
++4. GET /v1/quant/observations?snapshot_id=... descarga todas las páginas del
++   prefijo fijado. Las cadenas, frames, cuenta y configuración se contrastan con
++   assemble del exportador existente. Se admite un prefijo vacío, identificado
++   expresamente como cero observaciones.
++5. GET /v1/accounting/history descarga páginas contables de una sola revisión.
++   verifyNetLedgerHistoryBundle reconstruye y comprueba el estado, caja, inventario,
++   actividades, costes y retornos disponibles. Una hash coherente por sí sola no
++   basta para aceptar aritmética falsa.
++6. GET /healthz comprueba que la instancia y versión no cambiaron durante la
++   colección. Solo entonces se publica collection_receipt.json.
++
++Todas las rutas son fijas y todas las peticiones son GET. El recolector no tiene
++transporte al broker ni ruta de control de operaciones. Los snapshots de mercado
++y contabilidad se fijan por separado; su cuenta coincidente no afirma simultaneidad.
++
++LIMITES
++
++- 32 MiB por respuesta HTTP.
++- 128 MiB de respuestas originales de observaciones, incluido su descriptor.
++- 32 MiB de páginas contables originales y 32 MiB del bundle contable serializado,
++  compatibles con el límite por archivo del gate existente.
++- 192 MiB de artefactos totales, reservando 1 MiB para el recibo de estado.
++- 512 páginas por familia; 100 frames por página de observaciones y 1000 registros
++  contables por página como valores predeterminados.
++- 1030 peticiones como máximo, sin reintentos ni reinicios automáticos.
++- 300 segundos totales y 10 segundos por petición de forma predeterminada;
++  máximos configurables de 600 y 30 segundos, respectivamente.
++
++Los límites actúan sobre bytes retenidos por la aplicación y archivos. Pueden
++existir bytes de red en tránsito cuando se corta una respuesta excedida. Los
++plazos se comprueban con reloj monotónico; el event loop y el sistema operativo
++no ofrecen una garantía de tiempo real.
++
++SALIDAS E INTEGRIDAD
++
++El directorio se crea exclusivamente con permiso 0700 y sus archivos con 0600
++en sistemas que aplican permisos POSIX. Un directorio ya existente se rechaza
++antes de realizar la primera petición; no se mezcla con una colección anterior.
++
++Se conservan los bytes originales completos de cada respuesta JSON aceptable,
++su tamaño y SHA-256. Se rechazan JSON ambiguos, UTF-8 inválido y respuestas que
++reflejen literalmente la contraseña o el token Basic, incluidas cadenas JSON
++escapadas. No se redactan bytes para hacer que una respuesta alterada parezca
++original. La detección de esos reflejos no es un clasificador universal de secretos.
++
++ledger_bundle.json es una derivación explícita de páginas originales verificadas.
++observation_manifest.json se genera únicamente cuando existe selección aportada.
++collection_receipt.json diferencia datos recogidos, verificación local y recursos
++todavía necesarios para la evaluación económica.
++
++Si una etapa falla, no aparece un recibo de colección completa. Se mantienen las
++respuestas completas ya obtenidas y collection_failed.json, marcado
++PARTIAL_COLLECTION_REJECTED. El cuerpo incompleto de la respuesta fallida no se
++guarda. Si el disco también falla, puede faltar ese recibo de error; la ausencia
++de collection_receipt.json nunca equivale a una colección aceptada.
++
++Una revisión contable que cambia entre páginas produce
++LEDGER_REVISION_CHANGED_NO_AUTOMATIC_RESTART. El runtime verifica cada página,
++pero no proporciona un snapshot contable inmutable entre peticiones. El recolector
++no detiene la gestión del motor ni repite indefinidamente para ocultar esa condición.
++Para otra ejecución se necesita un directorio nuevo; el intento anterior se conserva.
++
++DESPUES DE RECOGER LAS FUENTES
++
++El panel causal y los modelos se verifican mediante las herramientas existentes.
++El contrato SVR actual requiere 100 sesiones distintas de observaciones causales;
++repetir capturas de un día no satisface ese requisito. Un bundle contable válido
++puede tener costes económicos desconocidos y conserva esos importes como null.
++
++Para evaluar nivel 4 siguen siendo necesarios panel causal admisible, modelos
++observados disponibles antes de las decisiones, comparación fija registrada,
++cuenta y periodo vinculados, y costes/devengos documentados. La ruta de evaluación
++permanece tools/level4_readiness.cjs. Recoger fuentes no cambia sus criterios.
++
++PRUEBAS
++
++  node --test --test-isolation=none --test-reporter=tap \
++    --test-timeout=15000 tools/collect_runtime_evidence_test.cjs
++
++Las pruebas usan clases reales de journal, ledger y servidor de la aplicación
++con datos y broker doble identificados como sintéticos. El transporte HTTP es
++loopback. Incluyen identidad, autenticación, páginas/cadenas alteradas, PnL falso
++con hashes rehechos, cambios de revisión, límites, plazos, redirects, reflejo de
++credenciales y preservación de salidas. No conectan con cuentas de inversión.
+--- 30.12.1/tools/collect_runtime_evidence.cjs
++++ 30.12.2/tools/collect_runtime_evidence.cjs
+@@ -0,0 +1,348 @@
++"use strict";
++// One bounded collection, fixed GET routes only. No broker transport or model fitting.
++const fs = require("node:fs"), path = require("node:path"), http = require("node:http"), https = require("node:https");
++const crypto = require("node:crypto"), {performance} = require("node:perf_hooks");
++const {TextDecoder} = require("node:util");
++const MIB = 1024 * 1024, REPORT_RESERVE = MIB;
++const SCHEMA = "HARPOON_RUNTIME_EVIDENCE_COLLECTION_1";
++const HARD = Object.freeze({pageBytes: 32*MIB, observationBytes: 128*MIB,
++  ledgerBundleBytes: 32*MIB, totalBytes: 192*MIB, pages: 512, requests: 1030,
++  timeoutMs: 600000, requestTimeoutMs: 30000});
++const AUTHORITY = Object.freeze({execution_allowed: false, liveApproved: false,
++  financial_acceptance_allowed: false, level4_assessed: false, economic_score: null});
++class CollectionError extends Error {
++  /** @param {string} code */
++  constructor(code) { super(code); this.name = "CollectionError"; this.code = code; }
++}
++/** @param {any} ok @param {string} code */
++function need(ok, code) { if (!ok) throw new CollectionError(code); }
++/** @param {Buffer|string} value */
++function sha(value) { return crypto.createHash("sha256").update(value).digest("hex"); }
++/** @param {unknown} value @param {number} fallback @param {number} lo @param {number} hi @param {string} name */
++function integer(value, fallback, lo, hi, name) {
++  const n = value === undefined ? fallback : value;
++  need(typeof n === "number" && Number.isSafeInteger(n) && n >= lo && n <= hi, "INVALID_LIMIT_" + name);
++  return /** @type {number} */ (n);
++}
++/** @param {unknown} value */
++function endpoint(value) {
++  need(typeof value === "string" && value.length <= 2048, "BASE_URL_REQUIRED");
++  let url;
++  try { url = new URL(/** @type {string} */ (value)); } catch { throw new CollectionError("BASE_URL_INVALID"); }
++  need(!url.username && !url.password && !url.search && !url.hash && url.pathname === "/", "BASE_URL_MUST_BE_ORIGIN_WITHOUT_CREDENTIALS");
++  // HTTP is permitted only for literal loopback addresses; no hostname/DNS exception.
++  const loopback = /^127(?:\.\d{1,3}){3}$/.test(url.hostname) || url.hostname === "[::1]";
++  need(url.protocol === "https:" || url.protocol === "http:" && loopback, "HTTPS_REQUIRED_OUTSIDE_LITERAL_LOOPBACK");
++  return url;
++}
++function helpers() {
++  // Fixed application modules. Dynamic paths prevent checkJs from rechecking generated runtime JS.
++  const root = path.resolve(__dirname, "..");
++  return {
++    strict: require(path.join(__dirname, "level4_readiness.cjs")).parseStrictJSON,
++    snapshots: require(path.join(__dirname, "export_observation_snapshot.cjs")),
++    digest: require(path.join(root, "runtime30/ultimate_contracts.js")).digest,
++    verifyLedger: require(path.join(root, "runtime30/net_accounting.js")).verifyNetLedgerHistoryBundle,
++  };
++}
++/** @param {any} value */
++function validateSelection(value) {
++  need(value && typeof value === "object" && !Array.isArray(value), "SELECTION_OBJECT_REQUIRED");
++  const allowed = ["kind", "timezone", "local_time", "max_selection_delay_ms", "label_quote_max_age_ms", "label_maturity_max_delay_ms"];
++  need(Object.keys(value).every(k => allowed.includes(k)) && Object.keys(value).length === allowed.length, "SELECTION_FIELDS_INVALID");
++  need(value.kind === "FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID" && value.timezone === "America/New_York" &&
++    typeof value.local_time === "string" && /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value.local_time), "SELECTION_CONTRACT_INVALID");
++  integer(value.max_selection_delay_ms, 0, 0, 90000, "SELECTION_DELAY");
++  integer(value.label_quote_max_age_ms, 0, 0, 900000, "LABEL_QUOTE_AGE");
++  integer(value.label_maturity_max_delay_ms, 0, 0, 300000, "LABEL_MATURITY_DELAY");
++  return value;
++}
++/** @param {any} input @param {string[]} secrets */
++function containsSecret(input, secrets) {
++  if (typeof input === "string") return secrets.some(s => input.includes(s));
++  if (!input || typeof input !== "object") return false;
++  return Object.entries(input).some(([key, value]) => secrets.some(s => key.includes(s)) || containsSecret(value, secrets));
++}
++/** @param {any} options @param {Record<string,string|undefined>} [environment] */
++async function collectRuntimeEvidence(options, environment = process.env) {
++  const started = performance.now(), startedAt = new Date().toISOString();
++  const allowed = ["baseUrl", "expectedAccount", "expectedVersion", "outputDir", "selectionFile", "timeoutMs", "requestTimeoutMs",
++    "pageBytes", "observationBytes", "ledgerBundleBytes", "totalBytes", "maxPages", "maxRequests", "observationPageSize", "ledgerPageSize"];
++  need(options && typeof options === "object" && Object.keys(options).every(k => allowed.includes(k)), "COLLECTION_OPTIONS_INVALID");
++  const base = endpoint(options.baseUrl);
++  need(typeof options.expectedAccount === "string" && /^[A-Za-z0-9_-]{1,128}$/.test(options.expectedAccount), "EXPECTED_ACCOUNT_REQUIRED");
++  need(typeof options.expectedVersion === "string" && /^\d+\.\d+\.\d+(?:[-+][A-Za-z0-9.-]+)?$/.test(options.expectedVersion) && options.expectedVersion.length <= 64, "EXPECTED_VERSION_REQUIRED");
++  need(typeof options.outputDir === "string" && options.outputDir.length > 0, "NEW_OUTPUT_DIRECTORY_REQUIRED");
++  const output = path.resolve(options.outputDir);
++  const password = environment.HARPOON_PANEL_PASSWORD;
++  need(typeof password === "string" && password.length >= 32 && password.length <= 4096 && !/[\x00-\x1f\x7f]/.test(password), "PANEL_PASSWORD_ENV_REQUIRED");
++  const authorization = "Basic " + Buffer.from("trader:" + password).toString("base64");
++  const secretValues = [password, authorization, authorization.slice(6)];
++  const limits = {
++    timeoutMs: integer(options.timeoutMs, 300000, 50, HARD.timeoutMs, "TOTAL_TIME"),
++    requestTimeoutMs: integer(options.requestTimeoutMs, 10000, 20, HARD.requestTimeoutMs, "REQUEST_TIME"),
++    pageBytes: integer(options.pageBytes, HARD.pageBytes, 128, HARD.pageBytes, "PAGE_BYTES"),
++    observationBytes: integer(options.observationBytes, HARD.observationBytes, 128, HARD.observationBytes, "OBSERVATION_BYTES"),
++    ledgerBundleBytes: integer(options.ledgerBundleBytes, HARD.ledgerBundleBytes, 128, HARD.ledgerBundleBytes, "LEDGER_BUNDLE_BYTES"),
++    totalBytes: integer(options.totalBytes, HARD.totalBytes, REPORT_RESERVE + 128, HARD.totalBytes, "TOTAL_BYTES"),
++    maxPages: integer(options.maxPages, HARD.pages, 1, HARD.pages, "PAGES"),
++    maxRequests: integer(options.maxRequests, HARD.requests, 1, HARD.requests, "REQUESTS"),
++    observationPageSize: integer(options.observationPageSize, 100, 1, 100, "OBSERVATION_PAGE_SIZE"),
++    ledgerPageSize: integer(options.ledgerPageSize, 1000, 1, 5000, "LEDGER_PAGE_SIZE"),
++  };
++  const api = helpers();
++  /** @type {any|null} */ let selection = null;
++  /** @type {Buffer|null} */ let selectionBytes = null;
++  if (options.selectionFile !== undefined) {
++    need(typeof options.selectionFile === "string", "SELECTION_FILE_INVALID");
++    let handle;
++    try {
++      handle = fs.openSync(options.selectionFile, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
++      const stat = fs.fstatSync(handle); need(stat.isFile() && stat.size <= 16384, "SELECTION_FILE_BOUND");
++      const bounded = Buffer.alloc(stat.size + 1), length = fs.readSync(handle, bounded, 0, bounded.length, 0);
++      need(length === stat.size, "SELECTION_FILE_CHANGED_DURING_READ");
++      selectionBytes = bounded.subarray(0, length);
++      selection = validateSelection(api.strict(new TextDecoder("utf-8", {fatal: true}).decode(selectionBytes)));
++      need(!containsSecret(selection, secretValues), "CREDENTIAL_ECHO_REJECTED");
++    } catch (error) { if (error instanceof CollectionError) throw error; throw new CollectionError("SELECTION_FILE_UNREADABLE_OR_INVALID"); }
++    finally { if (handle !== undefined) fs.closeSync(handle); }
++  }
++  // Exclusive directory acquisition precedes every HTTP request. Existing outputs are never modified.
++  try { fs.mkdirSync(output, {mode: 0o700}); }
++  catch (error) { throw new CollectionError(/** @type {NodeJS.ErrnoException} */ (error).code === "EEXIST" ? "OUTPUT_ALREADY_EXISTS" : "OUTPUT_DIRECTORY_UNAVAILABLE"); }
++  /** @type {any[]} */ const artifacts = [];
++  /** @type {any[]} */ const requests = [];
++  let artifactBytes = 0, networkBytes = 0, observationBytes = 0, stage = "START";
++  /** @type {any|null} */ let observationVerification = null, ledgerVerification = null;
++  const remaining = () => limits.timeoutMs - (performance.now() - started);
++  const deadline = () => need(remaining() > 0, "COLLECTION_DEADLINE_EXCEEDED");
++  /** @param {string} name @param {Buffer} bytes @param {string} kind */
++  const write = (name, bytes, kind) => {
++    need(artifactBytes + bytes.length <= limits.totalBytes - REPORT_RESERVE, "COLLECTION_OUTPUT_BYTES_BOUND");
++    const filename = path.join(output, name), handle = fs.openSync(filename, "wx", 0o600);
++    try { fs.writeFileSync(handle, bytes); fs.fsyncSync(handle); } finally { fs.closeSync(handle); }
++    const ref = {path: name, sha256: sha(bytes), bytes: bytes.length, kind};
++    artifactBytes += bytes.length; artifacts.push(ref); return ref;
++  };
++  /** @param {string} name @param {any} value @param {string} kind */
++  const writeJSON = (name, value, kind) => write(name, Buffer.from(JSON.stringify(value, null, 2) + "\n"), kind);
++  /** @param {any} receipt @param {boolean} complete */
++  const writeReceipt = (receipt, complete) => {
++    const bytes = Buffer.from(JSON.stringify(receipt, null, 2) + "\n");
++    need(bytes.length <= REPORT_RESERVE && artifactBytes + bytes.length <= limits.totalBytes, "COLLECTION_RECEIPT_BYTES_BOUND");
++    const name = complete ? "collection_receipt.json" : "collection_failed.json", temporary = path.join(output, name + ".partial");
++    const handle = fs.openSync(temporary, "wx", 0o600);
++    try { fs.writeFileSync(handle, bytes); fs.fsyncSync(handle); } finally { fs.closeSync(handle); }
++    fs.renameSync(temporary, path.join(output, name));
++  };
++  /** @param {string} route @param {boolean} authenticated @param {number} maxSourceBytes @returns {Promise<Buffer>} */
++  const requestBytes = (route, authenticated, maxSourceBytes) => new Promise((resolve, reject) => {
++    try { deadline(); need(requests.length < limits.maxRequests, "COLLECTION_REQUEST_COUNT_BOUND"); }
++    catch (error) { reject(error); return; }
++    const fixed = route === "/healthz" || route === "/v1/operational" || route === "/v1/quant/observations/snapshot" ||
++      /^\/v1\/quant\/observations\?snapshot_id=[0-9a-f]{64}&offset=\d+&limit=\d+$/.test(route) ||
++      /^\/v1\/accounting\/history\?offset=\d+&limit=\d+$/.test(route);
++    if (!fixed) { reject(new CollectionError("FIXED_GET_ROUTE_REQUIRED")); return; }
++    const receipt = {method: "GET", route, authenticated, received_bytes: 0, status: null, completed: false};
++    requests.push(receipt);
++    const transport = base.protocol === "https:" ? https : http;
++    const headers = {accept: "application/json", "accept-encoding": "identity", ...(authenticated ? {authorization} : {})};
++    let settled = false, size = 0;
++    /** @type {Buffer[]} */ const chunks = [];
++    /** @type {NodeJS.Timeout|undefined} */ let timer;
++    /** @param {Error|null} error @param {Buffer} [body] */
++    const finish = (error, body) => {
++      if (settled) return; settled = true; if (timer) clearTimeout(timer);
++      error ? reject(error) : resolve(/** @type {Buffer} */ (body));
++    };
++    const req = transport.request(new URL(route, base), {method: "GET", headers, agent: false,
++      rejectUnauthorized: true}, res => {
++      receipt.status = /** @type {any} */ (res.statusCode ?? null);
++      const stop = (code) => { finish(new CollectionError(code)); res.destroy(); req.destroy(); };
++      if (res.statusCode >= 300 && res.statusCode < 400) { stop("REDIRECT_REJECTED"); return; }
++      if (res.statusCode !== 200) { stop("HTTP_STATUS_" + String(res.statusCode ?? "UNKNOWN")); return; }
++      if (!/^application\/json(?:\s*;|$)/i.test(String(res.headers["content-type"] || ""))) { stop("JSON_CONTENT_TYPE_REQUIRED"); return; }
++      if (res.headers["content-encoding"] && String(res.headers["content-encoding"]).toLowerCase() !== "identity") { stop("CONTENT_ENCODING_REJECTED"); return; }
++      const declared = res.headers["content-length"];
++      if (declared !== undefined && (!/^\d+$/.test(String(declared)) || !Number.isSafeInteger(Number(declared)) || Number(declared) > Math.min(limits.pageBytes, maxSourceBytes))) { stop("RESPONSE_BYTES_BOUND"); return; }
++      res.on("data", (chunk) => {
++        if (settled) return;
++        size += chunk.length; networkBytes += chunk.length; receipt.received_bytes = size;
++        if (size > Math.min(limits.pageBytes, maxSourceBytes) || networkBytes > limits.totalBytes - REPORT_RESERVE) { stop("RESPONSE_BYTES_BOUND"); return; }
++        chunks.push(chunk);
++      });
++      res.on("error", () => stop("RESPONSE_INCOMPLETE"));
++      res.on("end", () => {
++        if (settled) return;
++        if (!res.complete) { stop("RESPONSE_INCOMPLETE"); return; }
++        if (remaining() <= 0) { stop("COLLECTION_DEADLINE_EXCEEDED"); return; }
++        receipt.completed = true; finish(null, Buffer.concat(chunks, size));
++      });
++    });
++    req.on("error", () => finish(new CollectionError("NETWORK_REQUEST_FAILED")));
++    const globalBudget = remaining(), collectionLimited = globalBudget <= limits.requestTimeoutMs;
++    timer = setTimeout(() => { finish(new CollectionError(collectionLimited ? "COLLECTION_DEADLINE_EXCEEDED" : "REQUEST_TIMEOUT")); req.destroy(); },
++      Math.max(1, Math.ceil(Math.min(limits.requestTimeoutMs, globalBudget))));
++    req.end();
++  });
++  /** @param {string} route @param {string} filename @param {boolean} [authenticated] @param {number} [maxSourceBytes] */
++  const fetchSource = async (route, filename, authenticated = true, maxSourceBytes = limits.pageBytes) => {
++    need(maxSourceBytes > 0, "SOURCE_CATEGORY_BYTES_EXHAUSTED");
++    const bytes = await requestBytes(route, authenticated, maxSourceBytes);
++    need(!secretValues.some(value => bytes.includes(Buffer.from(value))), "CREDENTIAL_ECHO_REJECTED");
++    let body;
++    try { body = api.strict(new TextDecoder("utf-8", {fatal: true}).decode(bytes)); } catch { throw new CollectionError("SOURCE_JSON_INVALID"); }
++    need(!containsSecret(body, secretValues), "CREDENTIAL_ECHO_REJECTED");
++    const ref = write(filename, bytes, "ORIGINAL_HTTP_RESPONSE_BODY");
++    return {body, ref};
++  };
++  const baseReceipt = () => ({schema: SCHEMA, started_at: startedAt, completed_at: new Date().toISOString(),
++    duration_ms: performance.now() - started, source_origin: base.origin,
++    expected_account_id: options.expectedAccount, expected_version: options.expectedVersion,
++    limits, requests, artifacts, persisted_artifact_bytes: artifactBytes, network_bytes_seen: networkBytes,
++    source_authenticity_independently_verified: false, ...AUTHORITY});
++  try {
++    if (selectionBytes) write("selection.json", selectionBytes, "USER_SUPPLIED_SELECTION_UNMODIFIED");
++    stage = "HEALTH_VERSION";
++    const firstHealth = await fetchSource("/healthz", "health_initial.json", false);
++    need(firstHealth.body.version === options.expectedVersion, "EXPECTED_VERSION_MISMATCH");
++    need(firstHealth.body.status === "HTTP_ALIVE" && Number.isSafeInteger(firstHealth.body.startedAt), "HEALTH_IDENTITY_INVALID");
++    stage = "OPERATIONAL_STATUS";
++    const operational = await fetchSource("/v1/operational", "operational.json");
++    need(operational.body.schema === "HARPOON_OPERATIONAL_CAPABILITIES_1", "OPERATIONAL_SCHEMA_INVALID");
++    stage = "OBSERVATION_SNAPSHOT";
++    const snapshot = await fetchSource("/v1/quant/observations/snapshot", "observation_snapshot.json", true, limits.observationBytes);
++    observationBytes = snapshot.ref.bytes;
++    need(snapshot.body.account_id === options.expectedAccount, "EXPECTED_ACCOUNT_MISMATCH");
++    const {snapshot_id: snapshotId, ...descriptor} = snapshot.body;
++    need(descriptor.schema === "HARPOON_OBSERVATION_SNAPSHOT_1" && /^[a-f0-9]{64}$/.test(snapshotId || "") &&
++      api.digest(descriptor) === snapshotId && descriptor.execution_allowed === false && descriptor.liveApproved === false &&
++      Number.isSafeInteger(descriptor.total_frames) && descriptor.total_frames >= 0, "OBSERVATION_SNAPSHOT_INVALID");
++    need(descriptor.total_frames <= limits.maxPages * limits.observationPageSize, "OBSERVATION_PAGE_COUNT_BOUND");
++    /** @type {any[]} */ const observationRefs = [];
++    let offset = 0;
++    while (offset < descriptor.total_frames) {
++      deadline(); stage = "OBSERVATION_PAGE"; need(observationRefs.length < limits.maxPages, "OBSERVATION_PAGE_COUNT_BOUND");
++      const route = "/v1/quant/observations?snapshot_id=" + snapshotId + "&offset=" + offset + "&limit=" + limits.observationPageSize;
++      const fetched = await fetchSource(route, "observation_page_" + String(observationRefs.length).padStart(4, "0") + ".json", true,
++        limits.observationBytes - observationBytes);
++      observationBytes += fetched.ref.bytes; need(observationBytes <= limits.observationBytes, "OBSERVATION_BYTES_BOUND");
++      const page = fetched.body;
++      need(page.account_id === options.expectedAccount && page.snapshot_id === snapshotId && page.head === descriptor.head &&
++        page.total_frames === descriptor.total_frames && page.offset === offset && Array.isArray(page.frames) && page.frames.length > 0 &&
++        page.frames.length <= limits.observationPageSize && page.next_offset === offset + page.frames.length && page.next_offset <= descriptor.total_frames,
++        "OBSERVATION_PAGE_IDENTITY_OR_CONTINUITY");
++      observationRefs.push({path: fetched.ref.path, sha256: fetched.ref.sha256}); offset = page.next_offset;
++    }
++    stage = "OBSERVATION_SEMANTIC_VERIFICATION"; deadline();
++    // The empty context is used only in memory to call the existing integrity verifier.
++    // Without a supplied causal selection, no calibration manifest/request is written.
++    const verifiedManifest = api.snapshots.assemble(snapshot.body, observationRefs, selection ?? {}, output);
++    observationVerification = {verified: true, frames: verifiedManifest.total_frames, snapshot_id: snapshotId,
++      head: descriptor.head, account_id: descriptor.account_id, selection_provided: selection !== null,
++      calibration_manifest: null, observation_nature: "RUNTIME_RECEIPTS_WITHOUT_INDEPENDENT_AUTHENTICATION"};
++    if (selection !== null) {
++      const ref = writeJSON("observation_manifest.json", verifiedManifest, "DERIVED_VERIFIED_SOURCE_MANIFEST");
++      observationVerification.calibration_manifest = ref;
++    }
++    deadline(); stage = "LEDGER_PAGES";
++    /** @type {any[]} */ const ledgerPages = [];
++    let ledgerOffset = 0, integrity = null, totalRecords = null, ledgerRawBytes = 0;
++    do {
++      deadline(); need(ledgerPages.length < limits.maxPages, "LEDGER_PAGE_COUNT_BOUND");
++      const route = "/v1/accounting/history?offset=" + ledgerOffset + "&limit=" + limits.ledgerPageSize;
++      const fetched = await fetchSource(route, "ledger_page_" + String(ledgerPages.length).padStart(4, "0") + ".json", true,
++        limits.ledgerBundleBytes - ledgerRawBytes);
++      const page = fetched.body; ledgerRawBytes += fetched.ref.bytes;
++      need(ledgerRawBytes <= limits.ledgerBundleBytes, "LEDGER_BUNDLE_BYTES_BOUND");
++      need(page.schema === "HARPOON_NET_HISTORY_PAGE_1" && page.account_id === options.expectedAccount, "LEDGER_ACCOUNT_OR_SCHEMA_MISMATCH");
++      if (integrity === null) { integrity = page.ledger_integrity; totalRecords = page.total_records; }
++      need(page.ledger_integrity === integrity && page.total_records === totalRecords, "LEDGER_REVISION_CHANGED_NO_AUTOMATIC_RESTART");
++      need(/^[a-f0-9]{64}$/.test(integrity || "") && Number.isSafeInteger(totalRecords) && totalRecords > 0 &&
++        totalRecords <= 1000000 && page.offset === ledgerOffset && Array.isArray(page.records) && page.records.length > 0 &&
++        page.records.length <= limits.ledgerPageSize, "LEDGER_PAGE_CONTINUITY");
++      const next = ledgerOffset + page.records.length;
++      need(next <= totalRecords && page.next_offset === (next < totalRecords ? next : null), "LEDGER_PAGE_CONTINUITY");
++      ledgerPages.push(page); ledgerOffset = page.next_offset;
++    } while (ledgerOffset !== null);
++    stage = "LEDGER_SEMANTIC_VERIFICATION"; deadline();
++    const ledgerBundle = {pages: ledgerPages, expected_integrity: integrity};
++    const ledgerBytes = Buffer.from(JSON.stringify(ledgerBundle) + "\n");
++    need(ledgerBytes.length <= limits.ledgerBundleBytes, "LEDGER_BUNDLE_BYTES_BOUND");
++    const ledger = api.verifyLedger(ledgerPages, integrity);
++    need(ledger.verified === true && ledger.accountId === options.expectedAccount, "LEDGER_VERIFICATION_FAILED");
++    const ledgerRef = write("ledger_bundle.json", ledgerBytes, "DERIVED_COMPLETE_LEDGER_BUNDLE");
++    ledgerVerification = {verified: true, account_id: ledger.accountId, from: ledger.from, through: ledger.through,
++      observations: ledger.observations.length, expected_integrity: integrity, bundle: ledgerRef,
++      execution_nature: ledger.state.evidence?.executionNature ?? null,
++      economic_coverage_complete: ledger.derived?.economicCoverageComplete ?? false,
++      broker_accruals_verified: ledger.brokerAccrualsVerified ?? false,
++      economic_pnl_usd: ledger.derived?.economicNetPnlUsd ?? null,
++      source_authenticity_independently_verified: false};
++    stage = "FINAL_IDENTITY"; deadline();
++    const lastHealth = await fetchSource("/healthz", "health_final.json", false);
++    need(lastHealth.body.version === options.expectedVersion && lastHealth.body.status === "HTTP_ALIVE" &&
++      lastHealth.body.startedAt === firstHealth.body.startedAt, "RUNTIME_IDENTITY_CHANGED_DURING_COLLECTION");
++    deadline(); stage = "COMPLETE";
++    const receipt = {...baseReceipt(), status: "COMPLETE_SOURCE_COLLECTION", collection_complete: true,
++      observation_verification: observationVerification, ledger_verification: ledgerVerification,
++      selection: selection, economic_evidence_complete: false,
++      missing_for_level4: [...(selection === null ? ["CAUSAL_SELECTION_NOT_PROVIDED"] : []),
++        "CAUSAL_PANEL_NOT_BUILT_OR_ASSESSED", "OBSERVED_FIXED_MODELS_NOT_COLLECTED", "REGISTERED_COMPARISON_NOT_EXECUTED",
++        ...(!ledgerVerification.economic_coverage_complete ? ["ACCOUNT_COST_COVERAGE_INCOMPLETE"] : []),
++        ...(!ledgerVerification.broker_accruals_verified ? ["BROKER_ACCRUAL_COVERAGE_NOT_VERIFIED"] : [])],
++      limitations: ["GET snapshot pins bounded metadata in the runtime; no order or configuration endpoint is called.",
++        "Complete collection concerns source transport and local integrity, not profitability or level 4 approval.",
++        "Model availability, training provenance, causal sample adequacy and execution assumptions require their existing validators.",
++        "No operating expense, label, original receipt time, executable depth or model is inferred.",
++        "Account and observation snapshots are separately fixed; equal account identity is not a claim of simultaneous sampling.",
++        "Deadlines are checked on event-loop resumption; the collector is not a hard real-time scheduler."]};
++    writeReceipt(receipt, true); return receipt;
++  } catch (error) {
++    const code = error instanceof CollectionError ? error.code : "SOURCE_VERIFIER_OR_LOCAL_IO_REJECTED";
++    const receipt = {...baseReceipt(), status: "PARTIAL_COLLECTION_REJECTED", collection_complete: false,
++      economic_evidence_complete: false, stage, error_code: code,
++      observation_verification: observationVerification, ledger_verification: ledgerVerification,
++      incomplete_response_body_persisted: false, automatic_restarts: 0};
++    try { writeReceipt(receipt, false); } catch { /* A write failure cannot be turned into a completion receipt. */ }
++    throw new CollectionError(code);
++  }
++}
++const HELP = `HARPOON runtime evidence collector (fixed GET routes; no orders or model fitting)
++Usage:
++  node tools/collect_runtime_evidence.cjs --base-url URL --expected-account ID \\\n    --expected-version VERSION --output NEW_DIRECTORY [--selection FILE] \\\n    [--timeout-ms MS] [--request-timeout-ms MS]
++
++HARPOON_PANEL_PASSWORD must already be supplied through the environment.
++Do not put credentials in command arguments or in the URL. Username is trader.
++HTTPS is required except for literal 127.0.0.0/8 or ::1 loopback addresses.
++An existing output is rejected. Completed original responses remain after errors.
++Without a selection file, no calibration manifest or training request is created.
++This command verifies transport/integrity, never financial approval or a score.
++`;
++/** @param {string[]} argv */
++function parseArgs(argv) {
++  if (argv.length === 1 && argv[0] === "--help") return null;
++  const names = {"--base-url": "baseUrl", "--expected-account": "expectedAccount", "--expected-version": "expectedVersion",
++    "--output": "outputDir", "--selection": "selectionFile", "--timeout-ms": "timeoutMs", "--request-timeout-ms": "requestTimeoutMs"};
++  const options = {};
++  need(argv.length > 0 && argv.length % 2 === 0, "CLI_ARGUMENTS_INVALID_USE_HELP");
++  for (let i = 0; i < argv.length; i += 2) {
++    const name = names[argv[i]];
++    need(name && !Object.hasOwn(options, name) && typeof argv[i+1] === "string" && !argv[i+1].startsWith("--"), "CLI_ARGUMENTS_INVALID_USE_HELP");
++    options[name] = ["timeoutMs", "requestTimeoutMs"].includes(name) ? Number(argv[i+1]) : argv[i+1];
++  }
++  return options;
++}
++async function main(argv) {
++  const options = parseArgs(argv);
++  if (options === null) { process.stdout.write(HELP); return; }
++  const receipt = await collectRuntimeEvidence(options);
++  process.stdout.write(JSON.stringify({status: receipt.status, collection_complete: true,
++    receipt: path.join(path.resolve(options.outputDir), "collection_receipt.json"), ...AUTHORITY}) + "\n");
++}
++module.exports = {collectRuntimeEvidence, parseArgs, endpoint, validateSelection, CollectionError, SCHEMA, HARD};
++if (require.main === module) main(process.argv.slice(2)).catch(error => {
++  process.stderr.write(JSON.stringify({status: "COLLECTION_REJECTED",
++    error_code: error instanceof CollectionError ? error.code : "COLLECTION_FAILED", ...AUTHORITY}) + "\n");
++  process.exitCode = 1;
++});
+--- 30.12.1/tools/collect_runtime_evidence_test.cjs
++++ 30.12.2/tools/collect_runtime_evidence_test.cjs
+@@ -0,0 +1,287 @@
++"use strict";
++// SYNTHETIC_ENGINEERING_ONLY. Actual runtime journal/ledger/server, local transport, no broker orders.
++const test = require("node:test"), assert = require("node:assert/strict"), fs = require("node:fs"), path = require("node:path"), os = require("node:os");
++const {once} = require("node:events"), {spawnSync} = require("node:child_process"), crypto = require("node:crypto");
++const {collectRuntimeEvidence, endpoint, parseArgs, HARD} = require("./collect_runtime_evidence.cjs");
++const {QuantObservationJournal} = require("../runtime30/quant_observations.js");
++const {NetAccountLedger, netLedgerDigest, verifyNetLedgerHistoryBundle} = require("../runtime30/net_accounting.js");
++const {server} = require("../runtime30/server.js");
++const {ULTIMATE_VERSION} = require("../runtime30/version.js");
++const {verifyManifest} = require("./export_observation_snapshot.cjs");
++const ACCOUNT = "SYNTHETIC-COLLECTOR-ACCOUNT", T0 = Date.UTC(2026, 9, 15, 13, 30), MIN = 60000;
++const PASSWORD = "synthetic-collector-password-32-characters-or-more";
++const SELECTION = {kind: "FIRST_CAUSAL_FRAME_AT_OR_AFTER_LOCAL_GRID", timezone: "America/New_York", local_time: "10:50",
++  max_selection_delay_ms: 90000, label_quote_max_age_ms: 15000, label_maturity_max_delay_ms: 300000};
++class Store {
++  constructor() { this.rows = new Map(); }
++  async get(key) { return structuredClone(this.rows.get(key) ?? null); }
++  async put(key, value) { this.rows.set(key, structuredClone(value)); return true; }
++  async lease() { return true; }
++}
++async function fixture(t, fault = null) {
++  const root = fs.mkdtempSync(path.join(os.tmpdir(), "harpoon-evidence-collector-test-"));
++  const store = new Store(), brokerCalls = [], calls = [], originalBodies = new Map(), timers = [];
++  const api = {request: async (route, method = "GET") => {
++    assert.equal(method, "GET"); brokerCalls.push(route);
++    if (route === "/v2/account") return {id: ACCOUNT, currency: "USD", cash: "20000", equity: "20000"};
++    if (route === "/v2/positions" || route.startsWith("/v2/account/activities")) return [];
++    throw Error("UNEXPECTED_SYNTHETIC_BROKER_ROUTE");
++  }};
++  const ledger = new NetAccountLedger(store, api, "N", ACCOUNT, {executionNature: "SYNTHETIC_ENGINEERING_ONLY", maxObservations: 8,
++    archive: {enabled: true, maxSegments: 16, maxStoredBytes: 32*1024*1024, activityOverlapMs: MIN}});
++  for (let i = 0; i < 3; i++) await ledger.refresh({now: T0+i*MIN, instruments: [], externalCosts: null});
++  const journal = new QuantObservationJournal(store, "J", ACCOUNT, {maxFrames: 2}); await journal.load();
++  for (let i = 0; i < 3; i++) {
++    const at = T0+i*MIN;
++    await journal.capture({now: at, config: {mode: "paper", expected_account_id: ACCOUNT, universe: []}, signals: [], market: {calendar: []}},
++      {schema: "HARPOON_RUNTIME_OBSERVATION_1", status: "WAIT_FEATURE_DATA", asof: new Date(at).toISOString(),
++        observations: [], rejected: {}, selected: [], execution_allowed: false, liveApproved: false});
++  }
++  const engine = {netLedger: ledger, quantObservations: journal, syncAt: Date.now(), reconcileError: null, storageError: null,
++    validators: {checks: {"journal-write": {lastSuccess: Date.now()}}}, exitCoverage: () => ({entrySafe: true}),
++    quantLastPlan: {}, quantEconomicGate: {}, cfg: {quant: {enabled: true}}, entryReady: () => false,
++    discoveryHold: false, state: {paused: false, halt: false}, stopping: false,
++    netAccountingError: null, quantObservationError: null, probe: {startedAt: Date.now()}};
++  const app = server(engine, PASSWORD, "<html></html>");
++  const originalHandler = app.listeners("request")[0]; app.removeAllListeners("request");
++  let badState = null;
++  if (fault === "rehashed_fake_pnl") {
++    badState = await store.get("N"); badState.accounting.accountNetPnlUsd = 999;
++    const copy = {...badState}; delete copy.integrity; badState.integrity = netLedgerDigest(copy);
++  }
++  app.on("request", (req, res) => {
++    calls.push({method: req.method, path: req.url, authenticated: !!req.headers.authorization});
++    assert.equal(req.method, "GET");
++    const isOperational = req.url === "/v1/operational";
++    if (fault === "redirect" && isOperational) {
++      res.writeHead(302, {location: "https://never-requested.invalid/credentials", "content-type": "application/json"}); res.end("{}"); return;
++    }
++    if (fault === "timeout" && isOperational) return;
++    if (fault === "deadline" && req.url === "/healthz") {
++      timers.push(setTimeout(() => originalHandler(req, res), 150)); return;
++    }
++    if (fault === "oversized" && isOperational) {
++      res.writeHead(200, {"content-type": "application/json", "content-length": "90000000"}); res.end("{}"); return;
++    }
++    if (fault === "chunk_oversized" && isOperational) {
++      res.writeHead(200, {"content-type": "application/json"}); res.write('{"payload":"'); res.write("a".repeat(10000)); res.end('"}'); return;
++    }
++    if (fault === "password_echo" && isOperational) {
++      res.writeHead(200, {"content-type": "application/json"}); res.end(JSON.stringify({echo: PASSWORD})); return;
++    }
++    if (fault === "authorization_echo" && isOperational) {
++      res.writeHead(200, {"content-type": "application/json"}); res.end(JSON.stringify({echo: req.headers.authorization})); return;
++    }
++    if (fault === "escaped_password_echo" && isOperational) {
++      res.writeHead(200, {"content-type": "application/json"});
++      res.end('{"echo":"'+[...PASSWORD].map(c => "\\u"+c.charCodeAt(0).toString(16).padStart(4,"0")).join("")+'"}'); return;
++    }
++    if (fault === "duplicate_json" && isOperational) {
++      res.writeHead(200, {"content-type": "application/json"}); res.end('{"schema":"x","schema":"HARPOON_OPERATIONAL_CAPABILITIES_1"}'); return;
++    }
++    const end = res.end.bind(res);
++    res.end = (value, ...args) => {
++      let body = JSON.parse(String(value));
++      if (fault === "bad_frame" && req.url.startsWith("/v1/quant/observations?")) body.frames[0].runtime_input.now++;
++      if (fault === "reordered_observation_page" && req.url.includes("snapshot_id=") && req.url.includes("offset=1&")) body.offset = 0;
++      if (fault === "observation_wrong_account" && req.url.includes("snapshot_id=")) body.account_id = "OTHER_ACCOUNT";
++      if (fault === "ledger_revision" && req.url.startsWith("/v1/accounting/history?") && !req.url.includes("offset=0&")) body.ledger_integrity = "f".repeat(64);
++      if (fault === "reordered_ledger_page" && req.url.startsWith("/v1/accounting/history?") && !req.url.includes("offset=0&")) body.offset = 0;
++      if (fault === "ledger_wrong_account" && req.url.startsWith("/v1/accounting/history?")) body.account_id = "OTHER_ACCOUNT";
++      if (fault === "restart" && req.url === "/healthz" && calls.filter(c => c.path === "/healthz").length > 1) body.startedAt++;
++      if (badState && req.url.startsWith("/v1/accounting/history?")) {
++        body.ledger_integrity = badState.integrity;
++        for (const row of body.records) if (row.kind === "HEADER" && row.storage === "CONTROL") {
++          const {observations, activities, externalCosts, ...header} = badState; row.value = header;
++        }
++      }
++      const bytes = Buffer.from(JSON.stringify(body)); originalBodies.set(req.url + "#" + originalBodies.size, bytes);
++      return end(bytes, ...args);
++    };
++    originalHandler(req, res);
++  });
++  app.listen(0, "127.0.0.1"); await once(app, "listening");
++  const baseUrl = "http://127.0.0.1:" + app.address().port, outputDir = path.join(root, "collection");
++  const options = {baseUrl, expectedAccount: ACCOUNT, expectedVersion: ULTIMATE_VERSION, outputDir,
++    observationPageSize: 1, ledgerPageSize: 2, requestTimeoutMs: 1000, timeoutMs: 10000};
++  const environment = {HARPOON_PANEL_PASSWORD: PASSWORD}; const callsBeforeCollection = brokerCalls.length;
++  t.after(async () => {
++    for (const timer of timers) clearTimeout(timer);
++    app.closeAllConnections(); await new Promise(resolve => app.close(resolve));
++    fs.rmSync(root, {recursive: true, force: true});
++  });
++  return {root, outputDir, options, environment, calls, originalBodies, brokerCalls, callsBeforeCollection};
++}
++function failed(f) {
++  assert.equal(fs.existsSync(path.join(f.outputDir, "collection_receipt.json")), false);
++  const report = JSON.parse(fs.readFileSync(path.join(f.outputDir, "collection_failed.json"), "utf8"));
++  assert.equal(report.collection_complete, false); assert.equal(report.financial_acceptance_allowed, false);
++  assert.equal(report.economic_score, null); assert.equal(report.automatic_restarts, 0);
++  return report;
++}
++function noSecretFiles(dir) {
++  const authorization = "Basic " + Buffer.from("trader:" + PASSWORD).toString("base64");
++  for (const file of fs.readdirSync(dir)) {
++    const text = fs.readFileSync(path.join(dir, file), "utf8");
++    assert(!text.includes(PASSWORD)); assert(!text.includes(authorization));
++  }
++}
++
++test("complete collection uses actual runtime capture, ledger and server and retains original bytes", async t => {
++  const f = await fixture(t); const selectionFile = path.join(f.root, "selection.json");
++  fs.writeFileSync(selectionFile, JSON.stringify(SELECTION, null, 2));
++  const result = await collectRuntimeEvidence({...f.options, selectionFile}, f.environment);
++  assert.equal(result.status, "COMPLETE_SOURCE_COLLECTION"); assert.equal(result.collection_complete, true);
++  assert.equal(result.observation_verification.frames, 3); assert.equal(result.ledger_verification.observations, 3);
++  assert.equal(result.ledger_verification.execution_nature, "SYNTHETIC_ENGINEERING_ONLY");
++  assert.equal(result.ledger_verification.economic_pnl_usd, null); assert.equal(result.economic_evidence_complete, false);
++  assert(result.missing_for_level4.includes("ACCOUNT_COST_COVERAGE_INCOMPLETE"));
++  assert.equal(result.economic_score, null); assert.equal(result.level4_assessed, false);
++  assert.equal(result.execution_allowed, false); assert.equal(result.financial_acceptance_allowed, false);
++  assert.equal(fs.statSync(f.outputDir).mode & 0o777, 0o700);
++  for (const ref of result.artifacts) {
++    const filename = path.join(f.outputDir, ref.path), bytes = fs.readFileSync(filename);
++    assert.equal(fs.statSync(filename).mode & 0o777, 0o600);
++    assert.equal(crypto.createHash("sha256").update(bytes).digest("hex"), ref.sha256);
++    if (ref.kind === "ORIGINAL_HTTP_RESPONSE_BODY") assert([...f.originalBodies.values()].some(b => b.equals(bytes)));
++  }
++  const manifest = JSON.parse(fs.readFileSync(path.join(f.outputDir, "observation_manifest.json"), "utf8"));
++  assert.equal(verifyManifest(manifest, f.outputDir).total_frames, 3);
++  const bundle = JSON.parse(fs.readFileSync(path.join(f.outputDir, "ledger_bundle.json"), "utf8"));
++  assert.equal(verifyNetLedgerHistoryBundle(bundle.pages, bundle.expected_integrity).verified, true);
++  assert.equal(f.brokerCalls.length, f.callsBeforeCollection);
++  assert(f.calls.every(c => c.method === "GET")); assert(f.calls.filter(c => c.path === "/healthz").every(c => !c.authenticated));
++  assert(f.calls.filter(c => c.path !== "/healthz").every(c => c.authenticated));
++  noSecretFiles(f.outputDir);
++  if (process.env.HARPOON_QA_OUTPUT_DIR) {
++    fs.mkdirSync(process.env.HARPOON_QA_OUTPUT_DIR, {recursive: true});
++    const benchmark = {nature: "SYNTHETIC_ENGINEERING_ONLY", samples: 1, transport: "LOCAL_LOOPBACK_HTTP",
++      duration_ms: result.duration_ms, requests: result.requests.length, network_bytes_seen: result.network_bytes_seen,
++      artifact_bytes: result.persisted_artifact_bytes, observation_frames: 3, ledger_observations: 3,
++      node_version: process.version, platform: process.platform, node_process_rss_bytes: process.memoryUsage().rss,
++      source_account: ACCOUNT, broker_calls_during_collection: f.brokerCalls.length-f.callsBeforeCollection,
++      limitations: ["One local synthetic sample; no latency percentile or production improvement is inferred.",
++        "RSS includes test/runtime modules; it is not isolated collector memory.", "No financial performance conclusion."]};
++    fs.writeFileSync(path.join(process.env.HARPOON_QA_OUTPUT_DIR, "collector_transport_benchmark.json"), JSON.stringify(benchmark, null, 2)+"\n", {mode: 0o600});
++  }
++});
++test("no supplied selection verifies transport without creating a calibration manifest or training request", async t => {
++  const f = await fixture(t), result = await collectRuntimeEvidence(f.options, f.environment);
++  assert.equal(result.selection, null); assert.equal(result.observation_verification.calibration_manifest, null);
++  assert.equal(fs.existsSync(path.join(f.outputDir, "observation_manifest.json")), false);
++  assert(result.missing_for_level4.includes("CAUSAL_SELECTION_NOT_PROVIDED"));
++  assert.equal(result.collection_complete, true); assert.equal(result.economic_evidence_complete, false);
++});
++test("wrong version is rejected on the public health check before sending credentials", async t => {
++  const f = await fixture(t);
++  await assert.rejects(collectRuntimeEvidence({...f.options, expectedVersion: "0.0.0"}, f.environment), /EXPECTED_VERSION_MISMATCH/);
++  assert.equal(f.calls.length, 1); assert.equal(f.calls[0].authenticated, false); failed(f);
++});
++test("wrong expected account rejects the snapshot before requesting market or ledger pages", async t => {
++  const f = await fixture(t);
++  await assert.rejects(collectRuntimeEvidence({...f.options, expectedAccount: "OTHER_ACCOUNT"}, f.environment), /EXPECTED_ACCOUNT_MISMATCH/);
++  assert(!f.calls.some(c => c.path.includes("snapshot_id=") || c.path.includes("accounting/history"))); failed(f);
++});
++test("invalid authentication preserves only the completed public response", async t => {
++  const f = await fixture(t);
++  await assert.rejects(collectRuntimeEvidence(f.options, {HARPOON_PANEL_PASSWORD: "wrong-synthetic-password-of-at-least-32-characters"}), /HTTP_STATUS_401/);
++  const report = failed(f); assert.equal(report.artifacts.length, 1); assert.equal(report.artifacts[0].path, "health_initial.json");
++});
++for (const [fault, code] of [
++  ["bad_frame", "SOURCE_VERIFIER_OR_LOCAL_IO_REJECTED"],
++  ["reordered_observation_page", "OBSERVATION_PAGE_IDENTITY_OR_CONTINUITY"],
++  ["observation_wrong_account", "OBSERVATION_PAGE_IDENTITY_OR_CONTINUITY"],
++  ["ledger_revision", "LEDGER_REVISION_CHANGED_NO_AUTOMATIC_RESTART"],
++  ["reordered_ledger_page", "LEDGER_PAGE_CONTINUITY"],
++  ["ledger_wrong_account", "LEDGER_ACCOUNT_OR_SCHEMA_MISMATCH"],
++  ["rehashed_fake_pnl", "SOURCE_VERIFIER_OR_LOCAL_IO_REJECTED"],
++  ["restart", "RUNTIME_IDENTITY_CHANGED_DURING_COLLECTION"],
++]) test("rejects " + fault + " and preserves a clearly rejected partial collection", async t => {
++  const f = await fixture(t, fault);
++  await assert.rejects(collectRuntimeEvidence(f.options, f.environment), error => error.code === code);
++  const report = failed(f); assert.equal(report.error_code, code); assert(report.artifacts.length > 0);
++  if (fault === "rehashed_fake_pnl") assert.equal(report.stage, "LEDGER_SEMANTIC_VERIFICATION");
++  assert.equal(f.brokerCalls.length, f.callsBeforeCollection);
++});
++test("redirects are not followed with credentials", async t => {
++  const f = await fixture(t, "redirect");
++  await assert.rejects(collectRuntimeEvidence(f.options, f.environment), /REDIRECT_REJECTED/);
++  assert.equal(f.calls.length, 2); failed(f);
++});
++for (const fault of ["password_echo", "authorization_echo", "escaped_password_echo"])
++  test("rejects credential reflection before persisting " + fault, async t => {
++    const f = await fixture(t, fault);
++    await assert.rejects(collectRuntimeEvidence(f.options, f.environment), /CREDENTIAL_ECHO_REJECTED/);
++    const report = failed(f); assert.equal(report.artifacts.length, 1); noSecretFiles(f.outputDir);
++  });
++test("request timeout is bounded and does not retry", async t => {
++  const f = await fixture(t, "timeout");
++  await assert.rejects(collectRuntimeEvidence({...f.options, requestTimeoutMs: 50}, f.environment), /REQUEST_TIMEOUT/);
++  assert.equal(f.calls.length, 2); const report = failed(f); assert(report.duration_ms < 2000);
++});
++test("total deadline expires independently of a longer request timeout", async t => {
++  const f = await fixture(t, "deadline");
++  await assert.rejects(collectRuntimeEvidence({...f.options, timeoutMs: 50, requestTimeoutMs: 1000}, f.environment), /COLLECTION_DEADLINE_EXCEEDED/);
++  assert.equal(f.calls.length, 1); failed(f);
++});
++for (const fault of ["oversized", "chunk_oversized"])
++  test("response byte cap rejects " + fault + " without saving an incomplete body", async t => {
++    const f = await fixture(t, fault);
++    await assert.rejects(collectRuntimeEvidence({...f.options, pageBytes: 4096}, f.environment), /RESPONSE_BYTES_BOUND/);
++    const report = failed(f); assert.equal(report.incomplete_response_body_persisted, false); assert.equal(report.artifacts.length, 1);
++  });
++test("aggregate source and serialized-ledger budgets cannot be enlarged beyond the gate", async t => {
++  const f = await fixture(t);
++  await assert.rejects(collectRuntimeEvidence({...f.options, observationBytes: 1024}, f.environment), /RESPONSE_BYTES_BOUND|SOURCE_CATEGORY_BYTES_EXHAUSTED/);
++  const report = failed(f);
++  const observationBytes = report.artifacts.filter(r => r.path.startsWith("observation_")).reduce((n, r) => n+r.bytes, 0);
++  assert(observationBytes <= 1024);
++  await assert.rejects(collectRuntimeEvidence({...f.options, ledgerBundleBytes: HARD.ledgerBundleBytes+1}, f.environment), /INVALID_LIMIT_LEDGER_BUNDLE_BYTES/);
++  await assert.rejects(collectRuntimeEvidence({...f.options, totalBytes: HARD.totalBytes+1}, f.environment), /INVALID_LIMIT_TOTAL_BYTES/);
++});
++test("ledger bundle limit is enforced before a complete receipt", async t => {
++  const f = await fixture(t);
++  await assert.rejects(collectRuntimeEvidence({...f.options, ledgerBundleBytes: 1024}, f.environment), /RESPONSE_BYTES_BOUND|LEDGER_BUNDLE_BYTES_BOUND/);
++  const report = failed(f); assert.equal(fs.existsSync(path.join(f.outputDir, "ledger_bundle.json")), false);
++  assert(report.artifacts.filter(r => r.path.startsWith("ledger_page_")).reduce((n,r)=>n+r.bytes,0) <= 1024);
++});
++test("page and request count limits prevent unbounded collection", async t => {
++  const f = await fixture(t);
++  await assert.rejects(collectRuntimeEvidence({...f.options, maxPages: 2}, f.environment), /OBSERVATION_PAGE_COUNT_BOUND/);
++  failed(f); assert(!f.calls.some(c => c.path.includes("snapshot_id=")));
++  const outputDir = path.join(f.root, "request-limit"), before = f.calls.length;
++  await assert.rejects(collectRuntimeEvidence({...f.options, outputDir, maxRequests: 1}, f.environment), /COLLECTION_REQUEST_COUNT_BOUND/);
++  failed({...f, outputDir}); assert.equal(f.calls.length-before, 1);
++});
++test("duplicate JSON keys are rejected without saving ambiguous source bytes", async t => {
++  const f = await fixture(t, "duplicate_json");
++  await assert.rejects(collectRuntimeEvidence(f.options, f.environment), /SOURCE_JSON_INVALID/);
++  assert.equal(failed(f).artifacts.length, 1);
++});
++test("an existing output is never overwritten and is rejected before network access", async t => {
++  const f = await fixture(t); fs.mkdirSync(f.outputDir); const file = path.join(f.outputDir, "existing.txt"); fs.writeFileSync(file, "preserve");
++  await assert.rejects(collectRuntimeEvidence(f.options, f.environment), /OUTPUT_ALREADY_EXISTS/);
++  assert.equal(fs.readFileSync(file, "utf8"), "preserve"); assert.equal(f.calls.length, 0);
++});
++test("unsafe endpoint forms and missing environment credentials fail before creating output", async t => {
++  const f = await fixture(t);
++  for (const url of ["http://example.invalid", "http://localhost:1234", "https://user:secret@example.invalid", "https://example.invalid/path", "https://example.invalid/?password=x", "file:///tmp/x"])
++    assert.throws(() => endpoint(url), /REQUIRED|INVALID|BASE_URL/);
++  assert.equal(endpoint("https://example.invalid").origin, "https://example.invalid");
++  assert.equal(endpoint("http://[::1]:1234").hostname, "[::1]");
++  await assert.rejects(collectRuntimeEvidence(f.options, {}), /PANEL_PASSWORD_ENV_REQUIRED/);
++  assert.equal(f.calls.length, 0); assert.equal(fs.existsSync(f.outputDir), false);
++  assert.throws(() => parseArgs(["--password", PASSWORD]), /CLI_ARGUMENTS_INVALID/);
++});
++test("invalid causal selection is rejected without generating a training input", async t => {
++  const f = await fixture(t), selectionFile = path.join(f.root, "selection.json");
++  fs.writeFileSync(selectionFile, JSON.stringify({...SELECTION, local_time: "25:00"}));
++  await assert.rejects(collectRuntimeEvidence({...f.options, selectionFile}, f.environment), /SELECTION_CONTRACT_INVALID/);
++  assert.equal(f.calls.length, 0); assert.equal(fs.existsSync(f.outputDir), false);
++});
++test("help runs without credentials or network and documents the restricted scope", () => {
++  const env = {...process.env}; delete env.HARPOON_PANEL_PASSWORD; delete env.NODE_TEST_CONTEXT;
++  const result = spawnSync(process.execPath, [path.join(__dirname, "collect_runtime_evidence.cjs"), "--help"], {env, encoding: "utf8", timeout: 5000});
++  assert.equal(result.status, 0); assert.match(result.stdout, /fixed GET routes/); assert.match(result.stdout, /never financial approval or a score/);
++  assert.equal(result.stderr, ""); assert(!result.stdout.includes(PASSWORD));
++});
+--- 30.12.1/tools/integral_distribution_test.cjs
++++ 30.12.2/tools/integral_distribution_test.cjs
+@@ -3,7 +3,7 @@
+ // Stage the final COPY layout and execute the real offline verifier in it.
+ const test = require("node:test"), assert = require("node:assert/strict");
+ const fs = require("node:fs"), os = require("node:os"), path = require("node:path");
+-const { spawn } = require("node:child_process"), crypto = require("node:crypto");
++const { spawn, spawnSync } = require("node:child_process"), crypto = require("node:crypto");
+ const ROOT = path.resolve(__dirname, ".."), temporary = fs.mkdtempSync(path.join(os.tmpdir(), "hx-integral-"));
+ const stage = path.join(temporary, "app"), outputs = path.join(temporary, "outputs");
+ const python = process.env.HARPOON_QUANT_PYTHON || process.env.PYTHON || "python3";
+@@ -67,7 +67,7 @@
+ });
+ 
+ test("the final COPY layout includes verifier and bound TypeScript sources", () => {
+-  for (const name of ["tools/coordinator_replay.cjs", "tools/observation_replay_input.cjs", "tools/funded_comparison.cjs", "tools/fixed_predictor_worker.cjs", "tools/measurement_registration.py", "tools/build_causal_panel.py", "tools/level4_readiness.cjs", "tools/level5_readiness.cjs", "tools/export_observation_snapshot.cjs", "xxx/coordinator.ts",
++  for (const name of ["tools/coordinator_replay.cjs", "tools/observation_replay_input.cjs", "tools/funded_comparison.cjs", "tools/fixed_predictor_worker.cjs", "tools/measurement_registration.py", "tools/build_causal_panel.py", "tools/level4_readiness.cjs", "tools/level5_readiness.cjs", "tools/export_observation_snapshot.cjs", "tools/collect_runtime_evidence.cjs", "xxx/coordinator.ts",
+     "xxx/version.ts", "runtime30/coordinator.js", "quant/harpoon_quant/economic_gate.py", "deploy/dashboard30.html"])
+     assert(fs.statSync(path.join(stage, name)).isFile(), name);
+   evidence.checks.push("FINAL_COPY_REQUIRED_FILES");
+@@ -76,7 +76,7 @@
+   const rules = fs.readFileSync(path.join(ROOT, ".dockerignore"), "utf8").split(/\r?\n/).map(x => x.trim());
+   assert(!rules.includes("tools"), "Parent exclusion would hide the verifier");
+   const exclude = rules.indexOf("tools/*"); assert(exclude >= 0);
+-  const required=["coordinator_replay.cjs", "observation_replay_input.cjs", "funded_comparison.cjs", "fixed_predictor_worker.cjs", "measurement_registration.py", "build_causal_panel.py", "level4_readiness.cjs", "level5_readiness.cjs", "export_observation_snapshot.cjs"];
++  const required=["coordinator_replay.cjs", "observation_replay_input.cjs", "funded_comparison.cjs", "fixed_predictor_worker.cjs", "measurement_registration.py", "build_causal_panel.py", "level4_readiness.cjs", "level5_readiness.cjs", "export_observation_snapshot.cjs", "collect_runtime_evidence.cjs"];
+   for (const name of required)
+     assert(rules.indexOf("!tools/" + name) > exclude);
+   assert.deepEqual(fs.readdirSync(path.join(stage, "tools")).sort(), required.sort());
+@@ -154,3 +154,21 @@
+   assert.equal(require("../package-lock.json").version, version);
+   evidence.application = version; evidence.checks.push("ACTIVE_UI_AND_VERSIONS_AGREE");
+ });
++
++test("evidence collector loads from the final COPY layout without contacting a service", () => {
++  const environment = { ...process.env };
++  delete environment.NODE_TEST_CONTEXT;
++  delete environment.HARPOON_PANEL_PASSWORD;
++  const sourceBytes = fs.readFileSync(path.join(ROOT, "tools/collect_runtime_evidence.cjs"));
++  const stagedBytes = fs.readFileSync(path.join(stage, "tools/collect_runtime_evidence.cjs"));
++  assert.deepEqual(stagedBytes, sourceBytes, "Distributed collector is byte-identical to its source");
++  const result = spawnSync(process.execPath, [path.join(stage, "tools/collect_runtime_evidence.cjs"), "--help"],
++    {cwd: stage, env: environment, encoding: "utf8", timeout: 5000});
++  assert.ifError(result.error);
++  assert.equal(result.signal, null);
++  assert.equal(result.status, 0, result.stderr || result.stdout);
++  assert.match(result.stdout, /fixed GET routes/);
++  assert.match(result.stdout, /never financial approval or a score/);
++  assert.equal(result.stderr, "");
++  evidence.checks.push("COLLECTOR_LOADS_FROM_FINAL_COPY_LAYOUT");
++});
+--- 30.12.1/tools/level4_readiness.cjs
++++ 30.12.2/tools/level4_readiness.cjs
+@@ -57,14 +57,28 @@
+ function bindMarketSources(input,base,sources){
+   const common=input.common_request,refs=common?.source_evidence?.observation_exports;
+   need(Array.isArray(refs)&&refs.length>0&&refs.length<=512,"COMPARISON_MARKET_RECEIPT_BINDING_MISSING");
+-  const quotes=new Map(),bars=new Map(),calendar=new Set();let account=null,head=null,total=null,offset=0,frames=0;
++  const quotes=new Map(),bars=new Map(),calendar=new Set();let account=null,head=null,total=null,offset=0,frames=0,sourceConfigHash=null;
+   for(const ref of refs){
+     const {value:bundle}=readRef(ref,base,sources);
+     need(bundle.schema==="HARPOON_OBSERVATION_EXPORT_1"&&bundle.offset===offset&&bundle.next_offset===offset+bundle.frames.length,"MARKET_SOURCE_PAGINATION");
+     if(account===null){account=bundle.account_id;head=bundle.head;total=bundle.total_frames;}
+     need(bundle.account_id===account&&bundle.head===head&&bundle.total_frames===total,"MARKET_SOURCE_REVISION_OR_ACCOUNT");
+     need(bundle.frames.every(f=>f.data_origin==="RUNTIME_OBSERVATION_UNVERIFIED"),"SYNTHETIC_OR_UNKNOWN_MARKET_RECEIPTS");
++    // This replay contract has one fixed configuration. A page boundary must
++    // not erase configuration history or admit an otherwise rejected change.
++    for(const frame of bundle.frames){
++      const config=frame.runtime_input?.config;
++      need(config&&typeof config==="object"&&!Array.isArray(config),"COMPARISON_SOURCE_CONFIGURATION_MISSING");
++      const currentHash=hash(config);
++      if(sourceConfigHash===null)sourceConfigHash=currentHash;
++      need(currentHash===sourceConfigHash,"SOURCE_CONFIG_CHANGED_SPLIT_REPLAY");
++    }
+     const normalized=fromObservationExport(bundle,{initial_cash_usd:common.initial_cash_usd,execution_model:common.execution_model});
++    // The generic replay also supports crypto; this funded comparison admits
++    // all and only the source's unleveraged equity/ETF shares. This deterministic
++    // projection is the sole additional override; it cannot select winners.
++    const comparisonConfig={...normalized.config,universe:normalized.config.universe.filter(a=>["equity","etf"].includes(a.book)&&a.multiplier===1)};
++    need(hash(common.config)===hash(comparisonConfig),"COMPARISON_CONFIGURATION_NOT_BOUND_TO_SOURCE");
+     for(const event of normalized.events.filter(e=>e.type==="market")){
+       for(const q of event.quotes){const key=hash(quoteBinding(q));quotes.set(key,Math.min(event.at,quotes.get(key)??Infinity));}
+       for(const resolution of ["bars","minutes","daily"])for(const [symbol,rows]of Object.entries(event[resolution]||{}))for(const row of rows){const key=hash({symbol,resolution,row:barBinding(row)});bars.set(key,Math.min(event.at,bars.get(key)??Infinity));}
+--- 30.12.1/tools/level4_readiness_test.cjs
++++ 30.12.2/tools/level4_readiness_test.cjs
+@@ -36,6 +36,23 @@
+   const reference=save(root,"market-export.json",bundle),common=fromObservationExport(bundle,{initial_cash_usd:original.initial_cash_usd,execution_model:original.execution_model});
+   common.source_evidence.observation_exports=[reference];
+   return {input:{common_request:common},bundle,reference};
++}
++
++function twoFrameSourceFixture(root,changeSecondConfig){
++  const first=sourceFixture(root),later=structuredClone(first.bundle.frames[0]);
++  later.runtime_input.now+=60000;
++  for(const q of Object.values(later.runtime_input.market.quotes)){q.at+=60000;q.received+=60000;}
++  const seal=frame=>{delete frame.source_frame_sha256;frame.source_frame_sha256=sha(JSON.stringify(frame));};
++  seal(later);
++  const frames=[first.bundle.frames[0],later],full={...first.bundle,frames,next_offset:2,total_frames:2};
++  const common=fromObservationExport(full,{initial_cash_usd:first.input.common_request.initial_cash_usd,
++    execution_model:first.input.common_request.execution_model});
++  if(changeSecondConfig){changeSecondConfig(later.runtime_input.config,later.runtime_input.now);seal(later);}
++  const combined=save(root,"market-combined.json",full);
++  const pages=[save(root,"market-first.json",{...full,frames:[frames[0]],offset:0,next_offset:1,complete_export:false}),
++    save(root,"market-second.json",{...full,frames:[frames[1]],offset:1,next_offset:2,complete_export:false})];
++  const request=refs=>({common_request:{...structuredClone(common),source_evidence:{...structuredClone(common.source_evidence),observation_exports:refs}}});
++  return {combined:request([combined]),paginated:request(pages)};
+ }
+ 
+ test("strict JSON rejects overwritten evidence and nonfinite numbers",()=>{
+@@ -98,6 +115,54 @@
+   changed=structuredClone(f.input);changed.common_request.events[0].bars.AAPL[0].c+=.01;
+   assert.throws(()=>bindMarketSources(changed,root,[]),/BAR_NOT_BOUND/);
+ });
++test("fixed source configuration has the same binding across page partitions",t=>{
++  const root=workspace(t),f=twoFrameSourceFixture(root);
++  const combined=bindMarketSources(f.combined,root,[]),paginated=bindMarketSources(f.paginated,root,[]);
++  assert.deepEqual(paginated,combined);
++  assert.equal(combined.verified,true);assert.equal(combined.frames,2);
++  assert(combined.quotes_bound>0&&combined.bars_bound>0);
++});
++test("configuration changes cannot be hidden across a source page boundary",t=>{
++  const root=workspace(t);
++  for(const change of [
++    (config,at)=>config.universe.push({...structuredClone(config.universe[0]),symbol:"NEW",discovered_at:at}),
++    config=>{config.slippageBps+=1;},
++  ]){
++    const f=twoFrameSourceFixture(root,change);
++    for(const request of [f.combined,f.paginated])
++      assert.throws(()=>bindMarketSources(request,root,[]),/SOURCE_CONFIG_CHANGED_SPLIT_REPLAY/);
++  }
++});
++test("comparison configuration must match documented source normalization",t=>{
++  const root=workspace(t),f=twoFrameSourceFixture(root);
++  for(const request of [f.combined,f.paginated])for(const change of [
++    config=>{config.slippageBps+=1;},
++    config=>{config.dailyLoss+=.01;},
++    config=>{config.universe[0].symbol="NEW";},
++    config=>{config.nativeProtection="none";},
++  ]){
++    const changed=structuredClone(request);change(changed.common_request.config);
++    assert.throws(()=>bindMarketSources(changed,root,[]),/COMPARISON_CONFIGURATION_NOT_BOUND_TO_SOURCE/);
++  }
++});
++test("mixed source capture uses exactly the funded equity ETF scope without cherry picking",t=>{
++  const root=workspace(t),f=sourceFixture(root),frame=f.bundle.frames[0],config=frame.runtime_input.config;
++  const crypto=structuredClone(require("../config/examples/xxx.json").universe.find(a=>a.book==="crypto"));
++  assert(crypto);
++  config.universe.push({...structuredClone(config.universe[0]),symbol:"MSFT"},crypto);
++  delete frame.source_frame_sha256;frame.source_frame_sha256=sha(JSON.stringify(frame));
++  const reference=save(root,"market-mixed.json",f.bundle);
++  const common=fromObservationExport(f.bundle,{initial_cash_usd:f.input.common_request.initial_cash_usd,
++    execution_model:f.input.common_request.execution_model});
++  assert(common.config.universe.some(a=>a.book==="crypto"));
++  common.config.universe=common.config.universe.filter(a=>["equity","etf"].includes(a.book)&&a.multiplier===1);
++  common.source_evidence.observation_exports=[reference];
++  const input={common_request:common};
++  assert.equal(bindMarketSources(input,root,[]).verified,true);
++  const selected=structuredClone(input);
++  selected.common_request.config.universe=selected.common_request.config.universe.filter(a=>a.symbol!=="MSFT");
++  assert.throws(()=>bindMarketSources(selected,root,[]),/COMPARISON_CONFIGURATION_NOT_BOUND_TO_SOURCE/);
++});
+ test("explicitly synthetic frames and incomplete page sets never claim observed receipts",t=>{
+   const root=workspace(t),f=sourceFixture(root,"SYNTHETIC_ENGINEERING_ONLY");
+   assert.throws(()=>bindMarketSources(f.input,root,[]),/SYNTHETIC_OR_UNKNOWN/);
+--- 30.12.1/tools/verify_remediation.py
++++ 30.12.2/tools/verify_remediation.py
+@@ -19,6 +19,7 @@
+ ROOT = Path(__file__).resolve().parents[1]
+ NODE_SUITES = (
+     "store30_deadline_test.cjs",
++    "collect_runtime_evidence_test.cjs",
+     "xxx_test.cjs",
+     "xxx_conformance_test.cjs",
+     "xxx_health_test.cjs",
+@@ -78,7 +79,7 @@
+     }
+     if "--test" in command or name == "level5_readiness_test":
+         for field in ("tests", "pass", "fail", "cancelled", "skipped", "todo"):
+-            found = re.findall(r"^# " + field + r" (\d+)\s*$", content, re.M)
++            found = re.findall(r"^# " + field + r" (\d+)\s*$", content, re.MULTILINE)
+             result[field] = int(found[-1]) if found else None
+         result["passed"] = code == 0 and result["tests"] is not None and result["fail"] == 0
+     elif "unittest" in command:
+--- 30.12.1/xxx/version.ts
++++ 30.12.2/xxx/version.ts
+@@ -1,2 +1,2 @@
+ // Release identity is separate from the immutable research engine code seal.
+-export const ULTIMATE_VERSION = "30.12.1";
++export const ULTIMATE_VERSION = "30.12.2";

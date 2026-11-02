@@ -1,0 +1,74 @@
+HARPOON XXV.3 R2 / 25.3.2
+Pulso propio y perfil de autogestión — 17 de octubre de 2026
+
+ENTREGA Y ALCANCE
+Se añade un supervisor nativo con temporizador independiente de los paneles. Observa sesiones, preparación de investigación, selección de candidatas, recuperación PAPER y salud del ejecutor. Reutiliza los mismos agentes, plugins, War room, conciliación, almacenamiento y único camino de órdenes. No hay otro bot comprando en paralelo ni una llamada GPT por pulso.
+
+El adaptador de ejecución de esta edición admite BTC/USD y ETH/USD spot. La selección es de estrategia de cartera BTC+ETH, no un campeón distinto por cada par. Acciones, ETF y opciones conservan análisis y reloj de sesión; no tienen ejecución añadida. La nueva autogestión y sus promociones son PAPER. No se certifica rendimiento económico ni operación LIVE.
+
+INICIO EN HTML
+1. Abre HARPOON_XXV_3.html y conecta Alpaca mediante el formulario existente de API keys. Se conserva su opción de inicio PAPER; no se pide aprobación humana para cada señal autorizada. Nunca pegues claves en un perfil de estrategia o en un chat.
+2. El acceso principal «Harpoon · Pulso y mesa» abre «Pulso y autogestión». Muestra pulso ON/OFF, entradas ON/PAUSADAS, reloj regular, cobertura, tareas, investigación y decisiones.
+3. «Activar autogestión PAPER» es la configuración inicial: enciende COLD y permite selección PAPER validada. Habilita la captura compartida de datos si queda capacidad y reduce el corte diario de la mesa al 2% si era mayor. Respeta el presupuesto de iteraciones. Una cuenta que tú hayas pausado permanece pausada; usa su control nativo de entradas para reanudarla cuando corresponda.
+4. Puedes importar config/HARPOON_AUTOGESTION.json o usar los valores ya incluidos. El importador acepta sólo el esquema de autogestión, hasta 16 KB; rechaza claves API, campos desconocidos y techos fuera de límites. Las preferencias se guardan por cuenta y sobreviven a una recarga. No se necesita importar el perfil en cada sesión.
+5. Cerrar el diálogo de Harpoon no detiene el pulso. Cerrar la pestaña, suspender el equipo o perder conectividad sí puede detener el HTML. Para continuar con el panel cerrado se necesita el servicio cloud actualizado, activo y con estado persistente.
+
+PERFIL INCLUIDO — PARÁMETROS POR DEFECTO
+- enabled=true: supervisor habilitado en PAPER. En un diario nuevo LIVE está deshabilitado; esta nueva función no se habilita en LIVE.
+- heartbeatSeconds=5: pulso de supervisión. El ejecutor nativo conserva su ciclo de aproximadamente 15 segundos; no es una promesa de latencia de fills.
+- clockPollSeconds=30, clockMaxAgeSeconds=45: observa respuestas nativas de /v2/clock y consulta cuando sea necesario. Al vencer la observación, bolsa/opciones muestran UNKNOWN. El calendario se renueva diariamente para los ocho días siguientes, con America/New_York y offsets del broker.
+- selectionSeconds=300: revisa la mejor candidata admitida disponible cada cinco minutos.
+- minSwitchSeconds=3600: espera al menos una hora entre cambios automáticos.
+- evidenceMaxAgeDays=30: evidencia más antigua bloquea nuevas entradas de una variante War room mientras permanezca activo el supervisor. No liquida sus posiciones por ese motivo.
+- minImprovementReturn=0.001: exige al menos 0.1 punto porcentual de mejora del retorno agregado frente a C0, además de todas las puertas estadísticas existentes. No es una rentabilidad futura prometida.
+- researchSeconds=5: cadencia para avanzar trabajos COLD; nunca lanza dos trabajos de la misma tarea a la vez.
+- maxPreparationAttemptsPerDay=3: máximo de intentos de descarga por campaña y día UTC; las reservas se guardan antes de descargar.
+- optimizerMaxTrials=16, optimizerBatchSize=4, optimizerComputeMs=60000: presupuesto acotado de cálculo local. El perfil exige al menos seis iteraciones de la mesa disponibles antes de iniciar estos lotes. No amplía límites, no reinicia el presupuesto al reiniciar y no promete completar una búsqueda de cualquier tamaño.
+- watchdogSeconds=45: detecta ejecutor sin pulso actualizado; pide un ciclo nativo si no está ocupado. No crea un ejecutor adicional ni rearma una pausa manual.
+- retrySeconds=30, maxRecoveryAttempts=3: recuperación acotada y persistente sólo de una pausa PAPER causada por un error transitorio de lectura reconocido. Reutiliza resume nativo, con conciliación y datos frescos.
+- maxRiskFraction=0.0025: techo del riesgo presupuestado por entrada de 0.25%; no garantiza la pérdida máxima realizada.
+- maxAssetExposure=0.25, maxTotalExposure=0.50: techos de exposición nominal de configuración, por activo y total.
+- maxAccountDrawdown=0.08: al observar un drawdown de cuenta del 8% bloquea NUEVAS entradas; no es una liquidación automática al 8% ni una pérdida máxima garantizada. Las salidas y el límite propio del core conservan sus reglas.
+- maxSpreadBps=30: el perfil bloquea entradas si el límite de spread del core excede este techo. La elegibilidad concreta de cada cotización la comprueba también el ejecutor nativo.
+
+Puedes reducir los techos, pero no ampliarlos sobre el último perfil guardado ni sobre los máximos admitidos. Si el core tiene límites mayores que el perfil, el estado RISK_CONFIG_MISMATCH bloquea entradas: no reescribe silenciosamente la configuración ni las salidas de posiciones. Las salidas pueden sufrir gaps, slippage y falta de liquidez aunque los controles funcionen.
+
+QUÉ HACE PROACTIVAMENTE
+Sesiones: distingue cierre de bolsa de salud de cripto. Fines de semana, festivos y cierres anticipados proceden del reloj/calendario Alpaca, sin deducirlos de un horario local fijo. No extiende automáticamente estrategias regulares a overnight. La sesión cripto continúa, pero una entrada sigue exigiendo activo habilitado, señal, datos, liquidez, permisos y presupuesto. Un fallo de red, de cuenta o de riesgo puede impedir operar cripto.
+
+Preparación: si COLD está encendido y no existe una campaña seleccionada, prepara once meses completos anteriores al mes actual, con entrenamiento/calentamiento heredados, sella el protocolo e intenta descargar las barras. No reinicia continuamente el mismo periodo para eludir reservas. Una campaña terminada no se reemplaza automáticamente por otra en un bucle ilimitado.
+
+Datos: las barras por sí solas dejan NEEDS_EXECUTION_DATA. La búsqueda automática exige cotizaciones históricas de ambos pares con cobertura observada de al menos 99.5% y sin huecos de más de 90 segundos. No inventa quotes ni fills. La captura compartida tiene un tope visible de 100,000 eventos; no permite reconstruir automáticamente once meses pasados ni sustituye un archivo histórico de largo plazo. Debes aportar el dataset verificable o ampliar esa infraestructura en otro desarrollo. Si faltan datos, no consume ensayos del optimizador y conserva la configuración vigente identificada como experimental PAPER.
+
+Selección: exige evidencia aceptada tanto en la reserva final como en el agregado, fuente admitida sin proxy, beneficio positivo, mejora neta emparejada y todas las puertas de Sharpe HAC, Sortino, profit factor, drawdown, muestra, folds, ejecución, modelo, DSR aproximado y estrés. Usa el mejor neto USD de una cohorte comparable. Si el campeón actual procede de fechas/datos diferentes, pide comparación emparejada; no lo sustituye por comparar cifras incompatibles. Sólo aplica una variante con conciliación plana, sin órdenes ni otro trabajo de investigación en curso. Si nada pasa, no proclama una estrategia óptima.
+
+Salidas y compuesto: conserva trailing, parcial del 20%, variante de 72 horas y ejecución paciente en sus recetas existentes, junto con el tamaño y capitalización del core. El supervisor no corta un ganador por cerrar la bolsa ni aumenta el riesgo por haber ganado. El beneficio neto decide entre candidatas admitidas; los ratios y los costes ayudan a explicar el riesgo y evitar sobreajuste. El compuesto no crea rentabilidad por sí solo.
+
+Recuperación: nunca levanta una pausa manual/cloud, órdenes inciertas, pérdida de lease, corte de riesgo o salidas pendientes. Un cambio de estado manual durante resume o durante una promoción automática prevalece: bloquea entradas y deja la cuenta pausada. Al agotar tres intentos queda MANUAL_REVIEW_REQUIRED, sin reiniciar solo ese presupuesto.
+
+CONTROLES Y GPT
+«LiftOff autogestión» detiene nuevas investigaciones y promociones automáticas y deshabilita recuperación. La captura que habilitó este supervisor se apaga; no altera otras fuentes de captura. Un trabajo ya enviado puede terminar. No pausa por sí solo la negociación que ya habías autorizado: para eso existe «Pausar entradas». Se mantienen las salidas nativas.
+
+La supervisión determinista descrita consume cero tokens. HOT/GPT y el gateway siguen siendo una función separada, con sus ventanas, LiftOn/LiftOff y reservas previas de coste. Este perfil no cambia su presupuesto ni hace inferencia de pago. Una caída de OpenAI no interrumpe el control vigente de posiciones.
+
+CLOUD
+El panel añade «Pulso propio» con ON/OFF, revisión puntual, intervalos, perfil JSON y estados. El proceso del servidor mantiene el pulso aunque se cierre el navegador del panel. Se conserva autenticación y el endpoint existente del War room; no se publica un endpoint adicional sin protección.
+
+Para una instalación nueva, config/examples/crypto-autonomous.json muestra el objeto autonomy junto a la configuración canónica. REEMPLAZAR_POR_TU_ID_PAPER debe sustituirse por el ID real de la cuenta PAPER en los secretos/configuración del servicio. El perfil de arranque se instala una sola vez por cuenta para no sobrescribir los cambios persistentes del usuario. En una instalación existente usa los controles del panel; no reemplaces su diario, credenciales o configuración de campañas abiertas por un ejemplo.
+
+El paquete incluye runtime, panel e instalación. Esta entrega no actualizó ni verificó un servidor Render/VPS remoto. Antes de describirlo como 24/7 operativo habrá que desplegar esta revisión y comprobar datos, heartbeat, credenciales, conciliación, reinicio y fills PAPER allí.
+
+AUDITORÍA Y EVIDENCIA
+- evidence/autonomy3-tests.json: 18 comprobaciones puras y del ejecutor nativo, incluyendo fin de semana, presupuesto de recuperación, persistencia y carreras de pausa/LiftOff. Broker simulado y pruebas de promoción con evidencia financiera inyectada explícitamente sólo para verificar mecánica.
+- evidence/autonomy3-browser.json: cinco recorridos sobre el HTML real en Chromium, incluido pulso con diálogo cerrado, importación y persistencia.
+- evidence/warroom3-panel-browser.json: cinco recorridos del panel cloud, incluidos controles del pulso; el controlador real se comprueba por separado.
+- evidence/warroom3-cloud.json: once comprobaciones HTTP del runtime, incluidas acciones de perfil y pulso.
+- evidence/release25_3-verification.json: veinte comandos de regresión y sintaxis de 112 archivos. Todos deben terminar en código 0 para empaquetar.
+- evidence/alpaca-clock-autonomy3.json: consulta real de sólo lectura del reloj/calendario disponible el 17-10-2026. No identifica las credenciales ni el plan de tu servidor.
+
+Cero órdenes externas y cero llamadas de modelo pagadas en estas pruebas. No se ha ejecutado un backtest económico real nuevo ni se ha acreditado superioridad de rentabilidad. Sigue vigente DICTAMEN_RENTABILIDAD_R1.txt.
+
+FUENTES PRIMARIAS
+https://docs.alpaca.markets/us/docs/crypto-trading
+https://docs.alpaca.markets/us/reference/legacyclock
+https://alpaca.markets/sdks/python/api_reference/trading/calendar.html

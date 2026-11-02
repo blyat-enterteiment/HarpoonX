@@ -1,0 +1,29 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> harpoon-cloud-247@30.7.0 test:quant
+> node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-timeout=30000 tools/quant_bridge_test.cjs
+
+✔ missing calibration returns BLOCKED through the actual Python worker (976.313883ms)
+✔ quant gate blocks a stock order without a calibrated allocation (1092.033592ms)
+✔ quantified quantity caps the existing broker risk size (14.688784ms)
+✔ subprocess failure cannot authorize an order (3.002127ms)
+✔ stock net discovers only classified calibrated names and preserves inventory (1.385516ms)
+✔ slow numerical planning does not hold the order mutex needed by exits (13.544128ms)
+✔ account changes during numerical planning invalidate entry authority (10.13303ms)
+✔ sized live quote reaches the L1 cache through the actual coordinator callback (8.87872ms)
+✔ L1 sampling is bounded per second and records omitted events (9.303637ms)
+✔ missing L1 sizes are not fabricated and reconnect clears its book history (8.028567ms)
+✔ calibration context runs through Python independently of a return calibration file (992.598488ms)
+✔ microstructure preflight rejects malformed switches and unbounded settings (1.356553ms)
+✔ performance worker computes Sortino and drawdown without authorizing trades (1037.011399ms)
+✔ recursive calibrator runs without an opportunity panel and waits explicitly (1056.349692ms)
+✔ NAV capture does not mislabel unconfirmed cashflows as trading returns (9.566931ms)
+✔ optimizer preflight rejects infinite budgets and malformed controls (0.53455ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5319.860937

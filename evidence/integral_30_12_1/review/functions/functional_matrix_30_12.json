@@ -1,0 +1,1211 @@
+{
+  "schema": "HARPOON_INTEGRAL_FUNCTIONAL_REVIEW_1",
+  "at_mexico_city": "2026-10-31T21:13:57.148543-06:00",
+  "reviewed_version": "30.12.0",
+  "quant_version": "1.8.0",
+  "scope": "Targeted source-to-test matrix of requested implementations in 30.12; not a whole-project lineage conclusion.",
+  "other_branch_review": "PENDING_PARENT_COMPARISON_OF_31_X_AND_OTHER_RECOVERED_LABS",
+  "external_independent_audit": false,
+  "new_tests_run": 0,
+  "new_financial_experiments": 0,
+  "external_orders": 0,
+  "source_edits": 0,
+  "existing_functional_cases": 902,
+  "existing_evidence_logs_hash_verified": true,
+  "current_economic_score": 3,
+  "financial_verdict": "VENTAJA_NO_DEMOSTRADA",
+  "matrix": [
+    {
+      "id": "M01",
+      "requirement": "Motor vigente, Ridge y regresión SVR",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Comparación financiada reejecuta el coordinador y predictores fijos; conserva NATIVE, RIDGE, SVR y control CASH en v2.",
+      "sources": [
+        {
+          "file": "tools/funded_comparison.cjs",
+          "sha256": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+          "anchors": {
+            "runFundedComparison": [
+              126,
+              164,
+              175,
+              180
+            ],
+            "verifyFundedComparison": [
+              159,
+              175,
+              180
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/fixed_predictor.py",
+          "sha256": "40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b",
+          "anchors": {
+            "validate_model": [
+              53,
+              125
+            ],
+            "calculate": [
+              101,
+              204
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/scalar_svr.py",
+          "sha256": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+          "anchors": {
+            "fit_scalar_svr": [
+              267
+            ],
+            "predict_scalar": [
+              433
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "funded_comparison_test",
+          "existing_result": true,
+          "cases": 13,
+          "log": "evidence/level5_30_12_0/final_regression/funded_comparison_test.log",
+          "sha256": "7d414dbb92d38fe5caa998eaa4c9d0333bf0d59104012017f06962c07bfd2582"
+        },
+        {
+          "suite": "quant_svr_integration_test",
+          "existing_result": true,
+          "cases": 7,
+          "log": "evidence/level5_30_12_0/final_regression/quant_svr_integration_test.log",
+          "sha256": "bc4bb3253e0e7dacef9a05f2313f4a5a18002b73700f6816d64d3309436933b8"
+        },
+        {
+          "suite": "quant_unittest",
+          "existing_result": true,
+          "cases": 385,
+          "log": "evidence/level5_30_12_0/final_regression/quant_unittest.log",
+          "sha256": "cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "SVR es de investigación. Sus pruebas predictivas y ejemplos sintéticos no permiten abrir órdenes ni prueban beneficio neto."
+    },
+    {
+      "id": "M02",
+      "requirement": "Patrimonio neto continuo, flujos y costes",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Reconcilia actividades, NAV, flujos, gastos y cobertura; conserva archivo continuo y diferencia rentabilidad de cuenta y económica.",
+      "sources": [
+        {
+          "file": "xxx/net_accounting.ts",
+          "sha256": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+          "anchors": {
+            "NetAccountLedger": [
+              307,
+              768
+            ],
+            "performanceInput": [
+              1002,
+              1019,
+              1101,
+              1102
+            ]
+          }
+        },
+        {
+          "file": "xxx/net_ledger_archive.ts",
+          "sha256": "4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2",
+          "anchors": {
+            "NetLedgerArchive": [
+              37
+            ]
+          }
+        },
+        {
+          "file": "xxx/net_ledger_verify.ts",
+          "sha256": "d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477",
+          "anchors": {
+            "verifyLedgerHistoryBundle": [
+              16
+            ]
+          }
+        },
+        {
+          "file": "xxx/cost_receipts.ts",
+          "sha256": "50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a",
+          "anchors": {
+            "validateCostReceipt": [
+              80,
+              227,
+              250
+            ],
+            "verifyBrokerAccrualCoverage": [
+              112,
+              138
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "quant_net_ledger_test",
+          "existing_result": true,
+          "cases": 40,
+          "log": "evidence/level5_30_12_0/final_regression/quant_net_ledger_test.log",
+          "sha256": "b1d2ceef2805d65e04016129a90c03e7f06ddce9494e3ec4d49072079406aa20"
+        },
+        {
+          "suite": "quant_net_continuity_test",
+          "existing_result": true,
+          "cases": 35,
+          "log": "evidence/level5_30_12_0/final_regression/quant_net_continuity_test.log",
+          "sha256": "2c0dd4e0ea603f3f42f873588c0de2000dfe7f0ff54011eb34493b07736453bb"
+        },
+        {
+          "suite": "level4_runtime_integration_test",
+          "existing_result": true,
+          "cases": 12,
+          "log": "evidence/level5_30_12_0/final_regression/level4_runtime_integration_test.log",
+          "sha256": "7a1ff16db78051ebbbf7279ab874658eae96ff0a4f6edb436d9a442da51671ce"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Sin actividades originales y documentos de costes no completa resultados económicos; los importes desconocidos permanecen null."
+    },
+    {
+      "id": "M03",
+      "requirement": "Pulso asíncrono y protección independiente de IA",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Carriles separados de conciliación, posiciones, opciones, observaciones e investigación; prioridad para gestión de posiciones; inferencia fuera del mutex de órdenes.",
+      "sources": [
+        {
+          "file": "xxx/coordinator.ts",
+          "sha256": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+          "anchors": {
+            "configureLanes": [
+              350,
+              352
+            ],
+            "managePosition": [
+              1303,
+              1316
+            ],
+            "entryReady": [
+              1537,
+              1699,
+              1716,
+              2182
+            ]
+          }
+        },
+        {
+          "file": "xxx/scheduler.ts",
+          "sha256": "3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1",
+          "anchors": {
+            "Scheduler": [
+              20
+            ],
+            "PriorityMutex": [
+              113
+            ]
+          }
+        },
+        {
+          "file": "runtime/quant_bridge.cjs",
+          "sha256": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+          "anchors": {
+            "worker": [
+              5,
+              18,
+              35,
+              36,
+              39
+            ],
+            "position_management_uses_this_pool": [
+              64
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "quant_autonomy_integration_test",
+          "existing_result": true,
+          "cases": 20,
+          "log": "evidence/level5_30_12_0/final_regression/quant_autonomy_integration_test.log",
+          "sha256": "649603dc7770b9a24df50d0f7cfe5a91003215d2738716ac1a6abf833b649068"
+        },
+        {
+          "suite": "xxx_operational_test",
+          "existing_result": true,
+          "cases": 30,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_operational_test.log",
+          "sha256": "a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d"
+        },
+        {
+          "suite": "xxx_health_test",
+          "existing_result": true,
+          "cases": 17,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_health_test.log",
+          "sha256": "ceb3dea2a74bab6fd9e17cc221f429a4017308b096927991fa6e61d1f19d2fc2"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Los intervalos configurados no son mediciones de latencia real. No acredita operación 24/7 ni recuperación en una instancia actual."
+    },
+    {
+      "id": "M04",
+      "requirement": "Capital y riesgo compartidos entre motores",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Reserva órdenes pendientes, limita capital total/por activo/por factor y riesgo abierto; recalcula tras cambiar cuenta o inventario.",
+      "sources": [
+        {
+          "file": "xxx/policy.ts",
+          "sha256": "d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b",
+          "anchors": {
+            "availableSize": [
+              144
+            ]
+          }
+        },
+        {
+          "file": "xxx/coordinator.ts",
+          "sha256": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+          "anchors": {
+            "entries": [
+              390,
+              400,
+              1622
+            ],
+            "quantState": [
+              1641,
+              1646,
+              1695
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/core.py",
+          "sha256": "60c44a555ce183916ea15654190a2310022107504548b371cb4a2e7aaf4611aa",
+          "anchors": {
+            "allocate": [
+              486
+            ],
+            "covariance": [
+              209,
+              298
+            ],
+            "expected_shortfall": [
+              191,
+              765,
+              798
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "xxx_partial_entry_risk_test",
+          "existing_result": true,
+          "cases": 8,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_partial_entry_risk_test.log",
+          "sha256": "6117b541c7b72832b37ab226890982754a5e8b559619c06d88de15b4a4dc38ff"
+        },
+        {
+          "suite": "quant_bridge_test",
+          "existing_result": true,
+          "cases": 16,
+          "log": "evidence/level5_30_12_0/final_regression/quant_bridge_test.log",
+          "sha256": "62d1bbae5dc4fed14661489fb23c1d0f63a6d1dac22fbe07a67bdcfe5c4e9b04"
+        },
+        {
+          "suite": "quant_coordinator_replay_test",
+          "existing_result": true,
+          "cases": 24,
+          "log": "evidence/level5_30_12_0/final_regression/quant_coordinator_replay_test.log",
+          "sha256": "56e4a2f3cb5cd45ef7ddd612bd090d2666623a269a522860994dce7b04a321a4"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "No se midieron correlaciones ni ejecución real actuales. El gate económico financiado está limitado a posiciones largas al contado de acciones, ETF y cripto."
+    },
+    {
+      "id": "M05",
+      "requirement": "Red de descubrimiento de acciones y ETF",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Registro persistente con universo conocido, tamaño acotado, protección de símbolos con exposición y comprobación de catálogo, historia y cotización antes de elegibilidad.",
+      "sources": [
+        {
+          "file": "runtime/discovery.cjs",
+          "sha256": "94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157",
+          "anchors": {
+            "protectedSymbols": [
+              19,
+              94,
+              172,
+              227,
+              276
+            ],
+            "historyReason": [
+              46,
+              181,
+              195,
+              224,
+              260
+            ],
+            "restore": [
+              86,
+              87,
+              98,
+              100,
+              101
+            ],
+            "discover": [
+              2,
+              20,
+              43,
+              82,
+              91
+            ]
+          }
+        },
+        {
+          "file": "xxx/coordinator.ts",
+          "sha256": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+          "anchors": {
+            "discoverStocks": [
+              393,
+              1563
+            ]
+          }
+        },
+        {
+          "file": "runtime/quant_bridge.cjs",
+          "sha256": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+          "anchors": {
+            "observationInput": [
+              65,
+              88,
+              90
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "quant_discovery_regression_test",
+          "existing_result": true,
+          "cases": 37,
+          "log": "evidence/level5_30_12_0/final_regression/quant_discovery_regression_test.log",
+          "sha256": "9f4bc83ca8228219d1f6065aca7c67f18bc0f9088172d0caef51f85c7b793983"
+        },
+        {
+          "suite": "quant_autonomy_integration_test",
+          "existing_result": true,
+          "cases": 20,
+          "log": "evidence/level5_30_12_0/final_regression/quant_autonomy_integration_test.log",
+          "sha256": "649603dc7770b9a24df50d0f7cfe5a91003215d2738716ac1a6abf833b649068"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Universo histórico disponible al decidir y calidad del feed requieren observaciones de la instancia. No demuestra eficacia económica del selector."
+    },
+    {
+      "id": "M06",
+      "requirement": "Ventanas de apertura, precierre y poscierre de 90 minutos",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Etiquetas separadas, calendario, cambio de horario, cierres tempranos y barras cerradas; rachas y gap son diagnósticos.",
+      "sources": [
+        {
+          "file": "xxx/sessions.ts",
+          "sha256": "29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77",
+          "anchors": {
+            "sessionContext": [
+              76
+            ],
+            "regularClosedBars": [
+              112
+            ],
+            "openingRange": [
+              141
+            ],
+            "streakDiagnostics": [
+              148
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/causal_panel.py",
+          "sha256": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+          "anchors": {
+            "build": [
+              527,
+              591
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "xxx_session_regression_test",
+          "existing_result": true,
+          "cases": 26,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_session_regression_test.log",
+          "sha256": "38135d20d417a38331312d87ed08094a558760a634f18c305f0d77cc4463cff1"
+        },
+        {
+          "suite": "quant_unittest",
+          "existing_result": true,
+          "cases": 385,
+          "log": "evidence/level5_30_12_0/final_regression/quant_unittest.log",
+          "sha256": "cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "El panel causal admite sesión regular. POSTCLOSE_90 no es una autorización de órdenes ni una estrategia de poscierre validada; rachas no son entradas del predictor."
+    },
+    {
+      "id": "M07",
+      "requirement": "Salidas, parciales y holding máximo de 72 horas",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Reglas deterministas de stop, cobro parcial, trailing, invalidación, tiempo y calendario; límite de configuración de 72h.",
+      "sources": [
+        {
+          "file": "xxx/policy.ts",
+          "sha256": "d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b",
+          "anchors": {
+            "exitDecision": [
+              52
+            ],
+            "freezeExit": [
+              258
+            ],
+            "deadlineFor": [
+              270
+            ]
+          }
+        },
+        {
+          "file": "xxx/exits.ts",
+          "sha256": "e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105",
+          "anchors": {
+            "remainingExit": [
+              53
+            ],
+            "protectionSnapshot": [
+              158,
+              231
+            ]
+          }
+        },
+        {
+          "file": "xxx/validators.ts",
+          "sha256": "70e7eb11f991635596f5e1c3a6caedb22ebb93c5c1ae298e6d17985b6396b43c",
+          "anchors": {
+            "maxHoldHours": [
+              342,
+              356,
+              357
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "xxx_test",
+          "existing_result": true,
+          "cases": 52,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_test.log",
+          "sha256": "3fb4a835824c7626f4266924168de0a1e06a3ae44a2295aa06d44cc90400b96c"
+        },
+        {
+          "suite": "xxx_tp32_test",
+          "existing_result": true,
+          "cases": 15,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_tp32_test.log",
+          "sha256": "5ec39bf683d8e8f487b47628aca1857297315ead70620ec87acb7f8cb075b87a"
+        },
+        {
+          "suite": "xxx_operational_test",
+          "existing_result": true,
+          "cases": 30,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_operational_test.log",
+          "sha256": "a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d"
+        },
+        {
+          "suite": "quant_coordinator_replay_test",
+          "existing_result": true,
+          "cases": 24,
+          "log": "evidence/level5_30_12_0/final_regression/quant_coordinator_replay_test.log",
+          "sha256": "56e4a2f3cb5cd45ef7ddd612bd090d2666623a269a522860994dce7b04a321a4"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Suspensiones/cierres/ausencia de liquidez pueden impedir ejecución. No se afirma cierre observado por una intención ni una ejecución imposible."
+    },
+    {
+      "id": "M08",
+      "requirement": "Órdenes, timeout, duplicados y conciliación",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Persistencia antes del envío, client_order_id, estado UNKNOWN tras timeout, conciliación por ID, cancelación explícita y reservas de venta con parciales.",
+      "sources": [
+        {
+          "file": "xxx/coordinator.ts",
+          "sha256": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+          "anchors": {
+            "submit": [
+              938,
+              1378,
+              1396,
+              1487,
+              1529
+            ],
+            "cancel": [
+              883,
+              893,
+              894,
+              1020,
+              1024
+            ],
+            "reconcile": [
+              116,
+              272,
+              348,
+              362,
+              572
+            ],
+            "ORDER_UNCONFIRMED": [
+              1008
+            ]
+          }
+        },
+        {
+          "file": "xxx/exits.ts",
+          "sha256": "e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105",
+          "anchors": {
+            "nativeGroups": [
+              84
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "xxx_conformance_test",
+          "existing_result": true,
+          "cases": 13,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_conformance_test.log",
+          "sha256": "d664666b9ec4cffd26e2f1283e825c81b6db44353d8e633c9c45b678ec715654"
+        },
+        {
+          "suite": "xxx_partial_entry_risk_test",
+          "existing_result": true,
+          "cases": 8,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_partial_entry_risk_test.log",
+          "sha256": "6117b541c7b72832b37ab226890982754a5e8b559619c06d88de15b4a4dc38ff"
+        },
+        {
+          "suite": "quant_coordinator_replay_test",
+          "existing_result": true,
+          "cases": 24,
+          "log": "evidence/level5_30_12_0/final_regression/quant_coordinator_replay_test.log",
+          "sha256": "56e4a2f3cb5cd45ef7ddd612bd090d2666623a269a522860994dce7b04a321a4"
+        },
+        {
+          "suite": "xxx_operational_test",
+          "existing_result": true,
+          "cases": 30,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_operational_test.log",
+          "sha256": "a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Verificado con API simulada; falta evidencia de integración de broker para la instancia vigente."
+    },
+    {
+      "id": "M09",
+      "requirement": "Observaciones causales y exportación estable",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Captura persistente, snapshot de prefijo confirmado, integridad de páginas, límites de bytes y procesamiento incremental; validación causal de unidades y universo.",
+      "sources": [
+        {
+          "file": "xxx/quant_observations.ts",
+          "sha256": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+          "anchors": {
+            "QuantObservationJournal": [
+              21
+            ],
+            "snapshotExport": [
+              202
+            ],
+            "exportSnapshot": [
+              232
+            ]
+          }
+        },
+        {
+          "file": "tools/export_observation_snapshot.cjs",
+          "sha256": "33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a",
+          "anchors": {
+            "assemble": [
+              11,
+              56,
+              62,
+              66
+            ],
+            "verifyManifest": [
+              56,
+              59,
+              66
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/causal_panel.py",
+          "sha256": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+          "anchors": {
+            "build": [
+              527,
+              591
+            ],
+            "_stream_manifest": [
+              143,
+              540
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "quant_observation_archive_test",
+          "existing_result": true,
+          "cases": 13,
+          "log": "evidence/level5_30_12_0/final_regression/quant_observation_archive_test.log",
+          "sha256": "3f02f8d865e91ca02aac4723f5a46c33534c99f532278779e5e3e2b1a76e4691"
+        },
+        {
+          "suite": "quant_observation_snapshot_test",
+          "existing_result": true,
+          "cases": 9,
+          "log": "evidence/level5_30_12_0/final_regression/quant_observation_snapshot_test.log",
+          "sha256": "0403a7cfe51e7e8d0546841596fd0bf3b87d8707c5a94e19a886981095d6aa77"
+        },
+        {
+          "suite": "quant_unittest",
+          "existing_result": true,
+          "cases": 385,
+          "log": "evidence/level5_30_12_0/final_regression/quant_unittest.log",
+          "sha256": "cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Fuentes observadas de esta entrega:0frames prospectivos y0filas causales admisibles. Cotizaciones no sustituyen profundidad ejecutable ni fills."
+    },
+    {
+      "id": "M10",
+      "requirement": "Criterio económico de nivel 4 y nivel 5",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Verifica fuente, modelos, cuenta, periodo, costes, historial; contrasta crecimiento absoluto y mejora pareada frente a Ridge/native con incertidumbre y estrés.",
+      "sources": [
+        {
+          "file": "tools/level4_readiness.cjs",
+          "sha256": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+          "anchors": {
+            "assessLevel4": [
+              96,
+              189,
+              196,
+              201
+            ],
+            "verifyLevel4Readiness": [
+              188,
+              196,
+              201
+            ]
+          }
+        },
+        {
+          "file": "tools/level5_readiness.cjs",
+          "sha256": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+          "anchors": {
+            "deriveLevel5": [
+              110,
+              166,
+              173,
+              178
+            ],
+            "verifyLevel5Derivation": [
+              165,
+              173,
+              178
+            ],
+            "applyCostSchedule": [
+              37,
+              79,
+              178
+            ],
+            "stressBinding": [
+              24,
+              148,
+              178
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/economic_gate_v2.py",
+          "sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+          "anchors": {
+            "evaluate": [
+              320
+            ],
+            "verify_history": [
+              193,
+              342
+            ],
+            "summarize_policy": [
+              90,
+              367,
+              394
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "level4_readiness_test",
+          "existing_result": true,
+          "cases": 12,
+          "log": "evidence/level5_30_12_0/final_regression/level4_readiness_test.log",
+          "sha256": "98441b47749b8faab6100f4c036509677d23406c89e3585a46f2cb6954f9e33d"
+        },
+        {
+          "suite": "level5_readiness_test",
+          "existing_result": true,
+          "cases": 9,
+          "log": "evidence/level5_30_12_0/final_regression/level5_readiness_test.log",
+          "sha256": "83968704ced6fa8ad7c5a0ef383e593cac6aa013d5b788718f550fdc75184907"
+        },
+        {
+          "suite": "quant_unittest",
+          "existing_result": true,
+          "cases": 385,
+          "log": "evidence/level5_30_12_0/final_regression/quant_unittest.log",
+          "sha256": "cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "El criterio no está satisfecho. Gate reproducido:3/10, VENTAJA_NO_DEMOSTRADA. No incluye opciones/futuros ni ejecución poscierre validada."
+    },
+    {
+      "id": "M11",
+      "requirement": "Reserva de efectivo y riesgo dentro del periodo",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Reserva previa reduce buying power, no añade patrimonio; calendario de gastos separado; insolvencia, drawdown e inventario se evalúan por evento.",
+      "sources": [
+        {
+          "file": "tools/coordinator_replay.cjs",
+          "sha256": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+          "anchors": {
+            "SimulatedReplayBroker": [
+              133,
+              277,
+              398
+            ],
+            "OPERATING_RESERVE_MUST_BE_FUNDED_AND_KNOWN_BEFORE_REPLAY": [
+              64
+            ]
+          }
+        },
+        {
+          "file": "quant/harpoon_quant/economic_gate_v2.py",
+          "sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+          "anchors": {
+            "summarize_policy": [
+              90,
+              367,
+              394
+            ],
+            "_risk": [
+              299,
+              373,
+              396,
+              398
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "funded_operating_reserve_test",
+          "existing_result": true,
+          "cases": 5,
+          "log": "evidence/level5_30_12_0/final_regression/funded_operating_reserve_test.log",
+          "sha256": "b4989d912da54d6899109b016eff5c1afc52f74380e658952e9797433d297657"
+        },
+        {
+          "suite": "level5_readiness_test",
+          "existing_result": true,
+          "cases": 9,
+          "log": "evidence/level5_30_12_0/final_regression/level5_readiness_test.log",
+          "sha256": "83968704ced6fa8ad7c5a0ef383e593cac6aa013d5b788718f550fdc75184907"
+        },
+        {
+          "suite": "quant_unittest",
+          "existing_result": true,
+          "cases": 385,
+          "log": "evidence/level5_30_12_0/final_regression/quant_unittest.log",
+          "sha256": "cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Ejecución modelada y resolución de eventos; no acredita trayectoria intraperiodo que no haya sido observada."
+    },
+    {
+      "id": "M12",
+      "requirement": "Interfaz e indicadores operativos",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Distingue proceso vivo, capacidad de operar, datos ausentes, costes, candidato y evidencia económica; no convierte PnL positivo en aprobación.",
+      "sources": [
+        {
+          "file": "xxx/operational_status.ts",
+          "sha256": "f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f",
+          "anchors": {
+            "entryOperationalFailures": [
+              5,
+              56
+            ],
+            "operationalCapabilities": [
+              23
+            ]
+          }
+        },
+        {
+          "file": "deploy/dashboard30.html",
+          "sha256": "dae126753f7f93681783a9961075bc1583f1b6bbed7ae483d5b4775dd34309ae",
+          "anchors": {
+            "operationalBlocked": [
+              2896,
+              2920,
+              2927
+            ],
+            "financial": [
+              1496,
+              1497,
+              1954,
+              1955,
+              1957
+            ]
+          }
+        },
+        {
+          "file": "xxx/server.ts",
+          "sha256": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+          "anchors": {
+            "/healthz": [
+              58
+            ],
+            "/operational-readyz": [
+              94,
+              96
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "quant_dashboard_evidence_test",
+          "existing_result": true,
+          "cases": 12,
+          "log": "evidence/level5_30_12_0/final_regression/quant_dashboard_evidence_test.log",
+          "sha256": "9ff709fa7d176d96f5a92844683ef04a1958b2b1399b72016bc7c596fb281cc0"
+        },
+        {
+          "suite": "xxx_operational_test",
+          "existing_result": true,
+          "cases": 30,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_operational_test.log",
+          "sha256": "a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d"
+        },
+        {
+          "suite": "xxx_health_test",
+          "existing_result": true,
+          "cases": 17,
+          "log": "evidence/level5_30_12_0/final_regression/xxx_health_test.log",
+          "sha256": "ceb3dea2a74bab6fd9e17cc221f429a4017308b096927991fa6e61d1f19d2fc2"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Pruebas DOM y contrato de render, no sesión actual de usuario ni validación de navegador real para esta entrega."
+    },
+    {
+      "id": "M13",
+      "requirement": "Instalación integral y configuración API",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Un coordinador XXXUltimate; installer stdlib y scripts completos; dependencias Node/Python declaradas; env literal; cuenta/journal verificados al arrancar.",
+      "sources": [
+        {
+          "file": "deploy/ultimate_install.py",
+          "sha256": "7f18ddc1382be4045ff94baa055b6e610479db2446469de26d9a185fb0e0a93c",
+          "anchors": {
+            "settings": [
+              210,
+              415
+            ],
+            "parse_env": [
+              60,
+              220
+            ],
+            "RUNTIME_KEYS": [
+              30,
+              200,
+              271,
+              302
+            ]
+          }
+        },
+        {
+          "file": "deploy/entry30.py",
+          "sha256": "350f11fb3e14bd1d851b70393435f1fd3915d5f4313cf77f9fd02618fd74220d",
+          "anchors": {
+            "HARPOON_DATA": [
+              5
+            ],
+            "os.execvp": [
+              14
+            ]
+          }
+        },
+        {
+          "file": "deploy/Dockerfile.xxx",
+          "sha256": "d2d8fef3c95b00a8bf5f130b04e43373c21074e1e7df5b1927d3445cac6b04ea",
+          "anchors": {
+            "harpoon_quant": [
+              18
+            ],
+            "level5_readiness.cjs": [
+              17
+            ]
+          }
+        },
+        {
+          "file": "install.sh",
+          "sha256": "90fa268145e55af4d8b6c28a6ee25e4741a74bc281a8ce39585551d507e84697",
+          "anchors": {
+            "ultimate_install.py": [
+              5
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "integral_installer_unittest",
+          "existing_result": true,
+          "cases": 24,
+          "log": "evidence/level5_30_12_0/final_regression/integral_installer_unittest.log",
+          "sha256": "6c29bfd15730cfb8a530cc2ecb07292e2a72aac36e7b8247ab05908c3690beb0"
+        },
+        {
+          "suite": "integral_distribution_test",
+          "existing_result": true,
+          "cases": 9,
+          "log": "evidence/level5_30_12_0/final_regression/integral_distribution_test.log",
+          "sha256": "3c7a92510a4a5cb6fe35a39dee8e8442868057e8b59ac2989ff5d8d58e9c7dac"
+        },
+        {
+          "suite": "installer_ruff",
+          "existing_result": true,
+          "cases": null,
+          "log": "evidence/level5_30_12_0/final_regression/installer_ruff.log",
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "suite": "installer_mypy",
+          "existing_result": true,
+          "cases": null,
+          "log": "evidence/level5_30_12_0/final_regression/installer_mypy.log",
+          "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e"
+        },
+        {
+          "suite": "shell_install",
+          "existing_result": true,
+          "cases": null,
+          "log": "evidence/level5_30_12_0/final_regression/shell_install.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "Requiere instalar dependencias y aportar configuración/credenciales legítimas. Docker image build no ejecutado, TLS externo no autoprovisionado. No requiere parches de versiones anteriores."
+    },
+    {
+      "id": "M14",
+      "requirement": "Investigación recurrente con presupuesto",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Diario persistente, presupuesto de intentos, datos/modelos vinculados y holdout usado una vez; mantiene exclusión del pool de gestión de posiciones.",
+      "sources": [
+        {
+          "file": "quant/harpoon_quant/recursive.py",
+          "sha256": "d6b15eb8a906e6c4b2cf38cb9c3202ae335e9b21c3b0fe4dcbe956797e233e4b",
+          "anchors": {
+            "Journal": [
+              21,
+              318,
+              367
+            ],
+            "tick": [
+              349,
+              672,
+              688
+            ],
+            "active_policy": [
+              313,
+              374
+            ]
+          }
+        },
+        {
+          "file": "runtime/quant_bridge.cjs",
+          "sha256": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+          "anchors": {
+            "optimize": [
+              16,
+              53,
+              114,
+              115,
+              117
+            ],
+            "binding": [
+              16,
+              100,
+              113,
+              115,
+              142
+            ]
+          }
+        },
+        {
+          "file": "xxx/coordinator.ts",
+          "sha256": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+          "anchors": {
+            "quant-recursive-calibration": [
+              416
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [
+        {
+          "suite": "quant_autonomy_integration_test",
+          "existing_result": true,
+          "cases": 20,
+          "log": "evidence/level5_30_12_0/final_regression/quant_autonomy_integration_test.log",
+          "sha256": "649603dc7770b9a24df50d0f7cfe5a91003215d2738716ac1a6abf833b649068"
+        },
+        {
+          "suite": "quant_unittest",
+          "existing_result": true,
+          "cases": 385,
+          "log": "evidence/level5_30_12_0/final_regression/quant_unittest.log",
+          "sha256": "cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393"
+        }
+      ],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "No existe autoaprendizaje financiero observado; sin datos y ventanas nuevos el estado de espera es un bloqueo intencional, no función vacía."
+    },
+    {
+      "id": "M15",
+      "requirement": "Servicio GPT legado preservado",
+      "source_review": "IMPLEMENTED_IN_EXAMINED_SOURCE",
+      "implementation": "Servicio opcional legado OpenAI con configuración de modelo/tarifas, presupuesto y contratos. Código preservado en el integral.",
+      "sources": [
+        {
+          "file": "service/server.py",
+          "sha256": "56db0beab9ab994ae9fbde4b832d109c852a56c4e4268ff530cabc1104cd293e",
+          "anchors": {
+            "Gateway": [
+              15,
+              76,
+              98,
+              294
+            ],
+            "https://api.openai.com/v1/responses": [
+              167
+            ]
+          }
+        },
+        {
+          "file": "service/app24.py",
+          "sha256": "2e57c1e7bf7c5db041bc92b56f117cc565d0cd23fdcc2b3ed7b6e3a37127493c",
+          "anchors": {
+            "IntegratedGateway": [
+              97,
+              416
+            ]
+          }
+        },
+        {
+          "file": "service/supervision.py",
+          "sha256": "8571c4d349f9696525eca9ffd45b4af29076c450c719c74f94bae1c5dbd09fb7",
+          "anchors": {
+            "ReviewGateway": [
+              92
+            ]
+          }
+        }
+      ],
+      "existing_test_evidence": [],
+      "current_observed_account_validation": "NOT_AVAILABLE",
+      "limit": "No se inicia mediante compose.xxx.json ni Dockerfile.xxx. No es un gateway agnóstico a proveedores verificado para el núcleo30.12. La suite902 no repite los tests de service; no declarar integración operativa de este servicio en XXXUltimate."
+    }
+  ],
+  "installation_conclusion": "No dependency on previous patches found in examined 30.12 installer/distribution. Source package is self-contained; runtime dependencies, legitimate configuration and account data remain external prerequisites.",
+  "missing_evidence": [
+    "Identified currently deployed PAPER instance/version",
+    "Causal original market observations and fixed-model provenance",
+    "Reconciled original account history and documented applicable costs",
+    "New preregistered final temporal test",
+    "Docker image/runtime verification"
+  ],
+  "not_a_missing_function": [
+    "Null financial values with documented unavailable evidence",
+    "Wait states that fail closed before data/model availability",
+    "Synthetic fixtures explicitly labeled as software tests"
+  ],
+  "source_hashes": {
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15",
+    "quant/harpoon_quant/fixed_predictor.py": "40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b",
+    "quant/harpoon_quant/scalar_svr.py": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+    "xxx/net_accounting.ts": "567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407",
+    "xxx/net_ledger_archive.ts": "4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2",
+    "xxx/net_ledger_verify.ts": "d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477",
+    "xxx/cost_receipts.ts": "50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a",
+    "xxx/coordinator.ts": "6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac",
+    "xxx/scheduler.ts": "3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1",
+    "runtime/quant_bridge.cjs": "00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b",
+    "xxx/policy.ts": "d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b",
+    "quant/harpoon_quant/core.py": "60c44a555ce183916ea15654190a2310022107504548b371cb4a2e7aaf4611aa",
+    "runtime/discovery.cjs": "94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157",
+    "xxx/sessions.ts": "29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77",
+    "quant/harpoon_quant/causal_panel.py": "35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8",
+    "xxx/exits.ts": "e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105",
+    "xxx/validators.ts": "70e7eb11f991635596f5e1c3a6caedb22ebb93c5c1ae298e6d17985b6396b43c",
+    "xxx/quant_observations.ts": "3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c",
+    "tools/export_observation_snapshot.cjs": "33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a",
+    "tools/level4_readiness.cjs": "013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d",
+    "tools/level5_readiness.cjs": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+    "quant/harpoon_quant/economic_gate_v2.py": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+    "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+    "xxx/operational_status.ts": "f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f",
+    "deploy/dashboard30.html": "dae126753f7f93681783a9961075bc1583f1b6bbed7ae483d5b4775dd34309ae",
+    "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+    "deploy/ultimate_install.py": "7f18ddc1382be4045ff94baa055b6e610479db2446469de26d9a185fb0e0a93c",
+    "deploy/entry30.py": "350f11fb3e14bd1d851b70393435f1fd3915d5f4313cf77f9fd02618fd74220d",
+    "deploy/Dockerfile.xxx": "d2d8fef3c95b00a8bf5f130b04e43373c21074e1e7df5b1927d3445cac6b04ea",
+    "install.sh": "90fa268145e55af4d8b6c28a6ee25e4741a74bc281a8ce39585551d507e84697",
+    "quant/harpoon_quant/recursive.py": "d6b15eb8a906e6c4b2cf38cb9c3202ae335e9b21c3b0fe4dcbe956797e233e4b",
+    "service/server.py": "56db0beab9ab994ae9fbde4b832d109c852a56c4e4268ff530cabc1104cd293e",
+    "service/app24.py": "2e57c1e7bf7c5db041bc92b56f117cc565d0cd23fdcc2b3ed7b6e3a37127493c",
+    "service/supervision.py": "8571c4d349f9696525eca9ffd45b4af29076c450c719c74f94bae1c5dbd09fb7"
+  }
+}

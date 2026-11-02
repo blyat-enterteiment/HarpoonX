@@ -1,0 +1,190 @@
+TAP version 13
+# Subtest: first-campaign protection rejection cannot starve later stop exit
+ok 1 - first-campaign protection rejection cannot starve later stop exit
+  ---
+  duration_ms: 47.730321
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later flatten exit
+ok 2 - first-campaign protection rejection cannot starve later flatten exit
+  ---
+  duration_ms: 13.886381
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later time exit
+ok 3 - first-campaign protection rejection cannot starve later time exit
+  ---
+  duration_ms: 12.648718
+  type: 'test'
+  ...
+# Subtest: first-campaign protection rejection cannot starve later signal exit
+ok 4 - first-campaign protection rejection cannot starve later signal exit
+  ---
+  duration_ms: 13.202499
+  type: 'test'
+  ...
+# Subtest: rejected first protection does not monopolize routine protection for later campaigns
+ok 5 - rejected first protection does not monopolize routine protection for later campaigns
+  ---
+  duration_ms: 21.120315
+  type: 'test'
+  ...
+# Subtest: one stale position remains visibly unmonitored while another position completes
+ok 6 - one stale position remains visibly unmonitored while another position completes
+  ---
+  duration_ms: 18.183163
+  type: 'test'
+  ...
+# Subtest: per-position evaluation failure preserves prior completion and cannot be masked by later success
+ok 7 - per-position evaluation failure preserves prior completion and cannot be masked by later success
+  ---
+  duration_ms: 19.07288
+  type: 'test'
+  ...
+# Subtest: restart never treats persisted position evaluations as current-run monitoring
+ok 8 - restart never treats persisted position evaluations as current-run monitoring
+  ---
+  duration_ms: 27.370164
+  type: 'test'
+  ...
+# Subtest: UNKNOWN exit blocks duplicate submission across pulses and restart without starving another urgent campaign
+ok 9 - UNKNOWN exit blocks duplicate submission across pulses and restart without starving another urgent campaign
+  ---
+  duration_ms: 23.00051
+  type: 'test'
+  ...
+# Subtest: young TP cancellation and partial fill reconcile before one urgent remainder sale
+ok 10 - young TP cancellation and partial fill reconcile before one urgent remainder sale
+  ---
+  duration_ms: 20.748124
+  type: 'test'
+  ...
+# Subtest: pause and disabled plugins preserve per-campaign urgent exits
+ok 11 - pause and disabled plugins preserve per-campaign urgent exits
+  ---
+  duration_ms: 12.595493
+  type: 'test'
+  ...
+# Subtest: tick-scale protection drift remains visible and prevents risk expansion until reconciled
+ok 12 - tick-scale protection drift remains visible and prevents risk expansion until reconciled
+  ---
+  duration_ms: 18.025555
+  type: 'test'
+  ...
+# Subtest: definitive rejection retry is bounded, persisted, capped and recovered after broker acceptance
+ok 13 - definitive rejection retry is bounded, persisted, capped and recovered after broker acceptance
+  ---
+  duration_ms: 45.731286
+  type: 'test'
+  ...
+# Subtest: a protection rejection cooldown never delays a new urgent exit in that campaign
+ok 14 - a protection rejection cooldown never delays a new urgent exit in that campaign
+  ---
+  duration_ms: 10.291657
+  type: 'test'
+  ...
+# Subtest: stale global reconciliation records attempts without completing checks or mutating broker state
+ok 15 - stale global reconciliation records attempts without completing checks or mutating broker state
+  ---
+  duration_ms: 8.148994
+  type: 'test'
+  ...
+# Subtest: closed equity sessions stay visibly incomplete while crypto urgent exits remain active
+ok 16 - closed equity sessions stay visibly incomplete while crypto urgent exits remain active
+  ---
+  duration_ms: 10.907306
+  type: 'test'
+  ...
+# Subtest: stale OPRA data cannot manufacture a completed option check or an executable option close
+ok 17 - stale OPRA data cannot manufacture a completed option check or an executable option close
+  ---
+  duration_ms: 9.42551
+  type: 'test'
+  ...
+# Subtest: fresh global reconciliation cannot refresh stale per-position coverage or permit new allocation
+ok 18 - fresh global reconciliation cannot refresh stale per-position coverage or permit new allocation
+  ---
+  duration_ms: 11.354531
+  type: 'test'
+  ...
+# Subtest: a remembered TP cannot become a stale-quote market sale after protection cancellation
+ok 19 - a remembered TP cannot become a stale-quote market sale after protection cancellation
+  ---
+  duration_ms: 12.736706
+  type: 'test'
+  ...
+# Subtest: partial entry waits for confirmed cancellation and reconciles late fills before urgent sale
+ok 20 - partial entry waits for confirmed cancellation and reconciles late fills before urgent sale
+  ---
+  duration_ms: 12.174408
+  type: 'test'
+  ...
+# Subtest: an eight-campaign pulse observes every position before mutation and stops at its work budget
+ok 21 - an eight-campaign pulse observes every position before mutation and stops at its work budget
+  ---
+  duration_ms: 37.370558
+  type: 'test'
+  ...
+# Subtest: cancel-pending native protection still reserves inventory at the final submit guard
+ok 22 - cancel-pending native protection still reserves inventory at the final submit guard
+  ---
+  duration_ms: 11.155921
+  type: 'test'
+  ...
+# Subtest: more campaigns than the pulse budget receive fair work across bounded successive pulses
+ok 23 - more campaigns than the pulse budget receive fair work across bounded successive pulses
+  ---
+  duration_ms: 53.697884
+  type: 'test'
+  ...
+# Subtest: concurrent pulse wakeups coalesce and cannot duplicate urgent exits
+ok 24 - concurrent pulse wakeups coalesce and cannot duplicate urgent exits
+  ---
+  duration_ms: 15.784434
+  type: 'test'
+  ...
+# Subtest: standalone held stop is not confirmed protection and cannot unlock new allocation
+ok 25 - standalone held stop is not confirmed protection and cannot unlock new allocation
+  ---
+  duration_ms: 10.749438
+  type: 'test'
+  ...
+# Subtest: held OCO stop leg requires its same-campaign live uncanceled OCO parent
+ok 26 - held OCO stop leg requires its same-campaign live uncanceled OCO parent
+  ---
+  duration_ms: 9.174031
+  type: 'test'
+  ...
+# Subtest: accepted OCO siblings cannot clear a rejected runner cooldown across reconciliation and restart
+ok 27 - accepted OCO siblings cannot clear a rejected runner cooldown across reconciliation and restart
+  ---
+  duration_ms: 27.383434
+  type: 'test'
+  ...
+# Subtest: freshly verified protected closed equity permits independent crypto entry without fake price completion
+ok 28 - freshly verified protected closed equity permits independent crypto entry without fake price completion
+  ---
+  duration_ms: 10.165707
+  type: 'test'
+  ...
+# Subtest: stale closed-session clock and reopening transition block crypto allocation until a current evaluation
+ok 29 - stale closed-session clock and reopening transition block crypto allocation until a current evaluation
+  ---
+  duration_ms: 11.502414
+  type: 'test'
+  ...
+# Subtest: closed-session entry safety still rejects stop drift, cancellation, unresolved exits and retry backoff
+ok 30 - closed-session entry safety still rejects stop drift, cancellation, unresolved exits and retry backoff
+  ---
+  duration_ms: 9.586644
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 620.709386

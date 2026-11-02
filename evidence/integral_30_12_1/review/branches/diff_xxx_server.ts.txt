@@ -1,0 +1,138 @@
+--- 30.12/xxx/server.ts
++++ 31.4/xxx/server.ts
+@@ -1,2 +1,5 @@
++import { optionCapture } from "./option_capture";
++import { refreshOptionValueFile } from "./option_value";
++import { MassiveOptionData } from "./option_data";
+ import fs from "node:fs";
+ import path from "node:path";
+@@ -4,9 +7,8 @@
+ import { createHash } from "node:crypto";
+ import { Coordinator } from "./coordinator";
+-import { alpaca } from "./broker";
++const { FencedApi } = require("../runtime/execution_authority.cjs");
+ import type { Config, Json, Store } from "./types";
+ import { ULTIMATE_VERSION } from "./version";
+-import { FuturesGateway, IronbeamPaperApi } from "./ultimate_futures";
+-import { operationalCapabilities } from "./operational_status";
++import { FuturesGateway } from "./ultimate_futures";
+ const { DurableStore } = require("../runtime/store30.cjs");
+ const { basicAuth } = require("../deploy/managed.cjs");
+@@ -81,5 +83,6 @@
+         Date.now() - engine.syncAt < 15000 &&
+           !engine.reconcileError &&
+-          !engine.storageError
++          !engine.storageError && engine.store.health?.().status !== "FAILED" &&
++          (!engine.autopilotStartedAt || engine.exitCoverage().entrySafe)
+           ? 200
+           : 503,
+@@ -90,31 +93,16 @@
+         },
+       );
++    if (req.method === "GET" && req.url?.startsWith("/v1/audit?")) {
++      const after = Number(new URL(req.url, "http://localhost").searchParams.get("after") || 0);
++      if (!Number.isSafeInteger(after) || after < 0 || !engine.store.events) return send(400, {error:"Invalid audit cursor/storage"});
++      await engine.auditQueue;
++      return send(200, { rows: await engine.store.events(engine.key, after, 1000), head: engine.auditHead });
++    }
++    if (req.method === "GET" && req.url === "/v1/options-research-frame")
++      return send(200,optionCapture(engine));
++    if (req.method === "GET" && req.url === "/v1/options-lab")
++      return send(200, engine.view().optionsLab);
+     if (req.method === "GET" && req.url === "/v1/health")
+       return send(200, engine.view().health);
+-    if (req.method === "GET" && ["/v1/operational", "/operational-readyz"].includes(req.url || "")) {
+-      const report = operationalCapabilities(engine);
+-      return send(req.url === "/operational-readyz" && !report.operational_ready ? 503 : 200, report);
+-    }
+-    if (req.method === "GET" && req.url === "/v1/quant/observations/snapshot") {
+-      try { return send(200, await engine.quantObservations.snapshotExport()); }
+-      catch (error) { return send(422, {error: String(error), execution_allowed: false}); }
+-    }
+-    if (req.method === "GET" && req.url?.startsWith("/v1/quant/observations?")) {
+-      const params = new URL(req.url, "http://localhost").searchParams;
+-      try {
+-        const offset = Number(params.get("offset") || 0), limit = Number(params.get("limit") || 100);
+-        return send(200, params.has("snapshot_id") ?
+-          await engine.quantObservations.exportSnapshot(params.get("snapshot_id")!, offset, limit) :
+-          await engine.quantObservations.exportFrames(offset, limit));
+-      } catch (error) { return send(422, {error: String(error), execution_allowed: false}); }
+-    }
+-    if (req.method === "GET" && (req.url === "/v1/accounting/history" || req.url?.startsWith("/v1/accounting/history?"))) {
+-      const params = new URL(req.url, "http://localhost").searchParams;
+-      try {
+-        return send(200, await engine.netLedger.exportHistory(Number(params.get("offset") || 0), Number(params.get("limit") || 1000)));
+-      } catch (error) { return send(422, {error: String(error), execution_allowed: false}); }
+-    }
+-    if (req.method === "GET" && req.url === "/v1/quant/calibrator")
+-      return send(200, {performance: engine.quantPerformance, optimizer: engine.quantResearch, binding: require("../runtime/quant_bridge.cjs").binding(engine)});
+     if (req.method === "GET" && req.url?.startsWith("/v1/ultimate/export?")) {
+       const id =
+@@ -186,5 +174,5 @@
+           return send(200, engine.futures.plan(body.plan));
+         case "futures-paper-order":
+-          return send(202, await engine.futures.place(body.plan));
++          return send(202, await engine.placeFutures(body.plan));
+         default:
+           return send(400, { error: "Acción Ultimate desconocida" });
+@@ -220,7 +208,9 @@
+   const directory = process.env.HARPOON_DATA || "/var/data";
+   fs.mkdirSync(directory, { recursive: true });
+-  const api = alpaca(
+-      readSecret("APCA_API_KEY_ID"),
+-      readSecret("APCA_API_SECRET_KEY"),
++  if (readSecret("APCA_API_KEY_ID") || readSecret("APCA_API_SECRET_KEY"))
++    throw Error("Broker secrets belong only in the canonical execution authority");
++  const api = new FencedApi(
++      process.env.HARPOON_EXECUTION_GATEWAY_URL || "",
++      readSecret("HARPOON_SERVICE_TOKEN"),
+     ),
+     account = await api.request("/v2/account");
+@@ -232,4 +222,6 @@
+     ),
+   ) as Config;
++  // Gateway uses REST reconciliation; credentials are never sent to this runtime.
++  cfg.streaming = false;
+   // Initial account binding is permitted only after the coordinator verifies an empty PAPER account.
+   cfg.expected_account_id =
+@@ -241,22 +233,25 @@
+     ).open(),
+     engine = new Coordinator(store, api, cfg);
+-  const ibUsername = readSecret("IRONBEAM_USERNAME"),
+-    ibPassword = readSecret("IRONBEAM_PASSWORD"),
+-    ibKey = readSecret("IRONBEAM_API_KEY");
+-  if (ibUsername || ibPassword || ibKey) {
+-    engine.futures = new FuturesGateway(
+-      store,
+-      cfg,
+-      engine.validators,
+-      new IronbeamPaperApi(ibUsername, ibPassword, ibKey),
+-      readSecret("IRONBEAM_ACCOUNT_ID"),
+-      JSON.parse(process.env.HARPOON_FUTURES_CONTRACTS || "[]"),
++  if(cfg.optionsData?.provider==="massive")engine.market.optionsData=new MassiveOptionData(readSecret("MASSIVE_API_KEY"),cfg.optionsData);
++  if (process.env.HARPOON_CAPITAL_MANDATE_FILE) {
++    engine.capitalMandate = JSON.parse(fs.readFileSync(process.env.HARPOON_CAPITAL_MANDATE_FILE, "utf8"));
++    // Validation runs before entries and after every equity update.
++    const { capitalAllowance } = require("./portfolio_guard");
++    capitalAllowance(Number(account.equity), cfg.capitalLimit, engine.capitalMandate);
++  }
++  if (readSecret("IRONBEAM_USERNAME") || readSecret("IRONBEAM_PASSWORD") || readSecret("IRONBEAM_API_KEY")) throw Error("Ironbeam secrets belong only in the execution authority");
++  if (process.env.IRONBEAM_ACCOUNT_ID) {
++    engine.futures = new FuturesGateway(store, cfg, engine.validators,
++      new FencedApi(process.env.HARPOON_EXECUTION_GATEWAY_URL || "", readSecret("HARPOON_SERVICE_TOKEN"), {namespace:"/futures",leaseProvider:api}),
++      process.env.IRONBEAM_ACCOUNT_ID, JSON.parse(process.env.HARPOON_FUTURES_CONTRACTS || "[]"),
+       process.env.HARPOON_FUTURES_PAPER_ORDERS === "1",
+-      process.env.IRONBEAM_COMMISSION_PER_SIDE_USD
+-        ? Number(process.env.IRONBEAM_COMMISSION_PER_SIDE_USD)
+-        : null,
+-    );
++      process.env.IRONBEAM_COMMISSION_PER_SIDE_USD ? Number(process.env.IRONBEAM_COMMISSION_PER_SIDE_USD) : null);
+   }
+   await engine.initialize(paperAutostart());
++  if(process.env.HARPOON_OPTION_VALUE_FILE){
++    const filename=path.resolve(process.env.HARPOON_OPTION_VALUE_FILE);
++    const refresh=async()=>refreshOptionValueFile(engine.market.optionValues,filename);
++    await refresh();engine.scheduler.add("options-reviewed-forecast-file",5000,refresh);
++  }
+   const origin =
+     process.env.RENDER_EXTERNAL_URL ||

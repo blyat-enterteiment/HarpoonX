@@ -1,0 +1,48 @@
+✔ incremental integrity hashing preserves canonical JSON bytes, including Unicode and number values (3.869057ms)
+✔ baseline is a current observation, with atomic complete evidence and no external writes (12.101036ms)
+✔ missing external cost evidence remains null while account NAV and PnL are reconciled (2.16715ms)
+✔ partial fills are counted by delta qty; later cancellation contributes no invented fill (6.178872ms)
+✔ open position losses are included, independently of realized trade profit (2.650659ms)
+✔ reported fee is already in NAV: one subtraction, and replay is idempotent (5.360137ms)
+✔ operating cost booked in broker cash is linked and never charged a second time (1.802259ms)
+✔ ambiguous embedded trade fee or net-amount commission cannot be silently counted twice (6.431914ms)
+✔ deposits and withdrawals neutralize economic PnL; day-only flow times block TWR (2.094079ms)
+✔ flow value alone is insufficient for TWR even when transaction time is known (1.844262ms)
+✔ hash-bound pre-flow evidence permits exact subperiod TWR without turning a flow into profit (5.73375ms)
+✔ TWR chains price gains before and after capital flows, with external costs at their actual periods (1.763641ms)
+✔ pre-flow marks must bind both numeric values and original receipt hash (1.782199ms)
+✔ late-reported settlement fees are consumed by creation coverage, never skipped by date (1.711622ms)
+✔ complete pagination uses last activity id, and persisted id history cannot disappear (2.928048ms)
+✔ page overlap, repeated cursor, and truncation at page limit block certification (4.149159ms)
+✔ unknown currency or activity type cannot become a zero-cost activity (6.553066ms)
+✔ missing account currency, missing NAV, and missing position marks are rejected (4.741603ms)
+✔ cash, inventory, and NAV discrepancies preserve the prior accepted curve (7.118981ms)
+✔ account identity and unmodeled option multipliers are verified (4.524946ms)
+✔ future transaction, creation, cost-known-at, and snapshot times cannot certify evidence (6.773259ms)
+✔ stale receipt and explicitly stale snapshot disable current metrics (1.772794ms)
+✔ state changes within non-atomic API collection are rejected (1.962631ms)
+✔ persistence failure cannot advance in-memory NAV or activate derived performance (2.83656ms)
+✔ restart restores exact capital, activities, costs, and idempotent fill inventory (4.006024ms)
+✔ state integrity and policy mismatch reject an unsafe restart (0.951586ms)
+✔ an activity with the same id but changed economics requires explicit restatement (3.71852ms)
+✔ late cost receipts reconstruct historical economics while retaining actual knowledge time (2.172237ms)
+✔ real receipt clock exports the closed covered prefix while the current mark remains uncovered (291.408745ms)
+✔ a cost cannot disappear, mutate under the same id, or link the same account fee twice (5.949837ms)
+✔ economic insolvency remains recorded after subsequent deposits and never clips the loss (2.371518ms)
+✔ actual account equity at zero is stored as insolvency, not hidden by flow or closed-trade metrics (1.487204ms)
+✔ comparable finite period exporter has no implied annualization or source authentication (2.617669ms)
+✔ irregular observations retain continuous PnL but cannot manufacture comparable Sharpe periods (1.479271ms)
+✔ history bounds stop, preserve evidence and do not reset the capital curve (1.827547ms)
+✔ summary avoids exporting full activity or NAV arrays on operational health paths (0.829141ms)
+✔ invalid timestamp does not permanently latch the in-process refresh guard (1.262545ms)
+✔ overlapping refresh is rejected while the first operation remains valid (1.443278ms)
+✔ two instances sharing one Store cannot race its same-owner lease (1.797472ms)
+✔ production SQLite transport persists one complete ledger record across process restarts (85.931018ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 537.094354

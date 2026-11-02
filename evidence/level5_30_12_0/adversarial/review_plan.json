@@ -1,0 +1,83 @@
+{
+  "scope": "Three-risk adversarial review of level5 bridge. Synthetic counterexamples only; no financial experiments.",
+  "status": "COMPLETED_WITH_REPRODUCIBLE_REVIEW_ARTIFACTS",
+  "counterexamples": [
+    {
+      "id": "L5-A1",
+      "risk": 1,
+      "title": "Declared positive curve without replay",
+      "mutation": "Replace the submitted SVR session curve with +0.2% every day, keep the original orders, snapshots and model; recompute all public artifact hashes.",
+      "expected": "Gate derives curves from reexecuted coordinator output or blocks; caller-supplied profitability cannot affect score."
+    },
+    {
+      "id": "L5-A2",
+      "risk": 1,
+      "title": "Stress changes predictive policy",
+      "mutation": "Use different SVR weights, feature receipt, signal events or risk threshold only in stress while declaring the same scenario id; recompute submitted hashes.",
+      "expected": "Cross-request comparison rejects any change except explicitly permitted cost multipliers/scenario identity/registration; same original model bytes and signal inputs remain bound."
+    },
+    {
+      "id": "L5-A3",
+      "risk": 1,
+      "title": "Legacy schema shortcut",
+      "mutation": "Invoke legacy economic gate schema or dispatcher branch directly with a favorable declared report.",
+      "expected": "Legacy diagnostic cannot certify level5 or circumvent replay plus all grade5 blockers."
+    },
+    {
+      "id": "L5-B1",
+      "risk": 2,
+      "title": "Intraday drawdown disappears at daily close",
+      "sequence": [
+        100,
+        60,
+        102
+      ],
+      "daily_return": 0.02,
+      "true_observed_drawdown": 0.4,
+      "expected": "Daily return aggregation preserves 40% drawdown from all event marks and rejects a lower limit."
+    },
+    {
+      "id": "L5-B2",
+      "risk": 2,
+      "title": "Intraday exposure disappears at daily close",
+      "sequence": [
+        0,
+        1.2,
+        0
+      ],
+      "expected": "Exposure and funded-cash checks inspect all event snapshots, not only final daily exposure."
+    },
+    {
+      "id": "L5-B3",
+      "risk": 2,
+      "title": "Fees or operations costs vanish across empty days",
+      "mutation": "Include a day with no fills but a fixed applicable cost, then compare compacted session rows; include multiple fee-bearing events before the same close.",
+      "expected": "Session PnL reconciles all original fees and costs; unknown/missing cost coverage blocks. Terminal lump-sum timing remains an explicit model and cannot erase a known intermediate obligation."
+    },
+    {
+      "id": "L5-C1",
+      "risk": 3,
+      "title": "Coherent rehash of false freshness",
+      "mutation": "Use a previously inspected final period but set first_final_data_access_at after registration and prior_final_test_uses=[]; rehash manifests.",
+      "expected": "Read retained source journals/holdouts; known overlap rejects, unavailable global history yields null plus blocker. Local declarations do not become verified freshness."
+    },
+    {
+      "id": "L5-C2",
+      "risk": 3,
+      "title": "False model and implementation provenance",
+      "mutation": "Change fitted coefficients after inspecting the test; label model OBSERVED with the accepted panel hash and an earlier available_at; supply arbitrary well-formed 64hex code_hash.",
+      "expected": "Actual executed-source hash is derived and bound; panel metadata alone cannot validate fitted-model chronology. Training provenance unresolved remains a blocker."
+    },
+    {
+      "id": "L5-C3",
+      "risk": 3,
+      "title": "CASH benchmark funded by implicit external credit",
+      "mutation": "Fully invest broker cash then charge external economic costs while no spendable cash remains; declare costs paid outside the account and no capital flows.",
+      "expected": "Account-only equity and economic funded equity remain distinct; funding of external costs must be explicit and supported. No negative economic cash or unrecorded added capital can silently preserve admissibility."
+    }
+  ],
+  "production_edits": 0,
+  "remote_writes": 0,
+  "new_economic_experiments": 0,
+  "final_report": "adversarial_review.json"
+}

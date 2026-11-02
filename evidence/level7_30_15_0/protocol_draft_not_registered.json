@@ -1,0 +1,105 @@
+{
+  "schema": "HARPOON_ECONOMIC_PROTOCOL_2",
+  "protocol_id": "DRAFT_LEVEL7_NOT_REGISTERED_30_15_0",
+  "status": "DRAFT_NOT_REGISTERED",
+  "created_at": "2026-11-01T17:35:34.701045+00:00",
+  "research_only": true,
+  "data_scope": null,
+  "currency": "USD",
+  "equity_unit": "USD",
+  "initial_equity_usd": null,
+  "universe": null,
+  "policy_roles": {
+    "SVR": "CANDIDATE",
+    "RIDGE": "FIXED_BENCHMARK",
+    "NATIVE": "PRODUCER_C0",
+    "CASH": "DETERMINISTIC_NO_ENTRY"
+  },
+  "exposure_measure": "EVENT_INTERVAL_TIME_WEIGHTED_LAST_OBSERVED",
+  "external_cost_method": "VERIFIED_LEDGER_ACCRUAL_TIMESTAMPS",
+  "policy_hash": null,
+  "risk_hash": null,
+  "cost_hash": null,
+  "code_hash": null,
+  "horizon_hours": 72,
+  "max_drawdown_fraction": 0.08,
+  "max_gross_exposure_fraction": 0.5,
+  "risk_bound_meaning": "Techos del contrato del proyecto; recuperar límites operativos vigentes y utilizar los más restrictivos. No autoriza nueva exposición.",
+  "minimum_delta_ridge_log_growth": null,
+  "minimum_delta_native_log_growth": null,
+  "period": {
+    "train_end": null,
+    "validation_start": null,
+    "validation_end": null,
+    "test_start": null,
+    "test_end": null
+  },
+  "evaluation_sessions": null,
+  "walk_forward": {
+    "selection_uses_final_test": false,
+    "purge_sessions": null,
+    "embargo_sessions": null,
+    "justification": null
+  },
+  "dependence": {
+    "method": "CIRCULAR_MOVING_BLOCK",
+    "unit": "PORTFOLIO_SESSION",
+    "block_lengths": null,
+    "dependency_horizon_sessions": null,
+    "minimum_sessions": null,
+    "minimum_complete_blocks": null,
+    "justification": null
+  },
+  "statistics": {
+    "family_alpha": 0.025,
+    "bootstrap_repetitions": null,
+    "seed": null,
+    "minimum_tail_draws": null
+  },
+  "risk_comparison": {
+    "maximum_candidate_mean_exposure_ratio": null,
+    "maximum_candidate_mean_exposure_increment": null,
+    "justification": null
+  },
+  "search": {
+    "historical_attempts": 23,
+    "total_attempts": null,
+    "counter_reset": false,
+    "note": "23 es el mínimo histórico conocido, no el total global reconciliado. Conservar todas las familias y continuaciones."
+  },
+  "stress_scenarios": null,
+  "forward_validation": {
+    "schema": "HARPOON_FORWARD_SPEC_1",
+    "verifier_hashes": {
+      "tools/level7_workflow.py": "075dd2e87c7ddafdc05d80051af34539b3649f5c5f60c977e6e9341d0cd70084",
+      "tools/verify_forward_attribution.cjs": "3cac191b2c6844cf004196af534537f743b43e1622a05cef123f37cf32bb5c5a",
+      "quant/harpoon_quant/forward_economics.py": "c4e6dcc0db01fdfc4eee292d761b805acf7cc965a7b4bef476d76b550dabcc0b"
+    },
+    "expected": {
+      "account_id": null,
+      "execution_nature": null,
+      "candidate_role": "SVR",
+      "runtime_version": null,
+      "runtime_config_hash": null,
+      "model_hash": null,
+      "quant_config_hash": null,
+      "model_available_at": null,
+      "registered_at": null,
+      "period": {
+        "start_at": null,
+        "end_at": null
+      },
+      "initial_snapshot_max_age_ms": null
+    },
+    "boundary_tolerance_ms": 0,
+    "maximum_observation_gap_ms": null,
+    "minimum_economic_pnl_usd": 0,
+    "minimum_mean_log_growth": 0,
+    "family_alpha": 0.025,
+    "boundary_note": "Cero es una propuesta de coincidencia exacta, no una medición. La tolerancia sólo permite diagnóstico; un puente contable de intervalos omitidos no está implementado en esta entrega.",
+    "statistical_note": "Reparto 0.025/0.025 propuesto antes del experimento; no es garantía ni registro. Justificar tamaños de bloque, muestra, efecto detectable y presupuesto antes de sellar."
+  },
+  "null_reason": "Faltan cuenta identificada, datos prospectivos suficientes, modelos fijos observados, gastos, calendario final nuevo, historial global reconciliado y especificación empírica.",
+  "protocol_hash": null,
+  "registration_performed": false
+}

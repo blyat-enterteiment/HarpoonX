@@ -1,0 +1,15 @@
+--- 30.12/xxx/streams.ts
+
++++ 31.6TP/xxx/streams.ts
+
+@@ -213,7 +213,8 @@
+
+       if (c.state !== "SUBSCRIBED" || !c.symbols.includes(r.S))
+         throw Error("Quote before matching subscription");
+       this.quote(r.S, {
+-        ...r,
++        bp: r.bp,
++        ap: r.ap,
+         t: r.t instanceof Date ? r.t.toISOString() : r.t,
+       });
+       this.flow?.(r);

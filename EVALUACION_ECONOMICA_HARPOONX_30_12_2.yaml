@@ -1,0 +1,1239 @@
+identidad:
+  aplicacion: HARPOON XXXUltimate 30.12.2
+  quant: 1.8.0
+  base: 30.12.1
+  fecha_ciudad_de_mexico: '2026-10-31T22:13:08.115444-06:00'
+  tipo: APLICACION_INTEGRAL
+  clasificacion: HECHO_DE_IMPLEMENTACION_Y_EJECUCION_LOCAL
+  peticion: Avanzar al nivel 4 de rendimiento real
+  nivel_4_acreditado: false
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  mediciones:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos/s
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: intervalo_entre_eventos
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: frecuencia_decisiones
+    unidad: decisiones/s
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: antiguedad_dato_al_decidir
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: latencia_calculo_senal
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: latencia_envio_confirmacion
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: tiempo_hasta_ejecucion
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: latencia_cancelacion_confirmada
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: desfase_entre_relojes
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: persistencia_estimada_de_senal
+    unidad: s
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: spread
+    unidad: puntos_base
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: profundidad_ejecutable
+    unidad: unidades_y_USD
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: porcentaje_ejecutado
+    unidad: proporcion
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  - variable: coste_total_por_operacion
+    unidad: USD_y_puntos_base
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    causa_null: No se identificó una instancia actual accesible ni se recuperaron sus observaciones originales.
+  accesos_verificados:
+    schema: HARPOON_LEVEL4_CURRENT_ACCESS_AUDIT_1
+    classification: HECHO_DE_LECTURA_REPRODUCIBLE
+    observed_at_utc: '2026-11-01T03:54:40.000Z'
+    scope: Read-only access audit of known repositories, previously confirmed Render workspace and local 30.12.1
+      telemetry contracts
+    target_application: HARPOON XXXUltimate 30.12.1 / Quant 1.8.0
+    render:
+      workspace_id: tea-db77rsqvcj2c73cibvj0
+      workspace_name: A's workspace
+      workspace_previously_confirmed: true
+      workspace_visible_now: true
+      service_listing_without_previews: LITERAL_NULL
+      service_listing_including_previews: LITERAL_NULL
+      service_id: null
+      service_url: null
+      deployed_version: null
+      null_reason: The connector returned literal null, not an enumerated empty service list; no runtime identity
+        can be established.
+      absence_of_service_proved: false
+      supported_local_fallback:
+        render_cli_available: false
+        render_api_key_present: false
+        credential_values_read: 0
+      no_guessed_service_urls_probed: true
+    repositories:
+    - repository: masivarecords-ship-it/HerpoonX
+      id: '1418095498'
+      metadata_accessible: true
+      visibility: public
+      reported_size: 0
+      branches: []
+      package_read: 404 This repository is empty.
+      application_version: null
+      deployed_version: null
+    - repository: masivarecords-ship-i/HarpoonX
+      package_read: 404 Not Found
+      application_version: null
+      deployed_version: null
+      limitation: Only the known package path was rechecked; historical root inventory remains separately dated.
+    - repository: masivarecords-ship-i/NewRepo
+      branch: harpoon-cloud
+      branch_visible: true
+      package_version: 24.3.1
+      package_blob_sha1: cdf33a96f454c9b0c67c255de3deeca728f1ff56
+      package_version_is_deployment_evidence: false
+      declared_render_service: harpoon-paper
+      declared_books: crypto
+      declared_health_path: /healthz
+      deployed_commit: null
+      scope: Current package and render.yaml contents read. Prior full tree audit is not relabeled as current.
+      package_url: https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/package.json
+      deployment_declaration_url: https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/render.yaml
+    local_telemetry_contract:
+      code_file: xxx/server.ts
+      public_version_route: GET /healthz
+      authenticated_routes:
+      - GET /v1/operational
+      - GET /operational-readyz
+      - GET /v1/quant/observations/snapshot
+      - GET /v1/quant/observations?snapshot_id=<pinned_id>&offset=<offset>&limit=<limit>
+      - GET /v1/accounting/history?offset=<offset>&limit=<limit>
+      - GET /v1/quant/calibrator
+      - GET /v1/export
+      authentication: Basic Auth; cross-site/origin checks precede telemetry routes
+      runtime_routes_called: 0
+      source_contract_is_runtime_verification: false
+      deployed_origin_or_url_found_in_inspected_current_config: false
+      configuration_search_scope:
+      - LEEME_PRIMERO_30_12_1.txt
+      - README.md
+      - docs
+      - deploy
+      - config/examples
+      - .env.example
+    alpaca:
+      available_tool_count: 24
+      available_tools:
+      - mcp__codex_apps__alpaca_get_all_assets
+      - mcp__codex_apps__alpaca_get_asset
+      - mcp__codex_apps__alpaca_get_calendar
+      - mcp__codex_apps__alpaca_get_clock
+      - mcp__codex_apps__alpaca_get_corporate_actions
+      - mcp__codex_apps__alpaca_get_crypto_bars
+      - mcp__codex_apps__alpaca_get_crypto_latest_bar
+      - mcp__codex_apps__alpaca_get_crypto_latest_orderbook
+      - mcp__codex_apps__alpaca_get_crypto_latest_quote
+      - mcp__codex_apps__alpaca_get_crypto_latest_trade
+      - mcp__codex_apps__alpaca_get_crypto_quotes
+      - mcp__codex_apps__alpaca_get_crypto_snapshot
+      - mcp__codex_apps__alpaca_get_crypto_trades
+      - mcp__codex_apps__alpaca_get_option_chain
+      - mcp__codex_apps__alpaca_get_option_contracts
+      - mcp__codex_apps__alpaca_get_option_latest_quote
+      - mcp__codex_apps__alpaca_get_option_snapshot
+      - mcp__codex_apps__alpaca_get_stock_bars
+      - mcp__codex_apps__alpaca_get_stock_latest_bar
+      - mcp__codex_apps__alpaca_get_stock_latest_quote
+      - mcp__codex_apps__alpaca_get_stock_latest_trade
+      - mcp__codex_apps__alpaca_get_stock_quotes
+      - mcp__codex_apps__alpaca_get_stock_snapshot
+      - mcp__codex_apps__alpaca_get_stock_trades
+      account_history_order_activity_tool_exposed: false
+      interpretation: Available connector tools expose market/assets/calendar data. This inventory is not proof
+        that no account exists or that a separate authorized API could not expose it.
+      market_tool_calls: 0
+      account_tool_calls: 0
+    recovered_observed_evidence:
+      causal_frames: 0
+      account_history_exports: 0
+      orders_or_fills_exports: 0
+      operating_cost_receipts: 0
+      verified_current_runtime: null
+    economic_effect:
+      level4_accredited_by_this_audit: false
+      net_return: null
+      model_improvement: null
+      new_financial_trials: 0
+      reason: No new observed runtime/account/cost evidence was recovered.
+    decisive_missing_resources:
+    - id: RUNTIME_IDENTITY
+      required: A verified current service identifier and URL, deployed application/commit/configuration identity,
+        with authorized access to its telemetry; alternatively an original exported runtime status manifest.
+    - id: OBSERVATION_EXPORT
+      required: Original pinned observation snapshot descriptor and every page, including market/receive/decision
+        timestamps, account/configuration identity and coverage.
+    - id: ACCOUNT_AND_COST_EXPORT
+      required: Original ledger/account history, activities/fills/open positions/external flows and operating-cost
+        records covering the same period; pagination and completeness metadata retained.
+    activity:
+      remote_tool_calls: 10
+      remote_writes: 0
+      deployments: 0
+      orders: 0
+      secrets_read: 0
+      credential_environment_presence_checks: 1
+      financial_experiments: 0
+      source_code_changes: 0
+    tools_and_skills:
+      render_skill: render-monitor
+      references_read:
+      - render-access.md
+      - deployments.md
+      current_platform_behavior_assumptions_used: false
+      external_documentation_needed_for_unperformed_configuration: false
+    calls:
+    - tool: github_get_repo
+      checked_at_utc: '2026-11-01T03:53:24.963Z'
+      status: fulfilled
+      result:
+        content:
+        - type: text
+          text: Action completed.
+        structuredContent:
+          id: '1418095498'
+          name: HerpoonX
+          owner:
+            login: masivarecords-ship-it
+            id: 282742778
+            type: User
+            avatar_url: https://avatars.githubusercontent.com/u/282742778?v=4
+            url: https://api.github.com/users/masivarecords-ship-it
+          repository_full_name: masivarecords-ship-it/HerpoonX
+          permissions:
+            admin: false
+            maintain: false
+            pull: true
+            push: false
+            triage: false
+          allow_auto_merge: null
+          allow_merge_commit: null
+          allow_rebase_merge: null
+          allow_squash_merge: null
+          allow_update_branch: null
+          clone_url: https://github.com/masivarecords-ship-it/HerpoonX.git
+          size: 0
+          default_branch: main
+          git_commits_url: https://api.github.com/repos/masivarecords-ship-it/HerpoonX/git/commits{/sha}
+          git_refs_url: https://api.github.com/repos/masivarecords-ship-it/HerpoonX/git/refs{/sha}
+          git_url: git://github.com/masivarecords-ship-it/HerpoonX.git
+          master_branch: null
+          visibility: public
+          archived: false
+          is_code_search_indexed: null
+        isError: false
+    - tool: github_fetch_file
+      checked_at_utc: '2026-11-01T03:53:24.963Z'
+      status: fulfilled
+      result:
+        content:
+        - type: text
+          text: Action completed.
+        structuredContent:
+          content: "{\n  \"name\": \"harpoon-cloud-247\",\n  \"version\": \"24.3.1\",\n  \"private\": true,\n  \"\
+            scripts\": {\n    \"test\": \"node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs\
+            \ && node tools/edge_test.cjs && python3 tools/install_test.py && node tools/setup_test.cjs\",\n   \
+            \ \"typecheck\": \"tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types\
+            \ node runtime/control.cjs deploy/managed.cjs\"\n  },\n  \"devDependencies\": {\n    \"typescript\"\
+            : \"5.9.3\",\n    \"@types/node\": \"22.19.19\"\n  }\n}\n"
+          encoding: utf-8
+          sha: cdf33a96f454c9b0c67c255de3deeca728f1ff56
+          display_url: https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/package.json
+          display_title: package.json
+        isError: false
+    - tool: render_list_workspaces
+      checked_at_utc: '2026-11-01T03:53:24.963Z'
+      status: fulfilled
+      result:
+        workspaces:
+        - id: tea-db77rsqvcj2c73cibvj0
+          name: A's workspace
+          type: team
+        isError: false
+        redaction: Contact email omitted; no credentials retrieved
+    - tool: render_list_services
+      input:
+        workspaceId: tea-db77rsqvcj2c73cibvj0
+        includePreviews: false
+      checked_at_utc: '2026-11-01T03:53:41.279Z'
+      result:
+        content:
+        - type: text
+          text: 'null'
+        structuredContent: null
+        isError: false
+    - tool: render_list_services
+      input:
+        workspaceId: tea-db77rsqvcj2c73cibvj0
+        includePreviews: true
+      checked_at_utc: '2026-11-01T03:53:41.279Z'
+      result:
+        content:
+        - type: text
+          text: 'null'
+        structuredContent: null
+        isError: false
+    - tool: github_search_branches
+      input:
+        owner: masivarecords-ship-it
+        repo_name: HerpoonX
+        query: ''
+        page_size: 100
+      checked_at_utc: '2026-11-01T03:53:41.279Z'
+      result:
+        content:
+        - type: text
+          text: Action completed.
+        structuredContent:
+          branches: []
+          cursor: null
+        isError: false
+    - tool: github_search_branches
+      input:
+        owner: masivarecords-ship-i
+        repo_name: NewRepo
+        query: harpoon-cloud
+        page_size: 100
+      checked_at_utc: '2026-11-01T03:53:41.279Z'
+      result:
+        content:
+        - type: text
+          text: Action completed.
+        structuredContent:
+          branches:
+          - branch: harpoon-cloud
+          cursor: MQ
+        isError: false
+    - tool: github_fetch_file
+      input:
+        repository_full_name: masivarecords-ship-i/NewRepo
+        ref: harpoon-cloud
+        path: render.yaml
+      checked_at_utc: '2026-11-01T03:53:41.279Z'
+      result:
+        content:
+        - type: text
+          text: Action completed.
+        structuredContent:
+          content: "services:\n  - type: web\n    name: harpoon-paper\n    runtime: docker\n    repo: https://github.com/Blyat2020/NewRepo\n\
+            \    branch: harpoon-cloud\n    plan: standard\n    region: oregon\n    dockerfilePath: ./deploy/Dockerfile.managed\n\
+            \    healthCheckPath: /healthz\n    autoDeployTrigger: \"off\"\n    maxShutdownDelaySeconds: 60\n  \
+            \  disk:\n      name: harpoon-journal\n      mountPath: /var/data\n      sizeGB: 10\n    envVars:\n\
+            \      - key: HARPOON_BOOKS\n        value: crypto\n      - key: HARPOON_PANEL_PASSWORD\n        generateValue:\
+            \ true\n      - key: CRYPTO_APCA_KEY\n        sync: false\n      - key: CRYPTO_APCA_SECRET\n       \
+            \ sync: false\n"
+          encoding: utf-8
+          sha: c24c4a018ebfd005cd351c4c6348ae3eeb9f27be
+          display_url: https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/render.yaml
+          display_title: render.yaml
+        isError: false
+    - tool: github_fetch_file
+      input:
+        repository_full_name: masivarecords-ship-it/HerpoonX
+        path: package.json
+      checked_at_utc: '2026-11-01T03:54:40.000Z'
+      result:
+        content:
+        - type: text
+          text: 'GitHub API error 404: {"message":"This repository is empty.","documentation_url":"https://docs.github.com/v3/repos/contents/#get-contents","status":"404"}'
+        structuredContent:
+          error: 'GitHub API error 404: {"message":"This repository is empty.","documentation_url":"https://docs.github.com/v3/repos/contents/#get-contents","status":"404"}'
+          error_code: NOT_FOUND
+          error_data:
+            message: This repository is empty.
+            documentation_url: https://docs.github.com/v3/repos/contents/#get-contents
+            status: '404'
+        isError: true
+    - tool: github_fetch_file
+      input:
+        repository_full_name: masivarecords-ship-i/HarpoonX
+        path: package.json
+      checked_at_utc: '2026-11-01T03:54:40.000Z'
+      result:
+        content:
+        - type: text
+          text: 'GitHub API error 404: {"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}'
+        structuredContent:
+          error: 'GitHub API error 404: {"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}'
+          error_code: NOT_FOUND
+          error_data:
+            message: Not Found
+            documentation_url: https://docs.github.com/rest/repos/contents#get-repository-content
+            status: '404'
+        isError: true
+  configuracion_presente:
+    only_presence_checked: true
+    variables:
+      HARPOON_PANEL_PASSWORD: false
+      HARPOON_PANEL_PASSWORD_FILE: false
+      HARPOON_ORIGIN: false
+      HARPOON_PUBLIC_ORIGIN: false
+      HARPOON_PUBLIC_URL: false
+      HARPOON_CONFIG: false
+      HARPOON_CONFIG_FILE: false
+      HARPOON_REMOTE_URL: false
+    secret_values_read: false
+  datos_reproducidos:
+    prospective_frames: 0
+    causal_rows_admissible: 0
+    reconstructed_feature_rows: 8
+  sesiones_observadas_admisibles: 0
+  no_inferencia_microestructura_desde_barras: true
+reproduccion_de_referencia_y_discrepancias:
+  estado_actual:
+    checks:
+    - name: build
+      command:
+      - node
+      - node_modules/typescript/bin/tsc
+      - -p
+      - tsconfig.xxx.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: causal_data
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - tools/build_causal_panel.py
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/request.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/report.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: verify_causal_data
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - tools/build_causal_panel.py
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/request.json
+      - --verify
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/report.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/data/verification.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: coordinator_fixture
+      command:
+      - node
+      - tools/coordinator_replay.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_request.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_report.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: coordinator_verify
+      command:
+      - node
+      - tools/coordinator_replay.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_request.json
+      - --verify
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_report.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/coordinator_replay/synthetic_verification.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: make_fixed_synthetic_request
+      command:
+      - node
+      - -e
+      - const fs=require('node:fs');const {syntheticComparison}=require('./tools/fixtures/funded_comparison_fixture.cjs');fs.writeFileSync(process.argv[1],JSON.stringify(syntheticComparison(),null,2)+'\n');
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_request.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: funded_fixture
+      command:
+      - node
+      - tools/funded_comparison.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_request.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_report.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: funded_verify
+      command:
+      - node
+      - tools/funded_comparison.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_request.json
+      - --verify
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_report.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/funded_comparison/synthetic_verification.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: legacy_coordinator_gate_fixture
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - examples.economic_gate.bind_coordinator_example
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/economic_gate/coordinator_fixture
+      exit_code: 0
+      expected_exit_code: 0
+    - name: level5_synthetic_base_and_stress
+      command:
+      - node
+      - tools/fixtures/level5_fixture.cjs
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/quant/examples/level5/synthetic
+      exit_code: 0
+      expected_exit_code: 0
+    - name: level4_available_evidence
+      command:
+      - node
+      - tools/level4_readiness.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_request.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_report.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: level4_verify
+      command:
+      - node
+      - tools/level4_readiness.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_request.json
+      - --verify
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_report.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/readiness_verification.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: level5_available_evidence
+      command:
+      - node
+      - tools/level5_readiness.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_request.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_report.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: level5_verify
+      command:
+      - node
+      - tools/level5_readiness.cjs
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_request.json
+      - --verify
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_report.json
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/derived_verification.json
+      exit_code: 0
+      expected_exit_code: 0
+    - name: economic_gate_missing_inputs
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - harpoon_quant.economic_gate
+      - --protocol
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/protocol_draft_not_registered.json
+      - --input
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/economic_gate_input.json
+      - --artifact-root
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2
+      - --output
+      - /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/evidence/nivel4_30_12_2/economic_gate_report.json
+      exit_code: 2
+      expected_exit_code: 2
+    passed: true
+    new_financial_trials: 0
+    model_fits: 0
+    expected_blocked_economic_gate: true
+    financial_verdict: VENTAJA_NO_DEMOSTRADA
+    economic_score: 3
+    synthetic_fixtures_are_financial_evidence: false
+  verificador_nivel4:
+    schema: HARPOON_LEVEL4_READINESS_VERIFICATION_1
+    verified: true
+    score: 3
+    expected_artifact_hash: 847899ad806a12f47b369410e78983396b5de390bb334306045b61d51fc99ed1
+    observed_artifact_hash: 847899ad806a12f47b369410e78983396b5de390bb334306045b61d51fc99ed1
+    execution_allowed: false
+    liveApproved: false
+    financial_acceptance_allowed: false
+  referencia_sintetica_anterior:
+    tratamiento: CONSERVADA_CON_HASH_Y_ALCANCE_HISTORICO
+    nuevo_ensayo_financiero: false
+  archivos_historicos_preservados: 1076
+  discrepancia_corregida:
+    checked_at_utc: '2026-11-01T03:59:33.880564+00:00'
+    implementation_status: IMPLEMENTED_AND_TARGETED_TESTS_VERIFIED
+    files:
+    - path: tools/level4_readiness.cjs
+      before_sha256: 013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d
+      after_sha256: d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b
+    - path: tools/level4_readiness_test.cjs
+      before_sha256: 7e60c32ff24d911d8ec07f27142447dda78088a54805f1136ae8d7272c9c4213
+      after_sha256: cf7c70f8192ab1ac60d4d3d66c774b31484b4cbe017e9e057c276f3759cbae09
+    tests:
+      tests: 16
+      pass: 16
+      fail: 0
+      cancelled: 0
+      skipped: 0
+    new_cases: 4
+    prior_15_case_run_preserved: true
+    static_syntax_checks:
+    - file: tools/level4_readiness.cjs
+      exit_code: 0
+      log: syntax_level4_readiness.log
+    - file: tools/level4_readiness_test.cjs
+      exit_code: 0
+      log: syntax_level4_readiness_test.log
+    type_check_scope: No TypeScript interfaces changed; CJS checks here are Node syntax plus behavioral regression.
+      No independent CJS type-check claim.
+    counterexample_before: ../pagination_counterexample_result.json
+    counterexample_after:
+      nature: SYNTHETIC_SOFTWARE_COUNTEREXAMPLE_NOT_FINANCIAL_DATA
+      same_frames_within_each_pair: true
+      only_page_partition_changed_within_pair: true
+      stable_configuration:
+        one_page:
+          passed: true
+          result:
+            verified: true
+            account_id: SYNTHETIC_PAGINATION_ONLY
+            frames: 2
+            quotes_bound: 6
+            bars_bound: 2052
+            availability: OBSERVED_RUNTIME_RECEIPTS
+            executable_depth_observed: false
+            external_authenticity_verified: false
+        two_pages:
+          passed: true
+          result:
+            verified: true
+            account_id: SYNTHETIC_PAGINATION_ONLY
+            frames: 2
+            quotes_bound: 6
+            bars_bound: 2052
+            availability: OBSERVED_RUNTIME_RECEIPTS
+            executable_depth_observed: false
+            external_authenticity_verified: false
+      causal_universe_change:
+        one_page:
+          passed: false
+          error: SOURCE_CONFIG_CHANGED_SPLIT_REPLAY
+        two_pages:
+          passed: false
+          error: SOURCE_CONFIG_CHANGED_SPLIT_REPLAY
+      code_hashes:
+        tools/level4_readiness.cjs: d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b
+        tools/observation_replay_input.cjs: 3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086
+    runtime_strategy_risk_and_models_changed: false
+    gate_thresholds_or_score_changed: false
+    financial_trials: 0
+    model_fits: 0
+    orders: 0
+    full_suite_run_by_this_agent: false
+    financial_verdict: VENTAJA_NO_DEMOSTRADA
+    scope_note: The generic observation replay supports equity, ETF and crypto. The funded comparison remains whole-share
+      equity/ETF. Exact deterministic source projection is allowed; selecting a profitable subset or changing risk/configuration
+      is rejected. Source configuration must remain identical across the full compared export prefix. Causal-panel
+      streaming universe rotation is untouched.
+    stale_report_notice: level4_readiness.cjs is implementation-bound. Previously issued receipts keep their historical
+      source hash; root must regenerate current-source artifacts rather than reseal the old reports.
+    evidence_files:
+    - path: initial_no_mixed_projection.log
+      sha256: d7159f9908c475ac6ea772ffa39a484f85664ad06c572a332cd31180dc1f4a63
+    - path: level4_readiness_test.log
+      sha256: 7dbd495196a10b3c645a83b08e18cb801de96c954b6d385c9d8e851053a2f13b
+    - path: pagination_after.json
+      sha256: 642f04de88de70269599a8d83cfc55dceb05ebb2bb34300d8f8212a4e56a9fcb
+    - path: source_diff.txt
+      sha256: 5f015b06cb9666b917876e362367bcf238270258bdab1f5a42a42d55630e6747
+    - path: syntax_level4_readiness.log
+      sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    - path: syntax_level4_readiness_test.log
+      sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+reconciliacion_del_patrimonio:
+  cuenta_actual: null
+  periodo_actual: null
+  capital_inicial_usd: null
+  patrimonio_final_usd: null
+  pnl_economico_usd: null
+  rentabilidad_real_pct: null
+  causa_null: Faltan historia original de cuenta, posiciones, actividades, gastos y devengos del mismo periodo.
+  evaluacion_ejecutada:
+    schema: HARPOON_LEVEL4_READINESS_1
+    input_hash: 8cf73292ace9f91e29608797ec7bbcaa59dc25fb3cc92d9f9afeff36be632a96
+    source_hashes:
+    - path: data/request.json
+      sha256: b25d746132b05ba2831c8189d51a861886c7ab7c4191fe4257cd622f083989d8
+      bytes: 1123
+    - path: data/report.json
+      sha256: f7844e0f9ed80fe02c02fe40e98dacfe15d4a6497f51d3c12e5b84781b65be66
+      bytes: 32908
+    - path: external/94d9fb9517bd3b814f6132685fbe077e81e064985b8483607cad2e1e41ae60cb/synthetic_request.json
+      sha256: 94d9fb9517bd3b814f6132685fbe077e81e064985b8483607cad2e1e41ae60cb
+      bytes: 294483
+    - path: external/49771ea7b9d070fc3cd96625c25f8f7c0448f4ccfa105683cdbdba8b6fbc71e3/synthetic_report.json
+      sha256: 49771ea7b9d070fc3cd96625c25f8f7c0448f4ccfa105683cdbdba8b6fbc71e3
+      bytes: 3007697
+    implementation_hashes:
+      tools/level4_readiness.cjs: d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b
+      tools/funded_comparison.cjs: bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15
+      tools/coordinator_replay.cjs: ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888
+      tools/observation_replay_input.cjs: 3186a9d22e6b70627ecbc0693b17a12083de39a007bc5f267fd6b60e82474086
+      runtime30/net_accounting.js: a4513992b347764086b76f1f685959311f6fa4875680b1642fbb7895ac29d8b7
+      runtime30/net_ledger_verify.js: cfa9af448f2919fcd857ee3e5a5cffba410035f5294ac2ce5b33f9c7834c229a
+      runtime30/net_ledger_archive.js: 84fa96a9aa0c5bf2bb2ee8fdf64a7d726e10f0a9a84d97ab18f2fd32038e09fc
+      runtime30/cost_receipts.js: e454f9c3791dde0022420baf8cccfca5015fc8c32a60857a625332aabeb044ca
+      quant/harpoon_quant/causal_panel.py: 35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8
+    score: 3
+    criterion: INTEGRATED_OBSERVED_MEASUREMENT_NOT_PROFIT_OR_AUTONOMOUS_PROMOTION
+    checks:
+    - id: data_sources_reexecuted
+      passed: true
+      evidence:
+        verified: true
+        verification:
+          schema: HARPOON_CAUSAL_PANEL_VERIFICATION_1
+          verified: true
+          input_hash: c19f0fcb9c9dcae203a0aff350cbc5c14732e1df2f203509ec011fa068f8feb1
+          expected_artifact_hash: 758da02abe6b021827c6895418fe7d75c8b8456074ff0bec567c72a604e9f654
+          observed_artifact_hash: 758da02abe6b021827c6895418fe7d75c8b8456074ff0bec567c72a604e9f654
+          source_recomputed: true
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+          financial_acceptance_allowed: false
+          execution_allowed: false
+        artifact_hash: 758da02abe6b021827c6895418fe7d75c8b8456074ff0bec567c72a604e9f654
+        counts:
+          prospective_frames: 0
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+        readiness:
+          status: MEDICION_BLOQUEADA
+          observed_rows: 0
+          distinct_sessions: 0
+          accepted_rows: 0
+          reason: SVR_ROW_LIMIT
+          training_executed: false
+          required_observation_unit: ONE_ROW_PER_ASSET_SESSION
+          minimum_distinct_sessions_contract: 100
+          note: Multiple decision records in replay do not create independent calibration sessions.
+          execution_allowed: false
+    - id: observed_admissible_panel
+      passed: false
+      evidence:
+        origin: OBSERVED
+        causal_rows: 0
+        reconstructed_rows: 8
+        accepted_rows: 0
+    - id: three_policy_comparison_reexecuted
+      passed: false
+      evidence:
+        verified: true
+        verification:
+          schema: HARPOON_FUNDED_COMPARISON_VERIFICATION_1
+          verified: true
+          mismatches: []
+          input_hash: 84464706828af5a6608f928b5958bcba048b8ce74f62acafe4457292543ea647
+          expected_artifact_hash: 35603fb0d79421993da49b5f1c7c04916237ff62dcd1d42423d7ab608920b1a2
+          observed_artifact_hash: 35603fb0d79421993da49b5f1c7c04916237ff62dcd1d42423d7ab608920b1a2
+          real_coordinator_and_predictors_reexecuted: true
+          execution_allowed: false
+          liveApproved: false
+          financial_acceptance_allowed: false
+        status: ENGINEERING_ONLY
+        artifact_hash: 35603fb0d79421993da49b5f1c7c04916237ff62dcd1d42423d7ab608920b1a2
+        period:
+          start_at: 1792078210000
+          end_at: 1792078211001
+          session_ids:
+          - '2026-10-15'
+        market_binding_error: COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+    - id: comparison_market_receipts_bound
+      passed: false
+      evidence:
+        reason: COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+    - id: ledger_history_reconstructed
+      passed: false
+      evidence: null
+    - id: observed_complete_net_account_curve
+      passed: false
+      evidence: null
+    - id: applicable_broker_accruals_verified
+      passed: false
+      evidence:
+        documented_amount_usd: null
+        from: null
+        through: null
+        verified_period_from: null
+        verified_period_through: null
+        current_account_amount_usd: null
+        current_account_claim: null
+        recomputed_by_ledger_verifier: null
+        current_scope_verified: null
+    - id: models_bound_to_causal_panel_before_decisions
+      passed: false
+      evidence:
+      - model: RIDGE
+        passed: false
+        model_data_hash: null
+        panel_hash: af552e9b1fa829675665d128360fc64ed2db1cae6ba96eacb9dfe0b8416378f8
+        available_at: '2026-10-14T12:00:00+00:00'
+        comparison_start_at: 1792078210000
+      - model: SVR
+        passed: false
+        model_data_hash: null
+        panel_hash: af552e9b1fa829675665d128360fc64ed2db1cae6ba96eacb9dfe0b8416378f8
+        available_at: '2026-10-14T12:00:00+00:00'
+        comparison_start_at: 1792078210000
+    - id: account_and_measurement_periods_bound
+      passed: false
+      evidence:
+        account_id: null
+        market_account_id: null
+        ledger_from: null
+        ledger_economic_prefix_through: null
+        ledger_last_observation_at: null
+        comparison_from: 1792078210000
+        comparison_through: 1792078211001
+    - id: external_cost_total_bound
+      passed: false
+      evidence:
+        ledger_period_external_cost_usd: null
+        modeled_external_cost_usd: 1
+        cost_timing: COMPARISON_LUMP_SUM_IS_STILL_AN_EXPLICIT_MODEL
+    blockers: &id001
+    - OBSERVED_CAUSAL_CALIBRATION_PANEL_NOT_AVAILABLE
+    - OBSERVED_THREE_POLICY_COMPARISON_NOT_AVAILABLE
+    - COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+    - RECONCILED_ACCOUNT_HISTORY_MISSING_OR_INVALID
+    - OBSERVED_ACCOUNT_CURVE_OR_COST_COVERAGE_INCOMPLETE
+    - APPLICABLE_BROKER_ACCRUALS_NOT_VERIFIED
+    - MODEL_PANEL_HASH_OR_CHRONOLOGY_BINDING_MISSING
+    - ACCOUNT_OR_PERIOD_BINDING_MISSING
+    - COMPARISON_EXTERNAL_COST_NOT_BOUND_TO_ACCOUNT_PERIOD
+    components:
+      data:
+        verified: true
+        verification:
+          schema: HARPOON_CAUSAL_PANEL_VERIFICATION_1
+          verified: true
+          input_hash: c19f0fcb9c9dcae203a0aff350cbc5c14732e1df2f203509ec011fa068f8feb1
+          expected_artifact_hash: 758da02abe6b021827c6895418fe7d75c8b8456074ff0bec567c72a604e9f654
+          observed_artifact_hash: 758da02abe6b021827c6895418fe7d75c8b8456074ff0bec567c72a604e9f654
+          source_recomputed: true
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+          financial_acceptance_allowed: false
+          execution_allowed: false
+        artifact_hash: 758da02abe6b021827c6895418fe7d75c8b8456074ff0bec567c72a604e9f654
+        counts:
+          prospective_frames: 0
+          causal_rows_admissible: 0
+          reconstructed_feature_rows: 8
+        readiness:
+          status: MEDICION_BLOQUEADA
+          observed_rows: 0
+          distinct_sessions: 0
+          accepted_rows: 0
+          reason: SVR_ROW_LIMIT
+          training_executed: false
+          required_observation_unit: ONE_ROW_PER_ASSET_SESSION
+          minimum_distinct_sessions_contract: 100
+          note: Multiple decision records in replay do not create independent calibration sessions.
+          execution_allowed: false
+      comparison:
+        verified: true
+        verification:
+          schema: HARPOON_FUNDED_COMPARISON_VERIFICATION_1
+          verified: true
+          mismatches: []
+          input_hash: 84464706828af5a6608f928b5958bcba048b8ce74f62acafe4457292543ea647
+          expected_artifact_hash: 35603fb0d79421993da49b5f1c7c04916237ff62dcd1d42423d7ab608920b1a2
+          observed_artifact_hash: 35603fb0d79421993da49b5f1c7c04916237ff62dcd1d42423d7ab608920b1a2
+          real_coordinator_and_predictors_reexecuted: true
+          execution_allowed: false
+          liveApproved: false
+          financial_acceptance_allowed: false
+        status: ENGINEERING_ONLY
+        artifact_hash: 35603fb0d79421993da49b5f1c7c04916237ff62dcd1d42423d7ab608920b1a2
+        period:
+          start_at: 1792078210000
+          end_at: 1792078211001
+          session_ids:
+          - '2026-10-15'
+        market_binding_error: COMPARISON_MARKET_RECEIPT_BINDING_MISSING
+      ledger: null
+    implemented:
+      causal_panel_builder: true
+      funded_three_policy_producer: true
+      ledger_history_verifier: true
+      source_reexecution_and_bindings: true
+    observed:
+      causal_data: false
+      account_and_costs: false
+      account_and_costs_scope: CLOSED_ECONOMIC_PREFIX_ONLY
+      current_account_economic_complete: null
+      three_policy_comparison: false
+      market_receipts: false
+    financial_profitability_demonstrated: false
+    full_autonomous_economic_cycle_verified: false
+    training_provenance_independently_verified: false
+    source_authenticity_independently_verified: false
+    execution_allowed: false
+    liveApproved: false
+    financial_acceptance_allowed: false
+    limitations:
+    - Score 4 concerns integrated measurement only and can coexist with losses.
+    - Quotes and local receipts do not authenticate a provider independently or establish executable depth.
+    - Comparison fills, liquidity, timing and costs retain their explicitly modeled scope.
+    - Models are checked against panel hashes and chronology; training is not rerun and independent training provenance
+      is not certified.
+    - Ledger amounts include reported and declared costs; unknown broker accruals and unspecified taxes remain outside
+      proven completeness.
+    artifact_hash: 847899ad806a12f47b369410e78983396b5de390bb334306045b61d51fc99ed1
+  rentabilidad_real_calificacion_1_10: null
+  significado_del_nivel4_existente: Medición observada integrada; puede coexistir con pérdidas. No califica rentabilidad
+    ni autoriza órdenes.
+  PAPER: La ejecución simulada mantiene su etiqueta y no demuestra resultados de dinero real.
+atribucion_de_perdidas:
+  atribucion_real: null
+  causa_null: No existe una serie reconciliada y atribuible al motor actual.
+  conclusion: No atribuir un rendimiento desconocido al estimador, a ejecución, costes o tamaño sin observaciones.
+hipotesis_y_condiciones_de_refutacion:
+- id: M1
+  naturaleza: INVARIANTE_DE_MEDICION
+  propuesta: La aceptación de configuración no debe depender de la paginación.
+  refutacion: Los mismos frames cambian de aceptación al mover el límite de página.
+  resultado: DEFECTO_REPRODUCIDO_Y_CORREGIDO
+- id: M2
+  naturaleza: INTEGRACION_OPERACIONAL
+  propuesta: Recolectar y verificar fuentes originales por GET sin construir evidencia económica ausente.
+  refutacion: Acepta una cuenta/revisión distinta, una página incompleta, un patrimonio manipulado, credenciales
+    reflejadas o declara nivel4 por descargar datos.
+  resultado: IMPLEMENTADO_Y_PROBADO_CON_SERVIDOR_LOCAL_Y_DATOS_SINTETICOS
+cambios_implementados:
+- id: CONFIGURATION_PREFIX_BINDING
+  archivos:
+  - tools/level4_readiness.cjs
+  - tools/level4_readiness_test.cjs
+  efecto: Configuración única en todo el prefijo y vínculo exacto de la comparación con la proyección permitida
+    de las fuentes.
+- id: RUNTIME_EVIDENCE_COLLECTION
+  archivos:
+  - tools/collect_runtime_evidence.cjs
+  - tools/collect_runtime_evidence_test.cjs
+  - tools/RUNTIME_EVIDENCE_COLLECTION.txt
+  efecto: Descarga autenticada, acotada y verificable; bytes originales y recibos completos o parciales diferenciados.
+- id: DISTRIBUTION
+  efecto: Recolector incluido en distribución y contexto Docker; entrada npm y guía actual.
+resultados_de_todas_las_variantes:
+  nuevas_variantes_financieras: 0
+  nuevos_ajustes_de_modelos_observados: 0
+  ensayos_financieros_nuevos: 0
+  ordenes_externas: 0
+  version_desplegada_verificada: null
+  despliegue_realizado: false
+  verificacion_de_software_actual:
+    application: 30.12.2
+    quant: 1.8.0
+    passed: true
+    distinct_functional_cases_executed: 64
+    new_functional_cases: 34
+    previous_919_cases_rerun_in_full: false
+    historical_full_validation:
+      application: 30.12.1
+      cases: 919
+      path: evidence/integral_30_12_1/review/final_regression/all_summary.json
+    checks:
+    - name: causal_configuration_regression
+      tests: 16
+      passed: true
+      log: causal_fix/level4_readiness_test.log
+      log_sha256: 7dbd495196a10b3c645a83b08e18cb801de96c954b6d385c9d8e851053a2f13b
+    - name: runtime_evidence_collection
+      tests: 29
+      passed: true
+      log: collector/tests.log
+      log_sha256: ca165941447870a65d3974e4e64d7660d274f7f9f6ca34a0c0975431fc5fdadc
+    - name: level5_readiness_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test-reporter=tap
+      - tools/level5_readiness_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2
+      exit_code: 0
+      duration_seconds: 62.35183708299883
+      log: parent_checks/level5_readiness_test.log
+      log_sha256: 0d288737bee7d0c3d171526a0a0944da4b6f72a64ffe7e8c3c32356bcb89ac7f
+      tests: 9
+      pass: 9
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: integral_distribution_test
+      command:
+      - node
+      - --no-use-env-proxy
+      - --require
+      - ./tools/quant_clock.cjs
+      - --test
+      - --test-isolation=none
+      - --test-reporter=tap
+      - --test-force-exit
+      - --test-timeout=30000
+      - tools/integral_distribution_test.cjs
+      cwd: /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2
+      exit_code: 0
+      duration_seconds: 10.047470140001678
+      log: parent_checks/integral_distribution_test.log
+      log_sha256: 34103bf33d68c10e356fe0cf650f678c585801595192d8520bcdd3b727988d02
+      tests: 10
+      pass: 10
+      fail: 0
+      cancelled: 0
+      skipped: 0
+      todo: 0
+      passed: true
+    - name: runner_ruff
+      command:
+      - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+      - -m
+      - ruff
+      - check
+      - tools/verify_remediation.py
+      cwd: /workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2
+      exit_code: 0
+      duration_seconds: 0.03233763699972769
+      log: parent_checks/runner_ruff.log
+      log_sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+      passed: true
+    - name: js_types
+      command: node node_modules/typescript/bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022
+        --module node16 --types node tools/collect_runtime_evidence.cjs
+      exit_code: 0
+      log: collector/checkjs.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: collector_syntax
+      command: node --check tools/collect_runtime_evidence.cjs
+      exit_code: 0
+      log: collector/syntax_collector.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: test_syntax
+      command: node --check tools/collect_runtime_evidence_test.cjs
+      exit_code: 0
+      log: collector/syntax_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: help
+      command: node tools/collect_runtime_evidence.cjs --help
+      exit_code: 0
+      log: collector/help.log
+      log_sha256: 2566535ca8bc65ea7b81b7cfac21b9a9034577d94a1466bee2f1058ac75299b5
+      passed: true
+    - name: causal_syntax_level4_readiness
+      log: causal_fix/syntax_level4_readiness.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: causal_syntax_level4_readiness_test
+      log: causal_fix/syntax_level4_readiness_test.log
+      log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      passed: true
+    - name: typescript_build_and_type_verification
+      command:
+      - node
+      - node_modules/typescript/bin/tsc
+      - -p
+      - tsconfig.xxx.json
+      exit_code: 0
+      expected_exit_code: 0
+      passed: true
+      log: reproduction_logs/build.log
+    reproduction:
+      passed: true
+      steps: 15
+      expected_missing_economic_inputs: true
+    benchmark:
+      nature: SYNTHETIC_ENGINEERING_ONLY
+      samples: 1
+      transport: LOCAL_LOOPBACK_HTTP
+      duration_ms: 38.437394
+      requests: 9
+      network_bytes_seen: 19020
+      artifact_bytes: 30092
+      observation_frames: 3
+      ledger_observations: 3
+      node_version: v24.22.1
+      platform: linux
+      node_process_rss_bytes: 58376192
+      source_account: SYNTHETIC-COLLECTOR-ACCOUNT
+      broker_calls_during_collection: 0
+      limitations:
+      - One local synthetic sample; no latency percentile or production improvement is inferred.
+      - RSS includes test/runtime modules; it is not isolated collector memory.
+      - No financial performance conclusion.
+    environment:
+      python: 3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+      node: v24.22.1
+      platform: Linux-6.18.57-x86_64-with-glibc2.39
+      docker_build_executed: false
+      browser_visual_validation_executed: false
+    source_hashes_bound: true
+    initial_runs_retained: true
+    distribution_launch_restriction:
+      initial_error: EPERM despite status0 for nested spawnSync in restricted environment
+      remedy: Assert result.error absent and signal null; rerun with approved subprocess permission, retaining all
+        content checks
+      diagnostic: collector/help_spawn_diagnostic.json
+    model_fits: 0
+    financial_trials: 0
+    external_orders: 0
+    external_observed_collection: false
+    financial_performance_demonstrated: false
+    economic_evidence_score: 3
+    real_performance_score: null
+  historial: Se conserva el historial anterior sin reiniciar contadores. El catálogo ampliado aún necesita deduplicación
+    entre familias antes de aprobación económica.
+resultados_fuera_de_muestra_y_estres:
+  prueba_observada_nueva: null
+  mejora_neta_demostrada: null
+  causa_null: No hay datos causales observados, modelos previos vinculados y cuenta reconciliada que permitan una
+    prueba nueva.
+  fixtures_reproducidos: Ejemplos sintéticos identificados de software; sin nueva evidencia empírica.
+incertidumbre_y_limitaciones:
+  nivel_de_evidencia: 3
+  rendimiento_real_no_estimable: true
+  intervalo_de_rentabilidad: null
+  muestra: Cero sesiones causales originales admisibles. El contrato vigente exige al menos 100 sesiones distintas
+    y 100 filas; esto no garantiza rentabilidad.
+  universo: El comparador financiado admite acciones/ETF al contado con multiplicador1; el replay genérico también
+    admite cripto.
+  configuracion: Un snapshot/panel causal con rotación de universo puede ser íntegro y estar fuera del comparador
+    de configuración fija. No borrar, reiniciar o recortar selectivamente journals para eludirlo.
+  integridad_no_autenticidad: Hashes y verificadores locales no equivalen a autenticación externa independiente.
+  coleccion_no_conciliacion_completa: Completar el transporte no acredita modelos, periodo, costes o nota económica.
+  revisiones_contables: Si cambian durante la descarga, ésta se rechaza; no hay reinicio automático ni pausa del
+    motor.
+  proteccion: Persistencia no disponible puede bloquear nuevas protecciones/cierres que dependan de ella; órdenes
+    ya enviadas requieren reconciliación.
+  entorno: Pruebas locales Node/Python y sockets locales sintéticos. Sin build Docker, UI visual o instancia actual
+    verificados.
+  revision_por_agentes: Agentes con contexto compartido; no auditoría independiente externa.
+  fuentes_publicas:
+    sources:
+    - name: Alpaca Paper Trading
+      url: https://docs.alpaca.markets/us/v1.4.2/docs/paper-trading
+      purpose: PAPER uses simulated fills and does not certify live returns
+      retrieved_at_utc: '2026-11-01'
+      ref: turn50search1
+    - name: Alpaca Portfolio History
+      url: https://docs.alpaca.markets/us/reference/getaccountportfoliohistory-1
+      purpose: Equity/PnL series and cash-flow conventions must be reconciled with account activities and external
+        costs
+      retrieved_at_utc: '2026-11-01'
+      ref: turn50search3
+dictamen:
+  resultado: VENTAJA_NO_DEMOSTRADA
+  nivel_de_evidencia_actual: 3
+  nivel_4_acreditado: false
+  calificacion_de_rendimiento_real: null
+  evidencia_a_favor:
+  - Defecto del validador reproducido y corregido
+  - Recolector y distribución probados
+  - Estado económico reproducido sin fabricar entradas
+  evidencia_en_contra_de_la_promocion: *id001
+  condicion_que_decidio: Faltan fuentes empíricas originales, cuenta/costes conciliados y comparación observada
+    admisible.
+  recurso_decisivo: URL/identidad y acceso legítimo a la instancia actual, o exportaciones originales completas
+    del mismo periodo y cuenta.
+  mejora_economica_demostrada: false

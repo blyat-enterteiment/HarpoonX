@@ -1,0 +1,109 @@
+HARPOON XXXUltimate 30.16.0 — INTEGRAL CON BANCO HISTÓRICO
+Fecha de evaluación: 1 de noviembre de 2026
+
+RESULTADO
+El banco histórico se reconstruyó y las seis comparaciones se ejecutaron.
+Ninguna produjo beneficio económico neto positivo bajo los supuestos fijados.
+Nivel 7 de rentabilidad real: NO ACREDITADO. Calificación numérica real: desconocida.
+
+CUENTA CONTINUA: 20.000 USD, 3 de julio de 2023 a 30 de agosto de 2024
+                         Nominal neto       Estrés neto
+Motor histórico          -424,94 USD        -893,68 USD
+Ridge                    -366,88 USD        -773,98 USD
+SVR                      -481,56 USD        -893,63 USD
+Sin abrir posiciones     -294,00 USD        -588,00 USD
+
+La referencia sin operaciones incluye los mismos gastos modelados. No representa
+una estrategia ganadora. Los resultados son históricos con ejecuciones modeladas,
+antes de impuestos. No son movimientos de una cuenta real.
+
+QUÉ CONTIENE ESTA INTEGRAL
+Aplicación y código anterior completos, core compilado, extensiones de cartera,
+208.152 barras de AAPL/MSFT/SPY/XLK, 130 fuentes originales, calendario y dividendos,
+modelos Ridge/SVR históricos, seis replays, curvas continuas, logs, costes,
+reproducción exacta, auditoría, pruebas, manifiestos y control anterior portable.
+Se instala desde este árbol. No requiere superponer un patch.
+
+DÓNDE EMPEZAR
+1. EVALUACION_ECONOMICA_HARPOONX_30_16_0.yaml: informe completo y límites.
+2. evidence/historical_bank_30_16_0/analysis/curvas_patrimonio.png: gráfico.
+3. evidence/historical_bank_30_16_0/run_completed/summary.json: cifras.
+4. research/historical_bank/protocol.json: reglas fijadas antes de medir.
+5. evidence/historical_bank_30_16_0/qa/results_audit_final.json: conciliación.
+
+DECISIONES TÉCNICAS
+El patrimonio, la caja y las reservas se mantienen entre validación y prueba.
+Los gastos se descuentan antes de calcular nuevas posiciones. Los dividendos
+pendientes son derechos, no caja reinvertible. Los límites IOC se calculan antes
+de leer la apertura futura; un precio que los supera deja una orden no ejecutada.
+Los tres modelos usan señales, salidas y límites comunes, con diferente admisión.
+Las ventanas son los primeros y últimos 90 minutos de la sesión regular, ajustadas
+al calendario. El corte de nuevas entradas al final global deja resolver la
+exposición con el máximo de 72 horas.
+
+El control C0 de este banco es NATIVE_HISTORICAL_ULTIMATE, con tres hipótesis fijas
+y salida BASELINE. No se presenta como un replay del Coordinator de producción.
+El estudio usó un ajuste fijo por activo y modelo, validación temporal y prueba.
+La recalibración walk-forward no se ejecutó; queda identificada como estudio
+posterior. No se cambia el candidato después de mirar sus resultados.
+
+REPRODUCIR, SIN CUENTA NI RED DE MERCADO
+Requisitos: Node y npm; Python >=3.11, NumPy, SciPy y scikit-learn.
+Versiones numéricas utilizadas: quant/requirements-tested.txt.
+Los informes y gráficos adicionales requieren PyYAML y matplotlib.
+
+Preparar dependencias en el entorno local elegido:
+  npm ci
+  python -m pip install -r quant/requirements-tested.txt
+  npm run build:xxx
+
+Repetir las seis mediciones y comparar sus hashes, desde esta raíz:
+  python tools/run_historical_bank.py --data-dir evidence/historical_bank_30_16_0/data --registration-dir evidence/historical_bank_30_16_0/registration --output-dir evidence/historical_bank_30_16_0/reproduction_user --verify-against evidence/historical_bank_30_16_0/run_completed
+
+La carpeta de salida debe ser nueva. Se reutiliza el registro existente; no se
+vuelve a reservar presupuesto. Se comparan 12 archivos de resultados exactos.
+Los tiempos de benchmark no forman parte de esa igualdad numérica.
+
+Auditoría posterior:
+  python tools/audit_historical_results.py --run-dir evidence/historical_bank_30_16_0/run_completed --output evidence/historical_bank_30_16_0/qa/audit_user.json
+
+Reproducir el control antiguo conservado:
+  cd evidence/historical_bank_30_16_0/frozen_control_30_15_0
+  node tools/verify_portfolio_validity_study.cjs
+
+Para el banco nuevo, el primer intento en un entorno restringido se detuvo antes
+de entrenar porque no podía transmitir stdin de Node a Python. Se conserva el
+incidente. La ejecución autorizada del mismo código completó el estudio y su
+reproducción. No se cambiaron datos, código ni parámetros para reintentar.
+
+PRUEBAS
+123 casos únicos del conjunto actual: 60 de core y regresiones; 19 de datos;
+20 de registro; 11 de features/modelos/estadística; 13 del auditor posterior.
+Compilación TypeScript aprobada. Las pruebas de software no acreditan beneficio.
+
+HISTORIAL Y AUTORIZACIÓN
+La única rama nueva de presupuesto pasa 23 -> 26 -> 29, con límite 128 intacto.
+La familia nueva está agotada: seis mediciones. Ocho recetas de entrenamiento
+fijas; 32 invocaciones incluyendo verificaciones y reproducción; cero búsquedas
+de hiperparámetros. El total global de investigaciones heredadas sigue desconocido.
+Conservar optimizer.descendant.sqlite3 y su registro en futuros estudios; no
+recopiar el ancestro 23/128 para recuperar capacidad artificial.
+
+Los modelos históricos están separados de los artefactos aceptables en producción.
+Esta entrega no acredita promoción, mayor exposición ni despliegue. La gestión
+operacional y los límites vigentes se conservan. El despliegue sigue diferido.
+
+QUÉ SIGUE FALTANDO PARA UNA CANDIDATA GANADORA
+Una mejora de señal/admisión que produzca crecimiento neto positivo y supere a
+Ridge y al control con evidencia temporal suficiente. La pérdida de SVR antes de
+gastos externos fue -187,56 USD; eliminar esos gastos no resuelve esta trayectoria.
+Elegir ahora sólo el activo o el horario que ganó sería selección posterior a los
+resultados. El siguiente experimento necesita otra hipótesis y otro registro
+previo, con su presupuesto conservado; no se ejecutó de forma encubierta aquí.
+
+La profundidad, los fills, las latencias y los gastos reales siguen sin medición.
+No se infiere HFT ni liquidez oculta de barras de cinco minutos. Las fechas de
+acciones corporativas se utilizan condicionalmente para contabilidad; su
+completitud y su publicación contemporánea no están certificadas.
+
+Documentación histórica anterior: docs/legacy_30_15_0/README.md.

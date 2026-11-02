@@ -1,0 +1,78 @@
+{
+  "schema": "HARPOON_LEVEL5_SOURCE_ACCESS_AUDIT_1",
+  "observed_at_utc": "2026-11-01T01:36:22.072455+00:00",
+  "observed_at_local": "2026-10-31T19:36:22.072455-06:00",
+  "classification": "HECHO_CON_RESPUESTA_DE_API_REPRODUCIBLE",
+  "repository_candidate": "masivarecords-ship-it/HerpoonX",
+  "repository_metadata_accessible": true,
+  "repository_id": "1418095498",
+  "visibility": "public",
+  "declared_default_branch": "main",
+  "reported_size": 0,
+  "branches_returned": [],
+  "content_reads": {
+    "README.md": "404: This repository is empty.",
+    "package.json": "404: This repository is empty."
+  },
+  "permission_snapshot": {
+    "pull": true,
+    "push": false,
+    "admin": false,
+    "maintain": false,
+    "triage": false
+  },
+  "diagnosis": "CANDIDATE_REPOSITORY_ACCESSIBLE_BUT_EMPTY",
+  "not_diagnosed": "No se concluye que el proyecto, otro repositorio o un despliegue no existan.",
+  "commit_sha": null,
+  "code_version": null,
+  "code_version_null_reason": "No hay ramas ni contenido en el repositorio candidato consultado.",
+  "deployed_version": null,
+  "deployed_version_null_reason": "Esta auditoría no accedió a servicios ni logs de Render. Un repositorio vacío no prueba ausencia de despliegue.",
+  "matches_local_release_30_11_0": null,
+  "matching_null_reason": "No hay código remoto con el que comparar el paquete local.",
+  "available_observed_runtime_exports": {
+    "market_receipts": false,
+    "account_ledger": false,
+    "broker_activities": false,
+    "fills": false,
+    "operating_cost_receipts": false,
+    "frozen_observed_models": false
+  },
+  "additional_owner_inventory": {
+    "owner": "masivarecords-ship-it",
+    "returned_repositories": 0,
+    "scope": "Primer listado acotado de repositorios accesibles al conector; no inventario universal de repositorios del usuario."
+  },
+  "next_required_resources": [
+    {
+      "resource": "Repositorio correcto o archivo del código realmente desplegado, con commit/version y configuración sin secretos",
+      "purpose": "Resolver identidad entre código entregado y código en ejecución."
+    },
+    {
+      "resource": "Exports originales del journal de observaciones, con timestamps de recepción/conocimiento",
+      "purpose": "Construir panel causal observado; los precios históricos solos no aportan estos recibos."
+    },
+    {
+      "resource": "Exportación de historia de cuenta/actividades/posiciones y recibos de costes para el mismo periodo",
+      "purpose": "Reconciliar patrimonio económico y costes."
+    },
+    {
+      "resource": "Modelos observados congelados y protocolo/periodo de prueba no reutilizado",
+      "purpose": "Ejecutar comparación neta temporal contra Ridge/control."
+    }
+  ],
+  "read_only": true,
+  "remote_writes": 0,
+  "deployments": 0,
+  "orders": 0,
+  "secrets_read": 0,
+  "new_financial_trials": 0,
+  "score_changed_by_this_audit": false,
+  "evidence": [
+    {
+      "path": "github_reads.json",
+      "sha256": "fb6791e52c6d81baf1ad8ded651ad13841f3ea9abe4d024de3da8412b974f60b",
+      "bytes": 4300
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: storage validates its RPC deadline bounds
+ok 1 - storage validates its RPC deadline bounds
+  ---
+  duration_ms: 3.704118
+  type: 'test'
+  ...
+# Subtest: startup is not READY until the real SQLite ping is acknowledged; concurrent opens share one child
+ok 2 - startup is not READY until the real SQLite ping is acknowledged; concurrent opens share one child
+  ---
+  duration_ms: 45.474256
+  type: 'test'
+  ...
+# Subtest: spawn failure rejects startup and remains failed without automatic reopen
+ok 3 - spawn failure rejects startup and remains failed without automatic reopen
+  ---
+  duration_ms: 3.170673
+  type: 'test'
+  ...
+# Subtest: a suspended SQLite child reaches a deadline, releases pending RPCs and never retries
+ok 4 - a suspended SQLite child reaches a deadline, releases pending RPCs and never retries
+  ---
+  duration_ms: 183.590985
+  type: 'test'
+  ...
+# Subtest: a committed CAS with a lost ACK is uncertain and atomic never replays it
+ok 5 - a committed CAS with a lost ACK is uncertain and atomic never replays it
+  ---
+  duration_ms: 313.279681
+  type: 'test'
+  ...
+# Subtest: incomplete, null, false and contradictory mutation ACKs cannot acknowledge a durable commit
+ok 6 - incomplete, null, false and contradictory mutation ACKs cannot acknowledge a durable commit
+  ---
+  duration_ms: 153.718824
+  type: 'test'
+  ...
+# Subtest: a valid ACK delivered after the monotonic deadline is rejected before the overdue timer can run
+ok 7 - a valid ACK delivered after the monotonic deadline is rejected before the overdue timer can run
+  ---
+  duration_ms: 292.381342
+  type: 'test'
+  ...
+# Subtest: backpressure caps the pending RPC count and a read-only backlog does not invent uncertain writes
+ok 8 - backpressure caps the pending RPC count and a read-only backlog does not invent uncertain writes
+  ---
+  duration_ms: 57.746711
+  type: 'test'
+  ...
+# Subtest: child death rejects a pending mutation and latches its uncertain status
+ok 9 - child death rejects a pending mutation and latches its uncertain status
+  ---
+  duration_ms: 29.942874
+  type: 'test'
+  ...
+# Subtest: close with an unacknowledged mutation preserves uncertainty and terminates a stopped child within its bound
+ok 10 - close with an unacknowledged mutation preserves uncertainty and terminates a stopped child within its bound
+  ---
+  duration_ms: 180.200066
+  type: 'test'
+  ...
+# Subtest: closing an unopened or already closed store is safe and never advertises READY
+ok 11 - closing an unopened or already closed store is safe and never advertises READY
+  ---
+  duration_ms: 0.647667
+  type: 'test'
+  ...
+# Subtest: batch, get, paginated scan, scanAfter, CAS and cross-process leases retain their existing contracts
+ok 12 - batch, get, paginated scan, scanAfter, CAS and cross-process leases retain their existing contracts
+  ---
+  duration_ms: 98.533211
+  type: 'test'
+  ...
+# Subtest: 16 MiB values still round-trip; deadline hardening does not impose a smaller IPC byte limit
+ok 13 - 16 MiB values still round-trip; deadline hardening does not impose a smaller IPC byte limit
+  ---
+  duration_ms: 297.722194
+  type: 'test'
+  ...
+# Subtest: local serialization errors and acknowledged operation errors do not become uncertain transport writes
+ok 14 - local serialization errors and acknowledged operation errors do not become uncertain transport writes
+  ---
+  duration_ms: 34.792746
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1725.447626

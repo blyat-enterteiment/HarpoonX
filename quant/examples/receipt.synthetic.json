@@ -1,0 +1,55 @@
+{
+  "engine": "HARPOON_QUANT_1",
+  "asof": "2026-10-29T14:00:00+00:00",
+  "status": "RESEARCH_ONLY",
+  "liveApproved": false,
+  "execution_allowed": false,
+  "selected": [
+    {
+      "id": "A-equity",
+      "symbol": "A",
+      "book": "equity",
+      "quantity": 29.0,
+      "lots": 29,
+      "expected_net_usd": 77.86953125000004,
+      "robust_net_usd": 70.92640851279904,
+      "cash_committed_usd": 2904.3514499999997
+    },
+    {
+      "id": "C-crypto",
+      "symbol": "C",
+      "book": "crypto",
+      "quantity": 0.4,
+      "lots": 4,
+      "expected_net_usd": 0.8740625000000009,
+      "robust_net_usd": 0.7782952898317111,
+      "cash_committed_usd": 40.260020000000004
+    },
+    {
+      "id": "D-options",
+      "symbol": "D",
+      "book": "options",
+      "quantity": 1.0,
+      "lots": 1,
+      "expected_net_usd": 169.44748625487503,
+      "robust_net_usd": 153.67100748597048,
+      "cash_committed_usd": 502.7019999999999
+    }
+  ],
+  "rejected": {},
+  "config_hash": "0a34154f4b91907eafadb02618178de84bff82f27b3d9fad2a1ba6a54b71d117",
+  "model_hash": "29f54e496c8944c3e4068d74321b685747849185c1e95ad4be881fe4852d6503",
+  "reason": "CONDITIONAL_MODEL_ALLOCATION",
+  "expected_net_usd": 248.19108000487506,
+  "robust_incremental_usd": 225.37571128860122,
+  "cvar_usd": -203.79549057383443,
+  "partial_fill_cvar_upper_usd": 0.0,
+  "stress_worst_loss_usd": 999.694722039588,
+  "partial_fill_stress_upper_usd": 999.694722039588,
+  "cash_committed_usd": 3447.3134699999996,
+  "scenario_count": 256,
+  "joint_residual_dates": 28,
+  "uncertainty_effective_dates_approx": 5.6,
+  "solver_status": 0,
+  "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit."
+}

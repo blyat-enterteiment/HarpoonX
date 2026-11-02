@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: actual observation worker captures causal features with no calibration model and no order authority
+ok 1 - actual observation worker captures causal features with no calibration model and no order authority
+  ---
+  duration_ms: 1999.068409
+  type: 'test'
+  ...
+# Subtest: observation input is frozen before asynchronous inference while live quotes continue changing
+ok 2 - observation input is frozen before asynchronous inference while live quotes continue changing
+  ---
+  duration_ms: 1949.189285
+  type: 'test'
+  ...
+# Subtest: missing feature data is persisted with exhaustive exclusions instead of fabricated labels or zeros
+ok 3 - missing feature data is persisted with exhaustive exclusions instead of fabricated labels or zeros
+  ---
+  duration_ms: 1966.970291
+  type: 'test'
+  ...
+# Subtest: observation persistence failure holds new risk without stopping existing deterministic exits
+ok 4 - observation persistence failure holds new risk without stopping existing deterministic exits
+  ---
+  duration_ms: 2178.805004
+  type: 'test'
+  ...
+# Subtest: failed index commit never advances cursor and is recoverable from the unchanged control
+ok 5 - failed index commit never advances cursor and is recoverable from the unchanged control
+  ---
+  duration_ms: 14.783814
+  type: 'test'
+  ...
+# Subtest: changed index, account identity and compressed frame content are rejected on load or export
+ok 6 - changed index, account identity and compressed frame content are rejected on load or export
+  ---
+  duration_ms: 12.392957
+  type: 'test'
+  ...
+# Subtest: observation validator rejects incomplete coverage, future features and inference authority
+ok 7 - observation validator rejects incomplete coverage, future features and inference authority
+  ---
+  duration_ms: 52.018148
+  type: 'test'
+  ...
+# Subtest: retention and clock bounds halt collection without deleting previous evidence
+ok 8 - retention and clock bounds halt collection without deleting previous evidence
+  ---
+  duration_ms: 1.694917
+  type: 'test'
+  ...
+# Subtest: oversized observation frames and invalid export bounds are refused before silently truncating data
+ok 9 - oversized observation frames and invalid export bounds are refused before silently truncating data
+  ---
+  duration_ms: 0.633555
+  type: 'test'
+  ...
+# Subtest: economic performance consumes internal ledger evidence and keeps missing costs explicit
+ok 10 - economic performance consumes internal ledger evidence and keeps missing costs explicit
+  ---
+  duration_ms: 10.822383
+  type: 'test'
+  ...
+# Subtest: required net-account reconciliation blocks entries with an operational reason, not a fabricated zero cost
+ok 11 - required net-account reconciliation blocks entries with an operational reason, not a fabricated zero cost
+  ---
+  duration_ms: 8.993628
+  type: 'test'
+  ...
+# Subtest: a new operational hold during numerical planning is rechecked under the order mutex
+ok 12 - a new operational hold during numerical planning is rechecked under the order mutex
+  ---
+  duration_ms: 8.931634
+  type: 'test'
+  ...
+# Subtest: quant heartbeat wires accounting and observations even when optimizer and model are absent
+ok 13 - quant heartbeat wires accounting and observations even when optimizer and model are absent
+  ---
+  duration_ms: 9.325249
+  type: 'test'
+  ...
+# Subtest: a healthy HTTP process cannot claim operational or economic readiness from a boolean report
+ok 14 - a healthy HTTP process cannot claim operational or economic readiness from a boolean report
+  ---
+  duration_ms: 8.806696
+  type: 'test'
+  ...
+# Subtest: economic evidence verification blocks missing or forged files and never returns execution authority
+ok 15 - economic evidence verification blocks missing or forged files and never returns execution authority
+  ---
+  duration_ms: 2218.031779
+  type: 'test'
+  ...
+# Subtest: operational HTTP endpoints require authentication and expose current blockers
+ok 16 - operational HTTP endpoints require authentication and expose current blockers
+  ---
+  duration_ms: 13.484179
+  type: 'test'
+  ...
+# Subtest: observation index seal remains stable across object key ordering in durable storage
+ok 17 - observation index seal remains stable across object key ordering in durable storage
+  ---
+  duration_ms: 9.741847
+  type: 'test'
+  ...
+# Subtest: readiness becomes false for paused, stopping, halted and broker-blocked engines even with valid data
+ok 18 - readiness becomes false for paused, stopping, halted and broker-blocked engines even with valid data
+  ---
+  duration_ms: 12.865626
+  type: 'test'
+  ...
+# Subtest: a gate result is not bound to the running engine by verdict and booleans alone
+ok 19 - a gate result is not bound to the running engine by verdict and booleans alone
+  ---
+  duration_ms: 11.979333
+  type: 'test'
+  ...
+# Subtest: numerical subprocess budget bounds concurrency, queued work and total wait without broker authority
+ok 20 - numerical subprocess budget bounds concurrency, queued work and total wait without broker authority
+  ---
+  duration_ms: 255.088249
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10807.590164

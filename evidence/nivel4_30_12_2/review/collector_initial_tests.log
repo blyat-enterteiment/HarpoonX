@@ -1,0 +1,230 @@
+TAP version 13
+# Subtest: complete collection uses actual runtime capture, ledger and server and retains original bytes
+not ok 1 - complete collection uses actual runtime capture, ledger and server and retains original bytes
+  ---
+  duration_ms: 67.363009
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/collect_runtime_evidence_test.cjs:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert([...f.originalBodies.values()].some(b => b.equals(bytes)))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/collect_runtime_evidence_test.cjs:146:53)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: no supplied selection verifies transport without creating a calibration manifest or training request
+ok 2 - no supplied selection verifies transport without creating a calibration manifest or training request
+  ---
+  duration_ms: 26.612703
+  type: 'test'
+  ...
+# Subtest: wrong version is rejected on the public health check before sending credentials
+ok 3 - wrong version is rejected on the public health check before sending credentials
+  ---
+  duration_ms: 7.383941
+  type: 'test'
+  ...
+# Subtest: wrong expected account rejects the snapshot before requesting market or ledger pages
+ok 4 - wrong expected account rejects the snapshot before requesting market or ledger pages
+  ---
+  duration_ms: 10.10953
+  type: 'test'
+  ...
+# Subtest: invalid authentication preserves only the completed public response
+ok 5 - invalid authentication preserves only the completed public response
+  ---
+  duration_ms: 7.630693
+  type: 'test'
+  ...
+# Subtest: rejects bad_frame and preserves a clearly rejected partial collection
+ok 6 - rejects bad_frame and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 16.867762
+  type: 'test'
+  ...
+# Subtest: rejects reordered_observation_page and preserves a clearly rejected partial collection
+ok 7 - rejects reordered_observation_page and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 12.611362
+  type: 'test'
+  ...
+# Subtest: rejects observation_wrong_account and preserves a clearly rejected partial collection
+ok 8 - rejects observation_wrong_account and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 13.357426
+  type: 'test'
+  ...
+# Subtest: rejects ledger_revision and preserves a clearly rejected partial collection
+ok 9 - rejects ledger_revision and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 18.538687
+  type: 'test'
+  ...
+# Subtest: rejects reordered_ledger_page and preserves a clearly rejected partial collection
+ok 10 - rejects reordered_ledger_page and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 17.401232
+  type: 'test'
+  ...
+# Subtest: rejects ledger_wrong_account and preserves a clearly rejected partial collection
+ok 11 - rejects ledger_wrong_account and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 24.312591
+  type: 'test'
+  ...
+# Subtest: rejects rehashed_fake_pnl and preserves a clearly rejected partial collection
+ok 12 - rejects rehashed_fake_pnl and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 26.269882
+  type: 'test'
+  ...
+# Subtest: rejects restart and preserves a clearly rejected partial collection
+ok 13 - rejects restart and preserves a clearly rejected partial collection
+  ---
+  duration_ms: 21.881826
+  type: 'test'
+  ...
+# Subtest: redirects are not followed with credentials
+ok 14 - redirects are not followed with credentials
+  ---
+  duration_ms: 8.473043
+  type: 'test'
+  ...
+# Subtest: rejects credential reflection before persisting password_echo
+ok 15 - rejects credential reflection before persisting password_echo
+  ---
+  duration_ms: 7.524433
+  type: 'test'
+  ...
+# Subtest: rejects credential reflection before persisting authorization_echo
+ok 16 - rejects credential reflection before persisting authorization_echo
+  ---
+  duration_ms: 5.821316
+  type: 'test'
+  ...
+# Subtest: rejects credential reflection before persisting escaped_password_echo
+ok 17 - rejects credential reflection before persisting escaped_password_echo
+  ---
+  duration_ms: 6.018262
+  type: 'test'
+  ...
+# Subtest: request timeout is bounded and does not retry
+ok 18 - request timeout is bounded and does not retry
+  ---
+  duration_ms: 57.531888
+  type: 'test'
+  ...
+# Subtest: total deadline expires independently of a longer request timeout
+not ok 19 - total deadline expires independently of a longer request timeout
+  ---
+  duration_ms: 54.806129
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/collect_runtime_evidence_test.cjs:211:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /COLLECTION_DEADLINE_EXCEEDED/. Input:
+    
+    'CollectionError: REQUEST_TIMEOUT'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    name: 'CollectionError'
+  error: 'REQUEST_TIMEOUT'
+  code: 'REQUEST_TIMEOUT'
+  name: 'CollectionError'
+  stack: |-
+    collectRuntimeEvidence (/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/collect_runtime_evidence.cjs:302:11)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async waitForActual (node:assert:646:5)
+    async strict.rejects (node:assert:769:25)
+    async TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/collect_runtime_evidence_test.cjs:213:3)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  operator: 'rejects'
+  stack: |-
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/nivel4_actual_work/HARPOON_XXXUltimate_30_12_2/tools/collect_runtime_evidence_test.cjs:213:3)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: response byte cap rejects oversized without saving an incomplete body
+ok 20 - response byte cap rejects oversized without saving an incomplete body
+  ---
+  duration_ms: 8.208024
+  type: 'test'
+  ...
+# Subtest: response byte cap rejects chunk_oversized without saving an incomplete body
+ok 21 - response byte cap rejects chunk_oversized without saving an incomplete body
+  ---
+  duration_ms: 6.090521
+  type: 'test'
+  ...
+# Subtest: aggregate source and serialized-ledger budgets cannot be enlarged beyond the gate
+ok 22 - aggregate source and serialized-ledger budgets cannot be enlarged beyond the gate
+  ---
+  duration_ms: 9.826163
+  type: 'test'
+  ...
+# Subtest: ledger bundle limit is enforced before a complete receipt
+ok 23 - ledger bundle limit is enforced before a complete receipt
+  ---
+  duration_ms: 15.826078
+  type: 'test'
+  ...
+# Subtest: page and request count limits prevent unbounded collection
+ok 24 - page and request count limits prevent unbounded collection
+  ---
+  duration_ms: 10.836296
+  type: 'test'
+  ...
+# Subtest: duplicate JSON keys are rejected without saving ambiguous source bytes
+ok 25 - duplicate JSON keys are rejected without saving ambiguous source bytes
+  ---
+  duration_ms: 9.278137
+  type: 'test'
+  ...
+# Subtest: an existing output is never overwritten and is rejected before network access
+ok 26 - an existing output is never overwritten and is rejected before network access
+  ---
+  duration_ms: 3.7217
+  type: 'test'
+  ...
+# Subtest: unsafe endpoint forms and missing environment credentials fail before creating output
+ok 27 - unsafe endpoint forms and missing environment credentials fail before creating output
+  ---
+  duration_ms: 5.476556
+  type: 'test'
+  ...
+# Subtest: invalid causal selection is rejected without generating a training input
+ok 28 - invalid causal selection is rejected without generating a training input
+  ---
+  duration_ms: 4.035192
+  type: 'test'
+  ...
+# Subtest: help runs without credentials or network and documents the restricted scope
+ok 29 - help runs without credentials or network and documents the restricted scope
+  ---
+  duration_ms: 38.653559
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 27
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 588.519684

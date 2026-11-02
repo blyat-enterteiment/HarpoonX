@@ -1,0 +1,288 @@
+informe:
+  id: HARPOONX_SVR_VALIDACION_1_4_0
+  idioma: español
+  fecha_verificacion_utc: &fecha "2026-10-31"
+  versiones: {motor: "1.4.0", aplicacion: "30.8.0"}
+  versiones_de_partida: {motor: "1.3.1", aplicacion: "30.7.1"}
+  interpretacion: "Regresión de vectores soporte (SVR) con una salida escalar de retorno."
+  computacion: "Cálculo clásico en CPU; el nombre del motor no implica computación cuántica."
+  clasificacion:
+    HECHO: "Código inspeccionado, artefacto conservado o ejecución reproducible."
+    ESTIMACION: "Resultado calculado con método, datos y alcance explícitos."
+    HIPOTESIS: "Mecanismo cuya utilidad económica sigue pendiente de contrastación."
+  rutas: "Relativas a la raíz del motor; runtime/ y tools/ Node pertenecen a la aplicación completa."
+
+dictamen:
+  software: IMPLEMENTADO_VERIFICADO
+  economico: VENTAJA_NO_DEMOSTRADA
+  clasificacion: HECHO
+  fecha: *fecha
+  fundamento: >-
+    El nuevo estimador se calibra, exporta e integra en la asignación en sombra.
+    Las pruebas finales de software pasan. No se ha medido PnL de SVR con mercado
+    observado, PAPER o cuenta real; accepted no constituye aprobación económica.
+  evidencia:
+    - evidence/svr/python_full_suite.log
+    - evidence/svr/node_quant_legacy_final.log
+    - evidence/svr/node_svr_final.log
+    - evidence/svr/typescript_operations_validation.json
+    - examples/svr/receipt.synthetic.json
+  ordenes_enviadas: 0
+  despliegues_modificados: 0
+  siguiente_etapa_economica: null
+  causa: "Faltan panel observado admisible, protocolo financiero nuevo y evaluación prospectiva autorizada."
+
+implementacion:
+  clasificacion: HECHO
+  fecha: *fecha
+  hipotesis: {clase: HIPOTESIS, enunciado: "Una relación no lineal podría mejorar el pronóstico del retorno."}
+  funciones:
+    - {ruta: harpoon_quant/calibration.py, funcion: "fit(..., estimator='ridge'|'svr')"}
+    - {ruta: harpoon_quant/scalar_svr.py, funcion: "fit_scalar_svr(data, available_at, cfg)"}
+    - {ruta: harpoon_quant/scalar_svr.py, funcion: "predict_scalar(cal, underlying, x, when, cfg) -> float"}
+    - {ruta: harpoon_quant/core.py, funcion: "predict y allocate despachan por tipo de artefacto"}
+    - {ruta: harpoon_quant/__main__.py, funcion: "--estimator ridge|svr únicamente para fit"}
+    - {ruta: runtime/quant_bridge.cjs, funcion: "Discovery bloqueado para artefactos SVR de investigación"}
+  compatibilidad:
+    ridge_predeterminado: true
+    artefactos_ridge_anteriores: conservados
+    svr_de_costes_en_support_py: conservado
+    diferencia: "El SVR existente estima coste adicional en puntos base; el nuevo estima retorno simple."
+    nuevos_servicios_o_llamadas_LLM: 0
+    arquitectura: "Se mantiene el worker Python y el asignador con restricciones compartidas."
+  evidencia: [harpoon_quant/scalar_svr.py, tests/test_scalar_svr.py, README_ES.md]
+
+variables_y_unidades:
+  clasificacion: HECHO
+  fuente: "harpoon_quant/core.py: FEATURES y features"
+  orden_inmutable:
+    - {variable: momentum_1, definicion: "log(cierre_t/cierre_t-1)", unidad: adimensional}
+    - {variable: momentum_3, definicion: "log(cierre_t/cierre_t-3)", unidad: adimensional}
+    - {variable: momentum_12, definicion: "log(cierre_t/cierre_t-12)", unidad: adimensional}
+    - {variable: rv_12, definicion: "Raíz de la media de cuadrados de 12 retornos logarítmicos contiguos", unidad: adimensional}
+    - {variable: log_rvol, definicion: "log(1 + volumen_relativo)", unidad: adimensional}
+    - {variable: vwap_z, definicion: "log(ask/VWAP) / rv_12", unidad: adimensional}
+    - {variable: relative_3, definicion: "momentum_3 menos retorno logarítmico alineado del benchmark", unidad: adimensional}
+    - {variable: spread_fraction, definicion: "(ask-bid)/ask", unidad: fraccion}
+  objetivo: {nombre: target_return, unidad: return_fraction, significado: "0.01 equivale a 1 %"}
+  horizonte_fixture_horas: 24
+  dominio_objetivo: "Retorno simple finito mayor o igual que -1; se conservan valores negativos."
+  separacion: "Las características pueden ser logarítmicas; el objetivo y la predicción son retornos simples."
+  costes: "La predicción no es PnL neto; el asignador conserva precios, comisiones y fricciones existentes."
+  nota_fixture: "Sus ocho números se generan artificialmente; no se reconstruyen cotizaciones de mercado."
+
+metodo_calibracion:
+  clasificacion: HECHO
+  fecha: *fecha
+  evidencia: [harpoon_quant/scalar_svr.py, harpoon_quant/calibration.py, examples/svr/model.synthetic.json]
+  estimador: "sklearn.svm.SVR, kernel de función de base radial (RBF)"
+  parametros:
+    C_candidatos: [0.5, 2.0, 8.0]
+    epsilon_objetivo_estandarizado: 0.1
+    gamma: 0.125
+    tol: 0.0001
+    cache_size_MB: 64
+    max_iter: 50000
+    shrinking: true
+    ridge_lambda_candidatos: [0.1, 10.0, 100.0]
+  escalado:
+    X: "z_j = (x_j - media_j) / max(std_poblacional_j, 1e-6)"
+    y: "y_z = (y - media_y) / max(std_poblacional_y, 1e-12)"
+    inversion: "prediccion = media_y + escala_y * SVR(z)"
+    seleccion: "Medias y escalas se ajustan sólo con train durante selección de C."
+    ajuste_final: "Tras seleccionar parámetros, se reajustan sólo con train + validation purgados."
+    test: "No ajusta escalas, hiperparámetros ni vectores soporte."
+  separacion_temporal:
+    proporcion_nominal: [0.60, 0.20, 0.20]
+    validacion_desde: "2026-06-14"
+    prueba_desde: "2026-08-13"
+    purga: "label_end Y label_known_at deben preceder la medianoche UTC de la siguiente partición."
+    causalidad: "features_known_at <= at < label_end <= label_known_at < available_at"
+    sesiones: "Una fila por activo y sesión UTC; horizonte de etiqueta igual al configurado."
+    minimos_por_activo: {train: 40, validation: 10, test: 20}
+  controles: [media_historica_train_validation, ridge_seleccionado_en_validation]
+  accepted:
+    significado: "Ambos límites inferiores de mejora pareada del error cuadrático son positivos."
+    metodo: "Bootstrap circular de bloques de 5 sesiones, cuantil 0.05/family_tests."
+    familia: "6 configuraciones * 2 comparaciones * número de activos del ajuste."
+    replica: "Al menos 2000; aumenta para resolver la cola corregida, con límite computacional."
+    limite: "Bloques de 5 sesiones: heurística heredada que debe justificarse con dependencia observada."
+    interpretacion: "Habilidad predictiva en la muestra evaluada; no rentabilidad ni permiso de operar."
+  presupuesto_computacional:
+    configuraciones_maximas_por_activo: 6
+    filas_totales_maximas: 5000
+    filas_maximas_por_activo: 2000
+    activos_maximos: 16
+    vectores_soporte_maximos_por_activo: 2000
+    inferencia_tamano_lote: 128
+    contabilizacion: "Activos rechazados antes del ajuste conservan trials=[]; se cuenta lo ejecutado."
+    presupuesto_financiero: "Estas calibraciones sintéticas no reinician ni amplían el historial financiero."
+
+datos_y_resultado_predictivo:
+  clasificacion: ESTIMACION
+  origen: SYNTHETIC_ENGINEERING_ONLY
+  ejecucion_utc: *fecha
+  generador: examples/svr/make_fixture.py
+  semilla: 731104
+  filas: 300
+  activos: 1
+  activo: SYNTHSVR
+  fechas_sinteticas: {desde: "2025-12-16T15:00:00+00:00", hasta: "2026-10-11T15:00:00+00:00"}
+  ultima_etiqueta_conocida: "2026-10-12T15:05:00+00:00"
+  available_at: "2026-10-14T15:00:00+00:00"
+  asof_solicitud: "2026-10-15T15:00:00+00:00"
+  naturaleza_calendario: "Reloj lógico del fixture; no fecha de una evaluación forward real."
+  filas_utilizadas: {train: 179, validation: 59, test: 60, purgadas: 2}
+  configuraciones_registradas: 6
+  C_seleccionado: 8.0
+  vectores_soporte: 19
+  iteraciones_ajuste_final: 438
+  accepted: true
+  error_cuadratico_medio_fuera_de_muestra:
+    unidad: fraccion_de_retorno_al_cuadrado
+    svr: 4.2722106465637555e-7
+    ridge: 6.865104129132987e-5
+    media_historica: 1.1523230616202826e-4
+  limites_inferiores_mejora_MSE: {frente_a_ridge: 4.081585851118165e-5, frente_a_media: 8.145763774122908e-5}
+  prediccion_solicitud_fraccion: 0.020823770299732095
+  asignacion_sombra: {cantidad: 5.0, execution_allowed: false, liveApproved: false}
+  PnL_realizado_SVR: null
+  causa_PnL_ausente: "No hay operaciones ni evaluación de rentabilidad con este SVR."
+  alcance: "La relación no lineal fue creada para pruebas de software; no acredita señal en el mercado."
+  evidencia: [examples/svr/model.synthetic.json, examples/svr/receipt.synthetic.json, examples/svr/panel.synthetic.json]
+
+artefacto_y_controles:
+  clasificacion: HECHO
+  fecha: *fecha
+  formato: JSON
+  schema: HARPOON_QUANT_CALIBRATION_2
+  model_kind: SVR_RBF
+  componentes: [mean, scale, target_mean, target_scale, support_vectors, dual_coef, intercept, gamma]
+  serializacion: "Arrays y escalares JSON; inferencia NumPy sin deserializar objetos pickle."
+  artifact_hash: "3c78f85e8e6cf502164726ee3dd4d35798e12127ca2339079c1f052f8246bdcd"
+  data_hash: "6d06147c7c1606e39e76142c31987465cc27203e9572a5cf073f6876ae13a776"
+  implementation_hash: "11a2b14b173e3bdd511681708eabe97ab3d40f005efb9fcf0a0577389a1ce228"
+  sello: "SHA-256 del JSON canónico excluyendo artifact_hash; vinculación adicional al código."
+  codigo_vinculado: [scalar_svr.py, calibration.py, core.py, support.py]
+  limites_del_sello: "Detecta inconsistencia local; no autentica procedencia ni impide que un editor recalcule hashes."
+  rechazos: [datos_no_finitos, unidades_incorrectas, horizonte_incompatible, fechas_invalidas, no_convergencia]
+  rechazos_inferencia: [hash_alterado, codigo_cambiado, modelo_caducado, observaciones_obsoletas, forma_invalida]
+  dominio: "Rechaza deriva |z| > 8 y predicción < -1; no recorta esta predicción para ocultar el fallo."
+  salida_sombra: "Todo artefacto SVR mantiene execution_allowed=false, también con origen OBSERVED."
+  proteccion_adicional: "Cambiar accepted o indicadores financieros no habilita PAPER ni LIVE."
+  discovery: "El puente no amplía el universo ni consulta el screener mediante este artefacto."
+  evidencia: [harpoon_quant/scalar_svr.py, harpoon_quant/core.py, evidence/svr/node_svr_final.log]
+
+verificacion_software:
+  clasificacion: HECHO
+  fecha: *fecha
+  resultados:
+    - {suite: Python_completa, pasan: 207, fallan: 0, segundos: 16.583, evidencia: evidence/svr/python_full_suite.log}
+    - {suite: SVR_Python_especifica, pasan: 21, fallan: 0, segundos: 4.612, evidencia: evidence/svr/scalar_svr_tests_core_final.log}
+    - {suite: Node_puente_preexistente, pasan: 16, fallan: 0, evidencia: evidence/svr/node_quant_legacy_final.log}
+    - {suite: Node_SVR_Python_real, pasan: 7, fallan: 0, evidencia: evidence/svr/node_svr_final.log}
+    - {suite: aplicacion_operacional, pasan: 152, fallan: 0, evidencia: evidence/svr/typescript_operations_validation.json}
+  no_duplicacion: "Las 21 pruebas específicas están incluidas en las 207; no se suman de nuevo."
+  controles_estaticos:
+    - {control: build_TypeScript, estado: PASS, evidencia: evidence/svr/typescript_build.log}
+    - {control: typecheck_TypeScript, estado: PASS, evidencia: evidence/svr/typescript_typecheck.log}
+    - {control: Ruff, estado: PASS, evidencia: evidence/svr/ruff_all_modified.log}
+    - {control: mypy, archivos: 7, estado: PASS, evidencia: evidence/svr/mypy_all_modified.log}
+  pruebas_adversariales:
+    - "Paridad JSON/sklearn; unidades de retorno pequeñas; predicciones negativas."
+    - "Cambiar targets y features del test no cambia entrenamiento, escalas ni C."
+    - "Etiqueta tardía purgada aunque el horizonte ya haya terminado."
+    - "Datos malformados, falta de convergencia, modelo corrupto y fuente modificada bloqueados."
+    - "Datos sin relación predictiva pueden ser rechazados; accepted=false impide predecir."
+    - "Caja, cantidad y riesgo limitados; etiquetas OBSERVED y flags falsificados no autorizan órdenes."
+    - "CLI fit/allocate y puente Node ejecutan Python real; Ridge conserva compatibilidad."
+  fronteras_adicionales:
+    - {caso: objetivo_constante, resultado: "0 vectores soporte; accepted=false", evidencia: evidence/svr/constant_target_boundary.json}
+    - {caso: datos_insuficientes_por_activo, resultado: "0 ajustes ejecutados frente a capacidad 12", evidencia: evidence/svr/trials_count_boundary.json}
+  revision: "Revisión interna por agentes con contexto compartido; no validación externa ni ciega."
+
+mediciones_de_recursos:
+  clasificacion: ESTIMACION
+  fecha_utc: "2026-10-31T17:42:35.851142+00:00"
+  evidencia: evidence/svr/benchmark.synthetic.json
+  entorno: {python: "3.12.14", numpy: "2.3.5", scipy: "1.17.0", scikit_learn: "1.8.0", arquitectura: x86_64}
+  plataforma: Linux-6.18.57-x86_64-with-glibc2.39
+  carga: {filas: 300, variables: 8, activos: 1}
+  ajuste_segundos: [0.21333873799994763, 0.023251077000168152, 0.02234775500073738]
+  tres_ajustes_mismo_hash: true
+  prediccion_caliente: {repeticiones: 500, unidad: ms, p50: 0.5056974996477948, p95: 0.7941575494896824, p99: 1.0676242295812695}
+  asignacion_local: {repeticiones: 10, unidad: ms, minimo: 5.8367350002299645, mediana: 6.515840499559999, maximo: 11.16169900069508}
+  memoria_maxima_residente_bytes: 133332992
+  alcance_memoria: "Máximo del proceso Linux: intérprete, bibliotecas, entrenamiento y benchmark."
+  alcance_latencia: "Predicción en proceso caliente con comprobación de hashes y lectura de las cuatro fuentes vinculadas; un único candidato sintético."
+  exclusiones: [arranque_worker, lectura_inicial_JSON_de_panel_y_modelo, red, broker, ejecucion_de_ordenes, carga_productiva]
+  frecuencia_eventos_recibidos: null
+  latencia_envio_confirmacion: null
+  tiempo_hasta_fill: null
+  causa_no_medicion: "Este ensayo no recibió eventos de mercado ni envió órdenes."
+  interpretacion: "Percentiles empíricos locales; no garantizan p99 productivo ni justifican una afirmación HFT."
+
+historial_economico_y_preservacion:
+  clasificacion: HECHO
+  fecha: *fecha
+  intentos_financieros_previos: 23
+  nuevos_experimentos_financieros: 0
+  holdouts_financieros_previos_reutilizados: false
+  archivos_congelados_comparados: 74
+  cambios_en_archivos_congelados: []
+  journal_sha256: "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd"
+  evidencia: [evidence/svr/implementation_scope.json, evidence/svr/frozen_financial_study_integrity.json]
+  distincion: "Las seis configuraciones por activo pertenecen a calibración sintética de ingeniería."
+  continuidad: "El presupuesto y dictámenes económicos anteriores siguen congelados."
+
+incidencias_de_verificacion:
+  - id: subprocess_sincrono
+    clasificacion: HECHO
+    fecha: *fecha
+    fallo_inicial: "spawnSync de Python devolvió EPERM en el arnés Node."
+    resolucion: "El fixture usa execFile asíncrono; no se alteró la inferencia productiva."
+    evidencia: [evidence/svr/svr_node_integration_initial_spawn_sync.log, evidence/svr/node_svr_final.log]
+  - id: servidor_HTTP_local
+    clasificacion: HECHO
+    fecha: *fecha
+    fallo_inicial: "El sandbox impidió listen en 127.0.0.1 con EPERM."
+    resolucion: "Ejecución autorizada de los fixtures HTTP locales; 152 pruebas operacionales pasan."
+    evidencia: [evidence/svr/typescript_health_environment_probe.log, evidence/svr/typescript_operations_validation.json]
+
+limitaciones_y_trabajo_pendiente:
+  - "No se aporta un panel observado admisible para entrenar este SVR ni PnL económico atribuible a él."
+  - "La partición es un único bloque temporal 60/20/20; no constituye walk-forward financiero completo."
+  - "El test se usa para accepted predictivo; ya no es un holdout futuro independiente para nuevas decisiones."
+  - "La corrección familiar cubre esta calibración; no una búsqueda humana ilimitada entre ejecuciones."
+  - "El bootstrap de cinco sesiones y su cobertura requieren validación con dependencia temporal y entre activos real."
+  - "El hash verifica consistencia, no autenticidad del origen OBSERVED ni firma de un proveedor."
+  - "Costes, fills, liquidez, patrimonio continuo y gastos externos deben validarse con observaciones reconciliadas."
+  - "Menor MSE sintético no demuestra retorno neto, alpha, frecuencia HFT ni habilita exposición."
+  - "No hay mecanismo de promoción financiera de este SVR a PAPER o LIVE en esta entrega."
+
+reproduccion:
+  entorno: "Python con requirements-tested.txt; dependencias de desarrollo en requirements-dev.txt."
+  desde_raiz_del_motor: |
+    python examples/svr/make_fixture.py
+    python -m harpoon_quant fit --estimator svr --input examples/svr/panel.synthetic.json --config examples/svr/config.synthetic.json --available-at 2026-10-14T15:00:00+00:00 --output examples/svr/model.synthetic.json
+    python -m harpoon_quant allocate --input examples/svr/request.synthetic.json --config examples/svr/config.synthetic.json --model examples/svr/model.synthetic.json --output examples/svr/receipt.synthetic.json
+    python -m unittest discover -s tests -v
+    OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python benchmark_scalar_svr.py
+  desde_raiz_de_aplicacion_con_Python_configurado: |
+    npm run build:xxx
+    npm run typecheck:xxx
+    npm run test:quant
+    npm run test:svr
+  operacionales: "Ejecutar cada comando por suite registrado en evidence/svr/typescript_operations_validation.json."
+  seleccion_Python_Node: "HARPOON_QUANT_PYTHON debe apuntar al Python con las dependencias verificadas."
+  efecto: "La reproducción regenera únicamente modelos y recibos sintéticos; permanece en sombra."
+
+fuentes_oficiales:
+  consulta_utc: *fecha
+  SVR:
+    url: https://scikit-learn.org/1.8/modules/generated/sklearn.svm.SVR.html
+    uso: "Definición de epsilon-SVR, kernel, parámetros, convergencia y coste de ajuste."
+  preprocesamiento_y_fuga:
+    url: https://scikit-learn.org/1.8/common_pitfalls.html
+    uso: "Aprender transformaciones únicamente con entrenamiento y aplicarlas al resto sin reajustarlas."
+  alcance: "Las fuentes documentan la biblioteca; la verificación de HarpoonX procede de los artefactos citados."

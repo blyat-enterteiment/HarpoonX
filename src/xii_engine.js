@@ -1,0 +1,45 @@
+'use strict';
+class XIIEngine extends XIEngine {
+ constructor(store,onchange){super(store,onchange);this.ensureXII();}
+ ensureXII(){this.ensureXI();this.cfg.xii??={cluster_exposure_pct:.6,cluster_risk_pct:.01,staged_live:true};this.ledger.xii??={schema:1,attribution:null,last_audit:0,scale:.25,scale_history:[],execution:{fills:0,buy_shortfall:[],sell_shortfall:[]}};}
+ validateX(c){super.validateX(c);if(c.xii&&(!Number.isFinite(c.xii.cluster_exposure_pct)||c.xii.cluster_exposure_pct<=0||c.xii.cluster_exposure_pct>.6||!Number.isFinite(c.xii.cluster_risk_pct)||c.xii.cluster_risk_pct<=0||c.xii.cluster_risk_pct>.01||typeof c.xii.staged_live!=='boolean'))throw Error('Límites compartidos XII inválidos');}
+ async init(){await super.init();this.ensureXII();}
+ async afterLoad(){await super.afterLoad();this.ensureXII();this.ledger.pending=null;if(this.ledger.champion){this.ledger.previous=this.ledger.champion;this.ledger.champion=null;this.ledger.pending=null;this.journal('XII_VALIDACIÓN',{reason:'El modelo anterior requiere validación anual XII; las campañas conservan sus salidas.'});}if(this.ledger.labDeployment?.active&&!this.ledger.labDeployment.xii_schema){this.ledger.labDeployment.active=false;this.journal('XII_VALIDACIÓN',{reason:'La receta anterior conserva salidas abiertas y no autoriza entradas nuevas.'});}this.ledger.settings=structuredClone(this.cfg);await this.save();}
+ sectorProxy(factor){return {technology:'XLK',semiconductors:'SMH',consumer:'XLY',nasdaq:'QQQ',sp500:'SPY',dow:'DIA',smallcap:'IWM',biotech:'XBI',financials:'XLF'}[factor]||null;}
+ benchmarkSymbols(){return [...new Set([...this.cfg.equities,...this.dynamic,...this.cfg.etf_pairs.flatMap(b=>[b,PAIRS[b][0]])].map(s=>this.sectorProxy(localClass(s,this.cfg).factor)).filter(Boolean))];}
+ enrichFeature(f,now){const proxy=this.sectorProxy(f.factor),bars=proxy?(this.bars[proxy]||[]).filter(b=>Date.parse(b.t)+303000<=now&&ny(b.t).day===ny(now).day):[],valid=bars.length>=4&&now-(Date.parse(bars.at(-1).t)+300000)<=360000,side=f.book==='etf'&&f.symbol!==f.pair?-1:1,momentum=valid?(Number(bars.at(-1).c)/Number(bars.at(-4).c)-1)*10000:null;return {...f,sector_proxy:proxy||'SIN CLASIFICACIÓN',sector_relative_bps:momentum===null?null:f.momentum_bps-side*f.leverage*momentum,sector_bar_end:valid?iso(Date.parse(bars.at(-1).t)+300000):null};}
+ scale(){return this.cfg.mode==='live'&&this.cfg.xii?.staged_live?(this.ledger.xii?.scale||.25):1;}
+ decision(row,p,selected){this.ensureXII();const r=super.decision(row,p,selected);if(!r.ask)return r;const scale=this.scale(),budget=this.ledger.budget,active=this.active().map(c=>({symbol:c.symbol,factor:c.factor,leverage:c.leverage,nominal:c.allocated,risk:c.risk_budget})),room=HXII.clusterRoom(r,active,budget*scale,this.cfg.xii.cluster_exposure_pct,this.cfg.xii.cluster_risk_pct),unit=r.risk_unit+2*r.limit*this.cfg.slippage_bps/10000,quantity=Math.max(0,Math.min(r.quantity,Math.floor(room.nominal/(r.leverage*r.limit)),Math.floor(room.risk/unit),planQty(r,r,{...this.cfg,risk_pct:Math.max(0,this.cfg.risk_pct*scale-sum(this.ledger.campaigns.filter(c=>c.symbol===r.symbol&&c.day===ny(Date.now()).day).map(c=>c.riskSpent||0))/Math.max(1,budget)),open_risk_pct:this.cfg.open_risk_pct*scale,gross_pct:this.cfg.gross_pct*scale,equity_book_pct:this.cfg.equity_book_pct*scale,etf_book_pct:this.cfg.etf_book_pct*scale},budget,this.available(),this.active()))),reasons=[...r.reasons];
+  if(quantity<this.cfg.min_plan_qty&&!reasons.includes('CAPITAL / RIESGO / TAMAÑO'))reasons.push('EXPOSICIÓN COMPARTIDA / ETAPA');
+  const selection=p.selection_filter==='ridge_lcb'?HXII.selection(r,p.selection_model,Date.now()):null;if(selection&&!selection.eligible)reasons.push('SELECCIÓN XII: '+selection.reason);
+  return {...r,quantity,selection,cluster:room.cluster,execution_scale:scale,reasons,reason:reasons.join(' · '),state:reasons[0]||'LISTA'};
+ }
+ async manage(){this.ensureXII();const now=Date.now();for(const c of this.active()){const q=this.quotes[c.symbol];c.xii??={};if(fresh(q)&&this.ownedQty(c.symbol)>0){const v=HXII.updateVol(c.xii.vol,q.bid,now,c.atr);c.xii.vol=v.state;c.dynamicAtr=v.atr;}}
+  await super.manage();
+ }
+ async sync(){await super.sync();this.ensureXII();for(const c of this.ledger.campaigns){const orders=flattenOrders(this.campaignIntents(c).filter(i=>i.order).map(i=>i.order)),buys=orders.filter(o=>o.side==='buy'),sells=orders.filter(o=>o.side==='sell'),buyQty=sum(buys.map(o=>Number(o.filled_qty||0)));c.xii??={};c.xii.buy_qty=buyQty;
+   if(c.tp1_filled&&!c.xii.first_target_at)c.xii.first_target_at=Date.now();
+   if(c.closed&&buyQty>0){const actualReturn=c.gross/(buyQty*c.risk_unit);c.xii.giveback_r=Math.max(0,(c.mfe_r||0)-actualReturn);c.xii.entry_shortfall_bps=mean(buys.filter(o=>Number(o.filled_qty)>0).map(o=>(Number(o.filled_avg_price)/(c.feature?.ask||c.entry)-1)*10000));c.xii.sold_qty=sum(sells.map(o=>Number(o.filled_qty||0)));}
+  }await this.save();
+ }
+ async newDay(){this.ensureXII();const old=this.ledger.day;await super.newDay();if(old===this.ledger.day||this.cfg.mode!=='live')return;const d=this.ledger.labDeployment;
+  if(!d?.active||!d.deployment_id){this.ledger.xii.scale=.25;return;}
+  const marks=Object.entries(d.marks||{}).filter(([day,m])=>{const c=(d.calendar||[]).find(s=>s.date===day);return c&&c.close<Date.now()&&m.first<=c.open+600000&&m.last>=c.close-30000&&m.gap<=60000;}).sort(([a],[b])=>a.localeCompare(b));
+  const closed=this.ledger.campaigns.filter(c=>c.closed&&c.deploymentId===d.deployment_id&&c.xii?.buy_qty>0),net=sum(closed.map(c=>c.netConservative||0));let peak=d.capital,dd=0;for(const [,m]of marks){peak=Math.max(peak,m.nav);dd=Math.max(dd,1-m.nav/peak);}
+  const target=HXII.stage(closed.length,marks.length,net,dd,this.ledger.xi.economics.complete===true&&this.ledger.xi.economics.net_economic>0),current=this.ledger.xii.scale||.25;
+  const next=target<current?target:!this.active().length?Math.min(target,current===.25?.5:1):current;
+  if(next!==current){this.ledger.xii.scale=next;this.ledger.xii.scale_history.push({at:iso(Date.now()),from:current,to:next,net,drawdown:dd,campaigns:closed.length,sessions:marks.length});this.journal('ESCALA_XII',this.ledger.xii.scale_history.at(-1));await this.save();}
+ }
+ async research(){this.ledger.lastResearch=ny(Date.now()).day;this.ledger.report={status:'XII: INVESTIGACIÓN UNIFICADA EN LABORATORIO',required_days:HXII.REQUIRED,reason:'Las dos estrategias conservan su lógica; selección, salidas y opciones pasan por un registro anual común.'};await this.save();return this.ledger.report;}
+ async auditXII(){if(!this.connected)throw Error('Conecta para auditar la evidencia de esta cuenta');this.ensureXII();await this.save();const samples=await this.store.scan('sample-'+this.scope+'-'+this.ledger.x.experiment+'-',30000),events=await this.auditEvents();this.ledger.xii.attribution=xiiAttribution(this.ledger.campaigns,samples,this.cfg);const fills=events.filter(e=>e.kind==='FILL'),series=side=>fills.filter(e=>e.data.side===side&&Number.isFinite(e.data.shortfall_bps)).map(e=>e.data.shortfall_bps);this.ledger.xii.execution={fills:fills.length,buy_shortfall:series('buy'),sell_shortfall:series('sell'),scope:'Últimos eventos conservados en auditoría incremental; legs nativas sin precio de decisión no reciben shortfall inventado.'};this.ledger.xii.last_audit=Date.now();await this.save();this.emit();return this.ledger.xii;}
+ async exportEvidence(){await this.save();const experiment=this.ledger.x.experiment,records=await this.store.scan('journal-'+this.scope+'-',1500000,r=>r.experiment===experiment?r:null),samples=await this.store.scan('sample-'+this.scope+'-'+experiment+'-',30000);return {schema:'HARPOON-XII-1',version:HXII.VERSION,created:iso(Date.now()),mode:this.cfg.mode,experiment_id:experiment,settings:this.cfg,decisions_and_quotes:records,samples,sessions:this.ledger.sessions,campaigns:this.ledger.campaigns,research:this.ledger.x.research_history,economics:this.ledger.xi.economics,options:this.optionEvidence,xii:this.ledger.xii,limits:'Evidencia del experimento vigente. Sombras no son fills; PAPER no es LIVE. Sin claves.'};}
+}
+
+/** Preserve service budgets while making local experiments use the same bounded contract. */
+const xiiPriorProposal=LabController.prototype.proposal;
+LabController.prototype.proposal=async function(data,reference){
+ if(!this.engine.cfg.xii||this.state.provider!=='local'||this.state.task==='operations')return xiiPriorProposal.call(this,data,reference);
+ const used=new Set(this.state.trials.filter(t=>t.recipe).map(t=>HXI.recipeKey(t.recipe))),list=[...HXII.variants(reference),...Array.from({length:48},(_,i)=>HLab.localCandidate(reference,i))];
+ for(const value of list){let recipe;try{recipe=HLab.validate(value);HLab.taskGuard(recipe,reference,this.state.task||'profitability');}catch{continue;}if(HXI.recipeKey(recipe)===HXI.recipeKey(reference)||used.has(HXI.recipeKey(recipe)))continue;return {recipe,findings:[],cost_usd:0,source:'LOCAL · XII',prompt_version:'harpoon-prompts-4',task:this.state.task||'profitability'};}
+ throw Error('Espacio de hipótesis distintas agotado; no se recicla el holdout');
+};

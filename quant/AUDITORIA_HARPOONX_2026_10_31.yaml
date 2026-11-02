@@ -1,0 +1,944 @@
+protocolo: HARPOONX_ADVERSARIAL_NET_EDGE
+fecha_informe_utc: '2026-10-31T17:03:34.031978+00:00'
+versiones_entregadas:
+  motor_quant: 1.3.1
+  aplicacion: 30.7.1
+naturaleza: Investigación reproducida y correcciones locales verificadas; sin validación de cuenta o despliegue
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  mediciones:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos/s
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin logs de recepción del runtime
+    limitacion: Las tasas archivadas en reloj de mercado no son tasas recibidas por HarpoonX.
+  - variable: intervalo_entre_eventos
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin timestamps de recepción originales
+    limitacion: Se calculan intervalos de cotizaciones de mercado en suplemento separado.
+  - variable: frecuencia_decisiones
+    unidad: decisiones/s
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: xxx/coordinator.ts y xxx/scheduler.ts
+    limitacion: 'Configuración: gestión 1 s, reconciliación 5 s, entradas 15 s; no observación de producción.'
+  - variable: antiguedad_dato_al_decidir
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin pares recepción/decisión
+    limitacion: La muestra archivada se recibió como backfill; no reconstruye disponibilidad viva.
+  - variable: latencia_calculo_senal
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin instrumentación de decisiones desplegadas
+    limitacion: El microbenchmark local de salida se identifica aparte y no mide la señal completa.
+  - variable: latencia_envio_confirmacion
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: No hay órdenes observadas
+    limitacion: No se emitieron órdenes durante esta auditoría.
+  - variable: tiempo_hasta_ejecucion
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: No hay fills observados
+    limitacion: Los fills del replay son supuestos sintéticos.
+  - variable: latencia_cancelacion_confirmada
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin secuencia broker solicitud/confirmación
+    limitacion: La nueva telemetría no inventa un tiempo de confirmación.
+  - variable: desfase_entre_relojes
+    unidad: ms
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin medición de sincronización
+    limitacion: No se restaron timestamps de relojes distintos para inferir latencia.
+  - variable: persistencia_estimada_de_senal
+    unidad: s
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin trayectoria observada vinculada a decisiones
+    limitacion: No se impone semivida ni se infieren milisegundos a partir de barras.
+  - variable: spread
+    unidad: puntos_base
+    valor_observado:
+      AAPL: &id002
+        p50: 1.1603283729301326
+        p95: 2.030721923351998
+        p99: 2.320818322179998
+      NVDA: &id003
+        p50: 0.9178522257921172
+        p95: 1.376809931389024
+        p99: 1.376809931389024
+    distribucion_o_intervalo: &id001
+    - '2026-10-28T14:00:00+00:00'
+    - '2026-10-28T14:00:02+00:00'
+    fuente: observed/l1_AAPL.json; observed/l1_NVDA.json
+    limitacion: Muestra L1 archivada de dos segundos; percentiles empíricos sin inferencia poblacional.
+  - variable: profundidad_ejecutable
+    unidad: unidades_y_USD
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sólo cotización L1 y tamaños mostrados
+    limitacion: Tamaño mostrado no garantiza profundidad ejecutable, cola o fill.
+  - variable: porcentaje_ejecutado
+    unidad: proporcion
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: No hay órdenes/fills de cuenta
+    limitacion: No confundir cantidad modelada con tasa de ejecución empírica.
+  - variable: coste_total_por_operacion
+    unidad: USD_y_puntos_base
+    valor_observado: null
+    distribucion_o_intervalo: null
+    fuente: Sin tarifas y libro de gastos de cuenta
+    limitacion: Las cifras de costes del experimento son modeladas; gastos externos y fiscalidad no calculados.
+  suplemento_L1:
+    origin: OBSERVED_ARCHIVED_BACKFILL
+    period: *id001
+    limitations:
+    - Market-event clock; original receive, decision and execution timestamps absent
+    - Two-second sample; empirical percentiles do not estimate stable tail latency
+    - Top of book quotes do not guarantee executable depth or fill probability
+    - Raw archived events filtered only for positive prices/sizes and ask above bid
+    assets:
+      AAPL:
+        raw_quotes: 231
+        valid_quotes: 231
+        first_event: '2026-10-28T14:00:00.002385+00:00'
+        last_event: '2026-10-28T14:00:01.403436+00:00'
+        interevent_samples: 230
+        market_quote_events_per_second: 164.16247517042564
+        market_interevent_ms:
+          p50: 0.0635
+          p95: 31.642849999999942
+          p99: 125.98963000000028
+        spread_bps: *id002
+      NVDA:
+        raw_quotes: 179
+        valid_quotes: 175
+        first_event: '2026-10-28T14:00:00.006877+00:00'
+        last_event: '2026-10-28T14:00:01.971243+00:00'
+        interevent_samples: 174
+        market_quote_events_per_second: 88.57819774929926
+        market_interevent_ms:
+          p50: 0.16949999999999998
+          p95: 71.33124999999994
+          p99: 129.62560000000025
+        spread_bps: *id003
+    trade_execution_allowed: false
+  accesos:
+    repositorio_propuesto:
+      id: masivarecords-ship-it/HerpoonX
+      resultado: Metadatos públicos disponibles, size0; no fuente de aplicación recuperada.
+    repositorio_privado:
+      id: masivarecords-ship-i/HarpoonX
+      commit: f7f7fe3d1f642c5ab0d13da4ce9a7b7cd8c02d63
+      arbol:
+      - .gitignore
+      resultado: Acceso comprobado; el commit no contiene la aplicación.
+    fuente_utilizada: Archivos originales1.3.0 y30.7.0 preservados y cotejados por SHA-256.
+    render:
+      workspaces_identificados: 1
+      consultas_servicios: 2
+      respuesta_servicios: null
+      commit_desplegado: null
+      motivo: Ambas consultas devolvieron null; no hay ID de servicio, logs ni prueba24/7.
+    broker:
+      capacidades_de_mercado_expuestas: 24
+      cuenta_y_posiciones: null
+      modo_de_cuenta_conectada: null
+      motivo: Herramientas disponibles de mercado/referencia, sin endpoints de cuenta, órdenes propias,
+        fills o flujos.
+    cotizaciones_actuales_observadas:
+      naturaleza: Dos snapshotsL1, no estrategia
+      BTC_USD_spread_bps: 2.5105857512397542
+      ETH_USD_spread_bps: 4.047799620575763
+      periodo_utc: 2026-10-31T16:34:58Z aproximadamente
+      fuente: audit_evidence/broker/alpaca_readonly_capability_audit.json
+  siglas:
+    L1: Mejor compra/venta y operaciones; no libro de profundidad completo
+    NAV: Valor neto del patrimonio
+    PnL: Beneficio o pérdida
+    VPIN: Probabilidad de negociación informada ponderada por volumen, usada sólo como proxy candidato
+    AES: null
+  motivo_AES_null: No se aportó definición de AES en este contexto.
+reproduccion_de_referencia_y_discrepancias:
+  clasificacion: HECHO_DE_EJECUCION_SOBRE_DATOS_SINTETICOS
+  periodo:
+  - '2026-02-26T23:59:59+00:00'
+  - '2026-08-24T23:59:59+00:00'
+  capital_normalizado_usd: 20000
+  retorno_pct: -1.4122894451798262
+  pnl_normalizado_usd: -282.45788903596525
+  drawdown_maximo_pct: 1.622319573258335
+  sortino_diario: -0.24757690397254425
+  cierres: 15
+  mejoras_aceptadas: 0
+  comparacion: Valores internos exactos; los seis decimales facilitados por el usuario son redondeos compatibles.
+  hash_datos_reproducidos: 6e57243d4a0da19a63f9da9deca1efd516755adbebfd37c45386936e53b14d45
+  archivo_original_truncado: Simulacion_HarpoonX_48_Opciones_2026_10_30.zip carece de directorio central;
+    se utilizó la copia de script/datos incluida en el paquete1.3.0.
+  limite_proveniencia: Reproducción exacta de la copia preservada; no autenticación del journal del ZIP
+    truncado.
+  reinicios_por_ventana: true
+  pnl_suma_efectiva_de_cierres_en_ventanas: -283.4582115604695
+  explicacion_diferencia: La suma de los cierres con capital reiniciado no coincide con encadenar retornos
+    en un índice normalizado de20000USD. Ninguna cifra describe una cuenta real.
+  estudio_posterior:
+    version: 1.3.0
+    reproduccion: PASS
+    dictamen: REJECTED
+    campos_historicos_iguales: 13
+    journal_original: UNCHANGED
+  evidencia:
+  - audit_evidence/legacy_reproduction_check.json
+  - audit_runs/legacy_packaged_reproduction.log
+  - audit_evidence/adversarial/study_integrity_reproduction.log
+reconciliacion_del_patrimonio:
+  cuenta_real:
+    patrimonio_inicial: null
+    patrimonio_final: null
+    pnl_economico: null
+    motivo: Sin extractos de cuenta, posiciones, pasivos, fills, flujos y gastos.
+  replay_continuo:
+    capital_por_trayectoria: 20000
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    dias_calendario: 122
+    trayectorias: 5
+    politicas_fijas_por_trayectoria: 2
+    recorridos_reconciliados: 10
+    cierres_y_efectivo: RECONCILED
+    posiciones_terminales_abiertas: 0
+    retornos_iguales_a_controles_historicos: true
+    detalle: Patrimonio continuo dentro de cada trayectoria. Las cinco semillas son escenarios independientes,
+      no ventanas que se sumen o una cuenta de100000USD.
+  criterio_contable: E=efectivo+valor de liquidación de posiciones; fees incluidas una sola vez en flujos.
+    Pérdidas abiertas incluidas en marcas.
+  costes_externos_y_fiscalidad: No calculados. PnL modelado tras costes de transacción no equivale a rentabilidad
+    económica completa ni después de impuestos.
+  evidencia: adversarial_verification/control_regression.json
+atribucion_de_perdidas:
+  clasificacion: ESTIMACION_EN_LA_SIMULACION; no atribución de cuenta real
+  periodo:
+  - '2026-02-26'
+  - '2026-08-24'
+  operaciones: 15
+  pnl_bruto_a_precios_medios_usd: -198.16843835442103
+  friccion_modelada_usd: 85.28977320604848
+  pnl_neto_suma_cierres_usd: -283.4582115604695
+  atribucion_local_por_sensibilidades:
+    delta_usd: -49.80859476247006
+    gamma_usd: 72.88748565564836
+    vega_usd: -39.63537540770813
+    theta_usd: -213.0654276746089
+    residual_usd: 31.453473834717716
+  interpretacion: Manteniendo esas entradas/salidas, eliminar todos los costes modelados todavía deja
+    pérdida bruta. No hay soporte para atribuir toda la pérdida a fills.
+  limite: La aproximación delta/gamma/vega/theta incluye residual; no es una descomposición causal exacta
+    ni prueba de alpha futuro.
+  reglas_recuperadas:
+    runtime: Familias de rupturas en equity/ETF/crypto y estrategias de opciones; compras limitadas, controles
+      compartidos y salidas deterministas.
+    opciones_runtime: La familia inspeccionada filtra delta absoluto0.35–0.70 y vencimiento>=7d; depende
+      de plugins/configuración.
+    replay: Opciones sintéticas de21d, strike1.7sigmaOTM como BASE; trayectoria generada, no cadenaOPRA
+      real.
+    Antigravity: null
+    motivo: Sin coincidencias de ese nombre en xxx/runtime30/quant; no equivalencia demostrada entre replay
+      y estrategia desplegada.
+  evidencia:
+  - audit_runs/forensic_bundle/evidence/legacy_forensic.json
+  - xxx/plugins.ts
+  - xxx/policy.ts
+  - harpoon_quant/economic_lab.py
+hipotesis_y_condiciones_de_refutacion:
+  historial_conservado:
+    ensayos_contabilizados: 23
+    limite_historico: 128
+    limite_del_prompt_actual: 6
+    detalle: 9 ensayos heredados más14 configuraciones previas; ya exceden el límite actual. No se reinició
+      contador ni se abrió nueva búsqueda.
+  nuevas_hipotesis_de_senal: 0
+  comparaciones_de_ingenieria_fijas: 2
+  intentos_preservados: Primera verificación de controles y repetición tras corregir post-fill, con logs
+    y resultados separados; no se usan para seleccionar parámetros.
+  H1:
+    estado: NO_IMPLEMENTADA_COMO_NUEVA_ESTRATEGIA
+    motivo: Primero corregir medición y obtener datos observados para demostrar margen bruto ex ante.
+    refutacion: Margen neto o crecimiento fuera de muestra no positivos; dependencia de selección retrospectiva.
+  H2:
+    estado: NO_IMPLEMENTADA
+    motivo: Sin fills ni latencias observadas no se puede comparar maker/taker/abstención empíricamente.
+    refutacion: Ahorro absorbido por no ejecución, selección adversa o costes.
+  H3:
+    estado: NO_OPTIMIZADA
+    motivo: Se corrigen invariantes de exposición/salida y medición; no se ajusta una regla para forzar
+      PnL positivo.
+    refutacion: Efecto desaparece tras costes o no mejora cuenta continua.
+  VPIN_HFT_icebergs_spoofing: 'No implementados: no existe evidencia incremental ni datos suficientes
+    para validarlos en el alcance actual.'
+cambios_implementados:
+  estado: IMPLEMENTADO_Y_VERIFICADO_LOCALMENTE
+  hallazgos:
+  - id: JOURNAL_DELETION
+    evidencia: audit_evidence/broker/journal_integrity_validation.json
+    mecanismo: Borrar claves o reservas podía liberar estado/presupuesto sin señal de corrupción.
+    cambio: Verificación del conjunto de claves, referencias y reservas; nuevas reservas auditadas dentro
+      de transacción.
+    verificacion: 17 pruebas nuevas y compatibilidad histórica; presupuesto23 conservado.
+    limite: Integridad local, no autenticidad frente a sustitución coherente de toda la base o rollback
+      sin ancla externa.
+  - id: SEALED_STUDY
+    evidencia: audit_evidence/adversarial/study_integrity_validation.json
+    mecanismo: El analizador podía usar artefactos alterados o métricas no reconciliadas.
+    cambio: Sellos de insumos/código y reconciliación de45 ejecuciones antes del dictamen.
+    verificacion: 13 pruebas de integridad/publicación; réplica conserva13 campos históricos.
+    limite: El ledger histórico necesita su lista de cierres; no se transforma en un registro autenticado
+      del broker.
+  - id: DECISION_PUBLICATION
+    evidencia: tests/test_study_integrity.py
+    mecanismo: Un fallo del journal podía dejar decision.json distinto del resultado registrado.
+    cambio: PENDING, sustitución atómica del archivo individual, COMPLETE y recuperación explícita.
+    verificacion: Fallas inyectadas antes/después de publicar y cambio de presupuesto detectados.
+    limite: No hay transacción atómica conjunta entre SQLite y filesystem; un corte queda detectable y
+      recuperable.
+  - id: F_RELAXED_USER_LIMITS
+    evidencia: audit_evidence/adversarial/policy_f_limits_baseline.json
+    mecanismo: F imponía4 posiciones/.25factor/.008riesgo incluso ante límites menores.
+    cambio: min(límite_vigente, límite_F).
+    verificacion: Baseline con máximo1 abrió3 y riesgo129.90 ante límite100; pruebas corregidas bloquean
+      relajación.
+    limite: Cambio del replay offline; no implica validación de límites desplegados.
+  - id: MARKED_EXPOSURE
+    evidencia: tests/test_economic_safety.py
+    mecanismo: Delta/valor actualizados podían elevar exposición sin activar reducción.
+    cambio: Detectar exceso en primer mark disponible, registrar y cerrar bajo supuesto de fill del simulador;
+      bloquear entradas de la sesión.
+    verificacion: Fixture con exposición12000 ante límite10000 cierra en primera observación.
+    limite: No evita saltos ni demuestra liquidez para cerrar; no existe prueba de ejecución real.
+  - id: POST_FILL_EQUITY
+    evidencia: tests/test_economic_safety.py
+    mecanismo: El coste inicial reduce NAV y puede invalidar el tamaño calculado antes del fill.
+    cambio: Comprobar límites con patrimonio proyectado tras ejecución y actualizarlo después de cada
+      entrada.
+    verificacion: Fixture de tope5%:1000 excedía999.8175; la entrada se descarta tras la corrección.
+    limite: Protege admisión en el modelo; costes reales desconocidos.
+  - id: CASH_EVENT_LEDGER
+    evidencia: harpoon_quant/ledger.py; tests/test_economic_safety.py
+    mecanismo: Registro antiguo ENTRY/NAV sin cierres ni identidad independiente de posición.
+    cambio: ENTRY/EXIT/PRE_NAV/NAV con posición, importes brutos, fees, efectivo, inventario y tiempos;
+      reducción independiente y plazo72h.
+    verificacion: Omisión deEXIT, cambio de efectivo, inversión temporal y exceso72h rechazados; parciales
+      no duplican comisiones.
+    limite: Consistencia interna; no autenticidad de fills ni ausencia de toda fuga de información posible.
+  - id: INTRADAY_DRAWDOWN
+    evidencia: adversarial_verification/control_regression.json
+    mecanismo: El cierre diario ocultaba valles intermedios.
+    cambio: Métrica adicional sobrePRE_NAV/NAV; se conserva la diaria para reproducir el estudio cerrado.
+    verificacion: Semilla610313/B:0.760841407% diario y0.780648641% sobre marcas.
+    limite: Sólo las marcas disponibles; no registra extremos de mercado no observados. Gates estadísticos
+      históricos no se reescriben.
+  - id: PARTIAL_ENTRY_UNPROTECTED
+    evidencia: audit_evidence/render/partial_entry_risk_verification.json
+    mecanismo: Inventario parcial puede permanecer sin protección alineada mientras se confirma cancelación.
+    cambio: Telemetría durable de cantidades, primera observación, plazo y estadosWAIT_CANCEL/WAIT_PROTECTION/UNVERIFIED/RESOLVED.
+    verificacion: 8 pruebas nuevas; reintentos/reinicios no borran plazo, cancelación no equivale a flat
+      y cantidad sub-step no se redondea a cero.
+    limite: Observabilidad y bloqueo de nuevo riesgo; no elimina esa exposición mediante una protección
+      simultánea ni acredita aceptación real del broker.
+  arquitectura:
+    quant: Worker numérico local invocado antes del mutex de órdenes; puede reducir tamaño, no ampliarlo.
+    LLM: Gateway separado enservice/server.py; no se encontró llamadaLLM en la ruta de órdenesXXX. Modelo
+      activo desplegado desconocido.
+    proteccion: Gestión/reconciliación/protecciones deterministas; separación de tareas no garantiza latencia
+      real ni elimina espera de broker bajo mutex.
+    modo_del_codigo: DirectAlpaca PAPER en el adaptadorXXX; cuenta conectada y despliegue no comprobados.
+  pruebas:
+    python:
+      aprobadas: 186
+      fallidas: 0
+    operacion_typescript:
+      aprobadas: 152
+      fallidas: 0
+    integracion_node_python:
+      aprobadas: 16
+      fallidas: 0
+      nota: Ver resultados individuales con test-isolation=none; el primer runner sólo informó el archivo.
+    workflow_historico:
+      aprobadas: 7
+      fallidas: 0
+    ruff: PASS en módulos y pruebas modificados
+    mypy: PASS en8 archivos del núcleo/análisis/verificación
+    typescript_build: PASS
+    typescript_typecheck: PASS
+  benchmark_local:
+    source: SYNTHETIC_MICROBENCHMARK
+    node: v24.22.1
+    platform: linux
+    architecture: x64
+    cpu: AMD EPYC 9V74 80-Core Processor
+    iterations: 20000
+    elapsedMs: 21.710814000000006
+    operationsPerSecond: 921199.9144757997
+    p50Ms: 0.0007910000000066475
+    p95Ms: 0.0009510000000005903
+    p99Ms: 0.0017229999999983647
+    scope: Pure exit decision only. Excludes network, broker, SQLite, UI and full runtime. Not a latency
+      or profit guarantee.
+  benchmark_replay:
+    registros: adversarial_verification/control_regression.json
+    limite: Diez replays locales, cache de World reutilizada entre controles; sin p99 de producción ni
+      comparación imparcial de velocidades.
+  incidentes_cubiertos: Timeout y reintento, duplicación, cancelación y fill tardío, parciales, reconexión,
+    discrepancia, datos obsoletos y worker numérico ausente se prueban con mocks en suites existentes/nuevas.
+    No hubo ensayo contra broker real; LLM no está en la rutaXXX.
+  despliegue: NO_REALIZADO; sin servicio objetivo identificado
+resultados_de_todas_las_variantes:
+  desarrollo_historico:
+  - candidato: BASE
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 79.63333333330954
+    pnl_por_semilla_usd:
+    - -57.40000000000522
+    - 66.39999999999979
+    - 229.89999999993404
+    numero_de_operaciones: 45
+    admisible_en_desarrollo_historico: false
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: A
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 184.06666666642036
+    pnl_por_semilla_usd:
+    - -751.300000000219
+    - 872.5999999998102
+    - 430.8999999996699
+    numero_de_operaciones: 657
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: B
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 292.3398932624869
+    pnl_por_semilla_usd:
+    - 165.67869598660855
+    - 275.20160691772764
+    - 436.13937688312456
+    numero_de_operaciones: 3580
+    admisible_en_desarrollo_historico: true
+    dictamen: FINALISTA_HISTORICO_RECHAZADO_EN_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: C
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 50.33333333329522
+    pnl_por_semilla_usd:
+    - -44.20000000004309
+    - 169.4999999999469
+    - 25.69999999998185
+    numero_de_operaciones: 53
+    admisible_en_desarrollo_historico: false
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: D
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 26.533333333316943
+    pnl_por_semilla_usd:
+    - -31.100000000001682
+    - 20.700000000002383
+    - 89.99999999995012
+    numero_de_operaciones: 34
+    admisible_en_desarrollo_historico: false
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: E
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 128.66666666663176
+    pnl_por_semilla_usd:
+    - 23.599999999999177
+    - 211.79999999995758
+    - 150.59999999993858
+    numero_de_operaciones: 61
+    admisible_en_desarrollo_historico: false
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: F
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 79.63333333330954
+    pnl_por_semilla_usd:
+    - -57.40000000000522
+    - 66.39999999999979
+    - 229.89999999993404
+    numero_de_operaciones: 45
+    admisible_en_desarrollo_historico: false
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: ALL
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 24.031560334446908
+    pnl_por_semilla_usd:
+    - 13.539815171239589
+    - -60.883820902750685
+    - 119.43868673485181
+    numero_de_operaciones: 2338
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: NO_A
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 129.49276118454793
+    pnl_por_semilla_usd:
+    - 110.8166256822818
+    - 152.9231447727497
+    - 124.73851309861229
+    numero_de_operaciones: 1930
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: NO_B
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: -79.60000000002928
+    pnl_por_semilla_usd:
+    - -56.700000000029505
+    - -147.10000000002444
+    - -35.00000000003389
+    numero_de_operaciones: 47
+    admisible_en_desarrollo_historico: false
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: NO_C
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: -105.74529707143789
+    pnl_por_semilla_usd:
+    - -49.40704019626763
+    - -402.160192351384
+    - 134.331341333338
+    numero_de_operaciones: 2613
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: NO_D
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 74.69548067840763
+    pnl_por_semilla_usd:
+    - 66.9749717863155
+    - -11.701193746833649
+    - 168.81266399574102
+    numero_de_operaciones: 3681
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: NO_E
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 19.833734225602743
+    pnl_por_semilla_usd:
+    - -10.348379411613262
+    - -83.46056444874517
+    - 153.31014653716667
+    numero_de_operaciones: 1673
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  - candidato: NO_F
+    naturaleza: SINTETICO_DESARROLLO_YA_UTILIZADO
+    periodo:
+    - '2024-07-01T23:59:59+00:00'
+    - '2026-06-25T23:59:59+00:00'
+    capital_inicial_por_trayectoria: 20000
+    pnl_medio_usd: 41.498297628223355
+    pnl_por_semilla_usd:
+    - 9.929113409108403
+    - -34.16040081369198
+    - 148.72618028925365
+    numero_de_operaciones: 2979
+    admisible_en_desarrollo_historico: true
+    dictamen: NO_SELECCIONADO_PARA_HOLDOUT
+    limitacion: Admisibilidad de desarrollo no implica rentabilidad ni aprobación final.
+  seleccion_historica: B por criterio ya congelado; no reseleccionado en esta auditoría.
+  comparativa_terminal_y_estres:
+  - candidato: baseline
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19928.28
+    pnl_neto_medio_modelado: -71.72000000000267
+    costes_modelados_medios: 32.38971401269344
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.35860000000001335
+    crecimiento_log_diario_medio: -2.95073857158764e-05
+    diferencia_pnl_medio_frente_control: 0.0
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.8254422190446364
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 23
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: candidate
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19961.821499458307
+    pnl_neto_medio_modelado: -38.178500541693246
+    costes_modelados_medios: 22.761807121189925
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.19089250270846622
+    crecimiento_log_diario_medio: -1.5686595892645698e-05
+    diferencia_pnl_medio_frente_control: 33.541499458309424
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.7608414074526171
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1251
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: RECHAZADO
+  - candidato: cost_1_5
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19953.246714724282
+    pnl_neto_medio_modelado: -46.75328527571753
+    costes_modelados_medios: 31.067373148893484
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.23376642637858766
+    crecimiento_log_diario_medio: -1.9210773133112175e-05
+    diferencia_pnl_medio_frente_control: 24.96671472428514
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.7752053947296389
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1251
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: cost_2
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19948.56475812847
+    pnl_neto_medio_modelado: -51.43524187153137
+    costes_modelados_medios: 39.17651827027164
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.25717620935765684
+    crecimiento_log_diario_medio: -2.1130762144179394e-05
+    diferencia_pnl_medio_frente_control: 20.284758128471303
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.6062433836051984
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1251
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: gaps
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19957.919499458305
+    pnl_neto_medio_modelado: -42.080500541695095
+    costes_modelados_medios: 26.663807121189922
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.2104025027084755
+    crecimiento_log_diario_medio: -1.7288483901119957e-05
+    diferencia_pnl_medio_frente_control: 29.639499458307576
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.723838209615213
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1251
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: iv_crush
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19954.01749945831
+    pnl_neto_medio_modelado: -45.9825005416894
+    costes_modelados_medios: 30.56580712118992
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.22991250270844701
+    crecimiento_log_diario_medio: -1.8890966051788265e-05
+    diferencia_pnl_medio_frente_control: 25.737499458313273
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.6867938020094999
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1251
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: liquidity
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19602.00447657906
+    pnl_neto_medio_modelado: -397.9955234209393
+    costes_modelados_medios: 382.40184107854475
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -1.9899776171046966
+    crecimiento_log_diario_medio: -0.00016480268020765867
+    diferencia_pnl_medio_frente_control: -326.2755234209367
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 2.576433157776703
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1249
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: delay
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19970.859999999997
+    pnl_neto_medio_modelado: -29.14000000000172
+    costes_modelados_medios: 18.397916636984554
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.1457000000000086
+    crecimiento_log_diario_medio: -1.1988912530411758e-05
+    diferencia_pnl_medio_frente_control: 42.58000000000095
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.5493461830687663
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 12
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  - candidato: outage
+    naturaleza_de_datos_y_ejecucion: SINTETICO; precios generados; ejecuciones modeladas
+    periodo:
+    - '2026-07-01'
+    - '2026-10-30'
+    trayectorias: 5
+    capital_inicial_por_trayectoria: 20000
+    patrimonio_final_medio: 19966.32574648375
+    pnl_neto_medio_modelado: -33.674253516249756
+    costes_modelados_medios: 21.22089503931672
+    costes_operativos_externos: null
+    motivo_costes_externos_null: No se aportaron gastos de datos, infraestructura o inferencia atribuibles
+      al periodo.
+    retorno_medio_pct: -0.16837126758124876
+    crecimiento_log_diario_medio: -1.3833119457304628e-05
+    diferencia_pnl_medio_frente_control: 38.045746483752914
+    intervalo_de_incertidumbre: 'Ver sección incertidumbre: mejora pareada, no intervalo de PnL de cuenta.'
+    drawdown_diario_max_pct: 0.5001366766616888
+    exposicion: Límites del replay; véase ledger por trayectoria, no exposición de una cuenta real.
+    numero_de_operaciones_cerradas_total: 1228
+    porcentaje_ejecutado: null
+    motivo_porcentaje_null: No existe población de órdenes reales ni modelo empírico de cola.
+    dictamen: CONTROL_O_ESTRES_DESCRIPTIVO
+  capital_y_promedios: Cada PnL es media entre cinco trayectorias de20000USD; cierres son suma de conteos,
+    no número de operaciones de una cuenta.
+resultados_fuera_de_muestra_y_estres:
+  naturaleza: Holdout sintético histórico ya consumido; sin nueva prueba final independiente ni validación
+    forward.
+  base_mean_pnl_usd: -71.72000000000267
+  B_mean_pnl_usd: -38.178500541693246
+  mejora_media_usd: 33.541499458309424
+  gates_historicos:
+    net_positive: false
+    log_growth_positive: false
+    improvement_positive: true
+    lcb_positive_all_blocks: false
+    drawdown_no_worse_all_paths: false
+    cost_stress_positive_all_paths: false
+    minimum_20_closures_each: true
+  B_composicion_cierres:
+    acciones: 1240
+    opciones: 11
+  no_operar: Benchmark histórico de caja a interés0 por supuesto; no demuestra rendimiento de efectivo
+    real ni incluye gastos externos.
+  estres: Costes1.5x/2x, haircuts de gap/IV/liquidez y proxies de delay/outage. Son escenarios hipotéticos;
+    no una distribución observada de latencia/ejecución.
+incertidumbre_y_limitaciones:
+  inferencia_historica:
+    block_intervals:
+      '3':
+        lcb_family_95: -6.70926167476725e-05
+        paired_mean: 1.9606236725978448e-05
+        interval_descriptive_95:
+        - -2.893293768000045e-05
+        - 6.275784179639326e-05
+        repetitions: 51200
+      '5':
+        lcb_family_95: -6.647562153783632e-05
+        paired_mean: 1.9606236725978448e-05
+        interval_descriptive_95:
+        - -2.786939507963607e-05
+        - 6.303096235468605e-05
+        repetitions: 51200
+      '10':
+        lcb_family_95: -6.422297327632399e-05
+        paired_mean: 1.9606236725978448e-05
+        interval_descriptive_95:
+        - -2.8857437461997682e-05
+        - 6.34712366726683e-05
+        repetitions: 51200
+    independent_synthetic_paths: 5
+    paired_sessions_per_path: 86
+    HAC_effective_time_observations: 362.27805327408566
+    approx_MDE_daily_log_return_80pct: 8.388594656710016e-05
+    measured_effect_daily_session_log: 1.9606236725978448e-05
+    family_bound: 128
+    psr_dsr: Diagnostic only; no observed complete trading track record; do not treat as proof of alpha.
+    limitation: HAC/normal MDE and hierarchical resampling on five artificial paths are approximate; no
+      real-market probability estimate. Inference detail fixed before numeric inspection but after holdout
+      generation.
+  lectura: Todos los límites inferiores familiares de la mejora son negativos. Cinco trayectorias artificiales
+    no estiman probabilidad de beneficio real; bootstrap no agrega evidencia empírica.
+  protocolo_analisis: Fijado antes de inspección numérica, después de generación del holdout según registro
+    histórico; no se presenta como evaluación completamente ciega.
+  cuenta_desconocida: No hay saldo, gastos operativos, PnL real, latencia real ni drawdown real verificables.
+  mercado: BackfillL1 de dos segundos y barras históricas no proporcionan cola, profundidadL2/L3, intención
+    de spoofing ni datos suficientes para alpha decay de las estrategias.
+  integridad: Consistencia local y SHA-256 no prueban autenticidad frente a reescritura completa coherente;
+    reservas antiguas tienen cobertura parcial y se manejan conservadoramente.
+  equipo: Tres agentes apoyaron auditorías y revisión cruzada; compartieron contexto. No es validación
+    externa independiente.
+dictamen:
+  general: VENTAJA_NO_DEMOSTRADA
+  candidato_sintetico_B: RECHAZADO
+  evidencia_a_favor: Reproducciones exactas, contabilidad interna reconciliada, reducción media de pérdida
+    de33.541499USD frente al control histórico.
+  evidencia_en_contra: Pérdida media absoluta, crecimiento logarítmico negativo, límite inferior de mejora
+    negativo y deterioro con costes/estrés.
+  condicion_decisiva: No cumple simultáneamente crecimiento neto positivo y evidencia suficiente; la cuenta
+    real no es evaluable con estos accesos.
+  mejora_economica_demostrada: false
+  candidato_para_forward: false
+  datos_decisivos_faltantes:
+  - Código/configuración y commit del servicio realmente desplegado.
+  - Extractos de patrimonio, efectivo, posiciones/pasivos, flujos, órdenes, fills, tarifas y gastos externos
+    del periodo.
+  - Logs sincronizados de mercado/recepción/decisión/envío/fill/cancelación con versiones.
+  - Histórico observado de cotizaciones/operaciones, especialmente opcionesOPRA o alternativa autorizada
+    y suficiente.
+  - Periodo observado no utilizado y criterio económico/estadístico prospectivo con presupuesto compatible.
+  estado_de_seguridad: Investigación offline completada hasta los límites de evidencia; modo y exposición
+    externos sin cambios.
+artefactos_y_reproduccion:
+  codigo: Aplicación30.7.1 y motor1.3.1 con snapshots históricos congelados; source_changes.patch en paquete
+    de evidencia.
+  configuracion: economic_experiment/study/protocol.json y config/examples/xxx.json; sus límites son de
+    ejemplo/modelo, no permisos reales.
+  curva_continua: curvas_patrimonio_continuo.json y curvas_patrimonio_continuo.png; escenarios independientes
+    claramente etiquetados.
+  logs: adversarial_verification/control_regression.json contiene eventos de efectivo/inventario y motivos
+    agregados de descarte. No contiene un log por señal de órdenes reales ausentes.
+  registro_intentos: economic_experiment/study/optimizer.sqlite3 preservado; tablas de14 variantes; planes/logs
+    de verificación fijos antes y después de correcciónpost-fill.
+  desde_motor_quant:
+  - python3 -m venv .venv
+  - .venv/bin/pip install -r requirements-tested.txt
+  - .venv/bin/python -m unittest discover -s tests -v
+  - .venv/bin/python economic_experiment/workflow_tests.py
+  - .venv/bin/python adversarial_verification/reproduce_legacy.py
+  - .venv/bin/python economic_experiment/reproduce_study.py
+  - PYTHONPATH=. .venv/bin/python adversarial_verification/replay_controls.py
+  - .venv/bin/python adversarial_verification/measure_archived_l1.py
+  desde_aplicacion:
+  - npm ci --ignore-scripts
+  - npm run build:xxx
+  - npm run typecheck:xxx
+  - npm run test:xxx:clocked
+  - npm run test:quant
+  recuperacion_publicacion: python economic_experiment/analyze.py --directory RUTA_ECONOMIC_EXPERIMENT
+    --recover-publication
+  manifest: MANIFEST.sha256 contiene hashes de archivos entregados; no se incluye a sí mismo.

@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: pinned pages keep the committed header while capture and archive rotation advance
+ok 1 - pinned pages keep the committed header while capture and archive rotation advance
+  ---
+  duration_ms: 12.922375
+  type: 'test'
+  ...
+# Subtest: snapshot token and pages survive restart and metadata contributes to the existing byte quota
+ok 2 - snapshot token and pages survive restart and metadata contributes to the existing byte quota
+  ---
+  duration_ms: 2.663227
+  type: 'test'
+  ...
+# Subtest: two snapshots are retained and old tokens never silently bind to the newest head
+ok 3 - two snapshots are retained and old tokens never silently bind to the newest head
+  ---
+  duration_ms: 6.271962
+  type: 'test'
+  ...
+# Subtest: restart validates snapshot archives once and cached pages do not rescan the full history
+ok 4 - restart validates snapshot archives once and cached pages do not rescan the full history
+  ---
+  duration_ms: 4.546229
+  type: 'test'
+  ...
+# Subtest: long index validation yields cooperatively without changing the pinned prefix
+ok 5 - long index validation yields cooperatively without changing the pinned prefix
+  ---
+  duration_ms: 550.442266
+  type: 'test'
+  ...
+# Subtest: an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage
+ok 6 - an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage
+  ---
+  duration_ms: 1.375816
+  type: 'test'
+  ...
+# Subtest: mutated snapshot account, head or raw frame fails closed after restart or read
+ok 7 - mutated snapshot account, head or raw frame fails closed after restart or read
+  ---
+  duration_ms: 1.542798
+  type: 'test'
+  ...
+# Subtest: snapshot metadata cannot increase the retained byte limit
+ok 8 - snapshot metadata cannot increase the retained byte limit
+  ---
+  duration_ms: 1.178338
+  type: 'test'
+  ...
+# Subtest: snapshot HTTP routes require existing authentication and never query a broker
+ok 9 - snapshot HTTP routes require existing authentication and never query a broker
+  ---
+  duration_ms: 2.617508
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 653.406738

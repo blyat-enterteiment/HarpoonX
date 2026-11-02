@@ -1,0 +1,20 @@
+E701 Multiple statements on one line (colon)
+   --> tests/test_micro.py:635:70
+    |
+633 | class PanelAgeTests(unittest.TestCase):
+634 |     def test_refitting_an_old_cost_panel_does_not_refresh_its_data(self):
+635 |         with self.assertRaisesRegex(ValueError,'STALE_SUPPORT_PANEL'):fit_support(cost_panel(),'2026-12-01T00:00:00+00:00')
+    |                                                                      ^
+636 |
+637 |     def test_refitting_an_old_regime_panel_does_not_refresh_its_data(self):
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_micro.py:641:69
+    |
+639 |         if not hasattr(RegimeSupportTests,'data'):
+640 |             RegimeSupportTests.setUpClass()
+641 |         with self.assertRaisesRegex(ValueError,'STALE_REGIME_PANEL'):fit_regime(RegimeSupportTests.data,'2026-12-01T00:00:00+00:00')
+    |                                                                     ^
+
+Found 3 errors (1 fixed, 2 remaining).

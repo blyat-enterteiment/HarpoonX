@@ -1,0 +1,20 @@
+{
+  "baseline_application": "30.12.2",
+  "target_application": "30.13.0",
+  "request": "lleva el core al 5 luego vemos despligue",
+  "scope": "Corregir y verificar core cuantitativo y coordinación local antes de despliegue; no sustituir prueba de rentabilidad por pruebas de software.",
+  "economic_gate_unchanged": true,
+  "economic_score_initial": 3,
+  "real_performance_score": null,
+  "financial_trials_authorized_this_step": false,
+  "deployment_authorized_this_step": false,
+  "hypothesis_budget_reset": false,
+  "engineering_plan": [
+    "reproducir fallos concretos del core numérico y runtime",
+    "remediar sin alterar arbitrariamente límites ni umbrales económicos",
+    "ejecutar regresión y benchmark apropiados",
+    "entregar integral con fuentes, hashes, evidencias y bloqueos"
+  ],
+  "stop_rule": "Cerrar fallos concretos de los recorridos intervenidos. No añadir arquitectura, modelos o búsqueda de alpha sin datos adecuados.",
+  "target_quant": "1.8.1"
+}

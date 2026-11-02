@@ -1,0 +1,3224 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>HARPOON XXXUltimate · Trading Operations</title>
+    <style>
+      :root {
+        --bg: #090d14;
+        --panel: #101722;
+        --panel2: #141e2b;
+        --line: #233042;
+        --text: #edf2f8;
+        --muted: #8e9eb3;
+        --blue: #73a2ff;
+        --cyan: #52d8c5;
+        --amber: #edc16b;
+        --red: #ff8d96;
+        --rail: 210px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          14px/1.5 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 9px 13px;
+        color: var(--text);
+        background: var(--panel2);
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+      button:hover {
+        border-color: var(--blue);
+        background: #1c2b40;
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 3px;
+      }
+      button.primary {
+        background: #2966df;
+        border-color: #3978ef;
+        color: #fff;
+      }
+      .danger {
+        color: var(--red);
+      }
+      .quiet {
+        background: transparent;
+      }
+      input:not([type="checkbox"]),
+      select {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 9px 11px;
+        max-width: 100%;
+      }
+      input[type="checkbox"] {
+        accent-color: var(--blue);
+        width: 16px;
+        height: 16px;
+      }
+      input[type="file"] {
+        font-size: 12px;
+      }
+      #ultimateDetail,
+      #ultimatePortfolio,
+      #futuresCatalog,
+      #ultimateReportScope {
+        overflow-wrap: anywhere;
+      }
+      #ultimateProtocol {
+        display: block;
+        width: 100%;
+        font-family: monospace;
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 12px;
+        box-sizing: border-box;
+      }
+      #ultimateResults td:last-child {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        min-width: 200px;
+      }
+      label {
+        display: grid;
+        gap: 6px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      a {
+        color: var(--blue);
+      }
+      aside {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: var(--rail);
+        padding: 30px 18px;
+        border-right: 1px solid var(--line);
+        background: #0c121c;
+        display: flex;
+        flex-direction: column;
+        z-index: 4;
+      }
+      .brand {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .brand i {
+        width: 24px;
+        height: 24px;
+        background: var(--blue);
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% 25%,
+          28% 100%,
+          0 100%,
+          68% 25%,
+          0 25%
+        );
+      }
+      .edition {
+        letter-spacing: 3px;
+        color: var(--muted);
+        font:
+          10px ui-monospace,
+          monospace;
+        margin: 8px 0 32px 35px;
+      }
+      .navlabel {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        color: #61738d;
+        margin: 0 10px 10px;
+      }
+      nav {
+        display: grid;
+        gap: 6px;
+      }
+      nav button {
+        text-align: left;
+        background: transparent;
+        border-color: transparent;
+        padding: 11px 10px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        color: var(--muted);
+      }
+      nav button span {
+        font:
+          11px ui-monospace,
+          monospace;
+        color: #61738d;
+      }
+      nav button.active {
+        color: #dce7ff;
+        background: #17243a;
+        border-color: #293d5b;
+      }
+      nav button.active span {
+        color: var(--blue);
+      }
+      .railbottom {
+        margin-top: auto;
+        border-top: 1px solid var(--line);
+        padding: 18px 10px 0;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .railbottom b {
+        display: block;
+        color: var(--text);
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+      .mode {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid #364355;
+        border-radius: 4px;
+        padding: 3px 7px;
+        font:
+          10px ui-monospace,
+          monospace;
+        color: var(--amber);
+        letter-spacing: 1px;
+      }
+      .dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .good {
+        color: var(--cyan);
+      }
+      .wait {
+        color: var(--amber);
+      }
+      .bad {
+        color: var(--red);
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .mono {
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-variant-numeric: tabular-nums;
+      }
+      .topbar {
+        margin-left: var(--rail);
+        min-height: 66px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 12px 30px;
+        background: #0c121c;
+      }
+      .topbar .left,
+      .topbar .right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .topbar .right {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      #connection {
+        max-width: 440px;
+        font-size: 11px;
+      }
+      #systemBadge {
+        font:
+          11px ui-monospace,
+          monospace;
+        letter-spacing: 0.6px;
+      }
+      main {
+        margin-left: var(--rail);
+        padding: 26px 30px 36px;
+        min-width: 0;
+        max-width: 1900px;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 20px;
+      }
+      .eyebrow {
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: 27px;
+        letter-spacing: -0.8px;
+        line-height: 1.25;
+        margin: 6px 0;
+      }
+      h2 {
+        font-size: 15px;
+        letter-spacing: -0.15px;
+        margin: 0;
+      }
+      h3 {
+        font-size: 12px;
+        margin: 0;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 5px 0 0;
+      }
+      .actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .actions button {
+        font-size: 12px;
+      }
+      .banner {
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--amber);
+        border-radius: 6px;
+        padding: 11px 14px;
+        margin-bottom: 22px;
+        font-size: 12px;
+        background: #111a28;
+      }
+      #status.good {
+        border-left-color: var(--cyan);
+      }
+      #status.bad {
+        border-left-color: var(--red);
+      }
+      #toast {
+        min-height: 0;
+        color: var(--amber);
+        font-size: 12px;
+      }
+      #toast:not(:empty) {
+        padding: 10px 0;
+      }
+      section.tab {
+        display: none;
+      }
+      section.tab.active {
+        display: block;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .card,
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        min-width: 0;
+      }
+      .card {
+        padding: 18px;
+      }
+      .card strong {
+        display: block;
+        font-size: 25px;
+        line-height: 1.5;
+        letter-spacing: -0.8px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .card small {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .card .klabel {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .card .number {
+        font-size: 20px;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(285px, 1fr);
+        gap: 16px;
+        margin-top: 18px;
+      }
+      .panelhead {
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .panelhead small {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .panelbody {
+        padding: 20px;
+      }
+      .section {
+        margin-top: 22px;
+      }
+      .sectionhead {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .sectionhead small {
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .table {
+        overflow: auto;
+        max-width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 12px;
+      }
+      th {
+        background: #131e2c;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.65px;
+        text-transform: uppercase;
+        padding: 12px 16px;
+      }
+      td {
+        padding: 14px 16px;
+        border-top: 1px solid #1c2838;
+        font-variant-numeric: tabular-nums;
+      }
+      td small {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        margin-top: 3px;
+      }
+      td.wrap {
+        white-space: normal;
+        min-width: 220px;
+      }
+      tr:hover td {
+        background: #142030;
+      }
+      .empty {
+        padding: 34px;
+        text-align: center;
+        color: var(--muted);
+        white-space: normal;
+      }
+      .pill {
+        font:
+          10px ui-monospace,
+          monospace;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--line);
+        padding: 3px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      .charttop {
+        display: flex;
+        justify-content: space-between;
+        padding: 18px 20px 0;
+        gap: 15px;
+      }
+      .charttop strong {
+        font-size: 23px;
+        font-weight: 500;
+      }
+      .charttop span {
+        font-size: 11px;
+      }
+      .chart {
+        height: 212px;
+        padding: 4px 20px 20px;
+      }
+      .chart svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .chartline {
+        stroke: var(--blue);
+        stroke-width: 2;
+        fill: none;
+        vector-effect: non-scaling-stroke;
+      }
+      .chartarea {
+        fill: #367aff14;
+      }
+      .chartgrid {
+        stroke: #243040;
+        stroke-width: 1;
+        stroke-dasharray: 3 7;
+      }
+      .charttext {
+        fill: var(--muted);
+        font:
+          10px ui-monospace,
+          monospace;
+      }
+      .chartempty {
+        height: 100%;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .guardian {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+      .guardianicon {
+        display: grid;
+        place-items: center;
+        border: 1px solid #28534f;
+        background: #11302e;
+        color: var(--cyan);
+        font-size: 20px;
+        border-radius: 10px;
+        width: 42px;
+        height: 42px;
+      }
+      .kv {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        border-top: 1px solid #233042;
+        padding: 10px 0;
+        font-size: 12px;
+      }
+      .kv span {
+        color: var(--muted);
+      }
+      .kv b {
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+      .progress {
+        height: 4px;
+        background: #243144;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 12px;
+      }
+      .progress i {
+        display: block;
+        height: 100%;
+        background: var(--blue);
+      }
+      .bookhead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .bookhead .symbol {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .bookhead em {
+        font-style: normal;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .bookmeta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 13px;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .search {
+        width: 100%;
+        margin: 16px 0;
+      }
+      .stack {
+        display: grid;
+        gap: 14px;
+      }
+      .formgrid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .formgrid .full {
+        grid-column: 1/-1;
+      }
+      .hint {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .hint p {
+        margin: 4px 0 12px;
+      }
+      .checklabel {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      pre {
+        font:
+          11px/1.7 ui-monospace,
+          SFMono-Regular,
+          monospace;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        max-height: 360px;
+        overflow: auto;
+        margin: 0;
+        color: #b1c3d8;
+        background: #0c121c;
+        padding: 18px;
+        border-radius: 6px;
+      }
+      .monitorgrid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .service {
+        padding: 16px;
+      }
+      .servicehead {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .servicehead b {
+        font-size: 12px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+      .service p {
+        font-size: 11px;
+        color: var(--muted);
+        min-height: 32px;
+        margin: 12px 0;
+      }
+      .servicefooter {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font:
+          10px ui-monospace,
+          monospace;
+      }
+      .headline {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      .healthstrip {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .healthstrip h2 {
+        font-size: 20px;
+      }
+      .statmini {
+        display: flex;
+        gap: 22px;
+      }
+      .statmini b {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .statmini span {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      details {
+        margin-top: 16px;
+      }
+      summary {
+        color: var(--muted);
+        font-size: 12px;
+        cursor: pointer;
+        margin-bottom: 12px;
+      }
+      .riskcards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        color: #63748c;
+        font-size: 10px;
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid var(--line);
+      }
+      .tabintro {
+        font-size: 12px;
+        color: var(--muted);
+        max-width: 900px;
+        margin: 0 0 20px;
+      }
+      .selectorstatus {
+        font-size: 12px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+      #trialSelect {
+        width: 100%;
+      }
+      .noscript {
+        padding: 30px;
+        color: var(--amber);
+      }
+      @media (min-width: 1600px) {
+        main {
+          padding: 32px 42px;
+        }
+        .topbar {
+          padding: 12px 42px;
+        }
+        .chart {
+          height: 250px;
+        }
+      }
+      @media (max-width: 1200px) {
+        :root {
+          --rail: 174px;
+        }
+        aside {
+          padding: 25px 10px;
+        }
+        .brand {
+          font-size: 16px;
+        }
+        .topbar {
+          padding: 12px 20px;
+        }
+        main {
+          padding: 22px 20px;
+        }
+        .top {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .monitorgrid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .card {
+          padding: 14px;
+        }
+        .card strong {
+          font-size: 21px;
+        }
+        .split {
+          grid-template-columns: 1.4fr 1fr;
+        }
+      }
+      @media (max-width: 900px) {
+        :root {
+          --rail: 0px;
+        }
+        aside {
+          position: static;
+          width: auto;
+          padding: 14px 18px 0;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .brand {
+          font-size: 18px;
+        }
+        .edition,
+        .navlabel,
+        .railbottom {
+          display: none;
+        }
+        nav {
+          display: flex;
+          overflow-x: auto;
+          margin-top: 12px;
+          gap: 2px;
+        }
+        nav button {
+          white-space: nowrap;
+          font-size: 12px;
+          border-radius: 5px 5px 0 0;
+          padding: 10px;
+        }
+        nav button span {
+          display: none;
+        }
+        .topbar {
+          margin: 0;
+          padding: 10px 18px;
+          min-height: 54px;
+        }
+        .topbar .right #connection {
+          display: none;
+        }
+        main {
+          margin: 0;
+          padding: 20px 18px;
+        }
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .split {
+          grid-template-columns: 1fr;
+        }
+        .riskcards {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .chart {
+          height: 220px;
+        }
+        .top {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        h1 {
+          font-size: 25px;
+        }
+      }
+      @media (max-width: 550px) {
+        main {
+          padding: 18px 12px;
+        }
+        .topbar {
+          padding: 10px 12px;
+        }
+        .topbar .right {
+          gap: 8px;
+        }
+        .topbar .left {
+          gap: 10px;
+        }
+        .eyebrow {
+          font-size: 9px;
+        }
+        .top {
+          gap: 12px;
+        }
+        .top .actions {
+          width: 100%;
+        }
+        .top .actions button {
+          flex: 1;
+          font-size: 11px;
+          padding: 9px 6px;
+        }
+        .grid {
+          gap: 9px;
+        }
+        .card {
+          padding: 13px;
+        }
+        .card strong {
+          font-size: 21px;
+        }
+        .card small {
+          font-size: 10px;
+        }
+        .bookhead {
+          flex-wrap: wrap;
+          margin-bottom: 10px;
+        }
+        .bookhead .pill {
+          font-size: 9px;
+        }
+        .bookmeta {
+          flex-wrap: wrap;
+          gap: 4px;
+        }
+        .panelhead,
+        .panelbody {
+          padding: 15px;
+        }
+        .monitorgrid,
+        .formgrid,
+        .riskcards {
+          grid-template-columns: 1fr;
+        }
+        .formgrid .full {
+          grid-column: auto;
+        }
+        .healthstrip .statmini {
+          width: 100%;
+          justify-content: space-between;
+        }
+        .sectionhead {
+          align-items: flex-start;
+        }
+        .sectionhead small {
+          max-width: 150px;
+          text-align: right;
+        }
+        .chart {
+          padding: 4px 14px 18px;
+        }
+        .charttop {
+          padding: 15px 15px 0;
+        }
+        .charttop strong {
+          font-size: 20px;
+        }
+        footer {
+          flex-direction: column;
+          gap: 5px;
+        }
+        .panelhead small {
+          max-width: 140px;
+          text-align: right;
+        }
+        nav button {
+          font-size: 11px;
+          padding: 10px 9px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand"><i aria-hidden="true"></i>HARPOON</div>
+      <div class="edition">XXXUltimate / OPERATIONS</div>
+      <div class="navlabel">Workspace</div>
+      <nav aria-label="Navegación principal">
+        <button class="active" data-tab="overview">
+          <span>01</span>Mesa de ejecución</button
+        ><button data-tab="health"><span>02</span>Monitor del sistema</button
+        ><button data-tab="plugins"><span>03</span>Estrategias</button
+        ><button data-tab="signals"><span>04</span>Señales y datos</button
+        ><button data-tab="risk"><span>05</span>Capital y riesgo</button
+        ><button data-tab="research"><span>06</span>Investigación</button
+        ><button data-tab="journal"><span>07</span>Bitácora</button
+        ><button data-tab="takeprofit"><span>08</span>Take profit lab</button
+        ><button data-tab="ultimate"><span>09</span>Ultimate research</button
+        ><button data-tab="futures"><span>10</span>Futuros y campeonato</button>
+      </nav>
+      <div class="railbottom">
+        <b>XXXUltimate</b>Protección y evidencia medibles.<br />30.3.0 · Node /
+        SQLite<br /><br /><span class="mode">ALPACA PAPER</span>
+      </div>
+    </aside>
+    <header class="topbar">
+      <div class="left">
+        <span class="mode">PAPER</span
+        ><span id="systemBadge" class="wait"
+          ><i class="dot"></i> CONECTANDO</span
+        >
+      </div>
+      <div class="right">
+        <span id="connection">Esperando lectura del servidor</span
+        ><span id="serverClock" class="mono">— UTC</span>
+      </div>
+    </header>
+    <main>
+      <div class="top">
+        <div>
+          <div class="eyebrow">Trading operations / XXX</div>
+          <h1 id="heading">Mesa de ejecución</h1>
+          <p class="sub" id="subtitle">
+            Cartera, protección y ejecución en una sola vista.
+          </p>
+        </div>
+        <div class="actions">
+          <button id="pause" data-command disabled>Pausar entradas</button
+          ><button id="resume" class="primary" data-command disabled>
+            Activar PAPER</button
+          ><button id="flatten" class="danger quiet" data-command disabled>
+            Cerrar posiciones
+          </button>
+        </div>
+      </div>
+      <div id="toast" role="status" aria-live="polite"></div>
+      <div class="banner wait" id="status">
+        Esperando estado verificado del servidor. Inicia el servicio para
+        recibir telemetría.
+      </div>
+      <section id="overview" class="tab active">
+        <div class="grid" id="metrics"></div>
+        <div class="split">
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Patrimonio observado</h2>
+              <small>Snapshots conciliados · sesión del proceso</small>
+            </div>
+            <div class="charttop">
+              <strong id="equityNow" class="mono">—</strong
+              ><span id="equityChange" class="muted"
+                >Esperando observaciones</span
+              >
+            </div>
+            <div class="chart" id="equityChart">
+              <div class="chartempty">
+                Se requieren dos snapshots del broker.
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Prioridad de salida</h2>
+              <small>Guardia independiente</small>
+            </div>
+            <div class="panelbody">
+              <div class="guardian">
+                <div class="guardianicon" aria-hidden="true">↗</div>
+                <div>
+                  <b>Take profit & protección</b>
+                  <div class="hint" id="guardianStatus">
+                    Esperando ejecución del ciclo
+                  </div>
+                </div>
+              </div>
+              <div id="profitControl"></div>
+              <p class="hint">
+                Los objetivos usan el bid observado y costes estimados. Una
+                intención de salida solo se contabiliza al recibir fills del
+                broker.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Motores por activo</h2>
+            <small>Sesión y cobertura de datos verificadas por separado</small>
+          </div>
+          <div class="grid" id="books"></div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Posiciones y captura de beneficio</h2>
+            <small id="positionCount">—</small>
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Activo / estrategia</th>
+                  <th>Cantidad / entrada</th>
+                  <th>Bid / P&amp;L abierto¹</th>
+                  <th>TP1 / TP2²</th>
+                  <th>Stop / vencimiento</th>
+                  <th>Protección confirmada</th>
+                </tr>
+              </thead>
+              <tbody id="positions">
+                <tr>
+                  <td colspan="6" class="empty">Sin lectura del servidor.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="hint">
+            ¹ Marcado al bid; bruto, sin comisiones. ² Objetivos con fricción
+            estimada; no son órdenes limit garantizadas.
+          </p>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Ciclos independientes</h2>
+            <small
+              >Última finalización efectiva, no un temporizador visual</small
+            >
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Función</th>
+                  <th>Intervalo</th>
+                  <th>Último éxito / duración</th>
+                  <th>Completados / errores</th>
+                  <th>Alive observado</th>
+                </tr>
+              </thead>
+              <tbody id="lanes"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="takeprofit" class="tab">
+        <div class="banner wait" id="exitResearchStatus">
+          Esperando evidencia del servidor.
+        </div>
+        <div class="grid" id="tpMetrics"></div>
+        <div class="split section">
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Política para nuevas posiciones</h2>
+              <small id="exitProfileCurrent">Sin lectura</small>
+            </div>
+            <div class="panelbody">
+              <label
+                >Perfil de salida<select
+                  id="exitProfileSelect"
+                  data-command
+                  disabled
+                >
+                  <option value="BASELINE_30_1">Referencia 30.1</option>
+                  <option value="TREND_RUNNER">
+                    Trend runner · experimental
+                  </option>
+                  <option value="REGIME_ADAPTIVE">
+                    Régimen al entrar · experimental
+                  </option>
+                </select></label
+              >
+              <label class="checklabel"
+                ><input
+                  type="checkbox"
+                  id="exitProfileAck"
+                  data-command
+                  disabled
+                />Entiendo que las variantes no superaron la validación y su uso
+                es experimental en PAPER.</label
+              >
+              <button id="applyExitProfile" data-command disabled>
+                Aplicar a nuevas posiciones
+              </button>
+              <p class="hint">
+                Las posiciones abiertas conservan su política congelada. El
+                riesgo y el plazo máximo siguen sujetos a sus límites.
+              </p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Latencia medida</h2>
+              <small>Solo órdenes observadas</small>
+            </div>
+            <div class="panelbody" id="tpLatency">Sin muestras recibidas.</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Planes de salida persistentes</h2>
+            <small
+              >Stop urgente interrumpe parciales; cancelar requiere
+              confirmación</small
+            >
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Activo / perfil</th>
+                  <th>Stop calculado / confirmado</th>
+                  <th>Cobertura</th>
+                  <th>Plan / cantidad restante</th>
+                  <th>Precio mínimo / detectado</th>
+                </tr>
+              </thead>
+              <tbody id="tpPlans"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Flujos de ejecución</h2>
+            <small
+              >Los eventos despiertan la guardia; REST confirma
+              inventario</small
+            >
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Conexión</th>
+                  <th>Estado real</th>
+                  <th>Último evento / edad</th>
+                  <th>Símbolos / errores</th>
+                </tr>
+              </thead>
+              <tbody id="tpStreams"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Walk-forward registrado</h2>
+            <button id="downloadWf" data-command disabled>
+              Descargar evidencia
+            </button>
+          </div>
+          <p class="hint" id="wfScope">Sin informe recibido.</p>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Política</th>
+                  <th>OOS / operaciones</th>
+                  <th>Holdout / operaciones</th>
+                  <th>Sharpe HAC / DD OOS</th>
+                  <th>Resultado</th>
+                </tr>
+              </thead>
+              <tbody id="wfRows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel section">
+          <div class="panelhead">
+            <h2>Costes observados y estimados</h2>
+            <small id="feeStatus">Sin lectura</small>
+          </div>
+          <div class="panelbody" id="feeEvidence">
+            Esperando actividades reales del broker.
+          </div>
+        </div>
+      </section>
+      <section id="ultimate" class="tab">
+        <div class="banner wait" id="ultimateHeadline">
+          Esperando registro de experimentos.
+        </div>
+        <div class="split">
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Prerregistro</h2>
+              <small>Presupuesto acumulado</small>
+            </div>
+            <div class="panelbody">
+              <label for="ultimateKind">Universo de estudio</label>
+              <select id="ultimateKind">
+                <option value="FUTURES">Futuros MES y MNQ</option>
+                <option value="ALPACA_PROXY">Proxies SPY y XLK</option>
+              </select>
+              <p class="hint">
+                Tres hipótesis × tres salidas por activo. El protocolo queda
+                congelado antes de importar y ejecutar.
+              </p>
+              <label for="ultimateProtocol"
+                >Protocolo JSON editable antes del registro</label
+              >
+              <textarea
+                id="ultimateProtocol"
+                rows="12"
+                aria-label="Protocolo Ultimate"
+              ></textarea>
+              <button
+                id="ultimateRegister"
+                class="primary"
+                data-command
+                disabled
+              >
+                Registrar experimento
+              </button>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Datos y ejecución</h2>
+              <small id="ultimateBudget">Sin lectura</small>
+            </div>
+            <div class="panelbody">
+              <label for="ultimateTrial">Experimento registrado</label
+              ><select id="ultimateTrial">
+                <option value="">Sin experimentos</option>
+              </select>
+              <label for="ultimateData">Dataset observado JSON</label
+              ><input
+                id="ultimateData"
+                type="file"
+                accept="application/json,.json"
+                disabled
+              />
+              <p class="hint">
+                Valida OHLCV, sesiones, disponibilidad causal, contratos y
+                hashes. Los datos importados conservan su nivel de procedencia
+                declarado.
+              </p>
+              <div class="actions">
+                <button id="ultimateRun" data-command disabled>
+                  Ejecutar estudio congelado</button
+                ><button id="ultimateExport" data-command disabled>
+                  Exportar evidencia
+                </button>
+              </div>
+              <div id="ultimateDetail" class="hint">
+                Sin experimento seleccionado.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel section">
+          <div class="panelhead">
+            <h2>Resultados y criterios de avance</h2>
+            <small id="ultimateReportSource">Sin informe</small>
+          </div>
+          <div class="panelbody">
+            <p class="hint" id="ultimateReportScope">
+              Las oportunidades normalizadas y la cartera financiada se
+              presentan por separado.
+            </p>
+            <div class="table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Hipótesis y salida</th>
+                    <th>Campañas OOS</th>
+                    <th>Expectativa R</th>
+                    <th>LCB diario</th>
+                    <th>DSR</th>
+                    <th>Holdout R</th>
+                    <th>Criterios</th>
+                  </tr>
+                </thead>
+                <tbody id="ultimateResults"></tbody>
+              </table>
+            </div>
+            <div id="ultimatePortfolio"></div>
+            <details>
+              <summary>Ventanas, frecuencias y límites</summary>
+              <pre id="ultimateDiagnostics"></pre>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section id="futures" class="tab">
+        <div class="banner wait" id="futuresHeadline">
+          Esperando estado de futuros.
+        </div>
+        <div class="grid" id="futuresHealth"></div>
+        <div class="panel section">
+          <div class="panelhead">
+            <h2>Universo y contratos</h2>
+            <small>Margen vigente del broker</small>
+          </div>
+          <div class="panelbody">
+            <div id="futuresCatalog"></div>
+            <div class="table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Contrato</th>
+                    <th>Bid / ask</th>
+                    <th>Edad</th>
+                    <th>Margen inicial</th>
+                    <th>Último día</th>
+                  </tr>
+                </thead>
+                <tbody id="futuresContracts"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="split section">
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Validar bracket PAPER</h2>
+              <small>El cálculo no envía órdenes</small>
+            </div>
+            <div class="panelbody">
+              <label for="futuresSymbol">Contrato configurado</label
+              ><select id="futuresSymbol">
+                <option value="">Sin contratos configurados</option>
+              </select>
+              <label for="futuresSide">Dirección</label
+              ><select id="futuresSide">
+                <option value="BUY">Compra</option>
+                <option value="SELL">Venta</option>
+              </select>
+              <label for="futuresStop">Stop</label
+              ><input id="futuresStop" type="number" step="any" />
+              <label for="futuresTarget">Take profit</label
+              ><input id="futuresTarget" type="number" step="any" />
+              <button id="futuresPlan" data-command disabled>
+                Calcular riesgo y contratos
+              </button>
+              <pre id="futuresPlanResult">Sin cálculo.</pre>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Posiciones y órdenes observadas</h2>
+              <small id="futuresAccountTime">Sin conciliación</small>
+            </div>
+            <div class="panelbody">
+              <pre id="futuresInventory"></pre>
+              <p class="hint">
+                El trailing nativo no está soportado por esta API. El conector
+                utiliza brackets fijos; el envío PAPER requiere habilitación
+                explícita del servidor. La inscripción y la ejecución
+                autenticada se verifican con el broker.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="health" class="tab">
+        <div class="panel">
+          <div class="panelbody healthstrip">
+            <div>
+              <h2 id="healthHeadline">Esperando telemetría</h2>
+              <p class="sub" id="healthSummary">Sin muestras recibidas</p>
+            </div>
+            <div class="statmini" id="processStats"></div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Funciones y dependencias</h2>
+            <small>ALIVE requiere una ejecución terminada</small>
+          </div>
+          <div class="monitorgrid" id="services"></div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Validadores de contratos core</h2>
+            <small id="validatorCount">—</small>
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Contrato</th>
+                  <th>Resultado</th>
+                  <th>Aprobadas / fallidas</th>
+                  <th>Último éxito</th>
+                  <th>Duración / error</th>
+                </tr>
+              </thead>
+              <tbody id="validators"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="section">
+          <div class="sectionhead">
+            <h2>Transporte Alpaca</h2>
+            <small id="brokerStats">—</small>
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Endpoint</th>
+                  <th>Confirmadas / intentos</th>
+                  <th>Errores</th>
+                  <th>Último éxito</th>
+                  <th>Latencia / último error</th>
+                </tr>
+              </thead>
+              <tbody id="endpoints"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="plugins" class="tab">
+        <p class="tabintro">
+          Las estrategias compiten por señales dentro de los límites de la
+          cartera. Cada posición conserva la política de salida fijada en su
+          entrada. Los selectores Ridge esperan un modelo validado e instalado.
+        </p>
+        <div class="actions">
+          <button id="savePlugins" class="primary" data-command>
+            Guardar selección</button
+          ><span class="hint" id="pluginCount"></span>
+        </div>
+        <input
+          id="pluginSearch"
+          class="search"
+          type="search"
+          placeholder="Buscar por estrategia, familia o clase de activo"
+          aria-label="Filtrar estrategias"
+        />
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Selección</th>
+                <th>Estrategia</th>
+                <th>Activo</th>
+                <th>Familia</th>
+                <th>Integración / modelo</th>
+              </tr>
+            </thead>
+            <tbody id="pluginRows"></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="signals" class="tab">
+        <p class="tabintro">
+          Cada señal necesita cotizaciones vigentes, sesión habilitada, permisos
+          y presupuesto de riesgo. El diagnóstico muestra el motivo de espera o
+          rechazo.
+        </p>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Activo</th>
+                <th>Estrategia</th>
+                <th>Estado</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+            <tbody id="signalRows"></tbody>
+          </table>
+        </div>
+        <details open>
+          <summary>Incidencias de datos</summary>
+          <pre id="marketErrors"></pre>
+        </details>
+      </section>
+      <section id="risk" class="tab">
+        <div class="banner">
+          Orden de autoridad: conciliar → proteger y realizar beneficio →
+          evaluar entradas. Las opciones compradas reservan la prima completa
+          como pérdida posible.
+        </div>
+        <div class="riskcards" id="riskCards"></div>
+        <details>
+          <summary>Configuración efectiva de riesgo y universo</summary>
+          <pre id="riskJson"></pre>
+        </details>
+      </section>
+      <section id="research" class="tab">
+        <div class="split">
+          <div class="panel">
+            <div class="panelhead">
+              <h2>Ridge / ciclo completo</h2>
+              <small id="selectorState">Esperando lectura</small>
+            </div>
+            <div class="panelbody stack">
+              <p class="hint">
+                Registro inmutable, captura de observaciones, ajuste Ridge,
+                validación temporal e instalación PAPER. Sin evidencia
+                suficiente, el modelo permanece en espera.
+              </p>
+              <div class="formgrid">
+                <label
+                  >Motor<select id="selectorBook">
+                    <option value="equity">Acciones</option>
+                    <option value="etf">ETF</option>
+                  </select></label
+                ><label
+                  >Coste de datos / USD<input
+                    id="dataCost"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value="0" /></label
+                ><label
+                  >Infraestructura / USD<input
+                    id="infraCost"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value="0" /></label
+                ><label class="full checklabel"
+                  ><input type="checkbox" id="costsConfirmed" />Confirmo estos
+                  costes del estudio</label
+                >
+              </div>
+              <button id="registerSelector" data-command>
+                Registrar experimento</button
+              ><label
+                >Experimento<select id="trialSelect">
+                  <option value="">Registra un experimento</option>
+                </select></label
+              >
+              <div id="selectorDetail" class="selectorstatus"></div>
+              <label
+                >Histórico observado JSON<input
+                  type="file"
+                  id="selectorFile"
+                  accept="application/json,.json"
+              /></label>
+              <div class="actions">
+                <button id="runSelector" class="primary" data-command>
+                  Validar modelo</button
+                ><button id="diagnoseSelector" data-command>Diagnóstico</button
+                ><button id="exportSelector" data-command>Exportar datos</button
+                ><button id="retireSelector" class="quiet" data-command>
+                  Retirar
+                </button>
+              </div>
+              <label
+                >Confirmación de instalación<input
+                  id="installConfirmation"
+                  autocomplete="off"
+                  placeholder="INSTALAR SELECTOR PAPER"
+              /></label>
+              <div class="actions">
+                <button id="installSelector" data-command>
+                  Instalar modelo aceptado</button
+                ><button id="revokeSelector" class="danger quiet" data-command>
+                  Revocar modelo del motor
+                </button>
+              </div>
+              <p class="hint">
+                Se exigen 384 sesiones completas, 1.000 trayectorias y 63
+                sesiones prospectivas capturadas por el servidor después del
+                registro. Importar datos no acredita por sí solo el holdout.
+                Instalar no activa entradas. Analizar un holdout prospectivo
+                completo consume esa ventana, también en diagnóstico.
+              </p>
+            </div>
+          </div>
+          <div class="stack">
+            <div class="panel">
+              <div class="panelhead">
+                <h2>Observación prospectiva</h2>
+                <small>Alpaca → SQLite</small>
+              </div>
+              <div class="panelbody" id="selectorCapture"></div>
+            </div>
+            <div class="panel">
+              <div class="panelhead">
+                <h2>Investigación / War Room</h2>
+                <small>Proceso de cálculo separado</small>
+              </div>
+              <div class="panelbody stack">
+                <div class="actions">
+                  <button id="pauseResearch" data-command>
+                    Pausar investigación</button
+                  ><button id="resumeResearch" data-command>Reanudar</button>
+                </div>
+                <label
+                  >Solicitud de estudio JSON<input
+                    type="file"
+                    id="researchFile"
+                    accept="application/json,.json"
+                /></label>
+                <pre id="researchJson"></pre>
+                <p class="hint">
+                  Presupuesto finito y tiempo máximo de cálculo. Los replays
+                  estiman resultados; los resultados aceptados no demuestran
+                  beneficios futuros.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="journal" class="tab">
+        <div class="sectionhead">
+          <div>
+            <h2>Registro de ejecución</h2>
+            <p class="sub">
+              Fills y eventos recibidos; comisiones pendientes de conciliación
+              final.
+            </p>
+          </div>
+          <button id="export" data-command>Exportar evidencia</button>
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Evento</th>
+                <th>Activo / acción</th>
+                <th>Evidencia</th>
+              </tr>
+            </thead>
+            <tbody id="eventRows"></tbody>
+          </table>
+        </div>
+        <details>
+          <summary>JSON de eventos recientes</summary>
+          <pre id="events"></pre>
+        </details>
+      </section>
+      <footer>
+        <span
+          >HARPOON XXXUltimate / 30.3.0 · Research and execution evidence</span
+        ><span id="sampleFooter"
+          >Sin muestra verificada · PAPER usa fondos virtuales</span
+        >
+      </footer>
+      <noscript
+        ><p class="noscript">
+          JavaScript es necesario para consultar la telemetría y enviar
+          acciones.
+        </p></noscript
+      >
+    </main>
+    <script>
+      "use strict";
+      let state = null,
+        dirty = false,
+        exitProfileDirty = false,
+        selection = new Set(),
+        lastRead = 0,
+        serverOffset = 0,
+        refreshBusy = false;
+      const $ = (id) => document.getElementById(id),
+        finite = (x) =>
+          x !== null &&
+          x !== undefined &&
+          x !== "" &&
+          Number.isFinite(Number(x)),
+        num = (x, d = 2) =>
+          finite(x)
+            ? Number(x).toLocaleString("es-MX", { maximumFractionDigits: d })
+            : "—",
+        money = (x) =>
+          finite(x)
+            ? Number(x).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })
+            : "—",
+        esc = (x) =>
+          String(x ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          ),
+        time = (x) =>
+          x
+            ? new Date(x).toLocaleTimeString("es-MX", {
+                hour12: false,
+                timeZone: "UTC",
+              })
+            : "Sin ejecución",
+        age = (x) =>
+          !finite(x)
+            ? "Sin muestra"
+            : Number(x) < 1000
+              ? num(x, 0) + " ms"
+              : Number(x) < 60000
+                ? num(x / 1000, 1) + " s"
+                : num(x / 60000, 1) + " min",
+        tone = (x) =>
+          [
+            "ALIVE",
+            "VALIDATED",
+            "READY_TO_INSTALL",
+            "INSTALLED",
+            "CONFIRMED",
+          ].includes(x)
+            ? "good"
+            : ["ERROR", "STALLED", "DISCONNECTED"].includes(x)
+              ? "bad"
+              : "wait",
+        pill = (x, label = x) =>
+          '<span class="pill ' +
+          tone(x) +
+          '"><i class="dot"></i>' +
+          esc(label) +
+          "</span>",
+        kv = (k, v) =>
+          '<div class="kv"><span>' + esc(k) + "</span><b>" + v + "</b></div>";
+      function toast(s) {
+        $("toast").textContent = s;
+      }
+      function commands(enabled) {
+        document
+          .querySelectorAll(
+            "[data-command],#researchFile,#selectorFile,#ultimateData",
+          )
+          .forEach((b) => (b.disabled = !enabled));
+      }
+      async function api(path, body) {
+        const controller = new AbortController(),
+          timer = setTimeout(() => controller.abort(), 8000);
+        try {
+          const r = await fetch(path, {
+            cache: "no-store",
+            signal: controller.signal,
+            ...(body
+              ? {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-Harpoon-Action": "1",
+                  },
+                  body: JSON.stringify(body),
+                }
+              : {}),
+          });
+          const x = await r.json();
+          if (!r.ok) throw Error(x.error || "HTTP " + r.status);
+          return x;
+        } finally {
+          clearTimeout(timer);
+        }
+      }
+      async function action(a, extra = {}) {
+        try {
+          await api("/v1/control", { action: a, ...extra });
+          toast("Acción guardada: " + a);
+          await refresh();
+          return true;
+        } catch (e) {
+          toast(e.message);
+          return false;
+        }
+      }
+      function download(value, name) {
+        const a = document.createElement("a"),
+          url = URL.createObjectURL(
+            new Blob([JSON.stringify(value, null, 2)], {
+              type: "application/json",
+            }),
+          );
+        a.href = url;
+        a.download = name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+      function disconnect(reason) {
+        commands(false);
+        $("systemBadge").className = "bad";
+        $("systemBadge").textContent = "● DISCONNECTED";
+        $("connection").textContent = "Sin conexión con el servidor XXX";
+        $("status").textContent =
+          "SIN CONEXIÓN · estado actual sin verificar; los valores visibles pertenecen a la última lectura";
+        $("status").className = "banner bad";
+        $("healthHeadline").textContent = "DISCONNECTED · lectura vencida";
+        $("healthHeadline").className = "bad";
+        $("ultimateHeadline").textContent =
+          "DISCONNECTED · registro sin lectura vigente";
+        $("futuresHeadline").textContent =
+          "DISCONNECTED · futuros sin lectura vigente";
+        document
+          .querySelectorAll(
+            "#services .pill, #guardianStatus .pill, #books .pill, #positions .pill, #lanes .pill, #tpPlans .pill, #tpStreams .pill, #futuresHealth .pill",
+          )
+          .forEach((b) => {
+            b.className = "pill bad";
+            b.textContent = "NO VERIFICADO";
+          });
+        if (reason) toast(reason);
+      }
+      function renderPlugins() {
+        if (!state) return;
+        const q = $("pluginSearch").value.toLowerCase();
+        $("pluginCount").textContent =
+          state.plugins.length +
+          " registradas · " +
+          state.plugins.filter((p) => p.modelReady === false).length +
+          " esperando modelo · " +
+          selection.size +
+          " seleccionadas";
+        $("pluginRows").innerHTML = state.plugins
+          .filter((p) =>
+            (p.id + " " + p.name + " " + p.book + " " + p.family)
+              .toLowerCase()
+              .includes(q),
+          )
+          .map(
+            (p) =>
+              '<tr><td><input type="checkbox" data-plugin="' +
+              esc(p.id) +
+              '" aria-label="' +
+              esc(p.name) +
+              '" ' +
+              (selection.has(p.id) ? "checked " : "") +
+              (!p.executionAvailable ? "disabled " : "") +
+              "></td><td>" +
+              esc(p.name) +
+              "<small>" +
+              esc(p.id) +
+              "</small></td><td>" +
+              esc(p.book) +
+              "</td><td>" +
+              esc(p.family) +
+              "</td><td>" +
+              pill(
+                p.modelReady ? "CONFIRMED" : "WAIT_DATA",
+                p.modelReady ? "CONECTADO" : "ESPERA MODELO",
+              ) +
+              "<small>" +
+              esc(p.version) +
+              "</small></td></tr>",
+          )
+          .join("");
+      }
+      function chart(history) {
+        const rows = history.filter((r) => finite(r.equity) && finite(r.at));
+        $("equityNow").textContent = money(state.account.equity);
+        if (rows.length < 2) {
+          $("equityChart").innerHTML =
+            '<div class="chartempty">Esperando dos snapshots conciliados del broker.<br>La curva comienza con observaciones del proceso.</div>';
+          return;
+        }
+        const values = rows.map((r) => Number(r.equity)),
+          first = values[0],
+          last = values.at(-1),
+          diff = last - first;
+        $("equityChange").textContent =
+          (diff >= 0 ? "+" : "") +
+          money(diff) +
+          " / " +
+          num((diff / first) * 100) +
+          "% desde " +
+          time(rows[0].at);
+        $("equityChange").className =
+          diff > 0 ? "good" : diff < 0 ? "bad" : "muted";
+        const low = Math.min(...values),
+          high = Math.max(...values),
+          pad = Math.max((high - low) * 0.15, Math.abs(first) * 0.0001, 1),
+          min = low - pad,
+          max = high + pad,
+          start = rows[0].at,
+          end = rows.at(-1).at,
+          points = rows.map((r) => [
+            48 + ((r.at - start) / Math.max(1, end - start)) * 690,
+            18 + ((max - r.equity) / (max - min)) * 130,
+          ]),
+          line = points
+            .map(([x, y]) => x.toFixed(2) + "," + y.toFixed(2))
+            .join(" ");
+        $("equityChart").innerHTML =
+          '<svg viewBox="0 0 760 185" role="img" aria-label="Patrimonio observado durante el proceso">' +
+          [0, 0.5, 1]
+            .map(
+              (v) =>
+                '<line class="chartgrid" x1="48" x2="738" y1="' +
+                (18 + 130 * v) +
+                '" y2="' +
+                (18 + 130 * v) +
+                '"/><text class="charttext" x="2" y="' +
+                (21 + 130 * v) +
+                '">' +
+                esc(num(max - (max - min) * v, 0)) +
+                "</text>",
+            )
+            .join("") +
+          '<polygon class="chartarea" points="48,149 ' +
+          line +
+          ' 738,149"/><polyline class="chartline" points="' +
+          line +
+          '"/><text class="charttext" x="48" y="178">' +
+          esc(time(start)) +
+          '</text><text class="charttext" x="738" y="178" text-anchor="end">' +
+          esc(time(end)) +
+          "</text></svg>";
+      }
+      function renderHealth(s) {
+        const h = s.health,
+          p = h.process;
+        $("healthHeadline").textContent = h.status + " · telemetría observada";
+        $("healthHeadline").className = tone(h.status);
+        $("healthSummary").textContent =
+          "Muestra #" +
+          h.sequence +
+          " · " +
+          time(h.sampledAt) +
+          " · " +
+          h.components.filter((c) => c.state === "ALIVE").length +
+          " componentes ALIVE / " +
+          h.components.length;
+        $("processStats").innerHTML = [
+          ["CPU medida", num(p.cpuPercent, 1) + "%"],
+          ["Memoria RSS", num(p.rssBytes / 1048576, 1) + " MB"],
+          [
+            "Event loop p95",
+            finite(p.eventLoopP95Ms)
+              ? num(p.eventLoopP95Ms, 1) + " ms"
+              : "Sin muestra",
+          ],
+          ["Uptime", age(p.uptimeSeconds * 1000)],
+        ]
+          .map(
+            ([k, v]) =>
+              '<div><b class="mono">' +
+              esc(v) +
+              "</b><span>" +
+              k +
+              "</span></div>",
+          )
+          .join("");
+        $("services").innerHTML = h.components
+          .map(
+            (c) =>
+              '<article class="card service"><div class="servicehead"><b>' +
+              esc(c.label) +
+              "</b>" +
+              pill(c.state) +
+              "</div><p>" +
+              esc(c.detail || "Esperando resultado") +
+              '</p><div class="servicefooter"><span>' +
+              time(c.lastSuccess) +
+              "</span><span>" +
+              age(c.ageMs) +
+              "</span></div></article>",
+          )
+          .join("");
+        $("validatorCount").textContent =
+          s.validators.reduce((n, v) => n + v.passed, 0) +
+          " contratos aprobados · " +
+          s.validators.reduce((n, v) => n + v.failed, 0) +
+          " rechazos acumulados";
+        $("validators").innerHTML = s.validators
+          .map(
+            (v) =>
+              '<tr><td class="mono">' +
+              esc(v.name) +
+              "</td><td>" +
+              pill(v.status) +
+              "</td><td>" +
+              v.passed +
+              " / " +
+              v.failed +
+              '</td><td class="mono">' +
+              time(v.lastSuccess) +
+              '</td><td class="wrap">' +
+              num(v.durationMs, 3) +
+              " ms" +
+              (v.lastError
+                ? '<small class="bad">' + esc(v.lastError) + "</small>"
+                : "") +
+              "</td></tr>",
+          )
+          .join("");
+        $("brokerStats").textContent =
+          h.broker.requests +
+          " solicitudes · " +
+          h.broker.errors +
+          " errores · " +
+          h.broker.inflight +
+          " en curso · p95 " +
+          age(h.broker.latencyP95Ms);
+        $("endpoints").innerHTML = h.broker.endpoints
+          .map(
+            (r) =>
+              '<tr><td class="mono">' +
+              esc(r.endpoint) +
+              "</td><td>" +
+              r.successes +
+              " / " +
+              r.attempts +
+              "</td><td>" +
+              r.failures +
+              '</td><td class="mono">' +
+              time(r.lastSuccess) +
+              '</td><td class="wrap">' +
+              age(r.latencyMs) +
+              (r.lastError
+                ? '<small class="bad">' + esc(r.lastError) + "</small>"
+                : "") +
+              "</td></tr>",
+          )
+          .join("");
+      }
+      function renderSelector() {
+        if (!state) return;
+        const x = state.selectors,
+          id = $("trialSelect").value;
+        $("selectorState").textContent = x.status;
+        $("trialSelect").innerHTML = x.trials.length
+          ? x.trials
+              .map(
+                (t) =>
+                  '<option value="' +
+                  esc(t.id) +
+                  '">' +
+                  esc(t.book + " / " + t.id.slice(0, 8) + " / " + t.status) +
+                  "</option>",
+              )
+              .join("")
+          : '<option value="">Registra un experimento</option>';
+        if (x.trials.some((t) => t.id === id)) $("trialSelect").value = id;
+        const t = x.trials.find((t) => t.id === $("trialSelect").value);
+        $("selectorDetail").innerHTML = t
+          ? pill(t.status) +
+            "<br>Registro: " +
+            esc(new Date(t.registeredAt).toLocaleString("es-MX")) +
+            "<br>Histórico: " +
+            esc(
+              t.datasetHash ? t.datasetHash.slice(0, 16) + "…" : "No importado",
+            ) +
+            (t.report
+              ? "<br>Resultado: " +
+                esc(t.report.status) +
+                "<br>" +
+                esc(t.report.reason)
+              : "") +
+            (t.error ? '<br><span class="bad">' + esc(t.error) + "</span>" : "")
+          : "El registro fija la receta y comienza la captura prospectiva durante la sesión.";
+        const connected = Date.now() - lastRead < 8000,
+          busy =
+            t &&
+            ["RUNNING", "QUEUED", "INSTALLED", "RETIRED"].includes(t.status);
+        for (const id of ["runSelector", "diagnoseSelector", "retireSelector"])
+          $(id).disabled = !connected || !t || busy;
+        $("exportSelector").disabled = !connected || !t;
+        $("selectorFile").disabled = !connected || !t || busy;
+        $("installSelector").disabled =
+          !connected || t?.status !== "READY_TO_INSTALL";
+        $("selectorCapture").innerHTML =
+          kv("Lotes de cotizaciones", num(x.observedQuoteBatches, 0)) +
+          kv("Muestras de características", num(x.capturedSamples, 0)) +
+          kv("Sesiones observadas", num(x.capturedSessions, 0)) +
+          kv("Última captura", time(x.lastCapture)) +
+          kv("Modelos instalados", num(x.models.length, 0)) +
+          '<p class="hint">' +
+          esc(
+            x.lastError ||
+              "La captura utiliza cotizaciones recibidas; las sesiones incompletas no acreditan el holdout.",
+          ) +
+          "</p>" +
+          x.models
+            .map(
+              (m) =>
+                '<p class="hint">' +
+                esc(m.book) +
+                " · " +
+                m.n +
+                " etiquetas · válido hasta " +
+                esc(new Date(m.validUntil).toLocaleDateString("es-MX")) +
+                "</p>",
+            )
+            .join("");
+      }
+      function renderTakeProfit(s) {
+        const m = s.executionMetrics,
+          r = s.exitResearch,
+          fees = s.fees;
+        if (!m || !r || !fees)
+          throw Error("Contrato de métricas de salida ausente");
+        $("tpMetrics").innerHTML = [
+          [
+            "Realizado bruto",
+            money(m.realizedGrossUsd),
+            "Fills confirmados del broker",
+          ],
+          [
+            "Neto estimado",
+            money(m.estimatedNetUsd),
+            "Comisiones estimadas: " + money(m.estimatedFeesUsd),
+          ],
+          [
+            "Giveback observado",
+            money(m.closedGrossGivebackUsd),
+            "Desde el pico bruto observado · campañas cerradas",
+          ],
+          [
+            "Sin cobertura observada",
+            age(m.uncoveredObservedMs),
+            "Intervalos muestreados por la guardia",
+          ],
+        ]
+          .map(
+            ([k, v, d]) =>
+              '<div class="card"><h3>' +
+              esc(k) +
+              '</h3><strong class="mono">' +
+              esc(v) +
+              "</strong><small>" +
+              esc(d) +
+              "</small></div>",
+          )
+          .join("");
+        $("exitProfileCurrent").textContent = s.exitProfile;
+        if (!exitProfileDirty) $("exitProfileSelect").value = s.exitProfile;
+        $("tpLatency").innerHTML = Object.entries(m.latency)
+          .map(([k, v]) =>
+            kv(
+              {
+                quoteToDecision: "Cotización → decisión",
+                decisionToAck: "Decisión → ACK",
+                submitToAck: "Envío → ACK",
+                ackToFillObservation: "ACK → fill observado",
+              }[k],
+              esc(age(v.p95Ms)) +
+                " <small>p95 · " +
+                v.samples +
+                " muestras</small>",
+            ),
+          )
+          .join("");
+        $("tpPlans").innerHTML = s.positions.length
+          ? s.positions
+              .map((c) => {
+                const p = c.exitPlan,
+                  ps = c.protectionState;
+                return (
+                  "<tr><td><b>" +
+                  esc(c.symbol) +
+                  "</b><small>" +
+                  esc(c.exitProfile || "BASELINE_30_1") +
+                  " · " +
+                  esc(c.exitRegime || "BASELINE") +
+                  '</small></td><td class="mono">' +
+                  money(ps.desiredStop) +
+                  " / " +
+                  money(ps.confirmedStop) +
+                  "<small>Deriva: " +
+                  money(ps.drift) +
+                  "</small></td><td>" +
+                  pill(
+                    ps.aligned ? "CONFIRMED" : "WAITING",
+                    ps.aligned
+                      ? "ALINEADA"
+                      : ps.quantityCovered
+                        ? "PISO PENDIENTE"
+                        : "COBERTURA PENDIENTE",
+                  ) +
+                  "<small>" +
+                  num(ps.covered, 8) +
+                  " / " +
+                  num(ps.held, 8) +
+                  "</small></td><td>" +
+                  esc(p ? p.kind + " · " + p.status : "Sin plan pendiente") +
+                  "<small>" +
+                  (p ? num(Math.max(0, p.targetSold - c.fills.sold), 8) : "") +
+                  '</small></td><td class="mono">' +
+                  (p && finite(p.minimumPrice)
+                    ? money(p.minimumPrice)
+                    : "Según tipo de salida") +
+                  "<small>" +
+                  (p ? time(p.detectedAt) : "") +
+                  "</small></td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="5" class="empty">Sin posiciones. Los planes aparecen cuando una salida es detectada por la guardia.</td></tr>';
+        const channels = s.streams.channels;
+        $("tpStreams").innerHTML = channels.length
+          ? channels
+              .map(
+                (c) =>
+                  "<tr><td>" +
+                  esc(c.name) +
+                  "</td><td>" +
+                  pill(c.state) +
+                  "<small>" +
+                  esc(c.error) +
+                  "</small></td><td>" +
+                  time(c.lastEventAt) +
+                  "<small>" +
+                  age(c.eventAgeMs) +
+                  "</small></td><td>" +
+                  c.symbols +
+                  " / " +
+                  c.errors +
+                  "</td></tr>",
+              )
+              .join("")
+          : '<tr><td colspan="4" class="empty">' +
+            (s.streams.enabled
+              ? "Sin conexión de flujo iniciada. El servicio requiere claves PAPER válidas."
+              : "Flujos desactivados en configuración.") +
+            " El sondeo REST mantiene su ciclo independiente.</td></tr>";
+        if (r.schema === "HARPOON-WF-REPORT-32-1") {
+          const accepted = Object.values(r.gates).some((g) => g.passed);
+          $("exitResearchStatus").className =
+            "banner " + (accepted ? "good" : "wait");
+          $("exitResearchStatus").textContent = accepted
+            ? "Candidato de investigación detectado · requiere validación prospectiva de ejecución."
+            : "SIN CANDIDATO VALIDADO · evidencia insuficiente y sin ventaja robusta. Referencia conservada; rentabilidad no demostrada.";
+          $("wfScope").textContent =
+            r.windows.folds +
+            " folds de " +
+            r.windows.testSessionsPerFold +
+            " sesiones · purga " +
+            r.windows.purgeHours +
+            " h · embargo " +
+            r.windows.embargoSessions +
+            " sesiones · holdout " +
+            r.windows.holdoutFrom +
+            " a " +
+            r.windows.holdoutThrough +
+            ". Comparación de oportunidades a entradas y riesgo fijos. Barras observadas de Alpaca; ejecuciones y costes modelados, no rentabilidad de una cuenta. Opciones y cripto con huecos no quedan validadas por este informe.";
+          $("wfRows").innerHTML = Object.entries(r.tables)
+            .map(
+              ([id, t]) =>
+                "<tr><td>" +
+                esc(id) +
+                '</td><td class="mono">' +
+                money(t.oos.netUsd) +
+                "<small>" +
+                t.oos.trades +
+                ' operaciones comparables</small></td><td class="mono">' +
+                money(t.holdout.netUsd) +
+                "<small>" +
+                t.holdout.trades +
+                ' operaciones comparables</small></td><td class="mono">' +
+                num(t.oos.sharpeHac) +
+                " / " +
+                num(t.oos.maxDrawdownDaily * 100) +
+                "%</td><td>" +
+                pill(
+                  r.gates[id]?.passed ? "VALIDATED" : "WAITING",
+                  id === "BASELINE_30_1"
+                    ? "REFERENCIA"
+                    : r.gates[id]?.passed
+                      ? "SOLO INVESTIGACIÓN"
+                      : "RECHAZADA / SIN EVIDENCIA",
+                ) +
+                "</td></tr>",
+            )
+            .join("");
+        } else {
+          $("exitResearchStatus").textContent =
+            "Informe no disponible: " + (r.error || r.status);
+          $("wfRows").innerHTML =
+            '<tr><td colspan="5" class="empty">No se cargó un informe verificable.</td></tr>';
+        }
+        $("feeStatus").textContent =
+          fees.status + " · " + time(fees.lastSuccess);
+        $("feeEvidence").innerHTML =
+          kv("Cargos USD reportados", money(fees.reportedUsdFees)) +
+          kv(
+            "Cargos sin valoración USD",
+            num(fees.unpricedFees?.length ?? null, 0),
+          ) +
+          kv(
+            "Cobertura total de costes",
+            fees.complete ? "Confirmada" : "No certificada",
+          ) +
+          '<p class="hint">Los fills incluyen el precio ejecutado: no se descuenta deslizamiento otra vez. El neto estimado y las actividades reportadas se presentan con su propia base; un cargo ausente no se interpreta como coste cero.</p>' +
+          (fees.error ? '<p class="bad">' + esc(fees.error) + "</p>" : "");
+      }
+      function renderUltimate(s) {
+        const u = s.ultimate;
+        if (!u) return;
+        const lab = u.lab,
+          f = u.futures,
+          selected = $("ultimateTrial").value;
+        $("ultimateHeadline").textContent =
+          lab.status +
+          " · " +
+          lab.spent +
+          "/" +
+          lab.budget +
+          " ensayos · promoción: " +
+          lab.promotion;
+        $("ultimateBudget").textContent =
+          "Restantes: " + (lab.budget - lab.spent);
+        $("ultimateTrial").innerHTML = lab.trials.length
+          ? lab.trials
+              .map(
+                (t) =>
+                  '<option value="' +
+                  esc(t.id) +
+                  '">' +
+                  esc(
+                    t.id.slice(0, 8) +
+                      " · " +
+                      t.protocol.kind +
+                      " · " +
+                      t.status,
+                  ) +
+                  "</option>",
+              )
+              .join("")
+          : '<option value="">Sin experimentos</option>';
+        if (lab.trials.some((t) => t.id === selected))
+          $("ultimateTrial").value = selected;
+        if (!$("ultimateProtocol").value)
+          $("ultimateProtocol").value = JSON.stringify(
+            lab.defaults[$("ultimateKind").value],
+            null,
+            2,
+          );
+        const t = lab.trials.find((t) => t.id === $("ultimateTrial").value),
+          r = t?.result || u.bundledResearch;
+        $("ultimateRun").disabled = t?.status !== "READY";
+        $("ultimateExport").disabled = !t;
+        $("ultimateData").disabled = t?.status !== "REGISTERED";
+        $("ultimateDetail").textContent = t
+          ? t.status +
+            " · intento " +
+            t.attempts +
+            " · protocolo " +
+            t.protocolHash.slice(0, 16) +
+            " · " +
+            (t.error || "Datos: " + (t.datasetHash || "pendientes"))
+          : "Sin experimento seleccionado.";
+        $("ultimateReportSource").textContent = r?.rows
+          ? r.kind +
+            " · " +
+            (t?.result ? "Experimento registrado" : "Exploración incluida")
+          : "Sin informe calculado";
+        $("ultimateReportScope").textContent = r?.rows
+          ? r.scope +
+            " · sin promoción automática · curva unitaria: oportunidades solapadas, no retorno de cuenta."
+          : "Importa datos observados y ejecuta el estudio para obtener métricas.";
+        $("ultimateResults").innerHTML =
+          r?.rows
+            ?.map(
+              (row) =>
+                "<tr><td>" +
+                esc(row.id) +
+                "</td><td>" +
+                num(row.oos.campaigns, 0) +
+                "</td><td>" +
+                num(row.oos.expectancyR, 4) +
+                "</td><td>" +
+                num(row.lower, 7) +
+                "</td><td>" +
+                num(row.dsr.value, 4) +
+                "</td><td>" +
+                num(row.holdout.expectancyR, 4) +
+                "</td><td>" +
+                pill(row.status) +
+                "<br>" +
+                esc(
+                  Object.entries(row.gates)
+                    .filter(([, pass]) => !pass)
+                    .map(([name]) => name)
+                    .join(", "),
+                ) +
+                "</td></tr>",
+            )
+            .join("") ||
+          '<tr><td colspan="7">Sin métricas observadas.</td></tr>';
+        $("ultimatePortfolio").textContent = r?.fundedPortfolio
+          ? "Cartera financiada modelada · PnL " +
+            money(r.fundedPortfolio.netUsd) +
+            " · campañas " +
+            r.fundedPortfolio.oos.campaigns +
+            " · DD " +
+            num(r.fundedPortfolio.oos.maxDrawdown * 100) +
+            "% · " +
+            JSON.stringify(r.fundedPortfolio.skipped)
+          : "Sin replay de cartera.";
+        $("ultimateDiagnostics").textContent = JSON.stringify(
+          r?.rows
+            ? {
+                windows: r.windows,
+                funnel: r.funnel,
+                excluded: r.excluded,
+                pbo: r.pbo,
+                frequencies: r.frequencyDiagnostics,
+                limitations: r.limitations,
+              }
+            : {},
+          null,
+          2,
+        );
+        $("futuresHeadline").textContent = f.configured
+          ? "IRONBEAM PAPER · cuenta …" +
+            f.accountSuffix +
+            " · " +
+            f.account.state
+          : "Futuros · NOT_CONFIGURED · configura credenciales y contratos vigentes en el servidor";
+        $("futuresHealth").innerHTML = [f.account, f.market]
+          .map(
+            (x, i) =>
+              '<div class="card"><div class="label">' +
+              (i ? "Datos y margen" : "Cuenta y órdenes") +
+              "</div><h3>" +
+              pill(x.state) +
+              "</h3><p>" +
+              esc(x.error || "Última respuesta: " + time(x.lastSuccess)) +
+              "</p></div>",
+          )
+          .join("");
+        $("futuresCatalog").textContent = Object.entries(f.catalog)
+          .map(
+            ([root, spec]) =>
+              root +
+              " · $" +
+              spec.pointValue +
+              "/punto · tick $" +
+              num(spec.tick * spec.pointValue) +
+              " · " +
+              spec.settlement,
+          )
+          .join(" | ");
+        $("futuresContracts").innerHTML =
+          f.contracts
+            .map((c) => {
+              const q = f.market.quotes.find((x) => x.symbol === c.symbol);
+              return (
+                "<tr><td>" +
+                esc(c.symbol) +
+                "</td><td>" +
+                num(q?.bid, 5) +
+                " / " +
+                num(q?.ask, 5) +
+                "</td><td>" +
+                age(q?.ageMs) +
+                "</td><td>" +
+                money(c.margin?.initialMarginLong) +
+                "</td><td>" +
+                esc(new Date(c.lastTradeAt).toISOString().slice(0, 10)) +
+                "</td></tr>"
+              );
+            })
+            .join("") ||
+          '<tr><td colspan="5">Sin contratos vigentes configurados; no se inventan vencimientos.</td></tr>';
+        const symbol = $("futuresSymbol").value;
+        $("futuresSymbol").innerHTML = f.contracts.length
+          ? f.contracts
+              .map(
+                (c) =>
+                  '<option value="' +
+                  esc(c.symbol) +
+                  '">' +
+                  esc(c.symbol) +
+                  "</option>",
+              )
+              .join("")
+          : '<option value="">Sin contratos configurados</option>';
+        if (f.contracts.some((c) => c.symbol === symbol))
+          $("futuresSymbol").value = symbol;
+        $("futuresPlan").disabled =
+          f.account.state !== "ALIVE" || f.market.state !== "ALIVE";
+        $("futuresAccountTime").textContent = time(f.account.lastSuccess);
+        $("futuresInventory").textContent = JSON.stringify(
+          { positions: f.positions, orders: f.orders, intents: f.intents },
+          null,
+          2,
+        );
+      }
+      async function ultimateAction(body) {
+        try {
+          const result = await api("/v1/ultimate", body);
+          toast("Ultimate: " + (result.status || "acción completada"));
+          await refresh();
+          return result;
+        } catch (e) {
+          toast(e.message);
+          return null;
+        }
+      }
+      function render(s) {
+        if (!s?.health || s.mode !== "paper" || !Array.isArray(s.validators))
+          throw Error("Contrato de telemetría inválido");
+        state = s;
+        lastRead = Date.now();
+        serverOffset = s.health.serverTime - lastRead;
+        commands(true);
+        if (!dirty)
+          selection = new Set(
+            s.plugins.filter((p) => p.enabled).map((p) => p.id),
+          );
+        $("systemBadge").className = tone(s.health.status);
+        $("systemBadge").textContent = "● " + s.health.status;
+        $("connection").textContent =
+          "PAPER · cuenta …" +
+          s.accountSuffix +
+          " · " +
+          (s.autopilot?.state || "") +
+          " · lectura " +
+          time(lastRead);
+        const stale = Date.now() + serverOffset - s.syncAt > 15000;
+        $("resume").disabled =
+          !s.paused ||
+          stale ||
+          s.reconciliation !== "OK" ||
+          !!s.halt ||
+          !!s.storageError;
+        $("resume").textContent = s.paused
+          ? "Reanudar PAPER"
+          : "Piloto PAPER activo";
+        $("status").textContent = s.storageError
+          ? "ERROR DE PERSISTENCIA · " + s.storageError
+          : s.halt
+            ? "LÍMITE DE RIESGO · " + s.halt
+            : s.reconciliation !== "OK"
+              ? "REVISAR CONCILIACIÓN · " + s.reconciliation
+              : stale
+                ? "CONCILIACIÓN ATRASADA · entradas bloqueadas"
+                : s.paused
+                  ? "ENTRADAS PAUSADAS · las posiciones siguen bajo gestión"
+                  : "ENTRADAS PAPER ACTIVAS · cada señal debe superar datos, sesión y riesgo";
+        $("status").className =
+          "banner " +
+          (s.storageError || s.halt || s.reconciliation !== "OK"
+            ? "bad"
+            : stale || s.paused
+              ? "wait"
+              : "good");
+        const liveQuote = (c) =>
+          c.quote &&
+          finite(c.quote.bid) &&
+          Date.now() + serverOffset - c.quote.at <= s.risk.quoteAgeMs &&
+          Date.now() + serverOffset - c.quote.received <= s.risk.quoteAgeMs;
+        const open = s.positions.reduce(
+            (n, c) =>
+              n +
+              (finite(c.quote?.bid)
+                ? (c.quote.bid - c.fills.entry) *
+                  c.quantity *
+                  c.instrument.multiplier
+                : 0),
+            0,
+          ),
+          gross = s.positions.reduce((n, c) => n + c.fills.gross, 0);
+        $("metrics").innerHTML = [
+          [
+            "Patrimonio PAPER",
+            money(s.account.equity),
+            "Snapshot conciliado del broker",
+          ],
+          [
+            "Efectivo disponible",
+            money(s.account.cash),
+            "Fondos virtuales de la cuenta",
+          ],
+          [
+            "P&L abierto al bid¹",
+            s.positions.some((c) => !liveQuote(c))
+              ? "Sin marca vigente"
+              : money(open),
+            "Posiciones gestionadas · bruto",
+          ],
+          [
+            "Órdenes pendientes",
+            num(s.orders.length, 0),
+            s.positions.length + " posiciones gestionadas",
+          ],
+        ]
+          .map(
+            ([k, v, d]) =>
+              '<div class="card"><h3>' +
+              k +
+              '</h3><strong class="mono">' +
+              v +
+              "</strong><small>" +
+              d +
+              "</small></div>",
+          )
+          .join("");
+        const guardian = s.lanes.find(
+          (l) => l.name === "positions-and-take-profit",
+        );
+        $("guardianStatus").innerHTML = guardian
+          ? pill(guardian.health) +
+            " · último éxito " +
+            time(guardian.lastSuccess)
+          : "Sin ciclo registrado";
+        $("profitControl").innerHTML =
+          kv(
+            "Protecciones confirmadas",
+            s.health.protection.protected +
+              " / " +
+              s.health.protection.positions,
+          ) +
+          kv(
+            "Ciclo de salida",
+            guardian
+              ? num(guardian.durationMs, 1) +
+                  " ms / " +
+                  num(guardian.interval / 1000) +
+                  " s"
+              : "Sin muestra",
+          ) +
+          kv("Realizado bruto · campañas abiertas", money(gross)) +
+          kv(
+            "Investigación",
+            s.research.paused
+              ? "Pausada / salidas independientes"
+              : esc(s.research.status),
+          );
+        $("books").innerHTML = s.books
+          .map((b) => {
+            const d = s.health.books.find((x) => x.book === b.book);
+            return (
+              '<div class="card"><div class="bookhead"><span class="symbol">' +
+              esc(
+                {
+                  equity: "Acciones",
+                  etf: "ETF",
+                  crypto: "Cripto",
+                  options: "Opciones",
+                }[b.book],
+              ) +
+              "</span>" +
+              pill(
+                d.dataState,
+                d.dataState === "MARKET_CLOSED" ? "CERRADO" : d.dataState,
+              ) +
+              '</div><strong class="mono number">' +
+              d.fresh +
+              ' <em class="muted">/ ' +
+              d.watched +
+              "</em></strong><small>Cotizaciones vigentes · " +
+              esc(d.feed) +
+              '</small><div class="bookmeta"><span>' +
+              b.plugins +
+              " estrategias</span><span>" +
+              b.positions +
+              " posiciones</span></div></div>"
+            );
+          })
+          .join("");
+        $("positionCount").textContent =
+          s.positions.length + " campañas abiertas";
+        $("positions").innerHTML = s.positions.length
+          ? s.positions
+              .map((c) => {
+                const friction =
+                    (((c.book === "crypto" ? 2 * s.risk.cryptoFeeBps : 0) +
+                      2 * s.risk.slippageBps) /
+                      10000) *
+                      c.fills.entry +
+                    (c.book === "options"
+                      ? (2 * s.risk.optionsFeePerContract) /
+                        c.instrument.multiplier
+                      : 0),
+                  mark =
+                    (c.quote?.bid - c.fills.entry) *
+                    c.quantity *
+                    c.instrument.multiplier,
+                  confirmed = c.protectionState?.quantityCovered
+                    ? [c.protectionState]
+                    : [];
+                return (
+                  "<tr><td><b>" +
+                  esc(c.symbol) +
+                  "</b><small>" +
+                  esc(c.plugin) +
+                  '</small></td><td class="mono">' +
+                  num(c.quantity, 8) +
+                  "<small>" +
+                  money(c.fills.entry) +
+                  '</small></td><td class="mono">' +
+                  money(c.quote?.bid) +
+                  '<small class="' +
+                  (mark >= 0 ? "good" : "bad") +
+                  '">' +
+                  (liveQuote(c) ? money(mark) : "Cotización vencida") +
+                  '</small></td><td class="mono">' +
+                  money(c.fills.entry + friction + c.policy.tp1R * c.risk) +
+                  " / " +
+                  money(c.fills.entry + friction + c.policy.tp2R * c.risk) +
+                  "<small>" +
+                  num(c.policy.tp1R) +
+                  "R / " +
+                  num(c.policy.tp2R) +
+                  "R · vendido TP " +
+                  num(c.fills.tpSold, 8) +
+                  '</small></td><td class="mono">' +
+                  money(c.stop) +
+                  "<small>Broker: " +
+                  money(c.protectionState?.confirmedStop) +
+                  "</small><small>" +
+                  esc(
+                    c.deadline
+                      ? new Date(c.deadline).toLocaleString("es-MX")
+                      : "Sin límite observado",
+                  ) +
+                  "</small></td><td>" +
+                  pill(
+                    confirmed.length ? "CONFIRMED" : "WAITING",
+                    confirmed.length
+                      ? c.protectionState.aligned
+                        ? "CONFIRMADA"
+                        : "PISO PENDIENTE"
+                      : "PENDIENTE / SALIDA",
+                  ) +
+                  "<small>" +
+                  esc(c.protection.map((p) => p.status).join(" · ")) +
+                  "</small></td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="6" class="empty">Sin posiciones gestionadas. Los objetivos se mostrarán con la primera entrada confirmada.</td></tr>';
+        $("lanes").innerHTML = s.lanes
+          .map(
+            (l) =>
+              '<tr><td class="mono">' +
+              esc(l.name) +
+              "</td><td>" +
+              num(l.interval / 1000) +
+              ' s</td><td class="mono">' +
+              time(l.lastSuccess) +
+              "<small>" +
+              age(l.durationMs) +
+              "</small></td><td>" +
+              l.runs +
+              " / " +
+              l.failures +
+              "</td><td>" +
+              pill(l.health) +
+              (l.error
+                ? '<small class="bad">' + esc(l.error) + "</small>"
+                : "") +
+              "</td></tr>",
+          )
+          .join("");
+        $("signalRows").innerHTML = s.signals.length
+          ? s.signals
+              .map(
+                (d) =>
+                  "<tr><td>" +
+                  esc(d.symbol) +
+                  "</td><td>" +
+                  esc(d.plugin || "datos") +
+                  "</td><td>" +
+                  esc(d.status) +
+                  '</td><td class="wrap">' +
+                  esc(d.reason) +
+                  "</td></tr>",
+              )
+              .join("")
+          : '<tr><td colspan="4" class="empty">Sin evaluación de señales registrada.</td></tr>';
+        $("marketErrors").textContent = Object.keys(s.marketErrors).length
+          ? JSON.stringify(s.marketErrors, null, 2)
+          : "Sin incidencias registradas. La cobertura vigente se muestra en cada motor.";
+        $("riskJson").textContent = JSON.stringify(s.risk, null, 2);
+        const equity = Math.min(Number(s.account.equity), s.risk.capitalLimit),
+          used = s.positions.reduce(
+            (n, c) =>
+              n +
+              Math.abs(c.quantity * c.fills.entry * c.instrument.multiplier),
+            0,
+          );
+        $("riskCards").innerHTML = [
+          [
+            "Capital autorizado",
+            money(s.risk.capitalLimit),
+            "Patrimonio de referencia: " + money(equity),
+          ],
+          [
+            "Exposición / coste de entrada",
+            money(used),
+            "Límite global: " + money(equity * s.risk.totalExposure),
+          ],
+          [
+            "Riesgo por nueva entrada",
+            num(s.risk.riskFraction * 100) + "%",
+            money(equity * s.risk.riskFraction) + " como máximo",
+          ],
+          [
+            "Riesgo abierto máximo",
+            num(s.risk.openRiskFraction * 100) + "%",
+            "Opciones: prima completa",
+          ],
+          [
+            "Concentración por activo",
+            num(s.risk.assetExposure * 100) + "%",
+            "Factor: " + num(s.risk.factorExposure * 100) + "%",
+          ],
+          [
+            "Posiciones simultáneas",
+            s.positions.length + " / " + s.risk.maxPositions,
+            "Reservas de órdenes incluidas en el sizing",
+          ],
+        ]
+          .map(
+            ([k, v, d]) =>
+              '<div class="card"><h3>' +
+              k +
+              '</h3><strong class="mono">' +
+              v +
+              "</strong><small>" +
+              d +
+              "</small></div>",
+          )
+          .join("");
+        $("researchJson").textContent = JSON.stringify(s.research, null, 2);
+        $("eventRows").innerHTML = s.events.length
+          ? s.events
+              .slice()
+              .reverse()
+              .map(
+                (e) =>
+                  '<tr><td class="mono">' +
+                  time(e.at) +
+                  "</td><td>" +
+                  esc(e.kind) +
+                  "</td><td>" +
+                  esc(e.symbol || e.action || "—") +
+                  '</td><td class="wrap mono">' +
+                  esc(
+                    JSON.stringify(
+                      Object.fromEntries(
+                        Object.entries(e).filter(
+                          ([k]) =>
+                            !["at", "kind", "symbol", "action"].includes(k),
+                        ),
+                      ),
+                    ),
+                  ) +
+                  "</td></tr>",
+              )
+              .join("")
+          : '<tr><td colspan="4" class="empty">Sin eventos registrados.</td></tr>';
+        $("events").textContent = JSON.stringify(
+          s.events.slice().reverse(),
+          null,
+          2,
+        );
+        $("sampleFooter").textContent =
+          "Muestra #" +
+          s.health.sequence +
+          " · " +
+          time(s.health.sampledAt) +
+          " · PAPER / fondos virtuales";
+        chart(s.health.measuredHistory);
+        renderHealth(s);
+        renderPlugins();
+        renderSelector();
+        renderTakeProfit(s);
+        renderUltimate(s);
+      }
+      async function refresh() {
+        if (refreshBusy) return;
+        refreshBusy = true;
+        try {
+          render(await api("/v1/state"));
+        } catch (e) {
+          disconnect(
+            location.protocol === "file:"
+              ? "Inicia el servidor y abre http://127.0.0.1:10000."
+              : e.message,
+          );
+        } finally {
+          refreshBusy = false;
+        }
+      }
+      for (const b of document.querySelectorAll("[data-tab]"))
+        b.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-tab],.tab")
+            .forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          $(b.dataset.tab).classList.add("active");
+          $("heading").textContent = b.textContent
+            .replace(/^\s*\d+\s*/, "")
+            .trim();
+          $("subtitle").textContent = {
+            overview: "Cartera, protección y ejecución en una sola vista.",
+            health:
+              "Salud observada del proceso, los ciclos y sus dependencias.",
+            plugins:
+              "Un catálogo común con filtros de datos y riesgo compartidos.",
+            signals: "Evidencia de decisión y calidad de los datos.",
+            risk: "Límites efectivos para los cuatro motores.",
+            research: "Experimentos registrados y modelos sujetos a evidencia.",
+            journal: "Trazabilidad de órdenes, acciones y fills.",
+            takeprofit:
+              "Captura de beneficio, protección confirmada y evidencia fuera de muestra.",
+            ultimate:
+              "Hipótesis, validación temporal y presupuesto de experimentos.",
+            futures: "Contratos, margen y conexión PAPER observados.",
+          }[b.dataset.tab];
+        });
+      $("pause").addEventListener("click", () => action("pause"));
+      $("ultimateKind").addEventListener("change", () => {
+        if (state?.ultimate)
+          $("ultimateProtocol").value = JSON.stringify(
+            state.ultimate.lab.defaults[$("ultimateKind").value],
+            null,
+            2,
+          );
+      });
+      $("ultimateTrial").addEventListener("change", () =>
+        renderUltimate(state),
+      );
+      $("ultimateRegister").addEventListener("click", async () => {
+        try {
+          await ultimateAction({
+            action: "register",
+            protocol: JSON.parse($("ultimateProtocol").value),
+          });
+        } catch (e) {
+          toast(e.message);
+        }
+      });
+      $("ultimateData").addEventListener("change", async () => {
+        const file = $("ultimateData").files[0];
+        if (!file) return;
+        try {
+          if (file.size > 60000000) throw Error("Dataset mayor de 60 MB");
+          await ultimateAction({
+            action: "import",
+            id: $("ultimateTrial").value,
+            data: JSON.parse(await file.text()),
+          });
+        } catch (e) {
+          toast(e.message);
+        } finally {
+          $("ultimateData").value = "";
+        }
+      });
+      $("ultimateRun").addEventListener("click", () =>
+        ultimateAction({ action: "run", id: $("ultimateTrial").value }),
+      );
+      $("ultimateExport").addEventListener("click", async () => {
+        try {
+          download(
+            await api(
+              "/v1/ultimate/export?id=" +
+                encodeURIComponent($("ultimateTrial").value),
+            ),
+            "HarpoonUltimate_evidencia.json",
+          );
+        } catch (e) {
+          toast(e.message);
+        }
+      });
+      $("futuresPlan").addEventListener("click", async () => {
+        const result = await ultimateAction({
+          action: "futures-plan",
+          plan: {
+            symbol: $("futuresSymbol").value,
+            side: $("futuresSide").value,
+            stop: Number($("futuresStop").value),
+            target: Number($("futuresTarget").value),
+          },
+        });
+        if (result)
+          $("futuresPlanResult").textContent = JSON.stringify(result, null, 2);
+      });
+      $("exitProfileSelect").addEventListener("change", () => {
+        exitProfileDirty = true;
+      });
+      $("applyExitProfile").addEventListener("click", async () => {
+        if (
+          await action("exit-profile", {
+            profile: $("exitProfileSelect").value,
+            confirmation: $("exitProfileAck").checked
+              ? "EXPERIMENTAL_PAPER_ONLY"
+              : "",
+          })
+        )
+          exitProfileDirty = false;
+      });
+      $("downloadWf").addEventListener("click", async () => {
+        try {
+          download(
+            await api("/v1/exit-research"),
+            "HARPOON_XXX_walkforward.json",
+          );
+        } catch (e) {
+          toast(e.message);
+        }
+      });
+      $("resume").addEventListener("click", () => action("resume"));
+      $("flatten").addEventListener("click", () => {
+        if (
+          confirm(
+            "Solicitar cierre de todas las posiciones gestionadas en PAPER y pausar entradas. Cada cierre requiere confirmación del broker. ¿Continuar?",
+          )
+        )
+          action("flatten");
+      });
+      $("pauseResearch").addEventListener("click", () =>
+        action("research-pause", { paused: true }),
+      );
+      $("resumeResearch").addEventListener("click", () =>
+        action("research-pause", { paused: false }),
+      );
+      $("pluginSearch").addEventListener("input", renderPlugins);
+      $("pluginRows").addEventListener("change", (e) => {
+        const id = e.target.dataset.plugin;
+        if (id) {
+          dirty = true;
+          e.target.checked ? selection.add(id) : selection.delete(id);
+          renderPlugins();
+        }
+      });
+      $("savePlugins").addEventListener("click", async () => {
+        try {
+          await api("/v1/control", {
+            action: "plugins",
+            enabled: [...selection],
+          });
+          dirty = false;
+          toast("Selección guardada");
+          await refresh();
+        } catch (e) {
+          toast(e.message);
+        }
+      });
+      $("registerSelector").addEventListener("click", async () => {
+        if (
+          await action("selector-register", {
+            book: $("selectorBook").value,
+            costs: {
+              dataUsd: Number($("dataCost").value),
+              infraUsd: Number($("infraCost").value),
+              confirmed: $("costsConfirmed").checked,
+            },
+          })
+        ) {
+          $("trialSelect").value = state.selectors.trials.at(-1).id;
+          renderSelector();
+        }
+      });
+      $("trialSelect").addEventListener("change", renderSelector);
+      for (const [id, diagnostic] of [
+        ["runSelector", false],
+        ["diagnoseSelector", true],
+      ])
+        $(id).addEventListener("click", async () => {
+          try {
+            await api("/v1/research", {
+              operation: "selector",
+              trialId: $("trialSelect").value,
+              diagnostic,
+            });
+            toast("Selector en cola; las salidas continúan");
+            await refresh();
+          } catch (e) {
+            toast(e.message);
+          }
+        });
+      $("selectorFile").addEventListener("change", async (e) => {
+        try {
+          const f = e.target.files[0];
+          if (!f) return;
+          if (f.size > 63000000) throw Error("Máximo 63 MB");
+          await api("/v1/selector-data", {
+            trialId: $("trialSelect").value,
+            data: JSON.parse(await f.text()),
+          });
+          toast("Histórico validado y guardado");
+          await refresh();
+        } catch (e) {
+          toast(e.message);
+        } finally {
+          e.target.value = "";
+        }
+      });
+      $("installSelector").addEventListener("click", () =>
+        action("selector-install", {
+          trialId: $("trialSelect").value,
+          confirmation: $("installConfirmation").value,
+        }),
+      );
+      $("retireSelector").addEventListener("click", () =>
+        action("selector-retire", { trialId: $("trialSelect").value }),
+      );
+      $("revokeSelector").addEventListener("click", () =>
+        action("selector-revoke", { book: $("selectorBook").value }),
+      );
+      $("exportSelector").addEventListener("click", async () => {
+        try {
+          download(
+            await api(
+              "/v1/selector-data?trialId=" +
+                encodeURIComponent($("trialSelect").value),
+            ),
+            "HARPOON_selector_observaciones.json",
+          );
+        } catch (e) {
+          toast(e.message);
+        }
+      });
+      $("researchFile").addEventListener("change", async (e) => {
+        try {
+          const f = e.target.files[0];
+          if (!f) return;
+          if (f.size > 63000000) throw Error("Máximo 63 MB");
+          await api("/v1/research", JSON.parse(await f.text()));
+          toast("Estudio en cola; las salidas continúan");
+          await refresh();
+        } catch (e) {
+          toast(e.message);
+        } finally {
+          e.target.value = "";
+        }
+      });
+      $("export").addEventListener("click", async () => {
+        try {
+          download(await api("/v1/export"), "HARPOON_XXX_evidencia.json");
+        } catch (e) {
+          toast(e.message);
+        }
+      });
+      setInterval(() => {
+        if (lastRead) {
+          $("serverClock").textContent =
+            new Date(Date.now() + serverOffset).toISOString().slice(11, 19) +
+            " UTC";
+          if (Date.now() - lastRead > 8000) disconnect();
+        }
+      }, 500);
+      async function loop() {
+        await refresh();
+        setTimeout(loop, 2500);
+      }
+      loop();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+{
+  "scope": "TECHNICAL_READINESS_TO_EVALUATE_EXISTING_LEVEL5_GATE",
+  "grade_semantics_changed": false,
+  "financial_trial_authorized": false,
+  "deployment_authorized": false,
+  "external_independent_validation": false,
+  "requirements": [
+    {
+      "id": "C5-RISK-INTERSECTION",
+      "requirement": "La configuración normalizada mantiene todas las cotas más restrictivas del core y del coordinador; una configuración inválida no se vuelve válida al sobrescribirla.",
+      "counterexample": "bridge_limits_before.json",
+      "status": "REMEDIATED_AND_REPRODUCED",
+      "acceptance": "Las cotas fraccionales/posiciones/antigüedad usan intersección; el coste de slippage conserva el supuesto mayor; cero no se trata como ausente; invalidaciones preexistentes siguen fallando.",
+      "review_evidence": "python_cross_review.json; bridge_limits_after.json"
+    },
+    {
+      "id": "C5-CAUSAL-INFERENCE",
+      "requirement": "Modelo, características y cotizaciones corresponden a información disponible al decidir; cambio de estado durante inferencia invalida la autoridad de entrada.",
+      "verification_candidates": [
+        "quant/tests/test_fixed_predictor.py",
+        "tools/quant_bridge_test.cjs",
+        "tools/quant_svr_integration_test.cjs"
+      ],
+      "status": "REEXECUTION_REQUIRED",
+      "acceptance": "Modelos futuros, residuos futuros, dato posterior o estado contable cambiado no producen nuevas entradas."
+    },
+    {
+      "id": "C5-NET-UNITS",
+      "requirement": "El asignador utiliza cantidades, multiplicadores, costes y exposiciones coherentes, conserva inventario terminal y no asigna exposición sin presupuesto.",
+      "verification_candidates": [
+        "quant/tests/test_quant.py",
+        "quant/tests/test_economic_safety.py",
+        "tools/funded_comparison_test.cjs"
+      ],
+      "status": "CHANGED_NUMERICAL_BRANCH_REVIEWED; FULL_FINAL_REGRESSION_OWNED_BY_ROOT",
+      "acceptance": "Regresión de cantidades/unidades; beneficio bruto no reemplaza resultado neto; escenarios sintéticos conservan etiqueta.",
+      "review_evidence": "python_cross_review.json; ../quant/after.json"
+    },
+    {
+      "id": "C5-ORDER-AND-PROTECTION",
+      "requirement": "Protección y conciliación mantienen autoridad separada de investigación, inferencia y nuevas entradas; fills tardíos y parciales no desaparecen por cancelación solicitada.",
+      "verification_candidates": [
+        "tools/quant_bridge_test.cjs",
+        "tools/xxx_partial_entry_risk_test.cjs",
+        "tools/core5_runtime_test.cjs"
+      ],
+      "status": "CHANGED_BRANCHES_REVIEWED_WITH_RECORDED_TEST_EVIDENCE",
+      "acceptance": "Recorridos concretos intervenidos pasan con datos sintéticos de integración; se explicitan límites de persistencia y fallos no cubiertos.",
+      "review_evidence": "runtime_cross_review.json"
+    },
+    {
+      "id": "C5-REPRODUCIBLE-DELIVERY",
+      "requirement": "La integral incluye módulos ejecutables, contratos, fuentes, pruebas, comandos, hashes y resultados; no depende de un parche previo.",
+      "verification_candidates": [
+        "tools/integral_distribution_test.cjs",
+        "tools/verify_remediation.py"
+      ],
+      "status": "REEXECUTION_REQUIRED",
+      "acceptance": "Tipos/análisis estático y pruebas afectadas pasan; manifiesto verifica bytes; benchmark describe entorno y muestras sin extrapolar a producción."
+    }
+  ],
+  "economic_prerequisites_unchanged": [
+    "Observaciones originales causales utilizables y periodo final nuevo",
+    "Historia de cuenta y costes reconciliados del mismo periodo y cuenta",
+    "Modelos fijados y disponibles antes de decisiones",
+    "Comparación neta control/Ridge/SVR con riesgo y exposición comparables",
+    "Presupuesto de búsqueda e incertidumbre predefinidos; crecimiento neto positivo y mejora incremental suficientes",
+    "Estrés y ejecución factible con límites vigentes"
+  ],
+  "economic_acceptance": "Aplicar el gate existente. Pruebas técnicas no acreditan nivel5 económico ni rendimiento real.",
+  "current_known_economic_score": 3,
+  "current_real_performance_score": null,
+  "final_integration_gate_owner": "root"
+}

@@ -1,0 +1,86 @@
+{
+  "scope": "Synthetic direct broker arithmetic and validator checks, not a financial experiment",
+  "source_sha256": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+  "passed": 7,
+  "total": 7,
+  "tests": [
+    {
+      "id": "CASH-RESERVE-VALID",
+      "passed": true,
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "CASH-RESERVE-KNOWN-STRICTLY-BEFORE",
+      "passed": true,
+      "result": "OPERATING_RESERVE_MUST_BE_FUNDED_AND_KNOWN_BEFORE_REPLAY",
+      "error": null
+    },
+    {
+      "id": "CASH-RESERVE-COVERS-COST",
+      "passed": true,
+      "result": "OPERATING_RESERVE_INSUFFICIENT_FOR_EXTERNAL_COSTS",
+      "error": null
+    },
+    {
+      "id": "CASH-RESERVE-NAV-NOT-DEDUCTED",
+      "passed": true,
+      "result": {
+        "id": "OFFLINE-SYNTHETIC-REPLAY",
+        "status": "ACTIVE",
+        "equity": "1000",
+        "cash": "1000",
+        "buying_power": "100",
+        "non_marginable_buying_power": "100",
+        "options_buying_power": "0",
+        "options_trading_level": 0,
+        "operating_cash_reserve_usd": 900,
+        "operating_reserve_known_at": 1792078209999
+      },
+      "error": null
+    },
+    {
+      "id": "CASH-RESERVE-BUY-CANNOT-SPEND-FEE",
+      "passed": true,
+      "result": "MODELED_CAPITAL_OR_INVENTORY_EXCEEDED",
+      "error": null
+    },
+    {
+      "id": "CASH-RESERVE-BUY-EXACT-AVAILABLE",
+      "passed": true,
+      "result": {
+        "id": "OFFLINE-SYNTHETIC-REPLAY",
+        "status": "ACTIVE",
+        "equity": "999",
+        "cash": "900",
+        "buying_power": "0",
+        "non_marginable_buying_power": "0",
+        "options_buying_power": "0",
+        "options_trading_level": 0,
+        "operating_cash_reserve_usd": 900,
+        "operating_reserve_known_at": 1792078209999
+      },
+      "error": null
+    },
+    {
+      "id": "CASH-RESERVE-PROTECTIVE-EXIT-SHOWS-DEFICIT",
+      "passed": true,
+      "result": {
+        "id": "OFFLINE-SYNTHETIC-REPLAY",
+        "status": "ACTIVE",
+        "equity": "899.099",
+        "cash": "899.099",
+        "buying_power": "-0.9009999999999536",
+        "non_marginable_buying_power": "-0.9009999999999536",
+        "options_buying_power": "0",
+        "options_trading_level": 0,
+        "operating_cash_reserve_usd": 900,
+        "operating_reserve_known_at": 1792078209999
+      },
+      "error": null
+    }
+  ],
+  "external_orders": 0,
+  "production_edits": 0,
+  "new_economic_experiments": 0
+}

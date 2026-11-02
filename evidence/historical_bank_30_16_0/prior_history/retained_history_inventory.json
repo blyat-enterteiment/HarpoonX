@@ -1,0 +1,392 @@
+{
+  "schema": "HARPOON_RETAINED_HISTORY_AUDIT_1",
+  "source_root": "/workspace/scratch/4ecb05fdc50d/nivel7_completion/HARPOON_XXXUltimate_30_15_0",
+  "scope": "READ_ONLY_LOCAL_INTEGRITY_AND_RETAINED_LINEAGE_NOT_EXTERNAL_AUTHENTICATION",
+  "quant": {
+    "source": "quant/economic_experiment/study/optimizer.sqlite3",
+    "read_mode": "SQLITE_MODE_RO_IMMUTABLE_WAL_EMPTY",
+    "budget": {
+      "limit": 128,
+      "spent": 23
+    },
+    "unused_local_capacity_arithmetic": 105,
+    "capacity_is_new_authorization": false,
+    "audit_head": {
+      "sequence": 78,
+      "hash": "df39e861ed2aa086dfb80c782d7924bead338fa6dfc1a28dc202616d5c3c1208"
+    },
+    "integrity": {
+      "state": "AUDIT_CONSISTENT",
+      "holdout_rows": 3,
+      "audit_linked_holdouts": 0,
+      "legacy_holdouts": [
+        {
+          "lo": "2026-02-26",
+          "hi": "2026-04-26",
+          "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27",
+          "interval_verified": true,
+          "scope": "ALL_DOMAINS"
+        },
+        {
+          "lo": "2026-04-27",
+          "hi": "2026-06-25",
+          "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9",
+          "interval_verified": true,
+          "scope": "ALL_DOMAINS"
+        },
+        {
+          "lo": "2026-07-01",
+          "hi": "2026-10-30",
+          "campaign": "ECON_20261030_01",
+          "interval_verified": true,
+          "scope": "ALL_DOMAINS"
+        }
+      ],
+      "coverage": "LEGACY_PARTIAL",
+      "external_authentication": false
+    },
+    "trial_record_count": 23,
+    "trial_keys": [
+      "economic:trial:A",
+      "economic:trial:ALL",
+      "economic:trial:B",
+      "economic:trial:BASE",
+      "economic:trial:C",
+      "economic:trial:D",
+      "economic:trial:E",
+      "economic:trial:F",
+      "economic:trial:NO_A",
+      "economic:trial:NO_B",
+      "economic:trial:NO_C",
+      "economic:trial:NO_D",
+      "economic:trial:NO_E",
+      "economic:trial:NO_F",
+      "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+      "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+      "trial:5d0ab6d23c5a8a9b7c4beb053c4dae31cfb54ac37bd7e88b2c90333acd538986:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+      "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+      "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+      "trial:aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122",
+      "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:12b18c601f165911efb477e2979d760f9c27418abdb917f158cc92a48b755694",
+      "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:3a354264edee47cff2e66e84ea94cc6f6c97cae914d67a4049a43153736d96d0",
+      "trial:d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9:67577329e6fc980007045b4ccc4633f317d72d4e7040fb0a1ebeb59e1459c122"
+    ],
+    "measurement_reservations": [],
+    "trial_records_with_native_v2_identity_at_top_level": []
+  },
+  "ultimate": {
+    "chain": {
+      "verified": true,
+      "head": "4452b01a1c426bb616628ef0d361fb348ec33e23512c88e9e3f6404cbf7a509a",
+      "records": 10
+    },
+    "exported_trial": {
+      "id": "4b48429f-9c4b-4c0b-bc46-01c3ee2d0379",
+      "slots": 18,
+      "status": "COMPLETE",
+      "attempts": 1,
+      "registeredAt": 1792346863333,
+      "protocolHash": "76b98ca5befa14dda4c6c61c3dd036327acae5afad3bc205bdd1424c8db11b66",
+      "codeHash": "b154e3ce5798e1d77179954f1d3bf9f51efd21b221f52b7de357dc915a8de162",
+      "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004"
+    },
+    "registered_trial_ids_in_chain": [
+      "ca9f8f72-c56b-42fc-985c-1a5513a21c69",
+      "4b48429f-9c4b-4c0b-bc46-01c3ee2d0379"
+    ],
+    "registered_ids_without_full_trial_object_in_export": [
+      "ca9f8f72-c56b-42fc-985c-1a5513a21c69"
+    ],
+    "complete_family_spent": null,
+    "null_reason": "The export includes one trial object and a chain with other registered IDs; this is not the full cumulative family state.",
+    "retained_branch_review": {
+      "source": "evidence/integral_30_12_1/review/branches/history_extension.json",
+      "old_slots": 18,
+      "branch_slots_documented": 72,
+      "additional_slots_documented": 54,
+      "additional_records": [
+        {
+          "id": "fcfe96db-4faa-482f-beb4-4efd4dfb3531",
+          "protocolHash": "af3790ab1c80326189fdae345b27b24da41bd6a65ac46b4bee9bab8f6e48edef",
+          "codeHash": "9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a",
+          "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+          "slots": 18,
+          "registeredAt": 1792956579578,
+          "status": "COMPLETE",
+          "attempts": 1
+        },
+        {
+          "id": "15cea4a9-4338-409f-a700-0dd6a78e3ebf",
+          "protocolHash": "388890ac4c300f0628a8e6a421e4bd21a7475f4e99fb492981fec57e58789ad4",
+          "codeHash": "9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a",
+          "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+          "slots": 18,
+          "registeredAt": 1792956579583,
+          "status": "COMPLETE",
+          "attempts": 1
+        },
+        {
+          "id": "57d8a60b-b2fd-4c7c-bd2b-cc7c84f97393",
+          "protocolHash": "93ba284aa1150c4c6e30f1201eb97036a619e4534491a6b101f97dbaa3f4fbde",
+          "codeHash": "9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a",
+          "datasetHash": "67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004",
+          "slots": 18,
+          "registeredAt": 1792956579588,
+          "status": "COMPLETE",
+          "attempts": 1
+        }
+      ],
+      "original_branch_trial_store_in_this_integral": null,
+      "status": "DOCUMENTED_IN_RETAINED_REVIEW_NOT_NEWLY_VERIFIED_FROM_ORIGINAL_BRANCH_STORE"
+    }
+  },
+  "tp32": {
+    "trial_count": 3,
+    "policies": [
+      "BASELINE_30_1",
+      "TREND_RUNNER",
+      "REGIME_ADAPTIVE"
+    ],
+    "windows": {
+      "oosFrom": "2025-05-30",
+      "oosThrough": "2026-07-20",
+      "holdoutFrom": "2026-07-21",
+      "holdoutThrough": "2026-10-16",
+      "trainSessions": 126,
+      "testSessionsPerFold": 21,
+      "folds": 12,
+      "purgeHours": 72,
+      "embargoSessions": 3
+    },
+    "promotion": "NONE_BAR_MODEL_REQUIRES_PROSPECTIVE_EXECUTION_VALIDATION"
+  },
+  "correction_continuations": [
+    {
+      "trial_id": "HARPOON_VALIDITY_REPAIR_20261101_01",
+      "registration": "evidence/portfolio_validity_30_13_1/comparison/registration.json",
+      "journal": "evidence/portfolio_validity_30_13_1/comparison/continuation_journal.jsonl",
+      "new_variants": 1,
+      "fits_allowed": 0,
+      "financial_acceptance_allowed": false,
+      "chain": {
+        "verified": true,
+        "head": "dc1e65df6ecfca6a89b25ee94d5e9f8c009e5b5bbaccc8a39212305cfd29e54c",
+        "records": 2,
+        "registration_hash_verified": true
+      }
+    },
+    {
+      "trial_id": "HARPOON_PORTFOLIO_CAUSAL_RESERVATIONS_20261101_01",
+      "registration": "evidence/portfolio_30_14_0/registration.json",
+      "journal": "evidence/portfolio_30_14_0/journal.jsonl",
+      "new_variants": 1,
+      "fits_allowed": 0,
+      "financial_acceptance_allowed": false,
+      "chain": {
+        "verified": true,
+        "head": "12051e45b6bd41a4cce92cd6b40755fac44e5d48b3c3068e834983f0dca608b2",
+        "records": 2,
+        "registration_hash_verified": true
+      }
+    }
+  ],
+  "source_manifest_global_count": null,
+  "global_deduplicated_search_total": null,
+  "global_null_reason": "Different family units, incomplete native identities, missing full Ultimate trial and branch source state, and separately recorded continuation variants.",
+  "observed_used_windows": {
+    "ultimate": {
+      "oosFrom": "2025-03-11",
+      "oosThrough": "2026-07-13",
+      "holdoutFrom": "2026-07-21",
+      "holdoutThrough": "2026-10-16"
+    },
+    "tp32": {
+      "oosFrom": "2025-05-30",
+      "oosThrough": "2026-07-20",
+      "holdoutFrom": "2026-07-21",
+      "holdoutThrough": "2026-10-16",
+      "trainSessions": 126,
+      "testSessionsPerFold": 21,
+      "folds": 12,
+      "purgeHours": 72,
+      "embargoSessions": 3
+    }
+  },
+  "new_2026_10_market_data": {
+    "schema": "HARPOON_NEW_DATA_IMPORT_ASSESSMENT_1",
+    "bar_queries": 4,
+    "calendar_queries": 1,
+    "corporate_action_queries": 1,
+    "data_nature": "HISTORICAL_RETRIEVAL",
+    "modeled_availability_delay_ms": 3000,
+    "original_receipts": null,
+    "calendar_original_publication_at": null,
+    "coverage": {
+      "from": "2026-10-19",
+      "through": "2026-10-30",
+      "sessions": 10,
+      "regular_bars_per_symbol": 780,
+      "symbols": [
+        "SPY",
+        "XLK"
+      ],
+      "missing_regular_bars": 0,
+      "regular_grid_complete": true
+    },
+    "calendar_for_deadlines_through": "2026-11-06",
+    "calendar_future_sessions_separate": true,
+    "source_old_holdout_already_used": {
+      "from": "2026-07-21",
+      "through": "2026-10-16",
+      "source": "evidence/ultimate/report.json"
+    },
+    "corporate_actions": {
+      "date_filter_basis": "process_date",
+      "observed": {
+        "cash_dividends": [
+          {
+            "id": "2f18deca-9def-4e0b-b7cf-56f8a76612eb",
+            "corporate_action_type": "cash_dividends",
+            "symbol": "SPY",
+            "cusip": "78462F103",
+            "rate": 1.888834,
+            "special": false,
+            "foreign": false,
+            "process_date": "2026-10-30",
+            "ex_date": "2026-09-18",
+            "record_date": "2026-09-18",
+            "payable_date": "2026-10-30",
+            "due_bill_on_date": null,
+            "due_bill_off_date": null
+          }
+        ]
+      },
+      "complete_ex_date_manifest": null,
+      "reason": "A process-date interval is not a complete ex-date interval; SPY dividend returned has ex_date2026-09-18 and process/payable_date2026-10-30.",
+      "source_url": "https://docs.alpaca.markets/us/reference/corporateactions-1"
+    },
+    "normalized_market_emitted": true,
+    "research_dataset_emitted": false,
+    "research_dataset_blocker": "COMPLETE_EXDATE_ACTION_MANIFEST_REQUIRED",
+    "research_dataset_builder": "import_market_data.py::make_dataset",
+    "synthetic_software_tests": {
+      "command": "python3 -m unittest discover -s nivel7_work/new_market_data -p test_import_market_data.py -v",
+      "passed": 8,
+      "failed": 0,
+      "financial_validation": false
+    },
+    "financial_experiments": 0,
+    "fits": 0,
+    "orders_sent": 0,
+    "deployment": false
+  },
+  "corporate_actions_status": {
+    "complete_exdate_manifest": null,
+    "existing_strict_importer_not_weakened": true,
+    "new_research_dataset_emitted": false,
+    "minimum_missing_resource": "A retained provider/issuer/exchange event inventory with explicit ex-date/effective-date coverage for exceptional actions, or an explicit class-specific coverage statement and any residual unsupported actions marked unknown."
+  },
+  "latest_protocol_status": {
+    "protocol_id": "DRAFT_LEVEL7_NOT_REGISTERED_30_15_0",
+    "status": "DRAFT_NOT_REGISTERED",
+    "protocol_hash": null,
+    "registration_performed": false
+  },
+  "sources": {
+    "quant/economic_experiment/study/optimizer.sqlite3": {
+      "sha256": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd",
+      "bytes": 180224
+    },
+    "quant/economic_experiment/study/optimizer.sqlite3-wal": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "quant/economic_experiment/study/protocol.json": {
+      "sha256": "af021845764df5a119b601d718ac11d3e7fec7d9c407d5e6a69bc13b98cbc88d",
+      "bytes": 3558
+    },
+    "quant/economic_experiment/analysis_protocol.json": {
+      "sha256": "5b4dff285d1fdaef0e75a2cfd5260b39f03526cc7229aa6d3c9f76685ee8b065",
+      "bytes": 981
+    },
+    "evidence/ultimate/registry.json": {
+      "sha256": "bf7e199a75451ad7b892e4bc26ddab43d6338e1f2572a4075cfcdcc5ea81fe2c",
+      "bytes": 147175
+    },
+    "evidence/ultimate/report.json": {
+      "sha256": "7b6fe566ac8a8ed27c5bb78be3d8e087b18a59f1b53de591324885760acaca11",
+      "bytes": 120206
+    },
+    "research/tp32/protocol.json": {
+      "sha256": "b7e71a93952a13b72ace2190f09e7ff5714a170841773a6818d7cfbe3a3005a9",
+      "bytes": 2615
+    },
+    "evidence/tp32/report.json": {
+      "sha256": "09ba82404ab8447f109d680b58e3b60643ae0c84bf7091bb3db6447f557bcf4f",
+      "bytes": 59521
+    },
+    "evidence/integral_30_12_1/review/branches/history_extension.json": {
+      "sha256": "f025708c9ef1f48b14faf0defa437246abe2cd9b7b62dd08a34c93c96daa7aab",
+      "bytes": 2291
+    },
+    "evidence/integral_30_12_1/history/manifest.json": {
+      "sha256": "ed0cfa416624317874271f7d52d10dc5f9fb252cf807b25129137d6d0d9c06b6",
+      "bytes": 5823
+    },
+    "evidence/portfolio_validity_30_13_1/comparison/registration.json": {
+      "sha256": "9bfdc594bc8a7a658c789e3da118c553a2806eac7c7a733eb241639d77886458",
+      "bytes": 6085
+    },
+    "evidence/portfolio_validity_30_13_1/comparison/continuation_journal.jsonl": {
+      "sha256": "36414a0f0d7e1a0616456e0eb8ca8a15ac2357caf5059d58dcf6ce381ba95c84",
+      "bytes": 1446
+    },
+    "evidence/portfolio_30_14_0/registration.json": {
+      "sha256": "7e726e371a5cdc8885823f66f8ae0c1e039cb50bf331f3bf73f041a6d730e476",
+      "bytes": 6952
+    },
+    "evidence/portfolio_30_14_0/journal.jsonl": {
+      "sha256": "996e9fe74d6c2b975a5cf98d005b791b3c4df30ad52ffca881ef9879a5e4b36f",
+      "bytes": 717
+    },
+    "evidence/portfolio_30_14_0/new_market_data/import_assessment.json": {
+      "sha256": "7b76d59c88a291528376fd62110246719b6db6e08b7075b54d1088feb841a5aa",
+      "bytes": 2197
+    },
+    "evidence/level7_30_15_0/data_research/corporate_actions_assessment.json": {
+      "sha256": "b126c1eb6f51643e24486ea42e609331754f6d59892c83426b854ebbd945c7fe",
+      "bytes": 4239
+    },
+    "evidence/level7_30_15_0/protocol_draft_not_registered.json": {
+      "sha256": "9d9976ed9351e562400cfff7d0a57dfd09c6551f195a582ab7839660710e1c9b",
+      "bytes": 3871
+    },
+    "quant/harpoon_quant/measurement_registration.py": {
+      "sha256": "ac6e7b748c500537037f4f3ca4f0afa3fd75f679817cd54d0ce00a2127c74883",
+      "bytes": 9509
+    },
+    "quant/harpoon_quant/economic_gate_v2.py": {
+      "sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+      "bytes": 29980
+    },
+    "quant/harpoon_quant/economic_gate.py": {
+      "sha256": "66fd7c9612040b73a4b0c7c53da29d8a342eb29773bcbcc30e349045914c65ae",
+      "bytes": 46721
+    },
+    "quant/harpoon_quant/calibration.py": {
+      "sha256": "dcdeead19082a666883b1528403cd01ca8f10020fb15b45bb4f4294d2eddd8c1",
+      "bytes": 9248
+    },
+    "quant/harpoon_quant/scalar_svr.py": {
+      "sha256": "737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f",
+      "bytes": 19265
+    }
+  },
+  "source_bytes_unchanged_after_audit": true,
+  "financial_experiments_executed": 0,
+  "models_fitted": 0,
+  "budget_reservations_created": 0,
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false,
+  "level7_accredited": false
+}

@@ -1,0 +1,171 @@
+REVISIÓN VIGENTE: XXV.3 R2 / 25.3.2. El addendum R2 final rige la autogestión; el dictamen económico R1 sigue vigente.
+
+HARPOON XXV.3 / 25.3.0
+Auditoría funcional y de implementación — 17 de octubre de 2026
+
+RESULTADO
+Se integran war room, variantes, analítica de opciones, matrices y controles en el HTML y en el panel cloud. El ejecutor conserva autoridad única, universo spot BTC/USD y ETH/USD, riesgo, permisos, conciliación y salidas heredadas. El código de las nuevas variantes existe en investigación y en ejecución PAPER; no se limita a manifiestos JSON.
+
+Esta es una auditoría de software. No se observó una cuenta real ejecutando estas estrategias ni una muestra financiera que acredite más rentabilidad. Los resultados sintéticos utilizados para comprobar el código no se presentan como backtest de mercado.
+
+OPCIONES Y ALCANCE REAL DE ALPACA
+1. GET /v1beta1/options/snapshots/{underlying}: cadena paginada con feed explícito, ventana de strikes/vencimientos y comprobación de integridad; hasta 16 páginas acotadas, sin aceptar cadenas truncadas. No constituye un libro L2.
+2. GET /v2/options/contracts: catálogo paginado en el host de trading, con tipo, strike, vencimiento, multiplicador y open interest fechado. Los datos sin contrato verificable no validan el contexto ATM.
+3. GET /v2/stocks/quotes/latest: precio del subyacente, vigencia de 15 segundos y feed IEX/SIP explícito. IEX no se presenta como mercado consolidado completo.
+4. GET /v2/stocks/bars y calendario: histórico para contexto y medición de proxies. Los cierres de ETF se emparejan con los mismos extremos temporales de barras cripto de cinco minutos; se rechazan extremos vencidos o intervalos incompletos.
+5. GET /v1beta3/crypto/us/latest/orderbooks y WebSocket cripto: profundidad real del venue, con reset/deltas y vigencia separada. Captura y contexto comparten sesión con el flujo nativo para evitar conexiones duplicadas. Una desconexión invalida el libro.
+6. GET /v2/clock: el cierre del mercado invalida opciones sin detener cripto. La ventana predeterminada de consulta es 300 segundos, configurable entre 60 y 3,600.
+7. No se añadió un falso stream JSON de opciones. El stream de opciones de Alpaca requiere MsgPack; esta entrega usa ventanas REST para cadenas.
+
+La consulta real mediante la conexión de datos disponible devolvió mercado cerrado el 17-10-2026 y rechazó OPRA por falta de suscripción. Evidencia: evidence/alpaca-options-smoke3.json. No prueba qué credenciales ni qué plan tiene instalado un servidor Harpoon diferente. No se cambió silenciosamente a INDICATIVE.
+
+ESTADOS Y OPORTUNIDADES
+La UI distingue OFF, espera, lectura, observación, dato vencido, mercado cerrado y error. Una capa habilitada no implica señal de entrada ni ventaja económica.
+La cadena se presenta como L1/IV/griegas; gamma es magnitud bruta de los contratos recuperados, sin signo de dealer. OI lleva fecha y no se interpreta como flujo comprador. IV/griegas no incluyen timestamp independiente verificable del cálculo; el contexto conserva ese límite.
+Se generan hipótesis para acciones, contratos y cripto con ETF proxy. No se compran acciones ni contratos desde esta capa, ni se reescriben estrategias con una lectura actual de opciones aplicada a datos pasados.
+La matriz de opciones usa Float64, 13 características y máscara de ausencias. Se conserva la matriz de siete características y el SVM en sombra anteriores. Ningún margen del SVM se presenta como probabilidad ni autoriza órdenes.
+
+WAR ROOM Y CAUSALIDAD
+Ocho recetas prefijadas: control, régimen, economía, selección conjunta, trailing adaptable, parcial pequeño, 72 horas y límite paciente.
+Entrenamiento de un año y calentamiento adicional; sólo barras cerradas y disponibilidad temporal causal. Las etiquetas económicas deben cerrar antes del corte purgado. No se rellena precio ni flujo ausente.
+La cartera continúa durante once meses y cruza la frontera de la reserva final con efectivo, inventario, stops, memoria de señales y estados de estrés. No hay liquidación mensual ni reinicio ficticio de capital. Tras abrir la reserva no se permite reoptimizarla.
+El informe distingue ocho meses de validación, tres finales y agregado de once meses. También debe pasar el agregado antes de aceptar una candidata PAPER.
+Los intentos reservan estado persistente antes de calcular. Reiniciar, cambiar el nombre de una campaña o modificar sus datos no borra un resultado observado. Se detecta el solapamiento con el registro heredado crypto-xix-loop cuando está disponible.
+El DSR es una aproximación que utiliza los Sharpe de ensayos registrados; dependencia entre variantes y búsquedas realizadas fuera de esos registros limitan su interpretación. No es un certificado estadístico universal.
+
+EJECUCIÓN Y TAKE PROFIT
+Riesgo vigente congelado por campaña; el cambio de configuración invalida la elegibilidad. Una variante sustituye la familia de tendencia y no suma un segundo motor sobre el mismo par.
+Un residual propio conciliado inferior al mínimo del broker puede conservarse al cambiar de plugin; inventario externo, activo o no conciliado sigue bloqueándolo.
+Los placeholders LOADED no pueden reemplazar al core. Se exige validación local completa y PAPER. Las nuevas variantes no tienen ruta de activación LIVE.
+C4 ajusta trailing por MFE/R sin bajar nunca el stop existente. C5 prepara una única salida parcial del 20% a 2.5R netos estimados, cancela y concilia la protección, observa el fill y protege el residual real.
+C6 sale por plazo de 72 horas incluso con entradas pausadas. No se impone ese plazo a las otras variantes con hold_hours=0.
+C7 permite GTC paciente durante 60 segundos. Sólo una cancelación terminal, confirmada y sin fill habilita un fallback con nuevo permiso, cotización vigente, techo de precio y cantidad acotada. Un fill parcial impide completar la compra. Una cancelación incierta bloquea el fallback.
+Compras requieren los permisos existentes de SEARCH/RISK/FLOW/SIGNAL/SNIPER. No hay un ejecutor paralelo de los agentes ni de GPT. Las salidas nativas se mantienen independientes de fallos de memoria del war room.
+La promoción automática PAPER es opt-in, requiere COLD ON, todas las puertas, cuenta plana y core libre. LiftOff detiene nuevos estudios y promociones; no cancela la política vigente de salida. El panel cloud y el control COLD nativo usan el mismo flag efectivo.
+
+COSTES, COMPUESTO Y MÉTRICAS
+Se informan P&L estimado, retorno, Sharpe, Sharpe HAC, Sortino, profit factor, drawdown diario y observado intradía, expectativa, acierto, CVaR95, costes, alpha y beta descriptivos contra BTC buy-and-hold. El tipo libre de riesgo se fija explícitamente en cero. Cuando falta muestra, varianza o pérdidas, los ratios no se inventan ni se convierten en infinito.
+La comparación empareja días y usa bootstrap por bloques; los filtros incluyen estrés de costes 2x y cobertura de ejecución. El umbral de cobertura es 99.5%, con huecos máximos de 90 segundos e incrementos de catálogo válidos.
+El replay usa precios observados cuando están disponibles y conserva la incertidumbre de colas, ejecución, latencia y slippage. Los fills de replay no son fills del broker. El camino OHLC es un proxy explícito y nunca puede promover.
+Las comisiones y costes de infraestructura/datos son supuestos configurables, no cargos certificados. La UI permite sellar el coste externo diario. Los costes de cierre se provisionan en las marcas de inventario abierto; el neto no se acredita como contabilidad real.
+El compuesto sigue las restricciones del core. La política de beneficio realizado estimado limita el presupuesto de los permisos; no capitaliza automáticamente el flotante como efectivo ni elimina límites de exposición/capital.
+La comparación Mythos permanece hipotética: USD8,000 / USD2,190,000 = 0.3652968%, equivalente a USD73.06 sobre USD20,000 sólo si coinciden periodo, costes y riesgo. No hay un resultado rival verificado ni superioridad acreditada.
+
+GPT Y CONTINUIDAD
+El ejecutor no espera llamadas GPT para gestionar posiciones. La supervisión utiliza el gateway existente, snapshots acotados, esquema estructurado y ventanas configurables, con HOT/LiftOff.
+Con campaña activa se reserva el coste conservador antes de enviar cada ID de revisión: máximo ocho y USD20 para esta mesa, además de límites del gateway. Polls no consumen otra reserva; envíos inciertos la conservan. Revisiones rechazadas también contabilizan su coste observado.
+La IA puede proponer; no cambia límites, código ni órdenes. Los cambios operativos son recetas admitidas y evidencia validada. No se conectó una API de modelo distinta ni se realizaron llamadas GPT de pago durante las comprobaciones.
+
+PERSISTENCIA, RENDIMIENTO Y LÍMITES
+Se conservan IndexedDB/cifrado del navegador y SQLite/lease del runtime, autenticación, aislamiento de secretos, headers de acción y controles de origen. El importador de datasets tiene límite autenticado de 128 MB; otras rutas mantienen límites menores.
+El worker está separado del ciclo del broker, con tiempo máximo de 60 segundos y límite de heap en cloud. Las quotes compactas y el recorrido por eventos reducen copias; señales y modelos causales se reutilizan sin consultar datos futuros.
+La prueba de carga documentada utiliza 86,400 quotes sintéticas. Su tiempo mide esta CPU y este fixture, no latencia de mercado ni rentabilidad.
+La captura adicional tiene un máximo de 100,000 eventos. Saturación o fallo de persistencia son visibles; no se afirma una captura histórica ilimitada. Los huecos y la falta de cobertura impiden promoción. Las cuentas nuevas necesitan reunir evidencia y costes reales.
+No se verificó Docker en un proveedor ni el despliegue activo en Render en esta entrega. El paquete conserva los archivos de instalación y despliegue anteriores. El HTML por sí solo depende del navegador y del acceso permitido por las APIs; no garantiza ejecución 24/7.
+
+VERIFICACIÓN REPRODUCIBLE
+npm test
+npm run test:auth
+npm run test:service
+npm run test:xxv
+npm run test:agents
+npm run test:profit
+npm run test:options
+npm run test:warroom
+npm run test:warroom:cloud
+node tools/warroom3_load.cjs
+node tools/agents25_cloud.cjs
+node tools/agents25_browser.cjs
+node tools/warroom3_browser.cjs
+Además: comprobación de tipos existente para control/edge y agentes; sintaxis de scripts y CSP del HTML. Las pruebas de navegador requieren Playwright y Chromium para QA.
+
+FUENTES PRIMARIAS REVISADAS
+https://docs.alpaca.markets/us/reference/optionchain
+https://docs.alpaca.markets/us/docs/real-time-option-data
+https://docs.alpaca.markets/us/docs/options-trading
+https://docs.alpaca.markets/us/reference/get-options-contracts
+https://alpaca.markets/sdks/python/api_reference/trading/models.html
+
+EVIDENCIA
+Los JSON de evidence/ distinguen datos sintéticos, integraciones locales, consulta real de permisos y ausencia de órdenes externas o inferencia pagada. Los informes heredados se conservan con su alcance y versión anteriores. AUDITORIA_XXV_3.txt y EMPEZAR_XXV_3.md gobiernan esta entrega; documentación anterior describe las versiones previas.
+
+CIERRE DE VERIFICACIÓN
+Se completaron 16 comandos de verificación y la comprobación de sintaxis de 103 archivos. Todos terminaron con código 0. Detalle íntegro en evidence/release25_3-verification.json. No se enviaron órdenes externas ni llamadas de inferencia de pago.
+
+
+HARPOON XXV.3 R1 / 25.3.1
+Dictamen de rentabilidad y mejora recursiva — 17 de octubre de 2026
+
+DICTAMEN
+Apto para investigación y pruebas PAPER instrumentadas. La evidencia revisada no acredita todavía una ventaja económica explotable, mayor rentabilidad que versiones previas ni capacidad para ofrecer resultados de élite a clientes. Las pruebas de software verifican controles y recorridos; no estiman cuánto ganará una cuenta. No existe un resultado rival verificado que permita declarar superioridad.
+
+La prioridad es maximizar crecimiento neto del capital dentro de límites de pérdidas, liquidez y capacidad. Sharpe, Sortino y drawdown permiten evaluar ese resultado. Fijar objetivos muy altos para esos ratios no demuestra una ventaja y puede estimular sobreajuste. El compuesto amplifica el resultado que ya exista, positivo o negativo.
+
+CAMBIOS OPERATIVOS CONCRETOS
+1. Se eliminó la espera heredada de 24 horas entre estudios del War room en el navegador. Su progreso usa ahora el ciclo existente de aproximadamente cinco segundos; cloud conserva su pulso de aproximadamente diez segundos. Es cadencia entre trabajos, no latencia garantizada de mercado.
+2. Nuevo optimizador modular src/optimizer3.js, con persistencia en src/optimizer_store3.js. Explora las siete recetas candidatas frente a C0 y refina por coordenadas alrededor de las configuraciones con mejor límite inferior de mejora diaria emparejada. La selección final prioriza beneficio neto entre las candidatas que superan las puertas. Es búsqueda acotada; no garantiza encontrar el óptimo global.
+3. Valores ajustables: entry_days, exit_days, atr_days y atr_multiple. No se optimizan capital, riesgo por entrada, límites de exposición, comisiones, slippage ni política base de plazo. Las políticas de trailing, parcial y salida por plazo se comparan mediante las recetas existentes. No se añadieron porcentajes arbitrarios de take profit fuera de esos contratos.
+4. Perfil inicial: hasta 16 configuraciones candidatas, lotes de cuatro, presupuesto de cálculo de 60 segundos y hasta tres finalistas para estrés. La UI ofrece también 32; la API tiene un máximo de 64 y 120 segundos. El límite de iteraciones de la mesa sigue aplicando: antes de iniciar se exige presupuesto suficiente para los lotes, su cierre y la reserva final. El tiempo real depende del dataset y del equipo; el presupuesto no promete completar toda búsqueda.
+5. El protocolo, dataset, campos ajustables y presupuesto quedan sellados antes de observar resultados. Cada lote reserva sus ensayos de forma persistente antes de ejecutar. Se omiten configuraciones repetidas. Reiniciar conserva reservas consumidas; los intentos perdidos no se repiten ni se reembolsan. Una búsqueda incompleta no puede promover una candidata.
+6. COLD avanza lotes, cierre y reserva final. LiftOff impide iniciar el siguiente lote y promociones; un trabajo enviado puede terminar. La pausa propia se conserva al reiniciar. Los accesos existentes de investigar una vez despachan la etapa vigente al mismo controlador.
+7. Los ocho primeros meses se usan para desarrollo y selección paramétrica. Los tres finales permanecen cerrados hasta fijar una única candidata; allí no se reoptimiza. El agregado de once meses incluye desarrollo: no es once meses de prueba totalmente independiente. Se conserva cartera, efectivo, inventario y protección en la frontera.
+8. La prueba final mantiene C0 con sus parámetros originales y aplica los parámetros elegidos sólo a la candidata. El adapter permite su configuración sellada en el ejecutor PAPER nativo, sin modificar la configuración base del core. Un cambio de riesgo o sello invalida las nuevas entradas. Se conservan permisos, conciliación, protección de posiciones y sustitución de una sola familia de tendencia.
+9. Las puertas siguen incluyendo beneficio neto, mejora emparejada, Sharpe HAC, Sortino, profit factor, drawdown, muestra, cobertura, DSR aproximado y estrés de costes 2x. No se bajaron umbrales después de ver resultados. Si ninguna candidata pasa, la estrategia vigente continúa. La promoción automática PAPER conserva su opción explícita y exige cuenta plana. LIVE de las nuevas variantes permanece bloqueado.
+10. Los cálculos del optimizador no llaman a GPT ni al broker. El gateway de supervisión conserva sus ventanas y presupuestos separados. La mesa muestra estado, parámetros, neto estimado, Sharpe HAC, Sortino, drawdown, ensayos consumidos, tiempo y motivos de rechazo.
+
+QUÉ FALTA PARA UN PRODUCTO DE CLIENTES ÉLITE
+P0 — Contabilidad económica verificable. profit25.js marca costsConfirmed:false. Hace falta conciliar fills, cantidades, cargos efectivos, efectivo, inventario, depósitos/retiros, datos, infraestructura e inferencia; y reportar el resultado del cliente después de las tarifas aplicables. El resultado actual sigue siendo estimado.
+P0 — Validación prospectiva efectiva. minPaperDays figura en la política, pero no gobierna una certificación prospectiva completa; el registro prospective sigue sin ese circuito. El recorrido actual llega a PAPER. Debe reunir suficientes operaciones futuras y comparar ejecución observada con replay antes de justificar capital de clientes. Un número fijo de días no reemplaza tamaño muestral.
+P0 — Fuente del beneficio. Las recetas actuales comparten tendencia y BTC/ETH; no constituyen siete ventajas independientes. Comparar contra C0, efectivo y una referencia BTC/ETH con exposición o riesgo comparable. El alpha actual contra BTC, con tipo libre de riesgo cero, es descriptivo y no acredita independencia del mercado.
+P1 — Costes y ejecución antes de aumentar frecuencia. Con los supuestos por defecto, el filtro estima aproximadamente 70 bps más spread por ida/vuelta, hasta aproximadamente 100 bps con el spread máximo admitido. No son comisiones verificadas. Operar más movimientos pequeños puede aumentar el coste más rápido que el beneficio. Medir precio de decisión frente a fill, cancelaciones, fills parciales y movimiento adverso posterior; calibrar el replay con esa evidencia.
+P1 — Take profit por contribución neta. Comparar trailing, parcial del 20%, plazo de 72 h y ejecución paciente con el mismo riesgo. Evaluar beneficio terminal, expectativa, devolución del MFE observado, rotación y pérdidas de cola. Un mayor porcentaje de aciertos o más cierres etiquetados TAKE_PROFIT puede coexistir con menor beneficio total. No cortar ganadores excepcionales sin demostrar que compensa.
+P1 — Muestra y selección estadística. El mínimo de 100 operaciones puede ser difícil para una tendencia diaria de 20/10 días sobre dos pares en once meses. Verificar potencia estadística y frecuencia antes del experimento; ampliar evidencia o diseñar otro protocolo antes de observarlo. El DSR implementado es aproximado, con variantes dependientes e historial de intentos limitado. No convierte una búsqueda adaptativa en certificación.
+P1 — Opciones con valor incremental. La capa existente aporta L1, IV, griegas y contexto de ETF; no sustituye profundidad L2 ni prueba dirección futura. La conexión de datos consultada rechazó OPRA y no identifica la suscripción del servidor del usuario. Usar datos históricos disponibles en su momento y demostrar mejora incremental neta antes de añadir ese contexto a órdenes.
+P2 — Operación del servicio y clientes. Acreditar despliegue 24/7, recuperación tras fallos, restauración de estado y métricas operativas. Para varias cuentas: separación de credenciales, capital, permisos, límites y atribución por cliente. Esta entrega no verifica el proveedor desplegado ni la aptitud comercial para gestionar capital ajeno.
+
+CRITERIO DE ASIGNACIÓN DE CAPITAL
+Una candidata deberá superar selección histórica registrada y reserva final, obtener evidencia prospectiva conciliada, y mantener su ventaja neta al nivel de tamaño propuesto. La ampliación dependerá de beneficio incremental, pérdidas observadas, liquidez y capacidad. Las reducciones de riesgo y continuidad de salidas deben funcionar aunque el supervisor IA falle. Este dictamen no habilita trading LIVE ni afirma un retorno esperado.
+
+VERIFICACIÓN Y ALCANCE
+La revisión R1 verifica búsqueda causal, parámetros operativos, presupuestos, pausa en curso, reinicios, temporizador del navegador, WebWorkers/CSP, rutas HTTP y persistencia SQLite. Las nuevas pruebas utilizan datos sintéticos y transportes de broker controlados. No acreditan rentabilidad de mercado ni ejecución real. El resultado íntegro de la regresión está en evidence/release25_3-verification.json. Se mantiene la auditoría funcional anterior en AUDITORIA_XXV_3.txt.
+
+FUENTES PRIMARIAS
+https://docs.alpaca.markets/us/docs/paper-trading
+https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf
+Alpaca documenta que PAPER omite, entre otros factores, impacto de mercado, slippage por latencia y posición en cola. Bailey y López de Prado documentan el sesgo de seleccionar el mejor Sharpe tras múltiples ensayos. Se utilizan como fundamentos del criterio de validación; no como prueba del rendimiento de Harpoon.
+
+CIERRE DE VERIFICACIÓN R1
+18 comandos de regresión terminados con código 0 y sintaxis de 107 archivos comprobada. Las pruebas nuevas del optimizador incluyen 11 comprobaciones puras/de persistencia y cuatro recorridos de navegador; las pruebas nativas y HTTP incluyen las rutas paramétricas. Sin órdenes externas, sin inferencia pagada, sin despliegue certificado y sin rendimiento financiero validado. Detalle: evidence/release25_3-verification.json.
+
+
+HARPOON XXV.3 R2 / 25.3.2
+Addendum de auditoría: pulso propio proactivo — 17 de octubre de 2026
+
+RESULTADO
+Se integra un supervisor nativo desacoplado del diálogo y del ciclo del broker. Tiene estado persistente por cuenta, perfil JSON estricto, temporizadores, tareas sin solapamiento, reintentos con presupuesto y decisiones visibles tanto en HTML como en panel cloud. Reutiliza el único ejecutor, agentes, War room, gateways, plugins y salidas existentes. No se añadieron órdenes sobre acciones, ETF u opciones ni un motor alternativo de ejecución.
+
+IMPLEMENTACIÓN REVISADA
+src/autonomy3.js define política, sesiones, salud, elegibilidad de evidencia y selección sin autoridad de órdenes. src/autonomy_adapter3.js coordina el ejecutor, limita recuperaciones y utiliza los cargadores nativos. xxv/autonomy_ui3.js y deploy/dashboard.html muestran los mismos estados. runtime/crypto_runner.cjs y runtime/cloud.cjs conservan un pulso de mantenimiento independiente del panel; runtime/warroom3.cjs añade acciones autenticadas dentro de la ruta existente. config/HARPOON_AUTOGESTION.json y el ejemplo de arranque no contienen secretos.
+
+SESIONES Y CONTINUIDAD
+Cripto mantiene sesión continua cuando /v2/clock marca bolsa cerrada o su reloj vence. Los libros regulares muestran apertura/cierre o UNKNOWN, nunca una apertura supuesta por horario local. El calendario incluye cierres anticipados y zona de Nueva York. Se observa el reloj nativo sin cachear o cambiar respuestas de los consumidores de opciones. Una sesión continua no elimina fallos de feed, permisos, riesgo o conectividad. No hay promesa de fills ni un SLA de 24/7 por abrir un HTML.
+
+SELECCIÓN Y RENTABILIDAD
+Se prioriza beneficio neto estimado entre candidatas que superen todas las puertas históricas ya vigentes. Evidencia caducada, proxy, fuente no admitida, puertas ausentes o controles no comparables impiden una sustitución automática. Se conserva una hora entre cambios y se exige cuenta plana. BTC y ETH comparten selección de cartera. No hay un óptimo universal ni nueva certificación de rentabilidad. Siguen pendientes la conciliación económica efectiva y la validación prospectiva descritas en R1.
+
+INVESTIGACIÓN PROACTIVA
+La preparación sella un periodo de once meses completos y respeta reservas de descarga y ensayo. La falta de quotes con cobertura 99.5% y hueco máximo de 90 s deja NEEDS_EXECUTION_DATA y no consume ensayos. El capturador tiene 100,000 eventos de capacidad: no puede suplir por sí solo once meses históricos. El optimizador conserva 16 ensayos, lotes de cuatro y 60 s por defecto, sujeto a presupuesto de la mesa. No se genera rentabilidad ficticia ni se rellena un mercado ausente para justificar una promoción.
+
+RIESGO Y CONCURRENCIA
+Los techos de configuración son 0.25% de riesgo presupuestado por entrada, 25% nominal por activo, 50% total y 30 bps de spread. Se comprobaron también reducciones del techo de spread frente al core. El 8% de drawdown es un bloqueo de nuevas entradas, no una liquidación ni pérdida máxima garantizada. Activar el perfil reduce el corte diario de la mesa a un máximo del 2% sin ampliar ningún límite existente. Las salidas de posiciones conservan su política.
+
+La recuperación PAPER reutiliza resume nativo, sólo ante fallos de lectura transitorios reconocidos y con datos/conciliación/lease vigentes. Consume hasta tres intentos persistentes separados por 30 s. No supera cortes de riesgo, órdenes desconocidas, salidas pendientes o pausa manual/cloud. Las pruebas de concurrencia verifican que una pausa durante resume, una pausa durante actualización de plugin y LiftOff durante reanudación de una promoción bloquean sus entradas y dejan la cuenta pausada. La promoción automática utiliza un guard adicional y el camino nativo; el acceso manual heredado conserva su contrato.
+
+UX, PERSISTENCIA Y COSTE
+El acceso principal abre Pulso y autogestión. ON del supervisor, entradas autorizadas, COLD, datos, tareas y selección se muestran por separado. LiftOff impide próximos estudios/promociones y recuperación, sin simular un cierre de posiciones. Pausar entradas tiene control propio. Un trabajo ya enviado puede terminar. El perfil no admite claves ni aumentos de techos guardados. Un fallo de persistencia bloquea nuevas entradas del supervisor. Los cálculos y este pulso no consumen tokens GPT; HOT y gateway mantienen sus ventanas y presupuesto independientes.
+
+COMPROBACIÓN
+Veinte comandos de regresión con código 0 y sintaxis de 112 archivos. La suite de autonomía contiene 18 comprobaciones, el nuevo recorrido HTML cinco y el panel cloud cinco; el controlador HTTP tiene once. Incluye ejecutor nativo, SQLite/IndexedDB, navegador, worker, carga, sesiones, persistencia, fallos y carreras de pausa. Los inputs de broker de las pruebas son fixtures; los positivos de promoción inyectan evidencia explícita para comprobar la mecánica, no una ganancia real. El reloj/calendario real disponible se consultó aparte en modo lectura. No se enviaron órdenes externas ni se consumió inferencia de pago.
+
+ENTREGA
+AUTOGESTION_R2.txt documenta operación, perfil, riesgos y limitaciones. Se entrega HTML y paquete con runtime/panel, sin verificar ni modificar un despliegue remoto. Cripto ejecutable: sólo BTC/USD y ETH/USD. Nueva autogestión y variantes: PAPER. No se certifica rentabilidad ni superioridad económica frente a otras versiones o sistemas.

@@ -1,0 +1,30 @@
+{
+  "focused_software_tests_passed": 56,
+  "composition": {
+    "calendar": 10,
+    "causal_sizing_and_budgets": 7,
+    "existing_ultimate": 29,
+    "comparison_runner": 10
+  },
+  "typescript": "PASS",
+  "candidate_reproduction": "verify-candidate returned verified:true without changing original outputs",
+  "read_only_adversarial_checks": "Separate identity and accounting review; not counted as software tests or independent external validation",
+  "limitations": [
+    {
+      "check": "HTTP integration",
+      "status": "ENVIRONMENT_BLOCKED",
+      "cause": "listen EPERM in existing HTTP test; excluded from focused final run"
+    },
+    {
+      "check": "isolated npm production dependency install",
+      "status": "ENVIRONMENT_BLOCKED",
+      "cause": "spawnSync npm EPERM; no successful isolated npm-ci claim"
+    }
+  ],
+  "compiled_module_import": "PASS in focused test; does not replace isolated npm-ci verification",
+  "historical_files_preserved": 1429,
+  "new_financial_variants": 1,
+  "fits": 0,
+  "external_orders": 0,
+  "deployment": false
+}

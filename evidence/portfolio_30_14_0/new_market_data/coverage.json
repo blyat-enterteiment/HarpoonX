@@ -1,0 +1,160 @@
+{
+  "schema": "HARPOON_NEW_MARKET_DATA_COVERAGE_1",
+  "requested_sessions": 10,
+  "calendar_sessions": 15,
+  "calendar_first": "2026-10-19",
+  "calendar_last": "2026-11-06",
+  "symbols": {
+    "SPY": {
+      "raw_count": 1919,
+      "regular_count": 780,
+      "expected_regular_count": 780,
+      "missing_regular_timestamps": [],
+      "off_grid_regular_timestamps": [],
+      "invalid": [],
+      "duplicates": 0,
+      "outside_regular_count": 1139,
+      "per_session": [
+        {
+          "date": "2026-10-19",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-20",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-21",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-22",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-23",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-26",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-27",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-28",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-29",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-30",
+          "bars": 78
+        }
+      ],
+      "requests": [
+        {
+          "file": "raw/SPY_2026-10-19.json",
+          "sha256": "ac50b29bb47ff134f99f1b199764e32caea1c7ddbf5e8be96bba86cf85facc0e",
+          "returned": 960,
+          "limit": 2000,
+          "next_page_token": null,
+          "next_page_token_field_present": false,
+          "pagination_limit_adequate_for_full_5day_grid": true,
+          "pagination_caveat": "Connector did not expose a pagination token; all requested regular-session grid timestamps are present, and limit exceeds every possible 5-minute timestamp over the five-day request."
+        },
+        {
+          "file": "raw/SPY_2026-10-26.json",
+          "sha256": "320e815768081d8c0efb84c5992ec4b886e392e7a14a8e3869f1f3c1b3b1043d",
+          "returned": 959,
+          "limit": 2000,
+          "next_page_token": null,
+          "next_page_token_field_present": false,
+          "pagination_limit_adequate_for_full_5day_grid": true,
+          "pagination_caveat": "Connector did not expose a pagination token; all requested regular-session grid timestamps are present, and limit exceeds every possible 5-minute timestamp over the five-day request."
+        }
+      ]
+    },
+    "XLK": {
+      "raw_count": 1403,
+      "regular_count": 780,
+      "expected_regular_count": 780,
+      "missing_regular_timestamps": [],
+      "off_grid_regular_timestamps": [],
+      "invalid": [],
+      "duplicates": 0,
+      "outside_regular_count": 623,
+      "per_session": [
+        {
+          "date": "2026-10-19",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-20",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-21",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-22",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-23",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-26",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-27",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-28",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-29",
+          "bars": 78
+        },
+        {
+          "date": "2026-10-30",
+          "bars": 78
+        }
+      ],
+      "requests": [
+        {
+          "file": "raw/XLK_2026-10-19.json",
+          "sha256": "ea4007ece4b3ac6ef947fdb383815cd24addfd6094463719c7ff609506728254",
+          "returned": 697,
+          "limit": 2000,
+          "next_page_token": null,
+          "next_page_token_field_present": false,
+          "pagination_limit_adequate_for_full_5day_grid": true,
+          "pagination_caveat": "Connector did not expose a pagination token; all requested regular-session grid timestamps are present, and limit exceeds every possible 5-minute timestamp over the five-day request."
+        },
+        {
+          "file": "raw/XLK_2026-10-26.json",
+          "sha256": "a6ed8b9f45a4f019035eb331c97f5db5c6fe362c82f878ee0740980e7e49bd03",
+          "returned": 706,
+          "limit": 2000,
+          "next_page_token": null,
+          "next_page_token_field_present": false,
+          "pagination_limit_adequate_for_full_5day_grid": true,
+          "pagination_caveat": "Connector did not expose a pagination token; all requested regular-session grid timestamps are present, and limit exceeds every possible 5-minute timestamp over the five-day request."
+        }
+      ]
+    }
+  },
+  "no_strategy_or_pnl_executed": true,
+  "retrieval_is_original_receipt_evidence": false,
+  "coverage_complete": true
+}

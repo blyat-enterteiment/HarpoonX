@@ -1,0 +1,38 @@
+{
+  "reviewed_at_utc": "2026-11-01T04:03:13.605443+00:00",
+  "scope": "Final read-only review of the collector and existing identity/integrity contracts; not an independent external audit",
+  "source_hashes": {
+    "tools/collect_runtime_evidence.cjs": "b0529853c6440335b5190c2d63042eadbae3e59c7cf8f9bf88c195998e18b5d1",
+    "tools/collect_runtime_evidence_test.cjs": "505cfc48c01b8df032d45f4e1cf4d52616e8ca83980c95925ff8387459b0ca1f",
+    "tools/level4_readiness.cjs": "d5ace8798d2e33f62ca2ce6dab386feb8a29c027a2da8037afbdf23f02affc1b",
+    "tools/export_observation_snapshot.cjs": "33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a",
+    "xxx/server.ts": "8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7",
+    "xxx/net_ledger_verify.ts": "d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477"
+  },
+  "material_findings": [],
+  "source_code_modified_by_this_review": false,
+  "new_tests_executed": 0,
+  "verified_by_inspection": [
+    "Fixed application GET routes; no arbitrary endpoint or broker transport is accepted",
+    "The observation snapshot is pinned once; account, snapshot_id, head, counts, offsets, linked records and hashes are verified",
+    "Ledger pages require one account, one ledger_integrity and contiguous total coverage; changed revision aborts without automatic restart",
+    "Health version and startedAt are compared at both ends; this is local instance consistency, not remote attestation",
+    "Complete collection requires existing snapshot and ledger semantic verifiers; it does not assign level4 or financial approval",
+    "Password is supplied through the environment; URL credentials and password CLI options are excluded; redirects and known credential echoes are rejected",
+    "Response size, category bytes, total bytes, page counts, request counts and timeout have hard maxima; no incomplete network response is persisted as an accepted source",
+    "Output directory acquisition is exclusive and retained failures cannot be mistaken for collection_receipt.json",
+    "GET observation snapshot creates bounded snapshot metadata in the runtime; the receipt explicitly discloses this small state mutation"
+  ],
+  "explicit_scope_limitations": {
+    "fixed_configuration_comparison": "The funded comparison requires identical source configuration across the full exported prefix. A prefix containing a causal dynamic-universe rotation can pass source collection and causal-panel streaming verification while being rejected for this fixed-configuration comparison. This is an explicit scope restriction, not an instruction to delete, reset, rewrite or selectively prune journals.",
+    "session_count": "100 distinct sessions are an implemented scalar-model input requirement, not sufficient evidence of profit or even a guarantee that rows, labels, models, account/cost bindings and comparison validation will pass.",
+    "source_collection": "COMPLETE_SOURCE_COLLECTION means complete transport and local integrity within the selected limits. economic_score remains null and economic_evidence_complete/financial_acceptance_allowed remain false.",
+    "separate_snapshots": "Observation and account snapshots are separately fixed. The existing downstream gate must bind the actual comparison period; equal account identity alone does not establish simultaneous snapshots.",
+    "coverage_summary": "The collector summarizes the ledger derived current-coverage fields. Eligibility of a covered historical prefix is assessed by level4_readiness against the chosen comparison period; the collector is not that assessment.",
+    "bounded_time": "Synchronous local verification may run until the event loop resumes. Deadlines are checked, but no hard real-time completion guarantee is established.",
+    "authenticity": "Hashes and endpoint authentication do not provide independent proof of original data/provider authenticity."
+  },
+  "financial_trials": 0,
+  "model_fits": 0,
+  "orders": 0
+}

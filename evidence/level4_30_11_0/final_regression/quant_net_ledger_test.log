@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: incremental integrity hashing preserves canonical JSON bytes, including Unicode and number values
+ok 1 - incremental integrity hashing preserves canonical JSON bytes, including Unicode and number values
+  ---
+  duration_ms: 2.316375
+  type: 'test'
+  ...
+# Subtest: baseline is a current observation, with atomic complete evidence and no external writes
+ok 2 - baseline is a current observation, with atomic complete evidence and no external writes
+  ---
+  duration_ms: 8.379352
+  type: 'test'
+  ...
+# Subtest: missing external cost evidence remains null while account NAV and PnL are reconciled
+ok 3 - missing external cost evidence remains null while account NAV and PnL are reconciled
+  ---
+  duration_ms: 1.224558
+  type: 'test'
+  ...
+# Subtest: partial fills are counted by delta qty; later cancellation contributes no invented fill
+ok 4 - partial fills are counted by delta qty; later cancellation contributes no invented fill
+  ---
+  duration_ms: 4.34133
+  type: 'test'
+  ...
+# Subtest: open position losses are included, independently of realized trade profit
+ok 5 - open position losses are included, independently of realized trade profit
+  ---
+  duration_ms: 2.123875
+  type: 'test'
+  ...
+# Subtest: reported fee is already in NAV: one subtraction, and replay is idempotent
+ok 6 - reported fee is already in NAV: one subtraction, and replay is idempotent
+  ---
+  duration_ms: 4.623665
+  type: 'test'
+  ...
+# Subtest: operating cost booked in broker cash is linked and never charged a second time
+ok 7 - operating cost booked in broker cash is linked and never charged a second time
+  ---
+  duration_ms: 1.892566
+  type: 'test'
+  ...
+# Subtest: ambiguous embedded trade fee or net-amount commission cannot be silently counted twice
+ok 8 - ambiguous embedded trade fee or net-amount commission cannot be silently counted twice
+  ---
+  duration_ms: 3.619641
+  type: 'test'
+  ...
+# Subtest: deposits and withdrawals neutralize economic PnL; day-only flow times block TWR
+ok 9 - deposits and withdrawals neutralize economic PnL; day-only flow times block TWR
+  ---
+  duration_ms: 1.619574
+  type: 'test'
+  ...
+# Subtest: flow value alone is insufficient for TWR even when transaction time is known
+ok 10 - flow value alone is insufficient for TWR even when transaction time is known
+  ---
+  duration_ms: 1.596689
+  type: 'test'
+  ...
+# Subtest: hash-bound pre-flow evidence permits exact subperiod TWR without turning a flow into profit
+ok 11 - hash-bound pre-flow evidence permits exact subperiod TWR without turning a flow into profit
+  ---
+  duration_ms: 3.872583
+  type: 'test'
+  ...
+# Subtest: TWR chains price gains before and after capital flows, with external costs at their actual periods
+ok 12 - TWR chains price gains before and after capital flows, with external costs at their actual periods
+  ---
+  duration_ms: 1.801207
+  type: 'test'
+  ...
+# Subtest: pre-flow marks must bind both numeric values and original receipt hash
+ok 13 - pre-flow marks must bind both numeric values and original receipt hash
+  ---
+  duration_ms: 1.456297
+  type: 'test'
+  ...
+# Subtest: late-reported settlement fees are consumed by creation coverage, never skipped by date
+ok 14 - late-reported settlement fees are consumed by creation coverage, never skipped by date
+  ---
+  duration_ms: 1.778172
+  type: 'test'
+  ...
+# Subtest: complete pagination uses last activity id, and persisted id history cannot disappear
+ok 15 - complete pagination uses last activity id, and persisted id history cannot disappear
+  ---
+  duration_ms: 2.458499
+  type: 'test'
+  ...
+# Subtest: page overlap, repeated cursor, and truncation at page limit block certification
+ok 16 - page overlap, repeated cursor, and truncation at page limit block certification
+  ---
+  duration_ms: 2.642687
+  type: 'test'
+  ...
+# Subtest: unknown currency or activity type cannot become a zero-cost activity
+ok 17 - unknown currency or activity type cannot become a zero-cost activity
+  ---
+  duration_ms: 5.503133
+  type: 'test'
+  ...
+# Subtest: missing account currency, missing NAV, and missing position marks are rejected
+ok 18 - missing account currency, missing NAV, and missing position marks are rejected
+  ---
+  duration_ms: 3.376945
+  type: 'test'
+  ...
+# Subtest: cash, inventory, and NAV discrepancies preserve the prior accepted curve
+ok 19 - cash, inventory, and NAV discrepancies preserve the prior accepted curve
+  ---
+  duration_ms: 3.653441
+  type: 'test'
+  ...
+# Subtest: account identity and unmodeled option multipliers are verified
+ok 20 - account identity and unmodeled option multipliers are verified
+  ---
+  duration_ms: 4.076229
+  type: 'test'
+  ...
+# Subtest: future transaction, creation, cost-known-at, and snapshot times cannot certify evidence
+ok 21 - future transaction, creation, cost-known-at, and snapshot times cannot certify evidence
+  ---
+  duration_ms: 5.665117
+  type: 'test'
+  ...
+# Subtest: stale receipt and explicitly stale snapshot disable current metrics
+ok 22 - stale receipt and explicitly stale snapshot disable current metrics
+  ---
+  duration_ms: 1.239329
+  type: 'test'
+  ...
+# Subtest: state changes within non-atomic API collection are rejected
+ok 23 - state changes within non-atomic API collection are rejected
+  ---
+  duration_ms: 1.545642
+  type: 'test'
+  ...
+# Subtest: persistence failure cannot advance in-memory NAV or activate derived performance
+ok 24 - persistence failure cannot advance in-memory NAV or activate derived performance
+  ---
+  duration_ms: 2.145987
+  type: 'test'
+  ...
+# Subtest: restart restores exact capital, activities, costs, and idempotent fill inventory
+ok 25 - restart restores exact capital, activities, costs, and idempotent fill inventory
+  ---
+  duration_ms: 3.434111
+  type: 'test'
+  ...
+# Subtest: state integrity and policy mismatch reject an unsafe restart
+ok 26 - state integrity and policy mismatch reject an unsafe restart
+  ---
+  duration_ms: 1.029374
+  type: 'test'
+  ...
+# Subtest: an activity with the same id but changed economics requires explicit restatement
+ok 27 - an activity with the same id but changed economics requires explicit restatement
+  ---
+  duration_ms: 1.912927
+  type: 'test'
+  ...
+# Subtest: late cost receipts reconstruct historical economics while retaining actual knowledge time
+ok 28 - late cost receipts reconstruct historical economics while retaining actual knowledge time
+  ---
+  duration_ms: 2.115862
+  type: 'test'
+  ...
+# Subtest: real receipt clock exports the closed covered prefix while the current mark remains uncovered
+ok 29 - real receipt clock exports the closed covered prefix while the current mark remains uncovered
+  ---
+  duration_ms: 291.555606
+  type: 'test'
+  ...
+# Subtest: a cost cannot disappear, mutate under the same id, or link the same account fee twice
+ok 30 - a cost cannot disappear, mutate under the same id, or link the same account fee twice
+  ---
+  duration_ms: 5.631826
+  type: 'test'
+  ...
+# Subtest: economic insolvency remains recorded after subsequent deposits and never clips the loss
+ok 31 - economic insolvency remains recorded after subsequent deposits and never clips the loss
+  ---
+  duration_ms: 1.831914
+  type: 'test'
+  ...
+# Subtest: actual account equity at zero is stored as insolvency, not hidden by flow or closed-trade metrics
+ok 32 - actual account equity at zero is stored as insolvency, not hidden by flow or closed-trade metrics
+  ---
+  duration_ms: 1.498501
+  type: 'test'
+  ...
+# Subtest: comparable finite period exporter has no implied annualization or source authentication
+ok 33 - comparable finite period exporter has no implied annualization or source authentication
+  ---
+  duration_ms: 1.678352
+  type: 'test'
+  ...
+# Subtest: irregular observations retain continuous PnL but cannot manufacture comparable Sharpe periods
+ok 34 - irregular observations retain continuous PnL but cannot manufacture comparable Sharpe periods
+  ---
+  duration_ms: 1.751302
+  type: 'test'
+  ...
+# Subtest: history bounds stop, preserve evidence and do not reset the capital curve
+ok 35 - history bounds stop, preserve evidence and do not reset the capital curve
+  ---
+  duration_ms: 1.50442
+  type: 'test'
+  ...
+# Subtest: summary avoids exporting full activity or NAV arrays on operational health paths
+ok 36 - summary avoids exporting full activity or NAV arrays on operational health paths
+  ---
+  duration_ms: 0.587746
+  type: 'test'
+  ...
+# Subtest: invalid timestamp does not permanently latch the in-process refresh guard
+ok 37 - invalid timestamp does not permanently latch the in-process refresh guard
+  ---
+  duration_ms: 1.273472
+  type: 'test'
+  ...
+# Subtest: overlapping refresh is rejected while the first operation remains valid
+ok 38 - overlapping refresh is rejected while the first operation remains valid
+  ---
+  duration_ms: 1.503248
+  type: 'test'
+  ...
+# Subtest: two instances sharing one Store cannot race its same-owner lease
+ok 39 - two instances sharing one Store cannot race its same-owner lease
+  ---
+  duration_ms: 1.299881
+  type: 'test'
+  ...
+# Subtest: production SQLite transport persists one complete ledger record across process restarts
+ok 40 - production SQLite transport persists one complete ledger record across process restarts
+  ---
+  duration_ms: 77.854958
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 491.126705

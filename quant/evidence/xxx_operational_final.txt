@@ -1,0 +1,38 @@
+✔ first-campaign protection rejection cannot starve later stop exit (82.526205ms)
+✔ first-campaign protection rejection cannot starve later flatten exit (28.484417ms)
+✔ first-campaign protection rejection cannot starve later time exit (19.834995ms)
+✔ first-campaign protection rejection cannot starve later signal exit (16.096863ms)
+✔ rejected first protection does not monopolize routine protection for later campaigns (24.873427ms)
+✔ one stale position remains visibly unmonitored while another position completes (26.489502ms)
+✔ per-position evaluation failure preserves prior completion and cannot be masked by later success (18.59128ms)
+✔ restart never treats persisted position evaluations as current-run monitoring (103.220056ms)
+✔ UNKNOWN exit blocks duplicate submission across pulses and restart without starving another urgent campaign (33.55275ms)
+✔ young TP cancellation and partial fill reconcile before one urgent remainder sale (27.203551ms)
+✔ pause and disabled plugins preserve per-campaign urgent exits (25.593707ms)
+✔ tick-scale protection drift remains visible and prevents risk expansion until reconciled (18.22284ms)
+✔ definitive rejection retry is bounded, persisted, capped and recovered after broker acceptance (66.337004ms)
+✔ a protection rejection cooldown never delays a new urgent exit in that campaign (26.113031ms)
+✔ stale global reconciliation records attempts without completing checks or mutating broker state (16.045226ms)
+✔ closed equity sessions stay visibly incomplete while crypto urgent exits remain active (13.499213ms)
+✔ stale OPRA data cannot manufacture a completed option check or an executable option close (15.526034ms)
+✔ fresh global reconciliation cannot refresh stale per-position coverage or permit new allocation (13.37163ms)
+✔ a remembered TP cannot become a stale-quote market sale after protection cancellation (66.953052ms)
+✔ partial entry waits for confirmed cancellation and reconciles late fills before urgent sale (17.810205ms)
+✔ an eight-campaign pulse observes every position before mutation and stops at its work budget (64.2239ms)
+✔ cancel-pending native protection still reserves inventory at the final submit guard (12.693665ms)
+✔ more campaigns than the pulse budget receive fair work across bounded successive pulses (60.962916ms)
+✔ concurrent pulse wakeups coalesce and cannot duplicate urgent exits (19.311276ms)
+✔ standalone held stop is not confirmed protection and cannot unlock new allocation (15.531885ms)
+✔ held OCO stop leg requires its same-campaign live uncanceled OCO parent (12.868333ms)
+✔ accepted OCO siblings cannot clear a rejected runner cooldown across reconciliation and restart (32.298985ms)
+✔ freshly verified protected closed equity permits independent crypto entry without fake price completion (13.740492ms)
+✔ stale closed-session clock and reopening transition block crypto allocation until a current evaluation (17.658989ms)
+✔ closed-session entry safety still rejects stop drift, cancellation, unresolved exits and retry backoff (15.855885ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1084.68451

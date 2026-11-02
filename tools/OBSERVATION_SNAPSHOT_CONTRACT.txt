@@ -1,0 +1,114 @@
+HARPOON 30.12.0 — pinned observation export and bounded causal ingestion
+
+Purpose
+Export one committed account prefix while the normal capture lane keeps running.
+Verify every original page before deriving a causal price-label panel. No broker
+query, extra scheduler, model training, order, funded path or financial approval
+is added by this feature. Existing legacy exports remain supported.
+
+Authenticated HTTP API
+  GET /v1/quant/observations/snapshot
+    Returns HARPOON_OBSERVATION_SNAPSHOT_1 plus snapshot_id.
+  GET /v1/quant/observations?snapshot_id=<id>&offset=0&limit=100
+    Returns HARPOON_OBSERVATION_EXPORT_1 with pinned header, descriptor and chain
+    records. Continue at next_offset until next_offset == total_frames.
+
+Both routes are after the existing authentication/origin checks. A token is a
+binding identifier, not an authentication credential. A third distinct snapshot
+evicts the oldest of two metadata slots; it never deletes raw market evidence.
+An evicted token fails explicitly and never switches to a newer account/head.
+The descriptor and pages survive restart. The source hash chain, account, index
+hash and original frame hashes are reconstructed before use. Local hashes do
+not independently authenticate the market-data provider.
+
+One page contains at most 100 frames and 32 MiB, with byte-sensitive pagination.
+Source frames stay immutable. The copied index and cached references define the
+prefix even if capture advances during page I/O. Long index validation yields
+to the event loop every 512 records. This is not a production latency benchmark.
+At most two reference caches are retained; raw history is not cached wholesale.
+Snapshot registry metadata is bounded to 16 MiB in total and reserved inside the
+existing observation byte quota (default 512 MiB). An uncertain write retains a
+conservative reservation until acknowledgement or verified reload. The feature
+does not expand that quota, reclaim raw history or promise a retention duration.
+
+Local manifest tool
+First save the authenticated descriptor and all pages with their original JSON
+bytes. Supply a local request file in the same directory as the output:
+  {
+    "snapshot": <complete descriptor including snapshot_id>,
+    "pages": [{"path":"page-0.json","sha256":"<original bytes SHA-256>"}, ...],
+    "selection": <the existing causal selection object>
+  }
+
+  node tools/export_observation_snapshot.cjs --input export-request.json --output stream-manifest.json
+  node tools/export_observation_snapshot.cjs --verify stream-manifest.json
+
+The tool reads only local files. It checks duplicate JSON keys, the same snapshot
+header on every page, continuous offsets/sequences starting at GENESIS, original
+frame hashes, chain hashes and the final head/count. Missing/reordered pages,
+mutated frames, changed account or a substituted endpoint are errors. The
+manifest binds the complete captured prefix and selection before panel selection
+is run. That binding does not prove market-time preregistration.
+
+Causal-panel request
+The existing HARPOON_CAUSAL_PANEL_REQUEST_1 accepts an additional alternative:
+  observation_manifest: {path: "stream-manifest.json", sha256: "<file bytes SHA-256>"}
+  observation_exports: []
+  selection: <exact same selection object as the manifest>
+
+The legacy observation_exports array and the new manifest cannot be mixed.
+The existing build_causal_panel.py build/verify commands remain unchanged.
+Source pages keep HARPOON_OBSERVATION_EXPORT_1 for existing consumers.
+
+Streaming limits and causal semantics
+- Maximum 512 pages, 100 frames per page: 51,200 frames per complete prefix.
+- Maximum 32 MiB per source file and 128 MiB cumulative source bytes, including
+  the manifest when the Python panel reads it. These limits are not increased.
+- Only one raw page is decoded at a time. Timestamp/hash references are bounded
+  by the frame limit; selected rows are bounded to 5,000.
+- Quote history uses temporary SQLite capped at 128 MiB. The database is closed
+  and removed on success and failure. Quotes remain quotes, never executions.
+- At most 1,000 rejection examples are returned, with full total/stage counts.
+- Every page/frame and quote clock remains checked. Expensive feature
+  recomputation is limited to the declared local selection grid in stream mode.
+- Label maturity still requires an observed as-of quote and later captured
+  receipt; no future nearest price, fabricated label or wall-clock backdating.
+- All pages belong to the same pinned prefix. Configuration epochs may change
+  only the observed universe. Each discovery timestamp must precede capture.
+  Signal/cost/risk/configuration changes require a different dataset definition.
+- For a selected symbol, book, factor, multiplier, step and minimum quantity are
+  immutable within the dataset. A later semantic change is a hard error. Global
+  metadata remains bound to the first causal row, never overwritten by future
+  metadata. Adding/removing symbols with stable semantics remains supported.
+
+Calendar and cost limits that remain
+The runtime labels OPENING_90, PRECLOSE_90 and POSTCLOSE_90 separately, using its
+observed calendar. The causal panel still admits regular-session selections
+only. It does not turn post-close quotes into a validated post-close strategy.
+Default rotation selects 12 symbols per nominal 60-second capture. With a
+hypothetical registered universe of 40, one rotation takes about four captures;
+that does not establish complete coverage within a 90-second selection budget.
+Actual freshness, p50/p95/p99, compressed bytes per session, active universe,
+capture duty cycle and retention in sessions remain unmeasured until original
+runtime receipts are provided. No sampling cadence is changed by this release.
+
+Boundary to economic validation
+The observation replay adapter intentionally keeps executable_qty=0 and emits
+market/sessions/evaluate events, not orders/fills. This new export cannot produce
+funded C0/Ridge/SVR curves by itself. The existing comparison still requires
+original fixed model bytes, causal availability, an explicit registered
+execution hypothesis, an observed account ledger and documented costs. Its
+legacy configuration contract is unchanged; a universe-varying panel does not
+automatically make a universe-varying funded comparison admissible.
+
+Verification commands
+  npm run typecheck:xxx
+  npm run build:xxx
+  node tools/quant_observation_snapshot_test.cjs
+  node tools/quant_observation_archive_test.cjs
+  PYTHONPATH=quant:quant/tests OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 -m unittest discover -s quant/tests -p test_causal_panel.py -v
+  PYTHONPATH=quant:quant/tests OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 -m unittest discover -s quant/tests -p test_observation_stream.py -v
+
+The >20,000-frame regression fixture is compact synthetic engineering data. It
+demonstrates bounded decoding and zero invented rows, not 100 observed market
+sessions, a profitable strategy or an operational latency distribution.

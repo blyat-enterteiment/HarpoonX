@@ -1,0 +1,13 @@
+--- 30.12/xxx/policy.ts
++++ 31.4/xxx/policy.ts
+@@ -1,2 +1,3 @@
++import { optionBudget } from "./option_contracts";
+ import { DEFAULT_EXIT, floorStep, fresh, positive, TERMINAL } from "./types";
+ import type {
+@@ -229,5 +230,5 @@
+   // Long-option allocation reserves the entire premium as loss, not a hypothetical stop fill.
+   const unitRisk =
+-    (asset.book === "options" ? s.entry : s.entry - s.stop) + cost;
++    asset.book === "options" ? optionBudget(s.entry,asset.multiplier,cfg,Number(account.equity)).fullPremiumRisk/asset.multiplier : s.entry-s.stop+cost;
+   const cap = Math.max(
+     0,

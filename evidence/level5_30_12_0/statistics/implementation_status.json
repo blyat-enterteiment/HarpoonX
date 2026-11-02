@@ -1,0 +1,47 @@
+{
+  "schema": "HARPOON_LEVEL5_STATISTICAL_IMPLEMENTATION_STATUS_1",
+  "application": "30.12.0",
+  "corrections": [
+    "V2 bound bridge from complete native/Ridge/SVR replay plus deterministic CASH; legacy cash-C0 contract preserved",
+    "Chronological documented economic costs, original fixed cash reserve, intraperiod risk and one preregistered cost/slippage stress comparison",
+    "Byte-bound prior history, retained Quant audit prefix, actual reservation lineage and fresh-period blocking"
+  ],
+  "validation": {
+    "new_node_tests": 9,
+    "new_python_tests": 16,
+    "legacy_economic_gate_tests": 49,
+    "ruff": "PASS",
+    "mypy": "PASS_2_MODULES",
+    "synthetic_full_pipeline": "SOFTWARE_PASS_FINANCIAL_APPROVAL_FALSE"
+  },
+  "historical_counts": {
+    "QUANT": 23,
+    "ULTIMATE": 18,
+    "TP32": 3,
+    "global_deduplicated_total": null,
+    "fresh_final_test_period": null
+  },
+  "financial_trials_added": 0,
+  "training_runs": 0,
+  "budget_reservations_added": 0,
+  "execution_allowed": false,
+  "liveApproved": false,
+  "financial_acceptance_allowed": false,
+  "economic_score_proven_by_this_work": null,
+  "remaining_evidence": [
+    "Observed causal panel and reconciled source account/costs required by level4",
+    "Original per-attempt identities across historical search families",
+    "A newly preregistered test period and empirical net advantage versus Ridge/native with adjusted uncertainty and stress"
+  ],
+  "sources_sha256": {
+    "quant/harpoon_quant/economic_gate.py": "66fd7c9612040b73a4b0c7c53da29d8a342eb29773bcbcc30e349045914c65ae",
+    "quant/harpoon_quant/economic_gate_v2.py": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+    "quant/tests/test_economic_gate_v2.py": "06bbb06d5608308d5106f3c3fb616947b4b343d7b529f5fa0193cf6b099f6b99",
+    "tools/level5_readiness.cjs": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+    "tools/level5_readiness_test.cjs": "ebb5175c24bbca6ad2e5e5e2a3dac94275175c6fcc29424000257d6803f9a690",
+    "tools/fixtures/level5_fixture.cjs": "f73b2fe6ba4c57c7c7c26fcccadea1aa5b3dee4caec7997557315fc74a72072b",
+    "tools/LEVEL5_READINESS_CONTRACT.txt": "fe8c7d336b007b4c80364559e46d7da9e7b650f35c053e5ab46af693b692cb5c",
+    "evidence/level5_30_12_0/history/manifest.json": "ed0cfa416624317874271f7d52d10dc5f9fb252cf807b25129137d6d0d9c06b6",
+    "evidence/level5_30_12_0/history/verification.json": "7156bb180cfeea2232ad4bc7b5f21b50b448ab3102632e370fd7becd59d87517"
+  }
+}

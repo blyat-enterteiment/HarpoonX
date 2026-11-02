@@ -1,0 +1,33 @@
+{
+  "nature": "SYNTHETIC_TEST_RUNNER_CORRECTION",
+  "cause": "Global test clock anchored on October 15 preceded the protocol minimum knownHistoryThrough of October 17. HTTP 409 and protocol failures correctly enforced historical availability.",
+  "baseline_reproduced": true,
+  "reproduction": "ultimate_clock_baseline_reproduction.json",
+  "runtime_contract_equal_to_baseline": true,
+  "changes": [
+    "tools/quant_clock.cjs: optional HARPOON_TEST_CLOCK_ANCHOR, retains October 15 fallback and rejects invalid dates.",
+    "tools/ultimate_test.cjs: consume response JSON before unchanged 201 assertion so rejection reason is visible and response is drained."
+  ],
+  "fixtures_or_contracts_weakened": false,
+  "application_source_changed": false,
+  "clock_for_ultimate": "2026-10-30T15:00:00Z",
+  "counts": {
+    "tests": 30,
+    "pass": 30,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "loopback_test": "Completed with temporary local bind after sandbox EPERM; server finally close retained.",
+  "command": "HARPOON_TEST_CLOCK_ANCHOR=2026-10-30T15:00:00Z timeout 60s node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-reporter=tap tools/ultimate_test.cjs",
+  "artifacts": {
+    "initial_red": "ultimate_test.clock_20261015.red.log",
+    "sandbox_EPERM": "ultimate_test.clock_20261030.validation.log",
+    "green": "ultimate_test.clock_20261030.green.log"
+  },
+  "sha256": {
+    "tools/quant_clock.cjs": "c35956020b6e56342e7f4e7b2b7441d1718222a71db75472fddf3e841e96c3df",
+    "tools/ultimate_test.cjs": "0fe49dc80d69bebfc61fa26ae440523f8a510d6a74c42ce2f1816f603ad2051f",
+    "runtime30/ultimate_contracts.js": "782dc639435eb3f517ff4b6423d7ffe8ef3b4fc3067ea4de2f9be0ce086b7679"
+  }
+}

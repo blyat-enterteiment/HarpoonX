@@ -1,0 +1,12 @@
+HARPOON runtime evidence collector (fixed GET routes; no orders or model fitting)
+Usage:
+  node tools/collect_runtime_evidence.cjs --base-url URL --expected-account ID \
+    --expected-version VERSION --output NEW_DIRECTORY [--selection FILE] \
+    [--timeout-ms MS] [--request-timeout-ms MS]
+
+HARPOON_PANEL_PASSWORD must already be supplied through the environment.
+Do not put credentials in command arguments or in the URL. Username is trader.
+HTTPS is required except for literal 127.0.0.0/8 or ::1 loopback addresses.
+An existing output is rejected. Completed original responses remain after errors.
+Without a selection file, no calibration manifest or training request is created.
+This command verifies transport/integrity, never financial approval or a score.

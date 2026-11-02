@@ -1,0 +1,765 @@
+{
+  "schema": "HARPOON_PAIRED_REPLAY_1",
+  "execution_allowed": false,
+  "liveApproved": false,
+  "research_only": true,
+  "financial_acceptance_allowed": false,
+  "dictamen": "VENTAJA_NO_DEMOSTRADA",
+  "readiness": {
+    "status": "READY_FOR_DIAGNOSTIC_REPLAY",
+    "computable": true,
+    "financial_acceptance_allowed": false,
+    "blockers": [],
+    "limitations": [
+      "MODELED_FILLS_NOT_OBSERVED_EXECUTIONS",
+      "FULL_COORDINATOR_POLICY_PARITY_NOT_VERIFIED",
+      "SYNTHETIC_ENGINEERING_ONLY",
+      "COSTS_NOT_VERIFIED",
+      "SYNTHETIC_OR_UNVERIFIED_MODEL_ORIGIN"
+    ],
+    "execution_allowed": false
+  },
+  "price_origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "execution_origin": "MODELED",
+  "policy_parity_verified": false,
+  "scope": "Real numerical allocator for unleveraged whole-share equity/ETF accounts without margin credit, with common time/invalidation exit and next-quote IOC capacity execution; not full live coordinator or plugin parity.",
+  "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+  "policy_hash": "c870334d5be6fbdaf674f64b014ab43d15914f582adb9f7360dcec412e7efd4b",
+  "input_hash": "1b28d20b1e164bfa8cdd08778163afb5d9cc54203ac74a9f8b967aa2773e80b9",
+  "policy_id": "SYNTHETIC_ENGINEERING_POLICY",
+  "status": "ENGINEERING_ONLY",
+  "policies": {
+    "C0": {
+      "initial_equity_usd": 1000.0,
+      "final_equity_usd": 1000.0,
+      "net_pnl_usd": 0.0,
+      "external_net_flows_usd": 0.0,
+      "execution_fees_usd": 0.0,
+      "operating_costs_usd": 0.0,
+      "cost_accounting": "All charged costs already reduce cash; spread/slippage embedded in fills are not debited again.",
+      "realized_net_pnl_usd": 0.0,
+      "open_positions": {},
+      "growth_log_per_session": 0.0,
+      "growth_null_reason": null,
+      "drawdown_fraction": 0.0,
+      "daily_returns": {
+        "2026-10-15": 0.0
+      },
+      "insolvent": false,
+      "requested_quantity": 0,
+      "filled_quantity": 0,
+      "fill_ratio": null,
+      "fill_ratio_null_reason": "NO_ORDERS_REQUESTED",
+      "decision_count": 3,
+      "fill_count": 0,
+      "incidents": [],
+      "curve": [
+        {
+          "at": "2026-10-15T13:50:01+00:00",
+          "decision_id": "D0",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        },
+        {
+          "at": "2026-10-15T14:30:01+00:00",
+          "decision_id": "D1",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        },
+        {
+          "at": "2026-10-15T18:45:01+00:00",
+          "decision_id": "D2",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        }
+      ],
+      "decisions": [
+        {
+          "decision_id": "D0",
+          "at": "2026-10-15T13:50:00+00:00",
+          "session": "2026-10-15",
+          "window": "OPENING_90",
+          "universe_hash": "0faa3f71b9d09fb2ecf19c7dfb0c3aed3341ff530a7eaa697b4ac76ddfdb8c6d",
+          "opportunity_count": 1,
+          "plan": {
+            "selected": [],
+            "reason": "NO_NEW_ENTRIES_CONTROL",
+            "execution_allowed": false
+          },
+          "decision_equity_usd": 1000.0
+        },
+        {
+          "decision_id": "D1",
+          "at": "2026-10-15T14:30:00+00:00",
+          "session": "2026-10-15",
+          "window": "OPENING_90",
+          "universe_hash": "bbdd34607cd91e4dd499ab0f603ce9b653e71489a8e8a13e98737463ff38ccc5",
+          "opportunity_count": 1,
+          "plan": {
+            "selected": [],
+            "reason": "NO_NEW_ENTRIES_CONTROL",
+            "execution_allowed": false
+          },
+          "decision_equity_usd": 1000.0
+        },
+        {
+          "decision_id": "D2",
+          "at": "2026-10-15T18:45:00+00:00",
+          "session": "2026-10-15",
+          "window": "PRECLOSE_90",
+          "universe_hash": "23482448fdf3986e83fed238f93a64228cffe8303df29f762b077de9e9f74127",
+          "opportunity_count": 1,
+          "plan": {
+            "selected": [],
+            "reason": "NO_NEW_ENTRIES_CONTROL",
+            "execution_allowed": false
+          },
+          "decision_equity_usd": 1000.0
+        }
+      ],
+      "events": [
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D0",
+          "at": "2026-10-15T13:50:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        },
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D1",
+          "at": "2026-10-15T14:30:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        },
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D2",
+          "at": "2026-10-15T18:45:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        }
+      ],
+      "accounting": {
+        "status": "INTERNALLY_RECONCILED",
+        "final_cash_usd": 1000.0,
+        "open_inventory": {},
+        "fill_events": 0,
+        "fees_usd": 0.0,
+        "scope": "Internal event, inventory and NAV consistency only."
+      }
+    },
+    "RIDGE": {
+      "initial_equity_usd": 1000.0,
+      "final_equity_usd": 1000.0,
+      "net_pnl_usd": 0.0,
+      "external_net_flows_usd": 0.0,
+      "execution_fees_usd": 0.0,
+      "operating_costs_usd": 0.0,
+      "cost_accounting": "All charged costs already reduce cash; spread/slippage embedded in fills are not debited again.",
+      "realized_net_pnl_usd": 0.0,
+      "open_positions": {},
+      "growth_log_per_session": 0.0,
+      "growth_null_reason": null,
+      "drawdown_fraction": 0.0,
+      "daily_returns": {
+        "2026-10-15": 0.0
+      },
+      "insolvent": false,
+      "requested_quantity": 0,
+      "filled_quantity": 0,
+      "fill_ratio": null,
+      "fill_ratio_null_reason": "NO_ORDERS_REQUESTED",
+      "decision_count": 3,
+      "fill_count": 0,
+      "incidents": [],
+      "curve": [
+        {
+          "at": "2026-10-15T13:50:01+00:00",
+          "decision_id": "D0",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        },
+        {
+          "at": "2026-10-15T14:30:01+00:00",
+          "decision_id": "D1",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        },
+        {
+          "at": "2026-10-15T18:45:01+00:00",
+          "decision_id": "D2",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        }
+      ],
+      "decisions": [
+        {
+          "decision_id": "D0",
+          "at": "2026-10-15T13:50:00+00:00",
+          "session": "2026-10-15",
+          "window": "OPENING_90",
+          "universe_hash": "0faa3f71b9d09fb2ecf19c7dfb0c3aed3341ff530a7eaa697b4ac76ddfdb8c6d",
+          "opportunity_count": 1,
+          "plan": {
+            "engine": "HARPOON_QUANT_1",
+            "asof": "2026-10-15T13:50:00+00:00",
+            "status": "RESEARCH_ONLY",
+            "liveApproved": false,
+            "execution_allowed": false,
+            "selected": [],
+            "rejected": {},
+            "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+            "model_hash": "7aa6d8441aba35167c9ef1eb771177f922a2dc3004564ca704f18b14aa1f66fa",
+            "decision_inputs": {
+              "asof": "2026-10-15T13:50:00+00:00",
+              "calibration_available_at": "2026-10-14T15:00:00+00:00",
+              "origin": "SYNTHETIC_ENGINEERING_ONLY",
+              "candidates": [
+                {
+                  "id": "PLUGIN|SYNTHSVR",
+                  "symbol": "SYNTHSVR",
+                  "underlying": "SYNTHSVR",
+                  "book": "equity",
+                  "factor": "SYNTHETIC_FACTOR",
+                  "features": [
+                    0.027,
+                    0.034999999999999996,
+                    0.084,
+                    0.0245,
+                    0.5599999999999999,
+                    1.08,
+                    0.005000000000000002,
+                    0.00114
+                  ],
+                  "quote": null
+                }
+              ]
+            },
+            "reason": "CONDITIONAL_MODEL_ALLOCATION",
+            "expected_net_usd": 0.0,
+            "robust_incremental_usd": 0.0,
+            "cvar_usd": 0.0,
+            "partial_fill_cvar_upper_usd": 0.0,
+            "stress_worst_loss_usd": -0.0,
+            "partial_fill_stress_upper_usd": -0.0,
+            "cash_committed_usd": 0.0,
+            "scenario_count": 64,
+            "joint_residual_dates": 25,
+            "uncertainty_effective_dates_approx": 5.0,
+            "solver_status": 0,
+            "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit.",
+            "request_hash": "2f8e3e888464114c28fb1c756da8f68c6882db69bac0d04fd4715f92a344ad93"
+          },
+          "decision_equity_usd": 1000.0
+        },
+        {
+          "decision_id": "D1",
+          "at": "2026-10-15T14:30:00+00:00",
+          "session": "2026-10-15",
+          "window": "OPENING_90",
+          "universe_hash": "bbdd34607cd91e4dd499ab0f603ce9b653e71489a8e8a13e98737463ff38ccc5",
+          "opportunity_count": 1,
+          "plan": {
+            "engine": "HARPOON_QUANT_1",
+            "asof": "2026-10-15T14:30:00+00:00",
+            "status": "RESEARCH_ONLY",
+            "liveApproved": false,
+            "execution_allowed": false,
+            "selected": [],
+            "rejected": {},
+            "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+            "model_hash": "7aa6d8441aba35167c9ef1eb771177f922a2dc3004564ca704f18b14aa1f66fa",
+            "decision_inputs": {
+              "asof": "2026-10-15T14:30:00+00:00",
+              "calibration_available_at": "2026-10-14T15:00:00+00:00",
+              "origin": "SYNTHETIC_ENGINEERING_ONLY",
+              "candidates": [
+                {
+                  "id": "PLUGIN|SYNTHSVR",
+                  "symbol": "SYNTHSVR",
+                  "underlying": "SYNTHSVR",
+                  "book": "equity",
+                  "factor": "SYNTHETIC_FACTOR",
+                  "features": [
+                    0.027,
+                    0.034999999999999996,
+                    0.084,
+                    0.0245,
+                    0.5599999999999999,
+                    1.08,
+                    0.005000000000000002,
+                    0.00114
+                  ],
+                  "quote": null
+                }
+              ]
+            },
+            "reason": "CONDITIONAL_MODEL_ALLOCATION",
+            "expected_net_usd": 0.0,
+            "robust_incremental_usd": 0.0,
+            "cvar_usd": 0.0,
+            "partial_fill_cvar_upper_usd": 0.0,
+            "stress_worst_loss_usd": -0.0,
+            "partial_fill_stress_upper_usd": -0.0,
+            "cash_committed_usd": 0.0,
+            "scenario_count": 64,
+            "joint_residual_dates": 25,
+            "uncertainty_effective_dates_approx": 5.0,
+            "solver_status": 0,
+            "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit.",
+            "request_hash": "ccbd7929563bb6bf46d3b21d010006b60d082351ce4908bff0908a83fb2baa0c"
+          },
+          "decision_equity_usd": 1000.0
+        },
+        {
+          "decision_id": "D2",
+          "at": "2026-10-15T18:45:00+00:00",
+          "session": "2026-10-15",
+          "window": "PRECLOSE_90",
+          "universe_hash": "23482448fdf3986e83fed238f93a64228cffe8303df29f762b077de9e9f74127",
+          "opportunity_count": 1,
+          "plan": {
+            "engine": "HARPOON_QUANT_1",
+            "asof": "2026-10-15T18:45:00+00:00",
+            "status": "RESEARCH_ONLY",
+            "liveApproved": false,
+            "execution_allowed": false,
+            "selected": [],
+            "rejected": {},
+            "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+            "model_hash": "7aa6d8441aba35167c9ef1eb771177f922a2dc3004564ca704f18b14aa1f66fa",
+            "decision_inputs": {
+              "asof": "2026-10-15T18:45:00+00:00",
+              "calibration_available_at": "2026-10-14T15:00:00+00:00",
+              "origin": "SYNTHETIC_ENGINEERING_ONLY",
+              "candidates": [
+                {
+                  "id": "PLUGIN|SYNTHSVR",
+                  "symbol": "SYNTHSVR",
+                  "underlying": "SYNTHSVR",
+                  "book": "equity",
+                  "factor": "SYNTHETIC_FACTOR",
+                  "features": [
+                    0.027,
+                    0.034999999999999996,
+                    0.084,
+                    0.0245,
+                    0.5599999999999999,
+                    1.08,
+                    0.005000000000000002,
+                    0.00114
+                  ],
+                  "quote": null
+                }
+              ]
+            },
+            "reason": "CONDITIONAL_MODEL_ALLOCATION",
+            "expected_net_usd": 0.0,
+            "robust_incremental_usd": 0.0,
+            "cvar_usd": 0.0,
+            "partial_fill_cvar_upper_usd": 0.0,
+            "stress_worst_loss_usd": -0.0,
+            "partial_fill_stress_upper_usd": -0.0,
+            "cash_committed_usd": 0.0,
+            "scenario_count": 64,
+            "joint_residual_dates": 25,
+            "uncertainty_effective_dates_approx": 5.0,
+            "solver_status": 0,
+            "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit.",
+            "request_hash": "28b9a960add8cdefba5a2030e76eebdcdabd4e64f7fa3873df6cc8d03b9b7a0a"
+          },
+          "decision_equity_usd": 1000.0
+        }
+      ],
+      "events": [
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D0",
+          "at": "2026-10-15T13:50:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        },
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D1",
+          "at": "2026-10-15T14:30:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        },
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D2",
+          "at": "2026-10-15T18:45:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        }
+      ],
+      "accounting": {
+        "status": "INTERNALLY_RECONCILED",
+        "final_cash_usd": 1000.0,
+        "open_inventory": {},
+        "fill_events": 0,
+        "fees_usd": 0.0,
+        "scope": "Internal event, inventory and NAV consistency only."
+      }
+    },
+    "SVR": {
+      "initial_equity_usd": 1000.0,
+      "final_equity_usd": 1000.0,
+      "net_pnl_usd": 0.0,
+      "external_net_flows_usd": 0.0,
+      "execution_fees_usd": 0.0,
+      "operating_costs_usd": 0.0,
+      "cost_accounting": "All charged costs already reduce cash; spread/slippage embedded in fills are not debited again.",
+      "realized_net_pnl_usd": 0.0,
+      "open_positions": {},
+      "growth_log_per_session": 0.0,
+      "growth_null_reason": null,
+      "drawdown_fraction": 0.0,
+      "daily_returns": {
+        "2026-10-15": 0.0
+      },
+      "insolvent": false,
+      "requested_quantity": 0,
+      "filled_quantity": 0,
+      "fill_ratio": null,
+      "fill_ratio_null_reason": "NO_ORDERS_REQUESTED",
+      "decision_count": 3,
+      "fill_count": 0,
+      "incidents": [],
+      "curve": [
+        {
+          "at": "2026-10-15T13:50:01+00:00",
+          "decision_id": "D0",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        },
+        {
+          "at": "2026-10-15T14:30:01+00:00",
+          "decision_id": "D1",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        },
+        {
+          "at": "2026-10-15T18:45:01+00:00",
+          "decision_id": "D2",
+          "session": "2026-10-15",
+          "cash_usd": 1000.0,
+          "equity_usd": 1000.0,
+          "pre_flow_cash_usd": 1000.0,
+          "pre_flow_equity_usd": 1000.0,
+          "pre_flow_positions": [],
+          "external_flow_before_usd": 0.0,
+          "return_net": 0.0,
+          "positions": []
+        }
+      ],
+      "decisions": [
+        {
+          "decision_id": "D0",
+          "at": "2026-10-15T13:50:00+00:00",
+          "session": "2026-10-15",
+          "window": "OPENING_90",
+          "universe_hash": "0faa3f71b9d09fb2ecf19c7dfb0c3aed3341ff530a7eaa697b4ac76ddfdb8c6d",
+          "opportunity_count": 1,
+          "plan": {
+            "engine": "HARPOON_QUANT_1",
+            "asof": "2026-10-15T13:50:00+00:00",
+            "status": "SHADOW_RESEARCH_ONLY",
+            "liveApproved": false,
+            "execution_allowed": false,
+            "selected": [],
+            "rejected": {},
+            "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+            "model_hash": "86347958edc0ddafab9d0bff6a9bd45da9d39cad4206ebadec698810f4d939bb",
+            "decision_inputs": {
+              "asof": "2026-10-15T13:50:00+00:00",
+              "calibration_available_at": "2026-10-14T15:00:00+00:00",
+              "origin": "SYNTHETIC_ENGINEERING_ONLY",
+              "candidates": [
+                {
+                  "id": "PLUGIN|SYNTHSVR",
+                  "symbol": "SYNTHSVR",
+                  "underlying": "SYNTHSVR",
+                  "book": "equity",
+                  "factor": "SYNTHETIC_FACTOR",
+                  "features": [
+                    0.027,
+                    0.034999999999999996,
+                    0.084,
+                    0.0245,
+                    0.5599999999999999,
+                    1.08,
+                    0.005000000000000002,
+                    0.00114
+                  ],
+                  "quote": null
+                }
+              ]
+            },
+            "forecast_model_kind": "SVR_RBF",
+            "research_only": true,
+            "forecasts": {
+              "SYNTHSVR": 0.020823770299732095
+            },
+            "reason": "CONDITIONAL_MODEL_ALLOCATION",
+            "expected_net_usd": 0.0,
+            "robust_incremental_usd": 0.0,
+            "cvar_usd": 0.0,
+            "partial_fill_cvar_upper_usd": 0.0,
+            "stress_worst_loss_usd": -0.0,
+            "partial_fill_stress_upper_usd": -0.0,
+            "cash_committed_usd": 0.0,
+            "scenario_count": 64,
+            "joint_residual_dates": 60,
+            "uncertainty_effective_dates_approx": 12.0,
+            "solver_status": 0,
+            "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit.",
+            "request_hash": "2f8e3e888464114c28fb1c756da8f68c6882db69bac0d04fd4715f92a344ad93"
+          },
+          "decision_equity_usd": 1000.0
+        },
+        {
+          "decision_id": "D1",
+          "at": "2026-10-15T14:30:00+00:00",
+          "session": "2026-10-15",
+          "window": "OPENING_90",
+          "universe_hash": "bbdd34607cd91e4dd499ab0f603ce9b653e71489a8e8a13e98737463ff38ccc5",
+          "opportunity_count": 1,
+          "plan": {
+            "engine": "HARPOON_QUANT_1",
+            "asof": "2026-10-15T14:30:00+00:00",
+            "status": "SHADOW_RESEARCH_ONLY",
+            "liveApproved": false,
+            "execution_allowed": false,
+            "selected": [],
+            "rejected": {},
+            "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+            "model_hash": "86347958edc0ddafab9d0bff6a9bd45da9d39cad4206ebadec698810f4d939bb",
+            "decision_inputs": {
+              "asof": "2026-10-15T14:30:00+00:00",
+              "calibration_available_at": "2026-10-14T15:00:00+00:00",
+              "origin": "SYNTHETIC_ENGINEERING_ONLY",
+              "candidates": [
+                {
+                  "id": "PLUGIN|SYNTHSVR",
+                  "symbol": "SYNTHSVR",
+                  "underlying": "SYNTHSVR",
+                  "book": "equity",
+                  "factor": "SYNTHETIC_FACTOR",
+                  "features": [
+                    0.027,
+                    0.034999999999999996,
+                    0.084,
+                    0.0245,
+                    0.5599999999999999,
+                    1.08,
+                    0.005000000000000002,
+                    0.00114
+                  ],
+                  "quote": null
+                }
+              ]
+            },
+            "forecast_model_kind": "SVR_RBF",
+            "research_only": true,
+            "forecasts": {
+              "SYNTHSVR": 0.020823770299732095
+            },
+            "reason": "CONDITIONAL_MODEL_ALLOCATION",
+            "expected_net_usd": 0.0,
+            "robust_incremental_usd": 0.0,
+            "cvar_usd": 0.0,
+            "partial_fill_cvar_upper_usd": 0.0,
+            "stress_worst_loss_usd": -0.0,
+            "partial_fill_stress_upper_usd": -0.0,
+            "cash_committed_usd": 0.0,
+            "scenario_count": 64,
+            "joint_residual_dates": 60,
+            "uncertainty_effective_dates_approx": 12.0,
+            "solver_status": 0,
+            "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit.",
+            "request_hash": "ccbd7929563bb6bf46d3b21d010006b60d082351ce4908bff0908a83fb2baa0c"
+          },
+          "decision_equity_usd": 1000.0
+        },
+        {
+          "decision_id": "D2",
+          "at": "2026-10-15T18:45:00+00:00",
+          "session": "2026-10-15",
+          "window": "PRECLOSE_90",
+          "universe_hash": "23482448fdf3986e83fed238f93a64228cffe8303df29f762b077de9e9f74127",
+          "opportunity_count": 1,
+          "plan": {
+            "engine": "HARPOON_QUANT_1",
+            "asof": "2026-10-15T18:45:00+00:00",
+            "status": "SHADOW_RESEARCH_ONLY",
+            "liveApproved": false,
+            "execution_allowed": false,
+            "selected": [],
+            "rejected": {},
+            "config_hash": "c2f7a2a4b606f44980aae784f1c5fc169d8e9d52e7a3670d97cee5b9cf3b525d",
+            "model_hash": "86347958edc0ddafab9d0bff6a9bd45da9d39cad4206ebadec698810f4d939bb",
+            "decision_inputs": {
+              "asof": "2026-10-15T18:45:00+00:00",
+              "calibration_available_at": "2026-10-14T15:00:00+00:00",
+              "origin": "SYNTHETIC_ENGINEERING_ONLY",
+              "candidates": [
+                {
+                  "id": "PLUGIN|SYNTHSVR",
+                  "symbol": "SYNTHSVR",
+                  "underlying": "SYNTHSVR",
+                  "book": "equity",
+                  "factor": "SYNTHETIC_FACTOR",
+                  "features": [
+                    0.027,
+                    0.034999999999999996,
+                    0.084,
+                    0.0245,
+                    0.5599999999999999,
+                    1.08,
+                    0.005000000000000002,
+                    0.00114
+                  ],
+                  "quote": null
+                }
+              ]
+            },
+            "forecast_model_kind": "SVR_RBF",
+            "research_only": true,
+            "forecasts": {
+              "SYNTHSVR": 0.020823770299732095
+            },
+            "reason": "CONDITIONAL_MODEL_ALLOCATION",
+            "expected_net_usd": 0.0,
+            "robust_incremental_usd": 0.0,
+            "cvar_usd": 0.0,
+            "partial_fill_cvar_upper_usd": 0.0,
+            "stress_worst_loss_usd": -0.0,
+            "partial_fill_stress_upper_usd": -0.0,
+            "cash_committed_usd": 0.0,
+            "scenario_count": 64,
+            "joint_residual_dates": 60,
+            "uncertainty_effective_dates_approx": 12.0,
+            "solver_status": 0,
+            "note": "Model outputs with historical residual resampling, not realized returns or independently validated profit.",
+            "request_hash": "28b9a960add8cdefba5a2030e76eebdcdabd4e64f7fa3873df6cc8d03b9b7a0a"
+          },
+          "decision_equity_usd": 1000.0
+        }
+      ],
+      "events": [
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D0",
+          "at": "2026-10-15T13:50:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        },
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D1",
+          "at": "2026-10-15T14:30:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        },
+        {
+          "kind": "CASH_FLOW_AND_COST",
+          "decision_id": "D2",
+          "at": "2026-10-15T18:45:00+00:00",
+          "external_flow_before_usd": 0.0,
+          "operating_cost_usd": 0.0,
+          "cash_change_usd": 0.0
+        }
+      ],
+      "accounting": {
+        "status": "INTERNALLY_RECONCILED",
+        "final_cash_usd": 1000.0,
+        "open_inventory": {},
+        "fill_events": 0,
+        "fees_usd": 0.0,
+        "scope": "Internal event, inventory and NAV consistency only."
+      }
+    }
+  },
+  "paired_comparison": {
+    "net_pnl_difference_usd": 0.0,
+    "mean_log_growth_difference_per_session": 0.0,
+    "session_ids": [
+      "2026-10-15"
+    ],
+    "paired_log_growth_differences": [
+      0.0
+    ],
+    "confidence_interval": null,
+    "confidence_null_reason": "DEPENDENCE_METHOD_MINIMUM_EFFECT_AND_SEARCH_CORRECTION_NOT_PREREGISTERED",
+    "financial_acceptance": false
+  },
+  "terminal_policy": "Mark remaining inventory at the last observed/declared bid; do not fabricate a terminal exit.",
+  "economic_costs_note": "Net PnL subtracts external capital flows; operating costs remain expenses. No tax calculation is included."
+}

@@ -1,0 +1,62 @@
+HARPOON XXV — AUDITORÍA TÉCNICA INTERNA 25.2.0
+17 de octubre de 2026
+
+Resultado y alcance
+
+Se corrigieron fallos operativos y se integraron mediciones comunes de take profit, matrices Float64 y una SVM lineal de investigación en sombra. Se inspeccionó código y se verificaron tipos, pruebas unitarias, SQLite, HTTP, worker, gateway y Chromium. No es auditoría financiera independiente ni demostración de rentabilidad. No hubo órdenes externas, llamadas GPT de pago ni mensajes Telegram.
+
+Hallazgos corregidos
+
+1. CRÍTICO — Permisos por símbolo confundibles entre plugins. El permiso ahora identifica oportunidad, par, plugin y momento de señal; el ID se conserva en la campaña y el diario. Prueba: dos plugins del mismo par, una compra de prueba y vínculo correcto. Evidencia: agents25-integration.json.
+
+2. CRÍTICO — Un error al guardar memoria agéntica podía impedir llegar a la gestión de salidas. El adaptador ahora pausa entradas y registra el fallo, mientras el ejecutor conserva las ventas. Una caída del diario NATIVO de órdenes sigue siendo un bloqueo operativo obligatorio. Prueba: fallo de almacenamiento agéntico inyectado con posición abierta y cierre posterior. Evidencia: agents25-integration.json.
+
+3. ALTO — El escaneo ocupaba busy durante consultas de catálogo. Se retiró esa ocupación y se vuelve a comprobar el estado al capturar contexto. El escáner sólo prepara evidencia; el recorrido operativo revalida el plan.
+
+4. ALTO — Beneficio y cobertura de recorrido no estaban armonizados. Ahora un ledger por campaña usa fills, efectivo, cantidad remanente y provisión de costes. Las marcas vencidas no producen P&L nuevo; un cierre sin fills no cuenta como operación. Una campaña antigua sin muestras no recibe captura ficticia del 100%. Evidencia: profit-vector25-tests.json.
+
+5. ALTO — Estadísticas diarias podían usar días parciales y cierres de muestras antiguas. Ahora se usa la última marca observada, se registra cobertura y se excluyen días parciales o huecos mayores de 90 segundos. Los flujos tienen periodo y vigencia explícitos; una consulta que cruza medianoche no se asigna al periodo nuevo. Sin 30 retornos consecutivos admisibles no hay Sharpe/Sortino. Sin benchmark comparable no hay alpha.
+
+6. MEDIO — Estados actuales no equivalían al embudo acumulado. Se conservan ambos, con hitos por oportunidad contados una sola vez. Los hitos nuevos declaran su fecha de comienzo y no reconstruyen etapas históricas inexistentes.
+
+7. MEDIO — Vigilancia podía verse saludable sólo por una conciliación reciente. WATCH incluye validez/frescura de cotizaciones y salud de instrumentación/memoria.
+
+8. ALTO — Magnitudes no finitas y plan parcialmente vinculado. RISK rechaza números incompletos. El envío conserva stop, objetivo y plazo preparados cuando corresponden, vuelve a verificar catálogo y cotización y consume el permiso antes de la orden. El core conserva sus límites.
+
+9. MEDIO — El panel y GPT podían transportar detalle excesivo. El panel recibe ventanas acotadas y conteos; exportar la memoria completa exige una acción explícita. GPT recibe el resumen económico común y la cantidad de etiquetas, sin matrices completas ni claves.
+
+Interpretación económica
+
+Realizado estimado: ventas menos compras y comisión de venta provisionada, sólo sobre cierres sin ambigüedad. Los cierres por objetivo se identifican por el motivo de salida; no toda venta es take profit. MFE/MAE son extremos de P&L muestreado a bid con provisión de coste/deslizamiento, no máximos continuos ni fills garantizados. Captura y devolución declaran cobertura; las ausencias permanecen vacías. PAPER y LIVE siguen identificados. Comisiones tardías, impuestos y costes externos impiden certificar el neto.
+
+No se añadió una salida nueva para perseguir mayor beneficio sin evidencia. Se conservan tendencia y Recovery, sus stops, objetivos y plazos; Recovery sigue en PAPER. El compuesto conserva el límite por capital y beneficio realizado estimado. El SVM no puede modificarlo.
+
+Matrices y soporte vectorial
+
+Se reutiliza HTensor con siete columnas Float64 y máscaras: spread, ATR relativo, distancia de ruptura, distancia de salida, volatilidad anualizada, distancia del stop y coste estimado de ida y vuelta. Se capturan antes de entrar; el cierre futuro es una etiqueta separada. La captura vectorial se archiva en el registro enlazado también cuando la oportunidad se rechaza; la interfaz muestra una ventana acotada.
+
+La SVM es lineal, pérdida hinge y regularización L2, entrenada con SGD. Experimento fijo: 40 épocas, lambda 0.001, margen de corte 0, clipping 5 y división cronológica 70/30. La normalización usa sólo entrenamiento. Se purga por final de etiqueta más 72 horas de embargo. No se buscan hiperparámetros.
+
+Requiere 300 etiquetas completas de la misma política y origen, y al menos 200/60 observaciones útiles tras purga con ambas clases. PAPER, LIVE y políticas distintas no se mezclan. Se rechazan etiquetas sintéticas de producción. Máximo: 5.000 filas por estudio.
+
+Las etiquetas proceden de campañas ejecutadas; existe sesgo de selección y no validan señales descartadas. La comparación con clase mayoritaria y con todas las campañas observadas es descriptiva. El margen NO es probabilidad. Siempre opera en sombra: nunca cambia órdenes, cantidades, stops, objetivos ni riesgo. Un candidato admitido sólo puede generar márgenes prospectivos de observación en la misma política. Se consume el presupuesto de estudios existente.
+
+Rendimiento y factibilidad
+
+En esta ejecución, normalizar y proyectar 5.000 vectores tardó aproximadamente 13 ms, frente a aproximadamente 43 ms puntuándolos por separado. Proyectar una matriz ya preparada fue submilisegundo. La evaluación del modelo usa proyección en lote. Son mediciones locales sobre fixtures sintéticos, sin red ni broker; no prueban precisión financiera ni aceleran las llamadas Alpaca. Las cifras exactas y el entorno están en evidence/profit-vector25-tests.json.
+
+Validación
+
+Regresión del runtime, autenticación, separación de secretos, instalación, tareas y memoria, permisos, caducidad, riesgo diario, incertidumbre de órdenes, fallos inyectados, SQLite, API HTTP, worker, beneficio, máscaras, causalidad de normalización, purga, tolerancia numérica, tipos y gateway Python. Chromium verificó escritorio/móvil y controles de Take profit y vectores. Los scripts y resultados reproducibles se incluyen en tools/ y evidence/.
+
+Los fixtures comprueban funcionamiento. La frontera separable del test SVM no demuestra ventaja de trading. El recorrido visual no usó credenciales reales. No se verificó Docker/Render en producción, el broker real, una inferencia GPT de la cuenta ni entrega real Telegram. Los screenshots internos no se incluyen.
+
+Pendiente para valorar rentabilidad
+
+Conectar PAPER dedicado, observar fills/costes y cobertura temporal suficiente, comparar con el mismo riesgo y evidencia prospectiva y alcanzar la muestra homogénea del SVM. Mientras falten datos se muestra WAITING_EVIDENCE. El cloud se entrega empaquetado; todavía no está desplegado. El HTML requiere navegador abierto y equipo despierto.
+
+Integridad: SHA256SUMS.txt dentro del paquete y checksum externo del ZIP.
+Fuentes primarias:
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
+https://scikit-learn.org/stable/common_pitfalls.html
+Contratos Alpaca, gateway y Telegram: fuentes en EMPEZAR_XXV.md.

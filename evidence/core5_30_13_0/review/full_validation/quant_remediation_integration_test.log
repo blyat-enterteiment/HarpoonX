@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: catalog verification does not mutate static configuration or break a journal-bound restart
+ok 1 - catalog verification does not mutate static configuration or break a journal-bound restart
+  ---
+  duration_ms: 57.580492
+  type: 'test'
+  ...
+# Subtest: discovery snapshot is durable, complete and reports usable data separately from scheduler ALIVE
+ok 2 - discovery snapshot is durable, complete and reports usable data separately from scheduler ALIVE
+  ---
+  duration_ms: 18.539251
+  type: 'test'
+  ...
+# Subtest: blocked discovery is visible as ERROR and does not freeze unrelated engines after durable exclusion
+ok 3 - blocked discovery is visible as ERROR and does not freeze unrelated engines after durable exclusion
+  ---
+  duration_ms: 9.517229
+  type: 'test'
+  ...
+# Subtest: snapshot persistence failure holds new entries but existing position exits remain independent
+ok 4 - snapshot persistence failure holds new entries but existing position exits remain independent
+  ---
+  duration_ms: 18.728868
+  type: 'test'
+  ...
+# Subtest: snapshot immutability survives JSONB key reordering and rejects changed bytes
+ok 5 - snapshot immutability survives JSONB key reordering and rejects changed bytes
+  ---
+  duration_ms: 13.163931
+  type: 'test'
+  ...
+# Subtest: two decisions in one session retain unique durable identities and pre-planning quotes
+ok 6 - two decisions in one session retain unique durable identities and pre-planning quotes
+  ---
+  duration_ms: 11.823209
+  type: 'test'
+  ...
+# Subtest: failed decision persistence cannot authorize an otherwise selected order
+ok 7 - failed decision persistence cannot authorize an otherwise selected order
+  ---
+  duration_ms: 11.056402
+  type: 'test'
+  ...
+# Subtest: universe change during planning invalidates the old allocation
+ok 8 - universe change during planning invalidates the old allocation
+  ---
+  duration_ms: 9.441835
+  type: 'test'
+  ...
+# Subtest: hold acquired during planning is rechecked before order authority
+ok 9 - hold acquired during planning is rechecked before order authority
+  ---
+  duration_ms: 8.730082
+  type: 'test'
+  ...
+# Subtest: LLM/research failure does not prevent deterministic exit management
+ok 10 - LLM/research failure does not prevent deterministic exit management
+  ---
+  duration_ms: 10.159188
+  type: 'test'
+  ...
+# Subtest: entry cutoff remains ten minutes before both normal and early closes
+ok 11 - entry cutoff remains ten minutes before both normal and early closes
+  ---
+  duration_ms: 9.929712
+  type: 'test'
+  ...
+# Subtest: restored discovery registry cannot cross its account/config binding
+ok 12 - restored discovery registry cannot cross its account/config binding
+  ---
+  duration_ms: 16.5368
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 253.863824

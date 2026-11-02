@@ -1,0 +1,210 @@
+{
+  "passed": true,
+  "utc": "2026-10-14T00:12:11.048566+00:00",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "node": "v24.19.0",
+    "cryptography": "50.0.1",
+    "mypy": "2.4.0",
+    "ruff": "0.17.0"
+  },
+  "results": [
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 911.42,
+      "output": "\n> harpoon-cloud-247@24.3.1 test\n> node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py\n\n{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"SQLite durable cross-process roundtrip\",\n    \"Exclusive shared-volume lease cannot be released by another owner\",\n    \"Compare-and-swap preserves concurrent study changes\",\n    \"Cursor scan excludes already processed records\",\n    \"Restart preserves unknown intent and forbids duplicate order\",\n    \"Lease is verified before the first broker mutation, including initial connect\",\n    \"Research worker isolated and cannot invent missing evidence\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0\n}\n{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"PAPER configured startup\",\n    \"Unauthorized state denied\",\n    \"Action header required\",\n    \"Pause disables entries\",\n    \"Pause survives process restart with SQLite\",\n    \"Explicit PAPER resume\",\n    \"Current crypto plugin engine loads\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0,\n  \"scope\": \"Launcher integration uses injected engine; native engine tested separately\"\n}\n{\n  checks: 11,\n  passed: 11,\n  scope: 'Controller fixtures, no model/broker calls'\n}\n{\n  checks: 8,\n  passed: 8,\n  scope: 'Actual HTTP proxy with local upstream fixture; no TLS provider deployment'\n}\n{\"checks\": 6, \"passed\": 6, \"scope\": \"Six generated configurations; Docker schema/build not executed\"}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/auth_security_test.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 135.08,
+      "output": "{\"checks\":26,\"passed\":26,\"results\":[\"Valid Basic header accepted\",\"Case insensitive scheme accepted\",\"Missing Basic scheme rejected\",\"Invalid base64 characters rejected\",\"Wrong user rejected\",\"Wrong password rejected\",\"Gateway child excludes broker and panel secrets\",\"Gateway listens on loopback in managed deployment\",\"Optional inference settings reach gateway\",\"Incomplete inference configuration fails before launch\",\"Header without scheme denied over HTTP\",\"Missing action header denied\",\"Cross origin action denied before proxy\",\"Null origin denied before proxy\",\"Cross site fetch denied before proxy\",\"Non JSON body denied before proxy\",\"Same origin action accepted\",\"Panel credentials replaced by internal token\",\"Panel password absent from upstream request\",\"CLI action with no browser origin preserved\",\"Oversized JSON rejected before proxy\",\"Panel Basic cannot authenticate to GPT\",\"Gateway bearer cannot control a book\",\"Gateway bearer reaches GPT only\",\"Gateway token preserved for gateway\",\"Unconfigured book rejected\"],\"provider\":\"local synthetic fixtures\",\"external_orders\":0,\"paid_model_calls\":0}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "service",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 21501.42,
+      "output": ".........................................................................\n----------------------------------------------------------------------\nRan 73 tests in 21.384s\n\nOK\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 1064.01,
+      "output": "\n> harpoon-cloud-247@24.3.1 typecheck\n> tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime/control.cjs deploy/managed.cjs\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "mypy",
+        "--follow-imports=silent",
+        "--check-untyped-defs",
+        "service/server.py",
+        "service/app24.py",
+        "deploy/configure.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 222.55,
+      "output": "Success: no issues found in 3 source files\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "ruff",
+        "check",
+        "--select",
+        "F821,F822,F823",
+        "service",
+        "runtime",
+        "deploy"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 29.27,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "compileall",
+        "-q",
+        "service",
+        "runtime",
+        "deploy",
+        "tools"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 37.66,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "tools/auth_benchmark.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 157.34,
+      "output": "{\"node\":\"v24.19.0\",\"checks\":50000,\"batches\":25,\"warmup\":5000,\"median_microseconds_per_check\":1.2248835000000042,\"p95_batch_microseconds_per_check\":1.7521789999999984,\"scope\":\"Valid synthetic Basic parser plus constant-time value comparison, local CPU only. Not HTTP throughput, inference or trading latency; no optimization improvement is claimed.\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/cloud.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 56.14,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/control.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 53.35,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/crypto_runner.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 55.43,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/runner.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 55.66,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/watchdog.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 47.66,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/worker.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 54.94,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "deploy/managed.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 50.15,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tools/auth_benchmark.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 57.69,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tools/auth_security_test.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 53.37,
+      "output": ""
+    }
+  ],
+  "external_broker_orders": 0,
+  "paid_model_calls": 0,
+  "source": "HARPOON_Cloud_247.zip; inferred target masivarecords-ship-it/HerpoonX",
+  "python_type_scope": "Three listed modules, check-untyped-defs, imports followed silently; dynamic HTTP factory inheritance has one narrow mypy exclusion.",
+  "static_analysis_scope": "Python undefined/unbound name rules F821/F822/F823 and Node syntax checks; not a full security audit.",
+  "docker_build_executed": false,
+  "deployed": false,
+  "inference_scope": "Synthetic provider Responses payloads; no verification of a real model, billing, TLS or broker account."
+}

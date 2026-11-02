@@ -1,0 +1,95 @@
+HARPOONX 30.10.0 / QUANT 1.6.0 — FUNCIONES Y VALIDADORES OPERACIONALES
+
+ALCANCE
+Código local, brokers simulados, fixtures sintéticos y verificaciones reproducibles.
+No se despliega, no se cambia PAPER/LIVE y no se envían órdenes externas.
+Los resultados financieros históricos permanecen congelados. Los tests no acreditan rentabilidad.
+
+1. CUENTA NETA
+xxx/net_accounting.ts: NetAccountLedger.load/refresh/view/exportState/performanceInput.
+GET de cuenta/posiciones antes y después de paginar actividades. Cantidades de fills incrementales;
+identidad, unidades, caja, posiciones, NAV, flujos y costes verificados. Una cancelación no crea fill.
+Una aportación no es beneficio. Una comisión ya en NAV no se resta de nuevo. Posiciones abiertas
+y pérdidas terminales se conservan. Insolvencia permanece registrada después de aportaciones.
+Falta de marca preflujo impide afirmar un retorno ponderado por tiempo exacto.
+
+La cuenta actual y el prefijo histórico cerrado se reportan por separado. Un recibo de gastos
+conocido después puede cubrir marcas anteriores; su known_at no se retrocede. performanceInput
+incluye initial_at, coverage_through, latest_uncovered_at y costes con alcance declarado.
+Los cargos todavía no publicados no se certifican como cero: net_costs_confirmed=false.
+El informe de costes requiere referencias, categorías DATA/INFRASTRUCTURE/INFERENCE/OTHER,
+intervalo cubierto, instantes y cada importe. externalCosts:null mantiene explícita la ausencia.
+
+Límite actual: 10000 observaciones, 20000 actividades nominales, 100 páginas de 100 filas y
+32 MiB por estado. Una página final llena requiere otra página para confirmar completitud.
+A una marca por minuto,10000 marcas son aproximadamente6,94 días. No hay archivador del ledger
+contable en esta entrega. Llegar a un límite bloquea certificación y nuevo riesgo donde lo exige
+la política; no borra evidencia, reinicia capital ni detiene la protección de posiciones.
+
+2. OBSERVACIONES PROSPECTIVAS
+xxx/quant_observations.ts: QuantObservationJournal.load/capture/exportFrames/view.
+runtime/quant_bridge.cjs: observationInput/observe.
+La captura funciona sin modelo. Congela datos antes de esperar inferencia, conserva fecha de
+recepción, barras, benchmark/proxies, símbolos muestreados, características y motivos de descarte.
+Rotación determinista sin seleccionar por retornos futuros; máximo 12 símbolos por captura de 60 s
+en el ejemplo. No representa todos los ticks ni toda una trayectoria de 90 minutos.
+Los frames comprimidos tienen SHA-256; el índice avanza solamente después del commit.
+Al llegar a 10000 frames por segmento se archiva el índice automáticamente en el mismo Store.
+Admite hasta 16 segmentos archivados y 512 MiB de presupuesto de objetos inmutables por defecto. Las reservas
+cuentan huérfanos de commits fallidos. No hay borrado silencioso ni contratación de almacenamiento.
+El presupuesto de objetos no equivale a bytes físicos de SQLite; los metadatos también ocupan disco.
+
+3. REPLAY REAL Y ADAPTACIÓN
+tools/coordinator_replay.cjs: runReplay/verifyReport/compareReplays.
+Usa Plugins y Coordinator reales para entradas, reconciliación, stops, TP, trailing y parciales.
+SimulatedReplayBroker es el único transporte; fills MODELED con cotización estrictamente posterior,
+cantidad ejecutable explícita y cancelación confirmada. Contabilidad larga USD, acciones/ETF/cripto
+dentro del alcance documentado. No constituye una réplica completa de la microestructura del broker.
+tools/observation_replay_input.cjs: fromObservationExport conserva datos faltantes como faltantes.
+El adaptador produce evaluate/sessions sin entries y executable_qty=0 cuando no existe profundidad.
+Una comparación por recibos precomputados Ridge/SVR no verifica su predictor: permanece bloqueada
+la aceptación financiera. No transforma información incompleta en oportunidades financiadas.
+
+4. GATE ECONÓMICO
+quant/harpoon_quant/economic_gate.py: seal_protocol/register_protocol/evaluate_gate/
+paired_block_bootstrap/verify_gate_report/artifact_reference.
+Exige protocolo previo, partición final no consumida,23 intentos históricos preservados, misma
+cuenta/universo/calendario/costes/riesgo, curvas sin reinicios, inventario terminal y costes explícitos.
+El bootstrap remuestrea vectores pareados de cartera por sesión. Longitudes de bloque, mejora mínima
+y corrección familiar se fijan antes. Un resultado estadístico de ingeniería no es evidencia empírica.
+La paridad C0 no certifica C0+Ridge+SVR. Datos sintéticos, predictores no reproducidos o costes
+no representativos mantienen VENTAJA_NO_DEMOSTRADA. verify-gate reejecuta; no entrena ni promueve.
+
+5. ESTADO OPERACIONAL Y RECURSOS
+xxx/operational_status.ts: entryOperationalFailures/operationalCapabilities.
+Comprueba actualidad del broker, persistencia, cobertura de posiciones, ledger, observaciones,
+plan observado, pausa/parada/bloqueo y evidencia económica vinculada a la configuración.
+GET autenticados: /v1/operational, /operational-readyz y /v1/quant/observations?offset=0&limit=100.
+/healthz conserva el significado HTTP_ALIVE. No acredita operatividad ni rentabilidad.
+El worker Python tiene 1 proceso máximo y 8 pendientes; el timeout incluye cola. Datos/CPU saturados
+devuelven un motivo explícito. Las protecciones y salidas deterministas no pasan por esa cola.
+Las lanes son de demora fija:60 s programados no equivalen a60 s exactos entre recibos; se valida
+la rejilla de retornos antes de publicar ratios. Un corte no se disimula como dato de mercado.
+
+6. REPRODUCCIÓN OFFLINE
+Desde el directorio de la aplicación:
+  npm ci
+  python3 -m venv .venv
+  .venv/bin/pip install -r quant/requirements-tested.txt -r quant/requirements-dev.txt
+  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-autonomy-qa
+  node tools/coordinator_replay.cjs --input quant/examples/coordinator_replay/synthetic_request.json --output /tmp/coordinator-report.json
+
+Desde quant, para verificar el ejemplo numérico:
+  ../.venv/bin/python -m harpoon_quant.economic_gate --protocol examples/economic_gate/synthetic_fixture/protocol.json --input examples/economic_gate/synthetic_fixture/input.json --output /tmp/gate-report.json --artifact-root examples/economic_gate/synthetic_fixture
+
+El informe del replay contiene hashes de fuentes: regenerar después de recompilar.
+El ejemplo que conecta el gate con Node se regenera dentro de quant:
+  ../.venv/bin/python -m examples.economic_gate.bind_coordinator_example --output examples/economic_gate/coordinator_fixture
+
+7. BLOQUEOS QUE CONTINÚAN
+No se verificaron la cuenta actual, el despliegue, sus logs ni costes operacionales auténticos.
+Falta comparación económica observada C0/Ridge/SVR con paridad de predictores y ejecución representativa.
+La captura interna no sustituye el productor completo de trayectorias financiadas del optimizer.
+No se implementó entrenamiento/promotion automático sin datos ni un archivador contable indefinido.
+full_autonomous_economic_cycle_verified=false es intencional y refleja esos hechos.
+La siguiente autorización operacional sigue siendo la previamente establecida. Este paquete no la amplía.

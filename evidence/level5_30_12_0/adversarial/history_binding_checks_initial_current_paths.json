@@ -1,0 +1,53 @@
+{
+  "scope": "Preserved local history integrity and synthetic mutation checks; no journal writes, financial search or source authenticity claim",
+  "source_sha256": "b673e2bb8a3933050aae2657dd36086b56adc875d8d3d9de7683449246de49e0",
+  "passed": 4,
+  "total": 6,
+  "tests": [
+    {
+      "id": "L5-C1-RETAINED-HISTORY-REMAINS-UNRESOLVED",
+      "passed": false,
+      "expected_error": null,
+      "error": "PRIOR_HISTORY_SOURCE_NOT_BOUND",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-REPLACEMENT-FAMILY-WITH-VALID-HASH",
+      "passed": true,
+      "expected_error": "HISTORICAL_FAMILY_NOT_BOUND_TO_PRIOR_AUDIT",
+      "error": "HISTORICAL_FAMILY_NOT_BOUND_TO_PRIOR_AUDIT",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-INVENTED-GLOBAL-TOTAL",
+      "passed": true,
+      "expected_error": "GLOBAL_COUNT_NOT_DERIVED_FROM_SOURCE_IDENTITIES",
+      "error": "GLOBAL_COUNT_NOT_DERIVED_FROM_SOURCE_IDENTITIES",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-OMITTED-PRESERVED-SOURCE",
+      "passed": true,
+      "expected_error": "PRIOR_HISTORY_SOURCE_NOT_BOUND",
+      "error": "PRIOR_HISTORY_SOURCE_NOT_BOUND",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-BACKDATED-PRIOR-AND-REHASH",
+      "passed": true,
+      "expected_error": "PRIOR_AUDIT_RELEASE_ANCHOR_MISMATCH",
+      "error": "PRIOR_AUDIT_RELEASE_ANCHOR_MISMATCH",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "L5-C1-OLD-TEST-CANNOT-BECOME-FRESH",
+      "passed": false,
+      "expected_error": "TEST_NOT_AFTER_KNOWN_PRIOR_REVIEW",
+      "error": "PRIOR_HISTORY_SOURCE_NOT_BOUND",
+      "error_type": "ValueError"
+    }
+  ],
+  "production_edits": 0,
+  "new_economic_experiments": 0,
+  "journal_writes": 0
+}

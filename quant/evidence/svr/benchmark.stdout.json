@@ -1,0 +1,46 @@
+{
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "generated_at_utc": "2026-10-31T17:42:35.851142+00:00",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sklearn": "1.8.0",
+    "processor": "x86_64"
+  },
+  "shape": {
+    "rows": 300,
+    "features": 8,
+    "assets": 1
+  },
+  "fit_seconds": [
+    0.21333873799994763,
+    0.023251077000168152,
+    0.02234775500073738
+  ],
+  "fit_repetitions": 3,
+  "model_hash_identical_across_fits": true,
+  "prediction_repetitions": 500,
+  "prediction_ms": {
+    "p50": 0.5056974996477948,
+    "p95": 0.7941575494896824,
+    "p99": 1.0676242295812695
+  },
+  "allocation_repetitions": 10,
+  "allocation_ms": {
+    "min": 5.8367350002299645,
+    "median": 6.515840499559999,
+    "max": 11.16169900069508
+  },
+  "process_peak_rss_bytes": 133332992,
+  "memory_scope": "Linux process high-water RSS, including interpreter, libraries, training and benchmark",
+  "prediction_scope": "Warm in-process single prediction with artifact/implementation checks; excludes worker startup, initial JSON input/model loading and network; includes reading the four bound source files for implementation integrity",
+  "allocation_scope": "Local model plus scenario generation and constrained allocator, single synthetic candidate; not order latency",
+  "probe_prediction_return_fraction": 0.020823770299732095,
+  "model_artifact_hash": "3c78f85e8e6cf502164726ee3dd4d35798e12127ca2339079c1f052f8246bdcd",
+  "input_hash": "6d06147c7c1606e39e76142c31987465cc27203e9572a5cf073f6876ae13a776",
+  "execution_allowed": false,
+  "financial_profit_measured": false,
+  "limitations": "Artificial nonlinear target; does not establish empirical predictability or profitability. No broker requests or orders."
+}

@@ -1,0 +1,506 @@
+{
+  "schema": "HARPOON_IMPLEMENTATION_FAMILY_AUDIT_1",
+  "reviewed_at": "2026-10-31T21:18:55.981240-06:00",
+  "scope": "Revisión estática de linaje, código y documentación; verificación de integridad de fuentes. No ejecuté experimentos financieros, ajustes de modelos ni llamadas al broker. No modifiqué las fuentes canónicas.",
+  "review_is_external_independent": false,
+  "archives_reviewed": 14,
+  "valid_archive_crc": 13,
+  "truncated_archives": 1,
+  "active_manifests_all_passed": true,
+  "canonical_candidate": "XXXUltimate 30.12.0 / Quant 1.8.0",
+  "findings": [
+    {
+      "id": "LAB-01",
+      "severity": "MATERIAL",
+      "fact": "Ningún artefacto revisado unifica el core 30.12, opciones 31.6 con TP-NET y el Framework Aplicado Python 1.2.",
+      "action": "Mantener una aplicación canónica y catalogar las otras ramas. Un ZIP que las reúna no demuestra integración de sus runtimes."
+    },
+    {
+      "id": "LAB-02",
+      "severity": "MATERIAL",
+      "fact": "El core 31.6 con TP-NET contiene 13 módulos xxx ausentes en 30.12, 15 compartidos distintos y 7 idénticos.",
+      "action": "No sobrescribir Coordinator, types, market, policy o exits. Una integración futura debe conservar los controles de contabilidad, autonomía y verificación de 30.12."
+    },
+    {
+      "id": "LAB-03",
+      "severity": "MATERIAL",
+      "fact": "Las familias de investigación de opciones y sus periodos ya inspeccionados amplían el historial visible.",
+      "action": "Conservar el total global deduplicado como desconocido hasta reconciliar identidades nativas de ensayos. No reutilizar estos resultados como prueba final nueva."
+    },
+    {
+      "id": "LAB-04",
+      "severity": "MATERIAL",
+      "fact": "El ZIP de simulación de 48 opciones está truncado. Sus cabeceras locales permiten lectura parcial, no verificación íntegra del paquete.",
+      "action": "Conservar el original y la recuperación parcial identificada. No inventar archivos, resultados ni journals faltantes."
+    },
+    {
+      "id": "LAB-05",
+      "severity": "IMPLEMENTATION_DUPLICATION",
+      "fact": "Profit 1.7 conserva los 58 archivos revisados de Profit 1.3: 54 idénticos y 4 evolucionados. El auditor incremental y el módulo de microestructura tienen duplicados exactos en ramas posteriores.",
+      "action": "Deduplicar por identidad de bytes y conservar referencias de versión/evidencia."
+    }
+  ],
+  "families": [
+    {
+      "familia": "opciones_typescript_31_6_tpnet",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_TP_Neto_Codigo_Validadores_2026_10_27.zip",
+      "archivos_clave": [
+        "core/xxx/option_takeprofit.ts",
+        "core/xxx/option_incremental.ts",
+        "core/xxx/option_value.ts",
+        "core/xxx/coordinator.ts",
+        "core/research/net_takeprofit/FEATURES.json"
+      ],
+      "alcance": "Core completo 31.6.0 con TP-NET; contiene la evolución de opciones de 31.5 y 31.6.",
+      "relacion_con_30_12": "13 módulos xxx ausentes, 15 compartidos distintos y 7 idénticos frente a 30.12.",
+      "tratamiento_recomendado": "Fuente preferida para una integración futura de opciones. En esta consolidación se revisa y cataloga; no se fusiona ni activa.",
+      "dependencias": [
+        "Node 22+",
+        "TypeScript y dependencias npm del núcleo",
+        "Contratos Config, Campaign y Quote propios de 31.x"
+      ],
+      "limites": [
+        "TP neto desactivado por defecto",
+        "Sin ciclo nativo multileg",
+        "Los capturadores actuales no añaden automáticamente netEvidence",
+        "Validadores sin autenticación externa de broker ni autoridad de ejecución",
+        "27 combinaciones de investigación sintéticas"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_e0823d4cf46c8191814beb48cd3a050a",
+        "nombre": "HarpoonX_TP_Neto_Codigo_Validadores_2026_10_27.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T21:54:44.650275Z",
+        "sha256": "1afa5fe32cbc8e1bf80408ab3851f12d023075e4d0c0ee166a6c45c0dea54068",
+        "url": "https://chatgpt.com/library?file_id=libfile_e0823d4cf46c8191814beb48cd3a050a&account_id=personal"
+      }
+    },
+    {
+      "familia": "kit_profit_1_7",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Profit_Framework_1_7.zip",
+      "archivos_clave": [
+        "hx_profit.py",
+        "hx_validate.py",
+        "hx_capture.cjs",
+        "hx_continuous.cjs",
+        "hx_install_incremental.py",
+        "integration/core316/files/"
+      ],
+      "alcance": "Kit ejecutable de captura, calibración, microestudios y comparación; instala core 31.6 a partir de su base 31.4 y overlays.",
+      "relacion_con_30_12": "Su core ya está expandido y ampliado en TP-NET; las herramientas hx no están en el runtime 30.12.",
+      "tratamiento_recomendado": "Conservar el kit como rama de investigación y el core completo TP-NET como referencia de opciones. No instalar sus overlays sobre 30.12.",
+      "dependencias": [
+        "NumPy/SciPy en partes del laboratorio",
+        "Node y core 31.6 exacto para replays",
+        "Contratos de datos y modelos propios"
+      ],
+      "limites": [
+        "627 pruebas declaradas en la entrega anterior; no se suman a las 902",
+        "Forecasts arbitrarios y caminos sintéticos no acreditan modelos financieros aprobados",
+        "La numeración 1.x pertenece a otra familia distinta de Quant 1.8"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_5b043cba7c2c81918efa64a8ecd1c7cb",
+        "nombre": "HarpoonX_Profit_Framework_1_7.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T02:05:21.020604Z",
+        "sha256": "5214c7a5215e6d08465497510832b1e74c9f2b37c566aed21bb9fe5871309788",
+        "url": "https://chatgpt.com/library?file_id=libfile_5b043cba7c2c81918efa64a8ecd1c7cb&account_id=personal"
+      }
+    },
+    {
+      "familia": "framework_profit_1_3",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Profit_Framework_1_3.zip",
+      "archivos_clave": [
+        "hx_*.py",
+        "hx_*.cjs",
+        "integration/core315/files/"
+      ],
+      "alcance": "Antecedente del kit Profit 1.7.",
+      "relacion_con_30_12": "54 archivos hx, tests y core315 idénticos, 4 evolucionados y ninguno omitido en 1.7.",
+      "tratamiento_recomendado": "No duplicar código activo. Conservar manifiesto e historia de origen.",
+      "dependencias": [
+        "Dependencias del kit Profit"
+      ],
+      "limites": [
+        "El instalador histórico de 31.5 no es el instalador vigente de 31.6"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_9402fd6443d08191aec530c1e31e6d28",
+        "nombre": "HarpoonX_Profit_Framework_1_3.zip",
+        "version_id": "3",
+        "fecha_modificacion_utc": "2026-10-26T20:09:51.532791Z",
+        "sha256": "592d08e9ffe048de318ff70cdd2f0791ef9aa666d6f0648303ecea8636a27995",
+        "url": "https://chatgpt.com/library?file_id=libfile_9402fd6443d08191aec530c1e31e6d28&account_id=personal"
+      }
+    },
+    {
+      "familia": "incremental_1_6",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Framework_Mejora_Incremental_1_6.zip",
+      "archivos_clave": [
+        "incremental_auditor.py"
+      ],
+      "alcance": "Auditor económico de doce frentes.",
+      "relacion_con_30_12": "incremental_auditor.py es idéntico a research/incremental/auditor.py de Profit 1.7.",
+      "tratamiento_recomendado": "Deduplicar implementación; conservar protocolo y resultados de origen.",
+      "dependencias": [
+        "NumPy"
+      ],
+      "limites": [
+        "Un registro local no sustituye la deduplicación global de investigaciones"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_2d89dddae858819196053841fd1d3efc",
+        "nombre": "HarpoonX_Framework_Mejora_Incremental_1_6.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T00:46:38.739943Z",
+        "sha256": "6fc293cfe1a3662d3d83ef0afaa11c0fd2fff840158c4205b828ad3f56f3762b",
+        "url": "https://chatgpt.com/library?file_id=libfile_2d89dddae858819196053841fd1d3efc&account_id=personal"
+      }
+    },
+    {
+      "familia": "microestructura_opciones",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Microestructura_Investigacion_2026_10_27.zip",
+      "archivos_clave": [
+        "microstructure.py",
+        "normalize_alpaca.py",
+        "vertical.py"
+      ],
+      "alcance": "Aritmética bid/ask, costes, capacidad visible, OFI condicionado, markouts, normalización y verticales estáticas.",
+      "relacion_con_30_12": "microstructure.py es idéntico al incluido en TP-NET; es distinto del módulo Quant del mismo nombre.",
+      "tratamiento_recomendado": "Mantener una copia con su propio espacio de nombres en investigación. No sustituir el módulo Quant por coincidencia del nombre.",
+      "dependencias": [
+        "Biblioteca estándar Python para cálculos",
+        "ReportLab, Matplotlib y pypdf solo para informe"
+      ],
+      "limites": [
+        "No reconstruye cola ni fills reales",
+        "OFI necesita eventos y condiciones adecuadas",
+        "Markout es una etiqueta posterior",
+        "No modela completamente asignación, financiación ni ejecución multileg"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_3e6012c181108191b59e5ddd183db85b",
+        "nombre": "HarpoonX_Microestructura_Investigacion_2026_10_27.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T20:42:03.022751Z",
+        "sha256": "936e746575973aa05b98b38c94b51f89bd85e5f819c90a258019350c41551cba",
+        "url": "https://chatgpt.com/library?file_id=libfile_3e6012c181108191b59e5ddd183db85b&account_id=personal"
+      }
+    },
+    {
+      "familia": "evidence_math_1_4",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Options_Evidence_Framework_1_4.zip",
+      "archivos_clave": [
+        "evidence_math.py"
+      ],
+      "alcance": "Comparabilidad de periodos, crecimiento, diferencias de varianza, presupuesto y costes.",
+      "relacion_con_30_12": "Herramientas independientes, sin módulo equivalente incorporado por nombre en 30.12.",
+      "tratamiento_recomendado": "Conservar como investigación. Cualquier reutilización de funciones exige adaptar unidades y contratos.",
+      "dependencias": [
+        "Biblioteca estándar Python"
+      ],
+      "limites": [
+        "Resultados publicados de terceros no transfieren alpha a HarpoonX"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_c3c92ea045d88191984667ef280debfc",
+        "nombre": "HarpoonX_Options_Evidence_Framework_1_4.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-26T23:43:44.424030Z",
+        "sha256": "dc19edd3d9f19643c246518544e3d5dad41d3fcc3f75be17badd7ccf7786c708",
+        "url": "https://chatgpt.com/library?file_id=libfile_c3c92ea045d88191984667ef280debfc&account_id=personal"
+      }
+    },
+    {
+      "familia": "public_strategy_adapter",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Estrategias_Publicas_Investigacion_2026_10_27.zip",
+      "archivos_clave": [
+        "research_adapter.py"
+      ],
+      "alcance": "Variables RV/IV, riesgo contractual, ranking shadow con abstención y comparación compatible.",
+      "relacion_con_30_12": "No modifica Coordinator; es un módulo independiente.",
+      "tratamiento_recomendado": "Conservar bajo investigación con ejecución desautorizada.",
+      "dependencias": [
+        "Biblioteca estándar Python"
+      ],
+      "limites": [
+        "executionApproved permanece false",
+        "Requiere cadena as-of, permisos y presupuesto comprobados"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_7f7760fd6f7c819180505e99062c6507",
+        "nombre": "HarpoonX_Estrategias_Publicas_Investigacion_2026_10_27.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T18:56:36.700343Z",
+        "sha256": "6878444d9e8613d09e9d4b649e5c9d2d43ddfea8918cf18d0ab526a8988856a3",
+        "url": "https://chatgpt.com/library?file_id=libfile_7f7760fd6f7c819180505e99062c6507&account_id=personal"
+      }
+    },
+    {
+      "familia": "options_lab_8",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Options_Lab_2026_10_28.zip",
+      "archivos_clave": [
+        "lab.py",
+        "HarpoonX_Options_Training.sqlite"
+      ],
+      "alcance": "Banco de ocho subyacentes, modelos de investigación, carteras sobre primas sintéticas e importación OPRA en cuarentena.",
+      "relacion_con_30_12": "baseline/lab.py de Swing es idéntico al lab.py original. No integra el motor 30.12.",
+      "tratamiento_recomendado": "Preservar la referencia de ocho nombres y evitar doble conteo de copias o resultados.",
+      "dependencias": [
+        "NumPy",
+        "SQLite de Python"
+      ],
+      "limites": [
+        "Primas de opciones sintéticas",
+        "Bloque final ya inspeccionado",
+        "Importar OPRA no habilita automáticamente entrenamiento",
+        "24 casos no constituyen 24 observaciones independientes"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_0b904366a12081919949d72b2b690799",
+        "nombre": "HarpoonX_Options_Lab_2026_10_28.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-28T17:14:16.304930Z",
+        "sha256": "db5f3740a659fb95e54ea1a6ac2978a527cfbba3ffda8fd20d0d40617c6597f0",
+        "url": "https://chatgpt.com/library?file_id=libfile_0b904366a12081919949d72b2b690799&account_id=personal"
+      }
+    },
+    {
+      "familia": "swing_1_3_sessions",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Swing_Remediacion_2026_10_28.zip",
+      "archivos_clave": [
+        "swing_remedies.py",
+        "baseline/lab.py"
+      ],
+      "alcance": "Investigación de horizontes, pérdidas máximas, financiación y replay de canastas.",
+      "relacion_con_30_12": "swing_remedies.py es idéntico en Canasta48; baseline conserva Options Lab.",
+      "tratamiento_recomendado": "Preservar evidencia de ocho nombres. No convertir las reglas investigadas en política activa.",
+      "dependencias": [
+        "NumPy",
+        "baseline/lab.py"
+      ],
+      "limites": [
+        "No es una prueba final nueva",
+        "Fechas y mercados reutilizados",
+        "No transferir su configuración de riesgo al core"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_29424ba8033c8191bfde0d919d223b59",
+        "nombre": "HarpoonX_Swing_Remediacion_2026_10_28.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-28T21:06:21.665695Z",
+        "sha256": "a6e3a76e31b8328c392c396818cf7eb3202d48a5c841954e7a15411793b98b50",
+        "url": "https://chatgpt.com/library?file_id=libfile_29424ba8033c8191bfde0d919d223b59&account_id=personal"
+      }
+    },
+    {
+      "familia": "canasta48",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Canasta48_2026_10_28.zip",
+      "archivos_clave": [
+        "baseline/lab.py",
+        "swing_remedies.py",
+        "inputs/batch_*.json"
+      ],
+      "alcance": "Expansión a 48 acciones y SPY/QQQ como referencias, con primas de opciones sintéticas.",
+      "relacion_con_30_12": "baseline/lab.py está modificado para expansión; swing_remedies.py es idéntico. No es el universo activo causal de 30.12.",
+      "tratamiento_recomendado": "Conservar como estudio del universo amplio; no imponer retrospectivamente esta lista como universo disponible al decidir.",
+      "dependencias": [
+        "NumPy",
+        "SQLite"
+      ],
+      "limites": [
+        "40 nombres añadidos manualmente por diversidad temática",
+        "Mismas fechas ya examinadas",
+        "54 metadatos de contratos heredados no prueban cobertura OPRA para los 48 nombres"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_14f05a8dd9f48191ba14525090792b9c",
+        "nombre": "HarpoonX_Canasta48_2026_10_28.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-28T21:44:11.887776Z",
+        "sha256": "cf70193d905114b85d4a9ed2514e7df34893263b8d377ef2baa9a96877680c8d",
+        "url": "https://chatgpt.com/library?file_id=libfile_14f05a8dd9f48191ba14525090792b9c&account_id=personal"
+      }
+    },
+    {
+      "familia": "framework_aplicado_python_options_1_2",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Framework_Aplicado_1_2_2026_10_29.zip",
+      "archivos_clave": [
+        "capture_service.py",
+        "normalization.py",
+        "paper_service.py",
+        "order_manager.py",
+        "research_validation.py",
+        "settings.py"
+      ],
+      "alcance": "Runtime Python de opciones con recolector, SQLite, reconciliación y PAPER opcional.",
+      "relacion_con_30_12": "No es Quant 1.2. Tiene coordinador, estado, riesgo y modelos propios.",
+      "tratamiento_recomendado": "Catalogar como rama separada. No copiar settings, aprobaciones o autoridad de órdenes; no ejecutar dos gestores sobre la misma cuenta.",
+      "dependencias": [
+        "websockets para streams",
+        "Biblioteca estándar Python para replay",
+        "Credenciales y permisos Alpaca para captura"
+      ],
+      "limites": [
+        "SHADOW por defecto; PAPER requiere --paper-submit",
+        "Sin modo LIVE",
+        "Colector con reinicio diario, sin supervisor de varios días",
+        "Política ejecutable de apertura 10:00:05–10:01 NY",
+        "Beneficio empresarial neto desconocido",
+        "Sus umbrales de 5% diario y 10% de drawdown no son autorización para cambiar los límites de 30.12"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_28929e84a8f88191bbde927a19bba7d9",
+        "nombre": "HarpoonX_Framework_Aplicado_1_2_2026_10_29.zip",
+        "version_id": "2",
+        "fecha_modificacion_utc": "2026-10-29T20:56:52.169450Z",
+        "sha256": "075aaa5677196ef81f6ce074f290eecb25c71f9daa1fe1694ef466dc9ddcc6c3",
+        "url": "https://chatgpt.com/library?file_id=libfile_28929e84a8f88191bbde927a19bba7d9&account_id=personal"
+      }
+    },
+    {
+      "familia": "walk_forward_options",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_WalkForward_Purgado_2026_10_27.zip",
+      "archivos_clave": [
+        "wf_data.py",
+        "wf_engine.py",
+        "replicate.py",
+        "core_bridge.cjs"
+      ],
+      "alcance": "Estudio temporal con tres semillas sintéticas y doce cuentas contrafactuales.",
+      "relacion_con_30_12": "Usa funciones puras de core 31.6; no reproduce el Coordinator completo.",
+      "tratamiento_recomendado": "Preservar como estudio histórico y su preimagen exacta. No presentarlo como prueba final nueva.",
+      "dependencias": [
+        "NumPy",
+        "Node",
+        "Core 31.6 exacto para el puente"
+      ],
+      "limites": [
+        "992 riesgos de operaciones y 2.952 filas de caja corresponden al modelo sintético",
+        "Candidata sin operaciones y con pérdida de facturas",
+        "Sin alpha observado"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_c408861af4a081918dc0fc19f911bda8",
+        "nombre": "HarpoonX_WalkForward_Purgado_2026_10_27.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T17:41:00.101413Z",
+        "sha256": "74966930a86e8e29626dbdebb840b7513975d811d2fc20b2c922f0dfd8265ae6",
+        "url": "https://chatgpt.com/library?file_id=libfile_c408861af4a081918dc0fc19f911bda8&account_id=personal"
+      }
+    },
+    {
+      "familia": "forensic_options",
+      "fuente_preferida_dentro_del_alcance": "HarpoonX_Auditoria_Forense_Reproducible_2026_10_27.zip",
+      "archivos_clave": [
+        "economics.py",
+        "audit.py",
+        "replay_experiments.cjs",
+        "core_control.cjs",
+        "convex_basket.py"
+      ],
+      "alcance": "Atribución de resultados, 51 casos de investigación y selector convexo posterior.",
+      "relacion_con_30_12": "Usa core TP-NET por SHA original y wrappers offline; no es un parche de producción.",
+      "tratamiento_recomendado": "Conservar atribución, fuentes e historial. No instalar los wrappers de salida como política aprobada.",
+      "dependencias": [
+        "Biblioteca estándar Python",
+        "Node y core TP-NET exacto para replay"
+      ],
+      "limites": [
+        "51 casos reutilizan cinco caminos sintéticos",
+        "Barras IEX y 54 metadatos de contratos no son cotizaciones OPRA",
+        "Ningún caso fue positivo después de la factura hipotética de 99 USD en ese estudio"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_8946e0909b848191b5244d01aa0a17a8",
+        "nombre": "HarpoonX_Auditoria_Forense_Reproducible_2026_10_27.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-27T23:49:07.566389Z",
+        "sha256": "7c81635501a01fe6cc1951f887c2a30efd3525c686887822aded3ad220221533",
+        "url": "https://chatgpt.com/library?file_id=libfile_8946e0909b848191b5244d01aa0a17a8&account_id=personal"
+      }
+    },
+    {
+      "familia": "simulation48_quant",
+      "fuente_preferida_dentro_del_alcance": "Simulacion_HarpoonX_48_Opciones_2026_10_30.zip",
+      "archivos_clave": [
+        "simulate.py",
+        "diagnostic_initial_full_notional_simulate.py",
+        "checks.json"
+      ],
+      "alcance": "Estudio sintético que llama módulos harpoon_quant existentes.",
+      "relacion_con_30_12": "ZIP truncado tras siete entradas completas; la octava, curvas.png, está incompleta.",
+      "tratamiento_recomendado": "Preservar el original y la recuperación parcial; excluirlo como fuente autoritativa completa. No reconstruir resultados faltantes.",
+      "dependencias": [
+        "NumPy 2.3.5",
+        "SciPy 1.17.0",
+        "harpoon_quant.optimization, recursive y performance"
+      ],
+      "limites": [
+        "checks.json declara nueve intentos; el journal no se recuperó",
+        "Podría solaparse con los 23 intentos Quant",
+        "No sumar sin reconciliar identidades"
+      ],
+      "fuente_original": {
+        "library_file_id": "libfile_c9e1cbef11b881919f3b19a0722e89d0",
+        "nombre": "Simulacion_HarpoonX_48_Opciones_2026_10_30.zip",
+        "version_id": null,
+        "fecha_modificacion_utc": "2026-10-30T19:23:17.856479Z",
+        "sha256": "62ba3b382f872ba267088c8d10072a4004113e419ba3365aea3a8bb4ebbeaef8",
+        "url": "https://chatgpt.com/library?file_id=libfile_c9e1cbef11b881919f3b19a0722e89d0&account_id=personal"
+      }
+    }
+  ],
+  "economic_evidence": {
+    "observed_broker_account_net_profit_established": false,
+    "observed_final_test_comparison_against_ridge_svr_established": false,
+    "source_quotes_or_bars_are_account_ledger": false,
+    "can_upgrade_current_gate_to_5_from_these_archives": false,
+    "global_deduplicated_trial_count": null,
+    "reason": "Estudios, aliases, trayectorias sintéticas y periodos reutilizados. No se estableció identidad global entre familias.",
+    "additional_histories_to_reconcile": [
+      "Profit 1.7: seis caminos y cinco variantes",
+      "TP-NET: 27 combinaciones",
+      "Forense: 51 casos sobre cinco caminos",
+      "Options Lab: 24 casos",
+      "Canasta48: mismas fechas históricas",
+      "Simulación48: nueve intentos declarados, sin journal completo"
+    ]
+  },
+  "recommended_minimal_integration": {
+    "current_delivery_scope": "Revisión de familias para extracción integral 30.12.1. No fusión invasiva de los runtimes de opciones ni activación de estrategias investigadas.",
+    "immediately_reusable_without_active_policy_change": [
+      "Catálogo de fuentes y linaje",
+      "Inventario de contratos y funciones puras, con identidad separada",
+      "Registro de antecedentes y cuarentena de la fuente parcial"
+    ],
+    "requires_future_runtime_merge_and_regression": [
+      "Contratos Config, Campaign y Quote de opciones",
+      "Estados, valoración, entradas y salidas de Coordinator",
+      "Precio mínimo de salida con reglas opcionales desactivadas por defecto",
+      "Relaciones de hashes originales para los replays históricos"
+    ],
+    "must_not_automerge": [
+      "Settings, autoridad del broker y SQLite de la rama Python con el núcleo TypeScript",
+      "Etiquetas sintéticas como entrenamiento observado",
+      "Manifiestos históricos como verificadores de archivos modificados",
+      "Wrappers forenses como políticas activas"
+    ]
+  },
+  "artifacts": [
+    "zip_inventory.json",
+    "source_archive_integrity.json",
+    "active_manifest_verification.json",
+    "core_tp_vs_30_12.json",
+    "core_diffs/",
+    "module_inventory.json",
+    "duplicate_relations.json",
+    "profit_13_to_17.json",
+    "incomplete_archive.json",
+    "partial48_recovery.json",
+    "recovered_partial48/"
+  ],
+  "active_manifest_entries_verified": 2125,
+  "manifest_entry_count_note": "2.125 comprobaciones de entradas; no son archivos únicos entre paquetes ni pruebas funcionales nuevas."
+}

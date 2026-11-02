@@ -1,0 +1,22 @@
+I001 [*] Import block is un-sorted or un-formatted
+ --> runtime/store.py:2:1
+  |
+1 |   """Durable runtime storage over private stdio. No network listener or credentials."""
+2 | / from __future__ import annotations
+3 | | import json
+4 | | import sqlite3
+5 | | import sys
+6 | | import time
+7 | | import zlib
+8 | | from pathlib import Path
+9 | | from typing import Any
+  | |______________________^
+help: Organize imports
+  |
+2 | from __future__ import annotations
+3 +
+4 | import json
+  |
+
+Found 1 error.
+[*] 1 fixable with `--fix`.

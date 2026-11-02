@@ -1,0 +1,35 @@
+{
+  "schema": "HARPOON_FIXED_ENGINEERING_VERIFICATION_1",
+  "written_before_execution": "2026-10-31T16:56:19.635529+00:00",
+  "data_origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "purpose": "Measure software correction effects on fixed existing controls; no candidate selection",
+  "controls": {
+    "baseline": "",
+    "candidate": "B"
+  },
+  "seeds": [
+    610311,
+    610312,
+    610313,
+    610314,
+    610315
+  ],
+  "period": [
+    "2026-07-01",
+    "2026-10-30"
+  ],
+  "already_consumed_holdout": true,
+  "new_signal_hypotheses": 0,
+  "new_parameter_search_trials": 0,
+  "fixed_software_comparisons": 2,
+  "historical_research_trials": 23,
+  "current_exploration_limit": 6,
+  "further_strategy_exploration_allowed": false,
+  "budget_note": "Historical search already exceeds the present cap. Do not reset or extend it. These fixed regression controls cannot select or approve a strategy.",
+  "code_sha256": {
+    "economic_lab.py": "9c0575d541a8fa406e3c2c56dd952cb5b57d0ee8cdf59642e04008e0aad9af8e",
+    "ledger.py": "adbe9215ee44ac2b0482aada2f6a5569c9683ceac9691e05555bd72e204fee61"
+  },
+  "journal_sha256_before": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd",
+  "execution_allowed": false
+}

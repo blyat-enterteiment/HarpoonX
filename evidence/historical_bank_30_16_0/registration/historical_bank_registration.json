@@ -1,0 +1,109 @@
+{
+  "budget_path": [
+    23,
+    26,
+    29
+  ],
+  "descendant_journal": {
+    "audit_head": "e03fb3f98c046180382b6744488168c3c60d373d8b801bdf83d3fe8421c97f17",
+    "audit_seq": 82,
+    "budget": {
+      "limit": 128,
+      "spent": 29
+    },
+    "path": "optimizer.descendant.sqlite3",
+    "sha256": "d766654661e51dae72674acd02ddd8d89055f2caa59fe28f62cd6011d1edb52b"
+  },
+  "execution_allowed": false,
+  "family_slots": 6,
+  "financial_acceptance_allowed": false,
+  "fit_accounting": {
+    "model_selection_trials": 0,
+    "planned_total_fit_invocations_including_exact_verification": 32,
+    "primary_model_fit_invocations": 8,
+    "unique_model_fit_recipes": 8
+  },
+  "fitted_model_hashes": null,
+  "fork_receipt": {
+    "path": "fork_receipt.json",
+    "sha256": "244b0171248833153406a8d178edf76dd05671ced05504cd829712b3f9cba1ce"
+  },
+  "global_deduplicated_search_total": null,
+  "global_search_correction_complete": false,
+  "identity_hash": "3e35d9f4449dd07226da372ec805ba417244e660ea0a90b6940adae53f6e39d0",
+  "independent_preregistration": false,
+  "live_approved": false,
+  "model_binding_kind": "FIXED_FIT_RECIPE",
+  "retained_dataset_source_count": 130,
+  "retrospective_historical_registration": true,
+  "scenarios": {
+    "NOMINAL": {
+      "binding_hash": "4671de02da37a7befacd43db3c0118dc982e7e6d991d137d550ea4ed642a4c50",
+      "binding_path": "NOMINAL.binding.json",
+      "ordinal": 1,
+      "registration": {
+        "audit_head_at_reservation": "ecf6c3bb2c63cebde62793be7b88183a28e8f2e39ce2c520f57dcf9f97511c66",
+        "journal_path": "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/registration/optimizer.descendant.sqlite3",
+        "journal_relative_path": "optimizer.descendant.sqlite3",
+        "key": "measurement:funded:v1:4671de02da37a7befacd43db3c0118dc982e7e6d991d137d550ea4ed642a4c50",
+        "reservation_hash": "ffaff946efefc4c7b8d84d354a337f3f01a3d633444278349b9110b8a27bff6e",
+        "schema": "HARPOON_MEASUREMENT_REGISTRATION_1"
+      },
+      "registration_path": "NOMINAL.registration.json",
+      "verification": {
+        "binding_hash": "4671de02da37a7befacd43db3c0118dc982e7e6d991d137d550ea4ed642a4c50",
+        "budget_after": 26,
+        "budget_before": 23,
+        "execution_allowed": false,
+        "external_authentication": false,
+        "financial_acceptance_allowed": false,
+        "journal_current_head": "e03fb3f98c046180382b6744488168c3c60d373d8b801bdf83d3fe8421c97f17",
+        "registered_at": "2026-11-01T18:16:15.570115+00:00",
+        "scope": "Local reservation integrity; does not authenticate prices, costs or independent preregistration.",
+        "slots": 3,
+        "verified": true
+      }
+    },
+    "STRESS": {
+      "binding_hash": "3775cdd3e0d58b98597282656daa6858ef8df023c26e05f3c9e8a995d19dd627",
+      "binding_path": "STRESS.binding.json",
+      "ordinal": 2,
+      "registration": {
+        "audit_head_at_reservation": "e03fb3f98c046180382b6744488168c3c60d373d8b801bdf83d3fe8421c97f17",
+        "journal_path": "/workspace/scratch/4ecb05fdc50d/historical7_rebuild/HARPOON_XXXUltimate_30_16_0/evidence/historical_bank_30_16_0/registration/optimizer.descendant.sqlite3",
+        "journal_relative_path": "optimizer.descendant.sqlite3",
+        "key": "measurement:funded:v1:3775cdd3e0d58b98597282656daa6858ef8df023c26e05f3c9e8a995d19dd627",
+        "reservation_hash": "5cdc63eb3d577e1a70c9c385ca0d4ae8e215cdfc2c26322a54b307e8c44497ad",
+        "schema": "HARPOON_MEASUREMENT_REGISTRATION_1"
+      },
+      "registration_path": "STRESS.registration.json",
+      "verification": {
+        "binding_hash": "3775cdd3e0d58b98597282656daa6858ef8df023c26e05f3c9e8a995d19dd627",
+        "budget_after": 29,
+        "budget_before": 26,
+        "execution_allowed": false,
+        "external_authentication": false,
+        "financial_acceptance_allowed": false,
+        "journal_current_head": "e03fb3f98c046180382b6744488168c3c60d373d8b801bdf83d3fe8421c97f17",
+        "registered_at": "2026-11-01T18:16:15.590660+00:00",
+        "scope": "Local reservation integrity; does not authenticate prices, costs or independent preregistration.",
+        "slots": 3,
+        "verified": true
+      }
+    }
+  },
+  "schema": "HARPOON_HISTORICAL_BANK_REGISTRATION_1",
+  "scope": "Six offline measurements reserved, no fit or measurement executed. Local hash consistency is not external authentication or REAL level7 evidence.",
+  "source_journal": {
+    "audit_head": "df39e861ed2aa086dfb80c782d7924bead338fa6dfc1a28dc202616d5c3c1208",
+    "audit_seq": 78,
+    "budget": {
+      "limit": 128,
+      "spent": 23
+    },
+    "sha256": "c34112040413d8c6496c90077c9d64044c563cef53e13a2b423db138091f96cd"
+  },
+  "source_journal_bytes_unchanged": true,
+  "study_id": "HISTORICAL_BANK_30_16_0_20261101",
+  "verified": true
+}

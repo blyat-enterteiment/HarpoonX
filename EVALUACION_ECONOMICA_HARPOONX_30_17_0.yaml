@@ -1,0 +1,1334 @@
+informe:
+  proyecto: HarpoonX
+  version_integral: 30.17.0
+  fecha_utc: '2026-11-01T23:32:35.736795+00:00'
+  idioma: español
+  resultado_principal: CORE_CORREGIDO; VENTAJA_NETA_NO_DEMOSTRADA; NIVEL 8_NO_ACREDITADO
+  nivel8_acreditado: false
+  calificacion_numerica_real: null
+  motivo_nota_null: No existe escala 1–10 calibrada. Pasar tests, abstenerse o perder menos no prueba alpha ni autoriza
+    una nota 8.
+  alcance: Entrega integral offline desde Library 30.16 confirmada;12 mediciones finitas+2 referencias CASH y reproducción
+    25/25. Sin despliegue, órdenes ni publicación GitHub.
+resumen_ejecutivo:
+- 'Ridge con hurdle: −299,60 USD nominal,3 campañas; −578,35 USD estrés,1 campaña. No alcanza crecimiento neto positivo.'
+- Huber y Huber+régimen:0 campañas; empatanCASH después de costes:−294 USD nominal/−588 USD estrés. Abstenerse evita
+  riesgo innecesario, no crea rentabilidad.
+- La mejora nominal frente al Ridge anterior es 67,28 USD en esta muestra vista; no es estimación garantizada de
+  mejora futura.
+- Los dos defectos causales se corrigieron, pero no cambiaron las seis curvas de control en esta base; su existencia
+  se demuestra con regresiones sintéticas.
+- La familia quedó cerrada sin bajar umbrales, buscar nuevos parámetros ni aumentar exposición después de ver resultados.
+recuperacion_y_procedencia:
+  base_zip_library_id: libfile_083692acc64c8191a9a7d0f581e1b77c
+  version_base_library: 19
+  evaluacion_base_library_id: libfile_2d15cc50367c8191a90f97838d7f67a9
+  version_evaluacion_base_library: 10
+  workspace_original_recuperado: false
+  captura2016_2026_materializada: false
+  captura2016_2026_estado: No disponible en esta entrega; mensaje histórico de 32 pausas/31 huecos no es evidencia
+    de bytes recuperados.
+  feed_london_strategic_edge: NO_DISPONIBLE_SIN_KEY; no se ha configurado ni adquirido acceso
+  fuente_base: ALPACA_PROXY alternativa; nunca presentada como London Strategic Edge
+  naturaleza: Barras históricas, disponibilidad modelada end+1000 ms; sin receipt original de mercado
+  activos:
+  - AAPL
+  - MSFT
+  - SPY
+  - XLK
+  barras: 208152
+  fuentes_originales: 130
+  sesiones_train: 375
+  sesiones_validacion: 126
+  sesiones_test: 168
+  labels_train_utilizables: 425
+  test_previamente_visto: true
+  universo_pit_completo: false
+  sesgo_supervivencia_no_resuelto: true
+rubrica8_propuesta_no_puntuacion:
+  regla: Nivel 8 económico exige TODOS los criterios, no sumar tests ni asignarse puntos. Es una propuesta de aceptación,
+    no una escala probabilística validada.
+  criterios:
+  - id: R1
+    exige: Código, fuentes, resultados y reproducción auditables sin reset de presupuesto
+    estado: CUMPLIDO_EN_ESTA_ENTREGA
+    evidencia: 247 bindings, journal 29→41, reproducción 25/25
+  - id: R2
+    exige: Causalidad temporal, labels purgados, splits y referencias as-of
+    estado: SOFTWARE_CORREGIDO; PROVENIENCIA_CONDICIONAL
+    evidencia: 10 regresiones nuevas de HWM/splits; fechas corporativas no certificadas
+  - id: R3
+    exige: Capital continuo, caja, reservas, costes y derechos conciliados
+    estado: CUMPLIDO_EN_MODELO_NO_CUENTA_REAL
+    evidencia: 14 curvas auditadas,20.000 USD sin reset entre fases
+  - id: R4
+    exige: Límites ex ante y estrés sin elevar riesgo
+    estado: CUMPLIDO_EN_MODELO; RIESGO_REAL_NO_CERTIFICADO
+    evidencia: IOC, HWM causal, caps reducidos o intactos; dailygate es close-to-close, no garantía intradía
+  - id: R5
+    exige: Datos corporativos completos y costes/ejecución observados verificables
+    estado: BLOQUEADO
+    evidencia: Faltan facturas, profundidad, fills/latencia e integridad/publicación corporativa completa
+  - id: R6
+    exige: Crecimiento neto positivo y ventaja pareada sobreCASH/C 0/Ridge bajo nominal y estrés
+    estado: RECHAZADO_EN_ESTA_FAMILIA
+    evidencia: Ninguna candidata supera los gates con corrección familiar de 60 endpoints y sensibilidad de bloques
+      de 5 y 20 sesiones
+  - id: R7
+    exige: Confirmación temporal genuinamente no vista y control global de ensayos
+    estado: NO_CUMPLIDO
+    evidencia: TEST reutilizado; total histórico global desconocido
+  - id: R8
+    exige: Validación prospectiva observada y reconciliación operacional en alcance autorizado
+    estado: NO_EJECUTADO
+    evidencia: No broker/deploy/credenciales. Requiere datos/autorización y ventana futura real
+  conclusion: NO_ACREDITADO
+cambios_core:
+- archivo: xxx/ultimate_replay.ts
+  problema: PeakEquity se observaba sólo en tiempos de señales admitidas, pudiendo ignorar máximos entre decisiones.
+  solucion: Cola causal de entradas, marks, costes de sesión y derechos; HWM avanza únicamente hasta la decisión.
+  pruebas: 4 fixtures de regresión; no confundirlos con precios históricos observados.
+- archivo: quant/harpoon_quant/historical_bank.py
+  problema: Features ignoraban splits presentes en señales.
+  solucion: Ajuste de precio/VWAP/volumen as-of para símbolo y benchmark; eventos futuros no entran y publicación
+    explícita futura se rechaza.
+  pruebas: 6 fixtures; base histórica actual no contiene splits.
+- archivo: tools/quant8_register.py
+  solucion: Familia única 12 slots, bindings completos de fuente/artefactos y fuente 29/128 inmutable; recuperación
+    atómica.
+- archivo: tools/quant 8_replay.cjs + tools/quant 8_verify.py
+  solucion: CLI exige reserva y rederiva señales/labels/features/modelos/admisiones antes del replay; tamper falla
+    cerrado.
+- archivo: tools/run_quant8.py
+  solucion: Auditoría deriva caps esperados del protocolo; no acepta límites declarados por el mismo reporte.
+matematica_implementada:
+  admisibilidad: mu_nominal_neta(x) −2*SE_media_aprox(x) −Delta_friccion_estres(precio_conocido) >0,0005
+  mu: Ridgeλ1 y Huberα1 ε1,35; ochofeatures, normalización median/IQR con std fallback, target estandarizado; ajustes
+    fijos por activo.
+  incertidumbre: Sandwich agrupado por sesión de coeficientes; incertidumbre de media condicional, NO volatilidad
+    predictiva. Sesiones dependientes, sesgo de regularización y escala Huber estimada no totalmente cubiertos;2×SE
+    no garantiza 95%.
+  costes: Target incluye fricción nominal modelada y dividendos. Delta de estrés sólo diferencia de spread+slippage+comisión
+    roundtrip. Gastos externos una vez en la cuenta y en CASH, no otra vez en el hurdle.
+  regimen: Umbral rv 12 percentil 80 calculado únicamente en train; rechaza 29/356 decisiones. Huber+régimen reduce
+    a 0,5 los caps de riesgo/gross/asset/openrisk.
+  covarianza: No se implementó un asignador covariance-optimal. Cuatro exposiciones de equity/ETF no constituyen
+    diversificación independiente; el cap conservador no es una estimación de alpha.
+  recetas:
+    ridge_lambda: 1.0
+    huber_alpha: 1.0
+    huber_epsilon: 1.35
+    huber_max_iter: 2000
+    mean_uncertainty_multiplier: 2.0
+    minimum_net_return_bps: 5.0
+    maximum_absolute_training_z: 8.0
+    regime_rv_quantile: 0.8
+    minimum_training_rows: 40
+    minimum_training_sessions: 30
+    feature_scaling: MEDIAN_IQR_STD_FALLBACK
+    target_scaling: MEAN_STD
+    external_cost_hurdle_return: 0.0
+  recalibracion_walk_forward: false
+  busqueda_hiperparametros: 0
+registro:
+  budget_path:
+  - 29
+  - 41
+  descendant_journal:
+    audit_head: c57b33fdf53e140a4b96afaa5d7c1962d32d5e289a76932a72b1ccc540d18c9c
+    audit_seq: 84
+    budget:
+      limit: 128
+      spent: 41
+    path: optimizer.descendant.sqlite3
+    sha256: d651758acb6773a2d34b1df81f5f9ed2a33384675ce0aba0490be9906dec57bd
+  execution_allowed: false
+  family_slots: 12
+  financial_acceptance_allowed: false
+  global_deduplicated_search_total: null
+  global_search_correction_complete: false
+  identity_hash: 6117033758306e1128c8bb5cfa9ce96f48ebb2ac629d803a54b76083a37a2d39
+  independent_preregistration: false
+  live_approved: false
+  ordering_authority: LOCAL_AUDIT_SEQUENCE_NOT_EXECUTOR_WALL_CLOCK
+  protocol_definition_recorded_at: '2026-11-01T23:22:17Z'
+  registered_at: '2026-11-01T23:25:23.401629+00:00'
+  registered_at_clock: EXECUTOR_SYSTEM_UTC_NOT_INDEPENDENT_ATTESTATION
+  reservation_hash: 24891ff51c4615c9da8812c2df17fb79cbbc6b51b12773e512b5064427718e65
+  schema: HARPOON_QUANT8_REGISTRATION_1
+  scope: Twelve finite offline diagnostics; reused past data, no untouched holdout or economic approval.
+  source_journal:
+    audit_head: e03fb3f98c046180382b6744488168c3c60d373d8b801bdf83d3fe8421c97f17
+    audit_seq: 82
+    budget:
+      limit: 128
+      spent: 29
+    sha256: d766654661e51dae72674acd02ddd8d89055f2caa59fe28f62cd6011d1edb52b
+  source_journal_bytes_unchanged: true
+  study_id: HARPOON_QUANT8_DIAGNOSTIC_30_17_0
+  verified: true
+contabilidad_ensayos:
+  policies:
+  - C0
+  - RIDGE
+  - SVR
+  - RIDGE_HURDLE
+  - HUBER_HURDLE
+  - HUBER_REGIME_CAP
+  scenarios:
+  - NOMINAL
+  - STRESS
+  new_policy_scenario_measurements: 12
+  new_policy_recipes: 3
+  corrected_engine_control_measurements: 6
+  source_budget_spent: 29
+  source_budget_limit: 128
+  descendant_expected_spent: 41
+  cash_is_derived_reference: true
+  unique_new_estimator_asset_recipes: 8
+  legacy_estimator_asset_recipes_recomputed: 8
+  primary_fit_invocations: 16
+  planned_fit_invocations_with_exact_reproduction: 64
+  hyperparameter_search_trials: 0
+  same_recipe_retry_only: true
+  global_prior_trial_count: null
+  verification_fit_invocations_per_run: 16
+  ajustes_nueva_familia_ejecutados_con_verificacion_y_reproduccion: 64
+  reproducciones_base30_16_separadas: Una confirmación inicial 12 hashes y prueba portable final; no variantes nuevas
+    ni gasto adicional de journal; incidente portable previo falló antes de fit.
+resultados_todas_politicas:
+- politica: C0
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19575.064168
+  pnl_neto_usd: -424.9358319999992
+  retorno_total_pct: -2.124679159999998
+  operaciones_campanas: 226
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: -130.9358319999992
+  diferencia_pnl_frente_cash_usd: -130.9358319999992
+  drawdown_observado_eventos_pct: 3.012610759873058
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19685.634168000004
+    final_equity: 19575.064168
+    economic_pnl_modeled_usd: -110.57000000000335
+    total_return_fraction: -0.005616786284677655
+    geometric_mean_per_session: -3.352693644406453e-05
+    max_drawdown_close_fraction: 0.01842283619951557
+    closed_campaigns: 135
+    closed_campaign_trading_pnl_usd: 57.429999999999815
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 2.6799999999998434
+      MSFT: -9.939999999999323
+      SPY: -77.08000000000007
+      XLK: 141.76999999999924
+    contribution_residual_usd: 3.0411229090532288e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 78.73999999999992
+      net_excluding_largest_trade_usd: -21.31000000000011
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 0.9855846235985051
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_C0.json
+    sha256: 5d0be679b9b0e1d0467071cc9bdd0d92c7f701ed175cc8ce869959571f2fe344
+- politica: RIDGE
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19633.12
+  pnl_neto_usd: -366.880000000001
+  retorno_total_pct: -1.8344000000000027
+  operaciones_campanas: 91
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: -72.88000000000102
+  diferencia_pnl_frente_cash_usd: -72.88000000000102
+  drawdown_observado_eventos_pct: 2.066100011391747
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19812.57
+    final_equity: 19633.12
+    economic_pnl_modeled_usd: -179.45000000000073
+    total_return_fraction: -0.009057381248369079
+    geometric_mean_per_session: -5.415715665212483e-05
+    max_drawdown_close_fraction: 0.013792192932271186
+    closed_campaigns: 58
+    closed_campaign_trading_pnl_usd: -11.45000000000073
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -46.09000000000046
+      MSFT: -39.580000000000595
+      SPY: 1.1600000000000144
+      XLK: 73.06000000000039
+    contribution_residual_usd: 5.684341886080802e-14
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 47.94000000000024
+      net_excluding_largest_trade_usd: -59.39000000000097
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 1
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_RIDGE.json
+    sha256: bf35a2f7f543752c62ef06d317e4b127a2903f7591554586293d8ac98f6c97ba
+- politica: SVR
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19518.444168
+  pnl_neto_usd: -481.5558319999982
+  retorno_total_pct: -2.40777915999999
+  operaciones_campanas: 86
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: -187.5558319999982
+  diferencia_pnl_frente_cash_usd: -187.5558319999982
+  drawdown_observado_eventos_pct: 2.6588698205647354
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19729.174168000005
+    final_equity: 19518.444168
+    economic_pnl_modeled_usd: -210.7300000000032
+    total_return_fraction: -0.010681136382373224
+    geometric_mean_per_session: -6.39181309191936e-05
+    max_drawdown_close_fraction: 0.012277316192130239
+    closed_campaigns: 55
+    closed_campaign_trading_pnl_usd: -42.7300000000011
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -7.410000000000295
+      MSFT: -40.24000000000032
+      SPY: -28.270000000000188
+      XLK: 33.189999999999706
+    contribution_residual_usd: 2.1032064978498966e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 47.94000000000024
+      net_excluding_largest_trade_usd: -90.67000000000134
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 1
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_SVR.json
+    sha256: 8ac79cc98092de794a41cdbe1006ca38f4773352b9d98fc0d38b2b6a1045b008
+- politica: RIDGE_HURDLE
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19700.4
+  pnl_neto_usd: -299.59999999999854
+  retorno_total_pct: -1.4979999999999882
+  operaciones_campanas: 3
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: -5.599999999998545
+  diferencia_pnl_frente_cash_usd: -5.599999999998545
+  drawdown_observado_eventos_pct: 1.4979999999999882
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19866.3
+    final_equity: 19700.4
+    economic_pnl_modeled_usd: -165.89999999999782
+    total_return_fraction: -0.008350825266909223
+    geometric_mean_per_session: -4.991475868542133e-05
+    max_drawdown_close_fraction: 0.008350825266909223
+    closed_campaigns: 2
+    closed_campaign_trading_pnl_usd: 2.1000000000002252
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 11.10000000000009
+      SPY: 0
+      XLK: -8.999999999999865
+    contribution_residual_usd: -1.9610979506978765e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 11.10000000000009
+      net_excluding_largest_trade_usd: -8.999999999999865
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 1
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_RIDGE_HURDLE.json
+    sha256: 5c9d6b6881cb937020d9b8031d5fde78d33cc14feef08e97a920c24a451d1a9a
+- politica: HUBER_HURDLE
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19706
+  pnl_neto_usd: -294
+  retorno_total_pct: -1.4700000000000046
+  operaciones_campanas: 0
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: 0
+  diferencia_pnl_frente_cash_usd: 0
+  drawdown_observado_eventos_pct: 1.4700000000000046
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19874
+    final_equity: 19706
+    economic_pnl_modeled_usd: -168
+    total_return_fraction: -0.00845325550971121
+    geometric_mean_per_session: -5.052959779453862e-05
+    max_drawdown_close_fraction: 0.00845325550971121
+    closed_campaigns: 0
+    closed_campaign_trading_pnl_usd: 0
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 0
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: 0
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: null
+      net_excluding_largest_trade_usd: null
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: null
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_HUBER_HURDLE.json
+    sha256: bbaa935b7c061596d665cee5f6117e3bc0f82608c5559cb27199430ee1e733b2
+- politica: HUBER_REGIME_CAP
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19706
+  pnl_neto_usd: -294
+  retorno_total_pct: -1.4700000000000046
+  operaciones_campanas: 0
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: 0
+  diferencia_pnl_frente_cash_usd: 0
+  drawdown_observado_eventos_pct: 1.4700000000000046
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.00125
+    openRiskFraction: 0.0075
+    grossFraction: 0.25
+    assetFraction: 0.06
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19874
+    final_equity: 19706
+    economic_pnl_modeled_usd: -168
+    total_return_fraction: -0.00845325550971121
+    geometric_mean_per_session: -5.052959779453862e-05
+    max_drawdown_close_fraction: 0.00845325550971121
+    closed_campaigns: 0
+    closed_campaign_trading_pnl_usd: 0
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 0
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: 0
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: null
+      net_excluding_largest_trade_usd: null
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: null
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_HUBER_REGIME_CAP.json
+    sha256: c6e8d52def9fcbb62aaec4a938ac25796d43c62dd1b9b21f5f697b666770caae
+- politica: CASH
+  escenario: NOMINAL
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19706
+  pnl_neto_usd: -294
+  retorno_total_pct: -1.4700000000000046
+  operaciones_campanas: 0
+  gastos_externos_usd: 294
+  trading_mas_dividendos_antes_gastos_externos_usd: 0
+  diferencia_pnl_frente_cash_usd: 0
+  drawdown_observado_eventos_pct: 1.4700000000000046
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19874
+    final_equity: 19706
+    economic_pnl_modeled_usd: -168
+    total_return_fraction: -0.00845325550971121
+    geometric_mean_per_session: -5.052959779453862e-05
+    max_drawdown_close_fraction: 0.00845325550971121
+    closed_campaigns: 0
+    closed_campaign_trading_pnl_usd: 0
+    external_costs_modeled_usd: 168
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 0
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: 0
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: null
+      net_excluding_largest_trade_usd: null
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: null
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/NOMINAL_CASH.json
+    sha256: 9207659329ea91c0d771eca4b2bd687761b73ca4c332474a71a54762ca32e28d
+- politica: C0
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19106.324168
+  pnl_neto_usd: -893.6758320000008
+  retorno_total_pct: -4.468379160000002
+  operaciones_campanas: 226
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: -305.6758320000008
+  diferencia_pnl_frente_cash_usd: -305.6758320000008
+  drawdown_observado_eventos_pct: 4.58876100731036
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19501.114168
+    final_equity: 19106.324168
+    economic_pnl_modeled_usd: -394.7900000000009
+    total_return_fraction: -0.020244484320174116
+    geometric_mean_per_session: -0.00012173194862081584
+    max_drawdown_close_fraction: 0.025473925963061084
+    closed_campaigns: 136
+    closed_campaign_trading_pnl_usd: -58.79000000000123
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -9.609999999999904
+      MSFT: -36.650000000000276
+      SPY: -122.32000000000019
+      XLK: 109.78999999999911
+    contribution_residual_usd: -3.979039320256561e-13
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 77.52000000000002
+      net_excluding_largest_trade_usd: -136.31000000000125
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 0.989713048186248
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_C0.json
+    sha256: f1828858608bd03ecf7279777c90eac068e7a039d442ae8e86342e1bf4ca103b
+- politica: RIDGE
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19226.02
+  pnl_neto_usd: -773.9799999999996
+  retorno_total_pct: -3.869899999999993
+  operaciones_campanas: 91
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: -185.97999999999956
+  diferencia_pnl_frente_cash_usd: -185.97999999999956
+  drawdown_observado_eventos_pct: 3.9803256034633194
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19644.25
+    final_equity: 19226.02
+    economic_pnl_modeled_usd: -418.22999999999956
+    total_return_fraction: -0.021290199422222766
+    geometric_mean_per_session: -0.00012808765754700638
+    max_drawdown_close_fraction: 0.02197335098056674
+    closed_campaigns: 58
+    closed_campaign_trading_pnl_usd: -82.2299999999999
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -78.86999999999938
+      MSFT: -56.30000000000098
+      SPY: -4.619999999999456
+      XLK: 57.559999999999945
+    contribution_residual_usd: -3.410605131648481e-13
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 46.630000000000194
+      net_excluding_largest_trade_usd: -128.8600000000001
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 1
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_RIDGE.json
+    sha256: 58e7f80aba5c93f63d592ca671e676266ffacca6da98f74afba9cc3825a3e878
+- politica: SVR
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19106.374168000002
+  pnl_neto_usd: -893.6258319999979
+  retorno_total_pct: -4.4681291599999895
+  operaciones_campanas: 86
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: -305.6258319999979
+  diferencia_pnl_frente_cash_usd: -305.6258319999979
+  drawdown_observado_eventos_pct: 4.56430716896572
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19555.454168000004
+    final_equity: 19106.374168000002
+    economic_pnl_modeled_usd: -449.08000000000175
+    total_return_fraction: -0.022964437243030877
+    geometric_mean_per_session: -0.0001382775081045636
+    max_drawdown_close_fraction: 0.02353307655482939
+    closed_campaigns: 55
+    closed_campaign_trading_pnl_usd: -113.08000000000052
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: -36.99999999999942
+      MSFT: -51.420000000000215
+      SPY: -44.66000000000037
+      XLK: 19.99999999999951
+    contribution_residual_usd: 1.2505552149377763e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 46.630000000000194
+      net_excluding_largest_trade_usd: -159.71000000000072
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 1
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_SVR.json
+    sha256: a6738dc981aec425cd3f76f8d2269ffff382cb41b1901da8ead44d946cc8b6a1
+- politica: RIDGE_HURDLE
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19421.65
+  pnl_neto_usd: -578.3499999999985
+  retorno_total_pct: -2.891749999999993
+  operaciones_campanas: 1
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: 9.650000000001455
+  diferencia_pnl_frente_cash_usd: 9.650000000001455
+  drawdown_observado_eventos_pct: 2.891749999999993
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19748
+    final_equity: 19421.65
+    economic_pnl_modeled_usd: -326.34999999999854
+    total_return_fraction: -0.016525724123961805
+    geometric_mean_per_session: -9.918434988319673e-05
+    max_drawdown_close_fraction: 0.016525724123961805
+    closed_campaigns: 1
+    closed_campaign_trading_pnl_usd: 9.649999999999942
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 9.649999999999944
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: -1.5347723092418164e-12
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: 9.649999999999942
+      net_excluding_largest_trade_usd: 0
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: 1
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_RIDGE_HURDLE.json
+    sha256: 26e3b18661e337b73287df2a133a4b062af209224a4a23c3dc7e1e45a0347834
+- politica: HUBER_HURDLE
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19412
+  pnl_neto_usd: -588
+  retorno_total_pct: -2.939999999999998
+  operaciones_campanas: 0
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: 0
+  diferencia_pnl_frente_cash_usd: 0
+  drawdown_observado_eventos_pct: 2.939999999999998
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19748
+    final_equity: 19412
+    economic_pnl_modeled_usd: -336
+    total_return_fraction: -0.01701438120315979
+    geometric_mean_per_session: -0.00010214233581664866
+    max_drawdown_close_fraction: 0.01701438120315979
+    closed_campaigns: 0
+    closed_campaign_trading_pnl_usd: 0
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 0
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: 0
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: null
+      net_excluding_largest_trade_usd: null
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: null
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_HUBER_HURDLE.json
+    sha256: 177c600f771235dcf370a76d936cc849f786c938ad3fd05c0a26c40847d50fa4
+- politica: HUBER_REGIME_CAP
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19412
+  pnl_neto_usd: -588
+  retorno_total_pct: -2.939999999999998
+  operaciones_campanas: 0
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: 0
+  diferencia_pnl_frente_cash_usd: 0
+  drawdown_observado_eventos_pct: 2.939999999999998
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.00125
+    openRiskFraction: 0.0075
+    grossFraction: 0.25
+    assetFraction: 0.06
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19748
+    final_equity: 19412
+    economic_pnl_modeled_usd: -336
+    total_return_fraction: -0.01701438120315979
+    geometric_mean_per_session: -0.00010214233581664866
+    max_drawdown_close_fraction: 0.01701438120315979
+    closed_campaigns: 0
+    closed_campaign_trading_pnl_usd: 0
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 0
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: 0
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: null
+      net_excluding_largest_trade_usd: null
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: null
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_HUBER_REGIME_CAP.json
+    sha256: a1f2f5ffbcf2d69ba8ad9ab36b33e269fa88536c1130540551e3f39aeee98e84
+- politica: CASH
+  escenario: STRESS
+  periodo:
+  - '2023-07-03'
+  - '2024-08-30'
+  sesiones: 294
+  capital_inicial_usd: 20000
+  patrimonio_final_usd: 19412
+  pnl_neto_usd: -588
+  retorno_total_pct: -2.939999999999998
+  operaciones_campanas: 0
+  gastos_externos_usd: 588
+  trading_mas_dividendos_antes_gastos_externos_usd: 0
+  diferencia_pnl_frente_cash_usd: 0
+  drawdown_observado_eventos_pct: 2.939999999999998
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  limites_produccion_ampliados: false
+  test:
+    period:
+    - '2024-01-02'
+    - '2024-08-30'
+    sessions: 168
+    capital_at_phase_start: 19748
+    final_equity: 19412
+    economic_pnl_modeled_usd: -336
+    total_return_fraction: -0.01701438120315979
+    geometric_mean_per_session: -0.00010214233581664866
+    max_drawdown_close_fraction: 0.01701438120315979
+    closed_campaigns: 0
+    closed_campaign_trading_pnl_usd: 0
+    external_costs_modeled_usd: 336
+    dividend_income_usd: 0
+    contribution_by_asset_usd:
+      AAPL: 0
+      MSFT: 0
+      SPY: 0
+      XLK: 0
+    contribution_residual_usd: 0
+    positions_carried_in: 0
+    positions_carried_out: 0
+    closing_valuation_scope: Latest known campaign marks at exchange session close; full terminal inventory reconciled
+    closed_trade_concentration:
+      largest_net_trade_usd: null
+      net_excluding_largest_trade_usd: null
+    return_is_after_tax: false
+    real_profitability: null
+  naturaleza: HISTORICAL_RETROSPECTIVE / MODELED_OHLCV / PRE_TAX
+  fill_ratio_modelado: null
+  fill_ratio_real: null
+  evidencia:
+    path: evidence/core_quant8_30_17_0/run_completed/STRESS_CASH.json
+    sha256: d312be85c58dd0db48685514efd0d612fe60f7bd02ad259d4a78a3fe596e84f2
+controles_antes_despues_core:
+  NOMINAL:C0:
+    misma_curva_patrimonial_y_operaciones: true
+    pnl_previo: -424.9358319999992
+    pnl_actual: -424.9358319999992
+    metadata_core_cambiada: true
+  NOMINAL:RIDGE:
+    misma_curva_patrimonial_y_operaciones: true
+    pnl_previo: -366.880000000001
+    pnl_actual: -366.880000000001
+    metadata_core_cambiada: true
+  NOMINAL:SVR:
+    misma_curva_patrimonial_y_operaciones: true
+    pnl_previo: -481.5558319999982
+    pnl_actual: -481.5558319999982
+    metadata_core_cambiada: true
+  STRESS:C0:
+    misma_curva_patrimonial_y_operaciones: true
+    pnl_previo: -893.6758320000008
+    pnl_actual: -893.6758320000008
+    metadata_core_cambiada: true
+  STRESS:RIDGE:
+    misma_curva_patrimonial_y_operaciones: true
+    pnl_previo: -773.9799999999996
+    pnl_actual: -773.9799999999996
+    metadata_core_cambiada: true
+  STRESS:SVR:
+    misma_curva_patrimonial_y_operaciones: true
+    pnl_previo: -893.6258319999979
+    pnl_actual: -893.6258319999979
+    metadata_core_cambiada: true
+abstenciones:
+  NOMINAL:
+    HUBER_HURDLE:
+      ROBUST_NET_HURDLE_INSUFFICIENT: 356
+    HUBER_REGIME_CAP:
+      ROBUST_NET_HURDLE_INSUFFICIENT: 327
+      TRAINING_VOLATILITY_REGIME_REFUSED: 29
+    RIDGE_HURDLE:
+      ROBUST_NET_HURDLE_INSUFFICIENT: 353
+      ROBUST_NET_HURDLE_PASSED: 3
+  STRESS:
+    HUBER_HURDLE:
+      ROBUST_NET_HURDLE_INSUFFICIENT: 356
+    HUBER_REGIME_CAP:
+      ROBUST_NET_HURDLE_INSUFFICIENT: 327
+      TRAINING_VOLATILITY_REGIME_REFUSED: 29
+    RIDGE_HURDLE:
+      ROBUST_NET_HURDLE_INSUFFICIENT: 355
+      ROBUST_NET_HURDLE_PASSED: 1
+referencias_cash:
+  dentro_sistema:
+    nominal_usd: -294
+    estres_usd: -588
+    interes_asumido: 0
+    gastos_mismos_294_sesiones: true
+  fuera_sistema:
+    neto_usd: 0
+    interes_asumido: 0
+    gastos_sistema_asumidos: 0
+    naturaleza: Contrafactual aritmético de no incurrir en sistema; no estrategia alpha ni tarifa real observada
+  lectura: 'Eliminar gastos no vuelve positivo al Huber inactivo: queda 0. Ridge nominal tiene−5,60 USD antes de
+    gastos; estrés+9,65 USD con 1 campaña no sustenta inferencia robusta.'
+inferencia:
+  naturaleza: DIAGNOSTICA_NO_CONFIRMATORIA
+  bloques_sesiones:
+  - 5
+  - 20
+  replicas_por_bloque: 120000
+  endpoints_simultaneos: 60
+  alpha_cola: 0.000833333333333334
+  muestras_esperadas_cola: 100.00000000000009
+  gates:
+    HUBER_HURDLE:
+      checks:
+        NOMINAL:observed_close_daily_loss_within_cap: true
+        NOMINAL:observed_event_drawdown_within_cap: true
+        STRESS:observed_close_daily_loss_within_cap: true
+        STRESS:observed_event_drawdown_within_cap: true
+        block20:NOMINAL:beats_C0: false
+        block20:NOMINAL:beats_CASH: false
+        block20:NOMINAL:beats_RIDGE: false
+        block20:NOMINAL:positive_net_growth: false
+        block20:STRESS:beats_C0: false
+        block20:STRESS:beats_CASH: false
+        block20:STRESS:beats_RIDGE: false
+        block20:STRESS:positive_net_growth: false
+        block5:NOMINAL:beats_C0: false
+        block5:NOMINAL:beats_CASH: false
+        block5:NOMINAL:beats_RIDGE: false
+        block5:NOMINAL:positive_net_growth: false
+        block5:STRESS:beats_C0: false
+        block5:STRESS:beats_CASH: false
+        block5:STRESS:beats_RIDGE: false
+        block5:STRESS:positive_net_growth: false
+      conditional_diagnostic_pass: false
+      level8_accredited: false
+    HUBER_REGIME_CAP:
+      checks:
+        NOMINAL:observed_close_daily_loss_within_cap: true
+        NOMINAL:observed_event_drawdown_within_cap: true
+        STRESS:observed_close_daily_loss_within_cap: true
+        STRESS:observed_event_drawdown_within_cap: true
+        block20:NOMINAL:beats_C0: false
+        block20:NOMINAL:beats_CASH: false
+        block20:NOMINAL:beats_RIDGE: false
+        block20:NOMINAL:positive_net_growth: false
+        block20:STRESS:beats_C0: false
+        block20:STRESS:beats_CASH: false
+        block20:STRESS:beats_RIDGE: false
+        block20:STRESS:positive_net_growth: false
+        block5:NOMINAL:beats_C0: false
+        block5:NOMINAL:beats_CASH: false
+        block5:NOMINAL:beats_RIDGE: false
+        block5:NOMINAL:positive_net_growth: false
+        block5:STRESS:beats_C0: false
+        block5:STRESS:beats_CASH: false
+        block5:STRESS:beats_RIDGE: false
+        block5:STRESS:positive_net_growth: false
+      conditional_diagnostic_pass: false
+      level8_accredited: false
+    RIDGE_HURDLE:
+      checks:
+        NOMINAL:observed_close_daily_loss_within_cap: true
+        NOMINAL:observed_event_drawdown_within_cap: true
+        STRESS:observed_close_daily_loss_within_cap: true
+        STRESS:observed_event_drawdown_within_cap: true
+        block20:NOMINAL:beats_C0: false
+        block20:NOMINAL:beats_CASH: false
+        block20:NOMINAL:beats_RIDGE: false
+        block20:NOMINAL:positive_net_growth: false
+        block20:STRESS:beats_C0: false
+        block20:STRESS:beats_CASH: false
+        block20:STRESS:beats_RIDGE: false
+        block20:STRESS:positive_net_growth: false
+        block5:NOMINAL:beats_C0: false
+        block5:NOMINAL:beats_CASH: false
+        block5:NOMINAL:beats_RIDGE: false
+        block5:NOMINAL:positive_net_growth: false
+        block5:STRESS:beats_C0: false
+        block5:STRESS:beats_CASH: false
+        block5:STRESS:beats_RIDGE: false
+        block5:STRESS:positive_net_growth: false
+      conditional_diagnostic_pass: false
+      level8_accredited: false
+  estadisticas_completas:
+    path: evidence/core_quant8_30_17_0/run_completed/statistics.json
+    sha256: fa4fd60cd49cc2155f73beb5bbd6454c1d0f4cdd1f219e0b1e5a36a19c21927f
+  global_search_correction_complete: false
+  limitacion_daily_loss: Gate usa retornos close-to-close; no certifica ausencia de pérdida intradía. HWM usa eventos
+    de valoración modelados, no tick-by-tick ejecutable.
+reproduccion:
+  base_inicial:
+    schema: HARPOON_HISTORICAL_EXACT_REPRODUCTION_1
+    verified: true
+    mismatches: []
+    files_compared: 12
+    new_policy_variants: 0
+    same_descendant_journal: true
+    financial_acceptance_allowed: false
+  nueva:
+    files_compared: 25
+    mismatches: []
+    new_policy_variants: 0
+    verified: true
+  base_portable_final:
+    schema: HARPOON_HISTORICAL_EXACT_REPRODUCTION_1
+    verified: true
+    mismatches: []
+    files_compared: 12
+    new_policy_variants: 0
+    same_descendant_journal: true
+    financial_acceptance_allowed: false
+  archivos_resultado:
+    NOMINAL_C0.json: 5d0be679b9b0e1d0467071cc9bdd0d92c7f701ed175cc8ce869959571f2fe344
+    NOMINAL_CASH.json: 9207659329ea91c0d771eca4b2bd687761b73ca4c332474a71a54762ca32e28d
+    NOMINAL_HUBER_HURDLE.json: bbaa935b7c061596d665cee5f6117e3bc0f82608c5559cb27199430ee1e733b2
+    NOMINAL_HUBER_REGIME_CAP.json: c6e8d52def9fcbb62aaec4a938ac25796d43c62dd1b9b21f5f697b666770caae
+    NOMINAL_RIDGE.json: bf35a2f7f543752c62ef06d317e4b127a2903f7591554586293d8ac98f6c97ba
+    NOMINAL_RIDGE_HURDLE.json: 5c9d6b6881cb937020d9b8031d5fde78d33cc14feef08e97a920c24a451d1a9a
+    NOMINAL_SVR.json: 8ac79cc98092de794a41cdbe1006ca38f4773352b9d98fc0d38b2b6a1045b008
+    STRESS_C0.json: f1828858608bd03ecf7279777c90eac068e7a039d442ae8e86342e1bf4ca103b
+    STRESS_CASH.json: d312be85c58dd0db48685514efd0d612fe60f7bd02ad259d4a78a3fe596e84f2
+    STRESS_HUBER_HURDLE.json: 177c600f771235dcf370a76d936cc849f786c938ad3fd05c0a26c40847d50fa4
+    STRESS_HUBER_REGIME_CAP.json: a1f2f5ffbcf2d69ba8ad9ab36b33e269fa88536c1130540551e3f39aeee98e84
+    STRESS_RIDGE.json: 58e7f80aba5c93f63d592ca671e676266ffacca6da98f74afba9cc3825a3e878
+    STRESS_RIDGE_HURDLE.json: 26e3b18661e337b73287df2a133a4b062af209224a4a23c3dc7e1e45a0347834
+    STRESS_SVR.json: a6738dc981aec425cd3f76f8d2269ffff382cb41b1901da8ead44d946cc8b6a1
+    accounting_audit.json: 9e37f6c9b581ce1eb8709a005d59e1f2d4c267aea216b6ce439813f4cabb2013
+    derivation_verification.json: c3a92301b82822659fdebe229d665fd6e935992fa3ddd51049aa4cd66c9dc71c
+    feature_panel.json: a5b0c9c2b06999a2a08d250978c81a4742f21dae9a041132d65595df1f831d9e
+    legacy_admissions.json: 78dbdacb7414dde322f61482994ca017b27481629eeee6b61499510053a38796
+    legacy_models.json: fcc1ce1691a8c05decb92a22abb7adf1c50430084b09cfe28fad6fe11922dad3
+    novel_admissions.json: e391e28893b09cf1aa472ceb545402289200225289a4e462c890e2152f3cb3fd
+    novel_models.json: e3b7a4bff1592decf0809a04a8e4b26d83774137e02a06b736915c61dcf4c913
+    signals.json: 605521894c62d849147dd5dac03f3a9444d38228c6375547ccaa6a483261ed34
+    statistics.json: fa4fd60cd49cc2155f73beb5bbd6454c1d0f4cdd1f219e0b1e5a36a19c21927f
+    summary.json: 1c652794dd5fb34f87b250af6c739948a0cdb09473b0b917851d40c670a500c3
+    training_labels.json: 1615d1dd7831837be567046ec27d7ff177e185a7660ac1042c58058776d2ea5d
+  auditoria_contabilidad:
+    path: evidence/core_quant8_30_17_0/run_completed/accounting_audit.json
+    sha256: 9e37f6c9b581ce1eb8709a005d59e1f2d4c267aea216b6ce439813f4cabb2013
+  derivacion_recalculada:
+    path: evidence/core_quant8_30_17_0/run_completed/derivation_verification.json
+    sha256: c3a92301b82822659fdebe229d665fd6e935992fa3ddd51049aa4cd66c9dc71c
+pruebas_software:
+  nota: Tests sintéticos acreditan contratos, no rentabilidad. No sumar suites solapadas para inflar cobertura.
+  suites:
+  - suite: quant completa final
+    pass: 483
+    fail: 0
+    log: evidence/core_quant8_30_17_0/qa/all_quant_final.log
+  - suite: Ultimate completa con relojfixture válido
+    pass: 106
+    skip: 1
+    fail: 0
+    log: evidence/core_quant8_30_17_0/qa/ultimate_regression_valid_clock.log
+  - suite: herramientas históricas
+    pass: 52
+    fail: 0
+  - suite: nuevos registros/verificación
+    pass: 32
+    fail: 0
+  - suite: regresiones nuevas coreJS
+    pass: 4
+    fail: 0
+  - suite: nuevos quant Python incluido en 483
+    pass: 29
+    fail: 0
+  compilacion_TypeScript: PASS
+  typecheck: PASS
+  npm_test: PASS
+  skip_justificado: Paridad byte a byte opcional con HARPOON_LEGACY_RUNTIME no configurado; no se dice que el core
+    corregido sea idéntico. Baseoriginal reproducida 12/12 por separado.
+  incidentes_retenidos:
+  - npm ci inicial cache fuera áreaescribible; recuperado con caché local, lockfile intacto
+  - CLI registro primera invocación usó nombre de argumento erróneo; no ejecutó reserva y se corrigió
+  - Ultimate con reloj real domingo falla fixtureholding; con reloj por defecto anterior cutoff falla protocolos.
+    Repetición con reloj 19 octubre 2026  sesión válida 106 PASS 1 SKIP; no se tocaron gates
+  - Base congelada primera reconstrucción omitió módulos transitivos fuera del viejo manifest; se restauraron 19
+    módulos originales delZIP y se revalidó
+revision_independiente_otro_agente:
+  tipo: Revisión por otro agente; NO auditor externo ni preregistro tercero
+  hashes_resultados_verificados: 25
+  reportes_contables_reauditados: 14
+  hwm_y_dd_reconstruidos_por_eventos: 14
+  limites_verificados_contra_protocolo: true
+  max_holding_desde_decision_horas: 71.99972222222222
+  capital_test_igual_final_validacion_en14: true
+  resultado: SIN_BLOQUEANTES_TECNICOS_EN_AMBITO_REVISADO
+  limitacion: No certifica mercado real ni ingresos futuros
+soluciones_factibles_priorizadas:
+- prioridad: 1
+  solucion: Mantener decisión cash/abstención explícita y buffer de incertidumbre/costes
+  estado: IMPLEMENTADO_Y_MEDIDO
+  siguiente_evidencia: Fills/costes observados y señal nueva neta. No bajar hurdle por resultado de este TEST.
+- prioridad: 2
+  solucion: Reducir o evitar gasto fijo sólo con evidencia contractual, no borrar el coste del backtest
+  estado: PROPUESTA_NO_ACCION_EXTERNA
+  matematica: Punto de equilibrio exige trading+dividendos >coste externo; mantener comparación CASH con el mismo
+    coste.
+- prioridad: 3
+  solucion: 'Asignación robusta con shrinkage de covarianza y cash: max μᵀw−ρᵀ|w|−λwᵀΣshrunkw/2−C(Δw)−H(w)'
+  estado: HIPOTESIS_NO_IMPLEMENTADA
+  requisitos: Universo point-in-time suficientemente diverso, restricciones duras, calibración en train, costes
+    incrementales y nuevo protocolo/budget; no produce alpha por sí misma.
+- prioridad: 4
+  solucion: Challenger de reversión residual acción frente a ETF sectorial con régimen fijo
+  estado: HIPOTESIS_NO_VALIDADA_EN72H
+  matematica: μres(h)=(m−x_t)*(1−exp(−κh)), h≤72 h
+  requisitos: Datos deambas patas, costes/borrow, estabilidad causal. La evidencia publicada con reversión~7 d no
+    valida nuestro horizonte≤72 h.
+- prioridad: 5
+  solucion: 'Opciones: IV²−RV prevista como feature, no payoff ejecutable'
+  estado: DATA_BLOCKED
+  requisitos: Cadenas históricas observadas bid/ask, vencimientos,multiplicadores,assignment,mark-to-market y costes/colas.
+    No extrapolar de acciones ni delta-gamma local.
+fuentes_metodologicas_no_evidencia_de_alpha:
+- titulo: Markowitz Portfolio Construction at Seventy
+  url: https://web.stanford.edu/~boyd/papers/pdf/markowitz.pdf
+  uso: Marco de costes/restricciones/incertidumbre para propuesta robusta; no prueba Harpoon
+- titulo: HuberRegressor documentación oficial
+  url: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.HuberRegressor.html
+  uso: Regresión robusta regularizada; implementación ejecutada scikit-learn 1.8.0 segúnrequirements-tested, no
+    se actualizó alstableweb 1.9.1
+- titulo: Statistical Arbitrage in the U.S. Equities Market
+  url: https://math.nyu.edu/inmemoriam/avellaneda/AvellanedaLeeStatArb20090616.pdf
+  uso: Motivación de reversión residual; no transferir horizon~7 d a 72 h
+bloqueos_reales:
+- 2016–2026 partial interrupted workspace not recovered; not included as observed evidence
+- London Strategic Edge feed absent without key; alternative ALPACA_PROXY is not that feed
+- Corporate action completeness/publication timestamps not certified
+- No real broker fills, queue depth, market impact, latency or invoices
+- 'Sin ventaja económica positiva: no hay candidata a promover, aunque software pase.'
+- Confirmación futura no se puede crear retrospectivamente ni sintetizar como observación.
+- Límite técnico actual 300.000 barras impide llamar soportada captura 2016–2026 completa sin ruta particionada
+  y pruebas adicionales.
+parada_y_autoridad:
+  familia_finita_cerrada: true
+  mas_ensayos_para_encontrar_ganador: false
+  proximo_estudio_requiere_protocolo_presupuesto_datos_adecuados: true
+  deploy: false
+  github_push: false
+  credenciales_nuevas: false
+  ordenes_broker: 0
+  capital_o_riesgo_aumentado: false
+archivo_grafico:
+  path: evidence/core_quant8_30_17_0/analysis/curvas_quant8.png
+  sha256: 5be5f8071ff02eea89dfb9b7072d29977af9663d5943223afefb0b05c7870fc8

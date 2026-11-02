@@ -1,0 +1,51 @@
+{
+  "schema": "HARPOON_ADVERSARIAL_FINAL_REVIEW_1",
+  "reviewed_at": "2026-11-01T17:19:28.606980+00:00",
+  "scope": [
+    "tools/level7_workflow.py:evaluate/validate_forward_spec",
+    "quant/harpoon_quant/forward_economics.py:summarize_observed_portfolio/bootstrap_forward_growth"
+  ],
+  "finding": {
+    "id": "FORWARD_ACTIVITY_WINDOW_001",
+    "status": "REMEDIATED_AND_REGRESSION_VERIFIED",
+    "mechanism": "El contador ampliado de atribucion incluia fills posteriores al cierre economico y podia satisfacer indebidamente el requisito de actividad dentro del periodo.",
+    "before": "Una contraprueba sintetica de orquestacion con cero fills dentro del periodo y uno en end+1 ms devolvio level7_criterion_met=true.",
+    "remediation": "evaluate cuenta exclusivamente attributions con test_start < at <= test_end, exige ese contador positivo y expone evaluated_period_attributed_fill_count; conserva la atribucion ampliada para integridad.",
+    "regression_test": "test_only_late_fills_do_not_create_activity_in_profitable_period",
+    "after": "La prueba exige level7_criterion_met=false, evaluated_period_attributed_fill_count=0 y FORWARD_TRADING_ACTIVITY_NOT_DEMONSTRATED."
+  },
+  "validation": {
+    "command": "python3 -m unittest discover -s tools -p test_level7_workflow.py -v",
+    "cwd": "/workspace/scratch/4ecb05fdc50d/nivel7_completion/HARPOON_XXXUltimate_30_15_0",
+    "exit_code": 0,
+    "tests_run": 16,
+    "tests_passed": 16,
+    "failures": 0,
+    "errors": 0,
+    "nature": "SYNTHETIC_SOFTWARE_CONTRACTS_WITH_MOCKED_ECONOMIC_GATES_NOT_FINANCIAL_EVIDENCE",
+    "code_change_in_this_final_review": false,
+    "additional_financial_experiments": 0
+  },
+  "files": {
+    "tools/level7_workflow.py": "075dd2e87c7ddafdc05d80051af34539b3649f5c5f60c977e6e9341d0cd70084",
+    "quant/harpoon_quant/forward_economics.py": "c4e6dcc0db01fdfc4eee292d761b805acf7cc965a7b4bef476d76b550dabcc0b",
+    "tools/test_level7_workflow.py": "9c24457d5ec56adad5930687b6b794d9256fbdd21826b8ec7ade54ee4c4a3b5a"
+  },
+  "verdict": "HALLAZGO_CORREGIDO_EN_EL_ALCANCE_REVISADO",
+  "other_concrete_findings_in_reviewed_scope": [],
+  "independence": {
+    "external_independent_validation": false,
+    "reviewer_also_implemented_forward_attribution": true,
+    "review_type": "SHARED_IMPLEMENTATION_REVIEW"
+  },
+  "limitations": [
+    "Esta revision acotada no certifica ausencia de todos los defectos.",
+    "Los tests no prueban rentabilidad ni autentican fuentes de broker.",
+    "El riesgo entre observaciones sigue sin estar observado."
+  ],
+  "economic_score_awarded": null,
+  "financial_advantage_demonstrated": false,
+  "execution_allowed": false,
+  "deployment_allowed": false,
+  "liveApproved": false
+}

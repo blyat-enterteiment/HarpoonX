@@ -1,0 +1,25 @@
+✔ validators record the actual outcome, including asynchronous durable failure (3.319778ms)
+✔ account contracts reject missing numeric values and wrong identities (0.314885ms)
+✔ clock and quote contracts reject stale, future and crossed observations (0.976834ms)
+✔ position and fill contracts reject duplicate inventory and impossible fills (0.652835ms)
+✔ order-intent and signal contracts enforce executable precision and exit bounds (57.811079ms)
+✔ journal and bar contracts reject malformed stored execution state (22.262067ms)
+✔ scheduler ALIVE requires completion; a failure cannot advance lastSuccess (0.748709ms)
+✔ observed API reports actual latency, failures and inflight requests without secrets (1.327252ms)
+✔ runtime process metrics come from Node and have no seeded CPU/sample values (113.633658ms)
+✔ system health exposes missing quotes, closed sessions, validator faults and broker staleness (25.87714ms)
+✔ pending cancellation and undersized stop never count as confirmed native protection (19.510575ms)
+✔ failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success (14.083523ms)
+✔ authenticated health endpoints return real process state and no credentials (57.865897ms)
+✔ optional contracts are visible as NOT_RUN until actually exercised (13.212264ms)
+✔ caught per-position exit failure remains visible in system health (15.100882ms)
+✔ new entry allocation waits for full confirmed protection, including pending-cancel transitions (15.766818ms)
+✔ book coverage distinguishes expired observations and partially covered option watchlists (10.492149ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 443.264321

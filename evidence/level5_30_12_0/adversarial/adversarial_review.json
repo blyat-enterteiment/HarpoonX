@@ -1,0 +1,163 @@
+{
+  "schema": "HARPOON_LEVEL5_READONLY_ADVERSARIAL_REVIEW_1",
+  "observed_at_utc": "2026-11-01T01:59:03.365055+00:00",
+  "observed_at_mexico_city": "2026-10-31T19:59:03.365055-06:00",
+  "scope": [
+    "Reexecution versus declared curves and changed stress policy",
+    "Risk, exposure, fees and costs retained through session aggregation",
+    "Local source/history/freshness binding and CASH funding"
+  ],
+  "application_path": "/workspace/scratch/4ecb05fdc50d/level5_work/HARPOON_XXXUltimate_30_12_0",
+  "inspected_source_sha256": {
+    "tools/level5_readiness.cjs": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+    "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+    "quant/harpoon_quant/economic_gate_v2.py": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+    "quant/harpoon_quant/economic_gate.py": "66fd7c9612040b73a4b0c7c53da29d8a342eb29773bcbcc30e349045914c65ae"
+  },
+  "review_status": "NO_UNRESOLVED_DEFECT_FOUND_IN_THE_THREE_REVIEWED_AREAS",
+  "financial_verdict": "VENTAJA_NO_DEMOSTRADA",
+  "software_checks": {
+    "passed": 27,
+    "total": 27,
+    "sets": {
+      "node_binding_checks.json": {
+        "passed": 6,
+        "total": 6,
+        "source_sha256": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501"
+      },
+      "python_event_risk_checks.json": {
+        "passed": 8,
+        "total": 8,
+        "source_sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b"
+      },
+      "cash_reserve_checks.json": {
+        "passed": 7,
+        "total": 7,
+        "source_sha256": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888"
+      },
+      "history_binding_checks.json": {
+        "passed": 6,
+        "total": 6,
+        "source_sha256": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b"
+      }
+    },
+    "nature": "Synthetic function/validator checks and preserved-history read-only mutation checks; no economic search or profitability evidence"
+  },
+  "risk_findings": [
+    {
+      "id": "L5-A",
+      "status": "CHECKED_WITH_SOFTWARE_COUNTEREXAMPLES_AND_SOURCE_INSPECTION",
+      "observations": [
+        "Caller curves are rejected.",
+        "Stress changes to model coefficients, market input or risk configuration fail binding, as does a reduced cost.",
+        "The fixed Node adapter calls the existing level4 reconstruction and complete funded replay verifier; Python consumes freshly derived output.",
+        "Legacy v1 remains a diagnostic path and does not emit the v2 level5 score."
+      ],
+      "limit": "This agent did not repeat the implementation owner's full synthetic base/stress suite. Root performs assembled integration validation."
+    },
+    {
+      "id": "L5-B",
+      "status": "COUNTEREXAMPLES_REJECTED_AS_EXPECTED",
+      "observations": [
+        "An intraday100→60→102 path remains DD40% despite a profitable close.",
+        "Peak exposure1.2 survives final flat inventory.",
+        "Intraday insolvency survives later recovery.",
+        "Cumulative fees cannot disappear; CASH pays shared external costs.",
+        "The cost calendar retains accrual timestamps; original runtime costs remain required for financial eligibility."
+      ]
+    },
+    {
+      "id": "L5-C",
+      "status": "COUNTEREXAMPLES_REJECTED_OR_REMAIN_EXPLICITLY_UNRESOLVED",
+      "observations": [
+        "A replacement history family with a valid new hash does not match the retained audit anchor.",
+        "A rehashed/backdated prior audit is rejected.",
+        "An invented globally deduplicated count44 is rejected.",
+        "Missing retained historical sources are rejected.",
+        "A previously used period produces test_after_known_history=false; the economic gate treats this as a blocker.",
+        "Actual retained family records verify locally, but global_deduplicated_total remains null and search_coverage_verified=false.",
+        "A reserve reduces buying power without reducing initial NAV. A fill cannot spend the reserved cash, including fees. A protective exit can reveal a negative available balance without clipping it."
+      ]
+    }
+  ],
+  "resolved_during_review": [
+    {
+      "finding": "Raw ledger verifier was called without its required digest argument.",
+      "remediation_by": "implementation_owner",
+      "resolution": "Uses public verifyNetLedgerHistoryBundle wrapper.",
+      "evidence": "digest_wiring_counterexample.json"
+    },
+    {
+      "finding": "Initial v2 code multiplied datetime by1000.",
+      "remediation_by": "implementation_owner",
+      "resolution": "Uses datetime.timestamp()*1000; final event risk checks pass."
+    },
+    {
+      "finding": "Weekend/offhours cost could create an undeclared pseudo-session.",
+      "remediation_by": "implementation_owner",
+      "resolution": "Carries actual cost timestamp and assigns return to the next existing observed session interval; source inspected."
+    },
+    {
+      "finding": "Bridge source hashes were initially read only after replay.",
+      "remediation_by": "implementation_owner",
+      "resolution": "Captures bridge hashes before and after reconstruction; source inspected."
+    },
+    {
+      "finding": "Historical family refs initially were not linked to preserved prior source hashes.",
+      "remediation_by": "implementation_owner",
+      "resolution": "Anchors prior audit, Ultimate/TP32 exact source hashes and Quant audit prefix; final history mutation checks pass."
+    }
+  ],
+  "preserved_historical_artifact": {
+    "path": "/workspace/scratch/4ecb05fdc50d/level5_evidence/adversarial/retained_30_10_1_economic_gate_report.json",
+    "sha256": "84e791633694d18050c69e16fea46324cd26d8a8d661208421100555aba3f9c0",
+    "reason": "The current30.11/30.12 fixture report has different bytes. The prior audit requires the exact30.10.1 report, recovered read-only from integral_work.",
+    "initial_current_path_test": "history_binding_checks_initial_current_paths.json",
+    "instruction": "Keep the original hash and reference the archived original; do not relax the verifier to accept the regenerated fixture."
+  },
+  "limitations": [
+    "Reviewers shared conversation context and repository; this is not blind or externally independent validation.",
+    "Local hashes, clocks and reconstructed history do not authenticate provider data or external preregistration.",
+    "No new real market/account data, funded historical measurement or forward result was obtained by this agent.",
+    "All trading execution in the inspected measurement producer remains explicitly modeled.",
+    "Missing observations and unresolved global historical search remain blockers; software success does not award economic level5."
+  ],
+  "commands_from_workspace": [
+    "node level5_evidence/adversarial/node_binding_checks.cjs",
+    "python3 -B level5_evidence/adversarial/python_event_risk_checks.py",
+    "node level5_evidence/adversarial/cash_reserve_checks.cjs",
+    "python3 -B level5_evidence/adversarial/history_binding_checks.py"
+  ],
+  "operations": {
+    "production_edits_by_reviewer": 0,
+    "baseline_changes": 0,
+    "journal_writes": 0,
+    "remote_writes": 0,
+    "external_orders": 0,
+    "new_financial_trials": 0
+  },
+  "artifact_sha256": {
+    "L5-C1-BACKDATED-PRIOR-AND-REHASH.input.json": "5e524fb41325e77d8890fea375675ef16593a23d84ee2a9ddd38eb2257d0df09",
+    "L5-C1-INVENTED-GLOBAL-TOTAL.input.json": "044da30a4444a4d611394e9f10acbf257016667f1c81a9e9c55c8b30e5501e13",
+    "L5-C1-OLD-TEST-CANNOT-BECOME-FRESH.input.json": "4f374aecd3e6264d172eef127859eee56b080b1513a0921dc30746eeee73b6e6",
+    "L5-C1-OMITTED-PRESERVED-SOURCE.input.json": "875a3973fa6e0661f36b7bd7fa7ffde84fd94a833c88098d8b317e84a41e9354",
+    "L5-C1-REPLACEMENT-FAMILY-WITH-VALID-HASH.input.json": "963ba73c8b8ca562518227be082470a03c5694fe500ee2b08403a79338d4ae57",
+    "L5-C1-RETAINED-HISTORY-REMAINS-UNRESOLVED.input.json": "4f374aecd3e6264d172eef127859eee56b080b1513a0921dc30746eeee73b6e6",
+    "base_drawdown_counterexample.json": "6a7157e47ae290abea72a8209a049623270329209e4880b120de90359bdaad45",
+    "cash_reserve_checks.cjs": "2e593b7558e976e3ef5aad5e930b6309f2c1ef41001b2e3d17af985c53a7c2a0",
+    "cash_reserve_checks.json": "5a7f76be9f51ccae1ef08114e9a294f70c77e3c5e9c2d833970f50af57547e15",
+    "digest_wiring_counterexample.json": "5dfbe5550620490f4be0978ae321f0080101015a95349b2ffc49256e28558e80",
+    "historical_source_contract.json": "219bf2eecf009113749396f9a958678daa24153c00208a0fc380d97d4a0cf3fc",
+    "history_binding_checks.json": "4013861316289bbc634672bbb9452f3e2bce141d4ca8723399a0925422acc0fd",
+    "history_binding_checks.py": "40a58771e3730fd559aa0b2d0410287f375d7a2bab11a5879f20638825c20e47",
+    "history_binding_checks_initial_current_paths.json": "7037b7b835b75dd4b634da927760cbfe2247c8c52ccde0d634c83dccd3110ace",
+    "node_binding_checks.cjs": "7549cc6987f56b3fcd1974a08547bd6280225c55a5048140b826141e0de9b2d8",
+    "node_binding_checks.json": "a2dc9f50040b390950965ee83b8c6346584c45443ca607f0f15cc92425c5a26b",
+    "python_event_risk_checks.json": "8cf77c092999dc49966ff5b6b304db82bcb8d51769ecb469e21274256982c665",
+    "python_event_risk_checks.py": "f0e31c6cf164dec797d7254a54fa3352dcc33739d35bcd71f374d1f1c3896525",
+    "retained_30_10_1_economic_gate_report.json": "84e791633694d18050c69e16fea46324cd26d8a8d661208421100555aba3f9c0",
+    "review_plan.json": "fc1e5bd126731a31b5fa031bcfb05fd737e508fdfaa0727654532d57d5698dbf",
+    "synthetic_replacement_prior.json": "03b1f64a501ceb5ccef2f61b4c141e5edb3c7ddcde19919f0c77509e5333a149",
+    "synthetic_replacement_ultimate.json": "89f83f7cd741614be977aa3f0138a9698389abb1e7b279803d5102b3dd545d6e"
+  }
+}

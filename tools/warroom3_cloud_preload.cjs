@@ -1,0 +1,17 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),DAY=86400000;
+global.WebSocket=class{send(){}close(){}};
+global.fetch=async(url,init={})=>{const u=new URL(url),method=init.method||'GET',log=process.env.HARPOON_FIXTURE_LOG;if(log)fs.appendFileSync(log,JSON.stringify({path:u.pathname,method,feed:u.searchParams.get('feed')})+'\n');if(method!=='GET')throw Error('External mutations forbidden by functional fixture');const now=Date.now(),day=Math.floor(now/DAY)*DAY,expiry=new Date(day+30*DAY).toISOString().slice(0,10),code=expiry.slice(2).replaceAll('-',''),flag=name=>fs.existsSync(path.join(process.env.HARPOON_FIXTURE_DIR,name));let data;
+ if(u.pathname==='/v2/account')data={id:'agents-fixture-account',status:'ACTIVE',equity:'20000',cash:'20000',non_marginable_buying_power:'20000'};
+ else if(u.pathname==='/v2/clock')data={timestamp:new Date(now).toISOString(),is_open:!flag('closed'),next_open:'2026-10-19T13:30:00Z',next_close:'2026-10-19T20:00:00Z'};
+ else if(u.pathname==='/v2/calendar')data=[{date:'2026-10-19',open:'09:30',close:'16:00'}];
+ else if(['/v2/positions','/v2/orders','/v2/account/activities'].includes(u.pathname))data=[];
+ else if(u.pathname==='/v2/assets')data=['BTC/USD','ETH/USD'].map(symbol=>({symbol,class:'crypto',status:'active',tradable:true,min_order_size:'0.0001',min_trade_increment:'0.0001',price_increment:'0.01'}));
+ else if(u.pathname.endsWith('/latest/orderbooks'))data={orderbooks:Object.fromEntries(['BTC/USD','ETH/USD'].map(s=>[s,{t:new Date(now).toISOString(),a:[{p:100.01,s:50}],b:[{p:100,s:50}]}]))};
+ else if(u.pathname.endsWith('/quotes/latest')||u.pathname.endsWith('/latest/quotes')){const symbols=(u.searchParams.get('symbols')||'BTC/USD,ETH/USD').split(',');data={quotes:Object.fromEntries(symbols.map(s=>[s,{bp:100,ap:100.01,bs:50,as:50,t:new Date(now).toISOString()}]))};}
+ else if(u.pathname.startsWith('/v1beta1/options/snapshots/')){if(flag('opra_denied')&&u.searchParams.get('feed')==='opra')return new Response(JSON.stringify({message:'OPRA permission denied fixture'}),{status:403});const symbol=u.pathname.split('/').at(-1),snapshots={};for(const type of ['C','P'])snapshots[symbol+code+type+'00100000']={latestQuote:{t:new Date(now).toISOString(),bp:2,ap:2.05,bs:50,as:50},impliedVolatility:.35,greeks:{delta:type==='C'?.5:-.5,gamma:.02,theta:-.01,vega:.1}};data={snapshots};}
+ else if(u.pathname==='/v2/options/contracts'){const symbol=u.searchParams.get('underlying_symbols');data={option_contracts:['C','P'].map(t=>({symbol:symbol+code+t+'00100000',underlying_symbol:symbol,status:'active',tradable:true,expiration_date:expiry,type:t==='C'?'call':'put',strike_price:'100',size:'100',open_interest:'1000',open_interest_date:new Date(day-DAY).toISOString().slice(0,10)}))};}
+ else if(u.pathname.endsWith('/bars')){const frame=u.searchParams.get('timeframe')==='4Hour'?4*3600000:DAY,count=frame===DAY?1100:6600,rows=Array.from({length:count},(_,i)=>{const t=day-(count-i)*frame,c=100*Math.exp(.1*Math.sin(i/(frame===DAY?23:138)));return {t:new Date(t).toISOString(),o:c,h:c*1.01,l:c*.99,c,v:10000};}),symbols=u.pathname.includes('/stocks/')?(u.searchParams.get('symbols')||'SPY').split(','):['BTC/USD','ETH/USD'];data={bars:Object.fromEntries(symbols.map(s=>[s,rows]))};}
+ else throw Error('Unexpected read-only fixture '+u.pathname);
+ return new Response(JSON.stringify(data),{status:200,headers:{'Content-Type':'application/json'}});
+};

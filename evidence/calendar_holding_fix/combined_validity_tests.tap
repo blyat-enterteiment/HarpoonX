@@ -1,0 +1,280 @@
+TAP version 13
+# Subtest: changing a future fill bar cannot alter the causal price, quantity or decision dates
+ok 1 - changing a future fill bar cannot alter the causal price, quantity or decision dates
+  ---
+  duration_ms: 2.705091
+  type: 'test'
+  ...
+# Subtest: absence of an available completed bar is explicit non-admission, not a zero price
+ok 2 - absence of an available completed bar is explicit non-admission, not a zero price
+  ---
+  duration_ms: 0.298961
+  type: 'test'
+  ...
+# Subtest: an invalid latest available close cannot fall back silently to a stale valid close
+ok 3 - an invalid latest available close cannot fall back silently to a stale valid close
+  ---
+  duration_ms: 0.482307
+  type: 'test'
+  ...
+# Subtest: a price gap breaching the approved notional preserves quantity and unresolved exposure
+ok 4 - a price gap breaching the approved notional preserves quantity and unresolved exposure
+  ---
+  duration_ms: 0.534136
+  type: 'test'
+  ...
+# Subtest: rounded stop distance and trading friction remain inside the risk budget check
+ok 5 - rounded stop distance and trading friction remain inside the risk budget check
+  ---
+  duration_ms: 0.174894
+  type: 'test'
+  ...
+# Subtest: missing or insufficient conservative cash cannot masquerade as funded execution
+ok 6 - missing or insufficient conservative cash cannot masquerade as funded execution
+  ---
+  duration_ms: 0.220503
+  type: 'test'
+  ...
+# Subtest: a valid fill check neither reads future exit PnL nor approves another signal's position
+ok 7 - a valid fill check neither reads future exit PnL nor approves another signal's position
+  ---
+  duration_ms: 0.388866
+  type: 'test'
+  ...
+# Subtest: Thursday campaign exits Friday before weekend deadline using runtime calendar policy
+ok 8 - Thursday campaign exits Friday before weekend deadline using runtime calendar policy
+  ---
+  duration_ms: 3.006956
+  type: 'test'
+  ...
+# Subtest: Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open
+ok 9 - Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open
+  ---
+  duration_ms: 3.499669
+  type: 'test'
+  ...
+# Subtest: early close is scheduled from the supplied calendar with the same ten-minute buffer
+ok 10 - early close is scheduled from the supplied calendar with the same ten-minute buffer
+  ---
+  duration_ms: 0.444791
+  type: 'test'
+  ...
+# Subtest: intrabar wall-clock deadline rounds earlier on the declared five-minute grid
+ok 11 - intrabar wall-clock deadline rounds earlier on the declared five-minute grid
+  ---
+  duration_ms: 0.485753
+  type: 'test'
+  ...
+# Subtest: a pending entry arriving at or after the planned deadline is refused before opening
+ok 12 - a pending entry arriving at or after the planned deadline is refused before opening
+  ---
+  duration_ms: 0.236226
+  type: 'test'
+  ...
+# Subtest: an absent calendar refuses entry; no later price is used to invent an exit session
+ok 13 - an absent calendar refuses entry; no later price is used to invent an exit session
+  ---
+  duration_ms: 0.21886
+  type: 'test'
+  ...
+# Subtest: missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late
+ok 14 - missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late
+  ---
+  duration_ms: 0.693677
+  type: 'test'
+  ...
+# Subtest: production imports remain loadable while the archived report cannot pass a new code seal
+ok 15 - production imports remain loadable while the archived report cannot pass a new code seal
+  ---
+  duration_ms: 2.144205
+  type: 'test'
+  ...
+# Subtest: data ending with an open position cannot turn into a zero-PnL excluded campaign
+ok 16 - data ending with an open position cannot turn into a zero-PnL excluded campaign
+  ---
+  duration_ms: 0.380664
+  type: 'test'
+  ...
+# Subtest: failed durable registration and queue never report a committed success
+ok 17 - failed durable registration and queue never report a committed success
+  ---
+  duration_ms: 20.038275
+  type: 'test'
+  ...
+# Subtest: autopilot blocks new allocations when the independent guardian heartbeat is stale
+ok 18 - autopilot blocks new allocations when the independent guardian heartbeat is stale
+  ---
+  duration_ms: 40.278873
+  type: 'test'
+  ...
+# Subtest: hashes are key-order independent and detect changed numerical content
+ok 19 - hashes are key-order independent and detect changed numerical content
+  ---
+  duration_ms: 0.163056
+  type: 'test'
+  ...
+# Subtest: protocol cannot reduce samples, purge or multiplicity below its universe
+ok 20 - protocol cannot reduce samples, purge or multiplicity below its universe
+  ---
+  duration_ms: 0.329467
+  type: 'test'
+  ...
+# Subtest: dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+ok 21 - dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+  ---
+  duration_ms: 15.304649
+  type: 'test'
+  ...
+# Subtest: proxy dataset cannot be presented as a dated futures dataset
+ok 22 - proxy dataset cannot be presented as a dated futures dataset
+  ---
+  duration_ms: 1.05438
+  type: 'test'
+  ...
+# Subtest: features are causal when all subsequent sessions are changed
+ok 23 - features are causal when all subsequent sessions are changed
+  ---
+  duration_ms: 45.621993
+  type: 'test'
+  ...
+# Subtest: incomplete sessions are quarantined without interpolation
+ok 24 - incomplete sessions are quarantined without interpolation
+  ---
+  duration_ms: 26.646148
+  type: 'test'
+  ...
+# Subtest: long and short trailing never loosen and require progress
+ok 25 - long and short trailing never loosen and require progress
+  ---
+  duration_ms: 0.141444
+  type: 'test'
+  ...
+# Subtest: ambiguous stop and target uses adverse stop before any profit
+ok 26 - ambiguous stop and target uses adverse stop before any profit
+  ---
+  duration_ms: 0.845606
+  type: 'test'
+  ...
+# Subtest: incomplete paths cannot become zero-PnL successful trades
+ok 27 - incomplete paths cannot become zero-PnL successful trades
+  ---
+  duration_ms: 1.498931
+  type: 'test'
+  ...
+# Subtest: bootstrap is deterministic, insufficient evidence returns null, negative data fails
+ok 28 - bootstrap is deterministic, insufficient evidence returns null, negative data fails
+  ---
+  duration_ms: 4.664276
+  type: 'test'
+  ...
+# Subtest: metrics honor compounding, drawdown and zero-information DSR
+ok 29 - metrics honor compounding, drawdown and zero-information DSR
+  ---
+  duration_ms: 0.78931
+  type: 'test'
+  ...
+# Subtest: actual study purges train/test labels, reports holdout reuse and never promotes
+ok 30 - actual study purges train/test labels, reports holdout reuse and never promotes
+  ---
+  duration_ms: 57.430017
+  type: 'test'
+  ...
+# Subtest: registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+ok 31 - registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+  ---
+  duration_ms: 140.479464
+  type: 'test'
+  ...
+# Subtest: registry survives actual SQLite reopen and rejects tampered protocol/chain
+ok 32 - registry survives actual SQLite reopen and rejects tampered protocol/chain
+  ---
+  duration_ms: 76.56268
+  type: 'test'
+  ...
+# Subtest: registry has a cumulative stop rule and cannot understate total multiplicity
+ok 33 - registry has a cumulative stop rule and cannot understate total multiplicity
+  ---
+  duration_ms: 2.311547
+  type: 'test'
+  ...
+# Subtest: restart interrupts a queued attempt instead of silently recomputing
+ok 34 - restart interrupts a queued attempt instead of silently recomputing
+  ---
+  duration_ms: 12.304918
+  type: 'test'
+  ...
+# Subtest: future contract forbids continuous symbols, mismatched roots and delivery deadlines
+ok 35 - future contract forbids continuous symbols, mismatched roots and delivery deadlines
+  ---
+  duration_ms: 0.434115
+  type: 'test'
+  ...
+# Subtest: MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+ok 36 - MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+  ---
+  duration_ms: 0.414776
+  type: 'test'
+  ...
+# Subtest: futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+ok 37 - futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+  ---
+  duration_ms: 0.500485
+  type: 'test'
+  ...
+# Subtest: futures validates fresh entitlement, loss gates and tick precision
+ok 38 - futures validates fresh entitlement, loss gates and tick precision
+  ---
+  duration_ms: 1.236725
+  type: 'test'
+  ...
+# Subtest: uncertain futures submission is durable and never resent
+ok 39 - uncertain futures submission is durable and never resent
+  ---
+  duration_ms: 0.814639
+  type: 'test'
+  ...
+# Subtest: acknowledgment is not a fill; fills and partials come from reconciliation
+ok 40 - acknowledgment is not a fill; fills and partials come from reconciliation
+  ---
+  duration_ms: 0.673767
+  type: 'test'
+  ...
+# Subtest: unknown all-in commission prevents any futures submission
+ok 41 - unknown all-in commission prevents any futures submission
+  ---
+  duration_ms: 0.280142
+  type: 'test'
+  ...
+# Subtest: Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+ok 42 - Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+  ---
+  duration_ms: 3.418536
+  type: 'test'
+  ...
+# Subtest: API connection defaults to automatic PAPER and explicit operator opt-out persists
+ok 43 - API connection defaults to automatic PAPER and explicit operator opt-out persists
+  ---
+  duration_ms: 14.335346
+  type: 'test'
+  ...
+# Subtest: autopilot exits and native protection run with entry and research pauses
+ok 44 - autopilot exits and native protection run with entry and research pauses
+  ---
+  duration_ms: 18.882635
+  type: 'test'
+  ...
+# Subtest: research worker does not block an independent async heartbeat
+ok 45 - research worker does not block an independent async heartbeat
+  ---
+  duration_ms: 121.576562
+  type: 'test'
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 694.655721

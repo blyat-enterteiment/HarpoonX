@@ -1,0 +1,61 @@
+{
+  "scope": "Synthetic software regression; no observed market fit or financial holdout reuse",
+  "status": "PASS",
+  "test_count": 21,
+  "tests": [
+    "test_artifact_has_explicit_scalar_units_and_safe_json",
+    "test_json_prediction_matches_independent_sklearn_fit",
+    "test_small_return_scale_and_negative_forecasts_are_preserved",
+    "test_fixed_nonlinear_fixture_beats_both_predictive_controls",
+    "test_holdout_changes_cannot_retrain_or_select_parameters",
+    "test_late_published_label_is_purged_even_if_horizon_ended",
+    "test_training_rejects_future_or_unzoned_timestamps",
+    "test_training_rejects_wrong_dimensions_nonfinite_and_invalid_return",
+    "test_training_rejects_duplicate_rows_wrong_horizon_and_compute_overflow",
+    "test_nonconvergence_is_rejected",
+    "test_no_relation_fixture_can_be_rejected",
+    "test_unaccepted_model_cannot_predict",
+    "test_hash_and_unknown_model_kind_fail_closed",
+    "test_malformed_export_is_rejected_after_resealing",
+    "test_inference_rejects_input_shape_nonfinite_order_and_drift",
+    "test_expired_model_and_stale_observations_are_rejected",
+    "test_scalar_return_below_minus_one_is_rejected_not_clipped",
+    "test_allocator_uses_svr_and_keeps_cash_quantity_and_risk_bounds",
+    "test_observed_or_financial_flags_cannot_authorize_svr_orders",
+    "test_legacy_ridge_default_and_artefact_remain_compatible",
+    "test_cli_fit_and_allocate_use_real_python_paths"
+  ],
+  "unittest_log": "scalar_svr_tests_core_final.log",
+  "runtime_seconds_reported": 4.612,
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0"
+  },
+  "files": {
+    "tests/test_scalar_svr.py": "553196098d0f43273040b36c3e0858020b99560475205683f98123e627444bd0",
+    "examples/svr/make_fixture.py": "b023fbb6fe4f26164fe467e0e30a37d7d383511377bf5299426396291fd527b0",
+    "examples/svr/panel.synthetic.json": "3d4255f42aaea5a189f9cfceb8c272c69304102b6bd96018e0c42cd3f8a5767e",
+    "examples/svr/request.synthetic.json": "2f28d933e78e5224473973ea4ff8915e4c1780d60c8eb4fbcb4d8cc141e81878",
+    "examples/svr/config.synthetic.json": "156e23b29a8b1e8f7582bf252735a79f7b77cb5672e7d3440e9e53559c423723",
+    "harpoon_quant/scalar_svr.py": "df416a62c85ba8e29383e81417fc0941c11975e07fe47d725222d45b419622cf",
+    "harpoon_quant/calibration.py": "97e2e9800f9b38b027adf73257a79cd205a131a1c688f81d57fd5de83b685189",
+    "harpoon_quant/core.py": "549ddaa02c500f31b899ff6754b98aa2a2544cfb470a82552a3dfea331c2e3c0",
+    "harpoon_quant/support.py": "69978c4d0d05be01b33f3e117998e1a1328c36afad2dc2816576e03bea08619b",
+    "examples/svr/fixture_manifest.json": "084ed92b8190ed123eccce91da4c3259eedf63126c97670163b9e7529ff099e6"
+  },
+  "limitations": [
+    "Test fixtures are generated to exercise contracts; predictive skill on them is not evidence of trading alpha.",
+    "Cross-review shares project context; no claim of external independent validation.",
+    "No order was sent and no deployment was changed."
+  ],
+  "first_unittest_log": "scalar_svr_tests_first.log",
+  "first_runtime_seconds_reported": 4.992,
+  "verification_note": "Final rerun by core review agent after trial-count bookkeeping correction. Shared context; not external independent validation.",
+  "static_checks": {
+    "ruff": "PASS: scalar_svr_fixture_ruff.log",
+    "mypy": "PASS: scalar_svr_fixture_mypy.log"
+  }
+}

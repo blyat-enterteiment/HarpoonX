@@ -1,0 +1,73 @@
+TAP version 13
+# Subtest: validators record the actual outcome, including asynchronous durable failure
+ok 1 - validators record the actual outcome, including asynchronous durable failure
+  ---
+  duration_ms: 2.087049
+  type: 'test'
+  ...
+# Subtest: account contracts reject missing numeric values and wrong identities
+ok 2 - account contracts reject missing numeric values and wrong identities
+  ---
+  duration_ms: 0.425492
+  type: 'test'
+  ...
+# Subtest: clock and quote contracts reject stale, future and crossed observations
+ok 3 - clock and quote contracts reject stale, future and crossed observations
+  ---
+  duration_ms: 0.735489
+  type: 'test'
+  ...
+# Subtest: position and fill contracts reject duplicate inventory and impossible fills
+ok 4 - position and fill contracts reject duplicate inventory and impossible fills
+  ---
+  duration_ms: 0.524962
+  type: 'test'
+  ...
+# Subtest: order-intent and signal contracts enforce executable precision and exit bounds
+ok 5 - order-intent and signal contracts enforce executable precision and exit bounds
+  ---
+  duration_ms: 49.101238
+  type: 'test'
+  ...
+# Subtest: journal and bar contracts reject malformed stored execution state
+ok 6 - journal and bar contracts reject malformed stored execution state
+  ---
+  duration_ms: 13.920141
+  type: 'test'
+  ...
+# Subtest: scheduler ALIVE requires completion; a failure cannot advance lastSuccess
+ok 7 - scheduler ALIVE requires completion; a failure cannot advance lastSuccess
+  ---
+  duration_ms: 0.579875
+  type: 'test'
+  ...
+# Subtest: observed API reports actual latency, failures and inflight requests without secrets
+ok 8 - observed API reports actual latency, failures and inflight requests without secrets
+  ---
+  duration_ms: 1.381344
+  type: 'test'
+  ...
+# Subtest: runtime process metrics come from Node and have no seeded CPU/sample values
+ok 9 - runtime process metrics come from Node and have no seeded CPU/sample values
+  ---
+  duration_ms: 110.733251
+  type: 'test'
+  ...
+# Subtest: system health exposes missing quotes, closed sessions, validator faults and broker staleness
+ok 10 - system health exposes missing quotes, closed sessions, validator faults and broker staleness
+  ---
+  duration_ms: 19.347038
+  type: 'test'
+  ...
+# Subtest: pending cancellation and undersized stop never count as confirmed native protection
+ok 11 - pending cancellation and undersized stop never count as confirmed native protection
+  ---
+  duration_ms: 22.996304
+  type: 'test'
+  ...
+# Subtest: failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success
+ok 12 - failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success
+  ---
+  duration_ms: 14.333335
+  type: 'test'
+  ...

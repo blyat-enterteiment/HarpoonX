@@ -1,0 +1,325 @@
+TAP version 13
+# Subtest: Thursday campaign exits Friday before weekend deadline using runtime calendar policy
+ok 1 - Thursday campaign exits Friday before weekend deadline using runtime calendar policy
+  ---
+  duration_ms: 2.723227
+  type: 'test'
+  ...
+# Subtest: Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open
+ok 2 - Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open
+  ---
+  duration_ms: 0.346643
+  type: 'test'
+  ...
+# Subtest: early close is scheduled from the supplied calendar with the same ten-minute buffer
+ok 3 - early close is scheduled from the supplied calendar with the same ten-minute buffer
+  ---
+  duration_ms: 1.417078
+  type: 'test'
+  ...
+# Subtest: intrabar wall-clock deadline rounds earlier on the declared five-minute grid
+ok 4 - intrabar wall-clock deadline rounds earlier on the declared five-minute grid
+  ---
+  duration_ms: 0.481355
+  type: 'test'
+  ...
+# Subtest: a pending entry arriving at or after the planned deadline is refused before opening
+ok 5 - a pending entry arriving at or after the planned deadline is refused before opening
+  ---
+  duration_ms: 0.255486
+  type: 'test'
+  ...
+# Subtest: an absent calendar refuses entry; no later price is used to invent an exit session
+ok 6 - an absent calendar refuses entry; no later price is used to invent an exit session
+  ---
+  duration_ms: 0.191429
+  type: 'test'
+  ...
+# Subtest: missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late
+not ok 7 - missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late
+  ---
+  duration_ms: 2.580792
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_holding_deadline_test.cjs:73:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    ... Skipped lines
+    
+      {
+        deadlineAt: 1792180200000,
+        decisionAt: 1792080003000,
+        economicPnlUsd: null,
+        encounteredAt: 1792180500000,
+    ...
+        policy: 'REGIME',
+    +   realizedPnlUsd: 0,
+    -   realizedPnlUsd: -0,
+        reason: 'MISSING_BAR_WITH_OPEN_EXPOSURE',
+        remainingQuantity: 4,
+        signalId: 'SYNTHETIC-HOLDING',
+        symbol: 'SPY'
+      }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    reason: 'MISSING_BAR_WITH_OPEN_EXPOSURE'
+    signalId: 'SYNTHETIC-HOLDING'
+    symbol: 'SPY'
+    hypothesis: 'CLOSED_CHANNEL'
+    policy: 'REGIME'
+    openedAt: 1792080300000
+    decisionAt: 1792080003000
+    deadlineAt: 1792180200000
+    encounteredAt: 1792180500000
+    entryPrice: 100.03
+    openedQuantity: 4
+    remainingQuantity: 4
+    lastKnownMark:
+      at: 1792180203000
+      pnl: -0.12000000000000455
+    realizedPnlUsd: -0
+    economicPnlUsd: ~
+  actual:
+    reason: 'MISSING_BAR_WITH_OPEN_EXPOSURE'
+    signalId: 'SYNTHETIC-HOLDING'
+    symbol: 'SPY'
+    hypothesis: 'CLOSED_CHANNEL'
+    policy: 'REGIME'
+    openedAt: 1792080300000
+    decisionAt: 1792080003000
+    deadlineAt: 1792180200000
+    encounteredAt: 1792180500000
+    entryPrice: 100.03
+    openedQuantity: 4
+    remainingQuantity: 4
+    lastKnownMark:
+      at: 1792180203000
+      pnl: -0.12000000000000455
+    realizedPnlUsd: 0
+    economicPnlUsd: ~
+  operator: 'deepStrictEqual'
+  stack: |-
+    Object.<anonymous> (/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_holding_deadline_test.cjs:85:12)
+    expectedException (node:assert:578:17)
+    expectsError (node:assert:703:21)
+    strict.throws (node:assert:759:3)
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_holding_deadline_test.cjs:77:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+  ...
+# Subtest: production imports remain loadable while the archived report cannot pass a new code seal
+ok 8 - production imports remain loadable while the archived report cannot pass a new code seal
+  ---
+  duration_ms: 1.821107
+  type: 'test'
+  ...
+# Subtest: data ending with an open position cannot turn into a zero-PnL excluded campaign
+ok 9 - data ending with an open position cannot turn into a zero-PnL excluded campaign
+  ---
+  duration_ms: 0.4247
+  type: 'test'
+  ...
+# Subtest: failed durable registration and queue never report a committed success
+ok 10 - failed durable registration and queue never report a committed success
+  ---
+  duration_ms: 23.550383
+  type: 'test'
+  ...
+# Subtest: autopilot blocks new allocations when the independent guardian heartbeat is stale
+ok 11 - autopilot blocks new allocations when the independent guardian heartbeat is stale
+  ---
+  duration_ms: 40.662214
+  type: 'test'
+  ...
+# Subtest: hashes are key-order independent and detect changed numerical content
+ok 12 - hashes are key-order independent and detect changed numerical content
+  ---
+  duration_ms: 0.221935
+  type: 'test'
+  ...
+# Subtest: protocol cannot reduce samples, purge or multiplicity below its universe
+ok 13 - protocol cannot reduce samples, purge or multiplicity below its universe
+  ---
+  duration_ms: 0.308816
+  type: 'test'
+  ...
+# Subtest: dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+ok 14 - dataset rejects future availability, duplicate bars, bad OHLC and absent checksums
+  ---
+  duration_ms: 15.282958
+  type: 'test'
+  ...
+# Subtest: proxy dataset cannot be presented as a dated futures dataset
+ok 15 - proxy dataset cannot be presented as a dated futures dataset
+  ---
+  duration_ms: 1.25989
+  type: 'test'
+  ...
+# Subtest: features are causal when all subsequent sessions are changed
+ok 16 - features are causal when all subsequent sessions are changed
+  ---
+  duration_ms: 53.172476
+  type: 'test'
+  ...
+# Subtest: incomplete sessions are quarantined without interpolation
+ok 17 - incomplete sessions are quarantined without interpolation
+  ---
+  duration_ms: 31.576943
+  type: 'test'
+  ...
+# Subtest: long and short trailing never loosen and require progress
+ok 18 - long and short trailing never loosen and require progress
+  ---
+  duration_ms: 0.154563
+  type: 'test'
+  ...
+# Subtest: ambiguous stop and target uses adverse stop before any profit
+ok 19 - ambiguous stop and target uses adverse stop before any profit
+  ---
+  duration_ms: 0.754387
+  type: 'test'
+  ...
+# Subtest: incomplete paths cannot become zero-PnL successful trades
+ok 20 - incomplete paths cannot become zero-PnL successful trades
+  ---
+  duration_ms: 1.149563
+  type: 'test'
+  ...
+# Subtest: bootstrap is deterministic, insufficient evidence returns null, negative data fails
+ok 21 - bootstrap is deterministic, insufficient evidence returns null, negative data fails
+  ---
+  duration_ms: 5.19142
+  type: 'test'
+  ...
+# Subtest: metrics honor compounding, drawdown and zero-information DSR
+ok 22 - metrics honor compounding, drawdown and zero-information DSR
+  ---
+  duration_ms: 0.595899
+  type: 'test'
+  ...
+# Subtest: actual study purges train/test labels, reports holdout reuse and never promotes
+ok 23 - actual study purges train/test labels, reports holdout reuse and never promotes
+  ---
+  duration_ms: 55.535966
+  type: 'test'
+  ...
+# Subtest: registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+ok 24 - registry locks data, consumes cumulative slots and forbids retuning or duplicate execution
+  ---
+  duration_ms: 123.06018
+  type: 'test'
+  ...
+# Subtest: registry survives actual SQLite reopen and rejects tampered protocol/chain
+ok 25 - registry survives actual SQLite reopen and rejects tampered protocol/chain
+  ---
+  duration_ms: 72.581028
+  type: 'test'
+  ...
+# Subtest: registry has a cumulative stop rule and cannot understate total multiplicity
+ok 26 - registry has a cumulative stop rule and cannot understate total multiplicity
+  ---
+  duration_ms: 1.88727
+  type: 'test'
+  ...
+# Subtest: restart interrupts a queued attempt instead of silently recomputing
+ok 27 - restart interrupts a queued attempt instead of silently recomputing
+  ---
+  duration_ms: 11.144449
+  type: 'test'
+  ...
+# Subtest: future contract forbids continuous symbols, mismatched roots and delivery deadlines
+ok 28 - future contract forbids continuous symbols, mismatched roots and delivery deadlines
+  ---
+  duration_ms: 0.488177
+  type: 'test'
+  ...
+# Subtest: MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+ok 29 - MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts
+  ---
+  duration_ms: 0.332292
+  type: 'test'
+  ...
+# Subtest: futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+ok 30 - futures without credentials are NOT_CONFIGURED and cannot fabricate a plan
+  ---
+  duration_ms: 0.596841
+  type: 'test'
+  ...
+# Subtest: futures validates fresh entitlement, loss gates and tick precision
+ok 31 - futures validates fresh entitlement, loss gates and tick precision
+  ---
+  duration_ms: 1.143296
+  type: 'test'
+  ...
+# Subtest: uncertain futures submission is durable and never resent
+ok 32 - uncertain futures submission is durable and never resent
+  ---
+  duration_ms: 1.088334
+  type: 'test'
+  ...
+# Subtest: acknowledgment is not a fill; fills and partials come from reconciliation
+ok 33 - acknowledgment is not a fill; fills and partials come from reconciliation
+  ---
+  duration_ms: 0.756783
+  type: 'test'
+  ...
+# Subtest: unknown all-in commission prevents any futures submission
+ok 34 - unknown all-in commission prevents any futures submission
+  ---
+  duration_ms: 0.280864
+  type: 'test'
+  ...
+# Subtest: Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+ok 35 - Ironbeam transport fixes PAPER host, sends authorization and propagates failure
+  ---
+  duration_ms: 3.710544
+  type: 'test'
+  ...
+# Subtest: API connection defaults to automatic PAPER and explicit operator opt-out persists
+ok 36 - API connection defaults to automatic PAPER and explicit operator opt-out persists
+  ---
+  duration_ms: 15.527928
+  type: 'test'
+  ...
+# Subtest: autopilot exits and native protection run with entry and research pauses
+ok 37 - autopilot exits and native protection run with entry and research pauses
+  ---
+  duration_ms: 17.810175
+  type: 'test'
+  ...
+# Subtest: research worker does not block an independent async heartbeat
+ok 38 - research worker does not block an independent async heartbeat
+  ---
+  duration_ms: 120.161103
+  type: 'test'
+  ...
+# Subtest: Ultimate HTTP requires authentication and explicit JSON action, including export
+not ok 39 - Ultimate HTTP requires authentication and explicit JSON action, including export
+  ---
+  duration_ms: 11.653978
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1/tools/ultimate_test.cjs:497:1'
+  failureType: 'uncaughtException'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    listenInCluster (node:net:2499:12)
+    node:net:2728:7
+    process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 37
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 684.436573

@@ -1,0 +1,1651 @@
+{
+  "schema": "HARPOON_METADATA_ONLY_LINEAGE_REVIEW_1",
+  "observed_at_utc": "2026-11-01T23:45:14.954143+00:00",
+  "source_root": "/workspace/scratch/5a985d680e09/harpoon_quant8/core/HARPOON_XXXUltimate_30_16_0",
+  "scope": "READ_ONLY_EXISTING_METADATA_AND_DATE_FIELDS; NO_NEW_BAR_OR_QUOTE_REQUEST; NO_FITS_NO_PNL_NO_ORDERS",
+  "global_virginity_certified": false,
+  "reason": "Previously viewed prepared dates and training/OOS dates overlap candidate post-2024-08 historical windows; full prior logs and interrupted 2016–2026 workspace unavailable.",
+  "base": {
+    "calendar_study_sessions": 669,
+    "expected_regular_bars_per_symbol": 52038,
+    "retained_regular_bars_total": 208152,
+    "raw_bar_records": 433286,
+    "grid_complete": true
+  },
+  "base_evaluation_distinct_sessions": 294,
+  "prepared_post_base": {
+    "prepared_sha256": "d548fcdaa16e9241c2b4b6177dc150f86df6990563241938a82ed76d9c1a3c69",
+    "schema": "HARPOON-RESEARCH-BARS-32-1",
+    "generatedAt": "2026-10-18T16:46:48.187689+00:00",
+    "calendar_sessions": 533,
+    "calendar_first": "2024-09-03",
+    "calendar_last": "2026-10-16",
+    "symbols": {
+      "AAPL": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "MSFT": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "NVDA": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "SPY": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "SPXL": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "SPXS": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "BTC/USD": {
+        "bars": 129978,
+        "first": "2024-09-01T01:40:00+00:00",
+        "last": "2026-10-17T00:00:00+00:00"
+      },
+      "ETH/USD": {
+        "bars": 89536,
+        "first": "2024-09-01T01:50:00+00:00",
+        "last": "2026-10-17T00:00:00+00:00"
+      },
+      "XLK": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      },
+      "SMH": {
+        "bars": 41394,
+        "first": "2024-09-03T13:30:00+00:00",
+        "last": "2026-10-16T19:55:00+00:00"
+      }
+    },
+    "originals_referenced": 149
+  },
+  "actual_historical_used_windows": {
+    "ultimate": {
+      "oosFrom": "2025-03-11",
+      "oosThrough": "2026-07-13",
+      "holdoutFrom": "2026-07-21",
+      "holdoutThrough": "2026-10-16"
+    },
+    "tp32": {
+      "oosFrom": "2025-05-30",
+      "oosThrough": "2026-07-20",
+      "holdoutFrom": "2026-07-21",
+      "holdoutThrough": "2026-10-16",
+      "trainSessions": 126,
+      "testSessionsPerFold": 21,
+      "folds": 12,
+      "purgeHours": 72,
+      "embargoSessions": 3
+    }
+  },
+  "ultimate_training_windows": [
+    {
+      "trainFrom": "2024-09-03",
+      "trainThrough": "2025-03-05"
+    },
+    {
+      "trainFrom": "2024-10-02",
+      "trainThrough": "2025-04-03"
+    },
+    {
+      "trainFrom": "2024-10-31",
+      "trainThrough": "2025-05-05"
+    },
+    {
+      "trainFrom": "2024-12-02",
+      "trainThrough": "2025-06-04"
+    },
+    {
+      "trainFrom": "2025-01-02",
+      "trainThrough": "2025-07-07"
+    },
+    {
+      "trainFrom": "2025-02-04",
+      "trainThrough": "2025-08-05"
+    },
+    {
+      "trainFrom": "2025-03-06",
+      "trainThrough": "2025-09-04"
+    },
+    {
+      "trainFrom": "2025-04-04",
+      "trainThrough": "2025-10-03"
+    },
+    {
+      "trainFrom": "2025-05-06",
+      "trainThrough": "2025-11-03"
+    },
+    {
+      "trainFrom": "2025-06-05",
+      "trainThrough": "2025-12-03"
+    },
+    {
+      "trainFrom": "2025-07-08",
+      "trainThrough": "2026-01-05"
+    },
+    {
+      "trainFrom": "2025-08-06",
+      "trainThrough": "2026-02-04"
+    },
+    {
+      "trainFrom": "2025-09-05",
+      "trainThrough": "2026-03-06"
+    },
+    {
+      "trainFrom": "2025-10-06",
+      "trainThrough": "2026-04-07"
+    },
+    {
+      "trainFrom": "2025-11-04",
+      "trainThrough": "2026-05-06"
+    },
+    {
+      "trainFrom": "2025-12-04",
+      "trainThrough": "2026-06-05"
+    }
+  ],
+  "sqlite_holdout_rows": [
+    {
+      "lo": "2026-02-26",
+      "hi": "2026-04-26",
+      "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+      "campaign": "aadd76065b7eeead90b8661043f9319dab2a16a64228d86517c99b09b960dd27"
+    },
+    {
+      "lo": "2026-04-27",
+      "hi": "2026-06-25",
+      "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+      "campaign": "d65e5666a4396b8496b012801f54e33d41bdae393d2e99297a021f631d8173f9"
+    },
+    {
+      "lo": "2026-07-01",
+      "hi": "2026-10-30",
+      "domain": "2a217512de87c5ed001b89c103ffdecb7d1a01d0afc6fac29d02243514e1add5",
+      "campaign": "ECON_20261030_01"
+    }
+  ],
+  "sqlite_holdout_interpretation": "All three retained reservations are SYNTHETIC_ENGINEERING_ONLY (two SYNTH48 folds, one ECON study); dates alone are not real-price exposure proof.",
+  "current_tools_observed": {
+    "asset_metadata": "AAPL,MSFT,XLK get_asset succeeded; all active/tradable. Current properties are not historical universe membership.",
+    "calendar_2024q4": {
+      "sessions": 84,
+      "first": "2024-09-03",
+      "last": "2024-12-31",
+      "early_close": [
+        "2024-11-29",
+        "2024-12-24"
+      ]
+    },
+    "calendar_forward": {
+      "first": "2026-11-02",
+      "session_60": "2027-01-28",
+      "session_126": "2027-05-04",
+      "through_2027_05_31_session_count": 144
+    },
+    "corporate_actions_2024q4": "Query AAPL/MSFT/XLK process dates2024-09-01..12-31 returned5cash-dividend records; no completeness certification. One MSFT record has ex_date2024-08-15 and process_date2024-09-12.",
+    "bars_entitlement": "NOT_PROBED_CURRENTLY: embargo respected before author preregistration; existing captured source files prove prior read availability, not present guarantees.",
+    "quotes_entitlement": "NOT_PROBED; bars contain no observed bid/ask or fills."
+  },
+  "capability_limits": [
+    "Wrapper bars supports5Min/1Min/1Day etc, explicitfeed andstart/end; lacksadjustment andpage_token. Use explicitfeed, boundedper-symboltimechunks, retainrawresponse and verifycalendargrid; cannot certifypagination fromcountalone.",
+    "Officialbarsdefaultadjustmentraw, butwrapper/server independent certification absent.",
+    "Corporateactionswrapper lacksdata_quality,page_token,region; processdatefilter and no knownAt guarantee.",
+    "No execution, queue, impact, fundinginvoice orspreadmeasurement follows fromOHLCV."
+  ],
+  "design_options": [
+    {
+      "option": "RETROSPECTIVE_CONDITIONAL_DIAGNOSTIC",
+      "development": "Existing2022-2024-08; or priorprepared2024-09..2026-10 with exposure labels",
+      "evaluation": "No fixed-universe postbase past interval certifiedunused; any now-run historical replay must remainconditional/descriptive",
+      "promotion_allowed": false
+    },
+    {
+      "option": "GENUINELY_FORWARD_SHADOW_PAPER",
+      "frozen_before": "2026-11-02marketopen",
+      "future_sessions": "2026-11-02onward; calendar60sessionsends2027-01-28 and126ends2027-05-04",
+      "condition": "Author preregisters hypothesis, inputs, costs, risk, budget, stopping/multiplicity and no peeking; capture contemporaneousavailability; no realorders authorized",
+      "promotion_allowed": "Not bysource/calendaravailability; requiresfutureevidenceanddefinedgates"
+    }
+  ],
+  "primary_documentation": [
+    "https://docs.alpaca.markets/us/docs/market-data-faq",
+    "https://docs.alpaca.markets/us/reference/stockbars",
+    "https://docs.alpaca.markets/us/reference/corporateactions-1"
+  ],
+  "sources": {
+    "evidence/historical_bank_30_16_0/data/metadata.json": {
+      "sha256": "7eed9a1a3bcca3bc8aaa3e6c854e71635ec15a597cda791bbd1b916769adcdeb",
+      "bytes": 5551
+    },
+    "evidence/historical_bank_30_16_0/data/quality.json": {
+      "sha256": "46e161c03d12fa77177dfe008c55ba9250be7c84d354b14fd2a0df6b823dccf2",
+      "bytes": 92543
+    },
+    "evidence/historical_bank_30_16_0/data/source_manifest.json": {
+      "sha256": "31a51859e5f3fb2b21a039ae5965422cfd70a5e89c9cd571cc28ee32ab2bd564",
+      "bytes": 20965
+    },
+    "evidence/portfolio_30_14_0/data_probe/existing_data_coverage.json": {
+      "sha256": "18d6e3942732ccb137fc035fb796b0d8d545216e6e42562a7fdd244d55ba16b9",
+      "bytes": 1616
+    },
+    "evidence/portfolio_30_14_0/new_market_data/import_assessment.json": {
+      "sha256": "7b76d59c88a291528376fd62110246719b6db6e08b7075b54d1088feb841a5aa",
+      "bytes": 2197
+    },
+    "evidence/ultimate/registry.json": {
+      "sha256": "bf7e199a75451ad7b892e4bc26ddab43d6338e1f2572a4075cfcdcc5ea81fe2c",
+      "bytes": 147175
+    },
+    "research/tp32/protocol.json": {
+      "sha256": "b7e71a93952a13b72ace2190f09e7ff5714a170841773a6818d7cfbe3a3005a9",
+      "bytes": 2615
+    },
+    "evidence/historical_bank_30_16_0/prior_history/retained_history_inventory.json": {
+      "sha256": "2c4143fab34804f7932d40ba67409ccc21a0eea37363907301fc61239ef20c52",
+      "bytes": 15576
+    },
+    "quant/economic_experiment/study/protocol.json": {
+      "sha256": "af021845764df5a119b601d718ac11d3e7fec7d9c407d5e6a69bc13b98cbc88d",
+      "bytes": 3558
+    },
+    "evidence/core_quant8_30_17_0/registration/optimizer.descendant.sqlite3": {
+      "sha256": "d651758acb6773a2d34b1df81f5f9ed2a33384675ce0aba0490be9906dec57bd",
+      "bytes": 217088
+    }
+  },
+  "prepared_bytes_audit": {
+    "path": "/workspace/scratch/5a985d680e09/harpoon_quant8/core/HARPOON_XXXUltimate_30_16_0/evidence/tp32/prepared.json",
+    "bytes": 37386137,
+    "sha256": "d548fcdaa16e9241c2b4b6177dc150f86df6990563241938a82ed76d9c1a3c69",
+    "matches_retained_coverage_hash": true,
+    "source_claim": "ALPACA_CONNECTED_MARKET_DATA",
+    "generatedAt": "2026-10-18T16:46:48.187689+00:00",
+    "schema": "HARPOON-RESEARCH-BARS-32-1",
+    "calendar_sessions": 533,
+    "equity_etf_asset_count": 8,
+    "total_instruments_including_crypto": 10,
+    "schema_columns_from_prepare_code": [
+      "timestamp_ms",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "vwap"
+    ],
+    "bar_timeframe": "5Min",
+    "row_geometry": {
+      "AAPL": {
+        "rows": 41394,
+        "distinct_timestamps": 41394,
+        "timestamp_first": 1725370200000,
+        "timestamp_last": 1792180500000,
+        "missing_regular_grid_timestamps": 0,
+        "off_grid_timestamps": 0,
+        "row_field_counts": [
+          7
+        ],
+        "daily_rows": 533,
+        "daily_first_timestamp": 1725336000000,
+        "daily_last_timestamp": 1792123200000
+      },
+      "MSFT": {
+        "rows": 41394,
+        "distinct_timestamps": 41394,
+        "timestamp_first": 1725370200000,
+        "timestamp_last": 1792180500000,
+        "missing_regular_grid_timestamps": 0,
+        "off_grid_timestamps": 0,
+        "row_field_counts": [
+          7
+        ],
+        "daily_rows": 533,
+        "daily_first_timestamp": 1725336000000,
+        "daily_last_timestamp": 1792123200000
+      },
+      "XLK": {
+        "rows": 41394,
+        "distinct_timestamps": 41394,
+        "timestamp_first": 1725370200000,
+        "timestamp_last": 1792180500000,
+        "missing_regular_grid_timestamps": 0,
+        "off_grid_timestamps": 0,
+        "row_field_counts": [
+          7
+        ],
+        "daily_rows": 533,
+        "daily_first_timestamp": 1725336000000,
+        "daily_last_timestamp": 1792123200000
+      }
+    },
+    "metadata_coverage": {
+      "AAPL": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "MSFT": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "NVDA": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "SPY": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "SPXL": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "SPXS": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "BTC/USD": {
+        "observedBars": 129978,
+        "expectedBars": 223488,
+        "missingBarCount": 93510,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 88232,
+        "duplicateIdentical": 0,
+        "first": 1725154800000,
+        "last": 1792195200000
+      },
+      "ETH/USD": {
+        "observedBars": 89536,
+        "expectedBars": 223488,
+        "missingBarCount": 133952,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 128249,
+        "duplicateIdentical": 0,
+        "first": 1725155400000,
+        "last": 1792195200000
+      },
+      "XLK": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      },
+      "SMH": {
+        "observedBars": 41394,
+        "expectedBars": 41394,
+        "missingBarCount": 0,
+        "quarantinedInvalidBars": 0,
+        "zeroVolumeBarsExcluded": 0,
+        "duplicateIdentical": 0,
+        "first": 1725370200000,
+        "last": 1792180500000
+      }
+    },
+    "limitations": [
+      "Prices are historical OHLCV/VWAP; bid/ask and all fills are modeled, not observed NBBO.",
+      "Configured canonical entries only; 61 plugin variants are not 61 independently validated strategies.",
+      "No historical option quotes available through connected source; no option PnL simulated.",
+      "Missing bars are not interpolated; fills across data gaps excluded.",
+      "Universe chosen by existing release, not a point-in-time broad stock universe."
+    ],
+    "price_and_return_patterns_inspected": false
+  },
+  "raw_149_source_audit": {
+    "fingerprint_count": 149,
+    "files_present_at_referenced_paths": 0,
+    "fingerprints": [
+      {
+        "path": "evidence/tp32/data/AAPL-1Day.json",
+        "sha256": "47cf5bfd087137c2679889da5e5bb5ade8ef62b2e11879f5132be3c84eaa977e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-1Day.json",
+        "sha256": "94fa91ea5f7c253e13707037e57c7f7dc416a6f8686caa6561721d5fcfbf5766",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-1Day.json",
+        "sha256": "fb6b41823f72d88e3351f8d7ebd79818b36f2e773fe6cc5f753fc6f24e07aec3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-1Day.json",
+        "sha256": "5990c0e85a045df974ba5ab69c8d52a981568423b7f31feb3262eea5f2c05f14",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-1Day.json",
+        "sha256": "14800b658d35a28b8eed2fe1cc1aa8cad05ae8f59d0aa6a8a0d5a2101128ea5d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-1Day.json",
+        "sha256": "dc562519969b5900ae05385999ac6dd2e31183294f1fd82d742348bc0d9e1ce9",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-1Day.json",
+        "sha256": "6e3298b6b3165c16ec3e87093d2bd24c82319b2cd47914e8b396bd0e42917d2b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-1Day.json",
+        "sha256": "8762e18359165932ece593aeaa34d0d4cb8e7322a9c9306551223a44e8828a98",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-1Day.json",
+        "sha256": "25ce18e995cae914d1250bd5167ab8ed645276e6c46eed8ef9c59e3e12f585d9",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-1Day.json",
+        "sha256": "2d7dcce4f9c94cc7e3b88ac73cf5992c5596969222f3b39f6b2ff80653270f9e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/calendar.json",
+        "sha256": "19e8dc17259aed5e54b986c754423b21bd825781df5666bcf86c7b46f4b85ef5",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/corporate-actions.json",
+        "sha256": "b0a1e365b46867a37c168ab197b7216a60f8e463bcaab0fa397b011679c86a9d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/fetch-ledger.json",
+        "sha256": "c9ea6e8a003e6cf02633d534d6423e25a1b5a4388ede00f1a7eba6aa43260b38",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/spy-daily-probe.json",
+        "sha256": "20c93e1d92351256bc0f37cdc3cda49bdb75ae39145e3b89bc7ba6feac2672dd",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-000.json",
+        "sha256": "c7fbbf3618b6158c414d5e4539c3012e4da57c4f985b3480ff5678ebc66ceef6",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-001.json",
+        "sha256": "d681f0118069a8a2ad0c5393337279b7167fce1a3cf263b1e2cc758ed91b7816",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-002.json",
+        "sha256": "d2e185674c93e43f7d6c6dfa82ec782af0ad3c7c78f5a1088c6d26b8840b0673",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-003.json",
+        "sha256": "79619cc55a70b9e0ec546e18780516be23d28a410a675b84795d33f5a3dd4e8d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-004.json",
+        "sha256": "d5ba7eea4c29add8ec7ada2684fa4e4e6442cfaff7dd5bced7b452423d8f3cca",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-005.json",
+        "sha256": "a3784ef6671fd694943d82714719910ee6b20f65d40f4e8a96eea63b06f7f63d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-006.json",
+        "sha256": "6ba9de0d300e7039dbfbb49062632489e69912f8450e0a88845190e0b6635ce3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-007.json",
+        "sha256": "22037f60df9158297480fa88080cd69e52fe8bc2979804253b4bf60f9bc9a6b1",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-008.json",
+        "sha256": "7c4908c5761de915785b0c5035d34e0bbfd98b84ec001ff4c229e84431a8d472",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/AAPL-5Min-009.json",
+        "sha256": "fabe9e254393eaba8eaaa98d435848ddacb04e527ec07fce37b3a9a1a178f217",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-000.json",
+        "sha256": "7cecceae7a831d9382c6d59f0f623507949bcad1541cc031aed6cf379d3860f7",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-001.json",
+        "sha256": "ee0874f4b7aa5992e63b7d01db2a1ccc5b24d3bdb3f619fddd5ead58962c1a83",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-002.json",
+        "sha256": "baa529106c00d69c1620ff3d6c8638d3559520ea3ee3d0b355d291fe90bc8e8b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-003.json",
+        "sha256": "b53e2e2144e93fbd22dd6928a45540c36a17f9fd2f4658dc92483a8551f34d4d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-004.json",
+        "sha256": "c87bb8b2c2137ed6c3dc2bd96250611d8ce1ff5ea94950d0b9c0a15df3659caa",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-005.json",
+        "sha256": "74a6e2a643a30b452df273ae4e266488bd33f3e990e0ac6c2599917f3abed05b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-006.json",
+        "sha256": "0a786e6a516b87088728dfed429b7456f26f5a0683dbaad458ff8ce93ae66b31",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-007.json",
+        "sha256": "e44c44ffb34b63974da1ea7527c4faa6154b4947c267bb89075b905585034716",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-008.json",
+        "sha256": "e58831ed050d625d77e907a8723d61e5eef22614ca096e37cd9af6c0b8a4a208",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/MSFT-5Min-009.json",
+        "sha256": "770fe5df6d909a4b0ed6da01bbd75bfd907ce1da213971f81a019516fec17766",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-000.json",
+        "sha256": "5d6fba893bde5c3bdd9f22d9cb5d7b8959a885cefdc8918ce430453f7d2bb083",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-001.json",
+        "sha256": "5d6e94f2ef4552669c76c63e78a37ef926be3377d528fc6ee08170b906557e80",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-002.json",
+        "sha256": "8d61b42a2429c44e272a7857d747c8c46f7727b57dd2b04bdd75a1073083b925",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-003.json",
+        "sha256": "9f686ae0730fc7169a601c6ced7aaf8e6370a46af401f8602a19c3dacca85b46",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-004.json",
+        "sha256": "35af7c5f0474b922b76e16e115f66a33a1ff8e2684ec6dcd50eba39bf60ea431",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-005.json",
+        "sha256": "23d493c14e8e1f129a0855c9c824b615a6e39139c4224d1911310e8c3c148306",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-006.json",
+        "sha256": "04b416cc575d506bd31f3bc8f4b734e882c2f7aa08a2f5ae23fea35ac54514f5",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-007.json",
+        "sha256": "2a3aa9713656b45f751b22e91a5264ccd6057233c5f1b96e24499673e2823644",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-008.json",
+        "sha256": "21be27baac9802fcc445cb22377f48157e1e7e7711f26ff9ecd1c647306d921f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-009.json",
+        "sha256": "adda91f4654b701a5fa8e098dfc6574a561231366be60f32b53ec00a512b6500",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/NVDA-5Min-010.json",
+        "sha256": "7c2209e7c4c95ddff6476ad3058e401d9c7ce1242a03de1f0213204b2f1612c2",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-000.json",
+        "sha256": "2aea88f324d5a7116e8787fc38c79dba1811f5aaf1fa58c40bc8c6b4224aa2f5",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-001.json",
+        "sha256": "1b9117e66bda2db778f39356472ef624bccd0f40daba0967b1aa687812120405",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-002.json",
+        "sha256": "547c9622c40eb1c377edb2656abe89479ba9b436485b4d66cb4de215b6e53318",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-003.json",
+        "sha256": "896355f6f9d2e90de1d5510a765356ab53a1b03669533010a2c2a733ccce3272",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-004.json",
+        "sha256": "4bc8e10228b0a3d0bdb9ee2b8688c35540a99836507194461c62f71eb2904891",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-005.json",
+        "sha256": "18187bc5c1f1569099dd2191fef80c9bb5296721deadc195699523980de1861c",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-006.json",
+        "sha256": "a494f9fca24a1a0d41e541bedb829a59e74498569214b4416a1185ef163698c3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-007.json",
+        "sha256": "2dfd09df40b953d6a7e8fb86b9d019858c23794da9fd62f2a2744f37bbc09258",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-008.json",
+        "sha256": "6d5ee250cc0562c5f23549f79beee3ffbfa70b33297d88b227425da3d8c39027",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-009.json",
+        "sha256": "68ca4ce0db7e7104bb81baeaf80021587cdaae52893ca292d14a45e640a294d2",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPY-5Min-010.json",
+        "sha256": "db388103cdb36c9af74b3009b88266aef4747c14e74e24fabb0b56da734a4a1b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-000.json",
+        "sha256": "e46ee45320151331217b13c5b753d1db0c09b3283797e758c03bcdfdf40bf4e1",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-001.json",
+        "sha256": "6c0c3df30ac2777d8a8007f3885863bb4bfca13e24241046bed03b828aad6ba9",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-002.json",
+        "sha256": "4007a7808d28bab3edfd93a41307075aa3ba41e52c8fe50d4e724d65a1072f46",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-003.json",
+        "sha256": "28f03ac073f8db27deb294813f1755e750cb5800539fd2e399ec7c110c7e4407",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-004.json",
+        "sha256": "bbd11c2dd3c90cf295e908b1ccb8c39b8a2d1729d81b2b68c317e5e928203177",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-005.json",
+        "sha256": "dfa9b601099c26c61870aeb8f6e1b879ca26c20dc273268973a986e5898dd36f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-006.json",
+        "sha256": "1af1eb018361f25fc0ba63767e2b134966865fd4f0d24d0b9ac29a1ce94ea65c",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-007.json",
+        "sha256": "6c8893b0a1924187994912d0850135ca47ba604addfd20831b2c86c73d0a9edb",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-008.json",
+        "sha256": "e0f0c67e9d66fefb4ae1b7917de56971270c9fac0a41980d8b18e87af260b5f3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-009.json",
+        "sha256": "18d9461abdc2ad2e571027ca68eab9ea18b887090234cc6f0c5bc933e2999d52",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-010.json",
+        "sha256": "9021d9fcae04ca164a696292576eeb8cd3d503e3a180b3153bd4207f1b8ea12a",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-011.json",
+        "sha256": "5cf362263dee1de2afaabecbc67b32689afd4bc80e674e6c3f1ca98ab660c66f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-012.json",
+        "sha256": "66c9832e196f53df7cc0e271a059908273f9e5da03e30adfb0379ac5d924d923",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXL-5Min-013.json",
+        "sha256": "cc2ee15bf39d6f8829fbd0e2fe832645708534fe02ec71c65169c81b438c8bee",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-000.json",
+        "sha256": "2d9051e87da1c18feaf5db9df855cb7ced482a6e5d9c672c42be6baddf12d934",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-001.json",
+        "sha256": "40e227462cc3f61eb8e4b8c32255f08cdc583a2cc832be8ca0810594dc7fb473",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-002.json",
+        "sha256": "36d28c31abee128eb6b795e24c18b56703d961e812f08fcfb8b5f480b3c5acc3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-003.json",
+        "sha256": "9f41eed781adf5d1bea7bd1420c0ccafa5b73614e663fc27d010ea383153becb",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-004.json",
+        "sha256": "2b83a616c174ad666ad0f8f2af939fd02201069b51c77ba074ac72308d00c9cc",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-005.json",
+        "sha256": "f03dfe8ff0eca2bed841c603835e3fb4aa8cbde83bca195d90bb66d034a079c6",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-006.json",
+        "sha256": "816ec58abed18043f1d4dda090965a2dfa8aea95ea537722221f81195f1c6821",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-007.json",
+        "sha256": "5cd3ac2f70f8a273f16567669620820cdf0a5609ee8f91ec4680a302e2797a14",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-008.json",
+        "sha256": "dfa7e6c3a08db0af8c1f69d40d544b09c00e02b944093f1c5e1f7cb52ee25594",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SPXS-5Min-009.json",
+        "sha256": "77b18f010aa27c70cb39ef4bae7e8f8199c89e6c1694c763c264d261c954603d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-000.json",
+        "sha256": "d5b9e405852cb1fce3d362312f3cfd6212e419e120c8efc1a5d04ceb06f972ff",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-001.json",
+        "sha256": "d49a2809149866b32cb296606cd5988292a0ab3753391aa50539ffd8406614a2",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-002.json",
+        "sha256": "975be7193f5c718b8682ae4b04701f7339912501d96847648b82f078bf5c7cc2",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-003.json",
+        "sha256": "d68b6041c7e584ecb39bbb44159a622a8a66f95b37b28da7a3bacb3f4b9ef442",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-004.json",
+        "sha256": "b95b7099547bc4dbaeb597f12ba054628db27c44fbddb1d2301fdd75308b1260",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-005.json",
+        "sha256": "d539c6dc16b9c910d72e60f1b0af7cd57300a26b5c2dc68c10daa4d15fde0c19",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-006.json",
+        "sha256": "ff977a2e2cbc08b3352a35d0e3482a3d425d8e6a272eaf82e9bfa7891aa369ce",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-007.json",
+        "sha256": "89f275655a9cb899f2b205b3aad7315956c669b59af72975876862dbb9130416",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-008.json",
+        "sha256": "6ada05bbc32e3360562abe498e326b572b6be1e2ec39408bbbdac0237daa4075",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-009.json",
+        "sha256": "0b0fef533c7ba8a5098a8917ead0bc02323cf99c1654a443635078c3cefe8a8e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-010.json",
+        "sha256": "ec41987b9c52c868d19c67d2e36740070fd667c3a491e70f7264a7ce778ff135",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-011.json",
+        "sha256": "790a5032d38da2a4cef773e7c5af5974cce35a80a4a38b044dd0e45a2e3c81cf",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-012.json",
+        "sha256": "8483c4369c29378f9206a615e1d7a994008d92689019872d6dad4773f9c2382f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-013.json",
+        "sha256": "6973b0ba29af17fe8546f3743b83a30644aede16ad4ef85057fec0a197217440",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-014.json",
+        "sha256": "707a82eb09d79b0a1b341212e51e5950a3cab1104071e419cce6d5c340e7bbd8",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-015.json",
+        "sha256": "10e3c3d8e8d98984ca6e527b14e5c1554e54e14a52e4d7c6cf6e4e01e528177b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-016.json",
+        "sha256": "b25a8dea83462263a9bf1bd295bae4b5a98f1ae58e6913bf5f5638f3f52cbe4d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-017.json",
+        "sha256": "b449ae61314e06c5f2571777e7f8ba927dcb9b7dffd139490b45d59851456859",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-018.json",
+        "sha256": "7cb3147157e98592787ff47fc818be9bc890ad34c1a80ced0cbd45094090b308",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-019.json",
+        "sha256": "417d0962b3b02484eceb7f6bb9d384808940295e0899e0f61b9da633f8c9873d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-020.json",
+        "sha256": "ca674c89a2686441ecc5c9b259aaad4fb20f01013dc63251295a605c31d8a70f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/BTC_USD-5Min-021.json",
+        "sha256": "cd57f397d1ec2cadef40176540750a42df6ef34cfaaaa2e32e40358798f4535e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-000.json",
+        "sha256": "2a1419e6854ed5210316699ba5065f06654790428057a41bfbdafecbdb74523b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-001.json",
+        "sha256": "45400701bc6c622643c41fbddac1067bffeaa4125d3cade1dd1c84be96484580",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-002.json",
+        "sha256": "6a38fa7c5b8f0cd225deeb9a36f8cde9b9dacb41ef7a641db5ad2a3c2375c074",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-003.json",
+        "sha256": "bbca480fa73fa1f1de8a73f5c8aae0c2c9b2194008f35c1bc52dbbfb5035e87c",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-004.json",
+        "sha256": "726d5692995f67e18c0ffa1db895a0ab022920a57671569e7f4d5fad4ebb3265",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-005.json",
+        "sha256": "90b7d82e14a3638bd7ee4323f060d4fa7103bf7976b3ba96160e0c3c6e302c4d",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-006.json",
+        "sha256": "54843dfecf3cedcf0425f867b157e8d9d5d5abaeaa7f0159e3df6351216438fc",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-007.json",
+        "sha256": "638c4cd3506098be48f392adfd2754e3a7ca84b1887c0a6627d05e8329309a91",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-008.json",
+        "sha256": "446c271fe8ec7a2f1f34d6beeeff7893ffc7723ced17bf9010e1a9779fe1a572",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-009.json",
+        "sha256": "f3eca254d2253dbc6c8abbe448939cdc873f24eb5ed2d14086c4a2b4d560ac0e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-010.json",
+        "sha256": "c35cbb8c08feecb78fb90571fc1885686e5948d81ab161890b4c0257334f334b",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-011.json",
+        "sha256": "c69c1643067ce2f4e26a255d676c615193e775b7074cf7c2eaffc5823419ebf3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-012.json",
+        "sha256": "1f38925cd4b83e92fbaa888925b03bc8327f84286b2dcd5d06aedb0090b78350",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-013.json",
+        "sha256": "575d30e20c32058f439986449fc56064c4dfbbc27d15ae1410de342fc7a2d8f9",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-014.json",
+        "sha256": "bceb82691673772b096301d787b2e752e4e2c3e9c6b75bc889b72190b8e4273f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-015.json",
+        "sha256": "743d67970d063e16732a9241f1ffd31aa3ec0c3afed772656ebd263ab2eafcad",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-016.json",
+        "sha256": "160cd28a3d091c6affa31565f7972115f2d0ad9c46f2941ae7ad31c495d8fb4e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-017.json",
+        "sha256": "9483d38270826e980651a5c811d0201125c817e53a0af4fb1224519ecfa882bc",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-018.json",
+        "sha256": "59860766482af6cc00f97cac14ffb0dd8bc9f74098e131fe0ad36bdbd592dd79",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-019.json",
+        "sha256": "fd4d810236aedf407bfa0b946b09380b0e9319527199be76b8431c34ffec2711",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-020.json",
+        "sha256": "2519ae31b5cf479ac1a4bbb58899fd65b6f643199580cf3da024f6af143069b1",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/ETH_USD-5Min-021.json",
+        "sha256": "db9ce611258dedf624c91b5fe7879354032e3fc8c1bbb94c86072ee4b5cbf3b3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-000.json",
+        "sha256": "6e31d8b0e162a937727c6aff4ecb59fc91ed73d478a27d61be47d7670140930c",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-001.json",
+        "sha256": "3db1a63e36bdba779965611c60a18a08c40098ecbc25ce5ae435481e952c4f97",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-002.json",
+        "sha256": "6c1b36c75faceb3582104d6e4a4c7cd1b9200894cb11fdadde5c8cc891b6720f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-003.json",
+        "sha256": "c86fcadeb63ca36fc70ca2dd745a60eacf937a6a5e96b4c55ccef726fd9301bb",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-004.json",
+        "sha256": "c28dc128357e79dc73835ecd637fac712ee49c9dddfd2f57f4b3d28a5c6cfb18",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-005.json",
+        "sha256": "27c6a1d350af94d2daeee3dff2d2b28bf923687ec1ca5cc7888229703ea7dd04",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-006.json",
+        "sha256": "c9ddeea6977b507a7c88e8cdcc6e85c9c392232920cb5eae9f89a56f50770614",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-007.json",
+        "sha256": "727ed93c4eadcfcc9139f707e3338cd79419b1b200c715bcf49bd290e9824eea",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-008.json",
+        "sha256": "85b7ec3fcc2b5eecb0fd95c5c9a0eb613a1971accc3341ba69022ba02bb92eb4",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-009.json",
+        "sha256": "5bdf129ee83083c1a128c74b98c05d1e609d6c5b5eda9e4aa6b6b5a780e94b6a",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/XLK-5Min-010.json",
+        "sha256": "a44b15ed3b5057f4812f2e3f60d3409b731a9cbdf44ec1c1c01f13c90bf4b83f",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-000.json",
+        "sha256": "5e8dc9e9fbc1923de6d8514b64d8f8b48ca00978f847f2ca58565230897985b1",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-001.json",
+        "sha256": "a5d500a3e72f4e7907faff4e4a181bd04e2f024f48679f22a4864fdbe4d6c0e9",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-002.json",
+        "sha256": "e274dec8be6ce15a33b4af61df8c0fccd59713b728df128014ceb889265ec31a",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-003.json",
+        "sha256": "1d1d4164b125c4990e24657662e0a0dfc579470b2e2f63b8453104c0874f488e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-004.json",
+        "sha256": "4b1bc706657bc8dc4486d92322598746bd217d4b108f32fdc375e166c8f2f5d4",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-005.json",
+        "sha256": "e2f665b04c9a1cb605ff135dae8f21730738092e9b5df68ed0b544b1abe9715c",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-006.json",
+        "sha256": "0e51eb3ecf8beb236d4e0c20dad85c91f4ab9892cd44a324d3ba6e4119ba7baa",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-007.json",
+        "sha256": "9ee5640cff0763ff2fb6bee8e06cf659c20ef4ac8a4fcb55d5b26517150fb90e",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-008.json",
+        "sha256": "c27837f7ca1d079e2b414c9f29010dba06fdea4cafdc71eecd75fb87608d38e6",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-009.json",
+        "sha256": "e38b4272b3cd2984b909e9f684b8fa2c4c860db53cb2528956030765347f5ddc",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-010.json",
+        "sha256": "7ede769310cc3be52b4907c52afed8246ff5f4f1cecd249bcdc8455c4fd14611",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-011.json",
+        "sha256": "9635d33732af74b982090bd0543152d85954cc03f7fb3365b934cfffa2508a9c",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-012.json",
+        "sha256": "c2dd90fc71ee36794073f2584bd008ed14cf671adee5882e2870e29f898361e3",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      },
+      {
+        "path": "evidence/tp32/data/SMH-5Min-013.json",
+        "sha256": "d73bed34e67eab91df9378a10c593f8076e835665afae01f0afd1249b0a5460a",
+        "exists_at_referenced_path": false,
+        "verified_current_source_hash": null
+      }
+    ],
+    "loose_source_search": "No AAPL-5Min-000.json,XLK-5Min-010.json,fetch-ledger.json,corporate-actions.json found in cwd tree; limited/shared search also none.",
+    "archive_namelist_checks": [
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_review/HarpoonX_Options_Lab_2026_10_28.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_review/HarpoonX_Canasta48_2026_10_28.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_recovery_source/HARPOON_XXV_Alpaca.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/audit_readonly/HarpoonX_Auditoria_Forense_Reproducible_2026_10_27.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_readonly_download/HARPOON_24_3_1_Auth_Inferencia.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/review_selector_0529/HarpoonX_Framework_Rentabilidad_1_0_2026_10_28.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_r2_source/HARPOON_XXV_3_Alpaca.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_recovery_source/release/HARPOON_XXV/HARPOON_original_24_2_0.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_xxv3_review/artifacts/HARPOON_XXV_3_Alpaca.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_xxv3_review/baseline/HARPOON_XXV_Alpaca.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_xxv3_review/extracted/HARPOON_XXV_3/HARPOON_original_24_2_0.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_operational/deliverables/HARPOON_XXXUltimate_30.3.1_OPERACIONAL.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_ultimate/downloads/HARPOON_XXXUltimate.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_xxx_v3/downloads/HARPOON_XXX_Alpaca.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_quant8/inputs/HARPOON_XXXUltimate_30_16_0_Integral.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_quant8/deliverables/HARPOON_XXXUltimate_30_17_0_Integral.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_quant8/deliverables/HARPOON_30_17_0_Parte2_Evidencia_Historica.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_quant8/deliverables/HARPOON_30_17_0_Parte1_Core_y_Datos_Actuales.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_r2_source/release/HARPOON_XXV_3/HARPOON_original_24_2_0.zip",
+        "matching_source_entries": 0
+      },
+      {
+        "path": "/workspace/scratch/5a985d680e09/harpoon_xxx_latest/downloads/HARPOON_XXX_Alpaca.zip",
+        "matching_source_entries": 0
+      }
+    ],
+    "upstream_transport_or_provider_signature_available": false,
+    "source_feed_explicitly_verifiable": false,
+    "reason": "Prepared retains hashes and a source label, not original raw response bytes or fetch ledger."
+  },
+  "three_asset_reconstruction": {
+    "possible_without_new_price_data": true,
+    "mode": "Extract pre-existing prepared series/calendar/daily and retain unchanged prepared source hash. CONDITIONAL_DERIVED_ONLY, NOT raw-source reconstruction.",
+    "strong_raw_reconstruction_possible": false,
+    "new_price_download_needed_for_conditional_replay": false,
+    "corporate_action_status": "Prepared contains split records only. New bounded current Alpaca metadata capture contains27cash-dividends and1XLKforward-split for process dates2024-08-01..2026-11-01; available for conditional accounting, not completeness certification.",
+    "observed_splits": [
+      {
+        "id": "50199fac-0af8-43ef-9846-eaf64c6d322d",
+        "corporate_action_type": "forward_splits",
+        "symbol": "NVDA",
+        "cusip": "67066G104",
+        "new_rate": 10.0,
+        "old_rate": 1.0,
+        "process_date": "2024-06-10",
+        "ex_date": "2024-06-10",
+        "record_date": "2024-06-07",
+        "payable_date": "2024-06-10",
+        "due_bill_redemption_date": "2024-06-10"
+      },
+      {
+        "id": "9264e7d7-6a47-43af-ac26-3046e14c8248",
+        "corporate_action_type": "forward_splits",
+        "symbol": "XLK",
+        "cusip": "81369Y803",
+        "new_rate": 2.0,
+        "old_rate": 1.0,
+        "process_date": "2025-12-05",
+        "ex_date": "2025-12-05",
+        "record_date": "2025-12-02",
+        "payable_date": "2025-12-04",
+        "due_bill_redemption_date": "2025-12-05"
+      },
+      {
+        "id": "a0ec6228-e5f1-48fb-9619-ca932a327a28",
+        "corporate_action_type": "reverse_splits",
+        "symbol": "SPXS",
+        "old_cusip": "25460E265",
+        "new_cusip": "25460E190",
+        "new_rate": 1.0,
+        "old_rate": 10.0,
+        "process_date": "2025-09-29",
+        "ex_date": "2025-09-29",
+        "record_date": "2025-09-29",
+        "payable_date": "2025-09-29"
+      }
+    ],
+    "relevant_split": [
+      {
+        "id": "9264e7d7-6a47-43af-ac26-3046e14c8248",
+        "corporate_action_type": "forward_splits",
+        "symbol": "XLK",
+        "cusip": "81369Y803",
+        "new_rate": 2.0,
+        "old_rate": 1.0,
+        "process_date": "2025-12-05",
+        "ex_date": "2025-12-05",
+        "record_date": "2025-12-02",
+        "payable_date": "2025-12-04",
+        "due_bill_redemption_date": "2025-12-05"
+      }
+    ],
+    "split_application_notes": "prepare.py stores raw series without applying adjust(); feature construction rebases historical rows only for splits effective by current asof. New residual features must not treat XLK2025-12-05 2:1split as marketreturn. Use dated factor for both price and volume; never blanket double-adjust without verifying raw style.",
+    "unresolved_corporate_action_completeness": true,
+    "announcement_known_at_complete": false
+  },
+  "retained_corporate_action_assessment": {
+    "path": "/workspace/scratch/5a985d680e09/harpoon_quant8/core/HARPOON_XXXUltimate_30_16_0/evidence/level7_30_15_0/data_research/corporate_actions_assessment.json",
+    "bytes": 4239,
+    "sha256": "b126c1eb6f51643e24486ea42e609331754f6d59892c83426b854ebbd945c7fe",
+    "assessment": {
+      "schema": "HARPOON_CORPORATE_ACTION_SOURCE_ASSESSMENT_1",
+      "period": {
+        "from": "2026-10-19",
+        "through": "2026-10-30",
+        "symbols": [
+          "SPY",
+          "XLK"
+        ]
+      },
+      "scope": "PRIMARY_SOURCE_RESEARCH_ONLY_NO_STUDY_REWRITE",
+      "issuer_schedule": {
+        "file": "SPDR_Dividend_Distribution_Schedule_2026.pdf",
+        "sha256": "42cbffc8a7f1dcea8e480745bd810e867ac5b4592536923373367a1d20816041",
+        "url": "https://www.ssga.com/library-content/products/fund-data/etfs/us/distribution/SPDR_Dividend_Distribution_Schedule.pdf",
+        "page_one_based": 3,
+        "visual_verified": true,
+        "calendar_year": 2026,
+        "observed_schedule": {
+          "SPY": {
+            "previous_ex_date": "2026-09-18",
+            "previous_record_date": "2026-09-18",
+            "previous_payable_date": "2026-10-30",
+            "next_scheduled_ex_date": "2026-12-18",
+            "scheduled_ordinary_ex_dates_in_window": []
+          },
+          "XLK": {
+            "previous_ex_date": "2026-09-21",
+            "previous_record_date": "2026-09-21",
+            "previous_payable_date": "2026-09-23",
+            "next_scheduled_ex_date": "2026-12-21",
+            "scheduled_ordinary_ex_dates_in_window": []
+          }
+        },
+        "limitation": "Schedule is evidence of ordinary scheduled distributions. It does not certify absence of special distributions, splits or other exceptional actions; original publication-time trace is not retained."
+      },
+      "alpaca_ytd": {
+        "file": "corporate_actions_2026_ytd.json",
+        "date_filter_basis": "process_date",
+        "requested_from": "2026-01-01",
+        "requested_through": "2026-11-01",
+        "type_filter": "ALL_SUPPORTED_TYPES",
+        "returned_records": 7,
+        "returned_type_groups": [
+          "cash_dividends"
+        ],
+        "observed_split_records": [],
+        "observed_spinoff_records": [],
+        "coverage_complete_by_ex_date": null,
+        "reason": "No exclusive ex-date completeness guarantee is exposed by this process-date query; pagination field is not exposed by connector."
+      },
+      "by_class": [
+        {
+          "action_class": "ordinary_cash_dividend_schedule",
+          "finding": "No ordinary ex-date scheduled19-30October for either ETF",
+          "status": "PRIMARY_SCHEDULE_VERIFIED",
+          "complete_actual_event_history": null
+        },
+        {
+          "action_class": "cash_distribution_payable_in_window",
+          "finding": "SPY distribution1.888834USD/share payable30October arises from18September record/ex-date",
+          "status": "OBSERVED_PROVIDER_RECORD_AND_ISSUER_DATES_CONSISTENT",
+          "account_entitlement_quantity": null,
+          "account_credit_usd": null,
+          "reason": "A payment date does not establish holdings at the entitlement date; do not credit all October positions"
+        },
+        {
+          "action_class": "share_splits",
+          "finding": "No split record in retained2026YTD provider response; issuer release confirms a separate XLK2:1split effective5December2025",
+          "status": "BOUNDED_PROVIDER_SEARCH",
+          "complete_exceptional_ex_date_coverage": null
+        },
+        {
+          "action_class": "spinoffs_mergers_rights_special_distributions",
+          "finding": "No corresponding record in retained provider response",
+          "status": "BOUNDED_PROVIDER_SEARCH",
+          "complete_exceptional_ex_date_coverage": null
+        }
+      ],
+      "primary_web_sources": [
+        {
+          "url": "https://docs.alpaca.markets/us/reference/corporateactions-1",
+          "supports": "process_date query semantics"
+        },
+        {
+          "url": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+          "ref": "turn66search0",
+          "supports": "XLK split effective2025-12-05; this does not assert no later event"
+        }
+      ],
+      "importer_status": {
+        "complete_exdate_manifest": null,
+        "existing_strict_importer_not_weakened": true,
+        "new_research_dataset_emitted": false,
+        "minimum_missing_resource": "A retained provider/issuer/exchange event inventory with explicit ex-date/effective-date coverage for exceptional actions, or an explicit class-specific coverage statement and any residual unsupported actions marked unknown."
+      },
+      "strategies_executed": 0,
+      "models_trained": 0,
+      "orders_sent": 0,
+      "deployments": 0
+    }
+  },
+  "audit_boundary": "No new stockbars or stockquotes requests; no PnL, model, feature, fit, or strategy calculation. Existing data JSON parsed for metadata, hashes, timestamp geometry and split records only.",
+  "current_corporate_actions_capture": {
+    "path": "/workspace/scratch/5a985d680e09/harpoon_residual8/inputs/corporate_actions_metadata_capture.json",
+    "sha256": "f3de8c4b49e34d4bb2c972d446ba9928f9eb40fa1856efee09951970e5485637",
+    "bytes": 20964,
+    "captured_before_utc": "2026-11-01T23:47:02.378005+00:00",
+    "request": {
+      "ca_types": null,
+      "start": "2024-08-01",
+      "end": "2026-11-01",
+      "symbols": [
+        "AAPL",
+        "MSFT",
+        "XLK"
+      ],
+      "cusips": null,
+      "ids": null,
+      "limit": 1000,
+      "sort": "asc"
+    },
+    "records": 28,
+    "records_by_symbol_type": {
+      "AAPL": {
+        "cash_dividends": 9
+      },
+      "MSFT": {
+        "cash_dividends": 9
+      },
+      "XLK": {
+        "cash_dividends": 9,
+        "forward_splits": 1
+      }
+    },
+    "counts_by_type": {
+      "cash_dividends": 27,
+      "forward_splits": 1
+    },
+    "accounting_use_only": true,
+    "announcement_signal_evidence": false,
+    "process_date_window_not_complete_ex_date_coverage": true,
+    "returned_below_1000_limit": true,
+    "pagination_field_exposed": false,
+    "complete": null,
+    "notes": "New metadata only; no stockbar/quote request. Bounded process-date result can supplement known dividend/split accounting but cannot certify all exceptional actions or original publication times."
+  }
+}

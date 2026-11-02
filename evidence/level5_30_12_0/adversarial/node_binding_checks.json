@@ -1,0 +1,52 @@
+{
+  "scope": "Synthetic software checks; no replay, no market/account observations and no financial experiment",
+  "source_sha256": "2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501",
+  "tests": [
+    {
+      "id": "UNCHANGED_POLICY_WITH_INCREASED_FEE",
+      "expected": "ACCEPT",
+      "output": {
+        "fees_bps_per_side": 2
+      },
+      "error": null,
+      "passed": true
+    },
+    {
+      "id": "L5-A2-MODEL_CHANGED",
+      "expected": "STRESS_CHANGED_MODEL_SIGNALS_MARKET_RISK_OR_CAPITAL",
+      "output": null,
+      "error": "STRESS_CHANGED_MODEL_SIGNALS_MARKET_RISK_OR_CAPITAL",
+      "passed": true
+    },
+    {
+      "id": "L5-A2-RISK_CHANGED",
+      "expected": "STRESS_CHANGED_MODEL_SIGNALS_MARKET_RISK_OR_CAPITAL",
+      "output": null,
+      "error": "STRESS_CHANGED_MODEL_SIGNALS_MARKET_RISK_OR_CAPITAL",
+      "passed": true
+    },
+    {
+      "id": "L5-A2-MARKET_CHANGED",
+      "expected": "STRESS_CHANGED_MODEL_SIGNALS_MARKET_RISK_OR_CAPITAL",
+      "output": null,
+      "error": "STRESS_CHANGED_MODEL_SIGNALS_MARKET_RISK_OR_CAPITAL",
+      "passed": true
+    },
+    {
+      "id": "L5-A2-COST_REDUCTION",
+      "expected": "STRESS_MUST_NOT_REDUCE_COST:slippage_bps",
+      "output": null,
+      "error": "STRESS_MUST_NOT_REDUCE_COST:slippage_bps",
+      "passed": true
+    },
+    {
+      "id": "L5-A1-CALLER_CURVES_REJECTED",
+      "error": "CALLER_CURVES_NOT_ACCEPTED",
+      "passed": true
+    }
+  ],
+  "passed": 6,
+  "total": 6,
+  "production_edits": 0,
+  "new_economic_experiments": 0
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "HARPOON_CAUSAL_PANEL_SOFTWARE_VALIDATION_1",
+  "observed_at": "2026-11-01T00:48:27.811595+00:00",
+  "data_nature": "SYNTHETIC_UNIT_TEST_FIXTURES_SEPARATE_FROM_HISTORICAL_RECONSTRUCTION",
+  "test_count": 19,
+  "passed": true,
+  "results": [
+    {
+      "name": "unittest",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_causal_panel.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": "test_actual_engine_features_and_matured_price_label_form_common_panel (test_causal_panel.CausalPanelTests.test_actual_engine_features_and_matured_price_label_form_common_panel) ... ok\ntest_backfill_cannot_claim_original_runtime_receipts (test_causal_panel.CausalPanelTests.test_backfill_cannot_claim_original_runtime_receipts) ... ok\ntest_duplicate_json_keys_are_rejected_before_frame_verification (test_causal_panel.CausalPanelTests.test_duplicate_json_keys_are_rejected_before_frame_verification) ... ok\ntest_empty_observed_resources_are_explicitly_blocked_without_training (test_causal_panel.CausalPanelTests.test_empty_observed_resources_are_explicitly_blocked_without_training) ... ok\ntest_file_hash_tampering_is_rejected (test_causal_panel.CausalPanelTests.test_file_hash_tampering_is_rejected) ... ok\ntest_first_row_selection_precedes_label_availability_and_is_not_rechosen (test_causal_panel.CausalPanelTests.test_first_row_selection_precedes_label_availability_and_is_not_rechosen) ... ok\ntest_frame_hash_tampering_is_rejected_even_after_file_hash_updates (test_causal_panel.CausalPanelTests.test_frame_hash_tampering_is_rejected_even_after_file_hash_updates) ... ok\ntest_future_quote_does_not_become_a_causal_feature_row (test_causal_panel.CausalPanelTests.test_future_quote_does_not_become_a_causal_feature_row) ... ok\ntest_historical_complete_vectors_never_enter_admissible_panel (test_causal_panel.CausalPanelTests.test_historical_complete_vectors_never_enter_admissible_panel) ... ok\ntest_historical_report_cannot_be_resealed_to_promote_numeric_rows (test_causal_panel.CausalPanelTests.test_historical_report_cannot_be_resealed_to_promote_numeric_rows) ... ok\ntest_label_after_horizon_is_not_substituted_for_missing_asof_price (test_causal_panel.CausalPanelTests.test_label_after_horizon_is_not_substituted_for_missing_asof_price) ... ok\ntest_missing_quote_receipt_is_not_backdated_or_filled_with_zero (test_causal_panel.CausalPanelTests.test_missing_quote_receipt_is_not_backdated_or_filled_with_zero) ... ok\ntest_nonfinite_json_is_rejected_before_frame_verification (test_causal_panel.CausalPanelTests.test_nonfinite_json_is_rejected_before_frame_verification) ... ok\ntest_partial_export_and_reordered_frames_are_rejected (test_causal_panel.CausalPanelTests.test_partial_export_and_reordered_frames_are_rejected) ... ok\ntest_relocated_archive_keeps_paths_and_quote_source_hashes_stable (test_causal_panel.CausalPanelTests.test_relocated_archive_keeps_paths_and_quote_source_hashes_stable) ... ok\ntest_relocation_with_relative_sources_preserves_entire_receipt (test_causal_panel.CausalPanelTests.test_relocation_with_relative_sources_preserves_entire_receipt) ... ok\ntest_report_resealed_with_changed_admissibility_fails_source_reexecution (test_causal_panel.CausalPanelTests.test_report_resealed_with_changed_admissibility_fails_source_reexecution) ... ok\ntest_resealed_wrong_features_fail_recomputation_against_real_core (test_causal_panel.CausalPanelTests.test_resealed_wrong_features_fail_recomputation_against_real_core) ... ok\ntest_shared_split_purges_labels_that_arrive_after_next_segment (test_causal_panel.CausalPanelTests.test_shared_split_purges_labels_that_arrive_after_next_segment) ... ok\n\n----------------------------------------------------------------------\nRan 19 tests in 2.877s\n\nOK\n"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "harpoon_quant/causal_panel.py",
+        "tests/test_causal_panel.py",
+        "../tools/build_causal_panel.py"
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "mypy",
+        "--follow-imports=silent",
+        "harpoon_quant/causal_panel.py"
+      ],
+      "exit_code": 0,
+      "output": "Success: no issues found in 1 source file\n"
+    }
+  ],
+  "source_hashes": {
+    "quant/harpoon_quant/causal_panel.py": "86dc95479f5dd15ac1f47205610020d93d7ffbbeade514367ebbdfb9fc4637a7",
+    "quant/tests/test_causal_panel.py": "2dd56f86d444a21f5916277861f989e308950ecf97689b1a351790266ac925c8",
+    "tools/build_causal_panel.py": "c3f5f4452ad238128a773085757d2e8fa10e5ce13320ead8c5a8f8cd8260b7a5",
+    "tools/CAUSAL_PANEL_CONTRACT.txt": "562e7bbcc507779dd1e0ed8427f75ac39a662681569fc5377d80e2d27b076df6"
+  },
+  "training_executed": false,
+  "financial_trials": 0,
+  "external_orders": 0
+}

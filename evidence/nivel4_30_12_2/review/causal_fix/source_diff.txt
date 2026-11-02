@@ -1,0 +1,113 @@
+--- 30.12.1/tools/level4_readiness.cjs
++++ 30.12.2/tools/level4_readiness.cjs
+@@ -57,14 +57,28 @@
+ function bindMarketSources(input,base,sources){
+   const common=input.common_request,refs=common?.source_evidence?.observation_exports;
+   need(Array.isArray(refs)&&refs.length>0&&refs.length<=512,"COMPARISON_MARKET_RECEIPT_BINDING_MISSING");
+-  const quotes=new Map(),bars=new Map(),calendar=new Set();let account=null,head=null,total=null,offset=0,frames=0;
++  const quotes=new Map(),bars=new Map(),calendar=new Set();let account=null,head=null,total=null,offset=0,frames=0,sourceConfigHash=null;
+   for(const ref of refs){
+     const {value:bundle}=readRef(ref,base,sources);
+     need(bundle.schema==="HARPOON_OBSERVATION_EXPORT_1"&&bundle.offset===offset&&bundle.next_offset===offset+bundle.frames.length,"MARKET_SOURCE_PAGINATION");
+     if(account===null){account=bundle.account_id;head=bundle.head;total=bundle.total_frames;}
+     need(bundle.account_id===account&&bundle.head===head&&bundle.total_frames===total,"MARKET_SOURCE_REVISION_OR_ACCOUNT");
+     need(bundle.frames.every(f=>f.data_origin==="RUNTIME_OBSERVATION_UNVERIFIED"),"SYNTHETIC_OR_UNKNOWN_MARKET_RECEIPTS");
++    // This replay contract has one fixed configuration. A page boundary must
++    // not erase configuration history or admit an otherwise rejected change.
++    for(const frame of bundle.frames){
++      const config=frame.runtime_input?.config;
++      need(config&&typeof config==="object"&&!Array.isArray(config),"COMPARISON_SOURCE_CONFIGURATION_MISSING");
++      const currentHash=hash(config);
++      if(sourceConfigHash===null)sourceConfigHash=currentHash;
++      need(currentHash===sourceConfigHash,"SOURCE_CONFIG_CHANGED_SPLIT_REPLAY");
++    }
+     const normalized=fromObservationExport(bundle,{initial_cash_usd:common.initial_cash_usd,execution_model:common.execution_model});
++    // The generic replay also supports crypto; this funded comparison admits
++    // all and only the source's unleveraged equity/ETF shares. This deterministic
++    // projection is the sole additional override; it cannot select winners.
++    const comparisonConfig={...normalized.config,universe:normalized.config.universe.filter(a=>["equity","etf"].includes(a.book)&&a.multiplier===1)};
++    need(hash(common.config)===hash(comparisonConfig),"COMPARISON_CONFIGURATION_NOT_BOUND_TO_SOURCE");
+     for(const event of normalized.events.filter(e=>e.type==="market")){
+       for(const q of event.quotes){const key=hash(quoteBinding(q));quotes.set(key,Math.min(event.at,quotes.get(key)??Infinity));}
+       for(const resolution of ["bars","minutes","daily"])for(const [symbol,rows]of Object.entries(event[resolution]||{}))for(const row of rows){const key=hash({symbol,resolution,row:barBinding(row)});bars.set(key,Math.min(event.at,bars.get(key)??Infinity));}
+--- 30.12.1/tools/level4_readiness_test.cjs
++++ 30.12.2/tools/level4_readiness_test.cjs
+@@ -36,6 +36,23 @@
+   const reference=save(root,"market-export.json",bundle),common=fromObservationExport(bundle,{initial_cash_usd:original.initial_cash_usd,execution_model:original.execution_model});
+   common.source_evidence.observation_exports=[reference];
+   return {input:{common_request:common},bundle,reference};
++}
++
++function twoFrameSourceFixture(root,changeSecondConfig){
++  const first=sourceFixture(root),later=structuredClone(first.bundle.frames[0]);
++  later.runtime_input.now+=60000;
++  for(const q of Object.values(later.runtime_input.market.quotes)){q.at+=60000;q.received+=60000;}
++  const seal=frame=>{delete frame.source_frame_sha256;frame.source_frame_sha256=sha(JSON.stringify(frame));};
++  seal(later);
++  const frames=[first.bundle.frames[0],later],full={...first.bundle,frames,next_offset:2,total_frames:2};
++  const common=fromObservationExport(full,{initial_cash_usd:first.input.common_request.initial_cash_usd,
++    execution_model:first.input.common_request.execution_model});
++  if(changeSecondConfig){changeSecondConfig(later.runtime_input.config,later.runtime_input.now);seal(later);}
++  const combined=save(root,"market-combined.json",full);
++  const pages=[save(root,"market-first.json",{...full,frames:[frames[0]],offset:0,next_offset:1,complete_export:false}),
++    save(root,"market-second.json",{...full,frames:[frames[1]],offset:1,next_offset:2,complete_export:false})];
++  const request=refs=>({common_request:{...structuredClone(common),source_evidence:{...structuredClone(common.source_evidence),observation_exports:refs}}});
++  return {combined:request([combined]),paginated:request(pages)};
+ }
+ 
+ test("strict JSON rejects overwritten evidence and nonfinite numbers",()=>{
+@@ -98,6 +115,54 @@
+   changed=structuredClone(f.input);changed.common_request.events[0].bars.AAPL[0].c+=.01;
+   assert.throws(()=>bindMarketSources(changed,root,[]),/BAR_NOT_BOUND/);
+ });
++test("fixed source configuration has the same binding across page partitions",t=>{
++  const root=workspace(t),f=twoFrameSourceFixture(root);
++  const combined=bindMarketSources(f.combined,root,[]),paginated=bindMarketSources(f.paginated,root,[]);
++  assert.deepEqual(paginated,combined);
++  assert.equal(combined.verified,true);assert.equal(combined.frames,2);
++  assert(combined.quotes_bound>0&&combined.bars_bound>0);
++});
++test("configuration changes cannot be hidden across a source page boundary",t=>{
++  const root=workspace(t);
++  for(const change of [
++    (config,at)=>config.universe.push({...structuredClone(config.universe[0]),symbol:"NEW",discovered_at:at}),
++    config=>{config.slippageBps+=1;},
++  ]){
++    const f=twoFrameSourceFixture(root,change);
++    for(const request of [f.combined,f.paginated])
++      assert.throws(()=>bindMarketSources(request,root,[]),/SOURCE_CONFIG_CHANGED_SPLIT_REPLAY/);
++  }
++});
++test("comparison configuration must match documented source normalization",t=>{
++  const root=workspace(t),f=twoFrameSourceFixture(root);
++  for(const request of [f.combined,f.paginated])for(const change of [
++    config=>{config.slippageBps+=1;},
++    config=>{config.dailyLoss+=.01;},
++    config=>{config.universe[0].symbol="NEW";},
++    config=>{config.nativeProtection="none";},
++  ]){
++    const changed=structuredClone(request);change(changed.common_request.config);
++    assert.throws(()=>bindMarketSources(changed,root,[]),/COMPARISON_CONFIGURATION_NOT_BOUND_TO_SOURCE/);
++  }
++});
++test("mixed source capture uses exactly the funded equity ETF scope without cherry picking",t=>{
++  const root=workspace(t),f=sourceFixture(root),frame=f.bundle.frames[0],config=frame.runtime_input.config;
++  const crypto=structuredClone(require("../config/examples/xxx.json").universe.find(a=>a.book==="crypto"));
++  assert(crypto);
++  config.universe.push({...structuredClone(config.universe[0]),symbol:"MSFT"},crypto);
++  delete frame.source_frame_sha256;frame.source_frame_sha256=sha(JSON.stringify(frame));
++  const reference=save(root,"market-mixed.json",f.bundle);
++  const common=fromObservationExport(f.bundle,{initial_cash_usd:f.input.common_request.initial_cash_usd,
++    execution_model:f.input.common_request.execution_model});
++  assert(common.config.universe.some(a=>a.book==="crypto"));
++  common.config.universe=common.config.universe.filter(a=>["equity","etf"].includes(a.book)&&a.multiplier===1);
++  common.source_evidence.observation_exports=[reference];
++  const input={common_request:common};
++  assert.equal(bindMarketSources(input,root,[]).verified,true);
++  const selected=structuredClone(input);
++  selected.common_request.config.universe=selected.common_request.config.universe.filter(a=>a.symbol!=="MSFT");
++  assert.throws(()=>bindMarketSources(selected,root,[]),/COMPARISON_CONFIGURATION_NOT_BOUND_TO_SOURCE/);
++});
+ test("explicitly synthetic frames and incomplete page sets never claim observed receipts",t=>{
+   const root=workspace(t),f=sourceFixture(root,"SYNTHETIC_ENGINEERING_ONLY");
+   assert.throws(()=>bindMarketSources(f.input,root,[]),/SYNTHETIC_OR_UNKNOWN/);

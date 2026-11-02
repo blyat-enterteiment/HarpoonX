@@ -1,0 +1,21 @@
+{
+  "schema": "HARPOON_ENVIRONMENT_INCIDENT_1",
+  "phase": "registration_verification_before_training",
+  "interrupted_run": "run",
+  "sandbox_probe": {
+    "node_python_stdin": "ETIMEDOUT",
+    "seconds": 5,
+    "same_python_direct": "PASS"
+  },
+  "authorized_execution_probe": {
+    "same_command": "PASS",
+    "seconds": 0.57
+  },
+  "new_policy_variants": 0,
+  "model_fit_invocations_before_interruption": 0,
+  "parameters_changed": false,
+  "code_changed": false,
+  "budget_reset": false,
+  "retained_descendant_spent": 29,
+  "retry_directory": "run_completed"
+}

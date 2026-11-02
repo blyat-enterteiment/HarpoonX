@@ -1,0 +1,53 @@
+{
+  "scope": "checkJs on byte-identical discovery module with generated TypeScript declarations for its shared contract",
+  "source_sha256": "94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157",
+  "generated_declarations_from": "xxx/types.ts",
+  "results": [
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/4ecb05fdc50d/remediation_work/HARPOON_XXXUltimate_30_9_0/node_modules/typescript/bin/tsc",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "node16",
+        "--types",
+        "node",
+        "--typeRoots",
+        "/workspace/scratch/4ecb05fdc50d/remediation_work/HARPOON_XXXUltimate_30_9_0/node_modules/@types",
+        "--declaration",
+        "--emitDeclarationOnly",
+        "--outDir",
+        "/tmp/harpoon-discovery-types-4y3uo0sy/runtime30",
+        "xxx/types.ts"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/scratch/4ecb05fdc50d/remediation_work/HARPOON_XXXUltimate_30_9_0/node_modules/typescript/bin/tsc",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "node16",
+        "--types",
+        "node",
+        "--typeRoots",
+        "/workspace/scratch/4ecb05fdc50d/remediation_work/HARPOON_XXXUltimate_30_9_0/node_modules/@types",
+        "--allowJs",
+        "--checkJs",
+        "--noEmit",
+        "/tmp/harpoon-discovery-types-4y3uo0sy/runtime/discovery.cjs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "pass": true
+}

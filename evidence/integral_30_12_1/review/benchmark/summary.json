@@ -1,0 +1,112 @@
+{
+  "scope": "SYNTHETIC_LOCAL_SQLITE_RPC_NOT_BROKER_LATENCY",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "completed": true,
+  "runs": [
+    {
+      "application": "30.12.0",
+      "run": 1,
+      "file": "30.12.0_run_1.json",
+      "samples": 200,
+      "put_roundtrip_ms": {
+        "mean": 0.7032624349999982,
+        "p50": 0.6939270000000022,
+        "p95": 0.9358819999999923,
+        "p99": 1.0633239999999944,
+        "max": 1.4297370000000171
+      },
+      "ready_including_first_read_ms": 34.850128,
+      "scan_200_rows_ms": 3.1839339999999936,
+      "node_rss_bytes": 35704832
+    },
+    {
+      "application": "30.12.1",
+      "run": 1,
+      "file": "30.12.1_run_1.json",
+      "samples": 200,
+      "put_roundtrip_ms": {
+        "mean": 0.742343395000001,
+        "p50": 0.7063450000000131,
+        "p95": 1.0668890000000033,
+        "p99": 1.7548779999999908,
+        "max": 2.513922000000008
+      },
+      "ready_including_first_read_ms": 32.553904,
+      "scan_200_rows_ms": 3.4249580000000037,
+      "node_rss_bytes": 35913728
+    },
+    {
+      "application": "30.12.1",
+      "run": 2,
+      "file": "30.12.1_run_2.json",
+      "samples": 200,
+      "put_roundtrip_ms": {
+        "mean": 0.7038027700000002,
+        "p50": 0.684552999999994,
+        "p95": 0.9301980000000185,
+        "p99": 1.1286530000000141,
+        "max": 3.799543
+      },
+      "ready_including_first_read_ms": 32.104676999999995,
+      "scan_200_rows_ms": 3.3092419999999834,
+      "node_rss_bytes": 35897344
+    },
+    {
+      "application": "30.12.0",
+      "run": 2,
+      "file": "30.12.0_run_2.json",
+      "samples": 200,
+      "put_roundtrip_ms": {
+        "mean": 0.7375731900000005,
+        "p50": 0.6547979999999995,
+        "p95": 1.2824350000000067,
+        "p99": 2.606201999999996,
+        "max": 3.5176519999999982
+      },
+      "ready_including_first_read_ms": 32.64026,
+      "scan_200_rows_ms": 3.0817289999999957,
+      "node_rss_bytes": 35442688
+    },
+    {
+      "application": "30.12.0",
+      "run": 3,
+      "file": "30.12.0_run_3.json",
+      "samples": 200,
+      "put_roundtrip_ms": {
+        "mean": 0.6141062350000005,
+        "p50": 0.5958380000000005,
+        "p95": 0.8902530000000013,
+        "p99": 1.0296629999999993,
+        "max": 1.1706819999999993
+      },
+      "ready_including_first_read_ms": 33.85067,
+      "scan_200_rows_ms": 3.045625000000001,
+      "node_rss_bytes": 35835904
+    },
+    {
+      "application": "30.12.1",
+      "run": 3,
+      "file": "30.12.1_run_3.json",
+      "samples": 200,
+      "put_roundtrip_ms": {
+        "mean": 0.6631474000000012,
+        "p50": 0.6247630000000015,
+        "p95": 1.0183760000000177,
+        "p99": 1.6677860000000067,
+        "max": 1.8215689999999825
+      },
+      "ready_including_first_read_ms": 31.636270000000003,
+      "scan_200_rows_ms": 2.838402000000002,
+      "node_rss_bytes": 36102144
+    }
+  ],
+  "design": "Three runs per implementation, interleaved; 20 warmup writes and 200 measured writes per run",
+  "performance_improvement_claimed": false,
+  "financial_trials_created": 0,
+  "limits": [
+    "Local filesystem/cache/scheduler variability; descriptive samples only",
+    "No broker, market-feed, production-load or network latency inference",
+    "Node RSS excludes the Python child and is not total system memory"
+  ]
+}

@@ -1,0 +1,856 @@
+{
+  "scope": "Affected offline software gates; no trading performance assertion",
+  "suite": "all",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "checks": [
+    {
+      "name": "typescript_build",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.xxx.json"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 1.920836932000384,
+      "log": "typescript_build.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "xxx_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.6162696549981774,
+      "log": "xxx_test.log",
+      "log_sha256": "22ab19040bcbfce25e169fa1fb095545426ec92c1b324d0d0a04aefa42d72f65",
+      "tests": 52,
+      "pass": 52,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_conformance_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_conformance_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.8665970350011776,
+      "log": "xxx_conformance_test.log",
+      "log_sha256": "331f58facbce7dba6962f87ce6dc186097d3d16a57d240da6fbd633db56aa6ae",
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_health_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_health_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.4181482940002752,
+      "log": "xxx_health_test.log",
+      "log_sha256": "ddffbdf77ba578da99e95b97eb34f8a0e69c7035d9fab5f0e53f02ea3e050a1c",
+      "tests": 17,
+      "pass": 17,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_selector_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_selector_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 3.824840375000349,
+      "log": "xxx_selector_test.log",
+      "log_sha256": "913f179e4a65f1ea48f3ecdd84e65a37b4151020abda352b058b6f9b8fa43da5",
+      "tests": 17,
+      "pass": 17,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_tp32_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_tp32_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.3150900480031851,
+      "log": "xxx_tp32_test.log",
+      "log_sha256": "caa673995f8d5ed82d70ec9879e6b0f87ec27066ffa30f8a7dba8f6bbf1d4c17",
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_operational_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_operational_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.6159678740004892,
+      "log": "xxx_operational_test.log",
+      "log_sha256": "921b5ddb1e5704a2dd0a6f40804cc9d3efb17e12c4f945535e3244fcac6a4b87",
+      "tests": 30,
+      "pass": 30,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_partial_entry_risk_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_partial_entry_risk_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.2649440110035357,
+      "log": "xxx_partial_entry_risk_test.log",
+      "log_sha256": "e973711be3a32cce209897197d5d848dbe9ec67f7e0bacae42c08c2f43a0e257",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "ultimate_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/ultimate_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.7164201559971843,
+      "log": "ultimate_test.log",
+      "log_sha256": "b1e01b8924da62958ca4f3c7b6fad5057a4b42dfe21d3f070d6f77a66a3bf87a",
+      "tests": 30,
+      "pass": 30,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_bridge_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_bridge_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 9.24245897199944,
+      "log": "quant_bridge_test.log",
+      "log_sha256": "c7aa74168db68924e4b4e49e696d0862ce59fad809b5615b718037439c695104",
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_svr_integration_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_svr_integration_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 13.151514000001043,
+      "log": "quant_svr_integration_test.log",
+      "log_sha256": "4ae3a72bc4196e46683483ac780ae8239437250d0ffbf568f28e7f2a2d14073a",
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_discovery_regression_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_discovery_regression_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.16529646700291778,
+      "log": "quant_discovery_regression_test.log",
+      "log_sha256": "fc3337883a55bb1caa7da2e4934454f0c2e5766425c0fa857dd9f74f5aed37b1",
+      "tests": 37,
+      "pass": 37,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "xxx_session_regression_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/xxx_session_regression_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.36526764500013087,
+      "log": "xxx_session_regression_test.log",
+      "log_sha256": "3c1e31eeba08a73812436a055e3a86667a615969ccd78328de9ec48c9e79a297",
+      "tests": 26,
+      "pass": 26,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_remediation_integration_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_remediation_integration_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.264892229999532,
+      "log": "quant_remediation_integration_test.log",
+      "log_sha256": "14bc02e1b061a63000b819d71518a429823daeaf69231df6b87770b8560f91ac",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_net_ledger_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_net_ledger_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.5658249580010306,
+      "log": "quant_net_ledger_test.log",
+      "log_sha256": "13fa6fc70bb735e2230ae45bf8d1e5d289095248bbfc6f4c6e8f6ae77b17597b",
+      "tests": 40,
+      "pass": 40,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_coordinator_replay_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_coordinator_replay_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 2.37067752999792,
+      "log": "quant_coordinator_replay_test.log",
+      "log_sha256": "8e71643e953c828295f0735368e762555931a0d962a0422402e35ee846aabcad",
+      "tests": 24,
+      "pass": 24,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_autonomy_integration_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_autonomy_integration_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 9.891140842999448,
+      "log": "quant_autonomy_integration_test.log",
+      "log_sha256": "02165e19ca54130648ade227418d6184160b94e89ad208307c2f5120483ab16e",
+      "tests": 20,
+      "pass": 20,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_observation_archive_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/quant_observation_archive_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.1145586020029441,
+      "log": "quant_observation_archive_test.log",
+      "log_sha256": "4bd96021aba45072f264dbc09fbf6e15a2f69c12134db7bce524ff683f07c386",
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "quant_unittest",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0/quant",
+      "exit_code": 0,
+      "duration_seconds": 21.885127661000297,
+      "log": "quant_unittest.log",
+      "log_sha256": "083dbba81b93d45f8b4b8bcddaa55dfeec6a0fe27c4069e8f8c953a8ba660eb1",
+      "tests": 323,
+      "passed": true
+    },
+    {
+      "name": "syntax_discovery",
+      "command": [
+        "node",
+        "--check",
+        "runtime/discovery.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032519294996745884,
+      "log": "syntax_discovery.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_bridge",
+      "command": [
+        "node",
+        "--check",
+        "runtime/quant_bridge.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03254986299725715,
+      "log": "syntax_quant_bridge.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_coordinator_replay",
+      "command": [
+        "node",
+        "--check",
+        "tools/coordinator_replay.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032614844996714965,
+      "log": "syntax_coordinator_replay.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_observation_replay_input",
+      "command": [
+        "node",
+        "--check",
+        "tools/observation_replay_input.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032163513998966664,
+      "log": "syntax_observation_replay_input.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03259712799990666,
+      "log": "syntax_xxx_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_conformance_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_conformance_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03219025400176179,
+      "log": "syntax_xxx_conformance_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_health_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_health_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032160680002562,
+      "log": "syntax_xxx_health_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_selector_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_selector_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032235532999038696,
+      "log": "syntax_xxx_selector_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_tp32_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_tp32_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03235667500121053,
+      "log": "syntax_xxx_tp32_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_operational_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_operational_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032178587000089465,
+      "log": "syntax_xxx_operational_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_partial_entry_risk_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_partial_entry_risk_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03233826700306963,
+      "log": "syntax_xxx_partial_entry_risk_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_ultimate_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/ultimate_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03225703600037377,
+      "log": "syntax_ultimate_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_bridge_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_bridge_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03232490099981078,
+      "log": "syntax_quant_bridge_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_svr_integration_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_svr_integration_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03256125600091764,
+      "log": "syntax_quant_svr_integration_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_discovery_regression_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_discovery_regression_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03271209599915892,
+      "log": "syntax_quant_discovery_regression_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_xxx_session_regression_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/xxx_session_regression_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.032084234997455496,
+      "log": "syntax_xxx_session_regression_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_remediation_integration_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_remediation_integration_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03231517799940775,
+      "log": "syntax_quant_remediation_integration_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_net_ledger_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_net_ledger_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03244663599980413,
+      "log": "syntax_quant_net_ledger_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_coordinator_replay_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_coordinator_replay_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03238451300057932,
+      "log": "syntax_quant_coordinator_replay_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_autonomy_integration_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_autonomy_integration_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03214596299949335,
+      "log": "syntax_quant_autonomy_integration_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "syntax_quant_observation_archive_test",
+      "command": [
+        "node",
+        "--check",
+        "tools/quant_observation_archive_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0",
+      "exit_code": 0,
+      "duration_seconds": 0.03212382899801014,
+      "log": "syntax_quant_observation_archive_test.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "harpoon_quant/core.py",
+        "harpoon_quant/calibration.py",
+        "harpoon_quant/scalar_svr.py",
+        "harpoon_quant/paired_replay.py",
+        "harpoon_quant/bridge.py",
+        "harpoon_quant/__main__.py",
+        "harpoon_quant/economic_gate.py",
+        "harpoon_quant/performance.py",
+        "harpoon_quant/study_integrity.py",
+        "tests/test_instrument_metadata.py",
+        "tests/test_paired_replay.py",
+        "tests/test_runtime_observations.py",
+        "tests/test_economic_gate.py",
+        "tests/test_performance_provenance.py"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0/quant",
+      "exit_code": 0,
+      "duration_seconds": 0.06426573999851826,
+      "log": "ruff.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "passed": true
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "mypy",
+        "--follow-imports=silent",
+        "harpoon_quant/core.py",
+        "harpoon_quant/calibration.py",
+        "harpoon_quant/scalar_svr.py",
+        "harpoon_quant/paired_replay.py",
+        "harpoon_quant/bridge.py",
+        "harpoon_quant/__main__.py",
+        "harpoon_quant/economic_gate.py",
+        "harpoon_quant/performance.py",
+        "harpoon_quant/study_integrity.py"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/autonomy_work/HARPOON_XXXUltimate_30_10_0/quant",
+      "exit_code": 0,
+      "duration_seconds": 2.523048448998452,
+      "log": "mypy.log",
+      "log_sha256": "46984ca20bf69f7b14ec1fd9bd82101d56a4e109e68f016fd2a04f22481b09b3",
+      "passed": true
+    }
+  ],
+  "tests": 700,
+  "passed": true,
+  "financial_trials_created": 0,
+  "followup_verifications": [
+    {
+      "suite": "quant_svr_integration_test",
+      "reason": "Isolated fixture copied only the prior three binding files; updated to copy the full compiled source set. Source-mutation guard remains strict."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+E702 Multiple statements on one line (semicolon)
+   --> tests/test_micro.py:649:23
+    |
+647 | class ModelRoutingTests(unittest.TestCase):
+648 |     def test_unrelated_feed_does_not_apply_or_block_a_ready_domain(self):
+649 |         d=cost_panel();d.update(feed='us',book_scope='crypto',sampling_schema='ALPACA_L1_LAST_PER_SECOND')
+    |                       ^
+650 |         model=fit_support(d,'2026-09-01T15:00:00+00:00')
+651 |         self._guard(model,'NO_CALIBRATED_MODEL_FOR_DOMAIN')
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> tests/test_micro.py:654:23
+    |
+653 |     def test_bundle_selects_exact_domain_and_keeps_synthetic_adjustment_off(self):
+654 |         d=cost_panel();d.update(book_scope='equity',sampling_schema='ALPACA_L1_LAST_PER_SECOND')
+    |                       ^
+655 |         model=fit_support(d,'2026-09-01T15:00:00+00:00')
+656 |         self._guard({'schema':'HARPOON_SUPPORT_BUNDLE_1','models':[model]},None)
+    |
+
+E702 Multiple statements on one line (semicolon)
+   --> tests/test_micro.py:662:40
+    |
+660 |         qs=[{'t':(at-timedelta(seconds=300-i)).isoformat(),'bp':100,'ap':100.02,'bs':40,'as':50} for i in range(301)]
+661 |         with tempfile.TemporaryDirectory() as folder:
+662 |             p=Path(folder)/'model.json';p.write_text(json.dumps(model))
+    |                                        ^
+663 |             cfg={'stockFeed':'sip','quant':{'microstructure':{'enabled':True,'required':True,'modelFile':str(p)}}}
+664 |             market={'micro_data':{'A':{'feed':'sip','quotes':qs,'trades':[],'sampling_schema':'ALPACA_L1_LAST_PER_SECOND'}}}
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_micro.py:666:22
+    |
+664 |             market={'micro_data':{'A':{'feed':'sip','quotes':qs,'trades':[],'sampling_schema':'ALPACA_L1_LAST_PER_SECOND'}}}
+665 |             result=guard('A','equity',market,cfg,at.isoformat(),24)
+666 |             if status:self.assertEqual(result['support_status'],status)
+    |                      ^
+667 |             else:self.assertIn('support',result)
+668 |             self.assertEqual(result['extra_slippage_bps_per_side'],0)
+    |
+
+E701 Multiple statements on one line (colon)
+   --> tests/test_micro.py:667:17
+    |
+665 |             result=guard('A','equity',market,cfg,at.isoformat(),24)
+666 |             if status:self.assertEqual(result['support_status'],status)
+667 |             else:self.assertIn('support',result)
+    |                 ^
+668 |             self.assertEqual(result['extra_slippage_bps_per_side'],0)
+    |
+
+Found 6 errors (1 fixed, 5 remaining).

@@ -1,0 +1,22 @@
+{
+  "request_interpretation": "SVR: support vector regression with scalar simple-return target",
+  "baseline_versions": [
+    "1.3.1",
+    "30.7.1"
+  ],
+  "new_versions": [
+    "1.4.0",
+    "30.8.0"
+  ],
+  "new_hypothesis": "Optional nonlinear return regressor, separate from existing execution-cost SVR",
+  "rejection_conditions": [
+    "No predictive improvement over temporal mean and ridge",
+    "Lookahead or late-known training label",
+    "Invalid/stale/nonfinite/changed model",
+    "Any model fit silently authorizes trading"
+  ],
+  "comparison_scope": "Bounded fresh synthetic software fixtures only, not empirical strategy research",
+  "financial_trial_journal_before": 23,
+  "prior_financial_holdouts_reused": false,
+  "automatic_live_or_paper_activation": false
+}

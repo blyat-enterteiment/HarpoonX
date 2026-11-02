@@ -1,0 +1,30 @@
+{
+  "schema": "HARPOON-AUTONOMY-3-2",
+  "policy": {
+    "enabled": true,
+    "autoPrepareResearch": true,
+    "autoResearch": true,
+    "autoSelectPaper": true,
+    "autoResumeTransientPaper": true,
+    "heartbeatSeconds": 5,
+    "clockPollSeconds": 30,
+    "clockMaxAgeSeconds": 45,
+    "selectionSeconds": 300,
+    "researchSeconds": 5,
+    "minSwitchSeconds": 3600,
+    "evidenceMaxAgeDays": 30,
+    "minImprovementReturn": 0.001,
+    "watchdogSeconds": 45,
+    "retrySeconds": 30,
+    "maxRecoveryAttempts": 3,
+    "maxPreparationAttemptsPerDay": 3,
+    "optimizerMaxTrials": 16,
+    "optimizerBatchSize": 4,
+    "optimizerComputeMs": 60000,
+    "maxRiskFraction": 0.0025,
+    "maxAssetExposure": 0.25,
+    "maxTotalExposure": 0.5,
+    "maxAccountDrawdown": 0.08,
+    "maxSpreadBps": 30
+  }
+}

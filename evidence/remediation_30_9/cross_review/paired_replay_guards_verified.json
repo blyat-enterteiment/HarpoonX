@@ -1,0 +1,54 @@
+{
+  "nature": "SYNTHETIC_ENGINEERING_ONLY",
+  "review": "Read-only cross-review; same team, not blind external validation.",
+  "source_sha256": "9366b2364e557ad1bcd2b5bda5cd581646e44e8dc69d8cd562c2214d99f6cdf0",
+  "checks": [
+    {
+      "case": "leveraged_etf_factor_domain",
+      "input_hash": "19fc5aed6cc7e4eedae1ccc1caeba6e4ce5509b81101973da1f85a2f089d6eb7",
+      "status": "MEDICION_BLOQUEADA",
+      "reason": null,
+      "blockers": [
+        "REPLAY_LEVERAGED_EXPOSURE_ADAPTER_REQUIRED"
+      ],
+      "no_financial_acceptance": true,
+      "no_external_execution": true,
+      "pass": true
+    },
+    {
+      "case": "withdrawal_beyond_available_cash",
+      "input_hash": "d39ab1cdd9487340c7b7c25db5605284f7fa200627bcacecd3f0ad45565e6c61",
+      "status": "MEDICION_BLOQUEADA",
+      "reason": "REPLAY_UNMODELED_FINANCING_DEFICIT",
+      "blockers": [],
+      "no_financial_acceptance": true,
+      "no_external_execution": true,
+      "pass": true
+    },
+    {
+      "case": "ridge_header_with_nested_svr",
+      "input_hash": "2ae66340f3d36a5acc07515e85422f07ddd6b5e6896a5b600a46e964b708f2f5",
+      "status": "MEDICION_BLOQUEADA",
+      "reason": null,
+      "blockers": [
+        "REPLAY_ESTIMATOR_BINDING"
+      ],
+      "no_financial_acceptance": true,
+      "no_external_execution": true,
+      "pass": true
+    },
+    {
+      "case": "same_model_instant_different_spelling",
+      "input_hash": "d35fa2ff60cd5126ed57131c6903019bdcbe3bccb67e3849dfcd183262091151",
+      "status": "MEDICION_BLOQUEADA",
+      "reason": null,
+      "blockers": [
+        "REPLAY_AMBIGUOUS_MODEL_VERSION"
+      ],
+      "no_financial_acceptance": true,
+      "no_external_execution": true,
+      "pass": true
+    }
+  ],
+  "all_pass": true
+}

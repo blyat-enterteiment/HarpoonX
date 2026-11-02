@@ -1,0 +1,2622 @@
+entrega:
+  application: 30.12.1
+  quant: 1.8.0
+  distribution: COMPLETE_APPLICATION_NOT_PATCH
+  validated_at_mexico_city: '2026-10-31T21:37:26.589481-06:00'
+  tests:
+    node: 507
+    python: 412
+    total: 919
+    new_since_30_12_0: 17
+    failed: 0
+    skipped: 0
+    repeated_after_exception_boundary_fix: 14
+    initial_static_failure_preserved: true
+  static_checks: PASS
+  source_archives_reviewed_including_base: 20
+  valid_archives: 19
+  truncated_archives: 1
+  historical_files_preserved: 444
+  strategy_and_risk_files_unchanged:
+  - xxx/coordinator.ts
+  - xxx/policy.ts
+  - xxx/exits.ts
+  - xxx/plugins.ts
+  - runtime/discovery.cjs
+  - config/examples/xxx.json
+  economic_score: 3
+  financial_verdict: VENTAJA_NO_DEMOSTRADA
+  level5_accredited: false
+  new_financial_trials: 0
+  new_observed_model_fits: 0
+  synthetic_fits_in_software_tests: true
+  external_orders: 0
+  deployment_performed: false
+  verified_deployed_version: null
+  docker_build: NOT_EXECUTED_DOCKER_UNAVAILABLE
+  browser_visual_validation: NOT_EXECUTED
+  external_independent_audit: false
+  all_alternative_runtimes_merged: false
+decision_de_version:
+  base: 30.12.0 + Quant 1.8.0
+  entrega: 30.12.1 integral
+  motivo: La línea 30.12 contiene los validadores económicos actuales. Las ramas 31.x son divergentes y de fecha
+    anterior; se porta el endurecimiento compatible del transporte SQLite.
+  sin_patch_previo: true
+  sin_fusion_de_coordinadores_alternativos: true
+  dependencias_externas: Node/Python y sus dependencias declaradas, configuración y cuenta legítimas; una imagen
+    Docker construida no se entrega.
+fuentes_originales_revisadas:
+- name: HarpoonX_31_0_0_Implementacion.zip
+  library_file_id: libfile_35df6ae05ec881919b80113a3544b6d2
+  source_modified_at: '2026-10-25T19:44:19.615797Z'
+  bytes: 35245215
+  sha256: e5d1c8dd32f3281950c10b7848caeb3c05910a97d7cef2850d1e66a7650f506c
+  url: https://chatgpt.com/library?file_id=libfile_35df6ae05ec881919b80113a3544b6d2&account_id=personal
+- name: HarpoonX_31_1_0_Implementacion.zip
+  library_file_id: libfile_f93831561a448191a1d204923129e44c
+  source_modified_at: '2026-10-25T20:33:34.351651Z'
+  bytes: 34764725
+  sha256: ea2459d42489dde09dbee991fbe4b8e4202139750115d2dd5e697c88e667b57a
+  url: https://chatgpt.com/library?file_id=libfile_f93831561a448191a1d204923129e44c&account_id=personal
+- name: HarpoonX_31_2_0_Implementacion.zip
+  library_file_id: libfile_da8a159126b8819194c1bbde5798bbff
+  source_modified_at: '2026-10-25T22:28:23.391118Z'
+  bytes: 34973987
+  sha256: c2ee67b23e6ff1a7bb01f111f33cb6eae32c797466a6e00608d8528cacf452eb
+  url: https://chatgpt.com/library?file_id=libfile_da8a159126b8819194c1bbde5798bbff&account_id=personal
+- name: HarpoonX_31_3_0_Implementacion.zip
+  library_file_id: libfile_8f15b19586a0819181c6f446015a63ca
+  source_modified_at: '2026-10-26T00:09:46.931842Z'
+  bytes: 35319645
+  sha256: 24a4dfe2ac476ca7aae178c1be8175e3695ce54e5fbb5eb4946c646c96dbafb7
+  url: https://chatgpt.com/library?file_id=libfile_8f15b19586a0819181c6f446015a63ca&account_id=personal
+- name: HarpoonX_31_4_0_Implementacion.zip
+  library_file_id: libfile_fdeed00a13f08191aa9e88ef33799ce8
+  source_modified_at: '2026-10-26T03:21:53.930231Z'
+  bytes: 35572949
+  sha256: 639a64574e2190835e1a274c64b4ceb7d159473ddf4f9cb38f58f54a42ceb5bd
+  url: https://chatgpt.com/library?file_id=libfile_fdeed00a13f08191aa9e88ef33799ce8&account_id=personal
+- name: HarpoonX_Auditoria_Forense_Reproducible_2026_10_27.zip
+  library_file_id: libfile_8946e0909b848191b5244d01aa0a17a8
+  source_modified_at: '2026-10-27T23:49:07.566389Z'
+  bytes: 18892176
+  sha256: 7c81635501a01fe6cc1951f887c2a30efd3525c686887822aded3ad220221533
+  url: https://chatgpt.com/library?file_id=libfile_8946e0909b848191b5244d01aa0a17a8&account_id=personal
+- name: HarpoonX_Canasta48_2026_10_28.zip
+  library_file_id: libfile_14f05a8dd9f48191ba14525090792b9c
+  source_modified_at: '2026-10-28T21:44:11.887776Z'
+  bytes: 107323528
+  sha256: cf70193d905114b85d4a9ed2514e7df34893263b8d377ef2baa9a96877680c8d
+  url: https://chatgpt.com/library?file_id=libfile_14f05a8dd9f48191ba14525090792b9c&account_id=personal
+- name: HarpoonX_Estrategias_Publicas_Investigacion_2026_10_27.zip
+  library_file_id: libfile_7f7760fd6f7c819180505e99062c6507
+  source_modified_at: '2026-10-27T18:56:36.700343Z'
+  bytes: 139460
+  sha256: 6878444d9e8613d09e9d4b649e5c9d2d43ddfea8918cf18d0ab526a8988856a3
+  url: https://chatgpt.com/library?file_id=libfile_7f7760fd6f7c819180505e99062c6507&account_id=personal
+- name: HarpoonX_Framework_Aplicado_1_2_2026_10_29.zip
+  library_file_id: libfile_28929e84a8f88191bbde927a19bba7d9
+  source_modified_at: '2026-10-29T20:56:52.169450Z'
+  bytes: 904290
+  sha256: 075aaa5677196ef81f6ce074f290eecb25c71f9daa1fe1694ef466dc9ddcc6c3
+  url: https://chatgpt.com/library?file_id=libfile_28929e84a8f88191bbde927a19bba7d9&account_id=personal
+- name: HarpoonX_Framework_Mejora_Incremental_1_6.zip
+  library_file_id: libfile_2d89dddae858819196053841fd1d3efc
+  source_modified_at: '2026-10-27T00:46:38.739943Z'
+  bytes: 247743
+  sha256: 6fc293cfe1a3662d3d83ef0afaa11c0fd2fff840158c4205b828ad3f56f3762b
+  url: https://chatgpt.com/library?file_id=libfile_2d89dddae858819196053841fd1d3efc&account_id=personal
+- name: HarpoonX_Microestructura_Investigacion_2026_10_27.zip
+  library_file_id: libfile_3e6012c181108191b59e5ddd183db85b
+  source_modified_at: '2026-10-27T20:42:03.022751Z'
+  bytes: 12794064
+  sha256: 936e746575973aa05b98b38c94b51f89bd85e5f819c90a258019350c41551cba
+  url: https://chatgpt.com/library?file_id=libfile_3e6012c181108191b59e5ddd183db85b&account_id=personal
+- name: HarpoonX_Options_Evidence_Framework_1_4.zip
+  library_file_id: libfile_c3c92ea045d88191984667ef280debfc
+  source_modified_at: '2026-10-26T23:43:44.424030Z'
+  bytes: 235096
+  sha256: dc19edd3d9f19643c246518544e3d5dad41d3fcc3f75be17badd7ccf7786c708
+  url: https://chatgpt.com/library?file_id=libfile_c3c92ea045d88191984667ef280debfc&account_id=personal
+- name: HarpoonX_Options_Lab_2026_10_28.zip
+  library_file_id: libfile_0b904366a12081919949d72b2b690799
+  source_modified_at: '2026-10-28T17:14:16.304930Z'
+  bytes: 12143600
+  sha256: db5f3740a659fb95e54ea1a6ac2978a527cfbba3ffda8fd20d0d40617c6597f0
+  url: https://chatgpt.com/library?file_id=libfile_0b904366a12081919949d72b2b690799&account_id=personal
+- name: HarpoonX_Profit_Framework_1_3.zip
+  library_file_id: libfile_9402fd6443d08191aec530c1e31e6d28
+  source_modified_at: '2026-10-26T20:09:51.532791Z'
+  bytes: 51722769
+  sha256: 592d08e9ffe048de318ff70cdd2f0791ef9aa666d6f0648303ecea8636a27995
+  url: https://chatgpt.com/library?file_id=libfile_9402fd6443d08191aec530c1e31e6d28&account_id=personal
+- name: HarpoonX_Profit_Framework_1_7.zip
+  library_file_id: libfile_5b043cba7c2c81918efa64a8ecd1c7cb
+  source_modified_at: '2026-10-27T02:05:21.020604Z'
+  bytes: 53198763
+  sha256: 5214c7a5215e6d08465497510832b1e74c9f2b37c566aed21bb9fe5871309788
+  url: https://chatgpt.com/library?file_id=libfile_5b043cba7c2c81918efa64a8ecd1c7cb&account_id=personal
+- name: HarpoonX_Swing_Remediacion_2026_10_28.zip
+  library_file_id: libfile_29424ba8033c8191bfde0d919d223b59
+  source_modified_at: '2026-10-28T21:06:21.665695Z'
+  bytes: 12242804
+  sha256: a6e3a76e31b8328c392c396818cf7eb3202d48a5c841954e7a15411793b98b50
+  url: https://chatgpt.com/library?file_id=libfile_29424ba8033c8191bfde0d919d223b59&account_id=personal
+- name: HarpoonX_TP_Neto_Codigo_Validadores_2026_10_27.zip
+  library_file_id: libfile_e0823d4cf46c8191814beb48cd3a050a
+  source_modified_at: '2026-10-27T21:54:44.650275Z'
+  bytes: 52034013
+  sha256: 1afa5fe32cbc8e1bf80408ab3851f12d023075e4d0c0ee166a6c45c0dea54068
+  url: https://chatgpt.com/library?file_id=libfile_e0823d4cf46c8191814beb48cd3a050a&account_id=personal
+- name: HarpoonX_WalkForward_Purgado_2026_10_27.zip
+  library_file_id: libfile_c408861af4a081918dc0fc19f911bda8
+  source_modified_at: '2026-10-27T17:41:00.101413Z'
+  bytes: 7858663
+  sha256: 74966930a86e8e29626dbdebb840b7513975d811d2fc20b2c922f0dfd8265ae6
+  url: https://chatgpt.com/library?file_id=libfile_c408861af4a081918dc0fc19f911bda8&account_id=personal
+- name: Simulacion_HarpoonX_48_Opciones_2026_10_30.zip
+  library_file_id: libfile_c9e1cbef11b881919f3b19a0722e89d0
+  source_modified_at: '2026-10-30T19:23:17.856479Z'
+  bytes: 2079771
+  sha256: 62ba3b382f872ba267088c8d10072a4004113e419ba3365aea3a8bb4ebbeaef8
+  url: https://chatgpt.com/library?file_id=libfile_c9e1cbef11b881919f3b19a0722e89d0&account_id=personal
+integridad_de_la_base:
+  schema: HARPOON_INTEGRAL_READONLY_PACKAGE_AUDIT_1
+  checked_at_mexico_city: '2026-10-31T21:12:43.618278-06:00'
+  candidate: /workspace/scratch/4ecb05fdc50d/level5_delivery/HARPOON_XXXUltimate_30_12_0_Integral.zip
+  application: 30.12.0
+  quant: 1.8.0
+  status: PASS
+  errors: []
+  scope: Delivered 30.12 archive, active manifests, retained logs and source snapshots, 30.7 through 30.12 release
+    lineage file coverage. No new functional or financial test.
+  zip:
+    sha256: f428af251db5420483b518ecc5b2edba0b4ec6c517622d17d839e1031d946c81
+    bytes: 35761046
+    files: 1387
+    bad_crc: null
+    duplicate_names: []
+    unsafe_paths: []
+    symlinks: []
+    inventory_difference:
+      unlisted_zip_files: []
+      declared_missing_files: []
+  current_manifests:
+  - path: MANIFEST_XXXUltimate.json
+    version: 30.12.0
+    files_verified: 1386
+    mismatches: []
+  - path: quant/MANIFEST_QUANT.json
+    version: 1.8.0
+    files_verified: 335
+    mismatches: []
+  current_checksum_lists:
+  - path: MANIFEST.sha256
+    files_verified: 1385
+    mismatches: []
+  - path: quant/MANIFEST.sha256
+    files_verified: 334
+    mismatches: []
+  archive_matches_working_files: true
+  required_distribution_files_checked: 42
+  required_distribution_files_missing: []
+  frozen_source_files_checked: 116
+  frozen_source_mismatches: []
+  preserved_test_evidence:
+    unique_functional_cases: 902
+    passed: true
+    unique_log_files_hash_verified: 76
+    log_mismatches: []
+    initial_static_failures_retained:
+    - ruff
+    - mypy
+    targeted_rechecks_not_added_to_count: 28
+    post_full_run_production_changes:
+    - quant/harpoon_quant/causal_panel.py
+    exact_two_file_static_patch_verified: true
+  lineage:
+  - version: 30.7.0
+    source: baseline/fullapp/HARPOON_XXXUltimate_30_7_0
+    implementation_and_verification_files: 308
+    same_path_and_bytes: 269
+    same_path_updated: 39
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 249
+      dependency_contract: 2
+      tests_or_verification_tools: 57
+  - version: 30.8.0
+    source: svr_work/HARPOON_XXXUltimate_30_8_0
+    implementation_and_verification_files: 317
+    same_path_and_bytes: 279
+    same_path_updated: 38
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 252
+      dependency_contract: 2
+      tests_or_verification_tools: 63
+  - version: 30.9.0
+    source: remediation_work/HARPOON_XXXUltimate_30_9_0
+    implementation_and_verification_files: 330
+    same_path_and_bytes: 301
+    same_path_updated: 29
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 256
+      dependency_contract: 2
+      tests_or_verification_tools: 72
+  - version: 30.10.0
+    source: autonomy_work/HARPOON_XXXUltimate_30_10_0
+    implementation_and_verification_files: 348
+    same_path_and_bytes: 325
+    same_path_updated: 23
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 263
+      dependency_contract: 2
+      tests_or_verification_tools: 83
+  - version: 30.10.1
+    source: integral_work/HARPOON_XXXUltimate_30_10_1
+    implementation_and_verification_files: 353
+    same_path_and_bytes: 331
+    same_path_updated: 22
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 265
+      dependency_contract: 2
+      tests_or_verification_tools: 86
+  - version: 30.11.0
+    source: level4_work/HARPOON_XXXUltimate_30_11_0
+    implementation_and_verification_files: 378
+    same_path_and_bytes: 362
+    same_path_updated: 16
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 274
+      dependency_contract: 2
+      tests_or_verification_tools: 102
+  - version: 30.12.0
+    source: level5_work/HARPOON_XXXUltimate_30_12_0
+    implementation_and_verification_files: 389
+    same_path_and_bytes: 389
+    same_path_updated: 0
+    missing_at_same_path: []
+    class_counts:
+      production_or_research_implementation: 275
+      dependency_contract: 2
+      tests_or_verification_tools: 112
+  historical_manifests:
+    count: 14
+    paths:
+    - docs/legacy/XXXUltimate_30_3_0/MANIFEST_XXXUltimate.json
+    - docs/legacy/XXXUltimate_30_3_1/MANIFEST_XXXUltimate.json
+    - docs/legacy/XXXUltimate_30_4_0/MANIFEST_XXXUltimate.json
+    - docs/legacy_30_10/MANIFEST_XXXUltimate.json
+    - docs/legacy_30_10_1/MANIFEST_XXXUltimate.json
+    - docs/legacy_30_5/MANIFEST_XXXUltimate.json
+    - docs/legacy_30_6/MANIFEST_XXXUltimate.json
+    - docs/legacy_30_8/MANIFEST_XXXUltimate.json
+    - docs/legacy_30_9/MANIFEST_XXXUltimate.json
+    - quant/docs/legacy_1_1/MANIFEST_QUANT.json
+    - quant/docs/legacy_1_2/MANIFEST_QUANT.json
+    - quant/docs/legacy_1_4/MANIFEST_QUANT.json
+    - quant/docs/legacy_1_5/MANIFEST_QUANT.json
+    - quant/docs/legacy_1_6/MANIFEST_QUANT.json
+    treatment: Their bytes are verified by the current root manifest. They describe earlier snapshots; their old
+      relative file tables are not claimed to describe the current tree.
+  dependency_scope: Complete application source/runtime/configuration/tests/evidence; external Node/Python packages
+    are declared and installed by the installer, not vendored. No air-gapped installation or Docker build is claimed.
+  deployment: NOT_PERFORMED
+  new_financial_trials: 0
+  financial_verdict: VENTAJA_NO_DEMOSTRADA
+  economic_score: 3
+  external_independent_audit: false
+  additional_project_branches_not_inspected:
+  - 31.0 through 31.4
+  - Profit Framework 1.7
+  - TP Neto
+  - Options/Swing/Canasta48
+  - Framework Aplicado 1.2
+matriz_funcional_de_la_base:
+  schema: HARPOON_INTEGRAL_FUNCTIONAL_REVIEW_1
+  at_mexico_city: '2026-10-31T21:13:57.148543-06:00'
+  reviewed_version: 30.12.0
+  quant_version: 1.8.0
+  scope: Targeted source-to-test matrix of requested implementations in 30.12; not a whole-project lineage conclusion.
+  other_branch_review: PENDING_PARENT_COMPARISON_OF_31_X_AND_OTHER_RECOVERED_LABS
+  external_independent_audit: false
+  new_tests_run: 0
+  new_financial_experiments: 0
+  external_orders: 0
+  source_edits: 0
+  existing_functional_cases: 902
+  existing_evidence_logs_hash_verified: true
+  current_economic_score: 3
+  financial_verdict: VENTAJA_NO_DEMOSTRADA
+  matrix:
+  - id: M01
+    requirement: Motor vigente, Ridge y regresión SVR
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Comparación financiada reejecuta el coordinador y predictores fijos; conserva NATIVE, RIDGE,
+      SVR y control CASH en v2.
+    sources:
+    - file: tools/funded_comparison.cjs
+      sha256: bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15
+      anchors:
+        runFundedComparison:
+        - 126
+        - 164
+        - 175
+        - 180
+        verifyFundedComparison:
+        - 159
+        - 175
+        - 180
+    - file: quant/harpoon_quant/fixed_predictor.py
+      sha256: 40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b
+      anchors:
+        validate_model:
+        - 53
+        - 125
+        calculate:
+        - 101
+        - 204
+    - file: quant/harpoon_quant/scalar_svr.py
+      sha256: 737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f
+      anchors:
+        fit_scalar_svr:
+        - 267
+        predict_scalar:
+        - 433
+    existing_test_evidence:
+    - suite: funded_comparison_test
+      existing_result: true
+      cases: 13
+      log: evidence/level5_30_12_0/final_regression/funded_comparison_test.log
+      sha256: 7d414dbb92d38fe5caa998eaa4c9d0333bf0d59104012017f06962c07bfd2582
+    - suite: quant_svr_integration_test
+      existing_result: true
+      cases: 7
+      log: evidence/level5_30_12_0/final_regression/quant_svr_integration_test.log
+      sha256: bc4bb3253e0e7dacef9a05f2313f4a5a18002b73700f6816d64d3309436933b8
+    - suite: quant_unittest
+      existing_result: true
+      cases: 385
+      log: evidence/level5_30_12_0/final_regression/quant_unittest.log
+      sha256: cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: SVR es de investigación. Sus pruebas predictivas y ejemplos sintéticos no permiten abrir órdenes ni prueban
+      beneficio neto.
+  - id: M02
+    requirement: Patrimonio neto continuo, flujos y costes
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Reconcilia actividades, NAV, flujos, gastos y cobertura; conserva archivo continuo y diferencia
+      rentabilidad de cuenta y económica.
+    sources:
+    - file: xxx/net_accounting.ts
+      sha256: 567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407
+      anchors:
+        NetAccountLedger:
+        - 307
+        - 768
+        performanceInput:
+        - 1002
+        - 1019
+        - 1101
+        - 1102
+    - file: xxx/net_ledger_archive.ts
+      sha256: 4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2
+      anchors:
+        NetLedgerArchive:
+        - 37
+    - file: xxx/net_ledger_verify.ts
+      sha256: d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477
+      anchors:
+        verifyLedgerHistoryBundle:
+        - 16
+    - file: xxx/cost_receipts.ts
+      sha256: 50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a
+      anchors:
+        validateCostReceipt:
+        - 80
+        - 227
+        - 250
+        verifyBrokerAccrualCoverage:
+        - 112
+        - 138
+    existing_test_evidence:
+    - suite: quant_net_ledger_test
+      existing_result: true
+      cases: 40
+      log: evidence/level5_30_12_0/final_regression/quant_net_ledger_test.log
+      sha256: b1d2ceef2805d65e04016129a90c03e7f06ddce9494e3ec4d49072079406aa20
+    - suite: quant_net_continuity_test
+      existing_result: true
+      cases: 35
+      log: evidence/level5_30_12_0/final_regression/quant_net_continuity_test.log
+      sha256: 2c0dd4e0ea603f3f42f873588c0de2000dfe7f0ff54011eb34493b07736453bb
+    - suite: level4_runtime_integration_test
+      existing_result: true
+      cases: 12
+      log: evidence/level5_30_12_0/final_regression/level4_runtime_integration_test.log
+      sha256: 7a1ff16db78051ebbbf7279ab874658eae96ff0a4f6edb436d9a442da51671ce
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Sin actividades originales y documentos de costes no completa resultados económicos; los importes desconocidos
+      permanecen null.
+  - id: M03
+    requirement: Pulso asíncrono y protección independiente de IA
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Carriles separados de conciliación, posiciones, opciones, observaciones e investigación; prioridad
+      para gestión de posiciones; inferencia fuera del mutex de órdenes.
+    sources:
+    - file: xxx/coordinator.ts
+      sha256: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+      anchors:
+        configureLanes:
+        - 350
+        - 352
+        managePosition:
+        - 1303
+        - 1316
+        entryReady:
+        - 1537
+        - 1699
+        - 1716
+        - 2182
+    - file: xxx/scheduler.ts
+      sha256: 3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1
+      anchors:
+        Scheduler:
+        - 20
+        PriorityMutex:
+        - 113
+    - file: runtime/quant_bridge.cjs
+      sha256: 00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b
+      anchors:
+        worker:
+        - 5
+        - 18
+        - 35
+        - 36
+        - 39
+        position_management_uses_this_pool:
+        - 64
+    existing_test_evidence:
+    - suite: quant_autonomy_integration_test
+      existing_result: true
+      cases: 20
+      log: evidence/level5_30_12_0/final_regression/quant_autonomy_integration_test.log
+      sha256: 649603dc7770b9a24df50d0f7cfe5a91003215d2738716ac1a6abf833b649068
+    - suite: xxx_operational_test
+      existing_result: true
+      cases: 30
+      log: evidence/level5_30_12_0/final_regression/xxx_operational_test.log
+      sha256: a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d
+    - suite: xxx_health_test
+      existing_result: true
+      cases: 17
+      log: evidence/level5_30_12_0/final_regression/xxx_health_test.log
+      sha256: ceb3dea2a74bab6fd9e17cc221f429a4017308b096927991fa6e61d1f19d2fc2
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Los intervalos configurados no son mediciones de latencia real. No acredita operación 24/7 ni recuperación
+      en una instancia actual.
+  - id: M04
+    requirement: Capital y riesgo compartidos entre motores
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Reserva órdenes pendientes, limita capital total/por activo/por factor y riesgo abierto; recalcula
+      tras cambiar cuenta o inventario.
+    sources:
+    - file: xxx/policy.ts
+      sha256: d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b
+      anchors:
+        availableSize:
+        - 144
+    - file: xxx/coordinator.ts
+      sha256: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+      anchors:
+        entries:
+        - 390
+        - 400
+        - 1622
+        quantState:
+        - 1641
+        - 1646
+        - 1695
+    - file: quant/harpoon_quant/core.py
+      sha256: 60c44a555ce183916ea15654190a2310022107504548b371cb4a2e7aaf4611aa
+      anchors:
+        allocate:
+        - 486
+        covariance:
+        - 209
+        - 298
+        expected_shortfall:
+        - 191
+        - 765
+        - 798
+    existing_test_evidence:
+    - suite: xxx_partial_entry_risk_test
+      existing_result: true
+      cases: 8
+      log: evidence/level5_30_12_0/final_regression/xxx_partial_entry_risk_test.log
+      sha256: 6117b541c7b72832b37ab226890982754a5e8b559619c06d88de15b4a4dc38ff
+    - suite: quant_bridge_test
+      existing_result: true
+      cases: 16
+      log: evidence/level5_30_12_0/final_regression/quant_bridge_test.log
+      sha256: 62d1bbae5dc4fed14661489fb23c1d0f63a6d1dac22fbe07a67bdcfe5c4e9b04
+    - suite: quant_coordinator_replay_test
+      existing_result: true
+      cases: 24
+      log: evidence/level5_30_12_0/final_regression/quant_coordinator_replay_test.log
+      sha256: 56e4a2f3cb5cd45ef7ddd612bd090d2666623a269a522860994dce7b04a321a4
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: No se midieron correlaciones ni ejecución real actuales. El gate económico financiado está limitado a
+      posiciones largas al contado de acciones, ETF y cripto.
+  - id: M05
+    requirement: Red de descubrimiento de acciones y ETF
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Registro persistente con universo conocido, tamaño acotado, protección de símbolos con exposición
+      y comprobación de catálogo, historia y cotización antes de elegibilidad.
+    sources:
+    - file: runtime/discovery.cjs
+      sha256: 94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157
+      anchors:
+        protectedSymbols:
+        - 19
+        - 94
+        - 172
+        - 227
+        - 276
+        historyReason:
+        - 46
+        - 181
+        - 195
+        - 224
+        - 260
+        restore:
+        - 86
+        - 87
+        - 98
+        - 100
+        - 101
+        discover:
+        - 2
+        - 20
+        - 43
+        - 82
+        - 91
+    - file: xxx/coordinator.ts
+      sha256: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+      anchors:
+        discoverStocks:
+        - 393
+        - 1563
+    - file: runtime/quant_bridge.cjs
+      sha256: 00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b
+      anchors:
+        observationInput:
+        - 65
+        - 88
+        - 90
+    existing_test_evidence:
+    - suite: quant_discovery_regression_test
+      existing_result: true
+      cases: 37
+      log: evidence/level5_30_12_0/final_regression/quant_discovery_regression_test.log
+      sha256: 9f4bc83ca8228219d1f6065aca7c67f18bc0f9088172d0caef51f85c7b793983
+    - suite: quant_autonomy_integration_test
+      existing_result: true
+      cases: 20
+      log: evidence/level5_30_12_0/final_regression/quant_autonomy_integration_test.log
+      sha256: 649603dc7770b9a24df50d0f7cfe5a91003215d2738716ac1a6abf833b649068
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Universo histórico disponible al decidir y calidad del feed requieren observaciones de la instancia.
+      No demuestra eficacia económica del selector.
+  - id: M06
+    requirement: Ventanas de apertura, precierre y poscierre de 90 minutos
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Etiquetas separadas, calendario, cambio de horario, cierres tempranos y barras cerradas; rachas
+      y gap son diagnósticos.
+    sources:
+    - file: xxx/sessions.ts
+      sha256: 29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77
+      anchors:
+        sessionContext:
+        - 76
+        regularClosedBars:
+        - 112
+        openingRange:
+        - 141
+        streakDiagnostics:
+        - 148
+    - file: quant/harpoon_quant/causal_panel.py
+      sha256: 35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8
+      anchors:
+        build:
+        - 527
+        - 591
+    existing_test_evidence:
+    - suite: xxx_session_regression_test
+      existing_result: true
+      cases: 26
+      log: evidence/level5_30_12_0/final_regression/xxx_session_regression_test.log
+      sha256: 38135d20d417a38331312d87ed08094a558760a634f18c305f0d77cc4463cff1
+    - suite: quant_unittest
+      existing_result: true
+      cases: 385
+      log: evidence/level5_30_12_0/final_regression/quant_unittest.log
+      sha256: cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: El panel causal admite sesión regular. POSTCLOSE_90 no es una autorización de órdenes ni una estrategia
+      de poscierre validada; rachas no son entradas del predictor.
+  - id: M07
+    requirement: Salidas, parciales y holding máximo de 72 horas
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Reglas deterministas de stop, cobro parcial, trailing, invalidación, tiempo y calendario; límite
+      de configuración de 72h.
+    sources:
+    - file: xxx/policy.ts
+      sha256: d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b
+      anchors:
+        exitDecision:
+        - 52
+        freezeExit:
+        - 258
+        deadlineFor:
+        - 270
+    - file: xxx/exits.ts
+      sha256: e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105
+      anchors:
+        remainingExit:
+        - 53
+        protectionSnapshot:
+        - 158
+        - 231
+    - file: xxx/validators.ts
+      sha256: 70e7eb11f991635596f5e1c3a6caedb22ebb93c5c1ae298e6d17985b6396b43c
+      anchors:
+        maxHoldHours:
+        - 342
+        - 356
+        - 357
+    existing_test_evidence:
+    - suite: xxx_test
+      existing_result: true
+      cases: 52
+      log: evidence/level5_30_12_0/final_regression/xxx_test.log
+      sha256: 3fb4a835824c7626f4266924168de0a1e06a3ae44a2295aa06d44cc90400b96c
+    - suite: xxx_tp32_test
+      existing_result: true
+      cases: 15
+      log: evidence/level5_30_12_0/final_regression/xxx_tp32_test.log
+      sha256: 5ec39bf683d8e8f487b47628aca1857297315ead70620ec87acb7f8cb075b87a
+    - suite: xxx_operational_test
+      existing_result: true
+      cases: 30
+      log: evidence/level5_30_12_0/final_regression/xxx_operational_test.log
+      sha256: a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d
+    - suite: quant_coordinator_replay_test
+      existing_result: true
+      cases: 24
+      log: evidence/level5_30_12_0/final_regression/quant_coordinator_replay_test.log
+      sha256: 56e4a2f3cb5cd45ef7ddd612bd090d2666623a269a522860994dce7b04a321a4
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Suspensiones/cierres/ausencia de liquidez pueden impedir ejecución. No se afirma cierre observado por
+      una intención ni una ejecución imposible.
+  - id: M08
+    requirement: Órdenes, timeout, duplicados y conciliación
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Persistencia antes del envío, client_order_id, estado UNKNOWN tras timeout, conciliación por
+      ID, cancelación explícita y reservas de venta con parciales.
+    sources:
+    - file: xxx/coordinator.ts
+      sha256: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+      anchors:
+        submit:
+        - 938
+        - 1378
+        - 1396
+        - 1487
+        - 1529
+        cancel:
+        - 883
+        - 893
+        - 894
+        - 1020
+        - 1024
+        reconcile:
+        - 116
+        - 272
+        - 348
+        - 362
+        - 572
+        ORDER_UNCONFIRMED:
+        - 1008
+    - file: xxx/exits.ts
+      sha256: e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105
+      anchors:
+        nativeGroups:
+        - 84
+    existing_test_evidence:
+    - suite: xxx_conformance_test
+      existing_result: true
+      cases: 13
+      log: evidence/level5_30_12_0/final_regression/xxx_conformance_test.log
+      sha256: d664666b9ec4cffd26e2f1283e825c81b6db44353d8e633c9c45b678ec715654
+    - suite: xxx_partial_entry_risk_test
+      existing_result: true
+      cases: 8
+      log: evidence/level5_30_12_0/final_regression/xxx_partial_entry_risk_test.log
+      sha256: 6117b541c7b72832b37ab226890982754a5e8b559619c06d88de15b4a4dc38ff
+    - suite: quant_coordinator_replay_test
+      existing_result: true
+      cases: 24
+      log: evidence/level5_30_12_0/final_regression/quant_coordinator_replay_test.log
+      sha256: 56e4a2f3cb5cd45ef7ddd612bd090d2666623a269a522860994dce7b04a321a4
+    - suite: xxx_operational_test
+      existing_result: true
+      cases: 30
+      log: evidence/level5_30_12_0/final_regression/xxx_operational_test.log
+      sha256: a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Verificado con API simulada; falta evidencia de integración de broker para la instancia vigente.
+  - id: M09
+    requirement: Observaciones causales y exportación estable
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Captura persistente, snapshot de prefijo confirmado, integridad de páginas, límites de bytes
+      y procesamiento incremental; validación causal de unidades y universo.
+    sources:
+    - file: xxx/quant_observations.ts
+      sha256: 3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c
+      anchors:
+        QuantObservationJournal:
+        - 21
+        snapshotExport:
+        - 202
+        exportSnapshot:
+        - 232
+    - file: tools/export_observation_snapshot.cjs
+      sha256: 33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a
+      anchors:
+        assemble:
+        - 11
+        - 56
+        - 62
+        - 66
+        verifyManifest:
+        - 56
+        - 59
+        - 66
+    - file: quant/harpoon_quant/causal_panel.py
+      sha256: 35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8
+      anchors:
+        build:
+        - 527
+        - 591
+        _stream_manifest:
+        - 143
+        - 540
+    existing_test_evidence:
+    - suite: quant_observation_archive_test
+      existing_result: true
+      cases: 13
+      log: evidence/level5_30_12_0/final_regression/quant_observation_archive_test.log
+      sha256: 3f02f8d865e91ca02aac4723f5a46c33534c99f532278779e5e3e2b1a76e4691
+    - suite: quant_observation_snapshot_test
+      existing_result: true
+      cases: 9
+      log: evidence/level5_30_12_0/final_regression/quant_observation_snapshot_test.log
+      sha256: 0403a7cfe51e7e8d0546841596fd0bf3b87d8707c5a94e19a886981095d6aa77
+    - suite: quant_unittest
+      existing_result: true
+      cases: 385
+      log: evidence/level5_30_12_0/final_regression/quant_unittest.log
+      sha256: cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Fuentes observadas de esta entrega:0frames prospectivos y0filas causales admisibles. Cotizaciones no
+      sustituyen profundidad ejecutable ni fills.
+  - id: M10
+    requirement: Criterio económico de nivel 4 y nivel 5
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Verifica fuente, modelos, cuenta, periodo, costes, historial; contrasta crecimiento absoluto
+      y mejora pareada frente a Ridge/native con incertidumbre y estrés.
+    sources:
+    - file: tools/level4_readiness.cjs
+      sha256: 013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d
+      anchors:
+        assessLevel4:
+        - 96
+        - 189
+        - 196
+        - 201
+        verifyLevel4Readiness:
+        - 188
+        - 196
+        - 201
+    - file: tools/level5_readiness.cjs
+      sha256: 2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501
+      anchors:
+        deriveLevel5:
+        - 110
+        - 166
+        - 173
+        - 178
+        verifyLevel5Derivation:
+        - 165
+        - 173
+        - 178
+        applyCostSchedule:
+        - 37
+        - 79
+        - 178
+        stressBinding:
+        - 24
+        - 148
+        - 178
+    - file: quant/harpoon_quant/economic_gate_v2.py
+      sha256: 982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b
+      anchors:
+        evaluate:
+        - 320
+        verify_history:
+        - 193
+        - 342
+        summarize_policy:
+        - 90
+        - 367
+        - 394
+    existing_test_evidence:
+    - suite: level4_readiness_test
+      existing_result: true
+      cases: 12
+      log: evidence/level5_30_12_0/final_regression/level4_readiness_test.log
+      sha256: 98441b47749b8faab6100f4c036509677d23406c89e3585a46f2cb6954f9e33d
+    - suite: level5_readiness_test
+      existing_result: true
+      cases: 9
+      log: evidence/level5_30_12_0/final_regression/level5_readiness_test.log
+      sha256: 83968704ced6fa8ad7c5a0ef383e593cac6aa013d5b788718f550fdc75184907
+    - suite: quant_unittest
+      existing_result: true
+      cases: 385
+      log: evidence/level5_30_12_0/final_regression/quant_unittest.log
+      sha256: cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: El criterio no está satisfecho. Gate reproducido:3/10, VENTAJA_NO_DEMOSTRADA. No incluye opciones/futuros
+      ni ejecución poscierre validada.
+  - id: M11
+    requirement: Reserva de efectivo y riesgo dentro del periodo
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Reserva previa reduce buying power, no añade patrimonio; calendario de gastos separado; insolvencia,
+      drawdown e inventario se evalúan por evento.
+    sources:
+    - file: tools/coordinator_replay.cjs
+      sha256: ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888
+      anchors:
+        SimulatedReplayBroker:
+        - 133
+        - 277
+        - 398
+        OPERATING_RESERVE_MUST_BE_FUNDED_AND_KNOWN_BEFORE_REPLAY:
+        - 64
+    - file: quant/harpoon_quant/economic_gate_v2.py
+      sha256: 982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b
+      anchors:
+        summarize_policy:
+        - 90
+        - 367
+        - 394
+        _risk:
+        - 299
+        - 373
+        - 396
+        - 398
+    existing_test_evidence:
+    - suite: funded_operating_reserve_test
+      existing_result: true
+      cases: 5
+      log: evidence/level5_30_12_0/final_regression/funded_operating_reserve_test.log
+      sha256: b4989d912da54d6899109b016eff5c1afc52f74380e658952e9797433d297657
+    - suite: level5_readiness_test
+      existing_result: true
+      cases: 9
+      log: evidence/level5_30_12_0/final_regression/level5_readiness_test.log
+      sha256: 83968704ced6fa8ad7c5a0ef383e593cac6aa013d5b788718f550fdc75184907
+    - suite: quant_unittest
+      existing_result: true
+      cases: 385
+      log: evidence/level5_30_12_0/final_regression/quant_unittest.log
+      sha256: cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Ejecución modelada y resolución de eventos; no acredita trayectoria intraperiodo que no haya sido observada.
+  - id: M12
+    requirement: Interfaz e indicadores operativos
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Distingue proceso vivo, capacidad de operar, datos ausentes, costes, candidato y evidencia económica;
+      no convierte PnL positivo en aprobación.
+    sources:
+    - file: xxx/operational_status.ts
+      sha256: f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f
+      anchors:
+        entryOperationalFailures:
+        - 5
+        - 56
+        operationalCapabilities:
+        - 23
+    - file: deploy/dashboard30.html
+      sha256: dae126753f7f93681783a9961075bc1583f1b6bbed7ae483d5b4775dd34309ae
+      anchors:
+        operationalBlocked:
+        - 2896
+        - 2920
+        - 2927
+        financial:
+        - 1496
+        - 1497
+        - 1954
+        - 1955
+        - 1957
+    - file: xxx/server.ts
+      sha256: 8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7
+      anchors:
+        /healthz:
+        - 58
+        /operational-readyz:
+        - 94
+        - 96
+    existing_test_evidence:
+    - suite: quant_dashboard_evidence_test
+      existing_result: true
+      cases: 12
+      log: evidence/level5_30_12_0/final_regression/quant_dashboard_evidence_test.log
+      sha256: 9ff709fa7d176d96f5a92844683ef04a1958b2b1399b72016bc7c596fb281cc0
+    - suite: xxx_operational_test
+      existing_result: true
+      cases: 30
+      log: evidence/level5_30_12_0/final_regression/xxx_operational_test.log
+      sha256: a2bb94b1447498b0d0352b477c93a204db0d4a0401d4e9ce2495e0670bf0c54d
+    - suite: xxx_health_test
+      existing_result: true
+      cases: 17
+      log: evidence/level5_30_12_0/final_regression/xxx_health_test.log
+      sha256: ceb3dea2a74bab6fd9e17cc221f429a4017308b096927991fa6e61d1f19d2fc2
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Pruebas DOM y contrato de render, no sesión actual de usuario ni validación de navegador real para esta
+      entrega.
+  - id: M13
+    requirement: Instalación integral y configuración API
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Un coordinador XXXUltimate; installer stdlib y scripts completos; dependencias Node/Python declaradas;
+      env literal; cuenta/journal verificados al arrancar.
+    sources:
+    - file: deploy/ultimate_install.py
+      sha256: 7f18ddc1382be4045ff94baa055b6e610479db2446469de26d9a185fb0e0a93c
+      anchors:
+        settings:
+        - 210
+        - 415
+        parse_env:
+        - 60
+        - 220
+        RUNTIME_KEYS:
+        - 30
+        - 200
+        - 271
+        - 302
+    - file: deploy/entry30.py
+      sha256: 350f11fb3e14bd1d851b70393435f1fd3915d5f4313cf77f9fd02618fd74220d
+      anchors:
+        HARPOON_DATA:
+        - 5
+        os.execvp:
+        - 14
+    - file: deploy/Dockerfile.xxx
+      sha256: d2d8fef3c95b00a8bf5f130b04e43373c21074e1e7df5b1927d3445cac6b04ea
+      anchors:
+        harpoon_quant:
+        - 18
+        level5_readiness.cjs:
+        - 17
+    - file: install.sh
+      sha256: 90fa268145e55af4d8b6c28a6ee25e4741a74bc281a8ce39585551d507e84697
+      anchors:
+        ultimate_install.py:
+        - 5
+    existing_test_evidence:
+    - suite: integral_installer_unittest
+      existing_result: true
+      cases: 24
+      log: evidence/level5_30_12_0/final_regression/integral_installer_unittest.log
+      sha256: 6c29bfd15730cfb8a530cc2ecb07292e2a72aac36e7b8247ab05908c3690beb0
+    - suite: integral_distribution_test
+      existing_result: true
+      cases: 9
+      log: evidence/level5_30_12_0/final_regression/integral_distribution_test.log
+      sha256: 3c7a92510a4a5cb6fe35a39dee8e8442868057e8b59ac2989ff5d8d58e9c7dac
+    - suite: installer_ruff
+      existing_result: true
+      cases: null
+      log: evidence/level5_30_12_0/final_regression/installer_ruff.log
+      sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+    - suite: installer_mypy
+      existing_result: true
+      cases: null
+      log: evidence/level5_30_12_0/final_regression/installer_mypy.log
+      sha256: 5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e
+    - suite: shell_install
+      existing_result: true
+      cases: null
+      log: evidence/level5_30_12_0/final_regression/shell_install.log
+      sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: Requiere instalar dependencias y aportar configuración/credenciales legítimas. Docker image build no
+      ejecutado, TLS externo no autoprovisionado. No requiere parches de versiones anteriores.
+  - id: M14
+    requirement: Investigación recurrente con presupuesto
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Diario persistente, presupuesto de intentos, datos/modelos vinculados y holdout usado una vez;
+      mantiene exclusión del pool de gestión de posiciones.
+    sources:
+    - file: quant/harpoon_quant/recursive.py
+      sha256: d6b15eb8a906e6c4b2cf38cb9c3202ae335e9b21c3b0fe4dcbe956797e233e4b
+      anchors:
+        Journal:
+        - 21
+        - 318
+        - 367
+        tick:
+        - 349
+        - 672
+        - 688
+        active_policy:
+        - 313
+        - 374
+    - file: runtime/quant_bridge.cjs
+      sha256: 00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b
+      anchors:
+        optimize:
+        - 16
+        - 53
+        - 114
+        - 115
+        - 117
+        binding:
+        - 16
+        - 100
+        - 113
+        - 115
+        - 142
+    - file: xxx/coordinator.ts
+      sha256: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+      anchors:
+        quant-recursive-calibration:
+        - 416
+    existing_test_evidence:
+    - suite: quant_autonomy_integration_test
+      existing_result: true
+      cases: 20
+      log: evidence/level5_30_12_0/final_regression/quant_autonomy_integration_test.log
+      sha256: 649603dc7770b9a24df50d0f7cfe5a91003215d2738716ac1a6abf833b649068
+    - suite: quant_unittest
+      existing_result: true
+      cases: 385
+      log: evidence/level5_30_12_0/final_regression/quant_unittest.log
+      sha256: cc7e7e6db4074cea1bcc0a5a66e4a1443fe139dd727b47887104e7460cf39393
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: No existe autoaprendizaje financiero observado; sin datos y ventanas nuevos el estado de espera es un
+      bloqueo intencional, no función vacía.
+  - id: M15
+    requirement: Servicio GPT legado preservado
+    source_review: IMPLEMENTED_IN_EXAMINED_SOURCE
+    implementation: Servicio opcional legado OpenAI con configuración de modelo/tarifas, presupuesto y contratos.
+      Código preservado en el integral.
+    sources:
+    - file: service/server.py
+      sha256: 56db0beab9ab994ae9fbde4b832d109c852a56c4e4268ff530cabc1104cd293e
+      anchors:
+        Gateway:
+        - 15
+        - 76
+        - 98
+        - 294
+        https://api.openai.com/v1/responses:
+        - 167
+    - file: service/app24.py
+      sha256: 2e57c1e7bf7c5db041bc92b56f117cc565d0cd23fdcc2b3ed7b6e3a37127493c
+      anchors:
+        IntegratedGateway:
+        - 97
+        - 416
+    - file: service/supervision.py
+      sha256: 8571c4d349f9696525eca9ffd45b4af29076c450c719c74f94bae1c5dbd09fb7
+      anchors:
+        ReviewGateway:
+        - 92
+    existing_test_evidence: []
+    current_observed_account_validation: NOT_AVAILABLE
+    limit: No se inicia mediante compose.xxx.json ni Dockerfile.xxx. No es un gateway agnóstico a proveedores verificado
+      para el núcleo30.12. La suite902 no repite los tests de service; no declarar integración operativa de este
+      servicio en XXXUltimate.
+  installation_conclusion: No dependency on previous patches found in examined 30.12 installer/distribution. Source
+    package is self-contained; runtime dependencies, legitimate configuration and account data remain external prerequisites.
+  missing_evidence:
+  - Identified currently deployed PAPER instance/version
+  - Causal original market observations and fixed-model provenance
+  - Reconciled original account history and documented applicable costs
+  - New preregistered final temporal test
+  - Docker image/runtime verification
+  not_a_missing_function:
+  - Null financial values with documented unavailable evidence
+  - Wait states that fail closed before data/model availability
+  - Synthetic fixtures explicitly labeled as software tests
+  source_hashes:
+    tools/funded_comparison.cjs: bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15
+    quant/harpoon_quant/fixed_predictor.py: 40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b
+    quant/harpoon_quant/scalar_svr.py: 737caf49cd870ded114be2a00ffd18698b5f0a27c8b4fec3b51abb2552e7782f
+    xxx/net_accounting.ts: 567ff6ec17428374d23e578a8c347b4dda86f88ae06cbfa1bebae46f8ee10407
+    xxx/net_ledger_archive.ts: 4aa2d454c00d20eca7bbc5592e5e85e0b197d33fe2ca24f08ee985457cc9d2c2
+    xxx/net_ledger_verify.ts: d57241aa18dcc7d8f2f183866d9e033660f702ab55b05a3ce89b62fc9e2d7477
+    xxx/cost_receipts.ts: 50b0a8ffda3543af053530323cc5dfacde741ee3e4a8638f041cccfe1688895a
+    xxx/coordinator.ts: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+    xxx/scheduler.ts: 3254bb636c474500ddf9d91147f438561d6a9506d2f50883e5d4c8845fc141a1
+    runtime/quant_bridge.cjs: 00e6dca0b0db9b469111cca86e01604dbc72c3847d711ff1de0717522a44e32b
+    xxx/policy.ts: d5d320263ac57b06d13f8846cb9295c82cd8f0821ae4a02f058973fd335ce34b
+    quant/harpoon_quant/core.py: 60c44a555ce183916ea15654190a2310022107504548b371cb4a2e7aaf4611aa
+    runtime/discovery.cjs: 94098e70823fc10c8349032097776ca172e1377086a3a6a6e508e4af942bb157
+    xxx/sessions.ts: 29914ce767c7f2f957cc2372f8a2db75d193451e44b4bb53f73146b29a3b8c77
+    quant/harpoon_quant/causal_panel.py: 35f22c37773102ca69d185c862d5d9858ff80eda4d6423589e6ee0ca1e415dc8
+    xxx/exits.ts: e091c67809996665e3a5c41145fcb3c59492b5f1302d8e8fc660c6ac7d2fb105
+    xxx/validators.ts: 70e7eb11f991635596f5e1c3a6caedb22ebb93c5c1ae298e6d17985b6396b43c
+    xxx/quant_observations.ts: 3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c
+    tools/export_observation_snapshot.cjs: 33795e8c4ee833769d96b921621d89966d6cf369a86db1550ca135e43fc64a3a
+    tools/level4_readiness.cjs: 013168cd65629a36a9329ec31687a9c1cdc1005ff3277274409617a08520280d
+    tools/level5_readiness.cjs: 2fc32204034a1c71a4f63ede51d42e7a6647d9eb3b37b06df72f12afa51d2501
+    quant/harpoon_quant/economic_gate_v2.py: 982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b
+    tools/coordinator_replay.cjs: ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888
+    xxx/operational_status.ts: f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f
+    deploy/dashboard30.html: dae126753f7f93681783a9961075bc1583f1b6bbed7ae483d5b4775dd34309ae
+    xxx/server.ts: 8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7
+    deploy/ultimate_install.py: 7f18ddc1382be4045ff94baa055b6e610479db2446469de26d9a185fb0e0a93c
+    deploy/entry30.py: 350f11fb3e14bd1d851b70393435f1fd3915d5f4313cf77f9fd02618fd74220d
+    deploy/Dockerfile.xxx: d2d8fef3c95b00a8bf5f130b04e43373c21074e1e7df5b1927d3445cac6b04ea
+    install.sh: 90fa268145e55af4d8b6c28a6ee25e4741a74bc281a8ce39585551d507e84697
+    quant/harpoon_quant/recursive.py: d6b15eb8a906e6c4b2cf38cb9c3202ae335e9b21c3b0fe4dcbe956797e233e4b
+    service/server.py: 56db0beab9ab994ae9fbde4b832d109c852a56c4e4268ff530cabc1104cd293e
+    service/app24.py: 2e57c1e7bf7c5db041bc92b56f117cc565d0cd23fdcc2b3ed7b6e3a37127493c
+    service/supervision.py: 8571c4d349f9696525eca9ffd45b4af29076c450c719c74f94bae1c5dbd09fb7
+comparacion_rama_31:
+  schema: HARPOON_BRANCH31_STATIC_COMPARISON_1
+  checked_at_mexico_city: '2026-10-31T21:18:02.115879-06:00'
+  scope: Static code, archive hashes and retained evidence review of 31.0-31.4 versus 30.12. No branch code executed;
+    no network/deployment/orders.
+  lineage:
+    branch_base_declared: 30.3.1
+    source: 'HarpoonX_31_4_0/README_31_ES.md: Migración desde 30.3.1'
+    branch_latest_reviewed: 31.4.0
+    branch_acceptance_client_date: '2026-10-25'
+    base_application: 30.12.0
+    base_validated_local_date: '2026-10-31'
+    conclusion: Divergent implementations from a shared older codebase; numeric version order does not establish
+      chronological or functional supersession.
+  branch_manifests:
+  - archive: HarpoonX_31_0_0_Implementacion.zip
+    manifest: HarpoonX_31_0_0/MANIFEST_31.json
+    version: 31.0.0
+    rows_checked: 639
+    mismatches: []
+  - archive: HarpoonX_31_1_0_Implementacion.zip
+    manifest: HarpoonX_31_1_0/MANIFEST_311.json
+    version: 31.1.0
+    rows_checked: 678
+    mismatches: []
+  - archive: HarpoonX_31_2_0_Implementacion.zip
+    manifest: HarpoonX_31_2_0/MANIFEST_312.json
+    version: 31.2.0
+    rows_checked: 708
+    mismatches: []
+  - archive: HarpoonX_31_3_0_Implementacion.zip
+    manifest: HarpoonX_31_3_0/MANIFEST_313.json
+    version: 31.3.0
+    rows_checked: 748
+    mismatches: []
+  - archive: HarpoonX_31_4_0_Implementacion.zip
+    manifest: HarpoonX_31_4_0/MANIFEST_314.json
+    version: 31.4.0
+    rows_checked: 816
+    mismatches: []
+  comparison:
+    same_implementation_or_verification_files: 232
+    modified_same_path_files: 44
+    branch_only_files: 64
+    modified_paths:
+    - config/examples/xxx.json
+    - deploy/Dockerfile.xxx
+    - deploy/dashboard30.html
+    - runtime/store.py
+    - runtime/store30.cjs
+    - runtime30/coordinator.js
+    - runtime30/health.js
+    - runtime30/market.js
+    - runtime30/plugins.js
+    - runtime30/policy.js
+    - runtime30/server.js
+    - runtime30/streams.js
+    - runtime30/types.js
+    - runtime30/ultimate_contracts.js
+    - runtime30/ultimate_lab.js
+    - runtime30/ultimate_replay.js
+    - runtime30/ultimate_stats.js
+    - runtime30/validators.js
+    - runtime30/version.js
+    - tools/package_ultimate.py
+    - tools/ultimate_production_check.cjs
+    - tools/ultimate_test.cjs
+    - tools/xxx_audit.cjs
+    - tools/xxx_conformance_test.cjs
+    - tools/xxx_fixtures.cjs
+    - tools/xxx_operational_browser.cjs
+    - tools/xxx_operational_test.cjs
+    - tools/xxx_selector_test.cjs
+    - tools/xxx_test.cjs
+    - tools/xxx_tp32_test.cjs
+    - xxx/coordinator.ts
+    - xxx/health.ts
+    - xxx/market.ts
+    - xxx/plugins.ts
+    - xxx/policy.ts
+    - xxx/server.ts
+    - xxx/streams.ts
+    - xxx/types.ts
+    - xxx/ultimate_contracts.ts
+    - xxx/ultimate_lab.ts
+    - xxx/ultimate_replay.ts
+    - xxx/ultimate_stats.ts
+    - xxx/validators.ts
+    - xxx/version.ts
+    branch_only_paths:
+    - config/examples/xxx-alpaca-paid.json
+    - config/examples/xxx-massive.json
+    - deploy/entry31.py
+    - research/options/candidate_value.cjs
+    - research/options/coordinator_replay.cjs
+    - research/options/economics.py
+    - research/options/example-ledger-synthetic.json
+    - research/options/example-straddle-synthetic.json
+    - research/options/fixtures/candidate-synthetic.json
+    - research/options/fixtures/coordinator-synthetic.json
+    - research/options/requirements.txt
+    - research/options/simulate_72h.py
+    - research/options/simulation-reference-indicative.json
+    - research/options/test_economics.py
+    - research/options/test_simulate_72h.py
+    - research/ultimate/audit_recompute.cjs
+    - research/ultimate/dataset.cjs
+    - research/ultimate/edge_batch.cjs
+    - research/ultimate/reproduce.cjs
+    - runtime/execution_authority.cjs
+    - runtime30/option_capture.js
+    - runtime30/option_contracts.js
+    - runtime30/option_data.js
+    - runtime30/option_surface.js
+    - runtime30/option_value.js
+    - runtime30/options_lab.js
+    - runtime30/portfolio_guard.js
+    - runtime30/research_accounting.js
+    - tools/audit_export.cjs
+    - tools/audit_scale.cjs
+    - tools/championship_audit.cjs
+    - tools/championship_metrics.cjs
+    - tools/options_benchmark.cjs
+    - tools/options_capture314.cjs
+    - tools/options_lab.cjs
+    - tools/options_model314.cjs
+    - tools/package31.py
+    - tools/package311.py
+    - tools/package312.py
+    - tools/package313.py
+    - tools/package314.py
+    - tools/paid_data_check.cjs
+    - tools/paper_readonly_check.cjs
+    - tools/stats_reference.py
+    - tools/tca.cjs
+    - tools/v311_test.cjs
+    - tools/v312_options_test.cjs
+    - tools/v313_data_test.cjs
+    - tools/v314_replay_test.cjs
+    - tools/v314_value_test.cjs
+    - tools/v31_test.cjs
+    - tools/verify31.py
+    - tools/verify311.py
+    - tools/verify312.py
+    - tools/verify313.py
+    - tools/verify314.py
+    - xxx/option_capture.ts
+    - xxx/option_contracts.ts
+    - xxx/option_data.ts
+    - xxx/option_surface.ts
+    - xxx/option_value.ts
+    - xxx/options_lab.ts
+    - xxx/portfolio_guard.ts
+    - xxx/research_accounting.ts
+    count_scope: Includes research code, verification tools/tests and compiled duplicates; not a count of independent
+      features.
+  unique_feature_groups:
+  - feature: Bounded durable store
+    files:
+    - runtime/store30.cjs
+    - runtime/store.py
+    functions:
+    - DurableStore.rpc
+    - DurableStore.fail
+    - DurableStore.health
+    - DurableStore.close
+    - appendEvents
+    - events
+    difference: Adds RPC deadline, pending-request limit, process failure propagation, uncertain-write marker, bounded
+      close and durable hash-chained event rows. Current 30.12 RPC lacks a deadline. Existing operation implementations
+      retained.
+    recommendation: 'First integration candidate: port bounded storage and review additive schema; test stalled
+      child/uncertain ACK/backpressure/restart with current net ledger and observation archive. Do not claim storage
+      failure leaves software-only protection operational.'
+    tests_present_in_branch:
+    - 'tools/v31_test.cjs: SIGSTOP storage'
+    - 'tools/v31_test.cjs: audit beyond 300 events'
+    - 'tools/v31_test.cjs: stalled SQLite releases coordinator mutex'
+  - feature: Canonical execution authority
+    files:
+    - runtime/execution_authority.cjs
+    - deploy/entry31.py
+    - xxx/server.ts
+    - xxx/coordinator.ts
+    functions:
+    - ExecutionAuthority.acquire
+    - ExecutionAuthority.check
+    - ExecutionAuthority.request
+    - FencedApi
+    - runtime_environment
+    difference: Single service retains broker credentials and checks durable owner epoch immediately before broker
+      mutation; persistent request ids prevent blind retry; Alpaca/futures share authority mutex.
+    recommendation: Preserve as separate integration component until startup, streaming transport, store and reconciliation
+      paths are tested together. Do not overwrite 30.12 server/installer. The branch disables streaming and changes
+      credential topology.
+  - feature: Portfolio stress and capital mandate
+    files:
+    - xxx/portfolio_guard.ts
+    - xxx/coordinator.ts
+    functions:
+    - stressPortfolio
+    - capitalAllowance
+    difference: Gross factor exposure without inverse-ETF offset credit, full long-option premium risk and deterministic
+      stress; explicit capital mandate for size staircase.
+    recommendation: The pure risk calculator can be adapted after configuration/risk comparison; keep current account
+      limits and default fixed capital. Do not activate capital expansion or treat policy shocks as calibrated VaR.
+  - feature: Research accounting and bootstrap corrections
+    files:
+    - xxx/research_accounting.ts
+    - xxx/ultimate_replay.ts
+    - xxx/ultimate_stats.ts
+    - xxx/ultimate_contracts.ts
+    - research/ultimate/audit_recompute.cjs
+    - research/ultimate/edge_batch.cjs
+    functions:
+    - decisionReference
+    - accountSnapshot
+    - causalSize
+    - dollarTradeMetrics
+    - bootstrapEvidence
+    difference: Decision-time sizing, pending capital reservation, cash PnL through partial exits, future-gap causality
+      and bootstrap Monte Carlo tail precision.
+    recommendation: Preserve corrected offline research and original reproduction artifacts separately. Do not replace
+      the Quant1.8 paired NATIVE/RIDGE/SVR/CASH evidence gate, or promote results from previously observed windows.
+  - feature: Options eligibility, data and budget
+    files:
+    - xxx/option_contracts.ts
+    - xxx/option_data.ts
+    - xxx/option_surface.ts
+    - xxx/market.ts
+    - xxx/plugins.ts
+    - xxx/policy.ts
+    functions:
+    - optionEligibility
+    - optionOrderTick
+    - optionBudget
+    - MassiveOptionData
+    - optionResearchView
+    difference: Contract identity, OPRA chain completeness, quoted size, expiry/open interest/Greek checks, budget
+      before rank and optional bounded external data adapter.
+    recommendation: Port only through the common market/types/policy contract with current net ledger and operational
+      gates retained. Keep licenses, budgets and permissions unassumed; do not silently switch IEX to paid SIP or
+      enable a new provider.
+  - feature: Options reviewed net-value boundary and capture
+    files:
+    - xxx/option_value.ts
+    - xxx/option_capture.ts
+    - research/options/coordinator_replay.cjs
+    - research/options/candidate_value.cjs
+    - tools/options_model314.cjs
+    - tools/options_capture314.cjs
+    functions:
+    - OptionValueBook
+    - assessReceiptForecast
+    - optionPolicyFingerprint
+    - refreshOptionValueFile
+    - optionCapture
+    difference: Observed-replay model declarations, pinned approval hashes, full-size forecast receipts, opening
+      costs/data hurdle, quote/capacity recheck before send, forecast expiry cancellation, bounded context capture
+      and offline replay of production coordinator.
+    recommendation: Retain observe as default; no approved models are shipped. Self-declared review and fixed minimum
+      sample counts do not satisfy the level5 economic gate by themselves. Contract schemas and coordinator interfaces
+      must be merged, not copied over.
+  - feature: Offline options structures and execution-cost analysis
+    files:
+    - xxx/options_lab.ts
+    - tools/options_lab.cjs
+    - research/options/economics.py
+    - research/options/simulate_72h.py
+    - tools/tca.cjs
+    - tools/championship_metrics.cjs
+    - tools/championship_audit.cjs
+    difference: Payoff laboratory, option-policy simulations and execution shortfall diagnostics; no economic acceptance
+      or automated multi-leg trading implied.
+    recommendation: Suitable to retain as explicitly offline research with dependency contracts. TCA latency comparisons
+      require clock-domain/synchronization evidence before being interpreted as measured transport latency.
+  must_preserve_from_30_12:
+  - files:
+    - quant/harpoon_quant/
+    - runtime/quant_bridge.cjs
+    - tools/funded_comparison.cjs
+    - tools/level4_readiness.cjs
+    - tools/level5_readiness.cjs
+    reason: Ridge/SVR comparison, causal models, protected experiment history and economic acceptance are absent
+      from31.4.
+  - files:
+    - xxx/cost_receipts.ts
+    - xxx/net_accounting.ts
+    - xxx/net_ledger_archive.ts
+    - xxx/net_ledger_verify.ts
+    - xxx/quant_observations.ts
+    - xxx/operational_status.ts
+    reason: Observed account ledger, cost coverage, stable observation exports and entry operational gates are absent
+      from31.4.
+  - files:
+    - xxx/sessions.ts
+    - xxx/plugins.ts
+    - xxx/market.ts
+    - runtime/discovery.cjs
+    reason: Causal session windows, equity/ETF discovery and current bounded data handling must not be lost.
+  - files:
+    - xxx/types.ts
+    - xxx/coordinator.ts
+    - xxx/validators.ts
+    reason: 30.12 PartialEntryRisk state and newer partial-entry exposure protections are not present in31.4 types.
+  - files:
+    - deploy/Dockerfile.xxx
+    - deploy/ultimate_install.py
+    - install.sh
+    - status.sh
+    - stop.sh
+    reason: Current integral installation and packaged Python verifier layout must survive; branch Dockerfile omits
+      Quant and bound TypeScript verifier sources.
+  unsafe_bulk_replacement_examples:
+  - 31.4 config/examples/xxx.json removes the entire quant configuration, changes stockFeed iex→sip and streaming
+    true→false.
+  - 31.4 coordinator import set omits NetAccountLedger, QuantObservationJournal, entryOperationalFailures and sessionContext.
+  - 31.4 types remove PartialEntryRisk and MAX_UNIVERSE_SIZE while adding option-specific metadata.
+  - 31.4 Dockerfile lacks Python venv/Quant package/tools/TypeScript source verification paths included in30.12.
+  history_extension:
+    scope: Retained archive history, no new experiment
+    old_trial_records: 1
+    new_trial_records: 4
+    overlapping_records:
+    - id: 4b48429f-9c4b-4c0b-bc46-01c3ee2d0379
+      protocolHash: 76b98ca5befa14dda4c6c61c3dd036327acae5afad3bc205bdd1424c8db11b66
+      codeHash: b154e3ce5798e1d77179954f1d3bf9f51efd21b221f52b7de357dc915a8de162
+      datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+      slots: 18
+      registeredAt: 1792346863333
+      status: COMPLETE
+      attempts: 1
+      same_protocolHash: true
+      same_codeHash: true
+      same_datasetHash: true
+      entire_record_equal: true
+    additional_records:
+    - id: fcfe96db-4faa-482f-beb4-4efd4dfb3531
+      protocolHash: af3790ab1c80326189fdae345b27b24da41bd6a65ac46b4bee9bab8f6e48edef
+      codeHash: 9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a
+      datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+      slots: 18
+      registeredAt: 1792956579578
+      status: COMPLETE
+      attempts: 1
+    - id: 15cea4a9-4338-409f-a700-0dd6a78e3ebf
+      protocolHash: 388890ac4c300f0628a8e6a421e4bd21a7475f4e99fb492981fec57e58789ad4
+      codeHash: 9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a
+      datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+      slots: 18
+      registeredAt: 1792956579583
+      status: COMPLETE
+      attempts: 1
+    - id: 57d8a60b-b2fd-4c7c-bd2b-cc7c84f97393
+      protocolHash: 93ba284aa1150c4c6e30f1201eb97036a619e4534491a6b101f97dbaa3f4fbde
+      codeHash: 9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a
+      datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+      slots: 18
+      registeredAt: 1792956579588
+      status: COMPLETE
+      attempts: 1
+    old_slots: 18
+    branch_slots: 72
+    additional_slots: 54
+    global_deduplicated_search_total: null
+    null_reason: This checks only the Ultimate family extension; other quant/options/laboratory genealogies still
+      require reconciliation.
+  economic_assessment:
+    new_forward_observations: 0
+    economic_level5_demonstrated: false
+    global_search_count: null
+    retained_31_result_scope: Retrospective observed bars with modeled fills; zero promotions in preserved source
+      results. No new evaluation executed.
+  recommended_integration_order:
+  - Keep30.12 as primary runtime and economic evidence base.
+  - Port bounded storage with targeted current-runtime regression tests.
+  - Preserve all branch/laboratory implementations under provenance-tagged research or archive paths unless their
+    integration is actually tested.
+  - Merge option/authority/runtime features individually with typed interfaces, keeping both sets of safety gates.
+  - Include additional Ultimate history and require a fresh final protocol after all known previous periods.
+  limitations:
+  - 31.5/31.6/net_takeprofit laboratory deltas are reviewed by the laboratory-lineage agent, not this report.
+  - Static review and retained test records do not prove a merged runtime is correct.
+  - No branch code, paid API, external broker mutation or deployment was executed.
+  files_written_only_under: consolidation_evidence/branches
+familias_de_laboratorios:
+  schema: HARPOON_IMPLEMENTATION_FAMILY_AUDIT_1
+  reviewed_at: '2026-10-31T21:18:55.981240-06:00'
+  scope: Revisión estática de linaje, código y documentación; verificación de integridad de fuentes. No ejecuté
+    experimentos financieros, ajustes de modelos ni llamadas al broker. No modifiqué las fuentes canónicas.
+  review_is_external_independent: false
+  archives_reviewed: 14
+  valid_archive_crc: 13
+  truncated_archives: 1
+  active_manifests_all_passed: true
+  canonical_candidate: XXXUltimate 30.12.0 / Quant 1.8.0
+  findings:
+  - id: LAB-01
+    severity: MATERIAL
+    fact: Ningún artefacto revisado unifica el core 30.12, opciones 31.6 con TP-NET y el Framework Aplicado Python
+      1.2.
+    action: Mantener una aplicación canónica y catalogar las otras ramas. Un ZIP que las reúna no demuestra integración
+      de sus runtimes.
+  - id: LAB-02
+    severity: MATERIAL
+    fact: El core 31.6 con TP-NET contiene 13 módulos xxx ausentes en 30.12, 15 compartidos distintos y 7 idénticos.
+    action: No sobrescribir Coordinator, types, market, policy o exits. Una integración futura debe conservar los
+      controles de contabilidad, autonomía y verificación de 30.12.
+  - id: LAB-03
+    severity: MATERIAL
+    fact: Las familias de investigación de opciones y sus periodos ya inspeccionados amplían el historial visible.
+    action: Conservar el total global deduplicado como desconocido hasta reconciliar identidades nativas de ensayos.
+      No reutilizar estos resultados como prueba final nueva.
+  - id: LAB-04
+    severity: MATERIAL
+    fact: El ZIP de simulación de 48 opciones está truncado. Sus cabeceras locales permiten lectura parcial, no
+      verificación íntegra del paquete.
+    action: Conservar el original y la recuperación parcial identificada. No inventar archivos, resultados ni journals
+      faltantes.
+  - id: LAB-05
+    severity: IMPLEMENTATION_DUPLICATION
+    fact: 'Profit 1.7 conserva los 58 archivos revisados de Profit 1.3: 54 idénticos y 4 evolucionados. El auditor
+      incremental y el módulo de microestructura tienen duplicados exactos en ramas posteriores.'
+    action: Deduplicar por identidad de bytes y conservar referencias de versión/evidencia.
+  families:
+  - familia: opciones_typescript_31_6_tpnet
+    fuente_preferida_dentro_del_alcance: HarpoonX_TP_Neto_Codigo_Validadores_2026_10_27.zip
+    archivos_clave:
+    - core/xxx/option_takeprofit.ts
+    - core/xxx/option_incremental.ts
+    - core/xxx/option_value.ts
+    - core/xxx/coordinator.ts
+    - core/research/net_takeprofit/FEATURES.json
+    alcance: Core completo 31.6.0 con TP-NET; contiene la evolución de opciones de 31.5 y 31.6.
+    relacion_con_30_12: 13 módulos xxx ausentes, 15 compartidos distintos y 7 idénticos frente a 30.12.
+    tratamiento_recomendado: Fuente preferida para una integración futura de opciones. En esta consolidación se
+      revisa y cataloga; no se fusiona ni activa.
+    dependencias:
+    - Node 22+
+    - TypeScript y dependencias npm del núcleo
+    - Contratos Config, Campaign y Quote propios de 31.x
+    limites:
+    - TP neto desactivado por defecto
+    - Sin ciclo nativo multileg
+    - Los capturadores actuales no añaden automáticamente netEvidence
+    - Validadores sin autenticación externa de broker ni autoridad de ejecución
+    - 27 combinaciones de investigación sintéticas
+    fuente_original:
+      library_file_id: libfile_e0823d4cf46c8191814beb48cd3a050a
+      nombre: HarpoonX_TP_Neto_Codigo_Validadores_2026_10_27.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T21:54:44.650275Z'
+      sha256: 1afa5fe32cbc8e1bf80408ab3851f12d023075e4d0c0ee166a6c45c0dea54068
+      url: https://chatgpt.com/library?file_id=libfile_e0823d4cf46c8191814beb48cd3a050a&account_id=personal
+  - familia: kit_profit_1_7
+    fuente_preferida_dentro_del_alcance: HarpoonX_Profit_Framework_1_7.zip
+    archivos_clave:
+    - hx_profit.py
+    - hx_validate.py
+    - hx_capture.cjs
+    - hx_continuous.cjs
+    - hx_install_incremental.py
+    - integration/core316/files/
+    alcance: Kit ejecutable de captura, calibración, microestudios y comparación; instala core 31.6 a partir de
+      su base 31.4 y overlays.
+    relacion_con_30_12: Su core ya está expandido y ampliado en TP-NET; las herramientas hx no están en el runtime
+      30.12.
+    tratamiento_recomendado: Conservar el kit como rama de investigación y el core completo TP-NET como referencia
+      de opciones. No instalar sus overlays sobre 30.12.
+    dependencias:
+    - NumPy/SciPy en partes del laboratorio
+    - Node y core 31.6 exacto para replays
+    - Contratos de datos y modelos propios
+    limites:
+    - 627 pruebas declaradas en la entrega anterior; no se suman a las 902
+    - Forecasts arbitrarios y caminos sintéticos no acreditan modelos financieros aprobados
+    - La numeración 1.x pertenece a otra familia distinta de Quant 1.8
+    fuente_original:
+      library_file_id: libfile_5b043cba7c2c81918efa64a8ecd1c7cb
+      nombre: HarpoonX_Profit_Framework_1_7.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T02:05:21.020604Z'
+      sha256: 5214c7a5215e6d08465497510832b1e74c9f2b37c566aed21bb9fe5871309788
+      url: https://chatgpt.com/library?file_id=libfile_5b043cba7c2c81918efa64a8ecd1c7cb&account_id=personal
+  - familia: framework_profit_1_3
+    fuente_preferida_dentro_del_alcance: HarpoonX_Profit_Framework_1_3.zip
+    archivos_clave:
+    - hx_*.py
+    - hx_*.cjs
+    - integration/core315/files/
+    alcance: Antecedente del kit Profit 1.7.
+    relacion_con_30_12: 54 archivos hx, tests y core315 idénticos, 4 evolucionados y ninguno omitido en 1.7.
+    tratamiento_recomendado: No duplicar código activo. Conservar manifiesto e historia de origen.
+    dependencias:
+    - Dependencias del kit Profit
+    limites:
+    - El instalador histórico de 31.5 no es el instalador vigente de 31.6
+    fuente_original:
+      library_file_id: libfile_9402fd6443d08191aec530c1e31e6d28
+      nombre: HarpoonX_Profit_Framework_1_3.zip
+      version_id: '3'
+      fecha_modificacion_utc: '2026-10-26T20:09:51.532791Z'
+      sha256: 592d08e9ffe048de318ff70cdd2f0791ef9aa666d6f0648303ecea8636a27995
+      url: https://chatgpt.com/library?file_id=libfile_9402fd6443d08191aec530c1e31e6d28&account_id=personal
+  - familia: incremental_1_6
+    fuente_preferida_dentro_del_alcance: HarpoonX_Framework_Mejora_Incremental_1_6.zip
+    archivos_clave:
+    - incremental_auditor.py
+    alcance: Auditor económico de doce frentes.
+    relacion_con_30_12: incremental_auditor.py es idéntico a research/incremental/auditor.py de Profit 1.7.
+    tratamiento_recomendado: Deduplicar implementación; conservar protocolo y resultados de origen.
+    dependencias:
+    - NumPy
+    limites:
+    - Un registro local no sustituye la deduplicación global de investigaciones
+    fuente_original:
+      library_file_id: libfile_2d89dddae858819196053841fd1d3efc
+      nombre: HarpoonX_Framework_Mejora_Incremental_1_6.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T00:46:38.739943Z'
+      sha256: 6fc293cfe1a3662d3d83ef0afaa11c0fd2fff840158c4205b828ad3f56f3762b
+      url: https://chatgpt.com/library?file_id=libfile_2d89dddae858819196053841fd1d3efc&account_id=personal
+  - familia: microestructura_opciones
+    fuente_preferida_dentro_del_alcance: HarpoonX_Microestructura_Investigacion_2026_10_27.zip
+    archivos_clave:
+    - microstructure.py
+    - normalize_alpaca.py
+    - vertical.py
+    alcance: Aritmética bid/ask, costes, capacidad visible, OFI condicionado, markouts, normalización y verticales
+      estáticas.
+    relacion_con_30_12: microstructure.py es idéntico al incluido en TP-NET; es distinto del módulo Quant del mismo
+      nombre.
+    tratamiento_recomendado: Mantener una copia con su propio espacio de nombres en investigación. No sustituir
+      el módulo Quant por coincidencia del nombre.
+    dependencias:
+    - Biblioteca estándar Python para cálculos
+    - ReportLab, Matplotlib y pypdf solo para informe
+    limites:
+    - No reconstruye cola ni fills reales
+    - OFI necesita eventos y condiciones adecuadas
+    - Markout es una etiqueta posterior
+    - No modela completamente asignación, financiación ni ejecución multileg
+    fuente_original:
+      library_file_id: libfile_3e6012c181108191b59e5ddd183db85b
+      nombre: HarpoonX_Microestructura_Investigacion_2026_10_27.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T20:42:03.022751Z'
+      sha256: 936e746575973aa05b98b38c94b51f89bd85e5f819c90a258019350c41551cba
+      url: https://chatgpt.com/library?file_id=libfile_3e6012c181108191b59e5ddd183db85b&account_id=personal
+  - familia: evidence_math_1_4
+    fuente_preferida_dentro_del_alcance: HarpoonX_Options_Evidence_Framework_1_4.zip
+    archivos_clave:
+    - evidence_math.py
+    alcance: Comparabilidad de periodos, crecimiento, diferencias de varianza, presupuesto y costes.
+    relacion_con_30_12: Herramientas independientes, sin módulo equivalente incorporado por nombre en 30.12.
+    tratamiento_recomendado: Conservar como investigación. Cualquier reutilización de funciones exige adaptar unidades
+      y contratos.
+    dependencias:
+    - Biblioteca estándar Python
+    limites:
+    - Resultados publicados de terceros no transfieren alpha a HarpoonX
+    fuente_original:
+      library_file_id: libfile_c3c92ea045d88191984667ef280debfc
+      nombre: HarpoonX_Options_Evidence_Framework_1_4.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-26T23:43:44.424030Z'
+      sha256: dc19edd3d9f19643c246518544e3d5dad41d3fcc3f75be17badd7ccf7786c708
+      url: https://chatgpt.com/library?file_id=libfile_c3c92ea045d88191984667ef280debfc&account_id=personal
+  - familia: public_strategy_adapter
+    fuente_preferida_dentro_del_alcance: HarpoonX_Estrategias_Publicas_Investigacion_2026_10_27.zip
+    archivos_clave:
+    - research_adapter.py
+    alcance: Variables RV/IV, riesgo contractual, ranking shadow con abstención y comparación compatible.
+    relacion_con_30_12: No modifica Coordinator; es un módulo independiente.
+    tratamiento_recomendado: Conservar bajo investigación con ejecución desautorizada.
+    dependencias:
+    - Biblioteca estándar Python
+    limites:
+    - executionApproved permanece false
+    - Requiere cadena as-of, permisos y presupuesto comprobados
+    fuente_original:
+      library_file_id: libfile_7f7760fd6f7c819180505e99062c6507
+      nombre: HarpoonX_Estrategias_Publicas_Investigacion_2026_10_27.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T18:56:36.700343Z'
+      sha256: 6878444d9e8613d09e9d4b649e5c9d2d43ddfea8918cf18d0ab526a8988856a3
+      url: https://chatgpt.com/library?file_id=libfile_7f7760fd6f7c819180505e99062c6507&account_id=personal
+  - familia: options_lab_8
+    fuente_preferida_dentro_del_alcance: HarpoonX_Options_Lab_2026_10_28.zip
+    archivos_clave:
+    - lab.py
+    - HarpoonX_Options_Training.sqlite
+    alcance: Banco de ocho subyacentes, modelos de investigación, carteras sobre primas sintéticas e importación
+      OPRA en cuarentena.
+    relacion_con_30_12: baseline/lab.py de Swing es idéntico al lab.py original. No integra el motor 30.12.
+    tratamiento_recomendado: Preservar la referencia de ocho nombres y evitar doble conteo de copias o resultados.
+    dependencias:
+    - NumPy
+    - SQLite de Python
+    limites:
+    - Primas de opciones sintéticas
+    - Bloque final ya inspeccionado
+    - Importar OPRA no habilita automáticamente entrenamiento
+    - 24 casos no constituyen 24 observaciones independientes
+    fuente_original:
+      library_file_id: libfile_0b904366a12081919949d72b2b690799
+      nombre: HarpoonX_Options_Lab_2026_10_28.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-28T17:14:16.304930Z'
+      sha256: db5f3740a659fb95e54ea1a6ac2978a527cfbba3ffda8fd20d0d40617c6597f0
+      url: https://chatgpt.com/library?file_id=libfile_0b904366a12081919949d72b2b690799&account_id=personal
+  - familia: swing_1_3_sessions
+    fuente_preferida_dentro_del_alcance: HarpoonX_Swing_Remediacion_2026_10_28.zip
+    archivos_clave:
+    - swing_remedies.py
+    - baseline/lab.py
+    alcance: Investigación de horizontes, pérdidas máximas, financiación y replay de canastas.
+    relacion_con_30_12: swing_remedies.py es idéntico en Canasta48; baseline conserva Options Lab.
+    tratamiento_recomendado: Preservar evidencia de ocho nombres. No convertir las reglas investigadas en política
+      activa.
+    dependencias:
+    - NumPy
+    - baseline/lab.py
+    limites:
+    - No es una prueba final nueva
+    - Fechas y mercados reutilizados
+    - No transferir su configuración de riesgo al core
+    fuente_original:
+      library_file_id: libfile_29424ba8033c8191bfde0d919d223b59
+      nombre: HarpoonX_Swing_Remediacion_2026_10_28.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-28T21:06:21.665695Z'
+      sha256: a6e3a76e31b8328c392c396818cf7eb3202d48a5c841954e7a15411793b98b50
+      url: https://chatgpt.com/library?file_id=libfile_29424ba8033c8191bfde0d919d223b59&account_id=personal
+  - familia: canasta48
+    fuente_preferida_dentro_del_alcance: HarpoonX_Canasta48_2026_10_28.zip
+    archivos_clave:
+    - baseline/lab.py
+    - swing_remedies.py
+    - inputs/batch_*.json
+    alcance: Expansión a 48 acciones y SPY/QQQ como referencias, con primas de opciones sintéticas.
+    relacion_con_30_12: baseline/lab.py está modificado para expansión; swing_remedies.py es idéntico. No es el
+      universo activo causal de 30.12.
+    tratamiento_recomendado: Conservar como estudio del universo amplio; no imponer retrospectivamente esta lista
+      como universo disponible al decidir.
+    dependencias:
+    - NumPy
+    - SQLite
+    limites:
+    - 40 nombres añadidos manualmente por diversidad temática
+    - Mismas fechas ya examinadas
+    - 54 metadatos de contratos heredados no prueban cobertura OPRA para los 48 nombres
+    fuente_original:
+      library_file_id: libfile_14f05a8dd9f48191ba14525090792b9c
+      nombre: HarpoonX_Canasta48_2026_10_28.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-28T21:44:11.887776Z'
+      sha256: cf70193d905114b85d4a9ed2514e7df34893263b8d377ef2baa9a96877680c8d
+      url: https://chatgpt.com/library?file_id=libfile_14f05a8dd9f48191ba14525090792b9c&account_id=personal
+  - familia: framework_aplicado_python_options_1_2
+    fuente_preferida_dentro_del_alcance: HarpoonX_Framework_Aplicado_1_2_2026_10_29.zip
+    archivos_clave:
+    - capture_service.py
+    - normalization.py
+    - paper_service.py
+    - order_manager.py
+    - research_validation.py
+    - settings.py
+    alcance: Runtime Python de opciones con recolector, SQLite, reconciliación y PAPER opcional.
+    relacion_con_30_12: No es Quant 1.2. Tiene coordinador, estado, riesgo y modelos propios.
+    tratamiento_recomendado: Catalogar como rama separada. No copiar settings, aprobaciones o autoridad de órdenes;
+      no ejecutar dos gestores sobre la misma cuenta.
+    dependencias:
+    - websockets para streams
+    - Biblioteca estándar Python para replay
+    - Credenciales y permisos Alpaca para captura
+    limites:
+    - SHADOW por defecto; PAPER requiere --paper-submit
+    - Sin modo LIVE
+    - Colector con reinicio diario, sin supervisor de varios días
+    - Política ejecutable de apertura 10:00:05–10:01 NY
+    - Beneficio empresarial neto desconocido
+    - Sus umbrales de 5% diario y 10% de drawdown no son autorización para cambiar los límites de 30.12
+    fuente_original:
+      library_file_id: libfile_28929e84a8f88191bbde927a19bba7d9
+      nombre: HarpoonX_Framework_Aplicado_1_2_2026_10_29.zip
+      version_id: '2'
+      fecha_modificacion_utc: '2026-10-29T20:56:52.169450Z'
+      sha256: 075aaa5677196ef81f6ce074f290eecb25c71f9daa1fe1694ef466dc9ddcc6c3
+      url: https://chatgpt.com/library?file_id=libfile_28929e84a8f88191bbde927a19bba7d9&account_id=personal
+  - familia: walk_forward_options
+    fuente_preferida_dentro_del_alcance: HarpoonX_WalkForward_Purgado_2026_10_27.zip
+    archivos_clave:
+    - wf_data.py
+    - wf_engine.py
+    - replicate.py
+    - core_bridge.cjs
+    alcance: Estudio temporal con tres semillas sintéticas y doce cuentas contrafactuales.
+    relacion_con_30_12: Usa funciones puras de core 31.6; no reproduce el Coordinator completo.
+    tratamiento_recomendado: Preservar como estudio histórico y su preimagen exacta. No presentarlo como prueba
+      final nueva.
+    dependencias:
+    - NumPy
+    - Node
+    - Core 31.6 exacto para el puente
+    limites:
+    - 992 riesgos de operaciones y 2.952 filas de caja corresponden al modelo sintético
+    - Candidata sin operaciones y con pérdida de facturas
+    - Sin alpha observado
+    fuente_original:
+      library_file_id: libfile_c408861af4a081918dc0fc19f911bda8
+      nombre: HarpoonX_WalkForward_Purgado_2026_10_27.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T17:41:00.101413Z'
+      sha256: 74966930a86e8e29626dbdebb840b7513975d811d2fc20b2c922f0dfd8265ae6
+      url: https://chatgpt.com/library?file_id=libfile_c408861af4a081918dc0fc19f911bda8&account_id=personal
+  - familia: forensic_options
+    fuente_preferida_dentro_del_alcance: HarpoonX_Auditoria_Forense_Reproducible_2026_10_27.zip
+    archivos_clave:
+    - economics.py
+    - audit.py
+    - replay_experiments.cjs
+    - core_control.cjs
+    - convex_basket.py
+    alcance: Atribución de resultados, 51 casos de investigación y selector convexo posterior.
+    relacion_con_30_12: Usa core TP-NET por SHA original y wrappers offline; no es un parche de producción.
+    tratamiento_recomendado: Conservar atribución, fuentes e historial. No instalar los wrappers de salida como
+      política aprobada.
+    dependencias:
+    - Biblioteca estándar Python
+    - Node y core TP-NET exacto para replay
+    limites:
+    - 51 casos reutilizan cinco caminos sintéticos
+    - Barras IEX y 54 metadatos de contratos no son cotizaciones OPRA
+    - Ningún caso fue positivo después de la factura hipotética de 99 USD en ese estudio
+    fuente_original:
+      library_file_id: libfile_8946e0909b848191b5244d01aa0a17a8
+      nombre: HarpoonX_Auditoria_Forense_Reproducible_2026_10_27.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-27T23:49:07.566389Z'
+      sha256: 7c81635501a01fe6cc1951f887c2a30efd3525c686887822aded3ad220221533
+      url: https://chatgpt.com/library?file_id=libfile_8946e0909b848191b5244d01aa0a17a8&account_id=personal
+  - familia: simulation48_quant
+    fuente_preferida_dentro_del_alcance: Simulacion_HarpoonX_48_Opciones_2026_10_30.zip
+    archivos_clave:
+    - simulate.py
+    - diagnostic_initial_full_notional_simulate.py
+    - checks.json
+    alcance: Estudio sintético que llama módulos harpoon_quant existentes.
+    relacion_con_30_12: ZIP truncado tras siete entradas completas; la octava, curvas.png, está incompleta.
+    tratamiento_recomendado: Preservar el original y la recuperación parcial; excluirlo como fuente autoritativa
+      completa. No reconstruir resultados faltantes.
+    dependencias:
+    - NumPy 2.3.5
+    - SciPy 1.17.0
+    - harpoon_quant.optimization, recursive y performance
+    limites:
+    - checks.json declara nueve intentos; el journal no se recuperó
+    - Podría solaparse con los 23 intentos Quant
+    - No sumar sin reconciliar identidades
+    fuente_original:
+      library_file_id: libfile_c9e1cbef11b881919f3b19a0722e89d0
+      nombre: Simulacion_HarpoonX_48_Opciones_2026_10_30.zip
+      version_id: null
+      fecha_modificacion_utc: '2026-10-30T19:23:17.856479Z'
+      sha256: 62ba3b382f872ba267088c8d10072a4004113e419ba3365aea3a8bb4ebbeaef8
+      url: https://chatgpt.com/library?file_id=libfile_c9e1cbef11b881919f3b19a0722e89d0&account_id=personal
+  economic_evidence:
+    observed_broker_account_net_profit_established: false
+    observed_final_test_comparison_against_ridge_svr_established: false
+    source_quotes_or_bars_are_account_ledger: false
+    can_upgrade_current_gate_to_5_from_these_archives: false
+    global_deduplicated_trial_count: null
+    reason: Estudios, aliases, trayectorias sintéticas y periodos reutilizados. No se estableció identidad global
+      entre familias.
+    additional_histories_to_reconcile:
+    - 'Profit 1.7: seis caminos y cinco variantes'
+    - 'TP-NET: 27 combinaciones'
+    - 'Forense: 51 casos sobre cinco caminos'
+    - 'Options Lab: 24 casos'
+    - 'Canasta48: mismas fechas históricas'
+    - 'Simulación48: nueve intentos declarados, sin journal completo'
+  recommended_minimal_integration:
+    current_delivery_scope: Revisión de familias para extracción integral 30.12.1. No fusión invasiva de los runtimes
+      de opciones ni activación de estrategias investigadas.
+    immediately_reusable_without_active_policy_change:
+    - Catálogo de fuentes y linaje
+    - Inventario de contratos y funciones puras, con identidad separada
+    - Registro de antecedentes y cuarentena de la fuente parcial
+    requires_future_runtime_merge_and_regression:
+    - Contratos Config, Campaign y Quote de opciones
+    - Estados, valoración, entradas y salidas de Coordinator
+    - Precio mínimo de salida con reglas opcionales desactivadas por defecto
+    - Relaciones de hashes originales para los replays históricos
+    must_not_automerge:
+    - Settings, autoridad del broker y SQLite de la rama Python con el núcleo TypeScript
+    - Etiquetas sintéticas como entrenamiento observado
+    - Manifiestos históricos como verificadores de archivos modificados
+    - Wrappers forenses como políticas activas
+  artifacts:
+  - zip_inventory.json
+  - source_archive_integrity.json
+  - active_manifest_verification.json
+  - core_tp_vs_30_12.json
+  - core_diffs/
+  - module_inventory.json
+  - duplicate_relations.json
+  - profit_13_to_17.json
+  - incomplete_archive.json
+  - partial48_recovery.json
+  - recovered_partial48/
+  active_manifest_entries_verified: 2125
+  manifest_entry_count_note: 2.125 comprobaciones de entradas; no son archivos únicos entre paquetes ni pruebas
+    funcionales nuevas.
+correccion_incorporada:
+  schema: HARPOON_STORAGE_PORT_VALIDATION_1
+  timestamp_utc: '2026-11-01T03:27:57.860Z'
+  classification: HECHO
+  scope:
+    base: Harpoon XXXUltimate 30.12.0 / Quant 1.8.0
+    destination: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    status: SOURCES_FROZEN_FOCUSED_VALIDATION_PASS
+    source_of_mechanism: Recovered 31.0–31.4 bounded SQLite transport; reviewed and adapted to current 30.12 contracts
+    authorized_source_changes:
+    - runtime/store30.cjs
+    - runtime/store.py
+    - tools/store30_deadline_test.cjs
+    full_regression: Not executed by this agent; parent is responsible for final integrated verification
+    data: Synthetic local values with real local SQLite processes and deliberate transport/process faults
+    external_actions: 'None: no network, broker orders, deployment, credentials, model fit, financial experiment
+      or exposure changes'
+  modified:
+  - path: runtime/store30.cjs
+    sha256: 3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47
+    bytes: 10423
+    change: Startup handshake, bounded pending RPCs, deadlines, fatal process/transport errors, strict operation
+      ACK validation, monotonic expiry at ACK processing, health, uncertain writes, no automatic replay/reopen,
+      bounded close, JSDoc
+  - path: runtime/store.py
+    sha256: fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21
+    bytes: 3356
+    change: Add startup ping; SQLite lock wait reduced from 30 to 1 second; import spacing
+  - path: tools/store30_deadline_test.cjs
+    sha256: bb9cdc72d2c8f1bb9f9e69275c41448e0cf500b5b2d00aa61dc012704b6d14e0
+    bytes: 12133
+    change: 14 real local transport fault/compatibility tests
+  contract:
+    open: Returns a promise resolving to this store only after a valid real SQLite ping ACK. Concurrent calls share
+      the opening promise and child. READY cannot precede that ACK. Existing current runtime/server/crypto/cloud
+      callers await open and remain compatible.
+    operation_compatibility:
+    - get
+    - put
+    - batch
+    - scan
+    - scanAfter
+    - scanFrom
+    - atomic
+    - lease
+    - loadKeys
+    - saveKeys
+    acknowledgement: 'Exactly id plus either result or nonempty string error. Success result is validated against
+      the pending operation: ping {ok:true}; batch true; CAS/lease boolean; scan up to 500 [string key, value] rows;
+      get arbitrary JSON. Unknown/late IDs do not resolve pending work; malformed JSON never acknowledges it.'
+    time: RPC expiry uses performance.now(), a monotonic clock, starting after local serialization and before enqueue/write.
+      A valid ACK processed at or beyond deadline fails the store even if I/O ran before the overdue timer callback.
+    timeout_ms:
+      default: 2000
+      minimum: 50
+      maximum: 5000
+      configuration: constructor options.timeoutMs or HARPOON_STORAGE_TIMEOUT_MS
+    pending_limit: 2048
+    overflow: Reject overflow and all outstanding operations, latch FAILED, mark pending mutations uncertain, terminate
+      worker; do not retry.
+    transport_failure: Process spawn/error/exit, stdin/write error, RPC expiry or invalid response latches FAILED,
+      rejects pending operations, releases timers and terminates the child.
+    uncertainWrite: Sticky true if a mutation was awaiting ACK when transport failed, ACK was invalid/late, or close
+      began. Not proof the mutation committed or rolled back. A read-only failure does not invent uncertain writes.
+    definite_errors: Serialization failure before send and explicit valid operation error ACK reject without inventing
+      transport uncertainty.
+    automatic_replay: false
+    same_instance_reopen_after_failure_or_close: false
+    atomic_retry: Existing up to four CAS attempts only after a valid false CAS result; no retry after lost/invalid/late
+      ACK.
+    reconciliation: A deliberately new store instance may inspect durable state after failed one is closed; caller
+      must reconcile durable records and external exposure before resuming actions.
+    close: Idempotent promise; reject pending RPCs and retain uncertainty; end input, then SIGKILL if close timeout
+      elapses. CLOSED with uncertainWrite=true still requires reconciliation.
+    schema: Existing records/leases schema retained; no audit_events or append_events ledger added.
+    payload: No new smaller IPC byte limit. Existing upstream observation/registry limits remain unchanged. A 16
+      MiB value round-trip was explicitly verified.
+  tests:
+    command: node --test --test-isolation=none --test-reporter=tap --test-timeout=15000 tools/store30_deadline_test.cjs
+    log: consolidation_evidence/storage/store30_deadline_test.log
+    tests: 14
+    passed: 14
+    failed: 0
+    skipped: 0
+    cancelled: 0
+    tap_duration_ms: 1875.307573
+    cases:
+    - Constructor deadline bounds
+    - NEW/OPENING/READY startup ping and concurrent open compatibility
+    - Spawn failure with sticky failure and no reopen
+    - Suspended child deadline, released pending work and no retry
+    - Committed CAS with ACK dropped, no CAS replay, explicit fresh reader finds one persisted increment
+    - 'Five invalid mutation ACK envelopes/results: missing result, null, false, empty error, simultaneous result/error'
+    - Valid committed ACK after monotonic deadline rejected inside I/O callback before overdue timer can run
+    - Pending queue capped at 2048 with read-only uncertainty semantics
+    - Process death while mutation is pending
+    - Close while mutation is pending; bounded stopped-child termination and retained uncertainty
+    - Close unopened/closed store idempotently
+    - Batch/get, 601-row pagination, scanAfter/limit, CAS/atomic and leases between two real SQLite processes
+    - 16 MiB stored value round-trip without smaller IPC cap
+    - Local serialization and acknowledged unsupported operation errors preserve READY and definite-error semantics
+    statistical_meaning: Software/transport regression only; not evidence of economic profitability.
+  checks:
+  - name: JSDoc JavaScript types
+    command: node node_modules/typescript/bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module
+      node16 --types node runtime/store30.cjs
+    exit_code: 0
+    log: consolidation_evidence/storage/store30_typecheck.log
+  - name: Python Ruff
+    command: /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m ruff check --select E4,E7,E9,F,I,UP,B,RUF --target-version
+      py312 runtime/store.py
+    exit_code: 0
+    log: consolidation_evidence/storage/store_python_ruff.log
+  - name: Python mypy
+    command: /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m mypy --ignore-missing-imports runtime/store.py
+    exit_code: 0
+    log: consolidation_evidence/storage/store_python_mypy.log
+  - name: Store JavaScript syntax
+    command: node --check runtime/store30.cjs
+    exit_code: 0
+    log: consolidation_evidence/storage/store_js_syntax.log
+  - name: Test JavaScript syntax
+    command: node --check tools/store30_deadline_test.cjs
+    exit_code: 0
+    log: consolidation_evidence/storage/store_test_syntax.log
+  environment:
+    node: v24.22.1
+    python: 3.12.14
+    platform: Linux
+    cwd: consolidation_work/HARPOON_XXXUltimate_30_12_1
+  limits:
+  - Node timers do not guarantee real-time termination while the event loop or OS is blocked; monotonic ACK validation
+    prevents acceptance after logical expiry once processing resumes.
+  - The RPC deadline begins after local JSON serialization. Serialization time and total caller work are not included
+    in that bound.
+  - The pending count is bounded, not total transport memory in bytes. Existing upstream payload quotas still apply;
+    16 MiB repeated-string compatibility is not an arbitrary-size memory benchmark.
+  - Health READY reflects startup and last acknowledged operations; this port does not add a periodic independent
+    health probe.
+  - A storage failure may occur after an external broker request was already authorized or sent. This transport
+    does not revoke external requests or guarantee protection operations while storage is unavailable.
+  - No independent process supervisor or automatic external reconciliation was added; reactivation requires explicit
+    current-runtime reconciliation.
+  - POSIX signal fault tests are skipped on Windows by design; no such skip occurred on this Linux run.
+  - No financial observations were created and no economic gate was advanced.
+  references:
+    branch_comparison: consolidation_evidence/branches/branch31_review.json
+    branch_history_extension: consolidation_evidence/branches/history_extension.json
+    base_integrity: consolidation_evidence/integrity/integral_audit.json
+    raw_tool_receipts: consolidation_evidence/storage/final_validation_tool_results.json
+    peer_caller_audit: Performed read-only by integral_function_audit; not an independent external validation
+  economic_dictamen: VENTAJA_NO_DEMOSTRADA
+ajuste_final_de_excepciones:
+  initial_evidence: port_validation.json
+  initial_evidence_unchanged: true
+  cause: Root release Ruff configuration includes BLE001; the earlier targeted Ruff selection did not.
+  change:
+  - path: runtime/store.py
+    before: fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21
+    after: 2daa2d811aeeed9a3622a274747140f0feba2928c1b14b15ce5291b8de7bc9e1
+  checks:
+  - name: store30_deadline_test
+    command:
+    - node
+    - --no-use-env-proxy
+    - --require
+    - ./tools/quant_clock.cjs
+    - --test
+    - --test-isolation=none
+    - --test-reporter=tap
+    - --test-force-exit
+    - --test-timeout=30000
+    - tools/store30_deadline_test.cjs
+    cwd: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    exit_code: 0
+    duration_seconds: 1.7721988999983296
+    log: store30_deadline_test.log
+    log_sha256: dba0ba0c58ef3368b2e2d77652668fc15ecdf341e0a4a20cd93512bbc44370e6
+    tests: 14
+    pass: 14
+    fail: 0
+    cancelled: 0
+    skipped: 0
+    todo: 0
+    passed: true
+  - name: storage_ruff
+    command:
+    - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+    - -m
+    - ruff
+    - check
+    - runtime/store.py
+    cwd: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    exit_code: 0
+    duration_seconds: 0.0322107230022084
+    log: storage_ruff.log
+    log_sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+    passed: true
+  - name: storage_mypy
+    command:
+    - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+    - -m
+    - mypy
+    - --follow-imports=silent
+    - runtime/store.py
+    cwd: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    exit_code: 0
+    duration_seconds: 0.16447183100535767
+    log: storage_mypy.log
+    log_sha256: 5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e
+    passed: true
+  review: A second agent reviewed the explicit recoverable exception tuple and confirmed that replay fingerprints
+    do not bind store.py; not an independent external audit.
+  financial_trials: 0
+  static_criteria_relaxed: false
+procedencia_de_verificacion_final:
+  initial_full_run: initial_full_run/all_summary.json
+  initial_functional_cases_passed: 919
+  initial_static_failure: 'Ruff BLE001: broad exception catch in runtime/store.py'
+  runtime_change: Expected request/SQLite/zlib exceptions are acknowledged; unexpected failures terminate the worker
+    and require transport reconciliation.
+  reexecuted_checks:
+  - name: store30_deadline_test
+    command:
+    - node
+    - --no-use-env-proxy
+    - --require
+    - ./tools/quant_clock.cjs
+    - --test
+    - --test-isolation=none
+    - --test-reporter=tap
+    - --test-force-exit
+    - --test-timeout=30000
+    - tools/store30_deadline_test.cjs
+    cwd: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    exit_code: 0
+    duration_seconds: 1.7721988999983296
+    log: store30_deadline_test.log
+    log_sha256: dba0ba0c58ef3368b2e2d77652668fc15ecdf341e0a4a20cd93512bbc44370e6
+    tests: 14
+    pass: 14
+    fail: 0
+    cancelled: 0
+    skipped: 0
+    todo: 0
+    passed: true
+  - name: storage_ruff
+    command:
+    - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+    - -m
+    - ruff
+    - check
+    - runtime/store.py
+    cwd: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    exit_code: 0
+    duration_seconds: 0.0322107230022084
+    log: storage_ruff.log
+    log_sha256: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+    passed: true
+  - name: storage_mypy
+    command:
+    - /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python
+    - -m
+    - mypy
+    - --follow-imports=silent
+    - runtime/store.py
+    cwd: /workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1
+    exit_code: 0
+    duration_seconds: 0.16447183100535767
+    log: storage_mypy.log
+    log_sha256: 5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e
+    passed: true
+  repeated_functional_cases: 14
+  distinct_functional_cases: 919
+  all_919_rerun_after_targeted_change: false
+  scope_reason: Only runtime/store.py exception boundary changed. Replay fingerprints do not include this worker.
+    SQLite/process/acknowledgement tests and Python static checks were repeated; strategy and risk sources remained
+    identical.
+reaccion_del_coordinador:
+  schema: HARPOON_STORAGE_FAILURE_REVIEW_2
+  reviewed_version: 30.12.1
+  scope: Read-only review of the final SQLite transport and its existing Coordinator/server/observation callers,
+    plus the explicitly authorized installer/environment wiring. Internal shared-context review; not an external
+    independent audit or live account verification.
+  source_edits_by_reviewer:
+  - deploy/ultimate_install.py
+  - deploy/compose.xxx.json
+  - .env.example
+  - tools/test_ultimate_install.py
+  new_tests_run_by_reviewer:
+    installer_suite_total: 27
+    preexisting_test_methods: 24
+    added_test_methods: 3
+    passed: 27
+    failed: 0
+    skipped: 0
+    scope: Installer fixture with injected FakeDocker runner; no actual Docker, network, broker or deployment.
+  financial_experiments: 0
+  external_orders: 0
+  source_hashes:
+    runtime/store30.cjs: 3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47
+    runtime/store.py: fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21
+    xxx/coordinator.ts: 6b9d782bde0f5e49445a3caf7fb3fc9abdbc2903c457d07cd00a7cb7b923e3ac
+    xxx/server.ts: 8bc7f8bcb1af7ffa72485fa23a14a113014b0b1fb35796e49737462facb32ff7
+    xxx/quant_observations.ts: 3a0e3d7807403283610ad8cf945e6991b818aa8cae5ca1113f705c3eaa84524c
+    xxx/operational_status.ts: f503b715499091018df618f89d81c1ce870fc66438a6a13c2c2ad2d549b79c2f
+    xxx/ultimate_futures.ts: 9a90f0652a00cc86c628d6f408859c9e7007ebcdabdec9f6c63b340cc11922d5
+    tools/store30_deadline_test.cjs: bb9cdc72d2c8f1bb9f9e69275c41448e0cf500b5b2d00aa61dc012704b6d14e0
+    deploy/ultimate_install.py: 85751c37544f68bec8e6da980a6c8f6e801dca121d3c1b4325eed6342ae9587f
+    deploy/compose.xxx.json: 7b181d3a500d488a60c8c3aa9ce83b819fc19943f5369e0eb9aa158f799fd43e
+    .env.example: 9c94013363460bbd6dec8a19bb24eab5b1734ae3530a7d177efa7a8e0a17a4d0
+    tools/test_ultimate_install.py: 44d704cf74b96eb02f6949ad9b8671f02979d9b724540628ba9efc8e7182daef
+  findings:
+  - id: STORE_ACK_ENVELOPE_AND_OPERATION_RESULT
+    origin: Inherited response-validation gap identified while reviewing the port, not a claim that the deadline
+      port introduced it.
+    mechanism: A response with a pending id but no result, or a null batch result, could previously resolve an awaited
+      save and allow the following broker POST without a valid commit acknowledgement.
+    status: REMEDIATED_IN_REVIEWED_SOURCE
+    remediation: Validate exact id/result or id/error envelope and operation-specific result before removing pending
+      RPC; invalid acknowledgement triggers sticky failure and retains uncertain mutation status.
+    source: 'runtime/store30.cjs: validResult and line handler'
+    regression_cases: tools/store30_deadline_test.cjs includes incomplete, null, false, empty-error and contradictory
+      mutation ACKs.
+    execution_result:
+      status: PASS
+      source: consolidation_evidence/storage/port_validation.json
+      scope: 14/14 focused Store tests from implementer; includes five invalid ACK forms and a valid but expired
+        ACK.
+      store_js_hash_matches_implementer: true
+      store_python_hash_matches_implementer: true
+  - id: STORE_TIMEOUT_DOCKER_ENVIRONMENT_WIRING
+    mechanism: The bounded transport accepted HARPOON_STORAGE_TIMEOUT_MS directly, but the prior installer whitelist
+      and Compose environment did not pass this key into the container.
+    status: REMEDIATED_AND_TARGETED_TESTED
+    remediation: Whitelist the key, validate decimal integer 50..5000 before any command, default to 2000, pass
+      a canonical decimal value to child processes, and explicitly inherit it through Compose.
+    files:
+    - deploy/ultimate_install.py
+    - deploy/compose.xxx.json
+    - .env.example
+    - tools/test_ultimate_install.py
+    test_methods:
+    - test_storage_timeout_default_boundaries_and_local_checks
+    - test_storage_timeout_environment_overrides_file_and_reaches_install_commands
+    - test_invalid_storage_timeout_stops_before_docker_for_install_check_and_plan
+    check_plan_behavior: The real CLI check/plan paths use local files and injected runner; all tested valid and
+      invalid timeout cases execute zero runner commands.
+    precedence: Explicit process environment overrides the literal env file; absent value uses 2000.
+    deployment_observed: false
+  caller_controls:
+  - component: Coordinator.save
+    observed_source_behavior: Returns the rejecting write promise to the caller and sets sticky storageError; later
+      saveQueue continuation does not turn the failed caller into success.
+  - component: Coordinator.authority
+    observed_source_behavior: Requires nonstopping state, no storageError and acknowledged exclusive account lease.
+      A failed lease rejects authority.
+  - component: Coordinator.submit
+    observed_source_behavior: Persists the new client_order_id intent before API POST. A rejected pre-submit save
+      prevents that POST. Uncertain broker result remains UNKNOWN, followed by persistence attempt.
+  - component: Coordinator.cancel
+    observed_source_behavior: Checks authority and persists cancelAt before DELETE. A rejected pre-cancel save prevents
+      that DELETE. Cancellation request is not interpreted as confirmed cancellation.
+  - component: Coordinator.reconcile/manage
+    observed_source_behavior: Both await authority. Management cannot continue mutating broker state under failed
+      persistent storage; exit protection is therefore not fully available during this failure.
+  - component: QuantObservationJournal.capture
+    observed_source_behavior: Writes reservation, immutable payload and index in order; local cursor advances only
+      after index ACK. Lost ACK can mean committed SQLite state with stale local memory, requiring reload/reconciliation.
+  - component: QuantObservationJournal.snapshotExport
+    observed_source_behavior: Preserves the larger metadata reservation before awaiting mutable registry write;
+      lost ACK does not release reserved capacity.
+  - component: Server startup/shutdown
+    observed_source_behavior: Awaits DurableStore.open and Coordinator.initialize before listen/start. Shutdown
+      sets stopping and saves before releasing lease; failure exits unsuccessfully, not as a completed clean checkpoint.
+  - component: FuturesGateway.place
+    observed_source_behavior: Its existing explicit PAPER route also waits for durable intent before POST. A failed
+      transport rejects this write as well; this does not validate futures economic performance.
+  transport_contract_observed:
+    startup: NEW/OPENING until ping acknowledgement
+    failure: Transport error, deadline, backlog or invalid ACK makes the instance FAILED and rejects pending/future
+      RPC.
+    recovery: No automatic reopen or replay; a new instance and caller reconciliation are required.
+    uncertainty: Unacknowledged mutation, including lease mutation, may already have committed; uncertainty is retained.
+    confirmed_error: A well-formed operation error rejects that RPC without inventing uncertain transport loss.
+    timeout_ms_default: 2000
+    timeout_ms_allowed:
+    - 50
+    - 5000
+    pending_rpc_limit: 2048
+    new_payload_byte_limit_added: false
+    time_basis: performance.now() monotonic; the ACK handler verifies expiration before resolving even if the timer
+      callback has not run yet.
+    deadline_start: After local JSON serialization, before enqueue/write.
+    retry: Existing CAS contention retries require an acknowledged false result. Lost/invalid/expired ACKs are not
+      retried.
+    installer_configuration: HARPOON_STORAGE_TIMEOUT_MS is locally validated and explicitly forwarded by installer
+      and Compose.
+  existing_caller_regressions:
+  - file: tools/xxx_test.cjs
+    cases:
+    - journal persistence failure prevents POST
+    - lost lease prevents broker mutation
+  - file: tools/quant_observation_snapshot_test.cjs
+    case: an uncertain snapshot write keeps its metadata quota reserved until restart verifies storage
+  limitations:
+  - A rejected save/lease blocks the mutation that depends on it. This is not retrospective revocation of an already
+    acknowledged intent or an in-flight broker request when another operation fails.
+  - Existing broker-accepted protection orders remain external state; their coverage and completion require reconciliation,
+    not assumption.
+  - Full software-managed exit/protection continuity is not promised while durable storage is unavailable.
+  - Health/liveness snapshots can age between asynchronous observations; HTTP_ALIVE is not order authority.
+  - Observed production timing, account recovery and Docker runtime remain unverified.
+  - The timeout is a logical response deadline, not a hard real-time scheduling guarantee while Node or the operating
+    system is blocked. Local JSON serialization precedes that deadline.
+  - Pending RPC count is bounded; byte usage is not newly capped. The 16 MiB compatibility test is not an arbitrary-size
+    memory benchmark.
+  - The inherited 902-test evidence was not rerun by this reviewer. Parent owns the complete final integration suite;
+    targeted reruns are not additional unique tests.
+  remaining_material_caller_change_recommended: null
+  economic_score_changed_by_review: false
+  timestamp_utc: '2026-11-01T03:29:30.429193+00:00'
+  classification: HECHO
+  status: SOURCES_FROZEN_TARGETED_CHECKS_PASS
+  validation:
+  - name: Installer unittest
+    command: /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m unittest discover -s tools -p test_ultimate_install.py
+      -v
+    exit_code: 0
+    tests: 27
+    log: consolidation_evidence/functions/installer_storage_timeout_unittest.log
+  - name: Modified Python Ruff
+    command: /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m ruff check deploy/ultimate_install.py tools/test_ultimate_install.py
+    exit_code: 0
+    log: consolidation_evidence/functions/installer_storage_timeout_ruff.log
+  - name: Modified Python mypy
+    command: /workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python -m mypy --follow-imports=silent deploy/ultimate_install.py
+      tools/test_ultimate_install.py
+    exit_code: 0
+    log: consolidation_evidence/functions/installer_storage_timeout_mypy.log
+  evidence_sha256:
+    consolidation_evidence/functions/installer_storage_timeout_unittest.log: 7bbf8e38c76baead4ecd5f8fbab24b0a39a81e163de28c700ca7e9a7c4a9a4f6
+    consolidation_evidence/functions/installer_storage_timeout_ruff.log: 82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18
+    consolidation_evidence/functions/installer_storage_timeout_mypy.log: f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8
+    consolidation_evidence/storage/port_validation.json: c13cf22d9a12e7321fe9e1c22b7cb47ccf3954b8cb7fff38106baf02f186dac5
+    consolidation_evidence/storage/store30_deadline_test.log: e224b0d1ffca865559569f30597e5e0c9ad12cda6774397911e48744d28633df
+  conclusion:
+    operational: A rejected pre-action save or lease prevents the dependent new mutation. The failed Store stays
+      failed and does not silently replay or reopen. A lost mutation ACK requires reconciliation of durable state
+      and external exposure.
+    protection_limit: The existing authority gate also prevents software-managed broker changes while storage is
+      failed. Do not promise complete ongoing position protection during this outage. Already acknowledged intents
+      and in-flight requests are not revoked.
+    installability: The reviewed change is included in the complete 30.12.1 tree and adds no dependency on applying
+      prior patches. Runtime Docker build/start and a real installed account remain unobserved.
+    economic_dictamen: VENTAJA_NO_DEMOSTRADA
+    economic_score_changed: false
+    reason: These are software and fault-handling checks; no new empirical financial observations or live performance
+      measurements were produced.
+historial_ampliado:
+  scope: Retained archive history, no new experiment
+  old_trial_records: 1
+  new_trial_records: 4
+  overlapping_records:
+  - id: 4b48429f-9c4b-4c0b-bc46-01c3ee2d0379
+    protocolHash: 76b98ca5befa14dda4c6c61c3dd036327acae5afad3bc205bdd1424c8db11b66
+    codeHash: b154e3ce5798e1d77179954f1d3bf9f51efd21b221f52b7de357dc915a8de162
+    datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+    slots: 18
+    registeredAt: 1792346863333
+    status: COMPLETE
+    attempts: 1
+    same_protocolHash: true
+    same_codeHash: true
+    same_datasetHash: true
+    entire_record_equal: true
+  additional_records:
+  - id: fcfe96db-4faa-482f-beb4-4efd4dfb3531
+    protocolHash: af3790ab1c80326189fdae345b27b24da41bd6a65ac46b4bee9bab8f6e48edef
+    codeHash: 9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a
+    datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+    slots: 18
+    registeredAt: 1792956579578
+    status: COMPLETE
+    attempts: 1
+  - id: 15cea4a9-4338-409f-a700-0dd6a78e3ebf
+    protocolHash: 388890ac4c300f0628a8e6a421e4bd21a7475f4e99fb492981fec57e58789ad4
+    codeHash: 9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a
+    datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+    slots: 18
+    registeredAt: 1792956579583
+    status: COMPLETE
+    attempts: 1
+  - id: 57d8a60b-b2fd-4c7c-bd2b-cc7c84f97393
+    protocolHash: 93ba284aa1150c4c6e30f1201eb97036a619e4534491a6b101f97dbaa3f4fbde
+    codeHash: 9ca8a297c7e26741f4efd91084516229a21437336fe98fb1ab56fdcb8243283a
+    datasetHash: 67f2e05ed00c7b5f12268dbfbe9e722e18962a6bda6e2f0eea1b8e72022f3004
+    slots: 18
+    registeredAt: 1792956579588
+    status: COMPLETE
+    attempts: 1
+  old_slots: 18
+  branch_slots: 72
+  additional_slots: 54
+  global_deduplicated_search_total: null
+  null_reason: This checks only the Ultimate family extension; other quant/options/laboratory genealogies still
+    require reconciliation.
+alcance_historial_v2: Los manifiestos v2 anteriores conservan su alcance histórico. No cubren por sí solos todas
+  las ramas recuperadas aquí; antes de una aprobación económica debe reconciliarse el catálogo ampliado, sin sumar
+  contadores solapados.
+benchmark_local:
+  scope: SYNTHETIC_LOCAL_SQLITE_RPC_NOT_BROKER_LATENCY
+  platform: Linux-6.18.57-x86_64-with-glibc2.39
+  python: 3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+  completed: true
+  runs:
+  - application: 30.12.0
+    run: 1
+    file: 30.12.0_run_1.json
+    samples: 200
+    put_roundtrip_ms:
+      mean: 0.7032624349999982
+      p50: 0.6939270000000022
+      p95: 0.9358819999999923
+      p99: 1.0633239999999944
+      max: 1.4297370000000171
+    ready_including_first_read_ms: 34.850128
+    scan_200_rows_ms: 3.1839339999999936
+    node_rss_bytes: 35704832
+  - application: 30.12.1
+    run: 1
+    file: 30.12.1_run_1.json
+    samples: 200
+    put_roundtrip_ms:
+      mean: 0.742343395000001
+      p50: 0.7063450000000131
+      p95: 1.0668890000000033
+      p99: 1.7548779999999908
+      max: 2.513922000000008
+    ready_including_first_read_ms: 32.553904
+    scan_200_rows_ms: 3.4249580000000037
+    node_rss_bytes: 35913728
+  - application: 30.12.1
+    run: 2
+    file: 30.12.1_run_2.json
+    samples: 200
+    put_roundtrip_ms:
+      mean: 0.7038027700000002
+      p50: 0.684552999999994
+      p95: 0.9301980000000185
+      p99: 1.1286530000000141
+      max: 3.799543
+    ready_including_first_read_ms: 32.104676999999995
+    scan_200_rows_ms: 3.3092419999999834
+    node_rss_bytes: 35897344
+  - application: 30.12.0
+    run: 2
+    file: 30.12.0_run_2.json
+    samples: 200
+    put_roundtrip_ms:
+      mean: 0.7375731900000005
+      p50: 0.6547979999999995
+      p95: 1.2824350000000067
+      p99: 2.606201999999996
+      max: 3.5176519999999982
+    ready_including_first_read_ms: 32.64026
+    scan_200_rows_ms: 3.0817289999999957
+    node_rss_bytes: 35442688
+  - application: 30.12.0
+    run: 3
+    file: 30.12.0_run_3.json
+    samples: 200
+    put_roundtrip_ms:
+      mean: 0.6141062350000005
+      p50: 0.5958380000000005
+      p95: 0.8902530000000013
+      p99: 1.0296629999999993
+      max: 1.1706819999999993
+    ready_including_first_read_ms: 33.85067
+    scan_200_rows_ms: 3.045625000000001
+    node_rss_bytes: 35835904
+  - application: 30.12.1
+    run: 3
+    file: 30.12.1_run_3.json
+    samples: 200
+    put_roundtrip_ms:
+      mean: 0.6631474000000012
+      p50: 0.6247630000000015
+      p95: 1.0183760000000177
+      p99: 1.6677860000000067
+      max: 1.8215689999999825
+    ready_including_first_read_ms: 31.636270000000003
+    scan_200_rows_ms: 2.838402000000002
+    node_rss_bytes: 36102144
+  design: Three runs per implementation, interleaved; 20 warmup writes and 200 measured writes per run
+  performance_improvement_claimed: false
+  financial_trials_created: 0
+  limits:
+  - Local filesystem/cache/scheduler variability; descriptive samples only
+  - No broker, market-feed, production-load or network latency inference
+  - Node RSS excludes the Python child and is not total system memory
+alcance_benchmark: Medido antes del ajuste final de excepciones del worker; sus recibos conservan las fuentes utilizadas.
+  No se repitió porque el ajuste no modifica el recorrido de las escrituras válidas. No demuestra rendimiento de
+  producción.
+clasificacion_evidencia:
+  auditoria_y_pruebas: HECHO_REPRODUCIBLE_EN_ENTORNO_LOCAL
+  benchmark: MEDICION_DESCRIPTIVA_LOCAL_CON_DATOS_SINTETICOS
+  ventaja_economica: NO_DEMOSTRADA
+nivel_5:
+  acreditado: false
+  nota_actual: 3
+  motivo: No hay observaciones causales admisibles, cuenta/costes conciliados ni prueba final nueva contra Ridge
+    y el motor vigente.
+  faltantes_decisivos:
+  - Instancia PAPER identificada o exportaciones originales de observaciones y cuenta
+  - Costes originales y devengos del mismo periodo
+  - Modelos y protocolo fijados antes de un periodo final nuevo
+  - Historial de investigación y solapamientos reconciliados
+  resultado_permitido: VENTAJA_NO_DEMOSTRADA
+  rentabilidad_asegurada: false

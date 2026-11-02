@@ -1,0 +1,73 @@
+TAP version 13
+# Subtest: live and real source modes preserve source identity and only produce non-authorizing PAPER replay
+ok 1 - live and real source modes preserve source identity and only produce non-authorizing PAPER replay
+  ---
+  duration_ms: 208.155326
+  type: 'test'
+  ...
+# Subtest: paper imports retain their safety projection and the same numeric predictor settings
+ok 2 - paper imports retain their safety projection and the same numeric predictor settings
+  ---
+  duration_ms: 40.70867
+  type: 'test'
+  ...
+# Subtest: preserved numeric settings reach the actual Python predictor without copied paths or SVR authority
+not ok 3 - preserved numeric settings reach the actual Python predictor without copied paths or SVR authority
+  ---
+  duration_ms: 10029.68985
+  type: 'test'
+  location: '/workspace/scratch/4ecb05fdc50d/nivel7_completion/HARPOON_XXXUltimate_30_15_0/tools/observation_replay_input_source_modes_test.cjs:65:1'
+  failureType: 'testCodeFailure'
+  error: 'spawnSync python3 ETIMEDOUT'
+  code: 'ETIMEDOUT'
+  stack: |-
+    Object.spawnSync (node:internal/child_process:1191:20)
+    spawnSync (node:child_process:929:24)
+    execFileSync (node:child_process:972:15)
+    TestContext.<anonymous> (/workspace/scratch/4ecb05fdc50d/nivel7_completion/HARPOON_XXXUltimate_30_15_0/tools/observation_replay_input_source_modes_test.cjs:70:22)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: unknown source modes, missing identity and extra broker configuration fields fail closed
+ok 4 - unknown source modes, missing identity and extra broker configuration fields fail closed
+  ---
+  duration_ms: 22.07888
+  type: 'test'
+  ...
+# Subtest: quant projection accepts only known numeric parameters within the existing inference contract
+ok 5 - quant projection accepts only known numeric parameters within the existing inference contract
+  ---
+  duration_ms: 39.564203
+  type: 'test'
+  ...
+# Subtest: source mode or predictor configuration changes cannot be hidden by resealing later frames
+ok 6 - source mode or predictor configuration changes cannot be hidden by resealing later frames
+  ---
+  duration_ms: 17.20474
+  type: 'test'
+  ...
+# Subtest: existing runtime PAPER and risk guards remain effective after source-mode import
+ok 7 - existing runtime PAPER and risk guards remain effective after source-mode import
+  ---
+  duration_ms: 13.574517
+  type: 'test'
+  ...
+# Subtest: readiness binds the original live configuration and account instead of the PAPER projection
+ok 8 - readiness binds the original live configuration and account instead of the PAPER projection
+  ---
+  duration_ms: 43.176439
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 7
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10451.140132

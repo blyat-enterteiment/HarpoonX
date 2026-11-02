@@ -1,0 +1,24 @@
+# New XXX service. Do not run it against an account controlled by the legacy service.
+services:
+  - type: web
+    name: harpoon-xxx-paper
+    runtime: docker
+    plan: 1c-2g
+    region: oregon
+    dockerfilePath: ./deploy/Dockerfile.xxx
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    maxShutdownDelaySeconds: 60
+    disk:
+      name: harpoon-xxx-journal
+      mountPath: /var/data
+      sizeGB: 10
+    envVars:
+      - key: HARPOON_START_PAPER
+        value: "1"
+      - key: HARPOON_PANEL_PASSWORD
+        generateValue: true
+      - key: APCA_API_KEY_ID
+        sync: false
+      - key: APCA_API_SECRET_KEY
+        sync: false

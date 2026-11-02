@@ -1,0 +1,1699 @@
+{
+  "schema": "HARPOON_ECONOMIC_READINESS_1",
+  "generated_at": "2026-11-01T00:17:41.354616+00:00",
+  "language": "es",
+  "source_root": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1",
+  "release": {
+    "application": "30.10.1",
+    "comparison_application": "30.10.0",
+    "scope_reported_by_parent": "Correcciones de instalador, interfaz y archivos necesarios en Docker; sin cambios de señal ni nuevos ensayos financieros.",
+    "financial_source_files_checked": 22,
+    "financial_source_files_unchanged": 21,
+    "claim_scope": "La igualdad de bytes cubre únicamente las fuentes enumeradas, no una auditoría nueva de todo el código.",
+    "historical_financial_evidence_unchanged": true,
+    "regenerated_engineering_receipt": {
+      "source_id": "economic_gate",
+      "semantic_fields_changed": [
+        "artifact_hash",
+        "input_hash"
+      ],
+      "statistics_unchanged": true,
+      "verdict_unchanged": true,
+      "interpretation": "El recibo de ingeniería está vinculado a la entrada regenerada de30.10.1; no aporta un nuevo ensayo financiero ni un nuevo OOS."
+    }
+  },
+  "assessment": {
+    "classification": "ESTIMACION_METODOLOGICA_ORDINAL",
+    "scale_minimum": 1,
+    "scale_maximum": 10,
+    "score_before": 3,
+    "score_after": 3,
+    "construct": "Preparación demostrada para producir y validar rentabilidad económica neta con el motor actual.",
+    "score_is_probability": false,
+    "win_probability": null,
+    "future_return_estimate": null,
+    "real_account_net_profit": null,
+    "real_account_net_profit_null_reason": "Las fuentes revisadas no aportan una curva de patrimonio actual reconciliada con ejecuciones autenticadas y todos los costes económicos correspondientes.",
+    "verdict": "VENTAJA_NO_DEMOSTRADA",
+    "reason": "Existen funciones y controles offline, un indicio histórico positivo bajo ejecución modelada y estudios rechazados. Falta una comparación observada del motor actual frente a Ridge y control que demuestre beneficio neto absoluto, mejora incremental e incertidumbre admisible.",
+    "software_tests_do_not_raise_financial_score": true,
+    "no_new_oos_in_this_review": true,
+    "no_strategy_reruns_in_this_review": true,
+    "no_orders_or_deployment_in_this_review": true,
+    "external_source_authenticity_attested": false,
+    "hash_interpretation": "SHA-256 identifica bytes locales. No autentica mercado, broker, momento externo de preregistro ni rentabilidad."
+  },
+  "ordinal_rubric": [
+    {
+      "score_range": [
+        1,
+        2
+      ],
+      "milestone": "Idea o prototipo sin evaluación económica reproducible suficiente."
+    },
+    {
+      "score_range": [
+        3,
+        3
+      ],
+      "milestone": "Motor y controles offline implementados; evidencia histórica/sintética revisable; ventaja neta actual no demostrada.",
+      "current": true
+    },
+    {
+      "score_range": [
+        4,
+        4
+      ],
+      "milestone": "Datos observados causales utilizables, costes y patrimonio conciliados, comparación reproducible y pareada del motor, Ridge y control."
+    },
+    {
+      "score_range": [
+        5,
+        6
+      ],
+      "milestone": "Beneficio absoluto y mejora económica frente a Ridge en prueba temporal nueva, con incertidumbre, búsqueda múltiple, riesgo y estrés dentro de criterios previos."
+    },
+    {
+      "score_range": [
+        7,
+        7
+      ],
+      "milestone": "Validación forward representativa de disponibilidad de precios, ejecución, costes y controles, dentro del modo autorizado."
+    },
+    {
+      "score_range": [
+        8,
+        9
+      ],
+      "milestone": "Resultados netos realizados, reconciliados y repetidos en periodos y condiciones distintas, sin exceder capital y límites."
+    },
+    {
+      "score_range": [
+        10,
+        10
+      ],
+      "milestone": "Evidencia sostenida y repetible bajo criterios exigentes; no garantiza beneficios futuros ni ganar un campeonato."
+    }
+  ],
+  "financial_evidence": {
+    "observed_bars_modeled_funded_portfolio": {
+      "classification": "ESTIMACION_HISTORICA_CON_EJECUCION_MODELADA",
+      "sources": [
+        "ultimate_report",
+        "ultimate_protocol",
+        "ultimate_registry",
+        "ultimate_acceptance"
+      ],
+      "origin": "OBSERVED_BARS_MODELED_EXECUTION",
+      "source_declaration": {
+        "source": "RETAINED_OBSERVED_ALPACA_BARS_REUSED_HISTORY",
+        "feed": "SIP",
+        "execution": "MODELED_OHLCV"
+      },
+      "universe": [
+        "SPY",
+        "XLK"
+      ],
+      "period": {
+        "from": "2025-03-11",
+        "through": "2026-07-13",
+        "sessions": 336
+      },
+      "capital_initial_usd": 20000,
+      "net_pnl_modeled_usd": 119.74999999999952,
+      "net_return_modeled_fraction": 0.005987500000000923,
+      "funded_portfolio": {
+        "scope": "MODELED_SHARED_CAPITAL_INTEGER_LOTS",
+        "limits": {
+          "capitalUsd": 20000,
+          "riskFraction": 0.0025,
+          "openRiskFraction": 0.015,
+          "grossFraction": 0.5,
+          "assetFraction": 0.12,
+          "dailyLoss": 0.02,
+          "maxDrawdown": 0.08
+        },
+        "oos": {
+          "campaigns": 31,
+          "sessions": 336,
+          "expectancyR": 0.19901282906120205,
+          "profitFactor": 1.4919151565616358,
+          "winRate": 0.5161290322580645,
+          "growthLog": 1.776680402688936e-05,
+          "modelReturn": 0.005987500000000923,
+          "maxDrawdown": 0.006347736227213963,
+          "sharpeHac": 0.5233987617731122,
+          "sortino": 0.7459566019603139,
+          "expectedShortfall95": 0.0012705116940696117
+        },
+        "netUsd": 119.74999999999952,
+        "skipped": {
+          "SYMBOL_BUSY": 17
+        }
+      },
+      "cost_assumptions": {
+        "spreadBps": 2,
+        "slippageBps": 2,
+        "perSideUsd": 0
+      },
+      "costs_verified_with_broker": false,
+      "external_operating_costs_usd": null,
+      "external_costs_scope": "Datos, infraestructura e inferencia no aparecen en el protocolo de costes del backtest ni están acreditados por este informe. Su ausencia no significa cero. No clasificar el resultado como beneficio económico completo.",
+      "realized_broker_profit_usd": null,
+      "ridge_comparison_available": false,
+      "holdout": {
+        "holdoutFrom": "2026-07-21",
+        "holdoutThrough": "2026-10-16"
+      },
+      "holdout_unused": false,
+      "promotion": "NONE",
+      "unit_curve_scope": "OVERLAPPING_OPPORTUNITIES_NORMALIZED_TO_025_PERCENT_RISK_NOT_ACCOUNT_RETURNS",
+      "nine_variants": [
+        {
+          "id": "OPENING_BREAKOUT:BASELINE",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 44,
+            "sessions": 336,
+            "expectancyR": -0.1944954169752893,
+            "profitFactor": 0.7014996895692311,
+            "winRate": 0.3409090909090909,
+            "growthLog": -6.42931769406723e-05,
+            "modelReturn": -0.02137084445388926,
+            "maxDrawdown": 0.04145761245823243,
+            "sharpeHac": -0.8966770667727717,
+            "sortino": -1.2884012737970416,
+            "expectedShortfall95": 0.003200826071271315,
+            "netUnitPnlUsd": -42.88000000000028,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 1
+          },
+          "holdout": {
+            "campaigns": 8,
+            "sessions": 63,
+            "expectancyR": -0.3562229830822919,
+            "profitFactor": 0.4864014781522192,
+            "winRate": 0.375,
+            "growthLog": -0.00011354800429001858,
+            "modelReturn": -0.00712799871768155,
+            "maxDrawdown": 0.00712799871768155,
+            "sharpeHac": -2.299699176318135,
+            "sortino": -2.505330760173414,
+            "expectedShortfall95": 0.0027772735840097453,
+            "netUnitPnlUsd": -16.50000000000051,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.0002493921197332681,
+          "holdout_lower": -0.0003872382824895064,
+          "paired_lower": null,
+          "paired_holdout_lower": null,
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": false,
+            "dsr": false,
+            "maxDrawdown": true,
+            "tpImprovement": true,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "OPENING_BREAKOUT:RUNNER",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 44,
+            "sessions": 336,
+            "expectancyR": -0.23947073325786608,
+            "profitFactor": 0.6461387746055116,
+            "winRate": 0.29545454545454547,
+            "growthLog": -7.906405283973877e-05,
+            "modelReturn": -0.026215762306207258,
+            "maxDrawdown": 0.04446266133666166,
+            "sharpeHac": -1.0856470563717515,
+            "sortino": -1.5558533654256452,
+            "expectedShortfall95": 0.0031826457222086137,
+            "netUnitPnlUsd": -47.46000000000021,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 1
+          },
+          "holdout": {
+            "campaigns": 8,
+            "sessions": 63,
+            "expectancyR": -0.4213607048376615,
+            "profitFactor": 0.4288185163787101,
+            "winRate": 0.25,
+            "growthLog": -0.0001342080707144793,
+            "modelReturn": -0.008419464553944156,
+            "maxDrawdown": 0.008419464553944156,
+            "sharpeHac": -2.722772284294886,
+            "sortino": -2.928415114557467,
+            "expectedShortfall95": 0.0027772735840097453,
+            "netUnitPnlUsd": -18.160000000000537,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.0002670940021261103,
+          "holdout_lower": -0.00040463573775570183,
+          "paired_lower": -5.1692519367979775e-05,
+          "paired_holdout_lower": -7.571938240316825e-05,
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": false,
+            "dsr": false,
+            "maxDrawdown": true,
+            "tpImprovement": false,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "OPENING_BREAKOUT:REGIME",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 44,
+            "sessions": 336,
+            "expectancyR": -0.21602453367035962,
+            "profitFactor": 0.6764055028663675,
+            "winRate": 0.29545454545454547,
+            "growthLog": -7.140322756164561e-05,
+            "modelReturn": -0.023705976607376833,
+            "maxDrawdown": 0.04277310875321738,
+            "sharpeHac": -0.9768545747017019,
+            "sortino": -1.4046832646998755,
+            "expectedShortfall95": 0.003200826071271315,
+            "netUnitPnlUsd": -42.25000000000023,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 1
+          },
+          "holdout": {
+            "campaigns": 8,
+            "sessions": 63,
+            "expectancyR": -0.3720959989553074,
+            "profitFactor": 0.46351593208467684,
+            "winRate": 0.375,
+            "growthLog": -0.0001185623830627311,
+            "modelReturn": -0.007441603266412744,
+            "maxDrawdown": 0.007441603266412744,
+            "sharpeHac": -2.4776634566543416,
+            "sortino": -2.616966327815045,
+            "expectedShortfall95": 0.0027772735840097453,
+            "netUnitPnlUsd": -16.820000000000505,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.0002551301263936091,
+          "holdout_lower": -0.0003872382824895064,
+          "paired_lower": -4.33105131308612e-05,
+          "paired_holdout_lower": -2.519526329050087e-05,
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": false,
+            "dsr": false,
+            "maxDrawdown": true,
+            "tpImprovement": false,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "CLOSED_CHANNEL:BASELINE",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 139,
+            "sessions": 336,
+            "expectancyR": 0.13880271622847412,
+            "profitFactor": 1.4071444251189018,
+            "winRate": 0.5467625899280576,
+            "growthLog": 0.00014001344853201305,
+            "modelReturn": 0.04816867115468293,
+            "maxDrawdown": 0.0465725617484275,
+            "sharpeHac": 0.7628892969420958,
+            "sortino": 1.433113435989881,
+            "expectedShortfall95": 0.006198877857780694,
+            "netUnitPnlUsd": 404.4099999999993,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "holdout": {
+            "campaigns": 16,
+            "sessions": 63,
+            "expectancyR": 0.0411892658651659,
+            "profitFactor": 1.142620047232437,
+            "winRate": 0.5,
+            "growthLog": 2.5226983153486755e-05,
+            "modelReturn": 0.001590563545145196,
+            "maxDrawdown": 0.006563311963478813,
+            "sharpeHac": 0.43872046367091017,
+            "sortino": 0.4502692449336262,
+            "expectedShortfall95": 0.0032724234785501843,
+            "netUnitPnlUsd": 14.580000000000268,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 1
+          },
+          "oos_lower": -0.000354300349502588,
+          "holdout_lower": -0.00040820267075432603,
+          "paired_lower": null,
+          "paired_holdout_lower": null,
+          "gates": {
+            "oosSample": true,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": true,
+            "dsr": false,
+            "maxDrawdown": true,
+            "tpImprovement": true,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "CLOSED_CHANNEL:RUNNER",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 139,
+            "sessions": 336,
+            "expectancyR": 0.1459329796181309,
+            "profitFactor": 1.4280593399534913,
+            "winRate": 0.5467625899280576,
+            "growthLog": 0.00014726691802348924,
+            "modelReturn": 0.05072634741382487,
+            "maxDrawdown": 0.046793691430506046,
+            "sharpeHac": 0.7843648879728399,
+            "sortino": 1.5038397047501662,
+            "expectedShortfall95": 0.006217424394207589,
+            "netUnitPnlUsd": 421.25999999999937,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "holdout": {
+            "campaigns": 16,
+            "sessions": 63,
+            "expectancyR": 0.04900176586516598,
+            "profitFactor": 1.1696712484519693,
+            "winRate": 0.5,
+            "growthLog": 3.0156017892028985e-05,
+            "modelReturn": 0.0019016349459552995,
+            "maxDrawdown": 0.006563311963478813,
+            "sharpeHac": 0.5132131333339202,
+            "sortino": 0.5356732549871039,
+            "expectedShortfall95": 0.0032724234785501843,
+            "netUnitPnlUsd": 18.780000000000314,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.00035407843493734083,
+          "holdout_lower": -0.00040820267075432603,
+          "paired_lower": -2.3716571324578035e-06,
+          "paired_holdout_lower": 0,
+          "gates": {
+            "oosSample": true,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": true,
+            "dsr": false,
+            "maxDrawdown": true,
+            "tpImprovement": false,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "CLOSED_CHANNEL:REGIME",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 139,
+            "sessions": 336,
+            "expectancyR": 0.14238012858655255,
+            "profitFactor": 1.417637904911802,
+            "winRate": 0.5467625899280576,
+            "growthLog": 0.00014367506032278397,
+            "modelReturn": 0.04945902830917692,
+            "maxDrawdown": 0.04657256174842794,
+            "sharpeHac": 0.7749279315219215,
+            "sortino": 1.4704280220545356,
+            "expectedShortfall95": 0.006195476141222185,
+            "netUnitPnlUsd": 414.46999999999923,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "holdout": {
+            "campaigns": 16,
+            "sessions": 63,
+            "expectancyR": 0.0411892658651659,
+            "profitFactor": 1.142620047232437,
+            "winRate": 0.5,
+            "growthLog": 2.5226983153486755e-05,
+            "modelReturn": 0.001590563545145196,
+            "maxDrawdown": 0.006563311963478813,
+            "sharpeHac": 0.43872046367091017,
+            "sortino": 0.4502692449336262,
+            "expectedShortfall95": 0.0032724234785501843,
+            "netUnitPnlUsd": 14.580000000000268,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 1
+          },
+          "oos_lower": -0.0003539062422315514,
+          "holdout_lower": -0.00040820267075432603,
+          "paired_lower": 0,
+          "paired_holdout_lower": 0,
+          "gates": {
+            "oosSample": true,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": true,
+            "dsr": false,
+            "maxDrawdown": true,
+            "tpImprovement": false,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "VWAP_REVERSION:BASELINE",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 92,
+            "sessions": 336,
+            "expectancyR": -0.6078093356521103,
+            "profitFactor": 0.2945166420559012,
+            "winRate": 0.25,
+            "growthLog": -0.0004175885366113224,
+            "modelReturn": -0.13091100513736909,
+            "maxDrawdown": 0.13453980477482896,
+            "sharpeHac": -3.7736691435605563,
+            "sortino": -4.097547432642302,
+            "expectedShortfall95": 0.006012278210556772,
+            "netUnitPnlUsd": -164.36000000000072,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "holdout": {
+            "campaigns": 17,
+            "sessions": 63,
+            "expectancyR": -0.6042127232717738,
+            "profitFactor": 0.24806999164856505,
+            "winRate": 0.29411764705882354,
+            "growthLog": -0.0004089092543771559,
+            "modelReturn": -0.025432292302925652,
+            "maxDrawdown": 0.025432292302925652,
+            "sharpeHac": -5.048972195730503,
+            "sortino": -4.261563214944748,
+            "expectedShortfall95": 0.004958838297192977,
+            "netUnitPnlUsd": -31.840000000001396,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.0006984261346422876,
+          "holdout_lower": -0.0009631038162394246,
+          "paired_lower": null,
+          "paired_holdout_lower": null,
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": false,
+            "dsr": false,
+            "maxDrawdown": false,
+            "tpImprovement": true,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "VWAP_REVERSION:RUNNER",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 92,
+            "sessions": 336,
+            "expectancyR": -0.6229842184665967,
+            "profitFactor": 0.29364370093730796,
+            "winRate": 0.25,
+            "growthLog": -0.00042804993576105237,
+            "modelReturn": -0.1339605164244858,
+            "maxDrawdown": 0.13757658311340004,
+            "sharpeHac": -3.7331186132801895,
+            "sortino": -4.116654351272188,
+            "expectedShortfall95": 0.006047584024121923,
+            "netUnitPnlUsd": -167.7500000000007,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "holdout": {
+            "campaigns": 17,
+            "sessions": 63,
+            "expectancyR": -0.6042127232717738,
+            "profitFactor": 0.24806999164856505,
+            "winRate": 0.29411764705882354,
+            "growthLog": -0.0004089092543771559,
+            "modelReturn": -0.025432292302925652,
+            "maxDrawdown": 0.025432292302925652,
+            "sharpeHac": -5.048972195730503,
+            "sortino": -4.261563214944748,
+            "expectedShortfall95": 0.004958838297192977,
+            "netUnitPnlUsd": -31.840000000001396,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.0007303867209530221,
+          "holdout_lower": -0.0009631038162394246,
+          "paired_lower": -5.661704665421371e-05,
+          "paired_holdout_lower": 0,
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": false,
+            "dsr": false,
+            "maxDrawdown": false,
+            "tpImprovement": false,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        },
+        {
+          "id": "VWAP_REVERSION:REGIME",
+          "status": "NOT_PROMOTED",
+          "oos": {
+            "campaigns": 92,
+            "sessions": 336,
+            "expectancyR": -0.6078093356521103,
+            "profitFactor": 0.2945166420559012,
+            "winRate": 0.25,
+            "growthLog": -0.0004175885366113224,
+            "modelReturn": -0.13091100513736909,
+            "maxDrawdown": 0.13453980477482896,
+            "sharpeHac": -3.7736691435605563,
+            "sortino": -4.097547432642302,
+            "expectedShortfall95": 0.006012278210556772,
+            "netUnitPnlUsd": -164.36000000000072,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "holdout": {
+            "campaigns": 17,
+            "sessions": 63,
+            "expectancyR": -0.6042127232717738,
+            "profitFactor": 0.24806999164856505,
+            "winRate": 0.29411764705882354,
+            "growthLog": -0.0004089092543771559,
+            "modelReturn": -0.025432292302925652,
+            "maxDrawdown": 0.025432292302925652,
+            "sharpeHac": -5.048972195730503,
+            "sortino": -4.261563214944748,
+            "expectedShortfall95": 0.004958838297192977,
+            "netUnitPnlUsd": -31.840000000001396,
+            "modeledFeesUsd": 0,
+            "ambiguousBars": 0
+          },
+          "oos_lower": -0.0006984261346422876,
+          "holdout_lower": -0.0009631038162394246,
+          "paired_lower": 0,
+          "paired_holdout_lower": 0,
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosLowerPositive": false,
+            "holdoutLowerPositive": false,
+            "doubleCostEvidence": false,
+            "dsr": false,
+            "maxDrawdown": false,
+            "tpImprovement": false,
+            "untouchedHoldout": false,
+            "actualFutures": false,
+            "authenticatedExecution": false
+          }
+        }
+      ],
+      "interpretation": "El +119,75 USD corresponde a la cartera financiada modelada. Los rendimientos de las nueve curvas por oportunidad no son rendimientos de una cuenta y no deben sustituirlo. Los límites inferiores de esas curvas tampoco son un intervalo calculado para la cartera financiada.",
+      "limitations": [
+        "Historical fills, spreads and queue positions are modeled; no authenticated fills are inferred.",
+        "Common-cohort exit attribution and funded portfolio are separate estimands.",
+        "All nine variants per root count toward multiplicity; row intervals depend on block and stationarity assumptions.",
+        "DSR uses HAC effective sample approximation; PBO is a diagnostic, not prospective proof.",
+        "A reused or preregistration-preceding holdout cannot authorize promotion.",
+        "Proxy data cannot validate futures execution, basis, shorts or contract rolls.",
+        "Stops have adverse precedence; close-derived trailing activates only after availability.",
+        "Portfolio marks are bar-based; intrabar margin calls, settlement and market impact require additional observations.",
+        "Futures funded results require historical margin data; absence is not zero margin.",
+        "Contract commissions are a floor; exchange, clearing and data fees must be added to supplied assumptions."
+      ]
+    },
+    "tp32_control_and_exit_profiles": {
+      "classification": "ESTIMACION_HISTORICA_CON_EJECUCION_MODELADA",
+      "sources": [
+        "tp32_report",
+        "tp32_protocol"
+      ],
+      "origin": "OBSERVED_OHLCV_MODELED_EXECUTION",
+      "windows": {
+        "oosFrom": "2025-05-30",
+        "oosThrough": "2026-07-20",
+        "holdoutFrom": "2026-07-21",
+        "holdoutThrough": "2026-10-16",
+        "trainSessions": 126,
+        "testSessionsPerFold": 21,
+        "folds": 12,
+        "purgeHours": 72,
+        "embargoSessions": 3
+      },
+      "capital_initial_usd": 20000,
+      "cost_assumptions": {
+        "slippagePerSideBps": 10,
+        "modeledFullSpreadStockBps": 2,
+        "modeledFullSpreadLeveragedEtfBps": 5,
+        "modeledFullSpreadCryptoBps": 10,
+        "cryptoFeePerSideBps": 25,
+        "optionsFeePerContractUsd": 0.05
+      },
+      "profiles": {
+        "BASELINE_30_1": {
+          "oos": {
+            "trades": 7,
+            "sessions": 252,
+            "netUsd": -53.11920185598888,
+            "netReturn": -0.0026559600927994437,
+            "feesEstimatedUsd": 0,
+            "maxDrawdownDaily": 0.004494227038357252
+          },
+          "holdout": {
+            "trades": 5,
+            "sessions": 63,
+            "netUsd": -45.677984985198236,
+            "netReturn": -0.002283899249259912,
+            "feesEstimatedUsd": 0,
+            "maxDrawdownDaily": 0.002283899249259957
+          }
+        },
+        "TREND_RUNNER": {
+          "oos": {
+            "trades": 7,
+            "sessions": 252,
+            "netUsd": -113.8112334297025,
+            "netReturn": -0.005690561671485125,
+            "feesEstimatedUsd": 0,
+            "maxDrawdownDaily": 0.006672511777635179
+          },
+          "holdout": {
+            "trades": 5,
+            "sessions": 63,
+            "netUsd": -6.429623905355584,
+            "netReturn": -0.0003214811952677792,
+            "feesEstimatedUsd": 0,
+            "maxDrawdownDaily": 0.0016947837668151004
+          }
+        },
+        "REGIME_ADAPTIVE": {
+          "oos": {
+            "trades": 7,
+            "sessions": 252,
+            "netUsd": -90.77258118007171,
+            "netReturn": -0.004538629059003586,
+            "feesEstimatedUsd": 0,
+            "maxDrawdownDaily": 0.005415437862001931
+          },
+          "holdout": {
+            "trades": 5,
+            "sessions": 63,
+            "netUsd": -50.09340314719839,
+            "netReturn": -0.0025046701573599194,
+            "feesEstimatedUsd": 0,
+            "maxDrawdownDaily": 0.002504670157359942
+          }
+        }
+      },
+      "gates": {
+        "TREND_RUNNER": {
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosPositive": false,
+            "holdoutPositive": false,
+            "pairedOosLowerPositive": false,
+            "pairedHoldoutLowerPositive": false,
+            "oosDrawdownNoWorse": false,
+            "holdoutDrawdownNoWorse": true,
+            "tailNoWorse": false,
+            "doubleCostsPositive": false,
+            "doubleCostsPairedLowerPositive": false,
+            "improvedFoldFraction": false
+          },
+          "passed": false,
+          "pairedDailyExcessLower": -2.8256207246240116e-05,
+          "holdoutPairedDailyExcessLower": -1.757545025306107e-05,
+          "doubleCostsDailyExcessLower": 0.0
+        },
+        "REGIME_ADAPTIVE": {
+          "gates": {
+            "oosSample": false,
+            "holdoutSample": false,
+            "oosPositive": false,
+            "holdoutPositive": false,
+            "pairedOosLowerPositive": false,
+            "pairedHoldoutLowerPositive": false,
+            "oosDrawdownNoWorse": false,
+            "holdoutDrawdownNoWorse": false,
+            "tailNoWorse": false,
+            "doubleCostsPositive": false,
+            "doubleCostsPairedLowerPositive": false,
+            "improvedFoldFraction": false
+          },
+          "passed": false,
+          "pairedDailyExcessLower": -2.262517104912364e-05,
+          "holdoutPairedDailyExcessLower": -1.8929271621429197e-05,
+          "doubleCostsDailyExcessLower": 0.0
+        }
+      },
+      "funded_holdout": {
+        "BASELINE_30_1": {
+          "base": {
+            "trades": 5,
+            "sessions": 63,
+            "netUsd": -45.677984985198236,
+            "netReturn": -0.002283899249259912,
+            "sharpeHac": -3.893151514610357,
+            "sortino": -4.047523042085304,
+            "maxDrawdownDaily": 0.002283899249259957,
+            "expectedShortfall95Daily": 0.0005280860195749825,
+            "profitFactor": 0.0,
+            "winRate": 0.0,
+            "expectancyUsd": -9.135596997039647,
+            "expectancyR": -0.48335886194420774,
+            "feesEstimatedUsd": 0,
+            "observedBarMfeGivebackUsd": 65.53604965919976,
+            "captureOfPositivePeak": -1.9423024050120823,
+            "ambiguousStopTargetBars": 0
+          },
+          "stress": {
+            "trades": 0,
+            "sessions": 63,
+            "netUsd": 0,
+            "netReturn": 0.0,
+            "sharpeHac": null,
+            "sortino": null,
+            "maxDrawdownDaily": 0.0,
+            "expectedShortfall95Daily": -0.0,
+            "profitFactor": null,
+            "winRate": null,
+            "expectancyUsd": null,
+            "expectancyR": null,
+            "feesEstimatedUsd": 0,
+            "observedBarMfeGivebackUsd": 0,
+            "captureOfPositivePeak": null,
+            "ambiguousStopTargetBars": 0
+          }
+        },
+        "TREND_RUNNER": {
+          "base": {
+            "trades": 5,
+            "sessions": 63,
+            "netUsd": -6.429623905355584,
+            "netReturn": -0.0003214811952677792,
+            "sharpeHac": -0.37919473815032406,
+            "sortino": -0.4337295583523793,
+            "maxDrawdownDaily": 0.0016947837668151004,
+            "expectedShortfall95Daily": 0.000693861535035694,
+            "profitFactor": 0.9096399452258416,
+            "winRate": 0.2,
+            "expectancyUsd": -1.2859247810711167,
+            "expectancyR": 0.0934778224203685,
+            "feesEstimatedUsd": 0,
+            "observedBarMfeGivebackUsd": 111.85014261685683,
+            "captureOfPositivePeak": 0.05866948763143661,
+            "ambiguousStopTargetBars": 1
+          },
+          "stress": {
+            "trades": 0,
+            "sessions": 63,
+            "netUsd": 0,
+            "netReturn": 0.0,
+            "sharpeHac": null,
+            "sortino": null,
+            "maxDrawdownDaily": 0.0,
+            "expectedShortfall95Daily": -0.0,
+            "profitFactor": null,
+            "winRate": null,
+            "expectancyUsd": null,
+            "expectancyR": null,
+            "feesEstimatedUsd": 0,
+            "observedBarMfeGivebackUsd": 0,
+            "captureOfPositivePeak": null,
+            "ambiguousStopTargetBars": 0
+          }
+        },
+        "REGIME_ADAPTIVE": {
+          "base": {
+            "trades": 5,
+            "sessions": 63,
+            "netUsd": -50.09340314719839,
+            "netReturn": -0.0025046701573599194,
+            "sharpeHac": -3.6722269406004537,
+            "sortino": -3.662232244073338,
+            "maxDrawdownDaily": 0.002504670157359942,
+            "expectedShortfall95Daily": 0.0005854887913399806,
+            "profitFactor": 0.0,
+            "winRate": 0.0,
+            "expectancyUsd": -10.018680629439677,
+            "expectancyR": -0.5241772338757101,
+            "feesEstimatedUsd": 0,
+            "observedBarMfeGivebackUsd": 69.95146782119991,
+            "captureOfPositivePeak": -2.15408785389857,
+            "ambiguousStopTargetBars": 0
+          },
+          "stress": {
+            "trades": 0,
+            "sessions": 63,
+            "netUsd": 0,
+            "netReturn": 0.0,
+            "sharpeHac": null,
+            "sortino": null,
+            "maxDrawdownDaily": 0.0,
+            "expectedShortfall95Daily": -0.0,
+            "profitFactor": null,
+            "winRate": null,
+            "expectancyUsd": null,
+            "expectancyR": null,
+            "feesEstimatedUsd": 0,
+            "observedBarMfeGivebackUsd": 0,
+            "captureOfPositivePeak": null,
+            "ambiguousStopTargetBars": 0
+          }
+        }
+      },
+      "promotion": "NONE_BAR_MODEL_REQUIRES_PROSPECTIVE_EXECUTION_VALIDATION",
+      "limitations": [
+        "Prices are historical OHLCV/VWAP; bid/ask and all fills are modeled, not observed NBBO.",
+        "Configured canonical entries only; 61 plugin variants are not 61 independently validated strategies.",
+        "No historical option quotes available through connected source; no option PnL simulated.",
+        "Missing bars are not interpolated; fills across data gaps excluded.",
+        "Universe chosen by existing release, not a point-in-time broad stock universe.",
+        "Three-second bar-arrival and 15-second signal/20-second order TTL cannot be reconstructed; bar fills are comparative research only.",
+        "Funded portfolio models single long entry, shared capital/exposure constraints and no borrowing; broker queue/impact and settlement not reproduced.",
+        "Intrabar adverse stop precedence; trailing updates at bar close, not a one-second production replay.",
+        "Crypto channel exit shared with native signal; no proprietary tape/ASTRA/options-context reconstruction.",
+        "Daily HAC Sharpe, Sortino and tail risk use exchange sessions; weekend crypto marks accumulate into the next exchange close.",
+        "Fixed entry cohort comparison is an opportunity study with overlapping positions; funded portfolio is reported separately.",
+        "Purged window ends exclude opportunities whose complete maximum-hold label would cross the boundary.",
+        "Bar MFE capture is relative to observed close marks; it is not intrabar omniscient maximum or guaranteed attainable profit.",
+        "No account-level real returns, no championship-equivalent futures/forex adapter or contest registration.",
+        "Historical stock/ETF feed is SIP; runtime default is IEX. Matching-feed prospective validation and feed permissions remain required."
+      ],
+      "interpretation": "Todos los perfiles pierden en OOS y holdout. El menor daño de TREND_RUNNER en cinco operaciones de holdout no demuestra beneficio positivo."
+    },
+    "synthetic_economic_study": {
+      "classification": "ESTIMACION_SINTETICA_NO_OBSERVADA",
+      "sources": [
+        "economic_decision",
+        "economic_protocol",
+        "economic_analysis_protocol",
+        "economic_documentation"
+      ],
+      "development_end": "2026-06-25",
+      "holdout_from": "2026-07-01",
+      "holdout_through": "2026-10-30",
+      "capital_per_path_usd": 20000,
+      "synthetic_holdout_paths": 5,
+      "capital_continuity": "Continuo dentro de cada trayectoria artificial; no sumar ni concatenar cinco trayectorias como una cuenta real.",
+      "comparisons": {
+        "baseline": {
+          "mean_pnl_usd": -71.72000000000267,
+          "median_pnl_usd": -90.50000000000446,
+          "min_pnl_usd": -163.69999999999328,
+          "max_pnl_usd": 51.799999999997404,
+          "mean_return": -0.0035860000000001334,
+          "mean_daily_log_growth": -2.95073857158764e-05,
+          "median_sortino": -0.16023276920272422,
+          "max_drawdown_across_paths": 0.008254422190446364,
+          "mean_cvar95_fraction": 0.000787090647295884,
+          "cost_mean_usd": 32.38971401269344,
+          "closures": 23,
+          "positive_paths": 1,
+          "stock_closures": 0
+        },
+        "candidate": {
+          "mean_pnl_usd": -38.178500541693246,
+          "median_pnl_usd": -42.167024852697296,
+          "min_pnl_usd": -115.15776502909691,
+          "max_pnl_usd": 19.24688892063653,
+          "mean_return": -0.0019089250270846623,
+          "mean_daily_log_growth": -1.5686595892645698e-05,
+          "median_sortino": -0.11073941547150752,
+          "max_drawdown_across_paths": 0.007608414074526171,
+          "mean_cvar95_fraction": 0.0006468976949843692,
+          "cost_mean_usd": 22.761807121189925,
+          "closures": 1251,
+          "positive_paths": 2,
+          "stock_closures": 1240
+        },
+        "cost_1_5": {
+          "mean_pnl_usd": -46.75328527571753,
+          "median_pnl_usd": -48.2087432133782,
+          "min_pnl_usd": -128.58801284093335,
+          "max_pnl_usd": 15.824731584879181,
+          "mean_return": -0.0023376642637858765,
+          "mean_daily_log_growth": -1.9210773133112175e-05,
+          "median_sortino": -0.12194677465762183,
+          "max_drawdown_across_paths": 0.007752053947296389,
+          "mean_cvar95_fraction": 0.0006763011989827624,
+          "cost_mean_usd": 31.067373148893484,
+          "closures": 1251,
+          "positive_paths": 1,
+          "stock_closures": 1240
+        },
+        "cost_2": {
+          "mean_pnl_usd": -51.43524187153137,
+          "median_pnl_usd": -51.6863208829288,
+          "min_pnl_usd": -119.81826065277534,
+          "max_pnl_usd": 12.402574249144038,
+          "mean_return": -0.0025717620935765684,
+          "mean_daily_log_growth": -2.1130762144179394e-05,
+          "median_sortino": -0.15474162603403982,
+          "max_drawdown_across_paths": 0.006062433836051984,
+          "mean_cvar95_fraction": 0.0006379536739896863,
+          "cost_mean_usd": 39.17651827027164,
+          "closures": 1251,
+          "positive_paths": 1,
+          "stock_closures": 1240
+        },
+        "gaps": {
+          "mean_pnl_usd": -42.080500541695095,
+          "median_pnl_usd": -44.40202485270106,
+          "min_pnl_usd": -118.8077650291075,
+          "max_pnl_usd": 19.24688892063653,
+          "mean_return": -0.002104025027084755,
+          "mean_daily_log_growth": -1.7288483901119957e-05,
+          "median_sortino": -0.12275314933636003,
+          "max_drawdown_across_paths": 0.0072383820961521295,
+          "mean_cvar95_fraction": 0.0006553557106562804,
+          "cost_mean_usd": 26.663807121189922,
+          "closures": 1251,
+          "positive_paths": 1,
+          "stock_closures": 1240
+        },
+        "iv_crush": {
+          "mean_pnl_usd": -45.9825005416894,
+          "median_pnl_usd": -46.6370248527026,
+          "min_pnl_usd": -122.45776502909366,
+          "max_pnl_usd": 19.24688892063653,
+          "mean_return": -0.00229912502708447,
+          "mean_daily_log_growth": -1.8890966051788265e-05,
+          "median_sortino": -0.1351496870629576,
+          "max_drawdown_across_paths": 0.006867938020094999,
+          "mean_cvar95_fraction": 0.0006692050263810746,
+          "cost_mean_usd": 30.56580712118992,
+          "closures": 1251,
+          "positive_paths": 1,
+          "stock_closures": 1240
+        },
+        "liquidity": {
+          "mean_pnl_usd": -397.9955234209393,
+          "median_pnl_usd": -379.9720503276793,
+          "min_pnl_usd": -515.2866315553406,
+          "max_pnl_usd": -316.65778294549307,
+          "mean_return": -0.019899776171046966,
+          "mean_daily_log_growth": -0.00016480268020765867,
+          "median_sortino": -0.5062878327620822,
+          "max_drawdown_across_paths": 0.02576433157776703,
+          "mean_cvar95_fraction": 0.0009853996464122578,
+          "cost_mean_usd": 382.40184107854475,
+          "closures": 1249,
+          "positive_paths": 0,
+          "stock_closures": 1238
+        },
+        "delay": {
+          "mean_pnl_usd": -29.14000000000172,
+          "median_pnl_usd": -10.80000000000414,
+          "min_pnl_usd": -104.29999999999495,
+          "max_pnl_usd": 59.09999999999638,
+          "mean_return": -0.001457000000000086,
+          "mean_daily_log_growth": -1.1988912530411758e-05,
+          "median_sortino": -0.07713018882486417,
+          "max_drawdown_across_paths": 0.005493461830687663,
+          "mean_cvar95_fraction": 0.0005214205391374518,
+          "cost_mean_usd": 18.397916636984554,
+          "closures": 12,
+          "positive_paths": 1,
+          "stock_closures": 0
+        },
+        "outage": {
+          "mean_pnl_usd": -33.674253516249756,
+          "median_pnl_usd": -30.166684502459518,
+          "min_pnl_usd": -97.98381398472111,
+          "max_pnl_usd": 25.30988686130886,
+          "mean_return": -0.0016837126758124878,
+          "mean_daily_log_growth": -1.3833119457304628e-05,
+          "median_sortino": -0.12086524984327078,
+          "max_drawdown_across_paths": 0.005001366766616888,
+          "mean_cvar95_fraction": 0.0005217695023309859,
+          "cost_mean_usd": 21.22089503931672,
+          "closures": 1228,
+          "positive_paths": 2,
+          "stock_closures": 1218
+        }
+      },
+      "incremental_mean_pnl_usd": 33.541499458309424,
+      "incremental_mean_log_growth": 1.3820789823230703e-05,
+      "cost_assumptions_and_execution": "Synthetic ask entry/bid liquidation plus .65 per contract per side; stock10bps and zero share commissions assumption; entry at09:45 ET, monitoring10:00 and15min beforeclose; max72h exit known from calendar; no midpoint or automatic limit fills.",
+      "risk_limits": {
+        "risk_fraction": 0.0025,
+        "open_risk_fraction": 0.015,
+        "gross_fraction": 0.5,
+        "asset_fraction": 0.12,
+        "factor_fraction": 0.5,
+        "max_positions": 8,
+        "daily_loss": 0.02,
+        "max_drawdown": 0.08
+      },
+      "inference": {
+        "block_intervals": {
+          "3": {
+            "lcb_family_95": -6.70926167476725e-05,
+            "paired_mean": 1.9606236725978448e-05,
+            "interval_descriptive_95": [
+              -2.893293768000045e-05,
+              6.275784179639326e-05
+            ],
+            "repetitions": 51200
+          },
+          "5": {
+            "lcb_family_95": -6.647562153783632e-05,
+            "paired_mean": 1.9606236725978448e-05,
+            "interval_descriptive_95": [
+              -2.786939507963607e-05,
+              6.303096235468605e-05
+            ],
+            "repetitions": 51200
+          },
+          "10": {
+            "lcb_family_95": -6.422297327632399e-05,
+            "paired_mean": 1.9606236725978448e-05,
+            "interval_descriptive_95": [
+              -2.8857437461997682e-05,
+              6.34712366726683e-05
+            ],
+            "repetitions": 51200
+          }
+        },
+        "independent_synthetic_paths": 5,
+        "paired_sessions_per_path": 86,
+        "HAC_effective_time_observations": 362.27805327408566,
+        "approx_MDE_daily_log_return_80pct": 8.388594656710016e-05,
+        "measured_effect_daily_session_log": 1.9606236725978448e-05,
+        "family_bound": 128,
+        "psr_dsr": "Diagnostic only; no observed complete trading track record; do not treat as proof of alpha.",
+        "limitation": "HAC/normal MDE and hierarchical resampling on five artificial paths are approximate; no real-market probability estimate. Inference detail fixed before numeric inspection but after holdout generation."
+      },
+      "gates": {
+        "net_positive": false,
+        "log_growth_positive": false,
+        "improvement_positive": true,
+        "lcb_positive_all_blocks": false,
+        "drawdown_no_worse_all_paths": false,
+        "cost_stress_positive_all_paths": false,
+        "minimum_20_closures_each": true
+      },
+      "status": "REJECTED",
+      "execution_allowed": false,
+      "observed_profit": null,
+      "warnings": [
+        "Nearly all candidate closures are stocks; no positive options advantage established.",
+        "Development and holdout seeds differ; synthetic DGP still shares a designed generator family.",
+        "Gap/IV scenarios are liquidation mark haircuts; delay is an edge buffer and outage blocks entries. They are approximations, not full market-impact/queue/network replay.",
+        "FOK/depth/age are synthetic inputs. D inherits matched-option spread screening when selecting underlying; real stock-book validation remains pending.",
+        "Account permissions cannot be verified by the available data-only connector; OPRA subscription denied.",
+        "The legacy original archive was truncated; its journal was reconstructed with same script and matching results, not recovered as an authenticated original."
+      ],
+      "interpretation": "B pierde menos que BASE en promedio, pero sigue perdiendo. No demuestra ventaja real ni ventaja frente a Ridge. Las semillas nuevas no constituyen un nuevo periodo observado de mercado."
+    },
+    "original_reference": {
+      "classification": "SYNTHETIC_ENGINEERING_ONLY",
+      "sources": [
+        "reference_reproduction",
+        "reference_forensic",
+        "source_recovery"
+      ],
+      "capital_initial_usd": 20000,
+      "normalized_net_pnl_usd": -282.45788903596525,
+      "normalized_return_fraction": -0.014122894451798262,
+      "maximum_drawdown_fraction": 0.01622319573258335,
+      "closed_trades": 15,
+      "capital_reset_between_folds": true,
+      "accepted_improvements": 0,
+      "forensic_sum_net_usd": -283.4582115604695,
+      "forensic_gross_mid_usd": -198.16843835442103,
+      "forensic_modeled_friction_usd": 85.28977320604848,
+      "interpretation": "El índice normalizado y la suma entre ventanas reiniciadas tienen agregaciones distintas. El resultado bruto del experimento ya es negativo antes de la fricción modelada."
+    },
+    "svr_against_ridge": {
+      "classification": "SYNTHETIC_ENGINEERING_ONLY",
+      "sources": [
+        "svr_model",
+        "svr_receipt",
+        "svr_validation"
+      ],
+      "metric_scope": "Error predictivo en un activo ficticio; no patrimonio neto observado.",
+      "reported_metric_paths": {
+        "models.SYNTHSVR.date_counts": [
+          179,
+          59,
+          60
+        ],
+        "models.SYNTHSVR.accepted": true,
+        "models.SYNTHSVR.reason": "PREDICTIVE_MSE_SKILL_VS_PAST_MEAN_AND_RIDGE_NOT_PROFIT",
+        "models.SYNTHSVR.oos_mse": 4.2722106465637555e-07,
+        "models.SYNTHSVR.ridge_baseline_mse": 6.865104129132987e-05
+      },
+      "oos_mse_svr": 4.2722106465637555e-07,
+      "oos_mse_ridge": 6.865104129132987e-05,
+      "synthetic_test_dates": 60,
+      "net_observed_profit_vs_ridge_usd": null,
+      "null_reason": "No existe en las fuentes revisadas una comparación observada financiada del motor actual contra Ridge que demuestre ventaja neta.",
+      "expected_net_usd_from_synthetic_receipt": 8.836689079307858,
+      "expected_value_is_realized_profit": false,
+      "research_only": true,
+      "execution_allowed": false,
+      "liveApproved": false
+    },
+    "paired_replay_fixture": {
+      "classification": "SYNTHETIC_ENGINEERING_ONLY",
+      "sources": [
+        "paired_replay"
+      ],
+      "scope": "Fixture de ingeniería con tres políticas; cero fills no constituye ventaja.",
+      "policies": [
+        "C0",
+        "RIDGE",
+        "SVR"
+      ],
+      "capital_per_policy_usd": 1000,
+      "net_pnl_per_policy_usd": 0,
+      "fills_per_policy": 0,
+      "session": "2026-10-15",
+      "dictamen": "VENTAJA_NO_DEMOSTRADA",
+      "financial_acceptance_allowed": false
+    },
+    "current_economic_gate_fixture": {
+      "classification": "SYNTHETIC_ENGINEERING_ONLY",
+      "sources": [
+        "economic_gate"
+      ],
+      "dictamen": "VENTAJA_NO_DEMOSTRADA",
+      "statistical_gate_passed": true,
+      "candidate_for_forward_validation": false,
+      "financial_approval": false,
+      "execution_allowed": false,
+      "liveApproved": false,
+      "financial_blockers": [
+        "SYNTHETIC_IS_NOT_FINANCIAL_EVIDENCE",
+        "OBSERVED_PRICES_REQUIRED",
+        "OBSERVED_AVAILABILITY_REQUIRED",
+        "PARITY_ECONOMIC_BINDINGS_NOT_VERIFIED",
+        "PAIRED_POLICY_PARITY_INCOMPLETE",
+        "PREDICTOR_PARITY_NOT_VERIFIED",
+        "PARITY_RECEIPT_NOT_FINANCIALLY_ELIGIBLE",
+        "OBSERVATIONAL_EVIDENCE: 'observed_prices'"
+      ],
+      "rejection_reasons": [],
+      "parity": {
+        "checks_verified": [
+          "execution_actions",
+          "positions_and_exit_state",
+          "account_cash_fees_and_costs",
+          "real_plugin_and_receipt_decisions",
+          "causal_fills"
+        ],
+        "complete_paired_policy_coverage": false,
+        "covered_policies": [
+          "C0"
+        ],
+        "economic_bindings_verified": false,
+        "execution_origin": "MODELED",
+        "external_validation": false,
+        "financial_acceptance_allowed_by_receipt": false,
+        "policy_parity_verified": true,
+        "predictor_parity_verified": false,
+        "real_coordinator_reexecuted": true,
+        "receipt_integrity_verified": true,
+        "receipt_predictor_parity_verified_within_its_scope": true,
+        "scope": {
+          "books": [
+            "equity"
+          ],
+          "components": [
+            "Coordinator.initialize",
+            "Coordinator.reconcile",
+            "Plugins.evaluate",
+            "Coordinator.entries",
+            "Coordinator.manage",
+            "policy.exitDecision",
+            "exits"
+          ],
+          "entry_predictor": "NATIVE_C0",
+          "event_types": [
+            "entries",
+            "evaluate",
+            "manage",
+            "market",
+            "reconcile"
+          ],
+          "execution_model": "EXPLICIT_MODELED_CROSSING_AND_LIQUIDITY",
+          "inventory": "LONG_ONLY_CASH",
+          "native_protection": "stop",
+          "not_covered": [
+            "live_broker_execution",
+            "queue_priority",
+            "hidden_liquidity",
+            "options",
+            "native_oco",
+            "shorts",
+            "production_scheduler_concurrency",
+            "empirical_model_edge",
+            "exhaustive_multiasset_parity"
+          ],
+          "observation_adapter": null,
+          "restart_count": 0
+        }
+      },
+      "interpretation": "Un cálculo favorable del fixture sintético prueba rutas de software. El gate bloquea aceptación financiera porque falta evidencia observada y paridad completa C0/Ridge/SVR. Las fechas ficticias del fixture no son un nuevo OOS."
+    }
+  },
+  "observed_data_readiness": {
+    "sources": [
+      "observed_coverage",
+      "observed_coverage_documentation"
+    ],
+    "nature": "HISTORICAL_PRICE_ARCHIVE_NOT_TRADING_EVIDENCE",
+    "common_period": {
+      "from": "2026-01-02",
+      "through": "2026-09-30"
+    },
+    "symbols": [
+      "AAPL",
+      "NVDA",
+      "SPY",
+      "IWM"
+    ],
+    "source_files_verified": 37,
+    "distinct_sessions": 187,
+    "regular_bars_total": 58344,
+    "regular_gaps_total": 0,
+    "panel": {
+      "rows": 1496,
+      "grids_NY": [
+        "10:50",
+        "15:20"
+      ],
+      "distinct_sessions": 187,
+      "readiness_by_symbol": {
+        "AAPL": {
+          "bar_insufficient_rows": 20,
+          "bar_sufficient_rows": 354
+        },
+        "NVDA": {
+          "bar_insufficient_rows": 20,
+          "bar_sufficient_rows": 354
+        },
+        "SPY": {
+          "bar_insufficient_rows": 20,
+          "bar_sufficient_rows": 354
+        },
+        "IWM": {
+          "bar_insufficient_rows": 20,
+          "bar_sufficient_rows": 354
+        }
+      },
+      "labels_by_symbol": {
+        "AAPL": {
+          "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+          "EXACT_OBSERVED_BAR_CLOSE": 294,
+          "OUTSIDE_COMMON_PERIOD": 2
+        },
+        "NVDA": {
+          "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+          "EXACT_OBSERVED_BAR_CLOSE": 294,
+          "OUTSIDE_COMMON_PERIOD": 2
+        },
+        "SPY": {
+          "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+          "EXACT_OBSERVED_BAR_CLOSE": 294,
+          "OUTSIDE_COMMON_PERIOD": 2
+        },
+        "IWM": {
+          "NO_REGULAR_SESSION_ON_LABEL_DATE": 78,
+          "EXACT_OBSERVED_BAR_CLOSE": 294,
+          "OUTSIDE_COMMON_PERIOD": 2
+        }
+      },
+      "distinct_sessions_with_bar_history_and_24h_price_label": {
+        "AAPL": 139,
+        "NVDA": 139,
+        "SPY": 139,
+        "IWM": 139
+      },
+      "two_rows_per_day_are_diagnostics_not_two_independent_sessions": true,
+      "null_quote_features_preserved": [
+        "vwap_z",
+        "spread_fraction"
+      ],
+      "training_rows_admissible": 0
+    },
+    "opening_closing_interpretation": "Hay barras históricas de las ventanas regulares de apertura y cierre y filas diagnósticas a las 10:50 y 15:20 de Nueva York. No equivalen a una prueba de beneficio neto por ventana de 90 minutos ni a dos sesiones independientes por día.",
+    "blocking_gaps": [
+      "Disponibilidad original de cotizaciones bid/ask y reloj de recepción no acreditada.",
+      "vwap_z y spread_fraction permanecen null en el panel.",
+      "training_rows_admissible es cero con el contrato actual.",
+      "Falta paridad completa del predictor y políticas del motor, Ridge y control.",
+      "Falta curva de patrimonio actual conciliada con fills y todos los costes del alcance económico."
+    ]
+  },
+  "trial_accounting": {
+    "quant_economic": {
+      "sources": [
+        "quant_validation",
+        "economic_documentation",
+        "economic_protocol"
+      ],
+      "scope": "Journal del experimento económico Quant; ResearchLab heredado tiene ledger separado.",
+      "prior_reconstructed": 9,
+      "new_reserved_in_historical_study": 14,
+      "recorded_total": 23,
+      "budget_limit": 128,
+      "remaining": 105,
+      "counter_before_review": 23,
+      "counter_after_review": 23,
+      "prior_journal_authentication": "Reconstruido con script y resultados coincidentes; no original autenticado recuperado."
+    },
+    "ultimate": {
+      "sources": [
+        "ultimate_report",
+        "ultimate_protocol",
+        "ultimate_registry"
+      ],
+      "reported_trial_count": 18,
+      "registered_slots": 18,
+      "registered_attempts_for_current_trial": 1,
+      "family_trials_bound": 72,
+      "policy_rows": 9,
+      "register_events_visible": 2,
+      "scope": "Conteo del estudio ResearchLab Ultimate y cota familiar del protocolo. No es el contador Quant ni una cantidad acreditada de ensayos independientes."
+    },
+    "tp32": {
+      "sources": [
+        "tp32_report",
+        "tp32_protocol"
+      ],
+      "reported_trial_count": 3,
+      "trial_budget": 3,
+      "scope": "Tres perfiles de la comparación TP32; datos históricos pueden coincidir con Ultimate."
+    },
+    "global_deduplicated_total": null,
+    "global_null_reason": "Registros separados, definiciones distintas de intento/slot/variante y reutilización histórica no reconciliadas. No sumar 23,18,3 ni interpretar 72 o128 como intentos ejecutados.",
+    "new_financial_trials_in_this_review": 0,
+    "new_financial_trials_in_release_30_10_1": 0,
+    "new_financial_trials_in_release_claim_basis": "Alcance comunicado por el padre y fuentes financieras históricas enumeradas idénticas a30.10.0. En el recibo del gate sintético solo cambian input_hash y artifact_hash; estadísticas y dictamen idénticos. No se ejecutó investigación nueva en esta evaluación."
+  },
+  "next_steps_with_validators": [
+    {
+      "order": 1,
+      "action": "Cerrar los datos y la contabilidad observados para el universo autorizado.",
+      "validation": [
+        "Disponibilidad causal de señal y cotización documentada con relojes comparables.",
+        "Posiciones, efectivo, flujos y costes conciliados por periodo; datos desconocidos permanecen null.",
+        "Separación de costes incluidos en NAV y costes externos, sin doble resta.",
+        "Filas admisibles del panel y cobertura de apertura/cierre demostradas."
+      ],
+      "refutation": [
+        "No se pueden reconstruir los inputs disponibles al decidir.",
+        "Persisten gastos o posiciones sin conciliar que cambien el signo del resultado."
+      ],
+      "evidence_to_produce": [
+        "Recibos de disponibilidad y fuente.",
+        "Curva de patrimonio continua y conciliación de costes."
+      ],
+      "does_not_authorize_orders": true
+    },
+    {
+      "order": 2,
+      "action": "Comparar motor actual, Ridge y control bajo la misma política, capital, universo, límites y horizonte.",
+      "validation": [
+        "Reejecución del coordinador y de los predictores con hashes de modelos/configuración/datos.",
+        "Trazas de órdenes, fills, descartes y posiciones terminales ligadas a cada curva.",
+        "Paridad que cubra las tres políticas, no solo C0."
+      ],
+      "refutation": [
+        "La mejora depende de exposición superior, fills imposibles, salidas diferentes o información futura.",
+        "El predictor o el vínculo entre recibos y patrimonio no es reproducible."
+      ],
+      "evidence_to_produce": [
+        "Recibo de paridad completa.",
+        "Diferencias pareadas de patrimonio y costes."
+      ],
+      "does_not_authorize_orders": true
+    },
+    {
+      "order": 3,
+      "action": "Fijar un protocolo y probar una mejora acotada sobre datos temporales nuevos.",
+      "validation": [
+        "Criterios de mejora mínima económica y límites fijados antes del resultado.",
+        "Control de dependencia, búsqueda múltiple y todos los intentos sin reiniciar contadores.",
+        "Crecimiento neto absoluto positivo y mejora frente a Ridge/control con incertidumbre admisible.",
+        "Sensibilidad y estrés predefinidos sin inventar fills o costes."
+      ],
+      "refutation": [
+        "El beneficio desaparece fuera de muestra, al incluir costes o al corregir búsqueda.",
+        "El límite inferior es no positivo o la muestra no puede detectar el efecto exigido.",
+        "El periodo de prueba ya se utilizó para ajustar parámetros."
+      ],
+      "evidence_to_produce": [
+        "Protocolo previo verificable.",
+        "Resultados de todos los intentos y prueba temporal no reutilizada."
+      ],
+      "failure_verdict": "RECHAZADO o VENTAJA_NO_DEMOSTRADA según evidencia; no forzar aprobación.",
+      "does_not_authorize_orders": true
+    },
+    {
+      "order": 4,
+      "action": "Validar hacia delante dentro del modo y capital ya autorizados.",
+      "validation": [
+        "Resultados conciliados con ejecuciones y costes efectivamente observados.",
+        "Protección determinista de posiciones, reinicios, discrepancias, datos obsoletos y ausencia de LLM.",
+        "Presupuesto de cómputo y retención de evidencia compatibles con funcionamiento continuo."
+      ],
+      "refutation": [
+        "Divergencia persistente entre replay y ejecución factible.",
+        "Costes, latencia o selección adversa consumen el margen.",
+        "La operación continua pierde protección o evidencia necesaria para conciliar."
+      ],
+      "evidence_to_produce": [
+        "Curva forward continua.",
+        "Comparación contra expectativas previas y registro de incidentes."
+      ],
+      "does_not_authorize_paper_to_live": true,
+      "does_not_authorize_exposure_increase": true
+    }
+  ],
+  "provenance": {
+    "review_method": "Lectura y extracción de artefactos existentes, hash SHA-256 y comparación de bytes con30.10.0; sin ejecución de estrategias ni nuevos ensayos financieros.",
+    "confidence_interpretation": "Los intervalos guardados pertenecen a sus experimentos y supuestos. No son probabilidades garantizadas de beneficio futuro.",
+    "sources": [
+      {
+        "id": "ultimate_report",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/evidence/ultimate/report.json",
+        "relative_path": "evidence/ultimate/report.json",
+        "sha256": "7b6fe566ac8a8ed27c5bb78be3d8e087b18a59f1b53de591324885760acaca11",
+        "bytes": 120206,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "ultimate_protocol",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/evidence/ultimate/protocol.json",
+        "relative_path": "evidence/ultimate/protocol.json",
+        "sha256": "7b62561cbba9792727b1cd1814d153530d440b72af09f41c53e89763fe16ebfc",
+        "bytes": 930,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "ultimate_registry",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/evidence/ultimate/registry.json",
+        "relative_path": "evidence/ultimate/registry.json",
+        "sha256": "bf7e199a75451ad7b892e4bc26ddab43d6338e1f2572a4075cfcdcc5ea81fe2c",
+        "bytes": 147175,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "ultimate_acceptance",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/evidence/ultimate/acceptance.json",
+        "relative_path": "evidence/ultimate/acceptance.json",
+        "sha256": "7a5c6a9ccc2bc0b40116d4945e9eb7c2f8abaa743cad20bda0eedfc9872bf688",
+        "bytes": 2495,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "tp32_report",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/evidence/tp32/report.json",
+        "relative_path": "evidence/tp32/report.json",
+        "sha256": "09ba82404ab8447f109d680b58e3b60643ae0c84bf7091bb3db6447f557bcf4f",
+        "bytes": 59521,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "tp32_protocol",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/research/tp32/protocol.json",
+        "relative_path": "research/tp32/protocol.json",
+        "sha256": "b7e71a93952a13b72ace2190f09e7ff5714a170841773a6818d7cfbe3a3005a9",
+        "bytes": 2615,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "economic_decision",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/study/decision.json",
+        "relative_path": "quant/economic_experiment/study/decision.json",
+        "sha256": "4cc700fb78343aef60672bb8bc26ff7e978cc410b48814306d8c8efb51a4df8f",
+        "bytes": 39105,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "economic_protocol",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/study/protocol.json",
+        "relative_path": "quant/economic_experiment/study/protocol.json",
+        "sha256": "af021845764df5a119b601d718ac11d3e7fec7d9c407d5e6a69bc13b98cbc88d",
+        "bytes": 3558,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "economic_analysis_protocol",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/analysis_protocol.json",
+        "relative_path": "quant/economic_experiment/analysis_protocol.json",
+        "sha256": "5b4dff285d1fdaef0e75a2cfd5260b39f03526cc7229aa6d3c9f76685ee8b065",
+        "bytes": 981,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "economic_documentation",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/ECONOMIC_ES.md",
+        "relative_path": "quant/economic_experiment/ECONOMIC_ES.md",
+        "sha256": "c8eab4657e09ab3f707ff98f19b1bf3d508af6da8cad609b00b7f1ec7ba402c5",
+        "bytes": 9499,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "quant_validation",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/evidence/validation.json",
+        "relative_path": "quant/evidence/validation.json",
+        "sha256": "e1902112ee8fed2eef57220f78a66cbc0cffef2547c1fcd1a1d6dddfc2d823a6",
+        "bytes": 1292,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "reference_reproduction",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/reproduction/results.json",
+        "relative_path": "quant/economic_experiment/reproduction/results.json",
+        "sha256": "561afa420b786c0ebe13077a288b314e36427c94bcb66ae99b5477117c54aed8",
+        "bytes": 70826,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "reference_forensic",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/evidence/legacy_forensic.json",
+        "relative_path": "quant/economic_experiment/evidence/legacy_forensic.json",
+        "sha256": "9bfd6240eaf8c5f03a78f2d6b02b4f85d3c743015c7bdb18074a869bcb5228b2",
+        "bytes": 17905,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "source_recovery",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/economic_experiment/source_recovery.json",
+        "relative_path": "quant/economic_experiment/source_recovery.json",
+        "sha256": "605e171a7808c714044b1246d675426795400bf2249eee3755fe6a7348258848",
+        "bytes": 1074,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "svr_model",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/examples/svr/model.synthetic.json",
+        "relative_path": "quant/examples/svr/model.synthetic.json",
+        "sha256": "8ad29c340a4f493efdac034347ceef29c8fd27266ebdf814933752baf28812ce",
+        "bytes": 16810,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "svr_receipt",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/examples/svr/receipt.synthetic.json",
+        "relative_path": "quant/examples/svr/receipt.synthetic.json",
+        "sha256": "58ba7db5945f6e69143b1fa05e98d2ddf3b89b3be3659365f5316866280d8a16",
+        "bytes": 1329,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "svr_validation",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/evidence/svr/release_validation.json",
+        "relative_path": "quant/evidence/svr/release_validation.json",
+        "sha256": "68fbc9a24321833f4dbb0b68d5d04ac41dc4b07b4db8bee22a322d5972685fb9",
+        "bytes": 1400,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "paired_replay",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/examples/paired_replay/synthetic_result.json",
+        "relative_path": "quant/examples/paired_replay/synthetic_result.json",
+        "sha256": "945b3de5a60f6bcaea6d4328d86dddc54de6c15e83fc205454885f28be0d47be",
+        "bytes": 27773,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "economic_gate",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/examples/economic_gate/coordinator_fixture/report.json",
+        "relative_path": "quant/examples/economic_gate/coordinator_fixture/report.json",
+        "sha256": "84e791633694d18050c69e16fea46324cd26d8a8d661208421100555aba3f9c0",
+        "bytes": 7977,
+        "same_bytes_as_30_10_0": false
+      },
+      {
+        "id": "observed_coverage",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/evidence/remediation_30_9/observed_coverage_summary.json",
+        "relative_path": "evidence/remediation_30_9/observed_coverage_summary.json",
+        "sha256": "52910d7c22028f92fd08e7bba9080b562104a0fed14c397df6622eedd1a3864f",
+        "bytes": 1937,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "observed_coverage_documentation",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/REMEDIACIONES_HARPOONX_30_9_0.yaml",
+        "relative_path": "REMEDIACIONES_HARPOONX_30_9_0.yaml",
+        "sha256": "89fa1918e1e5a6ca085c896d9d0eaea4fcfe9c27f3ccbb8abe0dea7e017d8fd6",
+        "bytes": 30804,
+        "same_bytes_as_30_10_0": true
+      },
+      {
+        "id": "operational_release_validation",
+        "path": "/workspace/scratch/4ecb05fdc50d/integral_work/HARPOON_XXXUltimate_30_10_1/quant/evidence/autonomy_1_6/release_validation.json",
+        "relative_path": "quant/evidence/autonomy_1_6/release_validation.json",
+        "sha256": "819c4432cd06066674fe844c14e92927f4ff7eadbbd9cd38ee157f3b87bafb35",
+        "bytes": 480,
+        "same_bytes_as_30_10_0": true
+      }
+    ]
+  }
+}

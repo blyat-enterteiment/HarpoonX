@@ -1,0 +1,18 @@
+{
+  "scope": "SYNTHETIC_RUNNER_VERIFICATION_ONLY",
+  "new_financial_trials": 0,
+  "candidate_financial_execution": false,
+  "tests_passed": 10,
+  "checks": [
+    "Unknown null path cannot be silently excluded or valued at zero",
+    "Unresolved exposure aborts economic result and preserves incident details",
+    "Candidate cannot run without a separate local registration",
+    "Shared capital is carried through loss and busy symbols; positions are not independently refilled",
+    "Future closure profit cannot replace marked open exposure at evaluation end",
+    "Explicit causal pre-entry refusal does not open exposure or hide an existing trade",
+    "A scheduled entry followed by null cannot be relabeled as abstention",
+    "Future fill price cannot resize the causal quantity; a budget excess preserves exposure and invalidates PnL",
+    "Pending cash reserves use the ex-ante budget rather than an unobserved future entry price",
+    "Actual compiled candidate helpers match runner sizing and validation on synthetic inputs"
+  ]
+}

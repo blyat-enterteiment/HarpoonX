@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "get_option_chain: error internal_error"
+    }
+  ],
+  "structuredContent": {
+    "tool": "get_option_chain",
+    "error": {
+      "code": "internal_error",
+      "message": "Failed to retrieve option chain.",
+      "details": {
+        "underlying_symbol": "SPY",
+        "original_error": "{\"message\":\"subscription does not permit querying OPRA data\"}\n"
+      }
+    },
+    "error_code": "INVALID_ARGUMENT"
+  },
+  "isError": true
+}

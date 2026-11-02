@@ -1,0 +1,106 @@
+✔ changing a future fill bar cannot alter the causal price, quantity or decision dates (2.108022ms)
+✔ absence of an available completed bar is explicit non-admission, not a zero price (0.150747ms)
+✔ an invalid latest available close cannot fall back silently to a stale valid close (0.166241ms)
+✔ a price gap breaching the approved notional preserves quantity and unresolved exposure (0.362377ms)
+✔ rounded stop distance and trading friction remain inside the risk budget check (0.160933ms)
+✔ missing or insufficient conservative cash cannot masquerade as funded execution (0.14575ms)
+✔ a valid fill check neither reads future exit PnL nor approves another signal's position (0.210488ms)
+✔ funded execution reserves simultaneous symbols, risk and notional in one cash pool (5.462936ms)
+✔ a duplicate symbol before its first modeled fill cannot open a second campaign (0.676871ms)
+✔ observed close releases capacity and a later session carries the prior equity (1.123165ms)
+✔ causal marks of open inventory can increase reserved exposure but pending prices cannot (1.691983ms)
+✔ a future entry price cannot resize the plan; a budget breach retains its reservation (0.870624ms)
+✔ an absent planned fill is an unresolved reserved exposure, never a zero-PnL skip (0.517991ms)
+✔ an incomplete path after entry retains the last mark and original reserved capital (0.484742ms)
+✔ calendar refusal occurs before requiring any later entry price (0.246652ms)
+✔ missing causal reference refuses entry rather than using the future fill price (0.261865ms)
+✔ terminal open exposure is preserved with a mark and an incident, not force-closed (0.776152ms)
+✔ selection outside the evaluation period cannot inject earlier account profits (0.62967ms)
+✔ portfolio return intervals include overnight time and reconcile asset contributions (0.491431ms)
+✔ Thursday campaign exits Friday before weekend deadline using runtime calendar policy (0.530101ms)
+✔ Friday campaign exits Friday when Monday is a holiday, never at Tuesday's open (0.191429ms)
+✔ early close is scheduled from the supplied calendar with the same ten-minute buffer (0.234554ms)
+✔ intrabar wall-clock deadline rounds earlier on the declared five-minute grid (0.459253ms)
+✔ a pending entry arriving at or after the planned deadline is refused before opening (0.242236ms)
+✔ an absent calendar refuses entry; no later price is used to invent an exit session (0.139932ms)
+✔ a calendar truncated before 72 hours cannot invent an earlier last trading session (0.150587ms)
+✔ missing deadline bar after an entry throws unresolved exposure instead of skipping or closing late (0.399163ms)
+✔ production imports remain loadable while the archived report cannot pass a new code seal (2.27205ms)
+✔ data ending with an open position cannot turn into a zero-PnL excluded campaign (0.32415ms)
+✔ seven simultaneous pending entries cannot spend the same notional capacity (0.29818ms)
+✔ the joint risk ceiling binds independently of available cash and notional (0.28474ms)
+✔ a pending symbol is busy before the first modeled fill (0.167663ms)
+✔ release waits for the close to be known, not just its effective timestamp (0.208465ms)
+✔ partial observations retain the full approved budgets and residual order (0.362167ms)
+✔ future observations and future prices cannot alter a decision-time reservation (0.281725ms)
+✔ identical retries do not duplicate capacity and conflicting ids raise an incident (0.18498ms)
+✔ duplicate exposure observations are idempotent, conflicts preserve the original record (0.458812ms)
+✔ unknown, regressing and post-close exposure cannot become a silent release (0.322486ms)
+✔ cash fees, reduced equity and per-entry limits are enforced without loosening limits (0.2257ms)
+✔ deleting the later last bar cannot erase an earlier signal (2.326291ms)
+✔ future prices and future availability do not change an earlier signal (0.724533ms)
+✔ an observed prefix gap blocks dependent decisions without interpolation (0.459413ms)
+✔ a future gap preserves past signals and blocks decisions after the observed gap (1.112559ms)
+✔ entry plans use the declared grid for zero, three-second and sixty-second availability (1.858735ms)
+✔ entry admission near session close depends on calendar, not future bars (0.122565ms)
+✔ a missing planned fill retains signal, quantity and unknown exposure with null PnL (0.631242ms)
+✔ execution resolves the exact planned timestamp when an earlier unavailable bar shifts the array (0.449829ms)
+✔ a caller cannot substitute a later existing fill for the causal entry plan (0.339953ms)
+✔ a gap after an opening-breakout fill retains the already opened position (0.29185ms)
+✔ truncated data after an observed fill cannot silently remove the campaign (0.303949ms)
+✔ an unsupported future corporate action is an incident, not a hindsight no-entry filter (0.328275ms)
+✔ legacy signals retain valid explicit index timing but cannot enter before their decision (0.295426ms)
+✔ legacy missing execution observations also cannot become a flat result (0.660677ms)
+✔ failed durable registration and queue never report a committed success (15.693077ms)
+✔ autopilot blocks new allocations when the independent guardian heartbeat is stale (36.906324ms)
+✔ hashes are key-order independent and detect changed numerical content (0.12605ms)
+✔ protocol cannot reduce samples, purge or multiplicity below its universe (0.345702ms)
+✔ dataset rejects future availability, duplicate bars, bad OHLC and absent checksums (15.127287ms)
+✔ proxy dataset cannot be presented as a dated futures dataset (0.779046ms)
+✔ features are causal when all subsequent sessions are changed (57.394608ms)
+✔ incomplete sessions are quarantined without interpolation (19.022652ms)
+✔ long and short trailing never loosen and require progress (0.154443ms)
+✔ ambiguous stop and target uses adverse stop before any profit (0.300554ms)
+✔ incomplete paths cannot become zero-PnL successful trades (0.564972ms)
+✔ bootstrap is deterministic, insufficient evidence returns null, negative data fails (3.397878ms)
+✔ metrics honor compounding, drawdown and zero-information DSR (0.416949ms)
+✔ actual study purges train/test labels, reports holdout reuse and never promotes (55.195734ms)
+✔ registry locks data, consumes cumulative slots and forbids retuning or duplicate execution (119.692147ms)
+✔ registry survives actual SQLite reopen and rejects tampered protocol/chain (69.444866ms)
+✔ registry has a cumulative stop rule and cannot understate total multiplicity (1.933377ms)
+✔ restart interrupts a queued attempt instead of silently recomputing (10.88493ms)
+✔ future contract forbids continuous symbols, mismatched roots and delivery deadlines (0.373354ms)
+✔ MNQ 30 point risk on USD20000 at 0.25 percent permits zero contracts (0.354485ms)
+✔ futures without credentials are NOT_CONFIGURED and cannot fabricate a plan (0.541317ms)
+✔ futures validates fresh entitlement, loss gates and tick precision (1.084557ms)
+✔ uncertain futures submission is durable and never resent (0.766918ms)
+✔ acknowledgment is not a fill; fills and partials come from reconciliation (0.579144ms)
+✔ unknown all-in commission prevents any futures submission (0.327484ms)
+✔ Ironbeam transport fixes PAPER host, sends authorization and propagates failure (3.754948ms)
+✔ API connection defaults to automatic PAPER and explicit operator opt-out persists (13.771877ms)
+✔ autopilot exits and native protection run with entry and research pauses (15.948161ms)
+✔ research worker does not block an independent async heartbeat (105.91042ms)
+✖ Ultimate HTTP requires authentication and explicit JSON action, including export (12.254226ms)
+ℹ tests 83
+ℹ suites 0
+ℹ pass 82
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 667.290606
+
+✖ failing tests:
+
+test at tools/ultimate_test.cjs:497:1
+✖ Ultimate HTTP requires authentication and explicit JSON action, including export (12.254226ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }

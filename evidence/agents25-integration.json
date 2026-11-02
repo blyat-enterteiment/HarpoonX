@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "Native crypto entry traverses real agent handlers and produces one fixture order",
+    "Broker-observed fill links back to the same lead ID",
+    "Native stop-limit protection is preserved",
+    "Second cycle and direct purchase cannot bypass the gate",
+    "SQLite stores tasks, state and append-only coordination messages",
+    "Native exits continue with agents disabled and an injected agent-storage outage",
+    "Two plugins on the same pair cannot exchange their permits",
+    "Take-profit telemetry is linked to the native campaign",
+    "Activity collection cannot cross a day boundary and acquire the wrong period"
+  ],
+  "passed": 9,
+  "externalOrders": 0,
+  "fixtureOrders": 3,
+  "paidModelCalls": 0
+}

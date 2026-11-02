@@ -1,0 +1,76 @@
+{
+  "initial_evidence": "port_validation.json",
+  "initial_evidence_unchanged": true,
+  "cause": "Root release Ruff configuration includes BLE001; the earlier targeted Ruff selection did not.",
+  "change": [
+    {
+      "path": "runtime/store.py",
+      "before": "fa4d6ad44a5b5b3e6422d3f8289ed57a49f7efa37435452cdc72fd0fa9ee7b21",
+      "after": "2daa2d811aeeed9a3622a274747140f0feba2928c1b14b15ce5291b8de7bc9e1"
+    }
+  ],
+  "checks": [
+    {
+      "name": "store30_deadline_test",
+      "command": [
+        "node",
+        "--no-use-env-proxy",
+        "--require",
+        "./tools/quant_clock.cjs",
+        "--test",
+        "--test-isolation=none",
+        "--test-reporter=tap",
+        "--test-force-exit",
+        "--test-timeout=30000",
+        "tools/store30_deadline_test.cjs"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1",
+      "exit_code": 0,
+      "duration_seconds": 1.7721988999983296,
+      "log": "store30_deadline_test.log",
+      "log_sha256": "dba0ba0c58ef3368b2e2d77652668fc15ecdf341e0a4a20cd93512bbc44370e6",
+      "tests": 14,
+      "pass": 14,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "passed": true
+    },
+    {
+      "name": "storage_ruff",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "runtime/store.py"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1",
+      "exit_code": 0,
+      "duration_seconds": 0.0322107230022084,
+      "log": "storage_ruff.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "passed": true
+    },
+    {
+      "name": "storage_mypy",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "mypy",
+        "--follow-imports=silent",
+        "runtime/store.py"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/consolidation_work/HARPOON_XXXUltimate_30_12_1",
+      "exit_code": 0,
+      "duration_seconds": 0.16447183100535767,
+      "log": "storage_mypy.log",
+      "log_sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e",
+      "passed": true
+    }
+  ],
+  "review": "A second agent reviewed the explicit recoverable exception tuple and confirmed that replay fingerprints do not bind store.py; not an independent external audit.",
+  "financial_trials": 0,
+  "static_criteria_relaxed": false
+}

@@ -1,0 +1,22 @@
+✔ deleting the later last bar cannot erase an earlier signal (4.429707ms)
+✔ future prices and future availability do not change an earlier signal (5.261402ms)
+✔ an observed prefix gap blocks dependent decisions without interpolation (0.536149ms)
+✔ a future gap preserves past signals and blocks decisions after the observed gap (0.849382ms)
+✔ entry plans use the declared grid for zero, three-second and sixty-second availability (2.531301ms)
+✔ entry admission near session close depends on calendar, not future bars (0.26509ms)
+✔ a missing planned fill retains signal, quantity and unknown exposure with null PnL (3.296516ms)
+✔ execution resolves the exact planned timestamp when an earlier unavailable bar shifts the array (1.427725ms)
+✔ a caller cannot substitute a later existing fill for the causal entry plan (6.457688ms)
+✔ a gap after an opening-breakout fill retains the already opened position (0.87416ms)
+✔ truncated data after an observed fill cannot silently remove the campaign (0.6359ms)
+✔ an unsupported future corporate action is an incident, not a hindsight no-entry filter (0.350509ms)
+✔ legacy signals retain valid explicit index timing but cannot enter before their decision (0.370619ms)
+✔ legacy missing execution observations also cannot become a flat result (0.359953ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34.633213

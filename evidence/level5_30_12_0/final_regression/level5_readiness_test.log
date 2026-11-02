@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: synthetic complete base and stress reexecute all policies and preserve authority
+ok 1 - synthetic complete base and stress reexecute all policies and preserve authority
+  ---
+  duration_ms: 32420.100153
+  type: 'test'
+  ...
+# Subtest: NATIVE remains invested while CASH has same costs and no fictitious interest
+ok 2 - NATIVE remains invested while CASH has same costs and no fictitious interest
+  ---
+  duration_ms: 0.757953
+  type: 'test'
+  ...
+# Subtest: stress cannot alter predictor, signals, timestamps, capital or reduce costs
+ok 3 - stress cannot alter predictor, signals, timestamps, capital or reduce costs
+  ---
+  duration_ms: 40.324761
+  type: 'test'
+  ...
+# Subtest: a rehashed forged profit is rejected by complete replay
+ok 4 - a rehashed forged profit is rejected by complete replay
+  ---
+  duration_ms: 7644.24544
+  type: 'test'
+  ...
+# Subtest: cash insolvency is retained without borrowing or a terminal forced sale
+ok 5 - cash insolvency is retained without borrowing or a terminal forced sale
+  ---
+  duration_ms: 30.478831
+  type: 'test'
+  ...
+# Subtest: weekend accrual preserves its timestamp and belongs to next observed session
+ok 6 - weekend accrual preserves its timestamp and belongs to next observed session
+  ---
+  duration_ms: 0.382988
+  type: 'test'
+  ...
+# Subtest: cost schedule deducts fees once and keeps original account NAV
+ok 7 - cost schedule deducts fees once and keeps original account NAV
+  ---
+  duration_ms: 23.348704
+  type: 'test'
+  ...
+# Subtest: unknown evidence stays null and caller curves or a seventh slot are rejected
+ok 8 - unknown evidence stays null and caller curves or a seventh slot are rejected
+  ---
+  duration_ms: 7692.084357
+  type: 'test'
+  ...
+# Subtest: derivation verification reproduces source artifacts and rejects fabricated approval
+ok 9 - derivation verification reproduces source artifacts and rejects fabricated approval
+  ---
+  duration_ms: 15726.227519
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63587.022454

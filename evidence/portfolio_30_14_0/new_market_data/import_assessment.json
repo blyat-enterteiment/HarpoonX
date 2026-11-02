@@ -1,0 +1,68 @@
+{
+  "schema": "HARPOON_NEW_DATA_IMPORT_ASSESSMENT_1",
+  "bar_queries": 4,
+  "calendar_queries": 1,
+  "corporate_action_queries": 1,
+  "data_nature": "HISTORICAL_RETRIEVAL",
+  "modeled_availability_delay_ms": 3000,
+  "original_receipts": null,
+  "calendar_original_publication_at": null,
+  "coverage": {
+    "from": "2026-10-19",
+    "through": "2026-10-30",
+    "sessions": 10,
+    "regular_bars_per_symbol": 780,
+    "symbols": [
+      "SPY",
+      "XLK"
+    ],
+    "missing_regular_bars": 0,
+    "regular_grid_complete": true
+  },
+  "calendar_for_deadlines_through": "2026-11-06",
+  "calendar_future_sessions_separate": true,
+  "source_old_holdout_already_used": {
+    "from": "2026-07-21",
+    "through": "2026-10-16",
+    "source": "evidence/ultimate/report.json"
+  },
+  "corporate_actions": {
+    "date_filter_basis": "process_date",
+    "observed": {
+      "cash_dividends": [
+        {
+          "id": "2f18deca-9def-4e0b-b7cf-56f8a76612eb",
+          "corporate_action_type": "cash_dividends",
+          "symbol": "SPY",
+          "cusip": "78462F103",
+          "rate": 1.888834,
+          "special": false,
+          "foreign": false,
+          "process_date": "2026-10-30",
+          "ex_date": "2026-09-18",
+          "record_date": "2026-09-18",
+          "payable_date": "2026-10-30",
+          "due_bill_on_date": null,
+          "due_bill_off_date": null
+        }
+      ]
+    },
+    "complete_ex_date_manifest": null,
+    "reason": "A process-date interval is not a complete ex-date interval; SPY dividend returned has ex_date2026-09-18 and process/payable_date2026-10-30.",
+    "source_url": "https://docs.alpaca.markets/us/reference/corporateactions-1"
+  },
+  "normalized_market_emitted": true,
+  "research_dataset_emitted": false,
+  "research_dataset_blocker": "COMPLETE_EXDATE_ACTION_MANIFEST_REQUIRED",
+  "research_dataset_builder": "import_market_data.py::make_dataset",
+  "synthetic_software_tests": {
+    "command": "python3 -m unittest discover -s nivel7_work/new_market_data -p test_import_market_data.py -v",
+    "passed": 8,
+    "failed": 0,
+    "financial_validation": false
+  },
+  "financial_experiments": 0,
+  "fits": 0,
+  "orders_sent": 0,
+  "deployment": false
+}

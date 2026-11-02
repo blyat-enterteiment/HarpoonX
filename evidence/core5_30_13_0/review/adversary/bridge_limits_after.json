@@ -1,0 +1,192 @@
+{
+  "nature": "SYNTHETIC_ENGINEERING_ONLY",
+  "model_fits": 0,
+  "financial_trials": 0,
+  "app": "/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0",
+  "cases": [
+    {
+      "case": "original_fixture",
+      "core_config": {},
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "CONDITIONAL_MODEL_ALLOCATION",
+        "selected": [
+          {
+            "id": "synthetic-test|AAPL",
+            "quantity": 5.0,
+            "cash_committed_usd": 506.05555000000004
+          }
+        ],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "stricter_asset_cap",
+      "core_config": {
+        "asset_fraction": 0.001
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "stricter_gross_cap",
+      "core_config": {
+        "gross_fraction": 0.001
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "stricter_factor_cap",
+      "core_config": {
+        "factor_fraction": 0.001
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "stricter_daily_loss",
+      "core_config": {
+        "daily_loss_fraction": 0.001
+      },
+      "account_state": {
+        "daily_pnl": -30
+      },
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "ACCOUNT_RISK_PAUSE",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "stricter_drawdown",
+      "core_config": {
+        "drawdown_fraction": 0.001
+      },
+      "account_state": {
+        "drawdown_fraction": 0.002
+      },
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "ACCOUNT_RISK_PAUSE",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "larger_slippage_assumption",
+      "core_config": {
+        "slippage_bps": 500
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "CASH_DOMINATES_AFTER_UNCERTAINTY",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "zero_quote_age",
+      "core_config": {
+        "max_quote_age_seconds": 0
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "NO_ADMISSIBLE_CALIBRATED_CANDIDATES",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "zero_daily_loss",
+      "core_config": {
+        "daily_loss_fraction": 0
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "ACCOUNT_RISK_PAUSE",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "zero_drawdown",
+      "core_config": {
+        "drawdown_fraction": 0
+      },
+      "account_state": {},
+      "direct_config": "ACCEPTED",
+      "bridge": {
+        "status": "RESEARCH_ONLY",
+        "reason": "ACCOUNT_RISK_PAUSE",
+        "selected": [],
+        "execution_allowed": false
+      }
+    },
+    {
+      "case": "invalid_zero_positions",
+      "core_config": {
+        "max_positions": 0
+      },
+      "account_state": {},
+      "direct_config": "COMPUTE_BUDGET",
+      "bridge": {
+        "exception": "ValueError",
+        "reason": "COMPUTE_BUDGET"
+      }
+    },
+    {
+      "case": "negative_risk_rejected_direct_but_ignored_in_bridge",
+      "core_config": {
+        "gross_fraction": -0.1
+      },
+      "account_state": {},
+      "direct_config": "NEGATIVE_gross_fraction",
+      "bridge": {
+        "exception": "ValueError",
+        "reason": "NEGATIVE_gross_fraction"
+      }
+    },
+    {
+      "case": "boolean_risk_rejected_direct_but_ignored_in_bridge",
+      "core_config": {
+        "gross_fraction": false
+      },
+      "account_state": {},
+      "direct_config": "INVALID_gross_fraction",
+      "bridge": {
+        "exception": "ValueError",
+        "reason": "INVALID_gross_fraction"
+      }
+    }
+  ]
+}

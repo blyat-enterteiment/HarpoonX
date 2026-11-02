@@ -1,0 +1,32 @@
+{
+  "command": [
+    "node",
+    "--no-use-env-proxy",
+    "--require",
+    "./tools/quant_clock.cjs",
+    "--test",
+    "--test-isolation=none",
+    "--test-reporter=tap",
+    "--test-force-exit",
+    "--test-timeout=30000",
+    "tools/quant_dashboard_evidence_test.cjs"
+  ],
+  "exit_code": 0,
+  "observed_at": "2026-11-01T00:27:01.184662+00:00",
+  "data_nature": "SYNTHETIC_TEST_SNAPSHOTS_NO_EXTERNAL_NETWORK",
+  "tests": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0
+  },
+  "test_scope": "Actual inline dashboard rendering in a minimal DOM and full inline JS syntax; does not verify browser layout, broker connectivity, performance or order execution.",
+  "source_hashes": {
+    "deploy/dashboard30.html": "a1a85a343faf3933d7ea61c7bd1e6ae03eebb0df3fd68ed86846c016d31cde31",
+    "tools/quant_dashboard_evidence_test.cjs": "a1d765975c60b86661cbfde7126a4a9551810a8bf427332f54af4f5d70f436a4"
+  },
+  "clock_correction": "The minimal VM shares the host Date injected by quant_clock.cjs. Production dashboard and test assertions were not changed to resolve the aggregate test clock mismatch.",
+  "log": "dashboard_evidence.tap",
+  "log_sha256": "7deb091f6aeeaa841fec8042af598572942f6ae2ae7389606381d6f63cceb2f2",
+  "initial_standalone_result": "../resolved_regressions/initial_standalone_ui/result.json",
+  "aggregate_summary": "../final_regression/all_summary.json"
+}

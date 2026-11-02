@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: the final COPY layout includes verifier and bound TypeScript sources
+ok 1 - the final COPY layout includes verifier and bound TypeScript sources
+  ---
+  duration_ms: 1.471841
+  type: 'test'
+  ...
+# Subtest: Docker context retains required verification tools without test fixtures
+ok 2 - Docker context retains required verification tools without test fixtures
+  ---
+  duration_ms: 0.942733
+  type: 'test'
+  ...
+# Subtest: the actual coordinator replay verifies from the staged final layout
+ok 3 - the actual coordinator replay verifies from the staged final layout
+  ---
+  duration_ms: 301.387267
+  type: 'test'
+  ...
+# Subtest: Python gate can reexecute the coordinator from the final layout without granting financial acceptance
+ok 4 - Python gate can reexecute the coordinator from the final layout without granting financial acceptance
+  ---
+  duration_ms: 1084.517707
+  type: 'test'
+  ...
+# Subtest: fixed C0 Ridge and SVR comparison can be reproduced from the final layout
+ok 5 - fixed C0 Ridge and SVR comparison can be reproduced from the final layout
+  ---
+  duration_ms: 7898.798319
+  type: 'test'
+  ...
+# Subtest: omitting the verifier reproduces the prior distribution defect and fails closed
+ok 6 - omitting the verifier reproduces the prior distribution defect and fails closed
+  ---
+  duration_ms: 805.176251
+  type: 'test'
+  ...
+# Subtest: the level5 adapter in the final layout preserves unknown evidence and never authorizes orders
+ok 7 - the level5 adapter in the final layout preserves unknown evidence and never authorizes orders
+  ---
+  duration_ms: 43.409697
+  type: 'test'
+  ...
+# Subtest: omitting the TypeScript source cannot silently bypass source integrity
+ok 8 - omitting the TypeScript source cannot silently bypass source integrity
+  ---
+  duration_ms: 1.870702
+  type: 'test'
+  ...
+# Subtest: the delivered HTML alias and package versions agree with the active application
+ok 9 - the delivered HTML alias and package versions agree with the active application
+  ---
+  duration_ms: 1.71002
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10174.301277

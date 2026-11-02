@@ -1,0 +1,29 @@
+{
+  "scope": "Affected offline software gates; no trading performance assertion",
+  "suite": "python",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "checks": [
+    {
+      "name": "quant_unittest",
+      "command": [
+        "/workspace/scratch/4ecb05fdc50d/.venv_hx/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/scratch/4ecb05fdc50d/remediation_work/HARPOON_XXXUltimate_30_9_0/quant",
+      "exit_code": 0,
+      "duration_seconds": 18.079844093001157,
+      "log": "quant_unittest.log",
+      "log_sha256": "479090de9f877c0449029ec0869f7919d08c939b4995c0c31e60d30951b26cd3",
+      "tests": 249,
+      "passed": true
+    }
+  ],
+  "tests": 249,
+  "passed": true,
+  "financial_trials_created": 0
+}

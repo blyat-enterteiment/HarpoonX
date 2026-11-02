@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: strict JSON rejects overwritten evidence and nonfinite numbers
+ok 1 - strict JSON rejects overwritten evidence and nonfinite numbers
+  ---
+  duration_ms: 2.594995
+  type: 'test'
+  ...
+# Subtest: missing inputs stay at3 despite caller claims of readiness or profit
+ok 2 - missing inputs stay at3 despite caller claims of readiness or profit
+  ---
+  duration_ms: 6.832659
+  type: 'test'
+  ...
+# Subtest: valid data artifact is reconstructed but an empty panel cannot qualify
+ok 3 - valid data artifact is reconstructed but an empty panel cannot qualify
+  ---
+  duration_ms: 1547.122251
+  type: 'test'
+  ...
+# Subtest: tampered JSON report remains invalid even with a new outer file checksum
+ok 4 - tampered JSON report remains invalid even with a new outer file checksum
+  ---
+  duration_ms: 1609.163509
+  type: 'test'
+  ...
+# Subtest: mismatched source checksum cannot be treated as a verified component
+ok 5 - mismatched source checksum cannot be treated as a verified component
+  ---
+  duration_ms: 781.572387
+  type: 'test'
+  ...
+# Subtest: a declared reconciled ledger without reconstructible pages is rejected
+ok 6 - a declared reconciled ledger without reconstructible pages is rejected
+  ---
+  duration_ms: 2.604941
+  type: 'test'
+  ...
+# Subtest: real three-policy synthetic reexecution is engineering evidence and stays at3
+ok 7 - real three-policy synthetic reexecution is engineering evidence and stays at3
+  ---
+  duration_ms: 16522.330171
+  type: 'test'
+  ...
+# Subtest: relabeling and resealing synthetic comparison cannot promote it
+ok 8 - relabeling and resealing synthetic comparison cannot promote it
+  ---
+  duration_ms: 7749.220136
+  type: 'test'
+  ...
+# Subtest: market binding reads original local frames, and changed quote or bar cannot match
+ok 9 - market binding reads original local frames, and changed quote or bar cannot match
+  ---
+  duration_ms: 92.154425
+  type: 'test'
+  ...
+# Subtest: fixed source configuration has the same binding across page partitions
+ok 10 - fixed source configuration has the same binding across page partitions
+  ---
+  duration_ms: 145.327027
+  type: 'test'
+  ...
+# Subtest: configuration changes cannot be hidden across a source page boundary
+ok 11 - configuration changes cannot be hidden across a source page boundary
+  ---
+  duration_ms: 174.594398
+  type: 'test'
+  ...
+# Subtest: comparison configuration must match documented source normalization
+ok 12 - comparison configuration must match documented source normalization
+  ---
+  duration_ms: 234.475267
+  type: 'test'
+  ...
+# Subtest: mixed source capture uses exactly the funded equity ETF scope without cherry picking
+ok 13 - mixed source capture uses exactly the funded equity ETF scope without cherry picking
+  ---
+  duration_ms: 59.74584
+  type: 'test'
+  ...
+# Subtest: explicitly synthetic frames and incomplete page sets never claim observed receipts
+ok 14 - explicitly synthetic frames and incomplete page sets never claim observed receipts
+  ---
+  duration_ms: 49.761146
+  type: 'test'
+  ...
+# Subtest: self-resealed level4 score is checked by complete reexecution
+ok 15 - self-resealed level4 score is checked by complete reexecution
+  ---
+  duration_ms: 1.987108
+  type: 'test'
+  ...
+# Subtest: closed documentary coverage is usable only inside its verified period despite an unknown current tail
+ok 16 - closed documentary coverage is usable only inside its verified period despite an unknown current tail
+  ---
+  duration_ms: 0.221955
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 29004.372954

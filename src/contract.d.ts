@@ -1,0 +1,1 @@
+declare const HContract: {version:string;partial_max:number;min_partial:number;bounds:Record<string,[number,number]>;families:string[];hold_hours:number[];defaults:Record<string,string|number>;enums:Record<string,string[]>};

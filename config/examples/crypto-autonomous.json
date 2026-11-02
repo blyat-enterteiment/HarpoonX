@@ -1,0 +1,51 @@
+{
+  "execution_authority": "dedicated_remote_account",
+  "mode": "paper",
+  "strategy": {
+    "entry_days": 20,
+    "exit_days": 10,
+    "atr_days": 20,
+    "atr_multiple": 3,
+    "risk_fraction": 0.0025,
+    "asset_cap": 0.25,
+    "total_cap": 0.5,
+    "fee_bps": 25,
+    "slippage_bps": 10,
+    "max_spread_bps": 30,
+    "capital": 20000,
+    "capital_limit": 50000,
+    "hold_hours": 0,
+    "drawdown_limit": 0.15
+  },
+  "expected_account_id": "REEMPLAZAR_POR_TU_ID_PAPER",
+  "autonomy": {
+    "schema": "HARPOON-AUTONOMY-3-2",
+    "policy": {
+      "enabled": true,
+      "autoPrepareResearch": true,
+      "autoResearch": true,
+      "autoSelectPaper": true,
+      "autoResumeTransientPaper": true,
+      "heartbeatSeconds": 5,
+      "clockPollSeconds": 30,
+      "clockMaxAgeSeconds": 45,
+      "selectionSeconds": 300,
+      "researchSeconds": 5,
+      "minSwitchSeconds": 3600,
+      "evidenceMaxAgeDays": 30,
+      "minImprovementReturn": 0.001,
+      "watchdogSeconds": 45,
+      "retrySeconds": 30,
+      "maxRecoveryAttempts": 3,
+      "maxPreparationAttemptsPerDay": 3,
+      "optimizerMaxTrials": 16,
+      "optimizerBatchSize": 4,
+      "optimizerComputeMs": 60000,
+      "maxRiskFraction": 0.0025,
+      "maxAssetExposure": 0.25,
+      "maxTotalExposure": 0.5,
+      "maxAccountDrawdown": 0.08,
+      "maxSpreadBps": 30
+    }
+  }
+}

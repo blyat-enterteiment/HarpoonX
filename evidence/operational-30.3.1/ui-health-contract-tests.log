@@ -1,0 +1,33 @@
+✔ validators record the actual outcome, including asynchronous durable failure (1.64468ms)
+✔ account contracts reject missing numeric values and wrong identities (0.276057ms)
+✔ clock and quote contracts reject stale, future and crossed observations (0.591572ms)
+✔ position and fill contracts reject duplicate inventory and impossible fills (0.488507ms)
+✔ order-intent and signal contracts enforce executable precision and exit bounds (37.119341ms)
+✔ journal and bar contracts reject malformed stored execution state (9.625205ms)
+✔ scheduler ALIVE requires completion; a failure cannot advance lastSuccess (0.450269ms)
+✔ observed API reports actual latency, failures and inflight requests without secrets (1.006949ms)
+✔ runtime process metrics come from Node and have no seeded CPU/sample values (111.773025ms)
+✔ system health exposes missing quotes, closed sessions, validator faults and broker staleness (17.115361ms)
+✔ pending cancellation and undersized stop never count as confirmed native protection (17.272789ms)
+✔ failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success (9.178063ms)
+✔ authenticated health endpoints return real process state and no credentials (43.670909ms)
+✔ optional contracts are visible as NOT_RUN until actually exercised (10.393405ms)
+✔ caught per-position exit failure remains visible in system health (10.290258ms)
+✔ new entry allocation waits for full confirmed protection, including pending-cancel transitions (11.110206ms)
+✔ book coverage distinguishes expired observations and partially covered option watchlists (7.256142ms)
+✔ active and deployed HTML are byte-identical and explicitly separate futures demo/PAPER (1.124325ms)
+✔ partial coverage never promotes healthy lane/global timestamp to exit ALIVE (64.611141ms)
+✔ coverage states and per-position ages, outcomes and failure details render without freshening (66.570224ms)
+✔ missing coverage falls back to WAITING without trusting campaign persisted evaluation (23.925973ms)
+✔ held native and stale/future reconciliation render separately without green protection confidence (39.663276ms)
+✔ session-gated coverage remains WAITING while a separately safe entry gate allows unrelated books (22.735588ms)
+✔ acknowledged held OCO child stays distinct as contingent coverage when parent linkage is valid (26.501337ms)
+✔ missing entry-safety contract fails closed even with no confirmed inventory (33.117304ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 417.448733

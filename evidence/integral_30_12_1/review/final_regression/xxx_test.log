@@ -1,0 +1,322 @@
+TAP version 13
+# Subtest: catalog preserves 58 inherited plugins and adds 3 option strategies
+ok 1 - catalog preserves 58 inherited plugins and adds 3 option strategies
+  ---
+  duration_ms: 32.076994
+  type: 'test'
+  ...
+# Subtest: reject invalid config: live
+ok 2 - reject invalid config: live
+  ---
+  duration_ms: 0.836892
+  type: 'test'
+  ...
+# Subtest: reject invalid config: risk
+ok 3 - reject invalid config: risk
+  ---
+  duration_ms: 0.220383
+  type: 'test'
+  ...
+# Subtest: reject invalid config: NaN exit
+ok 4 - reject invalid config: NaN exit
+  ---
+  duration_ms: 0.41042
+  type: 'test'
+  ...
+# Subtest: reject invalid config: bad universe
+ok 5 - reject invalid config: bad universe
+  ---
+  duration_ms: 0.288745
+  type: 'test'
+  ...
+# Subtest: reject invalid config: inconsistent exposure
+ok 6 - reject invalid config: inconsistent exposure
+  ---
+  duration_ms: 0.23859
+  type: 'test'
+  ...
+# Subtest: reject invalid config: option feed
+ok 7 - reject invalid config: option feed
+  ---
+  duration_ms: 0.178309
+  type: 'test'
+  ...
+# Subtest: equity: entry, broker protection, confirmed cancel, TP and re-protection
+ok 8 - equity: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 28.659438
+  type: 'test'
+  ...
+# Subtest: etf: entry, broker protection, confirmed cancel, TP and re-protection
+ok 9 - etf: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 12.663765
+  type: 'test'
+  ...
+# Subtest: crypto: entry, broker protection, confirmed cancel, TP and re-protection
+ok 10 - crypto: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 13.829225
+  type: 'test'
+  ...
+# Subtest: options: entry, broker protection, confirmed cancel, TP and re-protection
+ok 11 - options: entry, broker protection, confirmed cancel, TP and re-protection
+  ---
+  duration_ms: 12.994915
+  type: 'test'
+  ...
+# Subtest: paused entries still take profit; plugin OFF does not orphan campaign
+ok 12 - paused entries still take profit; plugin OFF does not orphan campaign
+  ---
+  duration_ms: 18.112536
+  type: 'test'
+  ...
+# Subtest: global allocation serializes simultaneous books
+ok 13 - global allocation serializes simultaneous books
+  ---
+  duration_ms: 13.482552
+  type: 'test'
+  ...
+# Subtest: unknown POST persists before send and cannot duplicate after restart
+ok 14 - unknown POST persists before send and cannot duplicate after restart
+  ---
+  duration_ms: 20.999
+  type: 'test'
+  ...
+# Subtest: timeout after accepted reconciles existing client_order_id
+ok 15 - timeout after accepted reconciles existing client_order_id
+  ---
+  duration_ms: 22.068204
+  type: 'test'
+  ...
+# Subtest: journal persistence failure prevents POST
+ok 16 - journal persistence failure prevents POST
+  ---
+  duration_ms: 14.816554
+  type: 'test'
+  ...
+# Subtest: lost lease prevents broker mutation
+ok 17 - lost lease prevents broker mutation
+  ---
+  duration_ms: 10.652981
+  type: 'test'
+  ...
+# Subtest: first deployment refuses unrelated inventory
+ok 18 - first deployment refuses unrelated inventory
+  ---
+  duration_ms: 8.561227
+  type: 'test'
+  ...
+# Subtest: external orders and positions block new entries
+ok 19 - external orders and positions block new entries
+  ---
+  duration_ms: 10.808756
+  type: 'test'
+  ...
+# Subtest: account ID mismatch refuses start
+ok 20 - account ID mismatch refuses start
+  ---
+  duration_ms: 12.092454
+  type: 'test'
+  ...
+# Subtest: pause survives restart
+ok 21 - pause survives restart
+  ---
+  duration_ms: 25.803164
+  type: 'test'
+  ...
+# Subtest: risk configuration mutation cannot overwrite persistent account limits
+ok 22 - risk configuration mutation cannot overwrite persistent account limits
+  ---
+  duration_ms: 23.341525
+  type: 'test'
+  ...
+# Subtest: session closure blocks securities and permits crypto
+ok 23 - session closure blocks securities and permits crypto
+  ---
+  duration_ms: 10.366369
+  type: 'test'
+  ...
+# Subtest: missing options permission fails closed
+ok 24 - missing options permission fails closed
+  ---
+  duration_ms: 11.402844
+  type: 'test'
+  ...
+# Subtest: stale quote blocks entry
+ok 25 - stale quote blocks entry
+  ---
+  duration_ms: 10.99652
+  type: 'test'
+  ...
+# Subtest: daily loss latches and exit management remains enabled
+ok 26 - daily loss latches and exit management remains enabled
+  ---
+  duration_ms: 11.394722
+  type: 'test'
+  ...
+# Subtest: cancellation acknowledgement is not treated as cancellation confirmation
+ok 27 - cancellation acknowledgement is not treated as cancellation confirmation
+  ---
+  duration_ms: 13.252539
+  type: 'test'
+  ...
+# Subtest: options sizing reserves whole premium times multiplier
+ok 28 - options sizing reserves whole premium times multiplier
+  ---
+  duration_ms: 0.200352
+  type: 'test'
+  ...
+# Subtest: take profit uses net-of-configured-friction bid
+ok 29 - take profit uses net-of-configured-friction bid
+  ---
+  duration_ms: 0.418772
+  type: 'test'
+  ...
+# Subtest: one option contract exits whole at TP2
+ok 30 - one option contract exits whole at TP2
+  ---
+  duration_ms: 0.22526
+  type: 'test'
+  ...
+# Subtest: partial TP fills count cumulatively; no duplicate 25 percent sale
+ok 31 - partial TP fills count cumulatively; no duplicate 25 percent sale
+  ---
+  duration_ms: 0.306322
+  type: 'test'
+  ...
+# Subtest: ratchet never lowers stop after quote retracement
+ok 32 - ratchet never lowers stop after quote retracement
+  ---
+  duration_ms: 0.197228
+  type: 'test'
+  ...
+# Subtest: deadline and expiration continue without a quote
+ok 33 - deadline and expiration continue without a quote
+  ---
+  duration_ms: 0.18595
+  type: 'test'
+  ...
+# Subtest: stale quote is never used to invent a take profit
+ok 34 - stale quote is never used to invent a take profit
+  ---
+  duration_ms: 0.178179
+  type: 'test'
+  ...
+# Subtest: slow or failed research cannot stop exits/quotes or overlap itself
+ok 35 - slow or failed research cannot stop exits/quotes or overlap itself
+  ---
+  duration_ms: 14.918338
+  type: 'test'
+  ...
+# Subtest: priority mutex schedules queued exits ahead of queued entries
+ok 36 - priority mutex schedules queued exits ahead of queued entries
+  ---
+  duration_ms: 0.22483
+  type: 'test'
+  ...
+# Subtest: stock data error does not erase working crypto quote
+ok 37 - stock data error does not erase working crypto quote
+  ---
+  duration_ms: 0.43697
+  type: 'test'
+  ...
+# Subtest: bar pagination returns all pages and rejects repeated tokens
+ok 38 - bar pagination returns all pages and rejects repeated tokens
+  ---
+  duration_ms: 0.746487
+  type: 'test'
+  ...
+# Subtest: HTTP panel authentication, CSRF gate, controls and export
+ok 39 - HTTP panel authentication, CSRF gate, controls and export
+  ---
+  duration_ms: 66.988234
+  type: 'test'
+  ...
+# Subtest: evidence retains fills and campaigns after a position is closed
+ok 40 - evidence retains fills and campaigns after a position is closed
+  ---
+  duration_ms: 17.048512
+  type: 'test'
+  ...
+# Subtest: SQLite journal survives closing/reopening and enforces shared-file lease
+ok 41 - SQLite journal survives closing/reopening and enforces shared-file lease
+  ---
+  duration_ms: 98.95061
+  type: 'test'
+  ...
+# Subtest: legacy R2 option lane is scheduled outside research and enabled gate
+ok 42 - legacy R2 option lane is scheduled outside research and enabled gate
+  ---
+  duration_ms: 0.37147
+  type: 'test'
+  ...
+# Subtest: 72-hour limit rolls back to executable Friday close if it falls on weekend
+ok 43 - 72-hour limit rolls back to executable Friday close if it falls on weekend
+  ---
+  duration_ms: 0.230347
+  type: 'test'
+  ...
+# Subtest: malformed market OHLCV is rejected before signal generation
+ok 44 - malformed market OHLCV is rejected before signal generation
+  ---
+  duration_ms: 0.433524
+  type: 'test'
+  ...
+# Subtest: negative or mismatched broker fills cannot be reconciled into owned inventory
+ok 45 - negative or mismatched broker fills cannot be reconciled into owned inventory
+  ---
+  duration_ms: 27.647882
+  type: 'test'
+  ...
+# Subtest: real crypto trend plugin produces a signal only from closed daily breakout bars
+ok 46 - real crypto trend plugin produces a signal only from closed daily breakout bars
+  ---
+  duration_ms: 11.419222
+  type: 'test'
+  ...
+# Subtest: real options plugin evaluates call-breakout using bounded OPRA contract
+ok 47 - real options plugin evaluates call-breakout using bounded OPRA contract
+  ---
+  duration_ms: 6.789885
+  type: 'test'
+  ...
+# Subtest: real options plugin evaluates put-breakdown using bounded OPRA contract
+ok 48 - real options plugin evaluates put-breakdown using bounded OPRA contract
+  ---
+  duration_ms: 4.558492
+  type: 'test'
+  ...
+# Subtest: real options plugin evaluates call-pullback using bounded OPRA contract
+ok 49 - real options plugin evaluates call-pullback using bounded OPRA contract
+  ---
+  duration_ms: 3.991061
+  type: 'test'
+  ...
+# Subtest: research error consumes bounded run and never disables position management
+ok 50 - research error consumes bounded run and never disables position management
+  ---
+  duration_ms: 52.844651
+  type: 'test'
+  ...
+# Subtest: injected holdout lock is rejected without internal training evidence
+ok 51 - injected holdout lock is rejected without internal training evidence
+  ---
+  duration_ms: 10.418729
+  type: 'test'
+  ...
+# Subtest: research budget cannot be increased by an incoming request
+ok 52 - research budget cannot be increased by an incoming request
+  ---
+  duration_ms: 9.572493
+  type: 'test'
+  ...
+1..52
+# tests 52
+# suites 0
+# pass 52
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 735.115584

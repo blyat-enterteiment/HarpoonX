@@ -1,0 +1,81 @@
+{
+  "scope": "ALPACA_PROXY_CLOSED_CHANNEL_CALENDAR_VALIDITY_FIX",
+  "status": "IMPLEMENTED_SOFTWARE_VERIFIED_NOT_FINANCIALLY_EVALUATED",
+  "candidate_directory": "/workspace/scratch/4ecb05fdc50d/cartera_continuacion/candidate/HARPOON_XXXUltimate_30_13_1",
+  "frozen_directory": "/workspace/scratch/4ecb05fdc50d/core5_work/HARPOON_XXXUltimate_30_13_0",
+  "changed_files": {
+    "xxx/ultimate_replay.ts": {
+      "before_sha256": "2d0c903a329b7b3646e813ae270ef5582cf854d13bc6fd1c60f086a968670c7d",
+      "after_sha256": "60db042aef722446ede8b0a437427c5142c6d00ef0670cbdb61f4d9c27b9a8cb"
+    },
+    "xxx/ultimate_lab.ts": {
+      "before_sha256": "083e28adff0c8d11ffbae687131605a617a38d3b5bfabf35e7995e3805e784a5",
+      "after_sha256": "2d6bf5a1a137fe541c464d8b0858e23d2359466a30d6b69aa173955d11f68ef4"
+    },
+    "runtime30/ultimate_replay.js": {
+      "before_sha256": "f47455ababf30c07f40b9913b07b8c0b25e6c4670ffabbc8a711643ea5dd2979",
+      "after_sha256": "c6ceedd92569a8904f96ae837c3471d9842940e7429d25586e5424e698dbf06f"
+    },
+    "runtime30/ultimate_lab.js": {
+      "before_sha256": "baadba950e9992b0541ba81de408c9d8c8f6787d5b759ec2edbbd47373642063",
+      "after_sha256": "f7dcf9b959dfe7faef194710462f8ac597f075d0fe7d5322f323cf342155581f"
+    },
+    "tools/ultimate_holding_deadline_test.cjs": {
+      "before_sha256": null,
+      "after_sha256": "568e03b977b8cecfbfc35d3ae4a212af01ccfb3fb8796806362f883de7fb2801"
+    }
+  },
+  "dependency_hashes": {
+    "runtime30/ultimate_replay.js": "c6ceedd92569a8904f96ae837c3471d9842940e7429d25586e5424e698dbf06f",
+    "runtime30/ultimate_lab.js": "f7dcf9b959dfe7faef194710462f8ac597f075d0fe7d5322f323cf342155581f",
+    "runtime30/ultimate_contracts.js": "782dc639435eb3f517ff4b6423d7ffe8ef3b4fc3067ea4de2f9be0ce086b7679",
+    "runtime30/ultimate_stats.js": "7e00fe13f18a8d1e1a9a2f721fee06831422d1491f3c97cc653084d4ae220361",
+    "runtime30/ultimate_frequency.js": "4b7644d1a3b1dd8e87be13ef9853c0d22ff4afa1cca06be9325700a47649e972",
+    "runtime30/policy.js": "935b0b476c0e56b1ed219f9be920bbe71596fef481b3eb09add8dec6af24270c",
+    "runtime30/types.js": "9757735ff525746516e53afe0f751e2479115bd9c7bdcd56dba29469d9026754"
+  },
+  "historical_artifacts_preserved": {
+    "evidence/ultimate/report.json": true,
+    "evidence/ultimate/registry.json": true,
+    "evidence/ultimate/protocol.json": true
+  },
+  "semantics": {
+    "deadline_anchor": "signal.at, matching campaign decision/creation clock",
+    "calendar": "existing deadlineFor equity policy, last admissible session, ten-minute close buffer",
+    "execution_resolution": "5-minute declared grid; deadline rounded earlier without reading future prices or bar presence",
+    "pre_entry_refusal": "planCalendarHolding status REFUSED_BEFORE_ENTRY with positionOpened false, reason and planned deadline",
+    "post_entry_incomplete": "UnresolvedHoldingExposureError aborts evaluation, retains remaining quantity/last mark/entry/timestamps across worker error.message, economicPnlUsd null",
+    "runtime_policy_or_coordinator_modified": false,
+    "code_seal": "policy.js added to ResearchLab dependency hash; old report not resealed",
+    "out_of_scope": [
+      "FUTURES",
+      "short strategies",
+      "signal/universe changes",
+      "calendar publication-time provenance",
+      "new capital limits",
+      "deployment"
+    ]
+  },
+  "validation": {
+    "typescript_no_emit": "PASS",
+    "focused_tests_passed": 38,
+    "new_calendar_tests": 9,
+    "existing_ultimate_tests_passed": 29,
+    "initial_test_run": {
+      "passed": 37,
+      "failed": 2,
+      "causes": [
+        "JSON transport normalizes numeric -0 to 0; test representation corrected without financial semantic change",
+        "Unrelated HTTP integration could not bind localhost: EPERM"
+      ]
+    },
+    "final_http_test": "NOT_RUN; sandbox listen EPERM observed in initial run",
+    "financial_candidate_runs": 0,
+    "new_fits": 0,
+    "external_orders": 0
+  },
+  "commands": [
+    "./node_modules/.bin/tsc -p tsconfig.xxx.json --noEmit",
+    "node --test --test-isolation=none --test-reporter=tap --test-skip-pattern=\"Ultimate HTTP requires authentication\" tools/ultimate_holding_deadline_test.cjs tools/ultimate_test.cjs"
+  ]
+}

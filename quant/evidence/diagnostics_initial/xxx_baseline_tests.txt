@@ -1,0 +1,469 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> harpoon-cloud-247@30.3.1 test:xxx
+> node --test tools/xxx_test.cjs tools/xxx_conformance_test.cjs tools/xxx_health_test.cjs tools/xxx_selector_test.cjs tools/xxx_tp32_test.cjs tools/xxx_operational_test.cjs
+
+✔ connected selectors can be selected but require installed evidence before an entry (92.180008ms)
+✔ strict audit requires connected selector lifecycle and still disclaims external certification (947.546649ms)
+✔ production transport uses Alpaca hosts and credentials, without local fill fabrication (7.724508ms)
+✔ production transport rejects failure and does not synthesize a successful order (1.987222ms)
+✖ stagnation closes through the broker path while entries are paused (18.371502ms)
+✖ stagnation clock excludes closed sessions and resets on an observed high (17.408019ms)
+✖ volatility trailing changes after observed quotes and never loosens an existing stop (18.855118ms)
+✖ reentry policy true is honored after a confirmed close (15.237438ms)
+✖ reentry policy false is honored after a confirmed close (18.071855ms)
+✔ sector evidence is calculated from XLK and never silently substituted with SPY (22.483729ms)
+✔ strategy variants pass their actual exit parameters into executable signals (32.527759ms)
+✔ missing observed VWAP blocks equity features instead of manufacturing VWAP from closes (15.314933ms)
+✔ native closed daily crypto channel generates an actual exit intent (19.649672ms)
+✔ validators record the actual outcome, including asynchronous durable failure (2.825493ms)
+✔ account contracts reject missing numeric values and wrong identities (0.836112ms)
+✔ clock and quote contracts reject stale, future and crossed observations (1.733225ms)
+✔ position and fill contracts reject duplicate inventory and impossible fills (0.87516ms)
+✔ order-intent and signal contracts enforce executable precision and exit bounds (103.654067ms)
+✔ journal and bar contracts reject malformed stored execution state (27.196514ms)
+✔ scheduler ALIVE requires completion; a failure cannot advance lastSuccess (1.098381ms)
+✔ observed API reports actual latency, failures and inflight requests without secrets (2.719026ms)
+✔ runtime process metrics come from Node and have no seeded CPU/sample values (113.117104ms)
+✔ system health exposes missing quotes, closed sessions, validator faults and broker staleness (68.682224ms)
+✖ pending cancellation and undersized stop never count as confirmed native protection (25.441406ms)
+✔ failed SQLite acknowledgement appears as ERROR and cannot report a fresh storage success (16.447986ms)
+✔ authenticated health endpoints return real process state and no credentials (74.25347ms)
+✔ optional contracts are visible as NOT_RUN until actually exercised (17.593657ms)
+✖ caught per-position exit failure remains visible in system health (16.975181ms)
+✖ new entry allocation waits for full confirmed protection, including pending-cancel transitions (28.137278ms)
+✔ book coverage distinguishes expired observations and partially covered option watchlists (16.722969ms)
+✔ first-campaign protection rejection cannot starve later stop exit (127.157449ms)
+✔ first-campaign protection rejection cannot starve later flatten exit (33.787594ms)
+✔ first-campaign protection rejection cannot starve later time exit (25.097852ms)
+✔ first-campaign protection rejection cannot starve later signal exit (20.0982ms)
+✔ rejected first protection does not monopolize routine protection for later campaigns (29.327009ms)
+✔ one stale position remains visibly unmonitored while another position completes (40.455332ms)
+✔ per-position evaluation failure preserves prior completion and cannot be masked by later success (33.143542ms)
+✔ restart never treats persisted position evaluations as current-run monitoring (51.618101ms)
+✔ UNKNOWN exit blocks duplicate submission across pulses and restart without starving another urgent campaign (50.694496ms)
+✔ young TP cancellation and partial fill reconcile before one urgent remainder sale (37.493805ms)
+✔ pause and disabled plugins preserve per-campaign urgent exits (24.86058ms)
+✔ tick-scale protection drift remains visible and prevents risk expansion until reconciled (26.262835ms)
+✔ definitive rejection retry is bounded, persisted, capped and recovered after broker acceptance (131.085219ms)
+✔ a protection rejection cooldown never delays a new urgent exit in that campaign (31.483839ms)
+✔ stale global reconciliation records attempts without completing checks or mutating broker state (21.316465ms)
+✔ closed equity sessions stay visibly incomplete while crypto urgent exits remain active (28.934137ms)
+✔ stale OPRA data cannot manufacture a completed option check or an executable option close (19.749572ms)
+✔ fresh global reconciliation cannot refresh stale per-position coverage or permit new allocation (31.197623ms)
+✔ a remembered TP cannot become a stale-quote market sale after protection cancellation (36.16441ms)
+✔ partial entry waits for confirmed cancellation and reconciles late fills before urgent sale (35.554847ms)
+✔ an eight-campaign pulse observes every position before mutation and stops at its work budget (76.080532ms)
+✔ cancel-pending native protection still reserves inventory at the final submit guard (24.494062ms)
+✔ more campaigns than the pulse budget receive fair work across bounded successive pulses (120.803338ms)
+✔ concurrent pulse wakeups coalesce and cannot duplicate urgent exits (48.071122ms)
+✔ standalone held stop is not confirmed protection and cannot unlock new allocation (22.801542ms)
+✔ held OCO stop leg requires its same-campaign live uncanceled OCO parent (21.370821ms)
+✔ accepted OCO siblings cannot clear a rejected runner cooldown across reconciliation and restart (66.858712ms)
+✔ freshly verified protected closed equity permits independent crypto entry without fake price completion (20.992091ms)
+✔ stale closed-session clock and reopening transition block crypto allocation until a current evaluation (28.002988ms)
+✔ closed-session entry safety still rejects stop drift, cancellation, unresolved exits and retry backoff (17.484207ms)
+✔ Ridge registration binds actual catalog recipe, risk policy, costs and server timestamp (65.578449ms)
+✔ selector data rejects future, cross-book, duplicate events and invalid feature values (17.380716ms)
+✔ historical import is immutable and idempotent; synthetic provenance is retained (22.937904ms)
+✔ operator imports after the registered cutoff cannot manufacture prospective observations (23.914482ms)
+✔ capture persists actual supplied quote tuples and never creates prices without observations (20.261013ms)
+✔ actual Ridge fitter computes finite coefficients and purges labels crossing cutoff (48.460312ms)
+✔ model validator rejects fabricated shape, feature drift and future training (22.392119ms)
+✔ selector worker runs real research and reports insufficient evidence instead of successful training (221.276308ms)
+✔ install rejects synthetic, non-prospective and incomplete acceptance reports (28.562787ms)
+✔ retirement and model revocation actually update persistent state (25.248799ms)
+✔ interrupted queued trial recovers durably and preserves account binding after restart (52.996431ms)
+✔ dataset preparation cannot hold broker authority while SQLite scans run (32.633439ms)
+✔ selector data persists through real SQLite scans and process reopen (255.744941ms)
+✔ an invalid optional model is revoked on restart without preventing position supervision (46.147916ms)
+✔ installation persistence and evaluation boundary work with an explicit internal acceptance test double (77.402018ms)
+✔ a sufficiently observed prospective holdout is consumed even by diagnostic inspection (23.461025ms)
+✔ actual selector worker evaluates all 12 folds and holdout on complete synthetic no-fill paths (4267.95456ms)
+✔ catalog preserves 58 inherited plugins and adds 3 option strategies (37.538813ms)
+✔ reject invalid config: live (0.422331ms)
+✔ reject invalid config: risk (0.145458ms)
+✔ reject invalid config: NaN exit (0.191701ms)
+✔ reject invalid config: bad universe (0.489449ms)
+✔ reject invalid config: inconsistent exposure (0.20412ms)
+✔ reject invalid config: option feed (0.206686ms)
+✖ equity: entry, broker protection, confirmed cancel, TP and re-protection (34.310138ms)
+✖ etf: entry, broker protection, confirmed cancel, TP and re-protection (19.841114ms)
+✔ crypto: entry, broker protection, confirmed cancel, TP and re-protection (24.303059ms)
+✖ options: entry, broker protection, confirmed cancel, TP and re-protection (15.563574ms)
+✖ paused entries still take profit; plugin OFF does not orphan campaign (20.204443ms)
+✖ global allocation serializes simultaneous books (18.616536ms)
+✖ unknown POST persists before send and cannot duplicate after restart (18.024164ms)
+✖ timeout after accepted reconciles existing client_order_id (13.454151ms)
+✖ journal persistence failure prevents POST (12.696484ms)
+✔ lost lease prevents broker mutation (11.929317ms)
+✔ first deployment refuses unrelated inventory (14.288859ms)
+✔ external orders and positions block new entries (14.502676ms)
+✔ account ID mismatch refuses start (10.156445ms)
+✔ pause survives restart (30.484792ms)
+✔ risk configuration mutation cannot overwrite persistent account limits (31.347546ms)
+✔ session closure blocks securities and permits crypto (11.68962ms)
+✔ missing options permission fails closed (12.188836ms)
+✔ stale quote blocks entry (10.954191ms)
+✖ daily loss latches and exit management remains enabled (15.239702ms)
+✖ cancellation acknowledgement is not treated as cancellation confirmation (17.341963ms)
+✔ options sizing reserves whole premium times multiplier (0.20697ms)
+✔ take profit uses net-of-configured-friction bid (0.587118ms)
+✔ one option contract exits whole at TP2 (1.10025ms)
+✔ partial TP fills count cumulatively; no duplicate 25 percent sale (0.222481ms)
+✔ ratchet never lowers stop after quote retracement (0.211443ms)
+✔ deadline and expiration continue without a quote (0.482193ms)
+✔ stale quote is never used to invent a take profit (0.145303ms)
+✔ slow or failed research cannot stop exits/quotes or overlap itself (41.714948ms)
+✔ priority mutex schedules queued exits ahead of queued entries (0.376962ms)
+✔ stock data error does not erase working crypto quote (1.112936ms)
+✔ bar pagination returns all pages and rejects repeated tokens (1.072377ms)
+✔ HTTP panel authentication, CSRF gate, controls and export (87.654048ms)
+✖ evidence retains fills and campaigns after a position is closed (17.495668ms)
+✔ SQLite journal survives closing/reopening and enforces shared-file lease (93.523013ms)
+✔ legacy R2 option lane is scheduled outside research and enabled gate (0.425966ms)
+✔ 72-hour limit rolls back to executable Friday close if it falls on weekend (0.281116ms)
+✔ malformed market OHLCV is rejected before signal generation (1.434012ms)
+✖ negative or mismatched broker fills cannot be reconciled into owned inventory (24.550142ms)
+✔ real crypto trend plugin produces a signal only from closed daily breakout bars (9.891866ms)
+✔ real options plugin evaluates call-breakout using bounded OPRA contract (8.576567ms)
+✔ real options plugin evaluates put-breakdown using bounded OPRA contract (5.637435ms)
+✔ real options plugin evaluates call-pullback using bounded OPRA contract (5.646275ms)
+✔ research error consumes bounded run and never disables position management (157.151868ms)
+✔ injected holdout lock is rejected without internal training evidence (19.985359ms)
+✔ research budget cannot be increased by an incoming request (17.586721ms)
+✖ sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision (90.86255ms)
+✖ TP survives protection cancel, restart and retracement with a durable minimum price (17.79902ms)
+✖ urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder (18.813259ms)
+✖ bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait (14.296301ms)
+✖ real native payload/reconciliation lifecycle: oco (21.829739ms)
+✖ real native payload/reconciliation lifecycle: oco_trailing (22.157016ms)
+✖ broker rejection of native OCO causes an actual full-position stop fallback (20.028599ms)
+✖ native urgent flatten cancels every group before one reconciled full exit (13.853305ms)
+✖ experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns (11.301704ms)
+✔ OPRA uses a MsgPack handshake/header and decodes observed quotes; PAPER orders use binary JSON (37.657888ms)
+✔ malformed stream frames trigger visible reconnect and invalidate flow warmup (2.271233ms)
+✔ reported fee ledger paginates, retains unpriced crypto fees and never certifies all-in net (2.165402ms)
+✔ fee pagination failure remains ERROR without manufacturing a zero successful cost (1.202406ms)
+✖ execution metrics use actual fills, explicit estimated fees and no second slippage charge (30.135672ms)
+✖ execution journal preserves event type separately from the order intent kind (22.81233ms)
+ℹ tests 144
+ℹ suites 0
+ℹ pass 113
+ℹ fail 31
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5484.572434
+
+✖ failing tests:
+
+test at tools/xxx_conformance_test.cjs:98:1
+✖ stagnation closes through the broker path while entries are paused (18.371502ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_conformance_test.cjs:103:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_conformance_test.cjs:114:1
+✖ stagnation clock excludes closed sessions and resets on an observed high (17.408019ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_conformance_test.cjs:118:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_conformance_test.cjs:144:1
+✖ volatility trailing changes after observed quotes and never loosens an existing stop (18.855118ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_conformance_test.cjs:150:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_conformance_test.cjs:176:3
+✖ reentry policy true is honored after a confirmed close (15.237438ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_conformance_test.cjs:182:7)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_conformance_test.cjs:176:3
+✖ reentry policy false is honored after a confirmed close (18.071855ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_conformance_test.cjs:182:7)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_health_test.cjs:264:1
+✖ pending cancellation and undersized stop never count as confirmed native protection (25.441406ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_health_test.cjs:268:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_health_test.cjs:326:1
+✖ caught per-position exit failure remains visible in system health (16.975181ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_health_test.cjs:330:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_health_test.cjs:347:1
+✖ new entry allocation waits for full confirmed protection, including pending-cancel transitions (28.137278ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_health_test.cjs:351:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:46:3
+✖ equity: entry, broker protection, confirmed cancel, TP and re-protection (34.310138ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:52:7)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:46:3
+✖ etf: entry, broker protection, confirmed cancel, TP and re-protection (19.841114ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:52:7)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:46:3
+✖ options: entry, broker protection, confirmed cancel, TP and re-protection (15.563574ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:52:7)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:92:1
+✖ paused entries still take profit; plugin OFF does not orphan campaign (20.204443ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:96:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:112:1
+✖ global allocation serializes simultaneous books (18.616536ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async Promise.all (index 0)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:119:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:122:1
+✖ unknown POST persists before send and cannot duplicate after restart (18.024164ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:127:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:138:1
+✖ timeout after accepted reconciles existing client_order_id (13.454151ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:143:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:150:1
+✖ journal persistence failure prevents POST (12.696484ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /disk full/. Input:
+  
+  'Error: No executable holding window'
+  
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:155:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: No executable holding window
+        at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+        at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:155:3)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:974:7),
+    expected: /disk full/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tools/xxx_test.cjs:231:1
+✖ daily loss latches and exit management remains enabled (15.239702ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:234:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:243:1
+✖ cancellation acknowledgement is not treated as cancellation confirmation (17.341963ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:246:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:538:1
+✖ evidence retains fills and campaigns after a position is closed (17.495668ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:542:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_test.cjs:616:1
+✖ negative or mismatched broker fills cannot be reconciled into owned inventory (24.550142ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_test.cjs:619:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:138:1
+✖ sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision (90.86255ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:139:22)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tools/xxx_tp32_test.cjs:166:1
+✖ TP survives protection cancel, restart and retracement with a durable minimum price (17.79902ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:167:34)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:186:1
+✖ urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder (18.813259ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:187:22)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:214:1
+✖ bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait (14.296301ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:215:22)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:228:3
+✖ real native payload/reconciliation lifecycle: oco (21.829739ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:229:36)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:228:3
+✖ real native payload/reconciliation lifecycle: oco_trailing (22.157016ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:229:36)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:263:1
+✖ broker rejection of native OCO causes an actual full-position stop fallback (20.028599ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:266:17)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:275:1
+✖ native urgent flatten cancels every group before one reconciled full exit (13.853305ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:276:22)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:286:1
+✖ experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns (11.301704ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:287:17)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:487:1
+✖ execution metrics use actual fills, explicit estimated fees and no second slippage charge (30.135672ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:488:17)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tools/xxx_tp32_test.cjs:499:1
+✖ execution journal preserves event type separately from the order intent kind (22.81233ms)
+  Error: No executable holding window
+      at deadlineFor (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/policy.js:188:15)
+      at Object.run (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/runtime30/coordinator.js:1248:56)
+      at async ready (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:127:3)
+      at async TestContext.<anonymous> (/workspace/scratch/438adab1c18c/quant_validation29/ultimate/HARPOON_XXXUltimate_30_3_1/tools/xxx_tp32_test.cjs:500:17)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

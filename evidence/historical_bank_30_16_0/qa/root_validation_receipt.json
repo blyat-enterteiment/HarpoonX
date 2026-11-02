@@ -1,0 +1,64 @@
+[
+  {
+    "name": "python_models",
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "quant/tests",
+      "-p",
+      "test_historical_bank.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 2.124902406001638,
+    "log": "python_models_final.log",
+    "sha256": "7d8a251c92ce7798c0d22918aaa7cd8e19a512657134ccecfd8427ca0b1e7f15"
+  },
+  {
+    "name": "data_and_registration",
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools",
+      "-p",
+      "test_historical_bank*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 1.4765516520001256,
+    "log": "data_and_registration_final.log",
+    "sha256": "ade4da7bf246f414fd6623ecb50a138a8efd826aed00b5f295baa189ea5b8dcb"
+  },
+  {
+    "name": "typescript",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.xxx.json",
+      "--noEmit"
+    ],
+    "exit_code": 0,
+    "seconds": 1.7099546159988677,
+    "log": "typescript_final.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "node_syntax",
+    "command": [
+      "node",
+      "--check",
+      "tools/historical_bank.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.024286987998493714,
+    "log": "node_syntax_final.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

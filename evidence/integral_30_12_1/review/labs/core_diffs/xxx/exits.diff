@@ -1,0 +1,31 @@
+--- 30.12/xxx/exits.ts
+
++++ 31.6TP/xxx/exits.ts
+
+@@ -1,3 +1,4 @@
+
++import type { NetExitDecision } from "./option_takeprofit";
+ import { floorStep, positive } from "./types";
+ import type { Campaign, Config, Intent, Json, Quote } from "./types";
+ import { fills } from "./policy";
+@@ -7,7 +8,7 @@
+
+ export function rememberExit(
+   c: Campaign,
+   intents: Intent[],
+-  decision: { kind: Intent["kind"]; qty: number } | null,
++  decision: NetExitDecision | null,
+   q: Quote | undefined,
+   cfg: Config,
+   now: number,
+@@ -42,7 +43,8 @@
+
+     status: "CANCELING",
+     ...(!urgent
+       ? {
+-          minimumPrice:
++          ...(decision.minimumNetUsd!==undefined?{minimumNetUsd:decision.minimumNetUsd}:{}),
++          minimumPrice: decision.minimumPrice ??
+             f.entry +
+             cost +
+             c.risk * (decision.kind === "tp2" ? c.policy.tp2R : c.policy.tp1R),

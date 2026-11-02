@@ -1,0 +1,954 @@
+{
+  "observed_at_utc": "2026-11-01T01:40:22.727189+00:00",
+  "observed_at_mexico_city": "2026-10-31T19:40:22.727189-06:00",
+  "remote_repository": "masivarecords-ship-i/NewRepo",
+  "remote_ref": "harpoon-cloud",
+  "remote_commit": "9ea00bec0f7a54f7bf22cc8301265e1fab38d2b9",
+  "remote_package_version": "24.3.1",
+  "local_path": "/workspace/scratch/4ecb05fdc50d/level4_work/HARPOON_XXXUltimate_30_11_0",
+  "local_package": {
+    "name": "harpoon-cloud-247",
+    "version": "30.11.0",
+    "private": true,
+    "scripts": {
+      "test": "node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py",
+      "typecheck": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime/control.cjs deploy/managed.cjs",
+      "test:auth": "node tools/auth_security_test.cjs",
+      "test:service": "python3 -m unittest discover -s service -p test_*.py",
+      "verify:auth": "python3 tools/verify_auth.py",
+      "test:xxv": "node tools/xxv_test.cjs",
+      "test:agents": "node tools/agents25_test.cjs && node tools/agents25_integration.cjs",
+      "typecheck:agents": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node src/agents25.js src/profit25.js src/vector25.js",
+      "test:profit": "node tools/profit_vector25_test.cjs",
+      "test:warroom": "node tools/warroom3_test.cjs && node tools/warroom3_integration.cjs",
+      "test:warroom:cloud": "node tools/warroom3_cloud.cjs",
+      "test:options": "node tools/options3_test.cjs",
+      "test:autonomy": "node tools/autonomy3_test.cjs",
+      "test:optimizer": "node tools/optimizer3_test.cjs",
+      "test:warroom:browser": "node tools/warroom3_browser.cjs",
+      "build:xxx": "tsc -p tsconfig.xxx.json",
+      "start:ultimate": "node runtime30/server.js",
+      "test:ultimate": "node --test tools/ultimate_test.cjs",
+      "research:ultimate": "node research/ultimate/run.cjs",
+      "test:ultimate:browser": "node tools/ultimate_browser.cjs",
+      "verify:ultimate:production": "node tools/ultimate_production_check.cjs",
+      "typecheck:xxx": "tsc -p tsconfig.xxx.json --noEmit",
+      "start:xxx": "node runtime30/server.js",
+      "test:xxx": "node --test tools/xxx_test.cjs tools/xxx_conformance_test.cjs tools/xxx_health_test.cjs tools/xxx_selector_test.cjs tools/xxx_tp32_test.cjs tools/xxx_operational_test.cjs tools/xxx_partial_entry_risk_test.cjs",
+      "benchmark:xxx": "node tools/xxx_benchmark.cjs",
+      "audit:xxx": "node tools/xxx_audit.cjs",
+      "test:xxx:browser": "node tools/xxx_browser.cjs",
+      "walkforward:xxx": "python3 research/tp32/prepare.py && node research/tp32/run.cjs && python3 research/tp32/metrics.py",
+      "test:operational": "node --test tools/xxx_operational_test.cjs tools/xxx_operational_ui_contract.cjs",
+      "test:operational:browser": "node tools/xxx_operational_browser.cjs",
+      "test:quant": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-timeout=30000 tools/quant_bridge_test.cjs",
+      "test:svr": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-isolation=none --test-timeout=30000 tools/quant_svr_integration_test.cjs",
+      "test:xxx:clocked": "node --no-use-env-proxy --require ./tools/quant_clock.cjs --test --test-timeout=30000 tools/xxx_test.cjs tools/xxx_conformance_test.cjs tools/xxx_health_test.cjs tools/xxx_selector_test.cjs tools/xxx_tp32_test.cjs tools/xxx_operational_test.cjs tools/xxx_partial_entry_risk_test.cjs",
+      "test:remediation": "python3 tools/verify_remediation.py --suite all"
+    },
+    "devDependencies": {
+      "@types/node": "22.19.19",
+      "@types/ws": "8.18.1",
+      "typescript": "5.9.3"
+    },
+    "dependencies": {
+      "@msgpack/msgpack": "3.1.2",
+      "ws": "8.18.3"
+    }
+  },
+  "method": "Git blob SHA-1 comparison of every remote src/ file with the same local path. No source changes; not a Git ancestry proof. Local SHA-256 included.",
+  "remote_source_files": 111,
+  "identical_files": 102,
+  "different_files": 9,
+  "missing_local_files": 0,
+  "files": [
+    {
+      "path": "src/app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "4e16ba38b4d9c9b7cbd62dfc29fccb5c73d032cb",
+      "local_git_blob_sha1": "4e16ba38b4d9c9b7cbd62dfc29fccb5c73d032cb",
+      "local_sha256": "bea92e2f3f48d7fe9493d54bec7dfa7cf068e4cd790b4dac40e355a9cd09bc22",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/astra_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "09d937662d7b4827c2915a126dd087da526e3ad1",
+      "local_git_blob_sha1": "09d937662d7b4827c2915a126dd087da526e3ad1",
+      "local_sha256": "2d85a8659748e4e636e2c8da10c559c4bc4398abbd75f0c918bb54b63b794a51",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/astra_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ac6eca22ae49bb2ff12924e3662065228556b9c9",
+      "local_git_blob_sha1": "ac6eca22ae49bb2ff12924e3662065228556b9c9",
+      "local_sha256": "8346b6c81cdb9a05c44f1d026a4507278437ba9935eecb03a9192e3056c953b4",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/canonical.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "881030fe65a5bf9deae99313f1dd2dc42cd80842",
+      "local_git_blob_sha1": "881030fe65a5bf9deae99313f1dd2dc42cd80842",
+      "local_sha256": "7c898b63591964c5bb890c512fd13c99aa2ebf2fb845ff4fe6a25c26e71af4a2",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/challenge.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "f7b0ea872fc0e2acb333620ff19b6e0a0e045463",
+      "local_git_blob_sha1": "f7b0ea872fc0e2acb333620ff19b6e0a0e045463",
+      "local_sha256": "5b0aa6bdbf1c74e21cd905da4dc36f8423ec84044061394353bedae1bdbcdb08",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/challenge.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "891251e0c87999a707dea2b6da6b98a418f9f98f",
+      "local_git_blob_sha1": "891251e0c87999a707dea2b6da6b98a418f9f98f",
+      "local_sha256": "d63509649b6b9209f6e11e08d74f426d8a27ad13e0ea4d5f44cb09e4561b49f2",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/challenge.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "68143860702c5cf573b93d5dafb28e8e9fb6b426",
+      "local_git_blob_sha1": "68143860702c5cf573b93d5dafb28e8e9fb6b426",
+      "local_sha256": "46cab576ae8e13420d4e3761ba08c488184324fe017bd13d23e8986e372b2a63",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/contract.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1d23f6e6d175892f6ec20756fe9e037dfc3d3bfc",
+      "local_git_blob_sha1": "1d23f6e6d175892f6ec20756fe9e037dfc3d3bfc",
+      "local_sha256": "cf50d867fcfadf3c01c7a5c241fd663188da186d66d4fe06c4584d7defa1760a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/contract.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c148cddd631f7eebba6bd50ff0710edb9445b3e1",
+      "local_git_blob_sha1": "c148cddd631f7eebba6bd50ff0710edb9445b3e1",
+      "local_sha256": "32d62b9029c2f2e9dcab4883fcad7ff3f0a49ad3a96b38b1d65f235eeeb510b6",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "370fee461ac7eb0d154692a54f19987c7a96943b",
+      "local_git_blob_sha1": "370fee461ac7eb0d154692a54f19987c7a96943b",
+      "local_sha256": "e043dce364df2815113a6034deb4d42ba532f55d0dada8d952e2a3b78d28fc1a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/crypto_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b88061bfc3355700e19d885a5cd617a94a9137d7",
+      "local_git_blob_sha1": "b88061bfc3355700e19d885a5cd617a94a9137d7",
+      "local_sha256": "c34c176f03142a1649c6c0d6f1804f696c0c9434f9bb4c070308c67b1631200b",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/crypto_core.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "09750613f902f28e32674aabe803032380657747",
+      "local_git_blob_sha1": "09750613f902f28e32674aabe803032380657747",
+      "local_sha256": "b7b9871a09f67cb3b6c3d794c27242bf33c1798a22c61b79092a4d205b6fe2f2",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/crypto_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "5051b42aeb38c2c4ec5c14a06c51afde2439f318",
+      "local_git_blob_sha1": "5051b42aeb38c2c4ec5c14a06c51afde2439f318",
+      "local_sha256": "86735fc9229a925492cb74374c879c431ea9977814991895b0fad5f805e0f8f1",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/crypto_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "e80ac416fa901ef5c3200ac995546f456081f5ff",
+      "local_git_blob_sha1": "b1f20c17cb5d5b1351b45bbed1e3934dac756c52",
+      "local_sha256": "580d3329083e3b78b517305c012d51de2e600af0c297e791cbe6b996fe6e67d8",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/crypto_tape.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "044f89fce2cb791f8767fa264502e0ee7d05840b",
+      "local_git_blob_sha1": "044f89fce2cb791f8767fa264502e0ee7d05840b",
+      "local_sha256": "0c154ac0d964d349e3bbda334b94331a0ffd186ae637fae91f7421f48d20fa5b",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/defaults.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "523f81159f846c7222a7f9c2972ee6ecc54e3909",
+      "local_git_blob_sha1": "523f81159f846c7222a7f9c2972ee6ecc54e3909",
+      "local_sha256": "4231edfd8ddf59004fe09f2846b464058dd0db1ee49e4d90a3456ea52cbb6ab8",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ad9090de8784252eb7dd29d7d59e03dd7b3711b4",
+      "local_git_blob_sha1": "be2caf075d6926cb4fc2dc4220b822239e875a73",
+      "local_sha256": "9236c18636d3a4426135058449032aa352b90d51feedc875bd0b2243f64dc4be",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/framework23.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "7e81ca37458acbefb8ebf3d886512f2e92bde2ef",
+      "local_git_blob_sha1": "7e81ca37458acbefb8ebf3d886512f2e92bde2ef",
+      "local_sha256": "742ad1d93e2e30ce9632a471741bbfb9f7494d5d864056e1ef0f948c5babc520",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/framework23.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "f8239109bf01a763f99737d88e19e7837b54b8db",
+      "local_git_blob_sha1": "f8239109bf01a763f99737d88e19e7837b54b8db",
+      "local_sha256": "1f6b0f7e14701c343d0b1db4adf996f9e80012384ef96f081d006556f6513cca",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/framework23.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "831bfb1b546c359c22aa10da784386cbaa1c7e80",
+      "local_git_blob_sha1": "831bfb1b546c359c22aa10da784386cbaa1c7e80",
+      "local_sha256": "000587d6c366db74946c93042639ffc61c2751375bded80e7dc2676261d45a86",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/gateway24.css",
+      "local_exists": true,
+      "remote_git_blob_sha1": "bad3d23c378b6c89b1aafea546fba04b5b9ecade",
+      "local_git_blob_sha1": "bad3d23c378b6c89b1aafea546fba04b5b9ecade",
+      "local_sha256": "9dde34d882d665d8a28a4b38a75e606121f15f54486a16355f98d158fadb6fc4",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/gateway24.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1c46468c7fd87756d7ed98eb5e566d8fb412c499",
+      "local_git_blob_sha1": "1c46468c7fd87756d7ed98eb5e566d8fb412c499",
+      "local_sha256": "690f08b6326d63ec0d46ffbab8d7d55e64be1787f90d2225d0267a7f86480a41",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/gateway24.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "d1654e966fb43315a18350b67645d9e6c4753310",
+      "local_git_blob_sha1": "d1654e966fb43315a18350b67645d9e6c4753310",
+      "local_sha256": "54efa6bca5c67828375991cb370fa516baf40e26005e44e2149cda8a5e13cbab",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/gateway24.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "27415f70b73144bd7f72f57ceeaee71b15cc64ae",
+      "local_git_blob_sha1": "27415f70b73144bd7f72f57ceeaee71b15cc64ae",
+      "local_sha256": "3f1bd6e84d83b33c073da269872f954e389edd7f8fadae2460a6c7d54362e83f",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/gateway24.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ac95066943104614b8010cf485fb6c30ee6ae07e",
+      "local_git_blob_sha1": "ac95066943104614b8010cf485fb6c30ee6ae07e",
+      "local_sha256": "33c6b07eeac5c2e1891e39f7e417a78e0e215081db503b7b3221c3a2940a88e1",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/gateway24_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b6318a11ed9e2ce0c0d5a8a234c6b44e938f0b3f",
+      "local_git_blob_sha1": "b6318a11ed9e2ce0c0d5a8a234c6b44e938f0b3f",
+      "local_sha256": "ad6868caaee5d4a1d6257d83c36a16a183e4544f53d35271312b86166b6aaf73",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/index.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "8129ecc7c4a7ecdc750474b57ab8f92d99ba216c",
+      "local_git_blob_sha1": "8129ecc7c4a7ecdc750474b57ab8f92d99ba216c",
+      "local_sha256": "68bf60a06d9feade8e551776a9ae11f4481e3e0ad8cbc86be4c86ea8bf9702a7",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/io.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "88091b8552a0d8e3b869b85ab41317e08291d5d5",
+      "local_git_blob_sha1": "88091b8552a0d8e3b869b85ab41317e08291d5d5",
+      "local_sha256": "0f6a8f7e8bf16d340c246e6722f4c376078c06a970c5a1a8c565f3575987580c",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/lab_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "bbce459ac53861c28f0ab77f9fb6c8193b3ce066",
+      "local_git_blob_sha1": "bbce459ac53861c28f0ab77f9fb6c8193b3ce066",
+      "local_sha256": "3fb5efe04f25fa87e2f6120dde3f4f4ee75ec69403de32eed906dbdd1ee04b33",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/lab_bridge.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c69789eed7f87e70d300c5e40653703c5791767d",
+      "local_git_blob_sha1": "c69789eed7f87e70d300c5e40653703c5791767d",
+      "local_sha256": "c6a897cc0a09afeb2ab29b6b0b1cf707ef053d39f8d6d8975ccd62f4d1c87dcd",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/lab_controller.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "0fad7a2609ab2101c273e40987314ca1716bb352",
+      "local_git_blob_sha1": "0fad7a2609ab2101c273e40987314ca1716bb352",
+      "local_sha256": "cb20ffdbabe3c3d6c0e045d29909332824189e18988a1c00345bdb2e9162fc31",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/lab_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "070ca7335fda2500bbbf707001b966ab7bde53f3",
+      "local_git_blob_sha1": "070ca7335fda2500bbbf707001b966ab7bde53f3",
+      "local_sha256": "adf3616da4823ff592eb97838b258225a9d3c81df81ba618d168a68b701f79e1",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/lab_rules.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "0341ac1e8372cce2ffa706a012ac9b64d69e6258",
+      "local_git_blob_sha1": "0341ac1e8372cce2ffa706a012ac9b64d69e6258",
+      "local_sha256": "a56cc76ffdd7ea99c3e2788ea30f037d66eec3da8cb1a610e15f9c8fe5726618",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/lab_rules.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "057c0861851caa16012cb89fc6dffd363ade98c5",
+      "local_git_blob_sha1": "057c0861851caa16012cb89fc6dffd363ade98c5",
+      "local_sha256": "fdd83506a13a7da52e9623f761947cace2bc23e3d98b61a75abbfaf8140a0e47",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/loop23.css",
+      "local_exists": true,
+      "remote_git_blob_sha1": "fa5c5339fb884fb3592b5afe77c08cff28f995ae",
+      "local_git_blob_sha1": "fa5c5339fb884fb3592b5afe77c08cff28f995ae",
+      "local_sha256": "e732d761d2c99a51079a9c4a6dfb61abfaafb7df860b1c09f1d25ac57bca23d5",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/loop23.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "db1538561751a92191400d51e34598d7b32b080e",
+      "local_git_blob_sha1": "db1538561751a92191400d51e34598d7b32b080e",
+      "local_sha256": "34d3eefe8da1f388568165e26d6186467bd7763d5ef685a8a76e9991a2ecb527",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/loop23_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "77ced3c8da06b8dfb0c384479d246dabe149349e",
+      "local_git_blob_sha1": "77ced3c8da06b8dfb0c384479d246dabe149349e",
+      "local_sha256": "6b471805bcfa2bcc2276a677e6d1c7dc2641b7e3dd9e196831332d521affdde7",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/loop23_runtime.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "fd8231b96df20c6def1468bf341ce1976d5bea53",
+      "local_git_blob_sha1": "fd8231b96df20c6def1468bf341ce1976d5bea53",
+      "local_sha256": "4c5af8346ca5d4c86ac3062abd3344e82da47c6ed92cd40d2da51028424f4f6d",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/metrics23.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "596012a99670b80e5057a97d6fff3c8c47c67eab",
+      "local_git_blob_sha1": "596012a99670b80e5057a97d6fff3c8c47c67eab",
+      "local_sha256": "6e303a161b6d2118756b945bec47c91a041618527db14cce63580f458513f6c1",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/metrics23.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "824cca6fef07935190f384b498198de2db155054",
+      "local_git_blob_sha1": "824cca6fef07935190f384b498198de2db155054",
+      "local_sha256": "c31786ba46e52cbc4a4b4325c1ecc6e1eaec3e830f0742fa2c4a1b926c60dcae",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/metrics23.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "6636a2ca34aa23f14ba3017b7950a5f19280138c",
+      "local_git_blob_sha1": "6636a2ca34aa23f14ba3017b7950a5f19280138c",
+      "local_sha256": "bb68e7c8ae097d1009927393f4ecfcf3e5307dc4bf06ebd82a32b8d8771625aa",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/options_payoff23.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1f8ceecd453e3fb7f682214bb4a79a3bcc7a4a77",
+      "local_git_blob_sha1": "1f8ceecd453e3fb7f682214bb4a79a3bcc7a4a77",
+      "local_sha256": "5f13372111b4dbe74eccd7e8592d50433fb3a228ae38e3febe4d0755242f898a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_host22.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "30ea5562bd6b72c26da9d2076d3f7a69c3090067",
+      "local_git_blob_sha1": "30ea5562bd6b72c26da9d2076d3f7a69c3090067",
+      "local_sha256": "b9a991582f9ae616a259743997426edab0000ac1e10dc57cec06a8e14737edfe",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_host22.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ee454c254e8223ff629ee2c7762884e3a3e02ced",
+      "local_git_blob_sha1": "ee454c254e8223ff629ee2c7762884e3a3e02ced",
+      "local_sha256": "f469e5077ab3ccb03d19ab2a263d533a6d8f9c7484b0fe2496f0233dce8edb14",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_host22.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c21e3300a2d3e3cb4bb2afc635104d0f01b87e7f",
+      "local_git_blob_sha1": "c21e3300a2d3e3cb4bb2afc635104d0f01b87e7f",
+      "local_sha256": "ba3c95d8f45b7eba94625f9e7cfde167ba9febecd604afdbd526f1054936728d",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_lab22.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b3b02d6beca0cda67c5b0dbb8d7b4f33b8b4f749",
+      "local_git_blob_sha1": "b3b02d6beca0cda67c5b0dbb8d7b4f33b8b4f749",
+      "local_sha256": "94a436d97e51b076e28b4f229666d7e2245da26f90d99c44533a245d074e4e9e",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_lab22.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "6f2f39c1c703528766f1cfad0cc4e726e4ac2099",
+      "local_git_blob_sha1": "6f2f39c1c703528766f1cfad0cc4e726e4ac2099",
+      "local_sha256": "561d762d2333e6fd8ed701cc7ee9332384bdc2eea35adbd25953ba5f1db25578",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_registry.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "4fc4376d55690b11369afbb104ca19e92258841b",
+      "local_git_blob_sha1": "4fc4376d55690b11369afbb104ca19e92258841b",
+      "local_sha256": "8f9d6797e4ad48bb8924e292f4a9371b3337d092e341bc30f54459593ca94536",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugin_registry.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "0c0bee1ce6326b0ef2977293cc8c5db8bb1da373",
+      "local_git_blob_sha1": "4e2606684f1d1e116a6eec5a963be23ff7001b5f",
+      "local_sha256": "e1ff2b4874996aa966c9582ca4d98ae31cfd98b37d5c15690184690fa2654846",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/plugin_registry.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "55176d47c0a2262788986b986c468c214bcbdbbc",
+      "local_git_blob_sha1": "062c889d9e88b299e23a631dbc9c476268e5f43e",
+      "local_sha256": "18a9edc52a69e1f4f52bfcaa3bbebb11b3836cb40d65a8605091990418ce0b1c",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/plugins/astra.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b4cdc764672108c712339e2dd270550f44fbb82c",
+      "local_git_blob_sha1": "b4cdc764672108c712339e2dd270550f44fbb82c",
+      "local_sha256": "407d5907ff1a882082d98b76e55c37e61b668856729bb4ce92067a2f443fb779",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/astra.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c108a57b3137619de4b3d5dbdf78c95a28c162be",
+      "local_git_blob_sha1": "c108a57b3137619de4b3d5dbdf78c95a28c162be",
+      "local_sha256": "2c4fdbfaa615d8304eaeb25f79e73d08701c72be284db1166d6caf4a882ca9a6",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/astra.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "39f1bb77c9ec3811a7741036f6a46a0339b9063f",
+      "local_git_blob_sha1": "39f1bb77c9ec3811a7741036f6a46a0339b9063f",
+      "local_sha256": "dcd10e5912c1aa979845ae9aca010cfe2f68b70f7ef5424921c6b4d811e594ca",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/catalog.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "9c7a577bbc84401391ba9536265928ab3a862686",
+      "local_git_blob_sha1": "9c7a577bbc84401391ba9536265928ab3a862686",
+      "local_sha256": "d5a022c0a4bacf0bbd9851f8b68102497daaeb7827103504344325b402b01b80",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/catalog.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "8a2d561f961192d03fb5aa306073a20b1b26afee",
+      "local_git_blob_sha1": "8a2d561f961192d03fb5aa306073a20b1b26afee",
+      "local_sha256": "545b8369b27cafe582f95c875596a3b91506dab4e8c447662ff64e9bc178d57f",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/catalog.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "55212e3003262fd3ffe7ad736f7766698734c4e5",
+      "local_git_blob_sha1": "55212e3003262fd3ffe7ad736f7766698734c4e5",
+      "local_sha256": "66cea4e9166f61976d053fb06fa4ad4d29668f92ad30ee020e5d35dbd6c433b9",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/crypto_exits.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1f7aeea3889066534fe5c6996a15ab7cb91228b9",
+      "local_git_blob_sha1": "b2d3d0ec198bc77a35b1fd3daaf62b58475674aa",
+      "local_sha256": "5231bce5e67df3f4a46683e3ab121337c62f3f6b9b0db34d1e57f36e7cad160f",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/plugins/crypto_recovery.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "15c29250e7de12d79befe3b2ede295c1d56af956",
+      "local_git_blob_sha1": "15c29250e7de12d79befe3b2ede295c1d56af956",
+      "local_sha256": "0c9dd3f6bce30cb1d83b41e46d8376eac7df8899a157e558e2126d781eede093",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/crypto_recovery.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1f18e10b501d90277bab4e2e3415df79910b5988",
+      "local_git_blob_sha1": "1f18e10b501d90277bab4e2e3415df79910b5988",
+      "local_sha256": "d9f7708a7500980b6ce45eb03af59fa076fcc78b0df3ef873ec0f8417aeb4659",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/crypto_recovery.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ae269d5d3774e39dae5fbb4717f97d9308f55ad0",
+      "local_git_blob_sha1": "ae269d5d3774e39dae5fbb4717f97d9308f55ad0",
+      "local_sha256": "d632ba7a5baa51b59ba2f117898d23f42865b15317491b215ee3d77d694dd48a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/crypto_trend.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "dc9c89680e4081ae35f04fdaeb70c2c0ce75518a",
+      "local_git_blob_sha1": "dc9c89680e4081ae35f04fdaeb70c2c0ce75518a",
+      "local_sha256": "d91ac49da9e390006274983207931e9df77483e9a99d698b6865ea95025cbc8e",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/securities_entries.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "d8e351939b7d91ce1b9c979bc30b6e7760f581ec",
+      "local_git_blob_sha1": "d8e351939b7d91ce1b9c979bc30b6e7760f581ec",
+      "local_sha256": "aaa5a5aaf26fe7c97e3843f6ca8b442fe581330fea13e1f521437ad3d4f9915d",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/securities_entries.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b909987f042a89817402300976f6366e8bd7f552",
+      "local_git_blob_sha1": "b909987f042a89817402300976f6366e8bd7f552",
+      "local_sha256": "21547f3d5f01226e24f857cd7cfcc289ee337dc1b3551e52dda43b67a9dc44b4",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/securities_policies.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "524b210885111b9583ff30cec529d5e59d1ae926",
+      "local_git_blob_sha1": "524b210885111b9583ff30cec529d5e59d1ae926",
+      "local_sha256": "f2f0315779fd7084cfe0e9d16f4ad46888bbfdd67d3c828452850e32e0e32fcc",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/plugins/securities_rules.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "cc0717470715ca22709c1cf9501e5ad4a10fb528",
+      "local_git_blob_sha1": "cc0717470715ca22709c1cf9501e5ad4a10fb528",
+      "local_sha256": "035239f4c0ebe4cd2d66f5c25c640115c03d027a4dee9133bf590e149d93cc1e",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/style.css",
+      "local_exists": true,
+      "remote_git_blob_sha1": "daf9493f8537ebe55ef7f872b2dc4241df2c94bb",
+      "local_git_blob_sha1": "daf9493f8537ebe55ef7f872b2dc4241df2c94bb",
+      "local_sha256": "7f636748a185d457f9b33d5d7e354e006063f81083b67120da8764265c29fb6c",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/supervision.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "58fa2177d30ab78bb3770240ea110c0e26bbe218",
+      "local_git_blob_sha1": "e7bb7d410987c33aeb3d7e45bb892c8d55b184d4",
+      "local_sha256": "e2e4f4c72e31730650b313287f4d8c6a7d9da01e476d2a5a3739a4e901629d4e",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/supervision_core.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "2d5b00670f651cc593b900e729a60074361ed19e",
+      "local_git_blob_sha1": "2d5b00670f651cc593b900e729a60074361ed19e",
+      "local_sha256": "2eede944908a42a695fa5859b1933b7343b96646732ae24b18040841462acce5",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/supervision_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ca5767acbdad70d3dbe66951466f9af06a301171",
+      "local_git_blob_sha1": "ca5767acbdad70d3dbe66951466f9af06a301171",
+      "local_sha256": "93a974000f9bff798d761fec60cdf14d7799e25f691a190ad72fdbd26f60c72f",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/supervision_core.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "6c522f02f4aaea747a1994b8bb480f91ad74e2e5",
+      "local_git_blob_sha1": "6c522f02f4aaea747a1994b8bb480f91ad74e2e5",
+      "local_sha256": "1001d38b1b84bc45aaff9c85ebd8c789cee528a77ad2b60b7d59bff126c662b5",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/tensor_core.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "faa537687d5b8cd496271043761f53abbb70aa09",
+      "local_git_blob_sha1": "faa537687d5b8cd496271043761f53abbb70aa09",
+      "local_sha256": "dc786def9e8e2df88253466f6ed3650fea527d0749bfd9833a0e9d8656ee2b29",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/tensor_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "9f70ece9d53491818a0a477bb2803b8f3d75d1e9",
+      "local_git_blob_sha1": "9f70ece9d53491818a0a477bb2803b8f3d75d1e9",
+      "local_sha256": "f733700da3f6bad3f5c49f96b1af5cd3b7814068bcce41791098f5d6157d64fd",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/tensor_core.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "fb056ebbd086a3b2aac72163dca4baf775219f36",
+      "local_git_blob_sha1": "fb056ebbd086a3b2aac72163dca4baf775219f36",
+      "local_sha256": "f74cffa739a0d80db38cfc2061ec3855b392997d117f894b343fc023fc2a6f5a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/trade_stream.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "0891b8138d6b46fd93fa70da3b05820de8bf3651",
+      "local_git_blob_sha1": "0891b8138d6b46fd93fa70da3b05820de8bf3651",
+      "local_sha256": "62f8236dd455241acf8c5a844bdee6f16eede56a84019e6fa822b13f4de38f77",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux.css",
+      "local_exists": true,
+      "remote_git_blob_sha1": "37e3e8c2a62af3bd69af6b4c98d331cc49b97c9a",
+      "local_git_blob_sha1": "37e3e8c2a62af3bd69af6b4c98d331cc49b97c9a",
+      "local_sha256": "222a023c6f8772e40de5a75e5edd7dbd46e1edb5a32aec9613947aa38adbdb93",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "e1d8fde99d2993d8646edee09002a432742622dd",
+      "local_git_blob_sha1": "7d5317866b847d5bfdeb8da176e5c64f8877b735",
+      "local_sha256": "8dcf6d22cd22219031b856e6be103a3add7eb75d743ecf227e25c1510c5f687c",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/ux_controls.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "bf82e89d2e5b75cd2f321840ccec2b74a23278ad",
+      "local_git_blob_sha1": "bf82e89d2e5b75cd2f321840ccec2b74a23278ad",
+      "local_sha256": "94265c0018b1e85e43afa6c15a34c276694a6cad02399f43aaffc01f42bed067",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_credentials.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "81557e9f91af38f89edd05508fe2c9b25acf9ec2",
+      "local_git_blob_sha1": "81557e9f91af38f89edd05508fe2c9b25acf9ec2",
+      "local_sha256": "33b94e734b9a6ee5bb3b6edf5f0c30213ee7aa86488f43a59df5d08a6c1f82ab",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_findings.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c4b824a4ea50dab94c7f61a47e73ae46a5aaaedf",
+      "local_git_blob_sha1": "c4b824a4ea50dab94c7f61a47e73ae46a5aaaedf",
+      "local_sha256": "83d87471bc0cc2df1b9747548f09f8d98a1334350a0c02c0f394eda674d49f15",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_home.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "181de1eb9441f037782c340a60a94689734793f5",
+      "local_git_blob_sha1": "181de1eb9441f037782c340a60a94689734793f5",
+      "local_sha256": "7498cb38b879803a097c918443fb9df755512c9d86872b9afbc94a703cab53ac",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_plugins.html",
+      "local_exists": true,
+      "remote_git_blob_sha1": "e0e805246a2b797f8f4d5217758ad42de136f79b",
+      "local_git_blob_sha1": "e0e805246a2b797f8f4d5217758ad42de136f79b",
+      "local_sha256": "28c62aa7acefcf2e3c8485278ef9034cd9b1a27af1ab2e8d050a00f6ebbe3f7a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_state.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "68a1070401618ae1c6aa6c7fadec30dc7065a8c2",
+      "local_git_blob_sha1": "68a1070401618ae1c6aa6c7fadec30dc7065a8c2",
+      "local_sha256": "2a10db959d5ede6f10c17b31610fbf5fa47e61d560427e2acff07158c3258dcf",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_state.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ecabaee8292f4f37a4d901d86e4f4e54b59207cb",
+      "local_git_blob_sha1": "ecabaee8292f4f37a4d901d86e4f4e54b59207cb",
+      "local_sha256": "593ae405bf1c134af293e3efdc853c8a21c1a0d4fc554418502cdca32672aa2f",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/ux_state.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "4f602ddc08b23dcc23d2dfd1f6f1416349e469f9",
+      "local_git_blob_sha1": "4f602ddc08b23dcc23d2dfd1f6f1416349e469f9",
+      "local_sha256": "82643474c47a0a81b760830b56b22ad71db41ca188c7988450a8bbdcfd35be0e",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/x_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "d44a0283f18fd70d949e3f8d3d422d41e3ff52ab",
+      "local_git_blob_sha1": "d44a0283f18fd70d949e3f8d3d422d41e3ff52ab",
+      "local_sha256": "56b698c3dc17d6fb41fd7ff39ab4a0dc49b322ccaca74c661223d87422e7e79b",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/x_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c2cee79594aa51a959f2d70af741d23b3d9a7073",
+      "local_git_blob_sha1": "c2cee79594aa51a959f2d70af741d23b3d9a7073",
+      "local_sha256": "1e467912f78c692a054e5e034f9925f3704b88be09fe5ce59b87a1f0b999b715",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/x_core.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "923dab752fe5d051b66e3778b4afe309140dcc65",
+      "local_git_blob_sha1": "923dab752fe5d051b66e3778b4afe309140dcc65",
+      "local_sha256": "29ead6f23246b7503491180aa673f60e370a188ad0be3f5e1d9221bde1c84481",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/x_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "a423591833b600219441a054a460d1305c76ccbc",
+      "local_git_blob_sha1": "a423591833b600219441a054a460d1305c76ccbc",
+      "local_sha256": "9e9d62b640985e7e4c59dbabf2d0ce71c1e92348a6a6a61f56ae0864fff0f9b2",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/x_research.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "abeb3ab620d8f1fe27414a98590716ef1c9c507c",
+      "local_git_blob_sha1": "abeb3ab620d8f1fe27414a98590716ef1c9c507c",
+      "local_sha256": "7ba71e743b48eb4bff3a06e61aac4b0b65291f06da8cc9394e2aee398e957e77",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xi_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c21e68420b00ca3fdf7152bf886d562a892de369",
+      "local_git_blob_sha1": "c21e68420b00ca3fdf7152bf886d562a892de369",
+      "local_sha256": "b0a663b6244f3f1f0b72404636c24e2619fb5d4c9b819f1155991c97b29e14b2",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xi_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1d83815674a4c15c1632f0deab63c682c0dbaf29",
+      "local_git_blob_sha1": "1d83815674a4c15c1632f0deab63c682c0dbaf29",
+      "local_sha256": "786157864caedae492942289c317d991e5e2a8fd1a170c6188dab45ee6369fee",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xi_core.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "30f8083742a7bb2a35fd3d3bffc14f98ebd7488f",
+      "local_git_blob_sha1": "30f8083742a7bb2a35fd3d3bffc14f98ebd7488f",
+      "local_sha256": "6a56ef1195a8bb0d35b86ee7fa351ea9f0dbbb13de484a4e4872bc6a0d9e42f5",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xi_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b77f5fbdf14e29a6c0841a2ef78d7ef6eeace1dd",
+      "local_git_blob_sha1": "b77f5fbdf14e29a6c0841a2ef78d7ef6eeace1dd",
+      "local_sha256": "99e96232a9af61cc0e3af611fae6611dda7b21b4dbb3584dd81b4d07d2ccabdb",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xi_replay.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "7a642e3d64c7c9d9fa4a26bf575b63888be9581b",
+      "local_git_blob_sha1": "7a642e3d64c7c9d9fa4a26bf575b63888be9581b",
+      "local_sha256": "61021adfe550a1df707e7b58ce4e3162ceec740cc50d63579f57341a128ea2d7",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xii_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "ea0501fd116d01ef924db5004d8729742230037b",
+      "local_git_blob_sha1": "ea0501fd116d01ef924db5004d8729742230037b",
+      "local_sha256": "283057d45b7d8a7694d999909d26cec7442b2ec629d803a2987823fd6c39f7c6",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xii_core.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "550576e6516131877b7781a1200538fc48edf88e",
+      "local_git_blob_sha1": "550576e6516131877b7781a1200538fc48edf88e",
+      "local_sha256": "f463b813882eb53bbf821dadd0eeded66f4257f5e0d98d366768a8b3a9729394",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xii_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "76005b1a2f8b7a4c259f7a9aaacfb8a24cd5ad3a",
+      "local_git_blob_sha1": "76005b1a2f8b7a4c259f7a9aaacfb8a24cd5ad3a",
+      "local_sha256": "82f5d61c185e8f17f0bb7244dae518640beddb3a6db1ed2ed0f783eab93da57d",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xii_core.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "2905dba0b6e0a687dd9c4a3685a1e8f4fe8cb23b",
+      "local_git_blob_sha1": "2905dba0b6e0a687dd9c4a3685a1e8f4fe8cb23b",
+      "local_sha256": "4548b89b18f0a1b813272791f0ec75de5032886a2578fbfead70ac6e66b454f1",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xii_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b0054082cb854ec72cc3f26b569cc092e38ca473",
+      "local_git_blob_sha1": "b0054082cb854ec72cc3f26b569cc092e38ca473",
+      "local_sha256": "aea9b0d948bc901fc743c68b903b0113db3405429b02579b6d33894cfb01a410",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xii_research.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "6647e6e78473e6f4fb7d61672ca3a697af66f20c",
+      "local_git_blob_sha1": "6647e6e78473e6f4fb7d61672ca3a697af66f20c",
+      "local_sha256": "62b7cae729001e1c4f1043971bee525fbaecdaac2f2808f8f764f18f532f58b1",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xiii_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "b9c9cf9e5459d9acbb5cee36a96bbd9bd5e4f4ac",
+      "local_git_blob_sha1": "b9c9cf9e5459d9acbb5cee36a96bbd9bd5e4f4ac",
+      "local_sha256": "75d8858fd30fd722304cec373fa4ad6217d621b3f60841e657ed8f9bee8e7b20",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xiii_core.d.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "0e4b5eb1c1467f0cfbdaac146fbeea4d5982485b",
+      "local_git_blob_sha1": "0e4b5eb1c1467f0cfbdaac146fbeea4d5982485b",
+      "local_sha256": "cfc8e2e367e1442a7e6bedfead42e9d8585c1cc25d3bb0f07102b56ec3055673",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xiii_core.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "db05b97b9d13f44e54baedfdb7df31f458d5311b",
+      "local_git_blob_sha1": "db05b97b9d13f44e54baedfdb7df31f458d5311b",
+      "local_sha256": "544bb3347734f80275e2db41395ffbd0e2af077aa62bbe70226362489f732105",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xiii_core.ts",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1121260e4143cef27c14bbebd3a2bcbd2358934f",
+      "local_git_blob_sha1": "1121260e4143cef27c14bbebd3a2bcbd2358934f",
+      "local_sha256": "2416694ce002278a764f763c5c6e2c3373cc41bbf573c2715fed2c2b36c61494",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xiii_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "7cbf86192cc1b7a9a99cbb0e2206503b82817440",
+      "local_git_blob_sha1": "7cbf86192cc1b7a9a99cbb0e2206503b82817440",
+      "local_sha256": "46c47e1b242965139b81fc95e6e059a6f226f5ddb957855b66797915afb9f63a",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xiii_research.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "1e7427e07723652f730cd9ecaa3a7e8a9ee7ea82",
+      "local_git_blob_sha1": "1e7427e07723652f730cd9ecaa3a7e8a9ee7ea82",
+      "local_sha256": "637293608b7b5293f2d9636a145b5947c40fbdccc79168da24a115a3f4bc9f34",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xx_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "4fd302c3d9b14e319bb924133882be00fc49e452",
+      "local_git_blob_sha1": "796daa7af7183e212a822d657f723b96881de9f7",
+      "local_sha256": "b2cf513b693987914d2a83435ea8ac9d9b82f40016031ff93b86eabe0337964e",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/xx_crypto.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "8e994f92b5ace62588f0984cdb2f74efe6ac90fc",
+      "local_git_blob_sha1": "7ab2b3e60d67209d1497bceec60ebb5492e253b7",
+      "local_sha256": "29065f753c80d7bb368d70ba277dc325ddc75c2b78a12d7f145d906778118393",
+      "identical_bytes": false
+    },
+    {
+      "path": "src/xx_engine.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "c15965387e5af5bdbad09f76cba30207fa5ffe74",
+      "local_git_blob_sha1": "c15965387e5af5bdbad09f76cba30207fa5ffe74",
+      "local_sha256": "e05d985eb5157df3a84d4a2bc53d9661a34c4fc8bdb8f20af6e588baa4cb8729",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xxi_app.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "bffa0eac6222b986c3df5c25fad9da87c86c2ca4",
+      "local_git_blob_sha1": "bffa0eac6222b986c3df5c25fad9da87c86c2ca4",
+      "local_sha256": "69661e7e9a2db4ba434b373055f3946b0ff342f85e16a43f1cf2b13a050239fa",
+      "identical_bytes": true
+    },
+    {
+      "path": "src/xxi_broker.js",
+      "local_exists": true,
+      "remote_git_blob_sha1": "d13923854bb584480f34fd35f180ea5b3bcf5d0f",
+      "local_git_blob_sha1": "d13923854bb584480f34fd35f180ea5b3bcf5d0f",
+      "local_sha256": "c77b01d5b246350e6f772dff63d94025478f0c3f3e813d72d68e749389464961",
+      "identical_bytes": true
+    }
+  ]
+}

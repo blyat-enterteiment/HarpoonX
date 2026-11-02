@@ -1,0 +1,94 @@
+--- 30.10.1/tools/coordinator_replay.cjs
++++ 30.11.0/tools/coordinator_replay.cjs
+@@ -24,6 +24,9 @@
+ const close = (a,b) => Math.abs(a-b) <= 1e-7 * Math.max(1, Math.abs(a), Math.abs(b));
+ function sourceHashes() {
+   const names = ["tools/coordinator_replay.cjs", "runtime/quant_bridge.cjs", "runtime/legacy30.cjs", "runtime/exit_profiles32.cjs"];
++  for(const name of ["tools/fixed_predictor_worker.cjs","tools/funded_comparison.cjs"])if(fs.existsSync(path.join(ROOT,name)))names.push(name);
++  if(fs.existsSync(path.join(ROOT,"quant/harpoon_quant/fixed_predictor.py")))
++    for(const file of fs.readdirSync(path.join(ROOT,"quant/harpoon_quant")).filter(f=>f.endsWith(".py")))names.push("quant/harpoon_quant/"+file);
+   if(fs.existsSync(path.join(ROOT,"tools/observation_replay_input.cjs")))names.push("tools/observation_replay_input.cjs");
+   for (const [dir,ext] of [["xxx","ts"],["runtime30","js"]])
+     for (const file of fs.readdirSync(path.join(ROOT,dir)).filter(f=>f.endsWith("."+ext))) names.push(dir+"/"+file);
+@@ -81,7 +84,19 @@
+   }
+   const variant = input.predictor || {name:"C0",mode:"NATIVE"};
+   need(["C0","RIDGE","SVR"].includes(variant.name), "UNKNOWN_PREDICTOR");
+-  need(variant.mode === "NATIVE" && variant.name === "C0" || variant.mode === "PRECOMPUTED_OFFLINE", "PREDICTOR_MODE_NOT_SUPPORTED");
++  need(variant.mode === "NATIVE" && variant.name === "C0" || variant.mode === "PRECOMPUTED_OFFLINE" || variant.mode === "NUMERICAL_OFFLINE" && variant.name !== "C0", "PREDICTOR_MODE_NOT_SUPPORTED");
++  if(variant.mode === "NUMERICAL_OFFLINE"){
++    need(variant.external_execution_allowed===false && variant.model && typeof variant.model==="object" && !Array.isArray(variant.model),"FIXED_JSON_MODEL_REQUIRED");
++    const modelText=variant.model_json??canonical(variant.model);
++    need(typeof modelText==="string"&&Buffer.byteLength(modelText)<=16*1024*1024,"FIXED_MODEL_BYTES_LIMIT");
++    need(hash(JSON.parse(modelText))===hash(variant.model),"FIXED_MODEL_TEXT_CONTENT_MISMATCH");
++    need(variant.model_hash===crypto.createHash("sha256").update(modelText).digest("hex"),"FIXED_MODEL_HASH_MISMATCH");
++    const available=Date.parse(variant.model.available_at);
++    need(ms(available)&&available<input.start_at,"FIXED_MODEL_FUTURE_OR_UNAVAILABLE");
++    need(variant.name==="RIDGE" && [undefined,"HARPOON_QUANT_CALIBRATION_1"].includes(variant.model.schema) && [undefined,"RIDGE"].includes(variant.model.model_kind)
++      || variant.name==="SVR" && variant.model.schema==="HARPOON_QUANT_CALIBRATION_2" && variant.model.model_kind==="SVR_RBF" && variant.model.research_only===true,"FIXED_MODEL_ESTIMATOR_BINDING");
++    need(!cfg.quant?.optimizer?.enabled && !cfg.quant?.microstructure?.enabled,"FIXED_INFERENCE_NO_EXTERNAL_MODEL_REGISTRIES");
++  }
+   if (variant.mode === "PRECOMPUTED_OFFLINE") {
+     need(variant.external_execution_allowed === false && Array.isArray(variant.receipts), "RECEIPT_EXTERNAL_EXECUTION_MUST_BE_FALSE");
+     need(/^[0-9a-f]{64}$/.test(variant.model_hash || "") && ms(variant.trained_until), "MODEL_PROVENANCE_REQUIRED");
+@@ -240,10 +255,12 @@
+ 
+ async function executeReplay(raw) {
+   const input=validateRequest(raw), clock={now:input.start_at};
++  need(!running,"CONCURRENT_REPLAY_NOT_SUPPORTED");
+   // Load trusted module definitions before patching process APIs, so no cached
+   // production module retains a reference to a temporary test-only deny hook.
+   const {Coordinator}=require("../runtime30/coordinator.js"),bridge=require("../runtime/quant_bridge.cjs");
+-  return isolated(clock,async()=>{
++  const numeric=input.predictor?.mode==="NUMERICAL_OFFLINE"?require("./fixed_predictor_worker.cjs").openFixedPredictor(input.predictor,canonical):null;
++  try{return await isolated(clock,async()=>{
+     const store=new ReplayStore(),broker=new SimulatedReplayBroker(input,clock);
+     const cfg=copy(input.config),variant=input.predictor||{name:"C0",mode:"NATIVE"};
+     const decisions=[],snapshots=[],checks=[],ioFailures=[];let restarts=0,currentEvent=null;
+@@ -252,11 +269,24 @@
+     // This adapter is local to the isolated tools invocation. The real worker and
+     // its SVR research guards are neither invoked nor modified. Its result is not
+     // a broker authorization; there is no transport capable of external orders.
+-    if(variant.mode==="PRECOMPUTED_OFFLINE"){
+-      cfg.quant={enabled:true,discovery:false,microstructure:{enabled:false},optimizer:{enabled:false}};
++    if(variant.mode==="PRECOMPUTED_OFFLINE"||variant.mode==="NUMERICAL_OFFLINE"){
++      cfg.quant={...copy(input.config.quant),enabled:true,discovery:false,microstructure:{enabled:false},optimizer:{enabled:false}};
+       bridge.plan=async(e,signals)=>{
+         need(e.api?.inner===broker || e.broker?.api===broker || broker.engine===e,"SIMULATED_TRANSPORT_BINDING_LOST");
+         const request=bridge.request(e,signals),normalized={...request,config:input.config},requestHash=hash(normalized);
++        if(variant.mode==="NUMERICAL_OFFLINE"){
++          const calculated=await numeric.evaluate(normalized),receipt=calculated.receipt,plan=calculated.result;
++          for(const selected of plan.selected){
++            const source=request.signals.find(s=>s.plugin+"|"+s.symbol===selected.id);
++            need(source&&finite(selected.quantity)&&selected.quantity>0&&selected.quantity<=source.max_qty&&finite(selected.robust_net_usd),"NUMERICAL_SELECTION_OUTSIDE_REAL_SIGNAL_OR_SIZE");
++          }
++          need(new Set(plan.selected.map(s=>s.id)).size===plan.selected.length,"DUPLICATE_NUMERICAL_SELECTION");
++          decisions.push({event_id:currentEvent.id,request_hash:requestHash,request:copy(normalized),receipt_hash:hash(receipt),numerical_receipt:receipt,model_hash:variant.model_hash,origin:"REEXECUTED_FIXED_JSON_MODEL",external_execution_allowed:false,simulation_selection_allowed:true,original_engine_execution_allowed:plan.execution_allowed});
++          // This flag is consumed exclusively by the simulated coordinator.
++          // The raw numerical receipt and all externally returned authority flags
++          // remain untouched; the SVR production guard is still false.
++          return {...plan,execution_allowed:true,reason:"OFFLINE_NUMERICAL_SELECTION_ONLY",decision_inputs:{...plan.decision_inputs,origin:"NUMERICAL_OFFLINE",external_execution_allowed:false}};
++        }
+         const receipt=variant.receipts.find(r=>r.event_id===currentEvent.id);
+         need(receipt && receipt.request_hash===requestHash,"PRECOMPUTED_REQUEST_HASH_MISMATCH");
+         for(const selected of receipt.selected){const source=request.signals.find(s=>s.plugin+"|"+s.symbol===selected.id);need(source && selected.quantity<=source.max_qty,"RECEIPT_SELECTION_OUTSIDE_REAL_SIGNAL_OR_SIZE");}
+@@ -299,7 +329,7 @@
+       const metrics={initial_cash_usd:input.initial_cash_usd,account_equity_final_usd:equity,account_pnl_net_usd:accountPnl,fees_usd:broker.fills.reduce((n,f)=>n+f.fee_usd,0),external_cost_usd:external,economic_pnl_net_usd:accountPnl-external,open_inventory:copy(final.positions),valuation:"BID_MODEL",stale_valuation_symbols:[...broker.inventory.keys()].filter(s=>clock.now-broker.quotes.get(s).at>input.config.quoteAgeMs),realized_pnl_only:false};
+       return {candidate:variant.name,decisions,snapshots,order_actions:broker.requests.filter(r=>r.method!=="GET"),fills:copy(broker.fills),invariants:checks,io_failures:ioFailures,metrics,restarts,final_state:final};
+     }finally{bridge.plan=originalPlan;engine?.plugins.stop();}
+-  });
++  });}finally{numeric?.close();}
+ }
+ 
+ function receiptCheck(id,expected,observed){
+@@ -318,7 +348,9 @@
+   if(eventTypes.has("pulse")||eventTypes.has("llm_unavailable"))components.push("Coordinator.pulse");
+   if(first.fills.length&&components.includes("Coordinator.manage"))components.push("policy.exitDecision","exits");
+   const scope={components,books:[...new Set(input.config.universe.map(a=>a.book))],native_protection:"stop",inventory:"LONG_ONLY_CASH",execution_model:"EXPLICIT_MODELED_CROSSING_AND_LIQUIDITY",entry_predictor:input.predictor?.mode||"NATIVE_C0",restart_count:first.restarts,event_types:[...eventTypes].sort(),observation_adapter:input.source_evidence||null,not_covered:["live_broker_execution","queue_priority","hidden_liquidity","options","native_oco","shorts","production_scheduler_concurrency","empirical_model_edge","exhaustive_multiasset_parity"]};
+-  const report={schema:SCHEMA,id:input.id,input_hash:hash(input),source_hashes:before,execution_origin:"MODELED",data_origin:input.data_origin,scope,scope_hash:hash(scope),checks,policy_parity_verified:checks.every(c=>c.passed),parity_interpretation:"Same real source reexecuted against the same bounded event contract; determinism and state equivalence, not independent financial validation.",predictor_parity_verified:(input.predictor?.mode||"NATIVE")==="NATIVE",external_execution_allowed:false,financial_acceptance_allowed:false,advantage_verdict:"VENTAJA_NO_DEMOSTRADA",period:{start_at:input.start_at,end_at:input.events.at(-1).at},result:first,limitations:["All fills, fees, acknowledgements and cancellations are explicitly MODELED.","Two deterministic executions share source and inputs; this is not an independent audit.","Precomputed predictor receipts verify binding and causality, not predictor training or numerical provenance.","No inference of liquidity, order queue or execution speed from bars.","Outstanding inventory remains marked; no artificial terminal close or capital reset." ]};
++  const numerical=first.decisions.filter(d=>d.origin==="REEXECUTED_FIXED_JSON_MODEL");
++  const predictorVerified=(input.predictor?.mode||"NATIVE")==="NATIVE" || input.predictor?.mode==="NUMERICAL_OFFLINE" && numerical.some(d=>d.numerical_receipt.forecast_checks.some(f=>f.status==="COMPUTED")) && checks.every(c=>c.passed);
++  const report={schema:SCHEMA,id:input.id,input_hash:hash(input),source_hashes:before,execution_origin:"MODELED",data_origin:input.data_origin,scope,scope_hash:hash(scope),checks,policy_parity_verified:checks.every(c=>c.passed),parity_interpretation:"Same real source reexecuted against the same bounded event contract; determinism and state equivalence, not independent financial validation.",predictor_parity_verified:predictorVerified,external_execution_allowed:false,financial_acceptance_allowed:false,advantage_verdict:"VENTAJA_NO_DEMOSTRADA",period:{start_at:input.start_at,end_at:input.events.at(-1).at},result:first,limitations:["All fills, fees, acknowledgements and cancellations are explicitly MODELED.","Two deterministic executions share source and inputs; this is not an independent audit.","Precomputed predictor receipts verify binding and causality, not predictor training or numerical provenance.","NUMERICAL_OFFLINE reproduces the real bridge with fixed JSON models; it does not certify training provenance or empirical edge.","No inference of liquidity, order queue or execution speed from bars.","Outstanding inventory remains marked; no artificial terminal close or capital reset." ]};
+   report.artifact_hash=hash(report);return report;
+ }
+ async function verifyReport(input,report){

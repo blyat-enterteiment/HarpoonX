@@ -1,0 +1,1 @@
+Archivo exacto usado para current_workflow_report.json; conservado con su SHA-256. La evaluación final usa final_workflow_report.json y la herramienta corregida en tools/. No es una variante financiera ni una versión desplegada.

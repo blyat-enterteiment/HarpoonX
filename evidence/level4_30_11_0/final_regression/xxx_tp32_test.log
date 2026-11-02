@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision
+ok 1 - sub-0.5-percent virtual/native drift is visible and actually synchronized at tick precision
+  ---
+  duration_ms: 60.26306
+  type: 'test'
+  ...
+# Subtest: TP survives protection cancel, restart and retracement with a durable minimum price
+ok 2 - TP survives protection cancel, restart and retracement with a durable minimum price
+  ---
+  duration_ms: 28.43818
+  type: 'test'
+  ...
+# Subtest: urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder
+ok 3 - urgent stop preempts young TP and reconciles a partial fill during cancel before selling remainder
+  ---
+  duration_ms: 19.396458
+  type: 'test'
+  ...
+# Subtest: bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait
+ok 4 - bounded pulse confirms cancellation through REST and advances exits without a five-second timer wait
+  ---
+  duration_ms: 14.161716
+  type: 'test'
+  ...
+# Subtest: real native payload/reconciliation lifecycle: oco
+ok 5 - real native payload/reconciliation lifecycle: oco
+  ---
+  duration_ms: 30.582741
+  type: 'test'
+  ...
+# Subtest: real native payload/reconciliation lifecycle: oco_trailing
+ok 6 - real native payload/reconciliation lifecycle: oco_trailing
+  ---
+  duration_ms: 25.489957
+  type: 'test'
+  ...
+# Subtest: broker rejection of native OCO causes an actual full-position stop fallback
+ok 7 - broker rejection of native OCO causes an actual full-position stop fallback
+  ---
+  duration_ms: 11.978602
+  type: 'test'
+  ...
+# Subtest: native urgent flatten cancels every group before one reconciled full exit
+ok 8 - native urgent flatten cancels every group before one reconciled full exit
+  ---
+  duration_ms: 18.573322
+  type: 'test'
+  ...
+# Subtest: experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns
+ok 9 - experimental profiles require explicit PAPER acknowledgement and freeze only new campaigns
+  ---
+  duration_ms: 10.360521
+  type: 'test'
+  ...
+# Subtest: OPRA uses a MsgPack handshake/header and decodes observed quotes; PAPER orders use binary JSON
+ok 10 - OPRA uses a MsgPack handshake/header and decodes observed quotes; PAPER orders use binary JSON
+  ---
+  duration_ms: 10.616938
+  type: 'test'
+  ...
+# Subtest: malformed stream frames trigger visible reconnect and invalidate flow warmup
+ok 11 - malformed stream frames trigger visible reconnect and invalidate flow warmup
+  ---
+  duration_ms: 0.922221
+  type: 'test'
+  ...
+# Subtest: reported fee ledger paginates, retains unpriced crypto fees and never certifies all-in net
+ok 12 - reported fee ledger paginates, retains unpriced crypto fees and never certifies all-in net
+  ---
+  duration_ms: 0.761068
+  type: 'test'
+  ...
+# Subtest: fee pagination failure remains ERROR without manufacturing a zero successful cost
+ok 13 - fee pagination failure remains ERROR without manufacturing a zero successful cost
+  ---
+  duration_ms: 0.238169
+  type: 'test'
+  ...
+# Subtest: execution metrics use actual fills, explicit estimated fees and no second slippage charge
+ok 14 - execution metrics use actual fills, explicit estimated fees and no second slippage charge
+  ---
+  duration_ms: 12.963899
+  type: 'test'
+  ...
+# Subtest: execution journal preserves event type separately from the order intent kind
+ok 15 - execution journal preserves event type separately from the order intent kind
+  ---
+  duration_ms: 11.457917
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 318.232286

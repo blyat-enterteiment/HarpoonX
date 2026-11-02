@@ -1,0 +1,204 @@
+{
+  "artifact_hash": "d4202d137a11108ba636b761500a38a71f561d5292159e9fbecbb1397ca313f2",
+  "candidate_for_forward_validation": false,
+  "dictamen": "VENTAJA_NO_DEMOSTRADA",
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false,
+  "financial_approval": false,
+  "financial_blockers": [
+    "SYNTHETIC_IS_NOT_FINANCIAL_EVIDENCE",
+    "OBSERVED_PRICES_REQUIRED",
+    "OBSERVED_AVAILABILITY_REQUIRED",
+    "PARITY_ECONOMIC_BINDINGS_NOT_VERIFIED",
+    "PAIRED_POLICY_PARITY_INCOMPLETE",
+    "PREDICTOR_PARITY_NOT_VERIFIED",
+    "PARITY_RECEIPT_NOT_FINANCIALLY_ELIGIBLE",
+    "OBSERVATIONAL_EVIDENCE: 'observed_prices'"
+  ],
+  "input_hash": "f418ccb50019fe83a1125e2402311c5f5c1898d04f56d22f84e6c15a2127c85d",
+  "limitations": [
+    "Software verification is not evidence of profitability.",
+    "File hashes verify local integrity; they do not authenticate a broker, a clock, or a complete research history.",
+    "Drawdown and exposure are bounded only at the supplied observation resolution; intraperiod gaps need their own risk evidence.",
+    "Bootstrap inference is approximate, assumes suitable dependence coverage, and does not guarantee future returns.",
+    "No LIVE promotion, model fitting, new financial search attempt, or external order is performed."
+  ],
+  "liveApproved": false,
+  "observational_artifacts": null,
+  "parity": {
+    "checks_verified": [
+      "execution_actions",
+      "positions_and_exit_state",
+      "account_cash_fees_and_costs",
+      "real_plugin_and_receipt_decisions",
+      "causal_fills"
+    ],
+    "complete_paired_policy_coverage": false,
+    "covered_policies": [
+      "C0"
+    ],
+    "economic_bindings_verified": false,
+    "execution_origin": "MODELED",
+    "external_validation": false,
+    "financial_acceptance_allowed_by_receipt": false,
+    "policy_parity_verified": true,
+    "predictor_parity_verified": false,
+    "real_coordinator_reexecuted": true,
+    "receipt_integrity_verified": true,
+    "receipt_predictor_parity_verified_within_its_scope": true,
+    "scope": {
+      "books": [
+        "equity"
+      ],
+      "components": [
+        "Coordinator.initialize",
+        "Coordinator.reconcile",
+        "Plugins.evaluate",
+        "Coordinator.entries",
+        "Coordinator.manage",
+        "policy.exitDecision",
+        "exits"
+      ],
+      "entry_predictor": "NATIVE_C0",
+      "event_types": [
+        "entries",
+        "evaluate",
+        "manage",
+        "market",
+        "reconcile"
+      ],
+      "execution_model": "EXPLICIT_MODELED_CROSSING_AND_LIQUIDITY",
+      "inventory": "LONG_ONLY_CASH",
+      "native_protection": "stop",
+      "not_covered": [
+        "live_broker_execution",
+        "queue_priority",
+        "hidden_liquidity",
+        "options",
+        "native_oco",
+        "shorts",
+        "production_scheduler_concurrency",
+        "empirical_model_edge",
+        "exhaustive_multiasset_parity"
+      ],
+      "observation_adapter": null,
+      "restart_count": 0
+    }
+  },
+  "policies": {
+    "C0": {
+      "curve_hash": "47e71ed6001d429f9f43c2a00634bd82be0c478c05891e4a07fb13d1ecf1c5d3",
+      "drawdown_fraction_at_observation_resolution": 0.0001599999999981616,
+      "execution_fees_in_equity_usd": 0.0,
+      "external_flows_usd": 0.0,
+      "final_equity_usd": 19996.800000000047,
+      "geometric_growth_per_session": -2.5001968958094574e-06,
+      "initial_equity_usd": 20000.0,
+      "insolvency": false,
+      "maximum_observed_gross_exposure_fraction": 0.0,
+      "mean_log_growth_per_session": -2.500200021306926e-06,
+      "mean_observed_gross_exposure_fraction": 0.0,
+      "net_pnl_usd": -3.199999999953434,
+      "operating_costs_in_equity_usd": 3.1999999999999966,
+      "terminal_hash": "df6d10121eb62fa80800a5626cf063439766f4b4fc5e420caf6163b279815def"
+    },
+    "RIDGE": {
+      "curve_hash": "82fea39c19392fd4cda9be027787019ef0e81655df93784adbf6d57424b6a990",
+      "drawdown_fraction_at_observation_resolution": 0.0015834903294003055,
+      "execution_fees_in_equity_usd": 9.600000000000012,
+      "external_flows_usd": 0.0,
+      "final_equity_usd": 20210.04802812509,
+      "geometric_growth_per_session": 0.00016325761120179058,
+      "initial_equity_usd": 20000.0,
+      "insolvency": false,
+      "maximum_observed_gross_exposure_fraction": 0.35,
+      "mean_log_growth_per_session": 0.00016324428612824298,
+      "mean_observed_gross_exposure_fraction": 0.35000000000000026,
+      "net_pnl_usd": 210.04802812508933,
+      "operating_costs_in_equity_usd": 3.1999999999999966,
+      "terminal_hash": "3dacff5c4e917d87cc8a779cbd72b3b9941bae4cf689b12673d617cd3527778c"
+    },
+    "SVR": {
+      "curve_hash": "a3b73c417a9389f16847c4fa45e30a703aa274b55bbeafee9e470597f0255bbb",
+      "drawdown_fraction_at_observation_resolution": 0.0,
+      "execution_fees_in_equity_usd": 9.600000000000012,
+      "external_flows_usd": 0.0,
+      "final_equity_usd": 21717.27737131745,
+      "geometric_growth_per_session": 0.0012879515485318047,
+      "initial_equity_usd": 20000.0,
+      "insolvency": false,
+      "maximum_observed_gross_exposure_fraction": 0.35,
+      "mean_log_growth_per_session": 0.0012871228504084918,
+      "mean_observed_gross_exposure_fraction": 0.35000000000000026,
+      "net_pnl_usd": 1717.2773713174502,
+      "operating_costs_in_equity_usd": 3.1999999999999966,
+      "terminal_hash": "893668b17e23b96243e8bb666773729c61ad97b9eb3807a4dc1314dec7a605ce"
+    }
+  },
+  "preregistration": {
+    "clock_evidence": "FIXTURE_CLOCK",
+    "external_attestation": false,
+    "known_limit": "Coherent replacement of journal, hashes and clock claims needs an external anchor to detect.",
+    "record_hash": "0726400ca44046b709032fc8ee599dff230bf870a7676c58544ff83f8c83d516",
+    "registered_at": "2029-12-15T00:00:00+00:00",
+    "total_attempts": 23,
+    "verified_local_chain": true
+  },
+  "protocol_hash": "a51687f47986cdc68baf2beeec4f7b883f30e85edc4c9e8ff5524bbdb29f21c1",
+  "rejection_reasons": [],
+  "research_only": true,
+  "schema": "HARPOON_ECONOMIC_GATE_1",
+  "software_validators": {
+    "errors": [],
+    "scope": "Protocol integrity, paired continuous account arithmetic, units, chronology and terminal inventory",
+    "status": "PASS"
+  },
+  "statistical_gate_passed": true,
+  "statistics": {
+    "assumptions": [
+      "Weak stationarity of the evaluated session process",
+      "Registered blocks cover material temporal dependence",
+      "Recorded search family covers the evaluated research",
+      "Source observations and accounting are valid"
+    ],
+    "blocks": [
+      {
+        "complete_blocks_observed": 16,
+        "length_sessions": 4,
+        "lower_one_sided": {
+          "svr_log_growth": 0.0011328449556396538,
+          "svr_minus_c0": 0.0011353451202338327,
+          "svr_minus_ridge": 0.001049484104737857
+        },
+        "standard_error_of_bootstrap_means": {
+          "svr_log_growth": 4.696076300397846e-05,
+          "svr_minus_c0": 4.696077138687321e-05,
+          "svr_minus_ridge": 2.1879088495384437e-05
+        },
+        "upper_diagnostic": {
+          "svr_log_growth": 0.0014295484965245544,
+          "svr_minus_c0": 0.0014320487379414983,
+          "svr_minus_ridge": 0.001185338028347059
+        }
+      }
+    ],
+    "bonferroni_family_size": 69,
+    "confidence_family_proposed": 0.95,
+    "coverage_guarantee": false,
+    "effective_independent_observations": null,
+    "effective_sample_null_reason": "Block count is a dependence diagnostic, not an estimate of independent observations.",
+    "method": "PAIRED_CIRCULAR_MOVING_BLOCK_PERCENTILE",
+    "observed_sessions": 64,
+    "one_sided_alpha_per_endpoint": 0.0007246376811594203,
+    "point_estimates": {
+      "svr_log_growth": 0.0012871228504084912,
+      "svr_minus_c0": 0.0012896230504297994,
+      "svr_minus_ridge": 0.001123878564280249
+    },
+    "reasons": [],
+    "repetitions": 32768,
+    "resampling_unit": "JOINT_PORTFOLIO_SESSION",
+    "status": "COMPUTED",
+    "tail_draws_expected": 23.744927536231884
+  }
+}

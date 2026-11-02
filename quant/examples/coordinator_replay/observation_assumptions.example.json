@@ -1,0 +1,16 @@
+{
+  "nature": "SYNTHETIC_EXAMPLE_ASSUMPTIONS_NOT_OBSERVED_FEES_OR_ACCOUNT_AUTHORIZATION",
+  "initial_cash_usd": 20000,
+  "execution_model": {
+    "origin": "MODELED",
+    "causal_fills": "STRICTLY_LATER_QUOTE",
+    "mark_method": "BID",
+    "cancel_mode": "EXPLICIT_CONFIRMATION",
+    "fees_bps_per_side": 1,
+    "fee_per_fill_usd": 0.01,
+    "slippage_bps": 0,
+    "external_cost_usd": 1,
+    "ack_latency_ms": 0,
+    "liquidity_assumption": "Explicit executable quantity per future quote is a synthetic scenario, not observed depth or queue priority."
+  }
+}

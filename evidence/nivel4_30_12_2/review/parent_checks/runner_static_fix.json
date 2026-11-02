@@ -1,0 +1,9 @@
+{
+  "rule": "FURB167",
+  "initial_static_result": "FAIL",
+  "before": "re.M",
+  "after": "re.MULTILINE",
+  "before_sha256": "4b43150b987d78f74a9a8984da5ec3350cf061edcc36455ae589399dcb2a78b3",
+  "after_sha256": "3ed9736b18d9b670110d690cbdca941a06309526859929980f843f2c64fd7785",
+  "reason": "Full static check of the modified suite registry requires the explicit standard-library flag name; the regex flag is unchanged."
+}

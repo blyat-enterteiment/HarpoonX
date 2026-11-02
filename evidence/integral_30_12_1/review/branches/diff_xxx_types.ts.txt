@@ -1,0 +1,141 @@
+--- 30.12/xxx/types.ts
++++ 31.4/xxx/types.ts
+@@ -2,6 +2,4 @@
+ export type Side = "buy" | "sell";
+ export type Json = Record<string, any>; // Raw broker/legacy boundary only; normalized contracts below.
+-// Watchlist capacity is independent of position and exposure limits.
+-export const MAX_UNIVERSE_SIZE = 40;
+ export interface Instrument {
+   symbol: string;
+@@ -22,4 +20,6 @@
+   at: number;
+   received: number;
++  bidSize?: number;
++  askSize?: number;
+ }
+ export interface Bar {
+@@ -117,20 +117,4 @@
+   requestKey: string;
+ }
+-/** Observed partial inventory awaiting cancellation/protection; never order authority. */
+-export interface PartialEntryRisk {
+-  source: "BROKER_RECONCILIATION";
+-  entryId: string;
+-  firstObservedAt: number;
+-  lastObservedAt: number;
+-  deadlineAt: number;
+-  heldQty: number;
+-  coveredQty: number;
+-  cancelRequestedAt: number | null;
+-  status: "WAIT_CANCEL" | "WAIT_PROTECTION" | "UNVERIFIED" | "RESOLVED";
+-  overdue: boolean;
+-  overdueAt?: number;
+-  resolvedAt?: number;
+-  resolution?: "CONFIRMED_FLAT" | "CONFIRMED_PROTECTION";
+-}
+ export interface Campaign {
+   id: string;
+@@ -147,4 +131,6 @@
+   intents: string[];
+   entryCeiling: number;
++  entryValueValidUntil?: number;
++  entryValueModelSha256?: string;
+   deadline?: number;
+   flatten?: boolean;
+@@ -164,5 +150,4 @@
+   evaluation?: PositionEvaluation;
+   orderRetry?: Partial<Record<"protect" | "urgent" | "profit", OrderRetry>>;
+-  partialEntryRisk?: PartialEntryRisk;
+   protectionTelemetry?: {
+     sampledAt: number;
+@@ -191,4 +176,7 @@
+ }
+ export interface Store {
++  health?(): Json;
++  appendEvents?(stream: string, events: Json[]): Promise<any>;
++  events?(stream: string, after?: number, limit?: number): Promise<Json[]>;
+   scan?(prefix: string, limit?: number): Promise<any[]>;
+   get(key: string): Promise<any>;
+@@ -206,6 +194,7 @@
+ }
+ export interface Config {
++  optionsData?: import("./option_data").OptionDataConfig;
++  optionsValuation?: import("./option_value").OptionValueConfig;
+   mode: "paper";
+-  quant?: { enabled: boolean; calibrationFile?: string; python?: string; timeoutMs?: number; discovery?: boolean; discoveryLimit?: number; config?: Json; microstructure?: Json; optimizer?: Json; accounting?: Json; observations?: Json; operational?: Json };
+   execution_authority: "dedicated_remote_account";
+   expected_account_id: string;
+@@ -236,4 +225,5 @@
+   protectionRefreshMs?: number;
+   streaming?: boolean;
++  optionOrderTick?: number;
+ }
+ export const DEFAULT_EXIT: ExitPolicy = {
+@@ -283,4 +273,7 @@
+ }
+ export function validateConfig(c: Config): Config {
++  if(c.optionsData)require("./option_data").validateOptionData(c.optionsData);
++  if(c.optionsValuation)require("./option_value").validateOptionValue(c.optionsValuation);
++  if(c.optionOrderTick!==undefined && ![.01,.05,.1].includes(c.optionOrderTick))throw Error("Invalid option order tick");
+   if (
+     c.nativeProtection !== undefined &&
+@@ -297,52 +290,4 @@
+   if (c.streaming !== undefined && typeof c.streaming !== "boolean")
+     throw Error("Invalid streaming switch");
+-  if (c.quant !== undefined && typeof c.quant.enabled !== "boolean") throw Error("Invalid quant switch");
+-  if (c.quant?.discovery !== undefined && typeof c.quant.discovery !== "boolean") throw Error("Invalid discovery switch");
+-  // Legacy configurations used 48; discovery reports its effective cap of 40.
+-  if (c.quant?.discoveryLimit !== undefined &&
+-      (!Number.isInteger(c.quant.discoveryLimit) || c.quant.discoveryLimit < 1 || c.quant.discoveryLimit > 48))
+-    throw Error("Invalid discovery capacity");
+-  for (const key of ["requireAccountLedgerForEntries", "requireObservationJournalForEntries"]) {
+-    const value = c.quant?.operational?.[key];
+-    if (value !== undefined && typeof value !== "boolean") throw Error("Invalid operational validator switch: " + key);
+-  }
+-  const economicGate = c.quant?.operational?.economicGate;
+-  if (economicGate !== undefined) {
+-    if (!economicGate || typeof economicGate !== "object" || Array.isArray(economicGate)) throw Error("Economic gate configuration object required");
+-    for (const key of ["reportFile", "protocolFile", "evidenceFile", "artifactRoot"]) {
+-      if (typeof economicGate[key] !== "string" || !economicGate[key].trim() || economicGate[key].length > 4096)
+-        throw Error("Economic gate path required: " + key);
+-    }
+-  }
+-  for (const [key, lo, hi] of [["intervalMs", 30000, 300000], ["maxAgeMs", 30000, 900000],
+-    ["maxFrames", 2, 100000], ["maxFrameBytes", 1024, 16777216], ["maxSymbolsPerCapture", 1, 48],
+-    ["maxArchives", 0, 256], ["maxStoredBytes", 1024, 2147483648]] as const) {
+-    const value = c.quant?.observations?.[key];
+-    if (value !== undefined && (typeof value !== "number" || !Number.isInteger(value) || value < lo || value > hi))
+-      throw Error("Observation bounds: " + key);
+-  }
+-  const optimizer = c.quant?.optimizer;
+-  if (optimizer) {
+-    for (const key of ["enabled", "autoPaper"]) if (optimizer[key] !== undefined && typeof optimizer[key] !== "boolean") throw Error("Invalid optimizer switch");
+-    for (const [key, lo, hi] of [["lifetimeTrials", 8, 200], ["maxTrials", 3, 32], ["maxGenerations", 1, 8], ["cpuSeconds", .1, 10], ["minGainUsd", 0, 10000], ["minHoldoutTrades", 20, 1000], ["minSortinoPerPeriod", 0, 3]] as const) {
+-      if (optimizer[key] !== undefined && (typeof optimizer[key] !== "number" || !Number.isFinite(optimizer[key]) || optimizer[key] < lo || optimizer[key] > hi)) throw Error("Optimizer bounds: " + key);
+-    }
+-    for (const key of ["lifetimeTrials", "maxTrials", "maxGenerations", "minHoldoutTrades"]) if (optimizer[key] !== undefined && !Number.isInteger(optimizer[key])) throw Error("Integer optimizer budget required");
+-    for (const key of ["statePath", "panelFile", "performanceFile"]) if (optimizer[key] !== undefined && (typeof optimizer[key] !== "string" || !optimizer[key].length || optimizer[key].length > 4096)) throw Error("Invalid optimizer path");
+-  }
+-  const micro = c.quant?.microstructure;
+-  if (micro) {
+-    for (const key of ["enabled", "required"]) if (micro[key] !== undefined && typeof micro[key] !== "boolean") throw Error("Invalid microstructure switch: " + key);
+-    for (const [key, lo, hi] of [
+-      ["windowSeconds", 10, 300], ["minQuoteEvents", 2, 360], ["minCoverageSeconds", 1, 300],
+-      ["minWindowCoverageFraction", .01, 1], ["maxQuoteAgeSeconds", .1, 15],
+-      ["curveMaxSymbols", 2, 48], ["curveEmbargoSeconds", 0, 604800],
+-    ] as const) {
+-      const value = micro[key];
+-      if (value !== undefined && (typeof value !== "number" || !Number.isFinite(value) || value < lo || value > hi)) throw Error("Microstructure bounds: " + key);
+-    }
+-    for (const key of ["minQuoteEvents", "curveMaxSymbols"]) if (micro[key] !== undefined && !Number.isInteger(micro[key])) throw Error("Integer microstructure setting required");
+-    for (const key of ["modelFile", "regimeModelFile", "registryPath"]) if (micro[key] !== undefined && (typeof micro[key] !== "string" || !micro[key].length || micro[key].length > 4096)) throw Error("Invalid microstructure path");
+-  }
+   if (
+     c.mode !== "paper" ||
+@@ -418,5 +363,5 @@
+     !Array.isArray(c.universe) ||
+     !c.universe.length ||
+-    c.universe.length > MAX_UNIVERSE_SIZE ||
++    c.universe.length > 40 ||
+     new Set(c.universe.map((i) => i.symbol)).size !== c.universe.length
+   )

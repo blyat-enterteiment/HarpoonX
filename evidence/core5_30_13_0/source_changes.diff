@@ -1,0 +1,991 @@
+--- 30.12.2/LEEME_PRIMERO_30_13_0.txt
++++ 30.13.0/LEEME_PRIMERO_30_13_0.txt
+@@ -0,0 +1,101 @@
++HARPOON XXXUltimate 30.13.0 — CORE REVISADO, APLICACION INTEGRAL
++Motor Python Quant 1.8.1
++
++ALCANCE
++
++Esta entrega prepara el core para una evaluación económica de nivel 5 antes
++del despliegue. Contiene la aplicación completa, cinco remediaciones concretas,
++pruebas reproducibles y evidencia de los contraejemplos anteriores.
++El informe actual distingue preparación técnica y rendimiento económico.
++La versión del software no es una calificación de rentabilidad.
++
++CINCO REMEDIACIONES
++
++1. Ridge purga por fin de etiqueta Y por instante de disponibilidad, tanto en
++   selección como en evaluación. Los ajustes nuevos conservan esos límites.
++2. La reserva de efectivo utiliza la misma base de entrada y slippage que el
++   resultado modelado. Los futuros conservan su margen explícito.
++3. El puente conserva la cota más restrictiva entre core y cuenta. Valida ambas
++   configuraciones antes de combinarlas; una cota cero no equivale a ausente.
++4. Una respuesta anidada retrasada no reactiva una protección ya terminal con
++   la misma cantidad ejecutada. Las nuevas ejecuciones siguen conciliándose.
++5. El cierre de sesión permite solicitar la cancelación de una entrada parcial
++   pendiente cuando propiedad y conciliación están verificadas. La solicitud
++   no confirma cancelación; se conserva exposición residual hasta conciliar.
++
++COMPROBAR SIN DESPLEGAR
++
++Usar Python 3.12 y Node con las dependencias fijadas del proyecto. La instalación
++está descrita en LEEME_INTEGRAL_30_10_1.txt; --check y --plan no despliegan.
++Desde la raíz de la aplicación:
++
++  bash install.sh --check
++  bash install.sh --plan
++
++Primero reconstruir los ejemplos de software contra las fuentes actuales:
++
++  .venv/bin/python evidence/core5_30_13_0/reproduce.py --app .
++
++Después ejecutar el conjunto de validadores del paquete:
++
++  .venv/bin/python tools/verify_remediation.py --suite all --output /tmp/harpoon-core-qa
++
++El ejecutor incluye compilación, regresión de Node, pruebas Python, análisis
++estático y verificación de tipos. Los tests usan cuentas y brokers sintéticos,
++procesos hijos y sockets locales. No necesitan credenciales de una cuenta.
++El informe de esta entrega indica qué comandos se ejecutaron y sus resultados.
++
++RUTA DE LOS CAMBIOS
++
++  quant/harpoon_quant/calibration.py
++  quant/harpoon_quant/core.py
++  quant/harpoon_quant/bridge.py
++  xxx/coordinator.ts
++
++Regresiones nuevas:
++
++  quant/tests/test_core5_numeric.py
++  quant/tests/test_core5_bridge_limits.py
++  tools/core5_runtime_test.cjs
++
++El compilado correspondiente está incluido en runtime30. La aplicación conserva
++sus interfaces y el recolector original de 30.12.2. Los resultados y comandos
++de reproducción están en evidence/core5_30_13_0.
++
++MODELOS Y DATOS HISTORICOS
++
++Corregir el entrenador no modifica la procedencia de un Ridge anterior ni
++certifica su causalidad retroactivamente. Para evaluar el entrenador corregido
++se necesita una calibración nueva con observaciones admisibles, separación
++temporal y registro de investigación.
++
++El cambio de fuentes invalida por diseño las huellas de implementacion de los
++modelos SVR anteriores. No cambiar el hash de un modelo para aceptarlo. Los
++modelos originales y experimentos históricos se conservan. La reproducción
++renueva únicamente los ejemplos sintéticos identificados de comparación.
++Los ejemplos antiguos de SVR se conservan como antecedentes; las pruebas de
++integración generan sus propios modelos sintéticos temporales.
++
++CRITERIO ECONOMICO
++
++El gate existente exige evidencia observada íntegra, cuenta/costes conciliados,
++modelos disponibles antes de decidir, comparación neta frente a Ridge/control,
++incertidumbre, límites de riesgo y pruebas de estrés. Sigue aplicándose.
++Una etiqueta OBSERVED no acredita por sí sola la autenticidad de una fuente.
++Un resultado PAPER o una prueba sintética no es rentabilidad de una cuenta real.
++
++No hubo un nuevo ensayo financiero ni reinicio del presupuesto de investigación.
++Faltan observaciones originales y contabilidad del mismo periodo para demostrar
++ventaja. La calificación de rendimiento real sigue siendo no evaluable.
++
++LIMITES DE LA VERIFICACION
++
++La revisión de otros agentes comparte entorno y no es auditoría externa.
++La prueba de distribución verifica el contenido y su ejecución local; no es
++una imagen Docker construida ni un despliegue validado. No se ha desplegado esta
++entrega. Los benchmarks son de CPU local con entradas sintéticas; no miden red,
++prioridad de cola, fills de mercado ni rentabilidad.
++
++Las protecciones que requieren persistir estado siguen necesitando persistencia
++disponible. Una solicitud enviada con resultado incierto requiere conciliación;
++la corrección no inventa una cancelación o una ejecución confirmada.
+--- 30.12.2/README.md
++++ 30.13.0/README.md
+@@ -1,4 +1,14 @@
+-# HARPOON XXXUltimate 30.12.2
++# HARPOON XXXUltimate 30.13.0
++
++## Core revisado antes de despliegue · Quant 1.8.1
++
++La integral corrige cinco fallos reproducidos: disponibilidad temporal de etiquetas Ridge, reserva de efectivo coherente con la ejecución modelada, intersección de límites del core y la cuenta, estado terminal de protecciones OCO y cancelación del remanente de una entrada parcial tras el cierre de sesión.
++
++Empieza por `LEEME_PRIMERO_30_13_0.txt`. Las pruebas nuevas están integradas en `tools/verify_remediation.py`; la reproducción actual está en `evidence/core5_30_13_0/reproduce.py`. La entrega conserva resultados históricos, interfaces y controles económicos. Preparación técnica no equivale a rendimiento real de 5/10.
++
++Un modelo Ridge anterior no adquiere causalidad por cambiar el entrenador. Los modelos SVR anteriores deben conservar sus hashes; el cambio de fuentes puede invalidarlos por diseño. Sólo los ejemplos sintéticos de evaluación se reconstruyen como pruebas.
++
++## Antecedente 30.12.2
+ 
+ ## Medición observada y consistencia de evidencia · Quant 1.8.0
+ 
+--- 30.12.2/package-lock.json
++++ 30.13.0/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.12.2",
++  "version": "30.13.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "harpoon-cloud-247",
+-      "version": "30.12.2",
++      "version": "30.13.0",
+       "dependencies": {
+         "@msgpack/msgpack": "3.1.2",
+         "ws": "8.18.3"
+--- 30.12.2/package.json
++++ 30.13.0/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "harpoon-cloud-247",
+-  "version": "30.12.2",
++  "version": "30.13.0",
+   "private": true,
+   "scripts": {
+     "test": "node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py",
+--- 30.12.2/quant/README_ES.md
++++ 30.13.0/quant/README_ES.md
+@@ -1,6 +1,12 @@
+-# HarpoonX · motor cuantitativo multi activo 1.8.0
++# HarpoonX · motor cuantitativo multi activo 1.8.1
+ 
+-Implementación de investigación y asignación, integrada en el coordinador XXXUltimate 30.12.2. El núcleo formula una decisión económica común para acciones, ETF, cripto y opciones; también valora futuros mediante entradas normalizadas. No acredita rentabilidad observada, participación en un campeonato ni una tecnología propietaria de Citadel o Jane Street.
++Implementación de investigación y asignación, integrada en el coordinador XXXUltimate 30.13.0. El núcleo formula una decisión económica común para acciones, ETF, cripto y opciones; también valora futuros mediante entradas normalizadas. No acredita rentabilidad observada, participación en un campeonato ni una tecnología propietaria de Citadel o Jane Street.
++
++## Correcciones del core · 1.8.1
++
++Ridge purga las etiquetas por fin y disponibilidad antes de validación y prueba. `instrument()` usa la misma base de entrada y slippage que `pnl_lot()` al reservar efectivo. `runtime_config()` valida la configuración local y la general antes de intersectar cotas; mantiene el supuesto de slippage mayor y la antigüedad de cotización menor cuando existen límites explícitos.
++
++Estas correcciones tienen contraejemplos y pruebas sintéticas en la integral 30.13.0. Los modelos anteriores conservan su procedencia. Modificar fuentes no corrige retrospectivamente el entrenamiento Ridge y puede invalidar la huella de implementación SVR. Las pruebas nuevas no demuestran rentabilidad y no activan ejecución.
+ 
+ ## Puente económico y observaciones · 1.8.0
+ 
+--- 30.12.2/quant/harpoon_quant/__init__.py
++++ 30.13.0/quant/harpoon_quant/__init__.py
+@@ -1,3 +1,3 @@
+ """Harpoon Quant 1.0: conditional forecasts, common scenarios and funded allocation."""
+ 
+-__version__ = "1.8.0"
++__version__ = "1.8.1"
+--- 30.12.2/quant/harpoon_quant/bridge.py
++++ 30.13.0/quant/harpoon_quant/bridge.py
+@@ -7,9 +7,43 @@
+ from typing import Any
+ from zoneinfo import ZoneInfo
+ 
+-from .core import Config, allocate, features, timestamp
++from .core import Config, allocate, features, finite, timestamp
+ 
+ NY = ZoneInfo("America/New_York")
++
++
++def runtime_config(oldcfg: dict[str, Any]) -> Config:
++    """Intersect explicit core limits with account limits, preserving their units.
++
++    Omitted core bounds inherit the account policy. Both configurations are
++    validated before intersection so an invalid bound cannot be hidden by a
++    valid value in the other layer. Execution cost assumptions take the more
++    conservative value; exposure and age limits take the smaller value.
++    """
++    overrides = oldcfg.get("quant", {}).get("config", {})
++    local = Config(**overrides)
++    account = replace(
++        local,
++        max_positions=oldcfg["maxPositions"],
++        gross_fraction=oldcfg["totalExposure"],
++        asset_fraction=oldcfg["assetExposure"],
++        factor_fraction=oldcfg["factorExposure"],
++        daily_loss_fraction=oldcfg["dailyLoss"],
++        drawdown_fraction=oldcfg["maxDrawdown"],
++        slippage_bps=oldcfg["slippageBps"],
++        max_quote_age_seconds=finite(oldcfg["quoteAgeMs"], "QUOTE_AGE_MS") / 1000,
++    )
++    upper_bounds = (
++        "max_positions", "gross_fraction", "asset_fraction", "factor_fraction",
++        "daily_loss_fraction", "drawdown_fraction", "max_quote_age_seconds",
++    )
++    resolved = {
++        name: min(getattr(local, name), getattr(account, name))
++        for name in upper_bounds if name in overrides
++    }
++    if "slippage_bps" in overrides:
++        resolved["slippage_bps"] = max(local.slippage_bps, account.slippage_bps)
++    return replace(account, **resolved)
+ 
+ 
+ def ms(v: float) -> str:
+@@ -66,21 +100,7 @@
+     at = ms(raw["now"])
+     market = raw["market"]
+     oldcfg = raw["config"]
+-    qcfg = oldcfg.get("quant", {}).get("config", {})
+-    # Original account/risk policy remains an upper bound on the shared allocator.
+-    cfg = Config(
+-        **{
+-            **qcfg,
+-            "max_positions": oldcfg["maxPositions"],
+-            "gross_fraction": oldcfg["totalExposure"],
+-            "asset_fraction": oldcfg["assetExposure"],
+-            "factor_fraction": oldcfg["factorExposure"],
+-            "daily_loss_fraction": oldcfg["dailyLoss"],
+-            "drawdown_fraction": oldcfg["maxDrawdown"],
+-            "slippage_bps": oldcfg["slippageBps"],
+-            "max_quote_age_seconds": oldcfg["quoteAgeMs"] / 1000,
+-        }
+-    )
++    cfg = runtime_config(oldcfg)
+     rejected = {}
+     normalized = []
+     overlay = None
+@@ -135,8 +155,8 @@
+         }
+         if observation_only and (
+             uq.get("received") is None
+-            or not 0 <= raw["now"] - float(uq["at"]) <= oldcfg["quoteAgeMs"]
+-            or not 0 <= raw["now"] - float(uq["received"]) <= oldcfg["quoteAgeMs"]
++            or not 0 <= raw["now"] - float(uq["at"]) <= cfg.max_quote_age_seconds * 1000
++            or not 0 <= raw["now"] - float(uq["received"]) <= cfg.max_quote_age_seconds * 1000
+         ):
+             raise ValueError("OBSERVATION_STALE_OR_UNTIMED_QUOTE")
+         benchmark = None
+--- 30.12.2/quant/harpoon_quant/calibration.py
++++ 30.13.0/quant/harpoon_quant/calibration.py
+@@ -121,6 +121,8 @@
+             raise ValueError("LABEL_HORIZON_MISMATCH")
+     val_start = dates[int(len(dates) * 0.6)]
+     test_start = dates[int(len(dates) * 0.8)]
++    val_time = timestamp(val_start + "T00:00:00+00:00")
++    test_time = timestamp(test_start + "T00:00:00+00:00")
+     grouped = defaultdict(list)
+     for r in rows:
+         grouped[r["underlying"]].append(r)
+@@ -130,13 +132,15 @@
+             r
+             for r in rs
+             if r["session"] < val_start
+-            and timestamp(r["label_end"]).date().isoformat() < val_start
++            and timestamp(r["label_end"]) < val_time
++            and timestamp(r["label_known_at"]) < val_time
+         ]
+         validation = [
+             r
+             for r in rs
+             if val_start <= r["session"] < test_start
+-            and timestamp(r["label_end"]).date().isoformat() < test_start
++            and timestamp(r["label_end"]) < test_time
++            and timestamp(r["label_known_at"]) < test_time
+         ]
+         test = [r for r in rs if r["session"] >= test_start]
+         counts = [
+@@ -185,7 +189,17 @@
+                 r["session"]: float(e) for r, e in zip(test, residual, strict=True)
+             },
+             train_max_label_end=max(r["label_end"] for r in train + validation),
++            train_max_label_known_at=max(
++                timestamp(r["label_known_at"]) for r in train + validation
++            ).isoformat(),
+             first_test_at=min(r["at"] for r in test),
++            selection_train_max_label_end=max(
++                timestamp(r["label_end"]) for r in train
++            ).isoformat(),
++            selection_train_max_label_known_at=max(
++                timestamp(r["label_known_at"]) for r in train
++            ).isoformat(),
++            first_validation_at=min(r["at"] for r in validation),
+             date_counts=counts,
+         )
+         if all("iv_change" in r for r in test):
+@@ -205,6 +219,6 @@
+         "test_start": test_start,
+         "liveApproved": False,
+         "independent_financial_validation": False,
+-        "method": "three-lambda ridge; purged chronological 60/20/20; 5-session block bootstrap MSE improvement vs train/validation historical mean; family adjustment; minimum20tail draws",
++        "method": "three-lambda ridge; chronological 60/20/20 purged by label end AND label availability; 5-session block bootstrap MSE improvement vs train/validation historical mean; family adjustment; minimum20tail draws",
+     }
+     return result
+--- 30.12.2/quant/harpoon_quant/core.py
++++ 30.13.0/quant/harpoon_quant/core.py
+@@ -422,15 +422,24 @@
+     extra = finite(c.get("extra_slippage_bps_per_side", 0), "EXTRA_SLIPPAGE")
+     if extra < 0:
+         raise ValueError("NEGATIVE_EXTRA_SLIPPAGE")
+-    cash = q * mult * float(c.get("entry", c["ask"])) * (
+-        1 + (cfg.slippage_bps + extra) / 10000
+-    ) + 2 * q * float(c.get("fee_per_side_usd", 0))
++    bid = finite(c["bid"], "BID", True)
++    ask = finite(c["ask"], "ASK", True)
++    if ask < bid:
++        raise ValueError("CROSSED_QUOTE")
++    entry = max(ask, finite(c.get("entry", ask), "ENTRY", True))
++    fee = finite(c.get("fee_per_side_usd", 0), "FEES")
++    if fee < 0:
++        raise ValueError("NEGATIVE_FEES")
++    # Use the identical entry basis and ask-based slippage as pnl_lot(). A
++    # passive entry hint below ask is not evidence of an executable cheap fill.
++    # The second fee is reserved for exit; it is not a second debit to PnL.
++    cash = q * mult * (entry + ask * (cfg.slippage_bps + extra) / 10000) + 2 * q * fee
+     if book == "futures":
+         if c.get("margin_verified") is not True or c.get("roll_reviewed") is not True:
+             raise ValueError("FUTURES_MARGIN_AND_ROLL_REQUIRED")
+-        cash = q * finite(c["initial_margin_usd"], "MARGIN", True) + 2 * q * float(
+-            c.get("fee_per_side_usd", 0)
+-        )
++        cash = q * finite(c["initial_margin_usd"], "MARGIN", True) + 2 * q * fee
++    if not math.isfinite(cash) or not math.isfinite(notional):
++        raise ValueError("NONFINITE_INSTRUMENT_AMOUNT")
+     return cash, notional
+ 
+ 
+--- 30.12.2/quant/pyproject.toml
++++ 30.13.0/quant/pyproject.toml
+@@ -4,7 +4,7 @@
+ 
+ [project]
+ name = "harpoon-quant"
+-version = "1.8.0"
++version = "1.8.1"
+ description = "Scenario-based multiasset research and allocation engine for HarpoonX"
+ requires-python = ">=3.11"
+ dependencies = ["numpy>=2.0,<3", "scipy>=1.14,<2", "scikit-learn>=1.8,<2"]
+--- 30.12.2/quant/tests/test_core5_bridge_limits.py
++++ 30.13.0/quant/tests/test_core5_bridge_limits.py
+@@ -0,0 +1,147 @@
++"""Synthetic regression of actual core bounds; no financial trials or orders."""
++from __future__ import annotations
++
++import copy
++import json
++import unittest
++
++import test_fixed_predictor as fixed_fixture
++from test_runtime_observations import runtime_fixture
++
++from harpoon_quant.bridge import from_runtime, runtime_config
++
++
++class CoreBridgeLimitsTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        fixed_fixture.FixedPredictorTests.setUpClass()
++        packet = fixed_fixture.FixedPredictorTests().packet()
++        cls.raw = json.loads(packet["request_json"])
++        cls.model = json.loads(packet["model_json"])
++
++    def scenario(self, overrides, **state):
++        raw = copy.deepcopy(self.raw)
++        raw["config"].setdefault("quant", {}).setdefault("config", {}).update(overrides)
++        raw.update(state)
++        return from_runtime(raw, self.model)
++
++    def test_explicit_core_caps_survive_wider_account_limits(self):
++        config = runtime_fixture()["config"]
++        tighter = {"max_positions": 1, "gross_fraction": 0.1, "asset_fraction": 0.02,
++                   "factor_fraction": 0.03, "daily_loss_fraction": 0.001,
++                   "drawdown_fraction": 0.002, "max_quote_age_seconds": 2}
++        config["quant"] = {"config": tighter}
++        actual = runtime_config(config)
++        for key, value in tighter.items():
++            with self.subTest(key=key):
++                self.assertEqual(getattr(actual, key), value)
++
++    def test_account_caps_survive_wider_core_limits(self):
++        config = runtime_fixture()["config"]
++        config["quant"] = {"config": {"max_positions": 8, "gross_fraction": 1,
++            "asset_fraction": 0.5, "factor_fraction": 1, "daily_loss_fraction": 0.1,
++            "drawdown_fraction": 0.2, "max_quote_age_seconds": 90}}
++        actual = runtime_config(config)
++        for field, account in (("max_positions", "maxPositions"), ("gross_fraction", "totalExposure"),
++            ("asset_fraction", "assetExposure"), ("factor_fraction", "factorExposure"),
++            ("daily_loss_fraction", "dailyLoss"), ("drawdown_fraction", "maxDrawdown")):
++            with self.subTest(field=field):
++                self.assertEqual(getattr(actual, field), config[account])
++        self.assertEqual(actual.max_quote_age_seconds, config["quoteAgeMs"] / 1000)
++
++    def test_omitted_core_caps_inherit_account_without_applying_default_caps(self):
++        config = runtime_fixture()["config"]
++        config.update(maxPositions=8, totalExposure=1.2, assetExposure=0.45, factorExposure=0.8,
++                      dailyLoss=0.07, maxDrawdown=0.15, quoteAgeMs=30000, slippageBps=2)
++        config["quant"] = {"config": {"scenarios": 64}}
++        actual = runtime_config(config)
++        self.assertEqual(actual.max_positions, 8)
++        self.assertEqual(actual.gross_fraction, 1.2)
++        self.assertEqual(actual.asset_fraction, 0.45)
++        self.assertEqual(actual.factor_fraction, 0.8)
++        self.assertEqual(actual.daily_loss_fraction, 0.07)
++        self.assertEqual(actual.drawdown_fraction, 0.15)
++        self.assertEqual(actual.max_quote_age_seconds, 30)
++        self.assertEqual(actual.slippage_bps, 2)
++        self.assertEqual(actual.scenarios, 64)
++
++    def test_invalid_core_bound_is_not_hidden_by_account(self):
++        for field, bad in (("max_positions", 0), ("max_positions", True), ("gross_fraction", -0.1),
++            ("asset_fraction", float("nan")), ("factor_fraction", float("inf")),
++            ("daily_loss_fraction", "0.01"), ("slippage_bps", -1), ("max_quote_age_seconds", -1)):
++            with self.subTest(field=field, bad=bad):
++                config = runtime_fixture()["config"]
++                config["quant"] = {"config": {field: bad}}
++                with self.assertRaises((ValueError, TypeError)):
++                    runtime_config(config)
++
++    def test_invalid_account_bound_is_not_hidden_by_core(self):
++        for field, bad in (("maxPositions", 0), ("totalExposure", -1), ("dailyLoss", float("nan")),
++                           ("quoteAgeMs", True), ("quoteAgeMs", "1000"), ("slippageBps", -1)):
++            with self.subTest(field=field, bad=bad):
++                config = runtime_fixture()["config"]
++                config["quant"] = {"config": {"daily_loss_fraction": 0.001}}
++                config[field] = bad
++                with self.assertRaises((ValueError, TypeError)):
++                    runtime_config(config)
++
++    def test_slippage_uses_more_conservative_explicit_assumption(self):
++        config = runtime_fixture()["config"]
++        for local, expected in ((2, 10), (25, 25), (0, 10)):
++            with self.subTest(local=local):
++                config["quant"] = {"config": {"slippage_bps": local}}
++                self.assertEqual(runtime_config(config).slippage_bps, expected)
++
++    def test_observation_uses_resolved_quote_age_in_milliseconds(self):
++        raw = runtime_fixture()
++        raw["config"]["quant"] = {"config": {"max_quote_age_seconds": 2}}
++        for quote_clock in ("at", "received"):
++            with self.subTest(quote_clock=quote_clock):
++                aged = copy.deepcopy(raw)
++                aged["market"]["quotes"]["A"][quote_clock] -= 2001
++                output = from_runtime(aged, None, observation_only=True)
++                self.assertFalse(output["observations"])
++                self.assertIn("OBSERVATION_STALE_OR_UNTIMED_QUOTE", output["rejected"]["observation-only|A"])
++                self.assertFalse(output["execution_allowed"])
++        raw["market"]["quotes"]["A"]["at"] -= 2000
++        self.assertEqual(from_runtime(raw, None, observation_only=True)["status"], "OBSERVATION_CAPTURED")
++
++    def test_strict_asset_gross_or_factor_cap_blocks_unaffordable_lot(self):
++        self.assertTrue(self.scenario({})["selected"])
++        for field in ("asset_fraction", "gross_fraction", "factor_fraction"):
++            with self.subTest(field=field):
++                output = self.scenario({field: 0.001})
++                self.assertFalse(output["selected"])
++                self.assertFalse(output["execution_allowed"])
++
++    def test_stricter_daily_loss_boundary_reaches_allocator(self):
++        output = self.scenario({"daily_loss_fraction": 0.001}, daily_pnl=-30)
++        self.assertFalse(output["selected"])
++        self.assertFalse(output["execution_allowed"])
++
++    def test_stricter_drawdown_boundary_reaches_allocator(self):
++        output = self.scenario({"drawdown_fraction": 0.001}, drawdown_fraction=0.002)
++        self.assertFalse(output["selected"])
++        self.assertFalse(output["execution_allowed"])
++
++    def test_zero_loss_or_drawdown_limit_remains_a_halt(self):
++        for field in ("daily_loss_fraction", "drawdown_fraction"):
++            with self.subTest(field=field):
++                output = self.scenario({field: 0})
++                self.assertFalse(output["selected"])
++                self.assertFalse(output["execution_allowed"])
++
++    def test_resolution_does_not_mutate_input_or_other_core_parameters(self):
++        config = runtime_fixture()["config"]
++        config["quant"] = {"config": {"scenarios": 128, "cvar_fraction": 0.007,
++                                      "uncertainty_z": 2.5, "max_positions": 2}}
++        before = copy.deepcopy(config)
++        result = runtime_config(config)
++        self.assertEqual(config, before)
++        self.assertEqual(result.scenarios, 128)
++        self.assertEqual(result.cvar_fraction, 0.007)
++        self.assertEqual(result.uncertainty_z, 2.5)
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- 30.12.2/quant/tests/test_core5_numeric.py
++++ 30.13.0/quant/tests/test_core5_numeric.py
+@@ -0,0 +1,192 @@
++"""Synthetic regressions for causal Ridge fitting and funded lot sizing.
++
++These cases validate contracts, not observed returns or order authorization.
++"""
++
++import copy
++import unittest
++from datetime import UTC, datetime, timedelta
++from unittest.mock import patch
++
++import numpy as np
++from test_quant import calibration, candidate, request
++
++from harpoon_quant import calibration as calibration_module
++from harpoon_quant.core import Config, allocate, instrument, pnl_lot, timestamp
++
++
++def synthetic_panel():
++    rng = np.random.default_rng(42)
++    rows = []
++    for i in range(120):
++        at = datetime(2026, 1, 1, 14, tzinfo=UTC) + timedelta(days=i)
++        x = rng.normal(0, 1, 8)
++        rows.append(
++            {
++                "session": at.date().isoformat(),
++                "underlying": "A",
++                "at": at.isoformat(),
++                "features_known_at": at.isoformat(),
++                "label_end": (at + timedelta(hours=24)).isoformat(),
++                "label_known_at": (at + timedelta(hours=24, seconds=1)).isoformat(),
++                "features": x.tolist(),
++                "target_return": 0.02 + 0.002 * x[0],
++            }
++        )
++    return {"origin": "SYNTHETIC_ENGINEERING_ONLY", "rows": rows}
++
++
++class RidgeAvailabilityTests(unittest.TestCase):
++    def fit_audited(self, data):
++        calls = []
++        original = calibration_module.ridge
++
++        def audited_fit(rows, penalty):
++            calls.append(copy.deepcopy(rows))
++            return original(rows, penalty)
++
++        with patch.object(calibration_module, "ridge", audited_fit):
++            result = calibration_module.fit(data, "2026-06-01T00:00:00+00:00", Config())
++        return result, calls
++
++    def test_label_unavailable_at_both_boundaries_is_never_fitted(self):
++        data = synthetic_panel()
++        late = data["rows"][10]
++        late["label_known_at"] = data["rows"][100]["at"]
++        model, calls = self.fit_audited(data)
++        self.assertEqual(len(calls), 4)
++        for rows in calls:
++            self.assertNotIn(late["at"], {r["at"] for r in rows})
++        final = model["models"]["A"]
++        self.assertLess(
++            timestamp(final["selection_train_max_label_known_at"]),
++            timestamp(model["validation_start"] + "T00:00:00+00:00"),
++        )
++        self.assertLess(
++            timestamp(final["train_max_label_known_at"]),
++            timestamp(model["test_start"] + "T00:00:00+00:00"),
++        )
++
++    def test_validation_label_unavailable_at_test_boundary_is_not_refitted(self):
++        data = synthetic_panel()
++        late = data["rows"][80]
++        late["label_known_at"] = data["rows"][100]["at"]
++        _, calls = self.fit_audited(data)
++        self.assertEqual(len(calls), 4)
++        self.assertNotIn(late["at"], {r["at"] for r in calls[-1]})
++        self.assertEqual(len(calls[-1]), 93)
++
++    def test_exact_boundary_is_excluded_and_one_microsecond_before_is_allowed(self):
++        data = synthetic_panel()
++        rows = data["rows"]
++        for exact, before, boundary_index in ((10, 11, 72), (80, 81, 96)):
++            boundary = timestamp(rows[boundary_index]["at"]).replace(hour=0)
++            rows[exact]["label_known_at"] = boundary.isoformat()
++            rows[before]["label_known_at"] = (
++                boundary - timedelta(microseconds=1)
++            ).isoformat()
++        _, calls = self.fit_audited(data)
++        for fit_rows in calls[:3]:
++            used = {r["at"] for r in fit_rows}
++            self.assertNotIn(rows[10]["at"], used)
++            self.assertIn(rows[11]["at"], used)
++        used = {r["at"] for r in calls[-1]}
++        self.assertNotIn(rows[80]["at"], used)
++        self.assertIn(rows[81]["at"], used)
++
++    def test_availability_uses_instant_and_not_local_calendar_date(self):
++        data = synthetic_panel()
++        data["rows"][10]["label_known_at"] = "2026-03-13T19:00:01-05:00"
++        _, calls = self.fit_audited(data)
++        for rows in calls:
++            self.assertNotIn(data["rows"][10]["at"], {r["at"] for r in rows})
++
++    def test_purge_can_make_calibration_insufficient_without_relabeling_data(self):
++        data = synthetic_panel()
++        for row in data["rows"][:40]:
++            row["label_known_at"] = data["rows"][100]["at"]
++        model, calls = self.fit_audited(data)
++        self.assertEqual(calls, [])
++        result = model["models"]["A"]
++        self.assertFalse(result["accepted"])
++        self.assertEqual(result["reason"], "INSUFFICIENT_PURGED_DATE_COUNTS")
++        self.assertEqual(result["date_counts"], [31, 23, 24])
++
++    def test_on_time_labels_preserve_fit_counts_and_input_bytes(self):
++        data = synthetic_panel()
++        before = copy.deepcopy(data)
++        model, calls = self.fit_audited(data)
++        self.assertEqual(data, before)
++        self.assertEqual([len(rows) for rows in calls], [71, 71, 71, 94])
++        self.assertTrue(model["models"]["A"]["accepted"])
++        self.assertFalse(model["liveApproved"])
++
++
++class FundingConsistencyTests(unittest.TestCase):
++    def test_entry_hint_below_ask_cannot_buy_more_than_cash_funds(self):
++        c = candidate()
++        c["entry"] = 1
++        r = request([c])
++        r["account"].update(cash=250, buying_power=250)
++        out = allocate(r, calibration(), Config())
++        self.assertEqual(out["selected"][0]["quantity"], 2)
++        self.assertAlmostEqual(out["cash_committed_usd"], 200.3001)
++        self.assertLessEqual(out["cash_committed_usd"], 250)
++        self.assertFalse(out["execution_allowed"])
++
++    def test_funding_and_zero_return_pnl_use_identical_entry_slippage(self):
++        cfg = Config(slippage_bps=10)
++        for entry in (1, 100.05, 101):
++            for book in ("equity", "etf", "crypto"):
++                with self.subTest(entry=entry, book=book):
++                    c = candidate(book)
++                    c.update(
++                        entry=entry, fee_per_side_usd=0.2, extra_slippage_bps_per_side=5
++                    )
++                    reserved, _ = instrument(c, cfg)
++                    qty, multiplier = c["lot_qty"], c["multiplier"]
++                    friction = (c["ask"] - c["bid"]) / 2 + c["bid"] * 15 / 10000
++                    exit_mark = max(0, c["spot"] - friction)
++                    self.assertAlmostEqual(
++                        pnl_lot(c, np.array([0.0]), cfg)[0],
++                        qty * multiplier * exit_mark - reserved,
++                    )
++
++    def test_option_funding_respects_contract_multiplier_and_fees(self):
++        c = candidate("options")
++        c.update(entry=1, lot_qty=2, fee_per_side_usd=0.65)
++        cash, exposure = instrument(c, Config())
++        self.assertAlmostEqual(cash, 2 * 100 * (5.02 + 5.02 * 0.001) + 2 * 2 * 0.65)
++        self.assertEqual(exposure, 10000)
++
++    def test_margin_funding_retains_verified_futures_contract(self):
++        c = candidate("futures")
++        c.update(entry=1, lot_qty=2, fee_per_side_usd=0.1)
++        self.assertAlmostEqual(instrument(c, Config())[0], 50.4)
++
++    def test_invalid_entry_fee_and_quote_fail_before_optimization(self):
++        for change, reason in (
++            ({"entry": 0}, "INVALID_ENTRY"),
++            ({"entry": -1}, "INVALID_ENTRY"),
++            ({"entry": True}, "INVALID_ENTRY"),
++            ({"fee_per_side_usd": -0.01}, "NEGATIVE_FEES"),
++            ({"bid": 101}, "CROSSED_QUOTE"),
++        ):
++            with self.subTest(change=change):
++                c = candidate()
++                c.update(change)
++                with self.assertRaisesRegex(ValueError, reason):
++                    instrument(c, Config())
++                result = allocate(request([c]), calibration(), Config())
++                self.assertEqual(result["selected"], [])
++                self.assertIn(reason, result["rejected"][c["id"]])
++
++    def test_overflowing_monetary_units_are_rejected(self):
++        c = candidate("crypto")
++        c.update(multiplier=1e308)
++        with self.assertRaisesRegex(ValueError, "NONFINITE_INSTRUMENT_AMOUNT"):
++            instrument(c, Config())
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- 30.12.2/runtime30/coordinator.js
++++ 30.13.0/runtime30/coordinator.js
+@@ -489,7 +489,14 @@
+             if (existing) {
+                 if (existing.parentId !== parent.id)
+                     throw Error("Native child ownership conflict");
+-                if (Number(o.filled_qty) >= Number(existing.order?.filled_qty || 0)) {
++                const priorFilled = Number(existing.order?.filled_qty || 0), observedFilled = Number(o.filled_qty);
++                // Nested parent responses can arrive after a terminal child update.
++                // Apply the same monotonicity rule as the direct trade-update path;
++                // a genuinely larger cumulative fill must still reach reconciliation.
++                if (types_1.TERMINAL.has(existing.status) && !types_1.TERMINAL.has(o.status) &&
++                    observedFilled === priorFilled)
++                    continue;
++                if (observedFilled >= priorFilled) {
+                     existing.order = o;
+                     existing.status = o.status;
+                 }
+@@ -1136,7 +1143,15 @@
+             const priority = (c) => c.exitPlan && c.exitPlan.status !== "COMPLETE" && (0, exits_1.urgentExit)(c.exitPlan.kind) ? 0 : c.exitPlan && c.exitPlan.status !== "COMPLETE" ? 1 : 2;
+             const candidates = rotated.sort((a, b) => priority(a) - priority(b));
+             for (const c of candidates) {
+-                if (["ERROR", "STALE_RECONCILIATION", "OWNERSHIP_UNCERTAIN", "STALE_SESSION", "MARKET_CLOSED"].includes(this.positionEvaluations[c.id].outcome))
++                const outcome = this.positionEvaluations[c.id].outcome;
++                if (["ERROR", "STALE_RECONCILIATION", "OWNERSHIP_UNCERTAIN", "STALE_SESSION"].includes(outcome))
++                    continue;
++                // Session closure gates new sale/protection orders, not cancellation
++                // of a known remaining entry. evaluatePosition has already verified
++                // fresh ownership; managePosition's entry branch can only cancel and
++                // returns before every sale or protection path. Cancellation remains
++                // pending until the next broker reconciliation confirms the result.
++                if (outcome === "MARKET_CLOSED" && !this.pending(c).some(i => i.kind === "entry"))
+                     continue;
+                 try {
+                     await this.managePosition(c);
+--- 30.12.2/runtime30/version.js
++++ 30.13.0/runtime30/version.js
+@@ -2,4 +2,4 @@
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.ULTIMATE_VERSION = void 0;
+ // Release identity is separate from the immutable research engine code seal.
+-exports.ULTIMATE_VERSION = "30.12.2";
++exports.ULTIMATE_VERSION = "30.13.0";
+--- 30.12.2/tools/core5_runtime_test.cjs
++++ 30.13.0/tools/core5_runtime_test.cjs
+@@ -0,0 +1,188 @@
++"use strict";
++// SYNTHETIC_ENGINEERING_ONLY: deterministic in-memory fault injection, no external orders.
++const test = require("node:test");
++const assert = require("node:assert/strict");
++const { Coordinator } = require("../runtime30/coordinator.js");
++const { protectionSnapshot } = require("../runtime30/exits.js");
++const { MemoryStore, FakeBroker, config, signal, prepare } = require("./xxx_fixtures.cjs");
++
++async function ready(t, broker = new FakeBroker()) {
++  t.mock.timers.enable({ apis: ["Date"], now: Date.parse("2026-10-15T15:30:00Z") });
++  const e = new Coordinator(new MemoryStore(), broker, config());
++  await e.initialize(true);
++  await e.market.catalog();
++  prepare(e, signal());
++  await e.entries("equity");
++  await e.reconcile();
++  return { e, broker, c: e.active()[0] };
++}
++
++function nativeParent(e, c) {
++  const qty = String(e.position(c.symbol).qty);
++  const parent = {
++    id: "SYNTHETIC-CORE5-OCO", campaign: c.id, symbol: c.symbol, kind: "protect",
++    payload: { symbol: c.symbol, qty, side: "sell", type: "limit", order_class: "oco", limit_price: "110" },
++    status: "new", at: Date.now(),
++    order: { id: "SYNTHETIC-CORE5-OCO-BROKER", client_order_id: "SYNTHETIC-CORE5-OCO",
++      symbol: c.symbol, qty, side: "sell", type: "limit", order_class: "oco",
++      filled_qty: "0", filled_avg_price: null, status: "new" },
++  };
++  const nested = {
++    id: "SYNTHETIC-CORE5-STOP-BROKER", client_order_id: "SYNTHETIC-CORE5-STOP",
++    symbol: c.symbol, qty, side: "sell", type: "stop", stop_price: "98",
++    time_in_force: "gtc", filled_qty: "0", filled_avg_price: null, status: "held",
++  };
++  e.state.intents.push(parent); c.intents.push(parent.id);
++  e.adoptLegs(parent, { ...parent.order, legs: [nested] });
++  const child = e.state.intents.find(i => i.parentId === parent.id);
++  return { parent, child, nested, qty: Number(qty) };
++}
++
++for (const terminal of ["canceled", "expired", "rejected", "replaced"]) {
++  test("core5 native leg: delayed nested report cannot revive " + terminal + " protection", async t => {
++    const { e, c } = await ready(t);
++    const { parent, child, nested, qty } = nativeParent(e, c);
++    child.status = terminal; child.order.status = terminal;
++    for (const staleStatus of ["held", "new", "accepted", "partially_filled"]) {
++      e.adoptLegs(parent, { ...parent.order, legs: [{ ...nested, status: staleStatus }] });
++      assert.equal(child.status, terminal, "An unchanged cumulative fill cannot undo a terminal broker observation");
++      assert.equal(e.pending(c).some(i => i.id === child.id), false);
++      assert.equal(protectionSnapshot(c, e.state.intents, qty, Date.now()).quantityCovered, false);
++    }
++  });
++}
++
++test("core5 native leg: filled stop cannot become pending from equal-fill stale nested state", async t => {
++  const { e, c } = await ready(t);
++  const { parent, child, nested, qty } = nativeParent(e, c);
++  child.status = "filled";
++  child.order = { ...child.order, filled_qty: String(qty), filled_avg_price: "98", status: "filled" };
++  e.adoptLegs(parent, { ...parent.order, legs: [{ ...nested, filled_qty: String(qty), filled_avg_price: "98", status: "partially_filled" }] });
++  assert.equal(child.status, "filled");
++  assert.equal(e.pending(c).some(i => i.id === child.id), false);
++});
++
++test("core5 native leg: later cumulative fill is preserved after cancellation", async t => {
++  const { e, c } = await ready(t);
++  const { parent, child, nested } = nativeParent(e, c);
++  child.status = "canceled"; child.order.status = "canceled";
++  e.adoptLegs(parent, { ...parent.order, legs: [{ ...nested, filled_qty: "1", filled_avg_price: "98", status: "partially_filled" }] });
++  assert.equal(child.status, "partially_filled");
++  assert.equal(child.order.filled_qty, "1", "A true late fill must remain available for inventory reconciliation");
++});
++
++test("core5 native leg: regressed cumulative quantity never overwrites the newer fill", async t => {
++  const { e, c } = await ready(t);
++  const { parent, child, nested } = nativeParent(e, c);
++  child.status = "canceled";
++  child.order = { ...child.order, filled_qty: "2", filled_avg_price: "98", status: "canceled" };
++  e.adoptLegs(parent, { ...parent.order, legs: [{ ...nested, filled_qty: "1", filled_avg_price: "98", status: "new" }] });
++  assert.equal(child.status, "canceled"); assert.equal(child.order.filled_qty, "2");
++});
++
++test("core5 native leg: full reconciliation cannot turn a delayed parent snapshot into confirmed protection", async t => {
++  const { e, broker, c } = await ready(t);
++  const { parent, child, nested, qty } = nativeParent(e, c);
++  child.status = "canceled"; child.order.status = "canceled";
++  // The parent still carries an older nested child. The individually observed
++  // terminal child is no longer part of the broker's open-order collection.
++  broker.orders.set(parent.id, { ...parent.order, legs: [{ ...nested, status: "held" }] });
++  broker.orders.set(child.id, { ...nested, status: "canceled" });
++  await e.reconcile();
++  assert.equal(e.reconcileError, "");
++  assert.equal(child.status, "canceled");
++  assert.equal(e.pending(c).some(i => i.id === child.id), false);
++  assert.equal(protectionSnapshot(c, e.state.intents, qty, Date.now()).quantityCovered, false);
++});
++
++class PartialBroker extends FakeBroker {
++  constructor() { super(); this.cancelImmediate = false; }
++  async request(path, method = "GET", body, market = false) {
++    if (path === "/v2/orders" && method === "POST" && body.side === "buy") {
++      this.calls.push({ path, method, body: structuredClone(body), market });
++      const order = { ...body, id: "SYNTHETIC-CORE5-PARTIAL", filled_qty: "3", filled_avg_price: "100", status: "partially_filled" };
++      this.orders.set(body.client_order_id, order);
++      this.positions.set(body.symbol, { symbol: body.symbol, qty: "3", market_value: "300", avg_entry_price: "100" });
++      return structuredClone(order);
++    }
++    return super.request(path, method, body, market);
++  }
++}
++async function closedPartial(t) {
++  const fixture = await ready(t, new PartialBroker());
++  fixture.broker.open = false;
++  await fixture.e.sessions();
++  delete fixture.e.market.quotes.AAPL;
++  fixture.entry = fixture.e.pending(fixture.c).find(i => i.kind === "entry");
++  return fixture;
++}
++const cancellations = broker => broker.calls.filter(c => c.method === "DELETE");
++
++test("core5 closed session: cancels remaining partial entry without needing a quote or submitting a sale", async t => {
++  const { e, broker, c, entry } = await closedPartial(t);
++  await e.manage();
++  assert.equal(e.positionEvaluations[c.id].outcome, "MARKET_CLOSED");
++  assert.equal(cancellations(broker).length, 1, "Known remaining entry risk must still be cancelable outside the session");
++  assert(cancellations(broker)[0].path.endsWith(entry.order.id));
++  assert.equal(broker.posts().filter(p => p.body.side === "sell").length, 0);
++  assert.equal(c.partialEntryRisk.status, "WAIT_CANCEL");
++  assert.equal(e.syncAt, 0, "A cancel request still requires fresh reconciliation");
++  assert.equal(e.entryReady(), false);
++});
++
++test("core5 closed session: pending cancellation preserves its retry interval and confirmed inventory", async t => {
++  const { e, broker, c, entry } = await closedPartial(t);
++  await e.manage(); await e.reconcile();
++  const cancelAt = entry.cancelAt;
++  await e.manage(); await e.manage();
++  assert.equal(cancellations(broker).length, 1);
++  assert.equal(entry.cancelAt, cancelAt);
++  assert.equal(c.partialEntryRisk.status, "WAIT_CANCEL");
++  assert.equal(c.partialEntryRisk.heldQty, 3);
++  assert.equal(broker.posts().length, 1);
++});
++
++test("core5 closed session: confirmed cancellation waits for opening before protecting remaining inventory", async t => {
++  const { e, broker, c, entry } = await closedPartial(t);
++  broker.cancelImmediate = true;
++  await e.manage(); await e.reconcile(); await e.manage();
++  assert.equal(entry.status, "canceled");
++  assert.equal(c.partialEntryRisk.status, "WAIT_PROTECTION");
++  assert.equal(broker.posts().length, 1, "Closed session must not authorize a replacement or liquidation order");
++  assert.equal(c.closed, false);
++  broker.open = true; await e.sessions(); prepare(e, signal());
++  await e.pulse();
++  const sales = broker.posts().filter(p => p.body.side === "sell");
++  assert.equal(sales.length, 1); assert.equal(sales[0].body.type, "stop");
++  assert.equal(Number(sales[0].body.qty), 3);
++  assert.equal(c.partialEntryRisk.status, "RESOLVED");
++});
++
++test("core5 closed session: fill during cancellation changes remaining protection only after reconciliation", async t => {
++  const { e, broker, c, entry } = await closedPartial(t);
++  await e.manage();
++  broker.orders.get(entry.id).filled_qty = "4";
++  broker.orders.get(entry.id).status = "canceled";
++  broker.positions.get(c.symbol).qty = "4";
++  broker.positions.get(c.symbol).market_value = "400";
++  await e.reconcile(); await e.manage();
++  assert.equal(c.partialEntryRisk.heldQty, 4);
++  assert.equal(c.partialEntryRisk.status, "WAIT_PROTECTION");
++  assert.equal(broker.posts().length, 1);
++  broker.open = true; await e.sessions(); prepare(e, signal());
++  await e.pulse();
++  const sales = broker.posts().filter(p => p.body.side === "sell");
++  assert.equal(sales.length, 1); assert.equal(Number(sales[0].body.qty), 4);
++});
++
++test("core5 closed session: uncertain ownership or stale reconciliation cannot authorize cancel mutations", async t => {
++  const { e, broker, c, entry } = await closedPartial(t);
++  entry.status = "UNKNOWN";
++  await e.manage();
++  assert.equal(e.positionEvaluations[c.id].outcome, "OWNERSHIP_UNCERTAIN");
++  assert.equal(cancellations(broker).length, 0);
++  entry.status = "partially_filled"; e.syncAt = Date.now() - 10001;
++  await e.manage();
++  assert.equal(e.positionEvaluations[c.id].outcome, "STALE_RECONCILIATION");
++  assert.equal(cancellations(broker).length, 0);
++});
+--- 30.12.2/tools/verify_remediation.py
++++ 30.13.0/tools/verify_remediation.py
+@@ -27,6 +27,7 @@
+     "xxx_tp32_test.cjs",
+     "xxx_operational_test.cjs",
+     "xxx_partial_entry_risk_test.cjs",
++    "core5_runtime_test.cjs",
+     "ultimate_test.cjs",
+     "quant_bridge_test.cjs",
+     "quant_svr_integration_test.cjs",
+@@ -125,7 +126,7 @@
+         for filename in ("runtime/store30.cjs", "runtime/discovery.cjs", "runtime/quant_bridge.cjs", "tools/coordinator_replay.cjs", "tools/observation_replay_input.cjs", "tools/funded_comparison.cjs", "tools/fixed_predictor_worker.cjs", "tools/level4_readiness.cjs", "tools/level5_readiness.cjs", "tools/export_observation_snapshot.cjs", *("tools/" + item for item in NODE_SUITES)):
+             checks.append(execute("syntax_" + Path(filename).stem, ["node", "--check", filename], ROOT, output))
+         modules = ["harpoon_quant/core.py", "harpoon_quant/calibration.py", "harpoon_quant/scalar_svr.py", "harpoon_quant/paired_replay.py", "harpoon_quant/bridge.py", "harpoon_quant/__main__.py", "harpoon_quant/economic_gate.py", "harpoon_quant/economic_gate_v2.py", "harpoon_quant/performance.py", "harpoon_quant/study_integrity.py", "harpoon_quant/fixed_predictor.py", "harpoon_quant/measurement_registration.py", "harpoon_quant/causal_panel.py"]
+-        checks.append(execute("ruff", [sys.executable, "-m", "ruff", "check", *modules, "tests/test_instrument_metadata.py", "tests/test_paired_replay.py", "tests/test_runtime_observations.py", "tests/test_economic_gate.py", "tests/test_economic_gate_v2.py", "tests/test_performance_provenance.py", "tests/test_measurement_registration.py", "tests/test_causal_panel.py", "tests/test_observation_stream.py", "tests/test_fixed_predictor.py"], ROOT / "quant", output))
++        checks.append(execute("ruff", [sys.executable, "-m", "ruff", "check", *modules, "tests/test_instrument_metadata.py", "tests/test_paired_replay.py", "tests/test_runtime_observations.py", "tests/test_economic_gate.py", "tests/test_economic_gate_v2.py", "tests/test_performance_provenance.py", "tests/test_measurement_registration.py", "tests/test_causal_panel.py", "tests/test_observation_stream.py", "tests/test_fixed_predictor.py", "tests/test_core5_numeric.py", "tests/test_core5_bridge_limits.py"], ROOT / "quant", output))
+         checks.append(execute("mypy", [sys.executable, "-m", "mypy", "--follow-imports=silent", *modules], ROOT / "quant", output))
+         checks.append(execute("adapters_ruff", [sys.executable, "-m", "ruff", "check", "tools/build_causal_panel.py", "tools/measurement_registration.py"], ROOT, output))
+         checks.append(execute("installer_ruff", [sys.executable, "-m", "ruff", "check", "deploy/ultimate_install.py", "tools/test_ultimate_install.py"], ROOT, output))
+--- 30.12.2/xxx/coordinator.ts
++++ 30.13.0/xxx/coordinator.ts
+@@ -592,7 +592,14 @@
+       if (existing) {
+         if (existing.parentId !== parent.id)
+           throw Error("Native child ownership conflict");
+-        if (Number(o.filled_qty) >= Number(existing.order?.filled_qty || 0)) {
++        const priorFilled = Number(existing.order?.filled_qty || 0),
++          observedFilled = Number(o.filled_qty);
++        // Nested parent responses can arrive after a terminal child update.
++        // Apply the same monotonicity rule as the direct trade-update path;
++        // a genuinely larger cumulative fill must still reach reconciliation.
++        if (TERMINAL.has(existing.status) && !TERMINAL.has(o.status) &&
++            observedFilled === priorFilled) continue;
++        if (observedFilled >= priorFilled) {
+           existing.order = o;
+           existing.status = o.status;
+         }
+@@ -1299,7 +1306,14 @@
+       const priority = (c: Campaign) => c.exitPlan && c.exitPlan.status !== "COMPLETE" && urgentExit(c.exitPlan.kind) ? 0 : c.exitPlan && c.exitPlan.status !== "COMPLETE" ? 1 : 2;
+       const candidates = rotated.sort((a, b) => priority(a) - priority(b));
+       for (const c of candidates) {
+-        if (["ERROR", "STALE_RECONCILIATION", "OWNERSHIP_UNCERTAIN", "STALE_SESSION", "MARKET_CLOSED"].includes(this.positionEvaluations[c.id].outcome)) continue;
++        const outcome = this.positionEvaluations[c.id].outcome;
++        if (["ERROR", "STALE_RECONCILIATION", "OWNERSHIP_UNCERTAIN", "STALE_SESSION"].includes(outcome)) continue;
++        // Session closure gates new sale/protection orders, not cancellation
++        // of a known remaining entry. evaluatePosition has already verified
++        // fresh ownership; managePosition's entry branch can only cancel and
++        // returns before every sale or protection path. Cancellation remains
++        // pending until the next broker reconciliation confirms the result.
++        if (outcome === "MARKET_CLOSED" && !this.pending(c).some(i => i.kind === "entry")) continue;
+         try { await this.managePosition(c); }
+         catch (e) {
+           this.exitErrors[c.id] = { at: Date.now(), symbol: c.symbol, error: String(e) };
+--- 30.12.2/xxx/version.ts
++++ 30.13.0/xxx/version.ts
+@@ -1,2 +1,2 @@
+ // Release identity is separate from the immutable research engine code seal.
+-export const ULTIMATE_VERSION = "30.12.2";
++export const ULTIMATE_VERSION = "30.13.0";

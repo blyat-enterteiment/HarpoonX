@@ -1,0 +1,155 @@
+{
+  "schema": "HARPOON_HISTORICAL_BANK_AUDIT_1",
+  "status": "PASS_CONDITIONAL_HISTORICAL_ONLY",
+  "scope": "CONDITIONAL_HISTORICAL_DATA_ONLY",
+  "errors": [],
+  "independent_provider_authenticity_verified": false,
+  "corporate_action_completeness": null,
+  "prospective_observations_verified": false,
+  "financial_or_model_execution_performed": false,
+  "profitability_grade_accredited": null,
+  "conditional_replay_data_ready": true,
+  "dataset": {
+    "name": "research_dataset.json",
+    "bytes": 29123511,
+    "sha256": "e6874c13f812cd42861f8c2d3bb2fc9c438cba3b2be4cfe2932bd3d774850967"
+  },
+  "manifest_hashes": {
+    "manifest.json": "3527a3308d1ebc2f5ba3c8e0a81b7296a1c1982823c0a1c665877342b267a059",
+    "source_manifest.json": "31a51859e5f3fb2b21a039ae5965422cfd70a5e89c9cd571cc28ee32ab2bd564"
+  },
+  "verified_raw_files": 130,
+  "verified_derived_files": 7,
+  "raw_bytes": 153902985,
+  "dataset_reconstructed_from_raw_and_byte_identical": true,
+  "universe": [
+    "AAPL",
+    "MSFT",
+    "SPY",
+    "XLK"
+  ],
+  "period": [
+    "2022-01-01",
+    "2024-08-31"
+  ],
+  "sessions": {
+    "study": 669,
+    "deadline_only": 4,
+    "partition_counts": {
+      "train": 375,
+      "validation": 126,
+      "historical_reserved_test": 168
+    }
+  },
+  "bars": {
+    "raw": 433286,
+    "regular": 208152,
+    "per_symbol": 52038,
+    "outside_regular_grid": 225134,
+    "missing": 0,
+    "duplicates": 0,
+    "invalid_ohlcv": 0,
+    "zero_volume_regular": 0
+  },
+  "corporate_actions": {
+    "counts_observed_in_receipt": {
+      "cash_dividends": 47,
+      "cash_mergers": 1
+    },
+    "cash_dividends_in_study": 42,
+    "splits_observed_in_study": 0,
+    "completeness": null,
+    "events_not_applied": [
+      {
+        "id": "478ad092-b545-4a08-9022-938d2aac0fcc",
+        "kind": "cash_dividends",
+        "reason": "EX_DATE_OUTSIDE_STUDY"
+      },
+      {
+        "id": "7cdc9442-1a32-4f40-9d2a-b721edfef9e9",
+        "kind": "cash_dividends",
+        "reason": "EX_DATE_OUTSIDE_STUDY"
+      },
+      {
+        "id": "0429797e-504e-4571-855d-55d29cdb63d9",
+        "kind": "cash_dividends",
+        "reason": "EX_DATE_OUTSIDE_STUDY"
+      },
+      {
+        "id": "7ba38001-62f1-456f-b5dd-afe0f4febd98",
+        "kind": "cash_dividends",
+        "reason": "EX_DATE_OUTSIDE_STUDY"
+      },
+      {
+        "id": "c86f5862-5321-4e94-a0f0-bcaa2a8e0e97",
+        "kind": "cash_dividends",
+        "reason": "EX_DATE_OUTSIDE_STUDY"
+      },
+      {
+        "id": "0d3df0d3-dbbb-4cd4-8920-dd552954f773",
+        "kind": "cash_mergers",
+        "reason": "CASH_CONSIDERATION_PER_ACQUIREE_SHARE",
+        "acquirer": "MSFT",
+        "acquiree": "NUAN"
+      }
+    ],
+    "ex_at": "Calendar session open on observed ex_date; modeled accounting timestamp.",
+    "payable_at": "16:00 America/New_York on supplied payable_date, otherwise null; no observed posting time."
+  },
+  "technical_table": [
+    {
+      "variable": "bar_resolution",
+      "unit": "seconds",
+      "value": 300,
+      "nature": "HISTORICAL_BAR_INTERVAL"
+    },
+    {
+      "variable": "regular_coverage",
+      "unit": "bars",
+      "value": 208152,
+      "expected": 208152
+    },
+    {
+      "variable": "study_sessions",
+      "unit": "sessions",
+      "value": 669
+    },
+    {
+      "variable": "deadline_only_sessions",
+      "unit": "sessions",
+      "value": 4
+    },
+    {
+      "variable": "modeled_availability_after_bar_end",
+      "unit": "milliseconds",
+      "value": 1000,
+      "nature": "ASSUMPTION"
+    },
+    {
+      "variable": "original_receipt_latency",
+      "unit": "milliseconds",
+      "value": null,
+      "reason": "Historical capture has no original receipt timestamps."
+    },
+    {
+      "variable": "decision_or_execution_latency",
+      "unit": "milliseconds",
+      "value": null,
+      "reason": "No historical decision, order or fill observations in this bank."
+    },
+    {
+      "variable": "observed_executable_spread_or_fill_probability",
+      "unit": null,
+      "value": null,
+      "reason": "OHLCV bars do not contain executable quotes or queue/fill observations."
+    }
+  ],
+  "limitations": [
+    "Hashes certify consistency of local retained bytes; manifests and tool responses are not independently signed provider attestations.",
+    "The test period predates strategy design and remains retrospective historical evaluation, not real-account or prospective validation.",
+    "Corporate-action completeness is unknown. The absence of returned split events is not certified absence of splits.",
+    "The endpoint default is documented as raw; the connector has no explicit adjustment parameter or independent server-configuration attestation.",
+    "Availability delay, execution, price tick and dividend intraday cash timing are replay assumptions, not observed latency or fill evidence.",
+    "Calendar tail has no bars; it cannot create post-study fills. Receivables payable after the boundary must remain separately accounted for."
+  ]
+}

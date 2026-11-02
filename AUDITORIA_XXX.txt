@@ -1,0 +1,73 @@
+HARPOON XXX / 30.2.0 — TAKE PROFIT, EJECUCIÓN Y WALK-FORWARD
+Fecha: 2026-10-18T16:51:25.259936+00:00
+
+IMPLEMENTACIÓN
+- 61 plugins conectados y cuatro libros: acciones, ETF, spot cripto y opciones largas.
+- 21 ciclos independientes; salidas y cotizaciones no dependen del laboratorio.
+- Plan de salida persistido antes de cancelar: conserva objetivo, cantidad y piso de precio.
+- Stop urgente interrumpe TP pendiente; confirma cancelación y fill parcial antes de vender remanente.
+- Stop calculado y confirmado al tick; deriva visible y nuevas entradas bloqueadas hasta alineación.
+- OCO nativo por parcial de acciones/ETF, runner stop o trailing independiente.
+- Piernas nativas identificadas/conciliadas por ID y fills contados una sola vez.
+- Rechazo confirmado activa stop simple; respuesta incierta no permite reenvío ciego.
+- WebSocket real PAPER, stocks/cripto y OPRA MsgPack; REST confirma inventario.
+- Flujo de plugins compartido; desconexión invalida su calentamiento.
+- Actividades reales de comisiones, costes no valorados y estimaciones separados.
+- UI de ocho secciones; monitor real, latencias, cobertura, planes y resultados rechazados visibles.
+- Eventos preservan su clase separada del tipo de intención de orden.
+- Docker incluye las dos dependencias de producción y el informe/protocolo.
+
+VALIDACIÓN ACTUAL
+114/114 pruebas de core/integración: aprobadas, cero fallos u omitidas.
+24/24 comprobaciones de navegador local: aprobadas, cero excepciones JS.
+Compilación TypeScript estricta: aprobada.
+Importación de módulos con sólo dependencias de producción: aprobada.
+No se construyó Docker ni se verificó una cuenta Alpaca autenticada.
+Logs: evidence/tp32/core-tests.txt, validation.json y evidence/xxx/browser.json.
+Las pruebas utilizan brokers/frames sintéticos explícitos; no son evidencia de beneficio.
+Las suites heredadas de 30.1 conservan sus resultados como trazabilidad; no se presentan como reejecutadas en 30.2.
+
+AUDITORÍA ESTÁTICA DE LAS RUTAS OPERATIVAS
+49 archivos; 1588 cuerpos de función.
+Cuerpos vacíos inexplicados: 0.
+Marcadores de implementación pendiente: 0.
+Importaciones operativas de tests/demos: 0.
+Inventario y hashes: evidence/xxx/function-audit.json.
+Estado: STATIC_REVIEW_ONLY_EXTERNAL_VALIDATION_PENDING.
+El inventario de rutas operativas no es una prueba exhaustiva de todos los estados posibles.
+
+WALK-FORWARD REALIZADO ANTES DE LOS CAMBIOS DE EJECUCIÓN
+Protocolo registrado con tres políticas y parámetros sellados por hash.
+12 folds: 126 sesiones previas, 21 de prueba, purga 72 h y embargo 3 sesiones.
+Holdout final: 2026-07-21 a 2026-10-16 (63 sesiones).
+Históricos observados Alpaca OHLCV/VWAP; fills/spread/slippage modelados y declarados.
+Se reproduce el resultado después de los cambios sin retocar los parámetros.
+Muestra común: 7 operaciones OOS y 5 holdout. Se exigían 100 y 30.
+Referencia: OOS -USD 53,12 / holdout -USD 45,68.
+Trend Runner: OOS -USD 113,81 / holdout -USD 6,43.
+Regime Adaptive: OOS -USD 90,77 / holdout -USD 50,09.
+Ninguna variante aprobada. Referencia conservada; ninguna rentabilidad acreditada.
+Las variantes experimentales existen en código pero no se activan automáticamente.
+Los datos cripto con huecos y la ausencia de histórico OPRA impiden validación equivalente.
+Informe completo: evidence/tp32/WALKFORWARD_XXX_30_2.txt y report.json.
+Datos y huellas incluidos para reproducción privada; no interpolación de precios.
+
+LÍMITES MATERIALES
+No se enviaron órdenes externas, no se desplegó ni se publicó GitHub.
+No se acreditan permisos/feeds, fills de broker, rentabilidad, liderazgo ni victoria de campeonato.
+PAPER simula ejecución del broker con dinero virtual; LIVE está bloqueado.
+La simulación propia sólo se usa en investigación/pruebas identificadas, nunca como mercado/cuenta del monitor.
+El histórico de barras no prueba latencia de un segundo, cola/impacto ni fills intrabar.
+Comisiones ausentes/no valoradas no equivalen a cero; neto total no certificado.
+Cripto/opciones no usan OCO; la porción reservada por un TP depende de la guardia.
+Stop-limit, mercados cerrados, gaps y fallos pueden impedir un cierre al precio/plazo esperado.
+Una configuración distinta de la ligada al diario sigue bloqueando su migración; conservar SQLite y configuración original.
+World Cup Trading Championships es futuros/forex; el 11.376% de Larry Williams es de 1987.
+Harpoon Alpaca no incluye un adaptador de esos instrumentos ni se inscribe en esa competición.
+Fuentes: docs/TAKE_PROFIT_32.md.
+
+INTEGRIDAD
+Código, runtime compilado, pruebas, informe y datos históricos dentro del ZIP.
+MANIFEST_XXX.json y SHA256SUMS_XXX.txt cubren los miembros distribuidos.
+SHA256_XXX.txt externo identifica ZIP, auditoría e informe.
+Se excluyen credenciales, node_modules, diarios y capturas internas de QA.

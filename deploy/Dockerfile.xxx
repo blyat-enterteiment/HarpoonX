@@ -1,0 +1,31 @@
+FROM node:24-bookworm-slim AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts --no-audit --no-fund
+COPY xxx ./xxx
+COPY tsconfig.xxx.json ./
+RUN npm run build:xxx && npm prune --omit=dev --ignore-scripts --no-audit --no-fund
+
+FROM node:24-bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-venv ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=build /app/runtime30 ./runtime30
+COPY --from=build /app/node_modules ./node_modules
+COPY xxx ./xxx
+COPY src ./src
+COPY runtime ./runtime
+COPY tools/coordinator_replay.cjs tools/observation_replay_input.cjs tools/funded_comparison.cjs tools/fixed_predictor_worker.cjs tools/measurement_registration.py tools/build_causal_panel.py tools/level4_readiness.cjs tools/level5_readiness.cjs tools/export_observation_snapshot.cjs tools/collect_runtime_evidence.cjs ./tools/
+COPY quant/harpoon_quant ./quant/harpoon_quant
+COPY quant/requirements-tested.txt ./quant/requirements-tested.txt
+RUN python3 -m venv /opt/harpoon-quant && /opt/harpoon-quant/bin/pip install --no-cache-dir -r quant/requirements-tested.txt
+ENV HARPOON_QUANT_PYTHON=/opt/harpoon-quant/bin/python3
+COPY deploy ./deploy
+COPY config/examples ./config/examples
+COPY evidence/tp32/report.json ./evidence/tp32/report.json
+COPY research/tp32/protocol.json ./research/tp32/protocol.json
+COPY evidence/ultimate/report.json ./evidence/ultimate/report.json
+COPY evidence/ultimate/protocol.json ./evidence/ultimate/protocol.json
+COPY evidence/ultimate/registry.json ./evidence/ultimate/registry.json
+ENV NODE_ENV=production PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+EXPOSE 10000
+CMD ["python3", "deploy/entry30.py"]

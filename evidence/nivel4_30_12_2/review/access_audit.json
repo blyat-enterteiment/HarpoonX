@@ -1,0 +1,416 @@
+{
+  "schema": "HARPOON_LEVEL4_CURRENT_ACCESS_AUDIT_1",
+  "classification": "HECHO_DE_LECTURA_REPRODUCIBLE",
+  "observed_at_utc": "2026-11-01T03:54:40.000Z",
+  "scope": "Read-only access audit of known repositories, previously confirmed Render workspace and local 30.12.1 telemetry contracts",
+  "target_application": "HARPOON XXXUltimate 30.12.1 / Quant 1.8.0",
+  "render": {
+    "workspace_id": "tea-db77rsqvcj2c73cibvj0",
+    "workspace_name": "A's workspace",
+    "workspace_previously_confirmed": true,
+    "workspace_visible_now": true,
+    "service_listing_without_previews": "LITERAL_NULL",
+    "service_listing_including_previews": "LITERAL_NULL",
+    "service_id": null,
+    "service_url": null,
+    "deployed_version": null,
+    "null_reason": "The connector returned literal null, not an enumerated empty service list; no runtime identity can be established.",
+    "absence_of_service_proved": false,
+    "supported_local_fallback": {
+      "render_cli_available": false,
+      "render_api_key_present": false,
+      "credential_values_read": 0
+    },
+    "no_guessed_service_urls_probed": true
+  },
+  "repositories": [
+    {
+      "repository": "masivarecords-ship-it/HerpoonX",
+      "id": "1418095498",
+      "metadata_accessible": true,
+      "visibility": "public",
+      "reported_size": 0,
+      "branches": [],
+      "package_read": "404 This repository is empty.",
+      "application_version": null,
+      "deployed_version": null
+    },
+    {
+      "repository": "masivarecords-ship-i/HarpoonX",
+      "package_read": "404 Not Found",
+      "application_version": null,
+      "deployed_version": null,
+      "limitation": "Only the known package path was rechecked; historical root inventory remains separately dated."
+    },
+    {
+      "repository": "masivarecords-ship-i/NewRepo",
+      "branch": "harpoon-cloud",
+      "branch_visible": true,
+      "package_version": "24.3.1",
+      "package_blob_sha1": "cdf33a96f454c9b0c67c255de3deeca728f1ff56",
+      "package_version_is_deployment_evidence": false,
+      "declared_render_service": "harpoon-paper",
+      "declared_books": "crypto",
+      "declared_health_path": "/healthz",
+      "deployed_commit": null,
+      "scope": "Current package and render.yaml contents read. Prior full tree audit is not relabeled as current.",
+      "package_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/package.json",
+      "deployment_declaration_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/render.yaml"
+    }
+  ],
+  "local_telemetry_contract": {
+    "code_file": "xxx/server.ts",
+    "public_version_route": "GET /healthz",
+    "authenticated_routes": [
+      "GET /v1/operational",
+      "GET /operational-readyz",
+      "GET /v1/quant/observations/snapshot",
+      "GET /v1/quant/observations?snapshot_id=<pinned_id>&offset=<offset>&limit=<limit>",
+      "GET /v1/accounting/history?offset=<offset>&limit=<limit>",
+      "GET /v1/quant/calibrator",
+      "GET /v1/export"
+    ],
+    "authentication": "Basic Auth; cross-site/origin checks precede telemetry routes",
+    "runtime_routes_called": 0,
+    "source_contract_is_runtime_verification": false,
+    "deployed_origin_or_url_found_in_inspected_current_config": false,
+    "configuration_search_scope": [
+      "LEEME_PRIMERO_30_12_1.txt",
+      "README.md",
+      "docs",
+      "deploy",
+      "config/examples",
+      ".env.example"
+    ]
+  },
+  "alpaca": {
+    "available_tool_count": 24,
+    "available_tools": [
+      "mcp__codex_apps__alpaca_get_all_assets",
+      "mcp__codex_apps__alpaca_get_asset",
+      "mcp__codex_apps__alpaca_get_calendar",
+      "mcp__codex_apps__alpaca_get_clock",
+      "mcp__codex_apps__alpaca_get_corporate_actions",
+      "mcp__codex_apps__alpaca_get_crypto_bars",
+      "mcp__codex_apps__alpaca_get_crypto_latest_bar",
+      "mcp__codex_apps__alpaca_get_crypto_latest_orderbook",
+      "mcp__codex_apps__alpaca_get_crypto_latest_quote",
+      "mcp__codex_apps__alpaca_get_crypto_latest_trade",
+      "mcp__codex_apps__alpaca_get_crypto_quotes",
+      "mcp__codex_apps__alpaca_get_crypto_snapshot",
+      "mcp__codex_apps__alpaca_get_crypto_trades",
+      "mcp__codex_apps__alpaca_get_option_chain",
+      "mcp__codex_apps__alpaca_get_option_contracts",
+      "mcp__codex_apps__alpaca_get_option_latest_quote",
+      "mcp__codex_apps__alpaca_get_option_snapshot",
+      "mcp__codex_apps__alpaca_get_stock_bars",
+      "mcp__codex_apps__alpaca_get_stock_latest_bar",
+      "mcp__codex_apps__alpaca_get_stock_latest_quote",
+      "mcp__codex_apps__alpaca_get_stock_latest_trade",
+      "mcp__codex_apps__alpaca_get_stock_quotes",
+      "mcp__codex_apps__alpaca_get_stock_snapshot",
+      "mcp__codex_apps__alpaca_get_stock_trades"
+    ],
+    "account_history_order_activity_tool_exposed": false,
+    "interpretation": "Available connector tools expose market/assets/calendar data. This inventory is not proof that no account exists or that a separate authorized API could not expose it.",
+    "market_tool_calls": 0,
+    "account_tool_calls": 0
+  },
+  "recovered_observed_evidence": {
+    "causal_frames": 0,
+    "account_history_exports": 0,
+    "orders_or_fills_exports": 0,
+    "operating_cost_receipts": 0,
+    "verified_current_runtime": null
+  },
+  "economic_effect": {
+    "level4_accredited_by_this_audit": false,
+    "net_return": null,
+    "model_improvement": null,
+    "new_financial_trials": 0,
+    "reason": "No new observed runtime/account/cost evidence was recovered."
+  },
+  "decisive_missing_resources": [
+    {
+      "id": "RUNTIME_IDENTITY",
+      "required": "A verified current service identifier and URL, deployed application/commit/configuration identity, with authorized access to its telemetry; alternatively an original exported runtime status manifest."
+    },
+    {
+      "id": "OBSERVATION_EXPORT",
+      "required": "Original pinned observation snapshot descriptor and every page, including market/receive/decision timestamps, account/configuration identity and coverage."
+    },
+    {
+      "id": "ACCOUNT_AND_COST_EXPORT",
+      "required": "Original ledger/account history, activities/fills/open positions/external flows and operating-cost records covering the same period; pagination and completeness metadata retained."
+    }
+  ],
+  "activity": {
+    "remote_tool_calls": 10,
+    "remote_writes": 0,
+    "deployments": 0,
+    "orders": 0,
+    "secrets_read": 0,
+    "credential_environment_presence_checks": 1,
+    "financial_experiments": 0,
+    "source_code_changes": 0
+  },
+  "tools_and_skills": {
+    "render_skill": "render-monitor",
+    "references_read": [
+      "render-access.md",
+      "deployments.md"
+    ],
+    "current_platform_behavior_assumptions_used": false,
+    "external_documentation_needed_for_unperformed_configuration": false
+  },
+  "calls": [
+    {
+      "tool": "github_get_repo",
+      "checked_at_utc": "2026-11-01T03:53:24.963Z",
+      "status": "fulfilled",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1418095498",
+          "name": "HerpoonX",
+          "owner": {
+            "login": "masivarecords-ship-it",
+            "id": 282742778,
+            "type": "User",
+            "avatar_url": "https://avatars.githubusercontent.com/u/282742778?v=4",
+            "url": "https://api.github.com/users/masivarecords-ship-it"
+          },
+          "repository_full_name": "masivarecords-ship-it/HerpoonX",
+          "permissions": {
+            "admin": false,
+            "maintain": false,
+            "pull": true,
+            "push": false,
+            "triage": false
+          },
+          "allow_auto_merge": null,
+          "allow_merge_commit": null,
+          "allow_rebase_merge": null,
+          "allow_squash_merge": null,
+          "allow_update_branch": null,
+          "clone_url": "https://github.com/masivarecords-ship-it/HerpoonX.git",
+          "size": 0,
+          "default_branch": "main",
+          "git_commits_url": "https://api.github.com/repos/masivarecords-ship-it/HerpoonX/git/commits{/sha}",
+          "git_refs_url": "https://api.github.com/repos/masivarecords-ship-it/HerpoonX/git/refs{/sha}",
+          "git_url": "git://github.com/masivarecords-ship-it/HerpoonX.git",
+          "master_branch": null,
+          "visibility": "public",
+          "archived": false,
+          "is_code_search_indexed": null
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "checked_at_utc": "2026-11-01T03:53:24.963Z",
+      "status": "fulfilled",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "content": "{\n  \"name\": \"harpoon-cloud-247\",\n  \"version\": \"24.3.1\",\n  \"private\": true,\n  \"scripts\": {\n    \"test\": \"node tools/runtime_test.cjs && node tools/cloud_test.cjs && node tools/control_test.cjs && node tools/edge_test.cjs && python3 tools/install_test.py && node tools/setup_test.cjs\",\n    \"typecheck\": \"tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime/control.cjs deploy/managed.cjs\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"5.9.3\",\n    \"@types/node\": \"22.19.19\"\n  }\n}\n",
+          "encoding": "utf-8",
+          "sha": "cdf33a96f454c9b0c67c255de3deeca728f1ff56",
+          "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/package.json",
+          "display_title": "package.json"
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "render_list_workspaces",
+      "checked_at_utc": "2026-11-01T03:53:24.963Z",
+      "status": "fulfilled",
+      "result": {
+        "workspaces": [
+          {
+            "id": "tea-db77rsqvcj2c73cibvj0",
+            "name": "A's workspace",
+            "type": "team"
+          }
+        ],
+        "isError": false,
+        "redaction": "Contact email omitted; no credentials retrieved"
+      }
+    },
+    {
+      "tool": "render_list_services",
+      "input": {
+        "workspaceId": "tea-db77rsqvcj2c73cibvj0",
+        "includePreviews": false
+      },
+      "checked_at_utc": "2026-11-01T03:53:41.279Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "null"
+          }
+        ],
+        "structuredContent": null,
+        "isError": false
+      }
+    },
+    {
+      "tool": "render_list_services",
+      "input": {
+        "workspaceId": "tea-db77rsqvcj2c73cibvj0",
+        "includePreviews": true
+      },
+      "checked_at_utc": "2026-11-01T03:53:41.279Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "null"
+          }
+        ],
+        "structuredContent": null,
+        "isError": false
+      }
+    },
+    {
+      "tool": "github_search_branches",
+      "input": {
+        "owner": "masivarecords-ship-it",
+        "repo_name": "HerpoonX",
+        "query": "",
+        "page_size": 100
+      },
+      "checked_at_utc": "2026-11-01T03:53:41.279Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "branches": [],
+          "cursor": null
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "github_search_branches",
+      "input": {
+        "owner": "masivarecords-ship-i",
+        "repo_name": "NewRepo",
+        "query": "harpoon-cloud",
+        "page_size": 100
+      },
+      "checked_at_utc": "2026-11-01T03:53:41.279Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "branches": [
+            {
+              "branch": "harpoon-cloud"
+            }
+          ],
+          "cursor": "MQ"
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "input": {
+        "repository_full_name": "masivarecords-ship-i/NewRepo",
+        "ref": "harpoon-cloud",
+        "path": "render.yaml"
+      },
+      "checked_at_utc": "2026-11-01T03:53:41.279Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "content": "services:\n  - type: web\n    name: harpoon-paper\n    runtime: docker\n    repo: https://github.com/Blyat2020/NewRepo\n    branch: harpoon-cloud\n    plan: standard\n    region: oregon\n    dockerfilePath: ./deploy/Dockerfile.managed\n    healthCheckPath: /healthz\n    autoDeployTrigger: \"off\"\n    maxShutdownDelaySeconds: 60\n    disk:\n      name: harpoon-journal\n      mountPath: /var/data\n      sizeGB: 10\n    envVars:\n      - key: HARPOON_BOOKS\n        value: crypto\n      - key: HARPOON_PANEL_PASSWORD\n        generateValue: true\n      - key: CRYPTO_APCA_KEY\n        sync: false\n      - key: CRYPTO_APCA_SECRET\n        sync: false\n",
+          "encoding": "utf-8",
+          "sha": "c24c4a018ebfd005cd351c4c6348ae3eeb9f27be",
+          "display_url": "https://github.com/masivarecords-ship-i/NewRepo/blob/harpoon-cloud/render.yaml",
+          "display_title": "render.yaml"
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "input": {
+        "repository_full_name": "masivarecords-ship-it/HerpoonX",
+        "path": "package.json"
+      },
+      "checked_at_utc": "2026-11-01T03:54:40.000Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "GitHub API error 404: {\"message\":\"This repository is empty.\",\"documentation_url\":\"https://docs.github.com/v3/repos/contents/#get-contents\",\"status\":\"404\"}"
+          }
+        ],
+        "structuredContent": {
+          "error": "GitHub API error 404: {\"message\":\"This repository is empty.\",\"documentation_url\":\"https://docs.github.com/v3/repos/contents/#get-contents\",\"status\":\"404\"}",
+          "error_code": "NOT_FOUND",
+          "error_data": {
+            "message": "This repository is empty.",
+            "documentation_url": "https://docs.github.com/v3/repos/contents/#get-contents",
+            "status": "404"
+          }
+        },
+        "isError": true
+      }
+    },
+    {
+      "tool": "github_fetch_file",
+      "input": {
+        "repository_full_name": "masivarecords-ship-i/HarpoonX",
+        "path": "package.json"
+      },
+      "checked_at_utc": "2026-11-01T03:54:40.000Z",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "GitHub API error 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#get-repository-content\",\"status\":\"404\"}"
+          }
+        ],
+        "structuredContent": {
+          "error": "GitHub API error 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#get-repository-content\",\"status\":\"404\"}",
+          "error_code": "NOT_FOUND",
+          "error_data": {
+            "message": "Not Found",
+            "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content",
+            "status": "404"
+          }
+        },
+        "isError": true
+      }
+    }
+  ]
+}

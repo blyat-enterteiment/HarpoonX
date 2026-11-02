@@ -1,0 +1,98 @@
+{
+  "schema": "HARPOON_LEGACY_CONTROL_REFERENCE_1",
+  "scope": "REPRODUCTION_OF_ALREADY_REGISTERED_REUSED_HISTORY_MODELED_EXECUTION",
+  "period": [
+    "2025-03-11",
+    "2026-07-13"
+  ],
+  "universe": [
+    "SPY",
+    "XLK"
+  ],
+  "source_result_sha256": "600a76b5aacd9229daa1df09eb6b8d1b5cc27c7577b7d8e88b932e26a569107f",
+  "control_30_13_1": {
+    "status": "COMPLETE_EXPLORATORY_ONLY",
+    "net_model_pnl_usd": 91.27999999999918,
+    "portfolio": {
+      "scope": "MODELED_SHARED_CAPITAL_INTEGER_LOTS",
+      "limits": {
+        "capitalUsd": 20000,
+        "riskFraction": 0.0025,
+        "openRiskFraction": 0.015,
+        "grossFraction": 0.5,
+        "assetFraction": 0.12,
+        "dailyLoss": 0.02,
+        "maxDrawdown": 0.08
+      },
+      "oos": {
+        "campaigns": 33,
+        "sessions": 336,
+        "expectancyR": 0.1705900209918034,
+        "profitFactor": 1.5016345106392588,
+        "winRate": 0.5151515151515151,
+        "growthLog": 1.3552430159049619e-05,
+        "modelReturn": 0.004564000000000457,
+        "maxDrawdown": 0.00687187489762886,
+        "sharpeHac": 0.44095532191279413,
+        "sortino": 0.5884989254609102,
+        "expectedShortfall95": 0.0011980637960140132
+      },
+      "netUsd": 91.27999999999918,
+      "skipped": {
+        "SYMBOL_BUSY": 15
+      }
+    },
+    "uncertainty": null
+  },
+  "candidate_30_14_0_retained_30_15_0": {
+    "status": "COMPLETE_EXPLORATORY_ONLY",
+    "net_model_pnl_usd": 91.27999999999884,
+    "portfolio": {
+      "scope": "MODELED_SHARED_CAPITAL_INTEGER_LOTS_CAUSAL_RESERVATIONS",
+      "limits": {
+        "capitalUsd": 20000,
+        "riskFraction": 0.0025,
+        "openRiskFraction": 0.015,
+        "grossFraction": 0.5,
+        "assetFraction": 0.12,
+        "dailyLoss": 0.02,
+        "maxDrawdown": 0.08
+      },
+      "oos": {
+        "campaigns": 33,
+        "sessions": 336,
+        "expectancyR": 0.1705900209918034,
+        "profitFactor": 1.5016345106392588,
+        "winRate": 0.5151515151515151,
+        "growthLog": 1.3552430159049577e-05,
+        "modelReturn": 0.0045640000000000125,
+        "maxDrawdown": 0.006871874897629304,
+        "sharpeHac": 0.4409553219127902,
+        "sortino": 0.5884989254608991,
+        "expectedShortfall95": 0.0011980637960140312
+      },
+      "netUsd": 91.27999999999884,
+      "skipped": {
+        "SYMBOL_BUSY": 15
+      }
+    },
+    "uncertainty": {
+      "descriptive_log_growth_lower": -6.43075062324828e-05,
+      "method": "LEGACY_CIRCULAR_BLOCK_BOOTSTRAP",
+      "sessions": 336,
+      "runs": 2000,
+      "block_sessions": 5,
+      "legacy_family_parameter": 72,
+      "global_multiple_testing_correction_verified": false,
+      "independent_holdout": false,
+      "financial_acceptance_allowed": false
+    }
+  },
+  "difference_usd": -3.410605131648481e-13,
+  "economic_pnl_complete_usd": null,
+  "external_operating_costs_usd": null,
+  "real_profitability_grade": null,
+  "target_seven_accredited": false,
+  "not_same_control_as_new_four_asset_three_hypothesis_historical_study": true,
+  "new_trials_or_fits": 0
+}

@@ -1,0 +1,74 @@
+{
+  "results": [
+    {
+      "command": [
+        "node",
+        "tools/runtime_test.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 225.59,
+      "output": "{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"SQLite durable cross-process roundtrip\",\n    \"Exclusive shared-volume lease cannot be released by another owner\",\n    \"Compare-and-swap preserves concurrent study changes\",\n    \"Cursor scan excludes already processed records\",\n    \"Restart preserves unknown intent and forbids duplicate order\",\n    \"Lease is verified before the first broker mutation, including initial connect\",\n    \"Research worker isolated and cannot invent missing evidence\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/cloud_test.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 318.91,
+      "output": "{\n  \"checks\": 7,\n  \"passed\": 7,\n  \"results\": [\n    \"PAPER configured startup\",\n    \"Unauthorized state denied\",\n    \"Action header required\",\n    \"Pause disables entries\",\n    \"Pause survives process restart with SQLite\",\n    \"Explicit PAPER resume\",\n    \"Current crypto plugin engine loads\"\n  ],\n  \"external_orders\": 0,\n  \"openai_calls\": 0,\n  \"scope\": \"Launcher integration uses injected engine; native engine tested separately\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/control_test.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 66.94,
+      "output": "{\n  checks: 11,\n  passed: 11,\n  scope: 'Controller fixtures, no model/broker calls'\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "tools/edge_test.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 159.41,
+      "output": "{\n  checks: 8,\n  passed: 8,\n  scope: 'Actual HTTP proxy with local upstream fixture; no TLS provider deployment'\n}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/install_test.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 59.78,
+      "output": "{\"checks\": 6, \"passed\": 6, \"scope\": \"Six generated configurations; Docker schema/build not executed\"}\n"
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--allowJs",
+        "--checkJs",
+        "--noEmit",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "node16",
+        "--types",
+        "node",
+        "runtime/control.cjs",
+        "deploy/managed.cjs"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 864.24,
+      "output": ""
+    }
+  ],
+  "external_orders": 0,
+  "paid_model_calls": 0,
+  "docker_build_executed": false,
+  "timing_scope": "Test-suite elapsed time, not trading latency or provider benchmark"
+}

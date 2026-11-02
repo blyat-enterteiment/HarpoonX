@@ -1,0 +1,130 @@
+{
+  "schema": "ECONOMIC_STUDY_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "registered_at": "2026-10-31T01:01:59.876663+00:00",
+  "study_id": "ECON_20261030_01",
+  "capital": 20000,
+  "limits": {
+    "risk_fraction": 0.0025,
+    "open_risk_fraction": 0.015,
+    "gross_fraction": 0.5,
+    "asset_fraction": 0.12,
+    "factor_fraction": 0.5,
+    "max_positions": 8,
+    "daily_loss": 0.02,
+    "max_drawdown": 0.08
+  },
+  "variants": {
+    "BASE": [],
+    "A": [
+      "A"
+    ],
+    "B": [
+      "B"
+    ],
+    "C": [
+      "C"
+    ],
+    "D": [
+      "D"
+    ],
+    "E": [
+      "E"
+    ],
+    "F": [
+      "F"
+    ],
+    "ALL": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "NO_A": [
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "NO_B": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "NO_C": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F"
+    ],
+    "NO_D": [
+      "A",
+      "B",
+      "C",
+      "E",
+      "F"
+    ],
+    "NO_E": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "F"
+    ],
+    "NO_F": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ]
+  },
+  "development_seeds": [
+    610301,
+    610302,
+    610303
+  ],
+  "holdout_seeds": [
+    610311,
+    610312,
+    610313,
+    610314,
+    610315
+  ],
+  "development_end": "2026-06-25",
+  "holdout_start": "2026-07-01",
+  "holdout_end": "2026-10-30",
+  "calendar_file_sha256": "b5e8918cc26eb3f9091630d48b5d754b66c2bf1a58a779490b22dae8382a7038",
+  "selection": "Highest minimum seed daily mean log return; one finalist; cash benchmark=0; if no candidate admissible select BASE as diagnostic reference only",
+  "acceptance": {
+    "net_profit_positive": true,
+    "improvement_lcb_positive": true,
+    "g_log_improvement": true,
+    "min_independent_seed_blocks": 5,
+    "max_drawdown": 0.08,
+    "min_closures": 20,
+    "stress_costs": [
+      1.5,
+      2.0
+    ]
+  },
+  "families": {
+    "A": "Past-only pooled AR forecast and distributional option expectation with 10% funding uncertainty reserve",
+    "B": "Choose long underlying for call direction or debit vertical/long option by expected net value per paid dollar; no shorts",
+    "C": "45 DTE 1-sigma OTM instead of 21 DTE 1.7 sigma OTM",
+    "D": "Reject >10% spreads, >30s ages or insufficient displayed depth; FOK at ask",
+    "E": "35% net take profit/stop and past-only invalidation; integer partial only with >=2 lots",
+    "F": "At most four positions, factor cap .25 and open risk .008, never raises original limits"
+  },
+  "model": "Same AR+Student-t+jump spot generator family as previous experiment, fixed regime fractions .57/.714; calendars from Alpaca. No future regime indicator exposed. European valuation proxy, no actual OPRA quotes.",
+  "execution": "Synthetic ask entry/bid liquidation plus .65 per contract per side; stock10bps and zero share commissions assumption; entry at09:45 ET, monitoring10:00 and15min beforeclose; max72h exit known from calendar; no midpoint or automatic limit fills.",
+  "inference": "Family-adjusted one-sided paired block-bootstrap daily log-return improvement, blocks3/5/10 sessions; estimate effective n, MDE and block/seed limitations. DSR diagnostic not acceptance. Five generated paths insufficient to infer real market probability.",
+  "stop": "14 fixed configurations, no extra search, no seed replacement; terminal holdouts generated only after finalist hash frozen",
+  "external": "OPRA denied by entitlement; no account permissions endpoint exposed; no broker orders authorized"
+}

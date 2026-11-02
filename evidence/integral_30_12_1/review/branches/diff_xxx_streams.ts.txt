@@ -1,0 +1,10 @@
+--- 30.12/xxx/streams.ts
++++ 31.4/xxx/streams.ts
+@@ -214,5 +214,6 @@
+         throw Error("Quote before matching subscription");
+       this.quote(r.S, {
+-        ...r,
++        bp: r.bp,
++        ap: r.ap,
+         t: r.t instanceof Date ? r.t.toISOString() : r.t,
+       });

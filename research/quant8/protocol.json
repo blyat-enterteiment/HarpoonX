@@ -1,0 +1,114 @@
+{
+  "schema": "HARPOON_QUANT8_DIAGNOSTIC_PROTOCOL_1",
+  "study_id": "HARPOON_QUANT8_DIAGNOSTIC_30_17_0",
+  "definition_recorded_at": "2026-11-01T23:22:17Z",
+  "origin": "HISTORICAL",
+  "execution": "MODELED_OHLCV",
+  "independent_preregistration": false,
+  "financial_acceptance_allowed": false,
+  "live_approved": false,
+  "level8_accredited": false,
+  "base_protocol": "research/historical_bank/protocol.json",
+  "dataset": "evidence/historical_bank_30_16_0/data/research_dataset.json",
+  "seen_holdout": true,
+  "test_is_prospective": false,
+  "interpretation": "Finite engineering diagnostic on already viewed historical data; no independent confirmation, no selected winner, no promotion.",
+  "family_rationale": "Repair known causal high-watermark and split-feature defects; compare three fixed abstaining policies against three controls rerun on the corrected engine plus identical-overhead CASH.",
+  "budget": {
+    "policies": [
+      "C0",
+      "RIDGE",
+      "SVR",
+      "RIDGE_HURDLE",
+      "HUBER_HURDLE",
+      "HUBER_REGIME_CAP"
+    ],
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "new_policy_scenario_measurements": 12,
+    "new_policy_recipes": 3,
+    "corrected_engine_control_measurements": 6,
+    "source_budget_spent": 29,
+    "source_budget_limit": 128,
+    "descendant_expected_spent": 41,
+    "cash_is_derived_reference": true,
+    "unique_new_estimator_asset_recipes": 8,
+    "legacy_estimator_asset_recipes_recomputed": 8,
+    "primary_fit_invocations": 16,
+    "planned_fit_invocations_with_exact_reproduction": 64,
+    "hyperparameter_search_trials": 0,
+    "same_recipe_retry_only": true,
+    "global_prior_trial_count": null,
+    "verification_fit_invocations_per_run": 16
+  },
+  "quant8_model": {
+    "ridge_lambda": 1.0,
+    "huber_alpha": 1.0,
+    "huber_epsilon": 1.35,
+    "huber_max_iter": 2000,
+    "mean_uncertainty_multiplier": 2.0,
+    "minimum_net_return_bps": 5.0,
+    "maximum_absolute_training_z": 8.0,
+    "regime_rv_quantile": 0.8,
+    "minimum_training_rows": 40,
+    "minimum_training_sessions": 30,
+    "feature_scaling": "MEDIAN_IQR_STD_FALLBACK",
+    "target_scaling": "MEAN_STD",
+    "external_cost_hurdle_return": 0.0
+  },
+  "hurdle_definition": "predicted nominal net campaign return minus approximate conditional-mean uncertainty buffer minus additional STRESS roundtrip friction >5bp; original nominal friction is ALREADY in target, never subtracted twice. External overhead applied once in continuous account and equally to CASH.",
+  "uncertainty_scope": "Session-cluster sandwich approximation for conditional mean, not predictive volatility or guaranteed conditional confidence coverage.",
+  "regime_cap": {
+    "limit_multiplier": 0.5,
+    "fields": [
+      "riskFraction",
+      "openRiskFraction",
+      "grossFraction",
+      "assetFraction"
+    ],
+    "definition": "Abstain above training-only rv12 80th percentile; halve four exposure/risk caps. Drawdown/dailyLoss/capital/holding remain unchanged.",
+    "correlation_claim": "Four equity/ETF assets are not independent. Conservative shared-cap reduction is NOT a measured covariance-optimal allocation.",
+    "no_regime_selection_from_test": true
+  },
+  "statistics": {
+    "confidence": 0.95,
+    "block_lengths": [
+      5,
+      20
+    ],
+    "bootstrap_replicates": 120000,
+    "seed": 1701,
+    "simultaneous_endpoint_count": 60,
+    "endpoint_count_detail": "For each of2block lengths:12absolute net-growth endpoints +3new policies*3controls(CASH,C0,RIDGE)*2scenarios=18paired endpoints. Both block sensitivities required. CASH absolute values shown descriptive.",
+    "unit": "Aligned whole-portfolio session log returns",
+    "scope": "Descriptive diagnostic on previously seen TEST2024-01-02to2024-08-30; not independent validation",
+    "global_search_correction_complete": false
+  },
+  "stopping_rule": "Execute12policy-scenario measurements plus2CASH references and one exact reproduction; retain every refusal/failure/result. No further model variants if results negative or flat. Finish engineering and evidence; economic progress blocked until new authorized data and preregistered genuinely forward observation.",
+  "acceptance_for_level8": {
+    "software_tests_are_insufficient": true,
+    "independent_confirmatory_gate_required": true,
+    "net_growth_lower_bound_positive_nominal_and_stress": true,
+    "paired_advantage_to_cash_native_and_ridge_required": true,
+    "observed_cost_fill_and_corporate_action_evidence_required": true,
+    "reconciled_continuous_capital_and_risk_controls_required": true,
+    "no_deployment_authority": true
+  },
+  "deferred_hypotheses": [
+    "Covariance-shrinkage constrained allocator: future separately registered study with enough point-in-time diverse assets; not claim alpha from sizing",
+    "Rolling recalibration: separate time-purged study, not hidden adaptation",
+    "Residual sector-relative reversion: requires extra universe/data and own<=72h validation",
+    "Options: DATA_BLOCKED absent historical bid/ask chains, multipliers, expiry, assignments and executable costs"
+  ],
+  "data_blockers": [
+    "2016–2026 partial interrupted workspace not recovered; not included as observed evidence",
+    "London Strategic Edge feed absent without key; alternative ALPACA_PROXY is not that feed",
+    "Corporate action completeness/publication timestamps not certified",
+    "No real broker fills, queue depth, market impact, latency or invoices"
+  ],
+  "definition_clock_source": "clock.curr_time; revision before any new family reservation or historical fit",
+  "executor_wall_clock_at_revision": "2026-11-01T23:23:04.078328+00:00",
+  "clock_limitation": "Definition uses authoritative clock.curr_time; executor UTC revision timestamp independently retained. Local filesystem display timezone is not UTC clock skew. Neither is a third-party preregistration attestation."
+}

@@ -1,0 +1,108 @@
+{
+  "version": "30.0.2",
+  "verifiedAt": "2026-10-18T03:34:06.445549+00:00",
+  "newTests": {
+    "passed": 65,
+    "failed": 0,
+    "broker": "SIMULATED"
+  },
+  "browser": {
+    "source": "SYNTHETIC_LOCAL_BROWSER_FIXTURE",
+    "checks": 19,
+    "passed": 19,
+    "coverage": [
+      "PAPER source",
+      "four books",
+      "position",
+      "pause entries",
+      "catalog",
+      "unconnected selectors disabled",
+      "filter",
+      "save plugins",
+      "resume entries",
+      "all tabs",
+      "pause research",
+      "queue JSON",
+      "resume research",
+      "invalid research error",
+      "mobile width",
+      "flatten fills",
+      "export closed fills",
+      "offline state gate",
+      "no JS errors"
+    ],
+    "consoleErrors": [],
+    "viewports": [
+      1440,
+      420
+    ],
+    "externalOrders": 0
+  },
+  "staticAudit": {
+    "files": 35,
+    "functionBodies": 1180,
+    "unexplainedEmptyBodies": 0,
+    "unresolvedStubMarkers": 0,
+    "testOrDemoImports": 0
+  },
+  "openIntegrationGaps": [
+    {
+      "plugin": "equity-strategy-14",
+      "status": "BLOCKED",
+      "reason": "The ridge evaluator exists, but XXX does not connect selector training/model installation. This variant cannot currently trade end to end."
+    },
+    {
+      "plugin": "etf-strategy-14",
+      "status": "BLOCKED",
+      "reason": "The ridge evaluator exists, but XXX does not connect selector training/model installation. This variant cannot currently trade end to end."
+    }
+  ],
+  "typecheck": "PASS: strict, noUnusedLocals, noUnusedParameters",
+  "syntax": {
+    "nodeFiles": 14,
+    "pythonFiles": 2
+  },
+  "regression": [
+    {
+      "suite": "test:agents",
+      "returncode": 0
+    },
+    {
+      "suite": "test:profit",
+      "returncode": 0
+    },
+    {
+      "suite": "test:warroom",
+      "returncode": 0
+    },
+    {
+      "suite": "test:options",
+      "returncode": 0
+    },
+    {
+      "suite": "test:autonomy",
+      "returncode": 0
+    },
+    {
+      "suite": "test:optimizer",
+      "returncode": 0
+    },
+    {
+      "suite": "test:auth",
+      "returncode": 0
+    },
+    {
+      "suite": "test:service",
+      "returncode": 0
+    }
+  ],
+  "legacyCore": "PASS: npm test",
+  "externalBrokerOrders": 0,
+  "deployed": false,
+  "published": false,
+  "allFunctionsEndToEndCertified": false,
+  "profitabilityEstablished": false,
+  "acceptanceStatus": "NON_CONFORMING_KNOWN_INTEGRATION_GAPS",
+  "auditExitCode": 2,
+  "legacyRegressionEvidenceRetainedFrom": "30.0.1"
+}

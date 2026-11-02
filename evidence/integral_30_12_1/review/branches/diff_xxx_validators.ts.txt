@@ -1,0 +1,40 @@
+--- 30.12/xxx/validators.ts
++++ 31.4/xxx/validators.ts
+@@ -56,5 +56,4 @@
+   "protection-retry",
+   "sell-reservation",
+-  "partial-entry-risk",
+ ];
+ export class Validators {
+@@ -407,5 +406,4 @@
+       for (const retry of Object.values(c.orderRetry)) assertRetryState(retry);
+     }
+-    if (c.partialEntryRisk) assertPartialEntryRisk(c, s.intents);
+   }
+   return s;
+@@ -529,25 +527,4 @@
+   return r;
+ }
+-
+-export function assertPartialEntryRisk(c: Campaign, intents: Intent[]) {
+-  const r = c.partialEntryRisk;
+-  demand(r && r.source === "BROKER_RECONCILIATION" &&
+-    typeof r.entryId === "string" && intents.some((i) => i.id === r.entryId && i.campaign === c.id && i.kind === "entry") &&
+-    [r.firstObservedAt, r.lastObservedAt, r.deadlineAt].every(positive) &&
+-    r.lastObservedAt >= r.firstObservedAt && r.deadlineAt > r.firstObservedAt &&
+-    [r.heldQty, r.coveredQty].every((n) => Number.isFinite(n) && n >= 0) &&
+-    r.coveredQty <= r.heldQty + c.instrument.step * 1e-6 &&
+-    (r.cancelRequestedAt === null || positive(r.cancelRequestedAt)) &&
+-    ["WAIT_CANCEL", "WAIT_PROTECTION", "UNVERIFIED", "RESOLVED"].includes(r.status) &&
+-    typeof r.overdue === "boolean" &&
+-    (r.overdueAt === undefined || (positive(r.overdueAt) && r.overdueAt >= r.deadlineAt)),
+-    "partial-entry-risk", "invalid durable observation or entry identity");
+-  demand(r!.status === "RESOLVED"
+-    ? positive(r!.resolvedAt) && r!.resolvedAt! >= r!.firstObservedAt && !r!.overdue &&
+-      ["CONFIRMED_FLAT", "CONFIRMED_PROTECTION"].includes(r!.resolution || "")
+-    : r!.resolvedAt === undefined && r!.resolution === undefined,
+-    "partial-entry-risk", "invalid resolution evidence");
+-  return r!;
+-}
+ /** Count OCO siblings once, while reserving unresolved and cancel-pending quantities. */
+ export function assertSellReservation(c: Campaign, intents: Intent[], held: number, requested: number) {

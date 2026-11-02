@@ -1,0 +1,526 @@
+protocolo: HARPOONX_OBJETIVO_7_CARTERA_COMPUESTA
+version_integral: 30.14.0
+fecha_cliente: '2026-11-01T10:44:25.193018-06:00'
+objetivo:
+  nivel_solicitado: 7
+  unidad: Patrimonio conjunto de una sola cuenta con capitalizacion continua
+  exigencia_de_beneficio_por_activo: false
+  nivel_7_acreditado: false
+  nota_de_rentabilidad_real: null
+  causa_nota_null: No existe una curva economica observada y conciliada que permita calificar rentabilidad real.
+  escala_heredada: El gate existente usa hitos ordinales3/4/5; no se modifico para fabricar una promocion6/7.
+  ultimo_hito_heredado: 3
+  hito_heredado_es_nota_real: false
+tabla_de_datos_frecuencias_latencia_y_accesos:
+  mediciones_reales:
+  - variable: frecuencia_eventos_recibidos
+    unidad: eventos_por_segundo
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: intervalo_entre_eventos
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: frecuencia_decisiones
+    unidad: decisiones_por_segundo
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: antiguedad_dato_al_decidir
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: latencia_calculo_senal
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: latencia_envio_confirmacion
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: tiempo_hasta_ejecucion
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: latencia_cancelacion_confirmada
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: desfase_entre_relojes
+    unidad: ms
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: persistencia_de_senal
+    unidad: segundos
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: spread_real
+    unidad: puntos_base
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: profundidad_ejecutable
+    unidad: unidades_y_USD
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: porcentaje_ejecutado_real
+    unidad: proporcion
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  - variable: coste_total_real_por_operacion
+    unidad: USD_y_puntos_base
+    valor_observado: null
+    p50: null
+    p95: null
+    p99: null
+    fuente: null
+    limitacion: No se dispone de telemetria original de una cuenta identificada para este periodo.
+  datos_del_modelo:
+    resolucion_barras_ms: 300000
+    disponibilidad_barra_asumida_ms: 3000
+    spread_completo_asumido_bps: 2
+    slippage_asumido_por_lado_bps: 2
+    comision_modelada_por_lado_usd: 0
+    parametros_modificados: false
+    comisiones_reales_verificadas: null
+  accesos:
+    schema: HARPOON_RESOURCE_ACCESS_20261101
+    recorded_at: '2026-11-01T10:44:25.193018-06:00'
+    repository:
+      identifier: masivarecords-ship-it/HerpoonX
+      identity_verified: true
+      default_branch: main
+      contents_request: package.json at main
+      observed_status: 404
+      observed_message: This repository is empty.
+      permissions:
+        pull: true
+        push: false
+      source: Connected GitHub get_repo and fetch_file responses in this task
+    render:
+      selected_workspace: null
+      observed_error_code: INVALID_ARGUMENT
+      available_workspace:
+        id: tea-db77rsqvcj2c73cibvj0
+        name: A's workspace
+      service_inventory_checked_this_task: false
+      selected_workspace_changed: false
+      reason: Render access guidance and tool response require the user to identify the intended workspace before
+        service access.
+    account:
+      identified_account_id: null
+      reconciled_account_exports: null
+      original_market_receipts: null
+    market_data:
+      provider_response_received: true
+      symbols:
+      - SPY
+      - XLK
+      regular_bars: 1560
+      period:
+      - '2026-10-19'
+      - '2026-10-30'
+      first_probe_timeout: true
+      later_requests_succeeded: true
+      is_account_evidence: false
+  evidencia: evidence/portfolio_30_14_0/access_assessment.json
+reproduccion_de_referencia_y_discrepancias:
+  clasificacion: HECHO
+  periodo:
+  - '2025-03-11'
+  - '2026-07-13'
+  control_30_13_1_reproducido_exacto: true
+  referencia_preservada: evidence/portfolio_validity_30_13_1/comparison/candidate/result.json
+  ensayo_actual: evidence/portfolio_30_14_0/result.json
+  reproduccion_actual: &id001
+    schema: HARPOON_PORTFOLIO_RESULT_REPRODUCTION_1
+    verified: true
+    trial_id: HARPOON_PORTFOLIO_CAUSAL_RESERVATIONS_20261101_01
+    representation: EXACT_PERSISTED_JSON_UTF8_BYTES
+    result_sha256: 600a76b5aacd9229daa1df09eb6b8d1b5cc27c7577b7d8e88b932e26a569107f
+    registration_bindings_and_journal_verified: true
+    new_financial_variants: 0
+    outputs_rewritten: false
+    original_runner_and_result_unchanged: true
+    legacy_verify_limitation: In-memory target:undefined is omitted during JSON persistence; legacy deepStrictEqual
+      did not normalize that representation.
+    financial_acceptance_allowed: false
+    target_seven_accredited: false
+  diferencia_numerica_bruta_usd: -3.410605131648481e-13
+  diferencia_a_precision_monetaria_usd: 0.0
+  tolerancia_de_reconciliacion_usd: 1.0e-08
+  maxima_diferencia_curva_usd: 3.637978807091713e-12
+  campanas_identicas: true
+  cambio_de_selecciones_de_folds: false
+reconciliacion_del_patrimonio:
+  clasificacion: ESTIMACION
+  metodo: Una cuenta financiada, cantidades enteras y marcas causales; sin reinicios entre336sesiones.
+  capital_inicial_usd: 20000
+  patrimonio_final_modelado_usd: 20091.28
+  pnl_trading_tras_costes_modelados_usd: 91.27999999999884
+  rentabilidad_compuesta_pct: 0.45640000000000125
+  pnl_economico_completo_usd: null
+  gastos_operativos_externos_usd: null
+  causa_null: No se aportaron gastos reales y ledger del periodo.
+  impuestos_calculados: false
+  rentabilidad_despues_impuestos: null
+  reinicios_capital: 0
+  error_continuidad_usd: 0
+  campanas_abiertas_al_final_modelado: 0
+  limites:
+    capitalUsd: 20000
+    riskFraction: 0.0025
+    openRiskFraction: 0.015
+    grossFraction: 0.5
+    assetFraction: 0.12
+    dailyLoss: 0.02
+    maxDrawdown: 0.08
+  holding_maximo_modelado_horas: 71.91666666666667
+  posiciones_marcadas: Cierre observable, comision de entrada y una reserva de comision de salida mientras siga
+    abierta; no se afirma valoracion de broker.
+  fuente: evidence/portfolio_30_14_0/result.json#candidate.result.curve
+atribucion_del_resultado:
+  periodo:
+  - '2025-03-11'
+  - '2026-07-13'
+  por_activo_usd:
+    SPY: -35.33000000000072
+    XLK: 126.6099999999999
+  por_ventana_90_min:
+    entry:
+      FIRST_90_MIN:
+        campaigns: 21
+        whole_campaign_pnl_usd: 59.819999999999055
+      MIDDLE_SESSION:
+        campaigns: 12
+        whole_campaign_pnl_usd: 31.46000000000012
+      LAST_90_MIN:
+        campaigns: 0
+        whole_campaign_pnl_usd: 0.0
+    exit:
+      FIRST_90_MIN:
+        campaigns: 9
+        whole_campaign_pnl_usd: -11.23000000000033
+      MIDDLE_SESSION:
+        campaigns: 7
+        whole_campaign_pnl_usd: -54.35000000000008
+      LAST_90_MIN:
+        campaigns: 17
+        whole_campaign_pnl_usd: 156.8599999999996
+  interpretacion_ventanas: PnL completo de campanas agrupadas por hora de entrada o salida; son particiones alternativas,
+    no PnL ganado dentro de90min.
+  despues_del_cierre_90_min: No evaluado; sesiones regulares.
+  mejor_campana_usd: 107.3699999999998
+  resto_de_campanas_usd: -16.09000000000063
+  sesiones_con_pnl_distinto_cero: 44
+  decisiones_con_otras_ordenes_pendientes: 4
+  mejora_economica_incremental_demostrada: false
+  fuente: evidence/portfolio_30_14_0/attribution_summary.json
+hipotesis_y_condiciones_de_refutacion:
+  naturaleza: Reparacion de validez, no busqueda de una nueva senal ganadora.
+  hipotesis: La admision, el patrimonio y las reservas de una cartera dependen solo de informacion disponible al
+    decidir.
+  refutaciones:
+  - Alterar un sufijo futuro cambia una senal anterior.
+  - Dos entradas reutilizan capacidad de riesgo o exposicion.
+  - Un fill incierto o una posicion abierta desaparece del resultado.
+  - El tamanio se calcula con patrimonio que omite una perdida ya valorable.
+  registro_previo:
+    trial_id: HARPOON_PORTFOLIO_CAUSAL_RESERVATIONS_20261101_01
+    sha256: 7e726e371a5cdc8885823f66f8ae0c1e039cb50bf331f3bf73f041a6d730e476
+    registro_antes_del_ensayo: true
+    variante_nueva: 1
+    continuaciones_conocidas_incluida_la_anterior: 2
+    entrenamientos: 0
+    busqueda_de_parametros: 0
+    contadores_heredados_reiniciados: false
+    total_global_deduplicado: null
+    razon_total_null: Legacy studies use different units and overlapping histories; preserve every prior journal
+      without inventing a combined budget.
+    registro_externo_independiente: false
+  criterios_financieros_conservados: true
+cambios_implementados:
+- id: CAUSAL_SIGNAL_PREFIX
+  estado: IMPLEMENTADO_Y_PROBADO
+  funciones:
+  - opportunities
+  - planSignalEntryAt
+  - replayCampaign
+  archivo: xxx/ultimate_replay.ts
+  mecanismo: El prefijo conocido decide la senal; la disponibilidad de barras posteriores ya no la borra. Entrada
+    en timestamp exacto.
+  incidente: UnobservedEntryError o UnresolvedHoldingExposureError conserva datos e impide un PnL certificado.
+  prueba: tools/ultimate_signal_causality_test.cjs
+- id: SHARED_PENDING_RESERVATIONS
+  estado: IMPLEMENTADO_Y_PROBADO
+  funciones:
+  - reserveFundedEntry
+  - snapshotFundedReservations
+  - recordFundedReservationObservation
+  - replayFundedPortfolio
+  archivos:
+  - xxx/ultimate_reservations.ts
+  - xxx/ultimate_replay.ts
+  mecanismo: Reserva riesgo, nominal, efectivo y simbolo desde la decision; mantiene reservas hasta cierre conocido.
+    Capital unico para activos y motores.
+  contraprueba_sintetica:
+    capital: 20000
+    limite_exposicion_usd: 10000
+    anterior_siete_entradas_a100_sin_friccion: 16800
+    cantidades_aceptadas_corregidas:
+    - 24
+    - 24
+    - 24
+    - 24
+    - 4
+    exposicion_corregida_usd: 10000
+    fuente: tools/ultimate_funded_reservations_test.cjs; fixture sintetico, no historico ni beneficio observado
+  pruebas:
+  - tools/ultimate_reservations_test.cjs
+  - tools/ultimate_funded_reservations_test.cjs
+- id: FIRST_FILL_CAUSAL_EQUITY
+  estado: IMPLEMENTADO_Y_PROBADO
+  funcion: replayFundedPortfolio::pnlAt
+  mecanismo: Antes de la primera marca posterior a un fill, valora la posicion con el cierre disponible; incluye
+    costes de forma coherente con marcas posteriores.
+  contraprueba_sintetica:
+    primer_activo_cantidad: 24
+    precio_fill: 100
+    cierre_disponible: 99
+    patrimonio_anterior_usd: 20000
+    patrimonio_corregido_usd: 19976
+    cantidad_segundo_activo_anterior: 24
+    cantidad_corregida: 23
+  prueba: tools/ultimate_funded_reservations_test.cjs
+- id: INTEGRITY_AND_VERSION
+  estado: IMPLEMENTADO_Y_PROBADO
+  mecanismo: Dependencia de reservas incluida en codeHash; registro y resultado encadenados; version de API y paquete
+    alineadas en30.14.0.
+  informe_antiguo_reseallado: false
+  pruebas:
+  - tools/portfolio_validity_journal_test.cjs
+  - tools/portfolio_validity_reproduction_test.cjs
+resultados_de_todas_las_variantes:
+- candidato: control_30.13.1
+  naturaleza_de_datos_y_ejecucion: HISTORICO_PREPARADO_REUTILIZADO_EJECUCION_MODELADA
+  periodo:
+  - '2025-03-11'
+  - '2026-07-13'
+  capital_inicial_usd: 20000
+  patrimonio_final_modelado_usd: 20091.28
+  pnl_trading_tras_costes_modelados_usd: 91.27999999999918
+  pnl_economico_completo_usd: null
+  costes_operativos_externos_usd: null
+  retorno_compuesto_pct: 0.45640000000000125
+  drawdown_pct: 0.687187489762886
+  numero_campanas: 33
+  numero_sesiones: 336
+  porcentaje_ejecutado_real: null
+  dictamen: VENTAJA_NO_DEMOSTRADA
+- candidato: candidato_30.14.0
+  naturaleza_de_datos_y_ejecucion: HISTORICO_PREPARADO_REUTILIZADO_EJECUCION_MODELADA
+  periodo:
+  - '2025-03-11'
+  - '2026-07-13'
+  capital_inicial_usd: 20000
+  patrimonio_final_modelado_usd: 20091.28
+  pnl_trading_tras_costes_modelados_usd: 91.27999999999884
+  pnl_economico_completo_usd: null
+  costes_operativos_externos_usd: null
+  retorno_compuesto_pct: 0.45640000000000125
+  drawdown_pct: 0.6871874897629304
+  numero_campanas: 33
+  numero_sesiones: 336
+  porcentaje_ejecutado_real: null
+  dictamen: VENTAJA_NO_DEMOSTRADA
+resultados_fuera_de_muestra_y_estres:
+  nuevo_ensayo_independiente: false
+  historia_previamente_observada:
+    oos:
+    - '2025-03-11'
+    - '2026-07-13'
+    holdout_ya_utilizado:
+    - '2026-07-21'
+    - '2026-10-16'
+  nuevo_tramo:
+    periodo:
+    - '2026-10-19'
+    - '2026-10-30'
+    barras_regulares: 1560
+    sesiones: 10
+    huecos_regulares: 0
+    origen: Capturas historicas de Alpaca incluidas, no recepciones originales prospectivas.
+    comparacion_financiera_ejecutada: false
+    bloqueo: COMPLETE_EXDATE_ACTION_MANIFEST_REQUIRED
+    cobertura_acciones_corporativas_por_exdate: null
+    razon: La respuesta filtra por process_date y no prueba cobertura completa por fecha efectiva. No se invento
+      una lista vacia.
+    fuente: evidence/portfolio_30_14_0/new_market_data/import_assessment.json
+  nuevo_estres_financiero: false
+  estres_de_software: Reservas simultaneas, parciales, huecos, disponibilidad tardia y precios de ejecucion fuera
+    del presupuesto.
+  comparacion_actual_con_Ridge_ejecutada: false
+  razon_Ridge: Faltan panel causal observado, modelos vinculados y datos de cuenta/costes necesarios por el comparador
+    existente.
+incertidumbre_y_limitaciones:
+  bootstrap_descriptivo:
+    descriptive_log_growth_lower: -6.43075062324828e-05
+    method: LEGACY_CIRCULAR_BLOCK_BOOTSTRAP
+    sessions: 336
+    runs: 2000
+    block_sessions: 5
+    legacy_family_parameter: 72
+    global_multiple_testing_correction_verified: false
+    independent_holdout: false
+    financial_acceptance_allowed: false
+  limite_inferior_descriptivo_es_positivo: false
+  costes_externos_maximos_aritmeticos_antes_de_agotar_pnl_usd: 91.27999999999884
+  coste_por_sesion_equivalente_usd: 0.2716666666666632
+  interpretacion_coste: Sensibilidad aritmetica condicionada a operaciones fijas; no reejecuta el efecto temporal
+    de los gastos en el capital.
+  raw_originales_anteriores_disponibles: 0
+  raw_originales_anteriores_referenciados: 149
+  fuente_anterior: Dataset preparado reproducido y hasheado; no se autentico otra vez la cadena original completa.
+  universo_modelado:
+  - SPY
+  - XLK
+  resto_de_acciones_y_ETF_no_validados: true
+  notas:
+  - Las33campanas son identicas al control; los fallos corregidos no cambiaron este resultado concreto.
+  - Una campana supera el beneficio neto total; el resto combinado pierde16.09USD.
+  - El bootstrap reutiliza historia y una familia heredada no conciliada globalmente; no autoriza promocion.
+  - No hay evidencia nueva de rentabilidad LIVE, PAPER de cuenta o impuestos.
+  - Las revisiones de agentes comparten contexto y parte de la implementacion; no son validacion externa independiente.
+validacion_de_software:
+  schema: HARPOON_30_14_0_VALIDATION_1
+  generated_at: '2026-11-01T10:44:25.193018-06:00'
+  typescript_full_build:
+    status: PASS
+    command: node node_modules/typescript/bin/tsc -p tsconfig.xxx.json
+    log: qa/typescript.log
+  scoped_core_tests:
+    passed: 88
+    failed: 0
+    log: qa/core_tests_final.log
+  persisted_json_verifier_tests:
+    passed: 4
+    failed: 0
+    log: qa/reproduction_tests.log
+  market_import_tests:
+    passed: 8
+    failed: 0
+    log: new_market_data/test_results.log
+  total_software_cases_passed: 100
+  financial_validation_from_software_tests: false
+  excluded_environment_case:
+    test: Ultimate HTTP requires authentication and explicit JSON action, including export
+    reason: listen EPERM at127.0.0.1 in the sandbox
+    initial_attempt_log: qa/core_tests.log
+    scoped_run: --test-skip-pattern=Ultimate HTTP
+    status: NOT_VERIFIED_IN_THIS_ENVIRONMENT
+  production_module_import:
+    status: PASS
+    source: Included existing holding-deadline regression imports runtime30/server.js
+  isolated_production_npm_install:
+    status: NOT_RUN_THIS_TASK
+  financial_reproduction: *id001
+  legacy_verification_issue:
+    status: REMEDIATED_IN_SEPARATE_VERIFIER
+    sealed_runner_edited_after_trial: false
+    detail: The original CLI verify compared in-memory undefined optional targets with JSON omission. The new verifier
+      checks exact persisted UTF8 bytes, all registered implementation hashes and the journal; numeric/null differences
+      remain errors.
+dictamen:
+  resultado: VENTAJA_NO_DEMOSTRADA
+  objetivo_7_cumplido: false
+  mejora_economica_demostrada: false
+  remediacion_tecnica_aceptada_en_alcance_probado: true
+  evidencia_a_favor:
+  - Patrimonio modelado positivo y continuo.
+  - Control y resultado corregido reproducidos.
+  - Reservas y generacion causal cubiertas por pruebas adversarias.
+  evidencia_en_contra:
+  - Ninguna mejora monetaria frente al control.
+  - Limite inferior descriptivo negativo.
+  - Concentracion en una sola campana.
+  - Costes y cuenta reales sin verificar.
+  condicion_decisiva: No supera el gate financiero existente; el resultado tecnico no acredita un7 de rentabilidad.
+  datos_o_pruebas_faltantes:
+  - Cuenta y servicio identificados.
+  - Observaciones originales y ledger continuo conciliado con costes.
+  - Comparacion neta con Ridge sobre datos admisibles.
+  - Periodo posterior no utilizado con evidencia suficiente.
+  - Cobertura de eventos corporativos por fecha efectiva.
+siguiente_recurso_concreto:
+  workspace_disponible: A's workspace
+  workspace_id: tea-db77rsqvcj2c73cibvj0
+  requiere_identificacion_del_usuario: true
+  origen_del_requisito: Render get_selected_workspace y skill render-monitor/references/render-access.md.
+  accion_tras_identificar: Lectura de servicios para localizar HarpoonX; usar tools/collect_runtime_evidence.cjs
+    con instancia/cuenta verificadas y despues los comparadores existentes.
+  despliegue_autorizado_por_esta_entrega: false
+  ordenes_externas_enviadas: 0
+  alternativa: Exportacion original de observaciones y ledger de la misma cuenta/periodo, con version y gastos aplicables.
+artefactos:
+  integral: HARPOON_XXXUltimate_30_14_0_Integral.zip
+  directorio_evidencia: evidence/portfolio_30_14_0
+  diff: evidence/portfolio_30_14_0/integral_changes.diff
+  registro: evidence/portfolio_30_14_0/registration.json
+  diario: evidence/portfolio_30_14_0/journal.jsonl
+  curva_y_campanas: evidence/portfolio_30_14_0/result.json
+  comando_reproduccion: node tools/verify_portfolio_validity_study.cjs
+  manifiesto: MANIFEST.sha256
+fuentes_primarias_publicas:
+- https://docs.alpaca.markets/us/reference/stockbars
+- https://docs.alpaca.markets/us/reference/corporateactions-1
+- https://docs.alpaca.markets/us/v1.4.2/docs/paper-trading

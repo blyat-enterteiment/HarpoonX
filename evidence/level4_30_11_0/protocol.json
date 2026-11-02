@@ -1,0 +1,31 @@
+{
+  "schema": "HARPOON_LEVEL4_WORK_PROTOCOL_1",
+  "baseline": {"application": "30.10.1", "quant": "1.6.0", "economic_readiness_score": 3},
+  "target_application": "30.11.0",
+  "target_quant": "1.7.0",
+  "target_score": 4,
+  "score_nature": "Ordinal preparation milestone, not probability of profit or capital loss",
+  "criterion_frozen_from_previous_delivery": "Datos observados causales utilizables, costes y patrimonio conciliados, comparación reproducible y pareada del motor, Ridge y control.",
+  "required_together": [
+    "Nonempty usable observed data with decision-time availability and source lineage",
+    "Continuous account NAV, cash, positions and external-flow reconciliation",
+    "Observed economic cost coverage; unknown expenses cannot be converted to zero",
+    "C0 native, Ridge and SVR compared over the same funded interval, market input, account constraints, costs and coordinator exits",
+    "Numeric predictor and receipt reproductions bound to model, source, configuration and wealth-path hashes",
+    "No unvalidated local software result substituted for external observation"
+  ],
+  "does_not_require_positive_profit_at_level4": true,
+  "profitability_verdict_remains_separate": true,
+  "permitted_actions": ["Local implementation and validation", "Read-only market data and authorized resource discovery", "Synthetic engineering tests", "Preserve and update authorized deliverables"],
+  "external_orders": false,
+  "deployment": false,
+  "paper_to_live": false,
+  "increase_exposure_or_budget": false,
+  "new_financial_searches_authorized_by_this_work_protocol": 0,
+  "historical_trial_counters_preserved": true,
+  "regression_reference": {"node": 396, "python": 347, "total": 743},
+  "historical_quote_probe_selection": "Final session of the previously retained January-September archive, at its existing 10:50 and15:20 diagnostic grids; no PnL used to choose it",
+  "historical_quote_probe_is_prospective_evidence": false,
+  "stop_rule": "After the scoped engineering gaps are fixed and relevant tests pass, run readiness on available evidence. Report exact unresolved resource requirements. Do not widen strategy search or change the score criterion to manufacture level4.",
+  "independence": "Internal review in shared workspace, not blind external validation"
+}
