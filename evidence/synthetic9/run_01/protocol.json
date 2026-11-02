@@ -1,0 +1,67 @@
+{
+  "adverse_exit_gap_fraction": 0.005,
+  "budget": "96 market windows, 288 CORE decisions, 36 market/stress/seed combinations, 108 continuous strategy accounts; no rerun to choose favorable seeds",
+  "cadence_days": 7,
+  "calendar": "SYNTHETIC_FIXED_UTC_EQUITY_WEEKDAYS_14_TO_21_NO_HOLIDAYS_OR_DST; CRYPTO_CONTINUOUS_EXCEPT_INJECTED_OUTAGES",
+  "calibration": "160 synthetic fills per calibration seed, all before evaluation; separate asset/side q50/q95 adverse residual slippage and empirical holdout diagnostics; not observed broker calibration",
+  "calibration_seeds": [
+    1901,
+    1907
+  ],
+  "candidate": "Existing frozen frontier shadow engine, default Settings except synthetic-only calibrated slippage assumptions; at most one new lot per asset; no parameter search",
+  "cost_scenarios": [
+    "NOMINAL",
+    "DOUBLE_COST",
+    "DOUBLE_COST_GAP"
+  ],
+  "double_cost_multiplier": 2,
+  "engineering_failure_policy": "Preserve failed run incident and register corrections; no silent success relabeling or tuning after financial results",
+  "episode_hours": 72,
+  "evaluation_weeks": 8,
+  "execution": "Synthetic marketable limits for purchases, market sells, explicit ACK/reject/partial/cancel/late reports; native units; one fixed fee per filled order; no sales-funded speculative buys",
+  "execution_allowed": false,
+  "external_review_completed": false,
+  "features": "Two causal context values per asset: previous 72h log return and volatility of previous eight completed windows; no hidden regime or current future path passed to core",
+  "first_warmup_start_utc": "2024-01-01T14:00:00+00:00",
+  "forward_seeds": [
+    4103,
+    4177,
+    4211,
+    4271
+  ],
+  "hypothesis": "A synthetic prequential bank can test linked fills, cash/inventory reconciliation, cost calibration, temporal isolation, stress and independent arithmetic replay. It cannot supply real fills, real prospective returns or external review.",
+  "initial_capital_usd": 20000,
+  "level9_accredited": false,
+  "native_lot_quantities": [
+    1,
+    1,
+    0.02,
+    0.2
+  ],
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "outside_episode": "NO_NEW_ENTRIES; positions expected to close; unresolved inventory is carried and reported, never silently liquidated; weekly overhead includes all seven elapsed days",
+  "overhead_usd_per_day": 1,
+  "real_fills_present": false,
+  "real_prospective_validation": false,
+  "refit": "Only completed earlier windows; maximum 40 original cases; labels received strictly before current fit; query at fixed weekly boundary",
+  "review": "Hash-verified packet and separate Decimal event replay implementation from the same author; external reviewer status remains NOT_REVIEWED",
+  "schema": "HARPOON_SYNTHETIC9_PROTOCOL_1",
+  "statistics": "Net account wealth, cash and open inventory, log growth, drawdown, fees, shortfall, fill ratios, deadline failures. Paired CORE-CASH terminal log differences across four independent seeds, descriptive mean/range only; no inference from four seeds or multiplicity correction claim",
+  "strategies": [
+    "CORE",
+    "CASH",
+    "FIXED_SAME_LOT_CAP"
+  ],
+  "symbols": [
+    "AAPL",
+    "MSFT",
+    "BTC/USD",
+    "ETH/USD"
+  ],
+  "warmup_weeks": 32,
+  "worlds": [
+    "NULL",
+    "TREND_BREAK",
+    "LIQUIDITY_SHOCK"
+  ]
+}

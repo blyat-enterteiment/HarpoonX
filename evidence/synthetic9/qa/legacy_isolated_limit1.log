@@ -1,0 +1,14 @@
+E
+======================================================================
+ERROR: test_real_reexecuted_synthetic_pipeline_has_four_policies_and_stress_but_no_approval (test_economic_gate_v2.EconomicV2IntegrationTests.test_real_reexecuted_synthetic_pipeline_has_four_policies_and_stress_but_no_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/91fc1f9d2ee8/harpoon-work/quant/tests/test_economic_gate_v2.py", line 154, in setUp
+    start, end = b["period"]["start_at"], b["period"]["end_at"]
+                 ~^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+----------------------------------------------------------------------
+Ran 1 test in 44.350s
+
+FAILED (errors=1)

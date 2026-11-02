@@ -1,0 +1,112 @@
+{
+  "archived_frontier_preservation": {
+    "both_exact_receipts_reproduced": true,
+    "report": "frontier_preserved.json",
+    "verified": true
+  },
+  "deadline_findings": {
+    "core": 16,
+    "fixed_control": 57,
+    "not_a_deadline_safety_certification": true,
+    "over_72h_accounts_in_registered_matrix": 0,
+    "planned_deadline_breaches": 73,
+    "separate_unresolved_halt_fault_over_72h_retained": true
+  },
+  "economic_improvement_accredited": false,
+  "execution_allowed": false,
+  "external_review_completed": false,
+  "fault_injection_cases": 18,
+  "full_regression_on_github": {
+    "result": "PASS",
+    "run_urls": [
+      "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/41504044407",
+      "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/41504044504"
+    ],
+    "successful_runs": 2,
+    "tests": 649
+  },
+  "functional_sources_commit": "d73163c39527e534746d1a01800d8fa95040e8b7",
+  "github_summary_matches_local": {
+    "scope": "ENTIRE_SYNTHETIC9_SUMMARY_MATCHES_LOCAL_AND_GITHUB_NOT_ALL_BINARY_ARTIFACT_BYTES",
+    "tolerance": 1e-12,
+    "verified": true
+  },
+  "level9_accredited": false,
+  "limits": [
+    "Four seeds per synthetic world support descriptive comparisons only.",
+    "Quote capacities, market impact and latency are assumed, not calibrated against a real venue.",
+    "Separate Decimal implementation is from the same author, not external review.",
+    "The full local regression encountered legacy timeouts; remote full regression passed twice without weakening guards."
+  ],
+  "local_focused_suite": {
+    "result": "PASS",
+    "seconds": 2.385,
+    "tests": 38
+  },
+  "local_regression_history": {
+    "first_attempt": {
+      "failures": 1,
+      "log": "regression_attempt01.log",
+      "reason": "FIXED_PREDICTOR_TIMEOUT in pre-existing EconomicV2 integration before final added gap test",
+      "result": "FAILED",
+      "tests": 648
+    },
+    "isolated_legacy_attempts": {
+      "cause_not_determined": true,
+      "logs": [
+        "legacy_isolated_limit1.log",
+        "legacy_isolated_default.log"
+      ],
+      "result": "FAILED_SETUP"
+    },
+    "legacy_runtime_or_timeout_changed": false,
+    "not_reproduced_on_two_github_runners": true
+  },
+  "mypy": {
+    "options": [
+      "--follow-imports=silent",
+      "--ignore-missing-imports"
+    ],
+    "result": "PASS",
+    "source_files": 12,
+    "version": "2.4.1"
+  },
+  "numpy": "2.3.5",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "protocol_commit": "2f34992e75e862cfe6e745d5bf50e1121588a283",
+  "python": "3.12.14",
+  "real_fills_present": false,
+  "real_prospective_validation": false,
+  "registered_workload": {
+    "accounts": 108,
+    "core_decisions_including_stress_repeats": 288,
+    "original_sources_or_parameters_tuned_after_measurement": false,
+    "simulated_portfolio_fills": 2978,
+    "synthetic_calibration_fills": 320,
+    "unique_forward_market_windows": 96,
+    "wall_seconds": 167.13468823099902
+  },
+  "ruff": {
+    "result": "PASS",
+    "scope": "NEW_SOURCES_TOOLS_AND_TESTS",
+    "version": "0.17.3"
+  },
+  "schema": "HARPOON_SYNTHETIC9_QA_1",
+  "separate_packet_verification": {
+    "accounts_checked": 108,
+    "artifact_hashes_verified": true,
+    "core_models_rebuilt_and_clock_bound": 288,
+    "execution_allowed": false,
+    "external_review_completed": false,
+    "fills_checked": 2978,
+    "independent_decimal_implementation": true,
+    "level9_accredited": false,
+    "marks_checked": 36396,
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "real_fills_present": false,
+    "real_prospective_validation": false,
+    "same_author_not_external_review": true,
+    "source_hashes_verified": true,
+    "verified": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "deadline_failures_are_retained": 73,
+  "engineering": {
+    "accounts_separately_reconciled": 108,
+    "fault_cases": 18,
+    "no_capital_resets": true,
+    "temporal_core_receipts_checked": 288
+  },
+  "execution_allowed": false,
+  "external_review_completed": false,
+  "level9_accredited": false,
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "real_fills_present": false,
+  "real_prospective_validation": false,
+  "requirements": [
+    {
+      "id": "REAL_FILLS",
+      "status": "MISSING_REAL_EVIDENCE",
+      "synthetic_work": "Linked decisions, BBO, ACK, fills, explicit fees, reserves, shortfall and isolated synthetic calibration"
+    },
+    {
+      "id": "PROSPECTIVE_ECONOMICS",
+      "status": "MISSING_REAL_PROSPECTIVE_EVIDENCE",
+      "synthetic_work": "Registered seeds, purged refits, sequential synthetic accounts, net compounding and common costs"
+    },
+    {
+      "id": "EXTERNAL_REVIEW",
+      "status": "NOT_REVIEWED_BY_EXTERNAL_PARTY",
+      "synthetic_work": "Portable hash manifest, independent Decimal replay, fault matrix and review instructions"
+    }
+  ]
+}

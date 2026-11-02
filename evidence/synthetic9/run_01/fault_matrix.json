@@ -1,0 +1,137 @@
+{
+  "all_expected_behaviors": true,
+  "cases": [
+    {
+      "case": "FULL_FILL",
+      "deadline_breach_count": 0,
+      "fill_count": 1,
+      "remaining_qty": 2.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "PARTIAL_CANCEL",
+      "deadline_breach_count": 0,
+      "fill_count": 1,
+      "remaining_qty": 1.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "CANCEL_LATE_FILL",
+      "deadline_breach_count": 0,
+      "fill_count": 2,
+      "remaining_qty": 2.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "REJECT",
+      "deadline_breach_count": 0,
+      "fill_count": 0,
+      "remaining_qty": 0.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "HALT_NO_FILL",
+      "deadline_breach_count": 0,
+      "fill_count": 0,
+      "remaining_qty": 0.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "NONMARKETABLE_LIMIT_NO_FILL",
+      "deadline_breach_count": 0,
+      "fill_count": 0,
+      "remaining_qty": 0.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "DUPLICATE_DELIVERY",
+      "deadline_breach_count": 0,
+      "fill_count": 1,
+      "remaining_qty": 2.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "EXPLICIT_FEE_CORRECTION",
+      "deadline_breach_count": 0,
+      "fill_count": 1,
+      "remaining_qty": 2.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "DEADLINE_HALT_UNRESOLVED",
+      "deadline_breach_count": 1,
+      "fill_count": 1,
+      "remaining_qty": 2.0,
+      "result": "EXPECTED_BEHAVIOR",
+      "separate_decimal_verified": true
+    },
+    {
+      "case": "STALE_QUOTE",
+      "reason": "STALE_QUOTE",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_QUOTE_TIME"
+    },
+    {
+      "case": "FUTURE_QUOTE",
+      "reason": "FUTURE_QUOTE",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_QUOTE_TIME"
+    },
+    {
+      "case": "OVERFILL",
+      "reason": "OVERFILL",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_FILL_CUMULATIVE"
+    },
+    {
+      "case": "MISSING_ACK",
+      "reason": "FILL_BEFORE_ACK",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_FILL_ACK"
+    },
+    {
+      "case": "FILL_DURING_HALT",
+      "reason": "FILL_IN_UNAVAILABLE_MARKET",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_MARKET_LIQUIDITY"
+    },
+    {
+      "case": "LIQUIDITY_OVERCLAIM",
+      "reason": "FILL_EXCEEDS_LIQUIDITY",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_MARKET_LIQUIDITY"
+    },
+    {
+      "case": "CONFLICTING_DUPLICATE",
+      "reason": "CONFLICTING_DUPLICATE",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_DUPLICATE_CONFLICT"
+    },
+    {
+      "case": "UNCONFIRMED_SALE_FUNDING",
+      "reason": "UNCONFIRMED_SALES_NOT_FUNDING",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_UNCONFIRMED_FUNDING"
+    },
+    {
+      "case": "POST_CANCEL_FILL",
+      "reason": "POST_CANCEL_EXECUTION",
+      "result": "EXPECTED_REJECTION",
+      "separate_decimal_rejection": "AUDIT_FILL_CUMULATIVE"
+    }
+  ],
+  "external_review_completed": false,
+  "level9_accredited": false,
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "passed": 18,
+  "scope": "ENGINEERING_FAULT_COVERAGE_NOT_MARKET_AUTHENTICATION",
+  "total": 18
+}

@@ -1,5 +1,10 @@
 # Núcleo cuantitativo: trayectorias, inventario y supervisor
 
+La ampliación posterior está en el [banco sintético de ejecución](SYNTHETIC9_BANK.md),
+que reutiliza este motor sin alterar los recibos archivados. Añade contabilidad
+secuencial, fills generados y una reconstrucción Decimal separada; no convierte
+evidencia sintética en acreditación económica real.
+
 Se implementó un núcleo **ejecutable de investigación/shadow** y un
 [framework de I+D de USD 5 millones](programme/frontier/FRAMEWORK_RD_5M.md).
 No se declara nivel 9, rentabilidad positiva, aprobación externa ni gasto

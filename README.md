@@ -6,6 +6,11 @@ modelos reconstruibles y comprobaciones de ingeniería. Opera en investigación/
 el presupuesto no compromete gasto y no acredita rentabilidad ni nivel 9.
 El informe histórico siguiente se conserva con sus propios resultados y alcance.
 
+El [banco sintético de ejecución y economía secuencial](SYNTHETIC9_BANK.md)
+añade órdenes/fills enlazados, cuentas continuas, estrés y un paquete reproducible
+para revisión. Su evidencia queda identificada como sintética y mantiene
+pendientes fills reales, validación prospectiva real y revisión externa.
+
 **Core corregido. Ventaja neta no demostrada. Nivel 8 no acreditado.**
 
 Esta integral conserva la aplicación, código, datos originales, estudios anteriores, modelos diagnósticos, pruebas y nuevas evidencias. No se ha desplegado ni conectado a un broker.

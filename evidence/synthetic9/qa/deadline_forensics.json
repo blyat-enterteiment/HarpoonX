@@ -1,0 +1,682 @@
+{
+  "analysis": "DESCRIPTIVE_POST_RUN_NO_POLICY_TUNING",
+  "by_strategy": {
+    "CASH": {
+      "count": 0,
+      "maximum_last_sell_delay_seconds": 0
+    },
+    "CORE": {
+      "count": 16,
+      "maximum_last_sell_delay_seconds": 3601.677
+    },
+    "FIXED_SAME_LOT_CAP": {
+      "count": 57,
+      "maximum_last_sell_delay_seconds": 3601.677
+    }
+  },
+  "external_review_completed": false,
+  "hard_72h_exceeded_accounts": 0,
+  "level9_accredited": false,
+  "method": "Last recorded synthetic sell execution minus immutable entry order deadline for each breached campaign; all final inventories zero. Does not claim real fill timing.",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "rows": [
+    {
+      "campaign": "SYN9-NULL-4103-NOMINAL-FIXED_SAME_LOT_CAP-34-entry-decision-2",
+      "file": "accounts/NULL_4103_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601602,
+      "last_sell_delay_seconds": 1.902,
+      "last_sell_occurred_at": 1724853601902,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4103-NOMINAL-FIXED_SAME_LOT_CAP-36-entry-decision-3",
+      "file": "accounts/NULL_4103_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726063201354,
+      "last_sell_delay_seconds": 1.354,
+      "last_sell_occurred_at": 1726063201354,
+      "original_deadline_at": 1726063200000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4103-DOUBLE_COST-FIXED_SAME_LOT_CAP-34-entry-decision-2",
+      "file": "accounts/NULL_4103_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601602,
+      "last_sell_delay_seconds": 1.902,
+      "last_sell_occurred_at": 1724853601902,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4103-DOUBLE_COST-FIXED_SAME_LOT_CAP-36-entry-decision-3",
+      "file": "accounts/NULL_4103_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726063201354,
+      "last_sell_delay_seconds": 1.354,
+      "last_sell_occurred_at": 1726063201354,
+      "original_deadline_at": 1726063200000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4103-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-34-entry-decision-2",
+      "file": "accounts/NULL_4103_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601602,
+      "last_sell_delay_seconds": 1.902,
+      "last_sell_occurred_at": 1724853601902,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4103-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-36-entry-decision-3",
+      "file": "accounts/NULL_4103_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726063201354,
+      "last_sell_delay_seconds": 1.354,
+      "last_sell_occurred_at": 1726063201354,
+      "original_deadline_at": 1726063200000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-NOMINAL-FIXED_SAME_LOT_CAP-34-entry-decision-3",
+      "file": "accounts/NULL_4177_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601501,
+      "last_sell_delay_seconds": 1.501,
+      "last_sell_occurred_at": 1724853601501,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-NOMINAL-FIXED_SAME_LOT_CAP-37-entry-decision-2",
+      "file": "accounts/NULL_4177_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726668001109,
+      "last_sell_delay_seconds": 1.109,
+      "last_sell_occurred_at": 1726668001109,
+      "original_deadline_at": 1726668000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-NOMINAL-FIXED_SAME_LOT_CAP-38-entry-decision-3",
+      "file": "accounts/NULL_4177_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801400,
+      "last_sell_delay_seconds": 1.4,
+      "last_sell_occurred_at": 1727272801400,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-DOUBLE_COST-FIXED_SAME_LOT_CAP-34-entry-decision-3",
+      "file": "accounts/NULL_4177_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601501,
+      "last_sell_delay_seconds": 1.501,
+      "last_sell_occurred_at": 1724853601501,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-DOUBLE_COST-FIXED_SAME_LOT_CAP-37-entry-decision-2",
+      "file": "accounts/NULL_4177_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726668001109,
+      "last_sell_delay_seconds": 1.109,
+      "last_sell_occurred_at": 1726668001109,
+      "original_deadline_at": 1726668000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-DOUBLE_COST-FIXED_SAME_LOT_CAP-38-entry-decision-3",
+      "file": "accounts/NULL_4177_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801400,
+      "last_sell_delay_seconds": 1.4,
+      "last_sell_occurred_at": 1727272801400,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-34-entry-decision-3",
+      "file": "accounts/NULL_4177_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601501,
+      "last_sell_delay_seconds": 1.501,
+      "last_sell_occurred_at": 1724853601501,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-37-entry-decision-2",
+      "file": "accounts/NULL_4177_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726668001109,
+      "last_sell_delay_seconds": 1.109,
+      "last_sell_occurred_at": 1726668001109,
+      "original_deadline_at": 1726668000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4177-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-38-entry-decision-3",
+      "file": "accounts/NULL_4177_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801400,
+      "last_sell_delay_seconds": 1.4,
+      "last_sell_occurred_at": 1727272801400,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-NOMINAL-FIXED_SAME_LOT_CAP-35-entry-decision-2",
+      "file": "accounts/NULL_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401469,
+      "last_sell_delay_seconds": 1.469,
+      "last_sell_occurred_at": 1725458401469,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-NOMINAL-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/NULL_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401389,
+      "last_sell_delay_seconds": 1.389,
+      "last_sell_occurred_at": 1725458401389,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-NOMINAL-FIXED_SAME_LOT_CAP-36-entry-decision-2",
+      "file": "accounts/NULL_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726063201101,
+      "last_sell_delay_seconds": 1.101,
+      "last_sell_occurred_at": 1726063201101,
+      "original_deadline_at": 1726063200000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-NOMINAL-FIXED_SAME_LOT_CAP-37-entry-decision-1",
+      "file": "accounts/NULL_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726671601753,
+      "last_sell_delay_seconds": 1.753,
+      "last_sell_occurred_at": 1726671601753,
+      "original_deadline_at": 1726671600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-NOMINAL-FIXED_SAME_LOT_CAP-38-entry-decision-2",
+      "file": "accounts/NULL_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801289,
+      "last_sell_delay_seconds": 3601.323,
+      "last_sell_occurred_at": 1727276401323,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-35-entry-decision-2",
+      "file": "accounts/NULL_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401469,
+      "last_sell_delay_seconds": 1.469,
+      "last_sell_occurred_at": 1725458401469,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/NULL_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401389,
+      "last_sell_delay_seconds": 1.389,
+      "last_sell_occurred_at": 1725458401389,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-36-entry-decision-2",
+      "file": "accounts/NULL_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726063201101,
+      "last_sell_delay_seconds": 1.101,
+      "last_sell_occurred_at": 1726063201101,
+      "original_deadline_at": 1726063200000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-37-entry-decision-1",
+      "file": "accounts/NULL_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726671601753,
+      "last_sell_delay_seconds": 1.753,
+      "last_sell_occurred_at": 1726671601753,
+      "original_deadline_at": 1726671600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-38-entry-decision-2",
+      "file": "accounts/NULL_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801289,
+      "last_sell_delay_seconds": 3601.323,
+      "last_sell_occurred_at": 1727276401323,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-35-entry-decision-2",
+      "file": "accounts/NULL_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401469,
+      "last_sell_delay_seconds": 1.469,
+      "last_sell_occurred_at": 1725458401469,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/NULL_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401389,
+      "last_sell_delay_seconds": 1.389,
+      "last_sell_occurred_at": 1725458401389,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-36-entry-decision-2",
+      "file": "accounts/NULL_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726063201101,
+      "last_sell_delay_seconds": 1.101,
+      "last_sell_occurred_at": 1726063201101,
+      "original_deadline_at": 1726063200000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-37-entry-decision-1",
+      "file": "accounts/NULL_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1726671601753,
+      "last_sell_delay_seconds": 1.753,
+      "last_sell_occurred_at": 1726671601753,
+      "original_deadline_at": 1726671600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-38-entry-decision-2",
+      "file": "accounts/NULL_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801289,
+      "last_sell_delay_seconds": 3601.323,
+      "last_sell_occurred_at": 1727276401323,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4271-NOMINAL-FIXED_SAME_LOT_CAP-34-entry-decision-2",
+      "file": "accounts/NULL_4271_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601756,
+      "last_sell_delay_seconds": 1.756,
+      "last_sell_occurred_at": 1724853601756,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4271-NOMINAL-FIXED_SAME_LOT_CAP-38-entry-decision-3",
+      "file": "accounts/NULL_4271_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801422,
+      "last_sell_delay_seconds": 1.722,
+      "last_sell_occurred_at": 1727272801722,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4271-DOUBLE_COST-FIXED_SAME_LOT_CAP-34-entry-decision-2",
+      "file": "accounts/NULL_4271_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601756,
+      "last_sell_delay_seconds": 1.756,
+      "last_sell_occurred_at": 1724853601756,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4271-DOUBLE_COST-FIXED_SAME_LOT_CAP-38-entry-decision-3",
+      "file": "accounts/NULL_4271_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801422,
+      "last_sell_delay_seconds": 1.722,
+      "last_sell_occurred_at": 1727272801722,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4271-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-34-entry-decision-2",
+      "file": "accounts/NULL_4271_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601756,
+      "last_sell_delay_seconds": 1.756,
+      "last_sell_occurred_at": 1724853601756,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-NULL-4271-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-38-entry-decision-3",
+      "file": "accounts/NULL_4271_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727272801422,
+      "last_sell_delay_seconds": 1.722,
+      "last_sell_occurred_at": 1727272801722,
+      "original_deadline_at": 1727272800000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-NOMINAL-CORE-34-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4103_NOMINAL_CORE.json.gz",
+      "first_recorded_breach_at": 1724853601145,
+      "last_sell_delay_seconds": 1.145,
+      "last_sell_occurred_at": 1724853601145,
+      "original_deadline_at": 1724853600000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-NOMINAL-CORE-38-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4103_NOMINAL_CORE.json.gz",
+      "first_recorded_breach_at": 1727276401280,
+      "last_sell_delay_seconds": 1.28,
+      "last_sell_occurred_at": 1727276401280,
+      "original_deadline_at": 1727276400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-NOMINAL-FIXED_SAME_LOT_CAP-34-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4103_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601145,
+      "last_sell_delay_seconds": 1.145,
+      "last_sell_occurred_at": 1724853601145,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-NOMINAL-FIXED_SAME_LOT_CAP-38-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4103_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727276401280,
+      "last_sell_delay_seconds": 1.28,
+      "last_sell_occurred_at": 1727276401280,
+      "original_deadline_at": 1727276400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-DOUBLE_COST-CORE-34-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4103_DOUBLE_COST_CORE.json.gz",
+      "first_recorded_breach_at": 1724853601145,
+      "last_sell_delay_seconds": 1.145,
+      "last_sell_occurred_at": 1724853601145,
+      "original_deadline_at": 1724853600000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-DOUBLE_COST-FIXED_SAME_LOT_CAP-34-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4103_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601145,
+      "last_sell_delay_seconds": 1.145,
+      "last_sell_occurred_at": 1724853601145,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-DOUBLE_COST-FIXED_SAME_LOT_CAP-38-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4103_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727276401280,
+      "last_sell_delay_seconds": 1.28,
+      "last_sell_occurred_at": 1727276401280,
+      "original_deadline_at": 1727276400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-DOUBLE_COST_GAP-CORE-34-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4103_DOUBLE_COST_GAP_CORE.json.gz",
+      "first_recorded_breach_at": 1724853601145,
+      "last_sell_delay_seconds": 1.145,
+      "last_sell_occurred_at": 1724853601145,
+      "original_deadline_at": 1724853600000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-34-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4103_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724853601145,
+      "last_sell_delay_seconds": 1.145,
+      "last_sell_occurred_at": 1724853601145,
+      "original_deadline_at": 1724853600000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4103-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-38-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4103_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1727276401280,
+      "last_sell_delay_seconds": 1.28,
+      "last_sell_occurred_at": 1727276401280,
+      "original_deadline_at": 1727276400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-NOMINAL-CORE-35-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4177_NOMINAL_CORE.json.gz",
+      "first_recorded_breach_at": 1725462001107,
+      "last_sell_delay_seconds": 1.107,
+      "last_sell_occurred_at": 1725462001107,
+      "original_deadline_at": 1725462000000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-NOMINAL-CORE-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4177_NOMINAL_CORE.json.gz",
+      "first_recorded_breach_at": 1725458401672,
+      "last_sell_delay_seconds": 1.672,
+      "last_sell_occurred_at": 1725458401672,
+      "original_deadline_at": 1725458400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-NOMINAL-FIXED_SAME_LOT_CAP-35-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4177_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725462001107,
+      "last_sell_delay_seconds": 1.107,
+      "last_sell_occurred_at": 1725462001107,
+      "original_deadline_at": 1725462000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-NOMINAL-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4177_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401672,
+      "last_sell_delay_seconds": 1.672,
+      "last_sell_occurred_at": 1725458401672,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST-CORE-35-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_CORE.json.gz",
+      "first_recorded_breach_at": 1725462001107,
+      "last_sell_delay_seconds": 1.107,
+      "last_sell_occurred_at": 1725462001107,
+      "original_deadline_at": 1725462000000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST-CORE-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_CORE.json.gz",
+      "first_recorded_breach_at": 1725458401672,
+      "last_sell_delay_seconds": 1.672,
+      "last_sell_occurred_at": 1725458401672,
+      "original_deadline_at": 1725458400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST-FIXED_SAME_LOT_CAP-35-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725462001107,
+      "last_sell_delay_seconds": 1.107,
+      "last_sell_occurred_at": 1725462001107,
+      "original_deadline_at": 1725462000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401672,
+      "last_sell_delay_seconds": 1.672,
+      "last_sell_occurred_at": 1725458401672,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST_GAP-CORE-35-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_GAP_CORE.json.gz",
+      "first_recorded_breach_at": 1725462001107,
+      "last_sell_delay_seconds": 1.107,
+      "last_sell_occurred_at": 1725462001107,
+      "original_deadline_at": 1725462000000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST_GAP-CORE-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_GAP_CORE.json.gz",
+      "first_recorded_breach_at": 1725458401672,
+      "last_sell_delay_seconds": 1.672,
+      "last_sell_occurred_at": 1725458401672,
+      "original_deadline_at": 1725458400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-35-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725462001107,
+      "last_sell_delay_seconds": 1.107,
+      "last_sell_occurred_at": 1725462001107,
+      "original_deadline_at": 1725462000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4177-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4177_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401672,
+      "last_sell_delay_seconds": 1.672,
+      "last_sell_occurred_at": 1725458401672,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-NOMINAL-CORE-32-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_NOMINAL_CORE.json.gz",
+      "first_recorded_breach_at": 1723644001782,
+      "last_sell_delay_seconds": 2.082,
+      "last_sell_occurred_at": 1723644002082,
+      "original_deadline_at": 1723644000000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-NOMINAL-CORE-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_NOMINAL_CORE.json.gz",
+      "first_recorded_breach_at": 1725458401478,
+      "last_sell_delay_seconds": 3601.677,
+      "last_sell_occurred_at": 1725462001677,
+      "original_deadline_at": 1725458400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-NOMINAL-FIXED_SAME_LOT_CAP-32-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1723644001782,
+      "last_sell_delay_seconds": 2.082,
+      "last_sell_occurred_at": 1723644002082,
+      "original_deadline_at": 1723644000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-NOMINAL-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401478,
+      "last_sell_delay_seconds": 3601.677,
+      "last_sell_occurred_at": 1725462001677,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST-CORE-32-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_CORE.json.gz",
+      "first_recorded_breach_at": 1723644001782,
+      "last_sell_delay_seconds": 2.082,
+      "last_sell_occurred_at": 1723644002082,
+      "original_deadline_at": 1723644000000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST-CORE-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_CORE.json.gz",
+      "first_recorded_breach_at": 1725458401478,
+      "last_sell_delay_seconds": 3601.677,
+      "last_sell_occurred_at": 1725462001677,
+      "original_deadline_at": 1725458400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-32-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1723644001782,
+      "last_sell_delay_seconds": 2.082,
+      "last_sell_occurred_at": 1723644002082,
+      "original_deadline_at": 1723644000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401478,
+      "last_sell_delay_seconds": 3601.677,
+      "last_sell_occurred_at": 1725462001677,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST_GAP-CORE-32-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_GAP_CORE.json.gz",
+      "first_recorded_breach_at": 1723644001782,
+      "last_sell_delay_seconds": 2.082,
+      "last_sell_occurred_at": 1723644002082,
+      "original_deadline_at": 1723644000000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST_GAP-CORE-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_GAP_CORE.json.gz",
+      "first_recorded_breach_at": 1725458401478,
+      "last_sell_delay_seconds": 3601.677,
+      "last_sell_occurred_at": 1725462001677,
+      "original_deadline_at": 1725458400000,
+      "strategy": "CORE"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-32-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1723644001782,
+      "last_sell_delay_seconds": 2.082,
+      "last_sell_occurred_at": 1723644002082,
+      "original_deadline_at": 1723644000000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4211-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-35-entry-decision-3",
+      "file": "accounts/TREND_BREAK_4211_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1725458401478,
+      "last_sell_delay_seconds": 3601.677,
+      "last_sell_occurred_at": 1725462001677,
+      "original_deadline_at": 1725458400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4271-NOMINAL-FIXED_SAME_LOT_CAP-33-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4271_NOMINAL_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724252401717,
+      "last_sell_delay_seconds": 1.717,
+      "last_sell_occurred_at": 1724252401717,
+      "original_deadline_at": 1724252400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4271-DOUBLE_COST-FIXED_SAME_LOT_CAP-33-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4271_DOUBLE_COST_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724252401717,
+      "last_sell_delay_seconds": 1.717,
+      "last_sell_occurred_at": 1724252401717,
+      "original_deadline_at": 1724252400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    },
+    {
+      "campaign": "SYN9-TREND_BREAK-4271-DOUBLE_COST_GAP-FIXED_SAME_LOT_CAP-33-entry-decision-0",
+      "file": "accounts/TREND_BREAK_4271_DOUBLE_COST_GAP_FIXED_SAME_LOT_CAP.json.gz",
+      "first_recorded_breach_at": 1724252401717,
+      "last_sell_delay_seconds": 1.717,
+      "last_sell_occurred_at": 1724252401717,
+      "original_deadline_at": 1724252400000,
+      "strategy": "FIXED_SAME_LOT_CAP"
+    }
+  ],
+  "total_planned_deadline_breaches": 73
+}

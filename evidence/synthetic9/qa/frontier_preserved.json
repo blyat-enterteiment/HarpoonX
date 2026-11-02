@@ -1,0 +1,94 @@
+{
+  "architecture": "x86_64",
+  "benchmark_scope": "TWO_REGISTERED_HISTORICAL_MODELED_SNAPSHOTS_NOT_LIVE_LATENCY_OR_SLA",
+  "decisions": {
+    "flat": {
+      "benchmark_repeats": 1,
+      "decimal_verifier": {
+        "execution_allowed": false,
+        "full_grid_optimality_independently_verified": false,
+        "independent_external_auditor": false,
+        "independent_implementation": "SCALAR_DECIMAL_SELECTED_ACTION_REPRICING",
+        "receipt_hash": "2b1b7e516f0db39f0be53e916da772e91eb3d0967641a3a6857f5ee7f19a393c",
+        "sampling_confidence_verified": false,
+        "scenario_checks": [
+          {
+            "cost_multiplier": 1.0,
+            "max_mean_error_usd": 0.0,
+            "partial_fill_cvar_usd": 3.0,
+            "price_gap": 0.0,
+            "worst_partial_loss_usd": 3.0
+          },
+          {
+            "cost_multiplier": 2.0,
+            "max_mean_error_usd": 0.0,
+            "partial_fill_cvar_usd": 6.0,
+            "price_gap": 0.0,
+            "worst_partial_loss_usd": 6.0
+          },
+          {
+            "cost_multiplier": 2.0,
+            "max_mean_error_usd": 0.0,
+            "partial_fill_cvar_usd": 6.0,
+            "price_gap": 0.005,
+            "worst_partial_loss_usd": 6.0
+          }
+        ],
+        "source_or_fills_authenticated": false,
+        "tolerance_usd": 2e-06,
+        "verified": true
+      },
+      "exact_receipt_reproduced": true,
+      "median_seconds": 0.17559142599930055,
+      "p95_seconds_descriptive": 0.17559142599930055
+    },
+    "holding": {
+      "benchmark_repeats": 1,
+      "decimal_verifier": {
+        "execution_allowed": false,
+        "full_grid_optimality_independently_verified": false,
+        "independent_external_auditor": false,
+        "independent_implementation": "SCALAR_DECIMAL_SELECTED_ACTION_REPRICING",
+        "receipt_hash": "694a50541c1f5012cdb955e37e3af801172e5e5f512a61f2d45a2f84b789cd7d",
+        "sampling_confidence_verified": false,
+        "scenario_checks": [
+          {
+            "cost_multiplier": 1.0,
+            "max_mean_error_usd": 5.684341886080802e-14,
+            "partial_fill_cvar_usd": 31.94693350393174,
+            "price_gap": 0.0,
+            "worst_partial_loss_usd": 43.66355160420858
+          },
+          {
+            "cost_multiplier": 2.0,
+            "max_mean_error_usd": 2.4868995751603507e-14,
+            "partial_fill_cvar_usd": 35.181522331593605,
+            "price_gap": 0.0,
+            "worst_partial_loss_usd": 46.892279192200476
+          },
+          {
+            "cost_multiplier": 2.0,
+            "max_mean_error_usd": 2.4868995751603507e-14,
+            "partial_fill_cvar_usd": 36.994752531890626,
+            "price_gap": 0.005,
+            "worst_partial_loss_usd": 49.17726779623947
+          }
+        ],
+        "source_or_fills_authenticated": false,
+        "tolerance_usd": 2.049789e-06,
+        "verified": true
+      },
+      "exact_receipt_reproduced": true,
+      "median_seconds": 0.47153112799969676,
+      "p95_seconds_descriptive": 0.47153112799969676
+    }
+  },
+  "economic_improvement_accredited": false,
+  "level9_accredited": false,
+  "numpy": "2.3.5",
+  "original_inputs_and_artifacts_hash_verified": true,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "scope": "ENGINEERING_REPRODUCTION_AND_SELECTED_ACTION_CHECKS_NOT_EXTERNAL_ECONOMIC_AUDIT",
+  "verified": true
+}
