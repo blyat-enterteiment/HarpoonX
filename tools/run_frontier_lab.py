@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "quant"))
 from frontier_dataset import build
 from frontier_restore import restore
 from harpoon_quant.core import digest, timestamp
+from harpoon_quant.frontier.assurance import assure
 from harpoon_quant.frontier.contracts import Settings
 from harpoon_quant.frontier.evaluation import evaluate
 from harpoon_quant.frontier.journal import Journal
@@ -99,6 +100,12 @@ def run(output: Path) -> None:
     save(output / "state_hypothetical_holding.json", held)
     holding = shadow(held, model, cfg, output / "private_lab_receipts.sqlite")
     save(output / "holding_decision.json", holding)
+    assurance = {}
+    if flat["status"] == "SUPERVISED_RESEARCH_PROPOSAL":
+        assurance["flat"] = assure(state, model, flat, cfg)
+    if holding["status"] == "SUPERVISED_RESEARCH_PROPOSAL":
+        assurance["holding"] = assure(held, model, holding, cfg)
+    save(output / "independent_numerical_checks.json", assurance)
     journal = Journal(output / "private_lab_receipts.sqlite")
     try:
         chain = journal.verify()

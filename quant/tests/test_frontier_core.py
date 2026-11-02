@@ -17,6 +17,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from harpoon_quant.core import digest
+from harpoon_quant.frontier.assurance import assure
 from harpoon_quant.frontier.contracts import Settings
 from harpoon_quant.frontier.controller import decide, weighted_cvar, weighted_hac_se
 from harpoon_quant.frontier.journal import Journal
@@ -418,6 +419,39 @@ class FrontierTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "INDEX_TAMPERED"):
                 journal.verify()
             journal.close()
+
+    def test_separate_decimal_repricing_matches(self):
+        receipt = self.result()
+        check = assure(self.state, self.model, receipt, self.cfg)
+        self.assertTrue(check["verified"])
+        self.assertFalse(check["independent_external_auditor"])
+
+    def test_rehashed_numeric_tamper_rejected(self):
+        receipt = self.result()
+        receipt["scenarios"][0]["mean_net_change_usd"] += 1
+        receipt["receipt_hash"] = digest(
+            {k: v for k, v in receipt.items() if k != "receipt_hash"}
+        )
+        with self.assertRaisesRegex(ValueError, "REPRICING"):
+            assure(self.state, self.model, receipt, self.cfg)
+
+    def test_false_risk_reduction_exception_rejected(self):
+        receipt = self.result()
+        receipt["scenarios"][0]["risk_reduction_not_tail_certified"] = True
+        receipt["receipt_hash"] = digest(
+            {k: v for k, v in receipt.items() if k != "receipt_hash"}
+        )
+        with self.assertRaisesRegex(ValueError, "REDUCTION_EXCEPTION"):
+            assure(self.state, self.model, receipt, self.cfg)
+
+    def test_original_case_ids_tamper_rejected(self):
+        receipt = self.result()
+        receipt["case_ids"][0] = "NOT-AN-ORIGINAL-CASE"
+        receipt["receipt_hash"] = digest(
+            {k: v for k, v in receipt.items() if k != "receipt_hash"}
+        )
+        with self.assertRaisesRegex(ValueError, "CASE_IDS"):
+            assure(self.state, self.model, receipt, self.cfg)
 
     def test_cli_end_to_end(self):
         with tempfile.TemporaryDirectory() as tmp:
