@@ -1,0 +1,81 @@
+{
+  "schema": "HARPOON_MULTI_ASSET8_RESEARCH_1",
+  "status": "EXPLORATORY_NOT_LEVEL8",
+  "base_commit": "2f7d543975ce7704746a098427aedc192a43c736",
+  "hypothesis": "Positive lagged 20-hour continuation across a broader universe may support better net capital allocation than fixed equity/crypto sleeves.",
+  "data": {
+    "period": "2025",
+    "equity_feed": "iex",
+    "crypto_feed": "us",
+    "bar": "1Hour",
+    "symbols": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "XLF",
+      "XLE",
+      "XLV",
+      "XLK",
+      "AAPL",
+      "MSFT",
+      "BTC/USD",
+      "ETH/USD"
+    ],
+    "selection": "FIXED_CURRENT_UNIVERSE_NOT_POINT_IN_TIME_CONSTITUENTS",
+    "availability": "HISTORICAL_BAR_END_PLUS_60_SECONDS_ASSUMED",
+    "raw_retrieved_before_protocol": true
+  },
+  "strategy": {
+    "lookback_bars": 60,
+    "momentum_bars": 20,
+    "signal": "log(last_close/close_20_bars_ago)/sample_std_60_returns/sqrt(20)>0",
+    "decision_local": "10:00",
+    "exit_local": "12:00",
+    "timezone": "America/New_York",
+    "hold_hours": 2,
+    "selection": "TOP_3_POSITIVE_SCORE",
+    "allocation": "INVERSE_VOLATILITY",
+    "max_name_fraction": 0.2,
+    "max_gross_fraction": 0.6,
+    "max_crypto_fraction": 0.2,
+    "capacity": "1_PERCENT_MEDIAN_LAST_20_BAR_DOLLAR_VOLUME",
+    "equity_lot": 1,
+    "crypto_lot": 1e-8,
+    "discontinuity_guard": "REJECT_IF_ANY_LAST_60_ABS_LOG_RETURN_GT_0.20",
+    "freshness_hours": 96
+  },
+  "accounts": [
+    "JOINT",
+    "SLEEVES_40_EQUITY_20_CRYPTO",
+    "CASH"
+  ],
+  "initial_usd": 20000,
+  "costs": {
+    "kind": "ASSUMPTIONS_NOT_CALIBRATED",
+    "equity_one_way_bps": 5,
+    "crypto_one_way_bps": 35,
+    "stress_multiplier": 2,
+    "fixed_usd_per_calendar_day": 1,
+    "fixed_stress_usd_per_calendar_day": 2
+  },
+  "validation": {
+    "year_already_seen": true,
+    "new_holdout": false,
+    "tuning": false,
+    "walk_forward": "NOT_FITTED_FIXED_RULE_QUARTERLY_REPORTS",
+    "uncertainty": "PAIRED_DAILY_LOG_GROWTH_BARTLETT_HAC_LAG_5_IID_FLOOR",
+    "promotion": false,
+    "execution_allowed": false,
+    "liveApproved": false
+  },
+  "fills": {
+    "required": "BROKER_FILL_ID_ORDER_ID_WITH_CAUSAL_DECISION_BBO_EXPLICIT_FEE_AND_ACCOUNT_MODE",
+    "paper_is_live": false,
+    "minimum_fills_per_group": 30,
+    "minimum_orders_per_group": 20,
+    "minimum_days_per_group": 10,
+    "calibration_scope": "CLASS_AND_SIDE_OBSERVED_SIZE_RANGE_ONLY",
+    "use_for_historical_test": false
+  },
+  "stop": "ONE_RULE_TWO_ALLOCATORS_TWO_COST_SCENARIOS_PLUS_CASH_NO_PARAMETER_SEARCH"
+}
