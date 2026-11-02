@@ -110,6 +110,14 @@ class MultiassetTests(unittest.TestCase):
         b=bundle();b['fills']=[dict(b['fills'][0],fill_id=str(i)) for i in range(100)]
         self.assertFalse(calibrate_fills(b)['groups']['LIVE:equity:buy']['enough_observations'])
 
+    def test_calibration_cannot_know_future_fills(self):
+        b=bundle();b['available_at']='2025-01-01T15:00:00Z'
+        with self.assertRaisesRegex(ValueError,'BEFORE_FILL'):calibrate_fills(b)
+
+    def test_mixed_paper_live_rejected(self):
+        b=bundle();b['fills'][0]['mode']='PAPER'
+        with self.assertRaisesRegex(ValueError,'MIXED'):calibrate_fills(b)
+
     def test_collector_readonly_and_pagination_bound(self):
         spec=importlib.util.spec_from_file_location('fills8',Path(__file__).resolve().parents[2]/'tools/observed_fills8.py')
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)

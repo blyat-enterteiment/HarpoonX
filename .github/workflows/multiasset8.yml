@@ -1,0 +1,39 @@
+name: Multiasset8 historical panel and account verification
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/multiasset.py'
+      - 'quant/tests/test_multiasset.py'
+      - 'tools/*multiasset8.py'
+      - 'tools/test_multiasset8_verifier.py'
+      - 'tools/observed_fills8.py'
+      - 'research/multiasset8/**'
+      - 'evidence/multiasset8/**'
+      - '.github/workflows/multiasset8.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install -r quant/requirements-tested.txt
+      - run: python3 -B -m unittest discover -s quant/tests -p test_multiasset.py -v
+      - run: python3 -B -m unittest discover -s tools -p test_multiasset8_verifier.py -v
+      - run: python3 -B tools/run_multiasset8.py --output-dir "$RUNNER_TEMP/multiasset8"
+      - run: python3 -B tools/verify_multiasset8.py "$RUNNER_TEMP/multiasset8" --compare evidence/multiasset8/run_01
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: multiasset8-reproduction
+          path: ${{ runner.temp }}/multiasset8
+          retention-days: 90
