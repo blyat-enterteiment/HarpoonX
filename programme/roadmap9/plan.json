@@ -1,0 +1,1816 @@
+{
+  "schema": "HARPOON_SEQUENTIAL_OPERATIONAL_PLAN_1",
+  "title": "Plan secuencial de mejoras y validación operacional de HARPOON",
+  "reference_date": "2026-11-02",
+  "display_timezone": "America/Mexico_City",
+  "baseline_repository": "blyat-enterteiment/HarpoonX",
+  "baseline_commit": "89602e263aeb7f4012a11f53c00c06a4a0058dba",
+  "document_status": "PROPOSED_PLAN_NOT_IMPLEMENTATION_OR_APPROVAL",
+  "scope": {
+    "trading_style": "SWING_NOT_HFT",
+    "maximum_elapsed_holding_hours": 72,
+    "forecast_horizons_hours": [
+      24,
+      48,
+      72
+    ],
+    "books": [
+      "equity",
+      "etf",
+      "crypto_spot"
+    ],
+    "currency": "USD",
+    "options_usage": "CONTEXT_ONLY_UNTIL_SEPARATE_VALUATION_AND_LIFECYCLE_CONTRACT",
+    "execution_events_do_not_imply_high_frequency_strategy": true
+  },
+  "baseline_evidence": {
+    "ci_tests": 649,
+    "ci_result": "PRIOR_TWO_GITHUB_RUNS_PASS",
+    "source_commit": "d73163c39527e534746d1a01800d8fa95040e8b7",
+    "core_planned_deadline_breaches": 16,
+    "all_planned_deadline_breaches": 73,
+    "registered_synthetic_accounts": 108,
+    "synthetic_portfolio_fills": 2978,
+    "synthetic_calibration_fills": 320,
+    "real_fills_present": false,
+    "real_prospective_validation": false,
+    "external_review_completed": false,
+    "local_legacy_timeout_cause_resolved": false
+  },
+  "budget": {
+    "authoritative_file": "programme/frontier/programme.json",
+    "authoritative_sha256": "fe8122b0aa50104c0dd3813743a34311fa2c9f980c3c53703ce8a889e6ed1d62",
+    "currency": "USD",
+    "planning_budget_usd": 5000000,
+    "reported_spent_usd_at_baseline": 0,
+    "planning_months": 12,
+    "phase_work_package_refs_are_not_additional_allocations": true,
+    "funding_authorized": false,
+    "calendar": "Meses orientativos desde un inicio autorizado; ninguna fecha cierra una fase ni aprueba un hito por sí sola."
+  },
+  "research_budget": {
+    "hypotheses": [
+      "H1",
+      "H2",
+      "H3"
+    ],
+    "max_new_complete_candidate_recipes": 6,
+    "recipe_registration_required_before_economic_measurement": true,
+    "full_recipe_includes": [
+      "features_and_targets",
+      "training_and_refit_rule",
+      "universe",
+      "allocation",
+      "entry",
+      "exit",
+      "risk_limits",
+      "cost_profile",
+      "data_availability",
+      "selection_rule",
+      "evaluation_and_stopping"
+    ],
+    "ensembles_and_allocation_or_exit_variants_consume_recipe_slots": true,
+    "final_candidate_must_be_registered_or_budget_amended_before_new_unseen_period": true,
+    "negative_or_inconclusive_candidates_not_promoted": true,
+    "historical_family_rejection_preserved": true
+  },
+  "default_limits": {
+    "source": "quant/harpoon_quant/frontier/contracts.py Settings",
+    "elapsed_holding_max_hours": 72,
+    "max_quote_age_seconds": 15,
+    "max_model_and_latest_label_age_hours": 168,
+    "max_work_units": 30000000,
+    "daily_loss_fraction": 0.02,
+    "drawdown_fraction": 0.1,
+    "gross_fraction": 0.6,
+    "asset_fraction": 0.2,
+    "factor_fraction": 0.3,
+    "tail_fraction": 0.02,
+    "stress_fraction": 0.05,
+    "limits_are_existing_engineering_settings_not_certified_loss_guarantees": true
+  },
+  "phase_gate_policy": {
+    "phase_decisions": [
+      "NOT_EVALUATED",
+      "READY_FOR_RESEARCH",
+      "RETAIN_FOR_FORWARD",
+      "REJECTED_CANDIDATE",
+      "BLOCKED",
+      "NO_CONCLUSION",
+      "APPROVED_SCOPED_RELEASE"
+    ],
+    "validator_results": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT_RUN"
+    ],
+    "unknown_or_skipped_critical_is_blocked": true,
+    "phase_can_close_with_rejected_hypothesis_but_no_rejected_candidate_is_promoted": true,
+    "no_viable_candidate_after_budget_means_stop_before_live_experiment": true,
+    "hard_constraint_failure_blocks_new_entries_and_preserves_owned_inventory_management": true,
+    "safety_test_detecting_a_breach_does_not_certify_deadline_compliance": true,
+    "hash_presence_never_equals_scientific_or_financial_approval": true
+  },
+  "authorization_stages": [
+    {
+      "stage": "RESEARCH_OFFLINE",
+      "scope": "Código, simulación, histórico y replay sin órdenes de broker."
+    },
+    {
+      "stage": "OBSERVED_READ_ONLY",
+      "scope": "Actividades y estados existentes, con permisos adecuados; leer no envía órdenes."
+    },
+    {
+      "stage": "PAPER_EXPERIMENT",
+      "scope": "Sólo tras configuración y autorización del ensayo concreto; sus fills siguen siendo simulados."
+    },
+    {
+      "stage": "LIVE_CALIBRATION_EXPERIMENT",
+      "scope": "Si faltan fills live existentes, ensayo pequeño sólo con autorización específica, presupuesto de pérdida, límites y runbook; no requiere fingir aprobación de producción."
+    },
+    {
+      "stage": "LIVE_PRODUCTION",
+      "scope": "Sólo después de revisión externa, aceptación económica y autorización de cuenta, versión y límites."
+    }
+  ],
+  "authorization_continuity": "Reutilizar autorizaciones ya otorgadas y vigentes cuando cubran la acción concreta. No pedir confirmaciones redundantes; resolver únicamente alcance material no cubierto.",
+  "programme_gate_mapping": {
+    "G0": [
+      "P00",
+      "P01",
+      "P03"
+    ],
+    "G1": [
+      "P03",
+      "P04"
+    ],
+    "G2": [
+      "P02",
+      "P05",
+      "P08",
+      "P09"
+    ],
+    "G3": [
+      "P01",
+      "P02",
+      "P03",
+      "P09",
+      "P10A"
+    ],
+    "G4": [
+      "P06",
+      "P07",
+      "P08",
+      "P10B"
+    ],
+    "G5": [
+      "P11"
+    ]
+  },
+  "subphase_aliases": {
+    "P10A": "P10 calibración observada anterior a validación",
+    "P10B": "P10 evaluación prospectiva posterior a congelación"
+  },
+  "economic_rule": {
+    "net_growth": "g_t=log(E_t/E_(t-1)) sin flujos externos; si aparecen, ajustar por sus timestamps antes de comparar.",
+    "selection_hurdle": "Límite inferior al 95% de diferencias pareadas de log crecimiento frente a CASH y baseline >0 según método registrado; controles con riesgo y exposición comparables.",
+    "absolute_hurdle": "Crecimiento neto positivo con costes nominales y estrés registrados; una mejora sobre CASH todavía negativa no es rentabilidad positiva.",
+    "uncertainty": "Método, dependencia temporal, multiplicidad global, soporte mínimo, bloques y endpoint deben fijarse antes de P10B; sin ello NO_CONCLUSION o BLOCKED.",
+    "interpretation": "Nivel 9 es una aspiración interna, no una escala financiera universal ni una garantía futura."
+  },
+  "mathematical_contracts": {
+    "portfolio_objective_proposed": "max over feasible w: mu_hat.T*w - 0.5*w.T*Sigma_hat*w - C_t(w-w_prev) - rho*sqrt(w.T*Omega_mu*w)",
+    "objective_units": "Todos los términos son fracciones del patrimonio y del mismo horizonte; C_t es coste de transacción en USD dividido entre patrimonio; gasto común se registra una vez en la cuenta y en viabilidad global.",
+    "forecast_overlap": "No sumar retornos previstos a 24,48,72 horas como tres beneficios independientes; pertenecen a ventanas solapadas.",
+    "exit_dispatch_budget_proposed": "send_time <= min(original_deadline, original_opened_at+72h) - Q_0.99(T_ack+T_fill+T_retry | registered_conditions) - delta",
+    "exit_budget_limits": "Cuantil condicional de la demora total, margen delta y condiciones se fijan y verifican antes del ensayo; no garantiza fill en un halt ni convierte p99 sintético en SLA real.",
+    "native_fee_units": "Cantidad recibida neta = cantidad bruta menos fee del activo recibido; conciliar posting tardío sin cobrarla dos veces."
+  },
+  "receipt_contract": {
+    "required_fields": [
+      "phase_id",
+      "plan_hash",
+      "code_commit",
+      "dataset_manifest_hash",
+      "model_hash_when_used",
+      "settings_hash",
+      "universe_hash",
+      "cost_profile_hash",
+      "source_origin",
+      "market_and_received_timestamps",
+      "calibration_interval",
+      "evaluation_interval",
+      "runtime_versions",
+      "hardware_profile_when_benchmarked",
+      "validator_results_and_observed_values",
+      "evidence_locations_and_hashes",
+      "incidents_and_exclusions",
+      "reviewer_identity_and_scope_when_required",
+      "authorization_scope_when_required"
+    ],
+    "missing_required_field_result": "BLOCKED",
+    "private_account_exports_in_public_or_repository_artifacts": false
+  },
+  "phases": [
+    {
+      "id": "P00",
+      "order": 0,
+      "title": "Baseline y registro de investigación",
+      "depends_on": [],
+      "objective": "Conservar resultados negativos y fijar el contrato de comparación antes de cambiar el motor.",
+      "deliverable": "Baseline reconstruido, manifiesto de fuentes, registro global de ensayos y rúbrica económica.",
+      "responsible_role": "Responsable de investigación y reproducibilidad",
+      "work_packages": [
+        "WP0"
+      ],
+      "completion_rule": "Cerrar sólo con trazabilidad completa o registrar la incompletitud que bloquea inferencia económica y promoción.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V001",
+        "V002",
+        "V003",
+        "V004"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P01",
+      "order": 1,
+      "title": "Costes y contratos económicos por activo",
+      "depends_on": [
+        "P00"
+      ],
+      "objective": "Sustituir supuestos de ejecución por contratos explícitos sin alterar el banco sintético ya congelado.",
+      "deliverable": "Esquema de costes, comisiones nativas, reservas y gasto común para el siguiente experimento.",
+      "responsible_role": "Ingeniería de ejecución y contabilidad",
+      "work_packages": [
+        "WP4",
+        "WP2"
+      ],
+      "completion_rule": "Todos los costes necesarios son conocidos o la entrada queda bloqueada; los costes sintéticos nunca se etiquetan como observados.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V005",
+        "V006",
+        "V007",
+        "V008"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P02",
+      "order": 2,
+      "title": "Ejecución por eventos y recuperación",
+      "depends_on": [
+        "P01"
+      ],
+      "objective": "Resolver el reintento horario que produjo retrasos y mantener el plazo original de cada campaña.",
+      "deliverable": "Máquina de estados de orden, reintentos acotados, recuperación y telemetría operacional.",
+      "responsible_role": "Ingeniería de ejecución y operaciones",
+      "work_packages": [
+        "WP2",
+        "WP3"
+      ],
+      "completion_rule": "Cerrar con cero infracciones evitables dentro del sobre de ejecución registrado; los halts y escenarios fuera del sobre permanecen como riesgo no resuelto, nunca como cierres ficticios.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V009",
+        "V010",
+        "V011",
+        "V012"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P03",
+      "order": 3,
+      "title": "Datos temporales y universo elegible",
+      "depends_on": [
+        "P02"
+      ],
+      "objective": "Garantizar que cada precio, señal, sesión y activo existía y era negociable en la fecha de decisión.",
+      "deliverable": "Contrato point in time de datos, acciones corporativas, calendario, capacidad y universo.",
+      "responsible_role": "Ingeniería de datos y control de mercado",
+      "work_packages": [
+        "WP4",
+        "WP0",
+        "WP1"
+      ],
+      "completion_rule": "Excluir o bloquear datos sin cobertura suficiente; ampliar activos analizados sólo cuando cumplan el contrato.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V013",
+        "V014",
+        "V015",
+        "V016"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P04",
+      "order": 4,
+      "title": "Pronóstico condicional por horizonte",
+      "depends_on": [
+        "P03"
+      ],
+      "objective": "Definir targets, modelos y regularización antes de medir recetas económicas nuevas.",
+      "deliverable": "Pronósticos separados por tramo de sesión y horizonte, con incertidumbre y calibración temporal.",
+      "responsible_role": "Investigación cuantitativa",
+      "work_packages": [
+        "WP1"
+      ],
+      "completion_rule": "Congelar modelo, variables, regla de refit y validación; no elegir especificaciones con el periodo final.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V017",
+        "V018",
+        "V019",
+        "V020"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P05",
+      "order": 5,
+      "title": "Asignación de capital y congelación de recetas",
+      "depends_on": [
+        "P04"
+      ],
+      "objective": "Convertir pronósticos en posiciones costeadas sobre la cartera completa antes de comparar estrategias.",
+      "deliverable": "Asignador común con incertidumbre, costes, correlación, bandas de no operar y recetas finales congeladas.",
+      "responsible_role": "Construcción de cartera y riesgo",
+      "work_packages": [
+        "WP2",
+        "WP1"
+      ],
+      "completion_rule": "Ningún ensayo económico nuevo empieza hasta que las seis configuraciones completas y comparadores estén registrados.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V021",
+        "V022",
+        "V023",
+        "V024"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P06",
+      "order": 6,
+      "title": "Hipótesis H1 continuación condicionada por horario",
+      "depends_on": [
+        "P05"
+      ],
+      "objective": "Comprobar si distinguir el tramo donde se genera retorno mejora la continuación ya estudiada.",
+      "deliverable": "Ablación H1 con mismas fuentes, costes completos, controles y cuentas continuas.",
+      "responsible_role": "Investigación de alpha",
+      "work_packages": [
+        "WP1",
+        "WP3"
+      ],
+      "completion_rule": "Cerrar con candidato retenido o rechazado; el rechazo no se convierte en aprobación y permite estudiar la siguiente hipótesis registrada.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V025",
+        "V026",
+        "V027",
+        "V028"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P07",
+      "order": 7,
+      "title": "Hipótesis H2 gaps y aceptación del precio",
+      "depends_on": [
+        "P06"
+      ],
+      "objective": "Distinguir continuación informativa de rechazo del gap con información disponible al decidir.",
+      "deliverable": "Ablación H2 y, sólo con datos adecuados, variante con flujo de subasta auténtico.",
+      "responsible_role": "Investigación de eventos y datos de mercado",
+      "work_packages": [
+        "WP1",
+        "WP4",
+        "WP3"
+      ],
+      "completion_rule": "Si falta subasta auténtica, cerrar esa rama como no evaluable; continuar sólo con candidatos evaluables ya registrados sin presentar una proxy como la misma receta.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V029",
+        "V030",
+        "V031",
+        "V032"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P08",
+      "order": 8,
+      "title": "Hipótesis H3 salida por valor de continuación",
+      "depends_on": [
+        "P07"
+      ],
+      "objective": "Contrastar salida fija con una decisión de mantener, reducir o cerrar basada en información actual.",
+      "deliverable": "Control de continuación finito con deadline inmutable y comparación de salidas.",
+      "responsible_role": "Control cuantitativo y ejecución",
+      "work_packages": [
+        "WP2",
+        "WP3"
+      ],
+      "completion_rule": "La salida se conserva sólo si mejora el resultado bajo el control de riesgo registrado; ninguna nueva combinación fuera de las seis recetas queda autorizada por esta fase.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V033",
+        "V034",
+        "V035",
+        "V036"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P09",
+      "order": 9,
+      "title": "Integración adversarial y rendimiento",
+      "depends_on": [
+        "P08"
+      ],
+      "objective": "Demostrar que datos, modelos, asignación y ejecución conservan los contratos al funcionar juntos.",
+      "deliverable": "Matriz de fallos ampliada, recorrido completo, comprobación numérica separada y benchmark del perfil registrado.",
+      "responsible_role": "Verificación y operaciones",
+      "work_packages": [
+        "WP3"
+      ],
+      "completion_rule": "Cero fallo crítico sin resolver; un test crítico omitido, un estado desconocido o una evidencia requerida ausente bloquean la siguiente fase.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V037",
+        "V038",
+        "V039",
+        "V040"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P10",
+      "order": 10,
+      "title": "Fills observados y validación prospectiva",
+      "depends_on": [
+        "P09"
+      ],
+      "objective": "Separar calibración de ejecución observada y evaluación económica futura con procedimiento congelado.",
+      "deliverable": "A datos originales reconciliados y perfil de costes; B periodo futuro con candidato final y controles.",
+      "responsible_role": "Operaciones, investigación y riesgo",
+      "work_packages": [
+        "WP4",
+        "WP5"
+      ],
+      "completion_rule": "A precede a B; datos paper sólo acreditan lo que su simulación observa. Un microensayo live necesita autorización específica y límites, sin implicar producción ni nivel 9.",
+      "extra_prerequisites": [
+        "Una receta final entre las seis registradas; ninguna combinación nueva no contabilizada.",
+        "Credenciales y datos de cuenta permanecen privados; los exports read only no envían órdenes."
+      ],
+      "validator_ids": [
+        "V041",
+        "V042",
+        "V043",
+        "V044",
+        "V045"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    },
+    {
+      "id": "P11",
+      "order": 11,
+      "title": "Revisión externa y liberación controlada",
+      "depends_on": [
+        "P10"
+      ],
+      "objective": "Obtener revisión ajena al desarrollador y decidir sobre una versión y límites concretos.",
+      "deliverable": "Informe externo, resolución de hallazgos, autorización de versión y procedimiento de reversión.",
+      "responsible_role": "Revisor externo, responsable de riesgo y titular autorizado",
+      "work_packages": [
+        "WP5",
+        "WP0"
+      ],
+      "completion_rule": "Sólo una autorización real, vigente y acotada puede cambiar la autoridad operacional; la documentación del plan no la crea.",
+      "extra_prerequisites": [],
+      "validator_ids": [
+        "V046",
+        "V047",
+        "V048",
+        "V049"
+      ],
+      "implementation_status": "PLANNED_NOT_COMPLETED",
+      "phase_decision": "NOT_EVALUATED"
+    }
+  ],
+  "validators": [
+    {
+      "id": "V001",
+      "phase": "P00",
+      "name": "Reproducción del baseline",
+      "exercise": "Verificar los archivos archivados frontier/run_04 y synthetic9/run_01 con sus verificadores existentes en procesos separados.",
+      "acceptance": "Cero discrepancias de hashes; reconstrucción y tolerancias numéricas declaradas satisfechas; conservar la evidencia de los 649 tests de CI como evidencia previa, no como aprobación del plan.",
+      "adversarial_case": "Cambiar un precio, un modelo o un recibo, incluso recalculando una cadena de hashes.",
+      "on_failure": "Bloquear la fase y conservar incidente y baseline intacto.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_rehashed_numeric_tamper_rejected"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "AdversarialReviewTests",
+          "method": "test_rehashed_invalid_fill_is_detected_by_semantics"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V002",
+      "phase": "P00",
+      "name": "Presupuesto de búsqueda global",
+      "exercise": "Inventariar todos los experimentos económicos previos y registrar como máximo tres hipótesis nuevas y seis recetas completas.",
+      "acceptance": "Cada variante, cambio de asignación, salida y combinación tiene identidad y presupuesto antes de medirse; historia incompleta impide afirmar corrección global de selección.",
+      "adversarial_case": "Presentar la séptima receta, cambiar semillas después del resultado o llamar observaciones nuevas a repeticiones de estrés.",
+      "on_failure": "Rechazar el ensayo adicional; una ampliación necesita protocolo nuevo antes de acceder a un periodo nuevo.",
+      "validation_scope": "RESEARCH_GOVERNANCE",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V003",
+      "phase": "P00",
+      "name": "Integridad del presupuesto de I D",
+      "exercise": "Validar programme/frontier/programme.json y enlazar las fases con sus paquetes existentes.",
+      "acceptance": "Suma exacta de 5,000,000 USD, gasto reportado 0 USD en el baseline y ninguna duplicación de presupuesto por repetir un WP entre fases; no hay autorización automática de gasto.",
+      "adversarial_case": "Duplicar un paquete, añadir gasto negativo o contar una asignación dos veces.",
+      "on_failure": "Bloquear obligaciones y corregir la conciliación presupuestaria.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_programme.py",
+          "class": "ProgrammeTests",
+          "method": "test_budget_exact_and_no_expenditure"
+        },
+        {
+          "file": "quant/tests/test_frontier_programme.py",
+          "class": "ProgrammeTests",
+          "method": "test_budget_overrun_and_duplicate_packages_rejected"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V004",
+      "phase": "P00",
+      "name": "Separación de evidencia y autoridad",
+      "exercise": "Intentar promover evidencias sintéticas, paper y comprobaciones del mismo autor como fills de bolsa o revisión externa.",
+      "acceptance": "Cada origen conserva su etiqueta; un hash, un test o la presencia de un documento no autoriza gasto, ejecución ni acredita nivel 9.",
+      "adversarial_case": "Cambiar real_fills_present, external_review_completed o execution_allowed a true en un expediente sintético.",
+      "on_failure": "Rechazar el expediente y registrar el intento de reclasificación.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "AdversarialReviewTests",
+          "method": "test_relabeling_as_real_or_external_is_rejected"
+        },
+        {
+          "file": "quant/tests/test_frontier_programme.py",
+          "class": "ProgrammeTests",
+          "method": "test_hashes_do_not_authorize_spending_or_promotion"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V005",
+      "phase": "P01",
+      "name": "Tarifa y función de liquidez",
+      "exercise": "Versionar comisiones por instrumento, venue, tipo de orden, rol maker o taker y volumen elegible; reconciliar con el contrato de la cuenta.",
+      "acceptance": "Una orden límite negociable no se clasifica automáticamente como maker; una tarifa desconocida bloquea entradas; los 2 bps del banco sintético no se heredan como tarifa real.",
+      "adversarial_case": "Asignar maker a toda orden límite o deducir el tramo de volumen a partir del saldo de 20,000 USD.",
+      "on_failure": "Bloquear el activo y corregir el perfil de costes.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "OFFICIAL_CONTRACT",
+        "OBSERVED_PAPER",
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V006",
+      "phase": "P01",
+      "name": "Comisiones en unidades nativas",
+      "exercise": "Reproducir compras y ventas cripto con CFEE o FEE, fees tardíos, parciales y una corrección de comisión.",
+      "acceptance": "La comisión afecta la moneda o activo realmente recibido; cantidades y mínimos se toman del contrato del instrumento; la conciliación no convierte una fee cripto en un débito USD ficticio.",
+      "adversarial_case": "Cobrar el fijo en cada parcial, perder una comisión publicada al cierre o borrar una cantidad cripto pequeña.",
+      "on_failure": "Mantener la comisión como pendiente y bloquear calibración o nuevas entradas hasta reconciliar.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "OBSERVED_PAPER",
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_fixed_order_fee_is_paid_once_on_two_fills"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_single_smallest_crypto_unit_is_not_erased"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V007",
+      "phase": "P01",
+      "name": "Patrimonio y gasto común",
+      "exercise": "Recalcular efectivo más posiciones más derechos pendientes menos obligaciones, en una cuenta continua sin aportaciones ni retiros en el experimento.",
+      "acceptance": "El gasto común aparece una sola vez y también en CASH; el coste variable se atribuye a órdenes; evaluar ventaja incremental y viabilidad global por separado, sin eliminar gastos para fabricar beneficio.",
+      "adversarial_case": "Reiniciar capital por ventana, sumar 20,000 USD por activo o repartir el gasto común varias veces en la misma cuenta.",
+      "on_failure": "Invalidar la comparación económica y reconstruir toda la cuenta.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_shared_overhead_same_for_cash_and_enter"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "CausalBankTests",
+          "method": "test_cash_pays_all_seven_days_and_no_capital_reset"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V008",
+      "phase": "P01",
+      "name": "Disponibilidad de efectivo e inventario",
+      "exercise": "Probar órdenes simultáneas, ventas propuestas, efectivo no disponible por liquidación y fills anunciados aún no recibidos.",
+      "acceptance": "Compras financiadas sólo con poder de compra confirmado conforme al tipo de cuenta; reserva intacta para fills tardíos; no doble venta ni posiciones cortas implícitas.",
+      "adversarial_case": "Usar los ingresos de una venta no confirmada o vender dos veces la misma cantidad.",
+      "on_failure": "Rechazar la orden y exigir conciliación del estado.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_unconfirmed_sale_does_not_fund_buy"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_pending_sell_reserves_inventory"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_cancel_ack_keeps_reserve_for_announced_late_fill"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V009",
+      "phase": "P02",
+      "name": "Ciclo de orden idempotente",
+      "exercise": "Entregar ACK, fill parcial, petición de cancelación, cancel ACK, fill tardío, rechazo y duplicados en órdenes temporalmente válidos y adversos.",
+      "acceptance": "Cada fill afecta caja e inventario una vez; un duplicado idéntico es idempotente; uno conflictivo se rechaza; no se libera reserva anunciada antes de resolver el fill tardío.",
+      "adversarial_case": "Reordenar recepción y ejecución, ejecutar tras una cancelación efectiva o repetir un client_order_id con parámetros distintos.",
+      "on_failure": "Suspender nuevas órdenes y reconciliar antes de reanudar.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_duplicate_delivery_is_idempotent_and_conflict_rejected"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_cancel_ack_keeps_reserve_for_announced_late_fill"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V010",
+      "phase": "P02",
+      "name": "Deadline y reintentos acotados",
+      "exercise": "Reproducir las 16 campañas CORE tardías y añadir rechazos y parciales cerca del deadline con reloj por eventos.",
+      "acceptance": "La apertura y deadline originales no se reinician; última orden empieza con margen para ACK, fill y reintentos según cuantiles de demora registrados; cero retrasos evitables si existe mercado y capacidad dentro del sobre declarado.",
+      "adversarial_case": "Reintentar cada hora, ampliar el deadline al reiniciar o enviar compras cuando ya no hay ventana admisible de salida.",
+      "on_failure": "Bloquear nuevas entradas y conservar exposición, incumplimiento y siguiente acción operativa visible.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_campaign_deadline_cannot_be_reset_between_decisions"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_increasing_position_cannot_reset_original_deadline"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V011",
+      "phase": "P02",
+      "name": "Halts y ausencia de liquidez",
+      "exercise": "Inyectar halt o desconexión que atraviese el deadline y un caso de más de 72 horas sin capacidad de cerrar.",
+      "acceptance": "Cero fills inventados; posición pendiente, incumplimiento y causa quedan registrados; pasar la prueba de detección no certifica que se haya respetado el plazo.",
+      "adversarial_case": "Cerrar contablemente una posición sin fill o suponer una reanudación sin timestamp conocido.",
+      "on_failure": "Declarar estado no liquidado, bloquear promoción y aplicar el runbook autorizado.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_expired_halted_position_not_fictionally_closed"
+        },
+        {
+          "file": "quant/tests/test_frontier_programme.py",
+          "class": "ProgrammeTests",
+          "method": "test_unknown_halt_end_does_not_invent_resume"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_impossible_exit_is_recorded_without_erasing_inventory"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V012",
+      "phase": "P02",
+      "name": "Reinicio y pulso real",
+      "exercise": "Reiniciar procesos con órdenes pendientes, interrumpir almacenamiento, desconectar datos y provocar el timeout del predictor legado.",
+      "acceptance": "Reconstrucción desde recibos y broker; campañas intactas; indicador alive vinculado a eventos recibidos y estado de conciliación; la falta de predictor impide entradas y conserva la gestión determinista de posiciones conocidas.",
+      "adversarial_case": "Mostrar alive por un temporizador de interfaz o subir el timeout para ocultar un proceso bloqueado.",
+      "on_failure": "Marcar degradación, impedir nuevas entradas y recuperar el estado; la causa del timeout local debe investigarse, no borrarse.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_journal_idempotent_and_stale_input_rejected"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_unreconciled_campaign_replacement_blocked"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V013",
+      "phase": "P03",
+      "name": "Calendario y acciones corporativas",
+      "exercise": "Reproducir splits, dividendos, festivos, cierres anticipados, DST y negociación cripto continua con interrupciones explícitas.",
+      "acceptance": "UTC para tiempo transcurrido y zona de la bolsa para sesión; cantidades, precios y derechos consistentes; el calendario sintético UTC no se reutiliza como calendario NYSE o Nasdaq certificado.",
+      "adversarial_case": "Mezclar precios ajustados y dividendos duplicados o asumir sesión por ser lunes a viernes.",
+      "on_failure": "Bloquear el activo o periodo no cubierto, manteniendo la evidencia original.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_programme.py",
+          "class": "ProgrammeTests",
+          "method": "test_early_close_normalized_without_weekday_guess"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_calendar_support_is_not_fabricated"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V014",
+      "phase": "P03",
+      "name": "Disponibilidad y caducidad",
+      "exercise": "Modificar datos futuros, adelantar recepción, usar cotización de 15.001 segundos y reestampar un modelo con labels antiguos.",
+      "acceptance": "Datos conocidos al decidir; BBO y estado cumplen el máximo vigente de 15 segundos; modelo y últimas etiquetas cumplen 168 horas del contrato actual; labels y entrenamiento preceden a la consulta.",
+      "adversarial_case": "Usar un cierre de vela todavía no terminado, un suavizador que vea el futuro o una fecha nueva para ocultar datos viejos.",
+      "on_failure": "Rechazar la inferencia y registrar el motivo de abstención.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_stale_or_future_quotes_blocked"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_new_fit_timestamp_cannot_hide_old_labels"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "CausalBankTests",
+          "method": "test_future_current_window_cannot_change_first_decision"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V015",
+      "phase": "P03",
+      "name": "Universo y concentración",
+      "exercise": "Seleccionar el universo elegible con información de esa fecha, capacidad nativa y costes; contrastar factores de posiciones existentes y propuestas.",
+      "acceptance": "Sin supervivencia retrospectiva ni liquidez inferida de datos futuros; no aumentar exposición por ampliar símbolos; estado incluye toda la cartera y respeta caps de trabajo y factores.",
+      "adversarial_case": "Añadir sólo ganadores actuales a toda la historia o declarar más tamaño ejecutable que el observado o supuesto con su etiqueta.",
+      "on_failure": "Excluir el activo; bloquear la cuenta si queda inventario fuera del modelo.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_incomplete_inventory_blocks"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_quote_liquidity_not_invented"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_grid_budget_blocks_without_partial_search"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V016",
+      "phase": "P03",
+      "name": "Procedencia y permisos de fuentes",
+      "exercise": "Verificar origen, derechos de uso, granularidad, timestamps y cobertura de barras, BBO, subastas y opciones.",
+      "acceptance": "Datos de subasta y opciones tienen recibos propios; OHLCV no se presenta como L2, L3, cola o desequilibrio real; fuente sintética nunca cambia a observada.",
+      "adversarial_case": "Fabricar NOII desde una vela o declarar licencia de datos por disponer de una página web.",
+      "on_failure": "Bloquear ese componente o cerrar su rama como no evaluable; no sustituirlo con una proxy sin protocolo nuevo.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_synthetic_cannot_be_observed"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "AdversarialReviewTests",
+          "method": "test_observed_fill_calibrator_refuses_synthetic_schema"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V017",
+      "phase": "P04",
+      "name": "Descomposición nocturna e intradiaria",
+      "exercise": "Reconstruir retornos close a open y open a close de equity con ajustes consistentes; comparar su suma en logaritmos con close a close.",
+      "acceptance": "Identidad numérica satisfecha y features calculadas sólo con tramos terminados; cripto no recibe un gap bursátil ficticio.",
+      "adversarial_case": "Usar la apertura de mañana al decidir hoy o mezclar fechas locales con días UTC.",
+      "on_failure": "Invalidar features y repetir ingeniería antes de cualquier medición económica.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V018",
+      "phase": "P04",
+      "name": "Distribución y etiquetas a 24 48 y 72 horas",
+      "exercise": "Construir labels por horizonte y desenlaces de stop, objetivo y expiración manteniendo el orden intrabar no identificado.",
+      "acceptance": "Ventanas maduradas y purgadas; límites de identificación conservados para OHLC ambiguo; réplicas sintéticas o bootstrap no cuentan como casos originales.",
+      "adversarial_case": "Elegir target primero en toda vela ambigua o añadir duplicados como más soporte estadístico.",
+      "on_failure": "Rechazar el panel y conservar la incertidumbre no identificada.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_barrier_collision_partially_identified"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_bootstrap_replicates_not_new_original_cases"
+        },
+        {
+          "file": "quant/tests/test_frontier_evaluation.py",
+          "class": "EvaluationTests",
+          "method": "test_evaluation_purges_unmatured_labels"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V019",
+      "phase": "P04",
+      "name": "Calibración y modelo de referencia",
+      "exercise": "Comparar un modelo condicional regularizado con referencia uniforme o simple, con el mismo panel y corte temporal.",
+      "acceptance": "Métrica y tolerancia de calibración registradas antes de medir; soporte efectivo insuficiente o deriva causa abstención; Brier de identificación no se interpreta como intervalo de confianza muestral.",
+      "adversarial_case": "Aceptar mejor score promedio ocultando falta de soporte por régimen o datos futuros.",
+      "on_failure": "Rechazar el modelo o mantener la referencia; no promover por complejidad.",
+      "validation_scope": "PREDICTIVE_RESEARCH",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_regime_drift_abstains"
+        },
+        {
+          "file": "quant/tests/test_frontier_evaluation.py",
+          "class": "EvaluationTests",
+          "method": "test_identification_score_bounds"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V020",
+      "phase": "P04",
+      "name": "MACD y osciladores como contexto causal",
+      "exercise": "Usar MACD12 30 9, RSI y estocástico existentes; evaluar información incremental frente a precio, volatilidad y horario.",
+      "acceptance": "Calentamiento y disponibilidad válidos; transformaciones del mismo precio no se cuentan como confirmaciones independientes; una anticipación de histograma no se etiqueta como giro futuro conocido.",
+      "adversarial_case": "Reutilizar la familia MACD ya negativa como descubrimiento nuevo o suavizar con valores futuros.",
+      "on_failure": "Retirar la variable si no aporta valor incremental; conservar registro de la familia cerrada.",
+      "validation_scope": "PREDICTIVE_RESEARCH",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_features.py",
+          "class": "OscillatorContextTests",
+          "method": "test_unknown_future_prices_do_not_change_context"
+        },
+        {
+          "file": "quant/tests/test_frontier_features.py",
+          "class": "OscillatorContextTests",
+          "method": "test_existing_indicators_are_features_not_authority"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V021",
+      "phase": "P05",
+      "name": "Objetivo y unidades de la cartera",
+      "exercise": "Revalorar la decisión con otra implementación a partir de efectivo, inventario, escenarios y costes.",
+      "acceptance": "Mismos dólares, cantidades nativas y base temporal; aproximación de log crecimiento identificada como tal; covarianza de retornos y de incertidumbre de la media diferenciadas; límites financieros satisfechos tras redondear.",
+      "adversarial_case": "Sumar bps y USD sin notional, confundir riesgo con error de la media o declarar óptimo global al enumerar una malla local.",
+      "on_failure": "Rechazar la propuesta y revisar el contrato matemático.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_separate_decimal_repricing_matches"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_raw_dollar_paths_cannot_be_relative_returns"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V022",
+      "phase": "P05",
+      "name": "Rotación y bandas de no operar",
+      "exercise": "Comparar mantener, operar parcialmente, aumentar, reducir y cerrar con costes de cambio y decaimiento de la señal.",
+      "acceptance": "La operación aporta valor incremental neto frente al estado actual dentro del margen de incertidumbre; gasto común y viabilidad global permanecen en la cuenta; esperar es una acción admisible.",
+      "adversarial_case": "Operar por cambios diminutos del score o quitar costes fijos después de ver una pérdida.",
+      "on_failure": "Abstenerse o conservar inventario dentro de sus límites; el programa se detiene si su economía global no es viable.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_all_costs_can_destroy_edge"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_fixed_overhead_can_destroy_total_edge"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V023",
+      "phase": "P05",
+      "name": "Lotes y financiación parcial",
+      "exercise": "Redondear asignaciones a lotes nativos y probar subconjuntos adversos de fills.",
+      "acceptance": "Ninguna compra depende de venta aún no confirmada; posiciones, caja, concentración y tamaño ejecutable vuelven a verificarse después del redondeo.",
+      "adversarial_case": "Certificar una reducción completa cuando sólo llenó una pata o adoptar instrumentos no lineales sin valoración.",
+      "on_failure": "Bloquear el incremento de riesgo y conservar exposición real.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_unconfirmed_sale_does_not_fund_buy"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_noninteger_qty_and_nonlinear_instrument_rejected"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_false_risk_reduction_exception_rejected"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V024",
+      "phase": "P05",
+      "name": "Límites y escenarios sin señal",
+      "exercise": "Probar mundo sin ventaja, señales contradictorias, choque de correlación, pérdidas diarias y drawdown.",
+      "acceptance": "Preservar límites del baseline: pérdida diaria 2%, drawdown 10%, bruto 60%, nombre 20%, factor 30%, cola 2% y estrés 5%, con sus bases explícitas; pausas impiden compras y permiten gestionar reducción de riesgo.",
+      "adversarial_case": "Aumentar apalancamiento o límites para aprobar la rentabilidad o declarar que una reducción aún fuera de caps ya es segura.",
+      "on_failure": "Bloquear entradas y activar gestión de riesgo conforme al estado conciliado.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_risk_pause_forbids_new_buys_not_exits"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_existing_exposure_can_be_reduced"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V025",
+      "phase": "P06",
+      "name": "Congelación antes de medir H1",
+      "exercise": "Sellar código, entrenamiento, refit, reglas de entrada y salida, asignador, riesgos, costes y ventanas de H1.",
+      "acceptance": "Identidad completa y registro anterior al acceso al periodo de evaluación; datos finales quedan separados del desarrollo.",
+      "adversarial_case": "Cambiar la hora de entrada, filtros o semillas después de conocer el PnL.",
+      "on_failure": "Invalidar esa evaluación; cualquier propuesta distinta consume una receta y otro periodo nuevo.",
+      "validation_scope": "RESEARCH_GOVERNANCE",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V026",
+      "phase": "P06",
+      "name": "Ablación económica de horario",
+      "exercise": "Comparar H1 con continuación original, CASH y referencia de mercado con exposición y riesgo emparejados.",
+      "acceptance": "Reportar PnL neto y log crecimiento de toda la cuenta, drawdown, rotación y contribuciones nocturnas e intradiarias; no atribuir mejora al predictor si cambió también la exposición.",
+      "adversarial_case": "Ganar sólo porque se duplicó el capital o se redujo a la mitad el riesgo frente al control.",
+      "on_failure": "Rechazar la atribución o la receta según la regla registrada.",
+      "validation_scope": "ECONOMIC_SCREENING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V027",
+      "phase": "P06",
+      "name": "Incertidumbre y concentración de H1",
+      "exercise": "Evaluar dependencia temporal, sensibilidad a bloques registrados, regímenes y concentración de PnL.",
+      "acceptance": "Se reporta soporte efectivo y selección global; quitar el mayor ganador es diagnóstico de concentración, no un filtro retrospectivo para borrar trades; no hay promoción por un promedio favorable aislado.",
+      "adversarial_case": "Presentar barras correlacionadas como trades independientes o elegir sólo meses ganadores.",
+      "on_failure": "Mantener resultado no concluyente o rechazar el candidato.",
+      "validation_scope": "ECONOMIC_SCREENING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V028",
+      "phase": "P06",
+      "name": "Decisión de conservar o descartar H1",
+      "exercise": "Aplicar los endpoints registrados a todas las variantes H1, incluyendo las negativas.",
+      "acceptance": "Veredicto RETAIN_FOR_FORWARD o REJECT registrado una sola vez; variantes rechazadas no entran a la cartera; no se declara ventaja real desde histórico reutilizado.",
+      "adversarial_case": "Reabrir un rechazo cambiando el nombre de la estrategia.",
+      "on_failure": "Cerrar la familia sin promoción y preservar resultados.",
+      "validation_scope": "RESEARCH_GOVERNANCE",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V029",
+      "phase": "P07",
+      "name": "Gap y confirmación causal",
+      "exercise": "Normalizar apertura respecto al cierre previo y volatilidad; evaluar aceptación o rechazo con barras ya cerradas y contexto sectorial.",
+      "acceptance": "No se usa el máximo o cierre posterior de la ventana para confirmar una entrada; cripto conserva su propia definición de evento y no hereda un overnight equity.",
+      "adversarial_case": "Usar el high del día completo o confirmar con una vela aún abierta.",
+      "on_failure": "Rechazar señal y panel afectado.",
+      "validation_scope": "ECONOMIC_SCREENING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "CausalBankTests",
+          "method": "test_opening_quote_includes_current_known_gap"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "CausalBankTests",
+          "method": "test_future_current_window_cannot_change_first_decision"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V030",
+      "phase": "P07",
+      "name": "Flujo auténtico de subasta",
+      "exercise": "Enlazar snapshots NYSE o Nasdaq con símbolo, subasta, tiempo de mercado, recepción y derechos de uso.",
+      "acceptance": "El dato existía antes de decidir y pertenece a la sesión e instrumento correctos; una señal de subasta no implica garantía de fill.",
+      "adversarial_case": "Inferir NOII real desde volumen OHLC o usar información final de la subasta en una decisión anterior.",
+      "on_failure": "Bloquear la variante y registrar falta de evidencia.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "OBSERVED_AUCTION_FEED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V031",
+      "phase": "P07",
+      "name": "Contexto de volatilidad de Cboe",
+      "exercise": "Versionar plazo, unidad, recepción y origen de volatilidad implícita y su estructura temporal.",
+      "acceptance": "Volatilidad implícita se usa como contexto de riesgo, no como probabilidad física de subida; datos caducados o inexistentes no se rellenan silenciosamente; opciones siguen sin ejecución en el motor spot.",
+      "adversarial_case": "Tratar VIX a 30 días como pronóstico direccional de 72 horas o confundir sigma anual con retorno diario.",
+      "on_failure": "Abstenerse del componente dependiente o rechazar el input.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "OBSERVED_OPTIONS_CONTEXT"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_programme.py",
+          "class": "ProgrammeTests",
+          "method": "test_derivatives_and_future_records_rejected"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V032",
+      "phase": "P07",
+      "name": "Valor incremental de H2",
+      "exercise": "Comparar la receta base registrada y su confirmación por flujo con mismas entradas elegibles y costes completos.",
+      "acceptance": "Atribución separada cuando cambian filtros, datos o exposición; registrar también rechazo de gaps y oportunidades perdidas; no promover por seleccionar retrospectivamente sólo gaps continuados.",
+      "adversarial_case": "Descartar del denominador todos los gaps fallidos o añadir otro filtro tras ver sus pérdidas.",
+      "on_failure": "Rechazar la interpretación o la receta y consumir el ensayo correspondiente.",
+      "validation_scope": "ECONOMIC_SCREENING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V033",
+      "phase": "P08",
+      "name": "Continuación frente a liquidación",
+      "exercise": "Comparar valor esperado neto de mantener con liquidación actual, riesgo de gap, coste de salida y tiempo restante.",
+      "acceptance": "Sólo datos conocidos; una llamada cambia la acción actual sin fingir Bellman global resuelto; el target aprendido no usa el máximo futuro de la posición.",
+      "adversarial_case": "Optimizar la salida leyendo el mejor precio posterior o renombrar un trailing arbitrario como óptimo.",
+      "on_failure": "Rechazar la política y conservar el control fijo.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_hold_on_positive_paths"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_exit_on_losing_paths"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V034",
+      "phase": "P08",
+      "name": "Protección y plazo original",
+      "exercise": "Probar cambios de volatilidad, splits, parciales, reinicios y propuestas de aumentar una posición existente.",
+      "acceptance": "No se amplía la campaña para esconder pérdidas; el límite de pérdida registrado y el deadline original se mantienen; se preserva el máximo de 72 horas transcurridas como restricción, con incumplimiento explícito si no se puede ejecutar.",
+      "adversarial_case": "Reiniciar la apertura al reentrar sin reconciliar o alejar el stop sólo para evitar reconocer una pérdida.",
+      "on_failure": "Bloquear la propuesta y gestionar el inventario observado.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_expired_position_exit_and_no_deadline_reset"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_unreconciled_campaign_replacement_blocked"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V035",
+      "phase": "P08",
+      "name": "Presupuesto temporal de la salida",
+      "exercise": "Evaluar temporización de órdenes con cuantiles registrados de ACK, fill, cancelación y reintento, incluyendo costes de ejecución urgente.",
+      "acceptance": "Cero retrasos evitables dentro del sobre; las colas no calibradas se declaran como incertidumbre; fuera del sobre se conserva la excepción y el riesgo, sin afirmar plazo garantizado.",
+      "adversarial_case": "Usar un p99 sintético como SLA observado o reintentar después del deadline sin registrar incumplimiento.",
+      "on_failure": "Invalidar la certificación operacional y bloquear nuevas entradas.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_impossible_exit_is_recorded_without_erasing_inventory"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V036",
+      "phase": "P08",
+      "name": "Ablación de salida H3",
+      "exercise": "Comparar salidas sobre el mismo flujo de entradas, cantidades iniciales y reglas de capital de la receta registrada.",
+      "acceptance": "Costes, riesgo, reutilización de capital y reentradas explícitos; cualquier diferencia conjunta se atribuye a la política completa; no se incorpora un ensamblado adicional fuera del presupuesto.",
+      "adversarial_case": "Cambiar entrada y salida y adjudicar todo el PnL a la salida.",
+      "on_failure": "Rechazar la atribución y evaluar la configuración completa como ensayo separado si queda presupuesto.",
+      "validation_scope": "ECONOMIC_SCREENING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V037",
+      "phase": "P09",
+      "name": "Ataques de integración",
+      "exercise": "Ampliar los 18 casos existentes con CFEE tardío, cambio de tarifa, calendario incorrecto, almacenamiento lleno, caída de proceso y adversidad combinada.",
+      "acceptance": "Cada fallo produce el estado previsto; no duplicación, pérdidas de inventario, fill ficticio ni reanudación automática sin conciliación.",
+      "adversarial_case": "Combinar fill tardío con reinicio y comisión retrasada en vez de probarlos sólo de forma aislada.",
+      "on_failure": "Conservar incidente y bloquear release; corregir y repetir sólo los controles afectados y la regresión necesaria.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "ExecutionLedgerTests",
+          "method": "test_fault_matrix_checks_both_implementations"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V038",
+      "phase": "P09",
+      "name": "Comprobación separada y hashes",
+      "exercise": "Reproducir caja, inventario, propuestas y agregados con implementaciones separadas y fuentes versionadas.",
+      "acceptance": "Tolerancia numérica declarada; para observaciones, saldos cuantizados en la unidad oficial y cero diferencia no explicada; hashes no sustituyen autenticidad del broker; revisión del mismo autor no cuenta como externa.",
+      "adversarial_case": "Recalcular hashes después de alterar PnL o reemplazar el autor por un nombre de auditor no verificado.",
+      "on_failure": "Rechazar expediente y conservar diferencias.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "AdversarialReviewTests",
+          "method": "test_forged_final_cash_is_detected"
+        },
+        {
+          "file": "quant/tests/test_synthetic9.py",
+          "class": "AdversarialReviewTests",
+          "method": "test_reviewer_imports_neither_simulator_nor_ledger"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_rehashed_numeric_tamper_rejected"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V039",
+      "phase": "P09",
+      "name": "Pulso y control de autoridad",
+      "exercise": "Ejecutar recorrido API de datos a decisión a orden simulada a fill a fee a patrimonio, con LLM desconectado y credenciales ausentes.",
+      "acceptance": "Alive deriva de recibos y edades reales; sin autoridad de ejecución no se emiten órdenes; el LLM opcional usa una API central y no puede modificar límites, aprobarse ni detener la gestión determinista de riesgos.",
+      "adversarial_case": "Un texto del modelo cambia execution_allowed o la UI muestra verde con datos caducados.",
+      "on_failure": "Bloquear entradas, señalar degradación y revisar el control de permisos.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V040",
+      "phase": "P09",
+      "name": "Benchmark reproducible del perfil operativo",
+      "exercise": "Medir al menos 200 decisiones del perfil fijado antes de medir: cuatro activos, hasta 40 análogos, hasta 81 acciones y hardware declarado.",
+      "acceptance": "Objetivo de ingeniería propuesto: p95 de cálculo local <=2 segundos y p99 <=5 segundos; publicar máximo, memoria, fallos y entorno; el cálculo no rebasa 30,000,000 unidades de trabajo ni la vigencia del input. No es SLA del broker.",
+      "adversarial_case": "Mostrar sólo la mejor latencia, usar dos snapshots como p99 robusto o ampliar límites tras un timeout sin registrar la modificación.",
+      "on_failure": "Reducir cómputo o corregir el cuello de botella y volver a registrar el perfil; nunca saltarse validaciones para acelerar.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V041",
+      "phase": "P10",
+      "name": "Trazabilidad de fills observados",
+      "exercise": "P10A: enlazar decisión, BBO causal, orden, ACK, actividad FILL, CFEE o FEE y estado de cuenta original.",
+      "acceptance": "IDs, cuenta, moneda, cantidades, timestamps y fees completos; separar paper de live; autenticar procedencia mediante acceso o contraste independiente apropiado, no sólo hashes.",
+      "adversarial_case": "Presentar fill paper como ejecución de bolsa, omitir una página de actividades o usar una cotización posterior para medir shortfall.",
+      "on_failure": "Bloquear calibración observada y mantener la evidencia incompleta privada.",
+      "validation_scope": "OBSERVED_EXECUTION",
+      "accepted_evidence_origins": [
+        "OBSERVED_PAPER",
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V042",
+      "phase": "P10",
+      "name": "Calibración sin reutilizar la validación",
+      "exercise": "Estimar costes por activo, tipo de orden, liquidez y régimen en P10A; congelar el estimador antes de P10B.",
+      "acceptance": "Reportar soporte, incertidumbre, fill ratio, latencia y shortfall; no sustituir fees aún no publicadas por cero; periodos insuficientes permanecen no concluyentes.",
+      "adversarial_case": "Calibrar el q95 con los mismos fills que luego se presentan como validación nueva.",
+      "on_failure": "Extender calibración dentro del presupuesto o suspender; comenzar otro periodo de validación sólo después de congelar.",
+      "validation_scope": "OBSERVED_EXECUTION",
+      "accepted_evidence_origins": [
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V043",
+      "phase": "P10",
+      "name": "Protocolo de evaluación futura",
+      "exercise": "P10B: registrar candidato, coste, universo, reglas de refit, periodo, métricas y parada antes de la primera decisión futura.",
+      "acceptance": "Cuenta continua con capital de referencia 20,000 USD; ledger prospectivo inmutable; reentrenamiento sólo conforme a regla causal registrada; no elegir ganadores mediante consultas intermedias al endpoint final.",
+      "adversarial_case": "Reutilizar 2025 o un periodo ya inspeccionado como holdout virgen, detener al primer beneficio o cambiar receta a mitad del periodo.",
+      "on_failure": "Invalidar la confirmación y conservar los resultados como exploración.",
+      "validation_scope": "PROSPECTIVE_ECONOMICS",
+      "accepted_evidence_origins": [
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V044",
+      "phase": "P10",
+      "name": "Aceptación económica y riesgo comparable",
+      "exercise": "Calcular log crecimiento neto y diferencias pareadas contra CASH, baseline congelado y referencia de mercado con riesgo y exposición emparejados.",
+      "acceptance": "Umbral propuesto: crecimiento neto positivo nominal y bajo estrés registrado; límite inferior al 95% de la ventaja sobre CASH y baseline >0 con dependencia y selección global tratadas según método congelado; riesgo dentro de caps. Periodo, soporte, método, bloques y costes deben estar fijados antes de evaluar o el resultado queda BLOCKED.",
+      "adversarial_case": "Aceptar por un backtest positivo, por ratio de acierto, por repetir seeds sintéticas o por reducir artificialmente el coste para superar el umbral.",
+      "on_failure": "Rechazar o declarar no concluyente; ninguna nota 9 ni promoción se deriva de un FAIL o de falta de soporte.",
+      "validation_scope": "PROSPECTIVE_ECONOMICS",
+      "accepted_evidence_origins": [
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V045",
+      "phase": "P10",
+      "name": "Riesgo operativo durante observación",
+      "exercise": "Monitorizar conciliación, frescura, drawdown, pérdida diaria, rechazos, plazos, límites de riesgo y costes realizados durante todo el periodo.",
+      "acceptance": "Incumplimiento crítico suspende entradas; los cortes por riesgo se mantienen en el PnL y en la selección de muestra; no borrar días de caída ni inventar cierres en una interrupción.",
+      "adversarial_case": "Continuar una prueba live sin poder reconstruir inventario o esconder un incidente para conservar la curva.",
+      "on_failure": "Pasar al estado degradado autorizado, gestionar posiciones conocidas y conservar el incidente.",
+      "validation_scope": "OBSERVED_EXECUTION",
+      "accepted_evidence_origins": [
+        "OBSERVED_PAPER",
+        "OBSERVED_LIVE"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V046",
+      "phase": "P11",
+      "name": "Revisión externa auténtica",
+      "exercise": "Entregar fuentes, manifiestos, protocolos, cuentas, fallos y datos privados por un canal autorizado al revisor independiente.",
+      "acceptance": "Identidad, independencia, alcance, commit, método y conclusiones verificables; hallazgos críticos resueltos; la reconstrucción Decimal del autor conserva su alcance de revisión propia.",
+      "adversarial_case": "Firmar automáticamente una auditoría en nombre de un tercero o sustituirla por un workflow verde.",
+      "on_failure": "Mantener G5 y la promoción bloqueados.",
+      "validation_scope": "EXTERNAL_REVIEW",
+      "accepted_evidence_origins": [
+        "VERIFIED_EXTERNAL_REVIEW"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V047",
+      "phase": "P11",
+      "name": "Permiso de ejecución con alcance",
+      "exercise": "Comprobar autorización para cuenta, entorno, instrumentos, versión, límites monetarios y vigencia concretos.",
+      "acceptance": "Permisos mínimos y autorización auténtica vigente; reutilizar autorización existente cuando cubra la operación; cambios fuera de su cuenta, entorno, versión o límites requieren resolver ese alcance antes de ejecutar; un microensayo no amplía por sí solo permiso de producción.",
+      "adversarial_case": "Usar una clave live donde se autorizó paper o promover porque existe un archivo llamado approved.",
+      "on_failure": "Rechazar ejecución y mantener el modo de investigación.",
+      "validation_scope": "OPERATIONAL_AUTHORIZATION",
+      "accepted_evidence_origins": [
+        "VERIFIED_OWNER_AUTHORIZATION"
+      ],
+      "existing_test_references": [],
+      "implementation_status": "PROPOSED_NOT_IMPLEMENTED",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V048",
+      "phase": "P11",
+      "name": "Ensayo de reversión",
+      "exercise": "Simular fallo después de una liberación controlada con posiciones y órdenes pendientes.",
+      "acceptance": "Detener nuevas entradas y conservar gestión autorizada de posiciones; reconstrucción y reversión sin órdenes duplicadas ni reinicio de campaña; no activar una estrategia anterior económicamente rechazada.",
+      "adversarial_case": "Hacer rollback borrando el diario o tratando la ausencia de señales como ausencia de posiciones.",
+      "on_failure": "Abortar liberación y recuperar con el estado real conciliado.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_journal_tamper_detected"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_unreconciled_campaign_replacement_blocked"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    },
+    {
+      "id": "V049",
+      "phase": "P11",
+      "name": "Vigilancia de degradación",
+      "exercise": "Comparar costes y resultados realizados, calibración y régimen con los límites de deriva y presupuesto registrados.",
+      "acceptance": "Alertas medibles y decisiones de pausa; sólo refit causal autorizado, sin autoaprobación ni cambio persistente de reglas desde un LLM; el deterioro de alpha puede retirar la estrategia.",
+      "adversarial_case": "Prometer autoaprendizaje continuo o mantener activo un modelo caducado sin mecanismo comprobado.",
+      "on_failure": "Pausar entradas y abrir investigación versionada; no reiniciar el periodo adverso.",
+      "validation_scope": "ENGINEERING",
+      "accepted_evidence_origins": [
+        "SYNTHETIC_ENGINEERING_ONLY",
+        "HISTORICAL_MODELED"
+      ],
+      "existing_test_references": [
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_regime_drift_abstains"
+        },
+        {
+          "file": "quant/tests/test_frontier_core.py",
+          "class": "FrontierTests",
+          "method": "test_new_fit_timestamp_cannot_hide_old_labels"
+        }
+      ],
+      "implementation_status": "EXISTING_PARTIAL_COVERAGE_REQUIRES_EXTENSION",
+      "current_verdict": "NOT_EVALUATED_FOR_THIS_PLAN",
+      "expected_evidence": "Recibo versionado con entrada, criterio, resultado observado, hash, commit y alcance; los datos de cuenta se conservan privados."
+    }
+  ],
+  "available_commands": [
+    {
+      "id": "C01",
+      "purpose": "Validar presupuesto sin autorizar gasto",
+      "command": "PYTHONPATH=quant python3 -B -m harpoon_quant.frontier_core validate-programme --programme programme/frontier/programme.json --output /tmp/harpoon_plan_budget_check.json"
+    },
+    {
+      "id": "C02",
+      "purpose": "Regresión del núcleo frontier",
+      "command": "PYTHONPATH=quant python3 -B -m unittest discover -s quant/tests -p 'test_frontier*.py'"
+    },
+    {
+      "id": "C03",
+      "purpose": "Regresión del banco sintético",
+      "command": "PYTHONPATH=quant python3 -B -m unittest discover -s quant/tests -p 'test_synthetic9*.py'"
+    },
+    {
+      "id": "C04",
+      "purpose": "Verificar artefactos frontier archivados",
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=quant python3 -B tools/frontier_verify.py evidence/frontier/run_04 --repeats 3 --output /tmp/harpoon_plan_frontier_check.json"
+    },
+    {
+      "id": "C05",
+      "purpose": "Verificar el paquete sintético con proceso separado",
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=quant python3 -B tools/verify_synthetic9.py evidence/synthetic9/run_01 --output /tmp/harpoon_plan_synthetic_check.json"
+    },
+    {
+      "id": "C06",
+      "purpose": "Suite completa antes de cambios de código relevantes",
+      "command": "PYTHONPATH=quant python3 -B -m unittest discover -s quant/tests"
+    }
+  ],
+  "primary_sources": [
+    {
+      "subject": "Tarifas cripto y unidades de comisión",
+      "url": "https://docs.alpaca.markets/us/docs/crypto-fees"
+    },
+    {
+      "subject": "Subastas NYSE",
+      "url": "https://www.nyse.com/trade/auctions"
+    },
+    {
+      "subject": "Cruces y NOII Nasdaq",
+      "url": "https://nasdaqtrader.com/Trader.aspx?id=OpenClose"
+    },
+    {
+      "subject": "Estructura temporal de volatilidad Cboe",
+      "url": "https://www.cboe.com/tradable-products/vix/term-structure"
+    },
+    {
+      "subject": "Control de cartera multiperiodo",
+      "url": "https://stanford.edu/~boyd/papers/cvx_portfolio.html"
+    },
+    {
+      "subject": "Retornos nocturnos e intradiarios",
+      "url": "https://personal.lse.ac.uk/polk/research/TugOfWar.pdf"
+    },
+    {
+      "subject": "Selección y Sharpe deflactado",
+      "url": "https://doi.org/10.3905/jpm.2014.40.5.094"
+    }
+  ],
+  "current_accepted_phases": 0,
+  "new_executable_validators_implemented_by_this_document": 0,
+  "execution_allowed": false,
+  "financial_authorization": false,
+  "external_review_completed": false,
+  "economic_improvement_accredited": false,
+  "level9_accredited": false
+}

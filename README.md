@@ -11,6 +11,10 @@ añade órdenes/fills enlazados, cuentas continuas, estrés y un paquete reprodu
 para revisión. Su evidencia queda identificada como sintética y mantiene
 pendientes fills reales, validación prospectiva real y revisión externa.
 
+El [plan secuencial de mejoras y validación operacional](programme/roadmap9/PLAN_SECUENCIAL.md)
+organiza 12 fases y 49 especificaciones de validación, con dependencias,
+criterios de avance y parada, cobertura existente y evidencia pendiente.
+
 **Core corregido. Ventaja neta no demostrada. Nivel 8 no acreditado.**
 
 Esta integral conserva la aplicación, código, datos originales, estudios anteriores, modelos diagnósticos, pruebas y nuevas evidencias. No se ha desplegado ni conectado a un broker.
