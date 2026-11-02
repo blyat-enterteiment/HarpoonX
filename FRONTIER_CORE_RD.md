@@ -178,3 +178,5 @@ reprodujo exactamente ambos recibos en este entorno: medianas de 0.178 s para el
 estado sin posiciones y 0.270 s para el estado con inventario, tres repeticiones
 por snapshot. Esos dos casos no son un SLA ni una medición de ejecución live.
 La diferencia máxima de medias en la segunda valoración fue 5.69e-14 USD.
+
+La [ejecución final en GitHub](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/41497024806) aprobó todos los pasos sobre el commit `036db5df62f6d26f350444864381f08e0a443d29`, incluidos 611 tests, reconstrucción y valoración separada. El [registro de CI](evidence/frontier/qa/github_ci.json) conserva el commit probado y los resultados. Esta atestación documental no cambia las fuentes del motor.
