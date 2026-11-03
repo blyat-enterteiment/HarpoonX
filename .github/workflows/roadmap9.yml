@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          node --test --test-timeout=30000 tools/roadmap9_integration_api_test.cjs 2>&1 | tee "$RUNNER_TEMP/roadmap9/integration_http.tap"
+          node --test --test-timeout=30000 --test-reporter=tap tools/roadmap9_integration_api_test.cjs 2>&1 | tee "$RUNNER_TEMP/roadmap9/integration_http.tap"
       - name: Separate HTTP adversarial replay and restarted SQLite
         run: node tools/roadmap9_integration_adversarial.cjs "$RUNNER_TEMP/roadmap9/integration_adversarial.json"
       - name: Registered capacity profile on this CI runner
