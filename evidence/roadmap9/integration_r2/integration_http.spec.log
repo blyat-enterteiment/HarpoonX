@@ -1,0 +1,25 @@
+✔ HTTP guards require opt-in, authentication, origin and bounded explicit JSON (195.984471ms)
+✔ offline bridge refuses a store without compare-and-swap (0.775149ms)
+✔ HTTP lifecycle joins allocation, cancellation, late fill, restart, fee and exact equity (6607.328644ms)
+✔ native CFEE after restart exposes reservation deficit and preserves corrected net inventory (7657.795473ms)
+✔ failed CAS and lost ACK preserve authoritative journal and require a new reconciliation (4663.538847ms)
+✔ two controllers cannot both commit the same prior session revision (2714.655902ms)
+✔ observed cost or calendar contract changes cannot be cleared by balance reconciliation (5645.703911ms)
+✔ worker timeout cannot acknowledge mutation or revive entries after process restart (11046.105374ms)
+✔ HTTP boundary rechecks campaign deadline at response and before PLAN or REDUCE commit (6952.310961ms)
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"CAMPAIGN_DEADLINE","kind":"STATUS","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801000,"deadline_at_ms":1788868801000,"worker_intents":0,"cas_calls":0,"inventory_preserved":true,"revision_preserved":5,"http_status":200,"broker_calls":0,"execution_allowed":false}
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"CAMPAIGN_DEADLINE","kind":"PLAN","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801000,"deadline_at_ms":1788868801000,"worker_intents":1,"cas_calls":0,"inventory_preserved":true,"revision_preserved":5,"http_status":503,"broker_calls":0,"execution_allowed":false}
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"CAMPAIGN_DEADLINE","kind":"REDUCE","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801000,"deadline_at_ms":1788868801000,"worker_intents":1,"cas_calls":0,"inventory_preserved":true,"revision_preserved":5,"http_status":503,"broker_calls":0,"execution_allowed":false}
+✔ HTTP boundary expires model and label entry TTL without blocking deterministic reductions (10633.665694ms)
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"ENTRY_TTL_168_HOURS","field":"model_trained_at_ms","kind":"STATUS","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801001,"entry_valid_until_ms":1788868801000,"before_age_ms":604799999,"completed_age_ms":604800001,"rejected_entry_cas_calls":0,"subsequent_reduction_cas_calls":1,"subsequent_reduction_status":"DETERMINISTIC_REDUCTION","inventory_preserved":true,"deadline_preserved":1788872400000,"http_status":200,"broker_calls":0,"execution_allowed":false}
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"ENTRY_TTL_168_HOURS","field":"model_trained_at_ms","kind":"PLAN","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801001,"entry_valid_until_ms":1788868801000,"before_age_ms":604799999,"completed_age_ms":604800001,"rejected_entry_cas_calls":0,"subsequent_reduction_cas_calls":1,"subsequent_reduction_status":"DETERMINISTIC_REDUCTION","inventory_preserved":true,"deadline_preserved":1788872400000,"http_status":503,"broker_calls":0,"execution_allowed":false}
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"ENTRY_TTL_168_HOURS","field":"latest_label_at_ms","kind":"STATUS","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801001,"entry_valid_until_ms":1788868801000,"before_age_ms":604799999,"completed_age_ms":604800001,"rejected_entry_cas_calls":0,"subsequent_reduction_cas_calls":1,"subsequent_reduction_status":"DETERMINISTIC_REDUCTION","inventory_preserved":true,"deadline_preserved":1788872400000,"http_status":200,"broker_calls":0,"execution_allowed":false}
+ℹ {"origin":"SYNTHETIC_ENGINEERING_ONLY","boundary":"ENTRY_TTL_168_HOURS","field":"latest_label_at_ms","kind":"PLAN","evaluated_at_ms":1788868800999,"completed_at_ms":1788868801001,"entry_valid_until_ms":1788868801000,"before_age_ms":604799999,"completed_age_ms":604800001,"rejected_entry_cas_calls":0,"subsequent_reduction_cas_calls":1,"subsequent_reduction_status":"DETERMINISTIC_REDUCTION","inventory_preserved":true,"deadline_preserved":1788872400000,"http_status":503,"broker_calls":0,"execution_allowed":false}
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56259.969717

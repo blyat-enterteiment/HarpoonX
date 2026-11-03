@@ -1,0 +1,92 @@
+{
+  "schema": "HARPOON_ROADMAP9_ADVERSARIAL_STATUS_EXPIRY_1",
+  "scope": "DIRECT_ACTUAL_ADAPTER_METHOD_SYNTHETIC_BOUNDARY_TEST_NOT_HTTP",
+  "source_file": "runtime/roadmap9_bridge.cjs",
+  "source_sha256": "646f5f57e2273e6645c804cdb082f3c93d844e499b9307d8fce224e99372d503",
+  "source_unchanged_during_test": true,
+  "cases": [
+    {
+      "mode": "expired",
+      "result": {
+        "valid_until_ms": 15000,
+        "alive": false,
+        "simulated_entries_ready": false,
+        "simulation_blockers": [
+          "INPUT_EXPIRED_BEFORE_RESPONSE"
+        ],
+        "health": {
+          "alive": false,
+          "entries_ready": false,
+          "owned_inventory_management": "RECONCILE_ONLY",
+          "blocking_reasons": [
+            "EXECUTION_AUTHORITY_MISSING",
+            "INPUT_EXPIRED_BEFORE_RESPONSE"
+          ]
+        },
+        "execution_allowed": false,
+        "orders_allowed": false,
+        "financial_acceptance_allowed": false,
+        "completed_at_ms": 16000,
+        "storage": {
+          "revision": 3,
+          "confirmed": true,
+          "persisted": true,
+          "recovery_required": false,
+          "last_failure": null,
+          "namespace": "ISOLATED_SYNTHETIC_SESSION"
+        },
+        "transport": {
+          "origin": "SYNTHETIC_ENGINEERING_ONLY",
+          "broker_transport_present": false,
+          "llm_transport_present": false,
+          "worker_timeout_ms": 8000,
+          "credentials_forwarded": false
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "recovery",
+      "result": {
+        "valid_until_ms": 30000,
+        "alive": false,
+        "simulated_entries_ready": false,
+        "simulation_blockers": [
+          "TRANSPORT_RECONCILIATION_REQUIRED"
+        ],
+        "health": {
+          "alive": false,
+          "entries_ready": false,
+          "owned_inventory_management": "RECONCILE_ONLY",
+          "blocking_reasons": [
+            "EXECUTION_AUTHORITY_MISSING",
+            "TRANSPORT_RECONCILIATION_REQUIRED"
+          ]
+        },
+        "execution_allowed": false,
+        "orders_allowed": false,
+        "financial_acceptance_allowed": false,
+        "completed_at_ms": 16000,
+        "storage": {
+          "revision": 3,
+          "confirmed": true,
+          "persisted": true,
+          "recovery_required": true,
+          "last_failure": null,
+          "namespace": "ISOLATED_SYNTHETIC_SESSION"
+        },
+        "transport": {
+          "origin": "SYNTHETIC_ENGINEERING_ONLY",
+          "broker_transport_present": false,
+          "llm_transport_present": false,
+          "worker_timeout_ms": 8000,
+          "credentials_forwarded": false
+        }
+      },
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "new_economic_measurements": 0,
+  "execution_allowed": false
+}

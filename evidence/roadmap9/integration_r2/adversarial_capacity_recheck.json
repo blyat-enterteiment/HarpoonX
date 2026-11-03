@@ -1,0 +1,39 @@
+{
+  "schema": "HARPOON_OFFLINE_JOURNAL_CAPACITY_ADVERSARIAL_RECHECK_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "ONE_EXISTING_TARGETED_COMPOSITE_UNIT_TEST_RUN_BY_INTERNAL_REVIEWER;NOT_HTTP",
+  "created_at_utc": "2026-11-03T05:45:12.701001+00:00",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_roadmap9_integration.CompositeIntegrationTests.test_journal_capacity_128_blocks_readiness_and_preserves_inventory_on_129",
+    "-v"
+  ],
+  "elapsed_seconds": 1.556,
+  "exit_code": 0,
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/integration.py": "09899e5ca59beb32886171191c02bed369ab03948cd43436882db8630712dd00",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "quant/tests/test_roadmap9_integration.py": "640bcb24117f694a5dcec2201f6ef8ed9407a0cd214efccf1e75098a1d90bb17"
+  },
+  "source_hashes_after": {
+    "quant/harpoon_quant/roadmap9/integration.py": "09899e5ca59beb32886171191c02bed369ab03948cd43436882db8630712dd00",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "quant/tests/test_roadmap9_integration.py": "640bcb24117f694a5dcec2201f6ef8ed9407a0cd214efccf1e75098a1d90bb17"
+  },
+  "log_path": "evidence/roadmap9/integration_r2/adversarial_capacity_recheck.log",
+  "log_sha256": "5dd5898282f15b201e1941f6471bacd5bd4364a711272e8c97f91c5fe1f68017",
+  "conditions_checked": [
+    "127_receipts_healthy",
+    "128_receipts_not_alive_no_entries_reconcile_only",
+    "129th_new_command_rejected_journal_unchanged",
+    "same_command_retry_idempotent",
+    "replay_recovery_retains_inventory_and_ledger"
+  ],
+  "new_economic_measurements": 0,
+  "execution_allowed": false,
+  "sources_unchanged": true,
+  "passed": true
+}

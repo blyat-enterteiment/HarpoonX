@@ -1,0 +1,67 @@
+{
+  "schema": "HARPOON_MODEL_RETURN_BOUNDARY_RECHECK_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "DIRECT_REAL_PYTHON_COMPOSITE_TO_REAL_NODE_PUBLIC_VIEW;NOT_HTTP",
+  "before_receipt": "evidence/roadmap9/integration_r2/adversarial_model_return_before.json",
+  "reproducer_python": "import json\nfrom test_roadmap9_integration import Harness\nh=Harness();_,deadline=h.fill_stock()\nh.send({'kind':'FEE','command_id':'model:fee','activity_type':'FEE','activity_id':'model:activity','fill_id':'execution','fee_asset':'USD','total_fee':'0.21'})\nh.reconcile('model:reconciled')\nmodel_at=h.now+2-168*3_600_000+1\nview=h.send({**h.input['predictor'],'command_id':'model:ttl','model_trained_at_ms':model_at,'latest_label_at_ms':model_at})\nprint(json.dumps({'view':view,'completed_at':h.now+2,'model_at':model_at,'deadline':deadline}))\n",
+  "evaluated_at_ms": 1788800000022,
+  "valid_until_ms": 1788800015000,
+  "entry_valid_until_ms": 1788800000023,
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/integration.py": "3ce5d72b9fb6285cc8408618853a9710c056b632f170191d8120ccd351c98593",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "quant/tests/test_roadmap9_integration.py": "59de53037746d392fd6c5a5b6d7fedec9357e0d01f2585fd9f3b365cd6c3e651",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6"
+  },
+  "source_hashes_after": {
+    "quant/harpoon_quant/roadmap9/integration.py": "3ce5d72b9fb6285cc8408618853a9710c056b632f170191d8120ccd351c98593",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "quant/tests/test_roadmap9_integration.py": "59de53037746d392fd6c5a5b6d7fedec9357e0d01f2585fd9f3b365cd6c3e651",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6"
+  },
+  "sources_unchanged": true,
+  "cases": [
+    {
+      "completed_at_ms": 1788800000022,
+      "model_age_at_return_ms": 604799999,
+      "deadline_at_ms": 1788886400010,
+      "alive": true,
+      "simulated_entries_ready": true,
+      "management": "REDUCTION_READY",
+      "blockers": [],
+      "recovery_required": false,
+      "inventory_preserved": true,
+      "deadline_preserved": true
+    },
+    {
+      "completed_at_ms": 1788800000023,
+      "model_age_at_return_ms": 604800000,
+      "deadline_at_ms": 1788886400010,
+      "alive": true,
+      "simulated_entries_ready": true,
+      "management": "REDUCTION_READY",
+      "blockers": [],
+      "recovery_required": false,
+      "inventory_preserved": true,
+      "deadline_preserved": true
+    },
+    {
+      "completed_at_ms": 1788800000024,
+      "model_age_at_return_ms": 604800001,
+      "deadline_at_ms": 1788886400010,
+      "alive": true,
+      "simulated_entries_ready": false,
+      "management": "REDUCTION_READY",
+      "blockers": [
+        "ENTRY_INPUT_EXPIRED_BEFORE_RESPONSE"
+      ],
+      "recovery_required": false,
+      "inventory_preserved": true,
+      "deadline_preserved": true
+    }
+  ],
+  "passed": true,
+  "execution_allowed": false,
+  "new_economic_measurements": 0,
+  "created_at_utc": "2026-11-03T05:42:27.402Z"
+}

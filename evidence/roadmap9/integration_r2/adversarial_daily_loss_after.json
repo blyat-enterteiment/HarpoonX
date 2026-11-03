@@ -1,0 +1,31 @@
+{
+  "alive": true,
+  "case": "prior_day_gain_then_overnight_loss_above_daily_cap",
+  "cumulative_profit_usd": "3391.2500",
+  "current_equity_usd": "23391.2500",
+  "daily_risk": {
+    "anchor_basis": "JOURNAL_NAV_BEFORE_FIRST_UTC_DAY_RECEIPT",
+    "anchor_equity_usd": "23989.7500",
+    "anchor_receipt_at_ms": 1788800000012,
+    "blocking_reasons": [],
+    "daily_loss_fraction": 0.024948154941172793,
+    "daily_pnl_usd": "-598.5000",
+    "high_water_equity_usd": "23989.7500",
+    "utc_day": "2026-09-08"
+  },
+  "execution_allowed": false,
+  "get_and_restart_preserve_anchor": true,
+  "new_economic_measurements": 0,
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "plan_error": "OFFLINE_PLAN_NOT_READY:LIMIT_DAILY_LOSS_FRACTION",
+  "prior_day_equity_usd": "23989.7500",
+  "rejected_plan_preserves_journal": true,
+  "result": "PASS",
+  "scope": "DIRECT_PYTHON_COMPOSITE_NOT_HTTP",
+  "simulated_entries_ready": false,
+  "simulation_blockers": [
+    "LIMIT_DAILY_LOSS_FRACTION"
+  ],
+  "source_sha256": "3ce5d72b9fb6285cc8408618853a9710c056b632f170191d8120ccd351c98593",
+  "sources_unchanged_during_recheck": true
+}

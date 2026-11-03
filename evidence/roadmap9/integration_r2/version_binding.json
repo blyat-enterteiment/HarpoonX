@@ -1,0 +1,103 @@
+{
+  "schema": "HARPOON_ROADMAP_R2_VERSION_BINDING_1",
+  "source_commit": "8c3cae0609b1353013023ef4bd29652d79260acf",
+  "source_tree": "ae5391bb9a5722b2a6489ca4b2b5045e56d8f09d",
+  "prior_commit": "b48f38d23fce08bd68428fe3f7896a66a8548b7a",
+  "initial_integration_commit": "c1d28844ccbc39d3181c440acf6c29905aa5bd09",
+  "source_manifest": "programme/roadmap9/source_manifest_r2.json",
+  "source_manifest_file_count": 567,
+  "files_verified_against_git_tree": 567,
+  "git_tree_verification_mismatches": [],
+  "source_commit_exists_before_closure": true,
+  "code_tested_locally": {
+    "quant_tests": 792,
+    "http_tests": 10,
+    "source_files_in_test_snapshots": 552,
+    "before_after_source_hashes_equal": true
+  },
+  "changes_after_test_snapshot": {
+    "path": ".github/workflows/roadmap9.yml",
+    "scope": "Explicit TAP reporter selection only; no application or test-source byte changed"
+  },
+  "changed_files": [
+    {
+      "path": ".github/workflows/roadmap9.yml",
+      "sha256": "0f872ed7f362a4f92f6bd0fda0694460edeb1da52ac671451b3ae74966ba4f36",
+      "git_sha": "63fdaf4db781ee8976d3da45f2e6cdfc8ee941d4",
+      "mode": "100644"
+    },
+    {
+      "path": "quant/harpoon_quant/roadmap9/gates.py",
+      "sha256": "61c3edb9c9935324e32d2552c5f8672c12fa4e8eec4ab2d4ff2713a0d7f171d5",
+      "git_sha": "1cc6f3ac0bbec61935915e302805cb4297776b16",
+      "mode": "100644"
+    },
+    {
+      "path": "quant/harpoon_quant/roadmap9/integration.py",
+      "sha256": "09899e5ca59beb32886171191c02bed369ab03948cd43436882db8630712dd00",
+      "git_sha": "87b5fe2df159e13568046679990483ad9a346e3f",
+      "mode": "100644"
+    },
+    {
+      "path": "quant/tests/test_roadmap9_gates.py",
+      "sha256": "0a60a034565e18a8ac7e6a5ef8e48916a98fabf72600599c6d087c21620b5b1a",
+      "git_sha": "fcd6f980bb1feed2ad731fee77d103067acad0d4",
+      "mode": "100644"
+    },
+    {
+      "path": "quant/tests/test_roadmap9_integration.py",
+      "sha256": "640bcb24117f694a5dcec2201f6ef8ed9407a0cd214efccf1e75098a1d90bb17",
+      "git_sha": "fddeba5e7d870d7cc4f62aee757ba03334d14600",
+      "mode": "100644"
+    },
+    {
+      "path": "research/roadmap9/lint_baseline.json",
+      "sha256": "6e429b4f3105edf8508b4c152a7cdfb76be5a95e3b636e2363afd572d66dbe20",
+      "git_sha": "697c672e9af6839d0ddf48eba7a9efd02963b0df",
+      "mode": "100644"
+    },
+    {
+      "path": "runtime/roadmap9_bridge.cjs",
+      "sha256": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+      "git_sha": "ea3e4d8567ddd4d2ac72ce2fa6bf4fc2f495f85d",
+      "mode": "100644"
+    },
+    {
+      "path": "runtime30/server.js",
+      "sha256": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+      "git_sha": "211a242c2ac62d56070170677344a11e41ab128f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/roadmap9_integration_adversarial.cjs",
+      "sha256": "4e09fc385ae1bcd5f1359dc77b8f5af0e64e12928c7e652f7f6001a952194927",
+      "git_sha": "cea22ceb87e66aafd1a886771d7f5d2570073191",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/roadmap9_integration_api_test.cjs",
+      "sha256": "3ffbaab1fbad420ab7b5c8e8f84654949e8e5b90f7019d03b47ec07269ef685d",
+      "git_sha": "d625af45e15e2cb25f4fc4ab2b104bbbb6300e9f",
+      "mode": "100644"
+    },
+    {
+      "path": "tools/roadmap9_integration_fixture.cjs",
+      "sha256": "4b85520f2b3f66fa1d9954dfab20c88b842e640b0f181993ea38854f33c4240b",
+      "git_sha": "665cc19d2baa3e1fbd34fb66fde1120995977afd",
+      "mode": "100644"
+    },
+    {
+      "path": "xxx/server.ts",
+      "sha256": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055",
+      "git_sha": "d2f86e29a4256baaa8e68520ca95146f29d70f33",
+      "mode": "100644"
+    }
+  ],
+  "review_receipts_keep_original_tested_hashes": true,
+  "new_economic_measurements": 0,
+  "economic_recipe_changes": 0,
+  "frozen_scientific_bindings": 29,
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false,
+  "external_review_completed": false
+}

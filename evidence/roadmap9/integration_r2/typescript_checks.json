@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.xxx.json",
+        "--noEmit"
+      ],
+      "exit_code": 0,
+      "seconds": 2.4306454269990354,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "runtime/roadmap9_bridge.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06268399900000077,
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "execution_allowed": false,
+  "new_economic_measurements": 0,
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "TYPESCRIPT_EXISTING_SERVER_AND_NODE_BRIDGE_SYNTAX",
+  "source_sha256": {
+    "deploy/managed.cjs": "3f3d2fe8b23fc5d3c5ca4d64ae750020ddf5447a85689822ed2cf129835427b8",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+    "tsconfig.xxx.json": "d2f714ec4b116a819819b374dfea5d9e5780d3af60a57955782bd6f24f4922a6",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055"
+  },
+  "sources_unchanged_during_execution": true,
+  "status": "PASS"
+}

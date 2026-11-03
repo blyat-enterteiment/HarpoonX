@@ -1,0 +1,55 @@
+{
+  "absolute_tolerance": "1e-10",
+  "all_exhaustive_partials_within_declared_limits": true,
+  "audited_component_source_hashes": {
+    "quant/harpoon_quant/frontier/contracts.py": "3cb9af8bad782781ac1e0ad67b813151d85d46b8fda944f369c2b375ba7eeb0a",
+    "quant/harpoon_quant/frontier/controller.py": "35fa1d7f23b365cf51e8fb31058d1bc9293b16338a053babf41e3dea934d9225",
+    "quant/harpoon_quant/frontier/supervisor.py": "3d3ac3c28fe80ed7383927aff784a45d22cc8059b9d2fea7a6deddda0e3b2880",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e",
+    "quant/tests/test_roadmap9_portfolio.py": "1a1f2c40b1f2a190c3a6b00d96a7f20ffa09e720c9660872be2d7417c9028bdd"
+  },
+  "comparisons": {
+    "cash": {
+      "absolute_difference": "0.000000",
+      "independent_decimal": "7998.409800"
+    },
+    "equity": {
+      "absolute_difference": "0.000000",
+      "independent_decimal": "9998.409800"
+    },
+    "exit_cost": {
+      "absolute_difference": "0E-10",
+      "independent_decimal": "1.589800"
+    },
+    "immediate_cost": {
+      "absolute_difference": "0.000000",
+      "independent_decimal": "1.590200"
+    },
+    "score": {
+      "absolute_difference": "3.642303985295787275728035899230170E-19",
+      "independent_decimal": "0.0019114783516219580357696014704212724271964100769830"
+    },
+    "stress": {
+      "absolute_difference": "2E-14",
+      "independent_decimal": "104.11001000"
+    },
+    "tail": {
+      "absolute_difference": "2E-14",
+      "independent_decimal": "24.16600200"
+    }
+  },
+  "decimal_precision": 50,
+  "economic_evaluation_completed": false,
+  "execution_allowed": false,
+  "exhaustive_native_share_fill_combinations": 121,
+  "external_review_completed": false,
+  "imports_optimizer_or_fee_ledger": false,
+  "input_example_sha256": "c9a7f7344a612f3d6e77eec195c6e6185a8e9617a0cc217c5dc0ca42832a802f",
+  "maximum_partial_cvar_usd": "24.16600200",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "schema": "HARPOON_ROADMAP9_SEPARATE_PORTFOLIO_CHECK_1",
+  "scope": "INDEPENDENT_REPRICE_OF_ONE_PUBLISHED_FLAT_USD_FIXTURE_NOT_ALL_POLICIES_OR_MARKET_STATES",
+  "verified": true,
+  "verifier_sha256": "49f71154385d0ec3a9651b2eb9c2bdda97119bac28ea89ab385ef5e1bc2a0ae7"
+}

@@ -1,0 +1,172 @@
+{
+  "schema": "HARPOON_ROADMAP9_INTERNAL_ADVERSARIAL_CLOSURE_REVIEW_1",
+  "created_at_utc": "2026-11-03T05:45:36.233290+00:00",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "review_scope": "INTERNAL_SEPARATE_REVIEWER;NOT_EXTERNAL_INDEPENDENT_ATTESTATION",
+  "base_commit": "b48f38d23fce08bd68428fe3f7896a66a8548b7a",
+  "source_revision_scope": "CURRENT_SOURCE_BYTES_IDENTIFIED_BY_HASH;BASE_COMMIT_IS_PRE_R2_NOT_THE_REVIEWED_CODE_IDENTITY",
+  "final_source_commit_binding_pending": true,
+  "reviewed_current_source_sha256": {
+    "programme/roadmap9/plan.json": "877bfb1a7c38ab7df345e5472ae74e8dddda7ee2721359fe6f5da043f017231a",
+    "quant/harpoon_quant/roadmap9/integration.py": "09899e5ca59beb32886171191c02bed369ab03948cd43436882db8630712dd00",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "quant/tests/test_roadmap9_integration.py": "640bcb24117f694a5dcec2201f6ef8ed9407a0cd214efccf1e75098a1d90bb17",
+    "tools/roadmap9_integration_api_test.cjs": "3ffbaab1fbad420ab7b5c8e8f84654949e8e5b90f7019d03b47ec07269ef685d",
+    "tools/roadmap9_integration_adversarial.cjs": "4e09fc385ae1bcd5f1359dc77b8f5af0e64e12928c7e652f7f6001a952194927",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59"
+  },
+  "recommendations": {
+    "V012": {
+      "recommended_verdict": "BLOCKED",
+      "contract": "Reinicio y pulso real; investigar y conservar el timeout del predictor legado.",
+      "evidence": "El único recheck exacto del test legado pasó 1/1 en 29.709 s, timeout 8000 ms sin cambios. El incidente y seguimientos previos siguen conservados. La causa histórica no se reprodujo ni se estableció.",
+      "functional_progress": "Reinicio/CAS/recibos y falta de predictor tienen cobertura sintética; el stall de 8000 ms del worker nuevo es una ruta separada, no diagnóstico del predictor legado.",
+      "external_broker_or_deployment_required_to_run_this_engineering_contract": false
+    },
+    "V037": {
+      "recommended_verdict": "PASS_SCOPED_OFFLINE_ENGINEERING_AFTER_FINAL_ROOT_REGRESSION_AND_COMMIT_BINDING",
+      "contract": "Ataques de integración con CFEE tardío, tarifa/calendario, almacenamiento, proceso y adversidad combinada.",
+      "basis": "API real compone optimizador, ejecución, ledger y SQLite CAS. Mi ataque FILL con CAS fallido y reinicio SQLite/controller con cotización de 952 ms exigió conciliación; reintento y duplicados no duplicaron efectos; fee superior a provisión conservó deuda. Los defectos temporales observados quedaron corregidos y rechecados. Capacidad agotada en 128 recibos deja bloqueo visible, rechaza el comando nuevo 129 y conserva estado al reintentar o reconstruir.",
+      "accepted_origin_matches_original_plan": true
+    },
+    "V039": {
+      "recommended_verdict": "PASS_SCOPED_OFFLINE_ENGINEERING_AFTER_FINAL_ROOT_REGRESSION_AND_COMMIT_BINDING",
+      "contract": "Recorrido API datos→decisión→orden simulada→fill→fee→patrimonio; LLM ausente y autoridad false.",
+      "basis": "El endpoint opt-in existente recalcula estado con reloj servidor; rechaza reloj/snapshot/autoridad del cliente. Ausencia de mercado no se presenta alive. Retorno vencido bloquea readiness y deadline; caducidad exclusiva de modelo bloquea entradas y conserva alive/reducción determinista.",
+      "accepted_origin_matches_original_plan": true,
+      "visual_dashboard_integration_tested": false
+    }
+  },
+  "reviewer_executed_evidence": [
+    {
+      "artifact": "legacy_timeout_recheck.json",
+      "tests": 1,
+      "passed": true,
+      "scope": "Exact existing legacy regression; post-run source hashes only; historical failure not reproduced."
+    },
+    {
+      "artifact": "adversarial_api_review.json",
+      "tests": 3,
+      "passed": true,
+      "scope": "Real local HTTP+SQLite+Python; source-stable before temporal-guard patches. Not represented as a rerun against final sources.",
+      "broker_calls": 0
+    },
+    {
+      "artifact": "adversarial_expired_campaign_after.json",
+      "cases": 2,
+      "passed": true,
+      "scope": "Detailed direct Python guard recheck at intermediate889bc0e source."
+    },
+    {
+      "artifact": "adversarial_expiry_final_recheck.json",
+      "tests": 2,
+      "passed": true,
+      "scope": "Affected existing expiry tests rechecked against pre-capacity 3ce5d72b source; 0.188 s unittest reported."
+    },
+    {
+      "artifact": "adversarial_deadline_return_after.json",
+      "cases": 3,
+      "passed": true,
+      "scope": "Actual Python composite to actual Node publicView; not HTTP. D-1 allowed; D and D+1 block, inventory/deadline preserved. Source stable 3ce5d72b/212ff62d before final capacity-only guard."
+    },
+    {
+      "artifact": "adversarial_model_return_after.json",
+      "cases": 3,
+      "passed": true,
+      "scope": "Actual Python composite to actual Node publicView; not HTTP. Model/label 168h-1ms and exact168h allowed; 168h+1ms blocks entries only, preserving alive and REDUCTION_READY. Source stable 3ce5d72b/212ff62d before final capacity-only guard."
+    },
+    {
+      "artifact": "adversarial_capacity_recheck.json",
+      "tests": 1,
+      "passed": true,
+      "scope": "Final source 09899e5c/212ff62d. Existing targeted unit test independently executed by reviewer; 1.011 s unittest reported. Checks 127/128/129, duplicate identity and replay preservation. Not HTTP."
+    }
+  ],
+  "new_integration_critical_findings_open": [],
+  "resolved_findings": [
+    {
+      "finding": "Top-level simulated_entries_ready remainedtrue when publicView expired or entered recovery.",
+      "evidence_before": "adversarial_status_expiry_before.json",
+      "evidence_after": "adversarial_status_expiry_after.json"
+    },
+    {
+      "finding": "Expired campaign with exposure and fresh receipts advertised ready despite deadline-domain rejection.",
+      "evidence_before": "adversarial_expired_campaign_before.json",
+      "evidence_after": "adversarial_expiry_final_recheck.json"
+    },
+    {
+      "finding": "Deadline crossed between worker evaluation and return was not part of response/commit validity.",
+      "evidence_before": "adversarial_deadline_return_before.json",
+      "evidence_after": "adversarial_deadline_return_after.json"
+    },
+    {
+      "finding": "Model/label crossed168h between evaluation and return while entry readiness stayedtrue.",
+      "evidence_before": "adversarial_model_return_before.json",
+      "evidence_after": "adversarial_model_return_after.json"
+    },
+    {
+      "finding": "Bounded offline journal could report readiness after all 128 receipt slots were used.",
+      "evidence_after": "adversarial_capacity_recheck.json",
+      "review": "Final code adds only response-view exhaustion guard; journal is never compacted or reset."
+    }
+  ],
+  "source_review_of_precommit_guards": {
+    "final_bridge_sha256": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "deadline_gate": "PLAN/REDUCE check valid_until before CAS; expired deadline holds recovery.",
+    "model_gate": "PLAN alone checks entry_valid_until before CAS without global recovery hold; REDUCE retains market/reconciliation/deadline gate.",
+    "independent_http_rerun_of_author_boundary_tests_by_this_reviewer": false,
+    "author_reported_http_boundary_tests": "2 new real HTTP+SQLite+Python tests reported PASS; root will capture final full HTTP regression."
+  },
+  "retained_setup_error": {
+    "artifact": "adversarial_api_review_setup_error.json",
+    "classification": "REVIEW_HARNESS_USED_WRONG_BASIC_AUTH_USERNAME;EXPECTED401;NOT_PRODUCT_DEFECT",
+    "correction": "Use documented trader username in synthetic fixture; subsequent 3/3 tests passed."
+  },
+  "scope_limits": [
+    "No broker calls, live deployment, authenticated market/fill source, or account-tier verification.",
+    "The new endpoint has its own offline pulse; unmodified dashboard visual consumption is not asserted.",
+    "Product main startup still uses existing broker flow; API factory exercised locally is not a new credential-free product startup.",
+    "Crypto new allocation remains blocked; synthetic funded opening inventory supports deterministic reductions and fee accounting only.",
+    "No six-recipe economic changes, new economic measurements, holdout replacement, prospective approval, external review, or9/10 accreditation.",
+    "The original3HTTP review is retained with its original hashes; final root regression/CI must validate all current integration sources.",
+    "Daily-risk/calendar source changes were handled by parent and implementation tests; this reviewer focused on expiry, authority, recovery, fees and original deadline semantics.",
+    "This is a bounded 128-command offline session; exhaustion visibly stops readiness, preserves receipts and has no automatic compaction/reset or unlimited operating-capacity claim."
+  ],
+  "new_economic_measurements": 0,
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false,
+  "real_fills_present": false,
+  "external_review_completed": false,
+  "evidence_sha256": {
+    "evidence/roadmap9/integration_r2/legacy_timeout_recheck.json": "7e813199bf3adf3c439b9001d908aa40983af94538173e0c853601787aaec793",
+    "evidence/roadmap9/integration_r2/legacy_timeout_recheck.log": "274db664549b3c5ee9c668b513122146f84137bb2efcb37e674bd11300f10532",
+    "evidence/roadmap9/integration_r2/adversarial_api_review.json": "861b5e54e36ce84e5698ab477f150443c0a95c0632c70c55dbd1199f83b8274e",
+    "evidence/roadmap9/integration_r2/adversarial_api_review.log": "92b942acbec6c2015ed8bec9810700d302e5822edbd91496f131e951ec14d89e",
+    "evidence/roadmap9/integration_r2/adversarial_api_review_setup_error.json": "5eac9afaae4dfa65a032ec0114f5b7d136a8c8b074744a2d70f3c2e680caee7a",
+    "evidence/roadmap9/integration_r2/adversarial_harness_scope_metadata_change.json": "df08d755f1d1a3699cb0f3e5a6ef11394b3a54affe0b909de42147f4436a4348",
+    "evidence/roadmap9/integration_r2/adversarial_status_expiry_before.json": "0c5a4efda5c62ba33ad0591065da8e725b420c98d9066ad95cc8ee0cbfdb9526",
+    "evidence/roadmap9/integration_r2/adversarial_status_expiry_after.json": "71322ba89a49b991a4485f1e09f9eb3448a626c7915a1383f6eba3b06aa8f7cf",
+    "evidence/roadmap9/integration_r2/adversarial_expired_campaign_before.json": "2df5933cdf89c1b9a0e75c91e5bf91a28d67a188188963acc7c9d7f9c0c32262",
+    "evidence/roadmap9/integration_r2/adversarial_expired_campaign_after.json": "72c1718ca3a8ce06f4462cc620c04137617b4bfc03f28ef772a74c2a987f7fa6",
+    "evidence/roadmap9/integration_r2/adversarial_expiry_final_recheck.json": "712c92b6baa1e9cb5fd52d36c5610865464c21f676c49e5d80a070be2df6fa1a",
+    "evidence/roadmap9/integration_r2/adversarial_expiry_final_tests.log": "da0b9904a3f1d66c5a3fa0a77caecb84f937e6bf8e3ec6efbccb858b63c7d54b",
+    "evidence/roadmap9/integration_r2/adversarial_deadline_return_before.json": "c55da0cc5992b6c7b6d78825b4305cd1798046513bf212797cd1bf6c2eb63652",
+    "evidence/roadmap9/integration_r2/adversarial_deadline_return_after.json": "0d90646b572189a5d6e3f53885e83f9c238183953e4657ddfde548c29ace13f3",
+    "evidence/roadmap9/integration_r2/adversarial_model_return_before.json": "c1c82da0b8e1712c92e1768540c116569b374077d8b47d407bb5427bcba5c3b4",
+    "evidence/roadmap9/integration_r2/adversarial_model_return_after.json": "4882d6360a34aa177a18a48e5cd3aa66d22af7cb901e606a1c3beee83212cc06",
+    "evidence/roadmap9/integration_r2/adversarial_capacity_recheck.json": "e72ee15c1d4041921919a71afb2289784850205029b8f3b7284155a343869144",
+    "evidence/roadmap9/integration_r2/adversarial_capacity_recheck.log": "5dd5898282f15b201e1941f6471bacd5bd4364a711272e8c97f91c5fe1f68017",
+    "evidence/roadmap9/integration_r2/internal_adversarial_review_pre_capacity.json": "d97f89ad5d202f488121c98ba02de2808225aaa4bd08fdc6084815e2c820bb43"
+  },
+  "prior_pre_capacity_review": {
+    "path": "evidence/roadmap9/integration_r2/internal_adversarial_review_pre_capacity.json",
+    "sha256": "d97f89ad5d202f488121c98ba02de2808225aaa4bd08fdc6084815e2c820bb43"
+  },
+  "source_changes_since_temporal_boundary_checks": {
+    "python_before": "3ce5d72b9fb6285cc8408618853a9710c056b632f170191d8120ccd351c98593",
+    "python_after": "09899e5ca59beb32886171191c02bed369ab03948cd43436882db8630712dd00",
+    "change": "Final process-view capacity exhaustion guard at len(commands)>=128; no temporal-guard edits. Targeted capacity control rechecked; root runs final whole regression.",
+    "bridge_unchanged": true
+  }
+}
