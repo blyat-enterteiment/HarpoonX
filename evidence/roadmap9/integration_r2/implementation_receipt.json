@@ -1,0 +1,172 @@
+{
+  "baseline_commit": "b48f38d23fce08bd68428fe3f7896a66a8548b7a",
+  "boundary_http_tests_local": {
+    "broker_calls": 0,
+    "capture_note": "Scoped local tool output, not reconstructed TAP. Later Python calendar boundary clamp is unit-verified; ROOT captures final full HTTP suite.",
+    "cases": [
+      "deadline-1 evaluation to deadline return: STATUS blocked, PLAN and REDUCE no CAS, immutable inventory/deadline",
+      "model and label age 168h-1ms to168h+1ms: entry-only block; later REDUCE confirmed, zero broker"
+    ],
+    "deadline_case_duration_seconds": 7.03,
+    "entry_TTL_case_duration_seconds": 11.43,
+    "initial_TTL_test_fixture_error": "OFFLINE_MODEL_CLOCK rejected noncausal fixture; local test fixture corrected, exclusive TTL rerun passed",
+    "passed": 2,
+    "real_HTTP_SQLite_Python": true,
+    "source_hashes_observed": {
+      "quant/harpoon_quant/roadmap9/integration.py": "889bc0e46c75d4276992719b6f9fceef2d05ebfdde8e84d349baeac34d9318f2",
+      "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+      "tools/roadmap9_integration_api_test.cjs": "3ffbaab1fbad420ab7b5c8e8f84654949e8e5b90f7019d03b47ec07269ef685d"
+    }
+  },
+  "capacity_contract": {
+    "at_limit": "OFFLINE_JOURNAL_CAPACITY_EXHAUSTED; alive=false; simulated_entries_ready=false; RECONCILE_ONLY",
+    "command_129": "rejected with authoritative journal, ledger, inventory and campaigns preserved",
+    "exact_retry": "no additional receipt, same revision and capacity stop",
+    "journal_limit": 128,
+    "late_receipts_beyond_capacity": "blocked until a separately designed recovery; no balance or journal reset",
+    "no_eviction_or_compaction": true
+  },
+  "commands": [
+    "INIT",
+    "MARKET",
+    "PREDICTOR",
+    "RECONCILE",
+    "PLAN",
+    "EVENT",
+    "FEE",
+    "REDUCE",
+    "CONTRACT_CHANGE"
+  ],
+  "components_used": [
+    "optimize_portfolio",
+    "ExecutionBook",
+    "NativeFeeLedger",
+    "evaluate_health",
+    "DurableStore_SQLite_CAS",
+    "existing_HTTP_server"
+  ],
+  "created_utc": "2026-11-03T05:33:13.869367+00:00",
+  "economic_recipe_changes": 0,
+  "endpoint": {
+    "auth": "EXISTING_PRIVATE_PANEL_AUTH_AND_ORIGIN_CONTROLS",
+    "body_limit_bytes": 1048576,
+    "body_origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "default_enabled": false,
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "path": "/v1/roadmap9/offline",
+    "post_headers": {
+      "content-type": "application/json",
+      "x-harpoon-action": "1"
+    },
+    "route_flag": "HARPOON_ROADMAP9_OFFLINE=1",
+    "server_option": "roadmap9Offline"
+  },
+  "execution_allowed": false,
+  "external_review_completed": false,
+  "financial_acceptance_allowed": false,
+  "frozen_path_bindings_checked": 29,
+  "frozen_path_bindings_unchanged": true,
+  "http_tests_historical_before_final_boundary_fixes": {
+    "capture_note": "Historical default-reporter execution only. Final source-bound HTTP TAP is captured by ROOT; this is not represented as a final-source pass.",
+    "duration_seconds": 37.207,
+    "failures": 0,
+    "passed": 8,
+    "skipped": 0
+  },
+  "immutable_contracts": [
+    "one_initial_USD_20000_seed",
+    "original_campaign_deadline",
+    "calendar_slot_origin",
+    "fee_profile_per_order",
+    "bound_code_hashes",
+    "UTC_daily_anchor_before_first_day_receipt",
+    "historical_high_water_equity"
+  ],
+  "inventory_identity": "gross_fill_quantity - posted_native_fee_quantity = ExecutionBook adapted net quantity = NativeFeeLedger settled native quantity; pending native fees remain separate liabilities and reduce available sell quantity",
+  "limitations": [
+    "SIMULATION_ONLY_NO_BROKER_OR_LLM_TRANSPORT",
+    "FORECAST_INPUTS_ARE_EXPLICIT_ENGINEERING_SCENARIOS_NOT_LEARNED_ALPHA",
+    "CRYPTO_ALLOCATION_REMAINS_BLOCKED;PREEXISTING_SYNTHETIC_SPOT_RECEIPTS_SUPPORT_NATIVE_FEE_AND_REDUCTION_TESTS",
+    "ONE_CAMPAIGN_PER_SYMBOL_PER_BOUNDED_SESSION;NO_AUTOMATIC_RESET_OR_NEW_STRATEGY",
+    "CONTRACT_CHANGE_REMAINS_BLOCKED_AFTER_BALANCE_RECONCILIATION;NO_AUTOMATIC_REAPPROVAL",
+    "PRODUCT_MAIN_STARTUP_STILL_USES_EXISTING_BROKER_FLOW;ROUTE_FLAG_ALONE_DOES_NOT_CREATE_A_CREDENTIAL_FREE_PRODUCT_STARTUP",
+    "NO_PRODUCTION_TRADING_APPROVAL_OR_SOURCE_AUTHENTICITY_CLAIM",
+    "LATE_EXPOSED_CAMPAIGN_REQUIRES_RECONCILIATION_AND_OPERATOR_RECOVERY;NO_AUTOMATIC_AFTER_DEADLINE_EXIT_IS_FABRICATED",
+    "DAILY_RISK_USES_LAST_RECORDED_PRIOR_DAY_NAV_NOT_AUTHENTICATED_MARKET_CLOSE;MISSING_PRIOR_MARK_BLOCKS_ENTRIES",
+    "JOURNAL_128_EXHAUSTION_REQUIRES_SEPARATE_RECOVERY;NO_NEW_FILLS_OR_FEES_CAN_BE_DURABLY_ACCEPTED_BEYOND_CAPACITY"
+  ],
+  "limits": {
+    "assets": 4,
+    "initial_equity_reference_usd": 20000,
+    "initial_quote_currency": "USD",
+    "journal_commands": 128,
+    "new_lots_per_asset_max": 2,
+    "opening_receipts": 32,
+    "worker_io_bytes": 8388608,
+    "worker_timeout_ms": 8000
+  },
+  "new_code_ruff": {
+    "configuration": "quant/ruff-roadmap9.toml",
+    "files": [
+      "quant/harpoon_quant/roadmap9/integration.py",
+      "quant/tests/test_roadmap9_integration.py"
+    ],
+    "status": "PASS",
+    "version": "0.17.0"
+  },
+  "new_economic_measurements": 0,
+  "new_module_mypy": {
+    "cache": "isolated_no_incremental",
+    "file": "quant/harpoon_quant/roadmap9/integration.py",
+    "status": "PASS",
+    "version": "2.4.0"
+  },
+  "non_path_bindings_not_reinterpreted": [],
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "real_fills_present": false,
+  "risk_time_contract": {
+    "calendar_validity": "fixed INIT anchor; next hourly boundary-1; all-closed => RECONCILE_ONLY",
+    "daily_anchor": "Prior reconstructed journal NAV before first receipt of UTC day; initial synthetic seed20000; previous-day marks required for held assets; unknown/nonpositive anchors explicitly block entries",
+    "daily_limit_fraction": 0.02,
+    "deadline_valid_until_ms": "original_deadline-1 for inventory or pending-order exposure",
+    "drawdown_limit_fraction": 0.08,
+    "entry_validity": "minimum operational validity and model/label clocks+168h; predictor expiry alone does not block deterministic reduction",
+    "exclusive_campaign_deadline": true,
+    "expired_inventory": "persisted inventory/deadline retained, new intentions blocked, late events/fees accepted",
+    "operational_validity": "minimum market event/receipt and reconciliation15s, campaign deadline, calendar boundary, UTC day boundary"
+  },
+  "schema": "HARPOON_ROADMAP_OFFLINE_INTEGRATION_IMPLEMENTATION_1",
+  "server_owned_fields": [
+    "received_at_ms",
+    "now_ms",
+    "for_decision_at",
+    "daily_risk_anchor",
+    "UTC_risk_day"
+  ],
+  "source_commit_assignment": "ROOT_WILL_BIND_NEW_SOURCE_COMMIT_BEFORE_GATE_CLOSURE",
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/integration.py": "09899e5ca59beb32886171191c02bed369ab03948cd43436882db8630712dd00",
+    "quant/tests/test_roadmap9_integration.py": "640bcb24117f694a5dcec2201f6ef8ed9407a0cd214efccf1e75098a1d90bb17",
+    "runtime/roadmap9_bridge.cjs": "212ff62d768445cafba91844b7989ba2b4a4367e3b07562f219786674e01148e",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+    "tools/roadmap9_integration_api_test.cjs": "3ffbaab1fbad420ab7b5c8e8f84654949e8e5b90f7019d03b47ec07269ef685d",
+    "tools/roadmap9_integration_fixture.cjs": "4b85520f2b3f66fa1d9954dfab20c88b842e640b0f181993ea38854f33c4240b",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055"
+  },
+  "unit_tests": {
+    "count": 19,
+    "errors": 0,
+    "failures": 0,
+    "log": "evidence/roadmap9/integration_r2/python_unit_tests.log",
+    "sha256": "f88bc2fc3368b7eaeadbfa729c07ca8b607162958bc0fcf4a45bfcd65d256a76",
+    "skipped": 0
+  },
+  "updated_utc": "2026-11-03T05:44:45.944638+00:00",
+  "validators_targeted": [
+    "V037",
+    "V039"
+  ]
+}

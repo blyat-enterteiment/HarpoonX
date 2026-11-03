@@ -1,0 +1,53 @@
+{
+  "after_verification": {
+    "completed_measurements": 12,
+    "execution_allowed": false,
+    "financial_acceptance_allowed": false,
+    "freeze_hash": "0aebbcca6d7cebd4cbd953c8a6717ac82f23437ae1348fb99393db85c17e2f0b",
+    "global_history_complete": false,
+    "global_selection_correction_verified": false,
+    "head": "96e9888237016db9bd202474d2094635110245cc2ad9cc6e8835df871733b1ab",
+    "hypothesis_count": 3,
+    "independent_preregistration": false,
+    "level9_accredited": false,
+    "prior_reported_measurements": 53,
+    "recipe_count": 6,
+    "reported_lifetime_limit": 128,
+    "reported_plus_reserved_measurements": 65,
+    "reserved_policy_scenario_measurements": 12,
+    "schema": "HARPOON_ROADMAP9_REGISTRY_1",
+    "scope": "LOCAL_HASH_CHAIN_AND_RESERVED_BUDGET_WITH_INCOMPLETE_IMPORTED_HISTORY",
+    "started_measurements": 12,
+    "verified": true
+  },
+  "appended_results": [
+    {
+      "recipe": "H3_VALUE_PARTIAL",
+      "result_path": "evidence/roadmap9/research/NOMINAL_H3_VALUE_PARTIAL.json.gz",
+      "scenario": "NOMINAL",
+      "sha256": "e212074677b038207a203dd3c15db4fafcc5d9cbea3aa04e88ef8656a2b04513"
+    },
+    {
+      "recipe": "H3_VALUE_PARTIAL",
+      "result_path": "evidence/roadmap9/research/STRESS_H3_VALUE_PARTIAL.json.gz",
+      "scenario": "STRESS",
+      "sha256": "44c404cacb1aa43e9a17493752ef24d03889e74ac75c4c6def32b6b103f11162"
+    }
+  ],
+  "budget_reset": false,
+  "cause": "NOT_ESTABLISHED",
+  "detected_utc": "2026-11-03T03:46:03.776699+00:00",
+  "financial_results_changed": false,
+  "independent_new_observations": false,
+  "limitation": "The local hash chain cannot attest original external timing or rule out whole-file restoration. Both divergent snapshots are retained; no external attestation claim.",
+  "observed_before_completed_count": 10,
+  "observed_before_event_count": 23,
+  "prior_receipt_path": "evidence/roadmap9/research_registry_incident/receipt_at_detection.json",
+  "receipt_reported_completed_count": 11,
+  "recipes_changed": false,
+  "repair": "Appended only missing RESULT events for two existing frozen START identities and unchanged already-produced result bytes.",
+  "schema": "HARPOON_ROADMAP9_REGISTRY_INCIDENT_1",
+  "snapshot_path": "evidence/roadmap9/research_registry_incident/registry_at_detection.jsonl",
+  "snapshot_sha256": "28fa0ba43cb4420f4654498fb9b5256eee0e367ae07975b6717d75076e0d3d93",
+  "source_code_changed": false
+}

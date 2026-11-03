@@ -1,0 +1,773 @@
+{
+  "candidate_recipes_affected": 0,
+  "economic_evaluation_completed": false,
+  "example": {
+    "input": {
+      "config": {
+        "max_partial_fill_corners": 4096,
+        "no_trade_band_bps": 0,
+        "risk": {
+          "asset_fraction": 0.2,
+          "daily_loss_fraction": 0.02,
+          "drawdown_fraction": 0.1,
+          "drift_z": 8.0,
+          "factor_fraction": 0.3,
+          "gross_fraction": 0.6,
+          "hac_lag": 5,
+          "max_grid": 4096,
+          "max_model_age_hours": 168.0,
+          "max_positions": 4,
+          "max_quote_age_seconds": 15.0,
+          "max_work": 30000000,
+          "min_cases": 20,
+          "min_effective_cases": 10.0,
+          "neighbors": 40,
+          "overhead_usd_per_day": 1,
+          "shrinkage": 0.25,
+          "stop_fraction": 0.02,
+          "stress_cost_multiplier": 2.0,
+          "stress_fraction": 0.05,
+          "stress_price_gap": 0.005,
+          "tail_fraction": 0.02,
+          "target_fraction": 0.03,
+          "uncertainty_z": 3.0
+        },
+        "variance_aversion": 1.0
+      },
+      "fee_profiles": {
+        "AAPL": {
+          "base_asset": "AAPL",
+          "charge_mode": "QUOTE_PER_UNIT",
+          "maker_bps": "0",
+          "origin": "SYNTHETIC_ENGINEERING_ONLY",
+          "profile_id": "AAPL:assumed",
+          "quote_asset": "USD",
+          "quote_fee_per_unit": "0.005",
+          "quote_fixed_per_order": "0.01",
+          "source": "registered-engineering-fixture",
+          "taker_bps": "0"
+        },
+        "MSFT": {
+          "base_asset": "MSFT",
+          "charge_mode": "QUOTE_PER_UNIT",
+          "maker_bps": "0",
+          "origin": "SYNTHETIC_ENGINEERING_ONLY",
+          "profile_id": "MSFT:assumed",
+          "quote_asset": "USD",
+          "quote_fee_per_unit": "0.01",
+          "quote_fixed_per_order": "0.03",
+          "source": "registered-engineering-fixture",
+          "taker_bps": "0"
+        }
+      },
+      "forecast": {
+        "alpha_half_life_hours": [
+          24.0,
+          24.0
+        ],
+        "covariance_units": "RETURN_FRACTION_SQUARED",
+        "for_decision_at": "2026-01-05T15:00:00+00:00",
+        "horizon_hours": 24,
+        "known_at": "2026-01-05T15:00:00+00:00",
+        "latest_label_at": "2026-01-05T14:00:00+00:00",
+        "mean": [
+          0.02,
+          0.015
+        ],
+        "mean_error_covariance": [
+          [
+            4e-06,
+            1e-06
+          ],
+          [
+            1e-06,
+            9e-06
+          ]
+        ],
+        "model_asof": "2026-01-05T15:00:00+00:00",
+        "origin": "SYNTHETIC_ENGINEERING_ONLY",
+        "return_covariance": [
+          [
+            0.0004,
+            0.0003
+          ],
+          [
+            0.0003,
+            0.0004
+          ]
+        ],
+        "scenario_returns": [
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ],
+          [
+            -0.01,
+            -0.01
+          ],
+          [
+            0.02,
+            0.02
+          ]
+        ],
+        "scenario_weights": [
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ],
+        "schema": "HARPOON_ROADMAP9_PORTFOLIO_FORECAST_1",
+        "signal_age_hours": [
+          0.0,
+          0.0
+        ],
+        "stress_returns": [
+          [
+            -0.05,
+            -0.05
+          ]
+        ],
+        "symbols": [
+          "AAPL",
+          "MSFT"
+        ],
+        "units": "SIMPLE_RETURN_FRACTION"
+      },
+      "state": {
+        "account_binding": "SYNTHETIC-NO-BROKER",
+        "asof": "2026-01-05T15:00:00+00:00",
+        "assets": [
+          {
+            "ask": 100.05,
+            "available_buy_qty": 10000.0,
+            "available_sell_qty": 10000.0,
+            "bid": 99.95,
+            "book": "equity",
+            "cost_origin": "ASSUMED",
+            "current_lots": 0,
+            "factor": "AAPL",
+            "fee_bps": 0.0,
+            "fixed_order_fee_usd": 0.0,
+            "halted": false,
+            "liquidity_role": "taker",
+            "lot_qty": 1,
+            "max_new_lots": 10,
+            "quote_at": "2026-01-05T15:00:00+00:00",
+            "quote_origin": "MODELED_FROM_BAR",
+            "quote_received_at": "2026-01-05T15:00:00+00:00",
+            "schedule": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "schedule_known_at": "2026-01-05T15:00:00+00:00",
+            "schedule_source_hash": "f99cf77157edf24caca47a9897048dd708a5d9f0dae78dec18386f61d7a2ed24",
+            "slippage_bps": 2,
+            "status_known_at": "2026-01-05T15:00:00+00:00",
+            "symbol": "AAPL",
+            "tradable_now": true
+          },
+          {
+            "ask": 100.05,
+            "available_buy_qty": 10000.0,
+            "available_sell_qty": 10000.0,
+            "bid": 99.95,
+            "book": "equity",
+            "cost_origin": "ASSUMED",
+            "current_lots": 0,
+            "factor": "MSFT",
+            "fee_bps": 0.0,
+            "fixed_order_fee_usd": 0.0,
+            "halted": false,
+            "liquidity_role": "taker",
+            "lot_qty": 1,
+            "max_new_lots": 10,
+            "quote_at": "2026-01-05T15:00:00+00:00",
+            "quote_origin": "MODELED_FROM_BAR",
+            "quote_received_at": "2026-01-05T15:00:00+00:00",
+            "schedule": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "schedule_known_at": "2026-01-05T15:00:00+00:00",
+            "schedule_source_hash": "164b993eb27e91f8b1a6b1d4e0334c65f1b09bf82dd8395fa961031dfee1a15c",
+            "slippage_bps": 2,
+            "status_known_at": "2026-01-05T15:00:00+00:00",
+            "symbol": "MSFT",
+            "tradable_now": true
+          }
+        ],
+        "cash_usd": 10000,
+        "currency": "USD",
+        "daily_pnl_usd": 0,
+        "drawdown_fraction": 0,
+        "evaluation_hours": 24,
+        "inventory_complete": true,
+        "known_at": "2026-01-05T15:00:00+00:00",
+        "orders_reconciled": true,
+        "origin": "SYNTHETIC_ENGINEERING_ONLY",
+        "pending_cash_usd": 0,
+        "pending_orders": [],
+        "pending_orders_complete": true,
+        "receivables_usd": 0,
+        "schema": "HARPOON_FRONTIER_STATE_1",
+        "version": 1
+      }
+    },
+    "result": {
+      "account_state_origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "actions": [
+        {
+          "delta_lots": 10,
+          "fee_profile_fingerprint": "4699c8e3a46ca9d8bd5eb169a4f6e408b2369dcbfdf5861564e13d32b0bbb857",
+          "native_order_quantity": "10",
+          "original_deadline": null,
+          "proposed_new_deadline": "2026-01-06T15:00:00+00:00",
+          "side": "buy",
+          "symbol": "AAPL",
+          "target_lots": 10
+        },
+        {
+          "delta_lots": 10,
+          "fee_profile_fingerprint": "219324bf8f8a4bdc2285b7a746bcf7a9133084d11bd71a1d6534d47e08cc0c58",
+          "native_order_quantity": "10",
+          "original_deadline": null,
+          "proposed_new_deadline": "2026-01-06T15:00:00+00:00",
+          "side": "buy",
+          "symbol": "MSFT",
+          "target_lots": 10
+        }
+      ],
+      "baseline_hold": {
+        "asset_notional_usd": [
+          "0.00",
+          "0.00"
+        ],
+        "cash_after_this_fill_subset_usd": "10000",
+        "cash_within_limits": true,
+        "common_overhead_usd": "1",
+        "cvar_loss_usd": 0.9999999999999992,
+        "equity_after_this_fill_subset_usd": "10000.00",
+        "exposure_violations": {
+          "asset_usd:AAPL": "0",
+          "asset_usd:MSFT": "0",
+          "factor_usd:AAPL": "0",
+          "factor_usd:MSFT": "0",
+          "gross_usd": "0",
+          "position_count": "0"
+        },
+        "exposure_within_limits": true,
+        "factor_notional_usd": {
+          "AAPL": "0.00",
+          "MSFT": "0.00"
+        },
+        "future_liquidation_cost_at_zero_return_usd": "0",
+        "gross_usd": "0.00",
+        "immediate_transaction_cost_usd": "0",
+        "native_quantities": [
+          "0",
+          "0"
+        ],
+        "net_return_loadings": [
+          0.0,
+          0.0
+        ],
+        "new_buy_debit_usd": "0",
+        "objective_terms": {
+          "cost_fraction": 0.0001,
+          "mean_error_penalty_fraction": 0.0,
+          "mean_return_fraction": 0.0,
+          "variance_penalty_fraction": 0.0
+        },
+        "score": -0.0001,
+        "solvent_all_scenarios": true,
+        "stress_loss_usd": 1.0,
+        "tail_within_limits": true,
+        "weights_of_initial_equity": [
+          0.0,
+          0.0
+        ],
+        "worst_joint_loss_usd": 1.0
+      },
+      "baseline_hold_executable": true,
+      "chosen": {
+        "all_partial_fills_solvent_in_declared_scenarios": true,
+        "all_partial_fills_within_exposure_limits": true,
+        "all_partial_fills_within_tail_limits": true,
+        "frontier_geometry_certificate": {
+          "actions": [
+            {
+              "action": "ENTER",
+              "deadline": "2026-01-06T15:00:00+00:00",
+              "delta_lots": 10,
+              "delta_qty": 10,
+              "expiry_step": 24,
+              "original_opened_at": null,
+              "price_basis": "CURRENT_BBO_PLUS_EXPLICIT_FEE_AND_SLIPPAGE",
+              "symbol": "AAPL",
+              "target_lots": 10
+            },
+            {
+              "action": "ENTER",
+              "deadline": "2026-01-06T15:00:00+00:00",
+              "delta_lots": 10,
+              "delta_qty": 10,
+              "expiry_step": 24,
+              "original_opened_at": null,
+              "price_basis": "CURRENT_BBO_PLUS_EXPLICIT_FEE_AND_SLIPPAGE",
+              "symbol": "MSFT",
+              "target_lots": 10
+            }
+          ],
+          "buy_cash_reserve_usd": 2001.0,
+          "cash_after_full_fill_usd": 7999.0,
+          "certificate_hash": "4634a645a561f184fb34ef0f1b6442a9b467581bb9d80d4d1028a21310cdc3a4",
+          "equity_after_full_fill_usd": 9999.0,
+          "execution_allowed": false,
+          "gross_usd": 2000.0,
+          "liveApproved": false,
+          "reference_only": false,
+          "risk_reduction_only": false,
+          "state_hash": "b29663f085c56be41a62b481b5536695141347fa2147f77041d03283933b2db1",
+          "targets": [
+            10,
+            10
+          ],
+          "within_exposure_limits_after_full_fill": true
+        },
+        "frontier_zero_fee_shadow_is_not_cash_certificate": true,
+        "full_fill": {
+          "asset_notional_usd": [
+            "1000.00",
+            "1000.00"
+          ],
+          "cash_after_this_fill_subset_usd": "7998.409800",
+          "cash_within_limits": true,
+          "common_overhead_usd": "1",
+          "cvar_loss_usd": 24.16600199999998,
+          "equity_after_this_fill_subset_usd": "9998.409800",
+          "exposure_violations": {
+            "asset_usd:AAPL": "0",
+            "asset_usd:MSFT": "0",
+            "factor_usd:AAPL": "0",
+            "factor_usd:MSFT": "0",
+            "gross_usd": "0",
+            "position_count": "0"
+          },
+          "exposure_within_limits": true,
+          "factor_notional_usd": {
+            "AAPL": "1000.00",
+            "MSFT": "1000.00"
+          },
+          "future_liquidation_cost_at_zero_return_usd": "1.5898000000",
+          "gross_usd": "2000.00",
+          "immediate_transaction_cost_usd": "1.590200",
+          "native_quantities": [
+            "10",
+            "10"
+          ],
+          "net_return_loadings": [
+            0.09993001,
+            0.09993001
+          ],
+          "new_buy_debit_usd": "2001.590200",
+          "objective_terms": {
+            "cost_fraction": 0.000418,
+            "mean_error_penalty_fraction": 0.0011610817935490219,
+            "mean_return_fraction": 0.00349755035,
+            "variance_penalty_fraction": 6.99020482902007e-06
+          },
+          "score": 0.0019114783516219584,
+          "solvent_all_scenarios": true,
+          "stress_loss_usd": 104.11001000000002,
+          "tail_within_limits": true,
+          "weights_of_initial_equity": [
+            0.1,
+            0.1
+          ],
+          "worst_joint_loss_usd": 104.11001000000002
+        },
+        "incremental_score_vs_hold": 0.0020114783516219583,
+        "mandatory_exit_only": false,
+        "partial_fill_corners_checked": 16,
+        "partial_fill_worst_cvar_usd": 24.16600199999998,
+        "partial_fill_worst_joint_loss_usd": 104.11001000000002,
+        "partial_fill_worst_stress_usd": 104.11001000000002,
+        "preexisting_breach_not_worsened": false,
+        "reduction_scope": "NO_NATIVE_POSITION_INCREASE;NOT_A_COVARIANCE_RISK_DECREASE_THEOREM",
+        "remediation_exception_used": false,
+        "risk_reduction_not_certified_within_limits": false,
+        "risk_reduction_only": false,
+        "scenario_asset_work_units_bound": 1748,
+        "targets": [
+          10,
+          10
+        ]
+      },
+      "economic_evaluation_completed": false,
+      "execution_allowed": false,
+      "external_review_completed": false,
+      "feasible_grid_actions": 8,
+      "forecast_hash": "8c78492038a6c5770a0fb1141d00a310ebf44904548a0853e3decfbd5c0995a0",
+      "forecast_mean_after_declared_decay": [
+        0.02,
+        0.015
+      ],
+      "global_robust_score_positive": true,
+      "grid": [
+        [
+          0,
+          1,
+          10
+        ],
+        [
+          0,
+          1,
+          10
+        ]
+      ],
+      "grid_actions": 9,
+      "horizon_hours": 24,
+      "hypothetical_terminal_liquidation_not_immediate_cash_debit": true,
+      "initial_equity_usd": "10000.00",
+      "initial_inventory_preserved": true,
+      "integrated_into_six_recipes": false,
+      "limitations": [
+        "EQUITY_AND_ETF_USD_WHOLE_SHARES_ONLY",
+        "UNRESOLVED_ORDERS_REQUIRE_EXTERNAL_ADAPTER",
+        "FIXED_RELATIVE_FUTURE_SELL_SPREAD_AND_SLIPPAGE_ASSUMED",
+        "NO_EMPIRICAL_ALPHA_OR_DECAY_CALIBRATION",
+        "NO_FUTURE_MARKET_LIQUIDITY_GUARANTEE",
+        "ROBUST_MEAN_VARIANCE_SURROGATE_OMITS_SQUARED_MEAN_AND_HIGHER_MOMENTS_NOT_FULL_NET_LOG_TAYLOR",
+        "NOT_INTEGRATED_OR_ECONOMICALLY_TESTED_IN_SIX_REGISTERED_RECIPES"
+      ],
+      "optimality_scope": "DECLARED_FINITE_INTEGER_LOT_GRID_ONLY_NOT_GLOBAL_OR_DYNAMIC",
+      "orders_allowed": false,
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "reason": null,
+      "receipt_hash": "1124bc040bb8c39df5b69c81a7d584a6908de61a3da17cc350c5a89a69e0e1ee",
+      "rejection_counts": {
+        "COMMON_COSTS_DESTROY_GLOBAL_VIABILITY": 1
+      },
+      "rejections": [
+        {
+          "reason": "COMMON_COSTS_DESTROY_GLOBAL_VIABILITY",
+          "targets": [
+            0,
+            1
+          ]
+        }
+      ],
+      "schema": "HARPOON_ROADMAP9_PORTFOLIO_COMPONENT_1",
+      "settings": {
+        "max_partial_fill_corners": 4096,
+        "no_trade_band_bps": 0,
+        "risk": {
+          "asset_fraction": 0.2,
+          "daily_loss_fraction": 0.02,
+          "drawdown_fraction": 0.1,
+          "drift_z": 8.0,
+          "factor_fraction": 0.3,
+          "gross_fraction": 0.6,
+          "hac_lag": 5,
+          "max_grid": 4096,
+          "max_model_age_hours": 168.0,
+          "max_positions": 4,
+          "max_quote_age_seconds": 15.0,
+          "max_work": 30000000,
+          "min_cases": 20,
+          "min_effective_cases": 10.0,
+          "neighbors": 40,
+          "overhead_usd_per_day": 1,
+          "shrinkage": 0.25,
+          "stop_fraction": 0.02,
+          "stress_cost_multiplier": 2.0,
+          "stress_fraction": 0.05,
+          "stress_price_gap": 0.005,
+          "tail_fraction": 0.02,
+          "target_fraction": 0.03,
+          "uncertainty_z": 3.0
+        },
+        "variance_aversion": 1.0
+      },
+      "source_authenticity_verified": false,
+      "state_hash": "a4e49a380a6dea42d1a765b55c028960bbd7fbe291074cd8da886b60b4a7e2fc",
+      "status": "OFFLINE_PROPOSAL",
+      "work_units_bound": 8832
+    }
+  },
+  "external_review_completed": false,
+  "future_cost_semantics": "HOLD pays no new entry or immediate exit charge. One modeled liquidation per retained asset at the common horizon is deducted in economic utility, not from current cash; prior entry costs sunk.",
+  "independent_repricing": {
+    "path": "evidence/roadmap9/portfolio_independent_review.json",
+    "reproducer": "tools/verify_roadmap9_portfolio.py",
+    "scope": "Separate Decimal50 repricing of synthetic account example and exhaustive121 whole-share partial-fill combinations; not external review or economic validation.",
+    "sha256": "da12354e57e4c2f4f863e9124360f5c26c4a1043eb7e21952d39b5fc637a6a13"
+  },
+  "integrated_into_six_recipes": false,
+  "internal_review_corrections": [
+    "Freshness may not exceed baseline15seconds/168hours.",
+    "Discretionary reduction cannot destroy a previously safe hedge and cross tail caps. Remediation exception needs prior breach with no worse cap/tail across partial fills, or only already mandatory exits with unsafe risk disclosed.",
+    "Objective labeled robust mean-variance surrogate, not a full second-order Taylor of net log."
+  ],
+  "limits": {
+    "crypto": "BLOCKED_PENDING_NATIVE_FEE_ALLOCATION_ADAPTER",
+    "empirical_calibration": "NOT_PERFORMED",
+    "forecasts": "SYNTHETIC_OR_HISTORICAL_MODELED_ONLY",
+    "global_dynamic_optimality": "NOT_CLAIMED",
+    "pending_orders": "BLOCKED_REQUIRES_RECONCILED_EXTERNAL_ADAPTER",
+    "source_authenticity": "NOT_AUTHENTICATED"
+  },
+  "log_utility_limitation": "Inspired by small-return log growth, omits squared mean and higher moments; not the full Taylor expansion of net log return.",
+  "orders_allowed": false,
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "partial_fill_assumptions": "Constant current execution prices and per-unit fee; fixed cost once per executed side. Check corners of each affine segment including one native share and one share before full fill; no guarantee beyond those price/fee assumptions.",
+  "peer_review": {
+    "path": "evidence/roadmap9/portfolio_peer_review.json",
+    "sha256": "ebd75c9508a3bf3390d9fe7c3a908d23fe355678e210708b80881c84a4ae2954"
+  },
+  "qa": {
+    "mypy": "PASS",
+    "ruff": "PASS",
+    "test_failures": 0,
+    "unit_tests": 22
+  },
+  "review_status": "INTERNAL_PEER_AND_SEPARATE_DECIMAL_REPRICING_PASS_EXTERNAL_NOT_PERFORMED",
+  "schema": "HARPOON_ROADMAP9_PORTFOLIO_ENGINEERING_EVIDENCE_1",
+  "scope": "Finite common-horizon robust mean-variance surrogate; USD whole-share equity/ETF execution cost prepricing. Crypto and unresolved orders blocked. Distinct return and mean-error covariances, exact immediate USD cash/equity and conservative whole-share partial-fill corners. No economic recipe integration or measurement.",
+  "source_hashes": {
+    "quant/harpoon_quant/frontier/contracts.py": "3cb9af8bad782781ac1e0ad67b813151d85d46b8fda944f369c2b375ba7eeb0a",
+    "quant/harpoon_quant/frontier/controller.py": "35fa1d7f23b365cf51e8fb31058d1bc9293b16338a053babf41e3dea934d9225",
+    "quant/harpoon_quant/frontier/supervisor.py": "3d3ac3c28fe80ed7383927aff784a45d22cc8059b9d2fea7a6deddda0e3b2880",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e",
+    "quant/tests/test_roadmap9_portfolio.py": "1a1f2c40b1f2a190c3a6b00d96a7f20ffa09e720c9660872be2d7417c9028bdd"
+  },
+  "tests": {
+    "command": "PYTHONPATH=quant OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 -B -m unittest quant.tests.test_roadmap9_portfolio",
+    "tests_passed": 22
+  }
+}

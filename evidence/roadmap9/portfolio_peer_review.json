@@ -1,0 +1,50 @@
+{
+  "economic_measurements_performed": 0,
+  "financial_acceptance_allowed": false,
+  "findings_closed": [
+    "FRESHNESS_CONFIG_RELAXATION",
+    "REDUCTION_CAN_DESTROY_HEDGE"
+  ],
+  "initial_findings": "evidence/roadmap9/portfolio_review_initial.json",
+  "limits": [
+    "Finite declared lot grid only, not a global or dynamic optimum.",
+    "Observed fills, forecast calibration, future liquidity and corporate account reconciliation are not established.",
+    "No integration into the six measured historical recipes; no economic superiority claim."
+  ],
+  "observed_adversarial_checks": {
+    "evaluate_target_work_cap": "SCENARIO_WORK_BUDGET",
+    "hedge_reduction": {
+      "cvar_usd": 0.0,
+      "status": "WAIT_OR_HOLD",
+      "targets": [
+        20,
+        20
+      ],
+      "unsafe_alternative_rejected": true
+    },
+    "max_model_age_hours": "FRESHNESS_CAP_RELAXED:max_model_age_hours",
+    "max_quote_age_seconds": "FRESHNESS_CAP_RELAXED:max_quote_age_seconds"
+  },
+  "orders_sent": 0,
+  "reviewed_contracts": [
+    "Forecast decision/model/label clocks and15s/168h configuration maxima cannot be extended.",
+    "Common forecast horizon is enforced against original deadlines and known explicit calendar slots.",
+    "Purchases and fees are funded from pre-sale available cash, excluding receivables.",
+    "All objective terms use same-horizon return fractions of initial equity; modeled future sale cost is not a cash debit now.",
+    "Integer partial-fill corners include fixed-fee andzero-inventory discontinuities; all cap/CVaR states checked.",
+    "Discretionary reduction cannot destroy an initially safe portfolio hedge; mandatory exits retain explicit uncapped-risk disclosure."
+  ],
+  "reviewer": "research_impl",
+  "schema": "HARPOON_ROADMAP9_PORTFOLIO_PEER_REVIEW_1",
+  "scope": "READ_ONLY_INTERNAL_ENGINEERING_REVIEW_NOT_EXTERNAL_OR_ECONOMIC_APPROVAL",
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e",
+    "quant/tests/test_roadmap9_portfolio.py": "1a1f2c40b1f2a190c3a6b00d96a7f20ffa09e720c9660872be2d7417c9028bdd"
+  },
+  "status": "PASS_SCOPED_ENGINEERING_REVIEW",
+  "tests_rerun": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=quant python -B -m unittest discover -s quant/tests -p test_roadmap9_portfolio.py -v",
+    "failed": 0,
+    "passed": 22
+  }
+}

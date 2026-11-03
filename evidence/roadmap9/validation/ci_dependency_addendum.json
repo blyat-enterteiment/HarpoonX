@@ -1,0 +1,17 @@
+{
+  "changes_to_baseline_evidence": false,
+  "changes_to_frozen_recipes_or_results": false,
+  "created_at": "2026-11-03T04:07:28.072040+00:00",
+  "evidence_commit": "736cdf1d36bcac4ec4312e5093adbfce013f88a9",
+  "execution_allowed": false,
+  "new_economic_measurements": 0,
+  "new_workflow_sha256": "97b5038a8d23587d2ba7ae212e1976f9a2f8f6f1f63a375e0b949c9df999d177",
+  "observed_remote_status_at_discovery": "IN_PROGRESS;dependency_completeness_identified_by_reading_workflow",
+  "only_original_file_modified_by_this_addendum": ".github/workflows/robust-quant-core.yml",
+  "previous_git_blob_sha": "b9d805f566107b227b48bf291fbc52fdb382cac7",
+  "reason": "Legacy complete-suite workflow installed numerical requirements only; new signature tests require cryptography. Install the existing roadmap requirements file, which includes the original pinned numerical dependencies and cryptography. Include both files in the cache key.",
+  "schema": "HARPOON_ROADMAP_CI_DEPENDENCY_ADDENDUM_1",
+  "scientific_code_commit": "ba0233e94bfa7f6158c1445cf3e6512446f11286",
+  "source_commit_original_file_preservation_receipt_remains_scoped_to_its_recorded_commit": true,
+  "workflow": ".github/workflows/robust-quant-core.yml"
+}

@@ -1,0 +1,62 @@
+{
+  "base_commit": "b48f38d23fce08bd68428fe3f7896a66a8548b7a",
+  "broker_calls": 0,
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=quant:quant/tests python3 -B -m unittest test_economic_gate_v2.EconomicV2IntegrationTests.test_real_reexecuted_synthetic_pipeline_has_four_policies_and_stress_but_no_approval -v",
+  "conclusion": "CURRENT_TARGETED_RECHECK_PASS;HISTORICAL_TIMEOUT_CAUSE_REMAINS_UNDETERMINED",
+  "created_at_utc": "2026-11-03T05:17:02.420509+00:00",
+  "cwd": "HarpoonX",
+  "environment": {
+    "blas_threads": 1,
+    "omp_threads": 1,
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+  },
+  "execution_allowed": false,
+  "fixed_predictor_per_request_timeout_ms": 8000,
+  "historical_cause_resolved": false,
+  "historical_incident": {
+    "cause_established": false,
+    "failure": "STRESS_EVIDENCE:FIXED_PREDICTOR_TIMEOUT",
+    "failure_log": "evidence/synthetic9/qa/regression_attempt01.log",
+    "isolated_followup_failures": [
+      "bindings was None in setUp",
+      "stress was empty in setUp"
+    ],
+    "isolated_followups": [
+      "evidence/synthetic9/qa/legacy_isolated_limit1.log",
+      "evidence/synthetic9/qa/legacy_isolated_default.log"
+    ],
+    "original_incident_overwritten": false,
+    "qa_git_blob_sha": "8607c0c0cca09c581d3f86ef6fc6af6ea2ecca58",
+    "qa_path": "evidence/synthetic9/qa/qa.json"
+  },
+  "historical_timeout_reproduced_in_this_recheck": false,
+  "level9_accredited": false,
+  "log_kind": "CAPTURED_COMBINED_PROCESS_OUTPUT",
+  "log_path": "evidence/roadmap9/integration_r2/legacy_timeout_recheck.log",
+  "log_sha256": "274db664549b3c5ee9c668b513122146f84137bb2efcb37e674bd11300f10532",
+  "new_strategy_economic_measurements": 0,
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "post_run_source_sha256": {
+    "quant/harpoon_quant/economic_gate_v2.py": "982bccf2f610ba50afad7fa837924dc00c647987a22038157c6cd11041bf979b",
+    "quant/harpoon_quant/fixed_predictor.py": "40e7559f1eaf08731e5fdc11c939e0a27087f5eddc11425c140b904df4d8222b",
+    "quant/tests/test_economic_gate_v2.py": "06bbb06d5608308d5106f3c3fb616947b4b343d7b529f5fa0193cf6b099f6b99",
+    "tools/coordinator_replay.cjs": "ea1705e4e5e65329fd19f14ca84c3b194ed4e3a666e33310e2c48be024f61888",
+    "tools/fixed_predictor_worker.cjs": "1c8ddfcf5e9b975edb4c57ba4877b52cacaa017975f509b069a15dc58119aa26",
+    "tools/fixtures/funded_comparison_fixture.cjs": "dd0547a304d05c26f7171727249d33baece1ddda99b203f4610109dac1685efe",
+    "tools/fixtures/level5_fixture.cjs": "f73b2fe6ba4c57c7c7c26fcccadea1aa5b3dee4caec7997557315fc74a72072b",
+    "tools/funded_comparison.cjs": "bebc0872313ad4b388dbe2a8a91a4af311cd2b414b2ec6b90908dcc88da2ff15"
+  },
+  "process_exit_code": 0,
+  "review_scope": "INTERNAL_AGENT_REVIEW_NOT_EXTERNAL_INDEPENDENT_ATTESTATION",
+  "runtime_source_changed_by_reviewer": false,
+  "schema": "HARPOON_ROADMAP9_LEGACY_TIMEOUT_RECHECK_1",
+  "scope": "ONE_EXISTING_LEGACY_REGRESSION_TEST_REEXECUTED_UNMODIFIED;NOT_A_NEW_ECONOMIC_CANDIDATE_OR_HISTORICAL_CAUSE_PROOF",
+  "source_hash_collection_scope": "POST_RUN_HASHES_ONLY;NO_CLAIM_OF_A_NEW_PRE_AND_POST_EXECUTION_HASH_RECEIPT",
+  "test": "test_economic_gate_v2.EconomicV2IntegrationTests.test_real_reexecuted_synthetic_pipeline_has_four_policies_and_stress_but_no_approval",
+  "test_runner_reported_seconds": 29.709,
+  "test_source_changed": false,
+  "tests_passed": 1,
+  "tests_run": 1,
+  "timeout_changed": false
+}

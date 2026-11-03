@@ -1,0 +1,41 @@
+{
+  "financial_acceptance_allowed": false,
+  "financial_reproduction": {
+    "identical_accounts": 20,
+    "receipt": "evidence/roadmap9/research/exact_reproduction.json",
+    "status": "PASS"
+  },
+  "frozen_source_bindings_unchanged": true,
+  "journal_completed_results": 12,
+  "journal_head": "96e9888237016db9bd202474d2094635110245cc2ad9cc6e8835df871733b1ab",
+  "mypy_core": {
+    "scope": [
+      "quant/harpoon_quant/roadmap9/forecast.py",
+      "quant/harpoon_quant/roadmap9/research.py"
+    ],
+    "status": "PASS"
+  },
+  "mypy_expanded": {
+    "log": "evidence/roadmap9/research_mypy_all.log",
+    "reason": "Frozen scripts retain variable reuse type conflicts and optional-type narrowing limitation; no post-outcome source modification.",
+    "status": "FAIL"
+  },
+  "ruff": {
+    "scope": [
+      "quant/harpoon_quant/roadmap9/forecast.py",
+      "quant/harpoon_quant/roadmap9/research.py",
+      "quant/tests/test_roadmap9_research.py",
+      "tools/run_roadmap9_research.py",
+      "tools/audit_roadmap9_results.py",
+      "tools/build_roadmap9_replay.py",
+      "tools/verify_roadmap9_research.py"
+    ],
+    "status": "PASS"
+  },
+  "schema": "HARPOON_ROADMAP9_RESEARCH_QA_1",
+  "unit_tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=quant python -B -m unittest discover -s quant/tests -p test_roadmap9_research.py -v",
+    "failed": 0,
+    "passed": 10
+  }
+}

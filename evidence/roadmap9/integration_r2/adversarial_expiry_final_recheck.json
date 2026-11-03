@@ -1,0 +1,38 @@
+{
+  "schema": "HARPOON_EXPIRED_EXPOSURE_FINAL_SOURCE_RECHECK_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "TWO_EXISTING_TARGETED_COMPOSITE_UNIT_TESTS_RUN_BY_INTERNAL_REVIEWER;NOT_HTTP",
+  "created_at_utc": "2026-11-03T05:42:47.092428+00:00",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_roadmap9_integration.CompositeIntegrationTests.test_expired_exposure_blocks_fresh_account_and_keeps_receipts_and_deadline",
+    "test_roadmap9_integration.CompositeIntegrationTests.test_expired_unfilled_intention_is_exposure_even_with_zero_inventory",
+    "-v"
+  ],
+  "elapsed_seconds": 0.576,
+  "exit_code": 0,
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/integration.py": "3ce5d72b9fb6285cc8408618853a9710c056b632f170191d8120ccd351c98593",
+    "quant/tests/test_roadmap9_integration.py": "59de53037746d392fd6c5a5b6d7fedec9357e0d01f2585fd9f3b365cd6c3e651",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6"
+  },
+  "source_hashes_after": {
+    "quant/harpoon_quant/roadmap9/integration.py": "3ce5d72b9fb6285cc8408618853a9710c056b632f170191d8120ccd351c98593",
+    "quant/tests/test_roadmap9_integration.py": "59de53037746d392fd6c5a5b6d7fedec9357e0d01f2585fd9f3b365cd6c3e651",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6"
+  },
+  "log_path": "evidence/roadmap9/integration_r2/adversarial_expiry_final_tests.log",
+  "log_sha256": "da0b9904a3f1d66c5a3fa0a77caecb84f937e6bf8e3ec6efbccb858b63c7d54b",
+  "prior_detailed_review_receipt": "evidence/roadmap9/integration_r2/adversarial_expired_campaign_after.json",
+  "new_economic_measurements": 0,
+  "execution_allowed": false,
+  "sources_unchanged": true,
+  "passed": true
+}

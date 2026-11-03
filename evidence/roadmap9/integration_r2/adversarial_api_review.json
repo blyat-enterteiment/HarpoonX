@@ -1,0 +1,111 @@
+{
+  "schema": "HARPOON_ROADMAP9_INTERNAL_ADVERSARIAL_API_REVIEW_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "started_at_utc": "2026-11-03T05:32:01.673Z",
+  "base_commit": "b48f38d23fce08bd68428fe3f7896a66a8548b7a",
+  "source_revision_scope": "UNCOMMITTED_R2_SOURCES_IDENTIFIED_BY_HASH;BASE_COMMIT_IS_NOT_THE_REVIEWED_CODE_IDENTITY",
+  "source_sha256": {
+    "tools/roadmap9_integration_adversarial.cjs": "6b23f656351133f91594cd2fcdb1f8bfa20b2f91131dc91b800490e77f126c37",
+    "tools/roadmap9_integration_fixture.cjs": "4b85520f2b3f66fa1d9954dfab20c88b842e640b0f181993ea38854f33c4240b",
+    "runtime/roadmap9_bridge.cjs": "c59ba928c1506a6df8f44e582942c794173697ac08ddf4b80af1e120b26f7c44",
+    "runtime/store30.cjs": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+    "runtime/store.py": "2daa2d811aeeed9a3622a274747140f0feba2928c1b14b15ce5291b8de7bc9e1",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055",
+    "quant/harpoon_quant/roadmap9/integration.py": "d7ac6d1a582a41d4d6b88a17369fef8d69c91b8b7bbace7e80881018981ce297",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e"
+  },
+  "tests": [
+    {
+      "name": "server_clock_status_and_client_authority_rejection",
+      "passed": true,
+      "synthetic_server_clock_advance_ms": 15001,
+      "journal_unchanged": true,
+      "enabled_empty_alive": false,
+      "fresh_alive": true,
+      "stale_alive": false,
+      "stale_simulated_entries_ready": false,
+      "rejections": [
+        {
+          "command_id": "review:clock",
+          "status": 422,
+          "error": "ROADMAP9_REQUEST_CONTRACT"
+        },
+        {
+          "command_id": "review:now",
+          "status": 422,
+          "error": "OFFLINE_FIELDS"
+        },
+        {
+          "command_id": "review:snapshot",
+          "status": 422,
+          "error": "OFFLINE_AUTHORITY_OR_SNAPSHOT_INPUT"
+        },
+        {
+          "command_id": "review:llm",
+          "status": 422,
+          "error": "ROADMAP9_AUTHORITY_FORBIDDEN"
+        },
+        {
+          "command_id": "review:old-forecast",
+          "status": 422,
+          "error": "OFFLINE_FORECAST_DECISION_TIME_SERVER_OWNED"
+        }
+      ],
+      "ui_visual_integration_tested": false,
+      "broker_calls": 0
+    },
+    {
+      "name": "failed_fill_cas_real_restart_and_exactly_once_replay",
+      "passed": true,
+      "failed_fill_http_status": 503,
+      "durable_record_unchanged_after_failure": true,
+      "quote_age_at_restart_ms": 952,
+      "restarted_sqlite_process_and_controller": true,
+      "first_retry_shares": 2,
+      "duplicate_fill_and_fee_no_additional_revision": true,
+      "final_equity_after_fee_usd": "19999.79",
+      "deadline_preserved": true,
+      "rearm_requires_explicit_matching_reconciliation": true,
+      "broker_calls": 0
+    },
+    {
+      "name": "fee_exceeding_provision_persists_debt_across_restart",
+      "passed": true,
+      "total_synthetic_corrected_fee_usd": "25000",
+      "settled_usd": "-5200.00",
+      "equity_usd": "-5000.00",
+      "inventory_shares": "2",
+      "duplicate_fee_idempotent": true,
+      "account_not_reset": true,
+      "entries_blocked": true,
+      "broker_calls": 0
+    }
+  ],
+  "errors": [],
+  "execution_allowed": false,
+  "new_economic_measurements": 0,
+  "real_fills_present": false,
+  "external_review_completed": false,
+  "scope": "INTERNAL_REVIEW_OF_LOCAL_HTTP_SQLITE_AND_PYTHON_ON_SYNTHETIC_RECEIPTS;NOT_LIVE_EXECUTION_OR_VISUAL_UI",
+  "source_hashes_after": {
+    "tools/roadmap9_integration_adversarial.cjs": "6b23f656351133f91594cd2fcdb1f8bfa20b2f91131dc91b800490e77f126c37",
+    "tools/roadmap9_integration_fixture.cjs": "4b85520f2b3f66fa1d9954dfab20c88b842e640b0f181993ea38854f33c4240b",
+    "runtime/roadmap9_bridge.cjs": "c59ba928c1506a6df8f44e582942c794173697ac08ddf4b80af1e120b26f7c44",
+    "runtime/store30.cjs": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+    "runtime/store.py": "2daa2d811aeeed9a3622a274747140f0feba2928c1b14b15ce5291b8de7bc9e1",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055",
+    "quant/harpoon_quant/roadmap9/integration.py": "d7ac6d1a582a41d4d6b88a17369fef8d69c91b8b7bbace7e80881018981ce297",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e"
+  },
+  "sources_unchanged": true,
+  "finished_at_utc": "2026-11-03T05:32:13.162Z",
+  "passed": true
+}

@@ -1,0 +1,7 @@
+# Explicit, reproducible profile for the frozen Roadmap9 sources.
+# Known findings are compared by the guard; no lint rule is suppressed here.
+extend = "./pyproject.toml"
+src = ["."]
+
+[lint]
+extend-select = ["EXE"]

@@ -1,0 +1,36 @@
+{
+  "schema": "HARPOON_REVIEW_REPRODUCTIONS_1",
+  "same_team_review_not_external": true,
+  "checked_utc": "2026-11-03T03:52:32.458998+00:00",
+  "cases": [
+    {
+      "case": "empty_source_manifest",
+      "result": "BLOCKED",
+      "source_integrity_errors": [
+        "CODE_SOURCE_MANIFEST_REQUIRED"
+      ],
+      "execution_allowed": false
+    },
+    {
+      "case": "malformed_commit",
+      "result": "BLOCKED",
+      "source_integrity_errors": [
+        "VERSIONED_SOURCE_COMMIT_REQUIRED"
+      ],
+      "execution_allowed": false
+    },
+    {
+      "case": "noncode_source_manifest",
+      "result": "BLOCKED",
+      "source_integrity_errors": [
+        "CODE_SOURCE_MANIFEST_REQUIRED"
+      ],
+      "execution_allowed": false
+    }
+  ],
+  "reviewed_sources_sha256": {
+    "quant/harpoon_quant/roadmap9/gates.py": "b2c208280045e7697b66ac099ae8f0d2abf3a5c3d40d3d67b0c6ffe01fc81f14",
+    "quant/tests/test_roadmap9_gates.py": "7aab15419b323ece453e532845e1d145d8dc9f801bb02bb2caa78ea852d43a9d"
+  },
+  "live_execution_allowed": false
+}

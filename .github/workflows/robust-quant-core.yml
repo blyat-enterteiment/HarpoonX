@@ -27,12 +27,14 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: quant/requirements-tested.txt
+          cache-dependency-path: |
+            quant/requirements-tested.txt
+            quant/requirements-roadmap9.txt
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: python3 -m pip install -r quant/requirements-tested.txt
+      - run: python3 -m pip install -r quant/requirements-roadmap9.txt
       - name: Entire quant suite including certificate regressions
         run: python3 -B -m unittest discover -s quant/tests

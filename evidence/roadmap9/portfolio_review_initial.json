@@ -1,0 +1,39 @@
+{
+  "affirmative_observations": [
+    "Single initial-equity denominator gives all objective terms return-fraction units.",
+    "Terminal liquidation cost is separate from immediate cash and past entry costs are sunk.",
+    "Immediate buy funding uses pre-sale cash minus pending cash, excluding receivables.",
+    "Return covariance and covariance of the mean error remain distinct.",
+    "Calendar schedule shadow requires retained/new positions to have an executable exit at common horizon within original deadline.",
+    "Partial-fill corner enumeration includes fixed-order-fee and zero-inventory discontinuities."
+  ],
+  "economic_measurements_performed": 0,
+  "financial_acceptance_allowed": false,
+  "findings": [
+    {
+      "id": "FRESHNESS_CONFIG_RELAXATION",
+      "observed": "A 20-second quote and 170/171-hour model/labels were accepted after raising configurable maxima to 60 seconds/336 hours.",
+      "required_change": "New allocator settings must not relax 15-second quote and 168-hour model/latest-label contracts.",
+      "status": "IMPLEMENTER_REPORTS_FIXED_PENDING_REVIEW"
+    },
+    {
+      "id": "REDUCTION_CAN_DESTROY_HEDGE",
+      "observed": "Two positions of20shares at100USD, cash6000USD, opposite+/-50% scenarios: hold CVaR0, proposed[20,0] CVaR1000USD against200USD cap; proposal justified only by reducing native quantities.",
+      "required_change": "Do not use quantity reduction alone to waive tail/exposure limits for a discretionary portfolio that starts safe. Mandatory protective exits require explicit scope.",
+      "status": "FIX_PENDING"
+    }
+  ],
+  "focus": [
+    "forecast_clock_and_original_deadline",
+    "cash_without_anticipated_sales_or_receivables",
+    "objective_currency_units_and_fee_treatment",
+    "adverse_partial_fill_states"
+  ],
+  "orders_sent": 0,
+  "reviewed_preclosure_sha256": "80bf51c81604f064a0416772710f3376d10288fab68170f15e73f9e142c7e15c",
+  "reviewer": "research_impl",
+  "schema": "HARPOON_ROADMAP9_PORTFOLIO_PEER_REVIEW_1",
+  "scope": "READ_ONLY_INTERNAL_ENGINEERING_REVIEW_NOT_EXTERNAL_OR_ECONOMIC_APPROVAL",
+  "source_path": "quant/harpoon_quant/roadmap9/portfolio.py",
+  "status": "FIXES_PENDING_VERIFICATION"
+}

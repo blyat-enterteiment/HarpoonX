@@ -1,0 +1,22 @@
+{
+  "schema": "HARPOON_DEADLINE_RETURN_BOUNDARY_REVIEW_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "DIRECT_PYTHON_COMPOSITE_TO_REAL_NODE_PUBLIC_VIEW;NOT_HTTP",
+  "evaluated_at_ms": 1788886400009,
+  "deadline_at_ms": 1788886400010,
+  "completed_at_ms": 1788886400010,
+  "valid_until_ms": 1788886414998,
+  "ready_before_return": true,
+  "ready_at_deadline_return": true,
+  "alive_at_deadline_return": true,
+  "blockers_at_return": [],
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/integration.py": "efc2575de2f9a39ecc3f5325c39905fd20d604c67c85aadee09b64eba5c1256d",
+    "runtime/roadmap9_bridge.cjs": "c59ba928c1506a6df8f44e582942c794173697ac08ddf4b80af1e120b26f7c44",
+    "quant/tests/test_roadmap9_integration.py": "8b5039d73f4b85c97c9f1db582e29c441d9f954d46770ff689c7c79f463b979d"
+  },
+  "execution_allowed": false,
+  "new_economic_measurements": 0,
+  "reproducer_python": "import json\nfrom test_roadmap9_integration import Harness\nh=Harness();_,deadline=h.fill_stock()\nh.send({'kind':'FEE','command_id':'expiry:fee','activity_type':'FEE','activity_id':'expiry:activity','fill_id':'execution','fee_asset':'USD','total_fee':'0.21'})\nh.now=deadline-12\nh.send({**h.input['market'],'command_id':'expiry:fresh','quotes':[{**q,'event_at_ms':h.now} for q in h.input['market']['quotes']]})\nh.reconcile('expiry:reconciled')\nview=h.get(elapsed=deadline-1-h.now)\nprint(json.dumps({'view':view,'deadline':deadline,'evaluated_at':h.now}))\n",
+  "source_hash_collection_scope": "POST_RUN_HASHES_ONLY;NO_STABILITY_CLAIM_WHILE_IMPLEMENTATION_FIXES_ARE_IN_PROGRESS"
+}

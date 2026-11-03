@@ -1,0 +1,23 @@
+test_empty_manifest_or_unversioned_code_cannot_pass (test_roadmap9_gates.ClosureTests.test_empty_manifest_or_unversioned_code_cannot_pass) ... ok
+test_engineering_failure_blocks_phase_without_inventing_candidate_rejection (test_roadmap9_gates.ClosureTests.test_engineering_failure_blocks_phase_without_inventing_candidate_rejection) ... FAIL
+test_hash_mutation_and_path_escape_block (test_roadmap9_gates.ClosureTests.test_hash_mutation_and_path_escape_block) ... ok
+test_missing_contract_cannot_conclude (test_roadmap9_gates.ClosureTests.test_missing_contract_cannot_conclude) ... ok
+test_missing_critical_receipt_stays_blocked (test_roadmap9_gates.ClosureTests.test_missing_critical_receipt_stays_blocked) ... ok
+test_successful_ablation_can_still_reject_the_candidate (test_roadmap9_gates.ClosureTests.test_successful_ablation_can_still_reject_the_candidate) ... ok
+test_synthetic_cannot_satisfy_observed_or_external_gate (test_roadmap9_gates.ClosureTests.test_synthetic_cannot_satisfy_observed_or_external_gate) ... ok
+
+======================================================================
+FAIL: test_engineering_failure_blocks_phase_without_inventing_candidate_rejection (test_roadmap9_gates.ClosureTests.test_engineering_failure_blocks_phase_without_inventing_candidate_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_gates.py", line 86, in test_engineering_failure_blocks_phase_without_inventing_candidate_rejection
+    self.assertEqual(phase["phase_decision"], "BLOCKED")
+AssertionError: 'REJECTED_CANDIDATE' != 'BLOCKED'
+- REJECTED_CANDIDATE
++ BLOCKED
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.012s
+
+FAILED (failures=1)

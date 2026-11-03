@@ -1,0 +1,43 @@
+{
+  "schema": "HARPOON_ROADMAP9_ADVERSARIAL_STATUS_EXPIRY_1",
+  "scope": "DIRECT_ACTUAL_ADAPTER_METHOD_SYNTHETIC_BOUNDARY_TEST_NOT_HTTP",
+  "source_file": "runtime/roadmap9_bridge.cjs",
+  "source_sha256": "889ea57ba274e38679b7599d45d13745a92020d9e73c03dca7f1475dd57ec56b",
+  "source_unchanged_during_test": true,
+  "view_after_response": {
+    "valid_until_ms": 15000,
+    "alive": false,
+    "simulated_entries_ready": true,
+    "simulation_blockers": [],
+    "health": {
+      "alive": false,
+      "entries_ready": false,
+      "owned_inventory_management": "RECONCILE_ONLY",
+      "blocking_reasons": [
+        "EXECUTION_AUTHORITY_MISSING",
+        "INPUT_EXPIRED_BEFORE_RESPONSE"
+      ]
+    },
+    "execution_allowed": false,
+    "orders_allowed": false,
+    "financial_acceptance_allowed": false,
+    "completed_at_ms": 16000,
+    "storage": {
+      "revision": 3,
+      "confirmed": true,
+      "recovery_required": false,
+      "last_failure": null,
+      "namespace": "ISOLATED_SYNTHETIC_SESSION"
+    },
+    "transport": {
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "broker_transport_present": false,
+      "llm_transport_present": false,
+      "worker_timeout_ms": 8000,
+      "credentials_forwarded": false
+    }
+  },
+  "bug_reproduced": true,
+  "new_economic_measurements": 0,
+  "execution_allowed": false
+}

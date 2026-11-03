@@ -1,0 +1,1035 @@
+[
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/baseline/materialization_receipt.json",
+        "sha256": "113ad26383af535180a8f047ece58c1bfa0b06eded11c1a54c13cb427601e9d6"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/frontier_reproduction.json",
+        "sha256": "3b9974f0361a34383ce4ab270740f387a7c97db84d1e770892cdf0a6f881fe74"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/synthetic_reproduction.json",
+        "sha256": "9cc044a94bd41a412003cce1c29a00c7797d2ecc00cb2f3f589fb151dc6327bf"
+      },
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "151 archivos originales (10.850.720 bytes) verificados; recibos Frontier reproducidos; Synthetic9: 108 cuentas, 2.978 fills, 36.396 marcas y 288 modelos comprobados en procesos separados.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Pase de reproducción local; los 649 tests de CI previos conservan su fecha y alcance originales.",
+    "result": "PASS",
+    "validator_id": "V001"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/registry_reconciled_verification.json",
+        "sha256": "bad662d2dddc7d67b9b7f03334fb048b4978250c2e2fc926e3dc2aed43654747"
+      },
+      {
+        "path": "evidence/roadmap9/research_registry_incident/incident.json",
+        "sha256": "f6e75ff781016a3ee31d7176876f5a145e5f6e71982ae7b653cd527ef800dc19"
+      },
+      {
+        "path": "evidence/roadmap9/research/exact_reproduction.json",
+        "sha256": "c9beda3871e0d9666eb85d09a0ee0ffc20af7a7dfbbf97b59d125ab4309d3bec"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Registro implementado y probado: 3 hipótesis, 6 recetas, 12 mediciones; 53 anteriores documentadas y 65 reservadas del límite 128. Cadena reconciliada 12/12; incidencia de 2 RESULT ausentes preservada.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Historia global incompleta y causa de incidencia no establecida. No se certifica corrección global de selección ni registro temporal independiente.",
+    "result": "BLOCKED",
+    "validator_id": "V002"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/baseline/programme_budget.json",
+        "sha256": "71d8c394ef903543aa07b9cd96fbe388f1901ab2c4ed263f6dfb072157ea9b2b"
+      },
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Validador del programa ejecutado: 5.000.000 USD de presupuesto de planificación, 0 USD reportados gastados en el baseline; sin autorización de gasto.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "El gasto reportado del baseline no es una auditoría de facturas actuales.",
+    "result": "PASS",
+    "validator_id": "V003"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/forward_adversarial_review.json",
+        "sha256": "d486727340dd9b2275d371c92b3f2ea7cfb1f5f8f73ec2c3cc665f503386fabf"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/gates_adversarial_review.json",
+        "sha256": "70990ed0749f9498abaa68021a42892a2692d72d25ec2bbc3c43a931bf04dcc1"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Ataques de origen, autoridad, claves de prueba, firma del propio autor, manifiesto ausente y commit inválido se rechazan; todos los recibos nuevos mantienen execution_allowed=False.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Una firma válida verifica una afirmación de una clave confiable; no prueba por sí sola la verdad de la fuente.",
+    "result": "PASS",
+    "validator_id": "V004"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "research/roadmap9/README.md",
+        "sha256": "a1c892b590c4deab1eb7f3f80795d1d28093a8808f1b66ba0e7d1b741c93a402"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Perfil tarifario versionado enlaza todos sus campos; maker/taker desconocido se rechaza y una orden límite no fuerza maker. Modos nativo cripto y USD por acción probados.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Falta contrato de cuenta, tramo por volumen, venue y tarifas observadas. Las tarifas públicas asumidas y los 2 bps archivados no se presentan como tarifa real.",
+    "result": "BLOCKED",
+    "validator_id": "V005"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/execution_adversarial_review.json",
+        "sha256": "de8312dcae2b0a35ca8a9aa52bd5df46dde60006ef6e0509a47d96b6488c4e9c"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Comisiones nativas, parciales, provisiones, posting tardío, corrección delta y deduplicación comprobados con Decimal. El perfil completo permanece ligado a cada fill.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Fixtures sintéticos; no se ha reconciliado una actividad CFEE/FEE original de una cuenta.",
+    "result": "PASS",
+    "validator_id": "V006"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/accounting_audit.json",
+        "sha256": "c3898f2c1fe90a4814a533c7463b6d119676f0f8fb1f6ea31dbd56afe1163776"
+      },
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Cuenta continua 20.000 USD; gasto común una vez, incluyendo CASH y fines de semana; 20 cuentas históricas conciliadas. 585/1.170 USD nominal/estrés en 585 días naturales.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Gasto diario modelado de 1/2 USD; las facturas reales y la viabilidad observada siguen pendientes.",
+    "result": "PASS",
+    "validator_id": "V007"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_component.json",
+        "sha256": "2ced3ca145ff45ebe57acbc157946497cb1f79af813a6786a9c3df4c30f1545c"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/execution_adversarial_review.json",
+        "sha256": "de8312dcae2b0a35ca8a9aa52bd5df46dde60006ef6e0509a47d96b6488c4e9c"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "No se financian compras con ventas propuestas ni derechos no disponibles; se reservan fills anunciados y comisiones pendientes; se rechaza doble venta entre campañas.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "El asignador nuevo bloquea órdenes pendientes hasta un adaptador de reconciliación; ningún recibo transmite órdenes.",
+    "result": "PASS",
+    "validator_id": "V008"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/execution_replay.json",
+        "sha256": "86afabefb29e0397622c150328ffba9395009c528e585a012533af245d4c533f"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/execution_adversarial_review.json",
+        "sha256": "de8312dcae2b0a35ca8a9aa52bd5df46dde60006ef6e0509a47d96b6488c4e9c"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Máquina de órdenes probada con ACK, parciales, cancelación, reemplazo, rechazo, duplicados, fill antes de ACK y anuncios acumulados. 3 errores adversariales corregidos y reatacados.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Comprobación offline; la idempotencia del reductor no promete idempotencia de un envío al broker.",
+    "result": "PASS",
+    "validator_id": "V009"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/execution_replay.json",
+        "sha256": "86afabefb29e0397622c150328ffba9395009c528e585a012533af245d4c533f"
+      },
+      {
+        "path": "evidence/roadmap9/execution_reproduction.json",
+        "sha256": "a9443d00e202049fb93080eb5e2b1d16e34f994c3a9cba9e27dfea61d6fd5aa5"
+      },
+      {
+        "path": "research/roadmap9/execution_protocol.json",
+        "sha256": "4929734deb8df5dc1cd6a55d5a7bd9da5d699b5724e756295c73ecc7a17f2ce4"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "108 cuentas con entradas preservadas. Retrasos respecto al deadline planificado: CORE 16→0; control 57→0; cero inventario pendiente en el replay y duración ≤ 72 h.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Pase sólo dentro del sobre sintético registrado. Los 16 eran retrasos planificados; no eran 16 excedencias del máximo original de 72 h.",
+    "result": "PASS",
+    "validator_id": "V010"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Halts, falta de ventana de salida y exposición vencida se detectan sin crear fills; se conserva inventario y la causa. También se bloquea inventario vencido sin un fill tardío.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "La prueba de detección no demuestra cumplimiento de plazo cuando no existe mercado.",
+    "result": "PASS",
+    "validator_id": "V011"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/forward_adversarial_review.json",
+        "sha256": "d486727340dd9b2275d371c92b3f2ea7cfb1f5f8f73ec2c3cc665f503386fabf"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/legacy_timeout_recheck.json",
+        "sha256": "7e813199bf3adf3c439b9001d908aa40983af94538173e0c853601787aaec793"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/final_validation/tests.json",
+        "sha256": "b85324f7877fa99846d506dd9aa29c97e1814b3a6f9aadfb624e6a3104269d04"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/integration_http_verification.json",
+        "sha256": "fa9e14db0579e474288282489f3dc329ee5fc3bad092c009a0ff7e8bbe613e1b"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/version_binding.json",
+        "sha256": "3a1a855fba5149c139ed69b31af7968f4ab682cf37b5cbc9b9ef2f7dbdf5a89f"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Reinicio, SQLite/CAS, recibos tardíos y caída del worker nuevo probados a través de la API real offline. El test legado exacto pasó 1/1 en 29,709 s, con timeout original de 8.000 ms sin cambios; la regresión final de 792 pruebas también pasa.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "La causa del timeout histórico del predictor legado no se reprodujo ni se estableció. Se preservan el incidente y sus intentos anteriores; la recuperación del worker nuevo no demuestra la causa ni la reparación de aquel incidente. No se añade despliegue o broker real como requisito del contrato de ingeniería.",
+    "result": "BLOCKED",
+    "validator_id": "V012"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/data_scope.json",
+        "sha256": "661b87e227968c13a0c15d4d3d133875933c36c773514507ed51e7a537752164"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Probados DST, media sesión, deadline de fin de semana, calendario recibido, dividendos y rechazo de splits sin disponibilidad conocida; el estudio usa calendario y acciones corporativas archivados.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "El conjunto completo multiasset con ajustes y recibos point-in-time originales no está certificado. No se transforma el calendario sintético en calendario bursátil observado.",
+    "result": "BLOCKED",
+    "validator_id": "V013"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/forward_adversarial_review.json",
+        "sha256": "d486727340dd9b2275d371c92b3f2ea7cfb1f5f8f73ec2c3cc665f503386fabf"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Precios futuros, recepción adelantada, cotizaciones caducadas, etiquetas posteriores al ajuste y reloj reestampado se bloquean. Topes 15 s y 168 h no se relajan mediante configuración.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "En el histórico, disponibilidad es cierre de vela +1 s modelado, no recepción original; se conserva esa etiqueta.",
+    "result": "PASS",
+    "validator_id": "V014"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_component.json",
+        "sha256": "2ced3ca145ff45ebe57acbc157946497cb1f79af813a6786a9c3df4c30f1545c"
+      },
+      {
+        "path": "evidence/roadmap9/research/data_scope.json",
+        "sha256": "661b87e227968c13a0c15d4d3d133875933c36c773514507ed51e7a537752164"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Control de inventario completo, concentración, cash y presupuesto de trabajo probado. Estudio limitado a AAPL/MSFT con contexto XLK.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Falta universo sin sesgo de supervivencia, capacidad observada y elegibilidad punto en el tiempo de un universo ampliado.",
+    "result": "BLOCKED",
+    "validator_id": "V015"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/data_reconstruction.json",
+        "sha256": "4e0fb78c431cc0c41401b63ae05ae6b801f80ad8e06e94fca37ba61bc5accb8b"
+      },
+      {
+        "path": "evidence/roadmap9/research/data_scope.json",
+        "sha256": "661b87e227968c13a0c15d4d3d133875933c36c773514507ed51e7a537752164"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Dataset 124.182 barras reconstruido exactamente desde 80 blobs. Ninguna barra se etiqueta como cola, profundidad, BBO o desequilibrio de subasta observado.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Faltan autenticación independiente de fuente, permisos verificados y recibos temporales originales de BBO/subasta/opciones.",
+    "result": "BLOCKED",
+    "validator_id": "V016"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/data_scope.json",
+        "sha256": "661b87e227968c13a0c15d4d3d133875933c36c773514507ed51e7a537752164"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "6.162 filas; objetivos 24/48/72 h descompuestos en nocturno e intradiario con residuo máximo 0. Mutaciones futuras no cambian las features anteriores.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Identidad de precios de acciones; no acredita ventaja económica ni añade gap bursátil a cripto.",
+    "result": "PASS",
+    "validator_id": "V017"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/accounting_audit.json",
+        "sha256": "c3898f2c1fe90a4814a533c7463b6d119676f0f8fb1f6ea31dbd56afe1163776"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Etiquetas maduras con purga 72 h, calibración sólo en TRAIN y deadline real de 24/48/72 h; pruebas de barrera ambigua y bootstrap sin nuevos casos originales pasan.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "La cronología intrabar no identificada conserva sus límites; el replay sigue modelado.",
+    "result": "PASS",
+    "validator_id": "V018"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/forecast_diagnostics.json",
+        "sha256": "824c96264a7b3c2fa22fb8a2776e41d8266c731860bbdcf3bfe7813c7ac382aa"
+      },
+      {
+        "path": "research/roadmap9/protocol.json",
+        "sha256": "78dfff4b7db0e7c93f591ff87f696d0c69527456c5c56f4bb9063f805a26d931"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Comparación predictiva y guardas ejecutadas. MSE del modelo supera la referencia cero aproximadamente 6,0%, 9,4% y 10,5%; 2.448 abstenciones por fallo de referencia de calibración.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Pase del ejercicio de comparación, con resultado predictivo desfavorable. No se acredita calibración poblacional ni ventaja del modelo.",
+    "result": "PASS",
+    "validator_id": "V019"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "research/roadmap9/README.md",
+        "sha256": "a1c892b590c4deab1eb7f3f80795d1d28093a8808f1b66ba0e7d1b741c93a402"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Tests causales existentes de MACD, RSI/estocástico y contexto de precio pasan; no se tratan como votos independientes.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Falta una ablación incremental aislada y registrada de esos osciladores frente a precio/volatilidad/horario. No se añadió una séptima receta después de ver resultados.",
+    "result": "BLOCKED",
+    "validator_id": "V020"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_component.json",
+        "sha256": "2ced3ca145ff45ebe57acbc157946497cb1f79af813a6786a9c3df4c30f1545c"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_independent_review.json",
+        "sha256": "da12354e57e4c2f4f863e9124360f5c26c4a1043eb7e21952d39b5fc637a6a13"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Asignador robusto discreto nuevo para acciones/ETF USD, costes en Decimal, Σ de retornos y Ω de la media diferenciadas, una base de patrimonio/horizonte, repricing independiente y redondeo comprobados.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Proxy media-varianza de crecimiento logarítmico, no utilidad log exacta ni óptimo global. Componente no integrado ni medido económicamente en las 6 recetas.",
+    "result": "PASS",
+    "validator_id": "V021"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_component.json",
+        "sha256": "2ced3ca145ff45ebe57acbc157946497cb1f79af813a6786a9c3df4c30f1545c"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Malla incluye esperar/mantener, reducir, aumentar y cerrar; exige ventaja incremental frente al estado actual y control sin compras, coste global y banda registrada; decaimiento/cooldown probados.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Pronósticos, banda y decaimiento de este componente son supuestos de ingeniería sin calibración económica.",
+    "result": "PASS",
+    "validator_id": "V022"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_component.json",
+        "sha256": "2ced3ca145ff45ebe57acbc157946497cb1f79af813a6786a9c3df4c30f1545c"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "En acciones/ETF USD se comprueban lotes, coste, caja y esquinas adversas de fills parciales; compras nunca dependen de ventas pendientes.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "La adaptación de asignación a compras cripto con comisión en activo nativo y órdenes pendientes reales queda bloqueada. El ledger nativo ya está probado por separado.",
+    "result": "BLOCKED",
+    "validator_id": "V023"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_component.json",
+        "sha256": "2ced3ca145ff45ebe57acbc157946497cb1f79af813a6786a9c3df4c30f1545c"
+      },
+      {
+        "path": "research/roadmap9/protocol.json",
+        "sha256": "78dfff4b7db0e7c93f591ff87f696d0c69527456c5c56f4bb9063f805a26d931"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Sin señal, costes excesivos, shock de correlación, riesgo diario/drawdown y pausas probados; no se relajan caps originales. Las 6 recetas mantienen bruto 12%, DD8%, diaria 2% y riesgo 0,25%.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Los escenarios discretos no garantizan riesgo futuro. La propuesta de reducción fuera de caps no se certifica como segura.",
+    "result": "PASS",
+    "validator_id": "V024"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/source_bindings.json",
+        "sha256": "ef03a375d030179e97fb2a8ad5dda51fa5ea6bec88e82b6cb368fa5ffba4f114"
+      },
+      {
+        "path": "evidence/roadmap9/research/registry_reconciled_verification.json",
+        "sha256": "bad662d2dddc7d67b9b7f03334fb048b4978250c2e2fc926e3dc2aed43654747"
+      },
+      {
+        "path": "evidence/roadmap9/research/exact_reproduction.json",
+        "sha256": "c9beda3871e0d9666eb85d09a0ee0ffc20af7a7dfbbf97b59d125ab4309d3bec"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Código, recetas, 29 bindings y doce START registrados antes de los nuevos cálculos. Reproducción exacta verificada; incidencia de registro conservada.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "El periodo completo ya había sido inspeccionado. No cumple separación de un holdout virgen ni atestación independiente de preregistro.",
+    "result": "BLOCKED",
+    "validator_id": "V025"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      },
+      {
+        "path": "research/roadmap9/README.md",
+        "sha256": "a1c892b590c4deab1eb7f3f80795d1d28093a8808f1b66ba0e7d1b741c93a402"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Dos H1, continuación causal, continuación archivada, CASH y precio 24 comparados; neto, crecimiento, drawdown, exposición, costes y atribución nocturna/intradiaria publicados. Ambas H1 negativas.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Los límites ex ante son comunes, pero exposición realizada y referencia de mercado no están emparejadas; no se identifica alpha aislado del filtro.",
+    "result": "BLOCKED",
+    "validator_id": "V026"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      },
+      {
+        "path": "research/roadmap9/protocol.json",
+        "sha256": "78dfff4b7db0e7c93f591ff87f696d0c69527456c5c56f4bb9063f805a26d931"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Diagnósticos de concentración y soporte, 20.000 remuestreos pareados, bloques 5/20 y 120 endpoints declarados. Ninguna de 96 cotas de diferencias pareadas supera 0; H1 sólo 1/3 campañas nominales.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Pase de reporte diagnóstico; no inferencia confirmatoria global. Remuestreos y periodos solapados no se cuentan como nuevos casos.",
+    "result": "PASS",
+    "validator_id": "V027"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      },
+      {
+        "path": "evidence/roadmap9/research/exact_reproduction.json",
+        "sha256": "c9beda3871e0d9666eb85d09a0ee0ffc20af7a7dfbbf97b59d125ab4309d3bec"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Las dos H1 registradas quedan REJECTED_CANDIDATE y retained_for_forward=False, sin reajuste posterior.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Cualquier hipótesis futura requerirá una nueva identidad y presupuesto antes de medir.",
+    "result": "PASS",
+    "validator_id": "V028"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/data_scope.json",
+        "sha256": "661b87e227968c13a0c15d4d3d133875933c36c773514507ed51e7a537752164"
+      },
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Gap normalizado, aceptación con barras cerradas y contexto XLK implementados y probados causalmente. H2 ejecuta 9 y 6 campañas por escenario.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Resultado económico negativo y soporte inferior al mínimo 20; confirmación sectorial no es flujo de subasta auténtico.",
+    "result": "PASS",
+    "validator_id": "V029"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "La rama de subasta permanece ausente y explícitamente declarada como no soportada.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Se requieren snapshots auténticos NYSE/Nasdaq con símbolo, sesión, origen, recepción y derechos. No pueden reconstruirse desde OHLCV.",
+    "result": "BLOCKED",
+    "validator_id": "V030"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "No se añadió una serie Cboe inventada ni se habilitaron órdenes de opciones.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Faltan series y recibos originales de contexto implícito y sus plazos/unidades; se requieren antes de evaluar esa rama.",
+    "result": "BLOCKED",
+    "validator_id": "V031"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      },
+      {
+        "path": "research/roadmap9/README.md",
+        "sha256": "a1c892b590c4deab1eb7f3f80795d1d28093a8808f1b66ba0e7d1b741c93a402"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "H2 gap −189,51/−782,16 USD y H2 sector −262,73/−859,98 USD nominal/estrés. Ambas rechazadas; filtros y exposición reportados por separado.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "No hay rama con flujo de subasta observado ni riesgo/exposición realizados emparejados; no se puede completar la atribución prevista de flujo.",
+    "result": "BLOCKED",
+    "validator_id": "V032"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "research/roadmap9/protocol.json",
+        "sha256": "78dfff4b7db0e7c93f591ff87f696d0c69527456c5c56f4bb9063f805a26d931"
+      },
+      {
+        "path": "evidence/roadmap9/research/accounting_audit.json",
+        "sha256": "c3898f2c1fe90a4814a533c7463b6d119676f0f8fb1f6ea31dbd56afe1163776"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "H3 compara continuación frente a salida con datos disponibles y sólo cuando 24 h caben en el deadline; la comisión de entrada gastada no se cobra otra vez.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Política de decisión actual basada en previsión; no resuelve Bellman ni garantiza el valor previsto.",
+    "result": "PASS",
+    "validator_id": "V033"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/execution_replay.json",
+        "sha256": "86afabefb29e0397622c150328ffba9395009c528e585a012533af245d4c533f"
+      },
+      {
+        "path": "evidence/roadmap9/research/accounting_audit.json",
+        "sha256": "c3898f2c1fe90a4814a533c7463b6d119676f0f8fb1f6ea31dbd56afe1163776"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Campaña/deadline originales preservados en parciales, nuevas propuestas y recuperación; 20 cuentas históricas auditadas con duración máxima 71,999722 h y 108 replays sintéticos dentro 72 h.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Eventos corporativos sin disponibilidad suficiente bloquean el componente; no se garantiza salida física en halt.",
+    "result": "PASS",
+    "validator_id": "V034"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/execution_replay.json",
+        "sha256": "86afabefb29e0397622c150328ffba9395009c528e585a012533af245d4c533f"
+      },
+      {
+        "path": "research/roadmap9/execution_protocol.json",
+        "sha256": "4929734deb8df5dc1cd6a55d5a7bd9da5d699b5724e756295c73ecc7a17f2ce4"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Presupuesto de despacho, ventanas recibidas y 8 reintentos máximos a 250 ms fijados; 108 cuentas sin retrasos evitables en el sobre sintético.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Demora de broker y ejecución urgente no calibradas con fills reales; no se extrapola un SLA desde tiempos locales.",
+    "result": "PASS",
+    "validator_id": "V035"
+  },
+  {
+    "candidate_decision": "REJECTED_CANDIDATE",
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      },
+      {
+        "path": "evidence/roadmap9/research/exact_reproduction.json",
+        "sha256": "c9beda3871e0d9666eb85d09a0ee0ffc20af7a7dfbbf97b59d125ab4309d3bec"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Ablación sobre 45 entradas/cantidades/precios fijos: salida total +86,81/+62,40 USD; parcial −53,20/−67,45 USD. Cuentas completas separan reutilización/reentradas y siguen negativas.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Pase de la atribución ejecutada; las dos recetas H3 quedan rechazadas y no se crea un ensamblado adicional.",
+    "result": "PASS",
+    "validator_id": "V036"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/integration_r2/final_validation/tests.json",
+        "sha256": "b85324f7877fa99846d506dd9aa29c97e1814b3a6f9aadfb624e6a3104269d04"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/integration_http_verification.json",
+        "sha256": "fa9e14db0579e474288282489f3dc329ee5fc3bad092c009a0ff7e8bbe613e1b"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/integration_http.spec.log",
+        "sha256": "068e6ede772abb7ac74b2ea4da47d4d0b5c39aa8103b22f0d1ee019ab5a08969"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/implementation_receipt.json",
+        "sha256": "a06b05e88703566d3d2f0533363798fb228bb167262a3e16a64c4061c3ff55a1"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/internal_adversarial_review.json",
+        "sha256": "91f3ad8d417e4ec062a80d7dc51cdfd3ba2ef38f5854154a1d1f0fad1f27f156"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/adversarial_capacity_recheck.json",
+        "sha256": "e72ee15c1d4041921919a71afb2289784850205029b8f3b7284155a343869144"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/adversarial_daily_loss_before.json",
+        "sha256": "ec42cceb1d50120b7eeaf3a56d9b7506c51412d502392fd197987865a8a7dd29"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/adversarial_daily_loss_after.json",
+        "sha256": "482c4138e08db19a140ba90c1826db8283de5ba3f63d318ff3cb94216b86672e"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/version_binding.json",
+        "sha256": "3a1a855fba5149c139ed69b31af7968f4ab682cf37b5cbc9b9ef2f7dbdf5a89f"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_OFFLINE_HTTP_INTEGRATION",
+    "observed_value": "API HTTP existente con Python y SQLite reales: cancelación, fill tardío, reinicio, CFEE retrasada y corregida, deuda por fee superior a provisión, CAS fallido/ACK perdido, concurrencia, cambio de coste/calendario y timeout del worker. Journal agotado a 128 bloquea disponibilidad; comando 129 y reintentos no alteran inventario o deuda. Regresión final 792/792 y HTTP 10/10; fuentes sin cambios durante cada ejecución.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "PASS limitado al contrato sintético de ingeniería. Pruebas internas; ninguna autenticación de broker, ejecución productiva, PnL nuevo ni revisión externa. El journal de sesión está limitado a 128 comandos, sin compactación o reset automático; agotamiento o exposición ya vencida conservan estado y requieren recuperación aparte. El incidente global del registro y la deuda estática histórica conservan sus propios dictámenes.",
+    "result": "PASS",
+    "validator_id": "V037"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/execution_replay.json",
+        "sha256": "86afabefb29e0397622c150328ffba9395009c528e585a012533af245d4c533f"
+      },
+      {
+        "path": "evidence/roadmap9/research/accounting_audit.json",
+        "sha256": "c3898f2c1fe90a4814a533c7463b6d119676f0f8fb1f6ea31dbd56afe1163776"
+      },
+      {
+        "path": "evidence/roadmap9/research/exact_reproduction.json",
+        "sha256": "c9beda3871e0d9666eb85d09a0ee0ffc20af7a7dfbbf97b59d125ab4309d3bec"
+      },
+      {
+        "path": "evidence/roadmap9/portfolio_independent_review.json",
+        "sha256": "da12354e57e4c2f4f863e9124360f5c26c4a1043eb7e21952d39b5fc637a6a13"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Verificadores separados reconstruyen baseline y 108 replays; auditor Python de 20 cuentas y reproducción exacta de hashes; matriz de pruebas preserva fuentes.",
+    "origin": "HISTORICAL_MODELED",
+    "remaining_work": "Repricing de fills históricos usa precios modelados del replay; la revisión por otro agente del mismo equipo no es externa ni autenticación del broker.",
+    "result": "PASS",
+    "validator_id": "V038"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/integration_r2/final_validation/tests.json",
+        "sha256": "b85324f7877fa99846d506dd9aa29c97e1814b3a6f9aadfb624e6a3104269d04"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/integration_http_verification.json",
+        "sha256": "fa9e14db0579e474288282489f3dc329ee5fc3bad092c009a0ff7e8bbe613e1b"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/integration_http.spec.log",
+        "sha256": "068e6ede772abb7ac74b2ea4da47d4d0b5c39aa8103b22f0d1ee019ab5a08969"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/implementation_receipt.json",
+        "sha256": "a06b05e88703566d3d2f0533363798fb228bb167262a3e16a64c4061c3ff55a1"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/internal_adversarial_review.json",
+        "sha256": "91f3ad8d417e4ec062a80d7dc51cdfd3ba2ef38f5854154a1d1f0fad1f27f156"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/adversarial_deadline_return_after.json",
+        "sha256": "0d90646b572189a5d6e3f53885e83f9c238183953e4657ddfde548c29ace13f3"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/adversarial_model_return_after.json",
+        "sha256": "4882d6360a34aa177a18a48e5cd3aa66d22af7cb901e606a1c3beee83212cc06"
+      },
+      {
+        "path": "evidence/roadmap9/integration_r2/version_binding.json",
+        "sha256": "3a1a855fba5149c139ed69b31af7968f4ab682cf37b5cbc9b9ef2f7dbdf5a89f"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_OFFLINE_HTTP_INTEGRATION",
+    "observed_value": "Recorrido real GET/POST /v1/roadmap9/offline: datos sintéticos → optimizador → intención simulada → FILL → FEE/CFEE → patrimonio, sin LLM ni llamadas al broker. Estado deriva de reloj servidor, recibos, conciliación, campaña y calendario. Se revalida al devolver y antes de CAS; TTL de modelo/etiquetas bloquea sólo entradas. Autoridad siempre false; fuentes finales y 10 pruebas HTTP completas vinculadas por hash.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "PASS del endpoint offline opt-in; no prueba visual del dashboard ni nuevo arranque completo sin credenciales. main() mantiene su flujo histórico con broker. Los pronósticos del fixture son supuestos sintéticos, la compra/asignación cripto sigue bloqueada y las posiciones iniciales cripto sirven sólo para probar comisiones y reducciones. No se deriva admisión financiera u operativa de este pase.",
+    "result": "PASS",
+    "validator_id": "V039"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/benchmark.json",
+        "sha256": "f404624d78ed77011a04d47e65ada88b750ef446f22750e97f3d41b2b4dc3648"
+      },
+      {
+        "path": "evidence/roadmap9/validation/benchmark_protocol.json",
+        "sha256": "68718a39254e4d4c38064c6e4d29aadfa5386f5c4b7e737a245b214d9867c72d"
+      },
+      {
+        "path": "evidence/roadmap9/ci_b48f38d/completion.json",
+        "sha256": "326346dfd2468334528d571b4896630b6a840557702f53ee17a0e72cfe474242"
+      },
+      {
+        "path": "evidence/roadmap9/ci_b48f38d/benchmark.json",
+        "sha256": "eb2f8e8399e346a9a4a7cb37e045a42fec82630ace7844fab508c5ee35edd185"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Medición local registrada: 288 contextos, 279 cálculos completos y 9 rechazos esperados, cero fallos inesperados; p95=2,051 s >2 s, p99=2,189 s y máximo2,318 s. La CI posterior del commit b48f38d, con otro hardware, pasó con p95=1,951 s, p99=1,988 s y máximo2,065 s. Ambos recibos se conservan; trabajo máximo5.593.536.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Permanece FAIL por el incumplimiento original de p95. El pase en otro runner no demuestra aceleración del código ni sustituye el perfil local; no se relajan umbrales ni se repite el benchmark local buscando un pase. Los perfiles de CI se informan por commit y entorno, sin acreditar SLA del broker.",
+    "result": "FAIL",
+    "validator_id": "V040"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/validation/forward_empty.json",
+        "sha256": "54a02cba7bcfb75edf5ac48611c7bc0989d7fd12be6d142190fa98ca5f8ebc7b"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Reconciliador implementado y probado con paquetes sintéticos; admisión sin observaciones queda BLOCKED y no acepta autoatestación.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "No se dispone de paquete original de cuenta con decisión/BBO/ACK/FILL/CFEE/FEE y cobertura autenticada. El normalizador no aporta los originales.",
+    "result": "BLOCKED",
+    "validator_id": "V041"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/validation/forward_empty.json",
+        "sha256": "54a02cba7bcfb75edf5ac48611c7bc0989d7fd12be6d142190fa98ca5f8ebc7b"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Se exige calibración anterior al periodo y fees conciliadas; las pendientes no se sustituyen por cero.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Faltan fills live y soporte de ejecución por activo/rol/liquidez/régimen; no se ha estimado un coste observado independiente.",
+    "result": "BLOCKED",
+    "validator_id": "V042"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Contrato de periodo futuro, cuenta 20.000 USD, fechas completas y bindings de receta/coste/código implementado.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Cero candidatos elegibles después de las 6 recetas rechazadas. No se abre un ensayo futuro ni se recicla 2025–2026 como holdout virgen.",
+    "result": "BLOCKED",
+    "validator_id": "V043"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/research/results.json",
+        "sha256": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Diagnóstico pareado con soporte/bloques/multiplicidad local implementado; todas las 6 cuentas candidatas pierden nominal y estrés.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Falta evidencia prospectiva live, riesgo/exposición comparables, crecimiento neto positivo y control de selección global. No se acredita 9/10.",
+    "result": "BLOCKED",
+    "validator_id": "V044"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/validation/forward_empty.json",
+        "sha256": "54a02cba7bcfb75edf5ac48611c7bc0989d7fd12be6d142190fa98ca5f8ebc7b"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Monitores de conciliación, edad, pérdida diaria, drawdown, deterioro de alpha/costes y plazos implementados como decisiones locales.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "No existió periodo de observación real de esta entrega; faltan riesgos, incidentes y costes realizados durante ese periodo.",
+    "result": "BLOCKED",
+    "validator_id": "V045"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/baseline/gates_adversarial_review.json",
+        "sha256": "70990ed0749f9498abaa68021a42892a2692d72d25ec2bbc3c43a931bf04dcc1"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Revisión adversarial interna entre agentes y verificación de firma/independencia implementadas; no se autogenera firma de un tercero.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Falta un revisor externo auténtico, su identidad/independencia verificadas, alcance y conclusión vinculada a versión y evidencia.",
+    "result": "BLOCKED",
+    "validator_id": "V046"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      },
+      {
+        "path": "evidence/roadmap9/validation/forward_empty.json",
+        "sha256": "54a02cba7bcfb75edf5ac48611c7bc0989d7fd12be6d142190fa98ca5f8ebc7b"
+      }
+    ],
+    "implementation_status": "PARTIAL_OR_EXTERNAL_REQUIREMENT",
+    "observed_value": "Toda la entrega mantiene execution_allowed=False y carece de transporte al broker.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "La autorización para código e investigación no es autorización para operar una cuenta. No hay candidato aprobado ni permiso operativo específico verificado.",
+    "result": "BLOCKED",
+    "validator_id": "V047"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Ensayo de intención de rollback conserva campañas, deadline, inventario y órdenes pendientes; rechaza destino rechazado y estado no conciliado.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "No ejecuta un despliegue ni autentica la aprobación de destino; esa liberación permanece bloqueada.",
+    "result": "PASS",
+    "validator_id": "V048"
+  },
+  {
+    "evidence": [
+      {
+        "path": "evidence/roadmap9/validation/tests.json",
+        "sha256": "3cf3434db351075d63da5a6d1807c149c56331998bff0d2388db9ca84355f6f7"
+      }
+    ],
+    "implementation_status": "EXECUTED_SCOPED_COMPONENTS",
+    "observed_value": "Pausa por deriva de alpha/costes, pérdida y caducidad probada; se preserva reducción determinista y ninguna regla se autoaprueba mediante LLM.",
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "remaining_work": "Estadísticas suministradas por el llamador y umbrales de ingeniería; falta calibración y monitorización observada en servicio.",
+    "result": "PASS",
+    "validator_id": "V049"
+  }
+]

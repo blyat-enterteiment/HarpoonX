@@ -1,0 +1,16 @@
+{
+  "schema": "HARPOON_ROADMAP_STATIC_PREFLIGHT_1",
+  "mypy_findings": 4,
+  "ruff_findings": 1,
+  "files": [
+    "quant/harpoon_quant/roadmap9/operations.py",
+    "quant/tests/test_roadmap9_readiness.py",
+    "tools/verify_roadmap9_portfolio.py"
+  ],
+  "details": [
+    "Optional numeric cost_ratio requires isinstance narrowing; runtime tests pass.",
+    "Independent verifier needs dictionary type annotation.",
+    "New test imports require multiline formatting."
+  ],
+  "action": "Correct typing and formatting before final source-bound regression; no frozen economic source modified."
+}

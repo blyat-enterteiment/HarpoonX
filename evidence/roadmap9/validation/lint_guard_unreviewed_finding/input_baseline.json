@@ -1,0 +1,404 @@
+{
+  "configuration_sha256": {
+    "quant/pyproject.toml": "2d6361ed2b724f323435a962b1d6d83248a3a887a816234898ec0ab49dd9318c",
+    "quant/ruff-roadmap9.toml": "5f86921db3f221214c3a91da191cfb1208b7736a487bc3bb3ba10d1f2f9afa4a"
+  },
+  "created_utc": "2026-11-03T04:18:16.356073+00:00",
+  "execution_allowed": false,
+  "finding_count": 19,
+  "finding_counts_by_rule": {
+    "B905": 3,
+    "E402": 13,
+    "E731": 1,
+    "E741": 1,
+    "RUF005": 1
+  },
+  "findings": [
+    {
+      "code": "B905",
+      "end_location": {
+        "column": 70,
+        "row": 53
+      },
+      "location": {
+        "column": 39,
+        "row": 53
+      },
+      "message": "`zip()` without an explicit `strict=` parameter",
+      "path": "quant/harpoon_quant/roadmap9/forecast.py"
+    },
+    {
+      "code": "B905",
+      "end_location": {
+        "column": 86,
+        "row": 64
+      },
+      "location": {
+        "column": 39,
+        "row": 64
+      },
+      "message": "`zip()` without an explicit `strict=` parameter",
+      "path": "quant/harpoon_quant/roadmap9/forecast.py"
+    },
+    {
+      "code": "B905",
+      "end_location": {
+        "column": 86,
+        "row": 70
+      },
+      "location": {
+        "column": 33,
+        "row": 70
+      },
+      "message": "`zip()` without an explicit `strict=` parameter",
+      "path": "quant/harpoon_quant/roadmap9/forecast.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 2,
+        "row": 40
+      },
+      "location": {
+        "column": 1,
+        "row": 34
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 2,
+        "row": 46
+      },
+      "location": {
+        "column": 1,
+        "row": 41
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 25,
+        "row": 31
+      },
+      "location": {
+        "column": 1,
+        "row": 31
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 29,
+        "row": 17
+      },
+      "location": {
+        "column": 1,
+        "row": 17
+      },
+      "message": "Module level import not at top of file",
+      "path": "quant/tests/test_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 29,
+        "row": 30
+      },
+      "location": {
+        "column": 1,
+        "row": 30
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 41,
+        "row": 22
+      },
+      "location": {
+        "column": 1,
+        "row": 22
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/verify_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 48,
+        "row": 18
+      },
+      "location": {
+        "column": 1,
+        "row": 18
+      },
+      "message": "Module level import not at top of file",
+      "path": "quant/tests/test_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 48,
+        "row": 32
+      },
+      "location": {
+        "column": 1,
+        "row": 32
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 54,
+        "row": 47
+      },
+      "location": {
+        "column": 1,
+        "row": 47
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 55,
+        "row": 20
+      },
+      "location": {
+        "column": 1,
+        "row": 20
+      },
+      "message": "Module level import not at top of file",
+      "path": "quant/tests/test_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 60,
+        "row": 23
+      },
+      "location": {
+        "column": 1,
+        "row": 23
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/verify_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 77,
+        "row": 19
+      },
+      "location": {
+        "column": 1,
+        "row": 19
+      },
+      "message": "Module level import not at top of file",
+      "path": "quant/tests/test_roadmap9_research.py"
+    },
+    {
+      "code": "E402",
+      "end_location": {
+        "column": 80,
+        "row": 33
+      },
+      "location": {
+        "column": 1,
+        "row": 33
+      },
+      "message": "Module level import not at top of file",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "E731",
+      "end_location": {
+        "column": 6,
+        "row": 105
+      },
+      "location": {
+        "column": 5,
+        "row": 101
+      },
+      "message": "Do not assign a `lambda` expression, use a `def`",
+      "path": "tools/audit_roadmap9_results.py"
+    },
+    {
+      "code": "E741",
+      "end_location": {
+        "column": 22,
+        "row": 381
+      },
+      "location": {
+        "column": 21,
+        "row": 381
+      },
+      "message": "Ambiguous variable name: `l`",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "code": "RUF005",
+      "end_location": {
+        "column": 73,
+        "row": 167
+      },
+      "location": {
+        "column": 28,
+        "row": 167
+      },
+      "message": "Consider `[*packet[\"events\"][:3], packet[\"events\"][-1]]` instead of concatenation",
+      "path": "quant/tests/test_roadmap9_readiness.py"
+    }
+  ],
+  "git_file_modes": {
+    "quant/harpoon_quant/roadmap9/__init__.py": "100644",
+    "quant/harpoon_quant/roadmap9/__main__.py": "100644",
+    "quant/harpoon_quant/roadmap9/costs.py": "100644",
+    "quant/harpoon_quant/roadmap9/execution.py": "100644",
+    "quant/harpoon_quant/roadmap9/execution_replay.py": "100644",
+    "quant/harpoon_quant/roadmap9/forecast.py": "100644",
+    "quant/harpoon_quant/roadmap9/forward.py": "100644",
+    "quant/harpoon_quant/roadmap9/gates.py": "100644",
+    "quant/harpoon_quant/roadmap9/operations.py": "100644",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "100644",
+    "quant/harpoon_quant/roadmap9/registry.py": "100644",
+    "quant/harpoon_quant/roadmap9/research.py": "100644",
+    "quant/tests/test_roadmap9_execution.py": "100644",
+    "quant/tests/test_roadmap9_gates.py": "100644",
+    "quant/tests/test_roadmap9_portfolio.py": "100644",
+    "quant/tests/test_roadmap9_readiness.py": "100644",
+    "quant/tests/test_roadmap9_registry.py": "100644",
+    "quant/tests/test_roadmap9_research.py": "100644",
+    "tools/audit_roadmap9_results.py": "100755",
+    "tools/build_roadmap9_replay.py": "100755",
+    "tools/check_roadmap9_lint.py": "100644",
+    "tools/roadmap9_validate.py": "100644",
+    "tools/run_roadmap9_execution.py": "100644",
+    "tools/run_roadmap9_research.py": "100755",
+    "tools/verify_roadmap9_portfolio.py": "100644",
+    "tools/verify_roadmap9_research.py": "100755"
+  },
+  "new_strategy_measurements": 0,
+  "prepublication_guard_typing_correction": {
+    "changed_source": "tools/check_roadmap9_lint.py",
+    "previous_draft_baseline_sha256": "8c678a2749f2effe246037725d27ff33db346b31e0853d7a0bafb715995e3553",
+    "reason": "Explicit type annotation for comparison metadata; no finding or scientific source changed; the previous source hash was rejected by the guard."
+  },
+  "registration_kind": "POST_HOC_ENGINEERING_FINDING_INVENTORY_NOT_RESEARCH_PREREGISTRATION",
+  "review_scope": "Internal, exact-location style/bootstrap findings retained to preserve measured source bytes. This is not a claim of universal lint cleanliness or absence of all semantic defects.",
+  "reviewed_rationales": {
+    "B905": "Adjacent comparisons intentionally zip a sequence of length N with its tail of length N-1. Truncation covers every adjacent pair; strict=True would reject valid inputs.",
+    "E402": "Repository entrypoint/test bootstrap derives ROOT from __file__ and inserts local quant/tools paths before importing those local modules. This import order is deliberate and deterministic.",
+    "E731": "The pure costs_at lambda closes over the fixed scenario daily cost and evaluation calendar. It has no late-bound loop variable; replacing it with def is stylistic and would change frozen source bytes.",
+    "E741": "The local generator variable l is a label dictionary used only in the component-identity diagnostic. The issue is visual naming ambiguity; it does not change model fitting, signal selection or accounting.",
+    "RUF005": "These two synthetic tests concatenate concrete event lists to retain the prefix and terminal snapshot. The finding proposes equivalent list-unpacking syntax, without an accounting or timing change."
+  },
+  "ruff_arguments": [
+    "check",
+    "--config",
+    "quant/ruff-roadmap9.toml",
+    "--no-cache",
+    "--output-format",
+    "json",
+    "quant/harpoon_quant/roadmap9/__init__.py",
+    "quant/harpoon_quant/roadmap9/__main__.py",
+    "quant/harpoon_quant/roadmap9/costs.py",
+    "quant/harpoon_quant/roadmap9/execution.py",
+    "quant/harpoon_quant/roadmap9/execution_replay.py",
+    "quant/harpoon_quant/roadmap9/forecast.py",
+    "quant/harpoon_quant/roadmap9/forward.py",
+    "quant/harpoon_quant/roadmap9/gates.py",
+    "quant/harpoon_quant/roadmap9/operations.py",
+    "quant/harpoon_quant/roadmap9/portfolio.py",
+    "quant/harpoon_quant/roadmap9/registry.py",
+    "quant/harpoon_quant/roadmap9/research.py",
+    "quant/tests/test_roadmap9_execution.py",
+    "quant/tests/test_roadmap9_gates.py",
+    "quant/tests/test_roadmap9_portfolio.py",
+    "quant/tests/test_roadmap9_readiness.py",
+    "quant/tests/test_roadmap9_registry.py",
+    "quant/tests/test_roadmap9_research.py",
+    "tools/audit_roadmap9_results.py",
+    "tools/build_roadmap9_replay.py",
+    "tools/check_roadmap9_lint.py",
+    "tools/roadmap9_validate.py",
+    "tools/run_roadmap9_execution.py",
+    "tools/run_roadmap9_research.py",
+    "tools/verify_roadmap9_portfolio.py",
+    "tools/verify_roadmap9_research.py"
+  ],
+  "ruff_version": "0.17.0",
+  "rules_suppressed": false,
+  "schema": "HARPOON_ROADMAP9_REVIEWED_LINT_BASELINE_1",
+  "scientific_bound_files_unchanged": true,
+  "scientific_freeze_reference": "evidence/roadmap9/research/source_bindings.json",
+  "scientific_freeze_sha256": "ef03a375d030179e97fb2a8ad5dda51fa5ea6bec88e82b6cb368fa5ffba4f114",
+  "source_file_sha256": {
+    "quant/harpoon_quant/roadmap9/__init__.py": "36b5818fb442417c253b37b8c0be9dce881b9c1d793b37dcaa681bfd2c2670d1",
+    "quant/harpoon_quant/roadmap9/__main__.py": "bf6b69cbcfa005b3d49f1875f4bc75461fd6752338150e1147ce078c75d47ec4",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/execution_replay.py": "7eb0a9d01282b9ae6c00250cfefdeac8d8f438d47c5cdd468e7a75b6b49d5414",
+    "quant/harpoon_quant/roadmap9/forecast.py": "d2d94bfce32b0e7b6395b69a97fffc3a03fb3931f5dc72f451e60192bfd2887d",
+    "quant/harpoon_quant/roadmap9/forward.py": "69575c66112c83c1b75f3f14614cbaacbee6fb6309466e47a672d362eebf3551",
+    "quant/harpoon_quant/roadmap9/gates.py": "b2c208280045e7697b66ac099ae8f0d2abf3a5c3d40d3d67b0c6ffe01fc81f14",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e",
+    "quant/harpoon_quant/roadmap9/registry.py": "d8f42f1eeb577859f6d968b12fcac7472442d22460840d074ec2093e1524eb76",
+    "quant/harpoon_quant/roadmap9/research.py": "0f6549de3546a30347983b760dab24c1db18ba1f1bbdfbd6dd389920ed9221d1",
+    "quant/tests/test_roadmap9_execution.py": "9c018d135ab97e9f413aab622899feca4849ebc2277b7ae079effba8cb710a36",
+    "quant/tests/test_roadmap9_gates.py": "7aab15419b323ece453e532845e1d145d8dc9f801bb02bb2caa78ea852d43a9d",
+    "quant/tests/test_roadmap9_portfolio.py": "1a1f2c40b1f2a190c3a6b00d96a7f20ffa09e720c9660872be2d7417c9028bdd",
+    "quant/tests/test_roadmap9_readiness.py": "6fa459968fbdafbce6704e83518d61390e272b6e1c5b7186d7d8f1fdbf629827",
+    "quant/tests/test_roadmap9_registry.py": "84ee8aa76c996c17ac50d1c2ad32b7b6de705703de6a4b88ec5805646b476006",
+    "quant/tests/test_roadmap9_research.py": "9de291f32131eda99237081744300c81f96d57eff01c4a2ecb74a40616bd9090",
+    "tools/audit_roadmap9_results.py": "f150101e3fb3ab8cceec1f4916347b6f6e1006dd49e04dc8a1a9786f6e9e8f3a",
+    "tools/build_roadmap9_replay.py": "4099db8084e0309d6caa00bb60288fdc86cb24214746936ae1c6a599dde66307",
+    "tools/check_roadmap9_lint.py": "4123a9364d5ae5df05e8cda134653352752336a00c6d1ebfc73cd54a18475862",
+    "tools/roadmap9_validate.py": "f4cae48eaae58c1f644d2799c075aa4afe7400439e33e1cb29b64a02017d949c",
+    "tools/run_roadmap9_execution.py": "ac7db67e616f1d670fc1e14b8cdad9fb43433a71c15534ecc1c64846f5ad57ef",
+    "tools/run_roadmap9_research.py": "65adea7a1645ebae0614cf28f69b259d01a9e296ca36ac5be43c3f4ceaad438b",
+    "tools/verify_roadmap9_portfolio.py": "49f71154385d0ec3a9651b2eb9c2bdda97119bac28ea89ab385ef5e1bc2a0ae7",
+    "tools/verify_roadmap9_research.py": "72b4676a1f19afd68788bb7f90a97b3a99259e0d8a5d531e031bca6c23d6f01c"
+  },
+  "target_files": [
+    "quant/harpoon_quant/roadmap9/__init__.py",
+    "quant/harpoon_quant/roadmap9/__main__.py",
+    "quant/harpoon_quant/roadmap9/costs.py",
+    "quant/harpoon_quant/roadmap9/execution.py",
+    "quant/harpoon_quant/roadmap9/execution_replay.py",
+    "quant/harpoon_quant/roadmap9/forecast.py",
+    "quant/harpoon_quant/roadmap9/forward.py",
+    "quant/harpoon_quant/roadmap9/gates.py",
+    "quant/harpoon_quant/roadmap9/operations.py",
+    "quant/harpoon_quant/roadmap9/portfolio.py",
+    "quant/harpoon_quant/roadmap9/registry.py",
+    "quant/harpoon_quant/roadmap9/research.py",
+    "quant/tests/test_roadmap9_execution.py",
+    "quant/tests/test_roadmap9_gates.py",
+    "quant/tests/test_roadmap9_portfolio.py",
+    "quant/tests/test_roadmap9_readiness.py",
+    "quant/tests/test_roadmap9_registry.py",
+    "quant/tests/test_roadmap9_research.py",
+    "tools/audit_roadmap9_results.py",
+    "tools/build_roadmap9_replay.py",
+    "tools/check_roadmap9_lint.py",
+    "tools/roadmap9_validate.py",
+    "tools/run_roadmap9_execution.py",
+    "tools/run_roadmap9_research.py",
+    "tools/verify_roadmap9_portfolio.py",
+    "tools/verify_roadmap9_research.py"
+  ]
+}

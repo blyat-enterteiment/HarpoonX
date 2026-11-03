@@ -1,0 +1,30 @@
+setUpClass (test_economic_gate_v2.EconomicV2IntegrationTests) ... ERROR
+test_cash_is_separate_from_native_control (test_economic_gate_v2.EventRiskTests.test_cash_is_separate_from_native_control) ... ok
+test_cost_disappearance_or_inventory_mismatch_is_rejected (test_economic_gate_v2.EventRiskTests.test_cost_disappearance_or_inventory_mismatch_is_rejected) ... ok
+test_intraday_drawdown_is_not_hidden_by_profitable_close (test_economic_gate_v2.EventRiskTests.test_intraday_drawdown_is_not_hidden_by_profitable_close) ... ok
+test_intraday_insolvency_is_not_clipped_after_recovery (test_economic_gate_v2.EventRiskTests.test_intraday_insolvency_is_not_clipped_after_recovery) ... ok
+test_invented_session_and_early_termination_are_rejected (test_economic_gate_v2.EventRiskTests.test_invented_session_and_early_termination_are_rejected) ... ok
+test_peak_exposure_and_duration_survive_a_flat_close (test_economic_gate_v2.EventRiskTests.test_peak_exposure_and_duration_survive_a_flat_close) ... ok
+test_positive_nav_cannot_pay_cost_with_unexecuted_sale (test_economic_gate_v2.EventRiskTests.test_positive_nav_cannot_pay_cost_with_unexecuted_sale) ... ok
+test_reserve_deficit_and_late_knowledge_cannot_be_hidden (test_economic_gate_v2.EventRiskTests.test_reserve_deficit_and_late_knowledge_cannot_be_hidden) ... ok
+test_reserve_must_be_visible_in_original_buying_power (test_economic_gate_v2.EventRiskTests.test_reserve_must_be_visible_in_original_buying_power) ... ok
+test_same_costs_do_not_create_artificial_cash_interest (test_economic_gate_v2.EventRiskTests.test_same_costs_do_not_create_artificial_cash_interest) ... ok
+
+======================================================================
+ERROR: setUpClass (test_economic_gate_v2.EconomicV2IntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_economic_gate_v2.py", line 141, in setUpClass
+    raise AssertionError(run.stderr)
+AssertionError: Error: Cannot find module '../runtime/legacy30.cjs'
+Require stack:
+- /workspace/scratch/ef8aad81382e/HarpoonX/tools/coordinator_replay.cjs
+- /workspace/scratch/ef8aad81382e/HarpoonX/tools/fixtures/coordinator_replay_fixture.cjs
+- /workspace/scratch/ef8aad81382e/HarpoonX/tools/fixtures/funded_comparison_fixture.cjs
+- /workspace/scratch/ef8aad81382e/HarpoonX/tools/fixtures/level5_fixture.cjs
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.102s
+
+FAILED (errors=1)

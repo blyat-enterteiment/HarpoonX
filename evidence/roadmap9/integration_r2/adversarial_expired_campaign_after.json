@@ -1,0 +1,64 @@
+{
+  "schema": "HARPOON_EXPIRED_EXPOSURE_ADVERSARIAL_RECHECK_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "DIRECT_REAL_PYTHON_COMPOSITE_NOT_HTTP",
+  "source_sha256": {
+    "quant/harpoon_quant/roadmap9/integration.py": "889bc0e46c75d4276992719b6f9fceef2d05ebfdde8e84d349baeac34d9318f2",
+    "quant/tests/test_roadmap9_integration.py": "6a1e108552c4c25737d0b1dd7a889db310a6ca7bf60407b3a0571e16d1e7a83a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6"
+  },
+  "created_at_utc": "2026-11-03T05:40:20.858610+00:00",
+  "new_economic_measurements": 0,
+  "execution_allowed": false,
+  "passed": true,
+  "cases": [
+    {
+      "case": "filled_exposure_after_deadline_with_fresh_receipts",
+      "alive": false,
+      "simulated_entries_ready": false,
+      "owned_inventory_management": "RECONCILE_ONLY",
+      "expired_campaigns": [
+        {
+          "symbol": "AAPL",
+          "campaign_id": "sim:plan:AAPL",
+          "original_deadline": 1788886400010,
+          "net_inventory": "2",
+          "pending_order_ids": []
+        }
+      ],
+      "rejected_commands": [
+        "OFFLINE_REDUCTION_RECONCILE_ONLY",
+        "OFFLINE_PLAN_NOT_READY:CAMPAIGN_DEADLINE_EXPIRED_WITH_EXPOSURE"
+      ],
+      "rejected_commands_preserve_journal": true,
+      "late_fee_correction_accepted": true,
+      "equity_after_correction_usd": "19999.78",
+      "original_deadline_preserved": true
+    },
+    {
+      "case": "unfilled_pending_intent_at_exact_deadline",
+      "expired_campaigns": [
+        {
+          "symbol": "AAPL",
+          "campaign_id": "sim:plan:AAPL",
+          "original_deadline": 1788886400010,
+          "net_inventory": "0",
+          "pending_order_ids": [
+            "sim:6ea04eb7a27db9aa0e5c71d7"
+          ]
+        }
+      ],
+      "simulated_entries_ready": false
+    }
+  ],
+  "source_hashes_after": {
+    "quant/harpoon_quant/roadmap9/integration.py": "889bc0e46c75d4276992719b6f9fceef2d05ebfdde8e84d349baeac34d9318f2",
+    "quant/tests/test_roadmap9_integration.py": "6a1e108552c4c25737d0b1dd7a889db310a6ca7bf60407b3a0571e16d1e7a83a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6"
+  },
+  "sources_unchanged": true
+}

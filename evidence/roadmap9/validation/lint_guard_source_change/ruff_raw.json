@@ -1,0 +1,478 @@
+[
+  {
+    "cell": null,
+    "code": "B905",
+    "end_location": {
+      "column": 70,
+      "row": 53
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/harpoon_quant/roadmap9/forecast.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": ", strict=False",
+          "end_location": {
+            "column": 69,
+            "row": 53
+          },
+          "location": {
+            "column": 69,
+            "row": 53
+          }
+        }
+      ],
+      "message": "Add explicit value for parameter `strict=`"
+    },
+    "location": {
+      "column": 39,
+      "row": 53
+    },
+    "message": "`zip()` without an explicit `strict=` parameter",
+    "name": "zip-without-explicit-strict",
+    "noqa_row": 53,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/zip-without-explicit-strict"
+  },
+  {
+    "cell": null,
+    "code": "B905",
+    "end_location": {
+      "column": 86,
+      "row": 64
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/harpoon_quant/roadmap9/forecast.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": ", strict=False",
+          "end_location": {
+            "column": 85,
+            "row": 64
+          },
+          "location": {
+            "column": 85,
+            "row": 64
+          }
+        }
+      ],
+      "message": "Add explicit value for parameter `strict=`"
+    },
+    "location": {
+      "column": 39,
+      "row": 64
+    },
+    "message": "`zip()` without an explicit `strict=` parameter",
+    "name": "zip-without-explicit-strict",
+    "noqa_row": 64,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/zip-without-explicit-strict"
+  },
+  {
+    "cell": null,
+    "code": "B905",
+    "end_location": {
+      "column": 86,
+      "row": 70
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/harpoon_quant/roadmap9/forecast.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": ", strict=False",
+          "end_location": {
+            "column": 85,
+            "row": 70
+          },
+          "location": {
+            "column": 85,
+            "row": 70
+          }
+        }
+      ],
+      "message": "Add explicit value for parameter `strict=`"
+    },
+    "location": {
+      "column": 33,
+      "row": 70
+    },
+    "message": "`zip()` without an explicit `strict=` parameter",
+    "name": "zip-without-explicit-strict",
+    "noqa_row": 70,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/zip-without-explicit-strict"
+  },
+  {
+    "cell": null,
+    "code": "RUF005",
+    "end_location": {
+      "column": 73,
+      "row": 167
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_readiness.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "[*packet[\"events\"][:3], packet[\"events\"][-1]]",
+          "end_location": {
+            "column": 73,
+            "row": 167
+          },
+          "location": {
+            "column": 28,
+            "row": 167
+          }
+        }
+      ],
+      "message": "Replace with `[*packet[\"events\"][:3], packet[\"events\"][-1]]`"
+    },
+    "location": {
+      "column": 28,
+      "row": 167
+    },
+    "message": "Consider `[*packet[\"events\"][:3], packet[\"events\"][-1]]` instead of concatenation",
+    "name": "collection-literal-concatenation",
+    "noqa_row": 167,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/collection-literal-concatenation"
+  },
+  {
+    "cell": null,
+    "code": "RUF005",
+    "end_location": {
+      "column": 73,
+      "row": 181
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_readiness.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "[*packet[\"events\"][:3], packet[\"events\"][-1]]",
+          "end_location": {
+            "column": 73,
+            "row": 181
+          },
+          "location": {
+            "column": 28,
+            "row": 181
+          }
+        }
+      ],
+      "message": "Replace with `[*packet[\"events\"][:3], packet[\"events\"][-1]]`"
+    },
+    "location": {
+      "column": 28,
+      "row": 181
+    },
+    "message": "Consider `[*packet[\"events\"][:3], packet[\"events\"][-1]]` instead of concatenation",
+    "name": "collection-literal-concatenation",
+    "noqa_row": 181,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/collection-literal-concatenation"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 29,
+      "row": 17
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 17
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 17,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 48,
+      "row": 18
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 18
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 18,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 77,
+      "row": 19
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 19
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 19,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 55,
+      "row": 20
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/quant/tests/test_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 20
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 20,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E731",
+    "end_location": {
+      "column": 6,
+      "row": 105
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/audit_roadmap9_results.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "def costs_at(at):\n        return (\n            0\n            if at < sessions[0][\"open\"]\n            else daily_cost * (at // 86400000 - sessions[0][\"open\"] // 86400000 + 1)\n        )",
+          "end_location": {
+            "column": 6,
+            "row": 105
+          },
+          "location": {
+            "column": 5,
+            "row": 101
+          }
+        }
+      ],
+      "message": "Rewrite `costs_at` as a `def`"
+    },
+    "location": {
+      "column": 5,
+      "row": 101
+    },
+    "message": "Do not assign a `lambda` expression, use a `def`",
+    "name": "lambda-assignment",
+    "noqa_row": 101,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/lambda-assignment"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 29,
+      "row": 30
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 30
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 30,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 25,
+      "row": 31
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 31
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 31,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 48,
+      "row": 32
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 32
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 32,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 80,
+      "row": 33
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 33
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 33,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 2,
+      "row": 40
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 34
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 34,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 2,
+      "row": 46
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 41
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 41,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 54,
+      "row": 47
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 47
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 47,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E741",
+    "end_location": {
+      "column": 22,
+      "row": 381
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/run_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 21,
+      "row": 381
+    },
+    "message": "Ambiguous variable name: `l`",
+    "name": "ambiguous-variable-name",
+    "noqa_row": 381,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/ambiguous-variable-name"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 41,
+      "row": 22
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/verify_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 22
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 22,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 60,
+      "row": 23
+    },
+    "filename": "/workspace/scratch/ef8aad81382e/HarpoonX/tools/verify_roadmap9_research.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 23
+    },
+    "message": "Module level import not at top of file",
+    "name": "module-import-not-at-top-of-file",
+    "noqa_row": 23,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  }
+]

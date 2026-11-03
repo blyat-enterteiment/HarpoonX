@@ -1,0 +1,47 @@
+{
+  "schema": "HARPOON_ROADMAP9_INTERNAL_ADVERSARIAL_API_REVIEW_1",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "started_at_utc": "2026-11-03T05:31:44.653Z",
+  "base_commit": "b48f38d23fce08bd68428fe3f7896a66a8548b7a",
+  "source_revision_scope": "UNCOMMITTED_R2_SOURCES_IDENTIFIED_BY_HASH;BASE_COMMIT_IS_NOT_THE_REVIEWED_CODE_IDENTITY",
+  "source_sha256": {
+    "tools/roadmap9_integration_adversarial.cjs": "d894a0593eb9b0c9714f3fb3068a6865194f5a7dc30f3ea2cefd4a9abbebe5ca",
+    "tools/roadmap9_integration_fixture.cjs": "4b85520f2b3f66fa1d9954dfab20c88b842e640b0f181993ea38854f33c4240b",
+    "runtime/roadmap9_bridge.cjs": "c59ba928c1506a6df8f44e582942c794173697ac08ddf4b80af1e120b26f7c44",
+    "runtime/store30.cjs": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+    "runtime/store.py": "2daa2d811aeeed9a3622a274747140f0feba2928c1b14b15ce5291b8de7bc9e1",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055",
+    "quant/harpoon_quant/roadmap9/integration.py": "d7ac6d1a582a41d4d6b88a17369fef8d69c91b8b7bbace7e80881018981ce297",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e"
+  },
+  "tests": [],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: {\"status\":401,\"body\":{\"error\":\"Acceso privado\"}}\n\n401 !== 200\n\n    at accepted (/workspace/scratch/ef8aad81382e/HarpoonX/tools/roadmap9_integration_adversarial.cjs:76:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async statusClockReview (/workspace/scratch/ef8aad81382e/HarpoonX/tools/roadmap9_integration_adversarial.cjs:103:19)\n    at async main (/workspace/scratch/ef8aad81382e/HarpoonX/tools/roadmap9_integration_adversarial.cjs:250:23)"
+  ],
+  "execution_allowed": false,
+  "new_economic_measurements": 0,
+  "real_fills_present": false,
+  "external_review_completed": false,
+  "scope": "INTERNAL_REVIEW_OF_LOCAL_HTTP_SQLITE_AND_PYTHON_ON_SYNTHETIC_RECEIPTS;NOT_LIVE_EXECUTION_OR_VISUAL_UI",
+  "source_hashes_after": {
+    "tools/roadmap9_integration_adversarial.cjs": "d894a0593eb9b0c9714f3fb3068a6865194f5a7dc30f3ea2cefd4a9abbebe5ca",
+    "tools/roadmap9_integration_fixture.cjs": "4b85520f2b3f66fa1d9954dfab20c88b842e640b0f181993ea38854f33c4240b",
+    "runtime/roadmap9_bridge.cjs": "c59ba928c1506a6df8f44e582942c794173697ac08ddf4b80af1e120b26f7c44",
+    "runtime/store30.cjs": "3e42e72d2c04ffe91cc54774dacb86d5989e24075686659588c7f09b88b20b47",
+    "runtime/store.py": "2daa2d811aeeed9a3622a274747140f0feba2928c1b14b15ce5291b8de7bc9e1",
+    "runtime30/server.js": "b6a52be1ed9fcff7bd441c15a6efd8780ad3d0fe57ab30a53b63920137e0ac59",
+    "xxx/server.ts": "3b7ba067f85ebeeefbd705c671caf2d0257ce18d21084c298e9044eeb2d83055",
+    "quant/harpoon_quant/roadmap9/integration.py": "d7ac6d1a582a41d4d6b88a17369fef8d69c91b8b7bbace7e80881018981ce297",
+    "quant/harpoon_quant/roadmap9/costs.py": "420f4e4dbf29155599c6dc2f02edf2a1bd102fbf01c506234fead1eca5b3c81a",
+    "quant/harpoon_quant/roadmap9/execution.py": "a924d44bc0c47710d4cfd173c23cfb2ec0304f8570c012d335f710f360e3dfa9",
+    "quant/harpoon_quant/roadmap9/operations.py": "d8d2740ff2ec8496a1d1256e4e7744219431e6fa3f431b3eb9c03e84789707d6",
+    "quant/harpoon_quant/roadmap9/portfolio.py": "e7c46012b3bcd0e8051af2616da64e1f12046b891887934b28322eeacb7b148e"
+  },
+  "sources_unchanged": true,
+  "finished_at_utc": "2026-11-03T05:31:44.749Z",
+  "passed": false
+}

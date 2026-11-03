@@ -26,9 +26,12 @@ function paperAutostart(value = process.env.HARPOON_START_PAPER) {
         throw Error("HARPOON_START_PAPER must be 0 or 1");
     return value !== "0";
 }
-function server(engine, password, html, origin) {
+function server(engine, password, html, origin, options = {}) {
     if (password.length < 32)
         throw Error("Panel password must contain at least 32 characters");
+    const offlineRoadmap = options.roadmap9Offline === true
+        ? new (require("../runtime/roadmap9_bridge.cjs").OfflineRoadmap)(engine.store, engine.key)
+        : null;
     const hashes = (tag) => [
         ...html.matchAll(new RegExp("<" + tag + "(?:\\s[^>]*)?>([\\s\\S]*?)</" + tag + ">", "g")),
     ]
@@ -60,6 +63,42 @@ function server(engine, password, html, origin) {
         if (req.headers["sec-fetch-site"] === "cross-site" ||
             (req.headers.origin && req.headers.origin !== origin))
             return send(403, { error: "Origen no permitido" });
+        if (req.url === "/v1/roadmap9/offline") {
+            if (!offlineRoadmap)
+                return send(404, { error: "ROADMAP9_OFFLINE_DISABLED", execution_allowed: false });
+            try {
+                if (req.method === "GET")
+                    return send(200, await offlineRoadmap.request());
+                if (req.method !== "POST")
+                    return send(405, { error: "ROADMAP9_METHOD", execution_allowed: false });
+                if (req.headers["x-harpoon-action"] !== "1" ||
+                    req.headers["content-type"]?.split(";")[0] !== "application/json")
+                    return send(403, { error: "Acción explícita JSON requerida", execution_allowed: false });
+                const parts = [];
+                let bytes = 0;
+                for await (const part of req) {
+                    bytes += part.length;
+                    if (bytes > 1024 * 1024)
+                        return send(413, { error: "ROADMAP9_REQUEST_BOUND", execution_allowed: false });
+                    parts.push(part);
+                }
+                let body;
+                try {
+                    body = JSON.parse(Buffer.concat(parts).toString("utf8"));
+                }
+                catch {
+                    return send(400, { error: "ROADMAP9_JSON_REQUIRED", execution_allowed: false });
+                }
+                if (!body || Array.isArray(body) || typeof body !== "object")
+                    return send(422, { error: "ROADMAP9_REQUEST_CONTRACT", execution_allowed: false });
+                return send(200, await offlineRoadmap.request(body));
+            }
+            catch (error) {
+                const failure = error;
+                return send([409, 422, 429, 503].includes(failure.status || 0) ? failure.status : 503, { error: failure.code || "ROADMAP9_OFFLINE_FAILURE", execution_allowed: false,
+                    origin: "SYNTHETIC_ENGINEERING_ONLY", recovery_required: offlineRoadmap.recoveryRequired });
+            }
+        }
         if (req.method === "GET" && req.url === "/") {
             res.setHeader("Content-Type", "text/html; charset=utf-8");
             return res.end(html);
@@ -175,7 +214,7 @@ function server(engine, password, html, origin) {
         }
         return send(200, await engine.control(body.action, body));
     };
-    return node_http_1.default.createServer((req, res) => {
+    const app = node_http_1.default.createServer((req, res) => {
         handle(req, res).catch((e) => {
             if (!res.headersSent) {
                 res.statusCode = 409;
@@ -188,6 +227,8 @@ function server(engine, password, html, origin) {
                 res.destroy();
         });
     });
+    app.once("close", () => offlineRoadmap?.close());
+    return app;
 }
 async function main() {
     process.umask(0o077);
@@ -218,7 +259,7 @@ async function main() {
             (new URL(origin).protocol === "http:" &&
                 !["localhost", "127.0.0.1"].includes(new URL(origin).hostname))))
         throw Error("HTTPS origin required outside localhost");
-    const app = server(engine, readSecret("HARPOON_PANEL_PASSWORD"), node_fs_1.default.readFileSync(node_path_1.default.join(__dirname, "../deploy/dashboard30.html"), "utf8"), origin);
+    const app = server(engine, readSecret("HARPOON_PANEL_PASSWORD"), node_fs_1.default.readFileSync(node_path_1.default.join(__dirname, "../deploy/dashboard30.html"), "utf8"), origin, { roadmap9Offline: process.env.HARPOON_ROADMAP9_OFFLINE === "1" });
     app.listen(Number(process.env.PORT || 10000), process.env.BIND_HOST || "0.0.0.0");
     engine.start();
     let closing = false;
