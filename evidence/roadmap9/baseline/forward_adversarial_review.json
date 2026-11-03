@@ -1,0 +1,51 @@
+{
+  "schema": "HARPOON_REVIEW_REPRODUCTIONS_1",
+  "same_team_review_not_external": true,
+  "checked_utc": "2026-11-03T03:57:17.989961+00:00",
+  "cases": [
+    {
+      "case": "expired_open_inventory",
+      "blocked": true,
+      "expired_residuals": [
+        {
+          "campaign_id": "campaign-one",
+          "observed_at": 10000,
+          "original_deadline": 5000,
+          "remaining_native_quantity": "10"
+        }
+      ]
+    },
+    {
+      "case": "future_model",
+      "rejected": true,
+      "reason": "MODEL_AVAILABILITY_LOOKAHEAD"
+    },
+    {
+      "case": "global_history_boolean_not_certificate",
+      "certified": false,
+      "decision": "RETAIN_FOR_FORWARD",
+      "financial_acceptance_allowed": false
+    },
+    {
+      "case": "fresh_receipt_stale_source_quote",
+      "alive": false,
+      "entries_ready": false,
+      "blocking_reasons": [
+        "STALE_MARKET_EVENT_AT"
+      ]
+    },
+    {
+      "case": "training_label_later_than_model_fit",
+      "blocked": true,
+      "entries_ready": false,
+      "alive": true,
+      "owned_inventory_management": "REDUCTION_READY"
+    }
+  ],
+  "reviewed_sources_sha256": {
+    "quant/harpoon_quant/roadmap9/forward.py": "69575c66112c83c1b75f3f14614cbaacbee6fb6309466e47a672d362eebf3551",
+    "quant/harpoon_quant/roadmap9/operations.py": "2d27ba52e3978b9b874f447a06130490669dfd430648a34ebe6f66f04f31ac85",
+    "quant/tests/test_roadmap9_readiness.py": "3b74edfe23bf6341cb5f1eb93d5e0eaa4211ba8acabf2779a6d9aa6d92ebdd98"
+  },
+  "live_execution_allowed": false
+}

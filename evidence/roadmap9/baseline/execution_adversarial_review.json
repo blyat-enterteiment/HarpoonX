@@ -1,0 +1,31 @@
+{
+  "schema": "HARPOON_REVIEW_REPRODUCTIONS_1",
+  "same_team_review_not_external": true,
+  "cases": [
+    {
+      "case": "unknown_submission_cancel_reconciliation",
+      "rejected": true,
+      "reason": "RECONCILIATION_MISMATCH_OR_UNKNOWN_ORDER"
+    },
+    {
+      "case": "unknown_submission_cancel_health",
+      "blocked": true
+    },
+    {
+      "case": "lower_cancel_cumulative",
+      "rejected": true,
+      "reason": "TERMINAL_CUMULATIVE"
+    },
+    {
+      "case": "sell_reserved_inventory",
+      "rejected": true,
+      "reason": "DUPLICATE_UNRESOLVED_INTENTION"
+    },
+    {
+      "case": "same_profile_id_changed_fee",
+      "rejected": true,
+      "reason": "ORDER_FEE_CONTRACT_CHANGED"
+    }
+  ],
+  "live_execution_allowed": false
+}

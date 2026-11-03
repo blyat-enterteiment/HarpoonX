@@ -1,0 +1,81 @@
+{
+  "decision": "READY_FOR_FIXED_OFFLINE_MEASUREMENT_WITH_DECLARED_LIMITATIONS",
+  "economic_acceptance_allowed": false,
+  "external_review_completed": false,
+  "independent_source_or_fill_authentication": false,
+  "limitations": [
+    "Internal review is not an external audit.",
+    "Source timestamps and executions are historical assumptions; original bar receipt timing, live fee tier and real executable depth are unavailable.",
+    "Forecast labels are price log returns; dividends are reconciled separately in economic cashflows.",
+    "Six hypotheses recipes use globally examined history and no independent prospective holdout.",
+    "The accounting auditor does not independently reprice each modeled fill or rerun the complete strategy."
+  ],
+  "lower_bound_coverage_certified": false,
+  "new_economic_measurements_run_by_reviewer": 0,
+  "open_review_blockers": [],
+  "orders_allowed": false,
+  "review_findings": [
+    {
+      "finding": "Inherited residual-reversal protocol hypothesis, rank, budget and timestamp conflicted with new positive-continuation implementation.",
+      "id": "R01",
+      "resolution": "Protocol/recipes now identify H1/H2/H3 and six candidates, twelve scenario measurements, source protocol and already-seen history.",
+      "status": "RESOLVED_BEFORE_FREEZE"
+    },
+    {
+      "finding": "Feature ATR/volatility lookback needed protection for own-stock splits across the whole feature window.",
+      "id": "R02",
+      "resolution": "Own-stock split windows are refused for features and labels; no announcement time fabricated.",
+      "status": "RESOLVED_BEFORE_FREEZE"
+    },
+    {
+      "finding": "Removing a largest winner could accidentally remove a loss in all-loss samples.",
+      "id": "R03",
+      "resolution": "Diagnostic subtracts max(0, observed trade gains).",
+      "status": "RESOLVED_BEFORE_FREEZE"
+    },
+    {
+      "finding": "Auditor checked hard72h but did not verify shorter candidate or original H3 calendar deadlines.",
+      "id": "R04",
+      "resolution": "Independent calendar reconstruction checks horizon24/48/72, holding clock, deadline and H3 original deadline.",
+      "status": "RESOLVED_BEFORE_FREEZE"
+    },
+    {
+      "finding": "Calendar overhead attribution and independent-auditor scope needed precise labels.",
+      "id": "R05",
+      "resolution": "Reports label calendar-date costs; auditor explicitly relies on modeled replay fill prices/marks while reconciling inventory, reservations, fees, dividends, cash and equity.",
+      "status": "RESOLVED_BEFORE_FREEZE"
+    }
+  ],
+  "review_type": "INTERNAL_CROSS_AGENT_CODE_REVIEW_BEFORE_NEW_ECONOMIC_MEASUREMENT",
+  "reviewer": "execution_impl",
+  "schema": "HARPOON_ROADMAP9_INTERNAL_RESEARCH_REVIEW_1",
+  "scope": "Causal forecast availability, purged TRAIN-only predictive guard, immutable calendar deadlines, paired H3 attribution, costs/cashflow accounting, source bindings and six-recipe limit.",
+  "source_hashes": {
+    "quant/harpoon_quant/roadmap9/forecast.py": "d2d94bfce32b0e7b6395b69a97fffc3a03fb3931f5dc72f451e60192bfd2887d",
+    "quant/harpoon_quant/roadmap9/registry.py": "d8f42f1eeb577859f6d968b12fcac7472442d22460840d074ec2093e1524eb76",
+    "quant/harpoon_quant/roadmap9/research.py": "0f6549de3546a30347983b760dab24c1db18ba1f1bbdfbd6dd389920ed9221d1",
+    "quant/tests/test_roadmap9_research.py": "9de291f32131eda99237081744300c81f96d57eff01c4a2ecb74a40616bd9090",
+    "research/roadmap9/protocol.json": "78dfff4b7db0e7c93f591ff87f696d0c69527456c5c56f4bb9063f805a26d931",
+    "research/roadmap9/recipes.json": "4d0b84b0e45f75f8e20450b17d4ae346b1ce57e2696aee106d9b7c6b0f860c34",
+    "runtime30/roadmap9_exit.js": "bf9b77f0a3a4b7449823c33dc6eb904f88c498480409349e5a75382f25272bb9",
+    "runtime30/ultimate_replay_roadmap9.js": "f1fc6448dcbf4baee44e35336524001159faefa14146a51c8ac2387177e796f9",
+    "tools/audit_roadmap9_results.py": "f150101e3fb3ab8cceec1f4916347b6f6e1006dd49e04dc8a1a9786f6e9e8f3a",
+    "tools/build_roadmap9_replay.py": "4099db8084e0309d6caa00bb60288fdc86cb24214746936ae1c6a599dde66307",
+    "tools/roadmap9_replay.cjs": "904b5061ba324edc3540ef81c3a613d811552f8c3e9299b98ed2dd37b494ad83",
+    "tools/run_roadmap9_research.py": "65adea7a1645ebae0614cf28f69b259d01a9e296ca36ac5be43c3f4ceaad438b"
+  },
+  "tests_independently_run": {
+    "command": "PYTHONPATH=quant OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 -B -m unittest quant.tests.test_roadmap9_research",
+    "data_origin": "SYNTHETIC_FIXTURES_ONLY",
+    "status": "PASS",
+    "tests": 10
+  },
+  "verified_design_properties": [
+    "Each training label known_at <= model asof; calibration fit additionally purges labels beyond calibration cut.",
+    "Forecast components fit identical designs and sum to total; total HAC preserves dependence.",
+    "H3 uses only forecasts whose deadline <= original campaign deadline; missing forecast abstains.",
+    "H3 paired campaigns fix initial entry time, price and quantity; portfolios separately report capital reuse.",
+    "Controls share scenario costs, continuous capital and ex ante caps; realized exposures are not asserted risk matched.",
+    "Registry reserves all six candidates/two scenarios before financial measurement; code and data bindings checked through replay."
+  ]
+}
