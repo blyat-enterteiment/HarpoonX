@@ -1,0 +1,85 @@
+{
+  "all_negative_checks_passed": true,
+  "baseline_sha256": "d6e639d1fddec3f8cf1343b20a2a3f52b9f1e6620cb619279470bb01a486e8d5",
+  "cases": [
+    {
+      "case": "unreviewed_finding",
+      "expected_error": "UNREVIEWED_FINDINGS_PRESENT",
+      "input_baseline_sha256": "8b971dab980d7dd8e922e1e6d99f6eac5bd12381064a2bc501ca2c0934c6db24",
+      "process_exit_code": 1,
+      "receipt": "evidence/roadmap9/validation/lint_guard_unreviewed_finding/lint_verdict.json",
+      "receipt_sha256": "f12e662fe12ed9d199308d467ce658b6f125b48c8a2ae7e8a6da070d952ecb35",
+      "rejection_verified": true,
+      "test_kind": "CLI_WITH_CHANGED_EXPECTED_BASELINE"
+    },
+    {
+      "case": "unexpected_removal",
+      "expected_error": "REVIEWED_FINDINGS_UNEXPECTEDLY_REMOVED",
+      "input_baseline_sha256": "4da2f3831e9b1700e7c01d6bc61cf7c39f5fe824bd268067f96e247a0406d81d",
+      "process_exit_code": 1,
+      "receipt": "evidence/roadmap9/validation/lint_guard_unexpected_removal/lint_verdict.json",
+      "receipt_sha256": "efe0dcecd77209e5ee9bcfb08903dddcee4cc93686ff6c3d2ece6549dcc64638",
+      "rejection_verified": true,
+      "test_kind": "CLI_WITH_CHANGED_EXPECTED_BASELINE"
+    },
+    {
+      "case": "changed_version_pin",
+      "expected_error": "RUFF_VERSION_MISMATCH",
+      "input_baseline_sha256": "52ff51459a96640b1bb1ab184299bcc9a5642c5231681660837f268b7ccc5ba3",
+      "process_exit_code": 1,
+      "receipt": "evidence/roadmap9/validation/lint_guard_changed_version_pin/lint_verdict.json",
+      "receipt_sha256": "51f56f09a4325ec5d467d18ed6c47a5a7eec4cac3aae9c433916e2bc3a9ea346",
+      "rejection_verified": true,
+      "test_kind": "CLI_WITH_CHANGED_EXPECTED_BASELINE"
+    },
+    {
+      "case": "changed_configuration_hash",
+      "expected_error": "CONFIGURATION_SHA256_CHANGED",
+      "input_baseline_sha256": "5b04e68dcd65dd2f91233120d3c2f974c67bc948428fd29279af94c37f2b19c0",
+      "process_exit_code": 1,
+      "receipt": "evidence/roadmap9/validation/lint_guard_changed_configuration_hash/lint_verdict.json",
+      "receipt_sha256": "050595f9c704d1d2cc265fbf0bfff6a3813c0d73e345f85403d963f4d9ca943f",
+      "rejection_verified": true,
+      "test_kind": "CLI_WITH_CHANGED_EXPECTED_BASELINE"
+    },
+    {
+      "case": "changed_checker_source_hash",
+      "expected_error": "SOURCE_FILE_SHA256_CHANGED",
+      "input_baseline_sha256": "8c678a2749f2effe246037725d27ff33db346b31e0853d7a0bafb715995e3553",
+      "process_exit_code": 1,
+      "receipt": "evidence/roadmap9/validation/lint_guard_source_change/lint_verdict.json",
+      "receipt_sha256": "8f38817eaf7cbbae0e0e55f3f4e77323ca68f8a33422f89413912d46feaea51e",
+      "rejection_verified": true,
+      "scientific_sources_changed": false,
+      "test_kind": "CLI_WITH_PREPUBLICATION_CHECKER_HASH"
+    },
+    {
+      "case": "different_observed_ruff_version",
+      "comparison": {
+        "errors": [
+          "RUFF_VERSION_MISMATCH"
+        ],
+        "input_mismatches": {},
+        "missing_findings": [],
+        "unexpected_findings": []
+      },
+      "expected_error": "RUFF_VERSION_MISMATCH",
+      "rejection_verified": true,
+      "simulated_version": "ruff 0.17.1",
+      "test_kind": "COMPARATOR_INPUT_TEST_NO_TOOL_INSTALL_CHANGE"
+    }
+  ],
+  "checked_utc": "2026-11-03T04:19:00.941788+00:00",
+  "checker_sha256": "4123a9364d5ae5df05e8cda134653352752336a00c6d1ebfc73cd54a18475862",
+  "execution_allowed": false,
+  "known_findings": 20,
+  "match_receipt": "evidence/roadmap9/validation/lint/lint_verdict.json",
+  "match_receipt_sha256": "f60069ba82cbd7682112b538a763b6de99ae0f72e04abda8d52ba0cdf96fb9be",
+  "matching_baseline_guard_passed": true,
+  "matching_raw_ruff_clean": false,
+  "new_economic_measurements": 0,
+  "profile_sha256": "5f86921db3f221214c3a91da191cfb1208b7736a487bc3bb3ba10d1f2f9afa4a",
+  "schema": "HARPOON_ROADMAP9_LINT_GUARD_NEGATIVE_CHECKS_1",
+  "scientific_code_modified": false,
+  "source_and_config_inputs_unchanged_during_checks": true
+}

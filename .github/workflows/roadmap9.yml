@@ -5,6 +5,8 @@ on:
       - 'quant/harpoon_quant/roadmap9/**'
       - 'quant/tests/test_roadmap9*.py'
       - 'quant/requirements-roadmap9.txt'
+      - 'quant/pyproject.toml'
+      - 'quant/ruff-roadmap9.toml'
       - 'tools/*roadmap9*'
       - 'research/roadmap9/**'
       - 'programme/roadmap9/**'
@@ -14,6 +16,8 @@ on:
       - 'quant/harpoon_quant/roadmap9/**'
       - 'quant/tests/test_roadmap9*.py'
       - 'quant/requirements-roadmap9.txt'
+      - 'quant/pyproject.toml'
+      - 'quant/ruff-roadmap9.toml'
       - 'tools/*roadmap9*'
       - 'research/roadmap9/**'
       - 'programme/roadmap9/**'
@@ -39,21 +43,25 @@ jobs:
           node-version: '24'
       - run: npm ci --ignore-scripts
       - run: python3 -m pip install -r quant/requirements-roadmap9.txt ruff==0.17.0 mypy==2.4.0
-      - name: Lint and type analysis of core and unfrozen tools
+      - name: Exact lint baseline with frozen source and config hashes
+        run: python3 -B tools/check_roadmap9_lint.py --output "$RUNNER_TEMP/roadmap9"
+      - name: Type analysis of core and unfrozen tools
         run: |
-          python3 -m ruff check quant/harpoon_quant/roadmap9 quant/tests/test_roadmap9*.py tools/*roadmap9*.py
-          python3 -m mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/roadmap9 tools/roadmap9_validate.py tools/run_roadmap9_execution.py tools/build_roadmap9_replay.py tools/verify_roadmap9_research.py tools/verify_roadmap9_portfolio.py
+          python3 -m mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/roadmap9 tools/check_roadmap9_lint.py tools/roadmap9_validate.py tools/run_roadmap9_execution.py tools/build_roadmap9_replay.py tools/verify_roadmap9_research.py tools/verify_roadmap9_portfolio.py
       - name: Report known type findings in the two frozen historical scripts
         continue-on-error: true
         run: |
           mkdir -p "$RUNNER_TEMP/roadmap9"
           python3 -m mypy --follow-imports=silent --ignore-missing-imports tools/run_roadmap9_research.py tools/audit_roadmap9_results.py 2>&1 | tee "$RUNNER_TEMP/roadmap9/frozen_script_type_findings.log"
       - name: Unit, adversarial and regression tests with per-test evidence
-        run: python3 -B tools/roadmap9_validate.py --output "$RUNNER_TEMP/roadmap9" --full-suite --benchmark --repeats 1
+        run: python3 -B tools/roadmap9_validate.py --output "$RUNNER_TEMP/roadmap9" --full-suite
       - name: Admission without observed receipts remains blocked
         run: python3 -B -m harpoon_quant.roadmap9 admit-forward --now-ms 1793664000000 --output "$RUNNER_TEMP/roadmap9/forward_empty.json"
       - name: Separate Decimal audit of the isolated allocation fixture
         run: python3 -B tools/verify_roadmap9_portfolio.py evidence/roadmap9/portfolio_component.json --output "$RUNNER_TEMP/roadmap9/portfolio_independent_review.json"
+      - name: Registered capacity profile on this CI runner
+        # This runner's receipt does not replace the frozen failed V040 measurement.
+        run: python3 -B tools/roadmap9_validate.py --output "$RUNNER_TEMP/roadmap9" --benchmark-only --repeats 1
       - uses: actions/upload-artifact@v4
         if: always()
         with:

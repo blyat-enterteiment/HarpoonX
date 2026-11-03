@@ -1,0 +1,159 @@
+{
+  "V040_original_failure_preserved": true,
+  "baseline": "research/roadmap9/lint_baseline.json",
+  "checker": "tools/check_roadmap9_lint.py",
+  "checker_contract": {
+    "changed_bound_sources_allowed": false,
+    "config_changes_allowed_without_review": false,
+    "global_rule_suppression": false,
+    "meaning_of_pass": "EXACT_KNOWN_BASELINE_ACCEPTED_NOT_ZERO_LINT_FINDINGS",
+    "new_findings_allowed": false,
+    "raw_diagnostics_preserved": true,
+    "ruff_version": "0.17.0",
+    "unexpected_removed_findings_allowed": false
+  },
+  "closure_validator_counts_unchanged": {
+    "BLOCKED": 22,
+    "FAIL": 1,
+    "PASS": 26
+  },
+  "correction": "The original local Ruff pass did not load quant/pyproject.toml because that file was absent from the materialized local copy. It is not a repository-profile clean-lint claim. Historical receipts are preserved; this addendum corrects their interpretation.",
+  "created_at": "2026-11-03T04:17:19.905458+00:00",
+  "economic_results_unchanged": true,
+  "execution_allowed": false,
+  "explicit_profile": "quant/ruff-roadmap9.toml",
+  "frozen_scientific_source_bytes_unchanged": true,
+  "guard_verified": {
+    "accepted_exact_known_findings": true,
+    "bound_source_files": 26,
+    "finding_count": 20,
+    "mypy_source_files_passed": 18,
+    "negative_cases_rejected": 6,
+    "ruff_clean": false
+  },
+  "historical_evidence_commit": "736cdf1d36bcac4ec4312e5093adbfce013f88a9",
+  "historical_manifests_remain_scoped_to_their_recorded_commits": true,
+  "historical_source_manifest_differences_at_delivery": [
+    {
+      "current_sha256": "2a344f5eb64087026969a3f22d348eb2dd73c8d16d2c7687fac90d712593af6f",
+      "historical_sha256": "7a0fe1e5c0e3fa6771d718996d3d1e738ddaf4808535af89e10b73ce602880b8",
+      "path": ".github/workflows/roadmap9.yml"
+    }
+  ],
+  "known_explicit_profile_findings": {
+    "by_code": {
+      "B905": 3,
+      "E402": 13,
+      "E731": 1,
+      "E741": 1,
+      "RUF005": 2
+    },
+    "difference_from_original_ci": "Explicit source resolution removes three I001 findings, executable modes resolve four EXE001 findings, and applying the same full inherited rules to tools exposes additional style findings.",
+    "total": 20
+  },
+  "known_findings_review": {
+    "B905": "Adjacent pairs zip(xs, xs[1:]) intentionally have unequal lengths; strict=True would break valid inputs.",
+    "E402": "Imports follow explicit repository-relative sys.path bootstrap.",
+    "E731": "Pure local lambda for inclusive UTC calendar cost; no loop late binding.",
+    "E741": "Visually ambiguous generator variable in a diagnostic identity.",
+    "RUF005": "List concatenation style in fixed test fixtures."
+  },
+  "level9_accredited": false,
+  "mode_only_changes": [
+    {
+      "content_unchanged": true,
+      "new_mode": "100755",
+      "old_mode": "100644",
+      "path": "tools/audit_roadmap9_results.py"
+    },
+    {
+      "content_unchanged": true,
+      "new_mode": "100755",
+      "old_mode": "100644",
+      "path": "tools/build_roadmap9_replay.py"
+    },
+    {
+      "content_unchanged": true,
+      "new_mode": "100755",
+      "old_mode": "100644",
+      "path": "tools/run_roadmap9_research.py"
+    },
+    {
+      "content_unchanged": true,
+      "new_mode": "100755",
+      "old_mode": "100644",
+      "path": "tools/verify_roadmap9_research.py"
+    }
+  ],
+  "new_economic_measurements": 0,
+  "original_config_git_blob": "e40361fc739e73075bcc75d61cd33ee96211227d",
+  "original_config_modified": false,
+  "original_failed_ci": {
+    "conclusion": "failure",
+    "executable_mode_findings": 4,
+    "failed_step": "Lint and type analysis of core and unfrozen tools",
+    "findings": 16,
+    "job_id": 125720374879,
+    "other_findings": 12,
+    "run_id": 41576269932,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/41576269932"
+  },
+  "parent_ci_revision": "b5cd6f2f988272c26ee4edcd780b393b8a02c51e",
+  "remaining_type_findings": 9,
+  "remote_complete_regression": {
+    "commit": "b5cd6f2f988272c26ee4edcd780b393b8a02c51e",
+    "conclusion": "success",
+    "job_id": 125720375015,
+    "log_excerpt": "Ran 772 tests in 79.605s\nOK",
+    "run_id": 41576269940,
+    "seconds": 79.605,
+    "tests": 772,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/41576269940"
+  },
+  "schema": "HARPOON_ROADMAP_CI_LINT_SCOPE_CORRECTION_1",
+  "scientific_code_commit": "ba0233e94bfa7f6158c1445cf3e6512446f11286",
+  "superseded_claims": [
+    {
+      "claim": "Ruff pasa",
+      "path": "programme/roadmap9/CIERRE.md"
+    },
+    {
+      "claim": "RUFF_PASS",
+      "field": "static_analysis_scope",
+      "path": "programme/roadmap9/closure.json"
+    },
+    {
+      "claim": "Ruff pasa",
+      "path": "research/roadmap9/README.md",
+      "section": "QA y alcance del tipado"
+    },
+    {
+      "claim": "PASS",
+      "field": "ruff.status",
+      "path": "evidence/roadmap9/research_qa.json"
+    }
+  ],
+  "verification_receipts": [
+    {
+      "path": "research/roadmap9/lint_baseline.json",
+      "sha256": "d6e639d1fddec3f8cf1343b20a2a3f52b9f1e6620cb619279470bb01a486e8d5"
+    },
+    {
+      "path": "evidence/roadmap9/validation/lint/lint_verdict.json",
+      "sha256": "f60069ba82cbd7682112b538a763b6de99ae0f72e04abda8d52ba0cdf96fb9be"
+    },
+    {
+      "path": "evidence/roadmap9/validation/lint/ruff_raw.json",
+      "sha256": "c7a9e60b73622d6eda6e1bcd4754faedd7c034537b830b464caa224525b69ba8"
+    },
+    {
+      "path": "evidence/roadmap9/validation/lint_guard_negative_checks.json",
+      "sha256": "b5e8aba107f0edd64835a13c6108a7085ea8d9003a4d6ad765d9bfde660181a0"
+    },
+    {
+      "path": "evidence/roadmap9/validation/ci_lint_mypy.log",
+      "sha256": "88fe827c636a04c691d60cb768a7ac3077b3f88379842e946f181a3ad3f821ea"
+    }
+  ],
+  "workflow_change": "Use explicit exact-diagnostic lint baseline; keep scoped mypy gates; run functional checks before the separate CI capacity measurement. The CI measurement does not replace the historical V040 receipt."
+}
