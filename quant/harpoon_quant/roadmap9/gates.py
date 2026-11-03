@@ -95,9 +95,11 @@ def close_plan(plan: dict[str, Any], claims: list[dict[str, Any]], root: Path,
         results = Counter(v["result"] for v in group)
         candidate_decisions = sorted({v["candidate_decision"] for v in group
                                       if v.get("candidate_decision")})
-        decision = ("BLOCKED" if results["BLOCKED"] or results["NOT_RUN"] else
-                    "REJECTED_CANDIDATE" if results["FAIL"] or
-                    "REJECTED_CANDIDATE" in candidate_decisions else "READY_FOR_RESEARCH")
+        # A failed engineering gate blocks its phase. Candidate rejection is
+        # a separate economic decision and must be explicitly evidenced.
+        decision = ("BLOCKED" if results["BLOCKED"] or results["NOT_RUN"] or results["FAIL"] else
+                    "REJECTED_CANDIDATE" if "REJECTED_CANDIDATE" in candidate_decisions
+                    else "READY_FOR_RESEARCH")
         phases.append({"id": phase["id"], "title": phase["title"], "phase_decision": decision,
                        "results": dict(results), "validator_ids": phase["validator_ids"],
                        "candidate_decisions": candidate_decisions,

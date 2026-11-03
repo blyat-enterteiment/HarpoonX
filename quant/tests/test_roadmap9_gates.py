@@ -75,6 +75,19 @@ class ClosureTests(unittest.TestCase):
         self.assertEqual(phase["phase_decision"], "REJECTED_CANDIDATE")
         self.assertFalse(phase["dependent_phase_promotion_allowed"])
 
+    def test_engineering_failure_blocks_phase_without_inventing_candidate_rejection(self):
+        reference = evidence_reference(ROOT, ROOT / "quant/harpoon_quant/roadmap9/gates.py")
+        for claim, contract in zip(self.claims, self.plan["validators"], strict=True):
+            if contract["phase"] == "P09":
+                claim.update(result="FAIL" if contract["id"] == "V040" else "PASS",
+                             origin="SYNTHETIC_ENGINEERING_ONLY", evidence=[reference])
+        receipt = close_plan(self.plan, self.claims, ROOT, source_commit="a" * 40, source_manifest=[reference])
+        phase = next(p for p in receipt["phases"] if p["id"] == "P09")
+        self.assertEqual(phase["phase_decision"], "BLOCKED")
+        self.assertEqual(phase["candidate_decisions"], [])
+        self.assertEqual(phase["results"], {"PASS": 3, "FAIL": 1})
+        self.assertFalse(phase["dependent_phase_promotion_allowed"])
+
 
 if __name__ == "__main__":
     unittest.main()

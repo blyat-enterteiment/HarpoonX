@@ -8,6 +8,9 @@ on:
       - 'quant/pyproject.toml'
       - 'quant/ruff-roadmap9.toml'
       - 'tools/*roadmap9*'
+      - 'runtime/roadmap9_bridge.cjs'
+      - 'xxx/server.ts'
+      - 'runtime30/server.js'
       - 'research/roadmap9/**'
       - 'programme/roadmap9/**'
       - '.github/workflows/roadmap9.yml'
@@ -19,6 +22,9 @@ on:
       - 'quant/pyproject.toml'
       - 'quant/ruff-roadmap9.toml'
       - 'tools/*roadmap9*'
+      - 'runtime/roadmap9_bridge.cjs'
+      - 'xxx/server.ts'
+      - 'runtime30/server.js'
       - 'research/roadmap9/**'
       - 'programme/roadmap9/**'
       - '.github/workflows/roadmap9.yml'
@@ -48,6 +54,10 @@ jobs:
       - name: Type analysis of core and unfrozen tools
         run: |
           python3 -m mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/roadmap9 tools/check_roadmap9_lint.py tools/roadmap9_validate.py tools/run_roadmap9_execution.py tools/build_roadmap9_replay.py tools/verify_roadmap9_research.py tools/verify_roadmap9_portfolio.py
+      - name: Existing server types and isolated bridge syntax
+        run: |
+          npx --no-install tsc -p tsconfig.xxx.json --noEmit
+          node --check runtime/roadmap9_bridge.cjs
       - name: Report known type findings in the two frozen historical scripts
         continue-on-error: true
         run: |
@@ -59,6 +69,13 @@ jobs:
         run: python3 -B -m harpoon_quant.roadmap9 admit-forward --now-ms 1793664000000 --output "$RUNNER_TEMP/roadmap9/forward_empty.json"
       - name: Separate Decimal audit of the isolated allocation fixture
         run: python3 -B tools/verify_roadmap9_portfolio.py evidence/roadmap9/portfolio_component.json --output "$RUNNER_TEMP/roadmap9/portfolio_independent_review.json"
+      - name: Offline HTTP lifecycle, persistence and combined failures
+        shell: bash
+        run: |
+          set -o pipefail
+          node --test --test-timeout=30000 tools/roadmap9_integration_api_test.cjs 2>&1 | tee "$RUNNER_TEMP/roadmap9/integration_http.tap"
+      - name: Separate HTTP adversarial replay and restarted SQLite
+        run: node tools/roadmap9_integration_adversarial.cjs "$RUNNER_TEMP/roadmap9/integration_adversarial.json"
       - name: Registered capacity profile on this CI runner
         # This runner's receipt does not replace the frozen failed V040 measurement.
         run: python3 -B tools/roadmap9_validate.py --output "$RUNNER_TEMP/roadmap9" --benchmark-only --repeats 1
