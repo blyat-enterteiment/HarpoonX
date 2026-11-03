@@ -1,0 +1,62 @@
+name: Roadmap9 offline implementation and evidence contracts
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/roadmap9/**'
+      - 'quant/tests/test_roadmap9*.py'
+      - 'quant/requirements-roadmap9.txt'
+      - 'tools/*roadmap9*'
+      - 'research/roadmap9/**'
+      - 'programme/roadmap9/**'
+      - '.github/workflows/roadmap9.yml'
+  pull_request:
+    paths:
+      - 'quant/harpoon_quant/roadmap9/**'
+      - 'quant/tests/test_roadmap9*.py'
+      - 'quant/requirements-roadmap9.txt'
+      - 'tools/*roadmap9*'
+      - 'research/roadmap9/**'
+      - 'programme/roadmap9/**'
+      - '.github/workflows/roadmap9.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - run: python3 -m pip install -r quant/requirements-roadmap9.txt ruff==0.17.0 mypy==2.4.0
+      - name: Lint and type analysis of core and unfrozen tools
+        run: |
+          python3 -m ruff check quant/harpoon_quant/roadmap9 quant/tests/test_roadmap9*.py tools/*roadmap9*.py
+          python3 -m mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/roadmap9 tools/roadmap9_validate.py tools/run_roadmap9_execution.py tools/build_roadmap9_replay.py tools/verify_roadmap9_research.py tools/verify_roadmap9_portfolio.py
+      - name: Report known type findings in the two frozen historical scripts
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUNNER_TEMP/roadmap9"
+          python3 -m mypy --follow-imports=silent --ignore-missing-imports tools/run_roadmap9_research.py tools/audit_roadmap9_results.py 2>&1 | tee "$RUNNER_TEMP/roadmap9/frozen_script_type_findings.log"
+      - name: Unit, adversarial and regression tests with per-test evidence
+        run: python3 -B tools/roadmap9_validate.py --output "$RUNNER_TEMP/roadmap9" --full-suite --benchmark --repeats 1
+      - name: Admission without observed receipts remains blocked
+        run: python3 -B -m harpoon_quant.roadmap9 admit-forward --now-ms 1793664000000 --output "$RUNNER_TEMP/roadmap9/forward_empty.json"
+      - name: Separate Decimal audit of the isolated allocation fixture
+        run: python3 -B tools/verify_roadmap9_portfolio.py evidence/roadmap9/portfolio_component.json --output "$RUNNER_TEMP/roadmap9/portfolio_independent_review.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: roadmap9-offline-verification
+          path: ${{ runner.temp }}/roadmap9
+          retention-days: 30

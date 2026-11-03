@@ -1,0 +1,227 @@
+{
+  "budget": {
+    "candidate_recipes": 6,
+    "candidate_scenario_measurements": 12,
+    "fixed_comparators_per_scenario": 4,
+    "global_history_complete": false,
+    "inherited_reported_spent": 53,
+    "limit": 128,
+    "no_hyperparameter_search": true,
+    "reserved_after": 65,
+    "rolling_refits_are_within_fixed_recipe": true,
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  "candidate_recipe_count": 6,
+  "controls": [
+    "BASE_CONTINUATION",
+    "PRICE_ONLY24",
+    "CASH",
+    "ARCHIVED_CONTINUATION"
+  ],
+  "cost_calendar": "UTC calendar dates inclusive from first evaluation session; weekends accrue; modeled expense not invoice",
+  "data_admission": {
+    "asof": "2026-10-16",
+    "calendar_grid": "Every expected5minute RTH slot for all3symbols; no forward fills or synthetic prices",
+    "corporate_action_dates": "process_date filter is not ex_date completeness; preserve all returned types and flags; effective dates conditional, original announcement receipts unknown",
+    "corporate_action_window": [
+      "2024-08-01",
+      "2026-11-01"
+    ],
+    "currency": "USD",
+    "feed": "sip",
+    "missing_bar_policy": "At most2 targeted recapture attempts per missing interval using samefeed/symbol/time; otherwise DATA_BLOCKED, no invented no-fill",
+    "model_availability_is_historical_assumption": true,
+    "original_raw_required": true,
+    "prepared_old149_raw_missing": "Do not treat retained prepared artifact as reconstruction from original provider receipts; fresh captures must be retained and hashed",
+    "price_adjustment": "Tool has no adjustment parameter; retain documented endpoint raw default as assumption, not certification",
+    "provider": "Alpaca current connected market-data access",
+    "request_partition": "One symbol per calendar month; limit10000; final month ends2026-10-16T23:59:59Z",
+    "requests_count": 78,
+    "split_knowledge_contract": "Explicit observed knownAt required for split-crossing ATR features; absent timestamp causes affected decision refusal, never invent an announcement. Effective-date action book remains conditional historical modeling; report omitted sector events.",
+    "timeframe": "5Min",
+    "unexpected_next_page_or_count_at_limit": "REJECT_TRUNCATION; narrow interval only, never silently accept incomplete",
+    "unsupported_affecting_action": "Fail closed for unresolved action in study universe/period"
+  },
+  "data_audit": "evidence/residual_30_18_0/data/data_audit.json",
+  "data_limitations": [
+    "SIP original bars retained; availableAt=bar end+1second is modeled, not original received timestamp.",
+    "No observed BBO, executable depth, queue position, auctions, implied-volatility context or crypto measurements.",
+    "AAPL/MSFT survivors are a fixed retrospective universe; no point-in-time all-listings or liquidity certification.",
+    "Dividend rights from retained corporate-action records are accrued economically; publication times are unavailable."
+  ],
+  "dataset": "evidence/residual_30_18_0/data/research_dataset.json",
+  "decision": {
+    "clock": "Session open + 60 minutes + 1 second, fill at next five-minute open; every candidate uses same delay.",
+    "cost_hurdle": "Half positive residual excursion exceeds modeled roundtrip spread + twice slippage + per-share fees + 5bps.",
+    "entry_price": "Future open only resolves IOC fill, never ranking, features or ex ante sizing.",
+    "execution_template": "Native CLOSED_CHANNEL BASELINE stops and targets; clock horizons and value exits are explicit additive extensions.",
+    "h1_admission": "Forecast lower mean bound exceeds the same complete roundtrip modeled hurdle plus 5bps.",
+    "h3_value": "No repeated entry cost. Exit-versus-hold both incur one eventual sale; equal modeled proportional spread/slip/fee schedules cancel at first order. LCB uncertainty is not a tail-loss guarantee.",
+    "ranking": "Maximum admissible positive residual z among AAPL/MSFT; ties lexicographically maximum symbol.",
+    "stop": "ATR14 from completed prior sessions, floor 0.02 USD. Any own-stock split in lookback or campaign is refused."
+  },
+  "definition_recorded_at": "2026-11-03",
+  "economic_acceptance": {
+    "bootstrap_blocks": [
+      5,
+      20
+    ],
+    "bootstrap_replicates": 20000,
+    "bootstrap_seed": 319,
+    "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+    "diagnostic_familywise_bootstrap_alpha": 0.05,
+    "diagnostic_nominal_and_stress_positive": true,
+    "holdout_never_claimed": true,
+    "promotion_allowed": false,
+    "reason": "Globally reused history, original receipt timing and real fills absent"
+  },
+  "entry_model": {
+    "archived_static_model_only_additional_control": true,
+    "latest_training_observation_max_age_hours": 168,
+    "lookback_sessions": 126,
+    "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+    "minimum_sessions": 90,
+    "refit_elapsed_hours": 120,
+    "same_for_all_candidates": true
+  },
+  "execution": "MODELED_OHLCV",
+  "execution_allowed": false,
+  "financial_acceptance_allowed": false,
+  "forecast": {
+    "calibration": {
+      "failure": "abstain from this horizon model",
+      "maximum_ratio": 1.25,
+      "metric": "MSE",
+      "minimum_earlier_training_sessions": 60,
+      "parameters_not_tuned": true,
+      "reference": "zero return",
+      "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+    },
+    "drift_max_z": 8,
+    "features": [
+      "opening_return",
+      "sector_relative_return",
+      "gap_vol",
+      "volatility",
+      "previous_overnight",
+      "previous_intraday",
+      "session_fraction"
+    ],
+    "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+    "horizons_hours": [
+      24,
+      48,
+      72
+    ],
+    "hyperparameter_search": false,
+    "maximum_model_and_latest_label_age_hours": 168,
+    "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+    "minimum_matured_sessions": 90,
+    "parameter_selection_on_evaluation": false,
+    "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+    "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+    "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+    "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+    "training_sessions": 126,
+    "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+  },
+  "holding_maximum_hours": 72,
+  "hypothesis": {
+    "H1": "Clock and horizon conditioning of positive residual continuation.",
+    "H2": "Volatility-normalized gap acceptance with optional sector confirmation, using the same causal entry delay.",
+    "H3": "Continuation-value exits with unchanged source entries; paired attribution fixes initial quantities and prices."
+  },
+  "independent_preregistration": false,
+  "limits": {
+    "assetFraction": 0.12,
+    "capitalUsd": 20000,
+    "dailyLoss": 0.02,
+    "grossFraction": 0.12,
+    "maxDrawdown": 0.08,
+    "openRiskFraction": 0.0025,
+    "riskFraction": 0.0025
+  },
+  "live_approved": false,
+  "origin": "HISTORICAL",
+  "periods": {
+    "calendar_end": "2026-10-23",
+    "evaluation_end": "2026-10-16",
+    "evaluation_start": "2025-03-11",
+    "source_end": "2026-10-16",
+    "source_start": "2024-09-01",
+    "test_end": "2026-10-16",
+    "test_start": "2025-09-08",
+    "train_end": "2025-03-05",
+    "train_start": "2024-09-03",
+    "validation_end": "2025-09-05",
+    "validation_start": "2025-03-11"
+  },
+  "risk_contract": {
+    "capital_not_reset_between_validation_test": true,
+    "cash_dividends": "Accrued ex-date rights, payable-date cash; split crossing and missing tape remain core fail-closed contracts",
+    "global_terminal_entry_cutoff_hours": 72,
+    "holding_maximum_calendar_hours": 72,
+    "intraday_loss_limit_certified": false,
+    "no_shorts_or_leverage": true,
+    "one_full_risk_reservation_at_a_time": true,
+    "own_stock_split_lookback": "Exclude feature or label window crossing an own-stock split without share-unit adjustment; do not fabricate announcement timestamps.",
+    "risk_increased": false,
+    "shared_capital_continuous": true
+  },
+  "scenarios": {
+    "NOMINAL": {
+      "commission_usd_per_share_per_side": 0.005,
+      "external_cost_usd_per_calendar_day": 1.0,
+      "slippage_bps": 2.0,
+      "spread_bps": 2.0
+    },
+    "STRESS": {
+      "commission_usd_per_share_per_side": 0.01,
+      "external_cost_usd_per_calendar_day": 2.0,
+      "slippage_bps": 4.0,
+      "spread_bps": 4.0
+    }
+  },
+  "schema": "HARPOON_ROADMAP9_RESEARCH_PROTOCOL_1",
+  "sector_benchmark": "XLK",
+  "seen_global_history": true,
+  "source_classification": "ALREADY_SEEN_HISTORICAL_DIAGNOSTIC_NOT_PROSPECTIVE",
+  "source_commit": "df8b8334f3cb3e52f39fe2fbdee0b49ec76e6f32",
+  "source_protocol": "research/residual_30_18/protocol.json",
+  "statistics": {
+    "block_lengths": [
+      5,
+      20
+    ],
+    "bootstrap_replicates": 20000,
+    "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+    "confidence": 0.95,
+    "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+    "global_search_correction_complete": false,
+    "minimum_closed_candidate_campaigns": 20,
+    "minimum_observed_sessions": 100,
+    "no_selection_of_best_post_hoc_variant": true,
+    "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+    "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+    "seed": 319,
+    "simultaneous_endpoint_count": 120
+  },
+  "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition",
+  "study_id": "HARPOON_ROADMAP9_2026_11_03",
+  "traded_stocks": [
+    "AAPL",
+    "MSFT"
+  ],
+  "universe": [
+    "AAPL",
+    "MSFT",
+    "XLK"
+  ],
+  "universe_limitations": [
+    "XLK holds AAPL/MSFT, so benchmark is not independent",
+    "Two surviving stocks, not point-in-time all-listings universe"
+  ]
+}

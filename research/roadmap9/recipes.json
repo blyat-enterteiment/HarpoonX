@@ -1,0 +1,1004 @@
+[
+  {
+    "allocation": "Native causal funded sizing, one shared continuous20000USD account and unchanged residual30.18 limits for all candidates and controls. No optimizer search.",
+    "cost_profile": {
+      "NOMINAL": {
+        "commission_usd_per_share_per_side": 0.005,
+        "external_cost_usd_per_calendar_day": 1.0,
+        "slippage_bps": 2.0,
+        "spread_bps": 2.0
+      },
+      "STRESS": {
+        "commission_usd_per_share_per_side": 0.01,
+        "external_cost_usd_per_calendar_day": 2.0,
+        "slippage_bps": 4.0,
+        "spread_bps": 4.0
+      }
+    },
+    "data_availability": "Exact reconstructed retained5min SIP corpus; availableAt=barend+1s modeled, knownAt for XLK split not invented; no quotes/auction/VIX orcrypto observations",
+    "entry": "Causally refreshed residual-continuation opportunities at open+60min+1s, executable next5minute open; same wait for every candidate. LCB24 exceeds modeled roundtrip cost plus5bps; horizon24",
+    "evaluation_and_stopping": {
+      "bootstrap_blocks": [
+        5,
+        20
+      ],
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 319,
+      "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+      "comparison_controls": [
+        "BASE_CONTINUATION",
+        "PRICE_ONLY24",
+        "CASH",
+        "ARCHIVED_CONTINUATION"
+      ],
+      "diagnostic_familywise_bootstrap_alpha": 0.05,
+      "diagnostic_nominal_and_stress_positive": true,
+      "holdout_never_claimed": true,
+      "promotion_allowed": false,
+      "reason": "Globally reused history, original receipt timing and real fills absent",
+      "same_entry_exit_attribution": false,
+      "statistics": {
+        "block_lengths": [
+          5,
+          20
+        ],
+        "bootstrap_replicates": 20000,
+        "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+        "confidence": 0.95,
+        "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+        "global_search_correction_complete": false,
+        "minimum_closed_candidate_campaigns": 20,
+        "minimum_observed_sessions": 100,
+        "no_selection_of_best_post_hoc_variant": true,
+        "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+        "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+        "seed": 319,
+        "simultaneous_endpoint_count": 120
+      },
+      "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition"
+    },
+    "exit": "LCB24 exceeds modeled roundtrip cost plus5bps; horizon24; inherited protective stops/targets; original decision deadline <=72elapsed hours immutable; H3 paired attribution also freezes baseline entries/quantity/prices",
+    "features_and_targets": {
+      "calibration": {
+        "failure": "abstain from this horizon model",
+        "maximum_ratio": 1.25,
+        "metric": "MSE",
+        "minimum_earlier_training_sessions": 60,
+        "parameters_not_tuned": true,
+        "reference": "zero return",
+        "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+      },
+      "drift_max_z": 8,
+      "features": [
+        "opening_return",
+        "sector_relative_return",
+        "gap_vol",
+        "volatility",
+        "previous_overnight",
+        "previous_intraday",
+        "session_fraction"
+      ],
+      "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+      "horizons_hours": [
+        24,
+        48,
+        72
+      ],
+      "hyperparameter_search": false,
+      "maximum_model_and_latest_label_age_hours": 168,
+      "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+      "minimum_matured_sessions": 90,
+      "parameter_selection_on_evaluation": false,
+      "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+      "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+      "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+      "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+      "training_sessions": 126,
+      "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+    },
+    "hypothesis": "H1",
+    "id": "H1_CLOCK24",
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "selection_rule": "No winner selection or new combinations. Retain all registered outcomes; H1 horizon-selection algorithm fixed before any new outcome",
+    "training_and_refit_rule": {
+      "entry_model": {
+        "archived_static_model_only_additional_control": true,
+        "latest_training_observation_max_age_hours": 168,
+        "lookback_sessions": 126,
+        "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+        "minimum_sessions": 90,
+        "refit_elapsed_hours": 120,
+        "same_for_all_candidates": true
+      },
+      "forecast": {
+        "calibration": {
+          "failure": "abstain from this horizon model",
+          "maximum_ratio": 1.25,
+          "metric": "MSE",
+          "minimum_earlier_training_sessions": 60,
+          "parameters_not_tuned": true,
+          "reference": "zero return",
+          "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+        },
+        "drift_max_z": 8,
+        "features": [
+          "opening_return",
+          "sector_relative_return",
+          "gap_vol",
+          "volatility",
+          "previous_overnight",
+          "previous_intraday",
+          "session_fraction"
+        ],
+        "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+        "horizons_hours": [
+          24,
+          48,
+          72
+        ],
+        "hyperparameter_search": false,
+        "maximum_model_and_latest_label_age_hours": 168,
+        "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+        "minimum_matured_sessions": 90,
+        "parameter_selection_on_evaluation": false,
+        "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+        "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+        "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+        "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+        "training_sessions": 126,
+        "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+      }
+    },
+    "universe": [
+      "AAPL",
+      "MSFT"
+    ]
+  },
+  {
+    "allocation": "Native causal funded sizing, one shared continuous20000USD account and unchanged residual30.18 limits for all candidates and controls. No optimizer search.",
+    "cost_profile": {
+      "NOMINAL": {
+        "commission_usd_per_share_per_side": 0.005,
+        "external_cost_usd_per_calendar_day": 1.0,
+        "slippage_bps": 2.0,
+        "spread_bps": 2.0
+      },
+      "STRESS": {
+        "commission_usd_per_share_per_side": 0.01,
+        "external_cost_usd_per_calendar_day": 2.0,
+        "slippage_bps": 4.0,
+        "spread_bps": 4.0
+      }
+    },
+    "data_availability": "Exact reconstructed retained5min SIP corpus; availableAt=barend+1s modeled, knownAt for XLK split not invented; no quotes/auction/VIX orcrypto observations",
+    "entry": "Causally refreshed residual-continuation opportunities at open+60min+1s, executable next5minute open; same wait for every candidate. Choose positive LCB-cost margin per elapsed hour over24/48/72, ties shorter; fixed complete policy",
+    "evaluation_and_stopping": {
+      "bootstrap_blocks": [
+        5,
+        20
+      ],
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 319,
+      "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+      "comparison_controls": [
+        "BASE_CONTINUATION",
+        "PRICE_ONLY24",
+        "CASH",
+        "ARCHIVED_CONTINUATION"
+      ],
+      "diagnostic_familywise_bootstrap_alpha": 0.05,
+      "diagnostic_nominal_and_stress_positive": true,
+      "holdout_never_claimed": true,
+      "promotion_allowed": false,
+      "reason": "Globally reused history, original receipt timing and real fills absent",
+      "same_entry_exit_attribution": false,
+      "statistics": {
+        "block_lengths": [
+          5,
+          20
+        ],
+        "bootstrap_replicates": 20000,
+        "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+        "confidence": 0.95,
+        "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+        "global_search_correction_complete": false,
+        "minimum_closed_candidate_campaigns": 20,
+        "minimum_observed_sessions": 100,
+        "no_selection_of_best_post_hoc_variant": true,
+        "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+        "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+        "seed": 319,
+        "simultaneous_endpoint_count": 120
+      },
+      "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition"
+    },
+    "exit": "Choose positive LCB-cost margin per elapsed hour over24/48/72, ties shorter; fixed complete policy; inherited protective stops/targets; original decision deadline <=72elapsed hours immutable; H3 paired attribution also freezes baseline entries/quantity/prices",
+    "features_and_targets": {
+      "calibration": {
+        "failure": "abstain from this horizon model",
+        "maximum_ratio": 1.25,
+        "metric": "MSE",
+        "minimum_earlier_training_sessions": 60,
+        "parameters_not_tuned": true,
+        "reference": "zero return",
+        "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+      },
+      "drift_max_z": 8,
+      "features": [
+        "opening_return",
+        "sector_relative_return",
+        "gap_vol",
+        "volatility",
+        "previous_overnight",
+        "previous_intraday",
+        "session_fraction"
+      ],
+      "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+      "horizons_hours": [
+        24,
+        48,
+        72
+      ],
+      "hyperparameter_search": false,
+      "maximum_model_and_latest_label_age_hours": 168,
+      "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+      "minimum_matured_sessions": 90,
+      "parameter_selection_on_evaluation": false,
+      "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+      "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+      "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+      "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+      "training_sessions": 126,
+      "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+    },
+    "hypothesis": "H1",
+    "id": "H1_CLOCK_HORIZON",
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "selection_rule": "No winner selection or new combinations. Retain all registered outcomes; H1 horizon-selection algorithm fixed before any new outcome",
+    "training_and_refit_rule": {
+      "entry_model": {
+        "archived_static_model_only_additional_control": true,
+        "latest_training_observation_max_age_hours": 168,
+        "lookback_sessions": 126,
+        "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+        "minimum_sessions": 90,
+        "refit_elapsed_hours": 120,
+        "same_for_all_candidates": true
+      },
+      "forecast": {
+        "calibration": {
+          "failure": "abstain from this horizon model",
+          "maximum_ratio": 1.25,
+          "metric": "MSE",
+          "minimum_earlier_training_sessions": 60,
+          "parameters_not_tuned": true,
+          "reference": "zero return",
+          "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+        },
+        "drift_max_z": 8,
+        "features": [
+          "opening_return",
+          "sector_relative_return",
+          "gap_vol",
+          "volatility",
+          "previous_overnight",
+          "previous_intraday",
+          "session_fraction"
+        ],
+        "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+        "horizons_hours": [
+          24,
+          48,
+          72
+        ],
+        "hyperparameter_search": false,
+        "maximum_model_and_latest_label_age_hours": 168,
+        "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+        "minimum_matured_sessions": 90,
+        "parameter_selection_on_evaluation": false,
+        "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+        "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+        "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+        "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+        "training_sessions": 126,
+        "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+      }
+    },
+    "universe": [
+      "AAPL",
+      "MSFT"
+    ]
+  },
+  {
+    "allocation": "Native causal funded sizing, one shared continuous20000USD account and unchanged residual30.18 limits for all candidates and controls. No optimizer search.",
+    "cost_profile": {
+      "NOMINAL": {
+        "commission_usd_per_share_per_side": 0.005,
+        "external_cost_usd_per_calendar_day": 1.0,
+        "slippage_bps": 2.0,
+        "spread_bps": 2.0
+      },
+      "STRESS": {
+        "commission_usd_per_share_per_side": 0.01,
+        "external_cost_usd_per_calendar_day": 2.0,
+        "slippage_bps": 4.0,
+        "spread_bps": 4.0
+      }
+    },
+    "data_availability": "Exact reconstructed retained5min SIP corpus; availableAt=barend+1s modeled, knownAt for XLK split not invented; no quotes/auction/VIX orcrypto observations",
+    "entry": "Causally refreshed residual-continuation opportunities at open+60min+1s, executable next5minute open; same wait for every candidate. Continuation candidate plus gap/vol>=0.5 and positive first60minute return",
+    "evaluation_and_stopping": {
+      "bootstrap_blocks": [
+        5,
+        20
+      ],
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 319,
+      "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+      "comparison_controls": [
+        "BASE_CONTINUATION",
+        "PRICE_ONLY24",
+        "CASH",
+        "ARCHIVED_CONTINUATION"
+      ],
+      "diagnostic_familywise_bootstrap_alpha": 0.05,
+      "diagnostic_nominal_and_stress_positive": true,
+      "holdout_never_claimed": true,
+      "promotion_allowed": false,
+      "reason": "Globally reused history, original receipt timing and real fills absent",
+      "same_entry_exit_attribution": false,
+      "statistics": {
+        "block_lengths": [
+          5,
+          20
+        ],
+        "bootstrap_replicates": 20000,
+        "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+        "confidence": 0.95,
+        "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+        "global_search_correction_complete": false,
+        "minimum_closed_candidate_campaigns": 20,
+        "minimum_observed_sessions": 100,
+        "no_selection_of_best_post_hoc_variant": true,
+        "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+        "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+        "seed": 319,
+        "simultaneous_endpoint_count": 120
+      },
+      "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition"
+    },
+    "exit": "Continuation candidate plus gap/vol>=0.5 and positive first60minute return; inherited protective stops/targets; original decision deadline <=72elapsed hours immutable; H3 paired attribution also freezes baseline entries/quantity/prices",
+    "features_and_targets": {
+      "calibration": {
+        "failure": "abstain from this horizon model",
+        "maximum_ratio": 1.25,
+        "metric": "MSE",
+        "minimum_earlier_training_sessions": 60,
+        "parameters_not_tuned": true,
+        "reference": "zero return",
+        "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+      },
+      "drift_max_z": 8,
+      "features": [
+        "opening_return",
+        "sector_relative_return",
+        "gap_vol",
+        "volatility",
+        "previous_overnight",
+        "previous_intraday",
+        "session_fraction"
+      ],
+      "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+      "horizons_hours": [
+        24,
+        48,
+        72
+      ],
+      "hyperparameter_search": false,
+      "maximum_model_and_latest_label_age_hours": 168,
+      "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+      "minimum_matured_sessions": 90,
+      "parameter_selection_on_evaluation": false,
+      "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+      "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+      "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+      "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+      "training_sessions": 126,
+      "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+    },
+    "hypothesis": "H2",
+    "id": "H2_GAP_ACCEPT",
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "selection_rule": "No winner selection or new combinations. Retain all registered outcomes; H1 horizon-selection algorithm fixed before any new outcome",
+    "training_and_refit_rule": {
+      "entry_model": {
+        "archived_static_model_only_additional_control": true,
+        "latest_training_observation_max_age_hours": 168,
+        "lookback_sessions": 126,
+        "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+        "minimum_sessions": 90,
+        "refit_elapsed_hours": 120,
+        "same_for_all_candidates": true
+      },
+      "forecast": {
+        "calibration": {
+          "failure": "abstain from this horizon model",
+          "maximum_ratio": 1.25,
+          "metric": "MSE",
+          "minimum_earlier_training_sessions": 60,
+          "parameters_not_tuned": true,
+          "reference": "zero return",
+          "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+        },
+        "drift_max_z": 8,
+        "features": [
+          "opening_return",
+          "sector_relative_return",
+          "gap_vol",
+          "volatility",
+          "previous_overnight",
+          "previous_intraday",
+          "session_fraction"
+        ],
+        "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+        "horizons_hours": [
+          24,
+          48,
+          72
+        ],
+        "hyperparameter_search": false,
+        "maximum_model_and_latest_label_age_hours": 168,
+        "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+        "minimum_matured_sessions": 90,
+        "parameter_selection_on_evaluation": false,
+        "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+        "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+        "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+        "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+        "training_sessions": 126,
+        "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+      }
+    },
+    "universe": [
+      "AAPL",
+      "MSFT"
+    ]
+  },
+  {
+    "allocation": "Native causal funded sizing, one shared continuous20000USD account and unchanged residual30.18 limits for all candidates and controls. No optimizer search.",
+    "cost_profile": {
+      "NOMINAL": {
+        "commission_usd_per_share_per_side": 0.005,
+        "external_cost_usd_per_calendar_day": 1.0,
+        "slippage_bps": 2.0,
+        "spread_bps": 2.0
+      },
+      "STRESS": {
+        "commission_usd_per_share_per_side": 0.01,
+        "external_cost_usd_per_calendar_day": 2.0,
+        "slippage_bps": 4.0,
+        "spread_bps": 4.0
+      }
+    },
+    "data_availability": "Exact reconstructed retained5min SIP corpus; availableAt=barend+1s modeled, knownAt for XLK split not invented; no quotes/auction/VIX orcrypto observations",
+    "entry": "Causally refreshed residual-continuation opportunities at open+60min+1s, executable next5minute open; same wait for every candidate. H2 gap acceptance plus positive stock-sector first60relative and positive sector return",
+    "evaluation_and_stopping": {
+      "bootstrap_blocks": [
+        5,
+        20
+      ],
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 319,
+      "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+      "comparison_controls": [
+        "BASE_CONTINUATION",
+        "PRICE_ONLY24",
+        "CASH",
+        "ARCHIVED_CONTINUATION"
+      ],
+      "diagnostic_familywise_bootstrap_alpha": 0.05,
+      "diagnostic_nominal_and_stress_positive": true,
+      "holdout_never_claimed": true,
+      "promotion_allowed": false,
+      "reason": "Globally reused history, original receipt timing and real fills absent",
+      "same_entry_exit_attribution": false,
+      "statistics": {
+        "block_lengths": [
+          5,
+          20
+        ],
+        "bootstrap_replicates": 20000,
+        "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+        "confidence": 0.95,
+        "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+        "global_search_correction_complete": false,
+        "minimum_closed_candidate_campaigns": 20,
+        "minimum_observed_sessions": 100,
+        "no_selection_of_best_post_hoc_variant": true,
+        "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+        "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+        "seed": 319,
+        "simultaneous_endpoint_count": 120
+      },
+      "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition"
+    },
+    "exit": "H2 gap acceptance plus positive stock-sector first60relative and positive sector return; inherited protective stops/targets; original decision deadline <=72elapsed hours immutable; H3 paired attribution also freezes baseline entries/quantity/prices",
+    "features_and_targets": {
+      "calibration": {
+        "failure": "abstain from this horizon model",
+        "maximum_ratio": 1.25,
+        "metric": "MSE",
+        "minimum_earlier_training_sessions": 60,
+        "parameters_not_tuned": true,
+        "reference": "zero return",
+        "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+      },
+      "drift_max_z": 8,
+      "features": [
+        "opening_return",
+        "sector_relative_return",
+        "gap_vol",
+        "volatility",
+        "previous_overnight",
+        "previous_intraday",
+        "session_fraction"
+      ],
+      "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+      "horizons_hours": [
+        24,
+        48,
+        72
+      ],
+      "hyperparameter_search": false,
+      "maximum_model_and_latest_label_age_hours": 168,
+      "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+      "minimum_matured_sessions": 90,
+      "parameter_selection_on_evaluation": false,
+      "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+      "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+      "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+      "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+      "training_sessions": 126,
+      "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+    },
+    "hypothesis": "H2",
+    "id": "H2_GAP_SECTOR",
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "selection_rule": "No winner selection or new combinations. Retain all registered outcomes; H1 horizon-selection algorithm fixed before any new outcome",
+    "training_and_refit_rule": {
+      "entry_model": {
+        "archived_static_model_only_additional_control": true,
+        "latest_training_observation_max_age_hours": 168,
+        "lookback_sessions": 126,
+        "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+        "minimum_sessions": 90,
+        "refit_elapsed_hours": 120,
+        "same_for_all_candidates": true
+      },
+      "forecast": {
+        "calibration": {
+          "failure": "abstain from this horizon model",
+          "maximum_ratio": 1.25,
+          "metric": "MSE",
+          "minimum_earlier_training_sessions": 60,
+          "parameters_not_tuned": true,
+          "reference": "zero return",
+          "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+        },
+        "drift_max_z": 8,
+        "features": [
+          "opening_return",
+          "sector_relative_return",
+          "gap_vol",
+          "volatility",
+          "previous_overnight",
+          "previous_intraday",
+          "session_fraction"
+        ],
+        "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+        "horizons_hours": [
+          24,
+          48,
+          72
+        ],
+        "hyperparameter_search": false,
+        "maximum_model_and_latest_label_age_hours": 168,
+        "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+        "minimum_matured_sessions": 90,
+        "parameter_selection_on_evaluation": false,
+        "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+        "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+        "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+        "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+        "training_sessions": 126,
+        "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+      }
+    },
+    "universe": [
+      "AAPL",
+      "MSFT"
+    ]
+  },
+  {
+    "allocation": "Native causal funded sizing, one shared continuous20000USD account and unchanged residual30.18 limits for all candidates and controls. No optimizer search.",
+    "cost_profile": {
+      "NOMINAL": {
+        "commission_usd_per_share_per_side": 0.005,
+        "external_cost_usd_per_calendar_day": 1.0,
+        "slippage_bps": 2.0,
+        "spread_bps": 2.0
+      },
+      "STRESS": {
+        "commission_usd_per_share_per_side": 0.01,
+        "external_cost_usd_per_calendar_day": 2.0,
+        "slippage_bps": 4.0,
+        "spread_bps": 4.0
+      }
+    },
+    "data_availability": "Exact reconstructed retained5min SIP corpus; availableAt=barend+1s modeled, knownAt for XLK split not invented; no quotes/auction/VIX orcrypto observations",
+    "entry": "Causally refreshed residual-continuation opportunities at open+60min+1s, executable next5minute open; same wait for every candidate. Same continuation entries; close remaining at next executable open when causal24h mean LCB<=0",
+    "evaluation_and_stopping": {
+      "bootstrap_blocks": [
+        5,
+        20
+      ],
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 319,
+      "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+      "comparison_controls": [
+        "BASE_CONTINUATION",
+        "PRICE_ONLY24",
+        "CASH",
+        "ARCHIVED_CONTINUATION"
+      ],
+      "diagnostic_familywise_bootstrap_alpha": 0.05,
+      "diagnostic_nominal_and_stress_positive": true,
+      "holdout_never_claimed": true,
+      "promotion_allowed": false,
+      "reason": "Globally reused history, original receipt timing and real fills absent",
+      "same_entry_exit_attribution": true,
+      "statistics": {
+        "block_lengths": [
+          5,
+          20
+        ],
+        "bootstrap_replicates": 20000,
+        "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+        "confidence": 0.95,
+        "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+        "global_search_correction_complete": false,
+        "minimum_closed_candidate_campaigns": 20,
+        "minimum_observed_sessions": 100,
+        "no_selection_of_best_post_hoc_variant": true,
+        "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+        "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+        "seed": 319,
+        "simultaneous_endpoint_count": 120
+      },
+      "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition"
+    },
+    "exit": "Same continuation entries; close remaining at next executable open when causal24h mean LCB<=0; inherited protective stops/targets; original decision deadline <=72elapsed hours immutable; H3 paired attribution also freezes baseline entries/quantity/prices; CLOCK24 actionable only when its forecast deadline is within original campaign deadline; otherwise native protection remains.",
+    "features_and_targets": {
+      "calibration": {
+        "failure": "abstain from this horizon model",
+        "maximum_ratio": 1.25,
+        "metric": "MSE",
+        "minimum_earlier_training_sessions": 60,
+        "parameters_not_tuned": true,
+        "reference": "zero return",
+        "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+      },
+      "drift_max_z": 8,
+      "features": [
+        "opening_return",
+        "sector_relative_return",
+        "gap_vol",
+        "volatility",
+        "previous_overnight",
+        "previous_intraday",
+        "session_fraction"
+      ],
+      "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+      "horizons_hours": [
+        24,
+        48,
+        72
+      ],
+      "hyperparameter_search": false,
+      "maximum_model_and_latest_label_age_hours": 168,
+      "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+      "minimum_matured_sessions": 90,
+      "parameter_selection_on_evaluation": false,
+      "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+      "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+      "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+      "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+      "training_sessions": 126,
+      "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+    },
+    "hypothesis": "H3",
+    "id": "H3_VALUE_TOTAL",
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "selection_rule": "No winner selection or new combinations. Retain all registered outcomes; H1 horizon-selection algorithm fixed before any new outcome",
+    "training_and_refit_rule": {
+      "entry_model": {
+        "archived_static_model_only_additional_control": true,
+        "latest_training_observation_max_age_hours": 168,
+        "lookback_sessions": 126,
+        "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+        "minimum_sessions": 90,
+        "refit_elapsed_hours": 120,
+        "same_for_all_candidates": true
+      },
+      "forecast": {
+        "calibration": {
+          "failure": "abstain from this horizon model",
+          "maximum_ratio": 1.25,
+          "metric": "MSE",
+          "minimum_earlier_training_sessions": 60,
+          "parameters_not_tuned": true,
+          "reference": "zero return",
+          "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+        },
+        "drift_max_z": 8,
+        "features": [
+          "opening_return",
+          "sector_relative_return",
+          "gap_vol",
+          "volatility",
+          "previous_overnight",
+          "previous_intraday",
+          "session_fraction"
+        ],
+        "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+        "horizons_hours": [
+          24,
+          48,
+          72
+        ],
+        "hyperparameter_search": false,
+        "maximum_model_and_latest_label_age_hours": 168,
+        "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+        "minimum_matured_sessions": 90,
+        "parameter_selection_on_evaluation": false,
+        "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+        "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+        "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+        "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+        "training_sessions": 126,
+        "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+      }
+    },
+    "universe": [
+      "AAPL",
+      "MSFT"
+    ]
+  },
+  {
+    "allocation": "Native causal funded sizing, one shared continuous20000USD account and unchanged residual30.18 limits for all candidates and controls. No optimizer search.",
+    "cost_profile": {
+      "NOMINAL": {
+        "commission_usd_per_share_per_side": 0.005,
+        "external_cost_usd_per_calendar_day": 1.0,
+        "slippage_bps": 2.0,
+        "spread_bps": 2.0
+      },
+      "STRESS": {
+        "commission_usd_per_share_per_side": 0.01,
+        "external_cost_usd_per_calendar_day": 2.0,
+        "slippage_bps": 4.0,
+        "spread_bps": 4.0
+      }
+    },
+    "data_availability": "Exact reconstructed retained5min SIP corpus; availableAt=barend+1s modeled, knownAt for XLK split not invented; no quotes/auction/VIX orcrypto observations",
+    "entry": "Causally refreshed residual-continuation opportunities at open+60min+1s, executable next5minute open; same wait for every candidate. Same continuation entries; close all if mean<-1.645SE, else reduce half once when LCB<=0",
+    "evaluation_and_stopping": {
+      "bootstrap_blocks": [
+        5,
+        20
+      ],
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 319,
+      "comparability": "Same ex ante risk limits. Realized exposure differs and is reported; no risk-equivalent superiority certified.",
+      "comparison_controls": [
+        "BASE_CONTINUATION",
+        "PRICE_ONLY24",
+        "CASH",
+        "ARCHIVED_CONTINUATION"
+      ],
+      "diagnostic_familywise_bootstrap_alpha": 0.05,
+      "diagnostic_nominal_and_stress_positive": true,
+      "holdout_never_claimed": true,
+      "promotion_allowed": false,
+      "reason": "Globally reused history, original receipt timing and real fills absent",
+      "same_entry_exit_attribution": true,
+      "statistics": {
+        "block_lengths": [
+          5,
+          20
+        ],
+        "bootstrap_replicates": 20000,
+        "comparability": "Same ex ante caps, exposure differences reported; no risk-matched superior alpha certified.",
+        "confidence": 0.95,
+        "endpoint_detail": "Two block lengths times (12 candidate-scenario absolute log-growth means + 48 paired candidate-versus-four-fixed-control log-growth differences).",
+        "global_search_correction_complete": false,
+        "minimum_closed_candidate_campaigns": 20,
+        "minimum_observed_sessions": 100,
+        "no_selection_of_best_post_hoc_variant": true,
+        "primary_period": "ENTIRE_CONTINUOUS_EVALUATION",
+        "risk_checks": "Observed event drawdown <=8%, close-to-close daily loss <=2%. No tick or real-execution guarantee.",
+        "seed": 319,
+        "simultaneous_endpoint_count": 120
+      },
+      "stopping": "Exactly six complete recipes and two registered cost scenarios; retain failures; no retuning or posthoc composition"
+    },
+    "exit": "Same continuation entries; close all if mean<-1.645SE, else reduce half once when LCB<=0; inherited protective stops/targets; original decision deadline <=72elapsed hours immutable; H3 paired attribution also freezes baseline entries/quantity/prices; CLOCK24 actionable only when its forecast deadline is within original campaign deadline; otherwise native protection remains.",
+    "features_and_targets": {
+      "calibration": {
+        "failure": "abstain from this horizon model",
+        "maximum_ratio": 1.25,
+        "metric": "MSE",
+        "minimum_earlier_training_sessions": 60,
+        "parameters_not_tuned": true,
+        "reference": "zero return",
+        "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+      },
+      "drift_max_z": 8,
+      "features": [
+        "opening_return",
+        "sector_relative_return",
+        "gap_vol",
+        "volatility",
+        "previous_overnight",
+        "previous_intraday",
+        "session_fraction"
+      ],
+      "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+      "horizons_hours": [
+        24,
+        48,
+        72
+      ],
+      "hyperparameter_search": false,
+      "maximum_model_and_latest_label_age_hours": 168,
+      "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+      "minimum_matured_sessions": 90,
+      "parameter_selection_on_evaluation": false,
+      "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+      "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+      "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+      "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+      "training_sessions": 126,
+      "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+    },
+    "hypothesis": "H3",
+    "id": "H3_VALUE_PARTIAL",
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ],
+    "selection_rule": "No winner selection or new combinations. Retain all registered outcomes; H1 horizon-selection algorithm fixed before any new outcome",
+    "training_and_refit_rule": {
+      "entry_model": {
+        "archived_static_model_only_additional_control": true,
+        "latest_training_observation_max_age_hours": 168,
+        "lookback_sessions": 126,
+        "method": "rolling OLS of first60minute stock return on sector return; beta[0,2],sigma>1e-6,z>=1.5; half positive residual excursion exceeds costs+5bp",
+        "minimum_sessions": 90,
+        "refit_elapsed_hours": 120,
+        "same_for_all_candidates": true
+      },
+      "forecast": {
+        "calibration": {
+          "failure": "abstain from this horizon model",
+          "maximum_ratio": 1.25,
+          "metric": "MSE",
+          "minimum_earlier_training_sessions": 60,
+          "parameters_not_tuned": true,
+          "reference": "zero return",
+          "scope": "Only matured rolling TRAIN; last20 sessions held out from earlier fitting with label maturity purge"
+        },
+        "drift_max_z": 8,
+        "features": [
+          "opening_return",
+          "sector_relative_return",
+          "gap_vol",
+          "volatility",
+          "previous_overnight",
+          "previous_intraday",
+          "session_fraction"
+        ],
+        "h3_remaining_time": "Use CLOCK24 only if its calendar deadline does not exceed original campaign deadline; otherwise abstain and preserve native protection.",
+        "horizons_hours": [
+          24,
+          48,
+          72
+        ],
+        "hyperparameter_search": false,
+        "maximum_model_and_latest_label_age_hours": 168,
+        "method": "ridge lambda10, daily-cluster HAC lag5, mean LCB z1.645",
+        "minimum_matured_sessions": 90,
+        "parameter_selection_on_evaluation": false,
+        "purge": "Each label known_at must be <=fit_asof; same-day future labels excluded",
+        "refit_rule": "At first forecast decision at least120elapsed hours after prior fit",
+        "target_units": "GROSS_PRICE_LOG_RETURN; dividends accrue only in economic portfolio ledger",
+        "targets": "Log return from next executable open to each received-calendar deadline, decomposed into exact intersession overnight gaps and residual intraday return. Fits use identical designs; their sum equals the total fit.",
+        "training_sessions": 126,
+        "uncertainty_limit": "Daily-cluster HAC mean standard errors are an approximation; ridge bias and finite-sample LCB coverage are not certified."
+      }
+    },
+    "universe": [
+      "AAPL",
+      "MSFT"
+    ]
+  }
+]
