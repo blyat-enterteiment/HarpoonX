@@ -1,0 +1,74 @@
+{
+  "schema": "HARPOON_PROFIT8_PRE_FREEZE_QA_1",
+  "checked_at": "2026-11-04T18:11:22.008813+00:00",
+  "results": {
+    "python_tests": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "quant/tests",
+        "-p",
+        "test_profit8*.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 5.416209107000213,
+      "log": "evidence/profit8/qa/python_tests.log"
+    },
+    "node_tests": {
+      "command": [
+        "node",
+        "--test",
+        "tools/profit8_replay_test.cjs"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.3159034519994748,
+      "log": "evidence/profit8/qa/node_tests.log"
+    },
+    "ruff": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "quant/harpoon_quant/profit8",
+        "tools/verify_profit8.py",
+        "tools/prepare_profit8_extension.py",
+        "tools/run_profit8.py",
+        "quant/tests/test_profit8_extension.py",
+        "quant/tests/test_profit8_model.py",
+        "quant/tests/test_profit8_audit.py",
+        "quant/tests/test_profit8_study.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.028630802999941807,
+      "log": "evidence/profit8/qa/ruff.log"
+    },
+    "mypy": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "mypy",
+        "--no-incremental",
+        "--cache-dir",
+        "/tmp/profit8_final_silent",
+        "--ignore-missing-imports",
+        "--follow-imports",
+        "silent",
+        "quant/harpoon_quant/profit8",
+        "tools/verify_profit8.py",
+        "tools/prepare_profit8_extension.py",
+        "tools/run_profit8.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.3685026430002836,
+      "log": "evidence/profit8/qa/mypy.log"
+    }
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "economic_backtests_executed": false,
+  "all_passed": true
+}

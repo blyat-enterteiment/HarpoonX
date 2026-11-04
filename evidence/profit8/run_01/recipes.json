@@ -1,0 +1,222 @@
+[
+  {
+    "family": "REVERSAL",
+    "horizon_hours": 24,
+    "id": "H1_REVERSAL24",
+    "matched_control": "CONT_POS24",
+    "mode": "NATIVE_MAX",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CANDIDATE",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "REVERSAL",
+    "horizon_hours": 72,
+    "id": "H1_REVERSAL72",
+    "matched_control": "CONT_POS72",
+    "mode": "NATIVE_MAX",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CANDIDATE",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "NET",
+    "horizon_hours": 24,
+    "id": "H2_NET24",
+    "matched_control": "GROSS_ALL24",
+    "mode": "MAX_POSITIVE",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CANDIDATE",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "NET",
+    "horizon_hours": 72,
+    "id": "H2_NET72",
+    "matched_control": "GROSS_ALL72",
+    "mode": "MAX_POSITIVE",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CANDIDATE",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "ROBUST",
+    "horizon_hours": 24,
+    "id": "H3_ROBUST24",
+    "matched_control": "H2_NET24",
+    "mode": "ROBUST_LOG",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CANDIDATE",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "ROBUST",
+    "horizon_hours": 72,
+    "id": "H3_ROBUST72",
+    "matched_control": "H2_NET72",
+    "mode": "ROBUST_LOG",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CANDIDATE",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "CONTINUATION",
+    "horizon_hours": 24,
+    "id": "CONT_POS24",
+    "matched_control": null,
+    "mode": "NATIVE_MAX",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CONTROL",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "CONTINUATION",
+    "horizon_hours": 72,
+    "id": "CONT_POS72",
+    "matched_control": null,
+    "mode": "NATIVE_MAX",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CONTROL",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "GROSS",
+    "horizon_hours": 24,
+    "id": "GROSS_ALL24",
+    "matched_control": null,
+    "mode": "MAX_POSITIVE",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CONTROL",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  },
+  {
+    "family": "GROSS",
+    "horizon_hours": 72,
+    "id": "GROSS_ALL72",
+    "matched_control": null,
+    "mode": "MAX_POSITIVE",
+    "parameters_selected_on_outcomes": false,
+    "risk_limits": {
+      "assetFraction": 0.12,
+      "capitalUsd": 20000,
+      "dailyLoss": 0.02,
+      "grossFraction": 0.12,
+      "maxDrawdown": 0.08,
+      "openRiskFraction": 0.0025,
+      "riskFraction": 0.0025
+    },
+    "role": "CONTROL",
+    "scenarios": [
+      "NOMINAL",
+      "STRESS"
+    ]
+  }
+]
