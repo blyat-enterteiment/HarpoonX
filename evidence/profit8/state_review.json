@@ -1,0 +1,869 @@
+{
+  "accounts": {
+    "NOMINAL:ARCHIVED_CONTINUATION": {
+      "average_notional_fraction_of_initial_capital": 0.0189243192662799,
+      "average_notional_usd": 378.486385325598,
+      "calendar_days": 585,
+      "campaigns": 60,
+      "clock_attribution": {
+        "commission_usd": 3.2399999999999998,
+        "common_overhead_usd": 585,
+        "dividends_usd": 6.96,
+        "intraday_and_execution_price_pnl_usd": 160.45160000000163,
+        "overnight_price_pnl_usd": 366.40839999999895,
+        "reconciled_net_usd": -54.41999999999939,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 18,
+        "TIME": 42
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 3.2399999999999998,
+      "largest_winner_usd": 169.67999999999995,
+      "losses": 29,
+      "mean_holding_hours_from_decision": 50.41638888888889,
+      "median_holding_hours_from_decision": 53.33305555555555,
+      "net_usd": -54.42000000000189,
+      "net_without_largest_winner_usd": -224.10000000000184,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 385.369999999999,
+        "VALIDATION": 145.20999999999913
+      },
+      "pre_overhead_net_usd": 530.5799999999981,
+      "pre_overhead_usd_per_calendar_day": 0.9069743589743599,
+      "profit_factor_before_shared_overhead": 1.6140972222222225,
+      "source": "evidence/roadmap9/research/NOMINAL_ARCHIVED_CONTINUATION.json.gz",
+      "top5_winners_sum_usd": 639.1299999999999,
+      "wins": 31
+    },
+    "NOMINAL:BASE_CONTINUATION": {
+      "average_notional_fraction_of_initial_capital": 0.014565469765563967,
+      "average_notional_usd": 291.30939531127933,
+      "calendar_days": 585,
+      "campaigns": 45,
+      "clock_attribution": {
+        "commission_usd": 2.6300000000000003,
+        "common_overhead_usd": 585,
+        "dividends_usd": 3.64,
+        "intraday_and_execution_price_pnl_usd": -10.979999999998938,
+        "overnight_price_pnl_usd": 131.54999999999902,
+        "reconciled_net_usd": -463.4199999999999,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 15,
+        "TIME": 30
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 2.6300000000000003,
+      "largest_winner_usd": 161.37999999999994,
+      "losses": 26,
+      "mean_holding_hours_from_decision": 48.69416666666667,
+      "median_holding_hours_from_decision": 53.33305555555555,
+      "net_usd": -463.4200000000019,
+      "net_without_largest_winner_usd": -624.8000000000018,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -57.150000000001455,
+        "VALIDATION": 178.72999999999956
+      },
+      "pre_overhead_net_usd": 121.57999999999811,
+      "pre_overhead_usd_per_calendar_day": 0.20782905982905975,
+      "profit_factor_before_shared_overhead": 1.1589239497006614,
+      "source": "evidence/roadmap9/research/NOMINAL_BASE_CONTINUATION.json.gz",
+      "top5_winners_sum_usd": 537.4999999999999,
+      "wins": 19
+    },
+    "NOMINAL:CASH": {
+      "average_notional_fraction_of_initial_capital": 0.0,
+      "average_notional_usd": 0.0,
+      "calendar_days": 585,
+      "campaigns": 0,
+      "clock_attribution": {
+        "commission_usd": 0,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 0.0,
+        "overnight_price_pnl_usd": 0.0,
+        "reconciled_net_usd": -585.0,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {},
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0,
+      "largest_winner_usd": null,
+      "losses": 0,
+      "mean_holding_hours_from_decision": null,
+      "median_holding_hours_from_decision": null,
+      "net_usd": -585,
+      "net_without_largest_winner_usd": -585,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 0,
+        "VALIDATION": 0
+      },
+      "pre_overhead_net_usd": 0,
+      "pre_overhead_usd_per_calendar_day": 0.0,
+      "profit_factor_before_shared_overhead": null,
+      "source": "evidence/roadmap9/research/NOMINAL_CASH.json.gz",
+      "top5_winners_sum_usd": 0,
+      "wins": 0
+    },
+    "NOMINAL:H1_CLOCK24": {
+      "average_notional_fraction_of_initial_capital": 6.0970716704087267e-05,
+      "average_notional_usd": 1.2194143340817454,
+      "calendar_days": 585,
+      "campaigns": 1,
+      "clock_attribution": {
+        "commission_usd": 0.05,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 88.68999999999997,
+        "overnight_price_pnl_usd": -39.139999999999986,
+        "reconciled_net_usd": -535.5,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 1
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0.05,
+      "largest_winner_usd": 49.49999999999998,
+      "losses": 0,
+      "mean_holding_hours_from_decision": 23.083055555555557,
+      "median_holding_hours_from_decision": 23.083055555555557,
+      "net_usd": -535.5,
+      "net_without_largest_winner_usd": -585.0,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 0,
+        "VALIDATION": 49.5
+      },
+      "pre_overhead_net_usd": 49.5,
+      "pre_overhead_usd_per_calendar_day": 0.08461538461538458,
+      "profit_factor_before_shared_overhead": null,
+      "source": "evidence/roadmap9/research/NOMINAL_H1_CLOCK24.json.gz",
+      "top5_winners_sum_usd": 49.49999999999998,
+      "wins": 1
+    },
+    "NOMINAL:H1_CLOCK_HORIZON": {
+      "average_notional_fraction_of_initial_capital": 0.0007261258007819551,
+      "average_notional_usd": 14.522516015639102,
+      "calendar_days": 585,
+      "campaigns": 3,
+      "clock_attribution": {
+        "commission_usd": 0.16,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 68.97000000000027,
+        "overnight_price_pnl_usd": -69.50000000000017,
+        "reconciled_net_usd": -585.6899999999999,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 2,
+        "TIME": 1
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0.16,
+      "largest_winner_usd": 49.49999999999998,
+      "losses": 2,
+      "mean_holding_hours_from_decision": 39.38861111111111,
+      "median_holding_hours_from_decision": 23.083055555555557,
+      "net_usd": -585.6899999999987,
+      "net_without_largest_winner_usd": -635.1899999999987,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -50.18999999999869,
+        "VALIDATION": 49.5
+      },
+      "pre_overhead_net_usd": -0.6899999999986903,
+      "pre_overhead_usd_per_calendar_day": -0.0011794871794869963,
+      "profit_factor_before_shared_overhead": 0.9862522414823691,
+      "source": "evidence/roadmap9/research/NOMINAL_H1_CLOCK_HORIZON.json.gz",
+      "top5_winners_sum_usd": -0.6899999999998929,
+      "wins": 1
+    },
+    "NOMINAL:H2_GAP_ACCEPT": {
+      "average_notional_fraction_of_initial_capital": 0.0034360384738131963,
+      "average_notional_usd": 68.72076947626392,
+      "calendar_days": 585,
+      "campaigns": 9,
+      "clock_attribution": {
+        "commission_usd": 0.62,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 163.13620000000043,
+        "overnight_price_pnl_usd": 232.9737999999998,
+        "reconciled_net_usd": -189.50999999999976,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 2,
+        "TIME": 7
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0.62,
+      "largest_winner_usd": 161.37999999999994,
+      "losses": 2,
+      "mean_holding_hours_from_decision": 53.12935185185185,
+      "median_holding_hours_from_decision": 53.33305555555555,
+      "net_usd": -189.5099999999984,
+      "net_without_largest_winner_usd": -350.88999999999834,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 186.04000000000087,
+        "VALIDATION": 209.45000000000073
+      },
+      "pre_overhead_net_usd": 395.4900000000016,
+      "pre_overhead_usd_per_calendar_day": 0.6760512820512824,
+      "profit_factor_before_shared_overhead": 5.166561314791402,
+      "source": "evidence/roadmap9/research/NOMINAL_H2_GAP_ACCEPT.json.gz",
+      "top5_winners_sum_usd": 470.15999999999997,
+      "wins": 7
+    },
+    "NOMINAL:H2_GAP_SECTOR": {
+      "average_notional_fraction_of_initial_capital": 0.002531184007794394,
+      "average_notional_usd": 50.62368015588788,
+      "calendar_days": 585,
+      "campaigns": 6,
+      "clock_attribution": {
+        "commission_usd": 0.41,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 126.08399999999992,
+        "overnight_price_pnl_usd": 196.59600000000003,
+        "reconciled_net_usd": -262.7300000000001,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 1,
+        "TIME": 5
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0.41,
+      "largest_winner_usd": 161.37999999999994,
+      "losses": 1,
+      "mean_holding_hours_from_decision": 58.51361111111111,
+      "median_holding_hours_from_decision": 62.20805555555556,
+      "net_usd": -262.72999999999956,
+      "net_without_largest_winner_usd": -424.1099999999995,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 160.88999999999942,
+        "VALIDATION": 161.38000000000102
+      },
+      "pre_overhead_net_usd": 322.27000000000044,
+      "pre_overhead_usd_per_calendar_day": 0.5508888888888887,
+      "profit_factor_before_shared_overhead": 7.71395833333332,
+      "source": "evidence/roadmap9/research/NOMINAL_H2_GAP_SECTOR.json.gz",
+      "top5_winners_sum_usd": 370.2699999999999,
+      "wins": 5
+    },
+    "NOMINAL:H3_VALUE_PARTIAL": {
+      "average_notional_fraction_of_initial_capital": 0.008140496763967792,
+      "average_notional_usd": 162.80993527935584,
+      "calendar_days": 585,
+      "campaigns": 46,
+      "clock_attribution": {
+        "commission_usd": 2.6800000000000006,
+        "common_overhead_usd": 585,
+        "dividends_usd": 1.82,
+        "intraday_and_execution_price_pnl_usd": 55.05380000000076,
+        "overnight_price_pnl_usd": 67.39619999999954,
+        "reconciled_net_usd": -463.40999999999974,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "CONTINUATION_VALUE_NEGATIVE": 3,
+        "STOP": 15,
+        "TIME": 28
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 2.6800000000000006,
+      "largest_winner_usd": 161.37999999999994,
+      "losses": 26,
+      "mean_holding_hours_from_decision": 46.61928743961352,
+      "median_holding_hours_from_decision": 49.20805555555555,
+      "net_usd": -463.40999999999985,
+      "net_without_largest_winner_usd": -624.7899999999997,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -109.18000000000029,
+        "VALIDATION": 230.77000000000044
+      },
+      "pre_overhead_net_usd": 121.59000000000015,
+      "pre_overhead_usd_per_calendar_day": 0.20784615384615418,
+      "profit_factor_before_shared_overhead": 1.2560921670633334,
+      "source": "evidence/roadmap9/research/NOMINAL_H3_VALUE_PARTIAL.json.gz",
+      "top5_winners_sum_usd": 359.04000000000036,
+      "wins": 20
+    },
+    "NOMINAL:H3_VALUE_TOTAL": {
+      "average_notional_fraction_of_initial_capital": 0.0015515036993809254,
+      "average_notional_usd": 31.030073987618508,
+      "calendar_days": 585,
+      "campaigns": 52,
+      "clock_attribution": {
+        "commission_usd": 2.97,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 184.77000000000044,
+        "overnight_price_pnl_usd": -3.879999999999967,
+        "reconciled_net_usd": -407.07999999999953,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "CONTINUATION_VALUE_TOTAL": 46,
+        "STOP": 2,
+        "TIME": 4
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 2.97,
+      "largest_winner_usd": 161.37999999999994,
+      "losses": 29,
+      "mean_holding_hours_from_decision": 4.986901709401709,
+      "median_holding_hours_from_decision": 1.0830555555555557,
+      "net_usd": -407.0799999999981,
+      "net_without_largest_winner_usd": -568.459999999998,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -112.45999999999913,
+        "VALIDATION": 290.380000000001
+      },
+      "pre_overhead_net_usd": 177.9200000000019,
+      "pre_overhead_usd_per_calendar_day": 0.30413675213675295,
+      "profit_factor_before_shared_overhead": 1.672741709834765,
+      "source": "evidence/roadmap9/research/NOMINAL_H3_VALUE_TOTAL.json.gz",
+      "top5_winners_sum_usd": 327.3400000000003,
+      "wins": 23
+    },
+    "NOMINAL:PRICE_ONLY24": {
+      "average_notional_fraction_of_initial_capital": 0.0,
+      "average_notional_usd": 0.0,
+      "calendar_days": 585,
+      "campaigns": 0,
+      "clock_attribution": {
+        "commission_usd": 0,
+        "common_overhead_usd": 585,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 0.0,
+        "overnight_price_pnl_usd": 0.0,
+        "reconciled_net_usd": -585.0,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {},
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0,
+      "largest_winner_usd": null,
+      "losses": 0,
+      "mean_holding_hours_from_decision": null,
+      "median_holding_hours_from_decision": null,
+      "net_usd": -585,
+      "net_without_largest_winner_usd": -585,
+      "overhead_usd": 585,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 0,
+        "VALIDATION": 0
+      },
+      "pre_overhead_net_usd": 0,
+      "pre_overhead_usd_per_calendar_day": 0.0,
+      "profit_factor_before_shared_overhead": null,
+      "source": "evidence/roadmap9/research/NOMINAL_PRICE_ONLY24.json.gz",
+      "top5_winners_sum_usd": 0,
+      "wins": 0
+    },
+    "STRESS:ARCHIVED_CONTINUATION": {
+      "average_notional_fraction_of_initial_capital": 0.018435967878638774,
+      "average_notional_usd": 368.7193575727755,
+      "calendar_days": 585,
+      "campaigns": 60,
+      "clock_attribution": {
+        "commission_usd": 6.299999999999998,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 6.96,
+        "intraday_and_execution_price_pnl_usd": 94.86460000000164,
+        "overnight_price_pnl_usd": 373.06539999999893,
+        "reconciled_net_usd": -701.4099999999994,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 18,
+        "TIME": 42
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 6.299999999999998,
+      "largest_winner_usd": 168.89,
+      "losses": 29,
+      "mean_holding_hours_from_decision": 50.41638888888889,
+      "median_holding_hours_from_decision": 53.33305555555555,
+      "net_usd": -701.4099999999999,
+      "net_without_largest_winner_usd": -870.2999999999998,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 324.369999999999,
+        "VALIDATION": 144.22000000000116
+      },
+      "pre_overhead_net_usd": 468.59000000000015,
+      "pre_overhead_usd_per_calendar_day": 0.8010085470085482,
+      "profit_factor_before_shared_overhead": 1.540192518300767,
+      "source": "evidence/roadmap9/research/STRESS_ARCHIVED_CONTINUATION.json.gz",
+      "top5_winners_sum_usd": 633.9500000000002,
+      "wins": 31
+    },
+    "STRESS:BASE_CONTINUATION": {
+      "average_notional_fraction_of_initial_capital": 0.014315908700019494,
+      "average_notional_usd": 286.3181740003899,
+      "calendar_days": 585,
+      "campaigns": 45,
+      "clock_attribution": {
+        "commission_usd": 5.140000000000001,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 3.64,
+        "intraday_and_execution_price_pnl_usd": -60.55199999999945,
+        "overnight_price_pnl_usd": 145.99199999999897,
+        "reconciled_net_usd": -1086.0600000000004,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 15,
+        "TIME": 30
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 5.140000000000001,
+      "largest_winner_usd": 160.08000000000007,
+      "losses": 26,
+      "mean_holding_hours_from_decision": 48.69416666666667,
+      "median_holding_hours_from_decision": 53.33305555555555,
+      "net_usd": -1086.0600000000013,
+      "net_without_largest_winner_usd": -1246.1400000000015,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -96.86000000000058,
+        "VALIDATION": 180.79999999999927
+      },
+      "pre_overhead_net_usd": 83.93999999999869,
+      "pre_overhead_usd_per_calendar_day": 0.1434871794871788,
+      "profit_factor_before_shared_overhead": 1.1102674583574161,
+      "source": "evidence/roadmap9/research/STRESS_BASE_CONTINUATION.json.gz",
+      "top5_winners_sum_usd": 523.83,
+      "wins": 19
+    },
+    "STRESS:CASH": {
+      "average_notional_fraction_of_initial_capital": 0.0,
+      "average_notional_usd": 0.0,
+      "calendar_days": 585,
+      "campaigns": 0,
+      "clock_attribution": {
+        "commission_usd": 0,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 0.0,
+        "overnight_price_pnl_usd": 0.0,
+        "reconciled_net_usd": -1170.0,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {},
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0,
+      "largest_winner_usd": null,
+      "losses": 0,
+      "mean_holding_hours_from_decision": null,
+      "median_holding_hours_from_decision": null,
+      "net_usd": -1170,
+      "net_without_largest_winner_usd": -1170,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 0,
+        "VALIDATION": 0
+      },
+      "pre_overhead_net_usd": 0,
+      "pre_overhead_usd_per_calendar_day": 0.0,
+      "profit_factor_before_shared_overhead": null,
+      "source": "evidence/roadmap9/research/STRESS_CASH.json.gz",
+      "top5_winners_sum_usd": 0,
+      "wins": 0
+    },
+    "STRESS:H1_CLOCK24": {
+      "average_notional_fraction_of_initial_capital": 0.0,
+      "average_notional_usd": 0.0,
+      "calendar_days": 585,
+      "campaigns": 0,
+      "clock_attribution": {
+        "commission_usd": 0,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 0.0,
+        "overnight_price_pnl_usd": 0.0,
+        "reconciled_net_usd": -1170.0,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {},
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0,
+      "largest_winner_usd": null,
+      "losses": 0,
+      "mean_holding_hours_from_decision": null,
+      "median_holding_hours_from_decision": null,
+      "net_usd": -1170,
+      "net_without_largest_winner_usd": -1170,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 0,
+        "VALIDATION": 0
+      },
+      "pre_overhead_net_usd": 0,
+      "pre_overhead_usd_per_calendar_day": 0.0,
+      "profit_factor_before_shared_overhead": null,
+      "source": "evidence/roadmap9/research/STRESS_H1_CLOCK24.json.gz",
+      "top5_winners_sum_usd": 0,
+      "wins": 0
+    },
+    "STRESS:H1_CLOCK_HORIZON": {
+      "average_notional_fraction_of_initial_capital": 0.00016364005467079418,
+      "average_notional_usd": 3.2728010934158833,
+      "calendar_days": 585,
+      "campaigns": 2,
+      "clock_attribution": {
+        "commission_usd": 0.16,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 60.629999999999825,
+        "overnight_price_pnl_usd": -57.73999999999995,
+        "reconciled_net_usd": -1167.2700000000002,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 2
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0.16,
+      "largest_winner_usd": 48.989999999999974,
+      "losses": 1,
+      "mean_holding_hours_from_decision": 23.083055555555557,
+      "median_holding_hours_from_decision": 23.083055555555557,
+      "net_usd": -1167.2700000000004,
+      "net_without_largest_winner_usd": -1216.2600000000004,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -46.26000000000204,
+        "VALIDATION": 48.9900000000016
+      },
+      "pre_overhead_net_usd": 2.7299999999995634,
+      "pre_overhead_usd_per_calendar_day": 0.004666666666666442,
+      "profit_factor_before_shared_overhead": 1.0590142671854705,
+      "source": "evidence/roadmap9/research/STRESS_H1_CLOCK_HORIZON.json.gz",
+      "top5_winners_sum_usd": 2.729999999999869,
+      "wins": 1
+    },
+    "STRESS:H2_GAP_ACCEPT": {
+      "average_notional_fraction_of_initial_capital": 0.003312483199554041,
+      "average_notional_usd": 66.24966399108082,
+      "calendar_days": 585,
+      "campaigns": 9,
+      "clock_attribution": {
+        "commission_usd": 1.1800000000000002,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 154.0562000000009,
+        "overnight_price_pnl_usd": 234.96379999999976,
+        "reconciled_net_usd": -782.1599999999994,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 2,
+        "TIME": 7
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 1.1800000000000002,
+      "largest_winner_usd": 160.08000000000007,
+      "losses": 2,
+      "mean_holding_hours_from_decision": 53.12935185185185,
+      "median_holding_hours_from_decision": 53.33305555555555,
+      "net_usd": -782.1599999999999,
+      "net_without_largest_winner_usd": -942.2399999999999,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 181.11999999999898,
+        "VALIDATION": 206.72000000000116
+      },
+      "pre_overhead_net_usd": 387.84000000000015,
+      "pre_overhead_usd_per_calendar_day": 0.66297435897436,
+      "profit_factor_before_shared_overhead": 5.710798008016525,
+      "source": "evidence/roadmap9/research/STRESS_H2_GAP_ACCEPT.json.gz",
+      "top5_winners_sum_usd": 452.77000000000055,
+      "wins": 7
+    },
+    "STRESS:H2_GAP_SECTOR": {
+      "average_notional_fraction_of_initial_capital": 0.0024129477981336958,
+      "average_notional_usd": 48.258955962673916,
+      "calendar_days": 585,
+      "campaigns": 6,
+      "clock_attribution": {
+        "commission_usd": 0.78,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 112.21400000000025,
+        "overnight_price_pnl_usd": 198.58599999999998,
+        "reconciled_net_usd": -859.9799999999998,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "STOP": 1,
+        "TIME": 5
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0.78,
+      "largest_winner_usd": 160.08000000000007,
+      "losses": 1,
+      "mean_holding_hours_from_decision": 58.51361111111111,
+      "median_holding_hours_from_decision": 62.20805555555556,
+      "net_usd": -859.9799999999996,
+      "net_without_largest_winner_usd": -1020.0599999999996,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 149.9399999999987,
+        "VALIDATION": 160.08000000000175
+      },
+      "pre_overhead_net_usd": 310.02000000000044,
+      "pre_overhead_usd_per_calendar_day": 0.5299487179487185,
+      "profit_factor_before_shared_overhead": 8.272343420126685,
+      "source": "evidence/roadmap9/research/STRESS_H2_GAP_SECTOR.json.gz",
+      "top5_winners_sum_usd": 352.6500000000002,
+      "wins": 5
+    },
+    "STRESS:H3_VALUE_PARTIAL": {
+      "average_notional_fraction_of_initial_capital": 0.008092203660622986,
+      "average_notional_usd": 161.84407321245973,
+      "calendar_days": 585,
+      "campaigns": 46,
+      "clock_attribution": {
+        "commission_usd": 5.22,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 1.82,
+        "intraday_and_execution_price_pnl_usd": -2.453200000000095,
+        "overnight_price_pnl_usd": 73.46319999999955,
+        "reconciled_net_usd": -1102.3900000000006,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "CONTINUATION_VALUE_NEGATIVE": 3,
+        "STOP": 15,
+        "TIME": 28
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 5.22,
+      "largest_winner_usd": 160.08000000000007,
+      "losses": 27,
+      "mean_holding_hours_from_decision": 46.61928743961352,
+      "median_holding_hours_from_decision": 49.20805555555555,
+      "net_usd": -1102.3899999999994,
+      "net_without_largest_winner_usd": -1262.4699999999996,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -153.61000000000058,
+        "VALIDATION": 221.22000000000116
+      },
+      "pre_overhead_net_usd": 67.61000000000058,
+      "pre_overhead_usd_per_calendar_day": 0.11557264957264868,
+      "profit_factor_before_shared_overhead": 1.1356459282145923,
+      "source": "evidence/roadmap9/research/STRESS_H3_VALUE_PARTIAL.json.gz",
+      "top5_winners_sum_usd": 349.87000000000023,
+      "wins": 19
+    },
+    "STRESS:H3_VALUE_TOTAL": {
+      "average_notional_fraction_of_initial_capital": 0.0014972496463719575,
+      "average_notional_usd": 29.94499292743915,
+      "calendar_days": 585,
+      "campaigns": 52,
+      "clock_attribution": {
+        "commission_usd": 5.779999999999999,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 115.90999999999912,
+        "overnight_price_pnl_usd": -2.359999999999985,
+        "reconciled_net_usd": -1062.230000000001,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {
+        "CONTINUATION_VALUE_TOTAL": 46,
+        "STOP": 2,
+        "TIME": 4
+      },
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 5.779999999999999,
+      "largest_winner_usd": 160.08000000000007,
+      "losses": 30,
+      "mean_holding_hours_from_decision": 4.986901709401709,
+      "median_holding_hours_from_decision": 1.0830555555555557,
+      "net_usd": -1062.2299999999996,
+      "net_without_largest_winner_usd": -1222.3099999999997,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": -172.41999999999825,
+        "VALIDATION": 280.1899999999987
+      },
+      "pre_overhead_net_usd": 107.77000000000044,
+      "pre_overhead_usd_per_calendar_day": 0.18422222222222057,
+      "profit_factor_before_shared_overhead": 1.3675648021828064,
+      "source": "evidence/roadmap9/research/STRESS_H3_VALUE_TOTAL.json.gz",
+      "top5_winners_sum_usd": 309.9800000000005,
+      "wins": 22
+    },
+    "STRESS:PRICE_ONLY24": {
+      "average_notional_fraction_of_initial_capital": 0.0,
+      "average_notional_usd": 0.0,
+      "calendar_days": 585,
+      "campaigns": 0,
+      "clock_attribution": {
+        "commission_usd": 0,
+        "common_overhead_usd": 1170,
+        "dividends_usd": 0,
+        "intraday_and_execution_price_pnl_usd": 0.0,
+        "overnight_price_pnl_usd": 0.0,
+        "reconciled_net_usd": -1170.0,
+        "scope": "Gap PnL uses inventory held before the session open. Residual includes intraday prices and modeled spread/slippage/stop execution; it is not pure intraday alpha."
+      },
+      "exit_reasons": {},
+      "exposure_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+      "exposure_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+      "fees_usd": 0,
+      "largest_winner_usd": null,
+      "losses": 0,
+      "mean_holding_hours_from_decision": null,
+      "median_holding_hours_from_decision": null,
+      "net_usd": -1170,
+      "net_without_largest_winner_usd": -1170,
+      "overhead_usd": 1170,
+      "phase_pre_overhead_net_usd": {
+        "TEST": 0,
+        "VALIDATION": 0
+      },
+      "pre_overhead_net_usd": 0,
+      "pre_overhead_usd_per_calendar_day": 0.0,
+      "profit_factor_before_shared_overhead": null,
+      "source": "evidence/roadmap9/research/STRESS_PRICE_ONLY24.json.gz",
+      "top5_winners_sum_usd": 0,
+      "wins": 0
+    }
+  },
+  "created_at": "2026-11-04",
+  "data_support": {
+    "broader_archive": {
+      "hourly_year": 2025,
+      "limitations": [
+        "Equity IEX rather than SIP, no hourly2026 retained.",
+        "BTC missing2025-06-28T12:00Z; ETH missing2025-10-25T08:00Z.",
+        "BTC215 and ETH618 zero-volume hourly bars; no imputation justified.",
+        "Corporate-action book only AAPL/MSFT/XLK; do not cross unverified raw-price unit breaks."
+      ],
+      "path": "research/multiasset8/raw/",
+      "symbols_crypto": [
+        "BTC/USD",
+        "ETH/USD"
+      ],
+      "symbols_equity": [
+        "AAPL",
+        "MSFT",
+        "SPY",
+        "QQQ",
+        "IWM",
+        "XLE",
+        "XLF",
+        "XLK",
+        "XLV"
+      ]
+    },
+    "narrow_five_minute_panel": {
+      "availability": "modeled end+1second, not original receipt attestation",
+      "bars": 124182,
+      "path": "evidence/residual_30_18_0/data/research_dataset.json",
+      "sha256": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530",
+      "symbols": [
+        "AAPL",
+        "MSFT",
+        "XLK"
+      ]
+    }
+  },
+  "external_review_completed": false,
+  "financial_acceptance_allowed": false,
+  "findings": [
+    "All six Roadmap9 candidates rejected; none establishes 8/10 profitability.",
+    "Archived continuation pre-overhead contribution 530.58USD is below 585USD actual calendar overhead model; old session-only overhead understated elapsed expense.",
+    "Causal base pre-overhead contribution falls to121.58USD versus530.58USD archived control; shifts in selection, quantities and exposure preclude single-cause attribution.",
+    "H3 total median hold ~1.083h,46of52 exits by continuation value; one161.38USD winner supplies90.70percent of177.92USD pre-overhead contribution.",
+    "MSE raw deadline forecasts exceed zero reference by~6.01/9.39/10.50percent at24/48/72h.",
+    "Net campaign payoff, actual stop/partial-exit contract and capital occupancy are unaligned with old gross deadline label. New preregistered cycle should isolate that hypothesis without increasing risk caps."
+  ],
+  "frozen_results_sha256": {
+    "evidence/roadmap9/research/NOMINAL_ARCHIVED_CONTINUATION.json.gz": "d6cd0183d9bc5cc5c6d93c023e64d2ab9e8eb4b2fb904b736c14e604e5fe57fb",
+    "evidence/roadmap9/research/NOMINAL_BASE_CONTINUATION.json.gz": "7447c56e521eccccbaedcf2df26f99ed68a20ef3c40749698b0911e30ebb2036",
+    "evidence/roadmap9/research/NOMINAL_CASH.json.gz": "42b02f2d1df29a5255080fc6f96caf13d8d384faebaa6fba05ce08dac051d380",
+    "evidence/roadmap9/research/NOMINAL_H1_CLOCK24.json.gz": "20fb49dbf20da83cdbe948e6b063e153d873a9efc544b5d4bbd46ede399978c3",
+    "evidence/roadmap9/research/NOMINAL_H1_CLOCK_HORIZON.json.gz": "e359aa1188974414ca01ce608d459e55a266662ad2d424858afe92722d1da028",
+    "evidence/roadmap9/research/NOMINAL_H2_GAP_ACCEPT.json.gz": "7247c864fc89fa6b0447fbdbe20770699cd5b4bbf8f7d3d2b55f5d720614a674",
+    "evidence/roadmap9/research/NOMINAL_H2_GAP_SECTOR.json.gz": "be7a9d0d32ab5fcb4f5a6fa8419eff582c49cc488adba63741faa28e06fffdf6",
+    "evidence/roadmap9/research/NOMINAL_H3_VALUE_PARTIAL.json.gz": "e212074677b038207a203dd3c15db4fafcc5d9cbea3aa04e88ef8656a2b04513",
+    "evidence/roadmap9/research/NOMINAL_H3_VALUE_TOTAL.json.gz": "f30315ef177d507a8cba4b3ff37243e3121f0888a9bc9e858f59474601106311",
+    "evidence/roadmap9/research/NOMINAL_PRICE_ONLY24.json.gz": "fe0fdb09716f8e37452857eb6c5ab7b83795b754461664744e27600c20e8b692",
+    "evidence/roadmap9/research/STRESS_ARCHIVED_CONTINUATION.json.gz": "6b09390bf97b77cbae08dd0475412f517ec52b0e0872e592381419156ed19883",
+    "evidence/roadmap9/research/STRESS_BASE_CONTINUATION.json.gz": "1a646fb5c714d8c49f42fa3480edd242bc2e102739cf34a95756173ec69840f9",
+    "evidence/roadmap9/research/STRESS_CASH.json.gz": "787436057222c538e2c5786011d01a01432273952edc4b68f0dc965a828d9703",
+    "evidence/roadmap9/research/STRESS_H1_CLOCK24.json.gz": "1e378f1e2008eafab8873627a9f1c5c5100280fef411d30c8ee78703618e9786",
+    "evidence/roadmap9/research/STRESS_H1_CLOCK_HORIZON.json.gz": "a30cc5213aedb642b2cb42a9e862baf654bcb83afc0affdd91509a0004a13b3f",
+    "evidence/roadmap9/research/STRESS_H2_GAP_ACCEPT.json.gz": "dd3bfb32bd118f83d213068f436851934700b853213e4769a0499b9616ee8e21",
+    "evidence/roadmap9/research/STRESS_H2_GAP_SECTOR.json.gz": "3eaa188c5714564b63c8fd15872b11e02888070b070344946445f034c92963a9",
+    "evidence/roadmap9/research/STRESS_H3_VALUE_PARTIAL.json.gz": "44c404cacb1aa43e9a17493752ef24d03889e74ac75c4c6def32b6b103f11162",
+    "evidence/roadmap9/research/STRESS_H3_VALUE_TOTAL.json.gz": "4b3d8de175f07fba278dd9733f24ad8f09952e61ba3f9d741ba3203219c9713a",
+    "evidence/roadmap9/research/STRESS_PRICE_ONLY24.json.gz": "dd2657d4b490897b134ccfeedc83a1b7cde19cb820003352668ffacf93763c82",
+    "evidence/roadmap9/research/accounting_audit.json": "c3898f2c1fe90a4814a533c7463b6d119676f0f8fb1f6ea31dbd56afe1163776",
+    "evidence/roadmap9/research/data_scope.json": "661b87e227968c13a0c15d4d3d133875933c36c773514507ed51e7a537752164",
+    "evidence/roadmap9/research/forecast_diagnostics.json": "824c96264a7b3c2fa22fb8a2776e41d8266c731860bbdcf3bfe7813c7ac382aa",
+    "evidence/roadmap9/research/results.json": "fd0e5ab1de9fd8038aca3d8a5b49694e2c6beedd7971d6999106e04f8c3ea06e"
+  },
+  "new_backtests": 0,
+  "new_recipes": 0,
+  "period": [
+    "2025-03-11",
+    "2026-10-16"
+  ],
+  "prior_remote_studies": {
+    "multiasset8": {
+      "nominal_joint_net_usd": -1867.3882665,
+      "note": "Already evaluated broad universe, simple momentum/inverse volatility, 2h holds; not a new swing candidate.",
+      "source": "https://github.com/blyat-enterteiment/HarpoonX/blob/023d6b52128b4adb54a261adcb36e9225e7fa940/evidence/multiasset8/run_01/report.json",
+      "stress_joint_net_usd": -3781.7297786
+    },
+    "swing8": {
+      "nominal_gap_net_usd": -81.1340225,
+      "note": "Existing 2025 24-72h gap/breakout/retest cycle; extension2026 had data timeouts, action coverage incomplete.",
+      "source": "https://github.com/blyat-enterteiment/HarpoonX/blob/023d6b52128b4adb54a261adcb36e9225e7fa940/evidence/swing8/run_01/report.json",
+      "stress_gap_net_usd": -556.88915
+    }
+  },
+  "schema": "HARPOON_PROFIT8_PRIOR_STATE_DESCRIPTIVE_AUDIT_1",
+  "scope": "Read-only descriptive aggregation of frozen prior accounts; no strategy replay, fit, parameter change or new recipe measurement. Prior artifacts remain unchanged.",
+  "sessions": 404
+}

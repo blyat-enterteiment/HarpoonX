@@ -1,0 +1,36 @@
+✔ disabled new options preserve the frozen replay byte for byte (28.222119ms)
+✔ two teacher bases reproduce quantities 1..12: TIME, 24h (3.336007ms)
+✔ two teacher bases reproduce quantities 1..12: ONE_TARGET, 24h (1.890784ms)
+✔ two teacher bases reproduce quantities 1..12: TWO_TARGETS, 24h (1.745925ms)
+✔ two teacher bases reproduce quantities 1..12: STOP, 24h (0.538249ms)
+✔ two teacher bases reproduce quantities 1..12: TRAIL, 24h (2.306609ms)
+✔ two teacher bases reproduce quantities 1..12: GAP_STOP, 24h (2.16113ms)
+✔ two teacher bases reproduce quantities 1..12: DIVIDEND_AFTER_PARTIAL, 24h (2.110133ms)
+✔ two teacher bases reproduce quantities 1..12: TIME, 72h (6.466073ms)
+✔ two teacher bases reproduce quantities 1..12: ONE_TARGET, 72h (2.565949ms)
+✔ two teacher bases reproduce quantities 1..12: TWO_TARGETS, 72h (2.361682ms)
+✔ two teacher bases reproduce quantities 1..12: STOP, 72h (0.338099ms)
+✔ two teacher bases reproduce quantities 1..12: TRAIL, 72h (0.652852ms)
+✔ two teacher bases reproduce quantities 1..12: GAP_STOP, 72h (0.717569ms)
+✔ two teacher bases reproduce quantities 1..12: DIVIDEND_AFTER_PARTIAL, 72h (2.174711ms)
+✔ gross deadline and net policy targets share cohort maturity even after early STOP (0.337137ms)
+✔ common IOC is independent of quantity and future opening (12.571905ms)
+✔ missing observations and unmodeled split remain blocked, never zero labels (1.694599ms)
+✔ H2 selects positive net qMax without a second trading cost hurdle (0.43205ms)
+✔ H3 enumerates integer lot discontinuities, can choose q3 and can stay in cash (0.528755ms)
+✔ H3 objective uses USD variance and expected squared payoff at fixed rho1 (0.20565ms)
+✔ forecast units, chronology and PSD failures cannot silently trade (1.073975ms)
+✔ committed worst-price reservations allow sequential allocation without early release (12.718646ms)
+✔ terminal admission follows each calendar horizon instead of a blanket72h cutoff (3.529438ms)
+✔ common IOC sizing includes rounded stop, cash and modeled fill verification (9.471133ms)
+✔ new branch rejects raised or omitted limits and unregistered clocks and exits (0.902597ms)
+✔ calendar closure shortens 24h cohort without extending original deadline (0.635966ms)
+✔ bridge preserves target flags and continuous-account summary with explicit limits (34.638638ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 245.247908

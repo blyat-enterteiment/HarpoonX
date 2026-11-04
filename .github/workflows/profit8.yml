@@ -1,0 +1,65 @@
+name: PROFIT8 frozen economic research
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/profit8/**'
+      - 'quant/tests/test_profit8*'
+      - 'runtime30/profit8_replay.js'
+      - 'tools/*profit8*'
+      - 'research/profit8/**'
+      - 'evidence/profit8/**'
+      - '.github/workflows/profit8.yml'
+  pull_request:
+    paths:
+      - 'quant/harpoon_quant/profit8/**'
+      - 'quant/tests/test_profit8*'
+      - 'runtime30/profit8_replay.js'
+      - 'tools/*profit8*'
+      - 'research/profit8/**'
+      - 'evidence/profit8/**'
+      - '.github/workflows/profit8.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  profit8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: quant:tools
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: quant/requirements-roadmap9.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: python -m pip install -r quant/requirements-roadmap9.txt
+      - run: python -m pip install ruff==0.17.0 mypy==2.4.0
+      - name: Static analysis and type contracts of new components
+        run: |
+          ruff check quant/harpoon_quant/profit8 tools/*profit8*.py quant/tests/test_profit8*.py
+          mypy --no-incremental --cache-dir /tmp/profit8-mypy --ignore-missing-imports --follow-imports silent quant/harpoon_quant/profit8 tools/*profit8*.py
+      - name: Causal model and independent accounting fixtures
+        run: python -B -m unittest discover -s quant/tests -p 'test_profit8*.py'
+      - name: Native payoff basis, IOC, reservation and sizing fixtures
+        run: node --test tools/profit8_replay_test.cjs
+      - name: Frozen source integrity
+        run: python -c 'from run_profit8 import verify_freeze; print(len(verify_freeze()["sources"]))'
+      - name: Reconstruct exact dataset and independently audit all retained accounts
+        if: ${{ hashFiles('evidence/profit8/run_01/results.json') != '' }}
+        run: |
+          python tools/prepare_profit8_extension.py --protocol research/profit8/protocol.json --raw-dir evidence/profit8/raw --output-dir evidence/profit8/data
+          python tools/verify_profit8.py --directory evidence/profit8/run_01 --output /tmp/profit8-audit.json
+      - name: Keep independent audit receipt
+        if: ${{ hashFiles('evidence/profit8/run_01/results.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: profit8-independent-audit
+          path: /tmp/profit8-audit.json
+          if-no-files-found: error
