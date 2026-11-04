@@ -51,10 +51,9 @@ jobs:
         run: node --test tools/profit8_replay_test.cjs
       - name: Frozen source integrity
         run: python -c 'from run_profit8 import verify_freeze; print(len(verify_freeze()["sources"]))'
-      - name: Reconstruct exact dataset and independently audit all retained accounts
+      - name: Independently audit retained data and all accounts
         if: ${{ hashFiles('evidence/profit8/run_01/results.json') != '' }}
         run: |
-          python tools/prepare_profit8_extension.py --protocol research/profit8/protocol.json --raw-dir evidence/profit8/raw --output-dir evidence/profit8/data
           python tools/verify_profit8.py --directory evidence/profit8/run_01 --output /tmp/profit8-audit.json
       - name: Keep independent audit receipt
         if: ${{ hashFiles('evidence/profit8/run_01/results.json') != '' }}

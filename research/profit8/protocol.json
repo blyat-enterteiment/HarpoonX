@@ -9,6 +9,13 @@
     "same_net_snapshots": true,
     "scope": "sequential conditional campaign sizing, not global joint optimum"
   },
+  "amendment": {
+    "before_any_new_economic_measurement": true,
+    "economic_parameters_unchanged": true,
+    "id": "A01_DATA_ACCESS_FAILURE",
+    "prior_source_commit": "6074020387f1de403a78c38459e6db17670ba30b",
+    "record": "research/profit8/amendment_A01.json"
+  },
   "base_dataset": "evidence/residual_30_18_0/data/research_dataset.json",
   "base_dataset_sha256": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530",
   "budget": {
@@ -16,6 +23,8 @@
     "complete_accounts": 20,
     "conservatively_counted_recent_partitions": 20,
     "controls": 4,
+    "documented_spent_after_if_matrix_completed": 85,
+    "extension_partition_measurements_executed": 0,
     "global_history_complete": false,
     "inherited_reported_spent": 65,
     "limit": 128,
@@ -26,7 +35,8 @@
     "reserved_after": 105,
     "scenarios": 2,
     "stopping": "Run whole matrix once. Implementation defects documented with invalidated evidence; no winner-based revisions.",
-    "teachers_are_labels_not_policy_trials": true
+    "teachers_are_labels_not_policy_trials": true,
+    "unused_recent_partition_reservation": 20
   },
   "candidates": [
     "H1_REVERSAL24",
@@ -55,9 +65,11 @@
       "2026-11-03"
     ],
     "currency": "USD",
+    "effective_evaluation_source": "Retained original SIP corpus through2026-10-16; no recent prices acquired",
     "extension_end": "2026-11-03",
     "extension_start": "2026-10-17",
-    "failure": "DATA_BLOCKED, no silent fallback to shorter evaluated period",
+    "extension_status": "BLOCKED_PROVIDER_TIMEOUT",
+    "failure": "Retain original blocked attempt. This explicit preregistered amendment authorizes only retained data; no silent fallback.",
     "feed": "sip",
     "grid": "All received calendar RTH5min slots; no imputation; old prefix unchanged",
     "price_adjustment": "Tool lacks adjustment parameter; endpoint raw default assumed, not certified",
@@ -65,7 +77,9 @@
     "requests_count": 3,
     "timeframe": "5Min"
   },
-  "dataset": "evidence/profit8/data/research_dataset.json",
+  "data_audit": "evidence/residual_30_18_0/data/data_audit.json",
+  "data_mode": "RETAINED_EXISTING",
+  "dataset": "evidence/residual_30_18_0/data/research_dataset.json",
   "decision": {
     "at": "session open+60minutes+1second",
     "common_ioc_buffer_fraction": 0.003,
@@ -126,7 +140,7 @@
   "holding_maximum_hours": 72,
   "limitations": [
     "Two surviving traded names, reused history, modeled OHLCV execution.",
-    "Extension downloaded after freeze is historical, not prospective.",
+    "Current Alpaca connection timed out. No extension beyond2026-10-16 is admitted; all economic evidence in this cycle is reused historical data.",
     "No BBO/depth/auctions/options; corporate-action timing conditional.",
     "Same caps do not imply matched realized risk; taxes excluded."
   ],
@@ -153,12 +167,12 @@
   "origin": "HISTORICAL",
   "parent_commit": "023d6b52128b4adb54a261adcb36e9225e7fa940",
   "periods": {
-    "calendar_end": "2026-11-10",
-    "evaluation_end": "2026-11-03",
+    "calendar_end": "2026-10-23",
+    "evaluation_end": "2026-10-16",
     "evaluation_start": "2025-03-11",
-    "source_end": "2026-11-03",
+    "source_end": "2026-10-16",
     "source_start": "2024-09-01",
-    "test_end": "2026-11-03",
+    "test_end": "2026-10-16",
     "test_start": "2025-09-08",
     "train_end": "2025-03-05",
     "train_start": "2024-09-03",
@@ -167,10 +181,6 @@
   },
   "prior_study_immutable": true,
   "reporting_windows": {
-    "RECENT_RETROSPECTIVE_EXTENSION": {
-      "end": "2026-11-03",
-      "start": "2026-10-19"
-    },
     "REUSED_HISTORY": {
       "end": "2026-10-16",
       "start": "2025-03-11"
@@ -207,6 +217,7 @@
     }
   },
   "schema": "HARPOON_PROFIT8_RESEARCH_PROTOCOL_1",
+  "source_freeze": "research/profit8/source_freeze_retained.json",
   "sources": {
     "cost_aware_control": "https://www.nber.org/papers/w15205",
     "reversal": "https://www.newyorkfed.org/research/staff_reports/sr513.html"
@@ -226,7 +237,7 @@
     "minimum_closed_candidate_campaigns": 20,
     "minimum_sessions": 100,
     "primary_endpoint": "continuous compound account log growth after variable and UTC calendar costs",
-    "recent_extension": "Retrospective descriptive window in same account, no reset, not prospective",
+    "recent_extension": "BLOCKED_PROVIDER_TIMEOUT; zero recent-period observations or results",
     "reference_cash": "zero yield minus same overhead; bookkeeping only",
     "risk_check_scope": "Native event drawdown and session close-to-close loss; admission caps and every-event reservation diagnostics reported. This gate does not certify a per-mark daily-loss bound.",
     "risk_comparison": "same caps, exposure reported; no risk-equivalent alpha certification",

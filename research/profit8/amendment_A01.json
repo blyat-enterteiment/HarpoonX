@@ -1,0 +1,40 @@
+{
+  "amended_protocol_sha256": "39fff9e8e7518206dd90f6383583379ac2b2210922da931118804cdd25dc6640",
+  "automatic_fallback": false,
+  "before_any_new_economic_measurement": true,
+  "changed_scope": [
+    "source/evaluation endNov3->Oct16",
+    "dataset uses exact retained base SHA",
+    "new source freeze path",
+    "driver/CI explicitly admit retained data"
+  ],
+  "data_extension_status": "BLOCKED",
+  "evidence": [
+    "evidence/profit8/raw/AAPL.json",
+    "evidence/profit8/raw/MSFT.json",
+    "evidence/profit8/raw/XLK.json",
+    "evidence/profit8/raw/calendar.json",
+    "evidence/profit8/raw/corporate_actions.json",
+    "evidence/profit8/blocked_extension/calendar_retry1.json"
+  ],
+  "forecasts_executed": 0,
+  "funded_accounts_executed": 0,
+  "id": "A01_DATA_ACCESS_FAILURE",
+  "new_data_claim_allowed": false,
+  "original_protocol_sha256": "f24ca3adf524aeecbf7ddd9edbeb067648f955abab7e7da2010a7f93a9dab12f",
+  "prior_source_commit": "6074020387f1de403a78c38459e6db17670ba30b",
+  "reason": "Alpaca MCP endpoint unavailable:5initial requests and1boundedcalendar retry all timeout",
+  "recorded_at": "2026-11-04T18:14:57.064142+00:00",
+  "schema": "HARPOON_PROFIT8_PREREGISTERED_AMENDMENT_1",
+  "selection_on_outcomes": false,
+  "teachers_executed": 0,
+  "unchanged_scope": [
+    "six candidates,four controls,two scenarios",
+    "features,ridge,training/calibration/TTL/purge",
+    "capital20k,allrisklimits",
+    "IOC,exitpolicy,integerutilityrho1",
+    "variablecosts,calendaroverhead",
+    "48bootstrapendpoints,seed319,20kreplicates",
+    "no post-outcome retuning"
+  ]
+}

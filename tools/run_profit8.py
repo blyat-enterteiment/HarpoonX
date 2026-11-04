@@ -101,7 +101,7 @@ def freeze() -> dict[str, Any]:
                 sha(ROOT / key[5:]) == expected,
                 "PRIOR_SCIENTIFIC_SOURCE_CHANGED:" + key,
             )
-    path = ROOT / "research/profit8/source_freeze.json"
+    path = ROOT / protocol.get("source_freeze", "research/profit8/source_freeze.json")
     sources = {str(p.relative_to(ROOT)): sha(p) for p in source_files()}
     body = {
         "schema": "HARPOON_PROFIT8_SOURCE_FREEZE_1",
@@ -122,7 +122,10 @@ def freeze() -> dict[str, Any]:
 
 
 def verify_freeze() -> dict[str, Any]:
-    frozen = read(ROOT / "research/profit8/source_freeze.json")
+    protocol = read(ROOT / "research/profit8/protocol.json")
+    frozen = read(
+        ROOT / protocol.get("source_freeze", "research/profit8/source_freeze.json")
+    )
     for name, expected in frozen["sources"].items():
         require(sha(ROOT / name) == expected, "FROZEN_SOURCE_CHANGED:" + name)
     for name in ("protocol", "recipes"):
@@ -186,7 +189,7 @@ def markdown(
         "",
         f"Fuentes congeladas en `{source_commit}`. Cuenta inicial: 20.000 USD. Período continuo: {result['period'][0]} a {result['period'][1]}, {result['sessions']} sesiones. Sin retiros ni reinicios.",
         "",
-        "Son resultados históricos con ejecución modelada sobre barras SIP de cinco minutos. No acreditan rentabilidad real, ejecución de broker ni una calificación de 8/10. El histórico principal ya se había examinado. La extensión reciente también es retrospectiva.",
+        "Son resultados históricos con ejecución modelada sobre barras SIP de cinco minutos. No acreditan rentabilidad real, ejecución de broker ni una calificación de 8/10. El histórico principal ya se había examinado. La extensión reciente quedó bloqueada por indisponibilidad de Alpaca; no se midió ningún tramo nuevo.",
         "",
         "## Todos los resultados",
         "",
@@ -214,7 +217,6 @@ def markdown(
         "## Reproducción",
         "",
         "```bash",
-        "python tools/prepare_profit8_extension.py --protocol research/profit8/protocol.json --raw-dir evidence/profit8/raw --output-dir evidence/profit8/data",
         "PYTHONPATH=quant:tools python tools/verify_profit8.py --directory evidence/profit8/run_01 --output /tmp/profit8-audit.json",
         "```",
         "",
@@ -222,7 +224,7 @@ def markdown(
         "",
         "## Presupuesto y parada",
         "",
-        "Se registraron seis candidatos y cuatro controles por dos escenarios, además de reservar conservadoramente veinte lecturas de la extensión: 40 unidades nuevas; reserva documentada total 105/128. Se conservan también los rechazos del ciclo anterior. El historial global de intentos sigue incompleto.",
+        "Se registraron seis candidatos y cuatro controles en dos escenarios. La matriz utiliza 20 cuentas nuevas: 85 evaluaciones documentadas acumuladas. Se conservan 20 reservas sin utilizar para la extensión bloqueada, con reserva total de 105/128. Se conservan también los rechazos del ciclo anterior. El historial global de intentos sigue incompleto.",
         "",
         "No se ejecutan órdenes ni se despliega esta investigación. Una receta con resultado positivo sólo puede clasificarse como candidata diagnóstica si supera todos los filtros; la rentabilidad de producción requiere evidencia posterior y conciliación de ejecuciones reales.",
         "",
@@ -250,19 +252,38 @@ def run(directory: Path, source_commit: str) -> dict[str, Any]:
         (directory / (name + ".json")).write_bytes(
             (ROOT / f"research/profit8/{name}.json").read_bytes()
         )
-    data_audit_path = ROOT / "evidence/profit8/data/data_audit.json"
+    data_audit_path = ROOT / protocol.get(
+        "data_audit", "evidence/profit8/data/data_audit.json"
+    )
     data_audit = read(data_audit_path)
     require(data_audit.get("verified") is True, "ADMITTED_DATA_AUDIT_REQUIRED")
     captures = [
         read(p)["captured_at"]
         for p in sorted((ROOT / "evidence/profit8/raw").rglob("*.json"))
     ]
-    require(
-        len(captures) >= 5
-        and min(datetime.fromisoformat(c) for c in captures)
-        > datetime.fromisoformat(frozen["frozen_at"]),
-        "CAPTURE_MUST_FOLLOW_SOURCE_FREEZE",
-    )
+    if protocol.get("data_mode") == "RETAINED_EXISTING":
+        require(
+            protocol["amendment"]["before_any_new_economic_measurement"] is True,
+            "EXPLICIT_PRE_MEASUREMENT_AMENDMENT_REQUIRED",
+        )
+        require(
+            protocol["dataset"] == protocol["base_dataset"]
+            and sha(ROOT / protocol["dataset"]) == protocol["base_dataset_sha256"]
+            and data_audit["dataset_sha256"] == protocol["base_dataset_sha256"],
+            "RETAINED_DATA_IDENTITY_REQUIRED",
+        )
+        require(
+            protocol["data_admission"]["extension_status"]
+            == "BLOCKED_PROVIDER_TIMEOUT",
+            "EXTENSION_STATUS_MUST_REMAIN_BLOCKED",
+        )
+    else:
+        require(
+            len(captures) >= 5
+            and min(datetime.fromisoformat(c) for c in captures)
+            > datetime.fromisoformat(frozen["frozen_at"]),
+            "CAPTURE_MUST_FOLLOW_SOURCE_FREEZE",
+        )
     data_paths = [
         ROOT / protocol["dataset"],
         ROOT / protocol["base_dataset"],
@@ -276,7 +297,9 @@ def run(directory: Path, source_commit: str) -> dict[str, Any]:
         "protocol_sha256": frozen["protocol_sha256"],
         "recipes_sha256": frozen["recipes_sha256"],
         "source_commit": source_commit,
-        "source_freeze_sha256": sha(ROOT / "research/profit8/source_freeze.json"),
+        "source_freeze_sha256": sha(
+            ROOT / protocol.get("source_freeze", "research/profit8/source_freeze.json")
+        ),
     }
     write(directory / "source_bindings.json", bindings)
     log = directory / "journal.jsonl"
@@ -404,7 +427,9 @@ def run(directory: Path, source_commit: str) -> dict[str, Any]:
     runtime = {
         "schema": "HARPOON_PROFIT8_RUN_RECEIPT_1",
         "source_commit": source_commit,
-        "source_freeze_sha256": sha(ROOT / "research/profit8/source_freeze.json"),
+        "source_freeze_sha256": sha(
+            ROOT / protocol.get("source_freeze", "research/profit8/source_freeze.json")
+        ),
         "started_after_source_freeze": True,
         "finished_at": now(),
         "wall_seconds": time.perf_counter() - started,
