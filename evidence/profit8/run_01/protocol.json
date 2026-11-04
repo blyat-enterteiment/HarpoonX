@@ -1,0 +1,258 @@
+{
+  "allocation": {
+    "H1": "native maximum integer within caps",
+    "H2": "qMax if predicted net payoff(qMax)>0 else0",
+    "H3": "enumerate0..qMax; maximize m/E -0.5*(v+m*m)/E^2 -sqrt(meanVar)/E; tie smallerq",
+    "no_cost_double_subtraction": true,
+    "no_leverage_or_short": true,
+    "rho": 1.0,
+    "same_net_snapshots": true,
+    "scope": "sequential conditional campaign sizing, not global joint optimum"
+  },
+  "amendment": {
+    "before_any_new_economic_measurement": true,
+    "economic_parameters_unchanged": true,
+    "id": "A01_DATA_ACCESS_FAILURE",
+    "prior_source_commit": "6074020387f1de403a78c38459e6db17670ba30b",
+    "record": "research/profit8/amendment_A01.json"
+  },
+  "base_dataset": "evidence/residual_30_18_0/data/research_dataset.json",
+  "base_dataset_sha256": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530",
+  "budget": {
+    "candidate_recipes": 6,
+    "complete_accounts": 20,
+    "conservatively_counted_recent_partitions": 20,
+    "controls": 4,
+    "documented_spent_after_if_matrix_completed": 85,
+    "extension_partition_measurements_executed": 0,
+    "global_history_complete": false,
+    "inherited_reported_spent": 65,
+    "limit": 128,
+    "new_reserved": 40,
+    "no_hyperparameter_search": true,
+    "no_post_outcome_tuning": true,
+    "refits_within_fixed_recipe": true,
+    "reserved_after": 105,
+    "scenarios": 2,
+    "stopping": "Run whole matrix once. Implementation defects documented with invalidated evidence; no winner-based revisions.",
+    "teachers_are_labels_not_policy_trials": true,
+    "unused_recent_partition_reservation": 20
+  },
+  "candidates": [
+    "H1_REVERSAL24",
+    "H1_REVERSAL72",
+    "H2_NET24",
+    "H2_NET72",
+    "H3_ROBUST24",
+    "H3_ROBUST72"
+  ],
+  "controls": [
+    "CONT_POS24",
+    "CONT_POS72",
+    "GROSS_ALL24",
+    "GROSS_ALL72"
+  ],
+  "data_admission": {
+    "actions": "Effective dates conditional; process_date not ex_date completeness; no knownAt invented; unsupported affecting action blocks",
+    "asof": "2026-11-03",
+    "available_at": "bar end+1second modeled, not original received timestamp",
+    "calendar_window": [
+      "2026-10-17",
+      "2026-11-10"
+    ],
+    "corporate_action_window": [
+      "2026-10-01",
+      "2026-11-03"
+    ],
+    "currency": "USD",
+    "effective_evaluation_source": "Retained original SIP corpus through2026-10-16; no recent prices acquired",
+    "extension_end": "2026-11-03",
+    "extension_start": "2026-10-17",
+    "extension_status": "BLOCKED_PROVIDER_TIMEOUT",
+    "failure": "Retain original blocked attempt. This explicit preregistered amendment authorizes only retained data; no silent fallback.",
+    "feed": "sip",
+    "grid": "All received calendar RTH5min slots; no imputation; old prefix unchanged",
+    "price_adjustment": "Tool lacks adjustment parameter; endpoint raw default assumed, not certified",
+    "request_partition": "One symbol per complete interval, limit10000; narrow if truncated; at most2 targeted attempts per missing interval",
+    "requests_count": 3,
+    "timeframe": "5Min"
+  },
+  "data_audit": "evidence/residual_30_18_0/data/data_audit.json",
+  "data_mode": "RETAINED_EXISTING",
+  "dataset": "evidence/residual_30_18_0/data/research_dataset.json",
+  "decision": {
+    "at": "session open+60minutes+1second",
+    "common_ioc_buffer_fraction": 0.003,
+    "deadline": "24or72elapsedhours clipped to last executable RTH slot; calendar-only terminal admission",
+    "execution": "next5minute open",
+    "exit_policy": "Native CLOSED_CHANNEL BASELINE two25percent rounded-down partials plus protected remainder",
+    "quantity_budget_price": "common IOC limit, never future open",
+    "reference_price": "last completed bar close available at decision",
+    "reservation": "actual quantity times common IOC and per-share fee/risk; same rule for all new policies; unresolved reserves retained",
+    "terminal_cutoff": "Reject horizon if calendar deadline exceeds source-end close",
+    "tie_break": "rank descending then symbol ascending; H1/CONT choose strongest qualifying signed residual each day"
+  },
+  "entry_execution": "IOC_LIMIT_COMMON_CAUSAL_30BPS",
+  "financial_acceptance_allowed": false,
+  "forecast": {
+    "calibration_maximum_mse_ratio": 1.25,
+    "calibration_sessions": 20,
+    "features": [
+      "opening_return",
+      "sector_relative_return",
+      "gap_vol",
+      "volatility",
+      "previous_overnight",
+      "previous_intraday",
+      "residual_z",
+      "trend30",
+      "planned_holding_hours",
+      "overnight_gaps",
+      "symbol_is_msft"
+    ],
+    "fixed_costs": "Shared account calendar overhead once, outside targets",
+    "gross_calibration_target": "raw deadline return, MSE vs zero",
+    "gross_target": "(deadline_open-entry_open)/refPrice before policy exits/friction, zero if common IOC no-fill",
+    "hac_lag": 5,
+    "horizons_hours": [
+      24,
+      72
+    ],
+    "maximum_model_and_latest_label_age_hours": 168,
+    "minimum_earlier_training_sessions": 60,
+    "minimum_matured_sessions": 90,
+    "model_uncertainty": "daily-cluster HAC lag5 ridge sandwich approximation, coverage not certified",
+    "net_basis_order": [
+      "E",
+      "T"
+    ],
+    "net_calibration_target": "q4 normalized net=0.5(E+T), MSE vs zero",
+    "net_target": "T=Pnl(1)/refPrice; E=(Pnl(4)-2Pnl(1))/(2refPrice)",
+    "no_fill_labels": "0 marked NO_FILL; missing data BLOCKED/null",
+    "purge": "Full deadline cohort known_at even early stops/no-fill; calibration fit labels known before first calibration decision",
+    "quantity_identity": "Pnl(q)=refPrice*[2floor(q/4)E+(q-2floor(q/4))T]",
+    "refit_elapsed_hours": 120,
+    "ridge_lambda": 10.0,
+    "standardization": "TRAIN only, intercept unpenalized",
+    "training_sessions": 126,
+    "warmup": "90past residual observations then90matured forecast sessions; all calendar costs charged while abstaining"
+  },
+  "holding_maximum_hours": 72,
+  "limitations": [
+    "Two surviving traded names, reused history, modeled OHLCV execution.",
+    "Current Alpaca connection timed out. No extension beyond2026-10-16 is admitted; all economic evidence in this cycle is reused historical data.",
+    "No BBO/depth/auctions/options; corporate-action timing conditional.",
+    "Same caps do not imply matched realized risk; taxes excluded."
+  ],
+  "limits": {
+    "assetFraction": 0.12,
+    "capitalUsd": 20000,
+    "dailyLoss": 0.02,
+    "grossFraction": 0.12,
+    "maxDrawdown": 0.08,
+    "openRiskFraction": 0.0025,
+    "riskFraction": 0.0025
+  },
+  "live_approved": false,
+  "matched_control": {
+    "H1_REVERSAL24": "CONT_POS24",
+    "H1_REVERSAL72": "CONT_POS72",
+    "H2_NET24": "GROSS_ALL24",
+    "H2_NET72": "GROSS_ALL72",
+    "H3_ROBUST24": "H2_NET24",
+    "H3_ROBUST72": "H2_NET72"
+  },
+  "native_control": "NATIVE_HISTORICAL_ULTIMATE_PROFIT8",
+  "objective": "Test realizable net policy-payoff forecasts and discrete sizing without increasing risk. 8/10 is an economic goal, not an observed score.",
+  "origin": "HISTORICAL",
+  "parent_commit": "023d6b52128b4adb54a261adcb36e9225e7fa940",
+  "periods": {
+    "calendar_end": "2026-10-23",
+    "evaluation_end": "2026-10-16",
+    "evaluation_start": "2025-03-11",
+    "source_end": "2026-10-16",
+    "source_start": "2024-09-01",
+    "test_end": "2026-10-16",
+    "test_start": "2025-09-08",
+    "train_end": "2025-03-05",
+    "train_start": "2024-09-03",
+    "validation_end": "2025-09-05",
+    "validation_start": "2025-03-11"
+  },
+  "prior_study_immutable": true,
+  "reporting_windows": {
+    "REUSED_HISTORY": {
+      "end": "2026-10-16",
+      "start": "2025-03-11"
+    }
+  },
+  "residual": {
+    "beta_bounds": [
+      0,
+      2
+    ],
+    "lookback_sessions": 126,
+    "margin_buffer_bps": 5,
+    "maximum_absolute_z": 8,
+    "maximum_model_and_observation_age_hours": 168,
+    "method": "OLS stock first60min on XLK first60min, past decisions only; same residual_z feature",
+    "minimum_sessions": 90,
+    "minimum_sigma": 1e-06,
+    "refit_elapsed_hours": 120,
+    "roundtrip_hurdle": "0.5*abs(residual-mu) > (spread+2slippage)/10000+2fee/refPrice+5bps",
+    "threshold_z": 1.5
+  },
+  "scenarios": {
+    "NOMINAL": {
+      "commission_usd_per_share_per_side": 0.005,
+      "external_cost_usd_per_calendar_day": 1.0,
+      "slippage_bps": 2.0,
+      "spread_bps": 2.0
+    },
+    "STRESS": {
+      "commission_usd_per_share_per_side": 0.01,
+      "external_cost_usd_per_calendar_day": 2.0,
+      "slippage_bps": 4.0,
+      "spread_bps": 4.0
+    }
+  },
+  "schema": "HARPOON_PROFIT8_RESEARCH_PROTOCOL_1",
+  "source_freeze": "research/profit8/source_freeze_retained.json",
+  "sources": {
+    "cost_aware_control": "https://www.nber.org/papers/w15205",
+    "reversal": "https://www.newyorkfed.org/research/staff_reports/sr513.html"
+  },
+  "statistics": {
+    "block_lengths": [
+      5,
+      20
+    ],
+    "bootstrap_replicates": 20000,
+    "concentration_gate": "net positive after exclusion of largest winner in both scenarios; report top5 too",
+    "concentration_scope": "Arithmetic subtraction from observed account PnL with fixed overhead retained, not a counterfactual compounded replay",
+    "confidence": 0.95,
+    "decision": "REJECT if net<=0 either scenario or risk violation; INSUFFICIENT_EVIDENCE if support/concentration/bootstrap fail; else DIAGNOSTIC_CANDIDATE, no live promotion",
+    "endpoint_count_detail": "6candidates*2scenarios*2endpoints(absolute,matched)*2blocklengths",
+    "global_search_correction_complete": false,
+    "minimum_closed_candidate_campaigns": 20,
+    "minimum_sessions": 100,
+    "primary_endpoint": "continuous compound account log growth after variable and UTC calendar costs",
+    "recent_extension": "BLOCKED_PROVIDER_TIMEOUT; zero recent-period observations or results",
+    "reference_cash": "zero yield minus same overhead; bookkeeping only",
+    "risk_check_scope": "Native event drawdown and session close-to-close loss; admission caps and every-event reservation diagnostics reported. This gate does not certify a per-mark daily-loss bound.",
+    "risk_comparison": "same caps, exposure reported; no risk-equivalent alpha certification",
+    "seed": 319,
+    "simultaneous_endpoint_count": 48,
+    "unseen_holdout": false
+  },
+  "study": "PROFIT8_20261104",
+  "traded_universe": [
+    "AAPL",
+    "MSFT"
+  ],
+  "universe": [
+    "AAPL",
+    "MSFT",
+    "XLK"
+  ]
+}
