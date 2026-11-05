@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from .core import FEATURES, ORIGINS, Config, digest, finite, timestamp
+from .feature_policy import declared_order
 
 
 def instrument_metadata(meta: dict[str, Any]) -> dict[str, Any]:
@@ -96,6 +97,7 @@ def fit(
         return fit_scalar_svr(data, available_at, cfg)
     if estimator != "ridge":
         raise ValueError("UNKNOWN_CALIBRATION_ESTIMATOR")
+    declared_order(data, FEATURES)
     origin = data["origin"]
     when = timestamp(available_at)
     if origin not in ORIGINS:
@@ -106,6 +108,7 @@ def fit(
         raise ValueError("CALIBRATION_100_DISTINCT_SESSIONS_REQUIRED")
     seen = set()
     for r in rows:
+        declared_order(r, FEATURES)
         if r["session"] != timestamp(r["at"]).date().isoformat():
             raise ValueError("UTC_SESSION_LABEL_REQUIRED")
         key = r["underlying"], r["at"]

@@ -17,7 +17,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "action",
-        choices=["fit", "allocate", "worker", "context", "metrics", "optimize", "observe", "verify-gate"],
+        choices=["fit", "allocate", "worker", "context", "metrics", "optimize", "observe", "verify-gate", "technical-swing"],
     )
     parser.add_argument("--input", type=Path)
     parser.add_argument("--model", type=Path)
@@ -36,7 +36,15 @@ def main() -> None:
         data = (
             json.loads(args.input.read_text()) if args.input else json.load(sys.stdin)
         )
-        if args.action == "verify-gate":
+        if args.action == "technical-swing":
+            from .core import timestamp
+            from .technical_swing import TechnicalSwing
+
+            if not args.available_at:
+                raise ValueError("TECHNICAL_DECISION_TIMESTAMP_REQUIRED")
+            panel = TechnicalSwing(data["dataset"], data["symbols"], data["benchmark"])
+            result = panel.decision(round(timestamp(args.available_at).timestamp() * 1000))
+        elif args.action == "verify-gate":
             from .economic_gate import verify_gate_report
 
             result = verify_gate_report(

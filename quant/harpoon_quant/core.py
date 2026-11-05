@@ -12,6 +12,8 @@ import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
 from scipy.special import ndtr
 
+from .feature_policy import declared_order
+
 FEATURES = (
     "momentum_1",
     "momentum_3",
@@ -495,6 +497,7 @@ def predict(
 def allocate(
     request: dict[str, Any], calibration: dict[str, Any], cfg: Config
 ) -> dict[str, Any]:
+    declared_order(request, FEATURES)
     when = request["asof"]
     now = timestamp(when)
     origin = calibration.get("origin")
@@ -563,6 +566,7 @@ def allocate(
     held = request.get("holdings", [])
     for c in [*held, *candidates]:
         try:
+            declared_order(c, FEATURES)
             if c.get("currency", "USD") != "USD":
                 raise ValueError("FX_CONVERSION_REQUIRED")
             if (

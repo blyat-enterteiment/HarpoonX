@@ -9,6 +9,8 @@ from sklearn.svm import SVR, OneClassSVM
 
 from .calibration import block_lower
 from .core import digest, finite, timestamp
+from .feature_policy import named_subset
+from .microstructure import FEATURE_NAMES
 
 
 def matrix(rows: list[dict[str, Any]], names: list[str]) -> np.ndarray:
@@ -99,6 +101,7 @@ def fit_support(data: dict[str, Any], available_at: str) -> dict[str, Any]:
         raise ValueError("SUPPORT_ORIGIN")
     rows = sorted(data["rows"], key=lambda r: timestamp(r["at"]))
     names = data["feature_names"]
+    named_subset(names, FEATURE_NAMES)
     if not 120 <= len(rows) <= 5000:
         raise ValueError("SUPPORT_120_TO_5000_ROWS")
     days = sorted({timestamp(r["at"]).date().isoformat() for r in rows})
@@ -262,6 +265,7 @@ def evaluate_support(
         "artifact_hash"
     ) != digest({k: v for k, v in model.items() if k != "artifact_hash"}):
         raise ValueError("SUPPORT_ARTIFACT_INTEGRITY")
+    named_subset(model["feature_names"], FEATURE_NAMES)
     age = (timestamp(asof) - timestamp(model["available_at"])).total_seconds()
     if (
         not 0 < age <= 30 * 86400

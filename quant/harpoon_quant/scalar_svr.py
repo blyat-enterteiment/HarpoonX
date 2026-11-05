@@ -18,6 +18,7 @@ import numpy as np
 
 from .calibration import block_lower, instrument_metadata, output, ridge
 from .core import FEATURES, ORIGINS, Config, digest, finite, timestamp
+from .feature_policy import declared_order
 
 SCHEMA = "HARPOON_QUANT_CALIBRATION_2"
 MODEL_KIND = "SVR_RBF"
@@ -217,6 +218,7 @@ def _panel(
     seen = set()
     counts: dict[str, int] = defaultdict(int)
     for original in raw_rows:
+        declared_order(original, FEATURES)
         row = dict(original)
         name = row["underlying"]
         if not isinstance(name, str) or not name or len(name) > 64:
