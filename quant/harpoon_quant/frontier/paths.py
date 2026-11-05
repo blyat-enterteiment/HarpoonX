@@ -44,6 +44,12 @@ def validate_paths(sample: dict[str, Any], n: int, d: int) -> None:
     )
 
 
+def price_sample(row: dict[str, Any]) -> dict[str, Any]:
+    fields = ("id", "start_at", "label_end", "known_at", "features_known_at", "source_hash",
+              "schedule", "features", "ohlc")
+    return {name: row[name] for name in fields}
+
+
 def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, Any]:
     require(dataset.get("schema") == "HARPOON_JOINT_PATH_DATASET_1", "DATASET_SCHEMA")
     require(
@@ -108,10 +114,8 @@ def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, 
         "location": location.tolist(),
         "scale": scale.tolist(),
         "inverse_metric": inverse.tolist(),
-        "samples": [
-            {k: row[k] for k in ("id", "start_at", "label_end", "known_at", "features_known_at", "source_hash", "schedule", "features", "ohlc")}
-            for row in rows
-        ],
+        "forecast_basis": "PRICE_PATH_ONLY",
+        "samples": [price_sample(row) for row in rows],
         "dataset_hash": digest(dataset),
         "corporate_actions_covered": dataset["corporate_actions_covered"],
         "uncertainty_scope": "EMPIRICAL_CONDITIONAL_ANALOGUES_NOT_GUARANTEED_COVERAGE",
