@@ -12,9 +12,6 @@ from harpoon_quant.frontier.paths import predict as path_predict
 from harpoon_quant.frontier_core import shadow
 from harpoon_quant.microstructure import FEATURE_NAMES
 from harpoon_quant.technical_swing import BAR, TechnicalSwing
-from test_frontier_core import fixture
-from test_quant import calibration, candidate, request
-from test_scalar_svr import FIXTURE
 
 
 def market() -> dict:
@@ -109,6 +106,9 @@ class SwingTests(unittest.TestCase):
 
 class InputPolicyTests(unittest.TestCase):
     def test_renamed_columns_block_ridge_svr_and_allocation(self):
+        from test_quant import calibration, candidate, request
+        from test_scalar_svr import FIXTURE
+
         f = FIXTURE.build_fixture()
         bad = [*FEATURES[:-1], "earnings_surprise"]
         for estimator in ("ridge", "svr"):
@@ -131,6 +131,8 @@ class InputPolicyTests(unittest.TestCase):
         self.assertIn("TECHNICAL_FEATURE_ORDER", result["rejected"][c["id"]])
 
     def test_imported_models_and_context_contracts(self):
+        from test_frontier_core import fixture
+
         data, at, state = fixture()
         cfg = Settings()
         model = path_fit(data, at, cfg)
@@ -153,6 +155,8 @@ class InputPolicyTests(unittest.TestCase):
                 call()
 
     def test_dividend_scenarios_cannot_buy_a_losing_tape(self):
+        from test_frontier_core import fixture
+
         data, at, state = fixture(trend=-0.0005)
         cfg = Settings()
         for sample in data["samples"]:
