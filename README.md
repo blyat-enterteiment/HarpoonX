@@ -2,6 +2,8 @@
 
 [Framework técnico cuantitativo de swing](docs/FRAMEWORK_TECNICO_QUANT.md). Incluye el contrato de predictores técnicos, una regla de ruptura a 72 horas, controles de riesgo y seis cuentas históricas conciliadas. La regla quedó rechazada bajo costes de estrés.
 
+[Cartera técnica compuesta y ruta al nivel 8](docs/CARTERA_TECNICA_COMPUESTA.md). Clasificación por referencia sectorial, atribución por clase y ocho cuentas históricas con límites comunes.
+
 **Entrega actual de I+D:** [núcleo de trayectorias, inventario y supervisor](FRONTIER_CORE_RD.md),
 con [framework de planificación de USD 5 millones](programme/frontier/FRAMEWORK_RD_5M.md),
 modelos reconstruibles y comprobaciones de ingeniería. Opera en investigación/shadow;
