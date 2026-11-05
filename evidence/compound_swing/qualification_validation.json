@@ -1,29 +1,33 @@
 {
   "benchmark": {
-    "draws_per_scenario_per_block": 20000,
-    "elapsed_seconds": 0.40844010299997535,
-    "live_latency_claim": false,
+    "core_account_audits": 8,
+    "elapsed_seconds": 0.5572854020001614,
     "new_strategy_measurements": 0,
-    "scope": "single cached offline run, includes eight account reconciliation and paired block resampling"
+    "scope": "one offline review including repeated ledger verification and paired bootstrap, not a production latency percentile",
+    "unchanged_economic_diagnostic": true
   },
   "checks": {
     "decimal_ledger": {
       "accounts": 8,
       "verified": true
     },
+    "framework_integration_tests": {
+      "passed": 10,
+      "scope": "actual Python API, CLI and Node worker with identical semantic receipts, strict JSON, Decimal context isolation, all eight funded books and four operations"
+    },
     "full_quant_suite": {
       "command": "PYTHONPATH=quant OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest discover -s quant/tests",
-      "elapsed_seconds": 122.966,
+      "elapsed_seconds": 95.605,
       "failed": 0,
-      "passed": 876
+      "passed": 886
     },
     "mypy": {
-      "source_files": 3,
+      "source_files": 6,
       "status": "PASS"
     },
-    "new_regression_tests": {
-      "passed": 12,
-      "scope": "dividend attribution, false evidence, altered bytes, durations, risk and CLI rejection"
+    "node_syntax": "PASS",
+    "qualification_regressions": {
+      "passed": 12
     },
     "ruff": "PASS"
   },
@@ -35,13 +39,17 @@
   },
   "level8_accredited": false,
   "limitations": [
-    "Local tests and self-review are not independent validation.",
-    "Historical inputs are reused and execution modeled.",
-    "A single timing is not a latency percentile benchmark."
+    "Self-review and CI are not independent economic validation.",
+    "Historical inputs are reused and fills modeled.",
+    "Core invocation is integrated, not a new scheduled broker loop."
   ],
   "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
   "python": "3.12.14",
+  "resolved_integration_findings": [
+    "Integer-valued floats use one canonical identity across Python and Node JSON.",
+    "Decimal reconciliation uses an isolated 50-digit context."
+  ],
   "schema": "HARPOON_QUALIFICATION_VALIDATION_1",
-  "source_parent_commit": "791b0fe17b6db3d972292b167e87a829eb9594d0",
+  "source_parent_commit": "c3eb15c9cb56b4dfdabdc546054d5ebc48ded30c",
   "standard_canonical_sha256": "29ea47e1e85ab7e6e1b5d7f6a58645e42b28c6e9854d9254b7b77bc64374930e"
 }

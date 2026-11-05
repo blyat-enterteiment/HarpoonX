@@ -2,6 +2,8 @@
 
 Fecha de revisión: 5 de noviembre de 2026. Capital de referencia: USD 20.000.
 
+El framework tiene una [entrada integrada en el quant core y su worker Node](QUANT_CORE_FRAMEWORK.md): `python -m harpoon_quant framework`. La selección técnica, purga, costes y evaluación de ocho cuentas comparten un contrato explícito de solicitud y respuesta.
+
 El framework incorpora los controles técnicos disponibles y una evaluación reproducible de la evidencia. **El resultado actual es REJECT y el nivel 8 no está acreditado.** La ingeniería aprobada no demuestra una ventaja económica.
 
 “Nivel 8” es una convención interna propuesta para ordenar la validación. No equivale a 80% de aciertos, a un rendimiento garantizado ni a una calificación reconocida en el mercado. Los umbrales de este documento son un mandato de investigación que debe congelarse antes de una nueva evaluación. Aplicarlos al historial ya conocido produce un diagnóstico retrospectivo. No convierte ese historial en muestra reservada.

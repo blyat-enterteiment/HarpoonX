@@ -17,7 +17,21 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "action",
-        choices=["fit", "allocate", "worker", "context", "metrics", "optimize", "observe", "verify-gate", "technical-swing", "sector-swing", "purge-labels", "order-costs"],
+        choices=[
+            "fit",
+            "allocate",
+            "worker",
+            "context",
+            "metrics",
+            "optimize",
+            "observe",
+            "verify-gate",
+            "technical-swing",
+            "sector-swing",
+            "purge-labels",
+            "order-costs",
+            "framework",
+        ],
     )
     parser.add_argument("--input", type=Path)
     parser.add_argument("--model", type=Path)
@@ -25,7 +39,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--available-at")
     parser.add_argument(
-        "--estimator", choices=["ridge", "svr"],
+        "--estimator",
+        choices=["ridge", "svr"],
         help="Return estimator for fit; the saved artifact controls inference",
     )
     args = parser.parse_args()
@@ -33,20 +48,47 @@ def main() -> None:
         if args.estimator is not None and args.action != "fit":
             raise ValueError("ESTIMATOR_ONLY_FOR_FIT")
         cfg = Config(**json.loads(args.config.read_text())) if args.config else Config()
-        data = (
-            json.loads(args.input.read_text()) if args.input else json.load(sys.stdin)
-        )
-        if args.action == "order-costs":
+        if args.action == "framework":
+            from .framework import loads
+
+            if args.config:
+                raise ValueError("FRAMEWORK_LIMITS_FROZEN")
+            if args.input:
+                with args.input.open("rb") as stream:
+                    data = loads(stream.read(33554433))
+            else:
+                data = loads(sys.stdin.buffer.read(33554433))
+        else:
+            data = (
+                json.loads(args.input.read_text())
+                if args.input
+                else json.load(sys.stdin)
+            )
+        if args.action == "framework":
+            from .framework import evaluate
+
+            result = evaluate(data)
+        elif args.action == "order-costs":
             from .remediation import order_costs
+
             result = order_costs(data)
         elif args.action == "sector-swing":
             from .remediation import sector_decision
+
             if not args.available_at:
                 raise ValueError("TECHNICAL_DECISION_TIMESTAMP_REQUIRED")
-            result = sector_decision(data["dataset"], data["snapshots"], args.available_at)
+            result = sector_decision(
+                data["dataset"], data["snapshots"], args.available_at
+            )
         elif args.action == "purge-labels":
             from .remediation import training_indices
-            result = {"training_indices": training_indices(data["labels"], data["test_start"]), "execution_allowed": False}
+
+            result = {
+                "training_indices": training_indices(
+                    data["labels"], data["test_start"]
+                ),
+                "execution_allowed": False,
+            }
         elif args.action == "technical-swing":
             from .core import timestamp
             from .technical_swing import TechnicalSwing
@@ -54,13 +96,19 @@ def main() -> None:
             if not args.available_at:
                 raise ValueError("TECHNICAL_DECISION_TIMESTAMP_REQUIRED")
             panel = TechnicalSwing(data["dataset"], data["symbols"], data["benchmark"])
-            result = panel.decision(round(timestamp(args.available_at).timestamp() * 1000))
+            result = panel.decision(
+                round(timestamp(args.available_at).timestamp() * 1000)
+            )
         elif args.action == "verify-gate":
             from .economic_gate import verify_gate_report
 
             result = verify_gate_report(
-                data["report"], data["protocol"], data["evidence"],
-                artifact_root=Path(data["artifact_root"]) if data.get("artifact_root") else None,
+                data["report"],
+                data["protocol"],
+                data["evidence"],
+                artifact_root=Path(data["artifact_root"])
+                if data.get("artifact_root")
+                else None,
             )
             result.update(selected=[], execution_allowed=False, liveApproved=False)
         elif args.action == "observe":
@@ -79,7 +127,9 @@ def main() -> None:
         elif args.action == "fit":
             if not args.available_at:
                 raise ValueError("AVAILABLE_AT_REQUIRED")
-            result = fit(data, args.available_at, cfg, estimator=args.estimator or "ridge")
+            result = fit(
+                data, args.available_at, cfg, estimator=args.estimator or "ridge"
+            )
         else:
             model = args.model or Path("quant_calibration.json")
             if not model.is_file():

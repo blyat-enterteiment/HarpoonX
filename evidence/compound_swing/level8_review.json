@@ -57,6 +57,60 @@
   },
   "economic_decision": "REJECT",
   "execution_allowed": false,
+  "framework": {
+    "execution_allowed": false,
+    "input_canonical_sha256": "c62dcf507e0e505594caa6d4a3b656f6ac85f89bd51898a5a4363fa7a5a58d8d",
+    "input_hash_serialization": "SORTED_JSON_INTEGRAL_FLOATS_AS_INTEGERS",
+    "ledger_audit": {
+      "NOMINAL_CASH": {
+        "days": 365,
+        "max_decimal_error_usd": 0.0,
+        "trades": 0
+      },
+      "NOMINAL_CRYPTO": {
+        "days": 365,
+        "max_decimal_error_usd": 7.132748871573594e-12,
+        "trades": 10
+      },
+      "NOMINAL_EQUITY_ETF": {
+        "days": 365,
+        "max_decimal_error_usd": 6.844525e-12,
+        "trades": 32
+      },
+      "NOMINAL_JOINT": {
+        "days": 365,
+        "max_decimal_error_usd": 1.5327227871573595e-11,
+        "trades": 41
+      },
+      "STRESS_CASH": {
+        "days": 365,
+        "max_decimal_error_usd": 0.0,
+        "trades": 0
+      },
+      "STRESS_CRYPTO": {
+        "days": 365,
+        "max_decimal_error_usd": 1.04573679105e-11,
+        "trades": 9
+      },
+      "STRESS_EQUITY_ETF": {
+        "days": 365,
+        "max_decimal_error_usd": 1.104621e-11,
+        "trades": 32
+      },
+      "STRESS_JOINT": {
+        "days": 365,
+        "max_decimal_error_usd": 2.31034979105e-11,
+        "trades": 40
+      }
+    },
+    "level8_accredited": false,
+    "liveApproved": false,
+    "operation": "QUALIFY_HISTORY",
+    "schema": "HARPOON_QUANT_FRAMEWORK_RESULT_1",
+    "selected": [],
+    "source_authenticity_verified": false,
+    "status": "REJECT"
+  },
   "input_sha256": {
     "evidence/residual_30_18_0/data/raw/calendar.json": "c69e338a2dde4223866f94644d84cba116ea7bba379e3df5fa9cf495e68bb3bc",
     "evidence/residual_30_18_0/data/raw/corporate_actions.json": "17ddb2f6818dd0af6fcebdff7f4f32be57fdd907ab1894b0d45e2790c19517da",
@@ -376,14 +430,18 @@
   },
   "report_sha256": "a5f2f4b2b66d17e5e0c5137dd555bafa609ac2829fd0c022276309e59887f009",
   "source_sha256": {
+    "quant/harpoon_quant/__main__.py": "15c957bd2dd1d6d97d8a650c8c202fa857c1480e774419911e044effd7da0dba",
     "quant/harpoon_quant/compound.py": "c21017541f09c1a984744974a84446a8209ca3d361335ad5142c590c2f0bfbf7",
     "quant/harpoon_quant/core.py": "7ca543663420f2dad0c21c23fcced54401260180c048ddf8385a9294a36a265d",
+    "quant/harpoon_quant/framework.py": "2ce6632419c5cf8ca2fb1b13ec2c328205eb69dc49734b9fdd2cebc380a8c56e",
     "quant/harpoon_quant/multiasset.py": "fd4cea13e9be647547fabbedcc00bebe4b90a9c39f9a900f2844f6b36477e2b5",
     "quant/harpoon_quant/qualification.py": "0b724c56773e531ded96488498697e4d4ea4e40bf9d5aa2fa9f0f6178915a987",
     "quant/harpoon_quant/remediation.py": "55afe09f7ae0f02cc592c809fa002e470917a8e7af228da9f17c4cb673186709",
     "quant/harpoon_quant/roadmap9/forward.py": "69575c66112c83c1b75f3f14614cbaacbee6fb6309466e47a672d362eebf3551",
-    "tools/review_compound_evidence.py": "c29a65185e5ed0761e110ba63bf1fb9b615cded3ad5656f7cd00a7760d1de30c",
+    "quant/harpoon_quant/swing_evidence.py": "4508229aa1004779a57f22aa8a2b30427a9da7747841528af9a89425a9cfe3a6",
+    "runtime/quant_bridge.cjs": "cae5a7f9c983783872b6663a4ca0f1bbb40598a3865247275f921d101b2ee6e4",
+    "tools/review_compound_evidence.py": "2d68f884ef930e3cb13698f0021f5635aa652fde649d6e08630df22865341c77",
     "tools/run_swing8.py": "a7a0d1de37237d7eee2572814d88344ccca629e1023190c3d2f3f69760b15147",
-    "tools/verify_swing8.py": "94f4d7bcfbcf615e67f858064a0c94f246ece81d8ac6d9f02e0306e28a9d22f8"
+    "tools/verify_swing8.py": "3a083c2ad87082869d08f069e162db9457bf7054dda9ba06b4665957f275851f"
   }
 }

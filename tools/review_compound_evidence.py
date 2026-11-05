@@ -7,8 +7,8 @@ import json
 from pathlib import Path
 
 from harpoon_quant.compound import BOOKS, paired_growth
+from harpoon_quant.framework import evaluate
 from harpoon_quant.multiasset import calibrate_fills
-from harpoon_quant.qualification import qualify_history
 from harpoon_quant.remediation import economic_checks
 from run_swing8 import response
 from verify_swing8 import verify
@@ -93,10 +93,26 @@ def review(
         "execution_allowed": False,
     }
     if level8:
-        result["qualification"] = qualify_history(scenarios, dividend_symbols=symbols)
+        core = evaluate(
+            {
+                "schema": "HARPOON_QUANT_FRAMEWORK_1",
+                "operation": "QUALIFY_HISTORY",
+                "payload": {
+                    "origin": "HISTORICAL_MODELED",
+                    "accounts": scenarios,
+                    "dividend_symbols": symbols,
+                },
+            }
+        )
+        result["qualification"] = core["result"]
+        result["framework"] = {k: v for k, v in core.items() if k != "result"}
         # Bind the review to the bytes actually consumed, including diagnostics.
         sources = [
             "quant/harpoon_quant/qualification.py",
+            "quant/harpoon_quant/framework.py",
+            "quant/harpoon_quant/swing_evidence.py",
+            "quant/harpoon_quant/__main__.py",
+            "runtime/quant_bridge.cjs",
             "quant/harpoon_quant/remediation.py",
             "quant/harpoon_quant/compound.py",
             "quant/harpoon_quant/multiasset.py",

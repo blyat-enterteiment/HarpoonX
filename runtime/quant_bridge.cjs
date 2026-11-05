@@ -58,6 +58,9 @@ function worker(input,config={},action='worker'){
 }
 async function plan(engine,signals){return worker(request(engine,signals),engine.cfg.quant||{});}
 module.exports={request,worker,plan};
+// Research packet through the same bounded Python worker pool. No model file,
+// entry permission or account transport is inferred from this diagnostic.
+module.exports.framework=(input,config={})=>worker(input,config,'framework');
 module.exports.workerStatus=()=>({running:workerPool.running,queued:workerPool.queue.length,
  max_running:WORKER_LIMIT,max_queued:QUEUE_LIMIT,max_observed_running:workerPool.maxObservedRunning,
  completed:workerPool.completed,rejected:workerPool.rejected,timeout_includes_queue:true,
