@@ -1,0 +1,120 @@
+{
+  "accounts": {
+    "NOMINAL:CASH": {
+      "closed": 0,
+      "decimal_reconciled": true,
+      "decisions_submitted_to_replay": 0,
+      "final_equity": 19415,
+      "fixed_usd": 585,
+      "ledger_sha256": "db14560546d0e1d3df579b6477b890f79ceca4ccf551b671d28ab07f3d6d218f",
+      "max_decision_to_exit_hours": 0.0,
+      "max_event_drawdown": 0.029249999999999998,
+      "net_usd": -585,
+      "net_without_largest_winner_usd": -585.0,
+      "win_rate": null,
+      "worst_session": -0.00020558153877781775
+    },
+    "NOMINAL:CONFIRMED": {
+      "closed": 47,
+      "decimal_reconciled": true,
+      "decisions_submitted_to_replay": 59,
+      "final_equity": 20004.88,
+      "fixed_usd": 585,
+      "ledger_sha256": "27cf38c429c5db1085ac5849545271e0c53441dc74be598f9cb7fe4454a32285",
+      "max_decision_to_exit_hours": 71.99972222222222,
+      "max_event_drawdown": 0.017331509349748586,
+      "net_usd": 4.88,
+      "net_without_largest_winner_usd": -175.06,
+      "win_rate": 0.5319148936170213,
+      "worst_session": -0.0031648700434701257
+    },
+    "NOMINAL:SIMPLE": {
+      "closed": 89,
+      "decimal_reconciled": true,
+      "decisions_submitted_to_replay": 112,
+      "final_equity": 19738.12,
+      "fixed_usd": 585,
+      "ledger_sha256": "e6e46a8ae58309298afbc21f723b3e75c38f153508e1d713366a18cec51106a7",
+      "max_decision_to_exit_hours": 71.99972222222222,
+      "max_event_drawdown": 0.029557430742186974,
+      "net_usd": -261.88,
+      "net_without_largest_winner_usd": -441.82,
+      "win_rate": 0.449438202247191,
+      "worst_session": -0.009362373115206503
+    },
+    "STRESS:CASH": {
+      "closed": 0,
+      "decimal_reconciled": true,
+      "decisions_submitted_to_replay": 0,
+      "final_equity": 18830,
+      "fixed_usd": 1170,
+      "ledger_sha256": "a6f95aed5ac7ca73e963fd86f2e3002d700d17f0257ce2ff32dd52e60edc113e",
+      "max_decision_to_exit_hours": 0.0,
+      "max_event_drawdown": 0.058499999999999996,
+      "net_usd": -1170,
+      "net_without_largest_winner_usd": -1170.0,
+      "win_rate": null,
+      "worst_session": -0.00042296711430686265
+    },
+    "STRESS:CONFIRMED": {
+      "closed": 45,
+      "decimal_reconciled": true,
+      "decisions_submitted_to_replay": 59,
+      "final_equity": 19312.05,
+      "fixed_usd": 1170,
+      "ledger_sha256": "8a430649e6690bdad89abc17274dd05f8de01a31ef69ef0c0e3cf9b0bb4d84ec",
+      "max_decision_to_exit_hours": 71.99972222222222,
+      "max_event_drawdown": 0.04235028194365931,
+      "net_usd": -687.95,
+      "net_without_largest_winner_usd": -866.63,
+      "win_rate": 0.4888888888888889,
+      "worst_session": -0.0032874178597103836
+    },
+    "STRESS:SIMPLE": {
+      "closed": 87,
+      "decimal_reconciled": true,
+      "decisions_submitted_to_replay": 112,
+      "final_equity": 18979.38,
+      "fixed_usd": 1170,
+      "ledger_sha256": "b775338a85a7a77e5df24794e0a5dfe3bee956715ea04ade11704f785bb3d8ad",
+      "max_decision_to_exit_hours": 71.99972222222222,
+      "max_event_drawdown": 0.054721212930069596,
+      "net_usd": -1020.62,
+      "net_without_largest_winner_usd": -1166.95,
+      "win_rate": 0.42528735632183906,
+      "worst_session": -0.009456207637776035
+    }
+  },
+  "dataset_sha256": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530",
+  "decision": "REJECT",
+  "decision_file_sha256": "7d44813bd47a8e3b5f12d0c303c308c805564e055beaacbb23e2c8a4ee6f73bc",
+  "execution_allowed": false,
+  "fresh_holdout": false,
+  "lower_mean_daily_log_growth": {
+    "NOMINAL:20": {
+      "absolute": -0.00011605556005937029,
+      "vs_cash": -4.317479687332265e-05,
+      "vs_simple": -4.691178626974285e-05
+    },
+    "NOMINAL:5": {
+      "absolute": -0.00010981535314906455,
+      "vs_cash": -3.657245891119769e-05,
+      "vs_simple": -6.075942632836512e-05
+    },
+    "STRESS:20": {
+      "absolute": -0.00020052909009734003,
+      "vs_cash": -5.2135319425208426e-05,
+      "vs_simple": -4.079287986039865e-05
+    },
+    "STRESS:5": {
+      "absolute": -0.0001946053747115884,
+      "vs_cash": -4.5642654978531326e-05,
+      "vs_simple": -5.289467394946705e-05
+    }
+  },
+  "protocol_sha256": "f26ff3b81b91c7752058803d1af2ff44de51838292a9e4e0aec480ec54b6cfc4",
+  "real_fills": 0,
+  "schema": "HARPOON_TECHNICAL_SWING_1",
+  "sessions": 404,
+  "signal_file_sha256": "3a02ab73050f030e352cbb83f0fa4a08fd8a835b9e03a9f2fd013b7ceffbbf98"
+}

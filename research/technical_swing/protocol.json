@@ -1,0 +1,88 @@
+{
+  "origin": "HISTORICAL",
+  "live_approved": false,
+  "dataset": "evidence/residual_30_18_0/data/research_dataset.json",
+  "base_dataset_sha256": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530",
+  "universe": [
+    "AAPL",
+    "MSFT",
+    "XLK"
+  ],
+  "traded_universe": [
+    "AAPL",
+    "MSFT"
+  ],
+  "periods": {
+    "calendar_end": "2026-10-23",
+    "evaluation_end": "2026-10-16",
+    "evaluation_start": "2025-03-11",
+    "source_end": "2026-10-16",
+    "source_start": "2024-09-01",
+    "test_end": "2026-10-16",
+    "test_start": "2025-09-08",
+    "train_end": "2025-03-05",
+    "train_start": "2024-09-03",
+    "validation_end": "2025-09-05",
+    "validation_start": "2025-03-11"
+  },
+  "limits": {
+    "assetFraction": 0.12,
+    "capitalUsd": 20000,
+    "dailyLoss": 0.02,
+    "grossFraction": 0.12,
+    "maxDrawdown": 0.08,
+    "openRiskFraction": 0.0025,
+    "riskFraction": 0.0025
+  },
+  "scenarios": {
+    "NOMINAL": {
+      "commission_usd_per_share_per_side": 0.005,
+      "external_cost_usd_per_calendar_day": 1.0,
+      "slippage_bps": 2.0,
+      "spread_bps": 2.0
+    },
+    "STRESS": {
+      "commission_usd_per_share_per_side": 0.01,
+      "external_cost_usd_per_calendar_day": 2.0,
+      "slippage_bps": 4.0,
+      "spread_bps": 4.0
+    }
+  },
+  "schema": "HARPOON_TECHNICAL_SWING_1",
+  "benchmark": "XLK",
+  "parent": "db6d6147654af2bbaf291ebff7f3d2231cab247b",
+  "budget": {
+    "previous_reserved": 105,
+    "new_accounts": 6,
+    "reserved_after": 111,
+    "ceiling": 128,
+    "new_candidate_recipes": 1,
+    "prior_global_history_complete": false
+  },
+  "recipes": [
+    "CONFIRMED",
+    "SIMPLE",
+    "CASH"
+  ],
+  "decision": "open + 60 min + 1s. 12 complete aligned 5-minute bars. One long nomination per session per book of research, largest open-to-close log return minus XLK return, ties by symbol.",
+  "simple": "Last closed bar close strictly above the first 30-minute high. Require same valid input history as CONFIRMED.",
+  "confirmed": "SIMPLE plus penultimate close above range high, positive relative return vs XLK, last 10 minute volume above median of same interval over previous 20 completed sessions.",
+  "stop": "Distance from decision close to low of first 30 minutes; same native stop distance, partials and 30bp IOC for both rules.",
+  "horizon_hours": 72,
+  "controls": "SIMPLE and CASH, same starting equity, limits, unit costs, dates and fixed overhead.",
+  "support": "At least 20 closed campaigns per cost case and 100 sessions, positive net after removing the largest winner.",
+  "gate": "Reject on nonpositive net or drawdown >8% or session loss >2% in either scenario. Otherwise require support plus positive absolute and paired log-growth lower bounds against SIMPLE and CASH in each scenario and both blocks. Eligible only for a future trial.",
+  "statistics": {
+    "blocks": [
+      5,
+      20
+    ],
+    "seed": 319,
+    "replicates": 20000,
+    "local_endpoints": 12,
+    "confidence": 0.95
+  },
+  "execution": "Historical OHLCV only. No quotes, fills or measured queue. Split crossing the asset volume lookback invalidates its window. Dividends only in ledger. Same technical signals across both cost cases; account paths can differ.",
+  "history": "Reused prices. No fitted weights, parameter search, new holdout, promotion, or live orders.",
+  "holding_maximum_hours": 72
+}

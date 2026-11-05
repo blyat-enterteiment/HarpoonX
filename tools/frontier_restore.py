@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "quant"))
 from harpoon_quant.core import digest
 from harpoon_quant.frontier.contracts import require
+from harpoon_quant.frontier.paths import price_sample
 from harpoon_quant.frontier_core import write_json
 
 
@@ -42,6 +43,8 @@ def restore(directory: Path) -> tuple[dict[str, Any], dict[str, Any]]:
         **metadata["model"],
         "samples": [by_id[i] for i in metadata["training_case_ids"]],
     }
+    if model.get("forecast_basis") == "PRICE_PATH_ONLY":
+        model["samples"] = [price_sample(row) for row in model["samples"]]
     require(
         digest({k: v for k, v in model.items() if k != "model_hash"})
         == model["model_hash"],

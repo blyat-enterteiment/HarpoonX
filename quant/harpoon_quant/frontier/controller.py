@@ -107,11 +107,8 @@ def rollout(
         goal = a["target_price"] if old else mid * (1 + cfg.target_fraction)
         step = action["expiry_step"]
         for k in range(t):
-            cash_claim = 0.0
             exit_price = None
             for h in range(step):
-                # Dividend cash is per initial sample share as a fraction of sample entry price.
-                cash_claim += float(forecast["dividend_cash"][k, j, h]) * mid
                 if not a["schedule"][h]:
                     continue
                 opening, high, low, closing = paths[k, j, h] * mid * (1 - gap)
@@ -135,12 +132,7 @@ def rollout(
             require(exit_price is not None, "UNLIQUIDATED_SCENARIO")
             # Reuse today's relative half spread as an explicit modeling assumption.
             half_spread = (a["ask"] - a["bid"]) / (2 * mid)
-            credit = (
-                target
-                * unit
-                * (exit_price * (1 - half_spread) * (1 - rate) + cash_claim)
-                - fixed
-            )
+            credit = target * unit * exit_price * (1 - half_spread) * (1 - rate) - fixed
             components[k, j] = immediate + credit - base
             terminal_cases[k, j] = exit_price
     # Same terminal evaluation and shared accrual for every action, including CASH.

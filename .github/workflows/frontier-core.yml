@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: '24'
       - run: npm ci --ignore-scripts
-      - run: python3 -m pip install -r quant/requirements-tested.txt ruff==0.17.3 mypy==2.4.1
+      - run: python3 -m pip install -r quant/requirements-roadmap9.txt ruff==0.17.3 mypy==2.4.1
       - name: Static analysis of new sources and tests
         run: python3 -m ruff check quant/harpoon_quant/frontier quant/harpoon_quant/frontier_core.py tools/frontier_dataset.py tools/frontier_restore.py tools/run_frontier_lab.py tools/frontier_verify.py quant/tests/test_frontier*.py
       - name: Type checking of new engine and reconstruction tools

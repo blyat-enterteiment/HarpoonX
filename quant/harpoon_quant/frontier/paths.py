@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from ..core import digest, timestamp
+from ..feature_policy import declared_order, path_fields
 from .contracts import Settings, array, require
 
 
@@ -24,8 +25,6 @@ def validate_paths(sample: dict[str, Any], n: int, d: int) -> None:
         and bool((p[:, :, 1] >= np.maximum(p[:, :, 0], p[:, :, 3])).all()),
         "PATH_OHLC",
     )
-    div = array(sample["dividend_cash"], (n, 72), "DIVIDEND_DIMENSION")
-    require(bool((div >= 0).all()), "NONNEGATIVE_DIVIDENDS")
     schedule = sample["schedule"]
     require(
         len(schedule) == n
@@ -45,6 +44,12 @@ def validate_paths(sample: dict[str, Any], n: int, d: int) -> None:
     )
 
 
+def price_sample(row: dict[str, Any]) -> dict[str, Any]:
+    fields = ("id", "start_at", "label_end", "known_at", "features_known_at", "source_hash",
+              "schedule", "features", "ohlc")
+    return {name: row[name] for name in fields}
+
+
 def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, Any]:
     require(dataset.get("schema") == "HARPOON_JOINT_PATH_DATASET_1", "DATASET_SCHEMA")
     require(
@@ -60,10 +65,6 @@ def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, 
         dataset.get("price_basis") == "SPLIT_ADJUSTED_TO_SAMPLE_ENTRY_SHARE_UNIT",
         "EXPLICIT_PRICE_BASIS",
     )
-    require(
-        dataset.get("dividend_basis") == "FRACTION_OF_ENTRY_PRICE_PER_ENTRY_SHARE",
-        "EXPLICIT_DIVIDEND_BASIS",
-    )
     names, fields = dataset["symbols"], dataset["feature_names"]
     require(
         all(isinstance(v, str) and v for v in [*names, *fields]),
@@ -73,6 +74,7 @@ def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, 
     require(
         1 <= len(fields) <= 24 and len(set(fields)) == len(fields), "MODEL_FEATURES"
     )
+    path_fields(fields, names, dataset["origin"])
     rows = dataset["samples"]
     require(cfg.min_cases <= len(rows) <= 1000, "MODEL_CASE_BUDGET")
     now = timestamp(available_at)
@@ -81,6 +83,7 @@ def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, 
     previous = None
     for row in rows:
         require(isinstance(row["id"], str) and bool(row["id"]), "ORIGINAL_CASE_ID")
+        declared_order(row, fields)
         validate_paths(row, len(names), len(fields))
         require(
             row["id"] not in seen and row["start_at"] not in starts,
@@ -111,7 +114,8 @@ def fit(dataset: dict[str, Any], available_at: str, cfg: Settings) -> dict[str, 
         "location": location.tolist(),
         "scale": scale.tolist(),
         "inverse_metric": inverse.tolist(),
-        "samples": rows,
+        "forecast_basis": "PRICE_PATH_ONLY",
+        "samples": [price_sample(row) for row in rows],
         "dataset_hash": digest(dataset),
         "corporate_actions_covered": dataset["corporate_actions_covered"],
         "uncertainty_scope": "EMPIRICAL_CONDITIONAL_ANALOGUES_NOT_GUARANTEED_COVERAGE",
@@ -129,6 +133,7 @@ def predict(
         == digest({k: v for k, v in model.items() if k != "model_hash"}),
         "MODEL_HASH_MISMATCH",
     )
+    path_fields(model["feature_names"], model["symbols"], model["origin"])
     now, available = timestamp(state["asof"]), timestamp(model["available_at"])
     require(
         0 < (now - available).total_seconds() <= cfg.max_model_age_hours * 3600,
@@ -177,7 +182,7 @@ def predict(
     require(effective >= cfg.min_effective_cases, "CONDITIONAL_EFFECTIVE_SUPPORT")
     return {
         "ohlc": np.asarray([r["ohlc"] for r in selected]),
-        "dividend_cash": np.asarray([r["dividend_cash"] for r in selected]),
+        "forecast_basis": "PRICE_PATH_ONLY",
         "weights": weights,
         "case_ids": [r["id"] for r in selected],
         "case_starts": [r["start_at"] for r in selected],

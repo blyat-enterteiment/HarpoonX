@@ -60,10 +60,8 @@ def contribution(
         goal = (
             dec(asset["target_price"]) if old else mid * (1 + dec(cfg.target_fraction))
         )
-        claim = Decimal(0)
         exit_price = None
         for h in range(action["expiry_step"]):
-            claim += dec(forecast["dividend_cash"][case, j, h]) * mid
             if not asset["schedule"][h]:
                 continue
             opening, high, low, close = [
@@ -85,9 +83,7 @@ def contribution(
         if exit_price is None:
             raise ValueError("AUDIT_UNLIQUIDATED_CASE")
         spread = (ask - bid) / (2 * mid)
-        credit = (
-            dec(target) * unit * (exit_price * (1 - spread) * (1 - fee) + claim) - fixed
-        )
+        credit = dec(target) * unit * exit_price * (1 - spread) * (1 - fee) - fixed
         values.append(float(movement + credit - dec(old) * unit * mid))
     return values
 

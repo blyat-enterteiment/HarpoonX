@@ -10,6 +10,7 @@ from sklearn.svm import OneClassSVM
 
 from .core import digest, timestamp
 from .curves import validate_surface
+from .feature_policy import regime_fields
 from .support import export, kernel_output, matrix, scaling, transform
 
 
@@ -59,6 +60,7 @@ def fit_regime(data: dict[str, Any], available_at: str) -> dict[str, Any]:
         if clock == "LIVE_RECEIPT" and timestamp(r["known_at"]) > timestamp(r["at"]):
             raise ValueError("REGIME_LATE_LIVE_RECEIPT")
     names = data["feature_names"]
+    regime_fields(names)
     if (
         timestamp(available_at) - timestamp(rows[-1]["at"])
     ).total_seconds() > 30 * 86400:
@@ -108,6 +110,7 @@ def evaluate_regime(
         "artifact_hash"
     ) != digest({k: v for k, v in model.items() if k != "artifact_hash"}):
         raise ValueError("REGIME_ARTIFACT_INTEGRITY")
+    regime_fields(model["feature_names"])
     age = (timestamp(available_at) - timestamp(model["available_at"])).total_seconds()
     if (
         not 0 < age <= 30 * 86400
