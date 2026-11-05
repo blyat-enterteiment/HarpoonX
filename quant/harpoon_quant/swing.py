@@ -5,6 +5,7 @@ OHLC executions are deliberately modeled. No API writes or live promotion.
 from __future__ import annotations
 import math
 from bisect import bisect_left
+from dataclasses import dataclass
 from datetime import datetime,timedelta,timezone
 from statistics import median
 from zoneinfo import ZoneInfo
@@ -14,6 +15,27 @@ from .multiasset import stamp,number
 NY=ZoneInfo('America/New_York'); UTC=timezone.utc
 TECH={'AAPL','MSFT','QQQ','XLK'}
 RULES={'BREAKOUT','GAP','RETEST','CASH'}
+
+
+@dataclass(frozen=True)
+class SwingLimits:
+    """The archived simulator defaults apply unless the caller tightens them."""
+
+    gross: float = 0.60
+    per_asset: float = 0.20
+    entry_risk: float = 0.0035
+    open_risk: float = 0.01
+    drawdown_halt: float | None = None
+
+    def __post_init__(self) -> None:
+        for value, maximum in ((self.gross, 0.60), (self.per_asset, 0.20),
+                               (self.entry_risk, 0.0035), (self.open_risk, 0.01)):
+            if type(value) not in (float, int) or not 0 < value <= maximum:
+                raise ValueError("SWING_RISK_LIMIT")
+        if self.drawdown_halt is not None and (
+            type(self.drawdown_halt) not in (float, int) or not 0 < self.drawdown_halt <= 1
+        ):
+            raise ValueError("SWING_DRAWDOWN_LIMIT")
 
 
 def deadline(when:datetime,book:str,sessions:dict[str,dict],end:datetime)->datetime|None:
@@ -88,7 +110,7 @@ def normalize_daily(payloads:list[dict],sessions:dict)->dict:
     out={}
     for payload in payloads:
         for s,rows in payload['bars'].items():
-            result=[]
+            result: list[dict[str, Any]] = []
             for row in rows:
                 at=stamp(row['timestamp']);day=at.date().isoformat()
                 if '/' in s:known=at+timedelta(days=1,seconds=60)
@@ -104,14 +126,19 @@ def normalize_daily(payloads:list[dict],sessions:dict)->dict:
     return out
 
 
-def replay(hourly:dict,daily:dict,sessions:dict,actions:list[dict],rule:str,stress:bool,start:datetime,end:datetime)->dict:
+def replay(hourly:dict,daily:dict,sessions:dict,actions:list[dict],rule:str,stress:bool,start:datetime,end:datetime,
+           *, limits:SwingLimits=SwingLimits())->dict:
     if rule not in RULES:raise ValueError('REGISTERED_RULE_REQUIRED')
     if set(hourly)!=set(daily):raise ValueError('JOINT_UNIVERSE_MISMATCH')
     lookup={s:{r['at']:r for r in rows} for s,rows in hourly.items()}
     dates={s:[r['known'] for r in rows] for s,rows in hourly.items()}
     daily_dates={s:[r['known'] for r in rows] for s,rows in daily.items()}
     daily_by_date={s:{r['at'].date().isoformat():r for r in rows} for s,rows in daily.items()}
-    cash=20000.;positions={};receivables=[];marks={};events=[];trades=[];curve=[];signals=[]
+    cash = 20000.
+    positions: dict[str, dict[str, Any]] = {}
+    receivables: list[dict[str, Any]] = []
+    marks: dict[str, float] = {}
+    events=[];trades=[];curve=[];signals=[]
     peak=20000.;drawdown=0.;day_start=20000.;current_day=None;action_days=set();max_gross=0.;max_crypto=0.;max_stop=0.
     rate=lambda s:(.0035 if '/' in s else .0005)*(2 if stress else 1)
     def equity():return cash+sum(p['qty']*marks[s] for s,p in positions.items())+sum(x['amount'] for x in receivables)
@@ -158,7 +185,12 @@ def replay(hourly:dict,daily:dict,sessions:dict,actions:list[dict],rule:str,stre
             elif s in bars and bars[s]['open']<=p['stop']:
                 effective=max(when,sessions.get(local_day,{}).get('open',when)) if '/' not in s else when
                 sell(s,bars[s]['open'],effective,'GAP_STOP')
-        if rule!='CASH' and local.hour==12 and equity()>=day_start*.98:
+        if limits.drawdown_halt is not None:
+            open_equity = equity()
+            peak = max(peak, open_equity)
+            drawdown = max(drawdown, 1 - open_equity / peak)
+        entries_allowed = limits.drawdown_halt is None or drawdown < limits.drawdown_halt
+        if entries_allowed and rule!='CASH' and local.hour==12 and equity()>=day_start*.98:
             candidates=[]
             for s,r in bars.items():
                 if s in positions:continue
@@ -172,13 +204,22 @@ def replay(hourly:dict,daily:dict,sessions:dict,actions:list[dict],rule:str,stre
             for c in sorted(candidates,key=lambda c:(-c['score'],c['symbol'])):
                 if len(positions)>=3:break
                 s=c['symbol'];px=c['entry'];eq=equity()
+                if limits.drawdown_halt is not None and (
+                    eq < day_start * .98 or 1 - eq / peak >= limits.drawdown_halt
+                ):
+                    break
                 gross=sum(p['qty']*marks[k] for k,p in positions.items())
                 crypto=sum(p['qty']*marks[k] for k,p in positions.items() if p['book']=='crypto')
                 tech=sum(p['qty']*marks[k] for k,p in positions.items() if k in TECH)
                 risk=sum(max(0,marks[k]-p['stop'])*p['qty'] for k,p in positions.items())
                 r=rate(s);distance=(px-c['stop'])/px
-                budget=min(.2*eq/(1+.2*r),(.6*eq-gross)/(1+.6*r),c['capacity'],max(0,cash-100)/(1+r),
-                           .0035*eq/(distance+.0035*r),max(0,.01*eq-risk)/(distance+.01*r))
+                budget = min(
+                    limits.per_asset * eq / (1 + limits.per_asset * r),
+                    (limits.gross * eq - gross) / (1 + limits.gross * r),
+                    c['capacity'], max(0, cash - 100) / (1 + r),
+                    limits.entry_risk * eq / (distance + limits.entry_risk * r),
+                    max(0, limits.open_risk * eq - risk) / (distance + limits.open_risk * r),
+                )
                 if c['book']=='crypto':budget=min(budget,(.2*eq-crypto)/(1+.2*r))
                 if s in TECH:budget=min(budget,(.3*eq-tech)/(1+.3*r))
                 lot=1e-8 if c['book']=='crypto' else 1.
@@ -189,12 +230,15 @@ def replay(hourly:dict,daily:dict,sessions:dict,actions:list[dict],rule:str,stre
                 positions[s]=p;emit('BUY',when,symbol=s,qty=qty,price=px,fee=fee,cash_delta=-debit)
                 signals.append({k:(v.isoformat() if isinstance(v,datetime) else v) for k,v in c.items()})
                 # Limits are certificates at entry. Overnight gaps can exceed these levels later.
-                after=equity();g=sum(p['qty']*marks[k] for k,p in positions.items())/after
+                after=equity()
+                if limits.drawdown_halt is not None:
+                    drawdown = max(drawdown, 1 - after / peak)
+                g=sum(p['qty']*marks[k] for k,p in positions.items())/after
                 cr=sum(p['qty']*marks[k] for k,p in positions.items() if p['book']=='crypto')/after
                 risk_after=sum(max(0,marks[k]-p['stop'])*p['qty'] for k,p in positions.items())/after
                 max_gross=max(max_gross,g);max_crypto=max(max_crypto,cr);max_stop=max(max_stop,risk_after)
                 # Prospective sizing includes the fee's reduction of account equity.
-                if cash<0 or g>.6+1e-10 or cr>.2+1e-10 or risk_after>.01+1e-10:raise ValueError('ENTRY_CAPITAL_OR_RISK')
+                if cash<0 or g>limits.gross+1e-10 or cr>.2+1e-10 or risk_after>limits.open_risk+1e-10:raise ValueError('ENTRY_CAPITAL_OR_RISK')
         # Current bar high/low are consumed only after entries, never for their selection.
         for s,p in list(positions.items()):
             if s not in bars:continue

@@ -20,31 +20,48 @@ class TechnicalSwing:
     """Index raw market bars once. Each decision reads only timestamped prefixes."""
 
     def __init__(
-        self, dataset: dict[str, Any], symbols: list[str], benchmark: str
+        self,
+        dataset: dict[str, Any],
+        symbols: list[str],
+        benchmark: str | dict[str, str],
     ) -> None:
         if dataset.get("schema") != "HARPOON-ULTIMATE-DATA-1":
             raise ValueError("TECHNICAL_DATASET_SCHEMA")
-        if not symbols or len(set(symbols)) != len(symbols) or benchmark in symbols:
+        if (
+            not symbols
+            or not all(isinstance(s, str) and s for s in symbols)
+            or len(set(symbols)) != len(symbols)
+        ):
             raise ValueError("TECHNICAL_UNIVERSE")
-        self.symbols = sorted(symbols)
+        if isinstance(benchmark, str):
+            self.references = dict.fromkeys(symbols, benchmark)
+        elif isinstance(benchmark, dict) and set(benchmark) == set(symbols):
+            self.references = dict(benchmark)
+        else:
+            raise ValueError("TECHNICAL_BENCHMARK_MAPPING")
+        if any(
+            not isinstance(ref, str) or not ref or ref == s
+            for s, ref in self.references.items()
+        ):
+            raise ValueError("TECHNICAL_BENCHMARK_MAPPING")
         self.benchmark = benchmark
+        self.symbols = sorted(symbols)
+        required = set(symbols) | set(self.references.values())
         self.sessions = dataset["sessions"]
         self.opens = [s["open"] for s in self.sessions]
-        if any(
-            a["close"] >= b["open"] for a, b in pairwise(self.sessions)
-        ):
+        if any(a["close"] >= b["open"] for a, b in pairwise(self.sessions)):
             raise ValueError("OVERLAPPING_SESSIONS")
         self.bars: dict[str, dict[int, dict[str, Any]]] = {}
         for series in dataset["series"]:
             symbol = series["symbol"]
-            if symbol not in {*symbols, benchmark}:
+            if symbol not in required:
                 continue
             raw = series["bars"]
             by_time = {b["t"]: b for b in raw}
             if symbol in self.bars or len(raw) != len(by_time):
                 raise ValueError("DUPLICATE_MARKET_DATA")
             self.bars[symbol] = by_time
-        if set(self.bars) != {*symbols, benchmark}:
+        if set(self.bars) != required:
             raise ValueError("TECHNICAL_SERIES_REQUIRED")
         self.splits = [(e["symbol"], e["at"]) for e in dataset.get("splitEvents", [])]
 
@@ -94,8 +111,15 @@ class TechnicalSwing:
                     for s, t in self.splits
                 ):
                     raise ValueError("SPLIT_ACROSS_VOLUME_LOOKBACK")
+                if any(
+                    s == self.references[symbol] and opening < t <= asof
+                    for s, t in self.splits
+                ):
+                    raise ValueError("SPLIT_DURING_BENCHMARK_WINDOW")
                 stock = self._window(symbol, opening, 0, OPENING_BARS, asof)
-                sector = self._window(self.benchmark, opening, 0, OPENING_BARS, asof)
+                sector = self._window(
+                    self.references[symbol], opening, 0, OPENING_BARS, asof
+                )
                 previous = []
                 for prior in self.opens[i - LOOKBACK : i]:
                     previous.append(
