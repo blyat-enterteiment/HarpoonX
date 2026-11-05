@@ -1,5 +1,7 @@
 # Framework de remediación técnica
 
+La evaluación integrada, los criterios de la meta 8 y los resultados reproducidos se describen en [FRAMEWORK_NIVEL8.md](FRAMEWORK_NIVEL8.md). `review_compound_evidence.py --level8` recalcula las ocho condiciones. `--require-level8` devuelve código 2 cuando no existe acreditación. La atribución de la mejor operación incluye ahora los dividendos, incluso cuando se cobran después de la salida.
+
 Desde la raíz con Python 3.12, Node 24 y PYTHONPATH=quant:tools:
 
 - `python -m harpoon_quant sector-swing --input solicitud.json --available-at TIMESTAMP` consume dataset y snapshots. Cada snapshot contiene effective_at, received_at, valid_until y references (símbolo a ETF). La decisión usa el universo vigente conocido y conserva el mapa utilizado.

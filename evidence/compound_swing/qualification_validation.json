@@ -1,0 +1,47 @@
+{
+  "benchmark": {
+    "draws_per_scenario_per_block": 20000,
+    "elapsed_seconds": 0.40844010299997535,
+    "live_latency_claim": false,
+    "new_strategy_measurements": 0,
+    "scope": "single cached offline run, includes eight account reconciliation and paired block resampling"
+  },
+  "checks": {
+    "decimal_ledger": {
+      "accounts": 8,
+      "verified": true
+    },
+    "full_quant_suite": {
+      "command": "PYTHONPATH=quant OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest discover -s quant/tests",
+      "elapsed_seconds": 122.966,
+      "failed": 0,
+      "passed": 876
+    },
+    "mypy": {
+      "source_files": 3,
+      "status": "PASS"
+    },
+    "new_regression_tests": {
+      "passed": 12,
+      "scope": "dividend attribution, false evidence, altered bytes, durations, risk and CLI rejection"
+    },
+    "ruff": "PASS"
+  },
+  "evidence_decision": "REJECT",
+  "execution_allowed": false,
+  "gate_counts": {
+    "BLOCKED": 5,
+    "FAIL": 3
+  },
+  "level8_accredited": false,
+  "limitations": [
+    "Local tests and self-review are not independent validation.",
+    "Historical inputs are reused and execution modeled.",
+    "A single timing is not a latency percentile benchmark."
+  ],
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "schema": "HARPOON_QUALIFICATION_VALIDATION_1",
+  "source_parent_commit": "791b0fe17b6db3d972292b167e87a829eb9594d0",
+  "standard_canonical_sha256": "29ea47e1e85ab7e6e1b5d7f6a58645e42b28c6e9854d9254b7b77bc64374930e"
+}

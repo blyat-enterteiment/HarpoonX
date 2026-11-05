@@ -81,3 +81,13 @@ class RemediationTests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             order_costs({**bundle, "orders": []})
+        for field, value in (
+            ("book", "options"),
+            ("mode", "LIVE"),
+            ("quantity", True),
+            ("symbol", ""),
+        ):
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                order_costs(
+                    {**bundle, "fills": [], "orders": [{**order, field: value}]}
+                )

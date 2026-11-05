@@ -4,11 +4,19 @@ on:
     paths:
       - 'quant/harpoon_quant/**'
       - 'quant/tests/**'
+      - 'tools/review_compound_evidence.py'
+      - 'tools/run_technical_swing.py'
+      - 'tools/run_compound_swing.py'
+      - 'tools/multisector_replay.cjs'
       - '.github/workflows/robust-quant-core.yml'
   pull_request:
     paths:
       - 'quant/harpoon_quant/**'
       - 'quant/tests/**'
+      - 'tools/review_compound_evidence.py'
+      - 'tools/run_technical_swing.py'
+      - 'tools/run_compound_swing.py'
+      - 'tools/multisector_replay.cjs'
       - '.github/workflows/robust-quant-core.yml'
   workflow_dispatch:
 permissions:
@@ -36,5 +44,10 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: python3 -m pip install -r quant/requirements-roadmap9.txt
+      - name: Qualification static and type checks
+        run: |
+          python3 -m pip install ruff==0.17.3 mypy==2.4.1
+          python3 -m ruff check quant/harpoon_quant/remediation.py quant/harpoon_quant/qualification.py quant/tests/test_qualification.py quant/tests/test_remediation.py tools/review_compound_evidence.py
+          MYPYPATH=quant:tools python3 -m mypy --follow-imports=silent --ignore-missing-imports --explicit-package-bases quant/harpoon_quant/remediation.py quant/harpoon_quant/qualification.py tools/review_compound_evidence.py
       - name: Entire quant suite including certificate regressions
         run: python3 -B -m unittest discover -s quant/tests

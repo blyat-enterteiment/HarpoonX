@@ -1,0 +1,389 @@
+{
+  "account_sha256": {
+    "NOMINAL_CASH": "9028bb33a485824b467a90378ada23455ed3124f80430102c9aa6790fe0ea27b",
+    "NOMINAL_CRYPTO": "b80795b3e79a6bbb4005f71d72385a7fe876be3a3ecd3125e86c4220e9757706",
+    "NOMINAL_EQUITY_ETF": "7e52daa6d6ac2f033511f4ef4dc4ea15b2094234544f98b09a7fc0605ba506f0",
+    "NOMINAL_JOINT": "7d7e3de260599b4d6e0048cd5f0a11589ef6d5fb3d4743f9e0cbcddb37afadce",
+    "STRESS_CASH": "2a5f74adff454ac0b35e681121a823e7d81a9016b3e0ae2d4450fa888e3e8782",
+    "STRESS_CRYPTO": "a7d08fec9896cad338a204123921ddf00c1d93450ec53dabc4b1f8ca818e678f",
+    "STRESS_EQUITY_ETF": "9224fa079b58dc9af6b0c276826ee468ec8ea7cd901f8b35b3210e232415933d",
+    "STRESS_JOINT": "0f31d573f62ec2934a98b035ffbca1458ecb7167d3f3972775447bac4fcc32c1"
+  },
+  "accounts": {
+    "NOMINAL": {
+      "annualized_net_return": -0.012534435732514561,
+      "attributed_dividends_usd": 0.0,
+      "checks": {
+        "annual_target": false,
+        "drawdown": true,
+        "holding_limit": true,
+        "positive_after_costs": false,
+        "positive_without_largest_trade": false
+      },
+      "days": 365,
+      "deletion_test_is_counterfactual_replay": false,
+      "largest_trade_economic_contribution_usd": 30.00516749999997,
+      "net_less_largest_trade": -280.6938821502922,
+      "net_usd": -250.68871465029224,
+      "paired_log_growth": {
+        "add_crypto_to_equity": 0.0003557863939835926,
+        "add_equity_to_crypto": 0.005343131743288154,
+        "joint_log_growth": -0.01261365444275242,
+        "joint_vs_cash": 0.005804931081264897
+      }
+    },
+    "STRESS": {
+      "annualized_net_return": -0.03350133664628463,
+      "attributed_dividends_usd": 0.0,
+      "checks": {
+        "annual_target": false,
+        "drawdown": true,
+        "holding_limit": true,
+        "positive_after_costs": false,
+        "positive_without_largest_trade": false
+      },
+      "days": 365,
+      "deletion_test_is_counterfactual_replay": false,
+      "largest_trade_economic_contribution_usd": 28.27533500000004,
+      "net_less_largest_trade": -698.3020679256931,
+      "net_usd": -670.0267329256931,
+      "paired_log_growth": {
+        "add_crypto_to_equity": 8.121022110785248e-06,
+        "add_equity_to_crypto": 0.003007199752698142,
+        "joint_log_growth": -0.03407536331068606,
+        "joint_vs_cash": 0.003107427817029773
+      }
+    }
+  },
+  "economic_decision": "REJECT",
+  "execution_allowed": false,
+  "input_sha256": {
+    "evidence/residual_30_18_0/data/raw/calendar.json": "c69e338a2dde4223866f94644d84cba116ea7bba379e3df5fa9cf495e68bb3bc",
+    "evidence/residual_30_18_0/data/raw/corporate_actions.json": "17ddb2f6818dd0af6fcebdff7f4f32be57fdd907ab1894b0d45e2790c19517da",
+    "research/multiasset8/raw/AAPL_hourly_2025.json.gz": "ba2668048ee1a46b6252e08b484559602350e234b869c8f332f22eee28b60345",
+    "research/multiasset8/raw/BTC_USD_hourly_2025.json.gz": "817053e13b0748a9952de63110ae45263724448bb6dd4438229b3af8a6411fc8",
+    "research/multiasset8/raw/ETH_USD_hourly_2025.json.gz": "f905351490a62222edbfdb264b766d7b82bf466089b0cae1f34794538041ac69",
+    "research/multiasset8/raw/IWM_hourly_2025.json.gz": "4283243f9f096907a2aaa2f222c89afbd27f98f6b23c43eb39b0087b7fdfffc2",
+    "research/multiasset8/raw/MSFT_hourly_2025.json.gz": "56f5f0be0fc6eb6f369efe92dc792b5a710c5d6051d9597cd177272bb4839be2",
+    "research/multiasset8/raw/QQQ_hourly_2025.json.gz": "7d7cc8a2c792dc148664c22e643128926f973bcd94ab502a0bbd7f551e41cb0e",
+    "research/multiasset8/raw/SPY_hourly_2025.json.gz": "8dfa921773b771d37fc7a586486db5fa5f47c35fc105292861044cdcdb63493f",
+    "research/multiasset8/raw/XLE_hourly_2025.json.gz": "5dd78ed0af1ce0d1278ab4753cfc3d2ea557446c0c97d3b77c84374ea314477d",
+    "research/multiasset8/raw/XLF_hourly_2025.json.gz": "84552f345246e2670dbc21528abb938142af1760f0a42e0f2aa171f6f083cafa",
+    "research/multiasset8/raw/XLK_hourly_2025.json.gz": "90d71f693fbfcdea3dae190997766b4c329985d87a2356dbee4d0dd5dafd07b8",
+    "research/multiasset8/raw/XLV_hourly_2025.json.gz": "22f837adb378633cc017813ac488d3bfef784b7cbc6c6ecd7f807e4a24e6db1f",
+    "research/multiasset8/raw/crypto_daily.json.gz": "7d49d095b9bba61bf15b932ff098e58abfe2b52a7d68f1db6af4055ca256cb75",
+    "research/multiasset8/raw/equity_daily.json.gz": "43dec824901e55b2308bcfac90b0efb81578329d1b8bbaff08df1d060faf2833",
+    "research/swing8/amendment_01.json": "bcaed7b325dd65ebc47f2483c31f92919e667768307db387204e482804212248",
+    "research/swing8/protocol.json": "110b2c8f15c83ef4895d064d73a9736972bcb97486723746d63b5700f258b62a"
+  },
+  "ledger_verified": true,
+  "level8_accredited": false,
+  "missing_cost_groups": [
+    "LIVE:equity:buy",
+    "LIVE:equity:sell",
+    "LIVE:crypto:buy",
+    "LIVE:crypto:sell"
+  ],
+  "outstanding": [
+    "independently reconciled costs including unfilled orders",
+    "risk-matched passive comparison",
+    "untouched holdout and prospective decision receipts",
+    "intrabar risk and concentration by sector"
+  ],
+  "qualification": {
+    "decision": "REJECT",
+    "execution_allowed": false,
+    "gate_counts": {
+      "BLOCKED": 5,
+      "FAIL": 3
+    },
+    "gate_counts_are_not_profitability_scores": true,
+    "gates": [
+      {
+        "evidence": {
+          "NOMINAL": {
+            "annualized_net_return": -0.012534435732514561,
+            "attributed_dividends_usd": 0.0,
+            "break_even_fixed_cost_usd_per_day_on_same_path": 0.3131816036978295,
+            "campaigns_per_book": {
+              "crypto": 10,
+              "equity": 31
+            },
+            "checks": {
+              "annual_target": false,
+              "drawdown": true,
+              "holding_limit": true,
+              "positive_after_costs": false,
+              "positive_without_largest_trade": false
+            },
+            "contribution_after_variable_before_fixed_usd": 114.31128534970776,
+            "contribution_by_symbol_usd": {
+              "AAPL": -0.9580399999995279,
+              "BTC/USD": 5.914226679860066,
+              "ETH/USD": 0.4440397412652768,
+              "IWM": 54.93062000000066,
+              "MSFT": 39.7267525000002,
+              "SPY": -17.21677392857123,
+              "XLE": 31.51971500000036,
+              "XLF": -41.101187142856546,
+              "XLK": 9.026015000000143,
+              "XLV": 32.0259175000005
+            },
+            "cost_sensitivity_is_replay": false,
+            "days": 365,
+            "deletion_test_is_counterfactual_replay": false,
+            "fixed_cost_usd": 365.0,
+            "largest_positive_symbol_share": 0.31644379685006174,
+            "largest_trade_economic_contribution_usd": 30.00516749999997,
+            "max_holding_hours": 72.0,
+            "net_less_largest_trade": -280.6938821502922,
+            "net_return_without_best_day": -0.014415301532664994,
+            "net_usd": -250.68871465029224,
+            "paired_log_growth": {
+              "add_crypto_to_equity": 0.0003557863939835926,
+              "add_equity_to_crypto": 0.005343131743288154,
+              "joint_log_growth": -0.01261365444275242,
+              "joint_vs_cash": 0.005804931081264897
+            },
+            "risk_checks_on_observed_grid": {
+              "daily_loss": true,
+              "entry_gross": true,
+              "entry_stop_risk": true,
+              "hour_grid_drawdown": true
+            },
+            "shortfall_to_nominal_target_usd": 2250.6887146502922,
+            "trade_count": 41,
+            "worst_calendar_day_loss": 0.0018917794669426847
+          },
+          "STRESS": {
+            "annualized_net_return": -0.03350133664628463,
+            "attributed_dividends_usd": 0.0,
+            "break_even_fixed_cost_usd_per_day_on_same_path": 0.16431032075152585,
+            "campaigns_per_book": {
+              "crypto": 9,
+              "equity": 31
+            },
+            "checks": {
+              "annual_target": false,
+              "drawdown": true,
+              "holding_limit": true,
+              "positive_after_costs": false,
+              "positive_without_largest_trade": false
+            },
+            "contribution_after_variable_before_fixed_usd": 59.97326707430693,
+            "contribution_by_symbol_usd": {
+              "AAPL": -5.599660000000085,
+              "BTC/USD": 0.6636379505095213,
+              "ETH/USD": -1.4006994476515668,
+              "IWM": 48.18124000000023,
+              "MSFT": 35.29850499999975,
+              "SPY": -25.002833571428937,
+              "XLE": 28.649430000000393,
+              "XLF": -49.52521785714214,
+              "XLK": 2.5020299999996496,
+              "XLV": 26.20683500000041
+            },
+            "cost_sensitivity_is_replay": false,
+            "days": 365,
+            "deletion_test_is_counterfactual_replay": false,
+            "fixed_cost_usd": 730.0,
+            "largest_positive_symbol_share": 0.34049942515064424,
+            "largest_trade_economic_contribution_usd": 28.27533500000004,
+            "max_holding_hours": 72.0,
+            "net_less_largest_trade": -698.3020679256931,
+            "net_return_without_best_day": -0.035328634104109934,
+            "net_usd": -670.0267329256931,
+            "paired_log_growth": {
+              "add_crypto_to_equity": 8.121022110785248e-06,
+              "add_equity_to_crypto": 0.003007199752698142,
+              "joint_log_growth": -0.03407536331068606,
+              "joint_vs_cash": 0.003107427817029773
+            },
+            "risk_checks_on_observed_grid": {
+              "daily_loss": true,
+              "entry_gross": true,
+              "entry_stop_risk": true,
+              "hour_grid_drawdown": true
+            },
+            "shortfall_to_nominal_target_usd": 2670.026732925693,
+            "trade_count": 40,
+            "worst_calendar_day_loss": 0.001993554967250973
+          }
+        },
+        "id": "G1_ECONOMIC_EDGE",
+        "remedy": "Net nominal >=10% annual, stress >0, positive after removing the largest campaign and best day. Changing these post-result does not validate this study.",
+        "status": "FAIL"
+      },
+      {
+        "evidence": {
+          "NOMINAL": {
+            "decision": "NO_CONCLUSION",
+            "draws_are_not_observations": true,
+            "financial_acceptance_allowed": false,
+            "global_search_correction_certified": false,
+            "lower_mean_log_return_bounds": {
+              "20": {
+                "ABSOLUTE": -6.917092777404957e-05,
+                "MINUS_BASELINE": -8.242109830874237e-07,
+                "MINUS_CASH": -1.8677279287342603e-05,
+                "MINUS_CRYPTO": -1.936316359250276e-05
+              },
+              "5": {
+                "ABSOLUTE": -7.212230652701984e-05,
+                "MINUS_BASELINE": -1.0416903091531694e-06,
+                "MINUS_CASH": -2.1672824511855816e-05,
+                "MINUS_CRYPTO": -2.290812951503166e-05
+              }
+            },
+            "observations": 365,
+            "schema": "HARPOON_ROADMAP_PAIRED_GROWTH_1",
+            "search_history_declared_complete": false,
+            "selection_scope": "WITHIN_REGISTERED_FAMILY_ONLY;GLOBAL_PROVENANCE_NOT_ESTABLISHED_BY_A_FLAG",
+            "support_sufficient": true,
+            "within_family_criterion_passed": false
+          },
+          "STRESS": {
+            "decision": "NO_CONCLUSION",
+            "draws_are_not_observations": true,
+            "financial_acceptance_allowed": false,
+            "global_search_correction_certified": false,
+            "lower_mean_log_return_bounds": {
+              "20": {
+                "ABSOLUTE": -0.00012698392825503718,
+                "MINUS_BASELINE": -1.2081286416438979e-06,
+                "MINUS_CASH": -2.5248662998232096e-05,
+                "MINUS_CRYPTO": -2.540701109776476e-05
+              },
+              "5": {
+                "ABSOLUTE": -0.00013123843714762557,
+                "MINUS_BASELINE": -1.5381733157898322e-06,
+                "MINUS_CASH": -2.9302937464330212e-05,
+                "MINUS_CRYPTO": -2.9396217355734883e-05
+              }
+            },
+            "observations": 365,
+            "schema": "HARPOON_ROADMAP_PAIRED_GROWTH_1",
+            "search_history_declared_complete": false,
+            "selection_scope": "WITHIN_REGISTERED_FAMILY_ONLY;GLOBAL_PROVENANCE_NOT_ESTABLISHED_BY_A_FLAG",
+            "support_sufficient": true,
+            "within_family_criterion_passed": false
+          }
+        },
+        "id": "G2_STATISTICAL_SUPPORT",
+        "remedy": "At least 365 calendar days and 100 closed campaigns per scenario, with all 16 within-family bounds >0. These floors do not guarantee statistical power.",
+        "status": "FAIL"
+      },
+      {
+        "evidence": {
+          "NOMINAL": {
+            "campaigns_per_book": {
+              "crypto": 10,
+              "equity": 31
+            },
+            "largest_positive_symbol_share": 0.31644379685006174
+          },
+          "STRESS": {
+            "campaigns_per_book": {
+              "crypto": 9,
+              "equity": 31
+            },
+            "largest_positive_symbol_share": 0.34049942515064424
+          }
+        },
+        "id": "G3_MULTI_ASSET_CONTRIBUTION",
+        "remedy": "At least 20 campaigns per book and no symbol supplies >50% of positive symbol PnL. Book additions must also pass G2.",
+        "status": "FAIL"
+      },
+      {
+        "evidence": {
+          "grid_checks_passed": true,
+          "intrabar_risk_verified": false
+        },
+        "id": "G4_RISK",
+        "remedy": "Reconcile all positions, pending orders and sector exposure against timestamped intrabar marks, including gaps, stale markets and outages. Grid compliance alone is insufficient.",
+        "status": "BLOCKED"
+      },
+      {
+        "evidence": {
+          "fresh_global_holdout": false,
+          "global_trial_history_complete": false
+        },
+        "id": "G5_DATA_AND_SELECTION",
+        "remedy": "Provide point-in-time universe including removals, corporate-action coverage, causal source receipts, 72h purged labels, frozen recipe and untouched holdout. Preserve the 119/128 inherited reservation.",
+        "status": "BLOCKED"
+      },
+      {
+        "evidence": {
+          "live_costs_authenticated": false
+        },
+        "id": "G6_EXECUTION_COSTS",
+        "remedy": "Use order-costs with filled, partial, cancelled and unfilled orders, fee receipts and fixed bills. Reconcile provenance, participation and every traded class/side without mixing PAPER and LIVE.",
+        "status": "BLOCKED"
+      },
+      {
+        "evidence": {
+          "risk_matched_passive_verified": false
+        },
+        "id": "G7_PASSIVE_CONTROL",
+        "remedy": "Preregister a fully funded passive control with lagged risk sizing, the same period and costs. Removing a sleeve is not a risk-matched passive comparison.",
+        "status": "BLOCKED"
+      },
+      {
+        "evidence": {
+          "minimum_forward_calendar_days": 180,
+          "observed_forward_days": 0
+        },
+        "id": "G8_PROSPECTIVE_REVIEW",
+        "remedy": "Reconcile the frozen strategy prospectively for >=180 days through roadmap9 forward admission, then test net and paired stress growth and obtain independent scoped review. Historical diagnostics cannot close this gate.",
+        "status": "BLOCKED"
+      }
+    ],
+    "level8_accredited": false,
+    "new_strategy_measurements": 0,
+    "review_uses_reused_history": true,
+    "schema": "HARPOON_LEVEL8_HISTORICAL_REVIEW_1",
+    "standard": {
+      "execution_allowed": false,
+      "interpretation": "INTERNAL_MANDATE_NOT_A_RETURN_FORECAST_OR_UNIVERSAL_SCORE",
+      "max_daily_loss": 0.02,
+      "max_drawdown": 0.08,
+      "max_entry_gross_fraction": 0.12,
+      "max_entry_stop_risk_fraction": 0.0025,
+      "max_holding_hours": 72,
+      "maximum_positive_pnl_symbol_share": 0.5,
+      "minimum_calendar_days": 365,
+      "minimum_campaigns_per_book": 20,
+      "minimum_closed_campaigns": 100,
+      "minimum_forward_calendar_days": 180,
+      "nominal_annual_net_return": 0.1,
+      "schema": "HARPOON_LEVEL8_RESEARCH_STANDARD_1",
+      "statistics": {
+        "alpha": 0.05,
+        "block_lengths": [
+          5,
+          20
+        ],
+        "draws": 20000,
+        "family_endpoints": 16,
+        "global_search_history_complete": false,
+        "minimum_mean_log_edge": 0.0,
+        "minimum_observations": 365,
+        "seed": 319
+      },
+      "stress_net_return_floor": 0.0
+    },
+    "standard_canonical_sha256": "29ea47e1e85ab7e6e1b5d7f6a58645e42b28c6e9854d9254b7b77bc64374930e"
+  },
+  "report_sha256": "a5f2f4b2b66d17e5e0c5137dd555bafa609ac2829fd0c022276309e59887f009",
+  "source_sha256": {
+    "quant/harpoon_quant/compound.py": "c21017541f09c1a984744974a84446a8209ca3d361335ad5142c590c2f0bfbf7",
+    "quant/harpoon_quant/core.py": "7ca543663420f2dad0c21c23fcced54401260180c048ddf8385a9294a36a265d",
+    "quant/harpoon_quant/multiasset.py": "fd4cea13e9be647547fabbedcc00bebe4b90a9c39f9a900f2844f6b36477e2b5",
+    "quant/harpoon_quant/qualification.py": "0b724c56773e531ded96488498697e4d4ea4e40bf9d5aa2fa9f0f6178915a987",
+    "quant/harpoon_quant/remediation.py": "55afe09f7ae0f02cc592c809fa002e470917a8e7af228da9f17c4cb673186709",
+    "quant/harpoon_quant/roadmap9/forward.py": "69575c66112c83c1b75f3f14614cbaacbee6fb6309466e47a672d362eebf3551",
+    "tools/review_compound_evidence.py": "c29a65185e5ed0761e110ba63bf1fb9b615cded3ad5656f7cd00a7760d1de30c",
+    "tools/run_swing8.py": "a7a0d1de37237d7eee2572814d88344ccca629e1023190c3d2f3f69760b15147",
+    "tools/verify_swing8.py": "94f4d7bcfbcf615e67f858064a0c94f246ece81d8ac6d9f02e0306e28a9d22f8"
+  }
+}
