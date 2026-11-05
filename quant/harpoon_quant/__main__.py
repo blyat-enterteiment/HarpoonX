@@ -17,7 +17,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "action",
-        choices=["fit", "allocate", "worker", "context", "metrics", "optimize", "observe", "verify-gate", "technical-swing"],
+        choices=["fit", "allocate", "worker", "context", "metrics", "optimize", "observe", "verify-gate", "technical-swing", "sector-swing", "purge-labels", "order-costs"],
     )
     parser.add_argument("--input", type=Path)
     parser.add_argument("--model", type=Path)
@@ -36,7 +36,18 @@ def main() -> None:
         data = (
             json.loads(args.input.read_text()) if args.input else json.load(sys.stdin)
         )
-        if args.action == "technical-swing":
+        if args.action == "order-costs":
+            from .remediation import order_costs
+            result = order_costs(data)
+        elif args.action == "sector-swing":
+            from .remediation import sector_decision
+            if not args.available_at:
+                raise ValueError("TECHNICAL_DECISION_TIMESTAMP_REQUIRED")
+            result = sector_decision(data["dataset"], data["snapshots"], args.available_at)
+        elif args.action == "purge-labels":
+            from .remediation import training_indices
+            result = {"training_indices": training_indices(data["labels"], data["test_start"]), "execution_allowed": False}
+        elif args.action == "technical-swing":
             from .core import timestamp
             from .technical_swing import TechnicalSwing
 
