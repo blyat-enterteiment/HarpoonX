@@ -76,6 +76,13 @@ def evaluate(packet: dict[str, Any]) -> dict[str, Any]:
             scenarios, dividend_symbols=payload["dividend_symbols"]
         )
         status = result["decision"]
+    elif operation == "SIMULATE_SESSION":
+        from .roadmap9.integration import process
+
+        result = process(payload)
+        result["simulation_mode"] = "LOCAL_SYNTHETIC"
+        result["broker_paper_connected"] = False
+        status = "SIMULATION_SESSION"
     elif operation == "TECHNICAL_SWING":
         if set(payload) != {"dataset", "snapshots", "asof"}:
             raise ValueError("TECHNICAL_PACKET_FIELDS")

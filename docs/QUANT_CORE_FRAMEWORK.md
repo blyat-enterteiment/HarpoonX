@@ -29,6 +29,9 @@ El ejemplo es una fixture de ingeniería y devuelve el índice entrenable `[0]`.
 | `TECHNICAL_SWING` | `dataset`, `snapshots`, `asof` | Selección de ruptura confirmada, volumen relativo y fuerza frente al ETF sectorial conocido en esa fecha. |
 | `PURGE_LABELS` | `labels`, `test_start` | Índices admisibles con 72 horas de separación desde la disponibilidad de la etiqueta. |
 | `ORDER_COSTS` | Bundle `HARPOON_OBSERVED_FILLS_1`, con `orders` y `fills` | Costes de ejecución y oportunidad por separado, incluidos parciales y no ejecutados. |
+| `SIMULATE_SESSION` | `session`, `command`, `now_ms`, `recovery_required`, conforme a `roadmap9.integration.process` | Sesión local persistible de órdenes, fills, cancelaciones, comisiones e inventario, con origen sintético explícito. |
+
+`SIMULATE_SESSION` habilita el recorrido de simulación en el core. Devuelve `session` para la siguiente llamada y una vista conciliada `view`. Los comandos y eventos se suministran explícitamente conforme al contrato de Roadmap9. No genera fills de mercado auténticos ni activa una cuenta Alpaca PAPER. La salida identifica `simulation_mode: LOCAL_SYNTHETIC` y `broker_paper_connected: false`. La simulación se permite aunque la estrategia no acredite nivel 8, conservando esa calificación como falsa. Los casos ejecutables de ciclo completo están en `quant/tests/test_framework_simulation.py`.
 
 `accounts` contiene `NOMINAL` y `STRESS`. Cada uno contiene exactamente `JOINT`, `EQUITY_ETF`, `CRYPTO` y `CASH`, en formato `HARPOON_SWING_ACCOUNT_1`. El capital nativo es USD 20.000, sin flujos externos. `dividend_symbols` vincula recibo de acción corporativa con símbolo para eventos antiguos que carecen de ese campo. Usar las fuentes verificadas para construirlo. Un hash calculado sobre un paquete suministrado no autentica al proveedor.
 
