@@ -76,6 +76,11 @@ def evaluate(packet: dict[str, Any]) -> dict[str, Any]:
             scenarios, dividend_symbols=payload["dividend_symbols"]
         )
         status = result["decision"]
+    elif operation == "INTRADAY_REPLAY":
+        from .intraday import replay
+
+        result = replay(payload)
+        status = "INTRADAY_RESEARCH"
     elif operation == "SIMULATE_SESSION":
         from .roadmap9.integration import process
 

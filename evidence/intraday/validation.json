@@ -1,0 +1,66 @@
+{
+  "origin": "SYNTHETIC_ENGINEERING",
+  "tests_passed": 21,
+  "static_analysis": "RUFF_PASS",
+  "type_check": "MYPY_PASS",
+  "python_cli_node_equal": true,
+  "benchmark_ms_median_100_single_60_minute_session": 0.29784199978166725,
+  "benchmark_ms_max": 0.4242390004947083,
+  "economic_validation": false,
+  "full_suite_rerun": false,
+  "receipt": {
+    "schema": "HARPOON_QUANT_FRAMEWORK_RESULT_1",
+    "operation": "INTRADAY_REPLAY",
+    "status": "INTRADAY_RESEARCH",
+    "result": {
+      "origin": "SYNTHETIC",
+      "symbol": "QQQ",
+      "strategy": "ORB5",
+      "initial_equity": 20000.0,
+      "final_equity": 19998.8454,
+      "net_pnl": -1.1546000000016647,
+      "return": -5.77300000000891e-05,
+      "conservative_drawdown": 0.00028767250345008505,
+      "equity_curve": [
+        20000.0,
+        19998.8454
+      ],
+      "trades": [
+        {
+          "signal_time": "2026-11-05T14:35:00+00:00",
+          "entry_time": "2026-11-05T14:36:00+00:00",
+          "exit_bar_start": "2026-11-05T15:25:00+00:00",
+          "side": 1,
+          "qty": 23,
+          "entry": 100.41506000000001,
+          "exit": 100.38494,
+          "stop": 99.8,
+          "net_pnl": -1.1546000000002485,
+          "fees": 0.46184000000000003,
+          "borrow_cost": 0.0,
+          "exit_reason": "SESSION_EXIT",
+          "equity": 19998.8454,
+          "rvol": 1.6666666666666667
+        }
+      ],
+      "skipped": [],
+      "profitability_validated": false,
+      "broker_connected": false,
+      "limitations": [
+        "ONE_INSTRUMENT_NO_CONCURRENT_PORTFOLIO",
+        "MODELED_BAR_FILLS",
+        "CALLER_CALENDAR_AND_PROVENANCE_UNVERIFIED",
+        "NO_LIQUIDITY_OR_PARTIAL_FILL_MODEL",
+        "NOT_AN_EXACT_PAPER_REPLICATION"
+      ]
+    },
+    "ledger_audit": {},
+    "input_canonical_sha256": "d345676e761974807e47fa79277248a7a7dcc5c49f6059b4cb0240ae27156e78",
+    "input_hash_serialization": "SORTED_JSON_INTEGRAL_FLOATS_AS_INTEGERS",
+    "source_authenticity_verified": false,
+    "selected": [],
+    "execution_allowed": false,
+    "liveApproved": false,
+    "level8_accredited": false
+  }
+}
