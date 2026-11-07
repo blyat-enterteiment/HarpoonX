@@ -1,0 +1,55 @@
+{
+  "benchmark": {
+    "core_account_audits": 8,
+    "elapsed_seconds": 0.5572854020001614,
+    "new_strategy_measurements": 0,
+    "scope": "one offline review including repeated ledger verification and paired bootstrap, not a production latency percentile",
+    "unchanged_economic_diagnostic": true
+  },
+  "checks": {
+    "decimal_ledger": {
+      "accounts": 8,
+      "verified": true
+    },
+    "framework_integration_tests": {
+      "passed": 10,
+      "scope": "actual Python API, CLI and Node worker with identical semantic receipts, strict JSON, Decimal context isolation, all eight funded books and four operations"
+    },
+    "full_quant_suite": {
+      "command": "PYTHONPATH=quant OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest discover -s quant/tests",
+      "elapsed_seconds": 95.605,
+      "failed": 0,
+      "passed": 886
+    },
+    "mypy": {
+      "source_files": 6,
+      "status": "PASS"
+    },
+    "node_syntax": "PASS",
+    "qualification_regressions": {
+      "passed": 12
+    },
+    "ruff": "PASS"
+  },
+  "evidence_decision": "REJECT",
+  "execution_allowed": false,
+  "gate_counts": {
+    "BLOCKED": 5,
+    "FAIL": 3
+  },
+  "level8_accredited": false,
+  "limitations": [
+    "Self-review and CI are not independent economic validation.",
+    "Historical inputs are reused and fills modeled.",
+    "Core invocation is integrated, not a new scheduled broker loop."
+  ],
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "resolved_integration_findings": [
+    "Integer-valued floats use one canonical identity across Python and Node JSON.",
+    "Decimal reconciliation uses an isolated 50-digit context."
+  ],
+  "schema": "HARPOON_QUALIFICATION_VALIDATION_1",
+  "source_parent_commit": "c3eb15c9cb56b4dfdabdc546054d5ebc48ded30c",
+  "standard_canonical_sha256": "29ea47e1e85ab7e6e1b5d7f6a58645e42b28c6e9854d9254b7b77bc64374930e"
+}

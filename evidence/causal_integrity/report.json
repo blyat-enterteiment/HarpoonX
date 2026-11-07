@@ -1,0 +1,1172 @@
+{
+  "accounts": {
+    "control:NOMINAL_CASH": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 0.0,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 0,
+        "fraction_sessions_in_market": 0.0,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 0.0,
+        "maximum_notional_usd": 0.0,
+        "maximum_observed_reserved_notional_usd": 0.0,
+        "maximum_open_to_close_hours": 0.0,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 0,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 0.0,
+        "turnover_exit_usd": 0.0,
+        "turnover_fraction_initial_capital": 0.0,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 0.0
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.00017981864822299475,
+      "explicit_commissions_usd": 0,
+      "fixed_costs_usd": 585,
+      "largest_winner_usd": 0,
+      "max_event_drawdown": 0.029249999999999998,
+      "mean_session_log_growth": -7.348096626326822e-05,
+      "net_usd": -585,
+      "net_without_largest_winner_descriptive": -585,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 0,
+      "return_fraction": -0.029249999999999998,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 0,
+        "firstCashDeficit": null,
+        "firstGrossOverage": null,
+        "firstRiskOverage": null,
+        "grossOverageObservations": 0,
+        "maximumConservativeMarkedNotionalUsd": 0,
+        "maximumGrossFraction": 0,
+        "maximumReservedCashUsd": 0,
+        "maximumReservedNotionalUsd": 0,
+        "maximumReservedRiskUsd": 0,
+        "maximumRiskFraction": 0,
+        "observations": 405,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 405
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 19415,
+      "total_log_growth": -0.029686310370360357,
+      "trades": 0
+    },
+    "control:NOMINAL_CONFIRMED": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 270.6278861894451,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 47,
+        "fraction_sessions_in_market": 0.2747524752475248,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.2200000000003,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 111,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 96971.64,
+        "turnover_exit_usd": 97564.72999999997,
+        "turnover_fraction_initial_capital": 9.726818499999998,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 194536.36999999997
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.0016502579000085692,
+      "explicit_commissions_usd": 3.2100000000000004,
+      "fixed_costs_usd": 585,
+      "largest_winner_usd": 179.93999999999983,
+      "max_event_drawdown": 0.017331509349748586,
+      "mean_session_log_growth": 6.038867248550156e-07,
+      "net_usd": 4.879999999999882,
+      "net_without_largest_winner_descriptive": -175.05999999999995,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 593.0899999999999,
+      "return_fraction": 0.00024400000000005093,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 51,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742484901000,
+          "cashPoolUsd": 19963.12,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19948.05,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.0950000000003,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 46.64642399999999,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 122,
+        "maximumConservativeMarkedNotionalUsd": 2504.1000000000004,
+        "maximumGrossFraction": 0.12614013992735143,
+        "maximumReservedCashUsd": 2394.0950000000003,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 49.340976,
+        "maximumRiskFraction": 0.002459662433711564,
+        "observations": 6945,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 6894
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 20004.88,
+      "total_log_growth": 0.00024397023684142628,
+      "trades": 47
+    },
+    "control:NOMINAL_SIMPLE": {
+      "dividends_usd": 3.97,
+      "entry_exit_exposure": {
+        "average_notional_usd": 542.7821701918984,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 89,
+        "fraction_sessions_in_market": 0.5,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.2200000000003,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 202,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 185535.25000000003,
+        "turnover_exit_usd": 185860.32000000004,
+        "turnover_fraction_initial_capital": 18.5697785,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 371395.57000000007
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.002507077644162831,
+      "explicit_commissions_usd": 5.92,
+      "fixed_costs_usd": 585,
+      "largest_winner_usd": 179.93999999999983,
+      "max_event_drawdown": 0.029557430742186974,
+      "mean_session_log_growth": -3.262495588942816e-05,
+      "net_usd": -261.88000000000045,
+      "net_without_largest_winner_descriptive": -441.8200000000003,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 325.0699999999995,
+      "return_fraction": -0.013094000000000055,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 94,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742484901000,
+          "cashPoolUsd": 19963.12,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19948.05,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.0950000000003,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 46.64642399999999,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 684,
+        "maximumConservativeMarkedNotionalUsd": 2504.1000000000004,
+        "maximumGrossFraction": 0.12771381008531596,
+        "maximumReservedCashUsd": 2394.0950000000003,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 49.340976,
+        "maximumRiskFraction": 0.002495786534046276,
+        "observations": 12179,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 12085
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 19738.12,
+      "total_log_growth": -0.013180482179328979,
+      "trades": 89
+    },
+    "control:STRESS_CASH": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 0.0,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 0,
+        "fraction_sessions_in_market": 0.0,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 0.0,
+        "maximum_notional_usd": 0.0,
+        "maximum_observed_reserved_notional_usd": 0.0,
+        "maximum_open_to_close_hours": 0.0,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 0,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 0.0,
+        "turnover_exit_usd": 0.0,
+        "turnover_fraction_initial_capital": 0.0,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 0.0
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.00036726009497964503,
+      "explicit_commissions_usd": 0,
+      "fixed_costs_usd": 1170,
+      "largest_winner_usd": 0,
+      "max_event_drawdown": 0.058499999999999996,
+      "mean_session_log_growth": -0.0001492102249626979,
+      "net_usd": -1170,
+      "net_without_largest_winner_descriptive": -1170,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 0,
+      "return_fraction": -0.0585,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 0,
+        "firstCashDeficit": null,
+        "firstGrossOverage": null,
+        "firstRiskOverage": null,
+        "grossOverageObservations": 0,
+        "maximumConservativeMarkedNotionalUsd": 0,
+        "maximumGrossFraction": 0,
+        "maximumReservedCashUsd": 0,
+        "maximumReservedNotionalUsd": 0,
+        "maximumReservedRiskUsd": 0,
+        "maximumRiskFraction": 0,
+        "observations": 405,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 405
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 18830,
+      "total_log_growth": -0.06028093088492995,
+      "trades": 0
+    },
+    "control:STRESS_CONFIRMED": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 252.61697117227015,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 45,
+        "fraction_sessions_in_market": 0.26485148514851486,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.9900000000002,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 107,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 91964.43,
+        "turnover_exit_usd": 92452.55999999997,
+        "turnover_fraction_initial_capital": 9.220849499999998,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 184416.98999999996
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.001742251880109744,
+      "explicit_commissions_usd": 6.080000000000001,
+      "fixed_costs_usd": 1170,
+      "largest_winner_usd": 178.68000000000012,
+      "max_event_drawdown": 0.04235028194365931,
+      "mean_session_log_growth": -8.664113895636741e-05,
+      "net_usd": -687.9499999999999,
+      "net_without_largest_winner_descriptive": -866.6300000000001,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 488.13,
+      "return_fraction": -0.03439750000000004,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 51,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742481601000,
+          "cashPoolUsd": 19952.4,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19949.54,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.15,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 48.192847999999984,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 231,
+        "maximumConservativeMarkedNotionalUsd": 2504.1000000000004,
+        "maximumGrossFraction": 0.12943426459566332,
+        "maximumReservedCashUsd": 2394.15,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 49.476547999999994,
+        "maximumRiskFraction": 0.002493739913206957,
+        "observations": 6713,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 6662
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 19312.05,
+      "total_log_growth": -0.035003020138372434,
+      "trades": 45
+    },
+    "control:STRESS_SIMPLE": {
+      "dividends_usd": 3.97,
+      "entry_exit_exposure": {
+        "average_notional_usd": 514.9020790294386,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 87,
+        "fraction_sessions_in_market": 0.4900990099009901,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.9900000000002,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 198,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 177671.79,
+        "turnover_exit_usd": 177828.54000000004,
+        "turnover_fraction_initial_capital": 17.775016500000003,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 355500.3300000001
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.0025829812924887167,
+      "explicit_commissions_usd": 11.34,
+      "fixed_costs_usd": 1170,
+      "largest_winner_usd": 146.33000000000015,
+      "max_event_drawdown": 0.054721212930069596,
+      "mean_session_log_growth": -0.00012965135363843112,
+      "net_usd": -1020.6199999999981,
+      "net_without_largest_winner_descriptive": -1166.9499999999982,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 156.7500000000019,
+      "return_fraction": -0.05103099999999995,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 94,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742481601000,
+          "cashPoolUsd": 19952.4,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19949.54,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.15,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 48.192847999999984,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 882,
+        "maximumConservativeMarkedNotionalUsd": 2467.6,
+        "maximumGrossFraction": 0.12802619877992213,
+        "maximumReservedCashUsd": 2394.15,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 48.192847999999984,
+        "maximumRiskFraction": 0.002482011394508044,
+        "observations": 11945,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 11851
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 18979.38,
+      "total_log_growth": -0.052379146869926174,
+      "trades": 87
+    },
+    "corrected:NOMINAL_CASH": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 0.0,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 0,
+        "fraction_sessions_in_market": 0.0,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 0.0,
+        "maximum_notional_usd": 0.0,
+        "maximum_observed_reserved_notional_usd": 0.0,
+        "maximum_open_to_close_hours": 0.0,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 0,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 0.0,
+        "turnover_exit_usd": 0.0,
+        "turnover_fraction_initial_capital": 0.0,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 0.0
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.00017981864822299475,
+      "explicit_commissions_usd": 0,
+      "fixed_costs_usd": 585,
+      "largest_winner_usd": 0,
+      "max_event_drawdown": 0.029249999999999998,
+      "mean_session_log_growth": -7.348096626326822e-05,
+      "net_usd": -585,
+      "net_without_largest_winner_descriptive": -585,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 0,
+      "return_fraction": -0.029249999999999998,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 0,
+        "firstCashDeficit": null,
+        "firstGrossOverage": null,
+        "firstRiskOverage": null,
+        "grossOverageObservations": 0,
+        "maximumConservativeMarkedNotionalUsd": 0,
+        "maximumGrossFraction": 0,
+        "maximumReservedCashUsd": 0,
+        "maximumReservedNotionalUsd": 0,
+        "maximumReservedRiskUsd": 0,
+        "maximumRiskFraction": 0,
+        "observations": 405,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 405
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 19415,
+      "total_log_growth": -0.029686310370360357,
+      "trades": 0
+    },
+    "corrected:NOMINAL_CONFIRMED": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 270.6278861894451,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 47,
+        "fraction_sessions_in_market": 0.2747524752475248,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.2200000000003,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 111,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 96971.64,
+        "turnover_exit_usd": 97564.72999999997,
+        "turnover_fraction_initial_capital": 9.726818499999998,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 194536.36999999997
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.0016502579000085692,
+      "explicit_commissions_usd": 3.2100000000000004,
+      "fixed_costs_usd": 585,
+      "largest_winner_usd": 179.93999999999983,
+      "max_event_drawdown": 0.017331509349748586,
+      "mean_session_log_growth": 6.038867248550156e-07,
+      "net_usd": 4.879999999999882,
+      "net_without_largest_winner_descriptive": -175.05999999999995,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 593.0899999999999,
+      "return_fraction": 0.00024400000000005093,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 51,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742484901000,
+          "cashPoolUsd": 19963.12,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19948.05,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.0950000000003,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 46.64642399999999,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 121,
+        "maximumConservativeMarkedNotionalUsd": 2504.1000000000004,
+        "maximumGrossFraction": 0.12614013992735143,
+        "maximumReservedCashUsd": 2394.0950000000003,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 49.340976,
+        "maximumRiskFraction": 0.002459662433711564,
+        "observations": 6918,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 6867
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 20004.88,
+      "total_log_growth": 0.00024397023684142628,
+      "trades": 47
+    },
+    "corrected:NOMINAL_SIMPLE": {
+      "dividends_usd": 3.97,
+      "entry_exit_exposure": {
+        "average_notional_usd": 542.7821701918984,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 89,
+        "fraction_sessions_in_market": 0.5,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.2200000000003,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 202,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 185535.25000000003,
+        "turnover_exit_usd": 185860.32000000004,
+        "turnover_fraction_initial_capital": 18.5697785,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 371395.57000000007
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.002507077644162831,
+      "explicit_commissions_usd": 5.92,
+      "fixed_costs_usd": 585,
+      "largest_winner_usd": 179.93999999999983,
+      "max_event_drawdown": 0.029557430742186974,
+      "mean_session_log_growth": -3.262495588942816e-05,
+      "net_usd": -261.88000000000045,
+      "net_without_largest_winner_descriptive": -441.8200000000003,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 325.0699999999995,
+      "return_fraction": -0.013094000000000055,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 94,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742484901000,
+          "cashPoolUsd": 19963.12,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19948.05,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.0950000000003,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 46.64642399999999,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 680,
+        "maximumConservativeMarkedNotionalUsd": 2504.1000000000004,
+        "maximumGrossFraction": 0.12771381008531596,
+        "maximumReservedCashUsd": 2394.0950000000003,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 49.340976,
+        "maximumRiskFraction": 0.002495786534046276,
+        "observations": 12135,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 12041
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 19738.12,
+      "total_log_growth": -0.013180482179328979,
+      "trades": 89
+    },
+    "corrected:STRESS_CASH": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 0.0,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 0,
+        "fraction_sessions_in_market": 0.0,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 0.0,
+        "maximum_notional_usd": 0.0,
+        "maximum_observed_reserved_notional_usd": 0.0,
+        "maximum_open_to_close_hours": 0.0,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 0,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 0.0,
+        "turnover_exit_usd": 0.0,
+        "turnover_fraction_initial_capital": 0.0,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 0.0
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.00036726009497964503,
+      "explicit_commissions_usd": 0,
+      "fixed_costs_usd": 1170,
+      "largest_winner_usd": 0,
+      "max_event_drawdown": 0.058499999999999996,
+      "mean_session_log_growth": -0.0001492102249626979,
+      "net_usd": -1170,
+      "net_without_largest_winner_descriptive": -1170,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 0,
+      "return_fraction": -0.0585,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 0,
+        "firstCashDeficit": null,
+        "firstGrossOverage": null,
+        "firstRiskOverage": null,
+        "grossOverageObservations": 0,
+        "maximumConservativeMarkedNotionalUsd": 0,
+        "maximumGrossFraction": 0,
+        "maximumReservedCashUsd": 0,
+        "maximumReservedNotionalUsd": 0,
+        "maximumReservedRiskUsd": 0,
+        "maximumRiskFraction": 0,
+        "observations": 405,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 405
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 18830,
+      "total_log_growth": -0.06028093088492995,
+      "trades": 0
+    },
+    "corrected:STRESS_CONFIRMED": {
+      "dividends_usd": 0,
+      "entry_exit_exposure": {
+        "average_notional_usd": 252.61697117227015,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 45,
+        "fraction_sessions_in_market": 0.26485148514851486,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.9900000000002,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 107,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 91964.43,
+        "turnover_exit_usd": 92452.55999999997,
+        "turnover_fraction_initial_capital": 9.220849499999998,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 184416.98999999996
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.001742251880109744,
+      "explicit_commissions_usd": 6.080000000000001,
+      "fixed_costs_usd": 1170,
+      "largest_winner_usd": 178.68000000000012,
+      "max_event_drawdown": 0.04235028194365931,
+      "mean_session_log_growth": -8.664113895636741e-05,
+      "net_usd": -687.9499999999999,
+      "net_without_largest_winner_descriptive": -866.6300000000001,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 488.13,
+      "return_fraction": -0.03439750000000004,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 51,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742481601000,
+          "cashPoolUsd": 19952.4,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19949.54,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.15,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 48.192847999999984,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 229,
+        "maximumConservativeMarkedNotionalUsd": 2504.1000000000004,
+        "maximumGrossFraction": 0.12943426459566332,
+        "maximumReservedCashUsd": 2394.15,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 49.476547999999994,
+        "maximumRiskFraction": 0.002493739913206957,
+        "observations": 6687,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 6636
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 19312.05,
+      "total_log_growth": -0.035003020138372434,
+      "trades": 45
+    },
+    "corrected:STRESS_SIMPLE": {
+      "dividends_usd": 3.97,
+      "entry_exit_exposure": {
+        "average_notional_usd": 514.9020790294386,
+        "averaging_clock": "TIME_WEIGHTED_OVER_FULL_CLOSE_TO_CLOSE_ACCOUNT_INTERVAL_INCLUDING_OVERNIGHTS_WEEKENDS",
+        "beta_proxy_attribution": {
+          "hedge_pnl_usd": null,
+          "reason": "Beta alone and aggregate portfolio PnL do not identify a sector-hedged counterfactual.",
+          "runner_attachment": null,
+          "status": "SEPARATE_RUNNER_ATTRIBUTION_REQUIRED"
+        },
+        "closed_campaigns": 87,
+        "fraction_sessions_in_market": 0.4900990099009901,
+        "holding_scope": "DECISION_TO_CLOSE_FROM_MATCHED_FUNDED_STATE_NOT_JUST_OPEN_TO_CLOSE",
+        "market_marked_average_notional_usd": null,
+        "market_marked_notional_null_reason": "Portfolio report does not retain a full price-mark inventory path.",
+        "maximum_holding_hours": 71.99972222222222,
+        "maximum_notional_usd": 2387.9900000000002,
+        "maximum_observed_reserved_notional_usd": 2394.04,
+        "maximum_open_to_close_hours": 71.91666666666667,
+        "notional_basis": "REMAINING_SHARES_TIMES_ORIGINAL_ENTRY_PRICE_NOT_MARKET_VALUE",
+        "sessions_in_market": 198,
+        "sessions_in_market_clock": "Any position overlap with the reported close-to-close session interval",
+        "turnover_entry_usd": 177671.79,
+        "turnover_exit_usd": 177828.54000000004,
+        "turnover_fraction_initial_capital": 17.775016500000003,
+        "turnover_scope": "Modeled fully closed long cash-share gross purchase and sale proceeds; not broker fills.",
+        "turnover_total_usd": 355500.3300000001
+      },
+      "expected_shortfall_worst_5pct_sessions": -0.0025829812924887167,
+      "explicit_commissions_usd": 11.34,
+      "fixed_costs_usd": 1170,
+      "largest_winner_usd": 146.33000000000015,
+      "max_event_drawdown": 0.054721212930069596,
+      "mean_session_log_growth": -0.00012965135363843112,
+      "net_usd": -1020.6199999999981,
+      "net_without_largest_winner_descriptive": -1166.9499999999982,
+      "origin": "REUSED_HISTORICAL_PROXY_MODELED_FILLS_COST_ASSUMPTIONS_NO_BROKER_RECEIPTS",
+      "price_pnl_after_modeled_spread_slippage_and_tick_rounding_usd": 156.7500000000019,
+      "return_fraction": -0.05103099999999995,
+      "risk_observations": {
+        "cashDeficitObservations": 0,
+        "commitmentObservations": 94,
+        "firstCashDeficit": null,
+        "firstGrossOverage": {
+          "at": 1742481601000,
+          "cashPoolUsd": 19952.4,
+          "conservativeMarkedNotionalUsd": 2394.04,
+          "equityUsd": 19949.54,
+          "opened": 1,
+          "pending": 0,
+          "reservedCashUsd": 2394.15,
+          "reservedNotionalUsd": 2394.04,
+          "reservedRiskUsd": 48.192847999999984,
+          "stage": "VALUATION"
+        },
+        "firstRiskOverage": null,
+        "grossOverageObservations": 877,
+        "maximumConservativeMarkedNotionalUsd": 2467.6,
+        "maximumGrossFraction": 0.12802619877992213,
+        "maximumReservedCashUsd": 2394.15,
+        "maximumReservedNotionalUsd": 2394.04,
+        "maximumReservedRiskUsd": 48.192847999999984,
+        "maximumRiskFraction": 0.002482011394508044,
+        "observations": 11902,
+        "riskOverageObservations": 0,
+        "scope": "EVERY_CAUSAL_VALUATION_AND_COMMITMENT;ADMISSION_CAPS_UNCHANGED;MARKET_MOVE_OVERAGES_ARE_DIAGNOSTIC",
+        "valuationObservations": 11808
+      },
+      "spread_slippage_separate_receipts": null,
+      "terminal_equity": 18979.38,
+      "total_log_growth": -0.052379146869926174,
+      "trades": 87
+    }
+  },
+  "budget": {
+    "ceiling": 128,
+    "deduplication_of_equivalent_cash_controls_certified": false,
+    "documented_unused_profit8_reservation": 20,
+    "estimate_even_if_unused_reservation_released": 131,
+    "exact_control_reproductions_and_measurement_bug_verification": "ALLOWED_NOT_NEW_POLICY_SEARCH",
+    "global_history_complete": false,
+    "last_declared_reserved": 119,
+    "new_measurements_allowed": false,
+    "reason": "The 119/128 snapshot omits 32 later/imported account measurements. Even releasing 20 unused slots gives 131, before global provenance or duplicate-control reconciliation. Do not change counting rules after seeing results to create capacity.",
+    "reserved_plus_unincorporated": 151,
+    "schema": "HARPOON_RESEARCH_BUDGET_RECONCILIATION_1",
+    "sources_sha256": {
+      "evidence/macd30/run_01/report.json": "ce7a969d5a889ba5863fe26054195bf8fa7d468f71a9841b6fd40f07473fb791",
+      "evidence/multiasset8/run_01/report.json": "3467edd24a7c575e080fbad47b34ef6112d6614b3bd5d7dd36a42872d7191e26",
+      "evidence/profit8/closure.json": "5134eb5afe8609e41c335ca4bbd6bfa9aedc609b8f343271d694735a7f76ba22",
+      "evidence/swing8/run_01/report.json": "8951daff7ef165ed2935c73607c07aee3812f84373b1f22733a49a47fb979fbf",
+      "evidence/virtual_ab/purged_report.json": "efc234e0db22c3b4445021e5a165906198c487e18ea2f95d74687bb1c721748f",
+      "evidence/virtual_ab/unpurged_report.json": "137a3c5de49aed13eca81007cadf11a26cd5b09a43f5572a80474ed329d3b452",
+      "research/compound_swing/protocol.json": "ed4c0c1bda06bbac03568cb6000dcf995535ca4c4190b6afc251b319cfa2db9f",
+      "research/profit8/protocol.json": "39fff9e8e7518206dd90f6383583379ac2b2210922da931118804cdd25dc6640"
+    },
+    "status": "BLOCKED_UNRECONCILED_GLOBAL_BUDGET",
+    "unincorporated_account_counts": {
+      "evidence/macd30/run_01/report.json": 6,
+      "evidence/multiasset8/run_01/report.json": 6,
+      "evidence/swing8/run_01/report.json": 8,
+      "evidence/virtual_ab/purged_report.json": 6,
+      "evidence/virtual_ab/unpurged_report.json": 6
+    },
+    "unit": "policy_cost_account_including_controls_as_in_inherited_reservations",
+    "unused_reservation_actually_released": false
+  },
+  "calendar_evidence": {
+    "availability": "ARCHIVED_MODEL_NOT_ORIGINAL_MARKET_RECEIPTS",
+    "sessions": 538,
+    "short_sessions": 5,
+    "split_records": [
+      {
+        "at": 1764945000000,
+        "ratio": 2.0,
+        "symbol": "XLK"
+      }
+    ]
+  },
+  "cash_without_platform": {
+    "assumed_interest": 0,
+    "final_usd": 20000,
+    "initial_usd": 20000,
+    "nature": "DETERMINISTIC_REFERENCE_NOT_A_BROKER_ACCOUNT",
+    "return": 0
+  },
+  "changed_peak_cases": [
+    {
+      "account": "NOMINAL_SIMPLE",
+      "corrected_peak": 147.59000000000015,
+      "economic_pnl_change": 0.0,
+      "id": "SIMPLE:AAPL:1754404201000",
+      "old_peak": 148.0919000000001
+    },
+    {
+      "account": "NOMINAL_SIMPLE",
+      "corrected_peak": 68.79000000000013,
+      "economic_pnl_change": 0.0,
+      "id": "SIMPLE:AAPL:1760711401000",
+      "old_peak": 69.26499999999999
+    },
+    {
+      "account": "NOMINAL_CONFIRMED",
+      "corrected_peak": 68.79000000000013,
+      "economic_pnl_change": 0.0,
+      "id": "CONFIRMED:AAPL:1760711401000",
+      "old_peak": 69.26499999999999
+    },
+    {
+      "account": "STRESS_SIMPLE",
+      "corrected_peak": 146.715,
+      "economic_pnl_change": 0.0,
+      "id": "SIMPLE:AAPL:1754404201000",
+      "old_peak": 147.32190000000006
+    },
+    {
+      "account": "STRESS_SIMPLE",
+      "corrected_peak": 67.62999999999987,
+      "economic_pnl_change": 0.0,
+      "id": "SIMPLE:AAPL:1760711401000",
+      "old_peak": 68.50499999999992
+    },
+    {
+      "account": "STRESS_CONFIRMED",
+      "corrected_peak": 67.62999999999987,
+      "economic_pnl_change": 0.0,
+      "id": "CONFIRMED:AAPL:1760711401000",
+      "old_peak": 68.50499999999992
+    }
+  ],
+  "execution_allowed": false,
+  "financial_verdict": "NO_PROMOTION_EXISTING_CONFIRMED_FAILS_STRESS",
+  "fitted_model": false,
+  "fresh_holdout": false,
+  "hypothesis_results": {
+    "H1_CAUSAL_PROFIT_PROTECTION": {
+      "nominal": null,
+      "status": "NOT_EXECUTED_BUDGET_BLOCKED",
+      "stress": null
+    },
+    "H2_OVERNIGHT_GAP_RISK": {
+      "nominal": null,
+      "status": "NOT_EXECUTED_BUDGET_BLOCKED",
+      "stress": null
+    },
+    "H3_SETUP_CONDITIONAL_GATE": {
+      "nominal": null,
+      "status": "NOT_EXECUTED_BUDGET_BLOCKED",
+      "stress": null
+    }
+  },
+  "level8_accredited": false,
+  "limitations": [
+    "not independent external validation",
+    "unpriced queue/partial fill/market impact and quote latency",
+    "no new data or new strategy comparison",
+    "PBO global not estimable from incomplete registry",
+    "gross cap is admission cap; market-move overages remain visible, not continuously enforced"
+  ],
+  "measurement_effects": {
+    "NOMINAL_CASH": {
+      "archived_control_reproduced_exactly": true,
+      "corrected_mark_inversions": 0,
+      "curve_identical": true,
+      "inventory_executions_identical": true,
+      "late_nonterminal_marks_removed": 0,
+      "net_delta_usd": 0,
+      "reservation_field_changes": {},
+      "state_field_changes": {},
+      "valuation_events_after": 404,
+      "valuation_events_before": 404
+    },
+    "NOMINAL_CONFIRMED": {
+      "archived_control_reproduced_exactly": true,
+      "corrected_mark_inversions": 0,
+      "curve_identical": true,
+      "inventory_executions_identical": true,
+      "late_nonterminal_marks_removed": 27,
+      "net_delta_usd": 0.0,
+      "reservation_field_changes": {
+        ".reservations[].observations[].knownAt": 27
+      },
+      "state_field_changes": {
+        "[].modeledCloseKnownAt": 27
+      },
+      "valuation_events_after": 6807,
+      "valuation_events_before": 6834
+    },
+    "NOMINAL_SIMPLE": {
+      "archived_control_reproduced_exactly": true,
+      "corrected_mark_inversions": 0,
+      "curve_identical": true,
+      "inventory_executions_identical": true,
+      "late_nonterminal_marks_removed": 44,
+      "net_delta_usd": 0.0,
+      "reservation_field_changes": {
+        ".reservations[].observations[].knownAt": 44
+      },
+      "state_field_changes": {
+        "[].modeledCloseKnownAt": 44
+      },
+      "valuation_events_after": 11928,
+      "valuation_events_before": 11972
+    },
+    "STRESS_CASH": {
+      "archived_control_reproduced_exactly": true,
+      "corrected_mark_inversions": 0,
+      "curve_identical": true,
+      "inventory_executions_identical": true,
+      "late_nonterminal_marks_removed": 0,
+      "net_delta_usd": 0,
+      "reservation_field_changes": {},
+      "state_field_changes": {},
+      "valuation_events_after": 404,
+      "valuation_events_before": 404
+    },
+    "STRESS_CONFIRMED": {
+      "archived_control_reproduced_exactly": true,
+      "corrected_mark_inversions": 0,
+      "curve_identical": true,
+      "inventory_executions_identical": true,
+      "late_nonterminal_marks_removed": 26,
+      "net_delta_usd": 0.0,
+      "reservation_field_changes": {
+        ".reservations[].observations[].knownAt": 26
+      },
+      "state_field_changes": {
+        "[].modeledCloseKnownAt": 26
+      },
+      "valuation_events_after": 6576,
+      "valuation_events_before": 6602
+    },
+    "STRESS_SIMPLE": {
+      "archived_control_reproduced_exactly": true,
+      "corrected_mark_inversions": 0,
+      "curve_identical": true,
+      "inventory_executions_identical": true,
+      "late_nonterminal_marks_removed": 43,
+      "net_delta_usd": 0.0,
+      "reservation_field_changes": {
+        ".reservations[].observations[].knownAt": 43
+      },
+      "state_field_changes": {
+        "[].modeledCloseKnownAt": 43
+      },
+      "valuation_events_after": 11695,
+      "valuation_events_before": 11738
+    }
+  },
+  "measurement_verdict": "REPAIR_VERIFIED_NO_ECONOMIC_CHANGE_ON_REPLAYED_ACCOUNTS",
+  "new_hypotheses_verdict": "INCONCLUSIVE_NOT_MEASURED_BUDGET_UNRECONCILED",
+  "new_strategy_variants_executed": 0,
+  "protocol_sha256": "2d66deeffa7cdb0f08dc89700c9605d453fd3723fe5a28828cb24e8f50561b80",
+  "schema": "HARPOON_CAUSAL_INTEGRITY_VERDICT_1",
+  "source_head": "8642b30adf281c1208e82bbf85229e2e2aed82a6",
+  "statistical_scope": "20k paired circular blocks of 5/20 exchange sessions; weekends' overhead accrued by following account valuation; retrospective, not a fresh validation",
+  "statistics": {
+    "20": {
+      "NOMINAL_CONFIRMED:absolute_free_cash": {
+        "lower_mean_log_gain": -0.00012596416932349322,
+        "mean_session_log_gain": 6.038867248550156e-07
+      },
+      "NOMINAL_CONFIRMED:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "NOMINAL_CONFIRMED:platform_cash": {
+        "lower_mean_log_gain": -5.3577798348886544e-05,
+        "mean_session_log_gain": 7.408485298812323e-05
+      },
+      "NOMINAL_SIMPLE:absolute_free_cash": {
+        "lower_mean_log_gain": -0.00020708150232125243,
+        "mean_session_log_gain": -3.262495588942816e-05
+      },
+      "NOMINAL_SIMPLE:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "NOMINAL_SIMPLE:platform_cash": {
+        "lower_mean_log_gain": -0.0001337411018658793,
+        "mean_session_log_gain": 4.085601037384005e-05
+      },
+      "STRESS_CONFIRMED:absolute_free_cash": {
+        "lower_mean_log_gain": -0.00020816912518752053,
+        "mean_session_log_gain": -8.664113895636741e-05
+      },
+      "STRESS_CONFIRMED:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "STRESS_CONFIRMED:platform_cash": {
+        "lower_mean_log_gain": -5.9719504569771546e-05,
+        "mean_session_log_gain": 6.25690860063305e-05
+      },
+      "STRESS_SIMPLE:absolute_free_cash": {
+        "lower_mean_log_gain": -0.0002983084335828836,
+        "mean_session_log_gain": -0.00012965135363843112
+      },
+      "STRESS_SIMPLE:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "STRESS_SIMPLE:platform_cash": {
+        "lower_mean_log_gain": -0.0001508880928985698,
+        "mean_session_log_gain": 1.9558871324266778e-05
+      }
+    },
+    "5": {
+      "NOMINAL_CONFIRMED:absolute_free_cash": {
+        "lower_mean_log_gain": -0.00011666469369759669,
+        "mean_session_log_gain": 6.038867248550156e-07
+      },
+      "NOMINAL_CONFIRMED:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "NOMINAL_CONFIRMED:platform_cash": {
+        "lower_mean_log_gain": -4.3685345398788265e-05,
+        "mean_session_log_gain": 7.408485298812323e-05
+      },
+      "NOMINAL_SIMPLE:absolute_free_cash": {
+        "lower_mean_log_gain": -0.0002033474897390552,
+        "mean_session_log_gain": -3.262495588942816e-05
+      },
+      "NOMINAL_SIMPLE:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "NOMINAL_SIMPLE:platform_cash": {
+        "lower_mean_log_gain": -0.00012963450903129,
+        "mean_session_log_gain": 4.085601037384005e-05
+      },
+      "STRESS_CONFIRMED:absolute_free_cash": {
+        "lower_mean_log_gain": -0.00020395678769131662,
+        "mean_session_log_gain": -8.664113895636741e-05
+      },
+      "STRESS_CONFIRMED:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "STRESS_CONFIRMED:platform_cash": {
+        "lower_mean_log_gain": -5.513950426597488e-05,
+        "mean_session_log_gain": 6.25690860063305e-05
+      },
+      "STRESS_SIMPLE:absolute_free_cash": {
+        "lower_mean_log_gain": -0.00029666859950142993,
+        "mean_session_log_gain": -0.00012965135363843112
+      },
+      "STRESS_SIMPLE:measurement_change": {
+        "lower_mean_log_gain": 0.0,
+        "mean_session_log_gain": 0.0
+      },
+      "STRESS_SIMPLE:platform_cash": {
+        "lower_mean_log_gain": -0.00014740959392904916,
+        "mean_session_log_gain": 1.9558871324266778e-05
+      }
+    }
+  }
+}

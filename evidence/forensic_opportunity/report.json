@@ -1,0 +1,865 @@
+{
+  "cases": [
+    {
+      "entry_at": "2026-02-09T15:35:00+00:00",
+      "entry_rvol10": 2.613814876481005,
+      "exit_reason": "STOP",
+      "feature_id": "MSFT:1770651001000",
+      "id": "CONFIRMED:MSFT:1770651001000",
+      "inventory_events": [
+        {
+          "at": 1770651300000,
+          "feeUsd": 0.025,
+          "filledPrice": 410.19,
+          "kind": "ENTRY",
+          "knownAt": 1770651300000,
+          "quantityDelta": 5,
+          "reason": "ENTRY"
+        },
+        {
+          "at": 1770829500000,
+          "feeUsd": 0.025,
+          "filledPrice": 401,
+          "kind": "EXIT",
+          "knownAt": 1770829501000,
+          "quantityDelta": -5,
+          "reason": "STOP"
+        }
+      ],
+      "labels": {
+        "archived_peak_close_r": 1.44812362030905,
+        "entry_feature_allowed": false,
+        "excluded_late_nonterminal_marks": 0,
+        "exit_known_at_ms": 1770829501000,
+        "first_negative_after_peak": {
+          "at": 1770820801000,
+          "pnl": -2.5000000000000453
+        },
+        "first_one_r_close": {
+          "at": 1770735301000,
+          "pnl": 46.70000000000012
+        },
+        "giveback_r": 2.463576158940396,
+        "green_then_red": true,
+        "label_available_at_ms": 1770829501000,
+        "net_r": -1.0154525386313462,
+        "one_r_then_loss": true,
+        "out_of_order_mark_pairs": 0,
+        "peak_close": {
+          "at": 1770736201000,
+          "pnl": 65.59999999999997
+        },
+        "peak_close_r": 1.44812362030905,
+        "trough_close_r": -1.0154525386313462
+      },
+      "milestones": [
+        {
+          "age_seconds": 0.0,
+          "at": "2026-02-09T15:30:01+00:00",
+          "last_bar_at": 1770650700000,
+          "name": "ENTRY_DECISION",
+          "pnl_usd": null,
+          "rvol10": 2.613814876481005,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2026-02-10T14:55:01+00:00",
+          "last_bar_at": 1770735000000,
+          "name": "FIRST_ONE_R_CLOSE",
+          "pnl_usd": 46.70000000000012,
+          "rvol10": 1.3715935234244283,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2026-02-10T15:10:01+00:00",
+          "last_bar_at": 1770735900000,
+          "name": "PEAK_CLOSE",
+          "pnl_usd": 65.59999999999997,
+          "rvol10": 2.312449608140544,
+          "selected_using_future": true
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2026-02-11T14:40:01+00:00",
+          "last_bar_at": 1770820500000,
+          "name": "FIRST_NEGATIVE_AFTER_PEAK",
+          "pnl_usd": -2.5000000000000453,
+          "rvol10": 0.8775936220784236,
+          "selected_using_future": true
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2026-02-11T17:05:01+00:00",
+          "last_bar_at": 1770829200000,
+          "name": "EXIT_KNOWN",
+          "pnl_usd": -45.999999999999986,
+          "rvol10": 1.5592837698050255,
+          "selected_using_future": false
+        }
+      ],
+      "net_usd": -45.999999999999986,
+      "passed_confirmation": true,
+      "relative_log_return": 0.0013110075192204421,
+      "risk_usd": 45.300000000000004,
+      "selection": "LARGEST_GREEN_THEN_LOSS",
+      "symbol": "MSFT"
+    },
+    {
+      "entry_at": "2025-04-02T14:35:00+00:00",
+      "entry_rvol10": 0.686563906855654,
+      "exit_reason": "STOP",
+      "feature_id": "AAPL:1743604201000",
+      "id": "SIMPLE:AAPL:1743604201000",
+      "inventory_events": [
+        {
+          "at": 1743604500000,
+          "feeUsd": 0.05,
+          "filledPrice": 223.99,
+          "kind": "ENTRY",
+          "knownAt": 1743604500000,
+          "quantityDelta": 10,
+          "reason": "ENTRY"
+        },
+        {
+          "at": 1743687300000,
+          "feeUsd": 0.05,
+          "filledPrice": 205.46,
+          "kind": "EXIT",
+          "knownAt": 1743687301000,
+          "quantityDelta": -10,
+          "reason": "STOP"
+        }
+      ],
+      "labels": {
+        "archived_peak_close_r": 0.3543046357615841,
+        "entry_feature_allowed": false,
+        "excluded_late_nonterminal_marks": 0,
+        "exit_known_at_ms": 1743687301000,
+        "first_negative_after_peak": {
+          "at": 1743617101000,
+          "pnl": -1.8000000000001593
+        },
+        "first_one_r_close": null,
+        "giveback_r": 6.493377483443705,
+        "green_then_red": true,
+        "label_available_at_ms": 1743687301000,
+        "net_r": -6.139072847682121,
+        "one_r_then_loss": false,
+        "out_of_order_mark_pairs": 0,
+        "peak_close": {
+          "at": 1743614701000,
+          "pnl": 10.69999999999984
+        },
+        "peak_close_r": 0.3543046357615841,
+        "trough_close_r": -6.139072847682121
+      },
+      "milestones": [
+        {
+          "age_seconds": 0.0,
+          "at": "2025-04-02T14:30:01+00:00",
+          "last_bar_at": 1743603900000,
+          "name": "ENTRY_DECISION",
+          "pnl_usd": null,
+          "rvol10": 0.686563906855654,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2025-04-02T17:25:01+00:00",
+          "last_bar_at": 1743614400000,
+          "name": "PEAK_CLOSE",
+          "pnl_usd": 10.69999999999984,
+          "rvol10": 1.2803318430312416,
+          "selected_using_future": true
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2025-04-02T18:05:01+00:00",
+          "last_bar_at": 1743616800000,
+          "name": "FIRST_NEGATIVE_AFTER_PEAK",
+          "pnl_usd": -1.8000000000001593,
+          "rvol10": 0.7154043137358431,
+          "selected_using_future": true
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2025-04-03T13:35:01+00:00",
+          "last_bar_at": 1743687000000,
+          "name": "EXIT_KNOWN",
+          "pnl_usd": -185.40000000000003,
+          "rvol10": null,
+          "selected_using_future": false
+        }
+      ],
+      "net_usd": -185.40000000000003,
+      "passed_confirmation": false,
+      "relative_log_return": -0.002351096182580885,
+      "risk_usd": 30.2,
+      "selection": "LARGEST_SIMPLE_LOSS",
+      "symbol": "AAPL"
+    },
+    {
+      "entry_at": "2026-04-13T14:35:00+00:00",
+      "entry_rvol10": 1.18795395395236,
+      "exit_reason": "TIME",
+      "feature_id": "MSFT:1776090601000",
+      "id": "CONFIRMED:MSFT:1776090601000",
+      "inventory_events": [
+        {
+          "at": 1776090900000,
+          "feeUsd": 0.03,
+          "filledPrice": 376.97,
+          "kind": "ENTRY",
+          "knownAt": 1776090900000,
+          "quantityDelta": 6,
+          "reason": "ENTRY"
+        },
+        {
+          "at": 1776173700000,
+          "feeUsd": 0.005,
+          "filledPrice": 386.56,
+          "kind": "EXIT",
+          "knownAt": 1776173701000,
+          "quantityDelta": -1,
+          "reason": "TP1"
+        },
+        {
+          "at": 1776260100000,
+          "feeUsd": 0.005,
+          "filledPrice": 396.26,
+          "kind": "EXIT",
+          "knownAt": 1776260101000,
+          "quantityDelta": -1,
+          "reason": "TP2"
+        },
+        {
+          "at": 1776349800000,
+          "feeUsd": 0.02,
+          "filledPrice": 414.75,
+          "kind": "EXIT",
+          "knownAt": 1776349800000,
+          "quantityDelta": -4,
+          "reason": "TIME"
+        }
+      ],
+      "labels": {
+        "archived_peak_close_r": 4.903142709943326,
+        "entry_feature_allowed": false,
+        "excluded_late_nonterminal_marks": 1,
+        "exit_known_at_ms": 1776349800000,
+        "first_negative_after_peak": null,
+        "first_one_r_close": {
+          "at": 1776110101000,
+          "pnl": 40.04999999999967
+        },
+        "giveback_r": 0.2679031427099457,
+        "green_then_red": false,
+        "label_available_at_ms": 1776349801000,
+        "net_r": 4.635239567233381,
+        "one_r_then_loss": false,
+        "out_of_order_mark_pairs": 1,
+        "peak_close": {
+          "at": 1776347101000,
+          "pnl": 190.33999999999992
+        },
+        "peak_close_r": 4.903142709943326,
+        "trough_close_r": -0.09428129829984895
+      },
+      "milestones": [
+        {
+          "age_seconds": 0.0,
+          "at": "2026-04-13T14:30:01+00:00",
+          "last_bar_at": 1776090300000,
+          "name": "ENTRY_DECISION",
+          "pnl_usd": null,
+          "rvol10": 1.18795395395236,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2026-04-13T19:55:01+00:00",
+          "last_bar_at": 1776109800000,
+          "name": "FIRST_ONE_R_CLOSE",
+          "pnl_usd": 40.04999999999967,
+          "rvol10": 1.1918632127556203,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2026-04-16T13:45:01+00:00",
+          "last_bar_at": 1776346800000,
+          "name": "PEAK_CLOSE",
+          "pnl_usd": 190.33999999999992,
+          "rvol10": 1.67547283958211,
+          "selected_using_future": true
+        },
+        {
+          "age_seconds": 299.0,
+          "at": "2026-04-16T14:30:00+00:00",
+          "last_bar_at": 1776349200000,
+          "name": "EXIT_KNOWN",
+          "pnl_usd": 179.93999999999983,
+          "rvol10": 1.205104266945543,
+          "selected_using_future": false
+        }
+      ],
+      "net_usd": 179.93999999999983,
+      "passed_confirmation": true,
+      "relative_log_return": 0.0030386110367545986,
+      "risk_usd": 38.82,
+      "selection": "LARGEST_CONFIRMED_WINNER",
+      "symbol": "MSFT"
+    },
+    {
+      "entry_at": "2025-08-05T14:35:00+00:00",
+      "entry_rvol10": 1.032408701497388,
+      "exit_reason": "TIME",
+      "feature_id": "AAPL:1754404201000",
+      "id": "SIMPLE:AAPL:1754404201000",
+      "inventory_events": [
+        {
+          "at": 1754404500000,
+          "feeUsd": 0.055,
+          "filledPrice": 204.63,
+          "kind": "ENTRY",
+          "knownAt": 1754404500000,
+          "quantityDelta": 11,
+          "reason": "ENTRY"
+        },
+        {
+          "at": 1754487300000,
+          "feeUsd": 0.01,
+          "filledPrice": 208.13,
+          "kind": "EXIT",
+          "knownAt": 1754487301000,
+          "quantityDelta": -2,
+          "reason": "TP1"
+        },
+        {
+          "at": 1754491200000,
+          "feeUsd": 0.01,
+          "filledPrice": 211.70000000000002,
+          "kind": "EXIT",
+          "knownAt": 1754491201000,
+          "quantityDelta": -2,
+          "reason": "TP2"
+        },
+        {
+          "at": 1754663400000,
+          "feeUsd": 0.035,
+          "filledPrice": 222.71,
+          "kind": "EXIT",
+          "knownAt": 1754663400000,
+          "quantityDelta": -7,
+          "reason": "TIME"
+        }
+      ],
+      "labels": {
+        "archived_peak_close_r": 5.656680672268911,
+        "entry_feature_allowed": false,
+        "excluded_late_nonterminal_marks": 1,
+        "exit_known_at_ms": 1754663400000,
+        "first_negative_after_peak": null,
+        "first_one_r_close": {
+          "at": 1754487301000,
+          "pnl": 42.61999999999999
+        },
+        "giveback_r": 0.0,
+        "green_then_red": false,
+        "label_available_at_ms": 1754663401000,
+        "net_r": 5.63750954927426,
+        "one_r_then_loss": false,
+        "out_of_order_mark_pairs": 1,
+        "peak_close": {
+          "at": 1754663400000,
+          "pnl": 147.59000000000015
+        },
+        "peak_close_r": 5.63750954927426,
+        "trough_close_r": -0.7941176470588216
+      },
+      "milestones": [
+        {
+          "age_seconds": 0.0,
+          "at": "2025-08-05T14:30:01+00:00",
+          "last_bar_at": 1754403900000,
+          "name": "ENTRY_DECISION",
+          "pnl_usd": null,
+          "rvol10": 1.032408701497388,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 0.0,
+          "at": "2025-08-06T13:35:01+00:00",
+          "last_bar_at": 1754487000000,
+          "name": "FIRST_ONE_R_CLOSE",
+          "pnl_usd": 42.61999999999999,
+          "rvol10": null,
+          "selected_using_future": false
+        },
+        {
+          "age_seconds": 299.0,
+          "at": "2025-08-08T14:30:00+00:00",
+          "last_bar_at": 1754662800000,
+          "name": "PEAK_CLOSE",
+          "pnl_usd": 147.59000000000015,
+          "rvol10": 1.713218038565188,
+          "selected_using_future": true
+        },
+        {
+          "age_seconds": 299.0,
+          "at": "2025-08-08T14:30:00+00:00",
+          "last_bar_at": 1754662800000,
+          "name": "EXIT_KNOWN",
+          "pnl_usd": 147.59000000000015,
+          "rvol10": 1.713218038565188,
+          "selected_using_future": false
+        }
+      ],
+      "net_usd": 147.59000000000015,
+      "passed_confirmation": false,
+      "relative_log_return": 0.01094868717995202,
+      "risk_usd": 26.18,
+      "selection": "LARGEST_WINNER_FAILING_CONFIRMATION",
+      "symbol": "AAPL"
+    }
+  ],
+  "compound_joint": {
+    "NOMINAL": {
+      "break_even_fixed_per_day_descriptive": 0.313181603697808,
+      "fixed_usd": 365.0,
+      "gross_usd": 163.3667833704878,
+      "largest_loss": {
+        "book": "equity",
+        "daily_rvol": 1.5966397263107837,
+        "entry_at": "2025-01-31T17:00:00+00:00",
+        "entry_price": 51.825,
+        "exit_at": "2025-02-03T14:59:59+00:00",
+        "exit_price": 50.517142857142865,
+        "exit_reason": "STOP",
+        "fill_nature": "MODELED",
+        "holding_hours": 69.99972222222222,
+        "net_usd": -51.64307214285691,
+        "planned_exit": "2025-02-03T17:00:00+00:00",
+        "qty": 38.0,
+        "signal_known_at": "2025-01-31T16:01:00+00:00",
+        "stop_at_entry": 50.517142857142865,
+        "symbol": "XLF",
+        "target_at_entry": 53.78678571428571,
+        "variable_cost_usd": 1.9445007142857145
+      },
+      "largest_winner": {
+        "book": "equity",
+        "daily_rvol": 2.3773028693399247,
+        "entry_at": "2025-11-24T17:00:00+00:00",
+        "entry_price": 155.815,
+        "exit_at": "2025-11-26T17:00:00+00:00",
+        "exit_price": 158.7,
+        "exit_reason": "TIME",
+        "fill_nature": "MODELED",
+        "holding_hours": 48.0,
+        "net_usd": 30.00516749999997,
+        "planned_exit": "2025-11-26T17:00:00+00:00",
+        "qty": 11.0,
+        "signal_known_at": "2025-11-24T16:01:00+00:00",
+        "stop_at_entry": 151.50214285714287,
+        "symbol": "XLV",
+        "target_at_entry": 162.28428571428572,
+        "variable_cost_usd": 1.7298324999999999
+      },
+      "n": 41,
+      "net_before_fixed_usd": 114.31128534969992,
+      "net_usd": -250.68871465029224,
+      "variable_costs_usd": 49.05549802079057,
+      "wins": 27
+    },
+    "STRESS": {
+      "break_even_fixed_per_day_descriptive": 0.16431032075147187,
+      "fixed_usd": 730.0,
+      "gross_usd": 155.80783738594434,
+      "largest_loss": {
+        "book": "equity",
+        "daily_rvol": 1.5966397263107837,
+        "entry_at": "2025-01-31T17:00:00+00:00",
+        "entry_price": 51.825,
+        "exit_at": "2025-02-03T14:59:59+00:00",
+        "exit_price": 50.517142857142865,
+        "exit_reason": "STOP",
+        "fill_nature": "MODELED",
+        "holding_hours": 69.99972222222222,
+        "net_usd": -53.58757285714273,
+        "planned_exit": "2025-02-03T17:00:00+00:00",
+        "qty": 38.0,
+        "signal_known_at": "2025-01-31T16:01:00+00:00",
+        "stop_at_entry": 50.517142857142865,
+        "symbol": "XLF",
+        "target_at_entry": 53.78678571428571,
+        "variable_cost_usd": 3.889001428571429
+      },
+      "largest_winner": {
+        "book": "equity",
+        "daily_rvol": 2.3773028693399247,
+        "entry_at": "2025-11-24T17:00:00+00:00",
+        "entry_price": 155.815,
+        "exit_at": "2025-11-26T17:00:00+00:00",
+        "exit_price": 158.7,
+        "exit_reason": "TIME",
+        "fill_nature": "MODELED",
+        "holding_hours": 48.0,
+        "net_usd": 28.27533500000004,
+        "planned_exit": "2025-11-26T17:00:00+00:00",
+        "qty": 11.0,
+        "signal_known_at": "2025-11-24T16:01:00+00:00",
+        "stop_at_entry": 151.50214285714287,
+        "symbol": "XLV",
+        "target_at_entry": 162.28428571428572,
+        "variable_cost_usd": 3.4596649999999998
+      },
+      "n": 40,
+      "net_before_fixed_usd": 59.97326707428723,
+      "net_usd": -670.0267329256931,
+      "variable_costs_usd": 95.83457031165734,
+      "wins": 25
+    }
+  },
+  "decisions_reproduced": 404,
+  "entry_candidate_rows": 133,
+  "execution_allowed": false,
+  "fitted_model": false,
+  "input_sha256": {
+    "evidence/compound_swing/NOMINAL_JOINT.json.gz": "c8091520c887173878c9f7c9f8170909ecdb8f426133735e5cfe067ac321fff5",
+    "evidence/compound_swing/STRESS_JOINT.json.gz": "2d5a3e8ff6f81afb8e71216a0c7c0f311ec06c37ca798020b1a706f9a5ffd120",
+    "evidence/compound_swing/report.json": "a5f2f4b2b66d17e5e0c5137dd555bafa609ac2829fd0c022276309e59887f009",
+    "evidence/residual_30_18_0/data/raw/calendar.json": "c69e338a2dde4223866f94644d84cba116ea7bba379e3df5fa9cf495e68bb3bc",
+    "evidence/residual_30_18_0/data/raw/corporate_actions.json": "17ddb2f6818dd0af6fcebdff7f4f32be57fdd907ab1894b0d45e2790c19517da",
+    "evidence/residual_30_18_0/data/research_dataset.json": "5546035f58a04255b35091191cd750bd3d86075380a8aed0c258edbff6cee530",
+    "evidence/technical_swing/NOMINAL_CONFIRMED.json.gz": "9412cf06f617395ae7b3ac1d038bb81c8d019626b4cdd65193efa6c530838cb1",
+    "evidence/technical_swing/NOMINAL_SIMPLE.json.gz": "5092c342f77ae574e7d9f4e5dbeb9714bb768355ddd937975a682039bc61a8a7",
+    "evidence/technical_swing/STRESS_CONFIRMED.json.gz": "0b9a6fc2a3a2122a2c7ee5e577bbe73a8ccc7de1da6711974e31a3033e38fb8c",
+    "evidence/technical_swing/STRESS_SIMPLE.json.gz": "2e88f9fd546332edf79b2246f3faacdb1d6037eab0bb6a15a003e60413a8a6ae",
+    "evidence/technical_swing/decisions.json.gz": "9e913dd982d5a28279bc756bf5433597eee1ce98ca7372f1c3fca5eeda8cd6ac",
+    "evidence/technical_swing/results.json": "26c109ff59d74b40fcbd01294038f14c2be933d8c858f2236d7007ed3dd272b9",
+    "evidence/virtual_ab/purged_report.json": "efc234e0db22c3b4445021e5a165906198c487e18ea2f95d74687bb1c721748f",
+    "quant/harpoon_quant/forensic_features.py": "ed454937338166017b02e321f367d3a3b9e795c10de3376ce625d1e93dd02d46",
+    "research/multiasset8/raw/AAPL_hourly_2025.json.gz": "ba2668048ee1a46b6252e08b484559602350e234b869c8f332f22eee28b60345",
+    "research/multiasset8/raw/BTC_USD_hourly_2025.json.gz": "817053e13b0748a9952de63110ae45263724448bb6dd4438229b3af8a6411fc8",
+    "research/multiasset8/raw/ETH_USD_hourly_2025.json.gz": "f905351490a62222edbfdb264b766d7b82bf466089b0cae1f34794538041ac69",
+    "research/multiasset8/raw/IWM_hourly_2025.json.gz": "4283243f9f096907a2aaa2f222c89afbd27f98f6b23c43eb39b0087b7fdfffc2",
+    "research/multiasset8/raw/MSFT_hourly_2025.json.gz": "56f5f0be0fc6eb6f369efe92dc792b5a710c5d6051d9597cd177272bb4839be2",
+    "research/multiasset8/raw/QQQ_hourly_2025.json.gz": "7d7cc8a2c792dc148664c22e643128926f973bcd94ab502a0bbd7f551e41cb0e",
+    "research/multiasset8/raw/SPY_hourly_2025.json.gz": "8dfa921773b771d37fc7a586486db5fa5f47c35fc105292861044cdcdb63493f",
+    "research/multiasset8/raw/XLE_hourly_2025.json.gz": "5dd78ed0af1ce0d1278ab4753cfc3d2ea557446c0c97d3b77c84374ea314477d",
+    "research/multiasset8/raw/XLF_hourly_2025.json.gz": "84552f345246e2670dbc21528abb938142af1760f0a42e0f2aa171f6f083cafa",
+    "research/multiasset8/raw/XLK_hourly_2025.json.gz": "90d71f693fbfcdea3dae190997766b4c329985d87a2356dbee4d0dd5dafd07b8",
+    "research/multiasset8/raw/XLV_hourly_2025.json.gz": "22f837adb378633cc017813ac488d3bfef784b7cbc6c6ecd7f807e4a24e6db1f",
+    "research/multiasset8/raw/crypto_daily.json.gz": "7d49d095b9bba61bf15b932ff098e58abfe2b52a7d68f1db6af4055ca256cb75",
+    "research/multiasset8/raw/equity_daily.json.gz": "43dec824901e55b2308bcfac90b0efb81578329d1b8bbaff08df1d060faf2833",
+    "research/swing8/amendment_01.json": "bcaed7b325dd65ebc47f2483c31f92919e667768307db387204e482804212248",
+    "research/swing8/protocol.json": "110b2c8f15c83ef4895d064d73a9736972bcb97486723746d63b5700f258b62a",
+    "research/technical_swing/protocol.json": "f26ff3b81b91c7752058803d1af2ff44de51838292a9e4e0aec480ec54b6cfc4",
+    "tools/run_forensic_opportunity.py": "389d0452e647374dfcadacafa4b452c8836300c9cc00b4ae3e983cc8fa34bc01"
+  },
+  "interpretation": {
+    "inference": "REUSED_HISTORY_AND_SMALL_SELECTED_SAMPLES;NO_OUT_OF_SAMPLE_VALIDATION_OF_NEW_FEATURES",
+    "peak": "MARK_TO_CLOSE_LESS_COMMISSION_PROVISION;NO_EXIT_SPREAD_SLIPPAGE_OR_FIXED_COST;NOT_EXECUTABLE_PEAK",
+    "rejected_winners": "REALIZED_IN_SIMPLE_MODEL;NO_FUNDED_CONFIRMED_COUNTERFACTUAL_REPLAY",
+    "rvol": "TEN_MINUTES_SAME_WINDOW_PRIOR_20_SESSIONS;NOT_DAILY_OR_CROSS_ASSET_VOLUME",
+    "sets": "overlapping_descriptive_sets_not_estimated_predictive_classes",
+    "virtual_zero_trades": "NO_IDENTIFIED_A_B_EFFECT;NO_CANDIDATE_FUTURE_PNL_IN_AGGREGATE_REPORT"
+  },
+  "level8_accredited": false,
+  "max_technical_reconciliation_error_usd": 1.0231815394945443e-12,
+  "origin": "ARCHIVED_HISTORICAL_PROXY_WITH_MODELED_FILLS_NOT_BROKER_RESULTS",
+  "provenance": {
+    "capture_timestamps_are_original_market_receipts": false,
+    "execution": "MODELED_OHLCV",
+    "feed": "SIP",
+    "first_bar_captured_at": "2026-11-01T23:59:30.158000Z",
+    "source": "ALPACA_RETAINED_SIP_5MIN_RECEIPTS_RESIDUAL_30_18_0_CONDITIONAL"
+  },
+  "schema": "HARPOON_FORENSIC_OPPORTUNITY_1",
+  "simple_trades_failing_confirmation": {
+    "excluded_late_nonterminal_marks": 19,
+    "green_then_red": 21,
+    "losses": 28,
+    "median_entry_rvol10": 0.8407223320695848,
+    "n": 45,
+    "one_r_then_loss": 1,
+    "out_of_order_mark_pairs": 19,
+    "trade_net_excluding_fixed_and_dividends_usd": -175.9400000000009,
+    "wins": 17
+  },
+  "source_branch_head": "bab1746d5735158605feb96c58ee7102c5cb005a",
+  "technical_accounts": {
+    "NOMINAL_CONFIRMED": {
+      "dividends_usd": 0,
+      "excluded_late_nonterminal_marks": 27,
+      "fixed_usd": 585,
+      "green_then_red": 18,
+      "losses": 22,
+      "median_entry_rvol10": 1.5927171274526235,
+      "n": 47,
+      "net_economic_usd": 4.880000000001019,
+      "one_r_then_loss": 3,
+      "out_of_order_mark_pairs": 27,
+      "rvol_groups": {
+        "0_to_1": {
+          "excluded_late_nonterminal_marks": 0,
+          "green_then_red": 0,
+          "losses": 0,
+          "median_entry_rvol10": null,
+          "n": 0,
+          "one_r_then_loss": 0,
+          "out_of_order_mark_pairs": 0,
+          "trade_net_excluding_fixed_and_dividends_usd": 0,
+          "wins": 0
+        },
+        "1_to_2": {
+          "excluded_late_nonterminal_marks": 19,
+          "green_then_red": 13,
+          "losses": 16,
+          "median_entry_rvol10": 1.3984647195875584,
+          "n": 34,
+          "one_r_then_loss": 2,
+          "out_of_order_mark_pairs": 19,
+          "trade_net_excluding_fixed_and_dividends_usd": 553.68,
+          "wins": 18
+        },
+        "above_2": {
+          "excluded_late_nonterminal_marks": 8,
+          "green_then_red": 5,
+          "losses": 6,
+          "median_entry_rvol10": 2.446408226955688,
+          "n": 13,
+          "one_r_then_loss": 1,
+          "out_of_order_mark_pairs": 8,
+          "trade_net_excluding_fixed_and_dividends_usd": 36.20000000000019,
+          "wins": 7
+        }
+      },
+      "trade_net_excluding_fixed_and_dividends_usd": 589.8800000000001,
+      "wins": 25,
+      "without_largest_winner_descriptive_usd": -175.0599999999988
+    },
+    "NOMINAL_SIMPLE": {
+      "dividends_usd": 3.97,
+      "excluded_late_nonterminal_marks": 44,
+      "fixed_usd": 585,
+      "green_then_red": 38,
+      "losses": 49,
+      "median_entry_rvol10": 1.1587407373635246,
+      "n": 89,
+      "net_economic_usd": -261.880000000001,
+      "one_r_then_loss": 4,
+      "out_of_order_mark_pairs": 44,
+      "rvol_groups": {
+        "0_to_1": {
+          "excluded_late_nonterminal_marks": 12,
+          "green_then_red": 16,
+          "losses": 22,
+          "median_entry_rvol10": 0.7789206667256734,
+          "n": 31,
+          "one_r_then_loss": 0,
+          "out_of_order_mark_pairs": 12,
+          "trade_net_excluding_fixed_and_dividends_usd": -371.81000000000085,
+          "wins": 9
+        },
+        "1_to_2": {
+          "excluded_late_nonterminal_marks": 25,
+          "green_then_red": 17,
+          "losses": 21,
+          "median_entry_rvol10": 1.2692013974962237,
+          "n": 46,
+          "one_r_then_loss": 2,
+          "out_of_order_mark_pairs": 25,
+          "trade_net_excluding_fixed_and_dividends_usd": 787.82,
+          "wins": 25
+        },
+        "above_2": {
+          "excluded_late_nonterminal_marks": 7,
+          "green_then_red": 5,
+          "losses": 6,
+          "median_entry_rvol10": 2.657783982081842,
+          "n": 12,
+          "one_r_then_loss": 2,
+          "out_of_order_mark_pairs": 7,
+          "trade_net_excluding_fixed_and_dividends_usd": -96.85999999999989,
+          "wins": 6
+        }
+      },
+      "trade_net_excluding_fixed_and_dividends_usd": 319.1499999999993,
+      "wins": 40,
+      "without_largest_winner_descriptive_usd": -441.82000000000085
+    },
+    "STRESS_CONFIRMED": {
+      "dividends_usd": 0,
+      "excluded_late_nonterminal_marks": 26,
+      "fixed_usd": 1170,
+      "green_then_red": 16,
+      "losses": 23,
+      "median_entry_rvol10": 1.5909827672263417,
+      "n": 45,
+      "net_economic_usd": -687.9500000000007,
+      "one_r_then_loss": 3,
+      "out_of_order_mark_pairs": 26,
+      "rvol_groups": {
+        "0_to_1": {
+          "excluded_late_nonterminal_marks": 0,
+          "green_then_red": 0,
+          "losses": 0,
+          "median_entry_rvol10": null,
+          "n": 0,
+          "one_r_then_loss": 0,
+          "out_of_order_mark_pairs": 0,
+          "trade_net_excluding_fixed_and_dividends_usd": 0,
+          "wins": 0
+        },
+        "1_to_2": {
+          "excluded_late_nonterminal_marks": 19,
+          "green_then_red": 12,
+          "losses": 17,
+          "median_entry_rvol10": 1.3844744407780298,
+          "n": 33,
+          "one_r_then_loss": 2,
+          "out_of_order_mark_pairs": 19,
+          "trade_net_excluding_fixed_and_dividends_usd": 492.2600000000001,
+          "wins": 16
+        },
+        "above_2": {
+          "excluded_late_nonterminal_marks": 7,
+          "green_then_red": 4,
+          "losses": 6,
+          "median_entry_rvol10": 2.5177151954237837,
+          "n": 12,
+          "one_r_then_loss": 1,
+          "out_of_order_mark_pairs": 7,
+          "trade_net_excluding_fixed_and_dividends_usd": -10.210000000000038,
+          "wins": 6
+        }
+      },
+      "trade_net_excluding_fixed_and_dividends_usd": 482.05000000000007,
+      "wins": 22,
+      "without_largest_winner_descriptive_usd": -866.6300000000008
+    },
+    "STRESS_SIMPLE": {
+      "dividends_usd": 3.97,
+      "excluded_late_nonterminal_marks": 43,
+      "fixed_usd": 1170,
+      "green_then_red": 36,
+      "losses": 50,
+      "median_entry_rvol10": 1.1430329936434265,
+      "n": 87,
+      "net_economic_usd": -1020.619999999999,
+      "one_r_then_loss": 4,
+      "out_of_order_mark_pairs": 43,
+      "rvol_groups": {
+        "0_to_1": {
+          "excluded_late_nonterminal_marks": 12,
+          "green_then_red": 16,
+          "losses": 22,
+          "median_entry_rvol10": 0.7789206667256734,
+          "n": 31,
+          "one_r_then_loss": 0,
+          "out_of_order_mark_pairs": 12,
+          "trade_net_excluding_fixed_and_dividends_usd": -409.8799999999992,
+          "wins": 9
+        },
+        "1_to_2": {
+          "excluded_late_nonterminal_marks": 25,
+          "green_then_red": 16,
+          "losses": 22,
+          "median_entry_rvol10": 1.2435171588981446,
+          "n": 45,
+          "one_r_then_loss": 2,
+          "out_of_order_mark_pairs": 25,
+          "trade_net_excluding_fixed_and_dividends_usd": 678.8500000000007,
+          "wins": 23
+        },
+        "above_2": {
+          "excluded_late_nonterminal_marks": 6,
+          "green_then_red": 4,
+          "losses": 6,
+          "median_entry_rvol10": 2.701753087682679,
+          "n": 11,
+          "one_r_then_loss": 2,
+          "out_of_order_mark_pairs": 6,
+          "trade_net_excluding_fixed_and_dividends_usd": -123.55999999999999,
+          "wins": 5
+        }
+      },
+      "trade_net_excluding_fixed_and_dividends_usd": 145.4100000000015,
+      "wins": 37,
+      "without_largest_winner_descriptive_usd": -1166.9499999999991
+    }
+  },
+  "verdict": "DIAGNOSTIC_ONLY_NO_PROMOTION",
+  "virtual_purged_accounts": {
+    "NOMINAL_A": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 365,
+      "drawdown": 0.01824999999999999,
+      "final": 19635.0,
+      "net": -365.0,
+      "sha256": "378f4257f782b52bd91fb8d78fc2d3bb651ce7cae672cfb678e35be97ee38fe4",
+      "turnover": 0
+    },
+    "NOMINAL_B": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 365,
+      "drawdown": 0.01824999999999999,
+      "final": 19635.0,
+      "net": -365.0,
+      "sha256": "83e9144780558277a1b80860c590f743b33f75074276c8ccac3f182472037e35",
+      "turnover": 0
+    },
+    "NOMINAL_CURRENT": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 365,
+      "drawdown": 0.01824999999999999,
+      "final": 19635.0,
+      "net": -365.0,
+      "sha256": "e8bd62a0f0d1a28a0ff871df0d99f70979718ebd3c63b4112157d99c377c74fd",
+      "turnover": 0
+    },
+    "STRESS_A": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 730,
+      "drawdown": 0.03649999999999998,
+      "final": 19270.0,
+      "net": -730.0,
+      "sha256": "f302319579fbdc167b1b10ea21b73c2d51365461a8842c365d8b4d02113f7a1b",
+      "turnover": 0
+    },
+    "STRESS_B": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 730,
+      "drawdown": 0.03649999999999998,
+      "final": 19270.0,
+      "net": -730.0,
+      "sha256": "25f987f6bc10f693a151e97fd803a20f9c73bcf1e6a16bd90834c5146c62b977",
+      "turnover": 0
+    },
+    "STRESS_CURRENT": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 730,
+      "drawdown": 0.03649999999999998,
+      "final": 19270.0,
+      "net": -730.0,
+      "sha256": "296347d7534fd1da294557dfb3f1222aaf48de047cca62fc1dc8fce4999090e4",
+      "turnover": 0
+    }
+  }
+}

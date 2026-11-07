@@ -596,6 +596,16 @@ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMulti
     });
     const dividendAccruedUsd = dividendEntitlements.reduce((n, d) => n + d.amountUsd, 0);
     const dividendPaidUsd = dividendEntitlements.reduce((n, d) => n + (d.payableAt !== null && d.payableAt <= closed ? d.amountUsd : 0), 0);
+    // Keep the frozen legacy/no-option API unchanged. Traced PROFIT8 campaigns
+    // use receipt time as the terminal boundary, including delayed intrabar fills.
+    const chronology = options?.profit8Trace
+        ? require("./replay_chronology.cjs").terminalTimeline(marks,
+            Math.max(closed, ...inventoryEvents.map(e => e.knownAt)), realized)
+        : null;
+    if (chronology) {
+        marks.splice(0, marks.length, ...chronology.marks);
+        peakPnl = chronology.peak;
+    }
     return {
         id: signal.id,
         symbol: signal.symbol,
@@ -615,6 +625,9 @@ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMulti
         entry,
         marks,
         reason,
+        ...(chronology ? { chronology: { terminalKnownAt: marks.at(-1).at,
+            lateNonterminalMarksRemoved: chronology.lateNonterminalMarks,
+            semantics: "TERMINAL_RECEIPT_SUPERSEDES_LATE_MARKS" } } : {}),
         ...(calendarHolding
             ? { holdingDeadlineAt: deadline, holdingClockStartedAt: signal.at }
             : {}),

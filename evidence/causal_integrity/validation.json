@@ -1,0 +1,95 @@
+{
+  "accounts_decimal_audited": 12,
+  "all_16_economic_bootstrap_lower_bounds_negative": true,
+  "benchmarks": [
+    {
+      "elapsed_seconds": 27.068983141998615,
+      "replay_seconds": {
+        "control": 11.19912012200075,
+        "corrected": 11.148246791002748
+      },
+      "scope": "one offline control/corrected comparison plus audits, bootstrap and state export; not live latency"
+    },
+    {
+      "elapsed_seconds": 25.93021952900017,
+      "replay_seconds": {
+        "control": 10.796139504000166,
+        "corrected": 10.644400724999286
+      },
+      "scope": "one offline control/corrected comparison plus audits, bootstrap and state export; not live latency"
+    }
+  ],
+  "causal_state_records_verified": 12381,
+  "compound_all_8_accounts_exact": true,
+  "control_engine_sha256": "021e09fd3ee678870a5ba2e210396979eb4c623465a775c9988de3c0b74c2c7e",
+  "execution_allowed": false,
+  "financial_verdict": "NO_PROMOTION_EXISTING_CONFIRMED_FAILS_STRESS",
+  "global_trial_budget_reconciled": false,
+  "h1_h2_h3_status": "NOT_EXECUTED_BUDGET_BLOCKED",
+  "independent_external_audit": false,
+  "javascript_helper_typecheck": "PASS",
+  "level8_accredited": false,
+  "mypy": "PASS_5_FILES",
+  "new_strategy_variants_executed": 0,
+  "node_syntax_check": "PASS",
+  "node_tests_passed": 33,
+  "original_forensic_data_hashes_reproduced": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "python_tests_passed": 24,
+  "reproduced_artifact_hashes": {
+    "audit.json": "4750cebbba7493064dcb362d61c5344d169c82afe14517cb79f50e34c6a04842",
+    "causal_states.json.gz": "cfae25c1c143b633f440a67fb245e671a0809b6e02d7ac78c4be8b7ceab3afca",
+    "corrected/NOMINAL_CASH.json.gz": "54455dffe4658b8d124b0ef313694d692cfd830361385cd30b289e13908f4a82",
+    "corrected/NOMINAL_CONFIRMED.json.gz": "5aeb8b90373acc574413517459858ab62ae7b4029fbd2f9258b102dc9cf094d6",
+    "corrected/NOMINAL_SIMPLE.json.gz": "870d57dd2cf8a548e178c9a4f26d0214a8cbdc678ae6669cbca6114e6426b4ae",
+    "corrected/STRESS_CASH.json.gz": "5a2867d8540fbfb24bf81fae99f9352c4c23642dc7c7e5912fcf888a095d291d",
+    "corrected/STRESS_CONFIRMED.json.gz": "9ca5fa0f664b1d1173f87ebc84bc1356ae5ef0ec451cf14c428b395254a191f2",
+    "corrected/STRESS_SIMPLE.json.gz": "e3967c9a44a7600d8418efc7d2d342296dd60bd491c72516c72639ec6b832200",
+    "report.json": "c9e46c916b3f6562d66f1b5a9b24863588d718bfe253683bd9703c68889d5eab",
+    "session_curves.json.gz": "6b8f92b99cfb183865b478aaa69ccbfdef6934bbcd0b768ee9c60e4512277130",
+    "sha256.json": "dd2861ec3cc9caebe8e1f4ee44590fced4eec29925be4e032bc88d6fefd68a10"
+  },
+  "ruff": "PASS_6_FILES",
+  "schema": "HARPOON_CAUSAL_INTEGRITY_VALIDATION_1",
+  "source_head": "8642b30adf281c1208e82bbf85229e2e2aed82a6",
+  "two_complete_runs_identical_sha256": true,
+  "virtual_purged_all_6_accounts_exact": true,
+  "virtual_reconciliation": {
+    "NOMINAL_A": {
+      "book_sha256": "378f4257f782b52bd91fb8d78fc2d3bb651ce7cae672cfb678e35be97ee38fe4",
+      "buys": 0,
+      "event_ledger_verified": true,
+      "net": -365.0
+    },
+    "NOMINAL_B": {
+      "book_sha256": "83e9144780558277a1b80860c590f743b33f75074276c8ccac3f182472037e35",
+      "buys": 0,
+      "event_ledger_verified": true,
+      "net": -365.0
+    },
+    "NOMINAL_CURRENT": {
+      "book_sha256": "e8bd62a0f0d1a28a0ff871df0d99f70979718ebd3c63b4112157d99c377c74fd",
+      "buys": 0,
+      "event_ledger_verified": true,
+      "net": -365.0
+    },
+    "STRESS_A": {
+      "book_sha256": "f302319579fbdc167b1b10ea21b73c2d51365461a8842c365d8b4d02113f7a1b",
+      "buys": 0,
+      "event_ledger_verified": true,
+      "net": -730.0
+    },
+    "STRESS_B": {
+      "book_sha256": "25f987f6bc10f693a151e97fd803a20f9c73bcf1e6a16bd90834c5146c62b977",
+      "buys": 0,
+      "event_ledger_verified": true,
+      "net": -730.0
+    },
+    "STRESS_CURRENT": {
+      "book_sha256": "296347d7534fd1da294557dfb3f1222aaf48de047cca62fc1dc8fce4999090e4",
+      "buys": 0,
+      "event_ledger_verified": true,
+      "net": -730.0
+    }
+  }
+}

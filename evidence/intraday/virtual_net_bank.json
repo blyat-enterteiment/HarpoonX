@@ -1,0 +1,59 @@
+{
+  "origin": "SYNTHETIC_COUNTERFACTUAL_ENGINEERING",
+  "capital_each_case": 20000,
+  "independent_cases_not_a_compounded_track_record": true,
+  "scenarios": [
+    {
+      "scenario": "persistent_edge",
+      "baseline_notional": 1000,
+      "virtual_notional": 1000,
+      "baseline_net_pnl": 19.200000000000003,
+      "virtual_net_pnl": 19.200000000000003,
+      "difference": 0.0,
+      "evaluation_seconds": 0.02247636100037198,
+      "input_sha256": "ab5757fec3e701e4176ddeaa49b7bfeb0f578dc7d613b7b540da4781eb4007d5"
+    },
+    {
+      "scenario": "avoided_loss",
+      "baseline_notional": 1000,
+      "virtual_notional": 0,
+      "baseline_net_pnl": -20.8,
+      "virtual_net_pnl": -0.0,
+      "difference": 20.8,
+      "evaluation_seconds": 0.019140043000334117,
+      "input_sha256": "cfcf67c00abf35a583bd10496365f218e07175c5b449521261625e2303166b89"
+    },
+    {
+      "scenario": "missed_recovery",
+      "baseline_notional": 1000,
+      "virtual_notional": 0,
+      "baseline_net_pnl": 19.200000000000003,
+      "virtual_net_pnl": 0.0,
+      "difference": -19.200000000000003,
+      "evaluation_seconds": 0.01899560600031691,
+      "input_sha256": "cfcf67c00abf35a583bd10496365f218e07175c5b449521261625e2303166b89"
+    },
+    {
+      "scenario": "regime_reversal",
+      "baseline_notional": 1000,
+      "virtual_notional": 1000,
+      "baseline_net_pnl": -30.799999999999997,
+      "virtual_net_pnl": -30.799999999999997,
+      "difference": -0.0,
+      "evaluation_seconds": 0.02179751799940277,
+      "input_sha256": "ab5757fec3e701e4176ddeaa49b7bfeb0f578dc7d613b7b540da4781eb4007d5"
+    },
+    {
+      "scenario": "flat_after_costs",
+      "baseline_notional": 1000,
+      "virtual_notional": 0,
+      "baseline_net_pnl": -0.8,
+      "virtual_net_pnl": -0.0,
+      "difference": 0.8,
+      "evaluation_seconds": 0.01935609799966187,
+      "input_sha256": "a7a581a0dfc45706c14a8c4854e56ce3c3e8420f518a827f65f4b9027cb87f3c"
+    }
+  ],
+  "profitability_validated": false,
+  "level8_accredited": false
+}

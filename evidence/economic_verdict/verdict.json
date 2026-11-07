@@ -1,0 +1,148 @@
+{
+  "accounts": {
+    "NOMINAL_CASH": {
+      "account_sha256": "9028bb33a485824b467a90378ada23455ed3124f80430102c9aa6790fe0ea27b",
+      "crypto_trades": 0,
+      "drawdown": 0.01824999999999999,
+      "fixed_usd": 365.0,
+      "max_entry_gross": 0.0,
+      "max_entry_open_risk": 0.0,
+      "max_hold_hours": 0,
+      "net_usd": -365.0,
+      "return_pct": -1.8249999999999988,
+      "terminal_usd": 19635.0,
+      "trades": 0
+    },
+    "NOMINAL_CRYPTO": {
+      "account_sha256": "b80795b3e79a6bbb4005f71d72385a7fe876be3a3ecd3125e86c4220e9757706",
+      "crypto_trades": 10,
+      "drawdown": 0.017796523800496455,
+      "fixed_usd": 365.0,
+      "max_entry_gross": 0.006094074439073336,
+      "max_entry_open_risk": 0.0004972456247920176,
+      "max_hold_hours": 48.0,
+      "net_usd": -355.9304760099294,
+      "return_pct": -1.7796523800496455,
+      "terminal_usd": 19644.06952399007,
+      "trades": 10
+    },
+    "NOMINAL_EQUITY_ETF": {
+      "account_sha256": "7e52daa6d6ac2f033511f4ef4dc4ea15b2094234544f98b09a7fc0605ba506f0",
+      "crypto_trades": 0,
+      "drawdown": 0.01288570005357137,
+      "fixed_usd": 365.0,
+      "max_entry_gross": 0.11952038102366887,
+      "max_entry_open_risk": 0.002499884175410702,
+      "max_hold_hours": 72.0,
+      "net_usd": -257.71400107142836,
+      "return_pct": -1.288570005357137,
+      "terminal_usd": 19742.28599892857,
+      "trades": 32
+    },
+    "NOMINAL_JOINT": {
+      "account_sha256": "7d7e3de260599b4d6e0048cd5f0a11589ef6d5fb3d4743f9e0cbcddb37afadce",
+      "crypto_trades": 10,
+      "drawdown": 0.01253443573251456,
+      "fixed_usd": 365.0,
+      "max_entry_gross": 0.11947989313444225,
+      "max_entry_open_risk": 0.002499999977493845,
+      "max_hold_hours": 72.0,
+      "net_usd": -250.68871465029224,
+      "return_pct": -1.253443573251456,
+      "terminal_usd": 19749.311285349708,
+      "trades": 41
+    },
+    "STRESS_CASH": {
+      "account_sha256": "2a5f74adff454ac0b35e681121a823e7d81a9016b3e0ae2d4450fa888e3e8782",
+      "crypto_trades": 0,
+      "drawdown": 0.03649999999999998,
+      "fixed_usd": 730.0,
+      "max_entry_gross": 0.0,
+      "max_entry_open_risk": 0.0,
+      "max_hold_hours": 0,
+      "net_usd": -730.0,
+      "return_pct": -3.6499999999999977,
+      "terminal_usd": 19270.0,
+      "trades": 0
+    },
+    "STRESS_CRYPTO": {
+      "account_sha256": "a7d08fec9896cad338a204123921ddf00c1d93450ec53dabc4b1f8ca818e678f",
+      "crypto_trades": 9,
+      "drawdown": 0.03640342542035613,
+      "fixed_usd": 730.0,
+      "max_entry_gross": 0.006157713403517252,
+      "max_entry_open_risk": 0.0005024382421373423,
+      "max_hold_hours": 48.0,
+      "net_usd": -728.0685084071229,
+      "return_pct": -3.640342542035613,
+      "terminal_usd": 19271.931491592877,
+      "trades": 9
+    },
+    "STRESS_EQUITY_ETF": {
+      "account_sha256": "9224fa079b58dc9af6b0c276826ee468ec8ea7cd901f8b35b3210e232415933d",
+      "crypto_trades": 0,
+      "drawdown": 0.033509185571428124,
+      "fixed_usd": 730.0,
+      "max_entry_gross": 0.11839796342293174,
+      "max_entry_open_risk": 0.002490444025195017,
+      "max_hold_hours": 72.0,
+      "net_usd": -670.1837114285627,
+      "return_pct": -3.3509185571428124,
+      "terminal_usd": 19329.816288571437,
+      "trades": 32
+    },
+    "STRESS_JOINT": {
+      "account_sha256": "0f31d573f62ec2934a98b035ffbca1458ecb7167d3f3972775447bac4fcc32c1",
+      "crypto_trades": 9,
+      "drawdown": 0.03350133664628463,
+      "fixed_usd": 730.0,
+      "max_entry_gross": 0.11839818247982613,
+      "max_entry_open_risk": 0.002499999916180097,
+      "max_hold_hours": 72.0,
+      "net_usd": -670.0267329256931,
+      "return_pct": -3.350133664628463,
+      "terminal_usd": 19329.973267074307,
+      "trades": 40
+    }
+  },
+  "capital_usd": 20000,
+  "decision": "DO_NOT_PROMOTE",
+  "execution_allowed": false,
+  "fixed_cost_decomposition": {
+    "NOMINAL": {
+      "fixed_usd": 365.0,
+      "net_plus_fixed_descriptive_only": 114.31128534970776,
+      "net_usd": -250.68871465029224
+    },
+    "STRESS": {
+      "fixed_usd": 730.0,
+      "net_plus_fixed_descriptive_only": 59.97326707430693,
+      "net_usd": -670.0267329256931
+    }
+  },
+  "fresh_holdout": false,
+  "historical_period": [
+    "2025-01-01",
+    "2025-12-31"
+  ],
+  "historical_recipe_decision": "REJECT",
+  "ledger_verified": true,
+  "level8_accredited": false,
+  "limitations": [
+    "REUSED_HISTORY",
+    "HOURLY_MODELED_EXECUTION",
+    "NOT_VIRTUAL_NET_RESULTS",
+    "NO_AB_COMPARISON",
+    "NO_PROSPECTIVE_FILLS"
+  ],
+  "negative_bootstrap_lower_bounds": 16,
+  "policy_comparison_executed": false,
+  "policy_status": {
+    "A_no_trade_zone": "PROPOSED_NOT_IMPLEMENTED",
+    "B_gradual_exposure": "PROPOSED_NOT_IMPLEMENTED",
+    "reference_virtual_net": "SNAPSHOT_PLANNER_NO_FUNDED_REPLAY"
+  },
+  "prior_account_hashes_match": true,
+  "schema": "HARPOON_ECONOMIC_VERDICT_1",
+  "virtual_matrix_decision": "INSUFFICIENT_EVIDENCE"
+}

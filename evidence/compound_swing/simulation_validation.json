@@ -1,0 +1,15 @@
+{
+  "schema": "HARPOON_LOCAL_SIMULATION_VALIDATION_1",
+  "mode": "LOCAL_SYNTHETIC",
+  "tests_passed": 12,
+  "test_command": "PYTHONPATH=quant OPENBLAS_NUM_THREADS=1 python -B -m unittest discover -s quant/tests -p 'test_framework*.py' -v",
+  "scope": [
+    "core Python/CLI/Node",
+    "simulated order and fill with fees",
+    "partial fill, cancellation, restart, late fill reconciliation"
+  ],
+  "broker_paper_connected": false,
+  "level8_accredited": false,
+  "execution_allowed": false,
+  "full_suite_rerun_this_change": false
+}

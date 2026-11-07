@@ -1,0 +1,64 @@
+{
+  "economic_decision": "REJECT",
+  "accounts": {
+    "NOMINAL": {
+      "checks": {
+        "positive_after_costs": false,
+        "annual_target": false,
+        "positive_without_largest_trade": false,
+        "drawdown": true,
+        "holding_limit": true
+      },
+      "annualized_net_return": -0.012534435732514561,
+      "net_usd": -250.68871465029224,
+      "net_less_largest_trade": -280.6938821502922,
+      "largest_trade_economic_contribution_usd": 30.00516749999997,
+      "attributed_dividends_usd": 0.0,
+      "deletion_test_is_counterfactual_replay": false,
+      "days": 365,
+      "paired_log_growth": {
+        "joint_log_growth": -0.01261365444275242,
+        "add_crypto_to_equity": 0.0003557863939835926,
+        "add_equity_to_crypto": 0.005343131743288154,
+        "joint_vs_cash": 0.005804931081264897
+      }
+    },
+    "STRESS": {
+      "checks": {
+        "positive_after_costs": false,
+        "annual_target": false,
+        "positive_without_largest_trade": false,
+        "drawdown": true,
+        "holding_limit": true
+      },
+      "annualized_net_return": -0.03350133664628463,
+      "net_usd": -670.0267329256931,
+      "net_less_largest_trade": -698.3020679256931,
+      "largest_trade_economic_contribution_usd": 28.27533500000004,
+      "attributed_dividends_usd": 0.0,
+      "deletion_test_is_counterfactual_replay": false,
+      "days": 365,
+      "paired_log_growth": {
+        "joint_log_growth": -0.03407536331068606,
+        "add_crypto_to_equity": 8.121022110785248e-06,
+        "add_equity_to_crypto": 0.003007199752698142,
+        "joint_vs_cash": 0.003107427817029773
+      }
+    }
+  },
+  "ledger_verified": true,
+  "missing_cost_groups": [
+    "LIVE:equity:buy",
+    "LIVE:equity:sell",
+    "LIVE:crypto:buy",
+    "LIVE:crypto:sell"
+  ],
+  "outstanding": [
+    "independently reconciled costs including unfilled orders",
+    "risk-matched passive comparison",
+    "untouched holdout and prospective decision receipts",
+    "intrabar risk and concentration by sector"
+  ],
+  "level8_accredited": false,
+  "execution_allowed": false
+}
