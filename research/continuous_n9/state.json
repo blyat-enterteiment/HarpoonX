@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_NATIVE_ANCHOR_INTEGRATION",
-    "owner": "user_authorized_session_20261107T195212Z",
-    "started_at_utc": "2026-11-07T19:52:12Z",
-    "source_commit": "828963488b14bdbb8700387f2c739211b202fde9",
-    "scope": "One engineering unit: complete native campaigns versus substeps and reserve/IOC premises; no economic search",
-    "maximum_new_economic_accounts": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_M11_FIXTURES_NATIVE_EQUIVALENCE_UNRESOLVED",
+  "current_verdict": "NO_GO_M11_NATIVE_CAMPAIGN_COUNTEREXAMPLE_ANCHOR_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "M11 phase1 engineering: compare exact native replayCampaign and first-cross substep exits with identical signals & receive clocks; verify all reserve-anchor premises along real native event order. Do not open economic search or sealed M10 final before registered structural eligibility.",
-  "next_round_id": "M11_NATIVE_ANCHOR_INTEGRATION",
-  "phase": "M11_PHASE1_ENGINEERING_ACTIVE",
+  "next_action": "Build deterministic persistent-target/trailing full-campaign substep comparator and check reserve anchor inequalities across both assets at each native decision, IOC and receipt; do not run economic search or open M10 final until feasibility resolved.",
+  "next_round_id": "M11_PERSISTENT_COUNTERFACTUAL_AND_DUAL_ASSET_ANCHOR",
+  "phase": "M11_PHASE1_ENGINEERING_PARTIAL_VERIFIED",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE0",
+  "round": "M11_PHASE1",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -84,5 +75,22 @@
   },
   "m11_phase0_complete": true,
   "m11_phase0_source_commit": "644cc26ed9234849b6fc2378938398a893eb6360",
-  "m11_ci_run": 42406823925
+  "m11_ci_run": 42406823925,
+  "m11_phase1": {
+    "integration_tests_passed": 9,
+    "ci_run": 42410164164,
+    "ci_status": "SUCCESS",
+    "test_source_sha256": "ee57bca5705eb6b2de92060ac666b2caa6cbeb405aba26044d581f48ce12765d",
+    "new_economic_accounts": 0,
+    "alpha_spent": 0,
+    "final_opened": false,
+    "fixture_native_net_usd": -6.34,
+    "fixture_first_cross_net_usd": -8.58,
+    "native_infeasibility_certified": false,
+    "reserve_anchor_full_proof_pending": true,
+    "arbitrary_campaign_stateful_comparator_pending": true,
+    "doc": "docs/MODULATION11_PHASE1.md",
+    "evidence": "evidence/modulation11/phase1_native_fixture.json",
+    "source_commit": "417e464b79e8154460b090bf76a036e38a58fc14"
+  }
 }
