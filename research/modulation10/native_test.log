@@ -1,0 +1,682 @@
+TAP version 13
+# Subtest: all 47 registered Modulation9 sources retain their original hashes
+ok 1 - all 47 registered Modulation9 sources retain their original hashes
+  ---
+  duration_ms: 7.022527
+  type: 'test'
+  ...
+# Subtest: without v2 opt-in campaign and portfolio delegate byte-exactly to frozen original
+ok 2 - without v2 opt-in campaign and portfolio delegate byte-exactly to frozen original
+  ---
+  duration_ms: 31.67966
+  type: 'test'
+  ...
+# Subtest: NATIVE72: v2 preserves legacy campaign and complete ledger on FLAT
+ok 3 - NATIVE72: v2 preserves legacy campaign and complete ledger on FLAT
+  ---
+  duration_ms: 16.146268
+  type: 'test'
+  ...
+# Subtest: NATIVE72: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+ok 4 - NATIVE72: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+  ---
+  duration_ms: 5.323846
+  type: 'test'
+  ...
+# Subtest: NATIVE72: v2 preserves legacy campaign and complete ledger on GAP
+ok 5 - NATIVE72: v2 preserves legacy campaign and complete ledger on GAP
+  ---
+  duration_ms: 3.655441
+  type: 'test'
+  ...
+# Subtest: NATIVE72: v2 preserves legacy campaign and complete ledger on PARTIALS
+ok 6 - NATIVE72: v2 preserves legacy campaign and complete ledger on PARTIALS
+  ---
+  duration_ms: 9.761108
+  type: 'test'
+  ...
+# Subtest: PROTECT48: v2 preserves legacy campaign and complete ledger on FLAT
+ok 7 - PROTECT48: v2 preserves legacy campaign and complete ledger on FLAT
+  ---
+  duration_ms: 8.271848
+  type: 'test'
+  ...
+# Subtest: PROTECT48: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+ok 8 - PROTECT48: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+  ---
+  duration_ms: 2.962454
+  type: 'test'
+  ...
+# Subtest: PROTECT48: v2 preserves legacy campaign and complete ledger on GAP
+ok 9 - PROTECT48: v2 preserves legacy campaign and complete ledger on GAP
+  ---
+  duration_ms: 3.761219
+  type: 'test'
+  ...
+# Subtest: PROTECT48: v2 preserves legacy campaign and complete ledger on PARTIALS
+ok 10 - PROTECT48: v2 preserves legacy campaign and complete ledger on PARTIALS
+  ---
+  duration_ms: 5.861333
+  type: 'test'
+  ...
+# Subtest: RUNNER72: v2 preserves legacy campaign and complete ledger on FLAT
+ok 11 - RUNNER72: v2 preserves legacy campaign and complete ledger on FLAT
+  ---
+  duration_ms: 10.788541
+  type: 'test'
+  ...
+# Subtest: RUNNER72: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+ok 12 - RUNNER72: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+  ---
+  duration_ms: 7.654383
+  type: 'test'
+  ...
+# Subtest: RUNNER72: v2 preserves legacy campaign and complete ledger on GAP
+ok 13 - RUNNER72: v2 preserves legacy campaign and complete ledger on GAP
+  ---
+  duration_ms: 3.091765
+  type: 'test'
+  ...
+# Subtest: RUNNER72: v2 preserves legacy campaign and complete ledger on PARTIALS
+ok 14 - RUNNER72: v2 preserves legacy campaign and complete ledger on PARTIALS
+  ---
+  duration_ms: 6.528483
+  type: 'test'
+  ...
+# Subtest: FAST24: v2 preserves legacy campaign and complete ledger on FLAT
+ok 15 - FAST24: v2 preserves legacy campaign and complete ledger on FLAT
+  ---
+  duration_ms: 5.352369
+  type: 'test'
+  ...
+# Subtest: FAST24: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+ok 16 - FAST24: v2 preserves legacy campaign and complete ledger on CLOSE_TREND
+  ---
+  duration_ms: 2.692965
+  type: 'test'
+  ...
+# Subtest: FAST24: v2 preserves legacy campaign and complete ledger on GAP
+ok 17 - FAST24: v2 preserves legacy campaign and complete ledger on GAP
+  ---
+  duration_ms: 2.489853
+  type: 'test'
+  ...
+# Subtest: FAST24: v2 preserves legacy campaign and complete ledger on PARTIALS
+ok 18 - FAST24: v2 preserves legacy campaign and complete ledger on PARTIALS
+  ---
+  duration_ms: 4.095865
+  type: 'test'
+  ...
+# Subtest: queue-only profile retains every native mathematical parameter
+ok 19 - queue-only profile retains every native mathematical parameter
+  ---
+  duration_ms: 0.2364
+  type: 'test'
+  ...
+# Subtest: queue-only activates received stop without overwriting it with an unread close
+ok 20 - queue-only activates received stop without overwriting it with an unread close
+  ---
+  duration_ms: 0.808989
+  type: 'test'
+  ...
+# Subtest: queue-only and native have identical targets and fees without a trail activation
+ok 21 - queue-only and native have identical targets and fees without a trail activation
+  ---
+  duration_ms: 1.269473
+  type: 'test'
+  ...
+# Subtest: HOLD24: disables partials and trailing despite large favorable closes
+ok 22 - HOLD24: disables partials and trailing despite large favorable closes
+  ---
+  duration_ms: 0.666939
+  type: 'test'
+  ...
+# Subtest: HOLD24: adverse stop precedes favorable range and gaps retain slippage
+ok 23 - HOLD24: adverse stop precedes favorable range and gaps retain slippage
+  ---
+  duration_ms: 0.772116
+  type: 'test'
+  ...
+# Subtest: HOLD72: disables partials and trailing despite large favorable closes
+ok 24 - HOLD72: disables partials and trailing despite large favorable closes
+  ---
+  duration_ms: 1.008156
+  type: 'test'
+  ...
+# Subtest: HOLD72: adverse stop precedes favorable range and gaps retain slippage
+ok 25 - HOLD72: adverse stop precedes favorable range and gaps retain slippage
+  ---
+  duration_ms: 0.6002
+  type: 'test'
+  ...
+# Subtest: NATIVE_QUEUE72: calendar deadline never extends past its horizon over a weekend
+ok 26 - NATIVE_QUEUE72: calendar deadline never extends past its horizon over a weekend
+  ---
+  duration_ms: 0.780297
+  type: 'test'
+  ...
+# Subtest: HOLD24: calendar deadline never extends past its horizon over a weekend
+ok 27 - HOLD24: calendar deadline never extends past its horizon over a weekend
+  ---
+  duration_ms: 0.528023
+  type: 'test'
+  ...
+# Subtest: HOLD72: calendar deadline never extends past its horizon over a weekend
+ok 28 - HOLD72: calendar deadline never extends past its horizon over a weekend
+  ---
+  duration_ms: 0.314156
+  type: 'test'
+  ...
+# Subtest: PROTECT48: calendar deadline never extends past its horizon over a weekend
+ok 29 - PROTECT48: calendar deadline never extends past its horizon over a weekend
+  ---
+  duration_ms: 0.754379
+  type: 'test'
+  ...
+# Subtest: MOM3_Z0: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+ok 30 - MOM3_Z0: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+  ---
+  duration_ms: 2.503433
+  type: 'test'
+  ...
+# Subtest: MOM3_Z075: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+ok 31 - MOM3_Z075: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+  ---
+  duration_ms: 3.248749
+  type: 'test'
+  ...
+# Subtest: MOM8_Z0: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+ok 32 - MOM8_Z0: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+  ---
+  duration_ms: 1.846769
+  type: 'test'
+  ...
+# Subtest: MOM8_Z075: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+ok 33 - MOM8_Z075: decision at 5 minutes plus receipt lag plans opening at 10 minutes
+  ---
+  duration_ms: 1.324794
+  type: 'test'
+  ...
+# Subtest: future source availability and feature metadata are rejected before replay
+ok 34 - future source availability and feature metadata are rejected before replay
+  ---
+  duration_ms: 1.054864
+  type: 'test'
+  ...
+# Subtest: unregistered clocks, altered plans and multiple nominations fail closed
+ok 35 - unregistered clocks, altered plans and multiple nominations fail closed
+  ---
+  duration_ms: 0.630365
+  type: 'test'
+  ...
+# Subtest: v2 metadata cannot silently enable research or mix exit policies
+ok 36 - v2 metadata cannot silently enable research or mix exit policies
+  ---
+  duration_ms: 0.455176
+  type: 'test'
+  ...
+# Subtest: registered multiple intraday slots reuse capital only after known inventory closure
+ok 37 - registered multiple intraday slots reuse capital only after known inventory closure
+  ---
+  duration_ms: 3.56717
+  type: 'test'
+  ...
+# Subtest: missing entry or holding bars remain unresolved exposures, never free exclusions
+ok 38 - missing entry or holding bars remain unresolved exposures, never free exclusions
+  ---
+  duration_ms: 1.305146
+  type: 'test'
+  ...
+# Subtest: risk caps remain unchanged and reject increased admission risk
+ok 39 - risk caps remain unchanged and reject increased admission risk
+  ---
+  duration_ms: 4.432804
+  type: 'test'
+  ...
+# Subtest: terminal evaluation refuses new campaigns whose deadline exceeds evaluation
+ok 40 - terminal evaluation refuses new campaigns whose deadline exceeds evaluation
+  ---
+  duration_ms: 0.473532
+  type: 'test'
+  ...
+# Subtest: bridge retains controls, costs, curve and ledger byte-equivalent to M9
+ok 41 - bridge retains controls, costs, curve and ledger byte-equivalent to M9
+  ---
+  duration_ms: 99.925361
+  type: 'test'
+  ...
+# Subtest: bridge refuses changed costs, non-synthetic origin and unregistered entries
+ok 42 - bridge refuses changed costs, non-synthetic origin and unregistered entries
+  ---
+  duration_ms: 4.729675
+  type: 'test'
+  ...
+# Subtest: registered 23-policy catalogue yields 46 reconciled accounts on a flat engineering tape
+ok 43 - registered 23-policy catalogue yields 46 reconciled accounts on a flat engineering tape
+  ---
+  duration_ms: 179.867494
+  type: 'test'
+  ...
+# Subtest: bridge stream mode emits repeatable engineering results and terminal reconciliation
+ok 44 - bridge stream mode emits repeatable engineering results and terminal reconciliation
+  ---
+  duration_ms: 178.387616
+  type: 'test'
+  ...
+# Subtest: NATIVE72: adverse intrabar stop precedes targets
+ok 45 - NATIVE72: adverse intrabar stop precedes targets
+  ---
+  duration_ms: 9.549985
+  type: 'test'
+  ...
+# Subtest: PROTECT48: adverse intrabar stop precedes targets
+ok 46 - PROTECT48: adverse intrabar stop precedes targets
+  ---
+  duration_ms: 0.778425
+  type: 'test'
+  ...
+# Subtest: RUNNER72: adverse intrabar stop precedes targets
+ok 47 - RUNNER72: adverse intrabar stop precedes targets
+  ---
+  duration_ms: 0.455315
+  type: 'test'
+  ...
+# Subtest: FAST24: adverse intrabar stop precedes targets
+ok 48 - FAST24: adverse intrabar stop precedes targets
+  ---
+  duration_ms: 0.482225
+  type: 'test'
+  ...
+# Subtest: NATIVE72 matches unmodulated native campaign and funded ledger exactly: FLAT
+ok 49 - NATIVE72 matches unmodulated native campaign and funded ledger exactly: FLAT
+  ---
+  duration_ms: 33.496926
+  type: 'test'
+  ...
+# Subtest: NATIVE72 matches unmodulated native campaign and funded ledger exactly: PARTIALS
+ok 50 - NATIVE72 matches unmodulated native campaign and funded ledger exactly: PARTIALS
+  ---
+  duration_ms: 12.522322
+  type: 'test'
+  ...
+# Subtest: NATIVE72 matches unmodulated native campaign and funded ledger exactly: TRAIL
+ok 51 - NATIVE72 matches unmodulated native campaign and funded ledger exactly: TRAIL
+  ---
+  duration_ms: 9.440662
+  type: 'test'
+  ...
+# Subtest: NATIVE72 matches unmodulated native campaign and funded ledger exactly: GAP
+ok 52 - NATIVE72 matches unmodulated native campaign and funded ledger exactly: GAP
+  ---
+  duration_ms: 6.108791
+  type: 'test'
+  ...
+# Subtest: NATIVE72 matches unmodulated native campaign and funded ledger exactly: DIVIDEND
+ok 53 - NATIVE72 matches unmodulated native campaign and funded ledger exactly: DIVIDEND
+  ---
+  duration_ms: 11.913089
+  type: 'test'
+  ...
+# Subtest: NATIVE72 transparently preserves the native delayed-stop replacement behavior
+ok 54 - NATIVE72 transparently preserves the native delayed-stop replacement behavior
+  ---
+  duration_ms: 1.822133
+  type: 'test'
+  ...
+# Subtest: metadata cannot enable research implicitly and cannot change an enum or horizon
+ok 55 - metadata cannot enable research implicitly and cannot change an enum or horizon
+  ---
+  duration_ms: 1.217646
+  type: 'test'
+  ...
+# Subtest: new clock and horizon are accepted only in explicit native research
+ok 56 - new clock and horizon are accepted only in explicit native research
+  ---
+  duration_ms: 2.981142
+  type: 'test'
+  ...
+# Subtest: PROTECT48 cannot use a completed close before availableAt, or lose it to a newer bar
+ok 57 - PROTECT48 cannot use a completed close before availableAt, or lose it to a newer bar
+  ---
+  duration_ms: 0.711065
+  type: 'test'
+  ...
+# Subtest: ready stop queue activates the old receipt while retaining the new unreceived stop
+ok 58 - ready stop queue activates the old receipt while retaining the new unreceived stop
+  ---
+  duration_ms: 0.164043
+  type: 'test'
+  ...
+# Subtest: custom stops never loosen; breakeven trigger covers modeled round-trip fees
+ok 59 - custom stops never loosen; breakeven trigger covers modeled round-trip fees
+  ---
+  duration_ms: 0.260206
+  type: 'test'
+  ...
+# Subtest: RUNNER72 takes only one integer quarter at 2R and leaves the rest to trailing
+ok 60 - RUNNER72 takes only one integer quarter at 2R and leaves the rest to trailing
+  ---
+  duration_ms: 0.59976
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 1
+ok 61 - integer partials conserve quantity 1
+  ---
+  duration_ms: 0.908888
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 2
+ok 62 - integer partials conserve quantity 2
+  ---
+  duration_ms: 5.209526
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 3
+ok 63 - integer partials conserve quantity 3
+  ---
+  duration_ms: 0.999752
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 4
+ok 64 - integer partials conserve quantity 4
+  ---
+  duration_ms: 0.903761
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 5
+ok 65 - integer partials conserve quantity 5
+  ---
+  duration_ms: 0.86278
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 7
+ok 66 - integer partials conserve quantity 7
+  ---
+  duration_ms: 0.715561
+  type: 'test'
+  ...
+# Subtest: integer partials conserve quantity 8
+ok 67 - integer partials conserve quantity 8
+  ---
+  duration_ms: 0.843531
+  type: 'test'
+  ...
+# Subtest: FAST24 exits at next session open after six elapsed hours using completed-close peak
+ok 68 - FAST24 exits at next session open after six elapsed hours using completed-close peak
+  ---
+  duration_ms: 0.608863
+  type: 'test'
+  ...
+# Subtest: FAST24 cannot erase an earlier qualifying completed-close excursion
+ok 69 - FAST24 cannot erase an earlier qualifying completed-close excursion
+  ---
+  duration_ms: 0.404419
+  type: 'test'
+  ...
+# Subtest: FAST24 cannot see a favorable close that will arrive after the decision opening
+ok 70 - FAST24 cannot see a favorable close that will arrive after the decision opening
+  ---
+  duration_ms: 0.331782
+  type: 'test'
+  ...
+# Subtest: NATIVE72: overnight gap is not capped at nominal stop
+ok 71 - NATIVE72: overnight gap is not capped at nominal stop
+  ---
+  duration_ms: 3.382417
+  type: 'test'
+  ...
+# Subtest: PROTECT48: overnight gap is not capped at nominal stop
+ok 72 - PROTECT48: overnight gap is not capped at nominal stop
+  ---
+  duration_ms: 0.302949
+  type: 'test'
+  ...
+# Subtest: RUNNER72: overnight gap is not capped at nominal stop
+ok 73 - RUNNER72: overnight gap is not capped at nominal stop
+  ---
+  duration_ms: 0.246265
+  type: 'test'
+  ...
+# Subtest: FAST24: overnight gap is not capped at nominal stop
+ok 74 - FAST24: overnight gap is not capped at nominal stop
+  ---
+  duration_ms: 0.325733
+  type: 'test'
+  ...
+# Subtest: NATIVE72: calendar deadline is bounded by its declared horizon
+ok 75 - NATIVE72: calendar deadline is bounded by its declared horizon
+  ---
+  duration_ms: 0.37743
+  type: 'test'
+  ...
+# Subtest: PROTECT48: calendar deadline is bounded by its declared horizon
+ok 76 - PROTECT48: calendar deadline is bounded by its declared horizon
+  ---
+  duration_ms: 0.281888
+  type: 'test'
+  ...
+# Subtest: RUNNER72: calendar deadline is bounded by its declared horizon
+ok 77 - RUNNER72: calendar deadline is bounded by its declared horizon
+  ---
+  duration_ms: 0.325033
+  type: 'test'
+  ...
+# Subtest: FAST24: calendar deadline is bounded by its declared horizon
+ok 78 - FAST24: calendar deadline is bounded by its declared horizon
+  ---
+  duration_ms: 0.339394
+  type: 'test'
+  ...
+# Subtest: missing bar with open exposure fails closed instead of deleting a position
+ok 79 - missing bar with open exposure fails closed instead of deleting a position
+  ---
+  duration_ms: 0.587141
+  type: 'test'
+  ...
+# Subtest: bridge shares calendar overhead with cash and independently reconciles fill cash
+ok 80 - bridge shares calendar overhead with cash and independently reconciles fill cash
+  ---
+  duration_ms: 69.953402
+  type: 'test'
+  ...
+# Subtest: independent ledger audit catches a missing exit share and handles accrued dividends
+ok 81 - independent ledger audit catches a missing exit share and handles accrued dividends
+  ---
+  duration_ms: 3.300385
+  type: 'test'
+  ...
+# Subtest: bridge rejects disguised provenance and raised risk instead of evaluating them
+ok 82 - bridge rejects disguised provenance and raised risk instead of evaluating them
+  ---
+  duration_ms: 3.877331
+  type: 'test'
+  ...
+# Subtest: research price index exactly matches the native full scan, including delayed bars and ties
+ok 83 - research price index exactly matches the native full scan, including delayed bars and ties
+  ---
+  duration_ms: 24.234854
+  type: 'test'
+  ...
+# Subtest: bridge NDJSON mode reuses one process and produces machine-readable complete responses
+ok 84 - bridge NDJSON mode reuses one process and produces machine-readable complete responses
+  ---
+  duration_ms: 176.142524
+  type: 'test'
+  ...
+# Subtest: disabled new options preserve the frozen replay byte for byte
+ok 85 - disabled new options preserve the frozen replay byte for byte
+  ---
+  duration_ms: 48.466774
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: TIME, 24h
+ok 86 - two teacher bases reproduce quantities 1..12: TIME, 24h
+  ---
+  duration_ms: 6.076933
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: ONE_TARGET, 24h
+ok 87 - two teacher bases reproduce quantities 1..12: ONE_TARGET, 24h
+  ---
+  duration_ms: 4.460777
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: TWO_TARGETS, 24h
+ok 88 - two teacher bases reproduce quantities 1..12: TWO_TARGETS, 24h
+  ---
+  duration_ms: 3.393564
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: STOP, 24h
+ok 89 - two teacher bases reproduce quantities 1..12: STOP, 24h
+  ---
+  duration_ms: 0.810623
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: TRAIL, 24h
+ok 90 - two teacher bases reproduce quantities 1..12: TRAIL, 24h
+  ---
+  duration_ms: 5.943786
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: GAP_STOP, 24h
+ok 91 - two teacher bases reproduce quantities 1..12: GAP_STOP, 24h
+  ---
+  duration_ms: 3.87714
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: DIVIDEND_AFTER_PARTIAL, 24h
+ok 92 - two teacher bases reproduce quantities 1..12: DIVIDEND_AFTER_PARTIAL, 24h
+  ---
+  duration_ms: 4.636136
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: TIME, 72h
+ok 93 - two teacher bases reproduce quantities 1..12: TIME, 72h
+  ---
+  duration_ms: 16.05006
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: ONE_TARGET, 72h
+ok 94 - two teacher bases reproduce quantities 1..12: ONE_TARGET, 72h
+  ---
+  duration_ms: 3.950409
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: TWO_TARGETS, 72h
+ok 95 - two teacher bases reproduce quantities 1..12: TWO_TARGETS, 72h
+  ---
+  duration_ms: 4.123076
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: STOP, 72h
+ok 96 - two teacher bases reproduce quantities 1..12: STOP, 72h
+  ---
+  duration_ms: 0.51918
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: TRAIL, 72h
+ok 97 - two teacher bases reproduce quantities 1..12: TRAIL, 72h
+  ---
+  duration_ms: 1.294911
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: GAP_STOP, 72h
+ok 98 - two teacher bases reproduce quantities 1..12: GAP_STOP, 72h
+  ---
+  duration_ms: 2.113145
+  type: 'test'
+  ...
+# Subtest: two teacher bases reproduce quantities 1..12: DIVIDEND_AFTER_PARTIAL, 72h
+ok 99 - two teacher bases reproduce quantities 1..12: DIVIDEND_AFTER_PARTIAL, 72h
+  ---
+  duration_ms: 3.216791
+  type: 'test'
+  ...
+# Subtest: gross deadline and net policy targets share cohort maturity even after early STOP
+ok 100 - gross deadline and net policy targets share cohort maturity even after early STOP
+  ---
+  duration_ms: 0.328087
+  type: 'test'
+  ...
+# Subtest: common IOC is independent of quantity and future opening
+ok 101 - common IOC is independent of quantity and future opening
+  ---
+  duration_ms: 16.121311
+  type: 'test'
+  ...
+# Subtest: missing observations and unmodeled split remain blocked, never zero labels
+ok 102 - missing observations and unmodeled split remain blocked, never zero labels
+  ---
+  duration_ms: 1.783054
+  type: 'test'
+  ...
+# Subtest: H2 selects positive net qMax without a second trading cost hurdle
+ok 103 - H2 selects positive net qMax without a second trading cost hurdle
+  ---
+  duration_ms: 1.184236
+  type: 'test'
+  ...
+# Subtest: H3 enumerates integer lot discontinuities, can choose q3 and can stay in cash
+ok 104 - H3 enumerates integer lot discontinuities, can choose q3 and can stay in cash
+  ---
+  duration_ms: 0.782451
+  type: 'test'
+  ...
+# Subtest: H3 objective uses USD variance and expected squared payoff at fixed rho1
+ok 105 - H3 objective uses USD variance and expected squared payoff at fixed rho1
+  ---
+  duration_ms: 0.220257
+  type: 'test'
+  ...
+# Subtest: forecast units, chronology and PSD failures cannot silently trade
+ok 106 - forecast units, chronology and PSD failures cannot silently trade
+  ---
+  duration_ms: 1.002787
+  type: 'test'
+  ...
+# Subtest: committed worst-price reservations allow sequential allocation without early release
+ok 107 - committed worst-price reservations allow sequential allocation without early release
+  ---
+  duration_ms: 15.195197
+  type: 'test'
+  ...
+# Subtest: terminal admission follows each calendar horizon instead of a blanket72h cutoff
+ok 108 - terminal admission follows each calendar horizon instead of a blanket72h cutoff
+  ---
+  duration_ms: 4.188001
+  type: 'test'
+  ...
+# Subtest: common IOC sizing includes rounded stop, cash and modeled fill verification
+ok 109 - common IOC sizing includes rounded stop, cash and modeled fill verification
+  ---
+  duration_ms: 17.585321
+  type: 'test'
+  ...
+# Subtest: new branch rejects raised or omitted limits and unregistered clocks and exits
+ok 110 - new branch rejects raised or omitted limits and unregistered clocks and exits
+  ---
+  duration_ms: 0.874337
+  type: 'test'
+  ...
+# Subtest: calendar closure shortens 24h cohort without extending original deadline
+ok 111 - calendar closure shortens 24h cohort without extending original deadline
+  ---
+  duration_ms: 0.571158
+  type: 'test'
+  ...
+# Subtest: bridge preserves target flags and continuous-account summary with explicit limits
+ok 112 - bridge preserves target flags and continuous-account summary with explicit limits
+  ---
+  duration_ms: 37.301875
+  type: 'test'
+  ...
+1..112
+# tests 112
+# suites 0
+# pass 112
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 756.245668

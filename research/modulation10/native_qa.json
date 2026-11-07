@@ -1,0 +1,75 @@
+{
+  "schema": "HARPOON_MODULATION10_NATIVE_QA_1",
+  "status": "PASS_ENGINEERING_FIXTURES_ONLY",
+  "origin": "SYNTHETIC",
+  "economic_search_or_evaluation_executed_by_this_agent": false,
+  "commands": [
+    "node --check runtime30/modulation10_replay.cjs",
+    "node --check tools/modulation10_bridge.cjs",
+    "node --check tools/modulation10_test.cjs",
+    "node --test --test-reporter=tap tools/modulation10_test.cjs tools/modulation9_test.cjs tools/profit8_replay_test.cjs"
+  ],
+  "syntax_checks": [
+    {
+      "file": "runtime30/modulation10_replay.cjs",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "file": "tools/modulation10_bridge.cjs",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "file": "tools/modulation10_test.cjs",
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "tests": {
+    "total": 112,
+    "new_modulation10": 44,
+    "prior_modulation9_and_profit8": 68,
+    "pass": 112,
+    "fail": 0
+  },
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "Linux"
+  },
+  "old_registration": {
+    "registered_sources": 47,
+    "mismatches": [],
+    "all_verified_unchanged": true,
+    "registration_sha256": "04d1af699826b0821ef6da808b6d21e1e38adfbdabee35f4ba4ac15a5f98b086"
+  },
+  "sources_sha256": {
+    "runtime30/modulation10_replay.cjs": "a6090964de4e16a821ce0fab5bac8a15611adcbcdfb888ebc26527ef08d146ce",
+    "tools/modulation10_bridge.cjs": "09d3bf9592f4355fe124daaa47da1eed7926d3359d535539be5e36d8224f975a",
+    "tools/modulation10_test.cjs": "1d295d94ea6fe07843a7678f6de0e1ff8f48cfa89f62ca8506af3a9b5b67d0b4"
+  },
+  "log": "research/modulation10/native_test.log",
+  "checks_verified": [
+    "No-opt-in passthrough exact equality",
+    "Four legacy profiles, four deterministic paths each: campaigns and full ledgers equal",
+    "Same native trailing function and partials for queue-only ablation",
+    "Queued stop waits for receipt and does not overwrite an earlier received stop",
+    "HOLD24/HOLD72 disable partials and trailing",
+    "MOM5min+1s decision maps to10min opening",
+    "Future or absent feature clocks and inconsistent momentum metadata reject",
+    "Calendar48/24/72h deadlines over weekend",
+    "One nomination/session enforced; explicit2slot fixture validates capital reuse and SYMBOL_BUSY",
+    "Missing bars fail closed",
+    "Unchanged admission limits and unchanged NOMINAL/STRESS costs",
+    "Terminal cash/inventory/reservation reconciliation",
+    "23registered policy catalogue gives46fixture accounts",
+    "Synthetic labels and source hashes preserved"
+  ],
+  "limitations": [
+    "Declared sourceAvailableAt is checked, but generator prefix-invariance independently establishes feature causality.",
+    "Gross12% and open risk0.25% are admission/reservation caps; later price/equity movements and gaps can exceed nominal fractions or losses.",
+    "OHLCV intrabar stop execution keeps original assumptions; no calibrated entry partial/reject/outage/impact model added.",
+    "Existing legacy provenance gate failures are not repaired or overwritten.",
+    "This QA establishes engineering behavior, not economic profitability or production readiness."
+  ]
+}
