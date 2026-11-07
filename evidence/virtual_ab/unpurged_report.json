@@ -1,0 +1,157 @@
+{
+  "accounts": {
+    "NOMINAL_A": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 365,
+      "drawdown": 0.01824999999999999,
+      "final": 19635.0,
+      "net": -365.0,
+      "sha256": "5a521b29f1d9bacd3226c89c7b9c400ee834861fad367e4dce2c5b1d89eba46b",
+      "turnover": 0
+    },
+    "NOMINAL_B": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 365,
+      "drawdown": 0.01824999999999999,
+      "final": 19635.0,
+      "net": -365.0,
+      "sha256": "ba6b06d97c1990a2df673783dc59cff4061c8eebfe4d3143427b5535b8aae5e1",
+      "turnover": 0
+    },
+    "NOMINAL_CURRENT": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 365,
+      "drawdown": 0.01824999999999999,
+      "final": 19635.0,
+      "net": -365.0,
+      "sha256": "5826641d93de8c461f00ab229264d9a217390a9c4bae019565c9facf1fb02cc3",
+      "turnover": 0
+    },
+    "STRESS_A": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 730,
+      "drawdown": 0.03649999999999998,
+      "final": 19270.0,
+      "net": -730.0,
+      "sha256": "84a359b493ed785f0bbd0ab3cf23e95220f7509c60f019bb2360221a7f57aa9e",
+      "turnover": 0
+    },
+    "STRESS_B": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 730,
+      "drawdown": 0.03649999999999998,
+      "final": 19270.0,
+      "net": -730.0,
+      "sha256": "0b075a4435deabb78f080e195d0fc8fd2fb5f792d731c130728c5cb5ff62d544",
+      "turnover": 0
+    },
+    "STRESS_CURRENT": {
+      "approved_proposals": 0,
+      "buys": 0,
+      "candidate_cells": 316,
+      "costs": 730,
+      "drawdown": 0.03649999999999998,
+      "final": 19270.0,
+      "net": -730.0,
+      "sha256": "07eb1d6750325a4cb32b89742c69ba1411860cd2cc23a98ba389610dab6759bc",
+      "turnover": 0
+    }
+  },
+  "comparisons": {
+    "NOMINAL": {
+      "20": {
+        "columns": [
+          "A_minus_CURRENT",
+          "B_minus_CURRENT"
+        ],
+        "lower_mean_daily_gain": [
+          0.0,
+          0.0
+        ],
+        "paired_total_log_gain": [
+          0.0,
+          0.0
+        ]
+      },
+      "5": {
+        "columns": [
+          "A_minus_CURRENT",
+          "B_minus_CURRENT"
+        ],
+        "lower_mean_daily_gain": [
+          0.0,
+          0.0
+        ],
+        "paired_total_log_gain": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "STRESS": {
+      "20": {
+        "columns": [
+          "A_minus_CURRENT",
+          "B_minus_CURRENT"
+        ],
+        "lower_mean_daily_gain": [
+          0.0,
+          0.0
+        ],
+        "paired_total_log_gain": [
+          0.0,
+          0.0
+        ]
+      },
+      "5": {
+        "columns": [
+          "A_minus_CURRENT",
+          "B_minus_CURRENT"
+        ],
+        "lower_mean_daily_gain": [
+          0.0,
+          0.0
+        ],
+        "paired_total_log_gain": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "decision": "NO_PROMOTION_REUSED_HISTORY",
+  "execution_allowed": false,
+  "fresh_holdout": false,
+  "input_sha256": {
+    "evidence/residual_30_18_0/data/raw/calendar.json": "c69e338a2dde4223866f94644d84cba116ea7bba379e3df5fa9cf495e68bb3bc",
+    "evidence/residual_30_18_0/data/raw/corporate_actions.json": "17ddb2f6818dd0af6fcebdff7f4f32be57fdd907ab1894b0d45e2790c19517da",
+    "research/multiasset8/raw/AAPL_hourly_2025.json.gz": "ba2668048ee1a46b6252e08b484559602350e234b869c8f332f22eee28b60345",
+    "research/multiasset8/raw/BTC_USD_hourly_2025.json.gz": "817053e13b0748a9952de63110ae45263724448bb6dd4438229b3af8a6411fc8",
+    "research/multiasset8/raw/ETH_USD_hourly_2025.json.gz": "f905351490a62222edbfdb264b766d7b82bf466089b0cae1f34794538041ac69",
+    "research/multiasset8/raw/IWM_hourly_2025.json.gz": "4283243f9f096907a2aaa2f222c89afbd27f98f6b23c43eb39b0087b7fdfffc2",
+    "research/multiasset8/raw/MSFT_hourly_2025.json.gz": "56f5f0be0fc6eb6f369efe92dc792b5a710c5d6051d9597cd177272bb4839be2",
+    "research/multiasset8/raw/QQQ_hourly_2025.json.gz": "7d7cc8a2c792dc148664c22e643128926f973bcd94ab502a0bbd7f551e41cb0e",
+    "research/multiasset8/raw/SPY_hourly_2025.json.gz": "8dfa921773b771d37fc7a586486db5fa5f47c35fc105292861044cdcdb63493f",
+    "research/multiasset8/raw/XLE_hourly_2025.json.gz": "5dd78ed0af1ce0d1278ab4753cfc3d2ea557446c0c97d3b77c84374ea314477d",
+    "research/multiasset8/raw/XLF_hourly_2025.json.gz": "84552f345246e2670dbc21528abb938142af1760f0a42e0f2aa171f6f083cafa",
+    "research/multiasset8/raw/XLK_hourly_2025.json.gz": "90d71f693fbfcdea3dae190997766b4c329985d87a2356dbee4d0dd5dafd07b8",
+    "research/multiasset8/raw/XLV_hourly_2025.json.gz": "22f837adb378633cc017813ac488d3bfef784b7cbc6c6ecd7f807e4a24e6db1f",
+    "research/multiasset8/raw/crypto_daily.json.gz": "7d49d095b9bba61bf15b932ff098e58abfe2b52a7d68f1db6af4055ca256cb75",
+    "research/multiasset8/raw/equity_daily.json.gz": "43dec824901e55b2308bcfac90b0efb81578329d1b8bbaff08df1d060faf2833",
+    "research/swing8/amendment_01.json": "bcaed7b325dd65ebc47f2483c31f92919e667768307db387204e482804212248",
+    "research/swing8/protocol.json": "110b2c8f15c83ef4895d064d73a9736972bcb97486723746d63b5700f258b62a"
+  },
+  "level8_accredited": false,
+  "origin": "HISTORICAL_MODELED_REUSED",
+  "protocol_sha256": "acee21a99f963f4004716d71cf1effab591a27577d8adcd7bb214614581366fe"
+}
