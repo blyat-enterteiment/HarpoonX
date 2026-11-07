@@ -15,7 +15,7 @@ Las fixtures adversariales comprueban que elevar artificialmente `equity` sobre 
 ## Evidencia, intentos y limitaciones
 
 - **CI fallido registrado:** ejecución `42412209074`, 18/19 tests; el test esperaba incorrectamente seis fills en lugar de los cuatro que producía la fixture. No hubo ejecución económica.
-- **CI verificado:** ejecución `42412278331`, **19/19 tests** aprobados, incluyendo Node check y 47+ fuentes registradas sin alteración según workflow; hashes del test y del nuevo módulo en `evidence/modulation11/phase3_shadow_witness.json`.
+- **CI verificado:** ejecución `42412278331`, **19/19 tests** aprobados, incluyendo Node check y verificación SHA-256 de las ocho fuentes explícitamente enumeradas en el protocolo M11 (no equivale a una auditoría de todas las fuentes del repositorio); hashes del test y del nuevo módulo en `evidence/modulation11/phase3_shadow_witness.json`.
 - Cuentas económicas nuevas: **0**; alfa prospectivo gastado: **0**; 3.200 cuentas finales M10 sin abrir.
 - La prueba de factibilidad WEAK de **0,9051232469572758 pb/día** sigue siendo **condicional** a ejecución coherente y cobertura universal de reservas. No es una cota demostrada del PnL nativo y no debe usarse para declarar que N9-S es imposible ni para afirmar que el objetivo es alcanzable.
 - Los modelos de ejecuciones parciales de entrada, rechazos, interrupciones, impacto y coordinación multicelda siguen incompletos. No se conectó broker, se desplegó ni se fusionó la PR.
