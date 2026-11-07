@@ -1,7 +1,20 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
   "active_job": null,
-  "automation_id": null,
+  "automation": {
+    "created_confirmed": true,
+    "default_timezone": "America/Mexico_City",
+    "environment_selection": "inherited",
+    "environments": null,
+    "first_unattended_execution_verified": false,
+    "id": "Automation_eb76e63560c08191a9871ad680b48ba0",
+    "is_enabled": true,
+    "last_run_time": null,
+    "next_run_time": null,
+    "schedule": "BEGIN:VEVENT\nDTSTART:20261107T192306Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+    "timing_mode": "condition_watch"
+  },
+  "automation_id": "Automation_eb76e63560c08191a9871ad680b48ba0",
   "candidate_id": "QUALITY_NATIVE_QUEUE72_R0625",
   "candidate_score": -0.00015679645503256372,
   "ci_run": 42405166152,
@@ -39,6 +52,7 @@
     "raw_paths": 40,
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
+  "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
   "round": "M10_R1",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1"
 }
