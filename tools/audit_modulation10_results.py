@@ -102,6 +102,21 @@ def risk_admissible(rows: list[dict[str, Any]]) -> bool:
     )
 
 
+def winning_counts(trades: list[dict[str, Any]], decimal_nets: list[Decimal]) -> dict[str, Any]:
+    """Keep binary-sign and Decimal-sign wins distinct, including rounded ties."""
+    mismatches = []
+    for trade, cash in zip(trades, decimal_nets, strict=True):
+        reported = D(trade["net_usd"])
+        if (cash > 0) != (reported > 0):
+            require(max(abs(cash), abs(reported)) <= D(CASH_TOLERANCE), "MATERIAL_WIN_SIGN_DIFFERENCE")
+            mismatches.append({"campaign_id": trade["id"], "decimal_net_usd": str(cash),
+                               "reported_net_usd": float(reported)})
+    return {"reported_positive_campaigns": sum(trade["net_usd"] > 0 for trade in trades),
+            "decimal_positive_campaigns": sum(value > 0 for value in decimal_nets),
+            "monetary_ties_within_tolerance": sum(abs(value) <= D(CASH_TOLERANCE) for value in decimal_nets),
+            "sign_disagreements_within_tolerance": mismatches}
+
+
 def inspect_account(account: dict[str, Any], cost: dict[str, Any], dates: list[str],
                     capital: float, errors: dict[str, float]) -> dict[str, Any]:
     """Reconstruct retained fill cash and close-to-close equity independently."""
@@ -205,14 +220,16 @@ def inspect_account(account: dict[str, Any], cost: dict[str, Any], dates: list[s
         observation(errors, "without_best_campaign_usd", net - best, summary["net_without_best_campaign_usd"])
         observation(errors, "maximum_holding_hours", max([0., *holds]), summary["max_hold_hours"])
         require(D(summary["max_signal_to_exit_hours"]) >= D(max([0., *holds])) - D(RATIO_TOLERANCE), "SIGNAL_CLOCK_SHORTER_THAN_HOLD")
-        require(summary["winning_campaigns"] == sum(value > 0 for value in campaign_nets), "WINNING_CAMPAIGN_COUNT")
+        counts = winning_counts(trades, campaign_nets)
+        require(summary["winning_campaigns"] == counts["reported_positive_campaigns"], "PUBLISHED_WINNING_CAMPAIGN_COUNT")
         for key in ("cash_reconciliation_error", "native_reconciliation_error", "max_trade_ledger_error"):
             observation(errors, key + "_usd", 0, summary[key])
         if account["entry"] == "CASH":
             require(not trades and net == -expected_fixed, "CASH_CONTROL_HAS_TRADING")
         return {"daily_log": float(total_log / days), "net_usd": float(net), "trading_net_usd": float(ledger),
                 "fees_usd": float(fees), "fixed_usd": float(expected_fixed), "campaigns": len(trades),
-                "exit_fills": fills_count, "curve_points": len(curve), "calendar_days": days}
+                "exit_fills": fills_count, "curve_points": len(curve), "calendar_days": days,
+                "winning_count_diagnostic": counts}
 
 
 def group_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -220,6 +237,7 @@ def group_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     values = [row["reconstructed"]["daily_log"] for row in rows]
     nets = [row["reconstructed"]["net_usd"] for row in rows]
     summaries = [row["summary"] for row in rows]
+    trades = [trade for row in rows for trade in row["trades"]]
     return {"paths": len(rows), "mean_net_usd": fmean(nets),
             "mean_daily_log": fmean(values), "standard_error_daily_log": standard_error(values),
             "p95_drawdown": quantile([s["max_event_drawdown"] for s in summaries], .95),
@@ -227,7 +245,8 @@ def group_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "mean_closed_campaigns": fmean(s["closed_campaigns"] for s in summaries),
             "mean_fixed_cost_usd": fmean(row["reconstructed"]["fixed_usd"] for row in rows),
             "mean_fees_usd": fmean(row["reconstructed"]["fees_usd"] for row in rows),
-            "mean_net_without_best_campaign_usd": fmean(s["net_without_best_campaign_usd"] for s in summaries)}
+            "mean_net_without_best_campaign_usd": fmean(s["net_without_best_campaign_usd"] for s in summaries),
+            "win_rate": sum(t["net_usd"] > 0 for t in trades) / len(trades) if trades else None}
 
 
 def reconstruct_ranking(rows: list[dict[str, Any]], groups: dict[tuple[str, str, str], list[dict[str, Any]]],
@@ -376,6 +395,9 @@ def audit(root: Path, directory: Path, analysis_directory: Path) -> dict[str, An
     for key, recomputed in reconstructed["groups"].items():
         published = report["groups"][":".join(key)]
         for field, value in recomputed.items():
+            if value is None or published[field] is None:
+                require(value is None and published[field] is None, "GROUP_NULL_STATISTIC:" + field)
+                continue
             difference = abs(value - published[field])
             group_error = max(group_error, difference)
             require(difference <= (CASH_TOLERANCE if field.endswith("usd") else SUMMARY_TOLERANCE), "GROUP_STATISTIC:" + field)
@@ -435,6 +457,11 @@ def audit(root: Path, directory: Path, analysis_directory: Path) -> dict[str, An
                     control_comparisons.append({"candidate": selected["id"], "control": control,
                         "world": world, "scenario": scenario, **paired_difference(group, other),
                         "drawdown_significance_test_preregistered": False})
+    win_findings = [{"id": row["id"], "world": row["world"], "scenario": row["scenario"], "seed": row["seed"],
+                     **row["reconstructed"]["winning_count_diagnostic"]}
+                    for row in rows if row["reconstructed"]["winning_count_diagnostic"]["sign_disagreements_within_tolerance"]]
+    decimal_count_differences = sum(f["reported_positive_campaigns"] != f["decimal_positive_campaigns"] for f in win_findings)
+    accounting_status = "PASS_WITH_DIAGNOSTIC_FINDING" if win_findings else "PASS"
     frozen_after = {name: sha(root / name) for name in frozen_before}
     require(frozen_after == frozen_before, "REGISTERED_SOURCES_CHANGED_DURING_AUDIT")
     inputs_after = {name: sha(Path(name)) for name in inputs_before}
@@ -452,7 +479,7 @@ def audit(root: Path, directory: Path, analysis_directory: Path) -> dict[str, An
             "auditor_sha256": script_sha, "registered_sources_sha256_before": frozen_before,
             "registered_sources_sha256_after": frozen_after, "inputs_sha256_before": inputs_before,
             "inputs_sha256_after": inputs_after, "all_hashes_unchanged": True},
-        "audit": {"paths": len(actual_paths), "accounts": len(rows), "policies": len(variants),
+        "audit": {"status": accounting_status, "paths": len(actual_paths), "accounts": len(rows), "policies": len(variants),
             "independent_seeds_per_world": len(seeds), "calendar_days": days, "periods": periods,
             "closed_campaigns": sum(r["reconstructed"]["campaigns"] for r in rows),
             "exit_fills": sum(r["reconstructed"]["exit_fills"] for r in rows),
@@ -461,6 +488,18 @@ def audit(root: Path, directory: Path, analysis_directory: Path) -> dict[str, An
             "all_retained_campaigns_within_deadline": True, "ranking_and_pareto_reproduced": True,
             "maximum_group_error": group_error, "maximum_ranking_error": ranking_error,
             "maximum_ablation_error": ablation_error},
+        "diagnostic_findings": {"WINNING_CAMPAIGN_COUNT": {
+            "status": "DIAGNOSTIC_DIFFERENCE" if win_findings else "NO_DIFFERENCE",
+            "accounts_with_different_reported_and_decimal_wins": decimal_count_differences,
+            "accounts_with_sign_disagreement": len(win_findings),
+            "campaigns_with_sign_disagreement": sum(len(f["sign_disagreements_within_tolerance"]) for f in win_findings),
+            "total_reported_positive_campaigns": sum(r["reconstructed"]["winning_count_diagnostic"]["reported_positive_campaigns"] for r in rows),
+            "total_decimal_positive_campaigns": sum(r["reconstructed"]["winning_count_diagnostic"]["decimal_positive_campaigns"] for r in rows),
+            "total_monetary_ties_within_tolerance": sum(r["reconstructed"]["winning_count_diagnostic"]["monetary_ties_within_tolerance"] for r in rows),
+            "sign_tolerance_usd": CASH_TOLERANCE,
+            "exact_decimal_winning_counts_match_published": decimal_count_differences == 0,
+            "published_win_rate_matches_published_net_signs": True,
+            "registered_net_ranking_or_selection_modified": False, "accounts": win_findings}},
         "verdict": {"selected_id": selected["id"] if selected else None,
             "selected_score_daily_log": selected["score"] if selected else None,
             "final_allowed": promotion, "economic_profitability_demonstrated": False,
@@ -474,6 +513,7 @@ def audit(root: Path, directory: Path, analysis_directory: Path) -> dict[str, An
             "Admission caps permit subsequent mark appreciation. Reported event-risk diagnostics are not a reconstructed continuous-cap guarantee.",
             "Queue-only comparisons share seeds, entries, economic exit profile, declared risk and cost scenario. Their differences are descriptive and not extra confirmatory tests.",
             "No retained compact output proves the economic validity of interpolated OHLC execution prices or contains the complete intraday mark stream.",
+            "Winning counts are reported both under the published binary-net sign and Decimal cash. Near-zero sign differences remain explicit diagnostic findings; they are not silently reclassified as exact agreement.",
             "The two preregistered missing operational gates remain unresolved regardless of arithmetic agreement.",
         ]}
 
@@ -515,6 +555,15 @@ def self_test() -> dict[str, Any]:
     errors: dict[str, float] = {}
     reconstructed = inspect_account(account, cost, dates, 20000, errors)
     require(reconstructed["net_usd"] == -6.1 and reconstructed["trading_net_usd"] == -2.1, "SELFTEST_DECIMAL_LEDGER")
+    tie = winning_counts([{"id": "HAND_TIE", "net_usd": 1e-13}], [Decimal(0)])
+    require(tie["reported_positive_campaigns"] == 1 and tie["decimal_positive_campaigns"] == 0
+            and len(tie["sign_disagreements_within_tolerance"]) == 1, "SELFTEST_WIN_SIGN_DIAGNOSTIC")
+    material_sign_rejected = False
+    try:
+        winning_counts([{"id": "HAND_FALSE_GAIN", "net_usd": 1e-4}], [Decimal(0)])
+    except ValueError:
+        material_sign_rejected = True
+    require(material_sign_rejected, "SELFTEST_MATERIAL_SIGN_NOT_REJECTED")
     rejected = 0
     for mutation in ("quantity", "calendar_cost", "nonfinite", "deadline"):
         changed = copy.deepcopy(account)
@@ -554,6 +603,7 @@ def self_test() -> dict[str, Any]:
     require(abs(paired["mean_paired_daily_log_delta"] - .0002) < 1e-15
             and paired["standard_error_paired_daily_log_delta"] == 0, "SELFTEST_PAIRING")
     return {"hand_fixtures_passed": True, "malformed_evidence_rejected": rejected,
+            "near_zero_win_sign_diagnostic_preserved": True, "material_sign_difference_rejected": material_sign_rejected,
             "decimal_net_usd": reconstructed["net_usd"], "ranked_ids": ranking["ranked_ids"],
             "maximum_reconciliation_errors": errors, "market_executions": 0}
 
