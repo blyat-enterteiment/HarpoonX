@@ -279,7 +279,7 @@ class StageIntegrityTests(Fixture):
         for index, change in enumerate(changes):
             with self.subTest(change=index):
                 directory = self.stage("development")
-                self.corrupt_path(directory, lambda d: change(d["accounts"][0]))
+                self.corrupt_path(directory, lambda d, change=change: change(d["accounts"][0]))
                 with self.assertRaises(ValueError):
                     self.read(directory)
 

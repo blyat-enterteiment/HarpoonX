@@ -12,8 +12,9 @@ import math
 from statistics import fmean, stdev
 from typing import Any
 
-from .modulation9 import SYMBOLS, make_protocol as previous_protocol
-from .modulation9 import market, nominations as previous_nominations
+from .modulation9 import SYMBOLS, market
+from .modulation9 import make_protocol as previous_protocol
+from .modulation9 import nominations as previous_nominations
 
 MOMENTUM_RULES = {
     f"MOM{window}_{tag}": {"window": window, "threshold": threshold}

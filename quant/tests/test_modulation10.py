@@ -9,8 +9,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harpoon_quant.modulation9 import make_protocol as old_protocol
 from harpoon_quant.modulation9 import market
+from harpoon_quant.modulation9 import make_protocol as old_protocol
 from harpoon_quant.modulation10 import (
     MOMENTUM_RULES,
     daily_panel,

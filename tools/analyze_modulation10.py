@@ -19,7 +19,6 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-
 from analyze_modulation9 import (
     adjusted_bounds,
     daily_log,
