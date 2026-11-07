@@ -5,6 +5,7 @@ on:
     paths:
       - runtime30/modulation11_formal_execution_bridge.cjs
       - tools/modulation11_phase4_test.cjs
+      - tools/modulation11_phase4_accountant.py
       - research/modulation11/phase4_protocol.json
       - .github/workflows/modulation11_phase4.yml
   workflow_dispatch:
@@ -30,6 +31,17 @@ jobs:
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
           ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_formal_execution_bridge.cjs
+      - name: Independent accounting via Python Decimal
+        run: |
+          node - <<'JS' >/tmp/m11_phase4_certificate.json
+          const B=require('./runtime30/modulation11_formal_execution_bridge.cjs');
+          const up=[100.2,101.8,100.8,100.4,100.1,100.3,100.2,100];
+          const down=[100.2,101.8,100.8,95.5,97,98,99,100];
+          const p={quantity:8,entry:100.03,stop:99.03,distance:1,targetsR:[1.5,null]};
+          const c={friction:.0003,perSideUsd:.005,tick:.01};
+          console.log(JSON.stringify(B.certificate({upPrices:up,downPrices:down,position:p,costs:c})));
+          JS
+          python -B tools/modulation11_phase4_accountant.py /tmp/m11_phase4_certificate.json
       - name: Frozen law and capital invariants; checksums
         run: |
           python - <<'PY'
@@ -42,7 +54,8 @@ jobs:
             assert actual==digest,(path,actual,digest)
           for path in ('runtime30/modulation11_formal_execution_bridge.cjs',
                        'tools/modulation11_phase4_test.cjs',
-                       'research/modulation11/phase4_protocol.json'):
+                       'research/modulation11/phase4_protocol.json',
+                       'tools/modulation11_phase4_accountant.py'):
             print(path,hashlib.sha256((root/path).read_bytes()).hexdigest())
           print('M11_PHASE4_REGISTERED_GENERATOR_UNCHANGED; M10_SEALED; zero economic accounts')
           PY
