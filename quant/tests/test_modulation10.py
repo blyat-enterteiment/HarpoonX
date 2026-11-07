@@ -9,6 +9,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from run_modulation10 import choose_final_variants, claim_stage, validate_contract
+
 from harpoon_quant.modulation9 import market
 from harpoon_quant.modulation9 import make_protocol as old_protocol
 from harpoon_quant.modulation10 import (
@@ -18,7 +20,6 @@ from harpoon_quant.modulation10 import (
     momentum_feature,
     nominations,
 )
-from run_modulation10 import choose_final_variants, claim_stage, validate_contract
 
 
 class ProtocolTests(unittest.TestCase):

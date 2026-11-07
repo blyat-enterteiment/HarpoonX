@@ -186,7 +186,8 @@ def development_evidence(rows: list[dict[str, Any]], p: dict[str, Any]) -> dict[
     """Pure ranking and descriptive ablation; no final path or output access."""
     groups = {f"{v['id']}:{w}:{s}": summarize(group_rows(rows, v["id"], w, s))
               for v in p["variants"] for w in p["generator"]["worlds"] for s in p["scenarios"]}
-    candidates, control_scores = [], []
+    candidates: list[dict[str, Any]] = []
+    control_scores: list[dict[str, Any]] = []
     for variant in p["variants"]:
         vid = variant["id"]
         edge = [(groups[f"{vid}:{w}:{s}"], p["selection"]["hurdles"][s])
