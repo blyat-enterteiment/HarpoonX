@@ -1,0 +1,32 @@
+{
+  "artifact_sha256": {
+    "labels.json.gz": "73f7160c53fa4d34ede5adea92e72caf9c6da9916b5eabd94eae2618d13e2474",
+    "report.json": "c3ab5a9d45a43e4b6bb437d5a3a8f649c3af86adfd7c669a6db3bf78753a834a",
+    "shadow_cells.json.gz": "34e951307d562820aa915339eb07a4796487c138b9870d22c8d84b0454625c73"
+  },
+  "benchmark_seconds": [
+    0.3325066830000196,
+    0.45041500800004997
+  ],
+  "coverage_limits": [
+    "No full repository suite or broker test.",
+    "No new asset universe replay.",
+    "New volatility descriptors not used to choose, resize or exit any funded campaign."
+  ],
+  "execution_allowed": false,
+  "identical_reproductions": true,
+  "level9_accredited": false,
+  "mypy": "PASS_2_FILES_FOLLOW_IMPORTS_SILENT",
+  "new_economic_variants": 0,
+  "new_tests": 10,
+  "new_validation_h1_h2_h3": false,
+  "python_tests_passed": 32,
+  "regressions": 22,
+  "reproduce_command": "PYTHONPATH=quant:tools OPENBLAS_NUM_THREADS=1 python tools/run_swing_marginal_audit.py --output-dir /tmp/harpoon_swing_audit_new",
+  "ruff": "PASS_3_FILES",
+  "schema": "HARPOON_SWING_MARGINAL_VALIDATION_1",
+  "scope": "New descriptive extraction of archived books; no new policy replay or market sample",
+  "source_hashes_verified": 117,
+  "source_head": "4325422cc104a8d75384ec852b8ae5cbde07f24e",
+  "tests_command": "PYTHONPATH=quant:tools:quant/tests OPENBLAS_NUM_THREADS=1 python -m unittest quant.tests.test_swing_meta_audit quant.tests.test_evidence_scope quant.tests.test_forensic_features -v"
+}
