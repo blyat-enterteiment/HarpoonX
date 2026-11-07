@@ -1,0 +1,72 @@
+{
+  "schema": "HARPOON_M11_PHASE7_PROTOCOL_1",
+  "date": "2026-11-07",
+  "registered_before_fixture_execution": true,
+  "branch": "codex/continuous-n9-research",
+  "source_checkpoint": "2e64f65d03ac7019b3c097540f638275254bbe4b",
+  "objective": "Finite pathwise decomposition of a full multi-bar two-asset native-funded replay versus counterfactual first-observed-substep exits, with the same native entry quantities, receipt-clock and historical admission checks.",
+  "structural_hypothesis": "The terminal wealth difference is exactly the sum of differences in inventory exposure to observed marks, fill-at-mark residuals, and identical fixed costs; independent exit clocks can change known spendable cash at subsequent admissions, preventing free assertion of an endogenous same-quantity coupling.",
+  "counter_hypothesis": "If any native-funded complete campaign cannot be reconciled to independent two-ledger cash/position accounting, or same-quantity counterfactual positions cannot be self-financed, native-to-first-cross equivalence is not shown; do not open signals.",
+  "refutation_criteria": [
+    "Any mismatch of modeled and funded native executed quantities, timestamps, reason, price or costs",
+    "Any negative cash, negative share balance, unsupported substep tape, or unreconciled terminal net",
+    "Any difference between independent Decimal and JS accounting beyond 0.00005 USD",
+    "Any event is processed at knownAt for mark PnL before actual at, or sale proceeds used as spendable prior to knownAt",
+    "Any claim the original 12% reservation limit is continuous or that fixed native entries are endogenously reoptimised under causal execution"
+  ],
+  "fixtures": [
+    "baseline two-asset full native 72-hour time exits",
+    "target then stop intrabar counterexample followed by second asset",
+    "two-interval diverging inventory gain",
+    "knownAt withheld cash",
+    "reservation conservatism through partials",
+    "insufficient cash",
+    "OHLC and substep tamper",
+    "noncausal receipt"
+  ],
+  "fixed_contract": {
+    "capital_usd": 20000,
+    "only_assets": [
+      "SYNA",
+      "SYNB"
+    ],
+    "costs": "UNCHANGED_M9_NOMINAL",
+    "native_acceptance": "UNCHANGED",
+    "max_holding_hours": 72,
+    "admission_gross": 0.12,
+    "open_risk": 0.0025,
+    "market_generator": "UNTOUCHED_M9",
+    "no_broker": true
+  },
+  "controls": [
+    "identical same native entries and quantities",
+    "CASH accounting with original per-calendar-day fixed fee",
+    "previous best retained as registered M10 QUALITY_NATIVE_QUEUE72_R0625, no rerun, no new seed"
+  ],
+  "budget": {
+    "new_candidates": 0,
+    "control_policy_accounts": 0,
+    "max_economic_accounts": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "attempt_failure_charge": "RETAIN_EACH_FIXTURE_CI_ATTEMPT_SEPARATELY",
+    "sealed_stage": "M10_FINAL"
+  },
+  "seeds_opened": [],
+  "new_economic_accounts": 0,
+  "final_remaining": 3200,
+  "code_git_blob_sha1": {
+    "runtime30/modulation11_multibar_coupling.cjs": "9ac83769d6222d3e96fbaf8b19cbadf899415e8b",
+    "tools/modulation11_phase7_test.cjs": "78b1311aeda386c54f67290b0e19f19a34ba5790",
+    "tools/modulation11_phase7_accountant.py": "0999ca0ff38de92a6d7eab7f7bde4b7630c387f0",
+    ".github/workflows/modulation11_phase7.yml": "6953568edba37371462cc49e759ae106b43f12b1"
+  },
+  "scope_exclusions": [
+    "no stochastic multi-bar profitability bound",
+    "no endogenous causal entry re-optimization",
+    "no new alpha or final oracles",
+    "no universal reservation proof",
+    "no production execution coverage"
+  ],
+  "promotion_eligible": false
+}
