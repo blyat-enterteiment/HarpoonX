@@ -1,0 +1,56 @@
+{
+  "benchmark_scope": "Two offline extractions, not execution latency or p95",
+  "benchmark_seconds": [
+    0.8321447869966505,
+    0.7940928269999858
+  ],
+  "checks": {
+    "causal_tensor_rows": 133,
+    "causal_tensor_shape": [
+      133,
+      12,
+      7
+    ],
+    "decisions_reproduced": 404,
+    "joined_reconciled_campaign_records": 268,
+    "max_technical_reconciliation_error_usd": 1.0231815394945443e-12,
+    "nominal_confirmed_late_marks_excluded": 27
+  },
+  "execution_allowed": false,
+  "level8_accredited": false,
+  "limitations": [
+    "Self-review, not independent audit",
+    "No strategy variant trained or tested",
+    "Archived TIME replay chronology issue diagnosed, not repaired",
+    "Historical proxy, modeled fills, reused history",
+    "No verified executed-quote peak capture or prospective profitability"
+  ],
+  "mypy": "PASS_2_FILES_FOLLOW_IMPORTS_SILENT",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "reproducibility": {
+    "identical_output_bytes": true,
+    "output_sha256": {
+      "compound_trades.json": "e9a344d45a91576f973bd0f4ba5ec436318f14334931d411b77349951317d7ba",
+      "entry_features.json.gz": "4f58d2c6e792367927b1a48715ebc4a8dac6c1ee2397649af53d96e226fdd82f",
+      "outcome_labels.json.gz": "c0d89bbde7bed092060bbad6f87800de61f2f337f3557cfea0df1b7f4828c60f",
+      "report.json": "bc92d301d0c4467d2220234b2b18e7c89e83272789d41dca38502706c8cfaad6",
+      "sha256.json": "e849634767a0b396ea4ab0439325d2b07932673ae879824ff384c9b23c22cb4e"
+    },
+    "runs": 2
+  },
+  "ruff": "PASS_3_FILES",
+  "schema": "HARPOON_FORENSIC_VALIDATION_1",
+  "source_sha256": {
+    "docs/ECONOMIC_VERDICT.md": "7ca6d3db7cbd6ce60e6a1465a5839f29d8ac66b1deee688fc412053bbb6b4182",
+    "docs/FORENSIC_OPPORTUNITY.md": "b6815db709d9ab7fdc6dc5f79cb3cf76177dfd55ed222326c7081f9de1cfa397",
+    "docs/PROMPT_FORENSE_ECONOMICO.txt": "80075425502e617a4d994fcefb91ed723f10d695ed55fc97625c944d0ec83adc",
+    "quant/harpoon_quant/forensic_features.py": "ed454937338166017b02e321f367d3a3b9e795c10de3376ce625d1e93dd02d46",
+    "quant/tests/test_forensic_features.py": "03eb84b03df501e578f5f421ad8d55c3a808e8e294a9591dcdaf2f84e45cc008",
+    "tools/run_forensic_opportunity.py": "389d0452e647374dfcadacafa4b452c8836300c9cc00b4ae3e983cc8fa34bc01"
+  },
+  "tests": {
+    "command": "PYTHONPATH=quant:quant/tests OPENBLAS_NUM_THREADS=1 python -m unittest quant.tests.test_forensic_features quant.tests.test_technical_swing quant.tests.test_technical_swing_replay -v",
+    "failed": 0,
+    "passed": 19
+  }
+}

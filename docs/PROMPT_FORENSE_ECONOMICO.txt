@@ -1,0 +1,62 @@
+HARPOONX — MANDATO FORENSE Y DECISIÓN ECONÓMICA
+Versión 1, 2026-11-07. Este encargo no presupone una estrategia rentable.
+
+OBJETIVO
+Trabaja como investigador cuantitativo e ingeniero de ejecución. Entrega un veredicto económico reproducible y los archivos que lo sustentan. No optimices el número de indicadores, el porcentaje de aciertos ni una nota subjetiva. Busca crecimiento logarítmico neto del patrimonio con supervivencia, capital compartido y costes completos. Una pérdida bien explicada o una hipótesis refutada es un resultado válido. No afirmes rentabilidad por tests aprobados, complejidad matemática ni títulos académicos.
+
+PUNTO DE PARTIDA OBLIGATORIO
+Recupera el HEAD vigente y lee las instrucciones del repositorio. Revisa docs/FORENSIC_OPPORTUNITY.md, evidence/forensic_opportunity/report.json y validation.json, los protocolos congelados y los libros originales. Reproduce el extractor y contrasta SHA-256. Distingue qué ya existe, qué se ejecutó y qué queda por verificar. No repitas resultados anteriores como si fueran una prueba nueva.
+
+Estado documentado, sujeto a reverificación:
+- Horario conjunto: -250.688715 USD nominal y -670.026733 USD estrés; capital inicial 20,000 USD.
+- Técnico CONFIRMED: +4.88 USD nominal, -687.95 estrés; 18 de 22 pérdidas nominales tuvieron valoración positiva previa, sólo 3 llegaron a +1R.
+- Matriz purgada CURRENT/A/B: 316 celdas por cuenta y ninguna compra; no se identifica el efecto de A/B.
+- No hay mejora validada, fills reales en estos ensayos ni acreditación de rentabilidad nivel 8.
+
+FASE 1 — INTEGRIDAD ANTES DE OPTIMIZAR
+1. Reconcilia eventos con caja, inventario, dividendos, comisiones, deslizamiento y costes fijos. Separa costes supuestos de facturas y fills observados. Declara la procedencia exacta de los datos; sintético, histórico modelado, PAPER y LIVE son conjuntos diferentes.
+2. Resuelve y prueba la inversión temporal detectada entre marks disponibles en end+1s y cierres TIME en end. Preserva el comportamiento económico original como control; compara valoraciones, reservas, decisiones y PnL después de corregir la cronología. Un cambio de medición no es alpha.
+3. Valida horario de bolsa, días sin sesión, medio día, gaps, splits, timestamps de publicación y disponibilidad. Un stop no garantiza limitar la pérdida a 1R. Ningún dato posterior puede entrar en una decisión anterior.
+4. Congela por hash datos, código, costes, calendario, universo, protocolo y lista de ensayos. Si no es posible reconciliar, detén la inferencia económica y entrega el error reproducible.
+
+FASE 2 — ESTADO OBSERVABLE Y ETIQUETAS SEPARADAS
+Usa el vector de entrada existente y el tensor 133×12×7 como extractores auditables, no como modelo entrenado. Con pocos eventos independientes, comienza con una regla interpretable o modelo regularizado pequeño; no introduzcas una red profunda por disponer de un tensor.
+
+RVOL(s,t,ventana) = volumen observado de la ventana / mediana de las mismas franjas de las veinte sesiones anteriores del mismo activo y feed. Para cripto define por adelantado reloj UTC y tratamiento del día de semana; no sustituyas automáticamente sesiones bursátiles por días naturales. Conserva máscara de faltantes, edad del dato y denominador. No llenes huecos con cero ni mezcles RVOL5, RVOL10 o diario. Trata cambios de feed, splits y ventanas parciales explícitamente.
+
+En cada instante t de una posición registra únicamente el prefijo disponible: PnL a liquidación estimada/R, máximo observado hasta t/R, devolución hasta t/R, cambio de RVOL, retorno relativo, tiempo restante, cantidad restante, spread y coste incremental. Si falta una cotización, marca el coste como estimado o desconocido. No uses el máximo final, el mínimo final, MFE/MAE finales ni “primer retroceso después del máximo final” como predictores.
+
+Las etiquetas futuras viven aparte y contienen su fecha de maduración: PnL realizado modelado, MFE/MAE con alcance exacto, giveback, tiempo a barreras, gap, motivo de rechazo y resultado sombra. Conjuntos: ganadores; pérdidas tras beneficio transitorio; rechazadas que luego ganan; rechazadas que luego pierden. Publica denominadores e intersecciones; no cuentes varias políticas del mismo evento como muestras independientes.
+
+FASE 3 — MÁXIMO TRES HIPÓTESIS, SEIS VARIANTES, SIN BÚSQUEDA ABIERTA
+Comprueba primero el presupuesto global restante del registro existente. Este techo no autoriza rebasarlo. No ejecutes variantes adicionales porque las anteriores pierdan. Registra parámetros, comparador y refutación antes de medir.
+
+H1. La política devuelve beneficios evitables después de avances suficientes. Compara la salida vigente con UNA protección causal del beneficio: disparador, umbral, cantidad, costes, siguiente precio ejecutable y latencia predefinidos. Evalúa también las ganancias que corta. No vendas retrospectivamente en el máximo ni calibres el umbral para salvar MSFT del 9 de febrero de 2026.
+
+H2. El tamaño basado sólo en distancia al stop infravalora el salto entre sesiones. Compara UNA política de presupuesto de pérdida por gap, estimado exclusivamente con historia anterior y un escenario de estrés fijo, manteniendo riesgo comparable. Cuenta su coste de oportunidad en ganadores nocturnos. No supongas ejecución al stop durante un gap y no aumentes capital o apalancamiento para fabricar retorno.
+
+H3. La matriz estima ventaja usando retornos genéricos que no corresponden a sus entradas y salidas. Compara el gate vigente con UNA estimación condicionada al setup y su política ejecutable, con abstención cuando falte evidencia. No rebajes arbitrariamente la confianza para forzar compras. Conserva el camino sombra de todas las celdas rechazadas y aprobadas bajo reglas iguales. Distingue un filtro sin edge, muestra insuficiente y coste que consume edge.
+
+Para cada hipótesis especifica qué observación la refutaría. Las mejoras se comprueban en el replay completo, no restando pérdidas seleccionadas a mano. Las propuestas son hipótesis hasta pasar validación.
+
+FASE 4 — CUENTA CONTINUA Y EXPERIMENTO JUSTO
+Capital inicial 20,000 USD, sin reinicios ni retiros; cada variante conserva caja, posiciones y reservas al cambiar de ventana. Mantén los límites de riesgo del protocolo y holding máximo de 72 horas naturales. Coordina multiactivo y exposición correlacionada. Distingue cantidad entera/fraccionaria, financiación, liquidez, tick, spread, fees, impacto, latencia, parciales y rechazos.
+
+Comparadores: política vigente, efectivo con los mismos costes operativos y una referencia de efectivo sin plataforma claramente separada. Una reducción de órdenes no equivale a la misma reducción de comisiones; compara nominal ejecutado y exposición/riesgo, además del número de órdenes. Los escenarios nominal y estrés se recalculan completos.
+
+Contrasta también si el margen bruto alcanza para pagar costes fijos. Publica identidad económica: PnL de precios + dividendos - costes variables - costes fijos. No elimines costes retrospectivamente ni sumes picos, oportunidades incompatibles o beneficios de carteras distintas.
+
+FASE 5 — VALIDACIÓN TEMPORAL Y ESTADÍSTICA
+Separa exploración, selección y evaluación final. Entrena sólo con información disponible antes del inicio del fold. Purga por intervalos de etiquetas y fecha real/modelada de maduración; aplica el margen registrado de 72h cuando corresponda. No uses entrenamiento futuro. En un esquema exclusivamente forward explica dónde aplica el embargo; no apliques indiscriminadamente un CV aleatorio de bolsas financieras.
+
+Ajusta escalado, covarianzas, umbrales, selección y modelos dentro del entrenamiento. Mantén el capital continuo fuera de muestra. Bloquea parámetros antes de consultar cada evaluación; reserva una prueba final que nunca haya participado en la elección. Toda la historia ya inspeccionada aquí es de exploración reutilizada, aunque antes se llamara TEST. La purga no la vuelve nueva.
+
+Reporta retornos log diarios netos de cuenta, drawdown, cola de pérdidas, costes, rotación, concentración, exposición y dependencia entre eventos. Usa bootstrap emparejado en bloques de días de cartera, preservando correlación entre activos y variantes; registra semilla, 20,000 réplicas y sensibilidad a bloques de 5 y 20 días si la longitud permite ambos. Corrige por la familia real de comparaciones. No llames prueba externa a la revisión propia; no inventes PBO global sin registro completo de búsqueda.
+
+Fija antes de validar un efecto mínimo económicamente relevante y potencia/muestra compatibles con dependencia y dispersión. Si no hay operaciones o información suficiente, concluye INCONCLUSO. No interpretes intervalos cero por inactividad como equivalencia de estrategias. Monte Carlo remuestrea la evidencia disponible; no crea evidencia de mercados no observados.
+
+CRITERIO DE DECISIÓN
+PROMOVER SÓLO A LA SIGUIENTE VALIDACIÓN: conciliación y causalidad aprobadas, crecimiento geométrico absoluto neto positivo, ventaja frente al control y efectivo respaldada por límites inferiores ajustados, resistencia al estrés y riesgo dentro del protocolo sobre datos realmente nuevos. Publica sensibilidad al mayor ganador, costes y regímenes. Un fracaso o potencia insuficiente implica RECHAZAR o INCONCLUSO, con el motivo exacto. Esto no autoriza órdenes reales ni certifica beneficio futuro.
+
+ENTREGA ÚNICA
+Entrega tabla control/variantes nominal/estrés, atribución de beneficio y pérdida, casos de mejora y daño, protocolo/hashes, comandos reproducibles, pruebas estáticas/de tipos/unitarias/integración y tiempo de ejecución. Incluye un veredicto y la limitación que más podría cambiarlo. Conserva sólo mejoras respaldadas; no añadas otro framework ni otro indicador para sustituir un resultado desfavorable. No solicites datos que puedas recuperar del proyecto y no afirmes haber ejecutado lo que no ejecutaste.

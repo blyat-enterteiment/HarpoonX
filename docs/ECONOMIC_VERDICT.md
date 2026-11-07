@@ -1,6 +1,6 @@
 # Veredicto económico reproducible
 
-Decisión: NO PROMOVER. Receta histórica horaria: RECHAZADA. Matriz virtual y variantes A/B: EVIDENCIA INSUFICIENTE; comparación no ejecutada. No es un rechazo estadístico de toda estrategia posible ni prueba de que la matriz carezca de utilidad.
+Decisión: NO PROMOVER. Receta histórica horaria: RECHAZADA. Matriz virtual y variantes A/B: EVIDENCIA INSUFICIENTE. Actualización del 7 de noviembre de 2026: la comparación A/B y su walk-forward purgado ya se ejecutaron; las tres políticas no aprobaron ninguna orden. Ver `VIRTUAL_AB_WALK_FORWARD.md` y `FORENSIC_OPPORTUNITY.md`. No es un rechazo estadístico de toda estrategia posible ni prueba de que la matriz carezca de utilidad.
 
 Se reprodujo desde datos archivados el protocolo congelado de 2025, once activos, capital compartido USD 20.000, cuatro carteras en dos escenarios. Se ejecutó dos veces para contrastar hashes. No se optimizaron parámetros ni añadieron indicadores. La conciliación comprueba caja/inventario y cronología; no es una auditoría externa.
 
@@ -16,11 +16,11 @@ Los costes fijos son supuestos de USD1/día y USD2/día, no facturas ni comision
 
 Bootstrap emparejado: 20.000 réplicas por combinación escenario/bloque, bloques circulares de 5 y 20 días, semilla319, nivel local0.05/16. Los 16 límites inferiores calculados son negativos: no respaldan las condiciones de superioridad del protocolo. Historia reutilizada: no es prueba final intocada. La incertidumbre no autoriza afirmar que toda ventaja sea imposible.
 
-## Comparación prometida: bloqueo concreto
+## Comparación de matriz: estado actualizado
 
-La referencia VIRTUAL_NET sólo recibe snapshots, objetivos y muestras suministradas; no reconstruye decisiones históricas, reservas y fills sobre una cuenta continua. A (zona de no operar) y B (exposición gradual) siguen siendo propuestas, sin código ejecutable congelado ni parámetros preregistrados. Los resultados anteriores pertenecen al motor horario BREAKOUT, NO a ninguna de esas tres políticas. No fabricamos resultados A/B sustituyéndolos por cinco casos sintéticos.
+La entrega original de este documento precedió al replay de matriz. Desde el commit `bab1746d5735158605feb96c58ee7102c5cb005a`, `virtual_ab.py` conecta CURRENT, A (zona de no operar) y B (exposición gradual) a una cuenta continua y a protocolos congelados. El ensayo purgado produjo 316 celdas candidatas por cuenta y cero compras: -365 USD nominal y -730 USD estrés, enteramente por costes fijos supuestos. Las diferencias entre variantes son cero porque no hubo exposición; no se identifica su efecto económico. Los resultados de la tabla horaria anterior pertenecen a BREAKOUT y no a estas políticas.
 
-Faltan para decidir esa hipótesis: replay común que genere las mismas oportunidades y datos disponibles en cada instante, implementación congelada de A/B, historial de estimación sin anticipación y validación temporal nueva. Hasta disponer de ello, mantener no promoción y no declarar ahorros reales o nivel8. Esta entrega cierra la reproducción y el veredicto sobre la evidencia disponible; la comparación económica A/B permanece pendiente.
+Falta demostrar una ventaja condicionada al setup con ejecución suficiente para comparar variantes, datos no reutilizados y costes calibrados. No se debe forzar la aprobación de órdenes para conseguir esa muestra. Se mantiene no promoción, sin ahorros reales acreditados ni nivel8. Los informes originales se conservan como evidencia de cada etapa, no como descripción del estado actual del código.
 
 ## Reproducción
 
