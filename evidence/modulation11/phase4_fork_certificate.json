@@ -1,0 +1,71 @@
+{
+  "schema": "HARPOON_M11_PHASE4_RESULTS_1",
+  "registered_protocol": "research/modulation11/phase4_protocol.json",
+  "registration_commit": "49a31bd2a4a3b6229e2c18215ff1e0a070f88bd5",
+  "code_commit": "17f2cda1e634b159473caacdee1900ea436d142f",
+  "case_scope": "A local pathwise counterexample for passive precommitted stop/target orders on an eight-point price tape; no sampled markets and no general profitability inference.",
+  "results": {
+    "same_prefix_through_target": true,
+    "first_target_substep_index": 1,
+    "native_priority": "target-only in up branch, stop-only in adverse branch",
+    "first_cross": "target sells two shares before branch on both paths",
+    "wealth_after_costs_usd": {
+      "up_native": 20002.69,
+      "up_first_cross": 20003.23,
+      "down_native": 19991.68,
+      "down_first_cross": 19976.02
+    },
+    "delta_native_minus_firstcross_usd": {
+      "up": -0.54,
+      "down": 15.66
+    },
+    "signed_effect_not_fixed": true,
+    "receipt_after_bar_end": true,
+    "off_grid_native_price_both_branches": true,
+    "discrete_standing_order_equivalence_refuted": true,
+    "all_paths_reservation_proof": false,
+    "nativeN9SInfeasibilityCertified": false
+  },
+  "ci": {
+    "run": 42413416181,
+    "status": "SUCCESS",
+    "tests_passed": 7,
+    "tests_failed": 0,
+    "syntax": "PASS",
+    "typecheck_scoped_js": "PASS",
+    "independent_decimal_accountant": "PASS",
+    "checksums": "PASS",
+    "microbenchmark": {
+      "iterations": 3000,
+      "total_ms": 54.183,
+      "host": "GitHub ubuntu-latest Node 22",
+      "strict_latency_gate": false
+    },
+    "historical_quant_suite": {
+      "run": 42413278022,
+      "status": "FAIL",
+      "error": "EvidenceError SHA256_MISMATCH: runtime30/profit8_replay.js",
+      "expected": "26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6",
+      "actual": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+      "not_repaired_by_this_unit": true
+    }
+  },
+  "source_sha256": {
+    "runtime30/modulation11_formal_execution_bridge.cjs": "f980ca17928f2b2760f8f358a70299f8ce377a68a52a982f6926e44f1e30ce32",
+    "tools/modulation11_phase4_test.cjs": "b5dd5760a3650e38cf6c56e406761991ffb5adacc386580e930f1acda25752c6",
+    "research/modulation11/phase4_protocol.json": "4928b4cb3415652ae290e306cff0e97586611f11747e0b4952efd83e162b7a66",
+    "tools/modulation11_phase4_accountant.py": "dde64f55681715fb0a937130a184903b93d5944466eb8fd70d03e1c437858c1e"
+  },
+  "budget": {
+    "economic_account_delta": 0,
+    "new_recipes": 0,
+    "workers": 1,
+    "alpha_spent_delta": 0,
+    "final_M10_accounts_unopened": 3200
+  },
+  "promotion_eligible": false,
+  "goal_accepted": false,
+  "live_trading_allowed": false,
+  "pr_7_draft": true,
+  "next_action": "Define a financially and filtration-consistent executable price contract (observed first crossing vs explicit additional latent process); either rederive a bound for actual OHLC retrospective payoff or change versioned experimental execution under new protocol, without rewriting M9/M10 frozen sources. Prove universal reserve shadow inequalities; resolve frozen historical provenance mismatch and operational gates before N9-S."
+}
