@@ -76,6 +76,11 @@ def evaluate(packet: dict[str, Any]) -> dict[str, Any]:
             scenarios, dividend_symbols=payload["dividend_symbols"]
         )
         status = result["decision"]
+    elif operation == "MOMENTUM_BASE":
+        from .momentum_base import analyze
+
+        result = analyze(payload)
+        status = "MOMENTUM_BASE_RESEARCH"
     elif operation == "INTRADAY_REPLAY":
         from .intraday import replay
 
