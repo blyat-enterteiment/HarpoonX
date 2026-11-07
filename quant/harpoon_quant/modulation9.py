@@ -35,7 +35,7 @@ def digest(value: Any) -> str:
 
 def recipes() -> list[dict[str, Any]]:
     result = [
-        {"id": f"{entry}_{exit_name}_R{int(round(risk * 1_000_000)):04d}",
+        {"id": f"{entry}_{exit_name}_R{round(risk * 1_000_000):04d}",
          "entry": entry, "exit": exit_name, "risk": risk}
         for entry in ENTRIES for exit_name in EXITS for risk in RISKS
     ]

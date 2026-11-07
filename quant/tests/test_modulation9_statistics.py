@@ -314,7 +314,7 @@ class StageIntegrityTests(AccountingFixture):
         for field, value in (("scenario", "STRESS"), ("id", "CURRENT")):
             with self.subTest(field=field):
                 directory = self.write_stage("development")
-                self.corrupt_path(directory, lambda data: data["accounts"][0].update({field: value}))
+                self.corrupt_path(directory, lambda data, field=field, value=value: data["accounts"][0].update({field: value}))
                 with self.assertRaises(ValueError):
                     analysis.read_stage(directory, "development")
 
@@ -323,7 +323,7 @@ class StageIntegrityTests(AccountingFixture):
                            ("stage", "final"), ("calendar_days", 2)):
             with self.subTest(key=key):
                 directory = self.write_stage("development")
-                self.corrupt_path(directory, lambda data: data["accounts"][0].update({key: value}))
+                self.corrupt_path(directory, lambda data, key=key, value=value: data["accounts"][0].update({key: value}))
                 with self.assertRaises(ValueError):
                     analysis.read_stage(directory, "development")
 
@@ -349,7 +349,7 @@ class StageIntegrityTests(AccountingFixture):
         for index, edit in enumerate(edits):
             with self.subTest(corruption=index):
                 directory = self.write_stage("development")
-                self.corrupt_path(directory, lambda data: edit(data["accounts"][0]))
+                self.corrupt_path(directory, lambda data, edit=edit: edit(data["accounts"][0]))
                 with self.assertRaises(ValueError):
                     analysis.read_stage(directory, "development")
 
@@ -359,7 +359,7 @@ class StageIntegrityTests(AccountingFixture):
                            ("worst_session_return", -.001)):
             with self.subTest(key=key):
                 directory = self.write_stage("development")
-                self.corrupt_path(directory, lambda data: data["accounts"][0]["summary"].update({key: value}))
+                self.corrupt_path(directory, lambda data, key=key, value=value: data["accounts"][0]["summary"].update({key: value}))
                 with self.assertRaises(ValueError):
                     analysis.read_stage(directory, "development")
 
@@ -462,7 +462,7 @@ class DevelopmentAndSelectionTests(AccountingFixture):
         for key, value in (("final_results_read", True), ("development_score_positive", False)):
             with self.subTest(key=key):
                 self.development()
-                self.rehash_selection(lambda s: s.update({key: value}))
+                self.rehash_selection(lambda s, key=key, value=value: s.update({key: value}))
                 self.assert_runner_refuses(self.selection_path)
 
     def test_altered_development_manifest_is_refused_by_runner(self) -> None:
@@ -564,7 +564,7 @@ class FinalGateTests(AccountingFixture):
     def test_profitable_fixture_cannot_override_observed_drawdown_or_holding_breach(self) -> None:
         for key, value in (("max_event_drawdown", .08001), ("max_signal_to_exit_hours", 72.01)):
             with self.subTest(key=key):
-                result = self.final_result(edit=lambda a, w, s:
+                result = self.final_result(edit=lambda a, w, s, key=key, value=value:
                     a["summary"].update({key: value}) if a["id"] == A else None)
                 self.assertFalse(result["gates"]["observed_risk_holding_and_reconciliation"])
                 self.assertGreater(result["observed_candidate_risk_violations"], 0)

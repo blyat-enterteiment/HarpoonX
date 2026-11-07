@@ -14,9 +14,8 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from scipy.stats import norm
-
 from harpoon_quant.modulation9 import digest
+from scipy.stats import norm
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "research/modulation9/protocol.json"
