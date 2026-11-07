@@ -10,8 +10,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harpoon_quant.modulation9 import market
 from harpoon_quant.modulation9 import make_protocol as old_protocol
+from harpoon_quant.modulation9 import market
 from harpoon_quant.modulation10 import (
     MOMENTUM_RULES,
     daily_panel,
@@ -21,7 +21,7 @@ from harpoon_quant.modulation10 import (
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
-from run_modulation10 import choose_final_variants, claim_stage, validate_contract  # noqa: E402
+from run_modulation10 import choose_final_variants, claim_stage, validate_contract
 
 
 class ProtocolTests(unittest.TestCase):
