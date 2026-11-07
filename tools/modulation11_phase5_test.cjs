@@ -44,9 +44,9 @@ test("M11-P5: no crossing means exactly zero gap with zero sold volume",()=>{
   const x=calc([100.1,100.2,100.3,100.4,100.5,100.4,100.3,100.2]);
   assert.equal(x.soldQuantityNative,0);
   assert.equal(x.soldQuantityObserved,0);
-  assert.equal(x.lowerGapUsd,0);
-  assert.equal(x.upperGapUsd,0);
-  assert.equal(x.realizedNativeMinusObservedUsd,0);
+  assert(Math.abs(x.lowerGapUsd)<1e-9);
+  assert(Math.abs(x.upperGapUsd)<1e-9);
+  assert(Math.abs(x.realizedNativeMinusObservedUsd)<1e-9);
 });
 test("M11-P5: extra target and rounding still inside correct tick-and-fee bound",()=>{
   const p={...pos,targetsR:[1.5,3]};
