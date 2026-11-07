@@ -166,7 +166,7 @@ test("M11 phase3: shadow self-finance and both reserve anchors on full dual-asse
   const proof=SHADOW.auditShadow({data:f.data,substeps:f.steps,
     states:x.result.states,tradePairs:x.pairs,limits:x.limits});
   assert.equal(proof.decisionCount,2);
-  assert.equal(proof.eventCount,6);
+  assert.equal(proof.eventCount,4); // Two BUY and two TIME SELL events; no partials in this fixture.
   assert.equal(proof.observedAdmissionChecksPassed,true);
   assert(proof.minimumCashUsd>0);
   assert.equal(proof.priceConsistentNativeExecution,true);
