@@ -1,0 +1,696 @@
+{
+  "schema": "HARPOONX_READ_ONLY_FORENSIC_REVIEW_1",
+  "language": "es",
+  "origin": "SYNTHETIC_ENGINEERING_ONLY",
+  "scope": "Auditoría de contratos existentes y reproducción exacta del banco archivado; no búsqueda nueva, sin cambios de estrategia.",
+  "provenance": {
+    "active_root": "/workspace/scratch/0a6c27f713ac/HarpoonX",
+    "remote_head_parent_verified": "1ec647eb83062ed76c56f95ddd272c02bcfd0ece",
+    "remote_branch_parent_verified": "codex/remediation-framework",
+    "local_git_metadata_available": false,
+    "complete_source_root_used_for_reproduction": "/workspace/scratch/091fb95a5219/HarpoonX",
+    "reproducer_imported_from": "/workspace/scratch/0a6c27f713ac/HarpoonX/tools/reproduce_synthetic_frozen.py",
+    "prior_synthetic_feasibility_status": "Preservado localmente; no afirmar que está en el árbol remoto PR5.",
+    "archive_declared_commit": "d73163c39527e534746d1a01800d8fa95040e8b7",
+    "archive_commit_authentication": "Declarado por el archivo, no autenticado por esta revisión; integridad de bytes comprobada contra manifiesto."
+  },
+  "reproduction": {
+    "status": "PASS",
+    "initial_active_root_cli_status": "FAILED_BEFORE_ECONOMIC_CALCULATION",
+    "initial_failure": "FileNotFoundError: .github/workflows/synthetic9.yml; además faltaba quant/requirements-tested.txt.",
+    "initial_failure_cause": "La copia de trabajo activa no incluía dos fuentes exigidas por el manifiesto. El reproductor llama sha(local) antes de buscar el fallback y no tolera una fuente ausente.",
+    "recovery": "Se ejecutó el reproductor vigente importado con PYTHONPATH=quant:tools y el snapshot completo 091 como root de entrada. Las 30 fuentes se verificaron por SHA256; cinco fuentes históricas se restauraron en el overlay de salida mediante los hashes congelados.",
+    "command": "cd /workspace/scratch/0a6c27f713ac/HarpoonX && PYTHONPATH=quant:tools python -c \"from pathlib import Path; from reproduce_synthetic_frozen import reproduce; reproduce(Path('/workspace/scratch/091fb95a5219/HarpoonX'), Path('/workspace/scratch/0a6c27f713ac/baseline_reproduction'))\"",
+    "rerun_note": "Para repetir, usar otro directorio de salida nuevo; el existente está protegido por exist_ok=False.",
+    "exact_economic_reproduction": true,
+    "artifact_manifest_entries": 128,
+    "byte_identical_economic_artifacts": 127,
+    "only_nonidentical_artifact": [
+      "benchmark.json"
+    ],
+    "nonidentical_exclusion": "Execution duration/platform metadata is not economic output",
+    "economic_mismatches": [],
+    "sources_sha256_verified_count": 30,
+    "restored_sources": [
+      "quant/harpoon_quant/core.py",
+      "quant/harpoon_quant/frontier/assurance.py",
+      "quant/harpoon_quant/frontier/controller.py",
+      "quant/harpoon_quant/frontier/paths.py",
+      "quant/harpoon_quant/frontier_core.py"
+    ],
+    "steps": {
+      "archived_verifier": {
+        "returncode": 0,
+        "wall_seconds": 27.192279837000115
+      },
+      "replay": {
+        "returncode": 0,
+        "wall_seconds": 99.02793326399978
+      },
+      "replay_verifier": {
+        "returncode": 0,
+        "wall_seconds": 28.29420694800001
+      }
+    },
+    "verifier": {
+      "accounts_checked": 108,
+      "artifact_hashes_verified": true,
+      "core_models_rebuilt_and_clock_bound": 288,
+      "execution_allowed": false,
+      "external_review_completed": false,
+      "fills_checked": 2978,
+      "independent_decimal_implementation": true,
+      "level9_accredited": false,
+      "marks_checked": 36396,
+      "origin": "SYNTHETIC_ENGINEERING_ONLY",
+      "real_fills_present": false,
+      "real_prospective_validation": false,
+      "same_author_not_external_review": true,
+      "source_hashes_verified": true,
+      "verified": true
+    },
+    "output_dir": "/workspace/scratch/0a6c27f713ac/baseline_reproduction",
+    "report_sha256": "aa9289b046d3f1f1964b22e7693b261bbefea95be3a24929341ad050371b01e1"
+  },
+  "baseline_summary": {
+    "accounts": 108,
+    "accounts_profitable": 10,
+    "accounts_with_open_positions": 0,
+    "comparator_scope": "FIXED_SAME_LOT_CAP_IS_NOT_EXPOSURE_MATCHED_TO_ABSTAINING_CORE",
+    "core_accounts_profitable": 5,
+    "core_decisions_including_stress_repeats": 288,
+    "deadline_breaches_across_accounts": 73,
+    "economic_improvement_accredited": false,
+    "execution_allowed": false,
+    "external_review_completed": false,
+    "fills_total_across_counterfactual_accounts": 2978,
+    "independent_seeds_per_world": 4,
+    "level9_accredited": false,
+    "origin": "SYNTHETIC_ENGINEERING_ONLY",
+    "paired_comparisons": [
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cost_scenario": "NOMINAL",
+        "descriptive_max": 0.0,
+        "descriptive_mean": 0.0,
+        "descriptive_min": 0.0,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "NULL"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cost_scenario": "DOUBLE_COST",
+        "descriptive_max": 0.0,
+        "descriptive_mean": 0.0,
+        "descriptive_min": 0.0,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "NULL"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cost_scenario": "DOUBLE_COST_GAP",
+        "descriptive_max": 0.0,
+        "descriptive_mean": 0.0,
+        "descriptive_min": 0.0,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "NULL"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.004850362401381784,
+          0.007214047023597986,
+          0.00768491368388919,
+          0.0017109891598382449
+        ],
+        "cost_scenario": "NOMINAL",
+        "descriptive_max": 0.00768491368388919,
+        "descriptive_mean": 0.005365078067176802,
+        "descriptive_min": 0.0017109891598382449,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "TREND_BREAK"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.004699635653271007,
+          0.0057540410424378186,
+          0.008345168985267997,
+          0.002695203910422928
+        ],
+        "cost_scenario": "DOUBLE_COST",
+        "descriptive_max": 0.008345168985267997,
+        "descriptive_mean": 0.005373512397849938,
+        "descriptive_min": 0.002695203910422928,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "TREND_BREAK"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.00032022880877148174,
+          -0.0018582809856250004,
+          0.0035023909173181895,
+          -0.00195346167042306
+        ],
+        "cost_scenario": "DOUBLE_COST_GAP",
+        "descriptive_max": 0.0035023909173181895,
+        "descriptive_mean": 2.7192675104027036e-06,
+        "descriptive_min": -0.00195346167042306,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "TREND_BREAK"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cost_scenario": "NOMINAL",
+        "descriptive_max": 0.0,
+        "descriptive_mean": 0.0,
+        "descriptive_min": 0.0,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "LIQUIDITY_SHOCK"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cost_scenario": "DOUBLE_COST",
+        "descriptive_max": 0.0,
+        "descriptive_mean": 0.0,
+        "descriptive_min": 0.0,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "LIQUIDITY_SHOCK"
+      },
+      {
+        "core_minus_cash_terminal_log_growth": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cost_scenario": "DOUBLE_COST_GAP",
+        "descriptive_max": 0.0,
+        "descriptive_mean": 0.0,
+        "descriptive_min": 0.0,
+        "paired_seeds": 4,
+        "statistical_significance_claimed": false,
+        "world": "LIQUIDITY_SHOCK"
+      }
+    ],
+    "real_fills_present": false,
+    "real_prospective_validation": false,
+    "sampling_scope": "INDEPENDENT_GENERATOR_SEEDS_NOT_EMPIRICAL_MARKET_OBSERVATIONS; STRESSES_ARE_REPEATS",
+    "schema": "HARPOON_SYNTHETIC9_SUMMARY_1",
+    "unique_forward_market_windows": 96
+  },
+  "economics_rollup": [
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "CASH",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "CASH",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "CASH",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -56.0,
+      "net_pnl_min_usd": -56.0,
+      "net_pnl_max_usd": -56.0,
+      "worst_drawdown": 0.0028000000000000247,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "CORE",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "CORE",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "CORE",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -56.0,
+      "net_pnl_min_usd": -56.0,
+      "net_pnl_max_usd": -56.0,
+      "worst_drawdown": 0.0028000000000000247,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -772.3331761424997,
+      "net_pnl_min_usd": -868.085231699999,
+      "net_pnl_max_usd": -691.1596008300003,
+      "worst_drawdown": 0.04371084896586219,
+      "deadline_breaches": 0,
+      "max_hold_hours": 26.00008888888889
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -845.9631933424998,
+      "net_pnl_min_usd": -953.26306148,
+      "net_pnl_max_usd": -759.8031870699997,
+      "worst_drawdown": 0.04796837548705557,
+      "deadline_breaches": 0,
+      "max_hold_hours": 26.00008888888889
+    },
+    {
+      "world": "LIQUIDITY_SHOCK",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -691.7840254124994,
+      "net_pnl_min_usd": -783.2068594699995,
+      "net_pnl_max_usd": -612.5355077099994,
+      "worst_drawdown": 0.03960521153908181,
+      "deadline_breaches": 0,
+      "max_hold_hours": 26.00008888888889
+    },
+    {
+      "world": "NULL",
+      "strategy": "CASH",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "NULL",
+      "strategy": "CASH",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "NULL",
+      "strategy": "CASH",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -56.0,
+      "net_pnl_min_usd": -56.0,
+      "net_pnl_max_usd": -56.0,
+      "worst_drawdown": 0.0028000000000000247,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "NULL",
+      "strategy": "CORE",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "NULL",
+      "strategy": "CORE",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "NULL",
+      "strategy": "CORE",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -56.0,
+      "net_pnl_min_usd": -56.0,
+      "net_pnl_max_usd": -56.0,
+      "worst_drawdown": 0.0028000000000000247,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "NULL",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -165.9264870174993,
+      "net_pnl_min_usd": -243.9991378099985,
+      "net_pnl_max_usd": -99.51709753999967,
+      "worst_drawdown": 0.013196578134445414,
+      "deadline_breaches": 12,
+      "max_hold_hours": 49.000053888888885
+    },
+    {
+      "world": "NULL",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -259.0036464599989,
+      "net_pnl_min_usd": -336.41135008999845,
+      "net_pnl_max_usd": -197.55861463999827,
+      "worst_drawdown": 0.017204152977445486,
+      "deadline_breaches": 12,
+      "max_hold_hours": 49.000053888888885
+    },
+    {
+      "world": "NULL",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -80.19987376999961,
+      "net_pnl_min_usd": -160.25646232000145,
+      "net_pnl_max_usd": -11.68712011000025,
+      "worst_drawdown": 0.009433207295803547,
+      "deadline_breaches": 12,
+      "max_hold_hours": 49.000053888888885
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "CASH",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "CASH",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -112.0,
+      "net_pnl_min_usd": -112.0,
+      "net_pnl_max_usd": -112.0,
+      "worst_drawdown": 0.005600000000000049,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "CASH",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": -56.0,
+      "net_pnl_min_usd": -56.0,
+      "net_pnl_max_usd": -56.0,
+      "worst_drawdown": 0.0028000000000000247,
+      "deadline_breaches": 0,
+      "max_hold_hours": 0.0
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "CORE",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -4.802437967499827,
+      "net_pnl_min_usd": -58.32548523999867,
+      "net_pnl_max_usd": 54.66316970999833,
+      "worst_drawdown": 0.017786987010472988,
+      "deadline_breaches": 5,
+      "max_hold_hours": 49.00006611111111
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "CORE",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -111.89707370249926,
+      "net_pnl_min_usd": -150.81252396999844,
+      "net_pnl_max_usd": -42.22232642000017,
+      "worst_drawdown": 0.022101665158058892,
+      "deadline_breaches": 5,
+      "max_hold_hours": 49.00006611111111
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "CORE",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": 51.344828310000594,
+      "net_pnl_min_usd": -21.8468226699988,
+      "net_pnl_max_usd": 97.8583553899989,
+      "worst_drawdown": 0.016285694615728596,
+      "deadline_breaches": 6,
+      "max_hold_hours": 49.00006611111111
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "DOUBLE_COST",
+      "accounts": 4,
+      "net_pnl_mean_usd": -25.201228887500292,
+      "net_pnl_min_usd": -252.5979270099997,
+      "net_pnl_max_usd": 235.84528814000078,
+      "worst_drawdown": 0.05126423253697188,
+      "deadline_breaches": 7,
+      "max_hold_hours": 49.0001275
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "DOUBLE_COST_GAP",
+      "accounts": 4,
+      "net_pnl_mean_usd": -407.2831298525007,
+      "net_pnl_min_usd": -608.7292748600012,
+      "net_pnl_max_usd": -90.87239810000028,
+      "worst_drawdown": 0.06300380260331095,
+      "deadline_breaches": 7,
+      "max_hold_hours": 49.0001275
+    },
+    {
+      "world": "TREND_BREAK",
+      "strategy": "FIXED_SAME_LOT_CAP",
+      "cost_scenario": "NOMINAL",
+      "accounts": 4,
+      "net_pnl_mean_usd": 155.72944284500045,
+      "net_pnl_min_usd": -77.82532179999907,
+      "net_pnl_max_usd": 399.1407781300004,
+      "worst_drawdown": 0.04663867607568406,
+      "deadline_breaches": 7,
+      "max_hold_hours": 49.0001275
+    }
+  ],
+  "interpretation": [
+    "En TREND_BREAK, CORE obtiene +51.34482831 USD medios nominales sobre 20,000 USD; con costes dobles -4.8024379675 USD y con costes dobles más gap -111.8970737025 USD. Cada promedio contiene cuatro semillas.",
+    "CORE abstiene en NULL y LIQUIDITY_SHOCK: los -56/-112 USD corresponden al coste fijo de operación compartido con CASH.",
+    "La ventaja frente a CASH no equivale a rentabilidad neta absoluta positiva: el coste fijo puede volver negativa una cuenta con trading incremental favorable.",
+    "Los 73 incumplimientos registrados son del deadline comprometido de cada campaña; 16 son de CORE y 57 del control fijo. La duración máxima de CORE es aproximadamente 49.000066 horas; no describirlos como 73 violaciones de 72 horas.",
+    "El comparador fijo utiliza los mismos lotes máximos, pero no iguala la exposición de CORE cuando CORE se abstiene.",
+    "La repetición exacta acredita reproducibilidad económica de aquel workload. No valida automáticamente la meta-matriz de 133 celdas, H1-H3, límites actuales, ni rentabilidad9."
+  ],
+  "reusable_native_components": [
+    {
+      "files": [
+        "quant/harpoon_quant/synthetic9/ledger.py",
+        "quant/harpoon_quant/synthetic9/events.py"
+      ],
+      "use": "Ledger continuo, campañas, reloj causal, órdenes, fills parciales, fees, cancelación, deadlines y marcas. Mantener como contrato contable."
+    },
+    {
+      "files": [
+        "quant/harpoon_quant/synthetic9/execution.py"
+      ],
+      "use": "simulate_order y calibración sintética para ejecución común por activo, hora y lado; conservar semilla pareada entre modulaciones."
+    },
+    {
+      "files": [
+        "quant/harpoon_quant/synthetic9/market.py"
+      ],
+      "use": "world, quotes, available, OHLC causal y etiquetas maduras. Separar variables observables de identificadores que revelan mundo y semilla."
+    },
+    {
+      "files": [
+        "quant/harpoon_quant/synthetic9/bank.py"
+      ],
+      "use": "Adaptar run_account y el despacho explícito de políticas; reutilizar state_for, execute_batch y metrics. Requiere inyectar límites vigentes y lógica de salida."
+    },
+    {
+      "files": [
+        "quant/harpoon_quant/frontier/supervisor.py"
+      ],
+      "use": "Certificación independiente de target, caja y disponibilidad; expiry_step selecciona plazo compatible con mercado y preserva fecha original."
+    }
+  ],
+  "integration_constraints": [
+    {
+      "severity": "CRITICAL",
+      "finding": "En bank.run_account, toda estrategia distinta de CORE o CASH cae silenciosamente al control fijo de un lote. Un nuevo nombre de modulación sin despacho explícito no prueba su política.",
+      "source": "quant/harpoon_quant/synthetic9/bank.py"
+    },
+    {
+      "severity": "CRITICAL",
+      "finding": "El banco crea Settings internamente y usa límites antiguos más amplios. La reproducción no usa por sí sola el contrato vigente de 12% exposición, 0.25% riesgo, 2% pérdida diaria y 8% drawdown.",
+      "sources": [
+        "quant/harpoon_quant/synthetic9/bank.py",
+        "quant/harpoon_quant/frontier/contracts.py",
+        "docs/SWING_MARGINAL_FORENSIC_AUDIT.md",
+        "tools/verify_profit8.py"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "finding": "Entradas del banco fijan stop 2% y target 3%. Salidas se deciden por bid actual o OHLC de la barra ya cerrada y ejecutan en el siguiente precio disponible; no simulan una orden bracket intrabar nativa. Mantener stop primero en barras ambiguas.",
+      "source": "quant/harpoon_quant/synthetic9/bank.py"
+    },
+    {
+      "severity": "HIGH",
+      "finding": "El generador no contiene volumen real ni volumen sintético contractual. No acredita RVOL, participación o capacidad de llenado para la matriz vigente.",
+      "source": "quant/harpoon_quant/synthetic9/market.py"
+    },
+    {
+      "severity": "HIGH",
+      "finding": "La participación del modelo de ejecución se muestrea de manera independiente de cantidad y volumen. El impacto de tamaño/capacidad no es validado económicamente.",
+      "source": "quant/harpoon_quant/synthetic9/execution.py"
+    },
+    {
+      "severity": "HIGH",
+      "finding": "state_for fija daily_pnl_usd=0; el halt diario del supervisor no queda cubierto económicamente por este workload.",
+      "source": "quant/harpoon_quant/synthetic9/bank.py"
+    },
+    {
+      "severity": "HIGH",
+      "finding": "El identificador de caso codifica mundo, semilla y semana. Ninguno de esos identificadores ni OHLC futuro puede entrar al feature set de una política.",
+      "source": "quant/harpoon_quant/synthetic9/market.py"
+    },
+    {
+      "severity": "HIGH",
+      "finding": "El calendario usa siete horas diarias para acciones y omite festivos/DST; entrada diferida requiere usar disponibilidad real del generador, no asumir tradeable=True.",
+      "source": "quant/harpoon_quant/synthetic9/market.py"
+    },
+    {
+      "severity": "HIGH",
+      "finding": "virtual_net exige todas las celdas y corrige por la matriz original; 1000 bootstraps no resuelven colas Bonferroni para más de50 celdas. Añadir celdas no aumenta información.",
+      "sources": [
+        "quant/harpoon_quant/virtual_net.py",
+        "docs/SWING_MARGINAL_FORENSIC_AUDIT.md"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "finding": "Admisión con retornos genéricos de tres días frente a políticas con stop/plazos distintos crea incompatibilidad entre etiqueta y payoff. Recalcular etiquetas maduras por política y mantener clock causal.",
+      "source": "docs/SWING_MARGINAL_FORENSIC_AUDIT.md"
+    },
+    {
+      "severity": "MEDIUM",
+      "finding": "RNG de ejecución deriva de semilla/mundo/semana/hora/activo/lado. Dos órdenes del mismo lado/activo/hora pueden compartir muestra; añadir identidad de intento si se implementan reintentos intrahorarios, sin romper el control archivado.",
+      "source": "quant/harpoon_quant/synthetic9/bank.py"
+    }
+  ],
+  "bounded_modulation_proposals": [
+    {
+      "axis": "entrada",
+      "proposal": "Gatillo causal de continuación y margen de retorno esperado que cubra fricción nominal/estrés, basado sólo en ventanas maduras; comparación explícita frente a CASH y control sencillo.",
+      "falsifier": "Ventaja pareada ajustada no positiva, entradas sistemáticas en NULL o sensibilidad a identificadores del mundo."
+    },
+    {
+      "axis": "salida",
+      "proposal": "Comparar horizonte corto disponible, protección fija después de +1R, trailing con máximos conocidos y cierre por pérdida de continuación; conservar deadline original y cobrar cada ejecución parcial.",
+      "falsifier": "Ahorro en pérdidas inferior al coste y daño a ganadores; beneficio sólo con fills al precio ideal del stop."
+    },
+    {
+      "axis": "riesgo",
+      "proposal": "Normalizar tamaño por volatilidad/stop y reserva de gap, con límites vigentes inclusivos de fricción y redondeo a cantidad nativa. Usar banda de riesgo predeclarada y reducción de exposición ante drawdown.",
+      "falsifier": "Mejor PnL originado sólo por mayor exposición, riesgo reservado insuficiente o violación de daily halt/deadline."
+    },
+    {
+      "axis": "inferencia",
+      "proposal": "Congelar recetas antes de resultado, contar cada receta probada en presupuesto global, evaluar mismas trayectorias pareadas y reservar semillas inéditas. Ajustar inferencia conjunta por todas las recetas y activos.",
+      "falsifier": "No hay suficiente muestra independiente, se reutiliza holdout para elegir o sólo la mejor celda supera umbral."
+    }
+  ],
+  "limits_of_conclusion": {
+    "finite_search_proves_global_optimum": false,
+    "synthetic_success_implies_real_profitability": false,
+    "level9_accredited": false,
+    "execution_allowed": false,
+    "new_policy_validation": false,
+    "independent_external_review": false,
+    "operational_iff": "Puede definirse admisión si y sólo si todas las puertas preregistradas pasan; eso es una regla de decisión bajo supuestos, no una prueba universal de posibilidad/imposibilidad de rentabilidad."
+  }
+}

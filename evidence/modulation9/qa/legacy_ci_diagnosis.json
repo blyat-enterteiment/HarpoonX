@@ -1,0 +1,145 @@
+{
+  "schema": "HARPOON_MODULATION9_LEGACY_CI_DIAGNOSIS_1",
+  "observed_at_utc": "2026-11-07 18:25:41 UTC",
+  "repository": "blyat-enterteiment/HarpoonX",
+  "branch": "codex/synthetic-modulation9",
+  "scope": "READ_ONLY_GITHUB_JOBS_LOGS_AND_FROZEN_SOURCE_COMPARISON",
+  "diagnosis": "Los dos CI heredados están rojos por verificación de identidad de fuentes congeladas. Los logs no muestran fallo de instalación, runner ni una aserción funcional económica. El gate de procedencia sigue siendo un bloqueo real, aunque el código opt-in haya pasado sus fixtures.",
+  "runtime_source": {
+    "path": "runtime30/profit8_replay.js",
+    "retained_profit8_expected_sha256": "021e09fd3ee678870a5ba2e210396979eb4c623465a775c9988de3c0b74c2c7e",
+    "verified_pr5_base_commit": "1ec647eb83062ed76c56f95ddd272c02bcfd0ece",
+    "verified_pr5_base_sha256": "26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6",
+    "modulation9_commit": "720fa180a0a99a30fc44d2cbfc2f7aeb3ff0e385",
+    "modulation9_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "remote_720fa_bytes_equal_local_registered_runtime": true,
+    "same_runtime_in_d301fe53": true,
+    "opt_in_diff_against_pr5": {
+      "added_lines": 50,
+      "deleted_lines": 11
+    },
+    "comparison_url": "https://github.com/blyat-enterteiment/HarpoonX/compare/1ec647eb83062ed76c56f95ddd272c02bcfd0ece...720fa180a0a99a30fc44d2cbfc2f7aeb3ff0e385"
+  },
+  "failed_runs": [
+    {
+      "run_id": 42400338634,
+      "name": "Robust quant core regressions",
+      "head_sha": "d301fe53d1a57efe87b6fd91da5a599c6ba91d3d",
+      "workflow": ".github/workflows/robust-quant-core.yml",
+      "run_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42400338634",
+      "conclusion": "failure",
+      "run_attempt": 1,
+      "completed_at": "2026-11-07T18:16:45Z",
+      "job_id": 128486524012,
+      "failed_step": "Entire quant suite including certificate regressions",
+      "command": "python3 -B -m unittest discover -s quant/tests",
+      "tests_run": 1024,
+      "errors": 2,
+      "seconds": 65.336,
+      "affected_tests": [
+        "test_evidence_scope.EvidenceScopeTests.test_delivery_is_deterministic_and_does_not_overwrite",
+        "test_evidence_scope.EvidenceScopeTests.test_repository_integration_and_shared_lineage"
+      ],
+      "exact_error": "SHA256_MISMATCH: runtime30/profit8_replay.js; expected=26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6; actual=303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+      "failure_path": "test_evidence_scope -> run_reused_evidence.inspect -> evidence_scope.verify_files",
+      "bound_manifest": "research/reused_evidence/protocol.json",
+      "classification": "NEW_OPT_IN_SOURCE_BYTES_DIFFER_FROM_ARCHIVED_EVIDENCE_BINDING",
+      "static_and_type_step": "PASS",
+      "runner_and_dependency_steps": "PASS",
+      "decoded_log_utf8_sha256": "1e355c08b6382f0119ca30f4c618a996f3dd6ff9d38f20e536cb156dea2a0814",
+      "implication": "La clasificación/reproducción de evidencia archivada no puede declararse íntegra usando el runtime actual contra el manifiesto antiguo. Estos errores no comparan rentabilidades ni prueban regresión funcional."
+    },
+    {
+      "run_id": 42400170457,
+      "name": "PROFIT8 frozen economic research",
+      "head_sha": "720fa180a0a99a30fc44d2cbfc2f7aeb3ff0e385",
+      "workflow": ".github/workflows/profit8.yml",
+      "run_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42400170457",
+      "conclusion": "failure",
+      "run_attempt": 1,
+      "completed_at": "2026-11-07T18:13:55Z",
+      "job_id": 128486020908,
+      "failed_step": "Frozen source integrity",
+      "command": "python -c 'from run_profit8 import verify_freeze; print(len(verify_freeze()[\"sources\"]))'",
+      "exact_error": "ValueError: FROZEN_SOURCE_CHANGED:runtime30/profit8_replay.js",
+      "failure_path": "run_profit8.verify_freeze -> require(sha(ROOT / name) == expected)",
+      "bound_manifest": "research/profit8/source_freeze_retained.json",
+      "manifest_selection": "research/profit8/protocol.json.source_freeze",
+      "expected_sha256": "021e09fd3ee678870a5ba2e210396979eb4c623465a775c9988de3c0b74c2c7e",
+      "actual_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+      "classification": "PREEXISTING_RETAINED_FREEZE_MISMATCH_WITH_ADDITIONAL_OPT_IN_SOURCE_CHANGE",
+      "inherited_mismatch_evidence": {
+        "retained_freeze_git_blob_sha_at_both_base_and_720fa": "f03245e825d09edad0c573e5052eb66ef6f19e72",
+        "expected_runtime_already_differed_at_pr5_base": true,
+        "base_runtime_sha256": "26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6",
+        "inference": "El desajuste del freeze PROFIT8 ya existía antes de modulation9. No se afirma aquí haber observado una ejecución CI anterior; se prueba la incompatibilidad de bytes del baseline con ese mismo manifiesto."
+      },
+      "preceding_checks": {
+        "static": "PASS",
+        "type": "PASS",
+        "python_tests": 54,
+        "python_failures": 0,
+        "native_tests": 28,
+        "native_failures": 0
+      },
+      "skipped_steps": [
+        "Independently audit retained data and all accounts",
+        "Keep independent audit receipt"
+      ],
+      "decoded_log_utf8_sha256": "8069e6aef2fe3628523bb626a5b7c18cf4c23ec6b6927fabf6964d1d106943bf",
+      "implication": "La auditoría histórica posterior no se ejecutó en este run; no debe inferirse un PASS de esa auditoría a partir de los fixtures anteriores."
+    }
+  ],
+  "comparison_run": {
+    "run_id": 42400340594,
+    "name": "Synthetic modulation research checks",
+    "head_sha": "d301fe53d1a57efe87b6fd91da5a599c6ba91d3d",
+    "workflow": ".github/workflows/modulation9.yml",
+    "run_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42400340594",
+    "conclusion": "success",
+    "run_attempt": 1,
+    "completed_at": "2026-11-07T18:15:44Z",
+    "job_id": 128486529281,
+    "checks": {
+      "ruff": "PASS",
+      "mypy": "PASS",
+      "python_tests": 60,
+      "native_modulation_tests": 40,
+      "native_profit8_tests": 28,
+      "failures": 0,
+      "registered_sources": "PASS"
+    },
+    "decoded_log_utf8_sha256": "12dfd7eaf51e2253d4b92493a3d5cea28b60a23b36c30512c6220cabef4c7c83",
+    "interpretation": "PASS del alcance modulation9 registrado, con fixtures de equivalencia nativa y controles sin opt-in. No sustituye los gates de identidad de los estudios heredados."
+  },
+  "compatibility_assessment": {
+    "new_exit_profiles_require_explicit_researchModulation_and_modulation9_metadata": true,
+    "current_control_equivalence_fixtures": [
+      "FLAT",
+      "PARTIALS",
+      "TRAIL",
+      "GAP",
+      "DIVIDEND"
+    ],
+    "native_profit8_fixture_disabled_new_options_preserves_frozen_replay": "PASS_IN_REMOTE_LOG",
+    "observed_functional_regression_in_these_logs": false,
+    "full_behavioral_equivalence_proven": false,
+    "runner_or_dependency_failure_observed": false,
+    "remaining_blocker": "La suite global y la verificación PROFIT8 congelada permanecen fallidas por procedencia; no hay aprobación integral del repositorio.",
+    "future_remediation_without_rewriting_history": "Después de cerrar el estudio, separar la reproducción histórica en un árbol cuyo código coincida con su manifiesto y mantener la extensión opt-in como versión distinta; cualquier nueva validación necesita su propio registro. Este diagnóstico no aplica esa modificación."
+  },
+  "actions": {
+    "registered_sources_modified": false,
+    "protocol_hashes_modified": false,
+    "ci_reruns_started": 0,
+    "economic_replays_executed_for_diagnosis": 0,
+    "only_new_artifact": "evidence/modulation9/qa/legacy_ci_diagnosis.json"
+  },
+  "sources": [
+    "https://github.com/blyat-enterteiment/HarpoonX/blob/d301fe53d1a57efe87b6fd91da5a599c6ba91d3d/research/reused_evidence/protocol.json",
+    "https://github.com/blyat-enterteiment/HarpoonX/blob/720fa180a0a99a30fc44d2cbfc2f7aeb3ff0e385/research/profit8/protocol.json",
+    "https://github.com/blyat-enterteiment/HarpoonX/blob/720fa180a0a99a30fc44d2cbfc2f7aeb3ff0e385/research/profit8/source_freeze_retained.json",
+    "https://github.com/blyat-enterteiment/HarpoonX/blob/1ec647eb83062ed76c56f95ddd272c02bcfd0ece/runtime30/profit8_replay.js",
+    "https://github.com/blyat-enterteiment/HarpoonX/blob/720fa180a0a99a30fc44d2cbfc2f7aeb3ff0e385/runtime30/profit8_replay.js"
+  ]
+}
