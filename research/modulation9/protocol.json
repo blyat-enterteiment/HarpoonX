@@ -1,0 +1,498 @@
+{
+  "benchmark": "SYNM",
+  "budget": {
+    "authorization": "Current user explicitly requests iterations and multiple entry/exit/risk modulations.",
+    "development_policy_cost_world_seed_accounts": 3120,
+    "duplicate_control_recipe": "CONFIRMED_NATIVE72_R2500 exactly duplicates CURRENT; retained transparently, excluded from improvement selection.",
+    "final_policy_cost_world_seed_accounts": 2560,
+    "historical_cap": 128,
+    "historical_debt_reconciled": false,
+    "historical_reserved_plus_unincorporated": 151,
+    "legacy_provisional_total_if_supplement_added": 229,
+    "legacy_unit_new_policy_cost_accounts_including_controls": 78,
+    "no_unregistered_parameter_edits_after_development": true,
+    "supplemental_candidates": 36,
+    "supplemental_max_account_executions": 5680,
+    "unit_note": "36 recipes+3 controls, times2costs =78. World/seed replication is also separately counted, not hidden."
+  },
+  "date": "2026-11-07",
+  "entry_rules": {
+    "CONFIRMED": "Exact TechnicalSwing: two closes above first30m range, relative return>0, same-slot RVOL20>1; decision60m+1s, next5m open.",
+    "QUALITY": "CONFIRMED; RVOL<=3; close extension above range<=0.6*prior20d ATR; prior30d return>0 and prior daily MACD(12,26,9) histogram>0. All daily values strictly prior session.",
+    "RETEST": "At90m+1s: breakout during30-60m; last30m low revisits within0.15*prior20d ATR of range high without falling below range low; lasttwo closes above range; positive relative return; RVOL last10m in[0.8,3]; prior30d return>0. Next5m entry."
+  },
+  "execution_allowed": false,
+  "exit_rules": {
+    "FAST24": "Native targets; after6 elapsedh with peak completed-close gain<0.5R and close<=entry, exit next open; max24h.",
+    "NATIVE72": "Exact native 25% at1.5R/25% at3R and causal trailing; max72h.",
+    "PROTECT48": "Native targets; after completed close reaches1R, protect cost-adjusted entry and tighten causal trailing; max48h.",
+    "RUNNER72": "25% at2R; remaining75% runner with2R trailing activated at2R; max72h."
+  },
+  "gates": {
+    "development_score_positive": true,
+    "final_paths_each_world": 64,
+    "full_execution_fault_coverage_required_for_label": true,
+    "industry_profitability_score": false,
+    "label": "N9S_1_INTERNAL_CONDITIONAL_ONLY",
+    "max_holding_elapsed_hours": 72,
+    "max_observed_event_drawdown": 0.08,
+    "max_observed_session_loss": 0.02,
+    "no_real_profitability_accreditation": true,
+    "nominal_edge_worlds_adjusted_lower": ">0.0001 daily net log",
+    "null_positive_adjusted_lower_blocks": true,
+    "paired_vs_current_simple_cash_edge_worlds_adjusted_lower": ">0",
+    "positive_aggregate_after_removing_best_campaign_each_path": true,
+    "stress_edge_worlds_adjusted_lower": ">0 daily net log",
+    "tail_worlds_relative_to_same_cost_cash_mean_floor": -0.005
+  },
+  "generator": {
+    "bar_sigma": [
+      0.00075,
+      0.00085,
+      0.0005
+    ],
+    "bars_per_session": 78,
+    "buffer_sessions": 6,
+    "calendar": "SYNTHETIC_WEEKDAYS_1430_2100_UTC_NO_HOLIDAYS_OR_DST",
+    "correlation_loading": 0.45,
+    "evaluation_sessions": 126,
+    "false_first_hour_drift": 0.00013,
+    "false_reversal_drift": -5e-05,
+    "final_parameter_shift": {
+      "drift_multiplier_range": [
+        0.75,
+        1.1
+      ],
+      "persistence_refresh_multiplier_range": [
+        0.8,
+        1.3
+      ],
+      "sigma_multiplier_range": [
+        0.9,
+        1.2
+      ]
+    },
+    "first_date": "2024-01-08",
+    "gap_correlation_loading": 0.85,
+    "gap_multiplier": 0.94,
+    "gap_probability_per_session": 0.025,
+    "intrabar_substeps": 8,
+    "null_distribution": "conditionally compensated normal mixture; no trend or crash drift",
+    "overnight_sigma": [
+      0.003,
+      0.0035,
+      0.002
+    ],
+    "price_process_is_market_calibrated": false,
+    "regime_refresh_probability": 0.08,
+    "trend_drift_per_bar": 7.5e-05,
+    "volume": "positive intraday U-shape, activity, contemporaneous absolute return and independent noise; never future prices",
+    "volume_predicts_sign_in_null": false,
+    "warmup_sessions": 50,
+    "weak_drift_per_bar": 2.5e-05,
+    "worlds": [
+      "TREND",
+      "WEAK",
+      "FALSE",
+      "NULL",
+      "GAP"
+    ]
+  },
+  "limitations_locked_before_measurement": [
+    "Synthetic equity-like symbols only; not observed AAPL/MSFT, not crypto/options.",
+    "OHLCV next-bar IOC and native cash ledger; no empirically calibrated order queue, rejects, market impact or entry partial fills.",
+    "Volume is tested in signals, not proof of executable market depth.",
+    "No holiday/DST simulation; supplied calendar scheduling and weekend exits are testable.",
+    "Native signal control, not the unintegrated virtual_net matrix coordinator.",
+    "Independent seed holdout is conditional on this generator family, not market validation.",
+    "No automatic retraining, broker connection, deployment or trade authorization."
+  ],
+  "limits": {
+    "assetFraction": 0.12,
+    "capitalUsd": 20000,
+    "dailyLoss": 0.02,
+    "grossFraction": 0.12,
+    "maxDrawdown": 0.08,
+    "openRiskFraction": 0.0025,
+    "riskFraction": 0.0025
+  },
+  "live_approved": false,
+  "origin": "SYNTHETIC",
+  "scenarios": {
+    "NOMINAL": {
+      "commission_usd_per_share_per_side": 0.005,
+      "external_cost_usd_per_calendar_day": 1.0,
+      "slippage_bps": 2.0,
+      "spread_bps": 2.0
+    },
+    "STRESS": {
+      "commission_usd_per_share_per_side": 0.01,
+      "external_cost_usd_per_calendar_day": 2.0,
+      "slippage_bps": 4.0,
+      "spread_bps": 4.0
+    }
+  },
+  "schema": "HARPOON_MODULATION9_PROTOCOL_1",
+  "selection": {
+    "final_if_no_positive_score": "Run one locked least-bad risk-feasible recipe diagnostically; negative development blocks promotion regardless of final.",
+    "only_stage": "development",
+    "pareto": [
+      "mean nominal log growth across TREND/WEAK",
+      "p95 eventdrawdown across all stress worlds"
+    ],
+    "positive_edge_worlds": [
+      "TREND",
+      "WEAK"
+    ],
+    "risk_filter": "max eventDD<=8%, worst session>=-2%, reconciled, maxholding<=72h",
+    "score": "minimum across TREND/WEAK x nominal/stress of mean calendar-day log growth minus1.645 standard errors over independent seeds",
+    "tie_break": "lower p95 drawdown, lower risk parameter, lexical id"
+  },
+  "source_head": "1ec647eb83062ed76c56f95ddd272c02bcfd0ece",
+  "stages": {
+    "development": {
+      "all_variants": true,
+      "seeds": [
+        730101,
+        730102,
+        730103,
+        730104,
+        730105,
+        730106,
+        730107,
+        730108
+      ]
+    },
+    "final": {
+      "controls": [
+        "CURRENT",
+        "SIMPLE",
+        "CASH"
+      ],
+      "locked_candidates": 1,
+      "seeds": [
+        940201,
+        940202,
+        940203,
+        940204,
+        940205,
+        940206,
+        940207,
+        940208,
+        940209,
+        940210,
+        940211,
+        940212,
+        940213,
+        940214,
+        940215,
+        940216,
+        940217,
+        940218,
+        940219,
+        940220,
+        940221,
+        940222,
+        940223,
+        940224,
+        940225,
+        940226,
+        940227,
+        940228,
+        940229,
+        940230,
+        940231,
+        940232,
+        940233,
+        940234,
+        940235,
+        940236,
+        940237,
+        940238,
+        940239,
+        940240,
+        940241,
+        940242,
+        940243,
+        940244,
+        940245,
+        940246,
+        940247,
+        940248,
+        940249,
+        940250,
+        940251,
+        940252,
+        940253,
+        940254,
+        940255,
+        940256,
+        940257,
+        940258,
+        940259,
+        940260,
+        940261,
+        940262,
+        940263,
+        940264
+      ]
+    }
+  },
+  "statistics": {
+    "adjustment": "Bonferroni 5worlds*2costs*4 endpoints; paired cluster percentile bootstrap",
+    "bootstrap_replicates": 20000,
+    "bootstrap_seed": 300710,
+    "daily_denominator": "inclusive calendar dates charged by native ledger",
+    "final_endpoints": 40,
+    "minimum_effect_daily_log": 0.0001,
+    "one_sided_family_alpha": 0.05,
+    "power_effect_daily_log": 0.0001,
+    "power_target": 0.8,
+    "unit": "independent full path; assets/costs/policies stay paired"
+  },
+  "traded_universe": [
+    "SYNA",
+    "SYNB"
+  ],
+  "universe": [
+    "SYNA",
+    "SYNB",
+    "SYNM"
+  ],
+  "variants": [
+    {
+      "entry": "CONFIRMED",
+      "exit": "NATIVE72",
+      "id": "CONFIRMED_NATIVE72_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "NATIVE72",
+      "id": "CONFIRMED_NATIVE72_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "NATIVE72",
+      "id": "CONFIRMED_NATIVE72_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "PROTECT48",
+      "id": "CONFIRMED_PROTECT48_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "PROTECT48",
+      "id": "CONFIRMED_PROTECT48_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "PROTECT48",
+      "id": "CONFIRMED_PROTECT48_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "RUNNER72",
+      "id": "CONFIRMED_RUNNER72_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "RUNNER72",
+      "id": "CONFIRMED_RUNNER72_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "RUNNER72",
+      "id": "CONFIRMED_RUNNER72_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "FAST24",
+      "id": "CONFIRMED_FAST24_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "FAST24",
+      "id": "CONFIRMED_FAST24_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "FAST24",
+      "id": "CONFIRMED_FAST24_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "NATIVE72",
+      "id": "QUALITY_NATIVE72_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "NATIVE72",
+      "id": "QUALITY_NATIVE72_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "NATIVE72",
+      "id": "QUALITY_NATIVE72_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "PROTECT48",
+      "id": "QUALITY_PROTECT48_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "PROTECT48",
+      "id": "QUALITY_PROTECT48_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "PROTECT48",
+      "id": "QUALITY_PROTECT48_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "RUNNER72",
+      "id": "QUALITY_RUNNER72_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "RUNNER72",
+      "id": "QUALITY_RUNNER72_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "RUNNER72",
+      "id": "QUALITY_RUNNER72_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "FAST24",
+      "id": "QUALITY_FAST24_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "FAST24",
+      "id": "QUALITY_FAST24_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "FAST24",
+      "id": "QUALITY_FAST24_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "RETEST",
+      "exit": "NATIVE72",
+      "id": "RETEST_NATIVE72_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "RETEST",
+      "exit": "NATIVE72",
+      "id": "RETEST_NATIVE72_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "RETEST",
+      "exit": "NATIVE72",
+      "id": "RETEST_NATIVE72_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "RETEST",
+      "exit": "PROTECT48",
+      "id": "RETEST_PROTECT48_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "RETEST",
+      "exit": "PROTECT48",
+      "id": "RETEST_PROTECT48_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "RETEST",
+      "exit": "PROTECT48",
+      "id": "RETEST_PROTECT48_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "RETEST",
+      "exit": "RUNNER72",
+      "id": "RETEST_RUNNER72_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "RETEST",
+      "exit": "RUNNER72",
+      "id": "RETEST_RUNNER72_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "RETEST",
+      "exit": "RUNNER72",
+      "id": "RETEST_RUNNER72_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "RETEST",
+      "exit": "FAST24",
+      "id": "RETEST_FAST24_R0625",
+      "risk": 0.000625
+    },
+    {
+      "entry": "RETEST",
+      "exit": "FAST24",
+      "id": "RETEST_FAST24_R1250",
+      "risk": 0.00125
+    },
+    {
+      "entry": "RETEST",
+      "exit": "FAST24",
+      "id": "RETEST_FAST24_R2500",
+      "risk": 0.0025
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "NATIVE72",
+      "id": "CURRENT",
+      "risk": 0.0025
+    },
+    {
+      "entry": "SIMPLE",
+      "exit": "NATIVE72",
+      "id": "SIMPLE",
+      "risk": 0.0025
+    },
+    {
+      "entry": "CASH",
+      "exit": "NATIVE72",
+      "id": "CASH",
+      "risk": 0.0025
+    }
+  ]
+}
