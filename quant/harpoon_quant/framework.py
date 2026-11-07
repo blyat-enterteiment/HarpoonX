@@ -76,6 +76,11 @@ def evaluate(packet: dict[str, Any]) -> dict[str, Any]:
             scenarios, dividend_symbols=payload["dividend_symbols"]
         )
         status = result["decision"]
+    elif operation == "VIRTUAL_NET":
+        from .virtual_net import plan
+
+        result = plan(payload)
+        status = "VIRTUAL_INTENTIONS_ONLY"
     elif operation == "MOMENTUM_BASE":
         from .momentum_base import analyze
 
