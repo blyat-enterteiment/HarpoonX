@@ -1,0 +1,48 @@
+{
+  "schema": "HARPOON_M11_PHASE5_EXECUTION_PAYOFF_ENVELOPE_REGISTRATION_1",
+  "unit": "M11_EXPLICIT_EXECUTION_CONTRACT_AND_NATIVE_PAYOFF_BOUND",
+  "source_head": "e3f4e0306556e737e37b2bad56b14e76880eff30",
+  "lease_commit": "68aaa446bd34a4a2bba116ba17dfb7d636234c7c",
+  "kind": "FORMAL_PATHWISE_ENVELOPE_ENGINEERING_ONLY",
+  "hypothesis": "For a finite OHLC bar with eight price substeps, the difference in terminal marked cash between native retrospective stop-first exits and a first-observed-cross comparator, starting from identical long inventory with no intrabar acquisitions, is bounded by the bar range after identical execution tick rounding, per-share friction, fees and actual sold volumes; no martingale or expectation inference follows.",
+  "proof": "For Q shares, every native or observed sold share contributes N(p)=floor_tick(p*(1-f))-fee, p in [low,high], and each retained share contributes bar.close. The identical purchase cash cancels. With sN and sF sold, delta lies in [sN*(N(low)-C)-sF*(N(high)-C),sN*(N(high)-C)-sF*(N(low)-C)].",
+  "refutation": [
+    "Reject any actual marked-equity gap outside the volume-conditioned envelope",
+    "Reject mismatch in OHLC/substep identity or any fill outside high/low",
+    "Reject unexpected commissions/tick rounding or borrow/short",
+    "Do not reinterpret bar-end marks as executable/available intrabar timestamps",
+    "Fixture findings do not establish an expected rebate bound or native N9-S viability/impossibility"
+  ],
+  "catalogue": [
+    "phase4 target-first then stop fork (2 branches)",
+    "stop-only overshoot",
+    "opening gap",
+    "no crossing",
+    "double target",
+    "729-case deterministic hand-coded price grid",
+    "tampered OHLC",
+    "capital mutation"
+  ],
+  "candidate_recipes": 0,
+  "controls": [
+    "native OHLC comparator unchanged",
+    "observed substep comparator unchanged",
+    "independent Decimal book"
+  ],
+  "market_accounts": 0,
+  "holdout_seeds": [],
+  "final_seed_count_unopened": 3200,
+  "prospective_alpha_spent": 0,
+  "workers_max": 1,
+  "capital_usd": 20000,
+  "max_hold_hours": 72,
+  "admission_gross_fraction": 0.12,
+  "market_generator_changed": false,
+  "operational_execution_claim": false,
+  "versioned_experimental_policy_changed": false,
+  "source_module": "runtime30/modulation11_payoff_envelope.cjs",
+  "source_code_integrity": "SHA256 recorded from CI on registered source commit; Git blob SHA serves pre-run identity.",
+  "previous_weak_expected_bound_bp_calendar_day": 0.9051232469572758,
+  "registered_WEAK_hurdle_bp_calendar_day": 1,
+  "closure_rule": "Prove distributional executable-price dominance AND reservation-shadow theorem before claiming old bound. Otherwise continue NO_GO; do not search signals."
+}
