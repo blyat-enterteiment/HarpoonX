@@ -1,0 +1,568 @@
+{
+  "ablations": [
+    {
+      "candidate": "CONFIRMED_NATIVE_QUEUE72_R2500",
+      "changed_factor": "STOP_RECEIPT_QUEUE_ONLY",
+      "control": "CURRENT"
+    },
+    {
+      "candidate": "QUALITY_NATIVE_QUEUE72_R0625",
+      "changed_factor": "STOP_RECEIPT_QUEUE_ONLY",
+      "control": "QUALITY_NATIVE72_R0625"
+    }
+  ],
+  "acceptance_hurdles_changed": false,
+  "benchmark": "SYNM",
+  "budget": {
+    "development_policy_cost_world_seed_accounts": 1840,
+    "engineering_fixtures_are_not_statistical_market_trials": true,
+    "final_policy_cost_world_seed_accounts": 3200,
+    "historical_ceiling": 128,
+    "historical_debt_reconciled": false,
+    "historical_provisional_policy_cost_count": 151,
+    "new_candidate_recipes": 18,
+    "previous_supplement_account_executions": 5680,
+    "previous_supplement_policy_cost_count": 78,
+    "provisional_legacy_total_including_supplements": 275,
+    "repeated_controls": 5,
+    "supplemental_max_account_executions": 5040,
+    "supplemental_policy_cost_count": 46,
+    "user_authorized_continuation": true
+  },
+  "control_ids": [
+    "CURRENT",
+    "SIMPLE",
+    "CASH",
+    "M9_BEST",
+    "QUALITY_NATIVE72_R0625"
+  ],
+  "costs_changed": false,
+  "date": "2026-11-07",
+  "entry_rules": {
+    "CONFIRMED": "Exact TechnicalSwing: two closes above first30m range, relative return>0, same-slot RVOL20>1; decision60m+1s, next5m open.",
+    "MOM3_Z0": "Use the last3 COMPLETE prior sessions' log(close/open), excluding overnight. Score=sample mean*sqrt(window)/sample SD, strictly above0.0; degenerate/nonfinite dispersion fails closed. Select highest score, lexical symbol tie. No market/world/regime labels. Initial stop distance=prior20-session mean true range. Decide at open+5minutes+1second; native IOC entry at open+10minutes. At most one nomination per rule per session. Score is a feature, not a significance test.",
+    "MOM3_Z075": "Use the last3 COMPLETE prior sessions' log(close/open), excluding overnight. Score=sample mean*sqrt(window)/sample SD, strictly above0.75; degenerate/nonfinite dispersion fails closed. Select highest score, lexical symbol tie. No market/world/regime labels. Initial stop distance=prior20-session mean true range. Decide at open+5minutes+1second; native IOC entry at open+10minutes. At most one nomination per rule per session. Score is a feature, not a significance test.",
+    "MOM8_Z0": "Use the last8 COMPLETE prior sessions' log(close/open), excluding overnight. Score=sample mean*sqrt(window)/sample SD, strictly above0.0; degenerate/nonfinite dispersion fails closed. Select highest score, lexical symbol tie. No market/world/regime labels. Initial stop distance=prior20-session mean true range. Decide at open+5minutes+1second; native IOC entry at open+10minutes. At most one nomination per rule per session. Score is a feature, not a significance test.",
+    "MOM8_Z075": "Use the last8 COMPLETE prior sessions' log(close/open), excluding overnight. Score=sample mean*sqrt(window)/sample SD, strictly above0.75; degenerate/nonfinite dispersion fails closed. Select highest score, lexical symbol tie. No market/world/regime labels. Initial stop distance=prior20-session mean true range. Decide at open+5minutes+1second; native IOC entry at open+10minutes. At most one nomination per rule per session. Score is a feature, not a significance test.",
+    "QUALITY": "CONFIRMED; RVOL<=3; close extension above range<=0.6*prior20d ATR; prior30d return>0 and prior daily MACD(12,26,9) histogram>0. EMA initialized on first of exactly50 previous daily closes. All daily values strictly prior session.",
+    "RETEST": "At90m+1s: breakout during30-60m; last30m low revisits within0.15*prior20d ATR of range high without falling below range low; lasttwo closes above range; positive relative return; RVOL last10m in[0.8,3]; prior30d return>0. Next5m entry."
+  },
+  "entry_schedules": {
+    "CONFIRMED": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        60
+      ]
+    },
+    "MOM3_Z0": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        5
+      ]
+    },
+    "MOM3_Z075": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        5
+      ]
+    },
+    "MOM8_Z0": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        5
+      ]
+    },
+    "MOM8_Z075": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        5
+      ]
+    },
+    "QUALITY": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        60
+      ]
+    },
+    "RETEST": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        90
+      ]
+    },
+    "SIMPLE": {
+      "lag_ms": 1000,
+      "max_per_session": 1,
+      "minutes": [
+        60
+      ]
+    }
+  },
+  "evaluation_control_ids": [
+    "CURRENT",
+    "SIMPLE",
+    "CASH",
+    "M9_BEST"
+  ],
+  "execution_allowed": false,
+  "exit_rules": {
+    "FAST24": "Native targets; after6 elapsedh with peak completed-close gain<0.5R and close<=entry, exit next open; max24h.",
+    "HOLD24": "Initial protective stop and24h calendar deadline; no targets, partials or trailing.",
+    "HOLD72": "Initial protective stop and72h calendar deadline; no targets, partials or trailing.",
+    "NATIVE72": "Exact native 25% at1.5R/25% at3R and causal trailing; max72h.",
+    "NATIVE_QUEUE72": "Exact native targets, quantities, trailing function and72h; ONLY preserve pending received stop updates in a queue.",
+    "PROTECT48": "Native targets; after completed close reaches1R, protect entry adjusted for exit friction and two commissions, retain75% of peak close profit, trailing distance1R. Pending-stop queue preserves received updates; max48h.",
+    "RUNNER72": "25% integer shares at2R; remaining runner with2R trailing activated at2R; pending-stop queue preserves received updates; max72h."
+  },
+  "future_error_budget": {
+    "future_round_rule": "alpha_k=.05/2**k for prospective validation round k>=1; independent unviewed seeds",
+    "historical_global_error_control_claimed": false,
+    "no_repeated_final_until_success": true,
+    "prior_modulation9_family_alpha": 0.05,
+    "round_alpha": 0.025,
+    "scope": "Prospective validation program AFTER this checkpoint; no retroactive family confidence for historical trials.",
+    "total_nominal_alpha": 0.05
+  },
+  "gates": {
+    "best_campaign_removal_scope": "TREND and WEAK separately in each cost case; descriptive fixed-account subtraction, not resimulation",
+    "development_score_positive": true,
+    "economic_model_feasibility_reported_separately_from_missing_framework": true,
+    "final_paths_each_world": 64,
+    "full_execution_fault_coverage_required_for_label": true,
+    "industry_profitability_score": false,
+    "label": "N9S_1_INTERNAL_CONDITIONAL_ONLY",
+    "max_holding_elapsed_hours": 72,
+    "max_observed_event_drawdown": 0.08,
+    "max_observed_session_loss": 0.02,
+    "no_real_profitability_accreditation": true,
+    "nominal_edge_worlds_adjusted_lower": ">0.0001 daily net log",
+    "null_positive_adjusted_lower_blocks": true,
+    "null_positive_lower_scope": "absolute and relative to same-cost CASH; both already included in40 endpoints",
+    "paired_vs_current_simple_cash_edge_worlds_adjusted_lower": ">0",
+    "paired_vs_prior_best_edge_worlds_adjusted_lower": ">0 in addition to original controls",
+    "positive_aggregate_after_removing_best_campaign_each_path": true,
+    "stress_edge_worlds_adjusted_lower": ">0 daily net log",
+    "tail_floor_unit": "difference in mean terminal return fractions versus same-cost cash, separately by NULL/FALSE/GAP and cost",
+    "tail_worlds_relative_to_same_cost_cash_mean_floor": -0.005
+  },
+  "generator": {
+    "bar_sigma": [
+      0.00075,
+      0.00085,
+      0.0005
+    ],
+    "bars_per_session": 78,
+    "buffer_sessions": 6,
+    "calendar": "SYNTHETIC_WEEKDAYS_1430_2100_UTC_NO_HOLIDAYS_OR_DST",
+    "correlation_loading": 0.45,
+    "evaluation_sessions": 126,
+    "false_first_hour_drift": 0.00013,
+    "false_reversal_drift": -5e-05,
+    "final_parameter_shift": {
+      "drift_multiplier_range": [
+        0.75,
+        1.1
+      ],
+      "persistence_refresh_multiplier_range": [
+        0.8,
+        1.3
+      ],
+      "sigma_multiplier_range": [
+        0.9,
+        1.2
+      ]
+    },
+    "first_date": "2024-01-08",
+    "gap_correlation_loading": 0.85,
+    "gap_multiplier": 0.94,
+    "gap_probability_per_session": 0.025,
+    "intrabar_substeps": 8,
+    "null_distribution": "conditionally compensated normal mixture; no trend or crash drift",
+    "overnight_sigma": [
+      0.003,
+      0.0035,
+      0.002
+    ],
+    "price_process_is_market_calibrated": false,
+    "regime_refresh_probability": 0.08,
+    "trend_drift_per_bar": 7.5e-05,
+    "volume": "positive intraday U-shape, activity, contemporaneous absolute return and independent noise; never future prices",
+    "volume_predicts_sign_in_null": false,
+    "warmup_sessions": 50,
+    "weak_drift_per_bar": 2.5e-05,
+    "worlds": [
+      "TREND",
+      "WEAK",
+      "FALSE",
+      "NULL",
+      "GAP"
+    ]
+  },
+  "generator_law_changed": false,
+  "limitations_locked_before_measurement": [
+    "Synthetic equity-like symbols only; not observed AAPL/MSFT, not crypto/options.",
+    "OHLCV next-bar IOC and native cash ledger; no empirically calibrated order queue, rejects, market impact or entry partial fills.",
+    "Volume is tested in signals, not proof of executable market depth.",
+    "No holiday/DST simulation; supplied calendar scheduling and weekend exits are testable.",
+    "Native signal control, not the unintegrated virtual_net matrix coordinator.",
+    "NATIVE72 and FAST24 preserve legacy pending-stop replacement semantics. PROTECT48/RUNNER72 also repair queued receipt handling, so changes do not isolate exit-parameter alpha from that repair.",
+    "Independent seed holdout is conditional on this generator family, not market validation.",
+    "NULL substep prices are exact martingales, but OHLC threshold-fill interpolation is an additional approximation; positive absolute or cash-relative lower bounds block inference.",
+    "No automatic retraining, broker connection, deployment or trade authorization.",
+    "Momentum's daily standardized score does not treat5minute bars or correlated days as independent inference units.",
+    "A hard-continuous-exposure oracle bound is not a universal bound for the inherited admission-only cap or interpolated OHLC fills.",
+    "Queue-only ablations isolate receipt for identical native entry/risk/target/trailing parameters; momentum comparisons do not."
+  ],
+  "limits": {
+    "assetFraction": 0.12,
+    "capitalUsd": 20000,
+    "dailyLoss": 0.02,
+    "grossFraction": 0.12,
+    "maxDrawdown": 0.08,
+    "openRiskFraction": 0.0025,
+    "riskFraction": 0.0025
+  },
+  "live_approved": false,
+  "momentum_rules": {
+    "MOM3_Z0": {
+      "threshold": 0.0,
+      "window": 3
+    },
+    "MOM3_Z075": {
+      "threshold": 0.75,
+      "window": 3
+    },
+    "MOM8_Z0": {
+      "threshold": 0.0,
+      "window": 8
+    },
+    "MOM8_Z075": {
+      "threshold": 0.75,
+      "window": 8
+    }
+  },
+  "origin": "SYNTHETIC",
+  "previous_economic_source": "d301fe53d1a57efe87b6fd91da5a599c6ba91d3d",
+  "risk_caps_changed": false,
+  "risk_semantics": "12% gross/name and0.25% risk are admission/reservation caps; market appreciation, gaps and equity drift may create post-entry ratio excesses. Report these separately; no continuous rebalance is assumed.",
+  "round_id": "M10_R1",
+  "scenarios": {
+    "NOMINAL": {
+      "commission_usd_per_share_per_side": 0.005,
+      "external_cost_usd_per_calendar_day": 1.0,
+      "slippage_bps": 2.0,
+      "spread_bps": 2.0
+    },
+    "STRESS": {
+      "commission_usd_per_share_per_side": 0.01,
+      "external_cost_usd_per_calendar_day": 2.0,
+      "slippage_bps": 4.0,
+      "spread_bps": 4.0
+    }
+  },
+  "schema": "HARPOON_MODULATION10_PROTOCOL_1",
+  "selection": {
+    "final_if_no_positive_score": "DO NOT OPEN RESERVED FINAL. Preserve negative development; no promotion.",
+    "hurdles": {
+      "NOMINAL": 0.0001,
+      "STRESS": 0.0
+    },
+    "only_stage": "development",
+    "pareto": [
+      "mean nominal daily log across TREND/WEAK",
+      "p95 eventDD across all stress worlds"
+    ],
+    "pareto_scope": "risk-feasible NEW candidates only",
+    "positive_edge_worlds": [
+      "TREND",
+      "WEAK"
+    ],
+    "risk_filter": "max eventDD<=8%, worst session>=-2%, reconciled, signal-to-exit<=72h",
+    "score": "minimum over TREND/WEAK and nominal/stress of mean daily log minus1.645SE minus scenario hurdle",
+    "score_is_confirmatory_interval": false,
+    "tie_break": "lower p95 stress drawdown, lower risk, lexical id"
+  },
+  "source_head": "9cfa7418322bff6047b17be6e4b7df1936fe2329",
+  "stages": {
+    "development": {
+      "all_variants": true,
+      "seeds": [
+        1206101,
+        1206102,
+        1206103,
+        1206104,
+        1206105,
+        1206106,
+        1206107,
+        1206108
+      ]
+    },
+    "final": {
+      "controls": [
+        "CURRENT",
+        "SIMPLE",
+        "CASH",
+        "M9_BEST"
+      ],
+      "locked_candidates": 1,
+      "open_only_if_development_eligible": true,
+      "seeds": [
+        1506201,
+        1506202,
+        1506203,
+        1506204,
+        1506205,
+        1506206,
+        1506207,
+        1506208,
+        1506209,
+        1506210,
+        1506211,
+        1506212,
+        1506213,
+        1506214,
+        1506215,
+        1506216,
+        1506217,
+        1506218,
+        1506219,
+        1506220,
+        1506221,
+        1506222,
+        1506223,
+        1506224,
+        1506225,
+        1506226,
+        1506227,
+        1506228,
+        1506229,
+        1506230,
+        1506231,
+        1506232,
+        1506233,
+        1506234,
+        1506235,
+        1506236,
+        1506237,
+        1506238,
+        1506239,
+        1506240,
+        1506241,
+        1506242,
+        1506243,
+        1506244,
+        1506245,
+        1506246,
+        1506247,
+        1506248,
+        1506249,
+        1506250,
+        1506251,
+        1506252,
+        1506253,
+        1506254,
+        1506255,
+        1506256,
+        1506257,
+        1506258,
+        1506259,
+        1506260,
+        1506261,
+        1506262,
+        1506263,
+        1506264
+      ]
+    }
+  },
+  "statistics": {
+    "adjustment": "Bonferroni5worlds*2costs*5endpoints, paired trajectory bootstrap",
+    "bootstrap_replicates": 50000,
+    "bootstrap_seed": 300711,
+    "daily_denominator": "inclusive calendar dates charged by native ledger",
+    "final_endpoints": 50,
+    "minimum_effect_daily_log": 0.0001,
+    "one_sided_family_alpha": 0.025,
+    "power_effect_daily_log": 0.0001,
+    "power_target": 0.8,
+    "unit": "independent full path; assets/costs/policies stay paired"
+  },
+  "traded_universe": [
+    "SYNA",
+    "SYNB"
+  ],
+  "universe": [
+    "SYNA",
+    "SYNB",
+    "SYNM"
+  ],
+  "variants": [
+    {
+      "entry": "MOM3_Z0",
+      "exit": "HOLD24",
+      "id": "MOM3_Z0_HOLD24_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z0",
+      "exit": "HOLD24",
+      "id": "MOM3_Z0_HOLD24_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z0",
+      "exit": "HOLD72",
+      "id": "MOM3_Z0_HOLD72_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z0",
+      "exit": "HOLD72",
+      "id": "MOM3_Z0_HOLD72_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z075",
+      "exit": "HOLD24",
+      "id": "MOM3_Z075_HOLD24_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z075",
+      "exit": "HOLD24",
+      "id": "MOM3_Z075_HOLD24_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z075",
+      "exit": "HOLD72",
+      "id": "MOM3_Z075_HOLD72_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM3_Z075",
+      "exit": "HOLD72",
+      "id": "MOM3_Z075_HOLD72_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z0",
+      "exit": "HOLD24",
+      "id": "MOM8_Z0_HOLD24_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z0",
+      "exit": "HOLD24",
+      "id": "MOM8_Z0_HOLD24_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z0",
+      "exit": "HOLD72",
+      "id": "MOM8_Z0_HOLD72_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z0",
+      "exit": "HOLD72",
+      "id": "MOM8_Z0_HOLD72_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z075",
+      "exit": "HOLD24",
+      "id": "MOM8_Z075_HOLD24_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z075",
+      "exit": "HOLD24",
+      "id": "MOM8_Z075_HOLD24_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z075",
+      "exit": "HOLD72",
+      "id": "MOM8_Z075_HOLD72_R1250",
+      "risk": 0.00125,
+      "role": "candidate"
+    },
+    {
+      "entry": "MOM8_Z075",
+      "exit": "HOLD72",
+      "id": "MOM8_Z075_HOLD72_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "NATIVE_QUEUE72",
+      "id": "CONFIRMED_NATIVE_QUEUE72_R2500",
+      "risk": 0.0025,
+      "role": "candidate"
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "NATIVE_QUEUE72",
+      "id": "QUALITY_NATIVE_QUEUE72_R0625",
+      "risk": 0.000625,
+      "role": "candidate"
+    },
+    {
+      "entry": "CONFIRMED",
+      "exit": "NATIVE72",
+      "id": "CURRENT",
+      "risk": 0.0025,
+      "role": "control"
+    },
+    {
+      "entry": "SIMPLE",
+      "exit": "NATIVE72",
+      "id": "SIMPLE",
+      "risk": 0.0025,
+      "role": "control"
+    },
+    {
+      "entry": "CASH",
+      "exit": "NATIVE72",
+      "id": "CASH",
+      "risk": 0.0025,
+      "role": "control"
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "RUNNER72",
+      "id": "M9_BEST",
+      "risk": 0.000625,
+      "role": "control"
+    },
+    {
+      "entry": "QUALITY",
+      "exit": "NATIVE72",
+      "id": "QUALITY_NATIVE72_R0625",
+      "risk": 0.000625,
+      "role": "control"
+    }
+  ]
+}
