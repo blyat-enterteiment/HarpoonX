@@ -1,6 +1,14 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": null,
+  "active_job": {
+    "id": "M11_PHASE2_STATEFUL_COMPARATOR_DUAL_ASSET",
+    "owner": "user_authorized_m11_phase2_20261107",
+    "source_commit": "a9c8d4c5b1b9a80ad89b3fbfd10a935fe224e326",
+    "scope": "Engineering integration only: persistent full-campaign path, dual-asset reserve-anchor event checks",
+    "economic_accounts_budget": 0,
+    "alpha_reserved": 0,
+    "automatic_retry_allowed": false
+  },
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -35,7 +43,7 @@
   "new_final_opened": false,
   "next_action": "Build deterministic persistent-target/trailing full-campaign substep comparator and check reserve anchor inequalities across both assets at each native decision, IOC and receipt; do not run economic search or open M10 final until feasibility resolved.",
   "next_round_id": "M11_PERSISTENT_COUNTERFACTUAL_AND_DUAL_ASSET_ANCHOR",
-  "phase": "M11_PHASE1_ENGINEERING_PARTIAL_VERIFIED",
+  "phase": "M11_PHASE2_ACTIVE",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
