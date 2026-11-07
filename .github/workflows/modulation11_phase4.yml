@@ -1,0 +1,57 @@
+name: M11 phase4 causal fork contract witness
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_formal_execution_bridge.cjs
+      - tools/modulation11_phase4_test.cjs
+      - research/modulation11/phase4_protocol.json
+      - .github/workflows/modulation11_phase4.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  execution-fork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax, exact execution fork and accounting assertions
+        run: |
+          node --check runtime30/modulation11_formal_execution_bridge.cjs
+          node --check tools/modulation11_phase4_test.cjs
+          node --test tools/modulation11_phase4_test.cjs
+      - name: Frozen law and capital invariants; checksums
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('.')
+          m9=json.loads((root/'research/modulation9/registration.json').read_text())
+          m11=json.loads((root/'research/modulation11/protocol.json').read_text())
+          for path,digest in {**m11['source_provenance'],**m11['code_sha256']}.items():
+            actual=hashlib.sha256((root/path).read_bytes()).hexdigest()
+            assert actual==digest,(path,actual,digest)
+          for path in ('runtime30/modulation11_formal_execution_bridge.cjs',
+                       'tools/modulation11_phase4_test.cjs',
+                       'research/modulation11/phase4_protocol.json'):
+            print(path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          print('M11_PHASE4_REGISTERED_GENERATOR_UNCHANGED; M10_SEALED; zero economic accounts')
+          PY
+      - name: Deterministic microbenchmark without market trials
+        run: |
+          node - <<'JS'
+          const B=require('./runtime30/modulation11_formal_execution_bridge.cjs');
+          const up=[100.2,101.8,100.8,100.4,100.1,100.3,100.2,100];
+          const down=[100.2,101.8,100.8,95.5,97,98,99,100];
+          const p={quantity:8,entry:100.03,stop:99.03,distance:1,targetsR:[1.5,null]};
+          const c={friction:.0003,perSideUsd:.005,tick:.01};
+          const t=process.hrtime.bigint();
+          for(let i=0;i<3000;i++) B.certificate({upPrices:up,downPrices:down,position:p,costs:c});
+          const ms=Number(process.hrtime.bigint()-t)/1e6;
+          console.log('M11_P4_FORK_3000_CALLS_MS',ms.toFixed(3));
+          JS
