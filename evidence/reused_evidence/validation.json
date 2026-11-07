@@ -1,0 +1,38 @@
+{
+  "archive_only_seconds": 0.06457464299819549,
+  "archived_account_records": 26,
+  "commands": [
+    "PYTHONPATH=quant:tools OPENBLAS_NUM_THREADS=1 python tools/run_reused_evidence.py --reproduce-existing --output-dir /tmp/harpoon_reused_scope_01",
+    "PYTHONPATH=quant:tools python tools/run_reused_evidence.py --output-dir /tmp/harpoon_reused_scope_02",
+    "PYTHONPATH=quant:tools:quant/tests OPENBLAS_NUM_THREADS=1 python -m unittest quant.tests.test_evidence_scope quant.tests.test_causal_integrity quant.tests.test_forensic_features quant.tests.test_technical_swing -v",
+    "python -m ruff check quant/harpoon_quant/evidence_scope.py tools/run_reused_evidence.py quant/tests/test_evidence_scope.py",
+    "MYPYPATH=quant:tools python -m mypy --follow-imports=silent quant/harpoon_quant/evidence_scope.py tools/run_reused_evidence.py"
+  ],
+  "deterministic_classification_between_modes": true,
+  "execution_allowed": false,
+  "integration": "EXACT_EXISTING_FORENSIC_AND_CAUSAL_REPRODUCTION_14_ARTIFACTS",
+  "level8_accredited": false,
+  "limitations": [
+    "Engineering and reproduction checks are not profitability tests.",
+    "No new market data, broker fills, invoices or untouched holdout.",
+    "Compound and virtual replay not rerun this turn; retained inputs and reports hash verified.",
+    "Global trial budget remains unreconciled; no new capacity or reservation release.",
+    "No full repository suite or JavaScript tests run this turn; runtime JavaScript unchanged."
+  ],
+  "new_economic_policy_trials": 0,
+  "new_engineering_tests": 12,
+  "new_validation_h1_h2_h3": false,
+  "promotion_allowed": false,
+  "protocol_sha256": "3e5e1194321346fcc06806592bd7e8ea9b51da1a9150e492b568fcfe49b288d5",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "regression_tests": 23,
+  "report_sha256": "e1affe916916fdadb07dbf709e872e15f1b8c04b9a4763910a2faf7825765e08",
+  "reproduction_seconds": 28.999698387000535,
+  "schema": "HARPOON_REUSED_EVIDENCE_VALIDATION_1",
+  "source_files_sha256_verified": 108,
+  "source_head": "424cc9dad2f840284e19e61c3f9cb9db26b46286",
+  "static_analysis": "RUFF_PASS_3_FILES",
+  "tests_passed": 35,
+  "tests_seconds": 0.936,
+  "type_check": "MYPY_PASS_2_FILES_FOLLOW_IMPORTS_SILENT"
+}

@@ -1,0 +1,44 @@
+{
+  "compound_virtual_replay_this_run": "NOT_RERUN_HASH_AND_REPORT_INSPECTION_ONLY",
+  "elapsed_seconds": 28.999698387000535,
+  "h1_h2_h3_this_run": "NOT_EXECUTED",
+  "mode": "REPRODUCE_EXISTING",
+  "new_validation": false,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "report_sha256": "e1affe916916fdadb07dbf709e872e15f1b8c04b9a4763910a2faf7825765e08",
+  "reproductions": [
+    {
+      "artifact_sha256": {
+        "compound_trades.json": "e9a344d45a91576f973bd0f4ba5ec436318f14334931d411b77349951317d7ba",
+        "entry_features.json.gz": "4f58d2c6e792367927b1a48715ebc4a8dac6c1ee2397649af53d96e226fdd82f",
+        "outcome_labels.json.gz": "c0d89bbde7bed092060bbad6f87800de61f2f337f3557cfea0df1b7f4828c60f",
+        "report.json": "bc92d301d0c4467d2220234b2b18e7c89e83272789d41dca38502706c8cfaad6"
+      },
+      "elapsed_seconds": 1.286210881000443,
+      "family": "forensic",
+      "matched_artifacts": 4,
+      "new_validation": false,
+      "result": "EXACT_ARCHIVED_REPRODUCTION"
+    },
+    {
+      "artifact_sha256": {
+        "audit.json": "4750cebbba7493064dcb362d61c5344d169c82afe14517cb79f50e34c6a04842",
+        "causal_states.json.gz": "cfae25c1c143b633f440a67fb245e671a0809b6e02d7ac78c4be8b7ceab3afca",
+        "corrected/NOMINAL_CASH.json.gz": "54455dffe4658b8d124b0ef313694d692cfd830361385cd30b289e13908f4a82",
+        "corrected/NOMINAL_CONFIRMED.json.gz": "5aeb8b90373acc574413517459858ab62ae7b4029fbd2f9258b102dc9cf094d6",
+        "corrected/NOMINAL_SIMPLE.json.gz": "870d57dd2cf8a548e178c9a4f26d0214a8cbdc678ae6669cbca6114e6426b4ae",
+        "corrected/STRESS_CASH.json.gz": "5a2867d8540fbfb24bf81fae99f9352c4c23642dc7c7e5912fcf888a095d291d",
+        "corrected/STRESS_CONFIRMED.json.gz": "9ca5fa0f664b1d1173f87ebc84bc1356ae5ef0ec451cf14c428b395254a191f2",
+        "corrected/STRESS_SIMPLE.json.gz": "e3967c9a44a7600d8418efc7d2d342296dd60bd491c72516c72639ec6b832200",
+        "report.json": "c9e46c916b3f6562d66f1b5a9b24863588d718bfe253683bd9703c68889d5eab",
+        "session_curves.json.gz": "6b8f92b99cfb183865b478aaa69ccbfdef6934bbcd0b768ee9c60e4512277130"
+      },
+      "elapsed_seconds": 27.661193063999235,
+      "family": "causal",
+      "matched_artifacts": 10,
+      "new_validation": false,
+      "result": "EXACT_ARCHIVED_REPRODUCTION"
+    }
+  ],
+  "schema": "HARPOON_REUSED_EVIDENCE_EXECUTION_1"
+}
