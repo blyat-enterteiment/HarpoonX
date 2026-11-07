@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_DUAL_ASSET_SHADOW_WITNESS",
-    "owner": "m11_shadow_witness_20261107",
-    "source_commit": "d1da4ee06003c3d59acf5b015abf6e238d26ce72",
-    "scope": "Deterministic event-time shadow ledger with two assets; verify reserve-anchor premises and identify violations",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_M11_PHASE2_NATIVE_PARITY_ENGINEERING_ONLY",
+  "current_verdict": "NO_GO_NATIVE_OHLC_PRICE_SUPPORT_GAP_AND_UNIVERSAL_ANCHOR_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Implement native event-time dual-asset shadow-account witness with contemporaneous eight-substep marks and finance-consistent execution; establish or reject each reserve-anchor premise on complete deterministic paths. Preserve original economic laws and sealed M10 final; no strategy search.",
-  "next_round_id": "M11_DUAL_ASSET_SHADOW_WITNESS",
-  "phase": "M11_PHASE3_ACTIVE",
+  "next_action": "Formalize the native OHLC executable-price process vs first-cross eight-substep process, and prove or refute universal shadow/anchor premises under both. No economic search or M10 final while execution contract remains unproved.",
+  "next_round_id": "M11_EXECUTION_CONTRACT_FORMAL_BRIDGE",
+  "phase": "M11_PHASE3_SHADOW_WITNESS_VERIFIED_PRICE_SUPPORT_GAP",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE2",
+  "round": "M11_PHASE3",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -113,5 +105,24 @@
     "final_opened": false,
     "full_anchor_proof_pending": true,
     "operational_gates_pending": true
+  },
+  "m11_phase3": {
+    "source_commit": "3ef9ddcde0bd49fe0afddabe4d646e6a634510ae",
+    "ci_run": 42412278331,
+    "ci_status": "SUCCESS",
+    "tests_passed": 19,
+    "source_hashes": {
+      "runtime30/modulation11_shadow_witness.cjs": "9fee93337fd4fac972a9bff1d7d0af132fc3ca22f23f1952b48245194c01b2dc",
+      "tools/modulation11_phase2_test.cjs": "39eb728ef7bcc65ecade5a2ac2ba39879f27d3667ba416fc28130b4bcb170e6f"
+    },
+    "evidence": "evidence/modulation11/phase3_shadow_witness.json",
+    "doc": "docs/MODULATION11_PHASE3.md",
+    "counterexample_off_grid": true,
+    "fixture_reserve_anchors_checked": 2,
+    "admissions_globally_certified": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "failed_attempt_preserved": 42412209074
   }
 }
