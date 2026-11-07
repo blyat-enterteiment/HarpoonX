@@ -8,6 +8,27 @@ from pathlib import Path
 from run_compound_swing import ROOT, run
 
 
+def archived_virtual_status(root: Path = ROOT):
+    path = root / "evidence/virtual_ab/purged_report.json"
+    if not path.exists():
+        return {"policy_comparison_executed": None,
+                "policy_comparison_execution_scope": "ARCHIVED_COMPARISON_NOT_AVAILABLE"}
+    report = json.loads(path.read_bytes())
+    required = {s + "_" + p for s in ("NOMINAL", "STRESS") for p in ("CURRENT", "A", "B")}
+    if set(report["accounts"]) != required or report["walk_forward_purged"] is not True:
+        raise ValueError("VIRTUAL_COMPARISON_SCHEMA")
+    return {
+        "policy_comparison_executed": True,
+        "policy_comparison_execution_scope": "ARCHIVED_PURGED_REPORT_NOT_RERUN_BY_THIS_COMMAND",
+        "virtual_comparison_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "virtual_comparison_accounts": report["accounts"],
+        "policy_status": {"reference_virtual_net": "IMPLEMENTED_FUNDED_REPLAY",
+                          "A_no_trade_zone": "IMPLEMENTED_FUNDED_REPLAY",
+                          "B_gradual_exposure": "IMPLEMENTED_FUNDED_REPLAY"},
+        "virtual_effect_identified": False if all(a["buys"] == 0 for a in report["accounts"].values()) else None,
+    }
+
+
 def verdict(output: Path):
     report = run(output)
     audit = json.loads((output / "audit.json").read_text())
@@ -20,12 +41,7 @@ def verdict(output: Path):
         "schema": "HARPOON_ECONOMIC_VERDICT_1",
         "historical_recipe_decision": report["decision"],
         "virtual_matrix_decision": "INSUFFICIENT_EVIDENCE",
-        "policy_comparison_executed": False,
-        "policy_status": {
-            "reference_virtual_net": "SNAPSHOT_PLANNER_NO_FUNDED_REPLAY",
-            "A_no_trade_zone": "PROPOSED_NOT_IMPLEMENTED",
-            "B_gradual_exposure": "PROPOSED_NOT_IMPLEMENTED",
-        },
+        **archived_virtual_status(),
         "fresh_holdout": False,
         "historical_period": ["2025-01-01", "2025-12-31"],
         "capital_usd": 20000,
@@ -62,7 +78,7 @@ def verdict(output: Path):
             "REUSED_HISTORY",
             "HOURLY_MODELED_EXECUTION",
             "NOT_VIRTUAL_NET_RESULTS",
-            "NO_AB_COMPARISON",
+            "ARCHIVED_VIRTUAL_COMPARISON_HAS_NO_IDENTIFIED_AB_EFFECT",
             "NO_PROSPECTIVE_FILLS",
         ],
     }

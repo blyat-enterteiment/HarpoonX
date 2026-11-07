@@ -1,5 +1,7 @@
 # Forense de oportunidad, pérdida y volumen relativo
 
+Actualización posterior: la reparación del replay y su comparación con el control ya se ejecutaron. Véase [CAUSAL_ECONOMIC_VERDICT.md](CAUSAL_ECONOMIC_VERDICT.md). El resto de este documento conserva el diagnóstico original y sus cifras previas a esa reparación.
+
 Revisión del 7 de noviembre de 2026 sobre la rama `codex/remediation-framework`, padre `bab1746d5735158605feb96c58ee7102c5cb005a`. Veredicto: **diagnóstico reproducible; ninguna mejora de rentabilidad validada ni promoción**.
 
 Se examinaron las cuentas técnicas SIMPLE/CONFIRMED nominales y de estrés, las cuentas horarias conjuntas nominal/estrés y el informe del walk-forward purgado de la matriz. No se suman carteras ni versiones como observaciones independientes. Son históricos archivados con fills OHLCV modelados, no operaciones de broker. El conjunto técnico se identifica como ALPACA_PROXY/SIP y declara que sus marcas de captura no son recibos originales del mercado; los tiempos de disponibilidad usados son los del modelo. La fixture multisectorial y los cinco casos sintéticos de matriz no se usan como evidencia económica.
