@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE5_NATIVE_PAYOFF_ENVELOPE",
-    "owner": "m11p5_noninteractive_run_2",
-    "source_commit": "e3f4e0306556e737e37b2bad56b14e76880eff30",
-    "scope": "finite-bar pathwise native-vs-causal execution payoff envelope and independent proof fixtures; no market trials",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_NATIVE_DISCRETE_CAUSAL_EQUIVALENCE_REFUTED_NO_ECONOMIC_INFEASIBILITY_CERTIFICATE",
+  "current_verdict": "NO_GO_PATHWISE_PAYOFF_BOUND_ONLY_EXPECTATION_AND_RESERVE_PROOF_OPEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Define a financially and filtration-consistent executable price contract (observed first crossing vs explicit additional latent process); either rederive a bound for actual OHLC retrospective payoff or change versioned experimental execution under new protocol, without rewriting M9/M10 frozen sources. Prove universal reserve shadow inequalities; resolve frozen historical provenance mismatch and operational gates before N9-S.",
-  "next_round_id": "M11_EXPLICIT_EXECUTION_CONTRACT_AND_NATIVE_PAYOFF_BOUND",
-  "phase": "M11_PHASE5_LEASE_ACTIVE",
+  "next_action": "Use the frozen eight-step generator and complete event-time reservations/IOC to bound expected positive native execution credit with valid selection-dependent quantities (not just per-bar range), or preregister a separate versioned causal executable-price model. Resolve historic provenance hash and operational partial/reject/outage/impact + multicell coordinator gates; no new signals or M10 final.",
+  "next_round_id": "M11_PHASE6_DISTRIBUTIONAL_NATIVE_EXECUTION_CREDIT_AND_RESERVE_ANCHOR",
+  "phase": "M11_PHASE5_NATIVE_BAR_PAYOFF_ENVELOPE_VERIFIED_NOT_DISTRIBUTIONAL",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE4",
+  "round": "M11_PHASE5",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -155,5 +147,30 @@
       "research/modulation11/phase4_protocol.json": "4928b4cb3415652ae290e306cff0e97586611f11747e0b4952efd83e162b7a66",
       "tools/modulation11_phase4_accountant.py": "dde64f55681715fb0a937130a184903b93d5944466eb8fd70d03e1c437858c1e"
     }
+  },
+  "m11_phase5": {
+    "protocol": "research/modulation11/phase5_protocol.json",
+    "verified_source_commit": "86835d6cdaf557574c059c3e6b7a9f82fe51a6cc",
+    "doc": "docs/MODULATION11_PHASE5.md",
+    "evidence": "evidence/modulation11/phase5_payoff_envelope.json",
+    "ci_run": 42417069961,
+    "ci_status": "SUCCESS",
+    "tests_passed": 8,
+    "fixture_lattice_cases": 729,
+    "independent_accounting_passed": true,
+    "scoped_typecheck_passed": true,
+    "source_sha256": {
+      "runtime30/modulation11_payoff_envelope.cjs": "60799d8ab6682d83ee1602609ec2d568f5be039c67c82005566d07d9d29ec4a2",
+      "tools/modulation11_phase5_test.cjs": "009b15b3316f167c4b4c85cfa960b6448cade322852fb6f5f79db5faef69f0f3",
+      "tools/modulation11_phase5_accountant.py": "477b21dcae9768b5d225534c9bf15ff822f77c4f820a6cb06edde0910610bfa4",
+      "research/modulation11/phase5_protocol.json": "f1140f23f7f265582eed168b7e567e53cf5daa460ee6799e12b8680f6e4ea9bf"
+    },
+    "failed_ci_retained": 42417009467,
+    "bound": "PATHWISE_SINGLE_BAR_EXIT_SAME_START_INVENTORY",
+    "native_population_expectation_bound": false,
+    "universal_reserve_proof": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false
   }
 }
