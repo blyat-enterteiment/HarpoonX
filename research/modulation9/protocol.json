@@ -18,18 +18,20 @@
   "date": "2026-11-07",
   "entry_rules": {
     "CONFIRMED": "Exact TechnicalSwing: two closes above first30m range, relative return>0, same-slot RVOL20>1; decision60m+1s, next5m open.",
-    "QUALITY": "CONFIRMED; RVOL<=3; close extension above range<=0.6*prior20d ATR; prior30d return>0 and prior daily MACD(12,26,9) histogram>0. All daily values strictly prior session.",
+    "QUALITY": "CONFIRMED; RVOL<=3; close extension above range<=0.6*prior20d ATR; prior30d return>0 and prior daily MACD(12,26,9) histogram>0. EMA initialized on first of exactly50 previous daily closes. All daily values strictly prior session.",
     "RETEST": "At90m+1s: breakout during30-60m; last30m low revisits within0.15*prior20d ATR of range high without falling below range low; lasttwo closes above range; positive relative return; RVOL last10m in[0.8,3]; prior30d return>0. Next5m entry."
   },
   "execution_allowed": false,
   "exit_rules": {
     "FAST24": "Native targets; after6 elapsedh with peak completed-close gain<0.5R and close<=entry, exit next open; max24h.",
     "NATIVE72": "Exact native 25% at1.5R/25% at3R and causal trailing; max72h.",
-    "PROTECT48": "Native targets; after completed close reaches1R, protect cost-adjusted entry and tighten causal trailing; max48h.",
-    "RUNNER72": "25% at2R; remaining75% runner with2R trailing activated at2R; max72h."
+    "PROTECT48": "Native targets; after completed close reaches1R, protect entry adjusted for exit friction and two commissions, retain75% of peak close profit, trailing distance1R. Pending-stop queue preserves received updates; max48h.",
+    "RUNNER72": "25% integer shares at2R; remaining runner with2R trailing activated at2R; pending-stop queue preserves received updates; max72h."
   },
   "gates": {
+    "best_campaign_removal_scope": "TREND and WEAK separately in each cost case; descriptive fixed-account subtraction, not resimulation",
     "development_score_positive": true,
+    "economic_model_feasibility_reported_separately_from_missing_framework": true,
     "final_paths_each_world": 64,
     "full_execution_fault_coverage_required_for_label": true,
     "industry_profitability_score": false,
@@ -40,9 +42,11 @@
     "no_real_profitability_accreditation": true,
     "nominal_edge_worlds_adjusted_lower": ">0.0001 daily net log",
     "null_positive_adjusted_lower_blocks": true,
+    "null_positive_lower_scope": "absolute and relative to same-cost CASH; both already included in40 endpoints",
     "paired_vs_current_simple_cash_edge_worlds_adjusted_lower": ">0",
     "positive_aggregate_after_removing_best_campaign_each_path": true,
     "stress_edge_worlds_adjusted_lower": ">0 daily net log",
+    "tail_floor_unit": "difference in mean terminal return fractions versus same-cost cash, separately by NULL/FALSE/GAP and cost",
     "tail_worlds_relative_to_same_cost_cash_mean_floor": -0.005
   },
   "generator": {
@@ -104,7 +108,9 @@
     "Volume is tested in signals, not proof of executable market depth.",
     "No holiday/DST simulation; supplied calendar scheduling and weekend exits are testable.",
     "Native signal control, not the unintegrated virtual_net matrix coordinator.",
+    "NATIVE72 and FAST24 preserve legacy pending-stop replacement semantics. PROTECT48/RUNNER72 also repair queued receipt handling, so changes do not isolate exit-parameter alpha from that repair.",
     "Independent seed holdout is conditional on this generator family, not market validation.",
+    "NULL substep prices are exact martingales, but OHLC threshold-fill interpolation is an additional approximation; positive absolute or cash-relative lower bounds block inference.",
     "No automatic retraining, broker connection, deployment or trade authorization."
   ],
   "limits": {
@@ -118,6 +124,7 @@
   },
   "live_approved": false,
   "origin": "SYNTHETIC",
+  "risk_semantics": "12% gross/name and0.25% risk are admission/reservation caps; market appreciation, gaps and equity drift may create post-entry ratio excesses. Report these separately; no continuous rebalance is assumed.",
   "scenarios": {
     "NOMINAL": {
       "commission_usd_per_share_per_side": 0.005,
@@ -140,6 +147,7 @@
       "mean nominal log growth across TREND/WEAK",
       "p95 eventdrawdown across all stress worlds"
     ],
+    "pareto_scope": "risk-feasible candidates only",
     "positive_edge_worlds": [
       "TREND",
       "WEAK"
