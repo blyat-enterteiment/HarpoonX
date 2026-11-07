@@ -138,3 +138,70 @@ test("M11 counterfactual refuses unobserved/mismatched 8-step bars",()=>{
   f.steps.SYNA[b.t][7]=101;
   assert.throws(()=>compare(f,s),/SUBSTEP_OHLC_IDENTITY/);
 });
+
+
+const SHADOW=require("../runtime30/modulation11_shadow_witness.cjs");
+function pairedPortfolio(f,signals){
+  const limits={...R.PROFIT8_REPLAY_LIMITS,riskFraction:.00125};
+  const result=R.replayFundedPortfolio(signals,f.data,f.p,
+    [{test:f.sessions,selected:"ALL:BASELINE"}],f.sessions,limits,
+    {continuous:true,cashDividends:true,entryExecution:"IOC_LIMIT_COMMON_CAUSAL_30BPS",
+      externalCostPerSessionUsd:0,calendarCostPerDayUsd:1,
+      profit8:{mode:"NATIVE_MAX"},researchModulation:true});
+  const pairs=signals.map(signal=>{
+    const trade=result.funded.find(t=>t.id===signal.id);
+    assert(trade,"NATIVE_CAMPAIGN_MISSING");
+    const model=F.statefulCampaign({signal,series:f.series.find(s=>s.symbol===signal.symbol),
+      data:f.data,protocol:f.p,quantity:trade.quantity,substeps:f.steps[signal.symbol],
+      mode:"NATIVE_OHLC"});
+    near(model.netUsd,trade.netUsd);
+    return {trade,model,signal};
+  });
+  return {result,pairs,limits};
+}
+test("M11 phase3: shadow self-finance and both reserve anchors on full dual-asset native timelines",()=>{
+  const f=fixture(),signals=[f.signal("SYNA","NATIVE72",60,0),
+    f.signal("SYNB","NATIVE72",60,1)];
+  const x=pairedPortfolio(f,signals);
+  const proof=SHADOW.auditShadow({data:f.data,substeps:f.steps,
+    states:x.result.states,tradePairs:x.pairs,limits:x.limits});
+  assert.equal(proof.decisionCount,2);
+  assert.equal(proof.eventCount,6);
+  assert.equal(proof.observedAdmissionChecksPassed,true);
+  assert(proof.minimumCashUsd>0);
+  assert.equal(proof.priceConsistentNativeExecution,true);
+  assert.equal(proof.modelBoundCertified,false);
+  assert(proof.realizedSameFillFrictionlessCashUsd>=proof.realizedNativeCashUsd);
+});
+test("M11 phase3: native off-grid stop blocks mathematical execution equivalence",()=>{
+  const f=fixture(),signals=[f.signal("SYNA","NATIVE72",60,0),
+    f.signal("SYNB","NATIVE72",60,1)];
+  f.tape("SYNA",signals[0].plannedEntryAt,[100.1,99.9,99,97.2,98,98.8,99,99.5]);
+  const x=pairedPortfolio(f,signals);
+  const proof=SHADOW.auditShadow({data:f.data,substeps:f.steps,
+    states:x.result.states,tradePairs:x.pairs,limits:x.limits});
+  assert(proof.unsupportedNativeExits.some(e=>e.symbol==="SYNA"&&e.reason==="STOP"));
+  assert.equal(proof.priceConsistentNativeExecution,false);
+  assert.equal(proof.modelBoundCertified,false);
+  assert.equal(proof.reasonNotCertified,"OHLC_EXECUTIONS_NOT_IN_EIGHT_STEP_PRICE_SUPPORT");
+});
+test("M11 phase3: impossible observed-equity witness fails closed, never certifies bound",()=>{
+  const f=fixture(),signals=[f.signal("SYNA","NATIVE72",60,0),
+    f.signal("SYNB","NATIVE72",60,1)];
+  const x=pairedPortfolio(f,signals);
+  x.result.states[0].equity=1e9;
+  const proof=SHADOW.auditShadow({data:f.data,substeps:f.steps,
+    states:x.result.states,tradePairs:x.pairs,limits:x.limits});
+  assert.equal(proof.observedAdmissionChecksPassed,false);
+  assert.equal(proof.modelBoundCertified,false);
+  assert(proof.maximumObservedShadowShortfallUsd>0);
+});
+test("M11 phase3: tampering with one substep is rejected before witness accounting",()=>{
+  const f=fixture(),signals=[f.signal("SYNA","NATIVE72",60,0),
+    f.signal("SYNB","NATIVE72",60,1)];
+  const x=pairedPortfolio(f,signals);
+  const first=signals[0].plannedEntryAt;
+  f.steps.SYNA[first][7]=101.42;
+  assert.throws(()=>SHADOW.auditShadow({data:f.data,substeps:f.steps,
+    states:x.result.states,tradePairs:x.pairs,limits:x.limits}),/SUBSTEP_OHLC_IDENTITY/);
+});

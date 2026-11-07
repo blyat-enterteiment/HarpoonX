@@ -5,6 +5,7 @@ on:
     paths:
       - runtime30/modulation11_stateful_campaign.cjs
       - runtime30/modulation11_dual_asset_anchor.cjs
+      - runtime30/modulation11_shadow_witness.cjs
       - tools/modulation11_phase2_test.cjs
       - .github/workflows/modulation11_phase2.yml
   workflow_dispatch:
@@ -25,6 +26,7 @@ jobs:
         run: |
           node --check runtime30/modulation11_stateful_campaign.cjs
           node --check runtime30/modulation11_dual_asset_anchor.cjs
+          node --check runtime30/modulation11_shadow_witness.cjs
           node --check tools/modulation11_phase2_test.cjs
           node --test tools/modulation11_fixture_test.cjs tools/modulation11_native_campaign_test.cjs tools/modulation11_phase2_test.cjs
       - name: Verify frozen prior provenance and report SHA256
@@ -36,7 +38,7 @@ jobs:
           for name,expected in {**p['source_provenance'],**p['code_sha256']}.items():
               actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
               assert actual==expected,(name,actual,expected)
-          for name in ('runtime30/modulation11_stateful_campaign.cjs','runtime30/modulation11_dual_asset_anchor.cjs','tools/modulation11_phase2_test.cjs'):
+          for name in ('runtime30/modulation11_stateful_campaign.cjs','runtime30/modulation11_dual_asset_anchor.cjs','runtime30/modulation11_shadow_witness.cjs','tools/modulation11_phase2_test.cjs'):
               print(name,hashlib.sha256((root/name).read_bytes()).hexdigest())
           print('registered inputs unchanged, economic accounts=0, final sealed')
           PY
