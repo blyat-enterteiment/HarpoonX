@@ -9,8 +9,7 @@ const A=require("../runtime30/modulation11_dual_asset_anchor.cjs");
 const BAR=300000,DAY=86400000;
 const near=(a,b,tol=1e-7)=>assert(Math.abs(a-b)<tol, String(a)+" != "+String(b));
 
-function fixture(){
-  const offsets=[0,3,4,5,6,7];
+function fixture(offsets=[0,3,4,5,6,7]){
   const sessions=offsets.map(k=>{
     const open=Date.UTC(2025,0,3,14,30)+k*DAY;
     return {date:new Date(open).toISOString().slice(0,10),open,close:open+78*BAR};
@@ -33,8 +32,8 @@ function fixture(){
       files:[{name:"engineered_path",sha256:"0".repeat(64)}]}};
   const p={...C.defaultProtocol("ALPACA_PROXY"),universe:["SYNA","SYNB"],
     costs:{spreadBps:2,slippageBps:2,perSideUsd:.005}};
-  const signal=(symbol="SYNA",profile="NATIVE72",minute=60)=>{
-    const at=sessions[0].open+minute*60000+1000;
+  const signal=(symbol="SYNA",profile="NATIVE72",minute=60,day=0)=>{
+    const at=sessions[day].open+minute*60000+1000;
     const horizon=profile==="PROTECT48"?48:72;
     return {id:symbol+":"+profile+":"+minute,symbol,hypothesis:"CLOSED_CHANNEL",
       direction:1,at,index:0,plannedEntryAt:R.planSignalEntryAt(at,sessions),
@@ -86,7 +85,7 @@ test("M11 full-campaign target can execute only once across consecutive bars",()
   assert.equal(x.discrete.fills.reduce((n,t)=>n+t.quantity,0),8);
 });
 test("M11 custom PROTECT48 trails on received close only across overnight gap",()=>{
-  const f=fixture(),s=f.signal("SYNA","PROTECT48");
+  const f=fixture([3,4,5,6,7,10]),s=f.signal("SYNA","PROTECT48");
   const first=s.plannedEntryAt;
   f.tape("SYNA",first,[100.2,101,103.6,104,104,104,104,104]);
   for(const b of f.series[0].bars)
@@ -115,7 +114,7 @@ test("M11 RUNNER72 keeps one target and stop receipt delay",()=>{
 });
 test("M11 dual-asset funded portfolio: admissions, received original marks and reserve lifecycle",()=>{
   const f=fixture();
-  const signals=[f.signal("SYNA","NATIVE72",60),f.signal("SYNB","NATIVE72",65)];
+  const signals=[f.signal("SYNA","NATIVE72",60,0),f.signal("SYNB","NATIVE72",60,1)];
   const limits={...R.PROFIT8_REPLAY_LIMITS,riskFraction:.00125};
   const result=R.replayFundedPortfolio(signals,f.data,f.p,
     [{test:f.sessions,selected:"ALL:BASELINE"}],f.sessions,limits,
