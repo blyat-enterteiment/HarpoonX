@@ -3,7 +3,7 @@
   "active_job": {
     "id": "M11_PHASE0_FIXTURES_20261107T1923Z",
     "phase": "PHASE0_FIXTURES",
-    "status": "RUNNING",
+    "status": "COMMITTING_PENDING_CI",
     "acquired_at_utc": "2026-11-07T19:23:06Z",
     "lease_expires_at_utc": "2026-11-07T20:23:06Z",
     "base_head": "b6b7079e2310cc082f45c942085117a30ce1fc76",
@@ -42,9 +42,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "M11 phase0: implement four deterministic execution-equivalence fixture families and an identical-law substep exporter; then register a fixed-recipe diagnostic of240 or at most400accounts only if needed. Keep M10 final sealed.",
-  "next_round_id": "M11_EXECUTION_EQUIVALENCE_DIAGNOSTIC",
-  "phase": "M10_CLOSED_NEXT_EXECUTION_EQUIVALENCE",
+  "next_action": "Validate M11 GitHub CI; then add real replayCampaign equivalence and reserve-anchor event witnesses. No new economic grid; M10 final remains sealed.",
+  "next_round_id": "M11_NATIVE_ANCHOR_INTEGRATION",
+  "phase": "M11_PHASE0_ENGINEERING_CI_PENDING",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,6 +62,17 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M10_R1",
-  "schema": "HARPOON_CONTINUOUS_N9_STATE_1"
+  "round": "M11_PHASE0",
+  "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
+  "phase0_m11": {
+    "protocol": "research/modulation11/protocol.json",
+    "doc": "docs/MODULATION11_PHASE0.md",
+    "evidence": "evidence/modulation11/phase0_local.json",
+    "engineering_families": 4,
+    "node_local_checks_passed": 5,
+    "native_reservations_test_pending": true,
+    "identical_law_test_pending": true,
+    "account_delta": 0,
+    "alpha_delta": 0
+  }
 }

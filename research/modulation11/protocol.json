@@ -1,0 +1,88 @@
+{
+  "schema": "HARPOON_MODULATION11_EXECUTION_EQUIVALENCE_PROTOCOL_1",
+  "phase": "PHASE0_ENGINEERING_FIXTURES_ONLY",
+  "registered_utc": "2026-11-07T19:32:00Z",
+  "parent_program": "research/continuous_n9/program.json",
+  "parent_round": "M10_R1",
+  "source_provenance": {
+    "quant/harpoon_quant/modulation9.py": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "runtime30/modulation10_replay.cjs": "a6090964de4e16a821ce0fab5bac8a15611adcbcdfb888ebc26527ef08d146ce",
+    "runtime30/ultimate_reservations.js": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "research/modulation10/protocol.json": "a5edb060459f0f6aeb149eb8d07bcc2a0f7bb5a63ee693457ed7e517d039bea0"
+  },
+  "code_sha256": {
+    "quant/harpoon_quant/modulation11_substeps.py": "75b7755bd9a5b52b1c7975b510620115af5aee8a2bbff6cfde7dd18d3f9e6917",
+    "quant/tests/test_modulation11_substeps.py": "bb18df59bdd83cd15491dc261b572348dfab01de1425faefb98b39d507096f90",
+    "runtime30/modulation11_execution_equivalence.cjs": "8a827b3f6f92879d690c313047d4c2e2d86b8184d4ee56694aa9078028815d76",
+    "tools/modulation11_fixture_test.cjs": "4b63b1ef904881c4508d9fec19967d5bd545118a8ed440dfbe818c5157285470"
+  },
+  "hypothesis": "The native OHLC stop-first and threshold interpolated fills are not generally identical to first discrete crossing on the existing eight substeps; an IOC reservation is an admission cap, not a continuous mark-to-market cap.",
+  "null_hypothesis": "For every engineering fixture, native modeled exit ordering and cash result match first-cross discrete path and reservation alone guarantees continuous gross exposure<=12%.",
+  "refutation_conditions": [
+    "One paired fixture with exactly identical OHLCV, fees and tick but different first-cross fills rejects exact exit equivalence.",
+    "One reservation-compliant state with market appreciation exceeding contemporaneous 12% refutes the continuous-cap interpretation.",
+    "Failure of independent full-law OHLCV or nomination digests blocks any dataset comparison.",
+    "An unobserved receipt must not free commitment before knownAt; any contrary native observation is a concrete accounting defect."
+  ],
+  "fixtures": [
+    "delayed IOC with stale vs contemporary mark and anchored shadow wealth",
+    "no-fill/partial reservation until knownAt",
+    "overshot stop vs target with identical friction tick and commissions",
+    "same OHLC different eight-price order with publication-time separation"
+  ],
+  "eligible_for_economic_selection": false,
+  "oracles_allowed_for_selection": false,
+  "only_seen_development_seeds": [
+    1206101,
+    1206102,
+    1206103,
+    1206104,
+    1206105,
+    1206106,
+    1206107,
+    1206108
+  ],
+  "sealed_final_seeds": "1506201..1506264, NO READ",
+  "stage_accounts_executed": 0,
+  "stage_accounts_budget": 0,
+  "stage_new_candidates": 0,
+  "stage_controls": 0,
+  "prospective_validation_alpha_spent": 0,
+  "potential_later_diagnostic": {
+    "status": "NOT_REGISTERED_OR_OPENED",
+    "fixed_recipe": "CONFIRMED_NATIVE_QUEUE72_R2500",
+    "arms_if_anchor_proven": [
+      "A_OHLC_NATIVE",
+      "B_SUBSTEP_FIRST_CROSS",
+      "CASH"
+    ],
+    "accounts_if_anchor_proven": 240,
+    "arms_if_anchor_not_proven": [
+      "A_OHLC_NATIVE",
+      "B_SUBSTEP_FIRST_CROSS",
+      "C_OHLC_GUARD",
+      "D_SUBSTEP_GUARD",
+      "CASH"
+    ],
+    "accounts_max": 400,
+    "requires_new_commit_pre_registration": true,
+    "eligible_for_promotion": false
+  },
+  "invariants": [
+    "20000_USD",
+    "GENERATOR_M9_UNCHANGED",
+    "NOMINAL_AND_STRESS_COSTS_UNCHANGED",
+    "TWELVE_PERCENT_ADMISSION_RESERVATION_ONLY",
+    "ORIGINAL_STOPS_AND_HURDLES",
+    "MAX_72_HOURS",
+    "NO_BROKER_OR_ORDERS",
+    "FINAL_SEALED"
+  ],
+  "limitations": [
+    "No integrated full portfolio counterfactual yet",
+    "No native replay-versus-comparator campaign integration yet",
+    "No proof that reserve-anchor inequalities hold at every native event",
+    "Not a demonstrated infeasibility theorem for the native engine",
+    "No new economic return claim"
+  ]
+}
