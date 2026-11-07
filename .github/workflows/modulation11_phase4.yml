@@ -26,6 +26,10 @@ jobs:
           node --check runtime30/modulation11_formal_execution_bridge.cjs
           node --check tools/modulation11_phase4_test.cjs
           node --test tools/modulation11_phase4_test.cjs
+      - name: Static type check (dedicated bridge JavaScript module)
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_formal_execution_bridge.cjs
       - name: Frozen law and capital invariants; checksums
         run: |
           python - <<'PY'
