@@ -1,0 +1,123 @@
+{
+  "scope": "DETERMINISTIC_SYNTHETIC_ENGINEERING_ONLY_NOT_SELECTION_OR_FINANCIAL_EVIDENCE",
+  "node": "v24.22.1",
+  "accounts": 8,
+  "signals_per_account": 252,
+  "bars_per_symbol": 14196,
+  "symbols": 3,
+  "elapsed_ms": 9003.713022,
+  "ms_per_account": 1125.46412775,
+  "heap_used_mb": 48.360198974609375,
+  "all_terminal_reconciled": true,
+  "engineering_tests": {
+    "passed": 68,
+    "failed": 0,
+    "command": "node --test tools/modulation9_test.cjs tools/profit8_replay_test.cjs",
+    "syntax_checks": [
+      "runtime30/modulation9_exit.cjs",
+      "tools/modulation9_bridge.cjs",
+      "tools/modulation9_test.cjs",
+      "runtime30/profit8_replay.js",
+      "research/modulation9/benchmark_fixture.cjs"
+    ],
+    "javascript_type_check": "NOT_EXECUTED_CJS_SOURCE_NOT_TYPESCRIPT",
+    "native_index_equivalence": "Full native portfolio equivalence plus 3100+ causal lookups including late receipt, invalid timestamps, duplicate end and invalid close.",
+    "cash_event_drawdown": "Verified equals inclusive-calendar overhead / initial capital; max_signal_to_exit_hours is zero for CASH."
+  },
+  "source_sha256": {
+    "runtime30/profit8_replay.js": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "runtime30/modulation9_exit.cjs": "dea5e4e2442ccfb75fa7507f2ca662442f4591b6418b683dcc7c9c46fe48382d",
+    "tools/modulation9_bridge.cjs": "2d3500c3957d69920da9cad9a1821f87bb399a35b0bcec9d945760bda017a910",
+    "tools/modulation9_test.cjs": "d5c76500718746f19096ab871a476dcfcada1de93ca6c8d99b28a1d1760a6f57",
+    "research/modulation9/benchmark_fixture.cjs": "aec401f80e7dbd2d32b46cfb90d5b22bfa7fc19328f079470f45e92bd9108b07"
+  },
+  "exact_profile_constants": {
+    "NATIVE72": {
+      "profile": "NATIVE72",
+      "horizonHours": 72,
+      "targetsR": [
+        1.5,
+        3
+      ],
+      "partialFraction": 0.25,
+      "nativeTrailing": true,
+      "activationR": 1.5,
+      "nativePeakLockFraction": 0.6,
+      "nativeTrailR": 1.5
+    },
+    "PROTECT48": {
+      "profile": "PROTECT48",
+      "horizonHours": 48,
+      "targetsR": [
+        1.5,
+        3
+      ],
+      "partialFraction": 0.25,
+      "nativeTrailing": false,
+      "activationR": 1,
+      "peakLockFraction": 0.75,
+      "trailR": 1,
+      "costBreakeven": true
+    },
+    "RUNNER72": {
+      "profile": "RUNNER72",
+      "horizonHours": 72,
+      "targetsR": [
+        2,
+        null
+      ],
+      "partialFraction": 0.25,
+      "nativeTrailing": false,
+      "activationR": 2,
+      "trailR": 2,
+      "costBreakeven": false
+    },
+    "FAST24": {
+      "profile": "FAST24",
+      "horizonHours": 24,
+      "targetsR": [
+        1.5,
+        3
+      ],
+      "partialFraction": 0.25,
+      "nativeTrailing": true,
+      "activationR": 1.5,
+      "nativePeakLockFraction": 0.6,
+      "nativeTrailR": 1.5,
+      "stalledAfterHours": 6,
+      "favorableExcursionR": 0.5,
+      "stallPriceBasis": "LATEST_RECEIVED_COMPLETED_CLOSE_AT_OR_BELOW_FILLED_ENTRY",
+      "excursionBasis": "RECEIVED_COMPLETED_BAR_CLOSE_PEAK_SINCE_ENTRY"
+    }
+  },
+  "causal_forensic_note": "NATIVE72 and FAST24 preserve native pending-stop replacement behavior for equivalence. PROTECT48/RUNNER72 queue pending stops so older received updates are not lost when bars arrive end+1s. No baseline patch applied.",
+  "benchmark_before_index": {
+    "accounts": 8,
+    "signals_per_account": 252,
+    "bars_per_symbol": 14196,
+    "symbols": 3,
+    "elapsed_ms": 9003.713022,
+    "ms_per_account": 1125.46412775,
+    "heap_used_mb": 48.360198974609375,
+    "all_terminal_reconciled": true
+  },
+  "benchmark_after_index": {
+    "scope": "DETERMINISTIC_SYNTHETIC_ENGINEERING_ONLY_NOT_SELECTION_OR_FINANCIAL_EVIDENCE",
+    "node": "v24.22.1",
+    "accounts": 8,
+    "signals_per_account": 252,
+    "bars_per_symbol": 14196,
+    "symbols": 3,
+    "elapsed_ms": 2815.230638,
+    "ms_per_account": 351.90382975,
+    "heap_used_mb": 105.67228698730469,
+    "all_terminal_reconciled": true,
+    "source_sha256": {
+      "runtime30/profit8_replay.js": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+      "runtime30/modulation9_exit.cjs": "dea5e4e2442ccfb75fa7507f2ca662442f4591b6418b683dcc7c9c46fe48382d",
+      "tools/modulation9_bridge.cjs": "2d3500c3957d69920da9cad9a1821f87bb399a35b0bcec9d945760bda017a910"
+    }
+  },
+  "benchmark_scope": "One deterministic cold-process run before and after; timing descriptive only, no strategy selection; source-native arithmetic equivalence tested.",
+  "exposure_caps": "Admission ceilings; existing conservative marked exposure and reserved-risk/equity may drift above fractions after market moves. event_risk reports diagnostic overages. Stops/daily-loss/drawdown admission limits are not guaranteed loss caps."
+}

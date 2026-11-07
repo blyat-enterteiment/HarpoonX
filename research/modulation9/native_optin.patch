@@ -1,0 +1,172 @@
+--- verified_PR5/profit8_replay.js
+
++++ modulation9/profit8_replay.js
+
+@@ -397,6 +397,11 @@
+
+ }
+ function replayCampaign(signal, series, data, p, policy, quantity = 4, costMultiplier = 1, options) {
+     (0, ultimate_contracts_1.need)(Number.isInteger(quantity) && quantity > 0 && costMultiplier >= 1, "replay size/cost");
++    // MODULATION9 is an explicit offline native-study extension. No tag means
++    // the original code path, including its native trailing chronology.
++    const modulationApi = signal.metadata?.modulation9 === undefined ? null : require("./modulation9_exit.cjs");
++    const modulation = modulationApi?.resolve(signal, options, policy, p.kind) ?? null;
++    const modulationState = modulationApi?.createState(modulation) ?? null;
+     const hasEntryPlan = signal.plannedEntryAt !== undefined;
+     if (hasEntryPlan) {
+         (0, ultimate_contracts_1.need)(Number.isSafeInteger(signal.plannedEntryAt) && signal.plannedEntryAt >= signal.at, "entry plan precedes signal decision");
+@@ -516,6 +521,8 @@
+
+             stop = pendingStop.price;
+             pendingStop = undefined;
+         }
++        if (modulationState)
++            stop = modulationApi.advance(modulationState, b.t, stop, dir);
+         if (strictPath &&
+             b.t > Math.min(deadline, contractDeadline))
+             unresolved("NO_EXECUTABLE_BAR_AT_PLANNED_DEADLINE", b.t);
+@@ -524,6 +531,16 @@
+
+             marks.push({ at: b.t, pnl: realized });
+             break;
+         }
++        const modulationReason = modulationState
++            ? modulationApi.stalledExit(modulationState, b.t, first.t, entry, distance, dir) : null;
++        if (modulationReason) {
++            // The exit was decided from previously received bars. The opening
++            // price is executable before this bar's later high/low are known.
++            const gapStop = dir === 1 ? b.o <= stop : b.o >= stop;
++            close(remaining, b.o, b.t, gapStop ? "STOP" : modulationReason);
++            marks.push({ at: b.t, pnl: realized });
++            break;
++        }
+         const roadmapAction = require("./roadmap9_exit.js").exitAction(
+             signal, b.t, remaining, roadmapReduced, options?.forecastDecisions);
+         if (roadmapAction) {
+@@ -540,7 +557,9 @@
+
+             break;
+         }
+         const stopHit = dir === 1 ? b.l <= stop : b.h >= stop;
+-        const targets = policy === "RUNNER"
++        const targets = modulation
++            ? modulation.targetsR.map(r => r === null ? Infinity : r)
++            : policy === "RUNNER"
+             ? [2, Infinity]
+             : policy === "REGIME" && signal.regime >= 0.5
+                 ? [2, 4]
+@@ -574,9 +593,17 @@
+
+         peakPnl = Math.max(peakPnl, pnl);
+         if (dir * (b.c - peak) > 0)
+             peak = b.c;
+-        const candidate = round(nextTrailingStop(dir, stop, entry, peak, distance, policy, signal.regime), series.tick, dir !== 1);
+-        if (dir * (candidate - stop) > 0)
++        const customTrail = modulation && !modulation.nativeTrailing;
++        const candidate = round(customTrail
++            ? modulationApi.nextStop(modulation, dir, stop, entry, peak, distance,
++                friction, p.costs.perSideUsd * costMultiplier, series.pointValue, series.tick)
++            : nextTrailingStop(dir, stop, entry, peak, distance, policy, signal.regime), series.tick, dir !== 1);
++        if (customTrail)
++            modulationApi.queueStop(modulationState, candidate, b.availableAt, stop, dir);
++        else if (dir * (candidate - stop) > 0)
+             pendingStop = { price: candidate, at: b.availableAt };
++        if (modulationState)
++            modulationApi.observe(modulationState, b, dir);
+     }
+     if (remaining) {
+         if (strictPath)
+@@ -834,6 +861,9 @@
+
+ function replayFundedPortfolio(signals, data, p, folds, sessions, limits = exports.DEFAULT_REPLAY_LIMITS, options) {
+     (0, ultimate_contracts_1.need)(options?.continuous === undefined || typeof options.continuous === "boolean", "continuous replay option");
+     (0, ultimate_contracts_1.need)(options?.cashDividends === undefined || typeof options.cashDividends === "boolean", "cash-dividend replay option");
++    (0, ultimate_contracts_1.need)(options?.researchModulation === undefined || typeof options.researchModulation === "boolean", "MODULATION9_BOOLEAN_OPT_IN");
++    (0, ultimate_contracts_1.need)(options?.researchModulation !== true || options?.profit8?.mode === "NATIVE_MAX", "MODULATION9_NATIVE_MODE_REQUIRED");
++    (0, ultimate_contracts_1.need)(!signals.some(s => s.metadata?.modulation9 !== undefined) || options?.researchModulation === true, "MODULATION9_NATIVE_OPT_IN_REQUIRED");
+     (0, ultimate_contracts_1.need)(options?.entryExecution === undefined || options.entryExecution === "IOC_LIMIT_TO_APPROVED_BUDGET" ||
+         (options.profit8 !== undefined && options.entryExecution === "IOC_LIMIT_COMMON_CAUSAL_30BPS"), "historical entry-execution option");
+     if (options?.profit8 !== undefined) {
+@@ -843,7 +873,7 @@
+
+         (0, ultimate_contracts_1.need)(limits.capitalUsd === 20000 &&
+             Object.entries(exports.PROFIT8_REPLAY_LIMITS).every(([key, cap]) => limits[key] <= cap), "PROFIT8_LIMITS_MUST_BE_EXPLICIT_AND_NOT_RAISED");
+         (0, ultimate_contracts_1.need)(folds.every(f => f.selected === "ALL:BASELINE" || f.selected === "CASH"), "PROFIT8_BASELINE_ONLY");
+-        signals.forEach(signal => assertProfit8Signal(signal, data));
++        signals.forEach(signal => assertProfit8Signal(signal, data, options.researchModulation === true));
+     }
+     (0, ultimate_contracts_1.need)(options?.externalCostPerSessionUsd === undefined ||
+         (typeof options.externalCostPerSessionUsd === "number" && Number.isFinite(options.externalCostPerSessionUsd) &&
+@@ -879,6 +909,9 @@
+
+             (!i || s.open > f.test[i - 1].close))) &&
+         new Set(selectedKeys).size === selectedKeys.length, "funded selection must be disjoint and inside the declared evaluation calendar");
+     const bySymbol = Object.fromEntries(data.series.map(s => [s.symbol, s]));
++    const referenceAt = options?.researchModulation === true
++        ? require("./modulation9_exit.cjs").causalPriceLookup(data.series, causalReferencePrice)
++        : causalReferencePrice;
+     const funded = [];
+     const states = [];
+     const preEntryRefusals = [];
+@@ -912,7 +945,7 @@
+
+         // has value and execution friction. Use the same observable close basis
+         // as inventory/sizing; entry price is not a zero-PnL valuation convention.
+         const series = bySymbol[t.symbol];
+-        const reference = series ? causalReferencePrice({ at }, series) : null;
++        const reference = series ? referenceAt({ at }, series) : null;
+         if (reference?.status !== "AVAILABLE")
+             throw new FundedPortfolioReplayError("FUNDED_CAUSAL_VALUATION_UNAVAILABLE", { at, symbol: t.symbol, campaignId: t.id,
+                 openedAt: t.opened, quantity: t.quantity, entryPrice: t.entry, reference,
+@@ -938,7 +971,7 @@
+
+         const snapshot = (0, ultimate_reservations_1.snapshotFundedReservations)(reservationBook, at);
+         let markedNotional = snapshot.notionalUsd;
+         for (const reservation of snapshot.reservations) if (reservation.state === "OPENED") {
+-            const series = bySymbol[reservation.symbol], reference = causalReferencePrice({ at }, series);
++            const series = bySymbol[reservation.symbol], reference = referenceAt({ at }, series);
+             if (reference.status !== "AVAILABLE")
+                 throw new FundedPortfolioReplayError("PROFIT8_EVENT_REFERENCE_UNAVAILABLE", {
+                     at, symbol: reservation.symbol, reservation, economicPnlUsd: null });
+@@ -1085,7 +1118,7 @@
+
+         for (const reservation of before.reservations)
+             if (reservation.state === "OPENED") {
+                 const inventorySeries = bySymbol[reservation.symbol];
+-                const reference = inventorySeries ? causalReferencePrice({ at: signal.at }, inventorySeries) : null;
++                const reference = inventorySeries ? referenceAt({ at: signal.at }, inventorySeries) : null;
+                 if (reference?.status !== "AVAILABLE") {
+                     missingInventoryMark = true;
+                     break;
+@@ -1199,7 +1232,8 @@
+
+                 }
+             }
+             const trade = replayCampaign(signal, series, data, p, fold.selected.split(":")[1], quantity, 1, options === undefined ? undefined : { cashDividends: options.cashDividends === true, forecastDecisions: options.forecastDecisions,
+-                ...(options.profit8 !== undefined ? { profit8Trace: true } : {}) });
++                ...(options.profit8 !== undefined ? { profit8Trace: true } : {}),
++                ...(options.researchModulation === true ? { researchModulation: true } : {}) });
+             if (!trade)
+                 throw new FundedPortfolioReplayError("FUNDED_PATH_UNRESOLVED", {
+                     signalId: signal.id, plannedEntryAt, plannedQuantity: quantity,
+@@ -1348,11 +1382,16 @@
+
+ }
+ 
+ /** Fixed new-cycle contract. Existing replay behavior is unchanged without profit8. */
+-function assertProfit8Signal(signal, data) {
++function assertProfit8Signal(signal, data, researchModulation = false) {
+     const session = data.sessions.find(s => s.open <= signal.at && signal.at < s.close);
+-    (0, ultimate_contracts_1.need)(session !== undefined && signal.at === session.open + 3600000 + 1000 &&
++    const modulation = researchModulation ? require("./modulation9_exit.cjs").profileFor(signal) : null;
++    (0, ultimate_contracts_1.need)(researchModulation || signal.metadata?.modulation9 === undefined, "MODULATION9_SIGNAL_OPT_IN_REQUIRED");
++    const clockValid = session !== undefined && (modulation
++        ? [60, 90].some(minutes => signal.at === session.open + minutes * 60000 + 1000)
++        : signal.at === session.open + 3600000 + 1000);
++    (0, ultimate_contracts_1.need)(clockValid &&
+         signal.hypothesis === "CLOSED_CHANNEL" && signal.direction === 1 &&
+-        [24, 72].includes(signal.metadata?.roadmapHorizonHours) &&
++        (modulation ? signal.metadata.roadmapHorizonHours === modulation.horizonHours : [24, 72].includes(signal.metadata?.roadmapHorizonHours)) &&
+         !signal.metadata?.roadmapExit && !signal.metadata?.researchExit &&
+         Number.isFinite(signal.stopDistance) && signal.stopDistance > 0 &&
+         (signal.plannedEntryAt === undefined || signal.plannedEntryAt === planSignalEntryAt(signal.at, data.sessions)),

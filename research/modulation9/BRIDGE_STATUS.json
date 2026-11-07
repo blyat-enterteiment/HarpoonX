@@ -1,0 +1,57 @@
+{
+  "status": "READY_FINAL_ENGINEERING_QA_PASSED",
+  "summary_keys": [
+    "net_pnl_usd",
+    "final_equity",
+    "max_event_drawdown",
+    "worst_session_return",
+    "max_hold_hours",
+    "fixed_costs_usd",
+    "fees_usd",
+    "closed_campaigns",
+    "cash_reconciliation_error",
+    "mean_calendar_day_log_return",
+    "calendar_days",
+    "terminal_reconciled"
+  ],
+  "curve_keys": [
+    "date",
+    "portfolio_log_return",
+    "portfolio_return",
+    "equity",
+    "fixed_costs_usd"
+  ],
+  "trades_keys": [
+    "net_usd",
+    "id",
+    "symbol",
+    "quantity",
+    "opened",
+    "closed",
+    "risk_usd",
+    "fees_usd",
+    "exit_fills"
+  ],
+  "protocol_alignment": "FAST24 uses completed-close peak as locked in make_protocol, not intrabar highs.",
+  "exact_constants": {
+    "PROTECT48": {
+      "activationR": 1,
+      "peakLockFraction": 0.75,
+      "trailR": 1,
+      "costBreakeven": "(filledEntry+2*fee)/(1-exitFriction), rounded upward tick"
+    },
+    "RUNNER72": {
+      "activationR": 2,
+      "trailR": 2,
+      "partials": "25% at2R only"
+    }
+  },
+  "forensic_note": "Native pendingStop can be replaced before its availableAt when bars publish end+1s, delaying intraday updates. NATIVE72 and FAST24 preserve this existing implementation; new PROTECT48/RUNNER72 use pending queues so an older received stop is not lost. This is a documented component difference, not an unreported baseline fix.",
+  "performance_note": "Native causalReferencePrice scans whole tape at valuation events. Engineering benchmark pending; optimization outside current minimal opt-in patch may be useful for 5680 accounts.",
+  "engineering_tests_passed": 68,
+  "engineering_tests_failed": 0,
+  "benchmark_ms_per_account": 351.90382975,
+  "stream_cli": "node tools/modulation9_bridge.cjs --stream",
+  "performance_action": "Completed opt-in per-account read-only causal index; no persistent cache, no ledger changes. Tests verify same result as full native scan.",
+  "benchmark_accounts": 8
+}
