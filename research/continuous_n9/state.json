@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE2_STATEFUL_COMPARATOR_DUAL_ASSET",
-    "owner": "user_authorized_m11_phase2_20261107",
-    "source_commit": "a9c8d4c5b1b9a80ad89b3fbfd10a935fe224e326",
-    "scope": "Engineering integration only: persistent full-campaign path, dual-asset reserve-anchor event checks",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_M11_NATIVE_CAMPAIGN_COUNTEREXAMPLE_ANCHOR_UNPROVEN",
+  "current_verdict": "NO_GO_M11_PHASE2_NATIVE_PARITY_ENGINEERING_ONLY",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Build deterministic persistent-target/trailing full-campaign substep comparator and check reserve anchor inequalities across both assets at each native decision, IOC and receipt; do not run economic search or open M10 final until feasibility resolved.",
-  "next_round_id": "M11_PERSISTENT_COUNTERFACTUAL_AND_DUAL_ASSET_ANCHOR",
-  "phase": "M11_PHASE2_ACTIVE",
+  "next_action": "Implement native event-time dual-asset shadow-account witness with contemporaneous eight-substep marks and finance-consistent execution; establish or reject each reserve-anchor premise on complete deterministic paths. Preserve original economic laws and sealed M10 final; no strategy search.",
+  "next_round_id": "M11_DUAL_ASSET_SHADOW_WITNESS",
+  "phase": "M11_PHASE2_ENGINEERING_VERIFIED_NATIVE_THEOREM_OPEN",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE1",
+  "round": "M11_PHASE2",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -100,5 +92,18 @@
     "doc": "docs/MODULATION11_PHASE1.md",
     "evidence": "evidence/modulation11/phase1_native_fixture.json",
     "source_commit": "417e464b79e8154460b090bf76a036e38a58fc14"
+  },
+  "m11_phase2": {
+    "source_commit": "6a4cb4818eb076a38de84b6737039adbabaa68c7",
+    "documentation": "docs/MODULATION11_PHASE2.md",
+    "evidence": "evidence/modulation11/phase2_engineering.json",
+    "ci_run": 42411657623,
+    "tests_passed": 15,
+    "registered_sources_unchanged": true,
+    "accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "full_anchor_proof_pending": true,
+    "operational_gates_pending": true
   }
 }
