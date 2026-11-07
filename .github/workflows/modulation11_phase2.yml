@@ -1,0 +1,42 @@
+name: M11 persistent campaign and dual-asset anchoring
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_stateful_campaign.cjs
+      - runtime30/modulation11_dual_asset_anchor.cjs
+      - tools/modulation11_phase2_test.cjs
+      - .github/workflows/modulation11_phase2.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  phase2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and deterministic native parity tests
+        run: |
+          node --check runtime30/modulation11_stateful_campaign.cjs
+          node --check runtime30/modulation11_dual_asset_anchor.cjs
+          node --check tools/modulation11_phase2_test.cjs
+          node --test tools/modulation11_fixture_test.cjs tools/modulation11_native_campaign_test.cjs tools/modulation11_phase2_test.cjs
+      - name: Verify frozen prior provenance and report SHA256
+        run: |
+          python - <<'PY'
+          import json,hashlib,pathlib
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/protocol.json').read_text())
+          for name,expected in {**p['source_provenance'],**p['code_sha256']}.items():
+              actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
+              assert actual==expected,(name,actual,expected)
+          for name in ('runtime30/modulation11_stateful_campaign.cjs','runtime30/modulation11_dual_asset_anchor.cjs','tools/modulation11_phase2_test.cjs'):
+              print(name,hashlib.sha256((root/name).read_bytes()).hexdigest())
+          print('registered inputs unchanged, economic accounts=0, final sealed')
+          PY
