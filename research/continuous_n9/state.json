@@ -1,24 +1,15 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE0_FIXTURES_20261107T1923Z",
-    "phase": "PHASE0_FIXTURES",
-    "status": "COMMITTING_PENDING_CI",
-    "acquired_at_utc": "2026-11-07T19:23:06Z",
-    "lease_expires_at_utc": "2026-11-07T20:23:06Z",
-    "base_head": "b6b7079e2310cc082f45c942085117a30ce1fc76",
-    "scope": "four deterministic fixture families and eight-substep identical-law sidecar; no economic accounts",
-    "economic_accounts_charged": 0
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
     "environment_selection": "inherited",
     "environments": null,
-    "first_unattended_execution_verified": false,
+    "first_unattended_execution_verified": true,
     "id": "Automation_eb76e63560c08191a9871ad680b48ba0",
     "is_enabled": true,
-    "last_run_time": null,
+    "last_run_time": "2026-11-07T19:35:00Z",
     "next_run_time": null,
     "schedule": "BEGIN:VEVENT\nDTSTART:20261107T192306Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
     "timing_mode": "condition_watch"
@@ -29,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_DEVELOPMENT_FINAL_SEALED",
+  "current_verdict": "NO_GO_M11_FIXTURES_NATIVE_EQUIVALENCE_UNRESOLVED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Validate M11 GitHub CI; then add real replayCampaign equivalence and reserve-anchor event witnesses. No new economic grid; M10 final remains sealed.",
+  "next_action": "M11 phase1 engineering: compare exact native replayCampaign and first-cross substep exits with identical signals & receive clocks; verify all reserve-anchor premises along real native event order. Do not open economic search or sealed M10 final before registered structural eligibility.",
   "next_round_id": "M11_NATIVE_ANCHOR_INTEGRATION",
-  "phase": "M11_PHASE0_ENGINEERING_CI_PENDING",
+  "phase": "M11_PHASE0_ENGINEERING_VERIFIED_NEXT_NATIVE_INTEGRATION",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -70,9 +61,19 @@
     "evidence": "evidence/modulation11/phase0_local.json",
     "engineering_families": 4,
     "node_local_checks_passed": 5,
-    "native_reservations_test_pending": true,
-    "identical_law_test_pending": true,
+    "native_reservations_test_pending": false,
+    "identical_law_test_pending": false,
     "account_delta": 0,
-    "alpha_delta": 0
-  }
+    "alpha_delta": 0,
+    "ci_run": 42406823925,
+    "ci_status": "SUCCESS",
+    "node_fixtures_passed": 6,
+    "python_tests_passed": 3,
+    "actual_native_campaign_comparison_pending": true,
+    "reserve_anchor_full_proof_pending": true,
+    "output_ci": "evidence/modulation11/phase0_ci.json"
+  },
+  "m11_phase0_complete": true,
+  "m11_phase0_source_commit": "644cc26ed9234849b6fc2378938398a893eb6360",
+  "m11_ci_run": 42406823925
 }
