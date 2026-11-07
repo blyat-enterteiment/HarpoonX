@@ -1,0 +1,66 @@
+{
+  "schema": "HARPOON_M11_PHASE6_EXPECTED_BAR_CREDIT_EVIDENCE_1",
+  "source_commit": "8aa13f39250dedc0dabe4a5e55aa9ba031af52d7",
+  "pr": 7,
+  "pr_draft": true,
+  "protocol": "research/modulation11/phase6_protocol.json",
+  "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+  "mathematics": "E[D^+|F_open]<=q*S_open*(2A+f*(1+A))+q*(tick*(1+1e-8)+sell_fee) where A=.996*(2e^mu sqrt(expm1(sigma²))+expm1(mu))+.004*(2e^mu sqrt(expm1((4sigma)²))+expm1(mu)); mu=weak_drift_per_bar times permitted shift and sigma upper bounded by actual asset base sigma times 1.25 WEAK, max final sigma shift 1.2 and activity exp(.7)",
+  "result": "VALID_CONDITIONAL_SINGLE_BAR_UPPER_BOUND_TOO_LOOSE_TO_CERTIFY_NATIVE_N9S",
+  "numeric_illustrations": {
+    "prebar_positions": [
+      {
+        "symbol": "SYNA",
+        "quantity": 8,
+        "open": 100
+      },
+      {
+        "symbol": "SYNB",
+        "quantity": 7,
+        "open": 150
+      }
+    ],
+    "final_nominal_analytic_bound_usd": 19.134593305192986,
+    "final_stress_analytic_bound_usd": 19.767346081272127,
+    "development_nominal_analytic_bound_usd": 16.083157241883274,
+    "development_stress_analytic_bound_usd": 16.715452371199937,
+    "eight_SYNA_shares_100_open_final_nominal_bound_usd": 7.741824980169997,
+    "hypothetical_2400_usd_SYNA_notional_single_bar_final_nominal_bound_usd": 23.22547494050999,
+    "hurdle_remaining_bp_per_calendar_day": 0.09487675304272425,
+    "equivalent_linearized_usd_at_20000_per_calendar_day": 0.1897535060854485,
+    "caution": "Per-bar upper bound is not a comparable estimate of daily expected log growth and $2400 is illustration, NOT perpetual cap."
+  },
+  "evidence_quality": "Analytical conditional upper bound, engineering fixtures only; numerical CI verifies formulas and frozen source checks, does not establish population expected native portfolio credit",
+  "core_limitations": [
+    "No proof endogenous post-entry Q*S_open sum under native reservation/IOC and market appreciation",
+    "Native OHLC threshold and priority nonadapted: upper bound does not make fills executable",
+    "Sequential native and first-cross portfolios have diverging cash and inventories",
+    "Independent review of full source provenance remains unresolved for old profit8_replay.js historical suite",
+    "Full operational partial entry/reject/outage/market-impact plus multicell coordinator still absent"
+  ],
+  "ci": {
+    "run_id": 42419670499,
+    "conclusion": "SUCCESS",
+    "js_tests": 8,
+    "js_failed": 0,
+    "independent_decimal_passed": true,
+    "scoped_typecheck_passed": true,
+    "benchmark_3000_calls_ms": 20.37214,
+    "frozen_m11_provenance_passed": true,
+    "source_sha256": {
+      "runtime30/modulation11_conditional_credit_bound.cjs": "bf6cc271291eb2f65d39502dfa1a56108a6139aae7a6c4fbdba7feb3d2f767a4",
+      "tools/modulation11_phase6_test.cjs": "aafec02dd19611482a95a1f5a610776885d106cb90c41221533e0bddb023571a",
+      "tools/modulation11_phase6_accountant.py": "8a220aa49ed6b90334a89754d48fbd1c5cdddf79d0226c596ec371689a559517",
+      "research/modulation11/phase6_protocol.json": "76c4390198ac74d31ed76f59db972b4f24034a1557c8719c6115a86eeb5bf4a9"
+    }
+  },
+  "baseline": "CASH no position gives a zero one-bar native-vs-observed gap; M9_BEST and M10 selection remain in frozen comparison (no new economic campaign).",
+  "charged_new_market_accounts": 0,
+  "economic_candidates": 0,
+  "alpha_spent": 0,
+  "final_M10_unopened": 3200,
+  "holdout_opened": false,
+  "policy_cost_attempts_delta": 0,
+  "native_infeasibility_certified": false,
+  "N9S_accepted": false
+}
