@@ -1,0 +1,76 @@
+name: FWN9 phase9C persistent causal risk mirror
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_persistent_risk_mirror_p9c.cjs
+      - tools/fwn9_phase9c_test.cjs
+      - tools/fwn9_phase9c_accountant.py
+      - research/modulation11/fwn9_phase9c_protocol.json
+      - .github/workflows/fwn9_phase9c.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  causal-risk-mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax, event-clock and negative test cases
+        run: |
+          node --check runtime30/fwn9_persistent_risk_mirror_p9c.cjs
+          node --check tools/fwn9_phase9c_test.cjs
+          python -m py_compile tools/fwn9_phase9c_accountant.py
+          node --test tools/fwn9_phase9c_test.cjs
+      - name: Focused static JS typecheck
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          set +e
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/fwn9_persistent_risk_mirror_p9c.cjs >/tmp/p9c_types.log 2>&1
+          rc=$?
+          set -e
+          TSC_STATUS="$rc" python - <<'PY'
+          import os,pathlib
+          errors=[s for s in pathlib.Path('/tmp/p9c_types.log').read_text().splitlines() if 'error TS' in s]
+          if int(os.environ['TSC_STATUS'])==0:
+              assert not errors,errors
+              print('FWN9_P9C_TYPES_PASS')
+          else:
+              assert int(os.environ['TSC_STATUS'])==2
+              assert len(errors)==8,errors
+              assert all(x.startswith('runtime30/types.js(') and ': error TS2365:' in x and
+                         x.split('(')[1].split(',')[0] in ('85','94','115','151') for x in errors),errors
+              print('FWN9_P9C_NO_NEW_TYPES_8_HISTORICAL')
+          PY
+      - name: Independent Decimal-46 terminal accounting
+        run: |
+          node tools/fwn9_phase9c_test.cjs --emit-risk > /tmp/p9c_audit.log
+          python -B tools/fwn9_phase9c_accountant.py /tmp/p9c_audit.log
+      - name: Verify preregistered Git blobs and original generator
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess,hashlib
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/fwn9_phase9c_protocol.json').read_text())
+          assert p['budget']=={'economic_accounts':0,'new_candidate_recipes':0,'workers':1,'alpha_spent':0,'final_accounts_unopened':3200}
+          for path,sha in p['code_git_blob_sha1'].items():
+              actual=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert actual==sha,(path,actual,sha)
+              print('FWN9_P9C_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          historical=subprocess.check_output(['git','hash-object','runtime30/modulation11_admission_mirror_v2.cjs'],text=True).strip()
+          assert historical=='eedfb19e567f80597cfef0a38f689af95e99e0d6'
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          src='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/src).read_bytes()).hexdigest()==reg['sources_sha256'][src]
+          print('FWN9_P9C_FROZEN_SOURCES_PASS')
+          PY
+      - name: Bounded benchmark
+        run: |
+          node tools/fwn9_phase9c_test.cjs --bench >/tmp/p9c_benchmark.log
+          grep 'FWN9_P9C_10_MIRRORS_MS=' /tmp/p9c_benchmark.log
