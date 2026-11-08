@@ -1,0 +1,9 @@
+# M11 P9M-B: signed offline source evidence and causal daily marking
+
+Preregistered structural unit: source authenticity, complete weekday opportunity coverage, per-calendar-day mark-to-market and reconciliation. A canonical Ed25519-signed envelope binds the complete tape, label tape, marks and opportunity records to a key ID. The public key must be provided from an external trust registry; no key is taken from the issuer packet. An issuer can still sign false data, therefore a successful signature is NOT independent corroboration of real fills, quotes or complete source coverage.
+
+Two synthetic equity symbols receive exact daily marks for all 180 dates (carry-forward on weekends) and opportunity records on every trading weekday, including NO_SIGNAL rows. Causal known_at clocks, signal IDs, residual inventory, fees and USD1 cost for every calendar day enter an independent Decimal reconstruction of equity, drawdown and worst trading day. CASH uses the same fixed cost. The best historical policy cannot be paired with this constructed fixture and is not claimed to be validated.
+
+The included deterministic test-only private key is not an external attestation, and the fixture is engineering evidence, not market data. The return remains optimizer_eligible=false, execution_allowed=false, n9s_certified=false. No native M9 OHLC equivalence, real provenance, complete live operational model or production multicell coordinator is claimed. The 12% is admission/reservation, not a continuously enforced cap. No new economic trials, final seeds, or alpha expenditure occurred.
+
+Reproduce: PYTHONPATH=quant python3 -m unittest quant.tests.test_fwn9_source_panel -v after installing the declared Python package dependencies and cryptography. Source paths are new; registered M9/M10 files remain untouched.
