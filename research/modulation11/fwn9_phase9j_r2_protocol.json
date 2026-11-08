@@ -1,0 +1,27 @@
+{
+  "schema": "HARPOON_P9J_R2_ACTUAL_CLOCK_BENCHMARK_1",
+  "lease_id": "M11_P9J_NOFILL_EVENT_20261108",
+  "original_registered_protocol": "research/modulation11/fwn9_phase9j_protocol.json",
+  "prior_ci_success": 42447482254,
+  "issue": "Initial P9J workflow benchmark only measured module property checks; it is NOT an actual clock benchmark and must not be reported as such.",
+  "hypothesis": "Running the real P9J risk-clock comparator 500 times on one fixed engineering NO_FILL fixture has measurable bounded runtime and retains all nine failing-closed tests; no new market accounts.",
+  "refutation": [
+    "Any nonzero failure in nine tests",
+    "Benchmark fails to invoke checkNativeRiskClock",
+    "Any source hash changes",
+    "Benchmark presented as production latency or profitability"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_phase9j_test_r2.cjs": "7aff9425a251ab347205bfc055caa8bb6a073ef2",
+    ".github/workflows/fwn9_phase9j_r2.yml": "8e4c59d62aaf0a0aaaf19d04386bf6d25e5e692b"
+  },
+  "promotion_eligible": false
+}
