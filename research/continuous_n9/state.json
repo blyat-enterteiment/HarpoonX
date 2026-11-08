@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9E_SHADOW_20261108T0223",
-    "phase": "M11_PHASE9E",
-    "status": "ACTIVE",
-    "start_head": "ab98920f44271ad8ae18550cefeeefaa826f7400",
-    "started_at": "2026-11-08T02:23:00Z",
-    "scope": "reserve_shadow_stochastic_wealth_lemma_adversarial_engineering",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_FIXTURE_MARK_PARITY_VERIFIED_NATIVE_STOCHASTIC_BRIDGE_UNPROVEN",
+  "current_verdict": "NO_GO_PATHWISE_BRIDGE_ONLY_POPULATION_WEAK_BOUND_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Develop a formally refutable reserve-shadow stochastic wealth lemma for native self-financing predictable quantities with causal knownAt receipts and endogenous admissions. Include the P9D-discovered P9B IOC NO_FILL valuation-count deficiency as a versioned regression; do not treat OHLC thresholds as executable without a separate proof. No new signal grid, no M10 sealed final, no broker.",
-  "next_round_id": "M11_PHASE9E_RESERVE_SHADOW_WEALTH_BRIDGE",
-  "phase": "M11_PHASE9D_NATIVE_MARK_RECEIPT_FIXTURE_PARITY_VERIFIED_GLOBAL_BOUND_UNPROVEN",
+  "next_action": "Develop a valid population inequality for E[(W_native-W_causal)^+/W_causal] under original M9 WEAK with fully endogenous causal admission and ex-ante reservations; bound OHLC execution residual and inverse-wealth tails or show counterexample. P9B IOC NO_FILL valuation debt remains; no new signals, no final seeds or broker.",
+  "next_round_id": "M11_PHASE9F_POSITIVE_CREDIT_WEAK_POPULATION_BOUNDS",
+  "phase": "M11_PHASE9E_PATHWISE_LOG_BRIDGE_VERIFIED_STOCHASTIC_CREDIT_BOUND_UNPROVEN",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9D",
+  "round": "M11_PHASE9E",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -370,6 +361,32 @@
       "tools/fwn9_phase9d_test_v2.cjs": "5fceb0ca17c78dcee59099028110b92b125316d1ba005f1ca5e3a972d8ddb6ce",
       "tools/fwn9_phase9d_accountant_v2.py": "965e31bf192f802b2c181d2ace419311f501d5aa6bf8f73e0bf1b8175ff89902",
       ".github/workflows/fwn9_phase9d_v2.yml": "8c34f98f6cd07248222aeef9e6e7e40d1e63c16f6b62adfc30cdab63e6519dc4"
+    }
+  },
+  "m11_phase9e": {
+    "lease_id": "M11_P9E_SHADOW_20261108T0223",
+    "preregistration_commit": "c348f899892f540853c031f150bd45de29c998c3",
+    "protocol": "research/modulation11/fwn9_phase9e_protocol.json",
+    "documentation": "docs/MODULATION11_PHASE9E_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9e_log_bridge.json",
+    "ci_run": 42438754541,
+    "ci_status": "SUCCESS",
+    "tests_passed": 9,
+    "independent_accountant": "PASS_DECIMAL_60",
+    "scoped_types_local": "PASS",
+    "benchmark_3000_bridge_ms": 8.099976,
+    "pathwise_log_inequality_proved": true,
+    "stochastic_population_credit_bound_proved": false,
+    "full_causal_native_wealth_equivalence_proved": false,
+    "native_infeasibility_certified": false,
+    "historical_p9b_nofill_clock_gap_open": true,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "source_sha256": {
+      "runtime30/fwn9_shadow_log_bridge_p9e.cjs": "57a5100bf5e5290f9c2db3484dea3d41a5167d383421adeed9980263bd5a1f35",
+      "tools/fwn9_phase9e_test.cjs": "78720634e9127cf1d01d1d89b2a01ebde3e9a0ad6eda098f413173fcafab8e0a",
+      "tools/fwn9_phase9e_accountant.py": "2e69360b8dd69f1c10a9b191dc684545841c64068fbe0175bcc71dddb7a6537d"
     }
   }
 }

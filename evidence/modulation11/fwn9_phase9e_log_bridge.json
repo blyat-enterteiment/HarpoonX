@@ -1,0 +1,58 @@
+{
+  "schema": "HARPOON_FWN9_P9E_EVIDENCE_1",
+  "type": "DETERMINISTIC_ENGINEERING_NO_NEW_ECONOMIC_ACCOUNTS",
+  "source_registration_commit": "c348f899892f540853c031f150bd45de29c998c3",
+  "lease_id": "M11_P9E_SHADOW_20261108T0223",
+  "ci": {
+    "run_id": 42438754541,
+    "status": "SUCCESS",
+    "node_tests": 9,
+    "failed": 0,
+    "independent_decimal": "PASS_DECIMAL_60_CONDITIONAL_ONLY",
+    "sha_m9": "PASS",
+    "benchmark_3000_ms": 8.099976
+  },
+  "scoped_types_local": "PASS_ONLY_P9E_MODULE_LOCAL_TSC",
+  "contract": {
+    "capital_usd": 20000,
+    "calendar_days": 176,
+    "admission_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "max_holding_hours": 72,
+    "weak_bound_bp_daily": 0.9051232469572758,
+    "hurdle_bp_daily": 1
+  },
+  "math": {
+    "theorem": "log(WN/W0)<=log(WC/W0)+(WN-WC)^+/WC, WN>0, WC>0",
+    "sample_native_usd": 20112.16,
+    "sample_causal_usd": 19973.2,
+    "sample_delta_usd": 138.96,
+    "sample_positive_relative_credit": 0.006957322812568842,
+    "sample_credit_bp_daily": 0.3953024325323206,
+    "population_gap_bp_daily": 0.0948767530427242,
+    "sufficient_population_credit_ceiling": 0.0016698308535519459,
+    "population_credit_established": false,
+    "causal_bound_applies_to_endogenous_book": false,
+    "native_execution_equivalence": false,
+    "risk_admission_12_percent_is_continuous": false,
+    "certified_population_infeasibility": false
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "alpha_spent": 0,
+    "final_unopened": 3200,
+    "workers": 1
+  },
+  "source_sha256": {
+    "runtime30/fwn9_shadow_log_bridge_p9e.cjs": "57a5100bf5e5290f9c2db3484dea3d41a5167d383421adeed9980263bd5a1f35",
+    "tools/fwn9_phase9e_test.cjs": "78720634e9127cf1d01d1d89b2a01ebde3e9a0ad6eda098f413173fcafab8e0a",
+    "tools/fwn9_phase9e_accountant.py": "2e69360b8dd69f1c10a9b191dc684545841c64068fbe0175bcc71dddb7a6537d"
+  },
+  "negative_findings": [
+    "Single-path credit exceeds nominal population gap but is not an expectation",
+    "Twelve-percent initial admission is not continuous exposure",
+    "P9B historical IOC no-fill valuation event deficiency remains",
+    "Native OHLC price feasibility unproven"
+  ]
+}
