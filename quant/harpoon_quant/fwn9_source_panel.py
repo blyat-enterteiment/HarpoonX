@@ -108,7 +108,7 @@ def audit_panel(tape: dict[str, Any], panel: dict[str, Any],
     opportunities: set[tuple[str, str]] = set()
     for row in opps:
         _need(isinstance(row, dict), "B_OPPORTUNITY_SHAPE")
-        d, s = row.get("day"), row.get("symbol")
+        d, s = cast(str, row.get("day")), row.get("symbol")
         _need(isinstance(d, str) and d in weekdays and s in SYMBOLS and
               (d, s) not in opportunities, "B_OPPORTUNITY_DUP_OR_FOREIGN")
         assert isinstance(s, str)
