@@ -1,0 +1,56 @@
+name: FWN9 P9H R2 same-session receipt audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_p9h_cash_ledger.cjs
+      - tools/fwn9_phase9h_test_r2.cjs
+      - tools/fwn9_phase9h_accountant.py
+      - research/modulation11/fwn9_phase9h_r2_protocol.json
+      - .github/workflows/fwn9_phase9h_r2.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  causal-ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax, focal tests, causal NO_FILL and benchmark
+        run: |
+          node --check runtime30/fwn9_p9h_cash_ledger.cjs
+          node --check tools/fwn9_phase9h_test_r2.cjs
+          node --test tools/fwn9_phase9h_test_r2.cjs
+          node tools/fwn9_phase9h_test_r2.cjs --emit-audit > /tmp/p9h_audit.txt
+          node tools/fwn9_phase9h_test_r2.cjs --bench
+      - name: Independent receipt arithmetic and strict Python types
+        run: |
+          python -m pip install --disable-pip-version-check 'ruff==0.14.4' 'mypy==1.18.2'
+          ruff check --select E4,E7,E9,F tools/fwn9_phase9h_accountant.py
+          mypy --strict tools/fwn9_phase9h_accountant.py
+          python -B tools/fwn9_phase9h_accountant.py /tmp/p9h_audit.txt
+      - name: Frozen source and preregistered git object checks
+        run: |
+          python - <<'PY'
+          import json,subprocess,hashlib,pathlib
+          p=json.loads(pathlib.Path("research/modulation11/fwn9_phase9h_r2_protocol.json").read_text())
+          assert p["budget"]["accounts"]==0 and p["budget"]["final_accounts_sealed"]==3200
+          for name,sha in p["git_blobs"].items():
+              actual=subprocess.check_output(["git","hash-object",name],text=True).strip()
+              assert actual==sha,(name,actual,sha)
+              print("SHA256",name,hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest())
+          reg=json.loads(pathlib.Path("research/modulation9/registration.json").read_text())
+          for name in ["quant/harpoon_quant/modulation9.py","runtime30/profit8_replay.js","runtime30/ultimate_reservations.js"]:
+              assert hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()==reg["sources_sha256"][name]
+          print("P9H_FROZEN_RESEARCH_SOURCES_UNMODIFIED")
+          PY
+
