@@ -167,7 +167,7 @@ class ReceiptIntakeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "DECIMAL_STRING_REQUIRED"):
             run(f)
         f = fixture()
-        f["events"][2]["known_at"] = "2025-01-10T12:00:00Z"
+        f["events"][2]["known_at"] = "2025-01-11T14:00:00Z"
         with self.assertRaisesRegex(ValueError, "KNOWN_AT_SORT_ORDER"):
             run(f)
 

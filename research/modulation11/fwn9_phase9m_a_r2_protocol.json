@@ -1,0 +1,22 @@
+{
+  "schema": "HARPOON_FWN9_P9M_A_R2_CORRECTIVE_TYPES_AND_ORDER_TEST_1",
+  "parent": "research/modulation11/fwn9_phase9m_a_protocol.json",
+  "lease_id": "M11_P9M_OBSERVATION_GATE_20261108_T4",
+  "initial_ci_failures": [
+    42458054026,
+    42458050074
+  ],
+  "first_failure": "MYPY_UNNARROWED_OPTIONAL_FIELDS_9_ERRORS",
+  "correction": "Explicit runtime narrowing following existing fail-closed _need checks for development and receipt lists; adjust adversarial known_at order fixture to keep effective_at<=known_at.",
+  "preemptive_test_fix": "Previous negative test used known_at before effective_at and therefore would fail at future-receipt clock check before sort-order check; modified to valid effective_at<=known_at but regress known_at across records.",
+  "budget_delta": {
+    "economic_accounts": 0,
+    "candidates": 0,
+    "controls": 0,
+    "alpha": 0
+  },
+  "accounting": "CI attempts retained; none retried in place.",
+  "no_economic_changes": true,
+  "final_opened": false,
+  "promotion_eligible": false
+}

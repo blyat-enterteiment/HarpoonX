@@ -78,6 +78,7 @@ def audit_receipt_tape(
     end = _utc(now)
     days = tape.get("development_days")
     _need(isinstance(days, list) and 180 <= len(days) <= 2000, "DEVELOPMENT_180D")
+    assert isinstance(days, list)  # narrows after the fail-closed validator
     try:
         dd = [date.fromisoformat(x) for x in days]
         hold_start = date.fromisoformat(tape["holdout_start"])
@@ -98,6 +99,7 @@ def audit_receipt_tape(
     _need(isinstance(events, list) and 1 <= len(events) <= MAX_EVENTS and
           isinstance(labels, list) and len(labels) <= MAX_EVENTS,
           "EVENT_BUDGET")
+    assert isinstance(events, list) and isinstance(labels, list)
     _need(all(isinstance(e, dict) for e in events) and
           all(isinstance(e, dict) for e in labels), "EVENT_SHAPES")
     actual_digest = receipt_sha256(events)
