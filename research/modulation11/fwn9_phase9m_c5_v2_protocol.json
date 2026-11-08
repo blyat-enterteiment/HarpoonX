@@ -1,0 +1,30 @@
+{
+  "schema": "HARPOON_FWN9_P9MC5_GAUSSIAN_CREDIT_V2_TYPED_PROTOCOL_1",
+  "parent": "research/modulation11/fwn9_phase9m_c5_protocol.json",
+  "prior_failed_ci": 42482339371,
+  "prior_failed_cause": "Strict mypy types: json loads returned Any and unittest class fixture lacked typed original attribute; original analytical version preserved",
+  "hypothesis": "Reconcile exact Gaussian downside expectation, eight-step finite pathwise inequality and frozen WEAK mixture under explicit static typing without modifying any economic assumption or prior result.",
+  "refutation": [
+    "Strict mypy still fails",
+    "Numerical quadrature differs from closed Gaussian formula >1e-10",
+    "Price/support contract or bounds changed from original v1",
+    "Original M9 generator checksum changes",
+    "Conditional bar-credit bound represented as whole-population certification"
+  ],
+  "economic_budget": {
+    "new_accounts": 0,
+    "new_candidates": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_accounts_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9m_c5_credit_bound_v2.py": "da5b3b9d893f9b1bd0d57e3960955ef762f9fb89",
+    "tools/test_fwn9_p9m_c5_credit_bound_v2.py": "ca919e49ac361857f2a7b9dbc1f3b12453175887",
+    ".github/workflows/fwn9_p9m_c5_v2.yml": "16e45367c9895536654831f3ef08727fee5dfa4f"
+  },
+  "original_parameters_changed": false,
+  "market_seeds_opened": [],
+  "holdout_opened": false,
+  "may_promote_n9s": false
+}
