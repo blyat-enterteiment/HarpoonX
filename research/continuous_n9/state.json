@@ -1,17 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_C3_FINITE_CAUSAL_SURFACE_T8_20261108",
-    "phase": "M11_PHASE9M_C3",
-    "status": "ACTIVE",
-    "started_at_utc": "2026-11-08T11:11:45Z",
-    "acquired_from_head": "a98947d3d6bd1dd6c1888d9dfbaab9e4e2db233c",
-    "attempt": 1,
-    "protocol": "research/modulation11/fwn9_phase9m_c3_protocol.json",
-    "new_economic_accounts": 0,
-    "alpha_spent": 0,
-    "worker_limit": 1
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,10 +17,10 @@
   "automation_id": "Automation_eb76e63560c08191a9871ad680b48ba0",
   "candidate_id": "QUALITY_NATIVE_QUEUE72_R0625",
   "candidate_score": -0.00015679645503256372,
-  "ci_run": 42405166152,
+  "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9M_C2_TWO_ASSET_FIXTURE_PARITY_PASS_NATIVE_OHLC_AND_WEAK_BOUND_UNCERTIFIED",
+  "current_verdict": "NO_GO_P9MC3_FINITE_NATIVE_VS_EIGHT_SUBSTEP_NON_EQUIVALENCE_WEAK_BOUND_UNCERTIFIED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -44,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "P9M-C3 estructural: extender cobertura causal del motor M9 sobre catálogo finito de eventos/marks con comparación nativa vs ocho subpasos y reservas; verificar o refutar premisas de la cota WEAK sólo para precios autofinanciados efectivamente implementados. No abrir señales/holdouts ni relajar costes, riesgo, 72h, capital o hurdle. Cobertura operativa y multicelda continúan pendientes.",
-  "next_round_id": "M11_PHASE9M_C3_NATIVE_SUBSTEP_RECEIPT_MARK_POPULATION_BRIDGE",
-  "phase": "M11_PHASE9M_C3_ACTIVE",
+  "next_action": "P9M-C4 estructural: definir y verificar el contrato causal de precios/marks del replay sobre la ley de ocho subpasos; certificado de alcance para cota WEAK sólo cuando sea demostrable. No abrir nuevas señales ni semillas finales sin hipótesis material nueva, no modificar umbrales/costes/riesgo.",
+  "next_round_id": "M11_PHASE9M_C4_NATIVE_PRICE_ATTAINABILITY_POPULATION_CONTRACT",
+  "phase": "M11_PHASE9M_C3_FINITE_CAUSAL_SURFACE_COMPLETE",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -864,5 +853,37 @@
     "new_market_seeds": 0,
     "alpha_delta": 0,
     "final_M10_unopened": 3200
+  },
+  "m11_phase9m_c3": {
+    "protocol": "research/modulation11/fwn9_phase9m_c3_protocol.json",
+    "document": "docs/MODULATION11_PHASE9M_C3.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c3.json",
+    "preregistration_commit": "99f2cf317dae116cd994004a033d5ade3a0517d1",
+    "code_commit": "2f268544b76fb3c5e5b6bdb50fb8f1c20ec2eef0",
+    "correction_commit": "f004de3bd608d073b6153f03bb193f78d6d3af7e",
+    "ci_run": 42475052166,
+    "ci_status": "SUCCESS",
+    "focused_tests_passed": 8,
+    "accountant": "P9MC1 AND P9MC2 Decimal-46 PASS",
+    "attempt_count": 2,
+    "failed_attempt_runs": [
+      42474975346
+    ],
+    "benchmark_10_ms": 135.121,
+    "native_net_usd": -16.32,
+    "target_first_usd": -16.58,
+    "stop_first_usd": -32.56,
+    "native_minus_better_of_two_usd": 0.26,
+    "all_substep_permutations_exhausted": false,
+    "source_sha256": {
+      "runtime30/fwn9_p9m_c3_surface_bridge.cjs": "9f7876d32ab95fc5f318ef45350b87d7b6ecdced6101377c577eb4104b81b45d",
+      "tools/fwn9_p9m_c3_test.cjs": "6b1d3716809ef1a93d8c2e1b30590d0915d1c17d1add57287775e0e2491eedd4",
+      "research/modulation11/fwn9_phase9m_c3_protocol.json": "c4092e68845bdbca2670330b3d51651bd4b11a97e1125eb24b247416b1f0b32f"
+    },
+    "proof_json_sha256": "57af4d3250c50f2722ee01be069c2c5e5202514eb10580dc784c7173105c0748",
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_m10_opened": 0,
+    "native_WEAK_infeasibility_certified": false
   }
 }
