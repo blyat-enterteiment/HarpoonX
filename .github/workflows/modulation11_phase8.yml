@@ -1,0 +1,59 @@
+name: M11 phase8 receipt-based endogenous admission mirror
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_admission_mirror.cjs
+      - tools/modulation11_phase8_test.cjs
+      - tools/modulation11_phase8_accountant.py
+      - research/modulation11/phase8_protocol.json
+      - .github/workflows/modulation11_phase8.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  causal-mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and adversarial receipt/quantity fixtures
+        run: |
+          node --check runtime30/modulation11_admission_mirror.cjs
+          node --check tools/modulation11_phase8_test.cjs
+          node --test tools/modulation11_phase8_test.cjs
+      - name: Scoped static type check
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_admission_mirror.cjs
+      - name: Independent Decimal 46 reconciliation
+        run: |
+          node tools/modulation11_phase8_test.cjs --emit-accountant >/tmp/harpoon_m11p8.txt
+          python -B tools/modulation11_phase8_accountant.py /tmp/harpoon_m11p8.txt
+      - name: Code-object provenance and sealed-market guard
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          root=pathlib.Path('.')
+          proto=json.loads((root/'research/modulation11/phase8_protocol.json').read_text())
+          assert proto['budget']['economic_accounts']==0
+          assert proto['budget']['market_seeds_opened']==[]
+          assert proto['budget']['alpha_spent']==0 and proto['budget']['m10_final_unopened']==3200
+          for path,expected in proto['code_git_blob_sha1'].items():
+              got=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert got==expected,(path,got,expected)
+              print('M11_P8_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          old=json.loads((root/'research/modulation9/registration.json').read_text())
+          key='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/key).read_bytes()).hexdigest()==old['sources_sha256'][key]
+          print('M11_P8_ORIGINAL_GENERATOR_INTEGRITY_PASS')
+          PY
+      - name: Deterministic mirror benchmark
+        run: |
+          node tools/modulation11_phase8_test.cjs --bench >/tmp/harpoon_m11p8_bench.log
+          grep M11_P8_MIRROR_1000_MS /tmp/harpoon_m11p8_bench.log
