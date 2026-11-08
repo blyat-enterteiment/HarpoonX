@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9J_NOFILL_EVENT_20261108",
-    "phase": "M11_PHASE9J",
-    "status": "ACTIVE",
-    "start_head": "b74e37cfb3338ff2a7eede4e9d40aa0841a2897e",
-    "scope": "repair P9B missing modeled IOC NO_FILL valuation event with validated source receipt, preserve immutable original",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_1074_REGRESSIONS_PASS_SCOPE_EXECUTION_GATES_INCOMPLETE",
+  "current_verdict": "NO_GO_P9J_SOURCE_CLOCK_FIXTURE_PASS_STOCHASTIC_AND_OPERATIONAL_GATES_OPEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Close exact historical P9B MODELED_IOC_NO_FILL missing valuation event in a new versioned witness including its risk gate and source knownAt timeline. Extend P9I finite all-admissions gate beyond current fixture without opening new market accounts or sealed M10 final. Native OHLC executable price and full partial/reject/outage/impact plus virtual-cell gates remain required before N9S.",
-  "next_round_id": "M11_PHASE9J_NO_FILL_VALUATION_CLOCK_AND_SOURCE_EVENT_COVERAGE",
-  "phase": "M11_PHASE9I_VERSIONED_PROVENANCE_CI_FULL_REGRESSIONS_PASS_NATIVE_OPERATIONAL_GAPS_UNPROVEN",
+  "next_action": "Preregister and verify full source-causal operational failure matrix for partial IOC entry, reject, outage, delayed receipt, impact, fee/cash and cross-cell coordinator in offline engineering replay. Use only own causal receipts and robust independent accounting; preserve original generator, N9-S hurdle, no new economic candidates or M10 sealed final. OHLC executable-price gap and native positive-credit population bound remain open.",
+  "next_round_id": "M11_PHASE9K_FULL_NATIVE_DECISION_FAULT_MATRIX",
+  "phase": "M11_PHASE9J_MODELED_IOC_NOFILL_VALUATION_CLOCK_VERSIONED_FIX_VERIFIED_GLOBAL_N9_GATES_OPEN",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9I",
+  "round": "M11_PHASE9J",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -541,6 +533,38 @@
       "runtime30/fwn9_p9i_operational_gate.cjs": "7df19724c4ca9818d970fed76473bd1936be460ebd1c1578350162237246f79f",
       "tools/fwn9_p9i_operational_test.cjs": "a8e96cdac687e65d40064460c781d6f0f74b7b8704be396cf20f2a19e6fd6f41",
       "tools/fwn9_p9i_composite_lineage.py": "a6c76d6f352de955c0159139ae01283dc466e62c9d5fd4a2b2bb329820d60213"
+    }
+  },
+  "m11_phase9j": {
+    "protocol": "research/modulation11/fwn9_phase9j_protocol.json",
+    "corrective_protocol": "research/modulation11/fwn9_phase9j_r2_protocol.json",
+    "documentation": "docs/MODULATION11_PHASE9J_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9j_no_fill_clock.json",
+    "preregistration_commit": "bfaea19cc2d1fc9f9d69800713433684bb8dc720",
+    "ci_focal": 42447482254,
+    "ci_benchmark_r2": 42447596067,
+    "ci_full_quant": 42447482215,
+    "tests_focal_passed": 9,
+    "quant_current_passed": 1062,
+    "quant_archive_passed": 12,
+    "independent_accounting": "PASS_DECIMAL_46",
+    "benchmark_actual_500_ms": 125.992,
+    "old_p9b_immutable": true,
+    "modeled_no_fill_valuation_clock_new_auditor_fixed": true,
+    "old_p9b_valuation_clock_still_inaccurate": true,
+    "universal_native_coverage": false,
+    "full_execution_failure_coverage": false,
+    "multicell_coverage": false,
+    "native_stochastic_wealth_bound": false,
+    "alpha_delta": 0,
+    "economic_accounts_delta": 0,
+    "m10_final_unopened": 3200,
+    "source_sha256": {
+      "runtime30/fwn9_p9j_native_risk_clock.cjs": "f70351bc2fc61305c71af7b8ba353016a8e17cc7962ba24003e1bb44f1d26b8c",
+      "tools/fwn9_phase9j_test.cjs": "08a63d38d438ce6a2ca2cc8dd333f5348231c35509c2330933e3e4e9c933f234",
+      "tools/fwn9_phase9j_accountant.py": "69dc83c6642f95156d9dd136cc3ff5a6cccc17d672fc43c252096d97997311bb",
+      "tools/fwn9_phase9j_test_r2.cjs": "03af9603b2fd5268e5c3cb641c90b5bd0c78b73fe6e5cedf22d35173e551ac0a",
+      ".github/workflows/fwn9_phase9j_r2.yml": "82323538f948174729b7be78e9992b77ed391191095f37fe70d6c9a720fba227"
     }
   }
 }
