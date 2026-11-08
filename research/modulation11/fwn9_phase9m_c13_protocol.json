@@ -1,0 +1,70 @@
+{
+  "schema": "HARPOON_FWN9_P9MC13_LOCAL72_CAUSAL_COUPLING_PROTOCOL_1",
+  "parent_state": "M11_PHASE9M_C12_PROOF_ROUTE_CLOSED_AUTOMATION_PAUSED",
+  "lease_source_commit": "b4b3f44e6634b800223c506dd69144c4f088dbe5",
+  "status": "PREREGISTERED_BEFORE_TEST_OUTPUT",
+  "structural_hypothesis": "An event-time self-financing two-book wealth difference can be exactly telescoped over exogenous contiguous <=72h calendar windows, keeping independently admitted quantities, native executed prices/fees, causal receipt availability, open inventory at boundaries and nonidentical fills; a local non-vacuity criterion must be explicitly tested against N9 hurdle before promoting a stochastic theorem.",
+  "null_refutation": [
+    "An accepted receipt has knownAt earlier than execution effectiveAt or its decision time",
+    "The two independent books have to share fills or quantities for the identity to hold",
+    "Positive inventory disappears at a window boundary without explicit sale",
+    "One window has a nonzero unexplained wealth-difference residual beyond USD 0.000001",
+    "An out-of-order partial receipt makes cash available before knownAt",
+    "A single-window scalar range cap is claimed uniformly under nondegenerate lognormal WEAK without a stochastic tail term",
+    "An engineering example or a mathematical identity is promoted as a WEAK population profitability/infeasibility proof"
+  ],
+  "candidate_lemmas": [
+    "At each published mark S_t: dW_j = q_{j,t-} dS_t; at an effective fill delta_q at price P with fee F: dW_j=delta_q(S_t-P)-F. Knowledge at knownAt is tracked separately.",
+    "For two independent books A,B on the same mark tape, ΔW_end-ΔW_start= Σ(qA-qB)dS +Σ(deltaqA(S-PA)-deltaqB(S-PB)) -Σ(feeA-feeB)-Δfixed. Sum exactly across nonoverlapping <=72h windows; include positions carried over boundaries.",
+    "A one-window upper bound is the sum of positive parts of its component contributions; nonvacuity requires its normalized adjusted upper bound below the 1 bp/day hurdle for the same temporal contract, not just one favorable fixture.",
+    "The WEAK Gaussian increment has strictly positive probability of an arbitrarily large positive price ratio for every finite M, so no deterministic uniform M for a 72h local window follows from the window length alone. This is a refutation of that specific route, not all possible stochastic local bounds."
+  ],
+  "finite_engineering_catalogue": [
+    "Two independently financed books have different assets, quantities and open campaign IDs; exact pathwise wealth reconciliation",
+    "Window-crossing inventory persists and contributes to later exposure delta",
+    "Delayed receipts knownAt vs economic at; no-fill releases reservation only at knownAt",
+    "Partial target and stop exit, with original campaign <=72h lifetime",
+    "Positive OHLC and zero-tick nonnegative exit; no negative fill or borrowing",
+    "Mutation: future mark publication before bar close, duplicate IDs, forged fees, oversold inventory, missing terminal receipt",
+    "Native replay funded campaign used as one book and a separately selected valid second book; comparison never forces identical admissions",
+    "WEAK Gaussian finite-M tail counterexample; no population promotion"
+  ],
+  "preserved_contract": {
+    "capital_usd": 20000,
+    "admission_gross_fraction": 0.12,
+    "risk_fraction": 0.0025,
+    "daily_loss": 0.02,
+    "max_drawdown": 0.08,
+    "max_hold_hours": 72,
+    "nominal_cost_per_share_side_usd": 0.005,
+    "stress_cost_per_share_side_usd": 0.01,
+    "nominal_spread_bps": 2,
+    "nominal_slippage_bps": 2,
+    "worlds": [
+      "TREND",
+      "WEAK",
+      "FALSE",
+      "NULL",
+      "GAP"
+    ],
+    "original_hurdle_bp_calendar_day": 1
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "market_seeds": 0,
+    "new_candidate_recipes": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_M10_unopened": 3200
+  },
+  "publication": "ADD_ONLY_PRESERVE_C10_C12_GLOBAL_ROUTE_PAUSE",
+  "safety": {
+    "no_broker": true,
+    "no_orders": true,
+    "no_merge": true,
+    "no_deploy": true,
+    "no_automation_resume": true
+  },
+  "acceptance": "Deliver either a population-valid nonvacuous native wealth inequality under all unchanged assumptions, OR a precise mathematical counterexample delimiting the infeasible local approach; retain engineering tests, failed attempts and honest nonclaim.",
+  "full_population_certification": false
+}
