@@ -1,0 +1,30 @@
+name: C11 native tick support and independent ledger audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths: ['.github/workflows/fwn9_p9m_c11.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Syntax
+        run: |
+          node --check runtime30/fwn9_p9m_c11_tick_applicability.cjs
+          node --check tools/fwn9_p9m_c11_tick_test.cjs
+          python -m py_compile tools/fwn9_p9m_c11_decimal_accountant.py
+      - name: Scoped native tests
+        run: node --test tools/fwn9_p9m_c11_tick_test.cjs
+      - name: Independent Decimal50 accountant
+        run: |
+          set -o pipefail
+          node tools/fwn9_p9m_c11_tick_test.cjs --emit | grep '^{"schema":"FWN9_C11_TICK_SUPPORT_AUDIT_1"' | python tools/fwn9_p9m_c11_decimal_accountant.py
+      - name: Benchmark
+        run: node tools/fwn9_p9m_c11_tick_test.cjs --bench | grep '^C11_BENCH_12_NATIVE_REPLAYS_MS='
