@@ -1,0 +1,62 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C2_SOURCE_EVENT_PARITY_1",
+  "parent_program": "research/continuous_n9/program.json",
+  "prior_head": "f9eba0ced700721fba42f44bb42d7766c3cbdf39",
+  "continuation_pr": 7,
+  "lease_id": "M11_P9M_C2_EVENT_PARITY_20261108_T7",
+  "hypothesis": "A native order accepted from a causally available mark, then producing a NO_FILL on one asset, must retain reserved capacity before knownAt, release only at knownAt, never create phantom inventory or principal, and maintain correct physical cash and equity for simultaneous second-asset admissions. Distinguish admission-reserve cap from continuous exposure.",
+  "falsification": [
+    "NO_FILL becomes visible prior to its source knownAt",
+    "reservation remains after observed NO_FILL or is released early",
+    "cash/inventory equity fails independent reconstruction at any event",
+    "same symbol can obtain unauthorized second admission while first reserved",
+    "decision uses a future mark or downstream price",
+    "native replay event and source event disagree without explicit exception"
+  ],
+  "finite_fixture_catalog": [
+    "two assets staged admissions at decision t and t+1",
+    "first asset IOC NO_FILL with receipt at t+5min",
+    "second asset IOC fill with fixed modeled fees and independent cash reconciliation",
+    "before/at/after receipt reservation snapshots",
+    "future mark rejection and negative event-clock control",
+    "repeated case microbenchmark"
+  ],
+  "seeds": {
+    "market": [],
+    "holdout": [],
+    "engineering": "fixed deterministic event times and prices, no market RNG"
+  },
+  "budget": {
+    "new_candidates": 0,
+    "controls": 1,
+    "new_economic_accounts": 0,
+    "workers": 1,
+    "prospective_alpha_spent": 0,
+    "final_opened": 0
+  },
+  "immutable": {
+    "capitalUsd": 20000,
+    "reserveGrossFraction": 0.12,
+    "riskFraction": 0.0025,
+    "maxHoldHours": 72,
+    "nominalCost": {
+      "commissionUsdPerShareSide": 0.005,
+      "spreadBps": 2,
+      "slippageBps": 2
+    },
+    "new_market_paths": false
+  },
+  "sources": [
+    "runtime30/profit8_replay.js",
+    "runtime30/ultimate_reservations.js",
+    "runtime30/fwn9_p9j_native_risk_clock.cjs",
+    "runtime30/fwn9_p9k_fault_matrix_r2.cjs"
+  ],
+  "expected_output": [
+    "runtime30/fwn9_p9m_c2_event_parity.cjs",
+    "tools/fwn9_p9m_c2_event_test.cjs",
+    "docs/MODULATION11_PHASE9M_C2.md",
+    "evidence/modulation11/fwn9_phase9m_c2.json"
+  ],
+  "warning": "Does not certify OHLC first-cross equivalence or population WEAK bound; engine diagnostic only, no N9-S acceptance."
+}
