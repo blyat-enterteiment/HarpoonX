@@ -1,0 +1,106 @@
+{
+  "schema": "HARPOON_N9_M11_C9_NATIVE_EVENT_INDUCTION_EVIDENCE_1",
+  "phase": "M11_PHASE9M_C9_NATIVE_EVENT_INDUCTION_WEALTH_FEEDBACK",
+  "contract": "research/modulation9/protocol.json",
+  "scope": "ENGINEERING_REPLAY_WITH_NATIVE_RESERVATION_FUNCTIONS_AND_FINITE_FIXED_BARS",
+  "parent_head": "185d3f93d77b8b8fc2ab51028ed9b76a2d35d372",
+  "lease_commit": "f91f9ce4bc9c6507778e6796143feb4e7efca820",
+  "source_commit": "413b4ed231626317cf6e1c83cc0186b0518a5b5f",
+  "correction_commit": "1a8353547ebcc5ebfd33cb7c89d0c64adb8d70b8",
+  "preregistration": "research/modulation11/fwn9_phase9m_c9_protocol.json",
+  "correction_protocol": "research/modulation11/fwn9_phase9m_c9_r2_protocol.json",
+  "ci": {
+    "r1": {
+      "run_id": 42507381337,
+      "status": "FAILURE_CHARGED",
+      "passed": 7,
+      "failed": 1,
+      "cause": "Original-quantity corruption rejected early by native INVALID_RESERVATION_OBSERVATION; test expected only C9 higher-layer error; original unchanged."
+    },
+    "r2": {
+      "run_id": 42507464937,
+      "status": "SUCCESS",
+      "passed": 8,
+      "failed": 0,
+      "syntax_node": "PASS",
+      "native_source_sha256_registration_check": "PASS",
+      "independent_physical_terminal_reconciliation": "PASS",
+      "benchmark_10_replays_ms": 68.294
+    },
+    "full_branch_quant_regression": {
+      "run_id": 42507469107,
+      "status_at_checkpoint": "IN_PROGRESS_NOT_DECLARED_PASS"
+    }
+  },
+  "witness": {
+    "checked_snapshots": 14,
+    "opened_reservation_rows": 15,
+    "pending_reservation_rows": 4,
+    "partially_exited_snapshot_rows": 7,
+    "admissions_checked": 2,
+    "max_nominal_minus_known_marked_usd": 416,
+    "note": "All values are deterministic fixtures; the nominal-minus-marked gap is a conservative accounting buffer, not returns, and these counts are not population validation."
+  },
+  "event_induction": {
+    "algebraic_lemma": "For every valid OPENED long cash-share reservation with q_known in [0,q_original], mark p>0 known at time t, max(B_original,q_original*p) >= q_known*p. PENDING retains original B until receipt and no observed inventory is invented; CLOSED/NO_FILL release only after effective and knowledge times. Native admittance checks q_new*p_ceiling+repriced_prior<=.12*E at the decision under original risk budget.",
+    "verified": "FINITE_M9_TWO_ASSET_NATIVE_FIXTURES_AND_CONSISTENT_EVENT_ALGEBRA",
+    "universal_reachable_execution_states_proven": false,
+    "all_wealth_moments_bounded": false,
+    "native_ohlc_exact_substeps_equivalent": false,
+    "admission_vs_continuous_12_percent": "ADMISSION_ONLY",
+    "future_admission_feedback_coupled": false,
+    "weak_infeasibility_certified": false
+  },
+  "static_quality": {
+    "node_syntax": "PASS",
+    "native_source_hashes": "PASS",
+    "specific_static_linter": "NOT_RUN",
+    "strict_types_of_new_js": "NOT_RUN",
+    "remaining": "No claim of full cross-module types/static certification."
+  },
+  "registered_original_sha256": {
+    "runtime30/profit8_replay.js": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "runtime30/ultimate_reservations.js": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "quant/harpoon_quant/modulation9.py": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab"
+  },
+  "git_blob_sha1": {
+    "runtime30/fwn9_p9m_c9_event_induction.cjs": "267c2698d7d420b681b5c9784f89239c5f9bd7d4",
+    "tools/fwn9_p9m_c9_event_induction_test.cjs": "25e6126ec572275f4ce1a9b343b31f1fd55e5261",
+    "tools/fwn9_p9m_c9_event_induction_test_r2.cjs": "67b992ea1b4a0d672b2eca79309dda76eb0832d5",
+    "research/modulation11/fwn9_phase9m_c9_protocol.json": "6be4cd2f9c5bdf4cd62f0a2468d7112780694c44"
+  },
+  "budgets": {
+    "economic_accounts_executed": 0,
+    "new_candidates": 0,
+    "new_seeds": 0,
+    "M10_final_unopened": 3200,
+    "prospective_alpha_spent": 0,
+    "workers": 1,
+    "engineering_attempts_charged": 2,
+    "engineering_failures_charged": 1
+  },
+  "unchanged": {
+    "capital_usd": 20000,
+    "universe": [
+      "SYNA",
+      "SYNB"
+    ],
+    "gross_reserve_cap": 0.12,
+    "risk_per_entry_fraction": 0.0025,
+    "max_hours": 72,
+    "price_law": "ORIGINAL_WEAK_UNCHANGED",
+    "costs": "ORIGINAL_NOMINAL_STRESS_UNCHANGED",
+    "hurdle_bp_day": 1
+  },
+  "blockers": [
+    "Native OHLC thresholds not proven to correspond to eight causal substeps",
+    "No population WEAK expectation/wealth-coupling certificate",
+    "Execution partial/reject/outage/market impact coverage incomplete",
+    "Virtual-cell coordinator incomplete",
+    "Historical statistical debt is not retroactively corrected"
+  ],
+  "status": "NO_GO_N9S",
+  "large_raw_artifact_added": false,
+  "pr": "https://github.com/blyat-enterteiment/HarpoonX/pull/7",
+  "decision": "Do not open M10 holdout or search new signals; isolate native wealth feedback and price law bridge in distinct protocol."
+}
