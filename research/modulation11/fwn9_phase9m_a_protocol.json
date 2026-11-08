@@ -1,0 +1,57 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9M_A_OBSERVED_RECEIPT_PREFLIGHT_1",
+  "lease_id": "M11_P9M_OBSERVATION_GATE_20261108_T4",
+  "parent_program": "research/continuous_n9/program.json",
+  "start_head": "cd32110e71c93b1d3f2351bbae472361a6b6da1b",
+  "source_pr": "https://github.com/blyat-enterteiment/HarpoonX/pull/7",
+  "unit": "Engineering-only offline observed-execution receipt intake, independent from optimizer scoring, with journal idempotence and immutable checkpoint binding.",
+  "hypothesis": "A strictly causal, self-financed receipt tape with 180-day development and a disjoint sealed holdout declaration can be checked and journaled without promoting modeled OHLC prices to observed fills, opening sealed M10 finals, changing original M9 costs/caps, or claiming receipt provenance authenticity.",
+  "alternate": "A source-tape schema or journal can be internally consistent but cannot prove broker provenance; if no externally fixed evidence root or observed source exists, gate remains blocked.",
+  "finite_fixture_catalog": [
+    "valid offline single entry/exit receipt ledger and 180 contiguous calendar development days",
+    "two partial exit fills conserve quantity, fees and net",
+    "missing terminal fill and open inventory fails",
+    "future-known signal or exit label fails",
+    "duplicate event identifier and duplicate order label fail",
+    "held stop/entry beyond 72 hours fails",
+    "modeled OHLC source rejected even if renamed OBSERVED",
+    "wrong native checkpoint binding or SHA-256 expected anchor fails",
+    "holdout overlap or fewer than 180 development days fails",
+    "identical restart idempotent on SQLite journal; conflicting restart fails",
+    "corrupted SQLite audit chain fails closed",
+    "large input bounds, negative/NaN fees and invalid decimals fail"
+  ],
+  "refutation": [
+    "Any receipt effective_at later than known_at gets accepted",
+    "Any output generated without full inventory/fee reconciliation is eligible to enter recursive.tick",
+    "Any modeled OHLC receipt is labeled real observed",
+    "Any holdout sample or older M10 sealed final is accessed",
+    "Any rejected/corrupted journal changes trial budget or audit without error",
+    "Any missing trusted source anchor is interpreted as source authenticity",
+    "Any source files under frozen M9/M10 are overwritten",
+    "Any economic search, broker/market order, deployment, PR merge occurs"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "repeated_controls": 0,
+    "workers": 1,
+    "prospective_alpha_spent": 0,
+    "m10_final_accounts_unopened": 3200,
+    "market_seed_sets": [],
+    "observed_receipts_available": false
+  },
+  "pre_validation_rule": "Only synthetic engineering fixtures for schema/testing, never optimization candidates. Observed provenance cannot be inferred from self-declared fields or SHA equality. No prospective validation starts.",
+  "binding": {
+    "source_native_checkpoint": "tools/fwn9_p9l_checkpoint.cjs",
+    "optimizer_journal": "quant/harpoon_quant/recursive.py",
+    "m9_protocol": "research/modulation9/protocol.json",
+    "cash_usd": 20000,
+    "gross_and_asset_admission_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "max_holding_h": 72
+  },
+  "promotion_eligible": false,
+  "execution_allowed": false,
+  "versioning": "Append-only sources, protocol must remain immutable; corrective protocols use new paths."
+}
