@@ -1,16 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_OBSERVATION_GATE_20261108_T4",
-    "round": "M11_PHASE9M_OBSERVATION_TO_OPTIMIZER_INCREMENTAL_JOURNAL",
-    "stage": "LEASED",
-    "started_at": "2026-11-08T07:09:46Z",
-    "base_head": "cd32110e71c93b1d3f2351bbae472361a6b6da1b",
-    "scope": "one engineering unit: strict offline observed receipt panel gate & negative fixtures; no optimizer promotion or market accounts",
-    "expected_accounts": 0,
-    "expected_alpha": 0,
-    "execution_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -30,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9L_NATIVE_OFFLINE_12_PASS_QUANT1074_PASS_OBSERVED_PANEL_MISSING",
+  "current_verdict": "NO_GO_P9M_A_13_PASS_QUANT1087_PASS_OBSERVED_AUTH_AND_DAILY_MTM_MISSING",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -43,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Preregister and implement a real source-to-optimization panel contract from prospectively observed fills (complete known_at, label_known_at, fees, inventory/exit receipts, 180d development, disjoint sealed holdout) with binding to the FWN9 native accounting checkpoint and SQLite journal. Exercise restart/corruption/budget/plateau and source-native event parity across multiple cases. Keep 3200 M10 finals sealed, original costs and risk unchanged. No paper/live orders or strategy search before these gates; do not relabel modeled OHLC as observed.",
-  "next_round_id": "M11_PHASE9M_OBSERVATION_TO_OPTIMIZER_INCREMENTAL_JOURNAL",
-  "phase": "M11_PHASE9L_NATIVE_MODELED_RECEIPT_PARITY_AND_RESTARTABLE_CHECKPOINT_VERIFIED_OPTIMIZER_OBSERVED_GATE_OPEN",
+  "next_action": "Unidad estructural siguiente: anclar procedencia de recibos/etiquetas prospectivas de forma externa e independiente (no basta SHA autoaportado); completar oportunidad observada 180d, MTM diario, coste fijo calendario y universo íntegro, sin abrir holdout M10 y sin llamar recursive.tick ni buscar señales; después exigir paridad integral M9/P9K, recuperación de journal, presupuesto y plateau. Conservar todos los costes, riesgos y las 3200 finales.",
+  "next_round_id": "M11_PHASE9M_B_SOURCE_ATTESTATION_MARKS_COMPLETE_UNIVERSE",
+  "phase": "M11_PHASE9M_A_OFFLINE_RECEIPT_PREFLIGHT_VERIFIED_OBSERVED_AUTH_AND_MTM_MISSING",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -63,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9L",
+  "round": "M11_PHASE9M_A",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -691,5 +681,54 @@
       ".github/workflows/fwn9_phase9l.yml": "314bb57ece8f2ae5415b6a8edac5a12f0782ffe3209ac2f0f6e319b8320849e9",
       ".github/workflows/fwn9_phase9l_r3.yml": "717238b459243c72cb2ccb3d8846951654c9871f4b5ab0d632aa3b0be9b0aef4"
     }
+  },
+  "m11_phase9m_a": {
+    "protocol": "research/modulation11/fwn9_phase9m_a_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9m_a_r2_protocol.json",
+      "research/modulation11/fwn9_phase9m_a_r3_protocol.json"
+    ],
+    "documentation": "docs/MODULATION11_PHASE9M_A.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_a_preflight.json",
+    "preregistration_commit": "8e38d161fb2a3b1a4fa9cbeb0865c9e897da5c20",
+    "lease_commit": "e93b13724e84dcfb7760623f81a9335273c7bf10",
+    "source_commit": "48ed1174160f4fe1418ae78003c867df60c30b2c",
+    "ci": {
+      "initial_mypy_failures_preserved": [
+        42458054026,
+        42458050074
+      ],
+      "initial_quant_failure_runs_preserved": [
+        42458054032,
+        42458050022
+      ],
+      "r2_focal_success": [
+        42458165142,
+        42458169423
+      ],
+      "final_focal_success": 42458274059,
+      "full_quant_success": 42458274061,
+      "exact_law_success": 42458274082,
+      "focus_tests_passed": 13,
+      "current_quant_tests_passed": 1075,
+      "historical_archive_tests_passed": 12,
+      "typing": "PASS",
+      "ruff": "PASS",
+      "python_syntax": "PASS",
+      "benchmark_200_reconciliations_ms": 44.585
+    },
+    "source_sha256": {
+      "quant/harpoon_quant/fwn9_observed_gate.py": "590a353eca767250fee338ad8329f09aa75cd08c428cfeeb4c2ac68cee764fb0",
+      "quant/tests/test_fwn9_observed_gate.py": "df96c2f729da6d324d977b14b5566ab14b7d8f2ba1d30533382400ca6cc3604f"
+    },
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "fully_observed_panel": false,
+    "independently_authenticated_source": false,
+    "daily_mtm_verified": false,
+    "optimizer_eligible": false,
+    "native_infeasibility_certified": false,
+    "no_broker_orders": true
   }
 }

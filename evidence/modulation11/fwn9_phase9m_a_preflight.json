@@ -1,0 +1,88 @@
+{
+  "schema": "HARPOON_FWN9_P9M_A_EVIDENCE_1",
+  "as_of_utc": "2026-11-08T07:22:00Z",
+  "branch": "codex/continuous-n9-research",
+  "pr_number": 7,
+  "base_head": "cd32110e71c93b1d3f2351bbae472361a6b6da1b",
+  "source_commit": "48ed1174160f4fe1418ae78003c867df60c30b2c",
+  "preregistration_commit": "8e38d161fb2a3b1a4fa9cbeb0865c9e897da5c20",
+  "lease_commit": "e93b13724e84dcfb7760623f81a9335273c7bf10",
+  "status": "OFFLINE_RECEIPT_PREFLIGHT_VERIFIED_N9S_NO_GO",
+  "audit_domain": "ENGINEERING_FAKE_RECEIPTS_NOT_MARKET_OR_OBSERVED",
+  "fixture": {
+    "source_is_real_observed": false,
+    "receipt_only_pnl_usd": "41.90",
+    "receipt_only_cash_end_usd": "20041.90",
+    "calendar_cost_and_daily_mark_to_market_not_in_fixture": true,
+    "full_portfolio_proof": false
+  },
+  "controls": {
+    "cash_vs_best_previous": "NOT_RERUN_NO_ECONOMIC_ACCOUNTS",
+    "cash_reference_unmodified": true
+  },
+  "source_sha256": {
+    "quant/harpoon_quant/fwn9_observed_gate.py": "590a353eca767250fee338ad8329f09aa75cd08c428cfeeb4c2ac68cee764fb0",
+    "quant/tests/test_fwn9_observed_gate.py": "df96c2f729da6d324d977b14b5566ab14b7d8f2ba1d30533382400ca6cc3604f"
+  },
+  "workflow": {
+    "initial_mypy_failures_preserved": [
+      42458054026,
+      42458050074
+    ],
+    "initial_quant_failure_runs_preserved": [
+      42458054032,
+      42458050022
+    ],
+    "r2_focal_success": [
+      42458165142,
+      42458169423
+    ],
+    "final_focal_success": 42458274059,
+    "full_quant_success": 42458274061,
+    "exact_law_success": 42458274082,
+    "focus_tests_passed": 13,
+    "current_quant_tests_passed": 1075,
+    "historical_archive_tests_passed": 12,
+    "typing": "PASS",
+    "ruff": "PASS",
+    "python_syntax": "PASS",
+    "benchmark_200_reconciliations_ms": 44.585
+  },
+  "causal_guards": {
+    "no_future_known_at": true,
+    "no_future_label_known_at": true,
+    "max_hold_hours": 72,
+    "filled_quantity_conserved": true,
+    "self_financing_cash_fixture": true,
+    "development_days_minimum": 180,
+    "holdout_60_days_declared_but_not_opened": true,
+    "label_digest_bound_to_restart_journal": true,
+    "duplicate_and_corrupt_journal_fail_closed": true,
+    "modeled_OHLC_cannot_be_promoted": true,
+    "independent_receipt_provenance_authenticated": false,
+    "daily_mtm_and_full_opportunity_universe_verified": false
+  },
+  "remaining_critical_gates": [
+    "Observed external source-authenticated receipt and label anchors not provided; SHA checksum alone does not authenticate owner or broker.",
+    "No complete prospectively observed 180-day development opportunities, disjoint sealed holdout evidence, daily MTM and original fixed costs.",
+    "No M9/P9K population-wide price executability/causal native equivalence and no general bound certificate.",
+    "Original two operational gaps (observed partial/reject/outage/impact + multicell coordinator) remain unmet.",
+    "Historical accounting debt and separate independent review remain unresolved."
+  ],
+  "budgets": {
+    "new_candidates": 0,
+    "new_economic_accounts": 0,
+    "prospective_alpha_spent": 0,
+    "m10_final_accounts_unopened": 3200,
+    "workers": 1
+  },
+  "forbidden_actions": {
+    "broker_connection": false,
+    "orders": false,
+    "deploy": false,
+    "pr_merge": false,
+    "third_party_contact": false
+  },
+  "promotion_eligible": false,
+  "n9s_certified": false
+}
