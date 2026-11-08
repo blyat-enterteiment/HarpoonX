@@ -1,0 +1,61 @@
+{
+  "schema": "HARPOON_FWN9_P9E_PROTOCOL_1",
+  "phase": "M11_PHASE9E_RESERVE_SHADOW_WEALTH_BRIDGE",
+  "lease_id": "M11_P9E_SHADOW_20261108T0223",
+  "base_state": "M11_PHASE9D_NATIVE_MARK_RECEIPT_FIXTURE_PARITY_VERIFIED_GLOBAL_BOUND_UNPROVEN",
+  "hypothesis": "For two positive-terminal-wealth self-financing books on the same market history, including endogenous admissions and different predictable quantities, log native wealth is pathwise bounded by log causal wealth plus positive terminal relative wealth difference. A native population bound requires a separately proved causal bound and a population expectation bound on this credit.",
+  "counter_hypothesis": "Native WEAK infeasibility cannot be inferred from admission 12% or algebraic pathwise comparison alone; OHLC threshold executions are not proved executable by observed substeps.",
+  "refutation_criteria": [
+    "Positive terminal wealth log bound violation",
+    "Invalid negative or zero wealth accepted",
+    "Independent Decimal versus JS arithmetic mismatch over relative 1e-10",
+    "Unverified proof flags promote population finding",
+    "Admission 12% mislabelled continuous cap",
+    "OHLC threshold price declared observed execution without evidence",
+    "Historical strategy, generator, costs, risk, alpha, or final seeds changed"
+  ],
+  "fixture_catalog": [
+    "same wealth",
+    "positive retrospective native credit",
+    "native disadvantage",
+    "nonpositive wealth",
+    "full-cost net tampering",
+    "tenfold appreciation after 12% admission",
+    "missing proof gates",
+    "strict one-bp arithmetic",
+    "calendar and admission invariant"
+  ],
+  "economic_candidate_catalog": [],
+  "seeds_development": [],
+  "seeds_final": [],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "new_controls": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "frozen_contract": {
+    "capital_usd": 20000,
+    "calendar_days": 176,
+    "gross_admission_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "max_holding_hours": 72,
+    "nominal_hurdle_bp_daily": 1,
+    "WEAK_original_conditional_bound_bp_daily": 0.9051232469572758,
+    "source": "research/modulation9/protocol.json"
+  },
+  "controls": [
+    "CASH same costs retained, not rerun",
+    "M10 previous best QUALITY_NATIVE_QUEUE72_R0625 retained, not rerun"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_shadow_log_bridge_p9e.cjs": "6cb217ab87ad72657e155ebe8c2372c511b1db84",
+    "tools/fwn9_phase9e_test.cjs": "ee8f2530e58a0459cb83d021afa3b78463db4bb6",
+    "tools/fwn9_phase9e_accountant.py": "ed8136919f895d30239713c01350e33e4899c58a",
+    ".github/workflows/fwn9_phase9e.yml": "b05fcf43324c0d50fed4e54520b13d500d2fece7"
+  },
+  "scope": "Engineering algebra and falsification checks only. No population WEAK wealth theorem, full receipt equivalence, new economic samples, or broker",
+  "promotion_eligible": false
+}
