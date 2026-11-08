@@ -1,0 +1,58 @@
+{
+  "schema": "HARPOON_FWN9_P9H_SOURCE_CASH_LEDGER_1",
+  "lease_id": "M11_P9H_CASH_RECEIPT_LEDGER_20261107T2154",
+  "hypothesis": "Native accepted M9 Profit8 decisions have a physical cash ledger C, known receipt inventory V, outstanding reservations B with E=C+V-remaining_exit_fees, V+B<=12%E, and future fees under risk reservation at accepted instants, limited initially to a fixed source engineering fixture without dividends/splits.",
+  "counterhypotheses": [
+    "An effective exit predates its knownAt: causal stock and cash cannot both be assumed from ex-post receipts.",
+    "An IOC NO_FILL may be missing from historical P9B valuation clocks.",
+    "Native cashPoolAt includes closed campaign returns but not original principal of open positions.",
+    "OHLC native and eight-substep causal exit receipts may diverge; no M9 population bound follows."
+  ],
+  "fixture_catalog": [
+    "flat before and after first open",
+    "partial target with original reservation retained",
+    "IOC NO_FILL releases without any funded position",
+    "knownAt-delayed exit must reject",
+    "mutated equity must reject",
+    "mutated reserve risk must reject",
+    "independent Decimal receipt reconstruction",
+    "500-iteration fixture microbenchmark"
+  ],
+  "refutation_criteria": [
+    "Equity vs cash plus marks mismatch within displayed complete source fixture",
+    "12% gross reservation and fees bound fail on an accepted fixture",
+    "Later-known receipt used before knownAt",
+    "Unregistered file SHA or changed frozen M9/Profit8 source",
+    "Unresolved event is silently accepted as settled cash",
+    "Claim of native population certificate from finite fixtures"
+  ],
+  "scope": [
+    "No dividends or splits in fixture; explicit fail-closed for unsupported cases",
+    "No market sampling, no held-out seed, no candidate selection",
+    "No broker, order, PR merge or deployment",
+    "No proof of general M9, nor bound of positive native OHLC advantage",
+    "Original entry 30bps IOC, costs 176 calendar days nominal/stress and max72h unchanged"
+  ],
+  "budget": {
+    "accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "seeds_development": [],
+    "seeds_final": [],
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_accounts_sealed": 3200
+  },
+  "source_reference_sha256": {
+    "quant/harpoon_quant/modulation9.py": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "runtime30/profit8_replay.js": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "runtime30/ultimate_reservations.js": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494"
+  },
+  "git_blobs": {
+    "runtime30/fwn9_p9h_cash_ledger.cjs": "0120c111043769122bcaa073623c5f85bad4244c",
+    "tools/fwn9_phase9h_test.cjs": "78a9d4946bfedac253797bd0b29e8bf1408520ed",
+    "tools/fwn9_phase9h_accountant.py": "530d560071f11f00130010f2f231abc52bd11367",
+    ".github/workflows/fwn9_phase9h.yml": "f260e5a263c505a5e4a80f3d2c4ffc3614afcd72"
+  },
+  "promotion_eligible": false
+}
