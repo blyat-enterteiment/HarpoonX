@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE9C_PERSISTENT_CAUSAL_RISK_MIRROR",
-    "owner": "fwn9_phase9c_20261107",
-    "source_commit": "90d1c04abc0599c35a272bc42939b989197af662",
-    "scope": "Additive native clock-compatible event risk model to two-book causal mirror; deterministic fixtures only; no economic accounts",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_BUT_P9B_DAILY_LOSS_GATE_DIVERGENCE_VERIFIED",
+  "current_verdict": "P9C_RISK_CLOCK_CORRECTION_VERIFIED_N9S_NOT_YET_CERTIFIED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Build additive causal P9C mirror with event-time high-water equity, native session-open baseline and 2pct daily loss + 8pct drawdown gates, no future receipt access. Compare independently funded dual-asset native and first-cross books with own fills/quantities and test delayed partial/no-fill/overnight. Preserve original laws and M10 holdout.",
-  "next_round_id": "M11_PHASE9C_PERSISTENT_CAUSAL_RISK_MIRROR",
-  "phase": "M11_PHASE9C_ENGINEERING_ACTIVE",
+  "next_action": "Audit all native campaign received PnL marks, delayed IOC/exit receipts, partials and independently funded book-specific quantities versus P9C event clock; close or refute universal reserve-shadow stochastic WEAK bound. No new alpha grid, no sealed final, no broker.",
+  "next_round_id": "M11_PHASE9D_NATIVE_MARK_AND_RECEIPT_CLOCK_CONVERGENCE",
+  "phase": "M11_PHASE9C_CAUSAL_RISK_MIRROR_VERIFIED_NATIVE_MARK_PARITY_PENDING",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9B",
+  "round": "M11_PHASE9C",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -324,5 +316,24 @@
     "universal_execution_equivalence": false,
     "native_mark_formation_independent": false,
     "stochastic_weak_bound_proven": false
+  },
+  "m11_phase9c": {
+    "protocol": "research/modulation11/fwn9_phase9c_protocol.json",
+    "source_commit": "e1ad52e085a7f9b079c1cdd714ed4bf9b06ad463",
+    "ci_run": 42437283750,
+    "ci_status": "SUCCESS",
+    "tests_passed": 7,
+    "failed_tests": 0,
+    "evidence": "evidence/modulation11/fwn9_phase9c.json",
+    "doc": "docs/MODULATION11_PHASE9C_FWN9.md",
+    "no_new_type_errors": true,
+    "independent_accountant": "PASS_DECIMAL_46",
+    "benchmark_10_mirrors_ms": 274.057,
+    "p8_source_unchanged": true,
+    "second_asset_risk_refusal_reproduced": true,
+    "full_native_mark_parity": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false
   }
 }
