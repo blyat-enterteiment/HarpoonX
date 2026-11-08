@@ -1,6 +1,14 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": null,
+  "active_job": {
+    "id": "M11_PHASE9C_PERSISTENT_CAUSAL_RISK_MIRROR",
+    "owner": "fwn9_phase9c_20261107",
+    "source_commit": "90d1c04abc0599c35a272bc42939b989197af662",
+    "scope": "Additive native clock-compatible event risk model to two-book causal mirror; deterministic fixtures only; no economic accounts",
+    "economic_accounts_budget": 0,
+    "alpha_reserved": 0,
+    "automatic_retry_allowed": false
+  },
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -35,7 +43,7 @@
   "new_final_opened": false,
   "next_action": "Build additive causal P9C mirror with event-time high-water equity, native session-open baseline and 2pct daily loss + 8pct drawdown gates, no future receipt access. Compare independently funded dual-asset native and first-cross books with own fills/quantities and test delayed partial/no-fill/overnight. Preserve original laws and M10 holdout.",
   "next_round_id": "M11_PHASE9C_PERSISTENT_CAUSAL_RISK_MIRROR",
-  "phase": "M11_PHASE9B_NATIVE_RISK_CLOCK_RECONCILED_MIRROR_DAILY_GATE_DEFECT",
+  "phase": "M11_PHASE9C_ENGINEERING_ACTIVE",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
