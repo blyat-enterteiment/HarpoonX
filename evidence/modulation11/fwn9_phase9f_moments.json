@@ -1,0 +1,60 @@
+{
+  "schema": "HARPOON_M11_P9F_MOMENT_LEMMA_EVIDENCE_1",
+  "nature": "DETERMINISTIC_EXACT_RATIONAL_ABSTRACT_LAWS_NOT_M9_GENERATOR",
+  "lease_id": "M11_P9F_TAIL_MOMENTS_20261108",
+  "source_registration_commit": "d11eb3c8bf21bb6c03716167efe9915bb927936d",
+  "ci": {
+    "run_id": 42441591963,
+    "conclusion": "SUCCESS",
+    "tests_passed": 12,
+    "tests_failed": 0,
+    "ruff": "PASS",
+    "mypy_strict": "PASS_2_FILES",
+    "decimal_independent": "PASS_DECIMAL_70",
+    "generator_m9_sha256": "PASS",
+    "benchmark_2000_laws_ms": 79.1806
+  },
+  "mathematics": {
+    "theorem": "E[D+/WC]<=sqrt(E[D+^2]*E[WC^-2]) conditional on finite moments",
+    "positive_credit_threshold": "0.00166983085355194592",
+    "small_state_probability": "1/1024",
+    "small_state_causal_usd": "1/2",
+    "small_state_native_usd": "3/2",
+    "abstract_mean_D_usd": "1/1024",
+    "abstract_mean_relative_credit": "1/512",
+    "other_state_probability": "1023/1024",
+    "other_state_equity_usd": "20000",
+    "alternative_causal_usd": "1",
+    "alternative_mean_relative_credit": "1/1024",
+    "expectation_under_M9_verified": false,
+    "m9_reachability_of_counterexample": false,
+    "native_population_infeasibility": false,
+    "holdout_not_opened": true
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "control_accounts": 0,
+    "workers": 1,
+    "prospective_alpha_delta": 0,
+    "final_m10_unopened": 3200
+  },
+  "source_sha256": {
+    "tools/fwn9_phase9f_tail_bounds.py": "70532a894a8dc3c4e6e15505da10505e6bd397d7c29b959b7072f26dd9c738f4",
+    "tools/test_fwn9_phase9f_tail_bounds.py": "d4e7c84e82488fac63dd10337b7d227461afd2a6ce5bd58ac4ff6ea96cdd4938",
+    "tools/fwn9_phase9f_independent.py": "d6ecb5075ec1f59ac7c2fc35f0287e8d03b84eef21010136e06612dadbc116e4",
+    ".github/workflows/fwn9_phase9f.yml": "7d2aa394616bf4e7707bfd15b3d7360b1862f871799a8a9b5998874d5fb3d64b"
+  },
+  "negative_findings": [
+    "First moment of native-minus-causal positive wealth cannot by itself control relative credit",
+    "Abstract near-ruin counterexample says nothing about support-restricted M9",
+    "No M9 inverse-wealth moment or pathwise floor established",
+    "No bound on endogenous OHLC wealth difference under WEAK"
+  ],
+  "remaining_gates": [
+    "P9B native IOC NO_FILL valuation clock gap",
+    "entry partial/reject/outage/impact coverage",
+    "virtual-cell coordinator",
+    "independent economic review"
+  ]
+}

@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9F_TAIL_MOMENTS_20261108",
-    "phase": "M11_PHASE9F",
-    "status": "ACTIVE",
-    "start_head": "5705815f553315187231cc833951edc9f7a05c59",
-    "scope": "population_positive_credit_inverse_wealth_tail_necessary_conditions_and_counterexamples",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_PATHWISE_BRIDGE_ONLY_POPULATION_WEAK_BOUND_UNPROVEN",
+  "current_verdict": "NO_GO_M9_NEGATIVE_WEALTH_MOMENTS_AND_OHLC_EXECUTION_DIFFERENCE_UNBOUNDED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Develop a valid population inequality for E[(W_native-W_causal)^+/W_causal] under original M9 WEAK with fully endogenous causal admission and ex-ante reservations; bound OHLC execution residual and inverse-wealth tails or show counterexample. P9B IOC NO_FILL valuation debt remains; no new signals, no final seeds or broker.",
-  "next_round_id": "M11_PHASE9F_POSITIVE_CREDIT_WEAK_POPULATION_BOUNDS",
-  "phase": "M11_PHASE9E_PATHWISE_LOG_BRIDGE_VERIFIED_STOCHASTIC_CREDIT_BOUND_UNPROVEN",
+  "next_action": "Determine whether the exact original M9 long-only reservation/IOC/cost/gap/72h constraints imply a positive lower W_C bound or a finite inverse-wealth moment, and derive the corresponding bound on endogenous native-vs-causal positive differences; if not, construct a counterexample reachable under M9. Preserve P9B IOC NO_FILL clock gap. No strategy grid, no unopened M10 final, no broker.",
+  "next_round_id": "M11_PHASE9G_NATIVE_INVERSE_WEALTH_BOUND",
+  "phase": "M11_PHASE9F_EXACT_MOMENT_LEMMA_VERIFIED_M9_INVERSE_WEALTH_BOUND_UNPROVEN",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9E",
+  "round": "M11_PHASE9F",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -395,6 +387,33 @@
       "runtime30/fwn9_shadow_log_bridge_p9e.cjs": "57a5100bf5e5290f9c2db3484dea3d41a5167d383421adeed9980263bd5a1f35",
       "tools/fwn9_phase9e_test.cjs": "78720634e9127cf1d01d1d89b2a01ebde3e9a0ad6eda098f413173fcafab8e0a",
       "tools/fwn9_phase9e_accountant.py": "2e69360b8dd69f1c10a9b191dc684545841c64068fbe0175bcc71dddb7a6537d"
+    }
+  },
+  "m11_phase9f": {
+    "protocol": "research/modulation11/fwn9_phase9f_protocol.json",
+    "documentation": "docs/MODULATION11_PHASE9F_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9f_moments.json",
+    "lease_id": "M11_P9F_TAIL_MOMENTS_20261108",
+    "preregistration_commit": "d11eb3c8bf21bb6c03716167efe9915bb927936d",
+    "ci_run": 42441591963,
+    "ci_status": "SUCCESS",
+    "tests_passed": 12,
+    "independent_accountant": "PASS_DECIMAL_70",
+    "ruff": "PASS",
+    "mypy": "PASS_STRICT",
+    "benchmark_2000_ms": 79.1806,
+    "population_m9_credit_bound_proved": false,
+    "abstract_negative_example_proved": true,
+    "full_native_execution_reachability_verified": false,
+    "native_infeasibility_certified": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "source_sha256": {
+      "tools/fwn9_phase9f_tail_bounds.py": "70532a894a8dc3c4e6e15505da10505e6bd397d7c29b959b7072f26dd9c738f4",
+      "tools/test_fwn9_phase9f_tail_bounds.py": "d4e7c84e82488fac63dd10337b7d227461afd2a6ce5bd58ac4ff6ea96cdd4938",
+      "tools/fwn9_phase9f_independent.py": "d6ecb5075ec1f59ac7c2fc35f0287e8d03b84eef21010136e06612dadbc116e4",
+      ".github/workflows/fwn9_phase9f.yml": "7d2aa394616bf4e7707bfd15b3d7360b1862f871799a8a9b5998874d5fb3d64b"
     }
   }
 }
