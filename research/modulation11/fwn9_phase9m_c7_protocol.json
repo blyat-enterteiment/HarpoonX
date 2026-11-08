@@ -1,0 +1,33 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC7_EXPOSURE_WEALTH_BRIDGE_PREREG_1",
+  "phase": "M11_PHASE9M_C7_EXPECTED_EXPOSURE_WEALTH_BRIDGE",
+  "git_parent_head": "109f01f466c62c28d0d8843a07da9c88309a06d7",
+  "original_protocol": "research/modulation9/protocol.json",
+  "previous_bound": "docs/MODULATION11_PHASE9M_C6.md",
+  "hypothesis": "Find a rigorous finite applicable exposure-to-credit-to-log-wealth bound or a deterministic counterexample to an unproved bridge under endogenous 12pct reservation-only admissions; no signal search or population performance claim.",
+  "finite_fixture_catalogue": [
+    "A: admissible funded 12pct anchor with mark drift and post-partial stale reserve; compare continuous vs reservation ceilings.",
+    "B: finite repeated stop-active prebar ledger with no fills; prove sum q*S cannot be bounded by one 12pct snapshot without occupancy/price terms.",
+    "C: terminal log gap versus same-start local exit price credit; test missing lower wealth floor and divergent later admissions.",
+    "D: derive upper bound with explicit max occupancy, prebar price ratio and a positive wealth floor only as conditional parameters, never assume them."
+  ],
+  "refutation": [
+    "Found algebraic step assumes a continuous 12pct cap.",
+    "A purported population bound needs an unregistered pathwise wealth floor or renewal bound.",
+    "The two policies no longer have identical subsequent inventory, so local sums do not bound final log-wealth.",
+    "Any fixture contradicts a purported pathwise inequality."
+  ],
+  "max_workers": 1,
+  "new_economic_accounts": 0,
+  "new_candidate_recipes": 0,
+  "new_market_seeds": 0,
+  "disjoint_seeds": "NONE: deterministic fixtures only; M10 final sealed",
+  "budget_alpha": 0,
+  "protocol_binding_code_head": "109f01f466c62c28d0d8843a07da9c88309a06d7",
+  "source_sha1": {
+    "state_blob": "ceaa38fd6b82b47766bd64004ae5df646a1fd5f1"
+  },
+  "acceptance": "Report either valid proved finite quantitative bound with all applicable premises or scoped explicit counterexample and NO_GO; verify code with independent decimal arithmetic and unit tests.",
+  "no_live_no_deploy_no_merge": true,
+  "no_hurdle_generator_cost_risk_change": true
+}
