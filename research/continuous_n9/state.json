@@ -1,17 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_B_OFFLINE_PROVENANCE_PANEL_20261108_T5",
-    "round": "M11_PHASE9M_B_SOURCE_ATTESTATION_MARKS_COMPLETE_UNIVERSE",
-    "status": "ACTIVE",
-    "started_at": "2026-11-08T08:36:00Z",
-    "base_head": "ddb9e2c41383b9973cd5930c5a748cf9f9824aa6",
-    "protocol": "research/modulation11/fwn9_phase9m_b_protocol.json",
-    "economic_accounts_claimed": 0,
-    "alpha_claimed": 0,
-    "final_opened": false,
-    "attempt": 1
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -31,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9M_A_13_PASS_QUANT1087_PASS_OBSERVED_AUTH_AND_DAILY_MTM_MISSING",
+  "current_verdict": "NO_GO_P9M_B_SIGNED_ENGINEERING_12_PASS_REAL_SOURCE_M9_EQUIVALENCE_OPS_MISSING",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -44,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Unidad estructural siguiente: anclar procedencia de recibos/etiquetas prospectivas de forma externa e independiente (no basta SHA autoaportado); completar oportunidad observada 180d, MTM diario, coste fijo calendario y universo íntegro, sin abrir holdout M10 y sin llamar recursive.tick ni buscar señales; después exigir paridad integral M9/P9K, recuperación de journal, presupuesto y plateau. Conservar todos los costes, riesgos y las 3200 finales.",
-  "next_round_id": "M11_PHASE9M_B_SOURCE_ATTESTATION_MARKS_COMPLETE_UNIVERSE",
-  "phase": "M11_PHASE9M_B_ACTIVE_STRUCTURAL",
+  "next_action": "Siguiente unidad estructural: evaluar el comparador nativo M9 sobre inventario, reloj y precios de stops/targets OHLC vs ocho subpasos y caja/MTM con marcas causales, sin abrir las 3200 finales ni activar órdenes, sin usar firma de ingeniería como evidencia observada. Procedencia verdaderamente independiente y universo real íntegro siguen bloqueados hasta que existan datos y una raíz externa verificada. Certificación WEAK aún no válida; no abrir búsqueda económica.",
+  "next_round_id": "M11_PHASE9M_C_NATIVE_M9_FULL_CAUSAL_SOURCE_PARITY",
+  "phase": "M11_PHASE9M_B_OFFLINE_SIGNED_ENGINEERING_COMPLETE_REAL_SOURCE_UNVERIFIED",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -741,5 +730,46 @@
     "optimizer_eligible": false,
     "native_infeasibility_certified": false,
     "no_broker_orders": true
+  },
+  "m11_phase9m_b": {
+    "lease_id": "M11_P9M_B_OFFLINE_PROVENANCE_PANEL_20261108_T5",
+    "protocol": "research/modulation11/fwn9_phase9m_b_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9m_b_r2_protocol.json",
+      "research/modulation11/fwn9_phase9m_b_r3_protocol.json",
+      "research/modulation11/fwn9_phase9m_b_r4_protocol.json"
+    ],
+    "doc": "docs/MODULATION11_PHASE9M_B.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_b.json",
+    "source_commit": "5f3b680f44c85268cc488825b9361d51b5f66fed",
+    "ci_focal": 42464439001,
+    "ci_quant": 42464304235,
+    "failed_ci_retained": [
+      42464106131,
+      42464205064
+    ],
+    "tests_passed": 12,
+    "full_quant_tests_passed": 1087,
+    "archive_tests_passed": 12,
+    "signature_verified_in_engineering": true,
+    "external_authentication_verified": false,
+    "days": 180,
+    "marks_checked": 360,
+    "opportunities_checked": 256,
+    "calendar_cost_usd": 180,
+    "fixture_net_after_all_receipt_and_calendar_costs_usd": "-138.10",
+    "cash_control_end_usd": "19820",
+    "benchmark_50_ms": 612.408,
+    "source_sha256": {
+      "research/modulation11/fwn9_phase9m_b_protocol.json": "PREREG_FILE_NOT_HASHED_HERE",
+      "quant/harpoon_quant/fwn9_source_panel.py": "edf66c2f3bd8f52694645749b847540a427735a332de1039a90c513e1e06b521",
+      "quant/tests/test_fwn9_source_panel.py": "1683fb2130c08615a75a4ecb22a5dd2c6677f4174bba83661f42c13c2a9d7424"
+    },
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "independent_source_attestation_blocked": true,
+    "full_stochastic_native_bound_proved": false,
+    "n9s_accepted": false
   }
 }
