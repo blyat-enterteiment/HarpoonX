@@ -171,6 +171,18 @@ class ReceiptIntakeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "KNOWN_AT_SORT_ORDER"):
             run(f)
 
+    def test_label_timestamp_is_audited_in_restart_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "fwn9.sqlite"
+            initial = run(fixture())
+            self.assertEqual(journal_preflight(path, initial, NOW), "COMMITTED")
+            f = fixture()
+            f["labels"][0]["label_known_at"] = "2025-01-11T13:31:00Z"
+            changed = run(f)
+            self.assertNotEqual(initial["label_sha256"], changed["label_sha256"])
+            with self.assertRaisesRegex(ValueError, "RESTART_EVIDENCE_CONFLICT"):
+                journal_preflight(path, changed, NOW)
+
 
 if __name__ == "__main__":
     unittest.main()

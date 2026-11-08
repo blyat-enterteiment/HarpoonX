@@ -1,0 +1,23 @@
+{
+  "schema": "HARPOON_FWN9_P9M_A_R3_LABEL_INTEGRITY_BOUND_1",
+  "parent": "research/modulation11/fwn9_phase9m_a_protocol.json",
+  "lease_id": "M11_P9M_OBSERVATION_GATE_20261108_T4",
+  "preceding_focal_ci_success": 42458165142,
+  "preceding_validation": "12/12 tests, mypy, ruff PASS; benchmark 200 tapes 45.012ms",
+  "diagnostic": "External receipt checksum pinned only events; label timestamp changes that keep net USD equal were not committed to restart-audit output. Source authenticity remains unverified.",
+  "hypothesis": "Binding the canonical complete labels digest into journal-preflight evidence makes on-disk idempotence reject silent changing label knowledge clocks, without granting source authentication or market promotion.",
+  "refutation": [
+    "A changed but still-causal label_known_at produces identical P9M journal evidence",
+    "Old journal record is overwritten on conflicting retry",
+    "Any extra economic simulation or final path opened"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "alpha": 0,
+    "candidates": 0,
+    "controls": 0,
+    "m10_final_remaining": 3200
+  },
+  "promotion_eligible": false,
+  "source_authentication_verified": false
+}

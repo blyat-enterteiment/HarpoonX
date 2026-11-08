@@ -212,6 +212,7 @@ def audit_receipt_tape(
         "batch_id": tape["batch_id"],
         "native_checkpoint_sha256": native_checkpoint_sha256,
         "source_receipt_sha256": actual_digest,
+        "label_sha256": receipt_sha256(labels),
         "events_checked": events_validated,
         "filled_campaigns": filled,
         "ioc_no_fills": no_fills,
