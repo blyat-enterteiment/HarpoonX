@@ -1,22 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_C12_GLOBAL_RANGE_VACUITY_7c2bab7c",
-    "phase": "M11_PHASE9M_C12_NONNEGATIVE_SELL_MOMENT_BOUND",
-    "started_at_utc": "2026-11-08T20:56:00Z",
-    "lease_parent_head": "7c2bab7c6fd41f52cffbec24db71f598a129dd89",
-    "status": "ACTIVE",
-    "protocol": "research/modulation11/fwn9_phase9m_c12_protocol.json",
-    "attempts_started": 1,
-    "failed_attempts": [
-      {
-        "ci_run": 42523004827,
-        "reason": "RUFF_E741",
-        "commit": "40794158d9a22a9c36431801ab0c6e561bf65386"
-      }
-    ],
-    "corrective_protocol": "research/modulation11/fwn9_phase9m_c12_r2_protocol.json"
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -24,11 +8,13 @@
     "environments": null,
     "first_unattended_execution_verified": true,
     "id": "Automation_eb76e63560c08191a9871ad680b48ba0",
-    "is_enabled": true,
+    "is_enabled": false,
     "last_run_time": "2026-11-07T19:35:00Z",
     "next_run_time": null,
     "schedule": "BEGIN:VEVENT\nDTSTART:20261107T192306Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
-    "timing_mode": "condition_watch"
+    "timing_mode": "condition_watch",
+    "paused_due_to": "C12_GLOBAL_RANGE_ENVELOPE_MATHEMATICALLY_VACUOUS",
+    "pause_confirmed": true
   },
   "automation_id": "Automation_eb76e63560c08191a9871ad680b48ba0",
   "candidate_id": "QUALITY_NATIVE_QUEUE72_R0625",
@@ -36,7 +22,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_N9S_C11_ZERO_TICK_REFUTES_GLOBAL_STRICT_POSITIVE_EXECUTED_FILL_PREMISE_BUT_REVISED_NONNEGATIVE_SELL_ENVELOPE_SCOPED_ONLY",
+  "current_verdict": "NO_GO_N9S_C12_GLOBAL_RANGE_PROOF_ROUTE_VACUOUS_AUTOMATION_PAUSED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -49,9 +35,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Under original WEAK/registered M9 engine, test generalizing C11 nonnegative-sell shadow m to all reachable receipts, finite bound on exits J and native ledger cash; derive quantitatively useful expectation/log growth bound or explicitly refute the C10/C11 envelope as vacuous against the unchanged 1bp/day hurdle. Address OHLC 8-substep causal inequality and both operational gates before any N9-S certification. No new market signals or economic accounts, leave M10 final 3200 sealed.",
-  "next_round_id": "M11_PHASE9M_C12_NONNEGATIVE_SELL_MOMENT_BOUND",
-  "phase": "M11_PHASE9M_C12_ACTIVE",
+  "next_action": "PAUSED: global full-path C10/C11 upper-envelope mathematically unable to certify unchanged WEAK 1bp/day hurdle. New distinct preregistered structural hypothesis needed before another economic or stochastic run; suggest causal <=72h localized wealth/exposure coupled with native OHLC eight-substep execution and both operational gates. No random signals.",
+  "next_round_id": null,
+  "phase": "M11_PHASE9M_C12_PROOF_ROUTE_CLOSED_AUTOMATION_PAUSED",
   "preregistration_commit": "5e677020fbe0aa10c361814a2da684dd3b0c7c96",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -1210,5 +1196,28 @@
       "runtime30/profit8_replay.js": "2baa7e8cab40520b311032aea472fcf4017c2220",
       "runtime30/ultimate_reservations.js": "aa8162d7150986455c95599aeaa50ec4b9faa3ee"
     }
+  },
+  "m11_phase9m_c12": {
+    "protocol": "research/modulation11/fwn9_phase9m_c12_protocol.json",
+    "corrective_protocol": "research/modulation11/fwn9_phase9m_c12_r2_protocol.json",
+    "preregistration_commit": "e8895a5ec486509b2d0e05b63707b146063345ee",
+    "source_commit": "514cce459c6f171d979d0def5c8908ceb388dcc2",
+    "documentation": "docs/MODULATION11_PHASE9M_C12.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c12.json",
+    "ci_success": 42523109418,
+    "ci_failure_charged": 42523004827,
+    "engineering_attempts_charged": 2,
+    "tests_passed": 9,
+    "strict_types": "PASS_SCOPED",
+    "ruff": "PASS",
+    "cash_in_stress_unchanged": true,
+    "minimum_final_envelope_RHS_bp_day": 1.6816397400982546,
+    "conservative_fixed_adjusted_RHS_bp_day": 1.12968826016277,
+    "original_weak_cota_bp_day": 0.9051232469572758,
+    "route_exhausted": true,
+    "native_infeasibility_certified": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_m10_opened": 0
   }
 }

@@ -1,0 +1,96 @@
+{
+  "schema": "FWN9_M11_C12_RANGE_CERTIFICATE_1",
+  "phase": "M11_PHASE9M_C12_NONNEGATIVE_SELL_MOMENT_BOUND",
+  "date_utc": "2026-11-08",
+  "registered_lease": "M11_P9M_C12_GLOBAL_RANGE_VACUITY_7c2bab7c",
+  "preregistration_commit": "e8895a5ec486509b2d0e05b63707b146063345ee",
+  "R1": {
+    "source_commit": "40794158d9a22a9c36431801ab0c6e561bf65386",
+    "ci_run": 42523004827,
+    "conclusion": "failure",
+    "reason": "RUFF_E741",
+    "attempt_charged": true
+  },
+  "R2": {
+    "source_commit": "514cce459c6f171d979d0def5c8908ceb388dcc2",
+    "ci_run": 42523109418,
+    "conclusion": "success",
+    "unit_tests": 9,
+    "compile": "PASS",
+    "ruff": "PASS",
+    "mypy_strict_module": "PASS",
+    "independent_decimal100": "PASS",
+    "rational_certificate": "PASS",
+    "source_sha1_guard": "PASS",
+    "suite_elapsed_seconds_approx": 0.025,
+    "benchmark_10000_analytic_in_suite": true
+  },
+  "material_finding": "GLOBAL_FULL_PATH_R_ENVELOPE_REQUIRES_UPPER_BOUND_RHS_WHICH_IS_ALREADY_PROVABLY_ABOVE_THE_1BP_HURDLE",
+  "bound_formula": "E[logR]>=sqrt(2/pi)*sqrt(126*78*8)*0.00075*1.25*s_min*exp(-0.7)*sqrt(1-0.45**2)/sqrt(8)",
+  "original_176_day_hurdle_total_log": 0.0176,
+  "stages": [
+    {
+      "stage": "development",
+      "min_sigma_scale": 1,
+      "gaussian_substeps": 78624,
+      "E_logR_lower": 0.03288539936192142,
+      "bp_per_day_lower": 1.8684886001091714,
+      "hypothetical_fixed_discounted_bp_per_day_lower": 1.3662756076543783
+    },
+    {
+      "stage": "final_lower_sigma_support",
+      "min_sigma_scale": 0.9,
+      "gaussian_substeps": 78624,
+      "E_logR_lower": 0.029596859425729278,
+      "bp_per_day_lower": 1.6816397400982546,
+      "hypothetical_fixed_discounted_bp_per_day_lower": 1.1794267476434612
+    }
+  ],
+  "strict_rational": {
+    "positive_range_lower": "65114091/2264000000",
+    "hypothetical_discounted_log_lower": "55772358749/2805096000000",
+    "expected_log_hurdle": "11/625",
+    "hypothetical_discounted_bp_day_lower": 1.12968826016277,
+    "numeric_interval_proof": "Conservative rational inequalities; independent Decimal-100 cross-check"
+  },
+  "source_integrity": {
+    "git_blob_sha1": {
+      "quant/harpoon_quant/modulation9.py": "b73f03b6d0ff2396e54c527b1da227953a1fdcc7",
+      "research/modulation9/protocol.json": "c49c8156f9d2f109f5eda0fd98d1b7290a837d1a",
+      "tools/fwn9_p9m_c12_range_vacuity.py": "f3357a04c7de0a907a94ceb29c551d068c610e05",
+      "tools/test_fwn9_p9m_c12_range_vacuity.py": "bdc1a9f110ca9ab95b45a8ab4cce679410b8de2f",
+      "tools/fwn9_p9m_c12_range_vacuity_r2.py": "1128149cba99ede21d94ff816deeee15c6edd494",
+      "tools/test_fwn9_p9m_c12_range_vacuity_r2.py": "f44118ad464870b1a2f4ce9faa7f2f5283696705",
+      "research/modulation11/fwn9_phase9m_c12_protocol.json": "2d55276aaf3431cda22942c09c6c30325055031b",
+      "research/modulation11/fwn9_phase9m_c12_r2_protocol.json": "e5fcb2c1bd9197665cd681cf53094f50f6c51ef0",
+      ".github/workflows/fwn9_p9m_c12_r2.yml": "c26fee01f979b37c69abd0439af8cd2f6c25d75c"
+    }
+  },
+  "decision": "STOP_GLOBAL_RANGE_CERTIFICATION_ROUTE_ONLY_NOT_NATIVE_INFEASIBILITY",
+  "native_N9S_infeasibility_certified": false,
+  "conditional_bound_weak_bp_day_original": 0.9051232469572758,
+  "operational_execution_coverage_complete": false,
+  "multicell_complete": false,
+  "ohlc_substep_equivalence_proved": false,
+  "budget": {
+    "economic_accounts_delta": 0,
+    "new_candidates": 0,
+    "new_controls": 0,
+    "new_seeds": 0,
+    "final_M10_accounts_opened": 0,
+    "final_M10_remaining_sealed": 3200,
+    "prospective_alpha_spent": 0,
+    "engineering_attempts_charged": 2,
+    "failed_engineering_attempts_charged": 1
+  },
+  "automation": {
+    "id": "Automation_eb76e63560c08191a9871ad680b48ba0",
+    "paused_using_connector": true,
+    "reason": "exhausted C10/C11 full-path global range proof avenue"
+  },
+  "pr": {
+    "number": 7,
+    "draft": true,
+    "stacked_on": 6
+  }
+}
