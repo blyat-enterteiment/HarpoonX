@@ -1,19 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "lease_id": "M11_P9MC10_WEALTH_ENVELOPE_F78EF84",
-    "phase": "M11_PHASE9M_C10_WEALTH_ENDOGENOUS_ADMISSIONS_NATIVE_BRIDGE",
-    "head_before_lease": "f78ef84e9da97a8b50bc6c62dca5d2cdba103af6",
-    "started_at": "2026-11-08T18:43:04Z",
-    "protocol": "research/modulation11/fwn9_phase9m_c10_protocol.json",
-    "status": "ACTIVE",
-    "attempts_charged": 2,
-    "failed_ci_run_ids": [
-      42512248407,
-      42512387707
-    ],
-    "current_corrective_protocol": "research/modulation11/fwn9_phase9m_c10_r3_protocol.json"
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -33,7 +20,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_C9_KNOWN_RESERVATION_EVENT_ALGEBRA_AND_NATIVE_FINITE_WITNESS_WEALTH_AND_OHLC_UNPROVEN",
+  "current_verdict": "NO_GO_C10_NATIVE_FINITE_PATHWISE_CASH_ENVELOPE_PASS_UNIVERSAL_CASH_AND_WEAK_WEALTH_MOMENTS_OPEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -46,10 +33,10 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Create a distinct preregistered structural C10 experiment/proof on coupled native portfolios with differing terminal-stop credits and endogenous integer admissions; either obtain demonstrably applicable terminal wealth moments under M9 law or an actual native reachable counterexample. Preserve 3200 sealed M10 final accounts and fixed law/risks/costs/hurdles; no new signal recipes or economic search. N9-S still blocked by missing OHLC causal equivalence and both operational gates.",
-  "next_round_id": "M11_PHASE9M_C10_WEALTH_ENDOGENOUS_ADMISSIONS_NATIVE_BRIDGE",
-  "phase": "M11_PHASE9M_C10_WEALTH_ENDOGENOUS_ADMISSIONS_NATIVE_BRIDGE",
-  "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
+  "next_action": "Under original WEAK law and registered native OHLC fills, verify whether every reachable replay has nonnegative physical cash, positive ticked fill prices, finite exit count and a quantitative uniform bound on coupled terminal wealth despite endogenous integer admissions; either derive an explicit non-vacuous expectation/log-wealth bound or an actually reachable refutation. Do not equate C10 ex-post price-extrema envelope to admissible predictive information or to the 0.905123 bp/d threshold. Keep 3200 M10 final paths sealed; no new signals or economic trials; N9-S blocked by causal OHLC-equivalence and two operational gates.",
+  "next_round_id": "M11_PHASE9M_C11_M9_NATIVE_WEALTH_MOMENT_APPLICABILITY",
+  "phase": "M11_PHASE9M_C10_PATHWISE_LONG_ONLY_CASH_ENVELOPE_ENGINEERING_PASS_FULL_MOMENTS_UNPROVEN",
+  "preregistration_commit": "5e677020fbe0aa10c361814a2da684dd3b0c7c96",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
   "previous_verdict": "NO_GO",
@@ -66,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C9",
+  "round": "M11_PHASE9M_C10_WEALTH_ENDOGENOUS_ADMISSIONS_NATIVE_BRIDGE",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -1122,5 +1109,51 @@
       "tools/fwn9_p9m_c9_event_induction_test_r2.cjs": "67b992ea1b4a0d672b2eca79309dda76eb0832d5",
       "research/modulation11/fwn9_phase9m_c9_protocol.json": "6be4cd2f9c5bdf4cd62f0a2468d7112780694c44"
     }
+  },
+  "m11_phase9m_c10": {
+    "protocol": "research/modulation11/fwn9_phase9m_c10_protocol.json",
+    "preregistration_and_lease_commit": "5e677020fbe0aa10c361814a2da684dd3b0c7c96",
+    "initial_code_commit": "7f70572aa78c4e64cf8bef52a01ff384e8f02f95",
+    "correction_r2_commit": "f2ca2ef089e76946c2d994e2119b825de79379ef",
+    "final_code_commit": "de593ec44f9d39a79ae78dd5ae30527b68cce7be",
+    "correction_protocols": [
+      "research/modulation11/fwn9_phase9m_c10_r2_protocol.json",
+      "research/modulation11/fwn9_phase9m_c10_r3_protocol.json"
+    ],
+    "report": "docs/MODULATION11_PHASE9M_C10.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c10.json",
+    "focused_ci_pass": 42512536107,
+    "failed_ci_attempts_charged": [
+      42512248407,
+      42512387707
+    ],
+    "engineering_attempts_charged": 3,
+    "focused_native_tests_passed": 8,
+    "independent_decimal50": "PASS_5_RECEIPTS_3_EXITS",
+    "python_syntax": "PASS",
+    "node_syntax": "PASS",
+    "scoped_ruff": "NOT_EXECUTED_IN_C10",
+    "scoped_mypy": "NOT_EXECUTED_IN_C10",
+    "benchmark_16_native_replays_ms": 56.521,
+    "native_physical_terminal_reconciled": true,
+    "conditional_pathwise_shadow_upper_verified": true,
+    "universal_nonnegative_cash_proved": false,
+    "full_m9_wealth_moment_bound_proved": false,
+    "endogenous_two_counterfactual_wealth_coupling_proved": false,
+    "native_ohlc_substep_equivalence": false,
+    "weak_native_infeasibility_certified": false,
+    "operational_gate_execution_coverage": false,
+    "operational_gate_multicell": false,
+    "source_git_blob_sha1": {
+      "runtime30/fwn9_p9m_c10_wealth_envelope_r3.cjs": "e0226354fa7742709ea3f66684112b6d728a19a8",
+      "tools/fwn9_p9m_c10_wealth_test_r3.cjs": "248cc67507960a9f39397a638465915689e4ecc3",
+      "tools/fwn9_p9m_c10_decimal_accountant.py": "78e5542a80c8d503274e577671a79e44c4dd708f",
+      ".github/workflows/fwn9_p9m_c10_r3.yml": "ff543e94783d73b4b5eb2fe53246aef53ffcb362"
+    },
+    "final_m10_accounts_unopened": 3200,
+    "new_economic_accounts": 0,
+    "new_market_seeds": 0,
+    "new_candidate_recipes": 0,
+    "prospective_alpha_spent": 0
   }
 }
