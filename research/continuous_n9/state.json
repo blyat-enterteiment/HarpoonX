@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE9M_C5_NATIVE_EXECUTION_CREDIT_STOCHASTIC_BOUND",
-    "owner": "fwn9_p9mc5_20261108",
-    "source_commit": "1ca99a63d73a38daf4ec5cc5d20172ffb6bc9d0c",
-    "scope": "Analytic Gaussian downside overshoot bound on native threshold fill credit for one frozen WEAK bar, excluding alpha and final; no economic accounts",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9MC4_FINITE_ENVELOPE_EXHAUSTIVE_WEAK_NATIVE_CREDIT_UNBOUNDED",
+  "current_verdict": "NO_GO_C5_LOCAL_GAUSSIAN_CREDIT_BOUND_PROVEN_NATIVE_POPULATION_UNBOUNDED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Derive or refute a valid upper bound for endogenous native OHLC-versus-eight-substep execution credit under the frozen M9 WEAK lognormal law, including inventory and receipt clocks; combine with prior 0.905123bp bound only when rigorously applicable. Do not open economic search, M10 final or alter registered parameters.",
-  "next_round_id": "M11_PHASE9M_C5_NATIVE_EXECUTION_CREDIT_STOCHASTIC_BOUND",
-  "phase": "M11_PHASE9M_C5_ANALYTIC_BOUND_ACTIVE",
+  "next_action": "Derive bound on aggregate per-bar previsible stop-exposed notional and count of stops for independent endogenous native/first-cross funded portfolios under unchanged WEAK generator, risk, 72h, receipts and calendar costs. Convert local credit to expected terminal log wealth only with proof. No alpha search, broker, or sealed M10 final.",
+  "next_round_id": "M11_PHASE9M_C6_ENDOGENOUS_EXPOSURE_CREDIT_BUDGET",
+  "phase": "M11_PHASE9M_C5_ONE_BAR_WEAK_CREDIT_BOUND_VALIDATED_PORTFOLIO_BRIDGE_PENDING",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C4",
+  "round": "M11_PHASE9M_C5",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -916,6 +908,33 @@
     },
     "benchmark_two_catalogs_ms": 163.782,
     "new_economic_accounts": 0,
+    "alpha_spent": 0,
+    "final_opened": false
+  },
+  "m11_phase9m_c5": {
+    "protocol": "research/modulation11/fwn9_phase9m_c5_v3_protocol.json",
+    "source_commit": "f6edc327427edfcd450b7f036d9ee89a27c7a153",
+    "documentation": "docs/MODULATION11_PHASE9M_C5.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c5.json",
+    "ci_run": 42482593082,
+    "ci_status": "SUCCESS",
+    "failed_ci_attempts": [
+      42482339371,
+      42482488223
+    ],
+    "tests_passed": 6,
+    "gaussian_quadrature_independent": "PASS",
+    "finite_inequality_paths_checked": 5040,
+    "one_bar_expected_credit_coefficient": 0.0029457194636491983,
+    "full_native_expected_wealth_bound_proved": false,
+    "WEAK_n9s_infeasibility_certified": false,
+    "code_sha256": {
+      "tools/fwn9_p9m_c5_credit_bound_v2.py": "1b005c60b5d4b6001ae389cc27934214e4b18f06f0f7dc47dec1307fefb23528",
+      "tools/test_fwn9_p9m_c5_credit_bound_v2.py": "c92c5e286a3ecb30f354944abb0144c01eb7fd27e1805168edd1d91f0692e3ad",
+      ".github/workflows/fwn9_p9m_c5_v3.yml": "3480b16c7f23cc6eebdca4e66660443cbedd0d2ac37c108d3e211e38e26d215d"
+    },
+    "new_economic_accounts": 0,
+    "new_candidate_recipes": 0,
     "alpha_spent": 0,
     "final_opened": false
   }

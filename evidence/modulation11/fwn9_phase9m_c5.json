@@ -1,0 +1,74 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC5_GAUSSIAN_CREDIT_EVIDENCE_1",
+  "version": "V3_VALIDATED_ANALYTIC_SCOPE",
+  "source_head": "f6edc327427edfcd450b7f036d9ee89a27c7a153",
+  "protocol": "research/modulation11/fwn9_phase9m_c5_v3_protocol.json",
+  "parent_math_protocol": "research/modulation11/fwn9_phase9m_c5_protocol.json",
+  "ci_run": 42482593082,
+  "ci_conclusion": "SUCCESS",
+  "ci_failed_runs": [
+    {
+      "id": 42482339371,
+      "classification": "STRICT_STATIC_TYPING",
+      "new_economic_accounts": 0
+    },
+    {
+      "id": 42482488223,
+      "classification": "WORKFLOW_PROTOCOL_BUDGET_KEY",
+      "new_economic_accounts": 0
+    }
+  ],
+  "tests": {
+    "unittest": 6,
+    "failures": 0,
+    "gaussian_quadrature": "PASS_INDEPENDENT_SIMPSON",
+    "fixed_order_paths": 5040,
+    "ruff": "PASS",
+    "mypy_strict": "PASS",
+    "original_m9_sha256": "PASS",
+    "registered_blobs": "PASS"
+  },
+  "math": {
+    "world": "WEAK",
+    "param_support": "FAVORABLE_FINAL_SIGMA_MULTIPLIER_MAX_1_2_ACTIVITY_MAX_EXP_0_7_MIXTURE_SIGMA_4_WITH_PROB_0_004",
+    "base_sigma_bar": 0.0025675347020248573,
+    "sigma_four_bar": 0.01027013880809943,
+    "max_drift_per_bar": 0.0000275,
+    "one_step_downside_put_base": 0.00036386479227479285,
+    "one_step_downside_put_four_sigma": 0.001450292444943102,
+    "one_step_downside_put_mixture": 0.0003682105028854661,
+    "eight_step_prebar_notional_coefficient_before_friction": 0.0029457194636491983,
+    "conditional_upper_positive_credit_usd_formula": "q*S_baropen*0.0029457194636491983*(1-f)+q*tick",
+    "illustrative_full_bar_exposure_12pct_price_100_nominal_credit_upper_equity_bp_per_bar": 3.653802897372124,
+    "original_weak_bound_bp_per_calendar_day": 0.9051232469572758,
+    "original_hurdle_bp_per_calendar_day": 1,
+    "gap_bp_per_calendar_day": 0.09487675304272425,
+    "population_aggregate_credit_bound_derived": false,
+    "coherent_native_wealth_bound_derived": false,
+    "native_infeasibility_certified": false
+  },
+  "qualifications": [
+    "Conditional one-bar pretrade quantity/stop only; not an endogenous full portfolio result",
+    "Mixture independent of prebar information in frozen stochastic law, and sup sigma/drift used",
+    "Positive stop interpolation credit bound includes no more than one tick per exited share",
+    "12 pct reserve is not a continuous exposure cap, illustrative 12pct prebar not assumed for all bars",
+    "One-bar credit BP cannot be directly added to calendar-day log-growth bound",
+    "Native OHLC trailing/target dynamic strategy divergences across bars not bounded",
+    "Native distributional WEAK feasibility and N9-S remain uncertified"
+  ],
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "new_market_seeds": 0,
+    "final_m10_opened": 0,
+    "final_m10_unopened": 3200,
+    "alpha_spent": 0
+  },
+  "code_sha256": {
+    "tools/fwn9_p9m_c5_credit_bound_v2.py": "1b005c60b5d4b6001ae389cc27934214e4b18f06f0f7dc47dec1307fefb23528",
+    "tools/test_fwn9_p9m_c5_credit_bound_v2.py": "c92c5e286a3ecb30f354944abb0144c01eb7fd27e1805168edd1d91f0692e3ad",
+    ".github/workflows/fwn9_p9m_c5_v3.yml": "3480b16c7f23cc6eebdca4e66660443cbedd0d2ac37c108d3e211e38e26d215d"
+  },
+  "benchmark_5000_analytic_certificates_ms": 31.73,
+  "verdict": "PASS_ONE_BAR_ANALYTIC_BOUND_NO_GO_FULL_NATIVE_N9S"
+}
