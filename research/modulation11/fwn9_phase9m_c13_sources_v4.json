@@ -1,0 +1,43 @@
+{
+  "schema": "FWN9_C13_V4_MANIFEST_PROTOCOL_CORRECTION",
+  "original_protocol": "research/modulation11/fwn9_phase9m_c13_protocol.json",
+  "failed_attempts": [
+    {
+      "run": 42535258081,
+      "classification": "TRAILING_WINDOW_MISSING_END_RECONCILIATION",
+      "tests_passed": 5,
+      "failed": 4
+    },
+    {
+      "run": 42535394982,
+      "classification": "DIAGNOSTIC_CONFIRMED_WINDOW_1_NULL_CLOSING_BALANCE",
+      "tests_passed": 5,
+      "failed": 4
+    }
+  ],
+  "structural_change": "Close every event-free trailing <=72h interval with carried prior wealth difference, zero activity and no invented marks; mirror fix in independent Decimal accountant; no changes to fills/costs/strategy/physics.",
+  "negative_test": "Regression requires final empty window with zero finance events and unchanged carried wealth",
+  "original_contract": "research/modulation9/protocol.json",
+  "blob_sha1": {
+    "runtime30/fwn9_p9m_c13_local_coupling_v3.cjs": "1b0576bdc46971e1a034b07d524d1deb152a4226",
+    "tools/fwn9_p9m_c13_test_v3.cjs": "94389c4adbbd24d5dad8b1ebc2d6d6e46cb1627a",
+    "tools/fwn9_p9m_c13_decimal_accountant_v3.py": "8c688c29ae82607e0f4581d2003850346aaf4ede",
+    ".github/workflows/fwn9_p9m_c13_v4.yml": "a49b0c3ca153aaaf306bb9db273367559a025dce"
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_market_seeds": 0,
+    "new_candidates": 0,
+    "alpha_spent": 0,
+    "final_M10_unopened": 3200
+  },
+  "full_WEAK_population_claim": false,
+  "previous_manifest": "research/modulation11/fwn9_phase9m_c13_sources_v3.json",
+  "frozen_economic_protocol": "research/modulation9/protocol.json",
+  "correction": "CI v3 expected original_protocol=M9, but original_protocol=C13 prereg; verify both C13 and M9 separately, code unchanged.",
+  "preserved_failed_ci_runs": [
+    42535258081,
+    42535394982,
+    42535528683
+  ]
+}
