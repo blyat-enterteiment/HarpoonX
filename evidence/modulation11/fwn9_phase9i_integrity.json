@@ -1,0 +1,96 @@
+{
+  "schema": "HARPOON_FWN9_PHASE9I_INTEGRITY_AND_OPERATIONAL_GATE_EVIDENCE_1",
+  "goal": "N9S_1_INTERNAL_CONDITIONAL_ONLY",
+  "verdict": "NO_GO",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "source_preregistration_commits": [
+    "95a40c511cc124c0b97912c6d190e414c9661546",
+    "574ab63246ee95017174a029c130989159627557",
+    "987d0a5e7750057fb88374f0fea7275a7383b285",
+    "dc9cebdf103ea955b056507941f8ac43d145ca32",
+    "662ef9e7a691eb5833b2d23b2e74eba6d158a6bb",
+    "c423bab3bf651e774995018b47ffdc486ed6a8a3"
+  ],
+  "ci_runs": {
+    "p9h_prior_success": 42444975973,
+    "p9i_initial_success": 42445880626,
+    "p9i_r2_failed": 42445991535,
+    "p9i_r3_success": 42446125737,
+    "quant_r4_failed": 42446280945,
+    "quant_r5_success": 42446548212,
+    "quant_r6_integrated_success": 42446831797
+  },
+  "tests": {
+    "p9i_python": 9,
+    "p9i_node": 7,
+    "p9i_r3_archived_bytes": 5,
+    "quant_current": 1062,
+    "quant_archival": 12,
+    "quant_total": 1074,
+    "quant_r6_conclusion": "SUCCESS",
+    "static_and_scoped_types": "PASS"
+  },
+  "provenance": {
+    "original_archive_source_head": "424cc9dad2f840284e19e61c3f9cb9db26b46286",
+    "additional_immutable_ref": "4325422cc104a8d75384ec852b8ae5cbde07f24e",
+    "archived_first_ref_files": 105,
+    "archived_exception_ref_files": 3,
+    "archived_total_exact_hashes": 108,
+    "exception_paths": [
+      "quant/harpoon_quant/evidence_scope.py",
+      "quant/tests/test_evidence_scope.py",
+      "tools/run_reused_evidence.py"
+    ],
+    "source_snapshot_atomic": false,
+    "m9_registered_source_hashes_verified": 47,
+    "original_manifest_modified": false,
+    "active_m9_profit8_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "archival_profit8_sha256": "26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6"
+  },
+  "operational": {
+    "source_admission_fixture_audited": true,
+    "in_ci_hard_gate": true,
+    "branch_protection_required_check_confirmed": false,
+    "p9b_nofill_valuation_event_fixed": false,
+    "full_m9_native_wealth_certified": false,
+    "ohlc_executable_fills_certified": false,
+    "entry_partial_reject_outage_impact_covered": false,
+    "multicell_coordinator_covered": false,
+    "universal_native_weak_credit_bound_proved": false,
+    "n9s_certified": false
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_replayed": 0,
+    "prospective_alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "workers": 1
+  },
+  "code_git_blobs": {
+    "tools/fwn9_p9i_provenance.py": "6647c70ad22e2ee52f1886578d0c4d28c60b7b3f",
+    "tools/test_fwn9_p9i_provenance.py": "d934c45ad6f0d5b58f79c9bad423b602ee3c07ea",
+    "runtime30/fwn9_p9i_operational_gate.cjs": "b3ef2f3bfd706e635de3f8e35cf7bee9edba2a7c",
+    "tools/fwn9_p9i_operational_test.cjs": "4e5cc94172df2e1206c8cc3c80cd33d987cb8905",
+    "tools/fwn9_p9i_composite_lineage.py": "fdb41a7df70141d4ce1da46d6a76a85dc15b7af0",
+    "tools/test_fwn9_p9i_composite_lineage.py": "28b558eb9085e063ded7d64b93e99e5d3ea5830a",
+    "tools/fwn9_p9i_partitioned_regressions_r5.py": "713eee351b97980fb57bfb6e43c78534ce048986",
+    ".github/workflows/robust-quant-core.yml": "56ff9288fb052e55e8fc645574c2c021362f71a7"
+  },
+  "sha256_from_ci": {
+    "tools/fwn9_p9i_provenance.py": "39abfa27a2ea511ae7acdc57cb242fb4fce91dcfe66bdc66718a6f325a1980cd",
+    "tools/test_fwn9_p9i_provenance.py": "62f58b74af1524d7d7918341b28894d8e10321e12ea079489478a102e67f4c05",
+    "runtime30/fwn9_p9i_operational_gate.cjs": "7df19724c4ca9818d970fed76473bd1936be460ebd1c1578350162237246f79f",
+    "tools/fwn9_p9i_operational_test.cjs": "a8e96cdac687e65d40064460c781d6f0f74b7b8704be396cf20f2a19e6fd6f41",
+    "tools/fwn9_p9i_composite_lineage.py": "a6c76d6f352de955c0159139ae01283dc466e62c9d5fd4a2b2bb329820d60213"
+  },
+  "known_negative": [
+    "Historic archive not one atomic snapshot",
+    "P9B no-fill valuation event absent",
+    "OHLC threshold execution not causal equivalence",
+    "M9 inverse-wealth expected credit not bounded",
+    "Missing broker execution failure modes and multicell",
+    "Historical general JS TS2365 not fixed",
+    "Historical trial overage not reconciled"
+  ]
+}

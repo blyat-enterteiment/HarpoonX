@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9I_PROVENANCE_GATES_20261108",
-    "phase": "M11_PHASE9I",
-    "status": "ACTIVE",
-    "start_head": "c74a3c705d936556a0e8a6242af547fe0fb05fde",
-    "scope": "separate frozen provenance and fail-closed operational decision admission validation",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9H_FINITE_SOURCE_CASH_LEDGER_PASS_NATIVE_POPULATION_UNPROVEN",
+  "current_verdict": "NO_GO_1074_REGRESSIONS_PASS_SCOPE_EXECUTION_GATES_INCOMPLETE",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Extend P9H source-causal cash/lot/knownAt/IOC auditor from finite accepted fixture to preregistered catalog and all accepted decisions; fail closed on unsettled execution, compare P9B NO_FILL event clock and native marks, do not open new signal grid, M10 finals, or brokers. Keep original 12% as admission/reservation cap.",
-  "next_round_id": "M11_PHASE9I_ALL_ACCEPTED_DECISIONS_AND_NOFILL_CLOCK",
-  "phase": "M11_PHASE9H_SOURCE_CAUSAL_CASH_FIXTURE_RECONCILED_UNIVERSAL_COVERAGE_UNPROVEN",
+  "next_action": "Close exact historical P9B MODELED_IOC_NO_FILL missing valuation event in a new versioned witness including its risk gate and source knownAt timeline. Extend P9I finite all-admissions gate beyond current fixture without opening new market accounts or sealed M10 final. Native OHLC executable price and full partial/reject/outage/impact plus virtual-cell gates remain required before N9S.",
+  "next_round_id": "M11_PHASE9J_NO_FILL_VALUATION_CLOCK_AND_SOURCE_EVENT_COVERAGE",
+  "phase": "M11_PHASE9I_VERSIONED_PROVENANCE_CI_FULL_REGRESSIONS_PASS_NATIVE_OPERATIONAL_GAPS_UNPROVEN",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9H",
+  "round": "M11_PHASE9I",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -492,6 +484,55 @@
       "tools/fwn9_phase9h_accountant.py": "d964c9d719e3621e9819d43485ff71e7b02bcdb462d5ac48d4a3981f5d6df1be",
       ".github/workflows/fwn9_phase9h.yml": "3afb164b87618a08aa8dae9424089e4df29b8877e2f476cbaa0af260bdc22ba4",
       ".github/workflows/fwn9_phase9h_r2.yml": "aac94dcb7c817b070497906910faa03bd98457ff903a1f3f5c48c104534c4d16"
+    }
+  },
+  "m11_phase9i": {
+    "protocol": "research/modulation11/fwn9_phase9i_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9i_r2_protocol.json",
+      "research/modulation11/fwn9_phase9i_r3_protocol.json",
+      "research/modulation11/fwn9_phase9i_r4_protocol.json",
+      "research/modulation11/fwn9_phase9i_r5_protocol.json",
+      "research/modulation11/fwn9_phase9i_r6_protocol.json"
+    ],
+    "documentation": "docs/MODULATION11_PHASE9I_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9i_integrity.json",
+    "ci_runs": {
+      "p9h_prior_success": 42444975973,
+      "p9i_initial_success": 42445880626,
+      "p9i_r2_failed": 42445991535,
+      "p9i_r3_success": 42446125737,
+      "quant_r4_failed": 42446280945,
+      "quant_r5_success": 42446548212,
+      "quant_r6_integrated_success": 42446831797
+    },
+    "latest_success_ci": 42446831797,
+    "full_current_tests_passed": 1062,
+    "archived_tests_passed": 12,
+    "immutable_archive_paths_verified": 108,
+    "old_source_head_paths": 105,
+    "exception_immutable_paths": 3,
+    "archive_atomic_snapshot_proven": false,
+    "m9_registered_files_verified": 47,
+    "p9h_complete": true,
+    "all_native_decisions_covered": false,
+    "p9b_nofill_valuation_clock_fixed": false,
+    "required_workflow_step_present": true,
+    "branch_protection_required_status_verified": false,
+    "native_ohlc_executable": false,
+    "full_operational_execution_coverage": false,
+    "multicell_coordinator_full_coverage": false,
+    "native_infeasibility_certified": false,
+    "eligible_candidates_delta": 0,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "source_sha256": {
+      "tools/fwn9_p9i_provenance.py": "39abfa27a2ea511ae7acdc57cb242fb4fce91dcfe66bdc66718a6f325a1980cd",
+      "tools/test_fwn9_p9i_provenance.py": "62f58b74af1524d7d7918341b28894d8e10321e12ea079489478a102e67f4c05",
+      "runtime30/fwn9_p9i_operational_gate.cjs": "7df19724c4ca9818d970fed76473bd1936be460ebd1c1578350162237246f79f",
+      "tools/fwn9_p9i_operational_test.cjs": "a8e96cdac687e65d40064460c781d6f0f74b7b8704be396cf20f2a19e6fd6f41",
+      "tools/fwn9_p9i_composite_lineage.py": "a6c76d6f352de955c0159139ae01283dc466e62c9d5fd4a2b2bb329820d60213"
     }
   }
 }
