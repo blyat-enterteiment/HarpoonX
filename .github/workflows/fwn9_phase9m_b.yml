@@ -34,3 +34,18 @@ jobs:
           MYPYPATH=quant python3 -m mypy --follow-imports=silent --ignore-missing-imports --explicit-package-bases quant/harpoon_quant/fwn9_source_panel.py
           python3 -m compileall -q quant/harpoon_quant/fwn9_source_panel.py quant/tests/test_fwn9_source_panel.py
           python3 -m unittest quant.tests.test_fwn9_source_panel -v
+          sha256sum quant/harpoon_quant/fwn9_source_panel.py quant/tests/test_fwn9_source_panel.py
+          python3 - <<'PY'
+          import time
+          from quant.tests.test_fwn9_source_panel import sample, check
+          tape, panel = sample()
+          t0=time.perf_counter()
+          for _ in range(50):
+              report=check(tape,panel)
+              assert report['optimizer_eligible'] is False
+              assert report['n9s_certified'] is False
+          print('P9M_B_BENCHMARK_50_MS', round(1000*(time.perf_counter()-t0),3))
+          print('P9M_B_CASH_REFERENCE_USD',report['cash_benchmark_usd'])
+          print('P9M_B_ENGINEERING_EQUITY_USD',report['end_equity_usd'])
+          print('P9M_B_NO_MARKET_DATA_NO_PROMOTION')
+          PY
