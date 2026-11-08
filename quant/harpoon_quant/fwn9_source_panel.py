@@ -11,7 +11,7 @@ from collections import defaultdict
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, cast
 
 from .fwn9_observed_gate import (
     CASH, _money, _need, _utc, audit_receipt_tape, receipt_sha256,
@@ -38,12 +38,12 @@ def audit_panel(tape: dict[str, Any], panel: dict[str, Any],
                 native_checkpoint_sha256: str, now: str) -> dict[str, Any]:
     _need(isinstance(panel, dict) and panel.get("schema") == SCHEMA, "B_SCHEMA")
     _need("public_key" not in panel, "B_UNTRUSTED_PAYLOAD_KEY")
-    signer = panel.get("attestor_id")
+    signer = cast(str, panel.get("attestor_id"))
     _need(isinstance(signer, str) and signer in trusted_public_keys,
           "B_TRUST_ROOT_MISSING")
     key = trusted_public_keys[signer]
     _need(isinstance(key, bytes) and len(key) == 32, "B_TRUST_KEY_LENGTH")
-    signature = panel.get("signature_b64")
+    signature = cast(str, panel.get("signature_b64"))
     _need(isinstance(signature, str), "B_SIGNATURE_MISSING")
     try:
         from cryptography.exceptions import InvalidSignature
@@ -65,7 +65,8 @@ def audit_panel(tape: dict[str, Any], panel: dict[str, Any],
         tape, native_checkpoint_sha256=native_checkpoint_sha256,
         externally_pinned_receipt_sha256=panel["receipt_sha256"], now=now)
     days: list[str] = tape["development_days"]
-    marks, opps = panel.get("marks"), panel.get("opportunities")
+    marks = cast(list[dict[str, Any]], panel.get("marks"))
+    opps = cast(list[dict[str, Any]], panel.get("opportunities"))
     _need(isinstance(marks, list) and len(marks) == 2 * len(days),
           "B_MARK_COVERAGE")
     weekdays = [d for d in days if date.fromisoformat(d).weekday() < 5]
