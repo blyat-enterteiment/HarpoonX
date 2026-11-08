@@ -1,16 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_C2_EVENT_PARITY_20261108_T7",
-    "round_id": "M11_PHASE9M_C2_NATIVE_M9_ADMISSION_IOC_MARK_RESERVE_FULL_EVENT_PARITY",
-    "acquired_from_head": "f9eba0ced700721fba42f44bb42d7766c3cbdf39",
-    "lease_status": "ACTIVE",
-    "phase": "PREREGISTERED_NO_TRIALS",
-    "protocol": "research/modulation11/fwn9_phase9m_c2_protocol.json",
-    "started_utc": "2026-11-08T10:43:18Z",
-    "attempts_charged": 0,
-    "original_budget_spent": 0
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -30,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9M_C1_NATIVE_OHLC_ORDER_NOT_CAUSALLY_IDENTIFIABLE_WITHOUT_EIGHT_STEP_PATH",
+  "current_verdict": "NO_GO_P9M_C2_TWO_ASSET_FIXTURE_PARITY_PASS_NATIVE_OHLC_AND_WEAK_BOUND_UNCERTIFIED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -43,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Una unidad estructural P9M-C2: comprobar sobre fixtures ambos activos, admisión nativa, IOC NO_FILL, marcas causales, inventario y caja autofinanciada evento por evento; no usar el fixture C1 para certificar la cota WEAK. Sin nuevas señales, semillas M10, broker u órdenes; seguir requiriendo cobertura parcial/rechazo/outage/impact y multicelda.",
-  "next_round_id": "M11_PHASE9M_C2_NATIVE_M9_ADMISSION_IOC_MARK_RESERVE_FULL_EVENT_PARITY",
-  "phase": "M11_PHASE9M_C1_OHLC_ORDER_NONIDENTIFIABILITY_STRUCTURAL_WITNESS_COMPLETE",
+  "next_action": "P9M-C3 estructural: extender cobertura causal del motor M9 sobre catálogo finito de eventos/marks con comparación nativa vs ocho subpasos y reservas; verificar o refutar premisas de la cota WEAK sólo para precios autofinanciados efectivamente implementados. No abrir señales/holdouts ni relajar costes, riesgo, 72h, capital o hurdle. Cobertura operativa y multicelda continúan pendientes.",
+  "next_round_id": "M11_PHASE9M_C3_NATIVE_SUBSTEP_RECEIPT_MARK_POPULATION_BRIDGE",
+  "phase": "M11_PHASE9M_C2_NATIVE_ADMISSION_IOC_MARK_RESERVE_FIXTURES_COMPLETE",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -63,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C1",
+  "round": "M11_PHASE9M_C2",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -808,5 +798,60 @@
       "tools/fwn9_p9m_c_order_test.cjs": "d8db17f60c57c89ae9118c38eab44f5b1f3e02751495459ab0a85f46fae922f5",
       "tools/fwn9_p9m_c_accountant.py": "06a08baade9f1b8cbd0b2db1d1c7a9c9b9b05c36341e36437d28e4f86bb2a7b0"
     }
+  },
+  "m11_phase9m_c2": {
+    "lease_id": "M11_P9M_C2_EVENT_PARITY_20261108_T7",
+    "protocol": "research/modulation11/fwn9_phase9m_c2_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9m_c2_r2_protocol.json",
+      "research/modulation11/fwn9_phase9m_c2_r3_protocol.json",
+      "research/modulation11/fwn9_phase9m_c2_r4_protocol.json",
+      "research/modulation11/fwn9_phase9m_c2_r5_protocol.json"
+    ],
+    "documentation": "docs/MODULATION11_PHASE9M_C2.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c2.json",
+    "source_commit": "f7f6f9a9ca2c829d8c6786d398ee630e6f3257d7",
+    "lease_acquisition_commit": "e608d2503f54a30082bd0d8d0ee7cc37346ca90d",
+    "ci_runs": {
+      "r1_failed": 42472982612,
+      "r2_failed": 42473079765,
+      "r3_focal_success": 42473165715,
+      "r4_static_failed": 42473277864,
+      "r5_focal_success": 42473459773,
+      "exact_law_success": 42473459734
+    },
+    "attempts_charged": 5,
+    "failed_attempts_charged": 3,
+    "focal_tests_passed": 8,
+    "independent_decimal_cases_passed": 2,
+    "static_ruff": "PASS",
+    "types_mypy_strict": "PASS",
+    "syntaxes": "PASS",
+    "benchmark_20_ms": 58.277,
+    "source_sha256": {
+      "runtime30/fwn9_p9m_c2_event_parity.cjs": "3f6ed0b1dce5738b05798765fe99f52ca72454f83ad5b26ca46cae833bd26df0",
+      "tools/fwn9_p9m_c2_event_test_r3.cjs": "f01f69a0d712bc7b35a746de267cfa3c66781ed52ec99d2eae469ebf6ca75fab",
+      "tools/fwn9_p9m_c2_accountant_r5.py": "e5c00df6b421d41895572ec61e45a2687cc1604d60394b2c4770e0950e141048",
+      "research/modulation11/fwn9_phase9m_c2_protocol.json": "53cd3ae08dce872bf3dbc102baf3fd9e9bb2932ee35bfa77f1c5450d6779dd39",
+      "research/modulation9/protocol.json": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+      "research/modulation10/protocol.json": "a5edb060459f0f6aeb149eb8d07bcc2a0f7bb5a63ee693457ed7e517d039bea0"
+    },
+    "engineering_admissions_checked_two_symbols": true,
+    "native_ioc_no_fill_source_clock_checked": true,
+    "native_terminal_cash_reconciled": true,
+    "source_reference_known_at_checked": true,
+    "modeling_original_risk_limits_unchanged": true,
+    "all_native_mark_prices_independent": false,
+    "native_OHLC_substep_price_equivalence": false,
+    "WEAK_expected_growth_bound_native_certified": false,
+    "operator_entry_partial_reject_outage_impact_full_coverage": false,
+    "multicell_operational_coverage": false,
+    "PR7_draft": true,
+    "historical_failed_workflows_still_present": true,
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "new_market_seeds": 0,
+    "alpha_delta": 0,
+    "final_M10_unopened": 3200
   }
 }

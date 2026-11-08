@@ -1,0 +1,108 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C2_ENGINEERING_EVIDENCE_1",
+  "date_utc": "2026-11-08",
+  "initial_checkpoint": "f9eba0ced700721fba42f44bb42d7766c3cbdf39",
+  "lease_commit": "e608d2503f54a30082bd0d8d0ee7cc37346ca90d",
+  "source_commits": [
+    "ef53f10dcf814820a5b4ac165e3c6e96c3726a18",
+    "e135226e5e3bf56ed7fad0a3789395c8a3818612",
+    "941c8a99bd8616f21a896c9981d34043bd0d9071",
+    "5c3c3db93333d19aa71e1aa1a76aa1dfa0ba7214",
+    "f7f6f9a9ca2c829d8c6786d398ee630e6f3257d7"
+  ],
+  "checksums_sha256": {
+    "runtime30/fwn9_p9m_c2_event_parity.cjs": "3f6ed0b1dce5738b05798765fe99f52ca72454f83ad5b26ca46cae833bd26df0",
+    "tools/fwn9_p9m_c2_event_test_r3.cjs": "f01f69a0d712bc7b35a746de267cfa3c66781ed52ec99d2eae469ebf6ca75fab",
+    "tools/fwn9_p9m_c2_accountant_r5.py": "e5c00df6b421d41895572ec61e45a2687cc1604d60394b2c4770e0950e141048",
+    "research/modulation11/fwn9_phase9m_c2_protocol.json": "53cd3ae08dce872bf3dbc102baf3fd9e9bb2932ee35bfa77f1c5450d6779dd39",
+    "research/modulation9/protocol.json": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "research/modulation10/protocol.json": "a5edb060459f0f6aeb149eb8d07bcc2a0f7bb5a63ee693457ed7e517d039bea0"
+  },
+  "attempts_charged": [
+    {
+      "ci": 42472982612,
+      "status": "FAIL",
+      "finding": "First reservation consumed risk cap; second refused before IOC; test incorrectly assumed NO_FILL."
+    },
+    {
+      "ci": 42473079765,
+      "status": "FAIL",
+      "finding": "Second admission still refused by shared risk gate after fixture stop 2->5; partial fixture correction insufficient."
+    },
+    {
+      "ci": 42473165715,
+      "status": "PASS",
+      "finding": "Versioned R3 asymmetric stopDistances in engineering only; 8/8 tests, Decimal-46, benchmark."
+    },
+    {
+      "ci": 42473277864,
+      "status": "FAIL",
+      "finding": "Ruff found import formatting and Decimal(0) style on original accountant; no typecheck reached."
+    },
+    {
+      "ci": 42473459773,
+      "status": "PASS",
+      "finding": "Versioned R5 accountant: Ruff, strict mypy, 8/8 tests, Decimal-46 and benchmark."
+    }
+  ],
+  "focal_ci_success": 42473459773,
+  "exact_law_ci_success": 42473459734,
+  "original_workflows_failing_in_pr": true,
+  "tests": {
+    "node_passed": 8,
+    "node_failed": 0,
+    "decimal46_independent_cases": 2,
+    "ruff": "PASS",
+    "mypy_strict": "PASS",
+    "node_syntax": "PASS",
+    "python_syntax": "PASS",
+    "benchmark20FullCyclesMs": 58.277
+  },
+  "source_fixture_cases": [
+    {
+      "scenario": "SYNA modeled funded, SYNB IOC NO_FILL",
+      "SYNA_qty": 2,
+      "SYNB_reserved_qty": 1,
+      "NO_FILL_reservation_release": "only at knownAt",
+      "no_fill_inventory": 0
+    },
+    {
+      "scenario": "SYNA IOC NO_FILL, SYNB modeled funded",
+      "SYNA_reserved_qty": 2,
+      "SYNB_qty": 9,
+      "NO_FILL_reservation_release": "only at knownAt",
+      "no_fill_inventory": 0
+    }
+  ],
+  "checks": [
+    "2 source reference timestamps <= decisions",
+    "Native state + canonical reservation + risk-clock P9J parity",
+    "NO_FILL remains reserved until knownAt; zero phantom shares",
+    "Receipt-level inventory and cash independent reconstruction",
+    "Calendar costs applied; terminal native equity reconciles",
+    "No original 12% continuous-cap claim"
+  ],
+  "interpretation": {
+    "causal_native_admission_and_reserve_checked_for_fixtures": true,
+    "native_ohlc_executable_first_cross_global_equivalence": false,
+    "WEAK_0_905124_bp_daily_bound_native_certified": false,
+    "operator_partial_reject_outage_impact_native_complete": false,
+    "virtual_cell_coordinator_native_integrated": false,
+    "M10_final_unopened": 3200,
+    "new_economic_accounts": 0,
+    "new_market_seeds": 0,
+    "prospective_alpha_spent": 0,
+    "N9S_promotable": false
+  },
+  "new_economic_accounts": 0,
+  "new_candidates": 0,
+  "final_M10_unopened": 3200,
+  "status": "ENGINEERING_FIXTURE_VALIDATION_ONLY_NO_GO",
+  "limitations": [
+    "Fixed synthetic OHLCV fixture cannot prove entire M9 process equivalence or real fills.",
+    "Causal mark anchor checked; independent reconstruction of entire native mark stream and all paths not established.",
+    "Both entry/stop OHLC-price interpolation and original operational gates remain open.",
+    "Historical failed CI workflows are retained and can still appear red; do not assert full PR CI green."
+  ],
+  "raw_large_data_generated": false
+}
