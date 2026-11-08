@@ -1,0 +1,35 @@
+name: C11 source integrity and scoped static/type validation
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths: ['.github/workflows/fwn9_p9m_c11_static.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Registered source integrity
+        run: |
+          test "$(git hash-object runtime30/fwn9_p9m_c11_tick_applicability.cjs)" = a340ab43818ae563e094df0f2378c88e68e64072
+          test "$(git hash-object tools/fwn9_p9m_c11_tick_test.cjs)" = 408cd48ed7a8ee7e809b51393f69341e7730d3c4
+          test "$(git hash-object tools/fwn9_p9m_c11_decimal_accountant.py)" = f9d565c3267e3071954daedecbf9b05048a20545
+          test "$(git hash-object quant/harpoon_quant/modulation9.py)" = b73f03b6d0ff2396e54c527b1da227953a1fdcc7
+          test "$(git hash-object runtime30/profit8_replay.js)" = 2baa7e8cab40520b311032aea472fcf4017c2220
+          test "$(git hash-object runtime30/ultimate_reservations.js)" = aa8162d7150986455c95599aeaa50ec4b9faa3ee
+      - name: JavaScript syntax
+        run: |
+          node --check runtime30/fwn9_p9m_c11_tick_applicability.cjs
+          node --check tools/fwn9_p9m_c11_tick_test.cjs
+      - name: Install scoped Python validators
+        run: python -m pip install --disable-pip-version-check ruff==0.9.10 mypy==1.15.0
+      - name: Static lint and strict type check
+        run: |
+          ruff check tools/fwn9_p9m_c11_decimal_accountant.py
+          mypy --strict tools/fwn9_p9m_c11_decimal_accountant.py
