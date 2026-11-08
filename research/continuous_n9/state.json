@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE8_20261108T00303609",
-    "phase": "M11_PHASE8",
-    "status": "ACTIVE",
-    "start_head": "fe3c22c7ee1748b9e8a17cdcc58e0ada9b8475a4",
-    "started_at": "2026-11-08T00:30:36.095Z",
-    "scope": "causal_receipt_admission_mirror",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_NATIVE_ENDOGENOUS_ADMISSION_COUPLING_UNPROVEN",
+  "current_verdict": "NO_GO_NATIVE_DISTRIBUTIONAL_BRIDGE_AND_OPERATIONAL_GATES_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Implement causal two-book admission mirror using only received IOC/exit evidence and the exact native risk/gross/cash reservation gate; allow differing admitted quantities and identities without forcing native pairs, then prove/refute native stochastic wealth bridge. No strategy grid or M10 final.",
-  "next_round_id": "M11_PHASE8_CAUSAL_RECEIPT_ADMISSION_MIRROR",
-  "phase": "M11_PHASE7_FULL_TWO_ASSET_LEDGER_VERIFIED_ENDOGENOUS_COUPLING_NOT_PROVEN",
+  "next_action": "Bind each independent receipt-funded book to actual native replay entries/exits and eight-substep observed fills with its own quantities; verify native mark PnL, daily-loss and drawdown receipt clocks and economic self-financing for complete campaigns. Then prove/refute applicable stochastic WEAK wealth bound. No new signal grid, no holdout M10.",
+  "next_round_id": "M11_PHASE9_NATIVE_ENDOGENOUS_REPLAY_PARITY",
+  "phase": "M11_PHASE8_CAUSAL_TWO_BOOK_ADMISSIONS_DIVERGE_STOCHASTIC_BRIDGE_PENDING",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE7",
+  "round": "M11_PHASE8",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -229,5 +220,50 @@
     "execution_residual_usd": -14.52,
     "independent_accountant": "PASS_DECIMAL_46",
     "stochastic_bound_certified": false
+  },
+  "m11_phase8": {
+    "protocol": "research/modulation11/phase8_v2_protocol.json",
+    "source_commit": "5061b87714a56c9cd7b436ca3ee993613872da5e",
+    "preregistration_commit": "87b63445ff3530a9dc4856c2514a3014f04c7f3a",
+    "documentation": "docs/MODULATION11_PHASE8.md",
+    "evidence": "evidence/modulation11/phase8_receipt_admission.json",
+    "ci_run": 42430886679,
+    "ci_status": "SUCCESS",
+    "fixture_tests_passed": 7,
+    "independent_decimal_accountant": "PASS_DECIMAL_46",
+    "no_new_checkjs_errors": true,
+    "legacy_transitive_typescript_errors": 8,
+    "benchmark_1000_books_ms": 281.84,
+    "native_admitted": [
+      "SYNA:0",
+      "SYNB:1"
+    ],
+    "causal_admitted": [
+      "SYNA:0",
+      "SYNA:2"
+    ],
+    "engineering_fixture_native_net_usd": 112.16,
+    "engineering_fixture_causal_net_usd": -26.8,
+    "engineering_fixture_delta_usd": 138.96,
+    "failed_ci_attempts": [
+      42430492844,
+      42430570596,
+      42430674678
+    ],
+    "preliminary_ci_pass_with_incomplete_calendar": 42430727411,
+    "account_delta": 0,
+    "alpha_delta": 0,
+    "market_seeds_opened": [],
+    "m10_final_accounts_remaining": 3200,
+    "full_population_bridge_proven": false,
+    "native_mark_and_loss_gate_parity_complete": false,
+    "operator_execution_coverage_complete": false,
+    "virtual_cell_coordinator_complete": false,
+    "sha256": {
+      "runtime30/modulation11_admission_mirror_v2.cjs": "d0d63169d3c8f189f5a23d1671aeb27947616bda76bd1b177f0863e937f393d1",
+      "tools/modulation11_phase8_v2_test.cjs": "744989aa98a234784745dae9ccc5ee4fdbbd77dd76973c2cf2a43f074fc641c2",
+      "tools/modulation11_phase8_accountant.py": "9e11004b16063a40d56a9d1173156e240a0069156f99da2497303de9b264a815",
+      ".github/workflows/modulation11_phase8_v5.yml": "a003173ccc87c556d7105839cfccc54d70268e96492f698718ea54fe298c77d0"
+    }
   }
 }
