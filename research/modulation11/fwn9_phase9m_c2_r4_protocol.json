@@ -1,0 +1,47 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C2_VERIFICATION_R4_1",
+  "source_commit": "941c8a99bd8616f21a896c9981d34043bd0d9071",
+  "prior_attempts": [
+    {
+      "ci": 42472982612,
+      "status": "FAIL",
+      "engineering_charge": 1
+    },
+    {
+      "ci": 42473079765,
+      "status": "FAIL",
+      "engineering_charge": 1
+    },
+    {
+      "ci": 42473165715,
+      "status": "PASS",
+      "tests": 8,
+      "independent_decimal46": true,
+      "benchmark20ms": 160.522,
+      "engineering_charge": 1
+    }
+  ],
+  "hypothesis": "Static checks/strict Python typing and reproducible hashes of the already-passing dual-asset native admission/IOC/knownAt independent accountant reveal no defects beyond frozen R3 controls.",
+  "falsification": [
+    "Ruff or strict mypy failures",
+    "Node syntax failure",
+    "Any of 8 deterministic tests or independent Decimal audit fail",
+    "Missing initial checkpoint file integrity",
+    "unexpected changes to original M9 or M10 source files"
+  ],
+  "plan": "Run read-only CI against existing versioned R3 fixture, no newly sampled market data, no recipe grid, no mutated historical evidence.",
+  "scope": "P9M-C2 ENGINEERING ONLY",
+  "budget": {
+    "new_market_accounts": 0,
+    "new_candidates": 0,
+    "holdouts_opened": 0,
+    "alpha_delta": 0,
+    "workers": 1
+  },
+  "source_paths": [
+    "runtime30/fwn9_p9m_c2_event_parity.cjs",
+    "tools/fwn9_p9m_c2_event_test_r3.cjs",
+    "tools/fwn9_p9m_c2_accountant.py"
+  ],
+  "new_workflow": ".github/workflows/fwn9_phase9m_c2_r4_static.yml"
+}

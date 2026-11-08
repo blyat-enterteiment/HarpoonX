@@ -1,0 +1,36 @@
+name: FWN9 P9M-C2 R4 static types and immutable hashes
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths: [".github/workflows/fwn9_phase9m_c2_r4_static.yml"]
+permissions:
+  contents: read
+jobs:
+  static-types:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: SHA256 recorded engineering sources and frozen contract protocols
+        run: |
+          sha256sum runtime30/fwn9_p9m_c2_event_parity.cjs tools/fwn9_p9m_c2_event_test_r3.cjs tools/fwn9_p9m_c2_accountant.py research/modulation11/fwn9_phase9m_c2_protocol.json research/modulation9/protocol.json research/modulation10/protocol.json
+      - name: Python Ruff mypy strict
+        run: |
+          python -m pip install --disable-pip-version-check --quiet ruff mypy
+          ruff check tools/fwn9_p9m_c2_accountant.py
+          mypy --strict tools/fwn9_p9m_c2_accountant.py
+      - name: Native JS syntax and functional controls
+        run: |
+          node --check runtime30/fwn9_p9m_c2_event_parity.cjs
+          node --check tools/fwn9_p9m_c2_event_test_r3.cjs
+          node --test tools/fwn9_p9m_c2_event_test_r3.cjs
+      - name: External Decimal comparison and benchmark
+        run: |
+          node tools/fwn9_p9m_c2_event_test_r3.cjs --emit-proof | sed -n 's/^P9MC2_AUDIT=//p' > /tmp/dualasset.json
+          python tools/fwn9_p9m_c2_accountant.py /tmp/dualasset.json
+          node tools/fwn9_p9m_c2_event_test_r3.cjs --bench
