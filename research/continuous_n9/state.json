@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE9M_C13_LOCAL_72H_ENDOGENOUS_CAUSAL_WEALTH_COUPLING",
-    "owner": "fwn9_c13_local72_20261108",
-    "source_commit": "e5bfb6dbb12595091096dc203d8a49b71ca00c2f",
-    "scope": "Preregister separate local <=72h wealth coupling with two autonomous cash-share books, source-observed prices, receipt times and mathematical refutation. Engineering only, no market seed or alpha.",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -30,7 +22,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_N9S_C12_GLOBAL_RANGE_PROOF_ROUTE_VACUOUS_AUTOMATION_PAUSED",
+  "current_verdict": "C13_FINITE_EVENT_COUPLING_VERIFIED_NO_WEAK_NATIVE_POPULATION_CERTIFICATE",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -43,9 +35,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "PAUSED: global full-path C10/C11 upper-envelope mathematically unable to certify unchanged WEAK 1bp/day hurdle. New distinct preregistered structural hypothesis needed before another economic or stochastic run; suggest causal <=72h localized wealth/exposure coupled with native OHLC eight-substep execution and both operational gates. No random signals.",
-  "next_round_id": null,
-  "phase": "M11_PHASE9M_C13_STRUCTURAL_ENGINEERING_ACTIVE",
+  "next_action": "PAUSED: C13 exact local <=72h event coupling and independent native fixture verified. The premise of a deterministic uniform price-range cap under lognormal WEAK is refuted. Any C14 must preregister a materially distinct stochastic conditional-moment/attainable-fill native portfolio proof with independent receipt-funded admissions and both operational gates. No economic search, final or automation resume by default.",
+  "next_round_id": "M11_PHASE9M_C14_LOCAL72_CONDITIONAL_INVENTORY_WEALTH_MOMENTS_PREREG_REQUIRED",
+  "phase": "M11_PHASE9M_C13_LOCAL72_BOOK_IDENTITY_PROVEN_UNIFORM_RANGE_REFUTED",
   "preregistration_commit": "5e677020fbe0aa10c361814a2da684dd3b0c7c96",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -63,7 +55,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C12_NONNEGATIVE_SELL_MOMENT_BOUND",
+  "round": "M11_PHASE9M_C13",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -1227,5 +1219,41 @@
     "economic_accounts_delta": 0,
     "alpha_delta": 0,
     "final_m10_opened": 0
+  },
+  "m11_phase9m_c13": {
+    "preregistration_commit": "e88505039a9f0650ce355d7f6a42fc4566df42f5",
+    "protocol": "research/modulation11/fwn9_phase9m_c13_protocol.json",
+    "sources": "research/modulation11/fwn9_phase9m_c13_sources_v4.json",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c13.json",
+    "documentation": "docs/MODULATION11_PHASE9M_C13.md",
+    "source_commit": "348c63ff49f944239f11ad75f08b9e0a989e83cf",
+    "ci_run": 42535658934,
+    "ci_status": "SUCCESS",
+    "node_tests_passed": 9,
+    "independent_accountant": "PASS_DECIMAL_46",
+    "ruff": "PASS",
+    "mypy_strict": "PASS",
+    "failed_ci_runs": [
+      42535258081,
+      42535394982,
+      42535528683
+    ],
+    "fixture_native_equity_usd": 19946.56,
+    "fixture_counter_equity_usd": 20048.49,
+    "fixture_native_minus_counter_usd": -101.93,
+    "local_positive_difference_upper_usd": 29.5,
+    "windows": 3,
+    "benchmark_1000_books_ms": 103.363,
+    "refutes_uniform_deterministic_gaussian_72h_price_ratio": true,
+    "population_native_WEAK_inequality_certified": false,
+    "new_economic_accounts": 0,
+    "alpha_spent": 0,
+    "final_m10_opened": false,
+    "source_sha256": {
+      "runtime30/fwn9_p9m_c13_local_coupling_v3.cjs": "c5c3346e2bc3aa1fdd2308d1bb4378a12fb1aa8d20ad9578d1f4bd889794a71a",
+      "tools/fwn9_p9m_c13_test_v3.cjs": "12605e1e93ae538ed846ac87c897b9f6b4779687bb3ab1d17a615647931fa0e6",
+      "tools/fwn9_p9m_c13_decimal_accountant_v3.py": "c49ecdb7a7949b3cdf8dcfb9eeb060d6711f27f9e5f23c57086c4f0622128b01",
+      ".github/workflows/fwn9_p9m_c13_v4.yml": "3118476c665ffc52441a9ca37052b0abd97262b69d76d87d3c0044c799df9cc7"
+    }
   }
 }
