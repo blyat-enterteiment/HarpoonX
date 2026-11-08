@@ -1,0 +1,60 @@
+{
+  "schema": "HARPOON_FWN9_P9D_NATIVE_MARK_RECEIPT_PROTOCOL_1",
+  "preregistered_before_fixture_tests": true,
+  "prior_phase": "M11_PHASE9C",
+  "lease_id": "M11_P9D_20261108021724230",
+  "hypothesis": "Every native campaign mark equals the self-financing receipt ledger at knownAt plus remaining shares valued at that exact publicly received bar close; the independent P9C risk clock must agree at all comparable events if receipts match.",
+  "refutation": [
+    "Any native campaign mark differs from independently reconstructed realized+inventory value",
+    "Any P9C observed equity, cash or peak differs from native under identical native receipts",
+    "Admitted identities and quantities diverge in a supposedly identical native control",
+    "A delayed IOC is wrongly certified as equivalent to instant native receipt",
+    "Any missing bar, future-known receipt, negative inventory or unfunded action",
+    "Any unapproved change of generator, costs, limit or holdout"
+  ],
+  "fixtures": [
+    "Healthy two-asset full native funded campaigns",
+    "Partial target exits with original quantity conservation",
+    "Tampered campaign mark rejection",
+    "Modeled IOC no-fill with no invented proceeds",
+    "Deliberately delayed IOC receipt must invalidate native equivalence"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_native_mark_convergence_p9d.cjs": "5a0729e7167b16d7afc3ca2f3a4f980920899314",
+    "tools/fwn9_phase9d_test.cjs": "5f277f4d35e966d01db3dd84fced81b6cd377045",
+    "tools/fwn9_phase9d_accountant.py": "bd76f1d7bf8dae5b91a7f9a2ef7addb52b615dec",
+    ".github/workflows/fwn9_phase9d.yml": "747949bda53a451cfec02da9e2ef96d2cce20108"
+  },
+  "fixed_contract": {
+    "capital_usd": 20000,
+    "symbols": [
+      "SYNA",
+      "SYNB"
+    ],
+    "gross_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "daily_loss": 0.02,
+    "max_drawdown": 0.08,
+    "max_hold_hours": 72,
+    "friction": "M9_FROZEN",
+    "generator": "M9_FROZEN"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_accounts_unopened": 3200
+  },
+  "source": "research/modulation9/registration.json",
+  "no_broker": true,
+  "no_orders": true,
+  "no_merge": true,
+  "no_deployment": true,
+  "limitations": [
+    "Engineering fixtures, not sampled M9 worlds",
+    "Native close and exit prices may still be nonexecutables from OHLC",
+    "No global WEAK stochastic inequality",
+    "Partial-entry/reject/outage/impact and virtual cell gates unverified"
+  ]
+}
