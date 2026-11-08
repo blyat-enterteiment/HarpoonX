@@ -1,0 +1,75 @@
+name: FWN9 P9M-C4 finite native price-attainability contract
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_p9m_c4_attainability.cjs
+      - tools/fwn9_p9m_c4_test.cjs
+      - tools/fwn9_p9m_c4_accountant.py
+      - research/modulation11/fwn9_phase9m_c4_protocol.json
+      - .github/workflows/fwn9_p9m_c4.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  finite-certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and exhaustive conditional certificate tests
+        run: |
+          node --check runtime30/fwn9_p9m_c4_attainability.cjs
+          node --check tools/fwn9_p9m_c4_test.cjs
+          python -m py_compile tools/fwn9_p9m_c4_accountant.py
+          node --test tools/fwn9_p9m_c4_test.cjs
+      - name: Independent Decimal 46 all-permutation accounting
+        run: |
+          node tools/fwn9_p9m_c4_test.cjs --emit-evidence > /tmp/p9mc4_evidence.log
+          python -B tools/fwn9_p9m_c4_accountant.py /tmp/p9mc4_evidence.log
+      - name: Static JavaScript typecheck with legacy source isolation
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          set +e
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/fwn9_p9m_c4_attainability.cjs >/tmp/p9mc4_types.log 2>&1
+          rc=$?
+          set -e
+          TSC_STATUS="$rc" python - <<'PY'
+          import os,pathlib
+          errors=[x for x in pathlib.Path('/tmp/p9mc4_types.log').read_text().splitlines() if 'error TS' in x]
+          if int(os.environ['TSC_STATUS'])==0:
+              assert not errors,errors
+              print('P9MC4_JS_TYPES_PASS')
+          else:
+              assert int(os.environ['TSC_STATUS'])==2,errors
+              assert len(errors)==8,errors
+              assert all(x.startswith('runtime30/types.js(') and ': error TS2365:' in x and
+                  x.split('(')[1].split(',')[0] in ('85','94','115','151') for x in errors),errors
+              print('P9MC4_JS_TYPES_NO_NEW_ERRORS_8_HISTORICAL')
+          PY
+      - name: Check source Git hashes and original M9 generator
+        run: |
+          python - <<'PY'
+          import json,hashlib,pathlib,subprocess
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/fwn9_phase9m_c4_protocol.json').read_text())
+          assert p['budget']['economic_accounts']==0
+          assert p['budget']['final_opened']==0
+          for path,want in p['code_git_blob_sha1'].items():
+              actual=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert actual==want,(path,actual,want)
+              print('P9MC4_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          src='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/src).read_bytes()).hexdigest()==reg['sources_sha256'][src]
+          print('P9MC4_FROZEN_M9_GENERATOR_PASS')
+          PY
+      - name: Bounded benchmark
+        run: |
+          node tools/fwn9_p9m_c4_test.cjs --bench >/tmp/p9mc4_bench.log
+          grep P9MC4_TWO_EXHAUSTIVE_CATALOGS_MS /tmp/p9mc4_bench.log

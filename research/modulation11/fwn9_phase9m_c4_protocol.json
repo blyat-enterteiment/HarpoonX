@@ -1,0 +1,89 @@
+{
+  "schema": "HARPOON_FWN9_P9MC4_NATIVE_PRICE_ATTAINABILITY_PROTOCOL_1",
+  "source_head": "24ae66519eb02e853d5bd4014de459210d517a4d",
+  "lease_id": "M11_PHASE9M_C4_NATIVE_PRICE_ATTAINABILITY_POPULATION_CONTRACT",
+  "registered_before_new_test_outcomes": true,
+  "hypothesis": "Exact conditional finite enumeration of all distinct seven-price orderings with eighth closing substep fixed shows which native stop/target threshold prices are on the original discrete support, which become reachable only under additional continuous interpolation, and when OHLC stop-first order disagrees with first passage. No permutation frequency may be interpreted as probability of the frozen stochastic process.",
+  "null_or_refutation": [
+    "An observed native threshold is labeled exact eight-step price despite not appearing among opening and eight samples",
+    "Log-linear first-passage order is asserted equivalent to native OHLC in a target-first ordering",
+    "Exhaustive ordering count or best/worst envelope does not reconcile to independently enumerated Decimal-46 ledger",
+    "Native or discrete event is allowed knownAt before bar publication",
+    "Changing initial capital, costs, shares or OHLC identity passes certificate",
+    "Conditional ordering counts are promoted as M9 population probabilities or used to certify WEAK bound"
+  ],
+  "finite_catalog": [
+    "All 7! permutations of distinct first seven prices {100.2,104,103,96,97,99,100}; fixed eighth close 100",
+    "Native stop-first OHLC reference with eight shares at 100.03, stop 98.03, two targets, and nominal fees",
+    "Piecewise-log-linear first-passage counterfactual on each of exactly the same eight fixed discrete prices",
+    "First-observed-discrete-cross comparator on each distinct permutation",
+    "Independent Decimal-46 all-permutation arithmetic enumeration",
+    "Negative OHLC/time/cost/quantity mutations; duplicate-price reduced permutation count; no-population-promotion"
+  ],
+  "conditioned_example": {
+    "bar": {
+      "o": 100,
+      "h": 104,
+      "l": 96,
+      "c": 100,
+      "available_after_bar_ms": 1000
+    },
+    "prefix_ordered": [
+      100.2,
+      104,
+      103,
+      96,
+      97,
+      99,
+      100
+    ],
+    "fixed_last": 100,
+    "qty": 8,
+    "entry": 100.03,
+    "stop": 98.03,
+    "distance": 2,
+    "targetsR": [
+      1.5,
+      3
+    ],
+    "friction": 0.0003,
+    "fee_per_side": 0.005,
+    "tick": 0.01,
+    "capital": 20000,
+    "calendar_cost_usd": 8
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "new_controls": 0,
+    "workers": 1,
+    "prospective_alpha_spent": 0,
+    "final_opened": 0,
+    "final_M10_accounts_remaining": 3200
+  },
+  "original_contract": "research/modulation9/protocol.json",
+  "original_law_unchanged": true,
+  "exact_scope": "All distinct orderings of one fixed multiset with fixed closing observation; not all generator outcomes, paths, or likelihoods",
+  "stochastic_claim": "NONE",
+  "any_uniform_permutation_likelihood": "PROHIBITED",
+  "expected_output": {
+    "price_support_classification": true,
+    "discrete_conditional_exact_extrema": true,
+    "piecewise_interpolated_conditional_extrema": true,
+    "native_effective_time_versus_receipt_time": true,
+    "full_population_WEAK_bound": false
+  },
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_p9m_c4_attainability.cjs": "577a43d9710dbe76202b8f3ea013f20d43b7de2c",
+    "tools/fwn9_p9m_c4_test.cjs": "fd6c85f91fed11b879ec49558f624a5dc7ba34cb",
+    "tools/fwn9_p9m_c4_accountant.py": "4e04f4783abf53686d7457474fc37f145ef251b7",
+    ".github/workflows/fwn9_p9m_c4.yml": "5aadf443d2f564b62b0e7c54b078cf95efdde183"
+  },
+  "restricted_actions": [
+    "NO_BROKER",
+    "NO_ORDER",
+    "NO_DEPLOY",
+    "NO_MERGE",
+    "NO_FINAL"
+  ]
+}
