@@ -1,0 +1,78 @@
+{
+  "schema": "FWN9_M11_C11_ENGINEERING_EVIDENCE_1",
+  "phase": "M11_PHASE9M_C11_NATIVE_TICK_SUPPORT",
+  "date_utc": "2026-11-08",
+  "lease_id": "M11_P9M_C11_TICK_SUPPORT_70394709",
+  "lease_preregistration_commit": "185174e7e87334370f37b501e9befb8e2022a9c2",
+  "native_code_commit": "ded62af99e4d30c61560a2d23876b6b1c7280c9e",
+  "static_protocol_commit": "af9a302a3a193f17536d5979e88b1a3e49c8492f",
+  "CI": {
+    "native_run": 42517313754,
+    "native_conclusion": "success",
+    "native_tests_pass": 8,
+    "native_tests_fail": 0,
+    "decimal50": "PASS_ZERO_TICK_NATIVE_EXITS_1",
+    "benchmark_12_native_replays_ms": 54.016,
+    "static_run": 42517434134,
+    "static_conclusion": "success",
+    "scoped_python_ruff": "PASS",
+    "scoped_python_mypy_strict": "PASS",
+    "js_syntax": "PASS",
+    "source_integrity": "PASS_GIT_BLOBS",
+    "other_legacy_workflows": "NOT_ASSERTED_GREEN"
+  },
+  "material_finding": {
+    "scope": "ISOLATED_ENGINEERING_FIXTURE_NOT_A_MARKET_ACCOUNT_OR_SAMPLED_WEAK_PATH",
+    "last_positive_market_low_usd": 0.0035,
+    "engineered_first_next_session_open_usd": 0.004,
+    "original_tick_usd": 0.01,
+    "price_sell_after_friction_and_floor_usd": 0,
+    "zero_native_stop_exits": 1,
+    "positive_underlying_ohlc": true,
+    "prior_C10_auditor": "REJECTS_SCOPED_ZERO_FILLEDPRICE_POSITIVITY",
+    "new_auditor": "PASSES_NONNEGATIVE_SELL_PLUS_POSITIVE_ENTRY_SHADOW_ENVELOPE_WITH_INDEPENDENT_DECIMAL50",
+    "mathematical_support": "Ideal continuous unbounded Gaussian WEAK law has positive lower-tail support; finite PRNG seed reachability and frequency are NOT established."
+  },
+  "mathematical_repair": {
+    "lower_anchor": "For asset a use min(positive OHLC prices, strictly positive buy fills), excluding zero sell fills from the minimum.",
+    "upper_anchor": "max(OHLC highs, nonnegative modeled sell fills and positive buy fills)",
+    "reason": "A sell at p=0 can decrease U=C+sum q*m and does not invalidate U_after <= R U_before; R remains finite for any finite positive underlying path under separately verified cash nonnegativity.",
+    "condition": "Cash is nonnegative; long-only integer shares; nonnegative fees and exit proceeds; complete and positive market observations; finite number of sales.",
+    "not_yet_proved": [
+      "Reachability for an actual finite generator seed under discrete PCG64",
+      "Universal native nonnegative-cash property",
+      "Stochastic WEAK integrability with a sufficiently tight upper bound",
+      "OHLC stop/target execution equivalence",
+      "Operational partial/reject/outage/impact and multicell coverage"
+    ]
+  },
+  "integrity": {
+    "git_blob_sha1": {
+      "runtime30/fwn9_p9m_c11_tick_applicability.cjs": "a340ab43818ae563e094df0f2378c88e68e64072",
+      "tools/fwn9_p9m_c11_tick_test.cjs": "408cd48ed7a8ee7e809b51393f69341e7730d3c4",
+      "tools/fwn9_p9m_c11_decimal_accountant.py": "f9d565c3267e3071954daedecbf9b05048a20545",
+      ".github/workflows/fwn9_p9m_c11.yml": "9c9c0a0dfc9fc9c03ccc5f0ef77e6dea2ac3ccdd",
+      "quant/harpoon_quant/modulation9.py": "b73f03b6d0ff2396e54c527b1da227953a1fdcc7",
+      "runtime30/profit8_replay.js": "2baa7e8cab40520b311032aea472fcf4017c2220",
+      "runtime30/ultimate_reservations.js": "aa8162d7150986455c95599aeaa50ec4b9faa3ee"
+    }
+  },
+  "budget": {
+    "newEconomicAccounts": 0,
+    "marketSeedsOpened": 0,
+    "newCandidates": 0,
+    "developmentHoldoutsReused": 0,
+    "m10FinalAccountsOpened": 0,
+    "m10FinalAccountsRemainSealed": 3200,
+    "prospectiveAlphaConsumed": 0,
+    "engineeringAttemptsCharged": 2,
+    "failedNewEngineeringAttempts": 0
+  },
+  "decision": "NO_GO_N9S_C11_ZERO_TICK_REFUTES_GLOBAL_STRICT_POSITIVE_EXECUTED_FILL_PREMISE_BUT_REVISED_NONNEGATIVE_SELL_ENVELOPE_SCOPED_ONLY",
+  "pr": {
+    "number": 7,
+    "draft": true,
+    "stacked_on": 6
+  },
+  "archive": "No new raw large data. Existing M10 archive identifier remains in state.raw_archive.library_file_id."
+}
