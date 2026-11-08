@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9L_NATIVE_ADAPTER_20261108",
-    "phase": "M11_PHASE9L",
-    "status": "ACTIVE",
-    "start_head": "41b01f792848aa46c69ee2139b9aeef0bfb46bcc",
-    "scope": "read-only source native event adapter and P9K cross-cell cash replay; verified incremental receipt checkpoint restart, no signal search",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9K_OFFLINE_27_PASS_QUANT1074_PASS_POPULATION_OPERATIONAL_GATES_OPEN",
+  "current_verdict": "NO_GO_P9L_NATIVE_OFFLINE_12_PASS_QUANT1074_PASS_OBSERVED_PANEL_MISSING",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Preregister one new source-native adapter that consumes all accepted M9 replay decisions/observations and independently reconciles P9K receipt ledger cash, risk, inventory and original reserve across two cells; verify 8% drawdown and session calendar clock; fail closed on missing/late source receipt; require counterexample on any discrepancy. Do not modify native generator, signals, costs, holdout or broker. Native OHLC executable credit and population N9 bound remain separate.",
-  "next_round_id": "M11_PHASE9L_SOURCE_NATIVE_EVENT_BRIDGE_AND_CELL_PARITY",
-  "phase": "M11_PHASE9K_MULTILAYER_OFFLINE_FAULT_MATRIX_VERIFIED_NATIVE_SOURCE_EQUIVALENCE_PENDING",
+  "next_action": "Preregister and implement a real source-to-optimization panel contract from prospectively observed fills (complete known_at, label_known_at, fees, inventory/exit receipts, 180d development, disjoint sealed holdout) with binding to the FWN9 native accounting checkpoint and SQLite journal. Exercise restart/corruption/budget/plateau and source-native event parity across multiple cases. Keep 3200 M10 finals sealed, original costs and risk unchanged. No paper/live orders or strategy search before these gates; do not relabel modeled OHLC as observed.",
+  "next_round_id": "M11_PHASE9M_OBSERVATION_TO_OPTIMIZER_INCREMENTAL_JOURNAL",
+  "phase": "M11_PHASE9L_NATIVE_MODELED_RECEIPT_PARITY_AND_RESTARTABLE_CHECKPOINT_VERIFIED_OPTIMIZER_OBSERVED_GATE_OPEN",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9K",
+  "round": "M11_PHASE9L",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -635,6 +627,59 @@
       "tools/fwn9_p9k_accountant_r3.py": "198d199d8fb6bed7ee1283bb43157d67be54f2764555c82c7558b2603e190e80",
       ".github/workflows/fwn9_phase9k_r3.yml": "2600659e51c4b508e5c7d4cd7bf51152343a1f7000dcac8db3522eba4da63b83",
       ".github/workflows/robust-quant-core.yml": "8ab88e99b102aa042a18eb0df87ff1161c02bee93f0b81b18a21123a66c74c47"
+    }
+  },
+  "m11_phase9l": {
+    "protocol": "research/modulation11/fwn9_phase9l_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9l_r2_protocol.json",
+      "research/modulation11/fwn9_phase9l_r3_protocol.json",
+      "research/modulation11/fwn9_phase9l_r4_protocol.json"
+    ],
+    "documentation": "docs/MODULATION11_PHASE9L_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9l_source_restart.json",
+    "ci_runs": {
+      "r1_failed_nondeterministic_tap_cmp": 42453903221,
+      "r2_failed_wrong_protocol_field": 42454005934,
+      "r3_focal_success": 42454100111,
+      "r4_full_quant_success": 42454216680,
+      "focal_tests_passed": 12,
+      "focal_tests_failed": 0,
+      "independent_accountant": "PASS_DECIMAL_60",
+      "strict_python_types": "PASS",
+      "ruff": "PASS",
+      "frozen_m9_sources_verified": 47,
+      "full_quant_head_tests": 1062,
+      "full_quant_archive_tests": 12,
+      "cross_process_checkpoint_reopen": "PASS",
+      "deterministic_source_audit_replay": "PASS"
+    },
+    "preregistrations": [
+      "19af744f4945323faab7c21b027f32dc83cce1b4",
+      "11c36a6c44ca475f95f762e7e449e49a8ec95fb9",
+      "61377c2b98c05d6c6b78edbf97b96159b4f0a52a",
+      "a474b4616e2db581a6708eb219ed7c91f0334611"
+    ],
+    "native_source_adapter_implemented": true,
+    "p9k_source_receipt_parity_fixture": true,
+    "checkpoint_reopen_cross_process": true,
+    "source_wealth_and_decimal": "PASS",
+    "source_cash_reported_separately_from_closed_pool": true,
+    "fully_observed_optimizer_panel": false,
+    "optimizer_handoff_status": "WAIT_OBSERVED_COMPLETED_OPPORTUNITIES",
+    "automatic_policy_promotion": false,
+    "native_population_M9_complete": false,
+    "market_broker_exec_verified": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "source_sha256": {
+      "runtime30/fwn9_p9l_native_bridge.cjs": "3adb8758c3c9c3c06a28779d555b86dc0ad7308d247daaef8e1dc405c6ebfe4e",
+      "tools/fwn9_p9l_native_bridge_test.cjs": "80a216fa6d6592b8de14a303b2a8b5eb0e5e038f052d82acb5c7ebb99be3d2fd",
+      "tools/fwn9_p9l_checkpoint.cjs": "8ec3932f21de89e7ca92071d9d93b32999af55c15bfb97ec7288d4a0c230b7c4",
+      "tools/fwn9_p9l_accountant.py": "e58ce8fc2bfcf71c674f169205410505ef64d8461652e6ea7505cea7579542c3",
+      ".github/workflows/fwn9_phase9l.yml": "314bb57ece8f2ae5415b6a8edac5a12f0782ffe3209ac2f0f6e319b8320849e9",
+      ".github/workflows/fwn9_phase9l_r3.yml": "717238b459243c72cb2ccb3d8846951654c9871f4b5ab0d632aa3b0be9b0aef4"
     }
   }
 }
