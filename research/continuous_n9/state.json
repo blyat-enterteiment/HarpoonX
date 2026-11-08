@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE7_ENDOGENOUS_MULTI_BAR_INVENTORY",
-    "owner": "M11_P7_COUPLED_EVENT_LEDGER_20261107",
-    "source_commit": "2e64f65d03ac7019b3c097540f638275254bbe4b",
-    "objective": "Prove exact pathwise mark-to-market decomposition for two-asset native OHLC vs substep-causal full campaigns, audit knownAt reservation and detect failed endogenous coupling",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "auto_retry": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_CONDITIONAL_BAR_EXPECTATION_BOUND_TOO_LOOSE_FULL_NATIVE_ANCHOR_AND_EXECUTION_UNPROVEN",
+  "current_verdict": "NO_GO_NATIVE_ENDOGENOUS_ADMISSION_COUPLING_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Establish/deny a finance-consistent full-replay endogenous inventory/cash coupling between native OHLC and first-cross substeps, including IOC event clocks, post-entry appreciation, reservation coverage and shared two-asset capital. Derive a valid multi-bar bound if possible; if not, version separate causal execution contract without revising historical M9/M10. No candidate sweep or holdout.",
-  "next_round_id": "M11_PHASE7_ENDOGENOUS_MULTI_BAR_INVENTORY",
-  "phase": "M11_PHASE7_LEASED_ENGINEERING_ONLY",
+  "next_action": "Implement causal two-book admission mirror using only received IOC/exit evidence and the exact native risk/gross/cash reservation gate; allow differing admitted quantities and identities without forcing native pairs, then prove/refute native stochastic wealth bridge. No strategy grid or M10 final.",
+  "next_round_id": "M11_PHASE8_CAUSAL_RECEIPT_ADMISSION_MIRROR",
+  "phase": "M11_PHASE7_FULL_TWO_ASSET_LEDGER_VERIFIED_ENDOGENOUS_COUPLING_NOT_PROVEN",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE6",
+  "round": "M11_PHASE7",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -204,5 +196,29 @@
       "tools/modulation11_phase6_accountant.py": "8a220aa49ed6b90334a89754d48fbd1c5cdddf79d0226c596ec371689a559517",
       "research/modulation11/phase6_protocol.json": "76c4390198ac74d31ed76f59db972b4f24034a1557c8719c6115a86eeb5bf4a9"
     }
+  },
+  "m11_phase7": {
+    "preregistration_commit": "a40b03deaaf69b8840888258be255023ac3da0d8",
+    "ci_run": 42427635227,
+    "ci_status": "SUCCESS",
+    "tests_passed": 8,
+    "evidence": "evidence/modulation11/phase7_multibar_coupling.json",
+    "doc": "docs/MODULATION11_PHASE7.md",
+    "source_sha256": {
+      "runtime30/modulation11_multibar_coupling.cjs": "529d09436dd60f113400519f1abaa66954fcc71d060d5121304637ca97d1e6a9",
+      "tools/modulation11_phase7_test.cjs": "681b03833d22f96f853e5ac009c608cff6e60f5af46d99c54cf64be52d97d800",
+      "tools/modulation11_phase7_accountant.py": "b228f237930150d6cf370d266cc04274d3e75d3b101ccad44304e953d7711a8b",
+      "research/modulation11/phase7_protocol.json": "3d3122634f7d2c571eea7668294004358332de302d63d232c28ed7680ac174fa"
+    },
+    "fixed_entry_ledger_reconciled": true,
+    "causal_counterfactual_admissions_resized": false,
+    "fixed_accounts_new": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "native_minus_causal_usd": -1.32,
+    "inventory_difference_usd": 13.2,
+    "execution_residual_usd": -14.52,
+    "independent_accountant": "PASS_DECIMAL_46",
+    "stochastic_bound_certified": false
   }
 }

@@ -1,0 +1,63 @@
+{
+  "schema": "HARPOON_M11_PHASE7_COUPLING_EVIDENCE_1",
+  "status": "SUCCESS_ENGINEERING_ONLY",
+  "phase7_protocol_commit": "a40b03deaaf69b8840888258be255023ac3da0d8",
+  "experimental_scope": "Two native-funded complete 72h campaigns SYNA/SYNB, same entries and sizes in both exit models; one deterministic baseline and one deterministic adversarial engineering tape. This is not an original M9 generator trial.",
+  "ci_run": 42427635227,
+  "ci_job": 128569246497,
+  "unit_tests": 8,
+  "failed_unit_tests": 0,
+  "independent_accountant": "Python Decimal 46 digits; currency, mark and basis reconcile to <0.00005 USD",
+  "static_typecheck": "PASS_scoped_typescript_checkJs_ES2022",
+  "syntax": "PASS_node_check",
+  "provenance": "M11 and frozen M9 generator SHA256 checks PASS; other legacy general quant CI has known hash debt",
+  "source_hashes": {
+    "runtime30/modulation11_multibar_coupling.cjs": "529d09436dd60f113400519f1abaa66954fcc71d060d5121304637ca97d1e6a9",
+    "tools/modulation11_phase7_test.cjs": "681b03833d22f96f853e5ac009c608cff6e60f5af46d99c54cf64be52d97d800",
+    "tools/modulation11_phase7_accountant.py": "b228f237930150d6cf370d266cc04274d3e75d3b101ccad44304e953d7711a8b",
+    "research/modulation11/phase7_protocol.json": "3d3122634f7d2c571eea7668294004358332de302d63d232c28ed7680ac174fa"
+  },
+  "adverse_fixture": {
+    "nominal_usd_base": 20000,
+    "calendar_fixed_fee_usd_total": 8,
+    "native_net_usd": -24.26,
+    "first_cross_net_usd": -22.94,
+    "native_terminal_equity_usd": 19975.74,
+    "causal_terminal_equity_usd": 19977.06,
+    "native_minus_first_cross_usd": -1.32,
+    "inventory_exposure_contribution_usd": 13.2,
+    "execution_residual_contribution_usd": -14.52,
+    "fixed_fee_difference_usd": 0,
+    "ex_post_absolute_triangle_usd": 2204.71,
+    "first_decision_cash_known_native_usd": 19999,
+    "first_decision_cash_known_first_cross_usd": 19999,
+    "second_decision_cash_known_native_usd": 19971.52,
+    "second_decision_cash_known_first_cross_usd": 19971.13,
+    "second_decision_cash_difference_usd": 0.39,
+    "cash_is_known_at_receipt_not_effective_time": true,
+    "measured_stochastic_bound": false,
+    "endogenous_causal_quantities_reoptimized": false
+  },
+  "benchmark": {
+    "calls": 3000,
+    "runner_ms": 34.393217,
+    "benchmark_claim": "illustrative runner timing only"
+  },
+  "decision": "Exact finite-path two-book self-financing algebra holds in tested funded cases; nonzero exposure term and changed known cash prevent transplanting common-quantity bar bound across sessions without coupled admission rule; no full native stochastic or impossibility certification.",
+  "control_cash": "CASH keeps zero exposure but fixed original calendar charges; no policy or market-account comparisons executed.",
+  "best_previous_candidate": "QUALITY_NATIVE_QUEUE72_R0625 retained as historical reference only, no re-evaluation.",
+  "claims_denied": [
+    "native stochastic N9-S feasibility bound",
+    "universal admission/reserve theorem",
+    "counterfactual dynamic IOC quantity parity",
+    "continuous 12 percent exposure cap",
+    "production operational fault coverage"
+  ],
+  "new_market_accounts": 0,
+  "new_candidate_recipes": 0,
+  "alpha_spent": 0,
+  "holdout_opened": false,
+  "holdout_remaining": 3200,
+  "raw_big_archive_created": false,
+  "previous_raw_archive_preserved": true
+}
