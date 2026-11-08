@@ -1,0 +1,61 @@
+{
+  "schema": "HARPOON_FWN9_P9MC5_GAUSSIAN_STOP_OVERSHOOT_PROTOCOL_1",
+  "parent_round": "M11_PHASE9M_C4",
+  "source_head": "b090b28ef8c979857fb1f4f1d098b0f053c3a424",
+  "lease_id": "M11_PHASE9M_C5_NATIVE_EXECUTION_CREDIT_STOCHASTIC_BOUND",
+  "hypothesis": "For a fixed prebar long quantity, known protective stop and original M9 WEAK eight-substep lognormal law, the positive native OHLC stop interpolation credit over first discrete crossing has a mathematically bounded conditional expectation based on an exact normal downside put. A conservative bound uses the 0.004 four-sigma bar mixture and the worst activity/final-support sigma. This bound is bar-local and not by itself an upper bound for full native expected log growth with endogenous admissions.",
+  "technical_premises": [
+    "At bar opening, same-state long quantity and stop are predictable from causal history; no future substep is supplied to the policy.",
+    "Current M9 mixture per bar and asset has independent Bernoulli probability 0.004 and multiplicative sigma 4; activity <=exp(.7), final sigma multiplier <=1.2.",
+    "Conditional one-step log return equals (delta*r-sigma_bar^2/2)/8 + sigma_bar/sqrt8 Z; marginal Z is N(0,1) despite common factor correlation.",
+    "First crossing at observed sample below stop H<=Sprev has raw native-minus-sample premium H-Snext, no more than (Sprev-Snext)_+.",
+    "Tick flooring can add strictly less than one exit tick per sold share, and nominal friction scales raw credit by 1-f.",
+    "At most one whole residual-position stop per position within a bar; all target-first sales at prices >=H are nonpositive for native credit under same starting inventory.",
+    "No claim that a frozen PRNG seed known to the policy is an independent random draw; the stochastic law treats draws as exogenous."
+  ],
+  "registered_inference": [
+    "For fixed ratio h=H/Sprev <=1, E[(h-Snext/Sprev)_+] = h Phi((ln h - mu)/sd) - exp(drift/8) Phi((ln h - mu - sd^2)/sd), where mu=(drift-.5sigma^2)/8 and sd=sigma/sqrt8.",
+    "Because this expression increases with h, the maximum over h<=1 occurs at h=1.",
+    "Conditional on prebar information and independent current bar mixture, expected positive stop credit <= (1-friction)*q*Sopen * [sum_{k=0}^7 exp(k*delta_max/8) * (.996 lambda_normal+.004 lambda_four_sigma)] + q*tick.",
+    "Uniform worst-sigma alternative replaces mixture-weighted lambda by lambda_four_sigma; no continuous 12pct exposure limit is assumed.",
+    "This bound does not cover unknown expected stop frequency, future endogenous q/S_open, native mark-versus-observed wealth, or global log-growth."
+  ],
+  "refutation": [
+    "Exact Gaussian CDF formula disagrees with independent numerical Gaussian quadrature over registered sigma/drift support",
+    "Conditional strike<=previous upper bound fails when strike ratio varies down",
+    "5,040 finite synthetic pathwise stop overshoots exceed sum of negative price steps",
+    "Reference protocol, generator hash, sigma mixture, 8 substeps or original limits drift silently",
+    "Per-bar bound is represented as daily-log or native full-population WEAK N9S certificate"
+  ],
+  "finite_tests": [
+    "Analytic lognormal put vs Simpson integration for drift, volatility, barrier grid",
+    "Barrier monotonicity and sigma convexity",
+    "Frozen WEAK sigma scaling and .004 four-sigma mixture",
+    "5,040 fixed 7! stop-crossing pathwise upper-credit inequalities",
+    "Fail closed on capital/substep/strike mutation",
+    "Normal CDF symmetry"
+  ],
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "new_controls": 0,
+    "workers": 1,
+    "prospective_alpha_spent": 0,
+    "final_opened": 0,
+    "m10_final_unopened": 3200
+  },
+  "original_parameters": "UNCHANGED_M9_CAPITAL_20000_WEAK_LAW_COSTS_12PCT_ADMISSION_72H_HURDLE",
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9m_c5_credit_bound.py": "c85d164e725b05651f39340100e41c51887d91ce",
+    "tools/test_fwn9_p9m_c5_credit_bound.py": "53c054fe72f88dda93f69ea8898ddc9ef23f6ae9",
+    ".github/workflows/fwn9_p9m_c5.yml": "13e62f9485742793ea6c091dece02fe122302edf"
+  },
+  "negative_controls": [
+    "Original CASH with identical costs remains registered, not resimulated",
+    "M10 best QUALITY_NATIVE_QUEUE72_R0625 remains frozen and not recomputed"
+  ],
+  "scope": "ANALYTIC_CONDITIONAL_ONE_BAR_ENVELOPE_NOT_ALL_NATIVE_POLICY_OR_STOP_SELECTION",
+  "native_infeasibility_certified": false,
+  "N9S_accepted": false,
+  "no_broker_or_merge": true
+}
