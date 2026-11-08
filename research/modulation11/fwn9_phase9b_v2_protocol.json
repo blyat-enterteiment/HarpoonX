@@ -1,0 +1,34 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9B_REV2_PROTOCOL_1",
+  "previous_protocol": "research/modulation11/fwn9_phase9b_protocol.json",
+  "previous_failed_ci": 42434154497,
+  "source_commit": "fa8fe73d24df1911df9a9db71928fd6ecbd13c72",
+  "classification": "TRANSITIVE_FROZEN_P9A_SYNTAX_ERROR",
+  "forensic_finding": {
+    "file": "runtime30/modulation11_native_receipt_parity_p9a.cjs",
+    "git_blob_sha1": "e59472228ebdb0489ff7d75db7a9852c485d98e9",
+    "defect": "Line 117 contains an extra closing brace in an anchorRows.map return, so node --check fails although historical CI was reported as success. Preserve registered source unmodified; do not claim P9A current-source reproducibility until separately reconciled."
+  },
+  "hypothesis": "A test-only adapter using the native replay campaign and P8 independent receipt book, without importing frozen malformed P9A, will expose missing daily-loss gate while verifying native event clock.",
+  "refutation": [
+    "Native risk gate and independently reconstructed daily baseline disagree",
+    "Second asset is refused by both native and mirror despite the mirror lacking the daily loss gate",
+    "Future tape changes preceding decisions",
+    "Any resulting test refers to real or original-law market performance"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "final_seeds_opened": 0,
+    "alpha_spent": 0,
+    "workers": 1
+  },
+  "original_contract_changed": false,
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_native_risk_clock_p9b.cjs": "c8b74488f773fd1fda4414d644983db0a82788e6",
+    "tools/fwn9_phase9b_test_v2.cjs": "250195a27752a503169800054159e80c394cfd1c",
+    "tools/fwn9_phase9b_accountant.py": "a13d203fa1dd71ecdb275f5011b3cfb697d4451d",
+    ".github/workflows/fwn9_phase9b_v2.yml": "9e30affd62b50d263daa980ea66cd60fb2b495bd"
+  },
+  "promotion_eligible": false
+}
