@@ -1,0 +1,46 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C2_CORRECTIVE_R5_1",
+  "lease_id": "M11_P9M_C2_EVENT_PARITY_20261108_T7",
+  "original_protocol": "research/modulation11/fwn9_phase9m_c2_protocol.json",
+  "parent_head": "5c3c3db93333d19aa71e1aa1a76aa1dfa0ba7214",
+  "prior_attempts": [
+    {
+      "ci_run": 42472982612,
+      "status": "FAILED_TESTS",
+      "charge_engineering_attempt": 1
+    },
+    {
+      "ci_run": 42473079765,
+      "status": "FAILED_TESTS",
+      "charge_engineering_attempt": 1
+    },
+    {
+      "ci_run": 42473165715,
+      "status": "PASSED_8_TESTS_DECIMAL46_BENCHMARK",
+      "charge_engineering_attempt": 1
+    },
+    {
+      "ci_run": 42473277864,
+      "status": "FAILED_RUFF_2_LINT_FINDINGS",
+      "charge_engineering_attempt": 1
+    }
+  ],
+  "hypothesis": "The already-passing event/audit contract is type-safe and statically clean when a versioned independent accountant follows project Ruff style without modifying economics.",
+  "correction": "Copy, do not overwrite, original Decimal-46 accountant; add blank line after __future__, Decimal(0) for zero; then run Ruff and mypy --strict on versioned R5 file, rerun native tests and independent Decimal reconciliation",
+  "refutation": [
+    "mypy --strict or Ruff fails",
+    "any engineering test fails",
+    "independent Decimal ledger fails",
+    "SHA recorded frozen protocol changes"
+  ],
+  "new_paths": [
+    "tools/fwn9_p9m_c2_accountant_r5.py",
+    ".github/workflows/fwn9_phase9m_c2_r5.yml"
+  ],
+  "costs_and_limits_changed": false,
+  "new_economic_accounts": 0,
+  "market_seeds": [],
+  "final_m10_opened": 0,
+  "prospective_alpha_spent": 0,
+  "workers": 1
+}
