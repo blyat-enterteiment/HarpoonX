@@ -1,0 +1,75 @@
+name: M11 phase9A native receipt replay parity audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_native_receipt_parity_p9a.cjs
+      - tools/modulation11_phase9a_test.cjs
+      - tools/modulation11_phase9a_accountant.py
+      - research/modulation11/phase9a_protocol.json
+      - .github/workflows/modulation11_phase9a.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Deterministic native funded receipt and substep tests
+        run: |
+          node --check runtime30/modulation11_native_receipt_parity_p9a.cjs
+          node --check tools/modulation11_phase9a_test.cjs
+          node --test tools/modulation11_phase9a_test.cjs
+      - name: JS static types focused on P9A
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          set +e
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_native_receipt_parity_p9a.cjs >/tmp/m11p9a_types.log 2>&1
+          rc=$?
+          set -e
+          TSC_STATUS="$rc" python - <<'PY'
+          import os,pathlib
+          errors=[s for s in pathlib.Path('/tmp/m11p9a_types.log').read_text().splitlines() if 'error TS' in s]
+          rc=int(os.environ['TSC_STATUS'])
+          if rc==0:
+              assert not errors,errors
+              print('M11_P9A_CHECKJS_FULL_PASS')
+          else:
+              assert rc==2,rc
+              assert len(errors)==8,errors
+              assert all(s.startswith('runtime30/types.js(') and ': error TS2365:' in s
+                         and s.split('(')[1].split(',')[0] in ('85','94','115','151')
+                         for s in errors),errors
+              print('M11_P9A_CHECKJS_NO_NEW_ERRORS_8_HISTORICAL')
+          PY
+      - name: Independent Decimal receipt reconciliation
+        run: |
+          node tools/modulation11_phase9a_test.cjs --emit-accountant >/tmp/m11p9a_accountant.log
+          python -B tools/modulation11_phase9a_accountant.py /tmp/m11p9a_accountant.log
+      - name: Pre-registered Git object hashes and frozen generator
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess,hashlib
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/phase9a_protocol.json').read_text())
+          assert p['budget']=={'economic_accounts':0,'candidate_recipes':0,'market_seeds_opened':[],'workers':1,'alpha_spent':0,'m10_final_unopened':3200}
+          for path,sha in p['code_git_blob_sha1'].items():
+              got=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert got==sha,(path,got,sha)
+              print('M11_P9A_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          path='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/path).read_bytes()).hexdigest()==reg['sources_sha256'][path]
+          print('M11_P9A_FROZEN_GENERATOR_INTEGRITY_PASS')
+          PY
+      - name: Bounded benchmark
+        run: |
+          node tools/modulation11_phase9a_test.cjs --bench >/tmp/m11p9a_benchmark.log
+          grep M11_P9A_20_BOOKS_MS /tmp/m11p9a_benchmark.log
