@@ -1,0 +1,23 @@
+{
+  "schema": "FWN9_C12_R2_CORRECTIVE_PROTOCOL_1",
+  "phase": "M11_PHASE9M_C12_NONNEGATIVE_SELL_MOMENT_BOUND",
+  "parent_commit": "40794158d9a22a9c36431801ab0c6e561bf65386",
+  "original_lease": "M11_P9M_C12_GLOBAL_RANGE_VACUITY_7c2bab7c",
+  "failed_ci": {
+    "run_id": 42523004827,
+    "job_id": 128860406343,
+    "error": "RUFF_E741_AMBIGUOUS_LOCAL_l",
+    "charged_attempt": 1
+  },
+  "repair": "New copy r2 replaces ambiguous local variable l with limits, without altering formulas or original registered core/fees/constraints. R1 source retained untouched.",
+  "new_files": [
+    "tools/fwn9_p9m_c12_range_vacuity_r2.py",
+    "tools/test_fwn9_p9m_c12_range_vacuity_r2.py",
+    ".github/workflows/fwn9_p9m_c12_r2.yml"
+  ],
+  "hypothesis_unchanged": true,
+  "market_accounts": 0,
+  "seeds": [],
+  "alpha": 0,
+  "max_engineering_attempts": 3
+}

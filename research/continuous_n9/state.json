@@ -7,7 +7,15 @@
     "lease_parent_head": "7c2bab7c6fd41f52cffbec24db71f598a129dd89",
     "status": "ACTIVE",
     "protocol": "research/modulation11/fwn9_phase9m_c12_protocol.json",
-    "attempts_started": 0
+    "attempts_started": 1,
+    "failed_attempts": [
+      {
+        "ci_run": 42523004827,
+        "reason": "RUFF_E741",
+        "commit": "40794158d9a22a9c36431801ab0c6e561bf65386"
+      }
+    ],
+    "corrective_protocol": "research/modulation11/fwn9_phase9m_c12_r2_protocol.json"
   },
   "automation": {
     "created_confirmed": true,
