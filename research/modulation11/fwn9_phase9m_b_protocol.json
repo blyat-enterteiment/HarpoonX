@@ -1,0 +1,74 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9M_B_OFFLINE_SOURCE_PANEL_1",
+  "parent_program": "research/continuous_n9/program.json",
+  "previous_checkpoint_head": "ddb9e2c41383b9973cd5930c5a748cf9f9824aa6",
+  "pr": 7,
+  "lease_id": "M11_P9M_B_OFFLINE_PROVENANCE_PANEL_20261108_T5",
+  "unit": "Offline finite fail-closed source-attestation/complete opportunities/daily MTM bridge; no source connection or optimizer promotion",
+  "hypothesis": "A receipt-only 180-day panel remains unauthenticated and economically incomplete even if its self-reported SHA passes. An independently pinned Ed25519 key, signed binding of receipt+label+marks+opportunities, and 180-day mark/universe/cash checks can distinguish cryptographic integrity from externally established provenance without seeing held-out samples.",
+  "structural_falsification": [
+    "A signed but modified mark or missing universe row passes",
+    "An issuer-provided key becomes an independent root without external pin",
+    "Late known_at mark used in a historical valuation",
+    "Missing fixed calendar charge creates positive net",
+    "Unsigned or spoofed source permits optimizer promotion",
+    "A 180-day synthetic panel gets labeled real observed"
+  ],
+  "finite_fixture_catalog": [
+    "valid engineering signature only",
+    "missing trust registry",
+    "bad Ed25519 signature",
+    "payload mutation after signature",
+    "missing mark",
+    "duplicate mark",
+    "late known_at",
+    "missing opportunity",
+    "duplicate opportunity",
+    "signal cross-match",
+    "daily USD fixed cost CASH",
+    "replay all closed receipts to MTM",
+    "nonpositive mark",
+    "holdout payload rejection"
+  ],
+  "seeds": {
+    "market": [],
+    "holdout": [],
+    "engineering_fixtures": "fixed-deterministic-not-market-seeds"
+  },
+  "budget": {
+    "new_candidates": 0,
+    "controls": 0,
+    "new_economic_accounts": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_opened": 0
+  },
+  "unchanged_contract": {
+    "capital_usd": 20000,
+    "admission_reserved_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "max_holding_hours": 72,
+    "nominal_hurdle_bp_day": 1,
+    "all_M9_M10_costs_and_generators": true
+  },
+  "source_paths": [
+    "quant/harpoon_quant/fwn9_observed_gate.py",
+    "quant/harpoon_quant/fwn9_source_panel.py"
+  ],
+  "planned_paths": [
+    "quant/harpoon_quant/fwn9_source_panel.py",
+    "quant/tests/test_fwn9_source_panel.py",
+    ".github/workflows/fwn9_phase9m_b.yml",
+    "docs/MODULATION11_PHASE9M_B.md",
+    "evidence/modulation11/fwn9_phase9m_b.json"
+  ],
+  "gates": {
+    "signed_fixture_is_not_real_evidence": true,
+    "independent_source_authentication_requires_proven_trust_anchor": true,
+    "native_m9_full_parity_required": true,
+    "operational_gaps_remain": true,
+    "optimizer_eligible": false,
+    "n9s_certified": false
+  },
+  "preregistration": "No economic search authorized in this unit; no final results will be opened."
+}
