@@ -1,0 +1,38 @@
+name: FWN9 M11 C8B R3 full native proof validation
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9m_c8b_accountant_r3.py
+      - .github/workflows/fwn9_p9m_c8b_r3.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Syntax, Ruff and strict mypy
+        run: |
+          node --check runtime30/fwn9_p9m_c8b_native_anchor.cjs
+          node --check tools/fwn9_p9m_c8b_native_anchor_test.cjs
+          python -m pip install --disable-pip-version-check --quiet ruff mypy
+          ruff check tools/fwn9_p9m_c8b_accountant_r3.py
+          mypy --strict tools/fwn9_p9m_c8b_accountant_r3.py
+          python -m py_compile tools/fwn9_p9m_c8b_accountant_r3.py
+      - name: Native full replay and frozen source integrity tests
+        run: node --test tools/fwn9_p9m_c8b_native_anchor_test.cjs
+      - name: Independent Decimal-50 audit
+        run: |
+          node tools/fwn9_p9m_c8b_native_anchor_test.cjs --emit-proof | sed -n 's/^P9MC8B_AUDIT=//p' > /tmp/c8b.json
+          python tools/fwn9_p9m_c8b_accountant_r3.py /tmp/c8b.json
+      - name: Benchmark native replay
+        run: node tools/fwn9_p9m_c8b_native_anchor_test.cjs --bench
