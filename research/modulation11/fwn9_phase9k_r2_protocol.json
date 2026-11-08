@@ -1,0 +1,43 @@
+{
+  "schema": "HARPOON_FWN9_P9K_R2_OUTPUT_CONTRACT_CORRECTION_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9k_protocol.json",
+  "lease_id": "M11_P9K_MULTILAYER_EVENT_GATE_20261108",
+  "failed_first_ci": 42450020327,
+  "first_tests": 26,
+  "first_pass": 23,
+  "first_fail": 3,
+  "diagnosis": "All three failures share a new audit output interface mismatch: snapshot exposed equity/inventory/exitFee but tests and independent finance contract expect equityUsd/inventoryUsd/exitFeeUsd. Native frozen replay not changed. A versioned R2 ledger defines explicit aliases with identical values.",
+  "hypothesis": "With explicit verified aliases, all 27 registered adversarial tests, strict Decimal-60 accountant, static checks, original M9 hashes and actual 80-cycle benchmark must pass. No economic or market search.",
+  "refutation": [
+    "One prior failed assertion repeats",
+    "Normalized aliases disagree",
+    "Any source value changed rather than name exposed",
+    "Any partial cancellation released opened original reserve",
+    "Any free cash mismatches independent Decimal",
+    "Any missing source SHA or changed N9 policy",
+    "Production fills or profitability implied from fixtures"
+  ],
+  "finite_catalog": "26 original tests + one output contract identity test; no new market-seed paths",
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_p9k_fault_matrix_r2.cjs": "94e676cd261700e7a63a44ca3e714edc0a68ce1c",
+    "tools/fwn9_p9k_fault_matrix_test_r2.cjs": "d3245b92294d819e69ad8519c46b89523fedadd7",
+    ".github/workflows/fwn9_phase9k_r2.yml": "148378e049a07530033804fee0a28c2c9b36280b",
+    ".github/workflows/robust-quant-core.yml": "eaf285ca7ed184b039196dbd4ede3aba4dcf178f"
+  },
+  "unmodified_code": [
+    "runtime30/ultimate_reservations.js",
+    "runtime30/profit8_replay.js",
+    "quant/harpoon_quant/modulation9.py",
+    "runtime30/fwn9_p9k_fault_matrix.cjs",
+    "tools/fwn9_p9k_fault_matrix_test.cjs"
+  ],
+  "promotion_eligible": false
+}
