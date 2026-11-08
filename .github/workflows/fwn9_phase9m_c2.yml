@@ -1,0 +1,41 @@
+name: FWN9 P9M-C2 offline native dual-asset IOC and reserve audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - "runtime30/fwn9_p9m_c2_event_parity.cjs"
+      - "tools/fwn9_p9m_c2_event_test.cjs"
+      - "tools/fwn9_p9m_c2_accountant.py"
+      - ".github/workflows/fwn9_phase9m_c2.yml"
+  pull_request:
+    paths:
+      - "runtime30/fwn9_p9m_c2_event_parity.cjs"
+      - "tools/fwn9_p9m_c2_event_test.cjs"
+      - "tools/fwn9_p9m_c2_accountant.py"
+      - ".github/workflows/fwn9_phase9m_c2.yml"
+permissions:
+  contents: read
+jobs:
+  native-event-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax
+        run: |
+          node --check runtime30/fwn9_p9m_c2_event_parity.cjs
+          node --check tools/fwn9_p9m_c2_event_test.cjs
+          python -m py_compile tools/fwn9_p9m_c2_accountant.py
+      - name: Offline deterministic regression
+        run: node --test tools/fwn9_p9m_c2_event_test.cjs
+      - name: Independent Decimal-46
+        run: |
+          node tools/fwn9_p9m_c2_event_test.cjs --emit-proof > /tmp/p9mc2_input.json
+          python tools/fwn9_p9m_c2_accountant.py /tmp/p9mc2_input.json
+      - name: Benchmark
+        run: node tools/fwn9_p9m_c2_event_test.cjs --bench
