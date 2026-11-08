@@ -1,0 +1,87 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9G_SOURCE_SPECIFIC_CASH_FLOOR_1",
+  "lease_id": "M11_P9G_M9_WEALTH_FLOOR_20261107",
+  "hypothesis": "Conditional on a last accepted M9-style admission with exact reconciled cash ledger, complete contemporaneous knownAt marked open-inventory exposure plus pending IOC under 12% total admission/reservation, strictly observed 8% drawdown admission gate, bound on future fees from .25% risk reservation, nonnegative long-only sale receipts and no later admission, the final causal wealth has a deterministic positive lower envelope after 176 days of registered calendar costs.",
+  "counterhypothesis": "Original native replay may violate the preconditions because marks, partial-sale cash, NO_FILL events, and stale knownAt timestamps are not proven to reconcile to the independent causal ledger. A positive conditional floor does not resolve this and does not bound native-vs-causal OHLC wealth difference.",
+  "fixed_config": {
+    "capital_usd": 20000,
+    "traded_assets": [
+      "SYNA",
+      "SYNB"
+    ],
+    "original_generator": "research/modulation9/protocol.json",
+    "gross_admission_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "observed_peak_drawdown_gate": 0.08,
+    "calendar_days": 176,
+    "cost_per_day_usd_nominal": 1,
+    "cost_per_day_usd_stress": 2,
+    "max_hold_hours": 72,
+    "unchanged_hurdle_bp_daily": 1,
+    "previous_weak_conditional_bound_bp_daily": 0.9051232469572758
+  },
+  "fixture_catalog": [
+    "nominal exact floor",
+    "stress exact floor",
+    "coherent full cash/mark/pending ledger",
+    "stress cost scenario",
+    "implied mean-positive-delta threshold and inverse moment",
+    "strict gate equality rejection",
+    "peak-equity gate rejection",
+    "ledger mark mismatch rejection",
+    "unreconciled cash/partial proceeds rejection",
+    "knownAt mismatch rejection",
+    "unreserved IOC rejection",
+    "further admission rejection",
+    "negative/short price receipt rejection",
+    "gross reservation exceedance rejection",
+    "future fee cap exceedance rejection",
+    "calendar cost/unit tamper rejection",
+    "timeline tamper rejection",
+    "cannot promote to population certificate"
+  ],
+  "refutation_criteria": [
+    "Any fixture violating ledger/mark/receipt chronology is accepted",
+    "Numerical lower bound is not implied by the stated sufficient inequalities",
+    "Cost, capital, admission, risk, horizon, hurdle, generator or source changes",
+    "Any proof artifact labels M9 support-wide native/causal coverage VERIFIED without checking source event paths",
+    "Any synthetic or economic account is charged silently",
+    "Any denied lease or changed HEAD is force-overwritten"
+  ],
+  "scope_limits": [
+    "Mathematical last-admission bound is CONDITIONAL, not established for all native paths",
+    "Independent cash and contemporaneous mark may differ from native cashPoolAt and pnlAt",
+    "Delayed NO_FILL and partial receipts may break assumptions",
+    "Original stop/target OHLC first-hit equivalence remains unproved",
+    "P9B IOC NO_FILL valuation event clock debt remains unresolved",
+    "Native-vs-causal E[D+] is not bounded by this unit",
+    "No new signal search, real market results, broker operations, PR merge or deployment"
+  ],
+  "controls": [
+    "CASH unchanged",
+    "QUALITY_NATIVE_QUEUE72_R0625 unchanged, not re-executed"
+  ],
+  "budget": {
+    "new_accounts": 0,
+    "new_candidates": 0,
+    "controls_evaluated": 0,
+    "seeds_development": [],
+    "seeds_final": [],
+    "workers": 1,
+    "final_m10_unopened": 3200,
+    "prospective_alpha_spent": 0
+  },
+  "git_blobs": {
+    "tools/fwn9_phase9g_last_admission_floor.py": "518bdfb50df9fffb53051934d046f94e085bc748",
+    "tools/test_fwn9_phase9g_last_admission_floor.py": "3865c3a9c729e159680d9a31aaa5ce190a2e3ab1",
+    "tools/fwn9_phase9g_independent.py": "ffa5da57de0417ea0b03b664f31f950157b7becd",
+    ".github/workflows/fwn9_phase9g.yml": "52d8abf25a0dfa48ee75e65ef2cc41b5d785f7be"
+  },
+  "source_reference_sha256": {
+    "quant/harpoon_quant/modulation9.py": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "runtime30/profit8_replay.js": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "runtime30/ultimate_reservations.js": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "runtime30/modulation9_exit.cjs": "dea5e4e2442ccfb75fa7507f2ca662442f4591b6418b683dcc7c9c46fe48382d"
+  },
+  "promotion_eligible": false
+}

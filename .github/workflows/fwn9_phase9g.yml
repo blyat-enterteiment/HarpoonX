@@ -1,0 +1,59 @@
+name: FWN9 P9G last admission conditional floor
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_phase9g_last_admission_floor.py
+      - tools/test_fwn9_phase9g_last_admission_floor.py
+      - tools/fwn9_phase9g_independent.py
+      - research/modulation11/fwn9_phase9g_protocol.json
+      - .github/workflows/fwn9_phase9g.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  last-admission-floor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact fixture falsification and independent arithmetic
+        run: |
+          python -m py_compile tools/fwn9_phase9g_last_admission_floor.py tools/test_fwn9_phase9g_last_admission_floor.py tools/fwn9_phase9g_independent.py
+          PYTHONPATH=tools python -m unittest -v test_fwn9_phase9g_last_admission_floor
+          python -B tools/fwn9_phase9g_independent.py
+      - name: Static and strict types
+        run: |
+          python -m pip install --disable-pip-version-check 'ruff==0.14.4' 'mypy==1.18.2'
+          ruff check --select E4,E7,E9,F tools/fwn9_phase9g_last_admission_floor.py tools/test_fwn9_phase9g_last_admission_floor.py tools/fwn9_phase9g_independent.py
+          mypy --strict tools/fwn9_phase9g_last_admission_floor.py tools/fwn9_phase9g_independent.py
+      - name: Contract source integrity and registration check
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess,hashlib
+          reg=json.loads(pathlib.Path('research/modulation11/fwn9_phase9g_protocol.json').read_text())
+          assert reg['budget']['new_accounts']==0 and reg['budget']['final_m10_unopened']==3200
+          for path,sha in reg['git_blobs'].items():
+              assert subprocess.check_output(['git','hash-object',path],text=True).strip()==sha,path
+              print('SHA256',path,hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest())
+          old=json.loads(pathlib.Path('research/modulation9/registration.json').read_text())
+          src='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256(pathlib.Path(src).read_bytes()).hexdigest()==old['sources_sha256'][src]
+          print('P9G_FROZEN_GENERATOR_OK')
+          PY
+      - name: Bounded pure-arithmetic benchmark
+        run: |
+          PYTHONPATH=tools python - <<'PY'
+          from time import perf_counter
+          from fwn9_phase9g_last_admission_floor import audit_last_admission,last_admission_fixture
+          row=last_admission_fixture()
+          tic=perf_counter()
+          for _ in range(2500):
+              audit_last_admission(row)
+          print('P9G_2500_CONDITIONAL_AUDITS_MS=',round((perf_counter()-tic)*1000,4))
+          PY
