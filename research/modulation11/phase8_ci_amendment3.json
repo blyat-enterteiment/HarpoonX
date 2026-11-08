@@ -1,0 +1,17 @@
+{
+  "schema": "HARPOON_M11_PHASE8_CI_AMENDMENT_3",
+  "prior_amendment": "research/modulation11/phase8_ci_amendment2.json",
+  "failed_ci_runs": [
+    42430492844,
+    42430570596,
+    42430674678
+  ],
+  "third_failure": "CI allowlist regular expression overescaped; source fixtures and module type diagnostics not shown failing; receipt/Decimal skipped by CI gating",
+  "new_workflow": ".github/workflows/modulation11_phase8_validation_v4.yml",
+  "new_workflow_git_blob_sha1": "6d9b7f9027c57a795180b42183d573455d3dd532",
+  "typecheck_policy": "tsc checkJs plus strict explicit legacy error allowlist; any new error fails",
+  "accounts_delta": 0,
+  "alpha_delta": 0,
+  "market_seeds_opened": [],
+  "unmodified_prior_sources": true
+}
