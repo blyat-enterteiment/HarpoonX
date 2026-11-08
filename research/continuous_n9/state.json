@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE9M_C4_NATIVE_PRICE_ATTAINABILITY_POPULATION_CONTRACT",
-    "owner": "fwn9_p9mc4_20261108",
-    "source_commit": "73ea3ee0866e371910833b343d1a303a855a2709",
-    "scope": "Engineering bounded eight-substep conditional OHLC permutation envelope and first-passage semantics; zero economic accounts",
-    "economic_accounts_budget": 0,
-    "alpha_reserved": 0,
-    "automatic_retry_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9MC3_FINITE_NATIVE_VS_EIGHT_SUBSTEP_NON_EQUIVALENCE_WEAK_BOUND_UNCERTIFIED",
+  "current_verdict": "NO_GO_P9MC4_FINITE_ENVELOPE_EXHAUSTIVE_WEAK_NATIVE_CREDIT_UNBOUNDED",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "P9M-C4 estructural: definir y verificar el contrato causal de precios/marks del replay sobre la ley de ocho subpasos; certificado de alcance para cota WEAK sólo cuando sea demostrable. No abrir nuevas señales ni semillas finales sin hipótesis material nueva, no modificar umbrales/costes/riesgo.",
-  "next_round_id": "M11_PHASE9M_C4_NATIVE_PRICE_ATTAINABILITY_POPULATION_CONTRACT",
-  "phase": "M11_PHASE9M_C4_ENGINEERING_ACTIVE",
+  "next_action": "Derive or refute a valid upper bound for endogenous native OHLC-versus-eight-substep execution credit under the frozen M9 WEAK lognormal law, including inventory and receipt clocks; combine with prior 0.905123bp bound only when rigorously applicable. Do not open economic search, M10 final or alter registered parameters.",
+  "next_round_id": "M11_PHASE9M_C5_NATIVE_EXECUTION_CREDIT_STOCHASTIC_BOUND",
+  "phase": "M11_PHASE9M_C4_FINITE_PRICE_ENVELOPE_VERIFIED_NATIVE_POPULATION_OPEN",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C3",
+  "round": "M11_PHASE9M_C4",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -893,5 +885,30 @@
     "alpha_delta": 0,
     "final_m10_opened": 0,
     "native_WEAK_infeasibility_certified": false
+  },
+  "m11_phase9m_c4": {
+    "source_commit": "3ab24ecfb243c138e88c1038cfd785014e3dd594",
+    "protocol": "research/modulation11/fwn9_phase9m_c4_protocol.json",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c4.json",
+    "documentation": "docs/MODULATION11_PHASE9M_C4.md",
+    "ci_run": 42479897972,
+    "ci_status": "SUCCESS",
+    "tests_passed": 7,
+    "exact_conditional_orderings": 5040,
+    "independent_decimal": "PASS_DECIMAL_46_EXHAUSTIVE",
+    "native_raw_stop_exact_discrete_sample": false,
+    "additional_log_linear_interpolation_reaches_stop": true,
+    "continuous_first_passage_universal_parity": false,
+    "weak_native_population_bound_certified": false,
+    "source_sha256": {
+      "runtime30/fwn9_p9m_c4_attainability.cjs": "151592474a1680555c340777007e44ee35624fb75c5a3fe5ed6e17d2e25517db",
+      "tools/fwn9_p9m_c4_test.cjs": "80b95a3b38dbca58699cee4feeda3ef993d1d28f9293b8deca954c554b6c7624",
+      "tools/fwn9_p9m_c4_accountant.py": "0dd0a1b7983a63c8b41090c2709a05319833f9ee5ba9cbaf261884adf4292103",
+      ".github/workflows/fwn9_p9m_c4.yml": "8c799d1fdf12947c9df54e2038fa053ce8471ec39fb67628c8493f6ca6fa3845"
+    },
+    "benchmark_two_catalogs_ms": 163.782,
+    "new_economic_accounts": 0,
+    "alpha_spent": 0,
+    "final_opened": false
   }
 }
