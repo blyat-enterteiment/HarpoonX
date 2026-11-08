@@ -1,0 +1,25 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C2_CORRECTIVE_R2_1",
+  "prior_lease_commit": "e608d2503f54a30082bd0d8d0ee7cc37346ca90d",
+  "failed_attempt": {
+    "source_commit": "ef53f10dcf814820a5b4ac165e3c6e96c3726a18",
+    "ci_run": 42472982612,
+    "tests_failed": 7,
+    "reason": "FIRST_FUNDED_POSITION_CONSUMED_SHARED_12_PERCENT_EX_ANTE_CAPACITY;_SECOND_CANDIDATE_REFUSED_BEFORE_IOC; TEST_INCORRECTLY_EXPECTED_NO_FILL. Also mutated frozen limits singleton.",
+    "charge": {
+      "engineering_attempt": 1,
+      "economic_accounts": 0,
+      "alpha": 0
+    }
+  },
+  "correction": "Preserve 12% and .25% caps, and change engineering signal stopDistance from 2 to 5 so both original reservations fit without double capacity; use isolated cloned limits for negative test; capture proof line via prefix to exclude TAP output.",
+  "new_sources": [
+    "tools/fwn9_p9m_c2_event_test_r2.cjs",
+    ".github/workflows/fwn9_phase9m_c2_r2.yml"
+  ],
+  "preregistered": true,
+  "finances_changed": false,
+  "market_seeds": [],
+  "final_m10_opened": 0,
+  "native_infeasibility_certified": false
+}
