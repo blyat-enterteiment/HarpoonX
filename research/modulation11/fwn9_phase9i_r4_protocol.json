@@ -1,0 +1,45 @@
+{
+  "schema": "HARPOON_FWN9_P9I_R4_FULL_QUANT_VERSION_SCOPED_CI_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9i_protocol.json",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "hypothesis": "Maintain full test accounting: run all current-head quant tests except the 12 archived-evidence tests, which must execute independently in an explicitly labeled composite immutable-source worktree with original 108 hash checks. No test dropped and no archived evidence rewritten.",
+  "counter_hypotheses": [
+    "Full quant suite has unrelated failures beyond historical SHA conflation",
+    "A reconstructed composite is not a valid historical execution environment, leaving archive tests unverified",
+    "Current test partition accidentally omits or duplicates tests",
+    "Unexpected old files missing from composite archive despite 108 source-byte matches"
+  ],
+  "refutation": [
+    "Any of 12 historical tests silently excluded",
+    "Any other current regression suppressed",
+    "Archive source without explicit 105+3 split",
+    "Tests or production code changed instead of CI routing",
+    "Ruff/mypy failures",
+    "Any claim atomic snapshot or profitable level 9 from composed archived bytes"
+  ],
+  "preregistered_source_files": {
+    "tools/fwn9_p9i_partitioned_regressions.py": "3a15930c1dcb0b66363f4c11c9f2b738755572ee",
+    ".github/workflows/robust-quant-core.yml": "c8cf0facb99afdbb5425fd1ca2d5bdf249c29321"
+  },
+  "old_archive_ref": "424cc9dad2f840284e19e61c3f9cb9db26b46286",
+  "exception_ref": "4325422cc104a8d75384ec852b8ae5cbde07f24e",
+  "archive_test_module": "test_evidence_scope",
+  "expected_archived_test_count": 12,
+  "source_hash_paths": 108,
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_replayed": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "scope": [
+    "Historical tests execute on composite provenance reconstruction, not one atomic old source tree",
+    "Full quant suite must pass before considering provenance CI repaired",
+    "No entry partial/reject/outage/impact or multicell economic coverage added in this unit",
+    "No M10 final or new signals",
+    "No broker, order, deployment, PR merge"
+  ],
+  "promotion_eligible": false
+}
