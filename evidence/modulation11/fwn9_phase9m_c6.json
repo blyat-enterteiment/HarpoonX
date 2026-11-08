@@ -1,0 +1,78 @@
+{
+  "schema": "HARPOON_FWN9_P9MC6_PREDICTABLE_STOP_BUDGET_EVIDENCE_1",
+  "engineering_scope": "FINITE_SAME_STATE_PREBAR_LEDGER_NO_POPULATION_INFERENCE",
+  "protocol": "research/modulation11/fwn9_phase9m_c6_v2_protocol.json",
+  "initial_protocol": "research/modulation11/fwn9_phase9m_c6_protocol.json",
+  "preregistration_commit": "4fd205e93677648f78b923c46bcd8f6e671fd589",
+  "lease_acquisition_commit": "3616da919e928be0fbc907211cbc1dfc06a4d3aa",
+  "ci_success": {
+    "run_id": 42483341875,
+    "status": "completed",
+    "conclusion": "success",
+    "unittests": 8,
+    "ruff": "PASS",
+    "mypy_module_strict": "PASS",
+    "syntax": "PASS",
+    "m9_source_integrity": "PASS",
+    "budget_protocol_git_blob_integrity": "PASS",
+    "fixture_benchmark_10000_ms": 88.153
+  },
+  "preserved_failed_attempts": [
+    {
+      "run_id": 42483189855,
+      "reason": "4 strict mypy TypedDict typing errors on v1 module",
+      "economic_accounts": 0,
+      "alpha_spent": 0
+    }
+  ],
+  "theorem": "For predictable nonnegative prebar share quantities q[b,a] and bar opening marks S[b,a], C5 conditional bound and tower property yield E[sum same-state stop interpolation credit] <= (1-f)*B*E[sum q*S]+tick*E[sum q]. No unconditional fixed numerical cap is established on the two expectation terms.",
+  "math_constants": {
+    "B": 0.0029457194636491983,
+    "nominal_friction": 0.0003,
+    "stress_friction": 0.0006,
+    "tick_usd": 0.01,
+    "prior_WEAK_upper_bp_per_day": 0.9051232469572758,
+    "hurdle_bp_per_day": 1,
+    "gap_bp_per_day": 0.09487675304272425
+  },
+  "fixture_only": {
+    "symbols": [
+      "SYNA",
+      "SYNB"
+    ],
+    "bar_lot_rows": 3,
+    "unique_lots": 2,
+    "share_bar_sum": 21,
+    "prebar_notional_bar_sum_usd": 1914,
+    "nominal_allowance_usd": "5.84641562130853817653614",
+    "stress_allowance_usd": "5.84472418919251080687228",
+    "note": "Ledger diagnostic RHS is not observed profit or empirical expected credit."
+  },
+  "no_population_credit_numerical_upper_proven": true,
+  "counterfactual_campaign_equivalence_proven": false,
+  "terminal_log_wealth_conversion_proven": false,
+  "new_economic_accounts": 0,
+  "new_recipes": 0,
+  "new_market_seeds": 0,
+  "final_M10_unopened": 3200,
+  "alpha_delta": 0,
+  "accounting_note": "Decimal exact conditional algebra on finite fixture; not a second independent economic PnL accountant.",
+  "source_git_blob_sha1": {
+    "tools/fwn9_p9m_c6_budget_v2.py": "f2b4daace4118d9f9008582a8e8c6618141369f9",
+    "tools/test_fwn9_p9m_c6_budget_v2.py": "f6648b335ff44eb9fcf1a66100fd109060ea5d91"
+  },
+  "source_sha256": {
+    "tools/fwn9_p9m_c6_budget_v2.py": "1a90c2b0441a9a09a4724b2c0afccdf71d7bba28d1b8cfb2bb9ace4a76891252",
+    "tools/test_fwn9_p9m_c6_budget_v2.py": "03f1e367aa610c55ee3503d4230441458ae99bf5998fff35ec14e3e12cf15a78"
+  },
+  "violations_or_limitations": [
+    "Prebar snapshots for all potentially stop-exposed lots are an assumed input; full M9 native pipeline coverage not proven.",
+    "Stop time after observing prices cannot be substituted for a previsible active-bar indicator.",
+    "Finite observed sum is not E[stochastic predictable exposure]; 12pct admission cap is not continuous.",
+    "Native vs causal policy responses can change future admission and inventories; pathwise credit does not directly bound terminal wealth gap.",
+    "No positive predictable wealth floor or valid log comparison has been proven.",
+    "Operational partial/reject/outage/impact and multicell coordinator remain blocking."
+  ],
+  "verdict": "NO_GO_N9S_CONDITIONAL_AGGREGATE_LEMMA_ONLY",
+  "no_external_actions": true
+}

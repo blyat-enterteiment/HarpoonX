@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_C6_PREDICTABLE_EXPOSURE_20261108",
-    "round": "M11_PHASE9M_C6_ENDOGENOUS_EXPOSURE_CREDIT_BUDGET",
-    "lease_status": "ACTIVE",
-    "expected_parent_head": "12e5cbfeaf6d6ae02b64b0c7500ed437c2428f08",
-    "scope": "ONLY_CONDITIONAL_STOPEXPOSED_BUDGET_NO_ECONOMIC_SEARCH",
-    "economic_accounts_reserved": 0,
-    "alpha_spent": 0,
-    "external_actions_forbidden": true
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_C5_LOCAL_GAUSSIAN_CREDIT_BOUND_PROVEN_NATIVE_POPULATION_UNBOUNDED",
+  "current_verdict": "NO_GO_C6_AGGREGATE_CONDITIONAL_EXPECTATION_LEMMA_NO_NUMERIC_NATIVE_WEALTH_BOUND",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Derive bound on aggregate per-bar previsible stop-exposed notional and count of stops for independent endogenous native/first-cross funded portfolios under unchanged WEAK generator, risk, 72h, receipts and calendar costs. Convert local credit to expected terminal log wealth only with proof. No alpha search, broker, or sealed M10 final.",
-  "next_round_id": "M11_PHASE9M_C6_ENDOGENOUS_EXPOSURE_CREDIT_BUDGET",
-  "phase": "M11_PHASE9M_C5_ONE_BAR_WEAK_CREDIT_BOUND_VALIDATED_PORTFOLIO_BRIDGE_PENDING",
+  "next_action": "Prove or refute a finite valid WEAK population upper bound on E[sum previsible q*S_open] and E[sum q] for each asset under endogenous funded admissions, receipts and <=72h; establish valid counterfactual terminal log-wealth coupling without using initial capital as unproved wealth floor. Do not open M10 finals or search for alpha.",
+  "next_round_id": "M11_PHASE9M_C7_EXPECTED_EXPOSURE_WEALTH_BRIDGE",
+  "phase": "M11_PHASE9M_C6_PREDICTABLE_EXPOSURE_AGGREGATION_SCOPED",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C5",
+  "round": "M11_PHASE9M_C6",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -946,5 +937,28 @@
     "new_candidate_recipes": 0,
     "alpha_spent": 0,
     "final_opened": false
+  },
+  "m11_phase9m_c6": {
+    "preregistration_commit": "4fd205e93677648f78b923c46bcd8f6e671fd589",
+    "failed_attempts": [
+      42483189855
+    ],
+    "ci_run": 42483341875,
+    "ci_status": "SUCCESS",
+    "unit_tests_passed": 8,
+    "report": "docs/MODULATION11_PHASE9M_C6.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c6.json",
+    "protocol": "research/modulation11/fwn9_phase9m_c6_v2_protocol.json",
+    "source_sha256": {
+      "tools/fwn9_p9m_c6_budget_v2.py": "1a90c2b0441a9a09a4724b2c0afccdf71d7bba28d1b8cfb2bb9ace4a76891252",
+      "tools/test_fwn9_p9m_c6_budget_v2.py": "03f1e367aa610c55ee3503d4230441458ae99bf5998fff35ec14e3e12cf15a78"
+    },
+    "fixture_nominal_allowance_usd": "5.84641562130853817653614",
+    "aggregate_expectation_lemma": true,
+    "valid_stochastic_exposure_upper_numeric": false,
+    "full_native_log_wealth_bound": false,
+    "new_economic_accounts": 0,
+    "alpha_spent": 0,
+    "final_m10_unopened": 3200
   }
 }
