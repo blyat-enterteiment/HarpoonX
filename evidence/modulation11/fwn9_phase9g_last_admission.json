@@ -1,0 +1,95 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9G_LAST_ADMISSION_EVIDENCE_1",
+  "kind": "EXACT_CONDITIONAL_FRACTION_THEOREM_NOT_NATIVE_M9_PATH_PROOF",
+  "lease": "M11_P9G_M9_WEALTH_FLOOR_20261107",
+  "reproducibility": {
+    "source_registration": "research/modulation11/fwn9_phase9g_protocol.json",
+    "original_commit": "f358e66dd6705f200abc1ca765e464b568e30522",
+    "correction_registration": "research/modulation11/fwn9_phase9g_r3_protocol.json",
+    "correction_commit": "ffec764c7f4dc7770dec56d7a632a29c7520268d",
+    "ci_attempts": [
+      {
+        "id": 42443088337,
+        "conclusion": "FAILURE",
+        "cause": "Ruff F401 unused import",
+        "unit_tests_passed": 18,
+        "arithmetic": "PASS"
+      },
+      {
+        "id": 42443175975,
+        "conclusion": "FAILURE",
+        "cause": "Ruff E741 ambiguous variable l",
+        "unit_tests_passed": 18,
+        "arithmetic": "PASS"
+      },
+      {
+        "id": 42443265351,
+        "conclusion": "SUCCESS",
+        "unit_tests_passed": 18,
+        "arithmetic": "PASS_DECIMAL_70",
+        "ruff": "PASS",
+        "mypy_strict": "PASS",
+        "source_checksums": "PASS",
+        "benchmark_2500_ms": 84.5294
+      }
+    ],
+    "native_fixture_ci_id": 42443265487,
+    "native_fixture_ci_conclusion": "SUCCESS",
+    "sha256": {
+      "tools/fwn9_phase9g_last_admission_floor.py": "aecdc7dc39399649b9573e10a5f48614515e644dc28539dc8e9ab25f557a667e",
+      "tools/test_fwn9_phase9g_last_admission_floor_r3.py": "2b1a342381fa19c387d78940b099172ef3e390f81b8b0f3143dd3ce5dc418aa5",
+      "tools/fwn9_phase9g_independent.py": "d99cc62ec42d0f66297e9584016d17b5d5b6d12c2d0291162ecd99bb6208112a",
+      ".github/workflows/fwn9_phase9g_r3.yml": "39c953a7a8f83900acf8cb28f08520bf60e974508b14bea51ef609b30ebebdc7"
+    }
+  },
+  "theorem": {
+    "status": "CONDITIONAL",
+    "source_gating_already_visible": true,
+    "source_to_independent_cash_bridge_verified": false,
+    "source_ohlc_equivalence_verified": false,
+    "tail_inverse_population_bound_verified": false,
+    "hypotheses": [
+      "last admitted decision observed drawdown gate strict, E>18400",
+      "complete knownAt inventory marks and receipts",
+      "economic free cash + marked inventory >= E",
+      "marked open plus reserved IOC <= .12E",
+      "future fees <=.0025E",
+      "no later buy not reserved; only long nonnegative receipts",
+      "calendar costs remaining <=176 nominal/352 stress"
+    ],
+    "nominal_terminal_floor_strictly_above_usd": "15970",
+    "stress_terminal_floor_strictly_above_usd": "15794",
+    "positive_credit_fraction_gap": "0.00166983085355194592",
+    "sufficient_nominal_dollar_credit_bound": "26.6671987312245763424",
+    "abstract_fixture": {
+      "E": "20000",
+      "cash": "18000",
+      "mark": "2000",
+      "pending": "400",
+      "remaining_fees": "50",
+      "remaining_calendar_nominal": "176",
+      "source_ledger_floor": "17374"
+    },
+    "commercial_or_live_profit": false
+  },
+  "budget": {
+    "market_accounts_new": 0,
+    "candidates_new": 0,
+    "controls_reevaluated": 0,
+    "final_m10_unopened": 3200,
+    "alpha_spent": 0,
+    "ci_attempts": 3,
+    "ci_failures": 2,
+    "failed_attempts_retained": true
+  },
+  "open_debt": [
+    "P9B NO_FILL valuation clock",
+    "source-to-independent-cash knownAt reconciliation",
+    "first-hit OHLC native vs substep trade difference",
+    "moment bound E[D+]",
+    "partial/reject/outage/impact",
+    "virtual-cell coordinator"
+  ],
+  "independent_audit_type": "CALCULATOR_WITH_DIFFERENT_DECIMAL_IMPLEMENTATION_NOT_THIRD_PARTY",
+  "verdict": "NO_GO"
+}

@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9G_M9_WEALTH_FLOOR_20261107",
-    "phase": "M11_PHASE9G",
-    "status": "ACTIVE",
-    "start_head": "e9f3ccfab4eee52e311871eb16f31ec24a811d17",
-    "scope": "source-specific wealth floor and inverse moments for endogenous M9 reservations/IOC/OHLC",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_M9_NEGATIVE_WEALTH_MOMENTS_AND_OHLC_EXECUTION_DIFFERENCE_UNBOUNDED",
+  "current_verdict": "NO_GO_P9G_CONDITIONAL_CASH_FLOOR_ONLY_NATIVE_OHLC_CREDIT_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Determine whether the exact original M9 long-only reservation/IOC/cost/gap/72h constraints imply a positive lower W_C bound or a finite inverse-wealth moment, and derive the corresponding bound on endogenous native-vs-causal positive differences; if not, construct a counterexample reachable under M9. Preserve P9B IOC NO_FILL clock gap. No strategy grid, no unopened M10 final, no broker.",
-  "next_round_id": "M11_PHASE9G_NATIVE_INVERSE_WEALTH_BOUND",
-  "phase": "M11_PHASE9F_EXACT_MOMENT_LEMMA_VERIFIED_M9_INVERSE_WEALTH_BOUND_UNPROVEN",
+  "next_action": "Build a source-causal physical cash and inventory event ledger using actual M9/Profit8 knownAt, partials, IOC NO_FILL, current valuation and reserved quantities. Prove or refute for all relevant accepted decisions that cash+known inventory marks >=E and V+pending<=12%E; then revisit inverse-wealth floor. Preserve P9B NO_FILL valuation gap and native-vs-causal OHLC credit debt. Do not open new signals, M10 finals, brokers.",
+  "next_round_id": "M11_PHASE9H_RECONCILE_CASH_MARKS_KNOWNAT",
+  "phase": "M11_PHASE9G_LAST_ADMISSION_CONDITIONAL_FLOOR_VERIFIED_SOURCE_CASH_EQUIVALENCE_UNPROVEN",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9F",
+  "round": "M11_PHASE9G",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -422,6 +414,38 @@
       "tools/test_fwn9_phase9f_tail_bounds.py": "d4e7c84e82488fac63dd10337b7d227461afd2a6ce5bd58ac4ff6ea96cdd4938",
       "tools/fwn9_phase9f_independent.py": "d6ecb5075ec1f59ac7c2fc35f0287e8d03b84eef21010136e06612dadbc116e4",
       ".github/workflows/fwn9_phase9f.yml": "7d2aa394616bf4e7707bfd15b3d7360b1862f871799a8a9b5998874d5fb3d64b"
+    }
+  },
+  "m11_phase9g": {
+    "protocol": "research/modulation11/fwn9_phase9g_protocol.json",
+    "corrective_protocol": "research/modulation11/fwn9_phase9g_r3_protocol.json",
+    "documentation": "docs/MODULATION11_PHASE9G_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9g_last_admission.json",
+    "ci_success": 42443265351,
+    "ci_failures_retained": [
+      42443088337,
+      42443175975
+    ],
+    "unit_tests": 18,
+    "independent_math": "PASS_DECIMAL_70",
+    "ruff": "PASS",
+    "mypy": "PASS_STRICT",
+    "source_generator_integrity": "PASS",
+    "benchmark_2500_ms": 84.5294,
+    "conditional_nominal_WC_floor_usd": "15970",
+    "conditional_stress_WC_floor_usd": "15794",
+    "required_mean_positive_difference_below_usd": "26.6671987312245763424",
+    "native_cash_mark_coverage_proved": false,
+    "stochastic_population_bound_proved": false,
+    "native_infeasibility_proved": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "source_sha256": {
+      "tools/fwn9_phase9g_last_admission_floor.py": "aecdc7dc39399649b9573e10a5f48614515e644dc28539dc8e9ab25f557a667e",
+      "tools/test_fwn9_phase9g_last_admission_floor_r3.py": "2b1a342381fa19c387d78940b099172ef3e390f81b8b0f3143dd3ce5dc418aa5",
+      "tools/fwn9_phase9g_independent.py": "d99cc62ec42d0f66297e9584016d17b5d5b6d12c2d0291162ecd99bb6208112a",
+      ".github/workflows/fwn9_phase9g_r3.yml": "39c953a7a8f83900acf8cb28f08520bf60e974508b14bea51ef609b30ebebdc7"
     }
   }
 }
