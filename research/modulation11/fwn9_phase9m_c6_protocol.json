@@ -1,0 +1,45 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC6_CONDITIONAL_PREDICTABLE_STOP_BUDGET_1",
+  "phase": "M11_PHASE9M_C6_ENDOGENOUS_EXPOSURE_CREDIT_BUDGET",
+  "parent_phase": "M11_PHASE9M_C5_ONE_BAR_WEAK_CREDIT_BOUND_VALIDATED_PORTFOLIO_BRIDGE_PENDING",
+  "original_contract": "research/modulation9/protocol.json",
+  "frozen_c5": "evidence/modulation11/fwn9_phase9m_c5.json",
+  "hypothesis": "By tower property, summing C5 stop-overshoot bounds over PREBAR-measurable stop-eligible inventory yields an unconditional upper bound in terms of E[aggregate prebar notional] and E[aggregate shares], even for prior endogenous admissions and partials. It does not imply a terminal wealth bound without additional controls.",
+  "refutation": [
+    "Any duplicate or resurrected lot incorrectly passes validation",
+    "Any bar-start after decision+72h passes",
+    "An unknown fill or future receipt passes as prebar quantity",
+    "A no-fill produces stop-exposed inventory",
+    "Decimal accounting diverges from independent arithmetic",
+    "Original M9 generator or C5 bound source changes"
+  ],
+  "finite_engineering_catalog": [
+    "2 assets, 2 bars, 1 partial exit",
+    "zero quantity/NO_FILL",
+    "late receipt, decision after fill and future fill",
+    "72h strict expiry",
+    "NaN/Inf/nonpositive/non-numeric price",
+    "lot resurrection/reentry under same ID",
+    "duplicate bar-asset-lot",
+    "post-admission appreciation not treated as continuous 12% cap"
+  ],
+  "theorem_scope": "Conditional expectation of aggregate matched-state STOP interpolation CREDIT only; no full strategy or endogenous counterfactual wealth equivalence.",
+  "required_to_promote": "Independent bound on expected predictable exposures / shares, opportunity coverage, stop and target order divergence, wealth floor or valid log-wealth supermartingale comparison, operational gaps and multicell coordinator.",
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "new_market_seeds": 0,
+    "final_m10_unopened": 3200,
+    "alpha_spent": 0,
+    "workers": 1,
+    "engineering_fixtures": 8
+  },
+  "source_sha256": {
+    "tools/fwn9_p9m_c6_budget.py": "a19253a4b48525ee0bbad80936dd4ba4f7c282de59d63de0691ccb1804b77ab2",
+    "tools/test_fwn9_p9m_c6_budget.py": "68ad855e7dce9c2c989d644819cdb22a6b27ec132ad24d105c60aef3c1d315a6"
+  },
+  "planning_only": false,
+  "target_verdict": "NO_GO_UNTIL_POPULATION_PORTFOLIO_BRIDGE",
+  "no_broker_actions": true,
+  "no_merge": true
+}
