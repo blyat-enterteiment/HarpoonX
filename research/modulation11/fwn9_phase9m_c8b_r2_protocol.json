@@ -1,0 +1,15 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC8B_R2_CORRECTIVE_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9m_c8b_protocol.json",
+  "failure_kept": "GitHub Actions run 42500339262 failed Ruff import-order and file-handle checks; native tests not executed; attempt charged in engineering register.",
+  "hypothesis_unchanged": true,
+  "markets_not_sampled": true,
+  "account_delta": 0,
+  "alpha_delta": 0,
+  "changed_files": [
+    "tools/fwn9_p9m_c8b_accountant_r2.py",
+    ".github/workflows/fwn9_p9m_c8b_r2.yml"
+  ],
+  "expected": "Run full native fixtures with updated independently typed accountant. Any failure remains recorded; no automatic retry of failed attempt.",
+  "fail_closed": true
+}
