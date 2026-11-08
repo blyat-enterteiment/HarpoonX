@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9H_CASH_RECEIPT_LEDGER_20261107T2154",
-    "phase": "M11_PHASE9H",
-    "status": "ACTIVE",
-    "start_head": "2d8fef3f9b21f884ef9e8a28ad4230a957e88423",
-    "scope": "bounded native physical cash vs pnl marks/reservation/NO_FILL fixture and causal clock",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9G_CONDITIONAL_CASH_FLOOR_ONLY_NATIVE_OHLC_CREDIT_UNPROVEN",
+  "current_verdict": "NO_GO_P9H_FINITE_SOURCE_CASH_LEDGER_PASS_NATIVE_POPULATION_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,10 +33,10 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Build a source-causal physical cash and inventory event ledger using actual M9/Profit8 knownAt, partials, IOC NO_FILL, current valuation and reserved quantities. Prove or refute for all relevant accepted decisions that cash+known inventory marks >=E and V+pending<=12%E; then revisit inverse-wealth floor. Preserve P9B NO_FILL valuation gap and native-vs-causal OHLC credit debt. Do not open new signals, M10 finals, brokers.",
-  "next_round_id": "M11_PHASE9H_RECONCILE_CASH_MARKS_KNOWNAT",
-  "phase": "M11_PHASE9G_LAST_ADMISSION_CONDITIONAL_FLOOR_VERIFIED_SOURCE_CASH_EQUIVALENCE_UNPROVEN",
-  "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
+  "next_action": "Extend P9H source-causal cash/lot/knownAt/IOC auditor from finite accepted fixture to preregistered catalog and all accepted decisions; fail closed on unsettled execution, compare P9B NO_FILL event clock and native marks, do not open new signal grid, M10 finals, or brokers. Keep original 12% as admission/reservation cap.",
+  "next_round_id": "M11_PHASE9I_ALL_ACCEPTED_DECISIONS_AND_NOFILL_CLOCK",
+  "phase": "M11_PHASE9H_SOURCE_CAUSAL_CASH_FIXTURE_RECONCILED_UNIVERSAL_COVERAGE_UNPROVEN",
+  "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
   "previous_verdict": "NO_GO",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9G",
+  "round": "M11_PHASE9H",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -454,6 +446,44 @@
       "tools/test_fwn9_phase9g_last_admission_floor_r3.py": "2b1a342381fa19c387d78940b099172ef3e390f81b8b0f3143dd3ce5dc418aa5",
       "tools/fwn9_phase9g_independent.py": "d99cc62ec42d0f66297e9584016d17b5d5b6d12c2d0291162ecd99bb6208112a",
       ".github/workflows/fwn9_phase9g_r3.yml": "39c953a7a8f83900acf8cb28f08520bf60e974508b14bea51ef609b30ebebdc7"
+    }
+  },
+  "m11_phase9h": {
+    "protocol": "research/modulation11/fwn9_phase9h_protocol.json",
+    "corrective_protocol": "research/modulation11/fwn9_phase9h_r2_protocol.json",
+    "documentation": "docs/MODULATION11_PHASE9H_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9h_source_cash.json",
+    "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
+    "failed_ci_retained": [
+      42444895033
+    ],
+    "successful_ci": 42444975973,
+    "successful_tests": 5,
+    "independent_accountant": "PASS_DECIMAL_46",
+    "ruff": "PASS",
+    "mypy": "PASS_STRICT_SCOPED_PYTHON",
+    "node_syntax": "PASS",
+    "frozen_M9_source_hashes": "PASS",
+    "benchmark_500_ms": 51.825,
+    "fixture_cash_usd": 18798.58,
+    "physical_cash_pool_equal": false,
+    "partial_original_reservation_retained": true,
+    "source_native_ledger_identity_one_fixture": true,
+    "all_native_decisions_covered": false,
+    "final_population_inverse_wealth_moment_proved": false,
+    "positive_ohlc_credit_proved": false,
+    "p9b_no_fill_valclock_closed": false,
+    "native_infeasibility_certified": false,
+    "new_economic_accounts": 0,
+    "prospective_alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "source_sha256": {
+      "runtime30/fwn9_p9h_cash_ledger.cjs": "94ce2da31aecb3de4f1c24479846cdf5728727c20781379702a11c57f72a6788",
+      "tools/fwn9_phase9h_test.cjs": "acdcbfa41465831ca22464a807e7e39f5a802ebd82dc0c9b31202ac6d69c2276",
+      "tools/fwn9_phase9h_test_r2.cjs": "5f95b8e3ec9f265b191ec7cd9cbb905bd190809643fd932a12596075e6880496",
+      "tools/fwn9_phase9h_accountant.py": "d964c9d719e3621e9819d43485ff71e7b02bcdb462d5ac48d4a3981f5d6df1be",
+      ".github/workflows/fwn9_phase9h.yml": "3afb164b87618a08aa8dae9424089e4df29b8877e2f476cbaa0af260bdc22ba4",
+      ".github/workflows/fwn9_phase9h_r2.yml": "aac94dcb7c817b070497906910faa03bd98457ff903a1f3f5c48c104534c4d16"
     }
   }
 }
