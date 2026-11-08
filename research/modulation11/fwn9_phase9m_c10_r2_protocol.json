@@ -1,0 +1,14 @@
+{
+  "schema": "HARPOON_FWN9_M11_C10_R2_CORRECTION_1",
+  "parent_code_commit": "7f70572aa78c4e64cf8bef52a01ff384e8f02f95",
+  "previous_workflow_run": 42512248407,
+  "previous_attempt_counted": true,
+  "failure": "Node node:test module emits TAP alongside one JSON payload under --emit, so original accountant pipeline received multiple JSON documents. 8/8 native tests and syntax passed; Decimal script was not reached with valid input.",
+  "correction": "Keep original workflow and source unchanged. In distinct R2 workflow, extract only the prefixed single-line emitted FWN9_C10 JSON and pipe it to unchanged independent Decimal accountant. No economic parameter, implementation, test or seed changes.",
+  "expected_outcome": "Independent Decimal should reconcile complete native receipts and support or refute pathwise bound; any further failure is charged and preserved.",
+  "restrictions": [
+    "No broker/orders/PR merge/deployments",
+    "No holdout opened",
+    "Zero economic accounts and alpha"
+  ]
+}

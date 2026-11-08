@@ -1,0 +1,32 @@
+name: C10 R2 native wealth envelope and Decimal audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - '.github/workflows/fwn9_p9m_c10_r2.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  native-envelope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Syntax and native-source invariants
+        run: |
+          node --check runtime30/fwn9_p9m_c10_wealth_envelope.cjs
+          node --check tools/fwn9_p9m_c10_wealth_test.cjs
+          python -m py_compile tools/fwn9_p9m_c10_decimal_accountant.py
+          node --test tools/fwn9_p9m_c10_wealth_test.cjs
+      - name: Decimal independent accounting (extract one emitted document)
+        run: |
+          set -o pipefail
+          node tools/fwn9_p9m_c10_wealth_test.cjs --emit \
+            | grep '^{"schema":"FWN9_C10_NATIVE_WEALTH_ENVELOPE_1"' \
+            | python tools/fwn9_p9m_c10_decimal_accountant.py
+      - name: Benchmark
+        run: node tools/fwn9_p9m_c10_wealth_test.cjs --bench | grep '^C10_BENCH_16_NATIVE_REPLAYS_MS='
