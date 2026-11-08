@@ -13,9 +13,12 @@ on:
       - 'tools/fwn9_p9i_partitioned_regressions.py'
       - 'tools/fwn9_p9i_partitioned_regressions_r5.py'
       - 'tools/fwn9_p9i_provenance.py'
+      - 'tools/fwn9_p9i_operational_test.cjs'
+      - 'runtime30/fwn9_p9i_operational_gate.cjs'
       - 'tools/fwn9_p9i_composite_lineage.py'
       - 'research/modulation11/fwn9_phase9i_r4_protocol.json'
       - 'research/modulation11/fwn9_phase9i_r5_protocol.json'
+      - 'research/modulation11/fwn9_phase9i_r6_protocol.json'
       - '.github/workflows/robust-quant-core.yml'
   pull_request:
     paths:
@@ -67,6 +70,24 @@ jobs:
           node --check runtime/quant_bridge.cjs
           python3 -m ruff check --select E4,E7,E9,F tools/fwn9_p9i_partitioned_regressions_r5.py
           MYPYPATH=tools python3 -m mypy --strict tools/fwn9_p9i_partitioned_regressions_r5.py
+      - name: P9I hard-gate knownAt, cash, IOC no-fill and versioned provenance
+        run: |
+          node --check runtime30/fwn9_p9i_operational_gate.cjs
+          node --test tools/fwn9_p9i_operational_test.cjs
+          python3 -B tools/fwn9_p9i_provenance.py >/tmp/p9i_versioned.json
+          python3 -B tools/fwn9_p9i_composite_lineage.py >/tmp/p9i_composite.json
+          python3 - <<'PY'
+          import json
+          v=json.load(open('/tmp/p9i_versioned.json'))
+          c=json.load(open('/tmp/p9i_composite.json'))
+          assert v['provenance']['distinct_versions_verified']
+          assert v['provenance']['all_sources_covered']
+          assert c['composite_bytes_verified'] is True
+          assert c['atomic_snapshot_verified'] is False
+          assert v['promotion']['status']=='BLOCKED'
+          assert c['n9s_certified'] is False
+          print('P9I_REQUIRED_DIAGNOSTIC_GATE_PASS_NO_N9_PROMOTION')
+          PY
       - name: Current-head quant suite, excluding ONLY separately retained 12 archive tests
         run: python3 -B tools/fwn9_p9i_partitioned_regressions_r5.py --current
       - name: Historical archive suite, independently reconstructed from immutable byte refs

@@ -1,0 +1,41 @@
+{
+  "schema": "HARPOON_FWN9_P9I_R6_MANDATORY_DIAGNOSTIC_GATES_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9i_r5_protocol.json",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "prior_success_ci": 42446548212,
+  "prior_current_tests": 1062,
+  "prior_archive_tests": 12,
+  "hypothesis": "The complete robust quant CI must additionally run P9I causal reserve/knownAt/IOC NO_FILL and versioned-source checks as blocking steps; a pass of diagnostic checks explicitly retains N9S NO_GO and must never be conflated with live operational certification.",
+  "refutation": [
+    "Any diagnostic failure ignored in full quant workflow",
+    "Any historical source changed to force pass",
+    "Archive composition falsely claimed as single source snapshot",
+    "Any unverified OHLC fill promoted",
+    "Any quant test removed",
+    "Any N9-S promotion despite missing execution and multicell gates"
+  ],
+  "code_git_blob_sha1": {
+    ".github/workflows/robust-quant-core.yml": "56ff9288fb052e55e8fc645574c2c021362f71a7"
+  },
+  "source_gates": [
+    "runtime30/fwn9_p9i_operational_gate.cjs",
+    "tools/fwn9_p9i_operational_test.cjs",
+    "tools/fwn9_p9i_provenance.py",
+    "tools/fwn9_p9i_composite_lineage.py"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_replayed": 0,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200,
+    "workers": 1
+  },
+  "scope": [
+    "CI failure blocking, not GitHub protection rules certified",
+    "Operational gate proves bounded engineering catalog only",
+    "No full entry partial/reject/outage/impact or virtual cell coverage",
+    "No broker, deploy, merge or economic promotion"
+  ],
+  "promotion_eligible": false
+}
