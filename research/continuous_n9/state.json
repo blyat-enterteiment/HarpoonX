@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9D_20261108021724230",
-    "phase": "M11_PHASE9D",
-    "status": "ACTIVE",
-    "start_head": "08ec60a095657c3e0d318586bc7af061a8fb0319",
-    "started_at": "2026-11-08T02:17:24.230Z",
-    "scope": "native_mark_receipt_clock_convergence",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "P9C_RISK_CLOCK_CORRECTION_VERIFIED_N9S_NOT_YET_CERTIFIED",
+  "current_verdict": "NO_GO_FIXTURE_MARK_PARITY_VERIFIED_NATIVE_STOCHASTIC_BRIDGE_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Audit all native campaign received PnL marks, delayed IOC/exit receipts, partials and independently funded book-specific quantities versus P9C event clock; close or refute universal reserve-shadow stochastic WEAK bound. No new alpha grid, no sealed final, no broker.",
-  "next_round_id": "M11_PHASE9D_NATIVE_MARK_AND_RECEIPT_CLOCK_CONVERGENCE",
-  "phase": "M11_PHASE9C_CAUSAL_RISK_MIRROR_VERIFIED_NATIVE_MARK_PARITY_PENDING",
+  "next_action": "Develop a formally refutable reserve-shadow stochastic wealth lemma for native self-financing predictable quantities with causal knownAt receipts and endogenous admissions. Include the P9D-discovered P9B IOC NO_FILL valuation-count deficiency as a versioned regression; do not treat OHLC thresholds as executable without a separate proof. No new signal grid, no M10 sealed final, no broker.",
+  "next_round_id": "M11_PHASE9E_RESERVE_SHADOW_WEALTH_BRIDGE",
+  "phase": "M11_PHASE9D_NATIVE_MARK_RECEIPT_FIXTURE_PARITY_VERIFIED_GLOBAL_BOUND_UNPROVEN",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9C",
+  "round": "M11_PHASE9D",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -344,5 +335,32 @@
     "economic_accounts_delta": 0,
     "alpha_delta": 0,
     "final_opened": false
+  },
+  "m11_phase9d": {
+    "protocol": "research/modulation11/fwn9_phase9d_v2_protocol.json",
+    "documentation": "docs/MODULATION11_PHASE9D_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9d.json",
+    "source_commit": "36fdc0049f1f89fddd469166186de4adeedb40fd",
+    "ci_run": 42438179051,
+    "ci_status": "SUCCESS",
+    "tests_passed": 5,
+    "decimal_46_passed": true,
+    "engineering_mark_count": 154,
+    "engineering_campaigns": 2,
+    "benchmark_10_ms": 39.791,
+    "failed_ci_runs": [
+      42438069535
+    ],
+    "historical_p9b_nofill_event_gap": true,
+    "native_wealth_population_bound": false,
+    "accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": false,
+    "sha256": {
+      "runtime30/fwn9_native_mark_convergence_p9d_v2.cjs": "0ae4e38568ad057631a84f5850c6dbfdd2f2e316dfa4ec1508275676122efcdc",
+      "tools/fwn9_phase9d_test_v2.cjs": "5fceb0ca17c78dcee59099028110b92b125316d1ba005f1ca5e3a972d8ddb6ce",
+      "tools/fwn9_phase9d_accountant_v2.py": "965e31bf192f802b2c181d2ace419311f501d5aa6bf8f73e0bf1b8175ff89902",
+      ".github/workflows/fwn9_phase9d_v2.yml": "8c34f98f6cd07248222aeef9e6e7e40d1e63c16f6b62adfc30cdab63e6519dc4"
+    }
   }
 }
