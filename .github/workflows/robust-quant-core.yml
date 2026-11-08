@@ -15,6 +15,10 @@ on:
       - 'tools/fwn9_p9i_provenance.py'
       - 'tools/fwn9_p9i_operational_test.cjs'
       - 'runtime30/fwn9_p9i_operational_gate.cjs'
+      - 'runtime30/fwn9_p9j_native_risk_clock.cjs'
+      - 'tools/fwn9_phase9j_test.cjs'
+      - 'tools/fwn9_phase9j_accountant.py'
+      - 'research/modulation11/fwn9_phase9j_protocol.json'
       - 'tools/fwn9_p9i_composite_lineage.py'
       - 'research/modulation11/fwn9_phase9i_r4_protocol.json'
       - 'research/modulation11/fwn9_phase9i_r5_protocol.json'
@@ -88,6 +92,12 @@ jobs:
           assert c['n9s_certified'] is False
           print('P9I_REQUIRED_DIAGNOSTIC_GATE_PASS_NO_N9_PROMOTION')
           PY
+      - name: P9J blocking IOC NO_FILL receipt and valuation event-clock tests
+        run: |
+          node --check runtime30/fwn9_p9j_native_risk_clock.cjs
+          node --test tools/fwn9_phase9j_test.cjs
+          node tools/fwn9_phase9j_test.cjs --emit-proof >/tmp/p9j_integrated.txt
+          python3 -B tools/fwn9_phase9j_accountant.py /tmp/p9j_integrated.txt
       - name: Current-head quant suite, excluding ONLY separately retained 12 archive tests
         run: python3 -B tools/fwn9_p9i_partitioned_regressions_r5.py --current
       - name: Historical archive suite, independently reconstructed from immutable byte refs
