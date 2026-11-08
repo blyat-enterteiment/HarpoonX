@@ -1,16 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_C_ORDER_NONIDENTIFIABILITY_WITNESS_20261108_T6",
-    "round": "M11_PHASE9M_C1_ORDER_NONIDENTIFIABILITY",
-    "stage": "LEASED",
-    "started_at": "2026-11-08T09:41:31Z",
-    "base_head": "cd7a3d254da83333775bf78a1874de95a56e15fe",
-    "scope": "Single bounded causal source-parity witness: same native OHLC and price set, distinct eight-substep order, independent self-financing audit and clock. Offline engineering only.",
-    "expected_accounts": 0,
-    "expected_alpha": 0,
-    "execution_allowed": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -30,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9M_B_SIGNED_ENGINEERING_12_PASS_REAL_SOURCE_M9_EQUIVALENCE_OPS_MISSING",
+  "current_verdict": "NO_GO_P9M_C1_NATIVE_OHLC_ORDER_NOT_CAUSALLY_IDENTIFIABLE_WITHOUT_EIGHT_STEP_PATH",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -43,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Siguiente unidad estructural: evaluar el comparador nativo M9 sobre inventario, reloj y precios de stops/targets OHLC vs ocho subpasos y caja/MTM con marcas causales, sin abrir las 3200 finales ni activar órdenes, sin usar firma de ingeniería como evidencia observada. Procedencia verdaderamente independiente y universo real íntegro siguen bloqueados hasta que existan datos y una raíz externa verificada. Certificación WEAK aún no válida; no abrir búsqueda económica.",
-  "next_round_id": "M11_PHASE9M_C_NATIVE_M9_FULL_CAUSAL_SOURCE_PARITY",
-  "phase": "M11_PHASE9M_B_OFFLINE_SIGNED_ENGINEERING_COMPLETE_REAL_SOURCE_UNVERIFIED",
+  "next_action": "Una unidad estructural P9M-C2: comprobar sobre fixtures ambos activos, admisión nativa, IOC NO_FILL, marcas causales, inventario y caja autofinanciada evento por evento; no usar el fixture C1 para certificar la cota WEAK. Sin nuevas señales, semillas M10, broker u órdenes; seguir requiriendo cobertura parcial/rechazo/outage/impact y multicelda.",
+  "next_round_id": "M11_PHASE9M_C2_NATIVE_M9_ADMISSION_IOC_MARK_RESERVE_FULL_EVENT_PARITY",
+  "phase": "M11_PHASE9M_C1_OHLC_ORDER_NONIDENTIFIABILITY_STRUCTURAL_WITNESS_COMPLETE",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -63,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_B",
+  "round": "M11_PHASE9M_C1",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -781,5 +771,32 @@
     "independent_source_attestation_blocked": true,
     "full_stochastic_native_bound_proved": false,
     "n9s_accepted": false
+  },
+  "m11_phase9m_c1": {
+    "protocol": "research/modulation11/fwn9_phase9m_c1_protocol.json",
+    "doc": "docs/MODULATION11_PHASE9M_C1.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c1.json",
+    "preregistration_commit": "ad497ba00f25b38b5bee3f5fb887ae08e96f18c7",
+    "source_commit": "3be4bffbe6633476c37426c518184d2c73f127ef",
+    "ci_focus": 42468588675,
+    "ci_status": "SUCCESS",
+    "tests_passed": 8,
+    "independent_decimal46": "PASS",
+    "benchmark_20_ms": 80.459,
+    "native_net_usd": -16.32,
+    "causal_target_first_net_usd": -16.58,
+    "causal_stop_first_net_usd": -32.56,
+    "same_ohlc_different_causal_outcome": true,
+    "full_m9_native_population_equivalence": false,
+    "all_operational_gates_verified": false,
+    "economic_accounts_delta": 0,
+    "alpha_delta": 0,
+    "final_opened": 0,
+    "final_m10_unopened": 3200,
+    "source_sha256": {
+      "runtime30/fwn9_p9m_c_order_witness.cjs": "4592c02794eab0b19b36c587df03e8a6f0994c0f03019673b0364f5c444e6262",
+      "tools/fwn9_p9m_c_order_test.cjs": "d8db17f60c57c89ae9118c38eab44f5b1f3e02751495459ab0a85f46fae922f5",
+      "tools/fwn9_p9m_c_accountant.py": "06a08baade9f1b8cbd0b2db1d1c7a9c9b9b05c36341e36437d28e4f86bb2a7b0"
+    }
   }
 }
