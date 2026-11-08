@@ -1,0 +1,64 @@
+name: FWN9 P9M-C7 bounded exposure and wealth-bridge falsification
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9m_c7_bridge.py
+      - tools/test_fwn9_p9m_c7_bridge.py
+      - research/modulation11/fwn9_phase9m_c7_protocol.json
+      - research/modulation11/fwn9_phase9m_c7_source_manifest.json
+      - .github/workflows/fwn9_p9m_c7.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bridge-fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static checks, types and syntax
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          ruff check tools/fwn9_p9m_c7_bridge.py tools/test_fwn9_p9m_c7_bridge.py
+          mypy --strict --follow-imports=silent tools/fwn9_p9m_c7_bridge.py
+          python -m py_compile tools/fwn9_p9m_c7_bridge.py tools/test_fwn9_p9m_c7_bridge.py
+      - name: Deterministic structural falsification (no market seeds)
+        run: python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c7_bridge.py' -v
+      - name: Lock M9 generator and verify code SHA
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, subprocess
+          p=json.loads(pathlib.Path('research/modulation11/fwn9_phase9m_c7_protocol.json').read_text())
+          m=json.loads(pathlib.Path('research/modulation11/fwn9_phase9m_c7_source_manifest.json').read_text())
+          assert p['new_economic_accounts']==p['new_candidate_recipes']==p['new_market_seeds']==p['budget_alpha']==0
+          assert m['M10_final_accounts_unopened']==3200 and m['new_economic_accounts']==0
+          for path, expected in m['source_git_blob_sha1'].items():
+              actual=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert actual==expected,(path,actual,expected)
+          r=json.loads(pathlib.Path('research/modulation9/registration.json').read_text())
+          src='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256(pathlib.Path(src).read_bytes()).hexdigest()==r['sources_sha256'][src]
+          print('P9MC7_SOURCE_M9_HASH_PASS')
+          PY
+      - name: Independent decimal reconciliation and benchmark
+        run: |
+          python - <<'PY'
+          import sys, time
+          from decimal import Decimal as D
+          sys.path.insert(0,'tools')
+          from fwn9_p9m_c7_bridge import run_fixtures
+          w=run_fixtures()['endogenous_feedback']
+          x=D('20006.5')+24*(D('92.97')-D('100.03'))-48*D('0.005')
+          y=D('20000')+23*(D('92.97')-D('100.03'))-46*D('0.005')
+          assert x==D(w['terminal_with_credit_usd']) and y==D(w['terminal_without_credit_usd'])
+          start=time.perf_counter()
+          for _ in range(10000):run_fixtures()
+          print('P9MC7_10000_FIXED_ALGEBRA_MS',round((time.perf_counter()-start)*1000,3))
+          print('P9MC7_INDEPENDENT_TERMINAL',x,y,x-y)
+          PY

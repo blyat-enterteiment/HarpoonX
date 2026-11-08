@@ -1,0 +1,63 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC7_ALGEBRA_LOCAL_EVIDENCE_1",
+  "protocol": "research/modulation11/fwn9_phase9m_c7_protocol.json",
+  "preregistration_lease_commit": "a8d968293e6b730cedb6368fa8539d9a2c1182fa",
+  "kind": "DETERMINISTIC_ENGINEERING_ONLY",
+  "source_git_blob_sha1": {
+    "tools/fwn9_p9m_c7_bridge.py": "3ffb2397429321ef8de7edb42b8ca620a5ab1d50",
+    "tools/test_fwn9_p9m_c7_bridge.py": "d46b7442c27fd7fe1f48a04a39e098c5aab77411"
+  },
+  "source_sha256": {
+    "tools/fwn9_p9m_c7_bridge.py": "c5119564b6939ff2b764bfed1797ac8bc846484f91f0c31e4f59afcf22405257",
+    "tools/test_fwn9_p9m_c7_bridge.py": "305bb6228a6e22ebce4eb7d8298a8cd5c3b982364d0475ae2aadcae762905ef5"
+  },
+  "local_validation": {
+    "unit_tests": "8/8 PASS",
+    "ast_parse": "PASS",
+    "py_compile": "PASS",
+    "independent_decimal_terminal": "19836.820 vs 19837.390",
+    "benchmark_10000_ms": 212.611,
+    "ruff": "NOT_AVAILABLE_LOCALLY",
+    "mypy": "NOT_AVAILABLE_LOCALLY",
+    "ci": "PENDING"
+  },
+  "reserve_fixture": {
+    "admitted_reserve_usd": "2350.22",
+    "max_admission_usd": "2400",
+    "post_fill_exposure_usd": "2530",
+    "post_fill_wealth_usd": "20179.725",
+    "post_fill_gross_fraction": "0.1253733636112484188956985291"
+  },
+  "occupancy_fixture": {
+    "bars": 2,
+    "anchor_exposure_usd": "2300",
+    "sum_prebar_exposure_usd": "4600",
+    "not_valid_single_snapshot_cap_usd": "2400",
+    "conditional_max_ratio_1_10_upper_usd": "5280"
+  },
+  "feedback_fixture": {
+    "prior_credit_usd": "6.50",
+    "shares_with_credit": 24,
+    "shares_without_credit": 23,
+    "nominal_entry_usd": "100.03",
+    "gap_stop_net_exit_usd": "92.97",
+    "wealth_with_credit_usd": "19836.820",
+    "wealth_without_credit_usd": "19837.390",
+    "terminal_difference_usd": "-0.570",
+    "log_ratio": "-0.00002873403150506175759566827359",
+    "support_witness_not_sample": true
+  },
+  "original_contract_preserved": true,
+  "new_economic_accounts": 0,
+  "new_recipes": 0,
+  "new_market_seeds": 0,
+  "prospective_alpha_delta": 0,
+  "M10_final_unopened": 3200,
+  "scope_limitations": [
+    "Constructed event-accounting witnesses, not actual M9 campaign trajectories.",
+    "Positive prior credit can reverse through integer-sized subsequent admissions; no population bias inferred.",
+    "No valid numeric E[sum qS], E[sum q] or terminal log bound yet.",
+    "Original two operational blockers remain."
+  ],
+  "verdict": "NO_GO_C7_CEILING_SHORTCUTS_REFUTED_NO_NATIVE_CERTIFICATE"
+}
