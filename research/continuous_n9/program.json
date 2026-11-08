@@ -4,8 +4,8 @@
   "branch": "codex/continuous-n9-research",
   "current_max_accounts": 5040,
   "current_new_candidate_recipes": 18,
-  "current_protocol": "research/modulation11/fwn9_phase9m_c8_protocol.json",
-  "current_round": "M11_PHASE9M_C8",
+  "current_protocol": "research/modulation11/fwn9_phase9m_c8b_protocol.json",
+  "current_round": "M11_PHASE9M_C8B",
   "future_validation_alpha_budget": 0.05,
   "goal": "N9S_1_INTERNAL_CONDITIONAL_ONLY",
   "live_trading_allowed": false,
@@ -15,7 +15,8 @@
     "Resolve OHLC threshold-fill and stale-admission-mark assumptions before treating analytical bounds as native certificates.",
     "Separate historical frozen provenance from versioned experimental code.",
     "Implement and verify complete entry partial/reject/outage/impact model and virtual-cell coordinator.",
-    "Prove complete native reservation anchor with marked original quantities at every decision, IOC, partial, and clock; couple expected wealth with altered future admissions. Raw snapshot.notionalUsd is not the correct anchor."
+    "Prove complete native reservation anchor with marked original quantities at every decision, IOC, partial, and clock; couple expected wealth with altered future admissions. Raw snapshot.notionalUsd is not the correct anchor.",
+    "Extend verified C8B finite end-to-end native replay fixtures to a universal event-induction/coupling proof including wealth moments and noncausal OHLC fill distinctions; preserve original admission caps and do not open new signals."
   ],
   "original_contract": "research/modulation9/protocol.json",
   "original_source_commit": "d301fe53d1a57efe87b6fd91da5a599c6ba91d3d",
@@ -34,5 +35,5 @@
   ],
   "schema": "HARPOON_CONTINUOUS_N9_PROGRAM_1",
   "validation_alpha_rule": ".05 / 2**k for new prospective validation attempt k>=1; no claim of retroactive global coverage",
-  "last_result": "C8_NATIVE_RAW_RESERVATION_ANCHOR_REFUTED_REPRICED_FIXTURE_PASS_WEAK_PRICE_M2_M4_FINITE_NO_WEALTH_CERTIFICATE"
+  "last_result": "C8B_NATIVE_REPRICED_ANCHOR_FINITE_REPLAY_PASS_THREE_FAILED_ATTEMPTS_RETAINED_FULL_M9_INDUCTION_AND_WEALTH_BOUND_NOT_CERTIFIED"
 }

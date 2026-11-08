@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9M_C8B_NATIVE_EVENT_20261108_T11",
-    "phase": "M11_PHASE9M_C8B_REPRICED_ANCHOR_NATIVE_EVENT_PROOF",
-    "acquired_at": "2026-11-08T16:25:36Z",
-    "head_before_lease": "4f3ce38d70a45dbe7d2525517d11012c01a4632d",
-    "protocol": "research/modulation11/fwn9_phase9m_c8b_protocol.json",
-    "status": "ACTIVE",
-    "economic_accounts": 0,
-    "alpha_spent": 0
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_C8_RAW_BOOK_NOTIONAL_NOT_REPRICED_NATIVE_ANCHOR_NO_WEALTH_MOMENT_NUMERIC_BOUND",
+  "current_verdict": "NO_GO_C8B_NATIVE_FINITE_REPRICED_ANCHOR_AND_IOC_EVENT_PARITY_NO_UNIVERSAL_WEALTH_BOUND",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Verify corrected per-original-lot marked reservation anchor end-to-end in actual M9 replay with native signal and IOC clock, partials/NO_FILL/stops, and independent contemporaneous valuation. Bind accepted quantity to Bstar_tau <= 0.12 E_tau for every actual admission; then derive second/fourth moments of endogenous wealth and a direct terminal E[W_T] upper bound with future admission feedback. Do not substitute the raw snapshot notional, do not infer wealth moments from price moments, no new signals or M10 holdout.",
-  "next_round_id": "M11_PHASE9M_C8B_REPRICED_ANCHOR_NATIVE_EVENT_PROOF",
-  "phase": "M11_PHASE9M_C8_RAW_ANCHOR_REFUTED_REPRICED_FIXTURE_PASS_FULL_NATIVE_PROOF_PENDING",
+  "next_action": "Prove or refute corrected full-original-lot marked reservation anchor by induction over every reachable M9 event (decisions, IOC no-fill, live lots, partial exits, close knowledge, cash and mark clocks) and bound endogenous wealth moments and future-admission feedback on the actually native OHLC execution contract. Preserve original law, budgets, source hashes, M10 sealed final; do not open any new signal search or derive E[W_T] from E[price^r] without wealth-coupling proof.",
+  "next_round_id": "M11_PHASE9M_C9_NATIVE_EVENT_INDUCTION_WEALTH_FEEDBACK",
+  "phase": "M11_PHASE9M_C8B_NATIVE_EVENT_ANCHOR_FINITE_ENGINEERING_PASS_UNIVERSAL_INDUCTION_PENDING",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C8",
+  "round": "M11_PHASE9M_C8B",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -1040,5 +1031,54 @@
     "quant_regressions_passed": 1087,
     "archived_regressions_passed": 12,
     "quant_regression_evidence": "evidence/modulation11/fwn9_phase9m_c8_regressions.json"
+  },
+  "m11_phase9m_c8b": {
+    "lease_id": "M11_P9M_C8B_NATIVE_EVENT_20261108_T11",
+    "protocol": "research/modulation11/fwn9_phase9m_c8b_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9m_c8b_r2_protocol.json",
+      "research/modulation11/fwn9_phase9m_c8b_r3_protocol.json",
+      "research/modulation11/fwn9_phase9m_c8b_r4_protocol.json"
+    ],
+    "preregistration_lease_commit": "2fc941551783454bfc19b4c8cc4f3255d44b6a56",
+    "source_commit": "ca61c5bcdc8edacc54d707e704296a09acfed667",
+    "documentation": "docs/MODULATION11_PHASE9M_C8B.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c8b.json",
+    "ci_focal_pass": 42500652943,
+    "ci_quant_pass": 42500657942,
+    "failed_ci_attempts": [
+      42500339262,
+      42500460440,
+      42500539934
+    ],
+    "attempts_charged": 4,
+    "failed_attempts_charged": 3,
+    "native_focused_tests_passed": 8,
+    "native_focused_tests_failed": 0,
+    "independent_decimal": "PASS_DECIMAL50",
+    "ruff": "PASS",
+    "mypy_strict": "PASS",
+    "source_frozen_sha256": "PASS",
+    "benchmark_12_complete_engineering_replays_ms": 68.097,
+    "source_git_blob_sha1": {
+      "runtime30/fwn9_p9m_c8b_native_anchor.cjs": "8f482e4a64d26697732c3737f55130e4f29e6a85",
+      "tools/fwn9_p9m_c8b_native_anchor_test_r4.cjs": "93f148b1ff74d4d6c03db9f4507cf531d1745b3b",
+      "tools/fwn9_p9m_c8b_accountant_r3.py": "295a4071d76faac43985068850a0a07f40cb8c3e",
+      "research/modulation11/fwn9_phase9m_c8b_r4_protocol.json": "de0ebeca130ceaec884167854d62594e38547da6"
+    },
+    "raw_notional_invalid": true,
+    "corrected_original_lot_anchor_engineering_fixture_pass": true,
+    "native_risk_gate_independent_of_gross": true,
+    "universal_m9_event_induction_complete": false,
+    "native_ohlc_8_substep_equivalent": false,
+    "endogenous_wealth_moments_proved": false,
+    "weak_n9s_infeasibility_certified": false,
+    "operator_full_coverage": false,
+    "multicell_complete": false,
+    "new_economic_accounts": 0,
+    "new_market_seeds": 0,
+    "new_candidates": 0,
+    "alpha_delta": 0,
+    "m10_final_unopened": 3200
   }
 }
