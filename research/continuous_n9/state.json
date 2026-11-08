@@ -1,6 +1,14 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": null,
+  "active_job": {
+    "id": "M11_PHASE9M_C5_NATIVE_EXECUTION_CREDIT_STOCHASTIC_BOUND",
+    "owner": "fwn9_p9mc5_20261108",
+    "source_commit": "1ca99a63d73a38daf4ec5cc5d20172ffb6bc9d0c",
+    "scope": "Analytic Gaussian downside overshoot bound on native threshold fill credit for one frozen WEAK bar, excluding alpha and final; no economic accounts",
+    "economic_accounts_budget": 0,
+    "alpha_reserved": 0,
+    "automatic_retry_allowed": false
+  },
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -35,7 +43,7 @@
   "new_final_opened": false,
   "next_action": "Derive or refute a valid upper bound for endogenous native OHLC-versus-eight-substep execution credit under the frozen M9 WEAK lognormal law, including inventory and receipt clocks; combine with prior 0.905123bp bound only when rigorously applicable. Do not open economic search, M10 final or alter registered parameters.",
   "next_round_id": "M11_PHASE9M_C5_NATIVE_EXECUTION_CREDIT_STOCHASTIC_BOUND",
-  "phase": "M11_PHASE9M_C4_FINITE_PRICE_ENVELOPE_VERIFIED_NATIVE_POPULATION_OPEN",
+  "phase": "M11_PHASE9M_C5_ANALYTIC_BOUND_ACTIVE",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
