@@ -1,0 +1,66 @@
+{
+  "schema": "FWN9_C12_GLOBAL_RANGE_WEAK_ENVELOPE_PROTOCOL_1",
+  "phase": "M11_PHASE9M_C12_NONNEGATIVE_SELL_MOMENT_BOUND",
+  "parent_head": "7c2bab7c6fd41f52cffbec24db71f598a129dd89",
+  "lease_id": "M11_P9M_C12_GLOBAL_RANGE_VACUITY_7c2bab7c",
+  "registered_at_utc": "2026-11-08T20:56:00Z",
+  "original_contract": "research/modulation9/protocol.json",
+  "hypothesis": "The C10/C11 global-min/max R envelope is provably too loose to certify the original 1bp/calendar-day WEAK expected net log-growth hurdle, even if every path had zero exits. Conditional on all non-idiosyncratic draws, SYNA's 126-session log return contains 126*78*8 independent Gaussian idiosyncratic substeps with coefficient >= bar_sigma_SYNA*1.25*min_sigma_scale*exp(-0.7)*sqrt(1-loading^2)/sqrt(8). Hence E[log R] >= sqrt(2/pi)*sigma_min*sqrt(N) > 176*1e-4. This refutes ONLY certification by the C10/C11 global-envelope, not native N9-S feasibility or the earlier conditional WEAK bound.",
+  "catalogue": [
+    "V1 verify M9 generator stochastic decomposition, bounds on activity, normal idiosyncratic loading, mixture>=1, and sigma scales from original code+protocol",
+    "V2 derive analytic gaussian lower bound for expected log global price range using two observed OHLC endpoints, 126 evaluation sessions; no stochastic sampling",
+    "V3 compare bound to unchanged 1bp/day across 176 calendar days; verify separately development and final minimum volatility",
+    "V4 test fixed-fee-discount thought experiment U_star=(20000*R^(J+1))-176, without asserting that heuristic is a certified native upper bound",
+    "V5 deterministic edge checks: J=0, no trades/CASH, endpoints, weakened sigma/refutation condition and independent math check"
+  ],
+  "refutation": "The relevant C11 R excludes either endpoint, the normal loading fails to yield independent Gaussian idiosyncratic increments conditional on the nuisance draws, evaluation span differs from 126 complete sessions/176 charged days, or certified minimal sigma yields E(log R) below hurdle. Any such failure leaves C12 unable to refute envelope usefulness.",
+  "assumptions": [
+    "Ideal independent draws in the registered stochastic WEAK law; no claim about finite PRNG exact support or real markets",
+    "A particular subpath uses the two registered SYNA OHLC endpoints; R is full-path maximum/minimum of positive OHLC/priced buys, not the 72h local exposure R",
+    "Activity>=exp(-0.7), mixture in {1,4}, sigma_multiplier>=0.9 final and =1 development",
+    "R>=1 and all exit counts J>=0, so (J+1)log R>=log R; lower bound of upper envelope rules out certifying this hurdle by that inequality alone",
+    "No fresh economic signals or market validation; no candidate promotion and no statistical p-value"
+  ],
+  "registered_limits": {
+    "capitalUsd": 20000,
+    "grossFraction": 0.12,
+    "assetFraction": 0.12,
+    "riskFraction": 0.0025,
+    "openRiskFraction": 0.0025,
+    "maxHoldHours": 72,
+    "hurdleBpPerCalendarDay": 1,
+    "calendarDays": 176,
+    "stageEvaluationSessions": 126,
+    "barsPerSession": 78,
+    "substepsPerBar": 8
+  },
+  "budget": {
+    "newCandidates": 0,
+    "newControls": 0,
+    "newMarketAccounts": 0,
+    "newSeeds": [],
+    "newFinalOpened": 0,
+    "alphaSpent": 0,
+    "workers": 1,
+    "maxEngineeringAttempts": 3
+  },
+  "baselines": [
+    "CASH unchanged",
+    "M9_BEST unchanged; no new account executions"
+  ],
+  "planned_files": [
+    "tools/fwn9_p9m_c12_range_vacuity.py",
+    "tools/test_fwn9_p9m_c12_range_vacuity.py",
+    "docs/MODULATION11_PHASE9M_C12.md",
+    "evidence/modulation11/fwn9_phase9m_c12.json",
+    ".github/workflows/fwn9_p9m_c12.yml"
+  ],
+  "stop_rule": "If validated lower bound exceeds original hurdle, close C10/C11 global-range-certification avenue as mathematically vacuous. Do not claim impossibility of N9-S; pause current automation if protocol calls for pausing exhausted proof avenue.",
+  "integrity": {
+    "known_git_blob_sha1": {
+      "quant/harpoon_quant/modulation9.py": "b73f03b6d0ff2396e54c527b1da227953a1fdcc7",
+      "research/modulation9/protocol.json": "c49c8156f9d2f109f5eda0fd98d1b7290a837d1a",
+      "runtime30/fwn9_p9m_c11_tick_applicability.cjs": "a340ab43818ae563e094df0f2378c88e68e64072"
+    }
+  }
+}
