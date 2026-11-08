@@ -9,6 +9,14 @@ on:
       - tools/fwn9_p9m_c8_anchor_test.cjs
       - tools/fwn9_p9m_c8_accountant.py
       - .github/workflows/fwn9_p9m_c8.yml
+  pull_request:
+    branches:
+      - codex/synthetic-modulation9
+    paths:
+      - tools/fwn9_p9m_c8_anchor_probe.cjs
+      - tools/fwn9_p9m_c8_anchor_test.cjs
+      - tools/fwn9_p9m_c8_accountant.py
+      - .github/workflows/fwn9_p9m_c8.yml
   workflow_dispatch:
 permissions:
   contents: read
