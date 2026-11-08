@@ -1,0 +1,66 @@
+{
+  "schema": "HARPOON_M11_PHASE8_PROTOCOL_1",
+  "date": "2026-11-07",
+  "phase": "M11_PHASE8_CAUSAL_RECEIPT_ADMISSION_MIRROR",
+  "base_lease_commit": "b1bd84bb46b90ac67a45c459b2c1925bab9b9bba",
+  "objective": "Two independent receipt-timed capital and reservation books; exact native NATIVE_MAX risk/notional/cash sizing and unchanged reservation engine, no forced matched trade identities or quantities.",
+  "structural_hypothesis": "When exit receipts and known cash differ, the two books' admissible integer quantities and even funded campaign identities can diverge under exactly the same signals; fixed native entries are not a universal stochastic coupling.",
+  "refutation_criteria": [
+    "Any signal quantity uses price bars with availableAt > decisionAt or outcome receipts with knownAt > decisionAt",
+    "Either book consumes the other's closed proceeds, quantities, receipts, or reservation book",
+    "Any terminal cash reconciliation mismatch beyond USD 0.00005",
+    "Any 12 percent cap asserted as continuous or an OHLC threshold asserted as observed fill",
+    "Any horizon > 72h, unexplained partial close, negative quantity, unresolved reservation, or stale pending IOC released early",
+    "Any native planner/risk/notional/cash gate replaced by an invented looser formula"
+  ],
+  "finite_fixture_catalog": [
+    "two-symbol endogenous admission identity divergence",
+    "common-prefix / future receipt price perturbation",
+    "IOC no-fill and reserve release",
+    "delayed terminal receipt exclusion from earlier purchasing power",
+    "rejected knownAt before execution at",
+    "terminal exposure and missing execution fail closed",
+    "independent Decimal cash/fees and benchmark"
+  ],
+  "excluded": "No new trading signals or new candidate variants; no synthetic economic market accounts; no final paths; no broker; no claim of realized edge or stochastic impossibility.",
+  "unchanged_contract": {
+    "capital_usd": 20000,
+    "universe": [
+      "SYNA",
+      "SYNB"
+    ],
+    "generator": "M9_FROZEN_UNCHANGED",
+    "gross_and_asset_admission": 0.12,
+    "open_risk": 0.0025,
+    "max_hold_hours": 72,
+    "fees": "M9_FIXED_PER_SIDE_AND_ORIGINAL_FRICTION",
+    "thresholds": "M9_ORIGINAL_UNCHANGED"
+  },
+  "budget": {
+    "new_candidates": 0,
+    "controls_new": 0,
+    "economic_accounts": 0,
+    "market_seeds_opened": [],
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "controls": [
+    "CASH retains same calendar fee",
+    "M10 previous best QUALITY_NATIVE_QUEUE72_R0625 stays registered without rerun",
+    "identical signal receipt comparison fixture"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/modulation11_admission_mirror.cjs": "22e27edf08326623b8ee7ba9af348c42be14767e",
+    "tools/modulation11_phase8_test.cjs": "e6ace55652fe2f9ef9a5dc162fe77a9daffb00e3",
+    "tools/modulation11_phase8_accountant.py": "09bc52d13ec5ea2802b0aa32ebcaf4c11a229370",
+    ".github/workflows/modulation11_phase8.yml": "12a447dd9e53e5beeb0e314c1b965c464a310b5e"
+  },
+  "scope_limits": [
+    "Receipt factory is an engineering evidence adapter; absent a complete data-backed two-book native replay, matching the full native campaign distribution is not certified.",
+    "Decision-clock drawdown is only an observed subset; worst-session, universal event risk and outage/partial/reject/impact coverage are not certified.",
+    "Exact original sizing and reservation functions called; independent equity mark convention may require further parity checks with native replay.",
+    "Off-grid OHLC receipts remain hypothetical and never treated as real executions."
+  ],
+  "promotion_eligible": false
+}
