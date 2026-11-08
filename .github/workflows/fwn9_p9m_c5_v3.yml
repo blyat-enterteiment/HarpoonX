@@ -1,0 +1,77 @@
+name: FWN9 P9M-C5 v3 validated analytic WEAK stop credit envelope
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9m_c5_credit_bound_v2.py
+      - tools/test_fwn9_p9m_c5_credit_bound_v2.py
+      - research/modulation11/fwn9_phase9m_c5_v3_protocol.json
+      - .github/workflows/fwn9_p9m_c5_v3.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  analytic-credit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static analysis and Python types
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          ruff check tools/fwn9_p9m_c5_credit_bound_v2.py tools/test_fwn9_p9m_c5_credit_bound_v2.py
+          mypy --strict --follow-imports=silent tools/fwn9_p9m_c5_credit_bound_v2.py tools/test_fwn9_p9m_c5_credit_bound_v2.py
+          python -m py_compile tools/fwn9_p9m_c5_credit_bound_v2.py tools/test_fwn9_p9m_c5_credit_bound_v2.py
+      - name: Independent Gaussian quadrature and finite pathwise checks
+        run: |
+          python -B -m unittest discover -s tools -p test_fwn9_p9m_c5_credit_bound_v2.py -v
+      - name: Generate deterministic analytic certificate and benchmark
+        run: |
+          python -B tools/fwn9_p9m_c5_credit_bound_v2.py > /tmp/p9mc5_analytic.txt
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=Path('/tmp/p9mc5_analytic.txt').read_text().split('FWN9_P9MC5_ANALYTIC=',1)[1]
+          c=json.loads(x)
+          assert c['native_full_stochastic_bound_certified'] is False
+          assert c['bar_credit_bound_is_calendar_daily_growth_bound'] is False
+          print('P9MC5_LOCAL_BAR_COEFFICIENT',c['bar_positive_stop_credit_fraction_of_prior_bar_notional_upper_before_friction'])
+          print('P9MC5_GAP_BP_PER_DAY',c['gap_to_nominal_hurdle_bp_per_day'])
+          print('P9MC5_NO_FALSE_POPULATION_CERTIFICATE_PASS')
+          PY
+      - name: Frozen source, preregistered Git objects, checksum
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/fwn9_phase9m_c5_v3_protocol.json').read_text())
+          assert p['economic_budget']['new_accounts']==0
+          assert p['economic_budget']['final_accounts_unopened']==3200
+          for path,want in p['code_git_blob_sha1'].items():
+              got=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert got==want,(path,got,want)
+              print('P9MC5_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          src='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/src).read_bytes()).hexdigest()==reg['sources_sha256'][src]
+          print('P9MC5_FROZEN_M9_GENERATOR_PASS')
+          PY
+      - name: Bounded analytic throughput benchmark
+        run: |
+          python - <<'PY'
+          import importlib.util,pathlib,time
+          name=pathlib.Path('tools/fwn9_p9m_c5_credit_bound_v2.py')
+          spec=importlib.util.spec_from_file_location('p9mc5',name)
+          assert spec and spec.loader
+          m=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(m)
+          cfg=m.load_registered_protocol(pathlib.Path('research/modulation9/protocol.json'))
+          t=time.perf_counter()
+          for _ in range(5000): m.weak_credit_envelope(cfg)
+          print('P9MC5_5000_ANALYTIC_CERTIFICATES_MS',round((time.perf_counter()-t)*1000,3))
+          PY

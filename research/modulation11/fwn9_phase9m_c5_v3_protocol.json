@@ -1,0 +1,36 @@
+{
+  "schema": "HARPOON_FWN9_P9MC5_V3_WORKFLOW_INTEGRITY_PROTOCOL_1",
+  "supersedes_workflow_only": "research/modulation11/fwn9_phase9m_c5_v2_protocol.json",
+  "original_protocol": "research/modulation11/fwn9_phase9m_c5_protocol.json",
+  "failed_ci_runs": [
+    42482339371,
+    42482488223
+  ],
+  "failure_classification": [
+    "V1 strict mypy protocol input and class fixture annotations, no math result",
+    "V2 workflow accesses protocol field budget rather than economic_budget; mathematical tests pass"
+  ],
+  "hypothesis": "The v2 source, tests, and Gaussian calculations remain unchanged; corrected workflow integrity guard checks preregistered v3 economic_budget exactly and all original immutable SHA sources.",
+  "refutation": [
+    "CI fails any verified check",
+    "Protocol hashes diverge",
+    "Analytic calculation deviates from frozen model",
+    "Original M9 generator checksum changes"
+  ],
+  "economic_budget": {
+    "new_accounts": 0,
+    "new_candidates": 0,
+    "alpha_spent": 0,
+    "workers": 1,
+    "final_accounts_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9m_c5_credit_bound_v2.py": "da5b3b9d893f9b1bd0d57e3960955ef762f9fb89",
+    "tools/test_fwn9_p9m_c5_credit_bound_v2.py": "ca919e49ac361857f2a7b9dbc1f3b12453175887",
+    ".github/workflows/fwn9_p9m_c5_v3.yml": "c2edc286f039913f138c1f36f7006b136bb47b98"
+  },
+  "statistical_trials": 0,
+  "stochastic_population_certified": false,
+  "refused_final_opening": true,
+  "broker_actions_allowed": false
+}
