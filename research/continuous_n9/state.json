@@ -1,6 +1,14 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": null,
+  "active_job": {
+    "id": "M11_PHASE9B_NATIVE_MARK_DAILY_RISK_CLOCK_PARITY",
+    "owner": "fwn9_phase9b_20261107",
+    "source_commit": "02782b625dc18e3f98e7edc678a766259535550e",
+    "scope": "One engineering unit: independent full native mark/daily-risk event clock audit; deterministic fixtures only, zero economic accounts, no brokers",
+    "economic_accounts_budget": 0,
+    "alpha_reserved": 0,
+    "automatic_retry_allowed": false
+  },
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -35,7 +43,7 @@
   "new_final_opened": false,
   "next_action": "Audit full native replay mark/equity and daily-loss/drawdown event clocks against the two independently funded books; test counterexamples including open partials and receipt delays, preserve original 12pct reservation semantics, then revisit applicable WEAK population bound. No signal grid or final.",
   "next_round_id": "M11_PHASE9B_NATIVE_MARK_DAILY_RISK_CLOCK_PARITY",
-  "phase": "M11_PHASE9A_ACTUAL_NATIVE_CAMPAIGNS_RECEIPT_PARITY_FIXTURE_ONLY",
+  "phase": "M11_PHASE9B_ENGINEERING_ACTIVE",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
