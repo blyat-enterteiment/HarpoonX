@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_PHASE9A_NATIVE_FULL_CAMPAIGN_RECEIPT_PARITY",
-    "phase": "M11_PHASE9A",
-    "status": "ACTIVE",
-    "start_head": "b45a805175c18f5480f462420687a549e7f83354",
-    "started_at": "2026-11-08T00:54:39.717Z",
-    "scope": "native_replay_receipts_and_endogenous_mirror_parity",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_NATIVE_DISTRIBUTIONAL_BRIDGE_AND_OPERATIONAL_GATES_UNPROVEN",
+  "current_verdict": "NO_GO_NATIVE_DISTRIBUTIONAL_BRIDGE_AND_FULL_RISK_CLOCK_UNPROVEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Bind each independent receipt-funded book to actual native replay entries/exits and eight-substep observed fills with its own quantities; verify native mark PnL, daily-loss and drawdown receipt clocks and economic self-financing for complete campaigns. Then prove/refute applicable stochastic WEAK wealth bound. No new signal grid, no holdout M10.",
-  "next_round_id": "M11_PHASE9_NATIVE_ENDOGENOUS_REPLAY_PARITY",
-  "phase": "M11_PHASE8_CAUSAL_TWO_BOOK_ADMISSIONS_DIVERGE_STOCHASTIC_BRIDGE_PENDING",
+  "next_action": "Audit full native replay mark/equity and daily-loss/drawdown event clocks against the two independently funded books; test counterexamples including open partials and receipt delays, preserve original 12pct reservation semantics, then revisit applicable WEAK population bound. No signal grid or final.",
+  "next_round_id": "M11_PHASE9B_NATIVE_MARK_DAILY_RISK_CLOCK_PARITY",
+  "phase": "M11_PHASE9A_ACTUAL_NATIVE_CAMPAIGNS_RECEIPT_PARITY_FIXTURE_ONLY",
   "preregistration_commit": "23dbe2e1378fc24bb7729968073bd1b948c90eab",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE8",
+  "round": "M11_PHASE9A",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -273,6 +264,38 @@
       "tools/modulation11_phase8_v2_test.cjs": "744989aa98a234784745dae9ccc5ee4fdbbd77dd76973c2cf2a43f074fc641c2",
       "tools/modulation11_phase8_accountant.py": "9e11004b16063a40d56a9d1173156e240a0069156f99da2497303de9b264a815",
       ".github/workflows/modulation11_phase8_v5.yml": "a003173ccc87c556d7105839cfccc54d70268e96492f698718ea54fe298c77d0"
+    }
+  },
+  "m11_phase9a": {
+    "protocol": "research/modulation11/phase9a_v2_protocol.json",
+    "doc": "docs/MODULATION11_PHASE9A.md",
+    "evidence": "evidence/modulation11/phase9a_native_receipt_parity.json",
+    "preregistration_commit": "e0b835f54e7baa7829a846b420c4167b3cb3f736",
+    "ci_run": 42432220136,
+    "ci_status": "SUCCESS",
+    "tests_passed": 6,
+    "prior_failed_ci": [
+      42432129803
+    ],
+    "independent_decimal": "PASS_DECIMAL_46",
+    "checkjs": "NO_NEW_ERRORS_8_HISTORICAL",
+    "benchmark20BooksMs": 319.225,
+    "baseline_native_net_usd": -9.68,
+    "baseline_causal_net_usd": -9.68,
+    "adversarial_native_net_usd": -33.31999999999971,
+    "adversarial_causal_net_usd": -33.70999999999913,
+    "native_quantity_and_anchor_fixture_verified": true,
+    "full_risk_clocks_verified": false,
+    "stochastic_wealth_bound_certified": false,
+    "economic_accounts_delta": 0,
+    "market_seeds_opened": [],
+    "alpha_delta": 0,
+    "m10_final_unopened": 3200,
+    "source_sha256": {
+      "runtime30/modulation11_native_receipt_parity_p9a_v2.cjs": "698f0229545329022ad05b0f991937191a3eea91eae403708f3630d23cc847c4",
+      "tools/modulation11_phase9a_v2_test.cjs": "2f5b8f5ffdecf47cbae619e1b4087a77603b00e8914682ce6f759fd109570906",
+      "tools/modulation11_phase9a_v2_accountant.py": "10cb5ae6db5b98c46c4c2016ac55a719af5ccebcdff402052dd1f98f2ce11ba9",
+      ".github/workflows/modulation11_phase9a_v2.yml": "1323ee43906d1d9a7c60834a7c95b48a6e7c6a2da131d01d152b5a193b61b244"
     }
   }
 }
