@@ -1,14 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9K_MULTILAYER_EVENT_GATE_20261108",
-    "phase": "M11_PHASE9K",
-    "status": "ACTIVE",
-    "start_head": "5ce44c39a0ebf69c02c26464a6aeb6822119d975",
-    "scope": "multilayer offline event sourced failures, shared portfolio reservations, receipt knownAt and funded accounting; no economic accounts",
-    "economic_accounts": 0,
-    "final_opened": false
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -28,7 +20,7 @@
   "ci_run": 42405166152,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_P9J_SOURCE_CLOCK_FIXTURE_PASS_STOCHASTIC_AND_OPERATIONAL_GATES_OPEN",
+  "current_verdict": "NO_GO_P9K_OFFLINE_27_PASS_QUANT1074_PASS_POPULATION_OPERATIONAL_GATES_OPEN",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -41,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Preregister and verify full source-causal operational failure matrix for partial IOC entry, reject, outage, delayed receipt, impact, fee/cash and cross-cell coordinator in offline engineering replay. Use only own causal receipts and robust independent accounting; preserve original generator, N9-S hurdle, no new economic candidates or M10 sealed final. OHLC executable-price gap and native positive-credit population bound remain open.",
-  "next_round_id": "M11_PHASE9K_FULL_NATIVE_DECISION_FAULT_MATRIX",
-  "phase": "M11_PHASE9J_MODELED_IOC_NOFILL_VALUATION_CLOCK_VERSIONED_FIX_VERIFIED_GLOBAL_N9_GATES_OPEN",
+  "next_action": "Preregister one new source-native adapter that consumes all accepted M9 replay decisions/observations and independently reconciles P9K receipt ledger cash, risk, inventory and original reserve across two cells; verify 8% drawdown and session calendar clock; fail closed on missing/late source receipt; require counterexample on any discrepancy. Do not modify native generator, signals, costs, holdout or broker. Native OHLC executable credit and population N9 bound remain separate.",
+  "next_round_id": "M11_PHASE9L_SOURCE_NATIVE_EVENT_BRIDGE_AND_CELL_PARITY",
+  "phase": "M11_PHASE9K_MULTILAYER_OFFLINE_FAULT_MATRIX_VERIFIED_NATIVE_SOURCE_EQUIVALENCE_PENDING",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -61,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9J",
+  "round": "M11_PHASE9K",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -573,6 +565,68 @@
       "tools/fwn9_phase9j_accountant.py": "69dc83c6642f95156d9dd136cc3ff5a6cccc17d672fc43c252096d97997311bb",
       "tools/fwn9_phase9j_test_r2.cjs": "03af9603b2fd5268e5c3cb641c90b5bd0c78b73fe6e5cedf22d35173e551ac0a",
       ".github/workflows/fwn9_phase9j_r2.yml": "82323538f948174729b7be78e9992b77ed391191095f37fe70d6c9a720fba227"
+    }
+  },
+  "m11_phase9k": {
+    "protocol": "research/modulation11/fwn9_phase9k_protocol.json",
+    "corrective_protocols": [
+      "research/modulation11/fwn9_phase9k_r2_protocol.json",
+      "research/modulation11/fwn9_phase9k_r3_protocol.json"
+    ],
+    "documentation": "docs/MODULATION11_PHASE9K_FWN9.md",
+    "evidence": "evidence/modulation11/fwn9_phase9k_multilayer_fault_matrix.json",
+    "preregistration_commits": [
+      "8e64f10133f6776f3626b1a9ba5725b096b8a6db",
+      "3abfe7bbaa8d4498a1b92c9ecfae8a459cc05fc2",
+      "d284ba3f8b4fb77005aeae84cc2f4ba6d7dbcc56"
+    ],
+    "ci_runs": {
+      "initial_failed": 42450020327,
+      "initial_tests_passed": 23,
+      "initial_tests_failed": 3,
+      "r2_failed_static": 42450137606,
+      "r2_tests_passed": 27,
+      "r2_tests_failed": 0,
+      "r3_focal_success": 42450233611,
+      "integrated_quant_success": 42450233567
+    },
+    "engineering_layer_tests_passed": 27,
+    "engineering_layer_tests_failed": 0,
+    "cash_decimal": "PASS_DECIMAL_60",
+    "m9_sources_integrity": "PASS_47_OF_47",
+    "static_ruff": "PASS",
+    "mypy_scoped": "PASS_STRICT",
+    "full_quant_current_tests_passed": 1062,
+    "full_quant_archive_tests_passed": 12,
+    "full_quant_ci_result": "SUCCESS",
+    "benchmark_80_full_cycles_ms": 37.540958,
+    "shared_two_cells_engineering_implemented": true,
+    "canonical_reservation_functions_used": true,
+    "physical_cash_receipts_self_financing_verified_in_engineering": true,
+    "partial_reject_outage_impact_fixtures_passed": true,
+    "native_source_all_decisions_verified": false,
+    "native_execution_fault_coverage_complete": false,
+    "multicell_production_integrated": false,
+    "M9_WEAK_population_bound_proved": false,
+    "native_OHLC_execution_equivalence_proved": false,
+    "operational_gate_required_in_robust_ci": true,
+    "CI_branch_required_check_proven": false,
+    "new_economic_accounts": 0,
+    "alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "source_git_blobs": {
+      "runtime30/fwn9_p9k_fault_matrix.cjs": "888fa838694eae889eaee0eafa9eb554723e30e0",
+      "tools/fwn9_p9k_fault_matrix_test.cjs": "8eb671f0156fd4159f44b9c58164163d7364bdf7",
+      "runtime30/fwn9_p9k_fault_matrix_r2.cjs": "94e676cd261700e7a63a44ca3e714edc0a68ce1c",
+      "tools/fwn9_p9k_fault_matrix_test_r2.cjs": "d3245b92294d819e69ad8519c46b89523fedadd7",
+      "tools/fwn9_p9k_accountant_r3.py": "3637c6e20d86eb10290f8213e2f672b64776d741",
+      ".github/workflows/fwn9_phase9k_r3.yml": "cdc9b4fdd21f60547fbad95d67b3c78fdbae1320",
+      ".github/workflows/robust-quant-core.yml": "fdff2989ceacdedaa45c70dbd3e8ac7de758bfd3"
+    },
+    "sha256_ci": {
+      "tools/fwn9_p9k_accountant_r3.py": "198d199d8fb6bed7ee1283bb43157d67be54f2764555c82c7558b2603e190e80",
+      ".github/workflows/fwn9_phase9k_r3.yml": "2600659e51c4b508e5c7d4cd7bf51152343a1f7000dcac8db3522eba4da63b83",
+      ".github/workflows/robust-quant-core.yml": "8ab88e99b102aa042a18eb0df87ff1161c02bee93f0b81b18a21123a66c74c47"
     }
   }
 }
