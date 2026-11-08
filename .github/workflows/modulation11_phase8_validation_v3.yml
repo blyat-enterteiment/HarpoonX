@@ -1,0 +1,76 @@
+name: M11 phase8 typed receipt validation with explicit legacy debt
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_admission_mirror.cjs
+      - tools/modulation11_phase8_test.cjs
+      - tools/modulation11_phase8_accountant.py
+      - research/modulation11/phase8_protocol.json
+      - .github/workflows/modulation11_phase8_validation_v3.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  causal-mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and adversarial receipt/quantity fixtures
+        run: |
+          node --check runtime30/modulation11_admission_mirror.cjs
+          node --check tools/modulation11_phase8_test.cjs
+          node --test tools/modulation11_phase8_test.cjs
+      - name: Scoped static type check
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          set +e
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_admission_mirror.cjs > /tmp/m11p8_tsc.log 2>&1
+          rc=$?
+          set -e
+          TSC_STATUS="$rc" python - <<'PY'
+          import os,re,pathlib
+          log=pathlib.Path('/tmp/m11p8_tsc.log').read_text()
+          errors=[x for x in log.splitlines() if 'error TS' in x]
+          rc=int(os.environ['TSC_STATUS'])
+          if rc==0:
+              assert not errors,errors
+              print('M11_P8_CHECKJS_NO_NEW_OR_LEGACY_ERRORS')
+          else:
+              assert rc==2,rc
+              assert len(errors)==8,errors
+              assert all(re.match(r'^runtime30/types\\.js\\((85|94|115|151),\\d+\\): error TS2365:',line) for line in errors),errors
+              print('M11_P8_CHECKJS_NO_NEW_ERRORS_FROZEN_LEGACY_DEBT_8')
+          PY
+      - name: Independent Decimal 46 reconciliation
+        run: |
+          node tools/modulation11_phase8_test.cjs --emit-accountant >/tmp/harpoon_m11p8.txt
+          python -B tools/modulation11_phase8_accountant.py /tmp/harpoon_m11p8.txt
+      - name: Code-object provenance and sealed-market guard
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          root=pathlib.Path('.')
+          proto=json.loads((root/'research/modulation11/phase8_protocol.json').read_text())
+          assert proto['budget']['economic_accounts']==0
+          assert proto['budget']['market_seeds_opened']==[]
+          assert proto['budget']['alpha_spent']==0 and proto['budget']['m10_final_unopened']==3200
+          for path,expected in proto['code_git_blob_sha1'].items():
+              got=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert got==expected,(path,got,expected)
+              print('M11_P8_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          old=json.loads((root/'research/modulation9/registration.json').read_text())
+          key='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/key).read_bytes()).hexdigest()==old['sources_sha256'][key]
+          print('M11_P8_ORIGINAL_GENERATOR_INTEGRITY_PASS')
+          PY
+      - name: Deterministic mirror benchmark
+        run: |
+          node tools/modulation11_phase8_test.cjs --bench >/tmp/harpoon_m11p8_bench.log
+          grep M11_P8_MIRROR_1000_MS /tmp/harpoon_m11p8_bench.log
