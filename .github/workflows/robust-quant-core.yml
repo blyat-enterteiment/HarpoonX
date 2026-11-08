@@ -16,6 +16,10 @@ on:
       - 'tools/fwn9_p9i_operational_test.cjs'
       - 'runtime30/fwn9_p9i_operational_gate.cjs'
       - 'runtime30/fwn9_p9j_native_risk_clock.cjs'
+      - 'runtime30/fwn9_p9k_fault_matrix.cjs'
+      - 'tools/fwn9_p9k_fault_matrix_test.cjs'
+      - 'tools/fwn9_p9k_accountant.py'
+      - 'research/modulation11/fwn9_phase9k_protocol.json'
       - 'tools/fwn9_phase9j_test.cjs'
       - 'tools/fwn9_phase9j_accountant.py'
       - 'research/modulation11/fwn9_phase9j_protocol.json'
@@ -72,6 +76,7 @@ jobs:
           python3 -m ruff check quant/harpoon_quant/framework.py quant/harpoon_quant/swing_evidence.py quant/harpoon_quant/__main__.py quant/tests/test_framework.py
           MYPYPATH=quant:tools python3 -m mypy --follow-imports=silent --ignore-missing-imports --explicit-package-bases quant/harpoon_quant/framework.py quant/harpoon_quant/swing_evidence.py quant/harpoon_quant/__main__.py
           node --check runtime/quant_bridge.cjs
+          MYPYPATH=tools python3 -m mypy --strict tools/fwn9_p9k_accountant.py
           python3 -m ruff check --select E4,E7,E9,F tools/fwn9_p9i_partitioned_regressions_r5.py
           MYPYPATH=tools python3 -m mypy --strict tools/fwn9_p9i_partitioned_regressions_r5.py
       - name: P9I hard-gate knownAt, cash, IOC no-fill and versioned provenance
@@ -98,6 +103,12 @@ jobs:
           node --test tools/fwn9_phase9j_test.cjs
           node tools/fwn9_phase9j_test.cjs --emit-proof >/tmp/p9j_integrated.txt
           python3 -B tools/fwn9_phase9j_accountant.py /tmp/p9j_integrated.txt
+      - name: P9K blocking multi-layer shared capital and fault-path checks
+        run: |
+          node --check runtime30/fwn9_p9k_fault_matrix.cjs
+          node --test tools/fwn9_p9k_fault_matrix_test.cjs
+          node tools/fwn9_p9k_fault_matrix_test.cjs --emit-audit >/tmp/p9k_gate_audit.txt
+          python3 -B tools/fwn9_p9k_accountant.py /tmp/p9k_gate_audit.txt
       - name: Current-head quant suite, excluding ONLY separately retained 12 archive tests
         run: python3 -B tools/fwn9_p9i_partitioned_regressions_r5.py --current
       - name: Historical archive suite, independently reconstructed from immutable byte refs

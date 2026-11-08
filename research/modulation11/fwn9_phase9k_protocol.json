@@ -1,0 +1,104 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9K_MULTILAYER_OPERATIONAL_FAULT_MATRIX_1",
+  "lease_id": "M11_P9K_MULTILAYER_EVENT_GATE_20261108",
+  "prelease_head": "5ce44c39a0ebf69c02c26464a6aeb6822119d975",
+  "hypothesis": "A two-cell, event-sourced, common-cash offline execution ledger using the frozen HarpoonX FundedReservationBook can fail closed on modeled partial IOC fills, rejects, NO_FILL, outage, delayed receipts, impact, cross-asset capacity, inventory errors, 72h and fees without accessing future OHLC or falsely claiming native coverage.",
+  "counterhypothesis": "The current source reservation model may not support partial outstanding entry and terminal cash accounting without premature release; any discrepancy must be recorded and corrected versionedly, not silently asserted away.",
+  "finite_test_catalog": [
+    "L0 original capital and caps",
+    "L1 physical cash and exit fee equity mark",
+    "L2 shared gross cap two cells",
+    "L2 duplicate symbol reservation",
+    "L3 partial entry and pending IOC",
+    "L3 cancellation request never receipt",
+    "L3 rejection of unfilled remainder retains original opened risk",
+    "L3 IOC no-fill without phantom stock",
+    "L4 outage blocks new admission and receipt",
+    "L4 future receipt rejected",
+    "L4 idempotent events and conflicting duplicate",
+    "L5 IOC execution ceiling rejects invented fill",
+    "L5 explicit entry market impact shortfall",
+    "L6 partial exit retains original reservation",
+    "L6 oversell rejected with rollback",
+    "L6 independent post-cost trade accounting",
+    "L7 max hold 72h and unresolved inventory",
+    "L7 daily loss blocks admission",
+    "L7 12% not continuous exposure cap",
+    "L8 weekend cost accrual",
+    "L8 cross-cell no N9 promotion",
+    "L8 tampered cash fails",
+    "entry overfill fail-closed",
+    "out-of-order known receipt fail-closed",
+    "invalid or negative exit fill rejected",
+    "stress registered calendar day fee"
+  ],
+  "refutation": [
+    "Any input market path or trade generated without explicit offline receipt",
+    "Any symbol or portfolio reservation beyond 12% at admission accepted",
+    "Any exposure beyond 12% after price movement treated as retroactive breach",
+    "An outage releases funds or forwards orders",
+    "Partial reject releases opened inventory reservation before full terminal close",
+    "Duplicate or late receipt changes past state",
+    "Any exit quantity exceeds filled shares or 72h effective hold",
+    "Receipt-driven impact/fees missing from self-financing cash",
+    "Shared cash overspent across EQUITY and CRYPTO",
+    "Fails independent Decimal accountant, static, type or SHA checks",
+    "Claims native M9 generator-wide, OHLC executable-price, positive-credit population, real broker or N9-S certificate"
+  ],
+  "fixture_scope": {
+    "universe": [
+      "SYNA",
+      "SYNB"
+    ],
+    "cells": {
+      "EQUITY": "SYNA",
+      "CRYPTO": "SYNB"
+    },
+    "capital_usd": 20000,
+    "per_side_fee_usd_engineering": 0.005,
+    "calendar_cost_per_day_usd_worlds": [
+      1,
+      2
+    ],
+    "risk_open_fraction": 0.0025,
+    "gross_reservation_admission": 0.12,
+    "asset_admission": 0.12,
+    "daily_loss": 0.02,
+    "drawdown": 0.08,
+    "max_hold_hours": 72,
+    "source_reservation_module": "runtime30/ultimate_reservations.js",
+    "source_native_runtime": "runtime30/profit8_replay.js",
+    "notice": "Engineering receipt tape not validated realized M9 native population; numbers are illustrative, not economic results"
+  },
+  "controls": [
+    "CASH with unchanged cost ledger, not reestimated",
+    "historical M10 best QUALITY_NATIVE_QUEUE72_R0625 not rerun"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "git_blobs": {
+    "runtime30/fwn9_p9k_fault_matrix.cjs": "888fa838694eae889eaee0eafa9eb554723e30e0",
+    "tools/fwn9_p9k_fault_matrix_test.cjs": "8eb671f0156fd4159f44b9c58164163d7364bdf7",
+    "tools/fwn9_p9k_accountant.py": "14948f28ce0aa3185b374d398501e27204e56f5b",
+    ".github/workflows/fwn9_phase9k.yml": "b0d4b674f67d4b8aac8af92e6ac10a4af2be64d0",
+    ".github/workflows/robust-quant-core.yml": "59ca63160d0db4bf0aaca8cf1985c224e8407a78"
+  },
+  "source_integrity": "Verify all 47 M9 sources at their registered SHA-256. Historical 108 archive hashed through P9I immutable split-lineage workflow.",
+  "limits_not_modified": true,
+  "promotion_eligible": false,
+  "remaining_critical_gates": [
+    "Native P9K receipt adapter covering M9 distribution",
+    "Broker-level partial reject outage impact independent calibration",
+    "Real cross-cell coordinator integration",
+    "Population inverse wealth and native OHLC positive credit bound",
+    "Existing eight TS2365 typed errors",
+    "Historical experiment debt and accounting review",
+    "Required GitHub branch protection checks unverified"
+  ]
+}
