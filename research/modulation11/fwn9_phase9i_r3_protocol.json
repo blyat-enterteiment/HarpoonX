@@ -1,0 +1,48 @@
+{
+  "schema": "HARPOON_FWN9_P9I_R3_COMPOSITE_LINEAGE_1",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "parent_protocol": "research/modulation11/fwn9_phase9i_protocol.json",
+  "corrective_attempts": [
+    {
+      "protocol": "research/modulation11/fwn9_phase9i_r2_protocol.json",
+      "ci_run": 42445991535,
+      "status": "FAILED_MYpy_3_TEST_TYPE_ERRORS"
+    }
+  ],
+  "hypothesis": "The 108 archived immutable hash anchors are byte-identical when 105 are read from legacy source_head and the exact three provenance-mismatched artifacts are read from distinct immutable commit 4325422c; this repairs byte-lineage attribution but not the false historical atomic-snapshot hypothesis.",
+  "falsification": [
+    "Any of the 108 expected hashes mismatches scoped immutable revision",
+    "Any extra exception path or changed old manifest",
+    "Any claim one atomic source snapshot or current executable replay source from old archive",
+    "Any use of this composite to promote N9-S"
+  ],
+  "old_manifest": "research/reused_evidence/protocol.json",
+  "old_source_head": "424cc9dad2f840284e19e61c3f9cb9db26b46286",
+  "exception_ref": "4325422cc104a8d75384ec852b8ae5cbde07f24e",
+  "exception_paths": [
+    "quant/harpoon_quant/evidence_scope.py",
+    "quant/tests/test_evidence_scope.py",
+    "tools/run_reused_evidence.py"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_replayed": 0,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200,
+    "workers": 1
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9i_composite_lineage.py": "fdb41a7df70141d4ce1da46d6a76a85dc15b7af0",
+    "tools/test_fwn9_p9i_composite_lineage.py": "28b558eb9085e063ded7d64b93e99e5d3ea5830a",
+    ".github/workflows/fwn9_phase9i_r3.yml": "7480455dd99749ffd643ce27599ca069ebaada34"
+  },
+  "scope": [
+    "No source overwritten",
+    "No single coherent archived checkout proved",
+    "No universal native OHLC exec or all decision proofs",
+    "No economic accounts or broker",
+    "Only historical per-file provenance recovered"
+  ],
+  "promotion_eligible": false
+}
