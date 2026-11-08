@@ -1,0 +1,73 @@
+{
+  "schema": "HARPOON_M11_P9F_TAIL_MOMENTS_PROTOCOL_1",
+  "phase": "M11_PHASE9F_POSITIVE_CREDIT_WEAK_POPULATION_BOUNDS",
+  "lease_id": "M11_P9F_TAIL_MOMENTS_20261108",
+  "hypothesis": "For positive terminal wealth, the P9E population credit requires a moment condition on both D+=(WN-WC)+ and inverse causal wealth WC^-1. Finite E[D+] by itself cannot control E[D+/WC]; exact Holder/Cauchy-Schwarz and threshold truncation supply necessary bounds, not a M9 population certificate.",
+  "counterhypothesis": "If M9 self-financing, admission reserve caps, and time horizon yield a quantitative deterministic lower WC bound or inverse-moment bound and a native-vs-causal exposure/execution discrepancy moment, the P9E gap might still be certified. Without those source-specific lemmata no impossibility result follows.",
+  "refutation_criteria": [
+    "Exact rational Cauchy-Schwarz or truncation identity is violated",
+    "A probability measure not normalized is accepted",
+    "Zero or negative causal wealth is accepted",
+    "A finite example below numeric gap is automatically promoted to M9",
+    "A 12% admission cap is interpreted as 12% continuous exposure",
+    "An abstract near-ruin law is falsely labeled realizable under M9",
+    "Any original WEAK law, seed, cost, capital, risk, 72h maximum, hurdle, or source file changes"
+  ],
+  "finite_fixture_catalog": [
+    "equal wealth",
+    "P8 positive OHLC differential",
+    "P7 negative OHLC differential",
+    "Cauchy-Schwarz exact two-mass law",
+    "truncated positive-wealth tail",
+    "same E[D+] with different E[D+/WC]",
+    "arbitrarily growing inverse denominator",
+    "noncontinuous admission cap witness",
+    "probability mass tamper",
+    "zero wealth tamper",
+    "negative probability",
+    "numeric condition does not promote"
+  ],
+  "universe": [
+    "SYNA",
+    "SYNB"
+  ],
+  "cash_control": "CASH kept registered with original costs; no new accounts",
+  "previous_best_control": "QUALITY_NATIVE_QUEUE72_R0625 kept registered, not rerun",
+  "seeds_development": [],
+  "seeds_final": [],
+  "budget": {
+    "new_accounts": 0,
+    "new_candidates": 0,
+    "controls_evaluated": 0,
+    "workers": 1,
+    "final_m10_unopened": 3200,
+    "prospective_alpha_spent": 0,
+    "failed_attempts_billable": true
+  },
+  "freeze": {
+    "source_protocol": "research/modulation9/protocol.json",
+    "calendar_days": 176,
+    "capital_usd": 20000,
+    "gross_admission_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "max_holding_hours": 72,
+    "costs": "UNCHANGED",
+    "hurdle_bp_daily": 1,
+    "previous_conditional_weak_bp_daily": 0.9051232469572758
+  },
+  "git_blobs": {
+    "tools/fwn9_phase9f_tail_bounds.py": "b01f3ab7b979bd8cb2123b7cbdf0b3c46942fb6b",
+    "tools/test_fwn9_phase9f_tail_bounds.py": "6568c98454cbc91ee3e4996fe8a1e52908d68a9c",
+    "tools/fwn9_phase9f_independent.py": "c53c0763fd8cbd370295790cb21b890ea40bdd02",
+    ".github/workflows/fwn9_phase9f.yml": "73f91cf9fb50d858aaa2e830beed0bb12ec48315"
+  },
+  "scope_limits": [
+    "Abstract finite laws are mathematical counterexamples only, not support-restricted M9 samples",
+    "No new market generator accounts, strategies, or holds",
+    "No native expected credit upper bound proved",
+    "No population tail probability estimated",
+    "CI proof implementation is not third-party review",
+    "No broker connection, order, deploy, merge, PR publication of executable strategy"
+  ],
+  "promotion_eligible": false
+}
