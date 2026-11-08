@@ -1,0 +1,4 @@
+# FWN9 P9M-C7 — certificado CI acotado
+La [ejecución 42490784015](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42490784015) terminó el 8 de noviembre de 2026 en **SUCCESS** sobre el commit `a5b102ca539e0829405570811c98706e7a247fb7`. Se verificaron 8/8 pruebas, Ruff, mypy estricto del módulo, compilación Python, SHA Git de módulos, SHA-256 del generador M9 registrado, conciliación Decimal independiente y benchmark de 10.000 fixtures (279,016 ms en el runner).
+El resultado sólo concierne a dos contraejemplos algebraicos de atajos inválidos y un límite condicional de ocupación. **No certifica resultados económicos, un bound poblacional ni N9-S**. Los finales M10 siguen sellados (3.200 cuentas), sin cuenta económica ni alfa adicional.
+El documento original es [MODULATION11_PHASE9M_C7.md](MODULATION11_PHASE9M_C7.md); este suplemento conserva inalterado el primer informe publicado y registra la prueba posterior.

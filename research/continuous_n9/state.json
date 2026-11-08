@@ -1,15 +1,6 @@
 {
   "accounts_modulation9_plus_modulation10": 7520,
-  "active_job": {
-    "id": "M11_P9MC7_EXPECTED_EXPOSURE_WEALTH_BRIDGE_20261108_0823",
-    "phase": "M11_PHASE9M_C7_EXPECTED_EXPOSURE_WEALTH_BRIDGE",
-    "acquired_at": "2026-11-08T14:23:26Z",
-    "head_before_lease": "109f01f466c62c28d0d8843a07da9c88309a06d7",
-    "protocol": "research/modulation11/fwn9_phase9m_c7_protocol.json",
-    "status": "ACTIVE",
-    "economic_accounts": 0,
-    "alpha_spent": 0
-  },
+  "active_job": null,
   "automation": {
     "created_confirmed": true,
     "default_timezone": "America/Mexico_City",
@@ -29,7 +20,7 @@
   "ci_run": 42475052166,
   "code_commit": "b34806f7b2a059e440071811aa769a5540badb7b",
   "conditional_math_bound_bp_daily": 0.9051232469572758,
-  "current_verdict": "NO_GO_C6_AGGREGATE_CONDITIONAL_EXPECTATION_LEMMA_NO_NUMERIC_NATIVE_WEALTH_BOUND",
+  "current_verdict": "NO_GO_C7_POSITIVE_LOCAL_CREDIT_CAN_REVERSE_AFTER_INTEGER_FUTURE_ADMISSIONS_NO_NUMERIC_NATIVE_BOUND",
   "eligible_candidates": 0,
   "execution_allowed": false,
   "final_stage_accounts_unopened": 3200,
@@ -42,9 +33,9 @@
   "new_candidate_recipes_tested": 18,
   "new_economic_accounts_executed": 1840,
   "new_final_opened": false,
-  "next_action": "Prove or refute a finite valid WEAK population upper bound on E[sum previsible q*S_open] and E[sum q] for each asset under endogenous funded admissions, receipts and <=72h; establish valid counterfactual terminal log-wealth coupling without using initial capital as unproved wealth floor. Do not open M10 finals or search for alpha.",
-  "next_round_id": "M11_PHASE9M_C7_EXPECTED_EXPOSURE_WEALTH_BRIDGE",
-  "phase": "M11_PHASE9M_C6_PREDICTABLE_EXPOSURE_AGGREGATION_SCOPED",
+  "next_action": "Prove or falsify native end-to-end reserve-anchor inequality q_b*S_b <= B_tau*M_tau,b for every actual M9 active lot, including receipt/partial/IOC order; construct finite second/fourth moment bounds for endogenous anchor wealth and max price ratio under the original WEAK law. Then establish a direct E[terminal wealth] upper bound (Jensen if positive), accounting for future admissions altered by off-grid stop fills. No new signal search or unopened M10 holdout.",
+  "next_round_id": "M11_PHASE9M_C8_RESERVATION_MOMENT_AND_NATIVE_EVENT_PROOF",
+  "phase": "M11_PHASE9M_C7_COUNTEREXAMPLE_COMPLETE_CI_PASS",
   "preregistration_commit": "aefb43d3efdc57af3c832aeea094632fef5ea483",
   "previous_accounts": 5680,
   "previous_round": "MODULATION9",
@@ -62,7 +53,7 @@
     "sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d"
   },
   "results_commit": "ae06fcf5dbf103e2d7b5713c2f06fce2f593da63",
-  "round": "M11_PHASE9M_C6",
+  "round": "M11_PHASE9M_C7",
   "schema": "HARPOON_CONTINUOUS_N9_STATE_1",
   "phase0_m11": {
     "protocol": "research/modulation11/protocol.json",
@@ -969,5 +960,27 @@
     "new_economic_accounts": 0,
     "alpha_spent": 0,
     "final_m10_unopened": 3200
+  },
+  "m11_phase9m_c7": {
+    "preregistration_commit": "a8d968293e6b730cedb6368fa8539d9a2c1182fa",
+    "source_and_doc_commit": "a5b102ca539e0829405570811c98706e7a247fb7",
+    "protocol": "research/modulation11/fwn9_phase9m_c7_protocol.json",
+    "report": "docs/MODULATION11_PHASE9M_C7.md",
+    "evidence": "evidence/modulation11/fwn9_phase9m_c7.json",
+    "ci_evidence": "evidence/modulation11/fwn9_phase9m_c7_ci.json",
+    "ci_run": 42490784015,
+    "ci_conclusion": "success",
+    "unit_tests_passed": 8,
+    "static_analysis": "RUFF_PASS",
+    "strict_types": "MYPY_PASS",
+    "source_integrity": "GIT_BLOB_SHA1_AND_M9_SHA256_PASS",
+    "independent_decimal": "PASS",
+    "benchmark_10000_ms": 279.016,
+    "local_terminal_difference_usd": "-0.570",
+    "native_population_certificate": false,
+    "seeded_economic_accounts": 0,
+    "final_M10_accounts_opened": 0,
+    "alpha_delta": 0,
+    "next_needs": "Endogenous reserve anchor and finite moment coupling proof"
   }
 }
