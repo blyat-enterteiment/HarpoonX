@@ -1,0 +1,17 @@
+{
+  "schema": "HARPOON_FWN9_C10_R3_FIX_BOUND_EXPORT_1",
+  "parent_sha": "f2ca2ef089e76946c2d994e2119b825de79379ef",
+  "failed_attempts_retained": [
+    42512248407,
+    42512387707
+  ],
+  "attempt_count_with_next": 3,
+  "root_cause": "R1 emitted mixed TAP/JSON. R2 extracted valid JSON but R1 auditor output omitted band max because serializer used v.h instead of v.hi; test confirmed inequality internally but independent Decimal failed closed. Correction is output serialization only.",
+  "correction": "Distinct R3 auditor and test paths; original modules, workflows and failures untouched. Correct max bound output to v.hi; new R3 workflow runs native checks, independent Decimal account, benchmark.",
+  "economic_account_delta": 0,
+  "alpha_delta": 0,
+  "new_seeds": 0,
+  "m10_final_opened": 0,
+  "holds": "native-contract unchanged",
+  "refutation": "Any independent cash or inequality mismatch fails closed; do not claim theorem universal or N9-S."
+}
