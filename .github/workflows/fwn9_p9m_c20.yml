@@ -1,0 +1,102 @@
+name: FWN9 C20 triggered WEAK U and funded 72h admission cohort A
+on:
+  push:
+    branches: [research/m11-c20-triggered-u-admission-a]
+    paths:
+      - 'research/modulation11/fwn9_phase9m_c20_protocol.json'
+      - 'tools/fwn9_p9m_c20_triggered_u_admission_a.py'
+      - 'tools/test_fwn9_p9m_c20_triggered_u_admission_a.py'
+      - 'runtime30/fwn9_p9m_c20_admission_audit.cjs'
+      - 'tools/fwn9_p9m_c20_native_admission_test.cjs'
+      - '.github/workflows/fwn9_p9m_c20.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  conditional-event-and-admissions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static Python + Node and strict types
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          python -m py_compile tools/fwn9_p9m_c20_triggered_u_admission_a.py tools/test_fwn9_p9m_c20_triggered_u_admission_a.py
+          ruff check tools/fwn9_p9m_c20_triggered_u_admission_a.py tools/test_fwn9_p9m_c20_triggered_u_admission_a.py
+          mypy --strict tools/fwn9_p9m_c20_triggered_u_admission_a.py tools/test_fwn9_p9m_c20_triggered_u_admission_a.py
+          node --check runtime30/fwn9_p9m_c20_admission_audit.cjs
+          node --check tools/fwn9_p9m_c20_native_admission_test.cjs
+      - name: Fourteen conditional Gaussian + independent Decimal50 tests
+        env:
+          PYTHONPATH: tools
+        run: python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -v
+      - name: Native fixed-C14 source IOC admission and 72h negative controls
+        run: |
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+          node tools/fwn9_p9m_c20_native_admission_test.cjs --emit-c20 > /tmp/c20_native.log
+          python - <<'PY'
+          import json,pathlib
+          text=pathlib.Path('/tmp/c20_native.log').read_text()
+          d=json.loads(text.split('FWN9_C20_NATIVE_ADMISSION=',1)[1])
+          assert d['nativeFundedCount']>=1
+          assert d['modeledFilledNotionalSumUsd']<=d['approvedIocNotionalSumUsd']
+          assert d['expectedPopulationAdmissionNotionalUpperUsd'] is None
+          assert d['fullNativePolicyClassCertified'] is False
+          assert d['original12PercentAppliesOnlyAtAdmission'] is True
+          assert d['N9S']=='NO_GO'
+          print('C20_NATIVE_READONLY_IOC_ACTUAL_FUNDED_LE_APPROVED_PASS')
+          PY
+      - name: Unchanged original model, no population promotion
+        run: |
+          python -B tools/fwn9_p9m_c20_triggered_u_admission_a.py > /tmp/c20_math.log
+          python - <<'PY'
+          import json,pathlib
+          from pathlib import Path
+          row=json.loads(pathlib.Path('/tmp/c20_math.log').read_text().split('C20_MATHEMATICAL_CONDITIONAL=',1)[1])
+          protocol=json.loads(Path('research/modulation11/fwn9_phase9m_c20_protocol.json').read_text())
+          assert protocol['budget']=={'new_signal_nominations':0,'new_market_seeds':0,'new_economic_accounts':0,'new_final_M10_accounts':0,'remaining_final_M10_accounts':3200,'prospective_alpha_consumed':0}
+          assert row['admission']['population_expected_A_upper_usd_substeps'] is None
+          assert row['example']['actual_broker_fill_equivalence_proven'] is False
+          assert row['frozen_no_trade_budget']['M10_final_unopened']==3200
+          print('C20_ANALYTIC_EVENT_GATING_AND_UNKNOWN_POPULATION_FAIL_CLOSED_PASS')
+          print('C20_ADMISSION_FACTOR',row['admission']['admission_cohort_factor'])
+          print('C20_STOP_EVENT_PROBABILITY_UPPER',row['example']['stopModelCreditCoefficient']['conditional_event_probability_upper'])
+          print('C20_BAR_MODEL_U_UPPER_USD',row['example']['conditional_expected_positive_model_credit_usd_upper'])
+          PY
+      - name: Prior C19 and C16 native math+accountant regressions
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -v
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c20_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c20_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c20_c16.log research/modulation9/protocol.json > /tmp/c20_gate.log
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path('/tmp/c20_gate.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert d['N9SAdmission']=='NO_GO'
+          assert d['population_C15_screens']['NOMINAL']['expected_A_upper'] is None
+          assert d['population_C15_screens']['NOMINAL']['expected_U_upper'] is None
+          print('C20_C19_C16_C15_NO_FALSE_PROMOTION_PASS')
+          PY
+      - name: Frozen original SHA256 and M10 holdout not opened
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          registration=json.loads(pathlib.Path('research/modulation9/registration.json').read_text())
+          for file in ('quant/harpoon_quant/modulation9.py','research/modulation9/protocol.json','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js'):
+              assert hashlib.sha256(pathlib.Path(file).read_bytes()).hexdigest()==registration['sources_sha256'][file]
+          p=json.loads(pathlib.Path('research/modulation11/fwn9_phase9m_c20_protocol.json').read_text())
+          assert p['release']['N9S']=='NO_GO'
+          assert not p['release']['can_open_holdout']
+          print('C20_SOURCE_SHA_NO_FINAL_M10_PASS')
+          PY
