@@ -183,12 +183,17 @@ function audit({native,data,sessions,calendarCostUsdPerDay=1}) {
     apply(row.t,buys,"ENTRY");
     for(const a of ASSETS){
       const b=row.byAsset[a],notional=q[a];
-      Alo+=H*notional*b.l;
+      // Ahi assumes the full pre-exit lot remained across all eight steps;
+      // this is conservative when OHLC exits were crossed before bar.end.
       Ahi+=H*notional*b.h;
       if(notional)
         peakFraction=Math.max(peakFraction,notional*b.h/20000);
     }
     apply(row.end,sales,"EXIT");
+    // Alo uses ONLY inventory surviving the bar's possible intrabar exits.
+    // A prior q*low*8 here would NOT be a valid lower for an early stop fill.
+    for(const a of ASSETS)
+      Alo+=H*q[a]*row.byAsset[a].l;
   }
   charge(sessions.at(-1).close);
   for(const e of events) {
