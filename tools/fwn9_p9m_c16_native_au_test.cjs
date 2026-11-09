@@ -69,6 +69,18 @@ test("C16: actual native funded receipts reconcile and expose A/U upper, never e
   A.equal(r.N9SAdmission,"NO_GO");
   A.equal(r.budget.finalM10Opened,0);
 });
+test("C16: unknown intrabar exit timing reduces guaranteed A lower",()=>{
+  const {report:r}=calculate();
+  const fills=r.sourceForIndependentAudit.events;
+  A(fills.some(e=>e.kind==="EXIT"&&e.quantity>0));
+  const rows=r.sourceForIndependentAudit.bars;
+  const closeEventTimes=new Set(fills.filter(e=>e.kind==="EXIT").map(e=>e.at));
+  A(rows.some(b=>closeEventTimes.has(b.end)));
+  // The low-range lower uses only positions surviving the entire bar.
+  // It therefore cannot exceed the high-range pre-exit A upper.
+  A(r.AObservedPathLowerDollarSubsteps<r.AObservedPathUpperDollarSubsteps);
+  A.equal(r.exactActualPathAIdentified,false);
+});
 test("C16: exact eight-step A, time-aligned U and population certificates remain absent",()=>{
   const {report:r}=calculate();
   A.equal(r.exactOrderedEightSubstepTapeAvailable,false);
