@@ -1,0 +1,76 @@
+{
+  "schema": "HARPOON_FWN9_M11_C17_R2_CROSS_RUN_AND_ARCHIVAL_AUDIT_1",
+  "scope": "EXISTING_M9_WEAK_DEVELOPMENT_SEED_730101_ONLY",
+  "original_source": {
+    "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "protocol_sha256": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "unchanged": true
+  },
+  "cross_runner": {
+    "run1": 42562122895,
+    "run2": 42562577404,
+    "certified_run": 42562983146,
+    "raw_sha_run1": "e4bbbdbfdf01da49d2447d916afc2545354f36e19e572b1cd8be9748996c5717",
+    "raw_sha_run2": "2c90338dad770959727fe9cd0d592445987996c58acedd7ea10787b270e50e53",
+    "raw_sha_identical": false,
+    "numeric_7dp_digest": "a173af77533f7bbe2b0a3ae54485ee64bc4f33cc83a01b860efdb0702d102398",
+    "samples_compared": 157248,
+    "max_absolute_difference": 3.410605131648481e-13,
+    "max_relative_difference": 2.8667793258782922e-15,
+    "commentary": "Audit checksum at 7 decimal places does NOT imply bitwise reproducibility or actual executable fill equivalence.",
+    "ci_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42562983146"
+  },
+  "local_existing_archive_reconciliation": {
+    "original_archive_sha256": "a1d7a78c81f16b357a8699369fa1c8ac66e2b48e90d33f0770ebad88e3e0fc92",
+    "member": "evidence/modulation9/development/WEAK_730101.json.gz",
+    "member_sha256": "4c45a1177a063ae4b7758ef3a644c9dbc1c1c3925d30a15d0a152f392adde819",
+    "original_recorded_full_input_sha256": "782766fb68d0b2ce782d8bf08779415c94204e13fc7ca41308caed3b97258e46",
+    "exact_original_full_input_digest_matching_recreated_tape": false,
+    "separate_execution_environment": "local Python 3 container runtime, not GitHub Actions",
+    "audited_development_accounts_already_executed": 78,
+    "nominal_cases": 39,
+    "stress_cases": 39,
+    "historical_trades_read": 1213,
+    "historical_exit_fills_read": 1641,
+    "all_cash_and_fee_and_receipt_books_reconciled": true,
+    "explicit_calendar_charges_accrued_as_dates_pass": true,
+    "adversarial_unit_tests_passed": 6,
+    "nominal_pathwise_medians": {
+      "A_lower_usd_steps": 10365162.726995958,
+      "A_upper_usd_steps": 10604778.74485795,
+      "U_upper_usd": 19.79209055769948
+    },
+    "stress_pathwise_medians": {
+      "A_lower_usd_steps": 9478218.508232549,
+      "A_upper_usd_steps": 9700057.488038896,
+      "U_upper_usd": 17.20923984925102
+    },
+    "guard": "Descriptive previously executed development accounts from one seed only; not valid E[A] or E[U] population confidence bound.",
+    "source_code_location": "sandbox:/mnt/data/harpoon_provenance/fwn9_p9m_c17_development_archive_audit.py",
+    "data_report_location": "sandbox:/mnt/data/harpoon_provenance/C17_M9_WEAK_730101_archived_native_AU.json",
+    "all_final_archive_members_read": 0
+  },
+  "analytic_population_conditional": {
+    "mean_A_upper_usd_substeps": 1.32e+33,
+    "mean_U_upper_usd": 1.9806e+30,
+    "gamma_weak_verified": 0.0000034375059082098956,
+    "loose_vacuous_vs_one_bp": true,
+    "abstract_policy_class_only": true,
+    "full_native_equivalence": false,
+    "certified_n9s_impossibility": false,
+    "certified_real_profitability": false
+  },
+  "budget": {
+    "new_market_seeds": 0,
+    "new_signals": 0,
+    "new_economic_account_executions": 0,
+    "M10_final_unopened": 3200,
+    "prospective_alpha_spent": 0,
+    "no_orders": true,
+    "no_broker": true,
+    "no_deploy": true,
+    "no_merge": true,
+    "no_unpause": true
+  },
+  "verdict": "PASS_SOURCE_TAPE_NUMERIC_EQUIVALENCE_AND_SINGLE_ARCHIVED_DEVELOPMENT_PATHWISE_RECONCILIATION;NO_GO_POPULATION_ECONOMIC_CERTIFICATE"
+}

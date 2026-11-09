@@ -1,0 +1,98 @@
+{
+  "schema": "HARPOON_M11_C17_FROZEN_WEAK_TAPE_AND_POPULATION_EVIDENCE_1",
+  "asof": "2026-11-08",
+  "scope": "M9_WEAK_DEVELOPMENT_REPRODUCTION_ONLY;NO_NEW_MARKET_SEEDS_OR_SIGNALS",
+  "parent": "research/modulation11/fwn9_phase9m_c17_protocol.json",
+  "source_provenance": {
+    "generator": "quant/harpoon_quant/modulation9.py",
+    "original_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "original_m9_protocol_sha256": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "original_market_changes": 0,
+    "reused_registered_stage": "development",
+    "reused_registered_world": "WEAK",
+    "reused_registered_seed": 730101
+  },
+  "historical_archive": {
+    "original_m9_archive_sha256": "a1d7a78c81f16b357a8699369fa1c8ac66e2b48e90d33f0770ebad88e3e0fc92",
+    "archive_development_member": "evidence/modulation9/development/WEAK_730101.json.gz",
+    "archive_development_member_sha256": "4c45a1177a063ae4b7758ef3a644c9dbc1c1c3925d30a15d0a152f392adde819",
+    "archive_development_recorded_input_sha256": "782766fb68d0b2ce782d8bf08779415c94204e13fc7ca41308caed3b97258e46",
+    "archive_member_read_inseparate_local_workspace": true,
+    "original_archive_final_members_read": false,
+    "generation_input_vs_historical_full_payload_digest_reconciled": false,
+    "reason_not_reconciled": "The historical input SHA covers original broader policy-and-signal payload; C17 prohibits generating or submitting signals. The recovered market-only dataset digest is not the same object as the historical full input digest."
+  },
+  "reconstructed_tape": {
+    "execution_only": true,
+    "tape_rows": 19656,
+    "price_samples": 157248,
+    "bars_per_asset": 9828,
+    "evaluation_sessions": 126,
+    "intrabar_substeps": 8,
+    "asset_names": [
+      "SYNA",
+      "SYNB"
+    ],
+    "recovered_market_dataset_sha256": "b122aa59eece1108b0387e5bd221a453b4ad152f5dac047a97623c06ff3b2d34",
+    "recovered_tape_sha256": "e4bbbdbfdf01da49d2447d916afc2545354f36e19e572b1cd8be9748996c5717",
+    "recovered_gz_sha256": "2277c311f3c08378fa1e8a46a02e284823899d12309e141d6b504ccdf7129902",
+    "recovered_gz_bytes": 1824046,
+    "untraced_market_source_comparison": "PASS",
+    "original_OHLCV_high_low_close_time_bar_identity": "PASS",
+    "signal_generation_calls": 0,
+    "economic_account_executions": 0,
+    "historical_full_archive_payload_identity": "UNPROVED"
+  },
+  "abstract_population_weak": {
+    "mathematical_class": "positive long cash/share financed, predictable bar-open inventory, no intrabar rebuy, price-support-limited exits, no beneficial overnight trading",
+    "upper_method": "uniform conditional Gaussian positive-call and negative-put mixture, union bound on 8 samples, financed C14 wealth tower, expectation linearity, overnight mean-one",
+    "per_bar_kplus_upper": 0.0060381278978958175,
+    "per_bar_price_range_expected_upper_ratio": 0.012076148699679413,
+    "mean_A_upper_usd_substeps_rounded": 1.32e+33,
+    "mean_U_upper_usd_rounded": 1.9806e+30,
+    "under_original_C15_hurdle": "VACUOUS_NO_IMPOSSIBILITY",
+    "independent_gaussian_quadrature_tests": "PASS",
+    "abstract_policy_class_moment_finiteness_proved": true,
+    "formal_interval_arithmetic_proved": false,
+    "all_native_policy_assumptions_proved": false,
+    "reconciled_native_population_receipt_books": false,
+    "native_eightstep_fill_equivalence": false,
+    "numeric_upper_claim": "conservative rounded floating point, not formally certified numerical interval"
+  },
+  "ci": {
+    "run_id": 42562122895,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42562122895",
+    "conclusion": "SUCCESS",
+    "moment_unit_tests_passed": 8,
+    "independent_tape_checked_rows": 19656,
+    "independent_tape_checked_prices": 157248,
+    "lint": "PASS",
+    "mypy_scoped": "PASS",
+    "frozen_source_sha": "PASS",
+    "final_seed_rejection": "PASS",
+    "artifact_id": 13649668384,
+    "artifact_name": "C17-reused-M9-WEAK-730101-ordered-eightstep-tape-DEV-ONLY",
+    "artifact_retention_days": 30
+  },
+  "guard": {
+    "N9S": "NO_GO",
+    "no_new_candidates": true,
+    "no_new_market_seeds": true,
+    "no_new_accounts": true,
+    "no_new_signals": true,
+    "M10_final_unopened": 3200,
+    "prospective_alpha_spent": 0,
+    "live_orders": 0,
+    "broker_calls": 0,
+    "no_deploy": true,
+    "no_merge": true,
+    "automation_stopped": true
+  },
+  "next_blockers": [
+    "Prove native policy class matches bar-open-only funded predictability/receipt invariant without simplifying actual OHLC execution.",
+    "Obtain narrower time-local conditional inventory exposure and U bound using actually tradeable first-cross receipts.",
+    "Replace vacuous population upper by nonvacuous inequality without reusing sealed final accounts.",
+    "Operational full partial entry/reject/outage/impact/multicell acceptance remains incomplete."
+  ],
+  "decision": "PASS_DETERMINISTIC_EXISTING_DEV_TAPE_AND_CONDITIONAL_POPULATION_FINITE_UPPER;NO_GO_FULL_NATIVE_ECONOMIC_CERTIFICATION"
+}
