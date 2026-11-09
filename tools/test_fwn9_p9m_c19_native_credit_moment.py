@@ -15,7 +15,7 @@ from fwn9_p9m_c19_native_credit_moment import (
 
 def independent_simpson_put(mu:float,variance:float)->float:
     sd=math.sqrt(variance)
-    n=8192
+    n=65536
     low=-12.
     step=24./n
     def g(x:float)->float:
