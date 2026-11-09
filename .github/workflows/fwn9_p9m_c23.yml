@@ -1,0 +1,97 @@
+name: FWN9 C23 real market session coverage and executable evidence fail-closed gate
+on:
+  push:
+    branches: [research/m11-c23-observed-session-evidence-gate]
+    paths:
+      - 'runtime30/fwn9_p9m_c23_market_data_audit.cjs'
+      - 'tools/fwn9_p9m_c23_market_data_audit_test.cjs'
+      - 'evidence/modulation11/fwn9_phase9m_c23_market_coverage.json'
+      - 'research/modulation11/fwn9_phase9m_c23_protocol.json'
+      - '.github/workflows/fwn9_p9m_c23.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  c23-observed-data-and-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source and C23 syntax
+        run: |
+          node --check runtime30/fwn9_p9m_c23_market_data_audit.cjs
+          node --check tools/fwn9_p9m_c23_market_data_audit_test.cjs
+      - name: Eighteen source-clock, quote coverage and nonidentifiable real-PnL tests
+        run: |
+          node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
+      - name: Preserve observed post-view market coverage ONLY as descriptive proof
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('evidence/modulation11/fwn9_phase9m_c23_market_coverage.json').read_text())
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c23_protocol.json').read_text())
+          assert d['N9S']=='NO_GO'
+          assert d['gates']['stock_bar_coverage_complete'] is True
+          assert d['gates']['crypto_bar_coverage_complete'] is True
+          assert d['gates']['posthoc_market_data_count_as_fresh_OOS'] is False
+          assert d['gates']['realizable_net_alpha_certified'] is False
+          assert d['gates']['optimal_hour_certified'] is False
+          assert d['raw_provider_bytes_saved'] is False
+          assert d['broker_fill_receipts_found']==0
+          assert d['capital_account_activity_records_found']==0
+          assert d['original_C22_variants_reselected_or_tested'] is False
+          assert d['audit_correction']['prior_summary_commit']
+          for sym in ('SPY','QQQ'):
+              r=d['stocks']['symbols'][sym]
+              assert r['complete_sessions']==30 and r['observed_unique_regular_bars']==2340
+              assert r['duplicate_regular_bars']==0
+              assert all(x['coverage_fraction']==1 for x in r['per_window'].values())
+          for sym in ('BTC/USD','ETH/USD'):
+              r=d['crypto']['symbols'][sym]
+              assert r['complete_utc_days']==42 and r['observed_unique_inside_window']==1008
+              assert r['bars_excluded_at_or_after_end']==1
+              assert all(x['coverage_fraction']==1 for x in r['per_window'].values())
+          assert p['budget']['new_economic_trial_accounts']==0
+          assert p['budget']['final_M10_opened']==0
+          print('C23_ALPACA_SOURCE_AGGREGATES_NOT_REPRODUCED_IN_CI; SCHEMA_AND_FAIL_CLOSED_ONLY_PASS')
+          PY
+      - name: Original M9 source hash and forbidden holdout opening
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          r=json.loads(Path('research/modulation9/registration.json').read_text())
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c23_protocol.json').read_text())
+          for file in ('quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js',
+                       'runtime30/ultimate_reservations.js','research/modulation9/protocol.json'):
+              assert hashlib.sha256(Path(file).read_bytes()).hexdigest()==r['sources_sha256'][file]
+          assert p['frozen']['M10_final_sealed']==3200 and p['frozen']['N9S']=='NO_GO'
+          assert not list(Path('evidence').rglob('final/*.json.gz'))
+          print('C23_FROZEN_SOURCE_AND_M10_SEAL_PASS')
+          PY
+      - name: C22 and C21 original read-only framework regressions
+        run: |
+          node --test tools/fwn9_c22_session_compound_test.cjs
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+      - name: C20 original IOC admissibility regressions
+        run: node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+      - name: C16 native receipt and Decimal46 independent original gate
+        run: |
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c23_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c23_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c23_c16.log research/modulation9/protocol.json > /tmp/c23_c15.log
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path('/tmp/c23_c15.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert d['N9SAdmission']=='NO_GO'
+          assert d['population_C15_screens']['NOMINAL']['expected_A_upper'] is None
+          assert d['population_C15_screens']['NOMINAL']['expected_U_upper'] is None
+          print('C23_C15_EXPECTED_POPULATION_AND_FINANCIAL_PROMOTION_FAIL_CLOSED_PASS')
+          PY

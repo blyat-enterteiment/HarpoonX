@@ -1,0 +1,70 @@
+{
+  "schema": "HARPOON_FWN9_M11_C23_POST_HOC_OBSERVED_WINDOW_COVERAGE_1",
+  "base": "research/modulation11/fwn9_phase9m_c22_protocol.json",
+  "scope": "Read-only verification of available real historical bars and availability of authenticated execution receipts; NOT a preregistered economic backtest. The requested historical period was already previewed via Alpaca before this manifest. These bars cannot count as fresh OOS confirmation.",
+  "source_refs": {
+    "equity": "Alpaca market data IEX 5Min SPY,QQQ",
+    "crypto": "Alpaca market data US feed 1Hour BTC/USD,ETH/USD",
+    "equity_window": "2026-09-28T00:00:00Z inclusive to 2026-11-09T00:00:00Z exclusive; RTH verified NY local; complete market sessions through 2026-11-06",
+    "crypto_window": "2026-09-28T00:00:00Z inclusive to 2026-11-09T00:00:00Z exclusive; 42 complete UTC days",
+    "options": "No continuous historical option chain paired quote+trade+underlying evidence in the available Alpaca tools",
+    "source_feed_coverage": "IEX single venue not SIP; crypto US feed venue not all crypto exchanges",
+    "original_six_hypotheses": "H22_OPENING_CONFIRMATION (2), H22_CRYPTO_UTC_LIQUIDITY (2), H22_OPTION_ASYMMETRY_RESEARCH_ONLY (2)"
+  },
+  "inference": {
+    "allowed_now": [
+      "timestamp continuity",
+      "bar completeness",
+      "descriptive per-window turnover and volatility proxies",
+      "independent market session calendars",
+      "report no broker receipts available"
+    ],
+    "forbidden_now": [
+      "infer realized PnL from price bars",
+      "assert quote execution from bid ask alone",
+      "label winning/optimal session from post-hoc descriptive proxies",
+      "select/optimize candidate variant on already viewed sample",
+      "consume M10 holdout",
+      "calculate C15 E[A] or E[U] from convenience window data"
+    ],
+    "prospective_only": "Independent future frozen candidate plans and untouched time periods, original stop-first break independently resolved, broker authenticated fill/fee/account/quote receipts with notional and rejection opportunity set, embargo>=72h, control for same-day cross-asset dependence and familywise alpha <=0.025, paired CASH and original baseline on one financed ledger.",
+    "health_gates": [
+      "retained raw market records and provider request hash",
+      "session completeness",
+      "quote and clock knownAt",
+      "fills, cancellations, rejects with broker-signed origin",
+      "unfilled opportunity opportunity cost",
+      "account NAV/cash/fees and no external flows",
+      "receipt-level bid/ask size and latency",
+      "underlying vs contract option quote provenance",
+      "no timestamp leakage",
+      "HAC/day-block uncertainty with multiplicity corrected lower net log growth",
+      "independent external check of actual execution"
+    ],
+    "stop_rule": "If broker fill source, matched predecision quote or ledger incomplete, return DATA_READINESS_ONLY and alphaNetOOSCertified=false."
+  },
+  "frozen": {
+    "N9S": "NO_GO",
+    "M10_final_sealed": 3200,
+    "original_M9_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "original_replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "original_reservations_sha256": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "N9S_one_bp_gating_unchanged": true,
+    "capital_hard_cap_usd": 20000,
+    "holding_limit_hours": 72,
+    "familywise_error_upper": 0.025
+  },
+  "budget": {
+    "new_policy_candidates": 0,
+    "new_signal_nominations": 0,
+    "new_market_seeds": 0,
+    "new_economic_trial_accounts": 0,
+    "final_M10_opened": 0,
+    "live_orders": 0,
+    "paper_orders": 0,
+    "deployment": false,
+    "merge": false,
+    "recursive_optimizer_restarted": false
+  },
+  "decision": "MARKET_BAR_COVERAGE_AUDIT_RESEARCH_ONLY_NO_REALIZED_NET_PNL_OR_OPTIMAL_HOUR_CERTIFICATION"
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "HARPOON_FWN9_M11_C23_REAL_MARKET_HOUR_COVERAGE_AND_ECONOMIC_IDENTIFIABILITY_EVIDENCE_1",
+  "asof_date": "2026-11-09",
+  "new_native_research_goal": "Find unbiased net executable OOS alpha per asset/hour for frozen six C22 variants versus CASH and original; certify only from real broker fills on one funded ledger.",
+  "protocol": "research/modulation11/fwn9_phase9m_c23_protocol.json",
+  "data_source_file": "evidence/modulation11/fwn9_phase9m_c23_market_coverage.json",
+  "source_module": "runtime30/fwn9_p9m_c23_market_data_audit.cjs",
+  "test_module": "tools/fwn9_p9m_c23_market_data_audit_test.cjs",
+  "evidence_obtained": {
+    "equity": {
+      "symbols": [
+        "SPY",
+        "QQQ"
+      ],
+      "feed": "iex",
+      "consolidated_market": false,
+      "first_session": "2026-09-28",
+      "last_session": "2026-11-06",
+      "full_regular_sessions_each": 30,
+      "five_minute_bars_each": 2340,
+      "coverage_verified_provider_data_summary": true,
+      "raw_market_data_bytes_retained": false
+    },
+    "crypto": {
+      "symbols": [
+        "BTC/USD",
+        "ETH/USD"
+      ],
+      "feed": "us",
+      "utc_days": 42,
+      "hour_bars_each": 1008,
+      "api_returned_boundary_extra_bars_each": 1,
+      "coverage_verified_provider_data_summary": true,
+      "raw_market_data_bytes_retained": false
+    },
+    "observational_hypotheses_frozen_as_source": [
+      "H22_OPENING_CONFIRMATION",
+      "H22_CRYPTO_UTC_LIQUIDITY",
+      "H22_OPTION_ASYMMETRY_RESEARCH_ONLY"
+    ],
+    "observed_outcome": "VOLATILITY_AND_VENUE_TURNOVER_DIFFER_BY_SESSION;NO_EXECUTED_PNL",
+    "strongest_exploratory_crypto_venue_volume_bucket": "UTC_08_16 (predefined negative control)",
+    "retrospective_control_promotion_permitted": false,
+    "historical_option_quote_underlying_time_matched_panel_available": false,
+    "broker_account_fills_orders_rejects_fees_available": false,
+    "single_financed_account_NAV_and_cash_receipts_available": false,
+    "source_reproducibility": "Connected market-data provider queried; exact query metadata retained; raw payload not retained or independently hashed; GitHub CI tests source-code and saved summary schema, NOT source byte identity"
+  },
+  "academic_priors": [
+    {
+      "paper": "Gao Han Li Zhou 2018 JFE",
+      "doi": "10.1016/j.jfineco.2018.05.009",
+      "supports": "Historic 1993-2013 ETF first half-hour predictive effect; not 2026 HarpoonX net returns"
+    },
+    {
+      "paper": "Brauneis Mestel Theissen 2025 RQFA",
+      "doi": "10.1007/s11156-024-01304-1",
+      "supports": "1940 crypto pairs on 38 venues have global diurnal volatility/liquidity patterns; not venue-specific trading profitability"
+    },
+    {
+      "paper": "2026 BTC ETF fixing-hour paper",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1544612326014601",
+      "supports": "Benchmark clock activity patterns shift with NY DST; hour alone does not predict direction"
+    }
+  ],
+  "falsification": {
+    "bar_completeness_not_PNL": true,
+    "same_bar_worlds": [
+      {
+        "open": 100,
+        "high": 100.2,
+        "low": 99.9,
+        "close": 100.1,
+        "qty": 10,
+        "buy": 100.02,
+        "sell": 100.08,
+        "total_fee_usd": 0.01,
+        "unexecuted_hypothetical_net_usd": 0.59
+      },
+      {
+        "open": 100,
+        "high": 100.2,
+        "low": 99.9,
+        "close": 100.1,
+        "qty": 10,
+        "buy": 100.09,
+        "sell": 100.01,
+        "total_fee_usd": 0.01,
+        "unexecuted_hypothetical_net_usd": -0.81
+      }
+    ],
+    "exact_native_original_OHLC_first_cross_refuted_in_C21": true,
+    "direct_realized_execution_of_each_six_C22_variant": false,
+    "off_policy_unexecuted_counterfactual_not_automatically_identified": true,
+    "bonferroni_or_Holm_FWER_needed_before_selection": true,
+    "market_day_not_independent_5minute_bars": true,
+    "single_broker_account_not_six_independent_20k_accounts": true
+  },
+  "verification": {
+    "latest_successful_C23_ci_run_id": 42689949088,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42689949088",
+    "C23_UTC_and_venue_and_false_profit_tests": 18,
+    "C22_net_compound_regressions": 19,
+    "C21_fill_non_equivalence_regressions": 16,
+    "C20_funded_admission_regressions": 6,
+    "C16_original_native_accounting_regressions": 11,
+    "C16_independent_Decimal46": "PASS",
+    "prior_failed_CI_due_to_evidence_field_name_mismatch": 42688841679,
+    "raw_source_retrieval_not_reexecuted_in_CI": true,
+    "original_M9_source_SHA256_unchanged": "PASS",
+    "C15_NO_GO_pop_upper_inputs_null": "PASS",
+    "market_coverage_request_metadata_added_after_first_CI": true
+  },
+  "limits": {
+    "N9S": "NO_GO",
+    "real_NET_OOS_proof": false,
+    "best_asset_hour_by_net_realized_PnL": null,
+    "outperformance_vs_cash_certified": false,
+    "outperformance_vs_original_certified": false,
+    "gross_or_net_compounded_improvement_demonstrated": false,
+    "no_new_trade_order_authority": true,
+    "M10_final_accounts_sealed": 3200,
+    "market_seeds_generated": 0,
+    "candidate_signals_generated": 0,
+    "economic_trial_accounts_executed": 0,
+    "paper_orders": 0,
+    "live_orders": 0,
+    "merges": 0,
+    "deployments": 0,
+    "recursive_search_reactivated": 0
+  },
+  "clear_next_dependency": "User must select a Render workspace or otherwise provide authorized access to actual Alpaca trade/order/activity receipts and independently verified account equity/cash ledger; the currently connected Alpaca app exposes only market-data operations. Then prereg a genuinely untouched prospective candidate vs CASH/original comparison on one financed account, using data without viewing outcome."
+}
