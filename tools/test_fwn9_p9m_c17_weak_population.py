@@ -6,6 +6,7 @@ import math
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Any
 
 from fwn9_p9m_c17_weak_population import (
     _conservative_up,
@@ -41,6 +42,8 @@ def simpson_positive_power(
 
 
 class C17Population(unittest.TestCase):
+    original: dict[str, Any]
+    report: dict[str, Any]
     @classmethod
     def setUpClass(cls) -> None:
         cls.original = frozen_m9(Path(__file__).resolve().parents[1])
