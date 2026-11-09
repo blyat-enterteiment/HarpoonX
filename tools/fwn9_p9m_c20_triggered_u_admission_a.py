@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from fwn9_p9m_c19_native_credit_moment import asset_downward_variation
+
 SOURCE_SHA = {
     "quant/harpoon_quant/modulation9.py":
     "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
@@ -210,7 +212,18 @@ def trigger_conditioned_bar_upper(
         )
         total += qty * S * bound["activated_credit_put_upper"]
         target_rows.append({"target": price, "maximumTargetShares": qty, **bound})
+    # The old C19 unconditioned negative-variation upper remains valid.
+    # Taking the minimum means C20's trigger-conditioned refinement can
+    # NEVER loosen C19's global event-independent certificate.
+    unconditional_c19_upper = (
+        inventory_before_innovation * S * asset_downward_variation(base)
+    )
+    refined = min(total, unconditional_c19_upper)
     return {
+        "source_event_conditional_raw_upper_usd": total,
+        "unconditional_C19_variation_upper_usd": unconditional_c19_upper,
+        "refined_C20_model_credit_upper_usd": refined,
+        "improvement_against_C19_usd": unconditional_c19_upper - refined,
         "schema": SCHEMA,
         "asset": symbol,
         "prebarPrice": S,
@@ -218,7 +231,7 @@ def trigger_conditioned_bar_upper(
         "stop": stop_px,
         "stopModelCreditCoefficient": stop_bound,
         "targetModelCreditCoefficients": target_rows,
-        "conditional_expected_positive_model_credit_usd_upper": total,
+        "conditional_expected_positive_model_credit_usd_upper": refined,
         "trigger_thresholds_known_before_bar_required": True,
         "actual_broker_fill_equivalence_proven": False,
         "full_native_receipt_state_proven": False,
