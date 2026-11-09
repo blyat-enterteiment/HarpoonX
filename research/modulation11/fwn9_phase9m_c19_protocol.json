@@ -1,0 +1,61 @@
+{
+  "schema": "HARPOON_M11_C19_NATIVE_CLOSE_MARK_CREDIT_MOMENT_1",
+  "parent": "research/modulation11/fwn9_phase9m_c18_protocol.json",
+  "intent": "Derive and independently check a source-frozen WEAK conditional moment E[U_close] <= beta E[A] for long, funded, predictable bar-opening inventory with native modeled bar-end OHLC exits and marker at corresponding close. Validate pathwise exact A and signed Y/U against existing archived development accounts, no signal or economic replay.",
+  "source_sha256": {
+    "m9_generator": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "m9_protocol": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "native_replay": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810"
+  },
+  "fixed": {
+    "seed_only_historical_dev": 730101,
+    "world": "WEAK",
+    "final_account_holding_sealed": 3200,
+    "capital_usd": 20000,
+    "substeps": 8,
+    "eval_sessions": 126,
+    "bars_per_session": 78,
+    "hurdle_daily_log": 0.0001,
+    "gross_12percent": "ADMISSION_NOT_CONTINUOUS",
+    "limits_frozen": true
+  },
+  "definitions": {
+    "A": "E sum over each of 8 substeps per bar of q_bar_start * S_previous_step, with all original OHLC threshold fills economically at bar.end; open exits and buys apply at bar.t, and independent physical cash >=0",
+    "Y": "Signed execution credit: opening buy q*(open-filled_entry), opening exit q*(filled_exit-open), bar-end exit q*(filled_exit-bar_close), all original fees subtracted separately",
+    "U": "E sum of positive per-fill signed Y only (not net signed and not absolute bar-range source support)",
+    "source_credit": "native bar-end stop/target modeled prices may be above close despite not guaranteed tradable at bar.end; reference is contemporaneous published mathematical close, not broker executable proof",
+    "lambda": "sum_{k=0..7} exp(-dmax*k/8)",
+    "kappa": "sum_{j=1..8} max conditional E[(S_{j-1}-S_j)+/Sopen], using worst Gaussian sigma within frozen WEAK support and registered .004 fourfold-mixture; this dominates (bar-high -bar-close)+ pathwise by total negative variation",
+    "beta": "max_asset(kappa)/lambda_min",
+    "implication": "for predictable prebar q and no advantageous entry or time-exit marks, E[U]<=beta*E[A], conditional on original bar-end sale support, no positive exogenous cash, source WEAK compensation and no future exposure recycling",
+    "population_wealth": "E[W_{b+1}] <= (1+expm1(dmax)+kappa) E[W_b] (ignoring nonnegative fees), leading finite but likely vacuous A/U moment tower"
+  },
+  "falsification": [
+    "OHLC native exit cannot be bounded by original bar high",
+    "Native buys below source opening or time exits above source opening",
+    "Exit quantity exceeds prebar long funded inventory",
+    "Current-bar Gaussian mixture or signed innovations anticipated by prebar inventory",
+    "End-of-bar receipt re-used before knownAt",
+    "Implicitly promote synthetic model mark to economically attainable fill",
+    "Treat 12% admission as continuous bound",
+    "False claim all native policies fit bar-open and end-only scope",
+    "Claim 78 historical paired accounts constitute population E[A] or E[U]",
+    "Any final holdout accessed, any new signal, seed, account or order"
+  ],
+  "budget": {
+    "new_seeds": 0,
+    "new_signals": 0,
+    "new_policy_candidates": 0,
+    "new_economic_accounts": 0,
+    "new_final_accounts_opened": 0,
+    "remaining_M10_final_accounts": 3200,
+    "alpha_spent": 0
+  },
+  "decision": {
+    "N9S": "NO_GO",
+    "merge": false,
+    "deploy": false,
+    "broker": false,
+    "automation": false
+  }
+}
