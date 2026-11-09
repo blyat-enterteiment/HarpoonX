@@ -1,0 +1,54 @@
+{
+  "schema": "HARPOON_M11_C21_SOURCE_EXECUTION_NON_EQUIVALENCE_AND_POPULATION_CERT_GATE_1",
+  "parent": "research/modulation11/fwn9_phase9m_c20_protocol.json",
+  "goal": "Falsify unsupported universal exact equality of original OHLC native stop-first fills to ordered eight-substep first-cross price/time. Inspect original registered WEAK development compact archived evidence for prebar state fields. Freeze N9-S NO_GO and refuse economic population inference without certified E[B], E[U], full source filtration and executable market receipts.",
+  "source_contract": {
+    "replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "reservations_sha256": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "native_diagnostic": "runtime30/modulation11_execution_equivalence.cjs",
+    "model": "FROZEN_SYNTHETIC_WEAK",
+    "historical_original_zip_sha256": "a1d7a78c81f16b357a8699369fa1c8ac66e2b48e90d33f0770ebad88e3e0fc92",
+    "historical_development_member": "evidence/modulation9/development/WEAK_730101.json.gz",
+    "original_member_sha256": "4c45a1177a063ae4b7758ef3aa784ddf4857d"
+  },
+  "proof_targets": [
+    "Construct two 8-step ordered price paths with exactly same OHLC and prebar stop/target; original native stop-first produces same fill, independent first-cross produces different sequence and price. Deduce no universally correct OHLC-only function can reproduce first-cross events on full-support WEAK normal innovations.",
+    "Show first-cross timestamps differ from native at=bar.end and native receipt knownAt=bar.availableAt; this is a mechanism mismatch rather than rounding error.",
+    "Demonstrate the historical compact archived M9 records have fills/curves but no complete prebar evolving stop, target, pending stop, availableAt, reservation snapshots, true exchange receipt/depth/queue; do not infer from future fill reason.",
+    "Keep C20 model-class E[A]<=H72 E[B] and conditional event bound on U but E[B], E[U] unknown for full native; zero assignments prohibited.",
+    "Require independently verifiable executable broker receipt and position/filtration reconstruction for an actual fill certificate; OHLC and 8-point midprice alone never count as an exchange execution confirmation."
+  ],
+  "mathematical_limitations": [
+    "Counterexample refutes exact equivalence for OHLC native vs the defined discrete first-observed crossing model, not the possibility of every individual threshold price ever trading on an actual exchange.",
+    "Both finite constructed 8-step tapes have neighborhoods of positive density under frozen WEAK nondegenerate normal increments; same exact OHLC as constructed has zero continuous probability, but conditional ordering ambiguity is structural.",
+    "Original frozen WEAK source law and algorithm define a mathematical population law in principle; compact archived observations alone are not enough to evaluate a sharp expected-value bound.",
+    "Failure of execution equivalence is not a universal theorem of nonprofitability for all hypothetical strategies or broker execution models.",
+    "Do not confuse N9S operational NO_GO with universal mathematical impossibility to exceed 1bp/day in any conceivable corrected trading engine."
+  ],
+  "verification": [
+    "Original source SHA-256 and exact fragment/source semantic checks",
+    "Independent paired deterministic eight-step path tests with no RNG and no signals/accounts",
+    "Source-local archived development SHA-256 and schema-only scan restricted to registered WEAK_730101",
+    "Fail-closed population certificate gate rejects missing E[B], E[U], prebar state and real execution receipts",
+    "Ruff/mypy/Node static, local and GitHub CI tests"
+  ],
+  "budget": {
+    "new_market_seeds": 0,
+    "new_signals": 0,
+    "new_candidate_policies": 0,
+    "new_economic_accounts": 0,
+    "final_M10_opened": 0,
+    "final_M10_sealed": 3200,
+    "broker_orders": 0,
+    "deploys": 0,
+    "merges": 0,
+    "recursive_starts": 0
+  },
+  "decision": {
+    "N9S": "NO_GO",
+    "full_native_hypotheses_verified": false,
+    "execution_equivalence_achievable_with_unchanged_OHLC": false,
+    "exact_equivalence_refuted": true
+  }
+}
