@@ -44,9 +44,9 @@ class Frozen:
         return math.expm1(self.step_delta_upper)
 
     @property
-    def uninvested_wealth_factor_bound(self) -> float:
-        # A poorly named but useful factor: maximum fully invested gross
-        # growth under conditional maximal positive WEAK drift.
+    def max_fully_invested_gross_growth_factor(self) -> float:
+        # Fully invested *upper* under conditional maximal WEAK drift.
+        # Not an achieved return and not a claim of full investment.
         return math.exp(self.steps * self.step_delta_upper)
 
     @property
@@ -133,7 +133,7 @@ def conditional_bound(
         else f.stress_calendar_per_day
     )
     h = f.terminal_hurdle_increment
-    R = f.uninvested_wealth_factor_bound
+    R = f.max_fully_invested_gross_growth_factor
     H = f.geometric_wealth_sum
     # This negative credit threshold is evidence of an insufficient
     # universal drift upper, not proof of profitability.
