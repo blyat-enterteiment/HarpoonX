@@ -1,0 +1,79 @@
+{
+  "schema": "HARPOON_FWN9_M11_C22_ASSET_SESSION_COMPOUND_SOURCE_EVIDENCE_1",
+  "asof_utc": "2026-11-09",
+  "parent": "research/modulation11/fwn9_phase9m_c21_protocol.json",
+  "objectives": "Fixed hypothesis bundles / hour-asset-class cost+impact conditioned selection and one-book self-financed net compounding, without active signal search",
+  "main_source": "runtime30/fwn9_c22_session_compound.cjs",
+  "tests": "tools/fwn9_c22_session_compound_test.cjs",
+  "protocol": "research/modulation11/fwn9_phase9m_c22_protocol.json",
+  "ci": {
+    "run_id": 42648397663,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42648397663",
+    "conclusion": "SUCCESS",
+    "new_deterministic_C22_Node_tests": 15,
+    "existing_C21_non_equivalence_regressions": 16,
+    "existing_C20_IOC_admission_regressions": 6,
+    "existing_C16_native_accounting_regressions": 11,
+    "independent_C16_Decimal46": "PASS",
+    "C15_expected_pop_A": null,
+    "C15_expected_pop_U": null,
+    "C15_N9S_status": "NO_GO",
+    "original_generator_hashes_frozen": "PASS"
+  },
+  "observed_earnings": {
+    "assets_eligible_for_measured_opportunity_rank": 0,
+    "real_broker_receipt_batches_examined": 0,
+    "new_OOS_market_samples": 0,
+    "new_realized_profits_verified": false,
+    "compound_profit_level_9_achieved": false,
+    "critical_note": "Tests use deterministic engineering ledger and asserted toy OOS metadata. The 3.95% example illustrates arithmetic only; it is NOT a HarpoonX trading result.",
+    "original_3200_final_M10_unopened": true
+  },
+  "architecture": {
+    "operational_hours_are_not_proven_optimal": true,
+    "stock_ET_session": "NYSE verified 9:30-16:00 America/New_York with exchange calendar DST and early close",
+    "crypto_session": "Research UTC 00-08,08-16,16-24 in 24/7 market; venue-open evidence required",
+    "options": "Contract-specific verified RTH required; no options executor authorization",
+    "selection": "Source OBSERVED/broker-receipt metadata and pre-registered familywise paired OOS net lower positive vs CASH; no source independent data attestation implemented",
+    "costs": "conservative roundtrip, slippage, impact, uncertainty included before ranking",
+    "compounding": "One continuous financial ledger; gross economic PnL less explicit trading fees/external costs; no external cashflow; no mark-to-market double counting",
+    "cash_available": "settled cash minus committed cash/unsettled balances and buffer; cap original $20,000 on usable risk base",
+    "profit_reinvested": "Only after funded account equity/knownAt reconciliation, not automatic increase to locked M9 capital ceiling",
+    "familywise_p_upper": 0.025,
+    "min_days": 20,
+    "min_oos_paths": 30,
+    "hypotheses_preregistered": 3,
+    "untried_variants": 6,
+    "study_currently_active": false
+  },
+  "integrity": {
+    "original_modulation9_generator_unchanged": true,
+    "original_replay_unchanged": true,
+    "original_reservation_logic_unchanged": true,
+    "coordinator_not_wired": true,
+    "broker_not_accessed": true,
+    "holdout_not_opened": true,
+    "no_continuous_12pct_assertion": true
+  },
+  "budget": {
+    "new_signals": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "M10_final_opened": 0,
+    "M10_final_still_sealed": 3200,
+    "new_live_orders": 0,
+    "new_paper_orders": 0,
+    "merges": 0,
+    "deploys": 0,
+    "recursive_iterations_started": 0
+  },
+  "remaining_blockers": [
+    "No actual independent observed asset-hour OOS panel or provenance-signed fill data supplied",
+    "Original modeled OHLC stop-first fill lacks universally attainable eight-step/exchange equivalence (C21)",
+    "Population WEAK expected admissions and event-conditional U unavailable, C15 cannot exclude or accept N9S",
+    "Options executor/contract specific greeks/exercise and settlement not certified",
+    "Original 20k capital hardcap cannot be raised under frozen research and compound results are only wealth arithmetic",
+    "No broker account settlement reconciled in this offline test; no production authority"
+  ],
+  "verdict": "C22_INFRASTRUCTURE_PASS_RESEARCH_ONLY_N9S_NO_GO"
+}
