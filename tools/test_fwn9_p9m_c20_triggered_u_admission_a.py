@@ -146,7 +146,7 @@ class C20Tests(unittest.TestCase):
     def test_actual_72h_synthetic_weekday_calendar_has_at_most_four_sessions(self)->None:
         # Independent deterministic calendar calculation; NO M9 generator call.
         start=datetime(2024,1,8,14,30,tzinfo=timezone.utc)
-        opens=[]
+        opens: list[datetime] = []
         day=start
         while len(opens)<200:
             if day.weekday()<5:
