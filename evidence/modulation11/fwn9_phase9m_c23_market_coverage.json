@@ -1,0 +1,208 @@
+{
+  "schema": "HARPOON_FWN9_M11_C23_ALPACA_OBSERVED_MARKET_BARS_WINDOW_COVERAGE_1",
+  "retrieved_on_utc_date": "2026-11-09",
+  "analysis_window_utc_start_inclusive": "2026-09-28T00:00:00Z",
+  "analysis_window_utc_end_exclusive": "2026-11-09T00:00:00Z",
+  "classification": "POST_VIEW_EXPLORATORY_DATA_COMPLETENESS_NOT_OOS_NET_ALPHA",
+  "raw_provider_bytes_saved": false,
+  "raw_provider_sha256": null,
+  "broker_fill_receipts_found": 0,
+  "capital_account_activity_records_found": 0,
+  "origin": "ALPACA_CONNECTED_MARKET_DATA_ONLY",
+  "stocks": {
+    "feed": "iex",
+    "timeframe": "5Min",
+    "calendar_exchange_sessions": 30,
+    "symbols": {
+      "SPY": {
+        "provider_bars_all_hours": 2542,
+        "observed_unique_regular_bars": 2340,
+        "regular_bars_expected": 2340,
+        "complete_sessions": 30,
+        "expected_sessions": 30,
+        "duplicate_regular_bars": 0,
+        "per_window": {
+          "RTH_OPEN_30": {
+            "observed_bars": 180,
+            "expected_bars": 180,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 7.73849,
+            "mean_venue_reported_volume_per_bar": 26417.43333,
+            "mean_price_times_venue_volume_usd_per_bar": 20200579.166,
+            "mean_venue_reported_trades_per_bar": 401.267
+          },
+          "RTH_MORNING_30_120": {
+            "observed_bars": 540,
+            "expected_bars": 540,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 5.80949,
+            "mean_venue_reported_volume_per_bar": 16127.6463,
+            "mean_price_times_venue_volume_usd_per_bar": 12316949.365,
+            "mean_venue_reported_trades_per_bar": 266.574
+          },
+          "RTH_MID": {
+            "observed_bars": 1080,
+            "expected_bars": 1080,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 4.12467,
+            "mean_venue_reported_volume_per_bar": 10244.56852,
+            "mean_price_times_venue_volume_usd_per_bar": 7815462.795,
+            "mean_venue_reported_trades_per_bar": 188.106
+          },
+          "RTH_LAST_90": {
+            "observed_bars": 540,
+            "expected_bars": 540,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 3.9929,
+            "mean_venue_reported_volume_per_bar": 28517.48148,
+            "mean_price_times_venue_volume_usd_per_bar": 21772562.827,
+            "mean_venue_reported_trades_per_bar": 401.174
+          }
+        }
+      },
+      "QQQ": {
+        "provider_bars_all_hours": 2768,
+        "observed_unique_regular_bars": 2340,
+        "regular_bars_expected": 2340,
+        "complete_sessions": 30,
+        "expected_sessions": 30,
+        "duplicate_regular_bars": 0,
+        "per_window": {
+          "RTH_OPEN_30": {
+            "observed_bars": 180,
+            "expected_bars": 180,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 14.65016,
+            "mean_venue_reported_volume_per_bar": 12789.87778,
+            "mean_price_times_venue_volume_usd_per_bar": 9099416.929,
+            "mean_venue_reported_trades_per_bar": 195.883
+          },
+          "RTH_MORNING_30_120": {
+            "observed_bars": 540,
+            "expected_bars": 540,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 9.07742,
+            "mean_venue_reported_volume_per_bar": 8062.84074,
+            "mean_price_times_venue_volume_usd_per_bar": 5727721.829,
+            "mean_venue_reported_trades_per_bar": 138.907
+          },
+          "RTH_MID": {
+            "observed_bars": 1080,
+            "expected_bars": 1080,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 5.89482,
+            "mean_venue_reported_volume_per_bar": 5337.09074,
+            "mean_price_times_venue_volume_usd_per_bar": 3807265.491,
+            "mean_venue_reported_trades_per_bar": 94.456
+          },
+          "RTH_LAST_90": {
+            "observed_bars": 540,
+            "expected_bars": 540,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 5.88468,
+            "mean_venue_reported_volume_per_bar": 11851.22407,
+            "mean_price_times_venue_volume_usd_per_bar": 8422057.485,
+            "mean_venue_reported_trades_per_bar": 182.665
+          }
+        }
+      }
+    }
+  },
+  "crypto": {
+    "feed": "us",
+    "timeframe": "1Hour",
+    "complete_utc_days_expected": 42,
+    "symbols": {
+      "BTC/USD": {
+        "provider_bars_including_end_boundary": 1009,
+        "bars_outside_half_open_interval": 1,
+        "observed_unique_inside_window": 1008,
+        "expected_bars": 1008,
+        "complete_utc_days": 41,
+        "expected_utc_days": 42,
+        "duplicate_hour_bars": 0,
+        "per_window": {
+          "UTC_00_08": {
+            "observed_bars": 336,
+            "expected_bars": 336,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 22.28106,
+            "mean_venue_reported_volume_per_bar": 0.0568,
+            "mean_price_times_venue_volume_usd_per_bar": 4619.775,
+            "mean_venue_reported_trades_per_bar": 36.863
+          },
+          "UTC_08_16": {
+            "observed_bars": 336,
+            "expected_bars": 336,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 27.52925,
+            "mean_venue_reported_volume_per_bar": 0.10529,
+            "mean_price_times_venue_volume_usd_per_bar": 8607.526,
+            "mean_venue_reported_trades_per_bar": 67.646
+          },
+          "UTC_16_24": {
+            "observed_bars": 336,
+            "expected_bars": 336,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 20.80761,
+            "mean_venue_reported_volume_per_bar": 0.08586,
+            "mean_price_times_venue_volume_usd_per_bar": 6930.927,
+            "mean_venue_reported_trades_per_bar": 32.994
+          }
+        }
+      },
+      "ETH/USD": {
+        "provider_bars_including_end_boundary": 1009,
+        "bars_outside_half_open_interval": 1,
+        "observed_unique_inside_window": 1008,
+        "expected_bars": 1008,
+        "complete_utc_days": 41,
+        "expected_utc_days": 42,
+        "duplicate_hour_bars": 0,
+        "per_window": {
+          "UTC_00_08": {
+            "observed_bars": 336,
+            "expected_bars": 336,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 28.05399,
+            "mean_venue_reported_volume_per_bar": 0.53753,
+            "mean_price_times_venue_volume_usd_per_bar": 1309.022,
+            "mean_venue_reported_trades_per_bar": 11.741
+          },
+          "UTC_08_16": {
+            "observed_bars": 336,
+            "expected_bars": 336,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 36.10566,
+            "mean_venue_reported_volume_per_bar": 0.85459,
+            "mean_price_times_venue_volume_usd_per_bar": 2087.22,
+            "mean_venue_reported_trades_per_bar": 19.661
+          },
+          "UTC_16_24": {
+            "observed_bars": 336,
+            "expected_bars": 336,
+            "coverage_fraction": 1,
+            "mean_abs_open_close_move_bps": 29.61342,
+            "mean_venue_reported_volume_per_bar": 0.60066,
+            "mean_price_times_venue_volume_usd_per_bar": 1441.688,
+            "mean_venue_reported_trades_per_bar": 11.199
+          }
+        }
+      }
+    }
+  },
+  "new_signals": 0,
+  "new_economic_accounts": 0,
+  "new_market_seeds": 0,
+  "final_M10_opened": 0,
+  "N9S": "NO_GO",
+  "gates": {
+    "stock_bar_coverage_complete": true,
+    "crypto_bar_coverage_complete": false,
+    "consolidated_equity_NBBO_available_in_this_probe": false,
+    "independently_verified_execution_fills_available": false,
+    "posthoc_market_data_count_as_fresh_OOS": false,
+    "realizable_net_alpha_certified": false,
+    "optimal_hour_certified": false
+  }
+}
