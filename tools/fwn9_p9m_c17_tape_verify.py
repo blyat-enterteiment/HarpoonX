@@ -17,6 +17,7 @@ from harpoon_quant import modulation9
 SOURCE_SHA = "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab"
 PROTOCOL_SHA = "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d"
 SCHEMA = "HARPOON_M11_C17_REGISTERED_DEVELOPMENT_WEAK_8STEP_TAPE_1"
+EXPECTED_7DP_SHA = "a173af77533f7bbe2b0a3ae54485ee64bc4f33cc83a01b860efdb0702d102398"
 
 
 def verify_document(report: dict[str, Any], root: Path) -> dict[str, Any]:
@@ -76,6 +77,19 @@ def verify_document(report: dict[str, Any], root: Path) -> dict[str, Any]:
         raise AssertionError("C17_INDEPENDENT_MISSING_BAR")
     if modulation9.digest(rows) != report["eightstep_sha256"]:
         raise AssertionError("C17_INDEPENDENT_TAPE_SHA256_MISMATCH")
+    independently_quantized = [{
+        "symbol": r["symbol"], "t": r["t"], "end": r["end"],
+        "open": format(r["open"], ".7f"),
+        "high": format(r["high"], ".7f"),
+        "low": format(r["low"], ".7f"),
+        "close": format(r["close"], ".7f"),
+        "prices": [format(x, ".7f") for x in r["prices"]],
+    } for r in rows]
+    rounded_sha = modulation9.digest(independently_quantized)
+    if (rounded_sha != EXPECTED_7DP_SHA or
+            report.get("seven_decimal_numeric_tape_sha256") != rounded_sha or
+            report.get("numeric_7dp_equivalence_is_not_bitwise_identity") is not True):
+        raise AssertionError("C17_INDEPENDENT_CROSS_RUN_NUMERIC_DIGEST")
     if (report["per_asset_substep_count"] != 126 * 78 * 8 or
             report["total_asset_substep_price_count"] != checked * 8 or
             grid[evaluation_start]["open"] != report["evaluation_start_at"] or
@@ -86,6 +100,8 @@ def verify_document(report: dict[str, Any], root: Path) -> dict[str, Any]:
         "checked_bar_asset_rows": checked,
         "checked_price_samples": checked * 8,
         "untraced_native_market_digest_identical": True,
+        "cross_run_7dp_sha256": rounded_sha,
+        "raw_binary_sha_differs_across_runners": True,
         "generator_source_sha256": SOURCE_SHA,
         "original_archive_byte_identity": "UNVERIFIED_ARCHIVE_BYTES_UNAVAILABLE",
         "seeds_added": 0,
