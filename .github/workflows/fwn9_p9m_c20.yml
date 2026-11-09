@@ -33,7 +33,7 @@ jobs:
           mypy --strict tools/fwn9_p9m_c20_triggered_u_admission_a.py tools/test_fwn9_p9m_c20_triggered_u_admission_a.py
           node --check runtime30/fwn9_p9m_c20_admission_audit.cjs
           node --check tools/fwn9_p9m_c20_native_admission_test.cjs
-      - name: Fourteen conditional Gaussian + independent Decimal50 tests
+      - name: Fifteen conditional Gaussian + independent Decimal50 tests
         env:
           PYTHONPATH: tools
         run: python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -v
