@@ -70,6 +70,16 @@ class C19Tests(unittest.TestCase):
             self.assertLessEqual(credit,high_close+1e-12)
             self.assertLessEqual(credit,down+1e-12)
 
+    def test_refute_prior_C17_postinnovation_exposure_as_upper(self)->None:
+        # Native book holds one lot through all eight steps and closes at end.
+        # C15 requires q * S(previous step), never q * S(after step).
+        prices=[100.,99.,99.,99.,99.,99.,99.,99.,99.]
+        A_predictable=sum(prices[:-1])
+        A_old_C17_called_upper=sum(prices[1:])
+        self.assertEqual(A_predictable,793.)
+        self.assertEqual(A_old_C17_called_upper,792.)
+        self.assertGreater(A_predictable,A_old_C17_called_upper)
+
     def test_original_per_asset_volatility_support(self)->None:
         a=[asset_downward_variation(s) for s in SIGMA_BASE]
         self.assertGreater(a[1],a[0])
