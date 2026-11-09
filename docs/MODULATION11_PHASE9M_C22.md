@@ -63,7 +63,7 @@ La función size calcula exclusivamente cantidades hipotéticas. Las opciones pe
 Código nuevo, sin alterar el coordinador, profit8_replay, capital inicial ni motor original:
 
 - runtime30/fwn9_c22_session_compound.cjs — ventana DST NY, clasificación cripto 24/7 sujeta a venue, evaluación adversarial de costes, ranking, ledger compuesto y caja asentada.
-- tools/fwn9_c22_session_compound_test.cjs — 15 pruebas deterministas de contratos, temporización y contabilidad; ninguna es una cuenta económica experimental.
+- tools/fwn9_c22_session_compound_test.cjs — 16 pruebas deterministas de contratos, temporización y contabilidad; ninguna es una cuenta económica experimental.
 - research/modulation11/fwn9_phase9m_c22_protocol.json — 3 hipótesis, máximo 6 variantes futuras; cero nuevas señales.
 - .github/workflows/fwn9_p9m_c22.yml — pruebas y regresiones antiguas C21/C20/C16, incluida verificación Decimal-46.
 - evidence/modulation11/fwn9_phase9m_c22_evidence.json — registro de resultados y límites.
@@ -75,3 +75,5 @@ La capa está aislada y NO conectada a la ruta de broker. Para futura integraci�
 Horarios negociables acreditados, pero rentabilidad superior de cualquiera de estas ventanas NO demostrada. Sin prueba económica prospectiva, reparto de costes, distribución completa de estados stop/target, cota poblacional admisiones y ejecución alcanzable, no corresponde abrir el holdout ni reanudar la búsqueda automática.
 
 **C22: verificador offline read-only aprobado. N9-S NO_GO; 3.200 cuentas finales M10 selladas; cero nuevas semillas, señales, cuentas económicas, órdenes, despliegues, fusiones o reinicios recursivos.**
+
+Control de precisión C22: la cantidad cripto se redondea hacia abajo al incremento explícito permitido, y se comprueba que la cantidad multiplicada por precio y riesgo no exceda los límites de la capacidad financiada. Un contraejemplo de saldo de 0,0000999 USD frente a lote de notional mínimo 0,0001 USD produce cantidad cero, nunca una compra sobregirada. Este control adicional no autoriza órdenes.
