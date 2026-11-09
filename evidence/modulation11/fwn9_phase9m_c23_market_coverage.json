@@ -217,5 +217,58 @@
     "independent_validation_required": "C23 source test must reject boundary substitution"
   },
   "original_C22_variants_reselected_or_tested": false,
-  "original_frozen_N9S_optimization_reactivated": false
+  "original_frozen_N9S_optimization_reactivated": false,
+  "exact_connector_requests": {
+    "stock_bars": {
+      "tool": "mcp__Alpaca__get_stock_bars",
+      "symbol": [
+        "SPY",
+        "QQQ"
+      ],
+      "start": "2026-09-28T00:00:00Z",
+      "end": "2026-11-09T00:00:00Z",
+      "timeframe": "5Min",
+      "feed": "iex",
+      "sort": "asc",
+      "limit": 10000,
+      "tz": "UTC",
+      "days": 0,
+      "hours": 0,
+      "minutes": 0
+    },
+    "crypto_bars": {
+      "tool": "mcp__Alpaca__get_crypto_bars",
+      "symbol": [
+        "BTC/USD",
+        "ETH/USD"
+      ],
+      "start": "2026-09-28T00:00:00Z",
+      "end": "2026-11-09T00:00:00Z",
+      "timeframe": "1Hour",
+      "feed": "us",
+      "limit": 6000,
+      "tz": "UTC",
+      "days": 0,
+      "hours": 0,
+      "minutes": 0
+    },
+    "equity_calendar": {
+      "tool": "mcp__Alpaca__get_calendar",
+      "start_date": "2026-09-28",
+      "end_date": "2026-11-06"
+    }
+  },
+  "exact_readonly_capabilities": {
+    "alpaca_exposed_market_data_functions": 24,
+    "alpaca_account_activity_fills_endpoint_exposed": false,
+    "alpaca_private_order_history_endpoint_exposed": false,
+    "raw_source_quote_and_fill_attested_to_execution": false,
+    "render_workspace_access_requires_explicit_selection": true
+  },
+  "provider_data_interpretation": {
+    "equity_feed_is_single_venue_not_SIP": true,
+    "crypto_is_specific_US_feed_not_global_aggregated_market": true,
+    "UTC_comparison_requires_epoch_milliseconds": true,
+    "hoursAreExploratoryFeaturesNotProfitabilityMeasures": true
+  }
 }
