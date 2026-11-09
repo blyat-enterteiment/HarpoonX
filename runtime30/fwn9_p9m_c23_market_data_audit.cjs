@@ -174,5 +174,65 @@ function executionGate({marketAudit,brokerOrderFillReceipts,
   N9S:"NO_GO",M10FinalSealed:3200
  };
 }
+/** Constructive identification obstruction: identical OHLC, opposite net PnL
+ * for two hypothetical executable-price paths consistent with the same bar.
+ * This is a fixed proof, NOT a simulated market seed, not a trading result.
+ */
+function fillNonidentificationWitness(){
+ const bar={open:100,high:100.2,low:99.9,close:100.1},quantity=10,feeUsd=0.01;
+ const paths=[
+  {kind:"BETTER_FILLS",buy:100.02,sell:100.08},
+  {kind:"WORSE_FILLS",buy:100.09,sell:100.01}
+ ].map(p=>{
+  need(p.buy>=bar.low&&p.buy<=bar.high&&p.sell>=bar.low&&p.sell<=bar.high,
+   "WITNESS_FILLS_WITHIN_IDENTICAL_OHLC");
+  return {...p,netPnlUsd:quantity*(p.sell-p.buy)-feeUsd};
+ });
+ need(paths[0].netPnlUsd>0&&paths[1].netPnlUsd<0,
+  "WITNESS_MUST_REVERSE_NET_PROFIT");
+ return {schema:"FWN9_C23_SAME_OHLC_OPPOSITE_HYPOTHETICAL_NET_FILLS_1",
+  bar,quantity,paths,
+  claim:"OHLC and even a price-only tape cannot identify fills, queue, size, fees, or net realized PnL without transaction receipts.",
+  bothAreHypotheticalNotActualBrokerReceipts:true,
+  universalNonProfitabilityProved:false,
+  cannotCertifyOptimalWindowFromPriceBars:true,N9S:"NO_GO",
+  newMarketSeeds:0,newSignals:0,newAccounts:0};
+}
+/** Every C22 registered candidate is unexecuted; do not smuggle one-seed
+ * retrospective quote or a different policy's old fills into its PnL.
+ * A broker ID alone is not proof of provenance or overlap.
+ */
+function variantReceiptReadiness({executedPolicyIds=[],
+  independentBrokerOriginVerified=false,
+  fullCandidateOpportunityTrace=false}={}){
+ need(Array.isArray(executedPolicyIds)&&executedPolicyIds.every(x=>
+  typeof x==="string"&&x.length>0),"ORIGINAL_POLICY_ID_LIST");
+ const variants=[
+  {id:"H22_OPENING_CONFIRMATION@RTH_OPEN_30",book:"equity_etf"},
+  {id:"H22_OPENING_CONFIRMATION@RTH_MORNING_30_120",book:"equity_etf"},
+  {id:"H22_CRYPTO_UTC_LIQUIDITY@UTC_00_08",book:"crypto"},
+  {id:"H22_CRYPTO_UTC_LIQUIDITY@UTC_16_24",book:"crypto"},
+  {id:"H22_OPTION_ASYMMETRY_RESEARCH_ONLY@RTH_MORNING_30_120",book:"options"},
+  {id:"H22_OPTION_ASYMMETRY_RESEARCH_ONLY@RTH_LAST_90",book:"options"}
+ ];
+ const found=new Set(executedPolicyIds);
+ const states=variants.map(v=>({
+  ...v,
+  reportedPolicyReceiptIdPresent:found.has(v.id),
+  realizedExecutionEvidenceVerified:false,
+  economicallyEvaluated:false,
+  reason:!found.has(v.id)?"NO_ACTUAL_EXECUTION_RECEIPT_FOR_THIS_FROZEN_VARIANT":
+   !independentBrokerOriginVerified?"SOURCE_RECEIPT_NOT_AUTHENTICATED":
+   !fullCandidateOpportunityTrace?"OPPORTUNITY_AND_REJECT_TRACE_INCOMPLETE":
+   "COMPLETE_NET_CASH_RECONCILIATION_AND_CONTROL_UNAVAILABLE"
+ }));
+ return {schema:"FWN9_C23_FROZEN_SIX_VARIANT_EXECUTION_READINESS_1",
+  variants:states,candidateCount:variants.length,
+  independentlyCertifiedVariantCount:0,
+  acceptedForFamilywiseOOS:0,
+  financialGO:false,cashControlRequired:true,
+  originalNativeBaselineIndependentExecutionRequired:true,
+  noHoldoutUse:true,N9S:"NO_GO"};
+}
 module.exports={validTime,local,stockBucket,stockCoverage,cryptoCoverage,
-  auditMarketBars,executionGate};
+  auditMarketBars,executionGate,fillNonidentificationWitness,variantReceiptReadiness};
