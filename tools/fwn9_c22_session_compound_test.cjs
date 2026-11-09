@@ -136,3 +136,32 @@ test("C22 near fractional boundary never rounds to an unauthorized crypto lot",(
  A.throws(()=>P.size({}, {book:"equity",unitPriceUsd:100,unitRiskUsd:1}),
   /C22_SIZE_REQUIRES_VERIFIED_CAPACITY_OBJECT/);
 });
+
+const conservativeKelly=(o={})=>({
+ observedResearchGate:"PRESPECIFIED_OOS_FWER_PASS",
+ pWinLower:.60,gainLowerFraction:.03,lossUpperFraction:.02,
+ roundTripCostUpperFraction:.001,independentlyVerifiedLossTail:true,
+ brokerFillReachability:true,capital:P.buyingPower(book()),...o
+});
+test("C22 fractional geometric research objective is bounded by original risk and cash",()=>{
+ const r=P.geometricFraction(conservativeKelly());
+ A(r.conservativeResearchFraction>0);
+ A(r.conservativeResearchFraction<=.12);
+ A(r.downsideRiskFractionOfEquity<=.0025+1e-12);
+ A(r.conservativeExpectedLogPerTrade>0);
+ A.equal(r.executionAllowed,false);
+});
+test("C22 negative pessimistic Kelly edge yields CASH fraction zero",()=>{
+ const r=P.geometricFraction(conservativeKelly({pWinLower:.30,
+  gainLowerFraction:.02,lossUpperFraction:.05}));
+ A.equal(r.conservativeResearchFraction,0);
+ A.equal(r.conservativeExpectedLogPerTrade,0);
+});
+test("C22 nonreachable OHLC stop and unverified tail must block geometric allocator",()=>{
+ A.throws(()=>P.geometricFraction(conservativeKelly({
+  brokerFillReachability:false})),/C22_GEOMETRIC_ATTAINABLE_LOSS_BOUND_NOT_PROVED/);
+ A.throws(()=>P.geometricFraction(conservativeKelly({
+  independentlyVerifiedLossTail:false})),/C22_GEOMETRIC_ATTAINABLE_LOSS_BOUND_NOT_PROVED/);
+ A.throws(()=>P.geometricFraction(conservativeKelly({
+  pWinLower:1.3})),/C22_GEOMETRIC_DOMAIN/);
+});
