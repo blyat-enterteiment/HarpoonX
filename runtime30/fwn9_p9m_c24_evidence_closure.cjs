@@ -108,7 +108,7 @@ function sourceResearchGate(root=ROOT){
   c21.constructive_non_equivalence.original_OHLC_and_discrete_first_cross_universally_equivalent===false,
   "C21_C22_ORIGINAL_HOLDOUT_OR_PRICE_EQUIVALENCE_DRIFT");
  need(c20.budget.new_economic_accounts===0&&
-  c20.budget.remaining_M10_final_accounts===3200&&
+  c20.budget.remaining_final_M10_accounts===3200&&
   c23.limits.M10_final_accounts_sealed===3200&&
   c23.limits.real_NET_OOS_proof===false&&
   c23.limits.best_asset_hour_by_net_realized_PnL===null&&
