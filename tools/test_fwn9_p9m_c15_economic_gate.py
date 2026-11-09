@@ -1,5 +1,4 @@
 """Analytic-only unit tests: no market seeds, economic accounts or execution."""
-import math
 import tempfile
 import unittest
 from pathlib import Path
@@ -71,10 +70,14 @@ class C15Tests(unittest.TestCase):
 
     def test_invalid_inputs_are_rejected(self):
         for x in (float("nan"),float("inf"),-1,True):
-            with self.assertRaises(ValueError): bound("NOMINAL", x, 0)
-            with self.assertRaises(ValueError): bound("NOMINAL", 0, x)
-            with self.assertRaises(ValueError): bound("NOMINAL", 0, 0, x)
-        with self.assertRaises(ValueError): bound("OTHER")
+            with self.assertRaises(ValueError):
+                bound("NOMINAL", x, 0)
+            with self.assertRaises(ValueError):
+                bound("NOMINAL", 0, x)
+            with self.assertRaises(ValueError):
+                bound("NOMINAL", 0, 0, x)
+        with self.assertRaises(ValueError):
+            bound("OTHER")
 
     def test_protocol_blob_integrity_is_not_forged(self):
         self.assertEqual(len(M9_PROTOCOL_GIT_BLOB),40)
