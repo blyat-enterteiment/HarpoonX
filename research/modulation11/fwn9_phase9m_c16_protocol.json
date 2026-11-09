@@ -1,0 +1,62 @@
+{
+  "schema": "HARPOON_FWN9_C16_NATIVE_PATHWISE_AU_BRIDGE_1",
+  "parent": "research/modulation11/fwn9_phase9m_c15_protocol.json",
+  "status": "ENGINEERING_PROOF_SCOPE_ONLY;NO_NEW_ALPHA_OR_POPULATION_MEASUREMENT",
+  "source_contract": {
+    "m9_protocol_git_blob_sha1": "c49c8156f9d2f109f5eda0fd98d1b7290a837d1a",
+    "m9_price_law": "ORIGINAL_WEAK_UNMODIFIED",
+    "real_replay": "runtime30/profit8_replay.js",
+    "prior_c14_fixture": "tools/fwn9_p9m_c14_native_test_v2.cjs",
+    "frozen_evaluation_days": 176,
+    "frozen_evaluation_sessions": 126,
+    "intrabar_substeps": 8,
+    "hold_max_hours": 72
+  },
+  "goal": "Read-only reconciliation of native modeled inventoryEvents and OHLC marks to pathwise upper/lower eight-step dollar exposure and maximum positive execution credit relative to any feasible in-bar source reference. Independent Decimal accountant reconstructs values from native event list and original OHLC without reading bridge arithmetic. No population expected-value upgrade.",
+  "measures": {
+    "A_pathwise_lower": "sum_bar,asset 8*physical_pre_innovation_long_quantity*bar_low; conservative over native coarse-grained opening entry and bar-ending exit; not exact A",
+    "A_pathwise_upper": "sum_bar,asset 8*physical_pre_innovation_long_quantity*bar_high; conservative over native coarse-grained opening entry and bar-ending exit; not E[A]",
+    "U_pathwise_positive_credit_upper": "sum_entry qty*max(bar_open-fill,0) + sum_exit qty*max(fill-bar_low,0), assuming actual execution-time reference for exit lies in same original 8-step bar support. Does not certify native OHLC stop fill achievable.",
+    "C_calendar": "exact inclusive calendar charging semantics from native source, nominal or stress",
+    "cash": "book cash = 20000 - each quantityDelta*executed fill - fees - fixed calendar charges; pending exit receipts cannot finance admissions before knownAt"
+  },
+  "requirements": [
+    "source original MODELLED_OHLCV native replay, cash-shares SYNA and SYNB only",
+    "bar marks eight Gaussian substeps represented by OHLC, no ordered eight-step tape falsely inferred",
+    "all ENTRY at source bar open, EXIT at source bar close for this scoped bridge",
+    "valid knownAt>=at; no pending exit funds used at earlier entries",
+    "no share shorting, borrowing, omitted fills, double count, unpriced dividends or corporate actions",
+    "physical terminal book matches native curve, fee and calendar accounting"
+  ],
+  "refutation": [
+    "native fill in subbar or unsupported candle timing",
+    "source modifies M9 or proceeds from same-bar future fill available before knownAt",
+    "nonzero corporate action or non-stock funding",
+    "negative cash or unprocessed exit/entry",
+    "inconsistent terminal native equity or fees",
+    "independent Decimal recomputation differs by more than USD 1e-6",
+    "attempt to send pathwise upper to C15 population expectation screen as if statistical upper bound",
+    "claim of executable eight-step prices or mathematical WEAK exclusion from OHLC alone"
+  ],
+  "verification": [
+    "Node source-integrated tests reuse the identical two fixed C14 engineering strategy IDs, not new candidates",
+    "Independent Decimal46 full arithmetic from rows/events, plus negative tamper assertions",
+    "Ruff+mypy strict and frozen source hash",
+    "No broker, no deployment, no market-seed draw and no final account opening"
+  ],
+  "budget": {
+    "new_candidate_signals": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "final_M10_unopened": 3200,
+    "prospective_alpha": 0
+  },
+  "promotion": {
+    "N9S": "NO_GO",
+    "population_expected_A_upper": false,
+    "population_expected_U_upper": false,
+    "exact_substep_execution_price": false,
+    "full_native_operational_certification": false
+  },
+  "next_necessary_evidence": "Native generator needs existing source-path 8-substep ordered tape with provenance without regenerating/consuming final seeds; full native admissibility/receipt proof and rigorous population expectation bounds must follow before ever calling C15 exclusion."
+}
