@@ -1,0 +1,87 @@
+{
+  "schema": "HARPOON_FWN9_M11_C17_DETERMINISTIC_TAPE_AND_CONDITIONAL_WEAK_POPULATION_1",
+  "parent": "research/modulation11/fwn9_phase9m_c16_protocol.json",
+  "goals": [
+    "Recover authentic ordered eight-substep prices by observation of ORIGINAL frozen modulation9.market on precisely one pre-registered already-opened M9 development WEAK seed; do not call nominations, strategy, account, broker or any final seed.",
+    "Derive and independently check a finite analytic population EXPECTATION upper for A and U, valid under explicit long funded cash shares, bar-open-only acquisitions, no sale cash recycling before knownAt, at-most original bar support for exits, mean-one overnight transitions, no short/borrow.",
+    "Pass conservative bounds to C15 only with literal NON_UNIVERSAL guard: never assert full-native universality or N9-S feasibility/exclusion from a vacuous upper."
+  ],
+  "provenance": {
+    "generator_path": "quant/harpoon_quant/modulation9.py",
+    "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "protocol_path": "research/modulation9/protocol.json",
+    "protocol_sha256": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "observed_trace_reference": "quant/harpoon_quant/modulation11_substeps.py",
+    "original_ohlcv_archive": "evidence/modulation9/development/WEAK_730101.json.gz",
+    "original_archive_binary_present_in_git": false,
+    "original_archive_byte_level_identity": "NOT_CLAIMED_ABSENT_ARCHIVE_BYTES"
+  },
+  "frozen": {
+    "world": "WEAK",
+    "stage": "development",
+    "reused_development_seed": 730101,
+    "all_other_market_seeds_blocked": true,
+    "final_seeds_blocked": true,
+    "market_law": "ORIGINAL_M9",
+    "bar_substeps": 8,
+    "session_bars": 78,
+    "evaluation_sessions": 126,
+    "eval_bars": 9828,
+    "eval_substeps": 78624,
+    "capital_usd": 20000,
+    "gross_12pct": "ADMISSION_ONLY_NOT_CONTINUOUS_CAP",
+    "risk_open_fraction": 0.0025,
+    "max_holding_hours": 72,
+    "calendar_days": 176,
+    "hurdle_daily_log": 0.0001
+  },
+  "analytic_contract": {
+    "m9_drift_bound_delta": "abs(weak_drift_per_bar)*max_drift_multiplier=0.000025*1.1",
+    "m9_sigma_bound": "base_bar_sigma[a]*1.25*1.2*exp(0.7)*mixture with prob .996 at 1x and .004 at 4x",
+    "k_plus": "max over traded assets sum_{k=1}^8 E[(exp(X_{a,k})-1)_+] with delta=+0.000025*1.1 and volatility=max_support; uniform conditional upper for E[H/Open-1]",
+    "k_minus": "for each asset sum_{k=1}^8 E[(1-exp(X_{a,k}))_+] with delta=-0.000025*1.1 and volatility=max_support",
+    "r": "max across assets k_plus_a+k_minus_a; uniform conditional upper for E[(H-L)/Open]",
+    "K": "1+max(k_plus_a)",
+    "S": "sum_{j=0}^{9827} K^j",
+    "A_expected_upper": "8 * 20000 * K * S, in USD-substeps; Jensen growth C15 uses this only as CONDITIONAL model-class upper",
+    "U_expected_upper": "20000 * r * S, in USD, if fill >= open on buys, sell<=H, all inventory q at bar open financed, exit receipt knownAt enforced, and full 8-substep source support",
+    "overnight": "WEAK conditional mean-one Gaussian* symmetric ±3% jump, no trades and no positive financing injections between sessions; calendar charges nonnegative",
+    "interpretation": "These are prospective analytic population expectation upper bounds, not estimates from sampled accounts or a proof that every native execution path satisfies assumptions. If bounds far exceed C15 hurdle, return MATHEMATICALLY_VACUOUS and NO_GO."
+  },
+  "falsification": [
+    "Trace changes source file, market RNG state or calls nomination / signals",
+    "Reproduction of traced OHLCV differs from untraced market under same previously registered seed",
+    "Any OHLCV open/high/low/close is incompatible with traced price steps, or timestamps fail",
+    "Attempt to access final seed, any seed not exactly 730101 or any non-WEAK world",
+    "A/U expectation upper is fitted from fixed development fixture without a uniform population inequality",
+    "Any logical step treats 12pct admission as continuous cap",
+    "Any source original hash is altered",
+    "Gaussian one-sided moment formula disagrees with independent numerical quadrature",
+    "Claims OHLC threshold fills are executed at discrete substep prices or native full-population covered"
+  ],
+  "validation": [
+    "Source hash and original M9 protocol hash checks",
+    "Development-only seed whitelist and explicit 3200 holdout prohibition",
+    "Trace/untraced exact deterministic identities and independent per-bar recomputation",
+    "Positive-part call and put analytical identities validated by independent Simpson quadrature",
+    "Mathematical nonnegative funded and receipt-clock assumptions explicitly disclosed",
+    "Focal CI Ruff mypy for both mathematical and tape modules, no changed original files",
+    "Zero signals, no accounts, no orders, no brokers, no merge"
+  ],
+  "budget": {
+    "new_policy_candidates": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "new_signals_generated": 0,
+    "M10_final_unopened": 3200,
+    "alpha_spent": 0
+  },
+  "admission": {
+    "N9S": "NO_GO",
+    "can_merge": false,
+    "can_deploy": false,
+    "can_trade": false,
+    "can_unpause_automation": false
+  },
+  "halt": "If any source-integrity, OHLC substep, moment quadrature, or independent proof test fails, reject C17 and retain C16 NO_GO."
+}
