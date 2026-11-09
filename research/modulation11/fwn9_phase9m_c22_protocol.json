@@ -1,0 +1,124 @@
+{
+  "schema": "HARPOON_M11_C22_SESSION_ASSET_NET_COMPOUND_PREREG_1",
+  "parent": "research/modulation11/fwn9_phase9m_c21_protocol.json",
+  "status": "READ_ONLY_FRAMEWORK_NO_ECONOMIC_SEARCH_OR_BROKER_AUTHORITY",
+  "objectives": [
+    "Replace single indicator profitability chasing with per-asset/per-session cost-adjusted research arbitration against CASH and simpler controls",
+    "Compound only one continuously self-financed reconciled account (not several backtests' independent capital)",
+    "Preserve original M9/M10 N9-S NO_GO; no extra strategies, signals, seeds, economic accounts, paper/live orders, merge/deployment or recursive activation"
+  ],
+  "frozen_research_constraints": {
+    "initial_usd": 20000,
+    "original_hard_capital_usd": 20000,
+    "gross_admission_fraction": 0.12,
+    "risk_admission_fraction": 0.0025,
+    "maximum_hold_hours": 72,
+    "M10_final_accounts_sealed": 3200,
+    "familywise_alpha_upper": 0.025,
+    "min_independent_days_for_observed_ranking": 20,
+    "min_independent_OOS_paths": 30,
+    "policy_change_authorized": false,
+    "native_executable_OHLC_fill_equivalence": false
+  },
+  "operational_session_sources": {
+    "NYSE_RTH": "https://www.nyse.com/trade/trading-information",
+    "CBOE_OPTIONS": "https://www.cboe.com/about/hours/us-options",
+    "ALPACA_CRYPTO": "https://docs.alpaca.markets/us/docs/crypto-trading",
+    "ALPACA_24_5": "https://docs.alpaca.markets/us/docs/245-trading",
+    "semantic_rule": "Exchange calendar confirms when trading is scheduled; never labels any hour profitable. Use America/New_York DST and exchange-provided early close/holiday calendars. Options need contract-specific verified eligibility; no overnight equity orders assumed."
+  },
+  "prespecified_hypothesis_bundles": [
+    {
+      "id": "H22_OPENING_CONFIRMATION",
+      "books": [
+        "equity",
+        "etf"
+      ],
+      "question": "Does measured opening-range continuation after fully published first 30m improve net OOS economic growth versus cash and conventional broad-market momentum?",
+      "variants": [
+        "RTH_OPEN_30",
+        "RTH_MORNING_30_120"
+      ],
+      "negative_controls": [
+        "same-asset other-hours",
+        "paired underlying index",
+        "CASH"
+      ],
+      "falsification": "If familywise paired lower net growth minus all costs <=0 or adverse fills above bound, reject; no more indicator tuning."
+    },
+    {
+      "id": "H22_CRYPTO_UTC_LIQUIDITY",
+      "books": [
+        "crypto"
+      ],
+      "question": "Are BTC/ETH net return-per-risk opportunities materially different in independently preregistered UTC sessions once spread, impact and weekend availability are included?",
+      "variants": [
+        "UTC_00_08",
+        "UTC_16_24"
+      ],
+      "negative_controls": [
+        "UTC_08_16",
+        "CASH",
+        "same calendar-day paired cross-asset controls"
+      ],
+      "falsification": "If net OOS difference across independent market days is not positive, collapse to CASH or common baseline."
+    },
+    {
+      "id": "H22_OPTION_ASYMMETRY_RESEARCH_ONLY",
+      "books": [
+        "options"
+      ],
+      "question": "Does the put/call volatility asymmetry paired to the actual underlying, option spread and executable chain produce positive net economic value in the same eligible contract hours?",
+      "variants": [
+        "RTH_MORNING_30_120",
+        "RTH_LAST_90"
+      ],
+      "negative_controls": [
+        "delta-matched underlying",
+        "same expiry put-call matched pair",
+        "CASH"
+      ],
+      "falsification": "If exact options contract multiplier, quote/underlying clocks, liquidity or first-cross/executable fills missing, STOP. No option orders in this branch."
+    }
+  ],
+  "causal_and_economic_guards": {
+    "ranking": "Only observed, time-ordered, pre-registered familywise-corrected paired OOS lower bound > round-trip costs + impact + uncertainty and relative CASH >0 may appear in read-only ranking.",
+    "familywise": "Consider at most six pre-registered variants. No recursive search, no reuse of final holdout, no retrospective threshold choice.",
+    "instrument": "No synthetic training result may be represented as live profitable evidence.",
+    "compounding": "From one reconciled physical financed book, W_(t+1)=W_t+grossEconomicPnL_t-tradingFees_t-externalCosts_t; receipts known before next funding; external deposits/withdrawals forbidden for simple return product. No resetting 20k or aggregating separate accounts as if fungible.",
+    "settled_capital": "Reinvestable headroom constrained by observed settled cash - commitments - unsettled cash - reserve and original hard capital 20k; do not let compound profit alter the original capital limit in frozen N9-S.",
+    "risk": "Max risk <=0.25% and gross admission <=12% at decision; never impose 12% continuous cap or liquidation.",
+    "sessions": "NYSE/Cboe hours are trading permission boundaries, NOT independently observed statistically optimal return windows. Crypto UTC windows are investigation buckets only. Price/calendar-only rules never grant broker authority.",
+    "options": "Research-only until contract-specific session and true exercise/settlement/fees/reachable execution are verified."
+  },
+  "acceptance": {
+    "implemented_module": "runtime30/fwn9_c22_session_compound.cjs",
+    "tests": "tools/fwn9_c22_session_compound_test.cjs",
+    "expected_result": "PASS_LOCAL_OR_GITHUB_SOURCE_CONTRACTS_ONLY_NOT_PROFITABILITY",
+    "N9S": "NO_GO",
+    "holdout_used": false,
+    "profitability_level9_proven": false
+  },
+  "budget": {
+    "new_signals": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "new_final_accounts": 0,
+    "final_M10_left_sealed": 3200,
+    "new_orders": 0,
+    "new_deploys": 0,
+    "new_merges": 0,
+    "recursive_optimizer_starts": 0
+  },
+  "amendmentR2": {
+    "status": "ANALYTIC_ONLY_ADDED_AFTER_FIRST_C22_CI_WITH_ZERO_ECONOMIC_ACCOUNTS",
+    "reason": "Implement bounded capital growth objective rather than ranking gross hit frequency; no observed parameter fitting or market account trial performed",
+    "function": "geometricFraction",
+    "mathematical_model": "Conservative two outcome E[p_low log(1+f*g_net_low)+(1-p_low)log(1-f*l_net_upper)]",
+    "caps": "min(0.5*f_Kelly, available gross admission/capital, remaining per-entry risk/loss upper/capital, 12% gross original, half bounded worst loss)",
+    "fail_closed": "Unverified source reachable fill or independently bounded loss tail rejected; binary law not a universal market distribution",
+    "no_promotion": true,
+    "no_extra_variants": true,
+    "zero_search_cost": true
+  }
+}

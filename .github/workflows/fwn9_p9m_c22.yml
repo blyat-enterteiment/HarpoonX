@@ -1,0 +1,62 @@
+name: FWN9 C22 asset-session + net compounding read-only gate
+on:
+  push:
+    branches: [research/m11-c22-session-compound-router]
+    paths:
+      - 'runtime30/fwn9_c22_session_compound.cjs'
+      - 'tools/fwn9_c22_session_compound_test.cjs'
+      - 'research/modulation11/fwn9_phase9m_c22_protocol.json'
+      - '.github/workflows/fwn9_p9m_c22.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  c22-source-safe-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native JavaScript syntax
+        run: |
+          node --check runtime30/fwn9_c22_session_compound.cjs
+          node --check tools/fwn9_c22_session_compound_test.cjs
+      - name: 19 deterministic session/cost/compound/geometric safety tests
+        run: node --test tools/fwn9_c22_session_compound_test.cjs
+      - name: Frozen M9/M10 source and no new research economic accounts
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          reg=json.loads(Path("research/modulation9/registration.json").read_text())
+          for name in ("quant/harpoon_quant/modulation9.py","runtime30/profit8_replay.js","runtime30/ultimate_reservations.js","research/modulation9/protocol.json"):
+              assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==reg["sources_sha256"][name],name
+          p=json.loads(Path("research/modulation11/fwn9_phase9m_c22_protocol.json").read_text())
+          expected={"new_signals":0,"new_market_seeds":0,"new_economic_accounts":0,"new_final_accounts":0,"final_M10_left_sealed":3200,"new_orders":0,"new_deploys":0,"new_merges":0,"recursive_optimizer_starts":0}
+          assert p["budget"]==expected
+          assert p["acceptance"]["N9S"]=="NO_GO" and p["acceptance"]["holdout_used"] is False
+          assert not list(Path("evidence").rglob("final/*.json.gz"))
+          print("C22_FROZEN_SOURCE_M10_SEAL_PASS")
+          PY
+      - name: C21 original OHLC vs first-cross obstruction regression
+        run: node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+      - name: C20 original funded admission regression
+        run: node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+      - name: C16 original native cash and independent Decimal46 regression
+        run: |
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c22_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c22_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c22_c16.log research/modulation9/protocol.json > /tmp/c22_gate.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          row=json.loads(Path("/tmp/c22_gate.log").read_text().split("FWN9_C16_C15_HANDOFF=",1)[1])
+          assert row["N9SAdmission"]=="NO_GO"
+          assert row["population_C15_screens"]["NOMINAL"]["expected_A_upper"] is None
+          assert row["population_C15_screens"]["NOMINAL"]["expected_U_upper"] is None
+          print("C22_C15_NO_FALSE_PROFITABILITY_PROMOTION_PASS")
+          PY
