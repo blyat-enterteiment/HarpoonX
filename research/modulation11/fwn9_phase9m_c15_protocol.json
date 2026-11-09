@@ -1,0 +1,66 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9M_C15_FUNDED_WEAK_JENSEN_SCREEN_1",
+  "parent": "research/modulation11/fwn9_phase9m_c14_protocol.json",
+  "registration_scope": "C15 mathematical exclusion screen; new population bounds only if independently certified; analytic reference numbers already derived, not prospectively validated",
+  "status": "PREREGISTERED_ONLY_FOR_SUBSEQUENT_EVIDENCE;NO_NEW_ECONOMIC_ACCOUNTS",
+  "hypothesis": "For the frozen WEAK lognormal eight-step process, long-only predictable self-financed inventory has expected drift increment at most gamma times expected pre-substep dollar inventory. Separately bounded positive execution credits U and lower-bounded trading/calendar costs yield E log(W_T/W_0)/176 <= log(1+(gamma*A+U-Cstar)/20000)/176 by Jensen. A and U unknown means no mathematical exclusion can be certified. A tested fixture is not a population expectation.",
+  "original_source_git_blob_sha1": "c49c8156f9d2f109f5eda0fd98d1b7290a837d1a",
+  "frozen": {
+    "world": "WEAK",
+    "capital_usd": 20000,
+    "calendar_days": 176,
+    "evaluation_sessions": 126,
+    "bars_per_session": 78,
+    "substeps": 8,
+    "total_intraday_steps": 78624,
+    "weak_drift_per_bar": 0.000025,
+    "max_final_drift_multiplier": 1.1,
+    "nominal_calendar_charge_usd_per_day": 1,
+    "stress_calendar_charge_usd_per_day": 2,
+    "hurdle_daily_log": 0.0001,
+    "max_holding_hours": 72,
+    "per_asset_gross_limit": "0.12 ADMISSION ONLY; not continuous",
+    "open_risk_fraction": 0.0025,
+    "daily_loss_fraction": 0.02,
+    "max_drawdown_fraction": 0.08
+  },
+  "quantities": {
+    "A": "E_WEAK sum over all intraday ticks and both assets of q_t * S_t; q_t predictably held before price innovation; includes positions spanning windows",
+    "U": "E_WEAK sum positive execution-price credits vs time-aligned actually attainable substep reference; OHLC-high does not prove U=0",
+    "Cstar": "provable lower sum cash calendar charges plus nonnegative accrued commission/slippage actually accounted"
+  },
+  "theorem": "E_WEAK log(W_T/W_0)/D <= log(1+(gamma*A+U-Cstar)/W0)/D, gamma=expm1(0.000025*1.1/8), provided W_T>0, q long/nonnegative and predictable, all self-financing cash flows represented, conditional compensated Gaussian innovations, mean-one overnight jumps, and every receipt processed no earlier than knownAt.",
+  "necessary_exclusion": "If gamma*A_upper + U_upper - C_lower < W0*expm1(D*h), the WEAK nominal mean cannot reach original hurdle, conditional on independently verified bounds. The reverse inequality does not prove GO.",
+  "falsification": [
+    "Native substep positions are unknowable at the prior filtration or cash accounting is not self-financing",
+    "Missing positive corporate action or favorable fill credit",
+    "Conditional mean price return exceeds gamma because actual source or filtered dynamics differ",
+    "Incomplete W_T>0 or full-population certificate",
+    "Any proposed A_upper or U_upper is derived only from one deterministic fixture or uncorrected fitted-in-sample accounts",
+    "Applied 12% admission as continuous inventory cap",
+    "Original WEAK law or 3200 sealed final M10 accounts changed"
+  ],
+  "no_promotion_without": [
+    "Fully audited population exposure expectation upper bound under WEAK across the entire native evaluation",
+    "Fill-price support and positive execution-credit bound on tradable eight substeps",
+    "Independent full native funded book, receipt and cancellation clocks",
+    "Complete operational fault coverage including partial entries, rejects, outages, impact and multicell",
+    "Unchanged selection and original 40-endpoint confidence adjustment and independent source review"
+  ],
+  "budget": {
+    "new_accounts": 0,
+    "new_market_seeds": 0,
+    "new_candidate_signals": 0,
+    "M10_final_accounts_unopened": 3200,
+    "alpha_spent": 0
+  },
+  "safety": {
+    "no_orders": true,
+    "no_broker": true,
+    "no_deploy": true,
+    "no_merge": true,
+    "no_unpause": true,
+    "N9S": "NO_GO"
+  },
+  "provenance": "Analytic derivation based on frozen repository sources, not independent audited performance or empirical WEAK population certification"
+}
