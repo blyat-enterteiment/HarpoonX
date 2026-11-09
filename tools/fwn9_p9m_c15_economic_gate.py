@@ -101,7 +101,7 @@ def verify_original_protocol(path: Path) -> dict[str, Any]:
 
 
 def finite_nonnegative(name: str, x: float) -> float:
-    if not isinstance(x, (int, float)) or not math.isfinite(x) or x < 0:
+    if isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x) or x < 0:
         raise ValueError("C15_INVALID_" + name)
     return float(x)
 
@@ -169,22 +169,25 @@ def bound(
     u = finite_nonnegative("EXECUTION_CREDIT_UPPER", expected_positive_execution_credit_upper_usd)
     drift_wealth_upper = gamma * a + u - cost_floor
     expected_final_wealth_upper = contract.capital_usd + drift_wealth_upper
-    if expected_final_wealth_upper <= 0:
+    if not math.isfinite(expected_final_wealth_upper) or expected_final_wealth_upper <= 0:
         raise ValueError("C15_INCONSISTENT_EXPECTED_WEALTH_UPPER")
     upper_bps = (
         10000 / contract.original_days *
         math.log(expected_final_wealth_upper / contract.capital_usd)
     )
+    exclusion_margin = hurdle_usd - drift_wealth_upper
+    # Conservative float guard: a numerically tied boundary is never excluded.
+    strict_exclusion = exclusion_margin > max(1e-9, 64 * math.ulp(contract.capital_usd))
     result.update({
+        "dollar_exclusion_margin_vs_original_hurdle": exclusion_margin,
         "expected_dollar_substep_exposure_upper": a,
         "expected_positive_execution_credit_upper_usd": u,
         "expected_final_wealth_upper_usd": expected_final_wealth_upper,
         "expected_daily_log_upper_bps": upper_bps,
-        "math_exclusion_if_inputs_proved":
-            drift_wealth_upper < hurdle_usd,
+        "math_exclusion_if_inputs_proved": strict_exclusion,
         "conditional_economic_screen": (
             "EXCLUDED_IF_POPULATION_BOUNDS_INDEPENDENTLY_PROVED"
-            if drift_wealth_upper < hurdle_usd else
+            if strict_exclusion else
             "NOT_EXCLUDED_BY_THIS_UPPER_BOUND"
         ),
         "input_proof_integrity_independently_verified": False,
