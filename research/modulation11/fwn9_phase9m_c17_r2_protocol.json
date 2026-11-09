@@ -1,0 +1,42 @@
+{
+  "schema": "HARPOON_FWN9_M11_C17_R2_CROSS_RUN_NUMERIC_REPRODUCIBILITY_1",
+  "parent": "research/modulation11/fwn9_phase9m_c17_protocol.json",
+  "reason": "Two successful independently executed GitHub Actions runners used the same frozen M9 source SHA, same development seed 730101, same NumPy 2.2.6, but yielded different exact float tape and market JSON SHA. Directly downloaded the two development-only artifacts and compared all 157248 8-step prices plus associated OHLC numbers; maximum absolute difference was 3.410605131648481e-13 USD/share, relative <2.867e-15.",
+  "diagnostic_findings": {
+    "first_ci_run": 42562122895,
+    "second_ci_run": 42562577404,
+    "first_raw_tape_sha256": "e4bbbdbfdf01da49d2447d916afc2545354f36e19e572b1cd8be9748996c5717",
+    "second_raw_tape_sha256": "2c90338dad770959727fe9cd0d592445987996c58acedd7ea10787b270e50e53",
+    "first_dataset_sha256": "b122aa59eece1108b0387e5bd221a453b4ad152f5dac047a97623c06ff3b2d34",
+    "second_dataset_sha256": "9b4d6cfd4d26e3084a1a2500bc6970e7bb722bbd0f0b4a5ca0c4d37e59e51d31",
+    "max_absolute_difference_usd_per_share": 3.410605131648481e-13,
+    "max_relative_difference": 2.8667793258782922e-15,
+    "n_differing_float_fields_in_price_and_OHLC_comparison": 235872,
+    "numeric_sha_7dp": "a173af77533f7bbe2b0a3ae54485ee64bc4f33cc83a01b860efdb0702d102398",
+    "quantization": "format(x, '.7f') on all open/high/low/close and eight original step prices, preserving symbol/time/end, SHA256 canonical JSON of normalized list; not fed to strategy, replay or execution."
+  },
+  "new_contract": [
+    "Original binary raw float hashes are retained separately and NEVER called cross-run identical",
+    "A cross-run normalized 7-decimal canonical checksum must match the preregistered R2 observed fingerprint or fail",
+    "All source-high/low/close checks remain executed against the ORIGINAL UNROUNDED float values within the same process",
+    "Numeric tolerance is no substitute for tradeable fill price parity, especially at exact thresholds",
+    "Neither historical full-archive payload hash nor exact binary cross-run identity is claimed",
+    "Changing this checksum requires a new documented review, never automatic acceptance",
+    "No new signals, new market seeds, new account execution, final M10, deployment, merge or recursive search"
+  ],
+  "refutation": [
+    "Seven-decimal canonical checksum differs from registered diagnostic anchor",
+    "Other original M9 source hashes drift or identical seed is not accepted",
+    "A rounded tape price is used for execution or signals",
+    "Raw hashes are overwritten or described as identical between CI runners",
+    "Cross-run differences exceed expected numerical tolerance or impact tick/ordering decisions without separate tests"
+  ],
+  "budget": {
+    "new_signals": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "M10_final_unopened": 3200,
+    "alpha_spent": 0
+  },
+  "admission": "NO_GO"
+}
