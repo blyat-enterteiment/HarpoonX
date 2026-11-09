@@ -48,6 +48,6 @@ The cash/inventory/overnight/trading-price/fees/calendar signed-wealth telescopi
 
 ## E. Test evidence, unresolved proof and acceptance
 
-GitHub Actions [C19 CI](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42571218435) passed 13 analytical/negative tests (with a subsequent explicit deterministic C17 refutation test), Ruff, strict mypy, source SHA hashes, and C16 11 fixed native regression checks with independent Decimal46 and C15 fail-closed handoff. Prior failed CI attempts are retained.
+GitHub Actions [C19 CI](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42571515893) passed 14 analytical/negative tests including the deterministic C17 invalid-upper refutation, Ruff, strict mypy, source SHA hashes, and C16 11 fixed native regression checks with independent Decimal46 and C15 fail-closed handoff. Prior failed CI attempts are retained.
 
 The next proof barrier is event-conditioned U, not uniform every-bar negative variation; and a population-tight predictable A conditional bound for the original signal/IOC/stop/target admission process. There is still no universal source-time, eight-step-first-cross/broker-executable fill equivalence, nor complete partial-reject-outage-impact-multicell controls. NO_GO stays enforced. No new seeds, signals, economic accounts, M10 finals, orders, deployments, merges or automation restarts.
