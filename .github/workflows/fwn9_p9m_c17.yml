@@ -8,6 +8,7 @@ on:
       - 'tools/fwn9_p9m_c17_weak_population.py'
       - 'tools/test_fwn9_p9m_c17_weak_population.py'
       - 'research/modulation11/fwn9_phase9m_c17_protocol.json'
+      - 'research/modulation11/fwn9_phase9m_c17_r2_protocol.json'
       - '.github/workflows/fwn9_p9m_c17.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -82,6 +83,30 @@ jobs:
           PYTHONPATH: quant
         run: |
           python -B tools/fwn9_p9m_c17_tape_verify.py /tmp/c17_registered_WEAK_730101_tape.json.gz
+      - name: Independent seven-decimal cross-run numeric checksum and adversarial altered tape
+        env:
+          PYTHONPATH: quant
+        run: |
+          python - <<'PY'
+          import copy,gzip,json
+          from pathlib import Path
+          from harpoon_quant import modulation9
+          from harpoon_quant.modulation11_c17_tape import NUMERIC_TAPE_7DP_SHA256
+          from tools.fwn9_p9m_c17_tape_verify import verify_document
+          with gzip.open('/tmp/c17_registered_WEAK_730101_tape.json.gz','rt') as stream:
+              original=json.load(stream)
+          assert original['seven_decimal_numeric_tape_sha256']==NUMERIC_TAPE_7DP_SHA256
+          tampered=copy.deepcopy(original)
+          tampered['tape'][0]['prices'][1]+=0.0001
+          tampered['eightstep_sha256']=modulation9.digest(tampered['tape'])
+          try:
+              verify_document(tampered,Path('.'))
+          except AssertionError:
+              pass
+          else:
+              raise AssertionError('C17_TAMPERED_TAPE_ACCEPTED')
+          print('C17_CROSS_RUN_7DP_NUMERIC_FINGERPRINT_AND_TAMPER_REJECTION_PASS')
+          PY
       - name: Final and any unregistered seeds fail before RNG access
         env:
           PYTHONPATH: quant
