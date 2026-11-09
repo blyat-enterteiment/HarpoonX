@@ -7,6 +7,8 @@ on:
       - 'tools/fwn9_p9m_c24_evidence_closure_test.cjs'
       - 'research/modulation11/fwn9_phase9m_c24_protocol.json'
       - 'evidence/modulation11/fwn9_phase9m_c24_render_inventory.json'
+      - 'evidence/modulation11/fwn9_phase9m_c24_evidence.json'
+      - 'docs/MODULATION11_PHASE9M_C24.md'
       - '.github/workflows/fwn9_p9m_c24.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -103,4 +105,30 @@ jobs:
           assert protocol["budget"]=={"new_market_seeds":0,"new_signals":0,"new_economic_accounts":0,"new_paper_orders":0,"new_live_orders":0,"new_deployments":0,"new_merges":0,"new_recursive_searches":0,"final_M10_opened":0,"final_M10_still_sealed":3200}
           assert not list(Path("evidence").rglob("final/*.json.gz"))
           print("C24_ALL_ORIGINAL_SOURCE_SHA256_NO_FINAL_M10_NO_NEW_ORDERS_PASS")
+          PY
+      - name: Final immutable evidence ledger records 138 PASS unit tests and economic BLOCKED
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("evidence/modulation11/fwn9_phase9m_c24_evidence.json").read_text())
+          d=json.loads(Path("evidence/modulation11/fwn9_phase9m_c24_render_inventory.json").read_text())
+          p=json.loads(Path("research/modulation11/fwn9_phase9m_c24_protocol.json").read_text())
+          assert a["validation"]["total_unit_and_regression_tests_run"]==138
+          assert a["validation"]["total_tests_passed"]==138
+          assert a["validation"]["tests_failed"]==0
+          assert a["final_gate"]["PASS"]==6
+          assert a["final_gate"]["FAIL"]==1
+          assert a["final_gate"]["BLOCKED"]==10
+          assert a["final_gate"]["N9S"]=="NO_GO"
+          assert a["final_gate"]["optimal_real_net_asset_hour"] is None
+          assert a["final_gate"]["remote_paper_runtime_state"]=="UNVERIFIED"
+          assert a["budget"]["opened_final_M10_accounts"]==0
+          assert a["budget"]["sealed_final_M10_accounts"]==3200
+          assert a["budget"]["placed_paper_orders"]==0
+          assert a["budget"]["placed_live_orders"]==0
+          assert d["accessMode"]=="READ_ONLY" and d["secretsRead"] is False
+          assert d["listServicesText"]=="null"
+          assert p["admission"]["N9S"]=="NO_GO"
+          print("C24_138_ENGINEERING_TESTS_6PASS_1FAIL_10BLOCKED_NO_FINANCIAL_GO_PASS")
           PY
