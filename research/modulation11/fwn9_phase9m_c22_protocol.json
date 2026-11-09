@@ -109,5 +109,16 @@
     "new_deploys": 0,
     "new_merges": 0,
     "recursive_optimizer_starts": 0
+  },
+  "amendmentR2": {
+    "status": "ANALYTIC_ONLY_ADDED_AFTER_FIRST_C22_CI_WITH_ZERO_ECONOMIC_ACCOUNTS",
+    "reason": "Implement bounded capital growth objective rather than ranking gross hit frequency; no observed parameter fitting or market account trial performed",
+    "function": "geometricFraction",
+    "mathematical_model": "Conservative two outcome E[p_low log(1+f*g_net_low)+(1-p_low)log(1-f*l_net_upper)]",
+    "caps": "min(0.5*f_Kelly, available gross admission/capital, remaining per-entry risk/loss upper/capital, 12% gross original, half bounded worst loss)",
+    "fail_closed": "Unverified source reachable fill or independently bounded loss tail rejected; binary law not a universal market distribution",
+    "no_promotion": true,
+    "no_extra_variants": true,
+    "zero_search_cost": true
   }
 }
