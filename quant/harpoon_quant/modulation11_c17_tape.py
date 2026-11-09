@@ -29,6 +29,29 @@ BARS = 78
 EVAL_SESSIONS = 126
 ASSETS = ("SYNA", "SYNB")
 SCHEMA = "HARPOON_M11_C17_REGISTERED_DEVELOPMENT_WEAK_8STEP_TAPE_1"
+NUMERIC_TAPE_7DP_SHA256 = "a173af77533f7bbe2b0a3ae54485ee64bc4f33cc83a01b860efdb0702d102398"
+
+
+def canonical_numeric_tape_digest(rows: list[dict[str, Any]]) -> str:
+    """Cross-run seven-decimal *audit* fingerprint, never a trading price.
+
+    The original exact float tape is preserved separately. This quantization
+    is a provenance equality guard under observed CPU floating-point drift,
+    not a replacement for native execution prices or bitwise source identity.
+    """
+    normalized = [
+        {
+            "symbol": row["symbol"], "t": row["t"], "end": row["end"],
+            "open": f'{row["open"]:.7f}',
+            "high": f'{row["high"]:.7f}',
+            "low": f'{row["low"]:.7f}',
+            "close": f'{row["close"]:.7f}',
+            "prices": [f"{p:.7f}" for p in row["prices"]],
+        }
+        for row in rows
+    ]
+    return modulation9.digest(normalized)
+
 
 
 def _sha256(path: Path) -> str:
@@ -147,6 +170,9 @@ def recover_registered_tape(
     if evaluated_bars != 9828:
         raise RuntimeError("C17_UNEXPECTED_EVALUATION_GRID")
     tape_digest = modulation9.digest(tape)
+    numeric_digest = canonical_numeric_tape_digest(tape)
+    if numeric_digest != NUMERIC_TAPE_7DP_SHA256:
+        raise RuntimeError("C17_CROSS_RUN_7DP_NUMERIC_IDENTITY_MISMATCH")
     return {
         "schema": SCHEMA,
         "stage": stage,
@@ -157,6 +183,8 @@ def recover_registered_tape(
         "protocol_sha256": PROTOCOL_SHA256,
         "dataset_sha256": dataset_hash,
         "eightstep_sha256": tape_digest,
+        "seven_decimal_numeric_tape_sha256": numeric_digest,
+        "numeric_7dp_equivalence_is_not_bitwise_identity": True,
         "evaluation_start_at": sessions[evaluation_start]["open"],
         "evaluation_end_at": sessions[evaluation_end - 1]["close"],
         "evaluation_sessions": EVAL_SESSIONS,
@@ -189,6 +217,7 @@ def save_registered_tape(filename: Path, report: dict[str, Any]) -> dict[str, An
         "artifact_bytes": filename.stat().st_size,
         "dataset_sha256": report["dataset_sha256"],
         "tape_sha256": report["eightstep_sha256"],
+        "seven_decimal_numeric_tape_sha256": report["seven_decimal_numeric_tape_sha256"],
         "substep_prices": report["total_asset_substep_price_count"],
         "archive_original_identity_proved": False,
     }
