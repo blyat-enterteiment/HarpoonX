@@ -1,0 +1,59 @@
+name: FWN9 C15 funded WEAK Jensen exclusion screen
+on:
+  push:
+    branches: [research/m11-c15-funded-weak-certificate]
+    paths:
+      - 'research/modulation11/fwn9_phase9m_c15_protocol.json'
+      - 'tools/fwn9_p9m_c15_economic_gate.py'
+      - 'tools/test_fwn9_p9m_c15_economic_gate.py'
+      - '.github/workflows/fwn9_p9m_c15.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  conditional-economic-screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and lint
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          python -m py_compile tools/fwn9_p9m_c15_economic_gate.py tools/test_fwn9_p9m_c15_economic_gate.py
+          ruff check tools/fwn9_p9m_c15_economic_gate.py tools/test_fwn9_p9m_c15_economic_gate.py
+          mypy --strict tools/fwn9_p9m_c15_economic_gate.py tools/test_fwn9_p9m_c15_economic_gate.py
+      - name: Eleven analytic unit tests (no seeds or accounts)
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c15_economic_gate.py' -v
+      - name: Frozen M9 Git SHA and fail closed
+        run: |
+          python -B tools/fwn9_p9m_c15_economic_gate.py --protocol research/modulation9/protocol.json > /tmp/c15.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/c15.json').read_text())
+          z=x['screen']
+          assert x['frozen_provenance']['registered_git_blob']=='c49c8156f9d2f109f5eda0fd98d1b7290a837d1a'
+          assert z['intraday_steps']==78624
+          assert z['N9S_admission_verdict']=='NO_GO'
+          assert z['conditional_economic_screen']=='UNIDENTIFIED_MISSING_POPULATION_BOUNDS'
+          assert z['math_exclusion_if_inputs_proved'] is None
+          assert z['M10_final_accounts_opened']==0
+          assert z['native_executable_fill_equivalence_certified'] is False
+          print('C15_SOURCE_FROZEN_INCOMPLETE_EVIDENCE_NO_GO_PASS')
+          PY
+      - name: Benchmark 100000 analytic screens
+        run: |
+          python - <<'PY'
+          import sys,time
+          sys.path.insert(0,'tools')
+          from fwn9_p9m_c15_economic_gate import bound
+          t=time.perf_counter()
+          for _ in range(100000):
+              bound('NOMINAL')
+          print('C15_BENCH_100000_SCREENS_MS',round(1000*(time.perf_counter()-t),3))
+          PY
