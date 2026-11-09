@@ -42,7 +42,7 @@ Each long lot is kept no more than the original 72h calendar deadline (or less);
     H72 = SUM_{j=0..2495} exp(j*delta) = 2506.7342217702894;
     **E_WEAK[A] <= H72 * B**.
 
-Equivalently, replacing each realized actual buy notional by its approved ICO *upper* commitment yields a weaker but still valid bound in terms of expected total approved commitments. **No expected value for B is currently independently certified** for the entire original native candidate population. The bound is conditional on all source-funded paths, and cannot be filled by averages of one market seed.
+Equivalently, replacing each realized actual buy notional by its approved IOC *upper* commitment yields a weaker but still valid bound in terms of expected total approved commitments. **No expected value for B is currently independently certified** for the entire original native candidate population. The bound is conditional on all source-funded paths, and cannot be filled by averages of one market seed.
 
 For a prospective N9-S impossibility certificate, the original C15 economic test would require
 
@@ -70,7 +70,7 @@ The H72*mean-original-buy-notional purely **descriptive** envelope corresponds t
 
 ## 5. Test gates and limits
 
-GitHub [C20 CI](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42624021949) checks 15 independent math/adversarial tests (Gaussian put first/second moments versus Simpson, tail envelope over drift/vol bounds, stop-first precedence, event-gated upper <= C19, 72h kernel using independent Decimal), 6 original native IOC fixed-replay integration tests, 14 C19 moment regressions and 11 C16 native/Decimal46 regressions, Rust-free Python Ruff+mypy strict and original source checks. Initial CI failures were static/format faults and are retained; final PASS does not imply universal economic certificate.
+GitHub [C20 CI](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42624021949) checks 15 independent math/adversarial tests (Gaussian put first/second moments versus Simpson, tail envelope over drift/vol bounds, stop-first precedence, event-gated upper <= C19, 72h kernel using independent Decimal), 6 original native IOC fixed-replay integration tests, 14 C19 moment regressions and 11 C16 native/Decimal46 regressions, Python Ruff and mypy strict and original source checks. Initial CI failures were static/format faults and are retained; final PASS does not imply universal economic certificate.
 
 Separately, the offline audit of one already available development member passed ten local negative and consistency tests. That local audit is not represented as a GitHub CI step.
 
