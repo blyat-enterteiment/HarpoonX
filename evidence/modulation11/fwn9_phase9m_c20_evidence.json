@@ -1,0 +1,136 @@
+{
+  "schema": "HARPOON_M11_PHASE9M_C20_EVENT_TRIGGERED_WEAK_CREDIT_AND_ADMITTED_EXPOSURE_1",
+  "final_decision": "N9S_NO_GO",
+  "prereg": "research/modulation11/fwn9_phase9m_c20_protocol.json",
+  "source": {
+    "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "market_protocol_sha256": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "native_replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "native_reservation_sha256": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "stage": "ORIGINAL_SYNTHETIC_WEAK",
+    "generator_changed": false,
+    "engine_changed": false
+  },
+  "theorem": {
+    "event_U": "E[U_bar|F_bar_open] <= Q*S0*min(unconditional_C19_kappa, STOP_gamma(strike=s,lower_hit) + sum_i(q_i/Q)*TARGET_gamma(strike=t_i,upper_hit)), subject to F_prebar measurable threshold/lot and original stop-first model.",
+    "activated_probability": "Eight-prefix lognormal Gaussian union upper by component of original one-sigma/four-sigma 0.996/0.004 mixture, drift/sigma supports unchanged.",
+    "stopped_payoff": "E[(K-exp(X8))_+ 1_T] <= min(E[(K-exp(X8))_+], sqrt(E[(K-exp(X8))_+^2] * P(T)))",
+    "stop_first_priority": "Any coincident STOP and target is counted only as stop in native, while mathematical sum of stop+target is a conservative upper",
+    "cohort_A": "E[A] <= K72 * E[sum of every physically filled source-open buy notional] <= K72 * E[sum each approved IOC notional], K72=sum_{j=0}^{2495}exp(j*delta), delta=0.000025*1.1/8.",
+    "admission_cap": "q*Sopen<=q*P_fill<=q*IOCpriceCeiling<=.12 * equity_at_decision ONLY, not every future bar",
+    "full_native_expectation_inputs_proved": false,
+    "broker_fill_attainability": false
+  },
+  "analytic": {
+    "calendar_max_72h_daily_sessions": 4,
+    "bars_per_session": 78,
+    "steps_per_bar": 8,
+    "max_steps_per_funded_campaign": 2496,
+    "K72": 2506.7342217702894,
+    "gamma": 0.0000034375059082098956,
+    "c15_terminal_hurdle_increment_usd": 355.1158528283328,
+    "c15_original_fixed_nominal_calendar_usd": 176,
+    "c15_original_fixed_stress_calendar_usd": 352,
+    "B_expected_max_for_exclusion_if_U_zero_nominal_usd": 61636.43636971141,
+    "B_expected_max_for_exclusion_if_U_zero_stress_usd": 82061.38272237753,
+    "conditional_stop_target_example": {
+      "opening": 100,
+      "quantity": 20,
+      "stop": 98,
+      "targets": [
+        {
+          "price": 103,
+          "maxQuantity": 5
+        },
+        {
+          "price": 106,
+          "maxQuantity": 5
+        }
+      ],
+      "world": "WEAK",
+      "type": "ILLUSTRATIVE_ANALYTIC_NOT_HISTORICAL_ACCOUNT",
+      "stop_probability_upper": 0.00012168518032194379,
+      "conditional_U_bar_upper_usd": 0.00221853206618606,
+      "original_C19_unconditional_bar_credit_upper_usd": 5.8914389272983945
+    },
+    "original_population_admitted_B_expected_upper_usd": null,
+    "original_population_event_conditioned_U_expected_upper_usd": null,
+    "full_native_N9S_exclusion_proved": false
+  },
+  "historical_dev_only": {
+    "original_zip_sha256": "a1d7a78c81f16b357a8699369fa1c8ac66e2b48e90d33f0770ebad88e3e0fc92",
+    "original_member": "evidence/modulation9/development/WEAK_730101.json.gz",
+    "original_member_sha256": "4c45a1177a063ae4b7758ef3a644c9dbc1c1c3925d30a15d0a152f392adde819",
+    "original_tape_7dp_checksum": "a173af77533f7bbe2b0a3ae54485ee64bc4f33cc83a01b860efdb0702d102398",
+    "reused_seed": 730101,
+    "existing_accounts_read": 78,
+    "original_trades_read": 1213,
+    "existing_exit_fills_read": 1641,
+    "nominal": {
+      "dependent_accounts": 39,
+      "mean_actual_filled_buy_notional_usd": 33461.693076923075,
+      "mean_native_A_usd_substeps": 12151698.192005211,
+      "mean_original_U_usd": 11.114052920087053,
+      "share_original_U_from_STOP": 0.9914722629258728,
+      "original_STOP_exit_count": 503,
+      "TP1_count": 174,
+      "TP2_count": 48
+    },
+    "stress": {
+      "dependent_accounts": 39,
+      "mean_actual_filled_buy_notional_usd": 32951.739743589744,
+      "mean_native_A_usd_substeps": 11747907.884969538,
+      "mean_original_U_usd": 9.670191992401614,
+      "share_original_U_from_STOP": 0.9741410066108456,
+      "original_STOP_exit_count": 499,
+      "TP1_count": 162,
+      "TP2_count": 44
+    },
+    "source_kind": "READ_ONLY_OLD_ACCOUNT_RESULTS_ONLY;NO_INDEPENDENT_POPULATION_STATISTICS",
+    "missing_in_archived_compact": "Full prebar dynamic stop/target and original approved IOC commitment fields per admission.",
+    "local_script_sha256": "34c8c8dbc7f58bc5095d97e9569bff16328f16a09e670d995c4f1ec112006a22",
+    "local_json_sha256": "572485bfa29e43e013779dbcf92e2294425420c9a620f821919a2aa335dbfcf4",
+    "local_negative_test_sha256": "5d078066bc69bc9a63b9399bfe2fb16aaadf72c919b699a87a1323ce512e4f9e",
+    "local_test_count": 10,
+    "local_test_status": "PASS",
+    "accessed_final_member_count": 0
+  },
+  "CI": {
+    "passed_run_id": 42624021949,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42624021949",
+    "unit_gaussian_and_admission_tests": 15,
+    "original_C14_native_IOC_fixed_negative_tests": 6,
+    "original_C19_math_regressions": 14,
+    "original_C16_native_regressions": 11,
+    "independent_Decimal46": "PASS",
+    "ruff": "PASS",
+    "strict_mypy": "PASS",
+    "original_SHA": "PASS",
+    "initial_failed_runs": [
+      42623246895,
+      42623383236,
+      42623503088
+    ],
+    "current_code_isolation": "new C20 read-only modules, no original execution source edit"
+  },
+  "budget": {
+    "new_market_seeds": 0,
+    "new_candidate_signals": 0,
+    "new_economic_accounts": 0,
+    "opened_M10_final_accounts": 0,
+    "remaining_M10_final_accounts": 3200,
+    "orders": 0,
+    "broker_calls": 0,
+    "deployment": false,
+    "merges": false,
+    "recursive_automation": false
+  },
+  "limitations": [
+    "Event-conditioned U depends on F_prebar thresholds for EVERY original dynamic stop/TP state; absent in existing compact archives.",
+    "No independently established numeric WEAK population expected admitted notional B or exact trigger-weighted credit U for native policy family.",
+    "Native OHLC threshold fills are not proven executable on the ordered eight-step tape and real exchange order book.",
+    "No formal outward-rounded transcendental interval arithmetic, only validated Python Float64 and independent quadrature.",
+    "Operational coverage partial fills, outages, impact, multicell and prospective review still open."
+  ],
+  "verdict": "PASS_EVENT_CONDITIONED_MODEL_CLASS_U_AND_ADMISSION_COHORT_EA_WITH_SCOPED_NATIVE_ENGINEERING_TESTS;N9S_NO_GO"
+}
