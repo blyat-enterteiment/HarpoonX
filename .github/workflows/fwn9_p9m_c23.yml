@@ -41,14 +41,14 @@ jobs:
           assert d['gates']['posthoc_market_data_count_as_fresh_OOS'] is False
           assert d['gates']['realizable_net_alpha_certified'] is False
           assert d['gates']['optimal_hour_certified'] is False
-          assert d['source_archived_raw'] is False
+          assert d['raw_provider_bytes_saved'] is False
           assert d['broker_fill_receipts_found']==0
           assert d['capital_account_activity_records_found']==0
           assert d['original_C22_variants_reselected_or_tested'] is False
           assert d['audit_correction']['prior_summary_commit']
           for sym in ('SPY','QQQ'):
               r=d['stocks']['symbols'][sym]
-              assert r['complete_sessions']==30 and r['regular_bars_accepted']==2340
+              assert r['complete_sessions']==30 and r['observed_unique_regular_bars']==2340
               assert r['duplicate_regular_bars']==0
               assert all(x['coverage_fraction']==1 for x in r['per_window'].values())
           for sym in ('BTC/USD','ETH/USD'):
