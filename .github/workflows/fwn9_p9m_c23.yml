@@ -25,7 +25,7 @@ jobs:
         run: |
           node --check runtime30/fwn9_p9m_c23_market_data_audit.cjs
           node --check tools/fwn9_p9m_c23_market_data_audit_test.cjs
-      - name: Fifteen source-clock and false-real-PnL adversarial tests
+      - name: Eighteen source-clock, quote coverage and nonidentifiable real-PnL tests
         run: |
           node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
       - name: Preserve observed post-view market coverage ONLY as descriptive proof
