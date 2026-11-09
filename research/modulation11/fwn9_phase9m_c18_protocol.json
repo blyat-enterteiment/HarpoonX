@@ -1,0 +1,70 @@
+{
+  "schema": "HARPOON_FWN9_M11_C18_FUNDED_WEAK_WEALTH_SUPERMARTINGALE_DUAL_1",
+  "parent": "research/modulation11/fwn9_phase9m_c17_r2_protocol.json",
+  "preregistered_before_new_C18_math_ci": true,
+  "goal": "Replace path-high based exponential 9,828-bar tower by conditional one-step funded-wealth drift recursion. Compute population analytic bound for predictable long inventory with no positive execution credits, derive its parametric extension with unknown U, quantify insufficiency versus original nominal/stress hurdle. No policy search, account generation, new seeds, holdout, orders or deployment.",
+  "frozen": {
+    "M9_protocol_git_blob_sha1": "c49c8156f9d2f109f5eda0fd98d1b7290a837d1a",
+    "market_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "steps": 78624,
+    "capital_usd": 20000,
+    "days": 176,
+    "drift_max_bar": 0.000025,
+    "drift_scale_max": 1.1,
+    "substeps": 8,
+    "hurdle_log_per_day": 0.0001,
+    "cost_calendar_daily_nominal": 1,
+    "cost_calendar_daily_stress": 2,
+    "admission_gross_12pct": "NOT_A_CONTINUOUS_CAP",
+    "max_holding_hours": 72
+  },
+  "filtration_and_wealth_contract": [
+    "q_{a,k} in nonnegative integers and F_k-measurable before substep k innovation; no future tape at decision time",
+    "cash physical >=0, W_k=cash_k+sum(q*S)>=sum(q*S) for each k",
+    "Frozen WEAK compensated Gaussian substep log-return has conditional arithmetic gross return exp(delta_{a,k})<=exp(delta_max) regardless volatility/regime, conditional on F_k with mixture not known before price innovation",
+    "Overnight M9 multiplicative gross return conditional mean 1, no beneficial overnight trades",
+    "Execution credit Y_k is priced versus actually attained contemporaneous step ref; positive part integrated in U=E sum (Y_k)+; commissions and external cash drains nonnegative; no capital injections",
+    "For all policies in this abstract class E sum Y+ finite; hypothesis not demonstrated for full native OHLC engine."
+  ],
+  "theorem": [
+    "Let rho=expm1(delta_max), R=(1+rho)^N, H=(R-1)/rho. For X_k=E W_k and u_k=E (Y_k)+, X_{k+1} <= (1+rho) X_k+u_k.",
+    "Consequently E A <= (W0+U)*H, where A=sum_{k,a} E q_k S_k and U=sum u_k; worst-case all credits moved to horizon start (only an upper-bound operation).",
+    "Using E W_T <= W0 +rho A+U-C_floor yields E W_T <= R*(W0+U)-C_floor.",
+    "By Jensen if W_T>0 a.s., E log(W_T/W0)/D <= log([R*(W0+U)-C_floor]/W0)/D.",
+    "For U=0 as an ideal executable-reference condition ONLY, A <= W0*H. This does not describe original native OHLC behavior until native fill support and reference-price parity are proven.",
+    "If R*(W0+U)-C_floor > W0*exp(D*hurdle), the upper is vacuous, NOT a proof of success. Reversing inequality would be sufficient for exclusion under certified U and all model assumptions.",
+    "Even with U=0 and no continuous-exposure constraint, this upper exceeds original hurdle. Any usable exclusion needs additionally certified conditional exposure/admission information, not a claim that original 12% admission is continuous."
+  ],
+  "refutation": [
+    "Confuse original 12% reservation cap with continuous exposure",
+    "Call U=0 for OHLC fills without first-cross parity",
+    "Release an exit receipt into admission before knownAt",
+    "Forget overnight asset drift compensation or physical calendar fees",
+    "Float boundary roundoff returns a false exclusion",
+    "Make claims of universal native-policy certification from this abstract class",
+    "Any generated new market seed, strategy signal, economic account, M10 final read, broker, deployment or unpause"
+  ],
+  "tests": [
+    "Decimal50 independent computation of R,H,pb/day and nominal/stress thresholds",
+    "Boundary and monotonicity of U; fail-closed unknown U",
+    "Monotonic in drift, financing and costs; no false continuous cap",
+    "Original M9 hash and source regeneration unchanged",
+    "CI focused Ruff+mypy and unit suite; no market generator calls"
+  ],
+  "budget": {
+    "new_policy_candidates": 0,
+    "new_market_seeds": 0,
+    "new_signal_nominations": 0,
+    "new_economic_accounts": 0,
+    "unopened_M10_final": 3200,
+    "prospective_alpha_spent": 0
+  },
+  "admission": {
+    "N9S": "NO_GO",
+    "live_orders": false,
+    "paper_orders": false,
+    "merge": false,
+    "deployment": false,
+    "automation_restarted": false
+  }
+}
