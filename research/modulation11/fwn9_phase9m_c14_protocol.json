@@ -1,0 +1,79 @@
+{
+  "schema": "HARPOON_FWN9_C14_CONDITIONAL_INVENTORY_WEIGHTED_P_MOMENT_1",
+  "parent": "research/modulation11/fwn9_phase9m_c13_protocol.json",
+  "lease_id": "M11_PHASE9M_C14_CONDITIONAL_NATIVE_WEALTH_MOMENTS",
+  "preregistered_before_ci": true,
+  "hypothesis": "Native OHLC bar-high source values induce a finite conditional p-moment upper envelope, weighted by each independently funded book's actual predictable pre-intrabar exposure, without assuming 12 percent continuous exposure. For no borrowing, long-only shares, acquisitions at observed bar opening at prices >= open, no re-acquisition after intrabar sales, sales at nonnegative prices <= bar high, and nonnegative fees, end wealth <= cash_after_open+sum(q_after_open*bar_high). Jensen and Gaussian-positive-part moments under WEAK give E[W_end^p|F_preinnovation]<=W0^p*(1+sum(f_asset*kappa_asset,p)), p=1,2,4. A <=72h deterministic worst-case tower factor is finite but must be quantitatively compared with the original N9S hurdle; distributional application to all native paths is not claimed without global invariant proof.",
+  "conditional_lemmas": [
+    "Pathwise bar: C_end+sum q_end*S_close <= C_openAfterBuys+sum q_openAfterBuys*H_bar if no intra-bar subsequent acquisitions and all sale prices <= H_bar; partial targets, stop sells down to tick zero, and nonnegative commissions are covered.",
+    "Let W0=C0+sum_a q_a S_a,0, f_a=q_a S_a,0/W0, f_cash=C0/W0. Under the positive cash-share book and p>=1, (f_cash+sum f_a*(H_a/S_a,0))^p<=f_cash+sum f_a*(H_a/S_a,0)^p, without assuming independence of assets.",
+    "For each asset under frozen M9 WEAK, log(S_k/S_0) is Gaussian with mu=k/8*(delta-.5*sigma^2), variance=k/8*sigma^2. H^p/S_0^p <= 1+sum_k(exp(p*log(S_k/S_0))-1)_+.",
+    "An exact Gaussian positive-part call is exp(p*mu+.5*p^2*v)*Phi((mu+p*v)/sqrt(v)) - Phi(mu/sqrt(v)); use sigma<=base*1.25*1.2*exp(.7), drift<=weak_drift*1.1, with the frozen .004 four-sigma bar mixture.",
+    "Overnight WEAK innovations have Gaussian variance bounded by sigma_night^2*1.2^2*exp(1.4) and independent symmetric jump J in {.97,1,1.03} with weights .003,.994,.003; the same positive-part formula applies.",
+    "With W>=0 and cash>=0, E[W_v^p|F_u] <= W_u^p*(1+max_a kappa_bar,p)^Nb*(1+max_a kappa_overnight,p)^Nn, where the specified window contains Nb<=234 five-minute bars and Nn<=3 overnight open transitions, conditional on no new deposits and native price-support assumptions.",
+    "For each separately funded book the inequality holds without matched admissions; for p>=1, E[|W_A(v)-W_B(v)|^p|F_u] <= 2^(p-1)*K_p*(W_A(u)^p+W_B(u)^p) for positive wealth. This is a distributional moment upper bound, not a signed NATIVE-minus-FIRST_CROSS alpha bound.",
+    "Jensen gives E[log(W_v/W_u)|F_u] <= log(K_p)/p when positive, but K_p is not certified to be below 3 calendar days * original 1bp/day and does NOT prove N9S infeasibility."
+  ],
+  "refutation": [
+    "Native funded entry within bar occurs at a nonopening price or below the observed open",
+    "Native exit can pay more than its current bar eight-substep observed high or negative price outside the modeled book",
+    "Portfolio can borrow physical cash or reacquire using intrabar proceeds after seeing new bar innovations",
+    "Closed-form Gaussian-positive-part moments disagree with independent numerical quadrature",
+    "Sigma mixture, overnight jumps, correlation, generator hashes, capital, admission limits or fees drift from registered M9",
+    "Returned certificate claims a 12% continuous exposure cap, broker executable-price equivalence, or N9S 1bp/day feasibility/impermissibility based only on the moment envelope",
+    "Any upcoming native admission uses an exit receipt before knownAt"
+  ],
+  "negative_controls": [
+    "All cash has conditional bar moment factor exactly 1",
+    "Different SYNA/SYNB inventory sizes and receipts remain separately funded",
+    "Same-bar target sale proceeds cannot finance an unapproved opening acquisition",
+    "OHLC high bound admits zero-tick sales but rejects a target exit above high",
+    "Late receipt clock never changes physical execution time or creates a fill",
+    "Stress fees kept original; no unregistered free money"
+  ],
+  "finite_catalog": [
+    "p=1,2,4 Gaussian call formula vs Simpson quadrature over 3 sigma values and three prefix lengths",
+    "Conditional inventory-weighted risk for two assets and all-CASH control",
+    "Original Gaussian .004 mixture and WEAK parameter support (final sigma multiplier and activity cap)",
+    "Overnight weak symmetric jump and marginal normal with no independence between assets",
+    "First-session 72h upper with 234 bar increments, three overnight transitions, Markov 20x tail and false N9S promotion blocked",
+    "Native replay full campaigns with original source and two-asset financed IOC, event price support inspection",
+    "Native/first-cross two-book fixture with partial targets, zero-tick exit, delayed NO_FILL, adverse cash/fills/marks"
+  ],
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "new_seeds": 0,
+    "prospective_alpha": 0,
+    "final_M10_unopened": 3200,
+    "workers": 1
+  },
+  "source_blobs": {
+    "tools/fwn9_p9m_c14_moments.py": "ef74cff2eeb421015806121cc75d85cfed8d7a1a",
+    "tools/test_fwn9_p9m_c14_moments.py": "1f7b252afc8121b5fe161908606029fc8b2876de",
+    "runtime30/fwn9_p9m_c14_native_bar_guard.cjs": "6a2f9d36e2fe38593b096a94c7c924381a0fb278",
+    "tools/fwn9_p9m_c14_native_test.cjs": "d99e7f6f18ec4e2464c9ef4ab8ebfb7af2279dcb",
+    "tools/fwn9_p9m_c14_accountant.py": "13416f7d230e6c2e8899dae1dffea90329c844c5",
+    ".github/workflows/fwn9_p9m_c14.yml": "dab41d74422759dfd9fa0eab3d136ec4a34b6914"
+  },
+  "preserved_contract": {
+    "original": "research/modulation9/protocol.json",
+    "capital_usd": 20000,
+    "gross_admission_fraction": 0.12,
+    "risk_fraction": 0.0025,
+    "daily_loss_fraction": 0.02,
+    "max_drawdown_fraction": 0.08,
+    "max_holding_hours": 72,
+    "costs": "ORIGINAL_NOMINAL_AND_STRESS_UNCHANGED",
+    "market_law": "ORIGINAL_WEAK_UNCHANGED",
+    "hurdle_daily_log": 0.0001
+  },
+  "limitations": [
+    "No proof all original native portfolio paths meet cash>=0, no intrabar buy recycling and fully known receipt conditions",
+    "Native OHLC barrier is not established tradeable on original eight discrete observations; high-envelope dominance is weaker",
+    "Moment upper is not a tight conditional wealth-difference or N9S hurdle upper",
+    "Operational partial-entry/reject/outage/impact and multicell coordinator gates remain unverified",
+    "No broker, no sampled market seeds, no M10 final, no resumed automation"
+  ],
+  "promotion_allowed": false
+}
