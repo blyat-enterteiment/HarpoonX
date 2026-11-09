@@ -47,7 +47,7 @@ The values above apply ONLY to this engineering fixture. They are neither expect
 
 `tools/fwn9_p9m_c16_c15_handoff.py` reads those measurements only after this independent check and frozen protocol validation. It returns the original C15 nominal and stress hurdles with expected A and U **null**, since a deterministic path is not a population certificate. Recursive candidate search and N9-S promotion stay blocked.
 
-Validation of the corrected bar-exit uncertainty: [GitHub Actions run 42560563816](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42560563816) — 11/11 native tests, Python Ruff and mypy strict, Decimal46 independent audit, three tamper controls, source hashes PASS. The earlier inconsistent interim bridge lower was explicitly corrected; the intermediate CI failure is retained for traceability. Performance measurement: 200 read-only fixture audits in 314.722 ms on that CI runner; this is neither trading latency nor population research throughput.
+Validation of the corrected bar-exit uncertainty and C15 guarded handoff: [GitHub Actions run 42560664845](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42560664845) — 11/11 native tests, Python Ruff and mypy strict, Decimal46 independent audit, three tamper controls, C15 null-expectation handoff and source hashes PASS. The earlier inconsistent interim bridge lower was explicitly corrected; interim CI failure 42560524770 is retained for traceability. Performance measurement: 200 read-only fixture audits in 215.172 ms on this runner; this is neither trading latency nor population research throughput.
 
 ## Local reproducible checks (from repo root)
 
