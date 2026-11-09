@@ -10,7 +10,7 @@
     "model": "FROZEN_SYNTHETIC_WEAK",
     "historical_original_zip_sha256": "a1d7a78c81f16b357a8699369fa1c8ac66e2b48e90d33f0770ebad88e3e0fc92",
     "historical_development_member": "evidence/modulation9/development/WEAK_730101.json.gz",
-    "original_member_sha256": "4c45a1177a063ae4b7758ef3aa784ddf4857d"
+    "original_member_sha256": "4c45a1177a063ae4b7758ef3a644c9dbc1c1c3925d30a15d0a152f392adde819"
   },
   "proof_targets": [
     "Construct two 8-step ordered price paths with exactly same OHLC and prebar stop/target; original native stop-first produces same fill, independent first-cross produces different sequence and price. Deduce no universally correct OHLC-only function can reproduce first-cross events on full-support WEAK normal innovations.",
@@ -50,5 +50,6 @@
     "full_native_hypotheses_verified": false,
     "execution_equivalence_achievable_with_unchanged_OHLC": false,
     "exact_equivalence_refuted": true
-  }
+  },
+  "correction_note": "Source member hash transcription corrected before any C21 certification/test; original archive and member SHA must be verified independently from bytes."
 }
