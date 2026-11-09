@@ -22,6 +22,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Python reproducible dependency and static checks
         run: |
           python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.14.1 ruff==0.14.7 mypy==1.18.2
@@ -106,6 +109,23 @@ jobs:
           p=json.loads((root/'research/modulation11/fwn9_phase9m_c17_protocol.json').read_text())
           assert p['budget']=={'new_policy_candidates':0,'new_market_seeds':0,'new_economic_accounts':0,'new_signals_generated':0,'M10_final_unopened':3200,'alpha_spent':0}
           print('C17_FROZEN_M9_SOURCE_AND_BUDGET_PASS')
+          PY
+      - name: Read-only C16 native A/U regression and guarded C15 handoff
+        run: |
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c16_prior.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c16_prior.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c16_prior.log research/modulation9/protocol.json > /tmp/c17_c16_handoff.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('/tmp/c17_c16_handoff.jsonl').read_text()
+          d=json.loads(text.split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert d['N9SAdmission']=='NO_GO'
+          assert d['population_C15_screens']['NOMINAL']['expected_A_upper'] is None
+          assert d['population_C15_screens']['NOMINAL']['expected_U_upper'] is None
+          assert d['may_enable_recursive_search'] is False
+          print('C17_C16_NATIVE_ACCOUNTING_REGRESSION_AND_C15_NO_PROMOTION_PASS')
           PY
       - uses: actions/upload-artifact@v4
         with:
