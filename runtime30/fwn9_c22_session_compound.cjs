@@ -173,6 +173,59 @@ function size(cap,{book,unitPriceUsd,unitRiskUsd,multiplier=1,step}={}){
   unitStopRiskUsd:qty*unitRiskUsd*multiplier,
   executionAllowed:false,N9S:"NO_GO"};
 }
+/** Robust fractional-Kelly sizing for the *preregistered binary payoff model*.
+ * Uses pessimistic probability, positive-return lower and loss/cost upper.
+ * This is a deterministic economic research sensitivity, NOT a signal or order.
+ * Requires an independently externally verified OOS tail-loss bound; an
+ * OHLC threshold is not accepted as a guaranteed worst-case execution loss.
+ */
+function geometricFraction({observedResearchGate,pWinLower,gainLowerFraction,
+ lossUpperFraction,roundTripCostUpperFraction,
+ independentlyVerifiedLossTail,brokerFillReachability,
+ capital,halfKelly=true}={}){
+ need(observedResearchGate==="PRESPECIFIED_OOS_FWER_PASS",
+  "GEOMETRIC_OOS_GATE");
+ need(independentlyVerifiedLossTail===true&&brokerFillReachability===true,
+  "GEOMETRIC_ATTAINABLE_LOSS_BOUND_NOT_PROVED");
+ for(const [k,v] of Object.entries({
+  pWinLower,gainLowerFraction,lossUpperFraction,roundTripCostUpperFraction}))
+  need(num(v)&&v>=0,"GEOMETRIC_FINANCIAL_"+k);
+ need(pWinLower<=1&&gainLowerFraction>0&&lossUpperFraction>0&&
+  roundTripCostUpperFraction<1,"GEOMETRIC_DOMAIN");
+ need(capital?.schema==="FWN9_C22_SETTLED_CAPACITY_1"&&
+  capital.executionAllowed===false&&capital.N9S==="NO_GO",
+  "GEOMETRIC_FINANCED_CAPITAL");
+ need(typeof halfKelly==="boolean","GEOMETRIC_FRACTIONAL_FACTOR");
+ const gain=gainLowerFraction-roundTripCostUpperFraction;
+ const loss=lossUpperFraction+roundTripCostUpperFraction;
+ let star=0;
+ if(gain>0){
+  const numerator=pWinLower*gain-(1-pWinLower)*loss;
+  if(numerator>0)star=numerator/(gain*loss);
+ }
+ const fundedFraction=capital.frozenCapitalBaseUsd>0?
+  capital.newGrossAdmissionHeadroomUsd/capital.frozenCapitalBaseUsd:0;
+ const riskFraction=capital.frozenCapitalBaseUsd>0?
+  capital.newRiskHeadroomUsd/capital.frozenCapitalBaseUsd:0;
+ const f=Math.max(0,Math.min((halfKelly?.5:1)*star,
+  fundedFraction,riskFraction/loss,.12,1/(2*loss)));
+ const expectedLogLower=f===0?0:
+  pWinLower*Math.log1p(f*gain)+(1-pWinLower)*Math.log1p(-f*loss);
+ need(Number.isFinite(expectedLogLower)&&expectedLogLower>=-1e-12,
+  "GEOMETRIC_NONPOSITIVE_CONSERVATIVE_EXPECTATION");
+ return {schema:"FWN9_C22_ROBUST_GEOMETRIC_SENSITIVITY_1",
+  sourceLaw:"PESSIMISTIC_TWO_OUTCOME_ONLY_NOT_EMPIRICAL_POPULATION",
+  unconstrainedKellyFraction:star,
+  conservativeResearchFraction:f,
+  conservativeExpectedLogPerTrade:expectedLogLower,
+  downsideRiskFractionOfEquity:f*loss,
+  originalGrossAdmissionFractionLimit:.12,
+  originalPerEntryRiskCap:.0025,
+  successProbabilityIsOnlyAssertedExternalLowerBound:true,
+  portfolioDependenceAndJointCorrelationUnproved:true,
+  priceExecutionReachabilityBasedOnExternalAttestationNotValidatedHere:true,
+  executionAllowed:false,N9S:"NO_GO"};
+}
 function canonical(obj){
  if(obj===null||typeof obj==="string"||typeof obj==="boolean")return JSON.stringify(obj);
  if(typeof obj==="number"){need(Number.isFinite(obj),"NONFINITE_HASH_INPUT");return JSON.stringify(obj);}
@@ -184,4 +237,4 @@ function canonical(obj){
 function fingerprint(obj){need(obj&&typeof obj==="object"&&!Array.isArray(obj),"HASH_OBJECT");
  return crypto.createHash("sha256").update(canonical(obj)).digest("hex");
 }
-module.exports={windowFor,assess,rank,compound,buyingPower,size,fingerprint};
+module.exports={windowFor,assess,rank,compound,buyingPower,size,geometricFraction,fingerprint};
