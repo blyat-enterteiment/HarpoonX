@@ -54,3 +54,50 @@ test("C22 negative after cost, p adjusted and future data are blocked",()=>{
  A.equal(P.assess(c({independentDays:2}),ctx).reason,"INSUFFICIENT_OOS_DAYS");
  A.equal(P.assess(c({source:"SYNTHETIC"}),ctx).reason,"UNVERIFIED_FILL_AND_COST_PROVENANCE");
 });
+
+const ledger=()=>[
+ {startAt:1000,endAt:2000,knownAt:2100,beginningEquityUsd:20000,
+ endingEquityUsd:21000,grossEconomicPnlUsd:1050,tradingFeesUsd:40,
+ externalCostsUsd:10,externalFlowUsd:0,ledgerReconciled:true,costCoverageComplete:true},
+ {startAt:2200,endAt:3000,knownAt:3100,beginningEquityUsd:21000,
+ endingEquityUsd:20790,grossEconomicPnlUsd:-170,tradingFeesUsd:30,
+ externalCostsUsd:10,externalFlowUsd:0,ledgerReconciled:true,costCoverageComplete:true}
+];
+const book=()=>({observedEquityUsd:23500,settledCashUsd:21000,
+ committedCashUsd:1000,unsettledCashUsd:200,outstandingGrossUsd:0,
+ outstandingRiskUsd:0,reconciled:true,receiptsComplete:true,riskHalt:false});
+test("C22 rejects duplicate candidate and selects CASH if unproven",()=>{
+ const x=P.rank([c({source:"SYNTHETIC"})],{at,calendar:[winter]});
+ A.equal(x.bestResearchId,null);A.equal(x.fallback,"CASH");
+ A.equal(x.executionAllowed,false);A.equal(x.newMarketSeeds,0);
+ A.throws(()=>P.rank([c(),c()],{at,calendar:[winter]}),/C22_DUPLICATE_ID/);
+});
+test("C22 continuous net self-financed compounding does not reset capital",()=>{
+ const x=P.compound(20000,ledger());
+ A.equal(x.terminalEquityUsd,20790);A.equal(x.netEconomicPnlUsd,790);
+ A(Math.abs(x.compoundReturn-.0395)<1e-12);
+ A(Math.abs(Math.exp(x.logGrowth)-1.0395)<1e-12);
+ A.equal(x.independentAssetAccountsCombined,false);
+});
+test("C22 forged cash flow, equity, unknown receipt must fail closed",()=>{
+ let x=ledger();x[1].beginningEquityUsd=20000;
+ A.throws(()=>P.compound(20000,x),/C22_SELF_FINANCED_EQUITY_IDENTITY/);
+ x=ledger();x[1].externalFlowUsd=1000;
+ A.throws(()=>P.compound(20000,x),/C22_NO_UNPRICED_EXTERNAL_CASH_FLOW/);
+ x=ledger();x[0].knownAt=2300;
+ A.throws(()=>P.compound(20000,x),/C22_CAUSAL_RECEIPT_CLOCK/);
+});
+test("C22 original 20k cap survives mark-to-market equity growth",()=>{
+ const x=P.buyingPower(book());
+ A.equal(x.frozenCapitalBaseUsd,20000);
+ A.equal(x.settledAvailableUsd,19800);
+ A.equal(x.newGrossAdmissionHeadroomUsd,2400);
+ A.equal(x.newRiskHeadroomUsd,50);
+ A.equal(x.executionAllowed,false);
+});
+test("C22 notional >12 percent at mark prevents admission not forced sale",()=>{
+ const b=book();b.outstandingGrossUsd=2700;
+ const x=P.buyingPower(b);
+ A.equal(x.newGrossAdmissionHeadroomUsd,0);
+ A.equal(x.continuousGrossCapAssumed,false);
+});
