@@ -40,7 +40,7 @@ class C18DualTests(unittest.TestCase):
                                        float(a),delta=0.03)
                 self.assertAlmostEqual(report["conditional_class_expected_final_wealth_upper_usd"],
                                        float(capital*R-cost),delta=1e-8)
-                logb=(capital*R-cost).ln()/capital.ln()
+                logb=((capital*R-cost)/capital).ln()
                 self.assertTrue(math.isfinite(logb))
 
     def test_closed_form_sum_matches_independent_recurrence(self) -> None:
