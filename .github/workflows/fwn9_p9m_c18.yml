@@ -1,0 +1,76 @@
+name: FWN9 C18 conditional funded WEAK wealth dual and independent Decimal
+on:
+  push:
+    branches: [research/m11-c18-funded-wealth-gamma-dual]
+    paths:
+      - 'tools/fwn9_p9m_c18_funded_wealth_dual.py'
+      - 'tools/test_fwn9_p9m_c18_funded_wealth_dual.py'
+      - 'research/modulation11/fwn9_phase9m_c18_protocol.json'
+      - '.github/workflows/fwn9_p9m_c18.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  conditional-wealth-dual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static syntax, lint, strict types
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          python -m py_compile tools/fwn9_p9m_c18_funded_wealth_dual.py tools/test_fwn9_p9m_c18_funded_wealth_dual.py
+          ruff check tools/fwn9_p9m_c18_funded_wealth_dual.py tools/test_fwn9_p9m_c18_funded_wealth_dual.py
+          mypy --strict tools/fwn9_p9m_c18_funded_wealth_dual.py tools/test_fwn9_p9m_c18_funded_wealth_dual.py
+      - name: Twelve analytic-independent Decimal50 and adverse tests
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c18_funded_wealth_dual.py' -v
+      - name: Original model sha and fail-closed C18 report
+        run: |
+          python -B tools/fwn9_p9m_c18_funded_wealth_dual.py > /tmp/c18.jsonl
+          python -B tools/fwn9_p9m_c18_funded_wealth_dual.py --U-expectation-upper 0 > /tmp/c18_ideal.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('.')
+          prereg=json.loads((root/'research/modulation11/fwn9_phase9m_c18_protocol.json').read_text())
+          assert prereg['budget']=={'new_policy_candidates':0,'new_market_seeds':0,'new_signal_nominations':0,'new_economic_accounts':0,'unopened_M10_final':3200,'prospective_alpha_spent':0}
+          raw=Path('/tmp/c18.jsonl').read_text()
+          j=json.loads(raw.split('C18_FUNDED_WEALTH_GAMMA_DUAL=',1)[1])
+          for item in j['reports']:
+              assert item['U_native_expected_upper_usd'] is None
+              assert item['A_native_expected_upper_dollar_substeps'] is None
+              assert item['conditional_math_exclusion'] is None
+              assert item['N9S']=='NO_GO'
+              assert item['original_12_percent_is_continuous_fraction'] is False
+          ideal=json.loads(Path('/tmp/c18_ideal.jsonl').read_text().split('C18_FUNDED_WEALTH_GAMMA_DUAL=',1)[1])
+          for item in ideal['reports']:
+              assert item['conditional_math_exclusion'] is False
+              assert item['native_full_population_certified'] is False
+              assert item['ideal_U_zero_daily_log_upper_bps']>1
+          print('C18_FROZEN_WEAK_NO_FALSE_PROMOTION_PASS')
+          print('C18_UNINVESTED_LIMIT_A',ideal['reports'][0]['ideal_U_zero_A_upper_dollar_substeps'])
+          print('C18_NOMINAL_U0_DAILY_LOG_UPPER_BPS',ideal['reports'][0]['ideal_U_zero_daily_log_upper_bps'])
+          print('C18_STRESS_U0_DAILY_LOG_UPPER_BPS',ideal['reports'][1]['ideal_U_zero_daily_log_upper_bps'])
+          print('C18_NOMINAL_EXPOSURE_FRACTION_REQUIRED_IF_U0',ideal['reports'][0]['maximum_certified_uniform_exposure_fraction_if_U_zero'])
+          PY
+      - name: Check C17 documented tape archive provenance without opening it
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          evidence=json.loads(Path('evidence/modulation11/fwn9_phase9m_c17_r2_evidence.json').read_text())
+          assert evidence['cross_runner']['numeric_7dp_digest']=='a173af77533f7bbe2b0a3ae54485ee64bc4f33cc83a01b860efdb0702d102398'
+          assert evidence['local_existing_archive_reconciliation']['all_final_archive_members_read']==0
+          assert evidence['budget']['M10_final_unopened']==3200
+          registered=json.loads(Path('research/modulation9/registration.json').read_text())
+          for source in ('quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js','research/modulation9/protocol.json'):
+              assert hashlib.sha256(Path(source).read_bytes()).hexdigest()==registered['sources_sha256'][source]
+          print('C18_C17_SOURCE_HASH_M10_SEALED_AUDIT_ONLY_PASS')
+          PY
