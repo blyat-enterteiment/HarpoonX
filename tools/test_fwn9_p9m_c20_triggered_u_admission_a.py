@@ -97,6 +97,20 @@ class C20Tests(unittest.TestCase):
         self.assertEqual(len(r["targetModelCreditCoefficients"]),2)
         self.assertTrue(r["trigger_thresholds_known_before_bar_required"])
 
+    def test_trigger_conditioned_never_exceeds_existing_C19_variation_bound(self)->None:
+        cases=[
+            ("SYNA",100.,20,98.,[(103.,5),(106.,5)]),
+            ("SYNB",150.,9,149.,[(151.,2)]),
+            ("SYNA",100.,12,100.,[(100.,3)]),
+        ]
+        for symbol,opening,quantity,stop,targets in cases:
+            row=trigger_conditioned_bar_upper(symbol,opening,quantity,stop,targets)
+            self.assertLessEqual(
+                row["conditional_expected_positive_model_credit_usd_upper"],
+                row["unconditional_C19_variation_upper_usd"]+1e-9
+            )
+            self.assertGreaterEqual(row["improvement_against_C19_usd"],0)
+
     def test_stop_first_pathwise_payoff_dominates_native_priced_credit(self)->None:
         # Deterministic tape; e.g. H hits target and L hits stop,
         # but STOP wins. This is NOT an average or a Monte Carlo trial.
