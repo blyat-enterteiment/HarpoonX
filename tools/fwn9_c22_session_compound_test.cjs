@@ -126,3 +126,13 @@ test("C22 canonical audit hash includes nested entries not just top-level",()=>{
  A.notEqual(P.fingerprint(a),P.fingerprint({...a,b:{a:3,z:1}}));
  A.throws(()=>P.fingerprint({invalid:Infinity}),/C22_NONFINITE_HASH_INPUT/);
 });
+
+test("C22 near fractional boundary never rounds to an unauthorized crypto lot",()=>{
+ const cap=P.buyingPower(book());
+ cap.newGrossAdmissionHeadroomUsd=.0000999;
+ const result=P.size(cap,{book:"crypto",unitPriceUsd:10000,unitRiskUsd:100});
+ A.equal(result.quantity,0);
+ A(result.grossNotionalUsd<=cap.newGrossAdmissionHeadroomUsd);
+ A.throws(()=>P.size({}, {book:"equity",unitPriceUsd:100,unitRiskUsd:1}),
+  /C22_SIZE_REQUIRES_VERIFIED_CAPACITY_OBJECT/);
+});
