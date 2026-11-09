@@ -102,6 +102,44 @@ function completeExample(){
   };
 }
 
+function latentPrebarStatesWitness(){
+  // Two different known-before-bar stops, same visible no-fill bar, and
+  // different reactions to a subsequent (fully supported) WEAK price path.
+  // Establishes non-identifiability FROM A COMPACT NO-FILL ARCHIVE ROW.
+  // Does not claim both states arise from an identical full source-history.
+  const costs={friction:0.0003,perSideUsd:0.005,tick:0.01};
+  const common={quantity:8,entry:100,distance:2,targetsR:[1.5,3]};
+  const t=Date.UTC(2025,0,3,14,30);
+  const observed={t,end:t+300000,availableAt:t+301000,
+    o:100,h:100.2,l:99.8,c:100.05};
+  const observedSteps=[100.02,99.9,100.1,99.8,100.2,100,100.07,100.05];
+  E.checkGrid(observed,observedSteps);
+  const tight={...common,stop:99.5},loose={...common,stop:98.0};
+  const pastTight=E.nativeBarExits(observed,observedSteps,tight,costs);
+  const pastLoose=E.nativeBarExits(observed,observedSteps,loose,costs);
+  need(pastTight.fills.length===0&&pastLoose.fills.length===0,
+    "UNOBSERVED_STOPS_HAVE_SAME_NO_FILL_OBSERVATION");
+  const later={t:observed.end,end:observed.end+300000,
+    availableAt:observed.end+301000,o:100.05,h:100.2,l:99,c:100.0};
+  const laterSteps=[100.06,99.8,99.0,100.1,100.2,100.04,100.03,100.0];
+  E.checkGrid(later,laterSteps);
+  const nextTight=E.nativeBarExits(later,laterSteps,tight,costs);
+  const nextLoose=E.nativeBarExits(later,laterSteps,loose,costs);
+  need(nextTight.fills.length===1&&
+    nextTight.fills[0].reason==="STOP"&&
+    nextLoose.fills.length===0,
+    "LATENT_STOP_CHANGES_NEXT_BAR_ACTIVATION");
+  return {
+    schema:"HARPOON_M11_C21_COMPACT_PREBAR_STATE_NONIDENTIFIABILITY_1",
+    samePastOHLC:true,samePastRecordedFills:true,
+    alternativeUnrecordedPriorStops:[tight.stop,loose.stop],
+    futureActivationDiffers:true,
+    futureTriggerPositiveDensityUnderOriginalWEAK:true,
+    conclusion:"A compact history omitting prebar stop/target state cannot uniquely determine conditional future exit probabilities; complete frozen source-policy path may determine them if instrumented/reconstructed.",
+    historicalSingleSeedPopulationCertified:false,N9S:"NO_GO"
+  };
+}
+
 function certificateGate({admissionsExpectationUpper,executionCreditExpectationUpper,
   prebarStatePopulationTraceComplete=false,brokerExecutionReceiptsIndependentlyVerified=false}={}){
   for(const [name,v] of Object.entries({
@@ -134,4 +172,4 @@ function certificateGate({admissionsExpectationUpper,executionCreditExpectationU
     N9S:"NO_GO",holdoutM10Opened:0,recursiveSearchEnabled:false
   };
 }
-module.exports={assertFrozenSources,completeExample,certificateGate};
+module.exports={assertFrozenSources,completeExample,latentPrebarStatesWitness,certificateGate};
