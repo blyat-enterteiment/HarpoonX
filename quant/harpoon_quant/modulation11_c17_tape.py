@@ -76,7 +76,7 @@ def recover_registered_tape(
     ]
     if len(boundary) != 1:
         raise RuntimeError("C17_ORIGINAL_INTRABAR_OBSERVER_BOUNDARY_CHANGED")
-    captured: list[np.ndarray] = []
+    captured: list[np.ndarray[Any, Any]] = []
 
     def trace_market(frame: Any, event: str, arg: Any) -> Any:
         del arg
