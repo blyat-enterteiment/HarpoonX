@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Sequence
 import tempfile
 import unittest
 from pathlib import Path
@@ -26,7 +27,7 @@ def independent_simpson_put(mu:float,variance:float)->float:
     return integral*step/3
 
 
-def finite_bar_barrier_envelope(prices:list[float])->tuple[float,float]:
+def finite_bar_barrier_envelope(prices:Sequence[float])->tuple[float,float]:
     if len(prices)!=9 or not all(p>0 for p in prices):
         raise ValueError("BAD_FIXTURE")
     high=max(prices)
