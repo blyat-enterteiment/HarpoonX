@@ -7,10 +7,10 @@
   "tests": "tools/fwn9_c22_session_compound_test.cjs",
   "protocol": "research/modulation11/fwn9_phase9m_c22_protocol.json",
   "ci": {
-    "run_id": 42649314480,
-    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42649314480",
+    "run_id": 42649799139,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42649799139",
     "conclusion": "SUCCESS",
-    "new_deterministic_C22_Node_tests": 16,
+    "new_deterministic_C22_Node_tests": 19,
     "existing_C21_non_equivalence_regressions": 16,
     "existing_C20_IOC_admission_regressions": 6,
     "existing_C16_native_accounting_regressions": 11,
@@ -19,7 +19,8 @@
     "C15_expected_pop_U": null,
     "C15_N9S_status": "NO_GO",
     "original_generator_hashes_frozen": "PASS",
-    "fractional_near_boundary_adversarial": "PASS"
+    "fractional_near_boundary_adversarial": "PASS",
+    "robust_geometric_fractional_kelly_tests": 3
   },
   "observed_earnings": {
     "assets_eligible_for_measured_opportunity_rank": 0,
@@ -46,7 +47,21 @@
     "hypotheses_preregistered": 3,
     "untried_variants": 6,
     "study_currently_active": false,
-    "unit_lot_precision": "C22 size rejects quantity increment smaller than 1e-8 and rounds down with postcondition against both funded gross and risk headroom; fractional overshoot counterexample tested PASS"
+    "unit_lot_precision": "C22 size rejects quantity increment smaller than 1e-8 and rounds down with postcondition against both funded gross and risk headroom; fractional overshoot counterexample tested PASS",
+    "robust_geometric": {
+      "objective": "Conservative p_lower log(1+f*gain_net_lower)+(1-p_lower) log(1-f*loss_net_upper)",
+      "limits": [
+        "half Kelly sensitivity, not trading authority",
+        "admission gross 0.12",
+        "per-entry risk 0.0025",
+        "remaining settled cash",
+        "original frozen hard capital 20000"
+      ],
+      "when_no_robust_net_advantage": "f=0 CASH",
+      "when_tail_or_fill_reachability_missing": "FAIL CLOSED",
+      "historical_profitability_proven": false,
+      "multi_asset_correlation_or_joint_risk_certified": false
+    }
   },
   "integrity": {
     "original_modulation9_generator_unchanged": true,
@@ -77,5 +92,5 @@
     "Original 20k capital hardcap cannot be raised under frozen research and compound results are only wealth arithmetic",
     "No broker account settlement reconciled in this offline test; no production authority"
   ],
-  "verdict": "C22_INFRASTRUCTURE_PASS_RESEARCH_ONLY_N9S_NO_GO"
+  "verdict": "C22_R2_READ_ONLY_SESSION_COMPOUND_AND_CONSERVATIVE_GEOMETRIC_CAP_PASSED_N9S_NO_GO"
 }
