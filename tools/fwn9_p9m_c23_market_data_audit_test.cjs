@@ -131,3 +131,33 @@ test("C23 no market signals, account trials or sealed M10 calls",()=>{
  A.deepEqual(r.budget,{newSignals:0,newSeeds:0,newEconomicAccounts:0,openedM10Final:0});
  A.equal(r.thisDoesNotOpenFutureHoldout,true);
 });
+
+test("C23 same frozen OHLC admits both profitable and loss-making hypothetical fills",()=>{
+ const w=D.fillNonidentificationWitness();
+ A.equal(w.bar.open,100);
+ A.equal(w.bar.close,100.1);
+ A(w.paths[0].netPnlUsd>0);
+ A(w.paths[1].netPnlUsd<0);
+ A.equal(w.cannotCertifyOptimalWindowFromPriceBars,true);
+ A.equal(w.bothAreHypotheticalNotActualBrokerReceipts,true);
+ A.equal(w.newMarketSeeds,0);
+});
+test("C23 six frozen preregistered variants have no direct realized receipts",()=>{
+ const r=D.variantReceiptReadiness();
+ A.equal(r.candidateCount,6);
+ A.equal(r.acceptedForFamilywiseOOS,0);
+ A.equal(r.financialGO,false);
+ A.equal(r.variants.every(x=>x.reason==="NO_ACTUAL_EXECUTION_RECEIPT_FOR_THIS_FROZEN_VARIANT"),true);
+});
+test("C23 forged policy names and fake broker origin booleans never certify performance",()=>{
+ const q=D.variantReceiptReadiness({
+  executedPolicyIds:["H22_CRYPTO_UTC_LIQUIDITY@UTC_16_24"],
+  independentBrokerOriginVerified:true,fullCandidateOpportunityTrace:true
+ });
+ A.equal(q.independentlyCertifiedVariantCount,0);
+ A.equal(q.financialGO,false);
+ A.equal(q.variants.filter(x=>x.reportedPolicyReceiptIdPresent).length,1);
+ A.equal(q.variants.some(x=>x.reason==="COMPLETE_NET_CASH_RECONCILIATION_AND_CONTROL_UNAVAILABLE"),true);
+ A.throws(()=>D.variantReceiptReadiness({executedPolicyIds:[null]}),
+  /C23_ORIGINAL_POLICY_ID_LIST/);
+});
