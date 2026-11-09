@@ -1,0 +1,43 @@
+# HARPOONX — FWN9 / M11 C22: arbitraje por activo, sesión y crecimiento neto acumulado
+
+**Estado: infraestructura de investigación aislada y probada; N9-S NO_GO.** Esta capa no genera estrategias, señales, semillas, cuentas económicas, órdenes ni conexiones con brokers. No activa automáticamente coordinador, optimizador ni políticas. Preserva los 3.200 M10 finales sellados y los fuentes económicos M9–C21.
+
+## 1. Corrección estratégica
+
+No hay un indicador único ni una hora universalmente "óptima". Las virtudes económicas de equity, ETF, cripto y opciones son distintas en disponibilidad, estructura de fricción, liquidez, riesgo y fuentes de PnL. Separa el calendario **en el que sería posible operar** de la validación estadística **de que realmente conviene operar**.
+
+La política propuesta es **CASH por defecto**. Una evaluación observacional solo puede aparecer en el ranking cuando acredita procedencia OBSERVED, fills/fees documentados, relación de caja comparada, límites originales, fechas conocidas, evidencia fuera de muestra y control de multiplicidad. El ranking NUNCA genera una orden ni concede autoridad de ejecución: la procedencia declarada en un objeto de entrada sigue necesitando comprobación externa.
+
+## 2. Matriz multicapa y las tres hipótesis prerregistradas (máximo seis variantes)
+
+| Línea | Activos | Dos ventanas de contraste | Experimento falsable |
+|---|---|---|---|
+| H22_OPENING_CONFIRMATION | acciones/ETF | RTH_OPEN_30 y RTH_MORNING_30_120 | ¿La continuación de ruptura tras apertura y barra conocida gana a momentum estándar/CASH neto, sin mirar barras futuras? |
+| H22_CRYPTO_UTC_LIQUIDITY | BTC/ETH elegibles | UTC_00_08 y UTC_16_24 | ¿Diferencia el net edge por bloque UTC, contrastado con UTC_08_16, fines de semana, costes de spreads e impacto? |
+| H22_OPTION_ASYMMETRY_RESEARCH_ONLY | puts/calls elegibles | RTH_MORNING_30_120 y RTH_LAST_90 | ¿Tiene ventaja neta la asimetría put/call después de primas, greeks, spread, multiplier y cobertura subyacente? **Solo investigación**, ningún ejecutor de opciones admitido. |
+
+No se prueban las seis variantes todavía. Este registro es un conjunto de **hipótesis de investigación** y sus reglas de refutación, no seis nuevas señales ni seis cuentas económicas. No hay optimización recursiva.
+
+### Horarios reales y horarios candidatos
+
+NYSE usa 9:30 a 16:00, horario local America/New_York; se exige calendario verificado para aperturas, cierres abreviados y feriados. No se hardcodea una diferencia fija UTC porque hay horario de verano. Cboe distingue RTH de 9:30–16:00 en opciones de acciones, algunos ETF hasta 16:15, y desde octubre de 2026 sesiones especiales GTH/Curb **solo para contratos designados**. El contrato debe aportar una comprobación explícita para su sesión, no heredar por defecto la elegibilidad de la acción subyacente. Alpaca documenta cripto 24/7; los tres bloques UTC en C22 son particiones de investigación, no horas empíricamente superiores.
+
+Fuentes primarias: https://www.nyse.com/trade/trading-information ; https://www.cboe.com/about/hours/us-options ; https://www.cboe.com/notices/content/?id=62044 ; https://docs.alpaca.markets/us/docs/crypto-trading ; https://docs.alpaca.markets/us/docs/245-trading .
+
+**La existencia de equity overnight 24/5 en un ATS no autoriza a C22 a negociar overnight**: disponibilidad depende de símbolo, venue, spreads, horario efectivo y órdenes elegibles.
+
+## 3. Filtro económico adversarial y sesgos explícitos
+
+Para un candidato observacional por clase/ventana:
+
+    lower_net_bps =
+      lower_oos_gross_alpha_bps
+      - upper_round_trip_cost_bps
+      - upper_market_impact_bps
+      - uncertainty_buffer_bps
+
+Solo se clasifica cuando lower_net_bps>0, límite inferior del resultado apareado contra CASH>0, ajuste familiar ya preregistrado con p<=0.025, al menos 20 días distintos y 30 trayectorias OOS, observación con knownAt<=asOf<=knownAt+5 minutos, drawdown <=8% y peor pérdida diaria <=2%. Esos mínimos son **controles de presentación de investigación**, no certificados de potencia estadística, independencia real de mercado ni valores óptimos. Fallar algún requisito => excluido y CASH.
+
+Evitar explícitamente sesgos de look-ahead, cierre de barra visto antes de publicación, selección post-hoc de ventanas, sesgo por supervivencia, múltiples comparaciones no corregidas, inventar fills en OHLC, financiar entradas con proceeds desconocidos y comparar cripto/equity reiniciando USD20.000 por clase.
+
+El ranking es determinista, ordenado por menor net edge demostrado y desempate de ID; no ajusta parámetros, crea hipótesis nuevas ni consume M10.
