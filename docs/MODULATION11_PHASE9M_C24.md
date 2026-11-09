@@ -67,3 +67,13 @@ Ni más indicadores ni más iteraciones sobre la ventana de septiembre-noviembre
 ## 6. Dictamen
 
 **C24 cierra la auditoría y las pruebas reproducibles en su ámbito, pero no certifica la ventaja real de las seis estrategias ni la imposibilidad económica universal.** N9-S permanece `NO_GO`. Los 3.200 resultados M10 siguen sellados; cero nuevas señales, seeds, cuentas económicas, órdenes, fusiones, despliegues o reinicios recursivos. Estado remoto de Paper/Live: **NO VERIFICADO**, no debe confundirse con 'apagado'.
+
+## 7. Evidencia de la ejecución integral
+
+GitHub Actions [C24, ejecución 42719027995](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42719027995) concluyó `SUCCESS`. Se verificaron **138 de 138 pruebas ejecutables**: Node C24=13, C23=18, C22=19, C21=16, C20=6, C16=11 (83); Python C21=6, C20=15, C19=14, C18=12, C17=8 (55). Ruff y mypy strict en las fuentes matemáticas aplicables, comprobación de sintaxis Node, SHA-256 del generador/política congelados y reconstrucción contable independiente Decimal-46 completados.
+
+El primer intento C24 [42718890606](https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42718890606) falló en cuatro aserciones porque C24 usó un nombre de campo equivocado para `remaining_final_M10_accounts` de C20; se corrigió el mapeo, sin alterar los contratos económicos, y el fallo anterior se conserva.
+
+El resultado detallado de los **17 criterios de aceptación** es distinto: **6 PASS, 1 FAIL (estructural OHLC/first-cross) y 10 BLOCKED** (ausencia de recibos/servicios/NAV/OOS). CI `SUCCESS` certifica que el auditor rechaza precisamente esas afirmaciones económicas falsas; **no** certifica 17/17 condiciones de producción ni que HarpoonX sea rentable.
+
+Registro íntegro: `evidence/modulation11/fwn9_phase9m_c24_evidence.json`; observación Render sin secretos: `evidence/modulation11/fwn9_phase9m_c24_render_inventory.json`. Toda información acerca de servicios actualmente activos permanece UNVERIFIED.
