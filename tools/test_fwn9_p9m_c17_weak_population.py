@@ -121,7 +121,7 @@ class C17Population(unittest.TestCase):
             (root/"research/modulation9").mkdir(parents=True)
             (root/"quant/harpoon_quant/modulation9.py").write_text("FAKE")
             (root/"research/modulation9/protocol.json").write_text("{}")
-            with self.assertRaisesRegex(ValueError,"SOURCE_HASH"):
+            with self.assertRaisesRegex(ValueError,"M9_SHA_MISMATCH"):
                 frozen_m9(root)
 
     def test_float_upward_rounding(self) -> None:
