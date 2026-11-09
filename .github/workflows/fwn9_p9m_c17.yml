@@ -1,0 +1,115 @@
+name: FWN9 C17 frozen WEAK 8-step tape and analytic population upper
+on:
+  push:
+    branches: [research/m11-c17-weak-tape-population-bound]
+    paths:
+      - 'quant/harpoon_quant/modulation11_c17_tape.py'
+      - 'tools/fwn9_p9m_c17_tape_verify.py'
+      - 'tools/fwn9_p9m_c17_weak_population.py'
+      - 'tools/test_fwn9_p9m_c17_weak_population.py'
+      - 'research/modulation11/fwn9_phase9m_c17_protocol.json'
+      - '.github/workflows/fwn9_p9m_c17.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  reused-development-tape-and-population:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Python reproducible dependency and static checks
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.2.6 ruff==0.14.7 mypy==1.18.2
+          python -m py_compile quant/harpoon_quant/modulation11_c17_tape.py tools/fwn9_p9m_c17_tape_verify.py tools/fwn9_p9m_c17_weak_population.py tools/test_fwn9_p9m_c17_weak_population.py
+          ruff check quant/harpoon_quant/modulation11_c17_tape.py tools/fwn9_p9m_c17_tape_verify.py tools/fwn9_p9m_c17_weak_population.py tools/test_fwn9_p9m_c17_weak_population.py
+          mypy --strict quant/harpoon_quant/modulation11_c17_tape.py tools/fwn9_p9m_c17_tape_verify.py tools/fwn9_p9m_c17_weak_population.py tools/test_fwn9_p9m_c17_weak_population.py
+      - name: Independent gaussian quadrature and original-hurdle NO_GO controls
+        env:
+          PYTHONPATH: tools
+        run: python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c17_weak_population.py' -v
+      - name: Original M9 source and conditional WEAK 126-session population upper
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B tools/fwn9_p9m_c17_weak_population.py > /tmp/c17_math.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('/tmp/c17_math.jsonl').read_text().strip()
+          r=json.loads(text.split('FWN9_C17_WEAK_POPULATION_ENVELOPE=',1)[1])
+          assert r['total_evaluation_bars']==9828
+          assert r['total_evaluation_substeps_per_asset']==78624
+          assert r['populational_upper_for_abstract_policy_class'] is True
+          assert r['full_native_implementation_hypotheses_proved'] is False
+          assert r['conditional_model_upper_below_original_hurdle'] is False
+          assert r['N9S']=='NO_GO'
+          assert r['final_M10_opened']==0
+          print('C17_CONDITIONAL_POPULATION_UPPER_NO_GO_PASS')
+          print('C17_KPLUS',r['Kbar']-1)
+          print('C17_RANGE_UPPER',r['r_bar_upper'])
+          print('C17_A_E_UPPER',r['numerically_rounded_A_upper_usd_substeps'])
+          print('C17_U_E_UPPER',r['numerically_rounded_U_upper_usd'])
+          PY
+      - name: Guarded original M9 registered seed-only tape regeneration (no signals)
+        env:
+          PYTHONPATH: quant
+        run: |
+          python -B -m harpoon_quant.modulation11_c17_tape --out /tmp/c17_registered_WEAK_730101_tape.json.gz
+          python - <<'PY'
+          import gzip,json
+          from pathlib import Path
+          with gzip.open('/tmp/c17_registered_WEAK_730101_tape.json.gz','rt') as stream:
+              d=json.load(stream)
+          assert d['stage']=='development' and d['world']=='WEAK' and d['seed']==730101
+          assert d['signal_generation_calls']==0
+          assert d['total_asset_substep_price_count']==157248
+          assert d['economic_account_executions']==0
+          assert d['final_holdout_opened'] is False
+          assert d['historic_archive_byte_match_verified'] is False
+          assert 'signals' not in d
+          print('C17_REUSED_ONLY_M9_DEVELOPMENT_WEAK_730101_NO_SIGNALS_PASS')
+          PY
+      - name: Independent frozen M9 re-generation and 157248 tape-price checks
+        env:
+          PYTHONPATH: quant
+        run: |
+          python -B tools/fwn9_p9m_c17_tape_verify.py /tmp/c17_registered_WEAK_730101_tape.json.gz
+      - name: Final and any unregistered seeds fail before RNG access
+        env:
+          PYTHONPATH: quant
+        run: |
+          python - <<'PY'
+          from harpoon_quant.modulation11_c17_tape import recover_registered_tape
+          for seed,world,stage in ((940201,'WEAK','final'),(1506201,'WEAK','final'),(730102,'WEAK','development'),(730101,'TREND','development')):
+              try:
+                  recover_registered_tape(seed,world,stage)
+              except ValueError as exc:
+                  assert 'C17_ONLY_REGISTERED' in str(exc)
+              else:
+                  raise AssertionError('C17_FORBIDDEN_SEED_OR_WORLD_ALLOWED')
+          print('C17_FINAL_HOLDOUT_AND_NEW_SEEDS_BLOCKED_PASS')
+          PY
+      - name: Original M9 immutable source SHA256 and zero accounts
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('.')
+          r=json.loads((root/'research/modulation9/registration.json').read_text())
+          for path in ('quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js','research/modulation9/protocol.json'):
+              assert hashlib.sha256((root/path).read_bytes()).hexdigest()==r['sources_sha256'][path],path
+          p=json.loads((root/'research/modulation11/fwn9_phase9m_c17_protocol.json').read_text())
+          assert p['budget']=={'new_policy_candidates':0,'new_market_seeds':0,'new_economic_accounts':0,'new_signals_generated':0,'M10_final_unopened':3200,'alpha_spent':0}
+          print('C17_FROZEN_M9_SOURCE_AND_BUDGET_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: C17-reused-M9-WEAK-730101-ordered-eightstep-tape-DEV-ONLY
+          path: /tmp/c17_registered_WEAK_730101_tape.json.gz
+          if-no-files-found: error
+          retention-days: 30
