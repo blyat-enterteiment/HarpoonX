@@ -1,0 +1,69 @@
+{
+  "schema": "HARPOON_M11_C20_EVENT_CONDITIONED_WEAK_U_AND_ADMISSION_EA_PREREG_1",
+  "parent": "research/modulation11/fwn9_phase9m_c19_protocol.json",
+  "objective": "Derive a conditional WEAK stop/TP-triggered execution-mark credit moment, not all-bar negative variation; derive a separate population E[A] upper in terms of original admitted/funded IOC notional, holding <=72h and the actual trading calendar, without a 12% continuous position cap. Distinguish conditional theorems from proven full native implementation.",
+  "frozen_sources": {
+    "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "protocol_sha256": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "reservations_sha256": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494"
+  },
+  "registered_constraints": {
+    "world": "WEAK",
+    "capital": 20000,
+    "substeps_per_bar": 8,
+    "eval_sessions": 126,
+    "bars_per_session": 78,
+    "calendar": "SYNTHETIC_WEEKDAYS_1430_2100_UTC_NO_HOLIDAYS_OR_DST",
+    "maximum_holding_elapsed_hours": 72,
+    "maximum_calendar_sessions_inside_72h_upper": 4,
+    "maximum_intraday_substeps_inside_72h_upper": 2496,
+    "commission": "UNCHANGED_NOMINAL_AND_STRESS",
+    "original_admission_gross_fraction": 0.12,
+    "continuous_notional_cap_assumed": false
+  },
+  "mathematical_contract": {
+    "native_source_close_credit": "All modeled OPEN exit marks at that bar's open and all STOP/TP bar-end fills at that bar's close; open buys must be at or above open; STOP sell gross<=min(open,prebar_stop) and any TP sell gross<=target price; all qty funded, prebar and long. U is favorable *modeled* close-mark credit and not a verified executable fill advantage.",
+    "event_conditioning": "For prebar stop s and target k_i (with prebar prespecified max sell quantities q_i), condition U_stop on P(min(P0..P8)<=s) and each U_target_i on P(max(P0..P8)>=k_i). Original stop-first can only reduce the sum bound.",
+    "gaussian_probability_envelope": "Union of 8 normal prefix tail bounds under original frozen drift, activity, final sigma support, and original 0.996/0.004 variance-mixture; include event-at-open check.",
+    "gaussian_truncated_moments": "For strike k=K/P0, E[(k-exp(X8))_+] and E[(k-exp(X8))_+²] are closed-form lognormal put moments. Under negative drift and maximum sigma, they bound true moments. Apply Cauchy-Schwarz with union event-probability bound, min(unconditional_put1,sqrt(put2*P_trigger)).",
+    "event_upper": "E[U_bar|F_pre]<=Q_stop*Popen*κ_stop(s/Popen) + sum_i Q_i*Popen*κ_target_i(target_i/Popen), for original frozen WEAK model with predictable prebar thresholds, nonbeneficial open fills, conditionally independent current bar shocks.",
+    "original_admission_relation": "For each funded new long lot i, q_i * S_entry_open <= q_i * executed_buy_price <= q_i * IOC_ceiling <= approved_commitment_i <= .12*W_decision_i, only AT ADMISSION. Survival indicator may be discarded on positive source prices; original 72h maximum implies at most 4 daily sessions*78 bars*8 intraday substeps of holding.",
+    "predictable_exposure_population": "E_WEAK[A] <= H72*E_WEAK[Σ_funded_lots(q_i*entry_filled_price)] <= H72*E_WEAK[Σ_approved_lots(commitment_i)], H72=sum_{j=0}^{2495}exp(j*δmax), δmax=.000025*1.1/8. The population admission sum expectation remains unknown and must not be filled from one development seed.",
+    "c15_sufficient_exclusion": "If independent certified E[Σ commitment_i] upper B and conditional event-moment E[U] upper V make gamma H72 B+V-Cmin < W0*expm1(D*1e-4), then WEAK fails 1bp in abstract source-model class. Without B and V certified for native no promotion."
+  },
+  "blocking": [
+    "Archived compact history omits all prebar dynamic stop/target parameters needed to compute a population predictable trigger-weighted U; do not infer them from future closing events.",
+    "Original native OHLC high/low priority and same-bar fill threshold are not proven first-cross or exchange-price executable; keep output modeled only.",
+    "Nonnnegative physical cash, exact all-branch 72h deadline, IOC fill cap and receipt-order source invariants require a universal proof or an exhaustive native state-space validator.",
+    "A single reused development seed and 39 policy variants do not constitute independent WEAK population evidence.",
+    "Do not collapse conditional formula to an empirical population estimate or assume a continuous 12% exposure ceiling."
+  ],
+  "falsification": [
+    "Thresholds supplied after current bar availableAt rather than F_pre",
+    "A positive opening-buy or opening-time sell mark credit silently invented",
+    "Stop-first logic and target quantity are omitted from modeled event ordering",
+    "Tail or lognormal second moments fail independent quadrature/identity",
+    "Gaussian conditional sigma-mixture weight or original frozen sources changed",
+    "Holding 72h translates to 2496 or fewer intraday innovations only under original weekdays 6.5-hour calendar, fail on another calendar",
+    "A native fill over IOC commitment or market open at fill invalidates admission relation",
+    "OHLC model fills labeled broker tradable or asserted achieved alpha",
+    "Any new signal, market seed, economic account, final M10, order, deployment, merge or restart"
+  ],
+  "budget": {
+    "new_signal_nominations": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "new_final_M10_accounts": 0,
+    "remaining_final_M10_accounts": 3200,
+    "prospective_alpha_consumed": 0
+  },
+  "release": {
+    "N9S": "NO_GO",
+    "can_open_holdout": false,
+    "can_reactivate_optimizer": false,
+    "can_merge": false,
+    "can_deploy": false,
+    "can_trade": false
+  }
+}
