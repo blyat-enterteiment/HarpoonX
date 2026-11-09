@@ -6,6 +6,7 @@ const fs=require("node:fs");
 const os=require("node:os");
 const path=require("node:path");
 const P=require("../runtime30/fwn9_p9m_c21_ohlc_obstruction.cjs");
+const R=require("../runtime30/ultimate_reservations.js");
 
 test("C21 frozen original M9 native and reservation sources match registered SHA",()=>{
  const v=P.assertFrozenSources();
@@ -139,6 +140,30 @@ test("C21 supplying invented bound numbers does not create real certification",(
  A(d.missing.includes("STRUCTURAL_OHLC_FIRST_CROSS_NON_EQUIVALENCE"));
 });
 
+test("C21 original 12% reservation is reusable after a known close, not a cumulative B cap",()=>{
+ let book=R.emptyFundedReservationBook();
+ const capacity={equity:20000,cashAvailableUsd:20000,
+  riskFraction:.0025,openRiskFraction:.0025,
+  grossFraction:.12,assetFraction:.12};
+ const commitment=(id,at)=>({id,symbol:"SYNA",decisionAt:at,
+  quantity:24,riskUsd:20,notionalUsd:2400,cashUsd:2400.12});
+ const one=R.reserveFundedEntry(book,commitment("C21-LOT-1",1000),capacity);
+ A.equal(one.status,"RESERVED");
+ book=R.recordFundedReservationObservation(one.book,{
+  id:"C21-LOT-1",kind:"OPENED",at:1500,knownAt:1500,
+  remainingQuantity:24,pendingQuantity:0
+ });
+ book=R.recordFundedReservationObservation(book,{
+  id:"C21-LOT-1",kind:"CLOSED",at:300000,knownAt:301000,
+  remainingQuantity:0,pendingQuantity:0
+ });
+ const two=R.reserveFundedEntry(book,commitment("C21-LOT-2",400000),capacity);
+ A.equal(two.status,"RESERVED");
+ A(2*2400>.12*20000);
+ A.equal(two.snapshot.notionalUsd,2400);
+ A.equal(two.snapshot.reservations.length,1);
+ // Reservation-only source test; no actual shares/fills or economic accounts.
+});
 test("C21 no account, signal, market seed, final or order creation",()=>{
  const w=P.completeExample();
  A.deepEqual(w.budget,{newMarketSeeds:0,newSignals:0,
