@@ -114,11 +114,12 @@
     "complete_utc_days_expected": 42,
     "symbols": {
       "BTC/USD": {
-        "provider_bars_including_end_boundary": 1009,
-        "bars_outside_half_open_interval": 1,
+        "total_provider_returned": 1009,
+        "bars_excluded_strictly_before_start": 0,
+        "bars_excluded_at_or_after_end": 1,
         "observed_unique_inside_window": 1008,
         "expected_bars": 1008,
-        "complete_utc_days": 41,
+        "complete_utc_days": 42,
         "expected_utc_days": 42,
         "duplicate_hour_bars": 0,
         "per_window": {
@@ -126,10 +127,10 @@
             "observed_bars": 336,
             "expected_bars": 336,
             "coverage_fraction": 1,
-            "mean_abs_open_close_move_bps": 22.28106,
-            "mean_venue_reported_volume_per_bar": 0.0568,
-            "mean_price_times_venue_volume_usd_per_bar": 4619.775,
-            "mean_venue_reported_trades_per_bar": 36.863
+            "mean_abs_open_close_move_bps": 22.24577,
+            "mean_venue_reported_volume_per_bar": 0.05673,
+            "mean_price_times_venue_volume_usd_per_bar": 4615.384,
+            "mean_venue_reported_trades_per_bar": 36.905
           },
           "UTC_08_16": {
             "observed_bars": 336,
@@ -152,11 +153,12 @@
         }
       },
       "ETH/USD": {
-        "provider_bars_including_end_boundary": 1009,
-        "bars_outside_half_open_interval": 1,
+        "total_provider_returned": 1009,
+        "bars_excluded_strictly_before_start": 0,
+        "bars_excluded_at_or_after_end": 1,
         "observed_unique_inside_window": 1008,
         "expected_bars": 1008,
-        "complete_utc_days": 41,
+        "complete_utc_days": 42,
         "expected_utc_days": 42,
         "duplicate_hour_bars": 0,
         "per_window": {
@@ -164,10 +166,10 @@
             "observed_bars": 336,
             "expected_bars": 336,
             "coverage_fraction": 1,
-            "mean_abs_open_close_move_bps": 28.05399,
-            "mean_venue_reported_volume_per_bar": 0.53753,
-            "mean_price_times_venue_volume_usd_per_bar": 1309.022,
-            "mean_venue_reported_trades_per_bar": 11.741
+            "mean_abs_open_close_move_bps": 27.96327,
+            "mean_venue_reported_volume_per_bar": 0.53009,
+            "mean_price_times_venue_volume_usd_per_bar": 1293.881,
+            "mean_venue_reported_trades_per_bar": 11.679
           },
           "UTC_08_16": {
             "observed_bars": 336,
@@ -198,11 +200,20 @@
   "N9S": "NO_GO",
   "gates": {
     "stock_bar_coverage_complete": true,
-    "crypto_bar_coverage_complete": false,
+    "crypto_bar_coverage_complete": true,
     "consolidated_equity_NBBO_available_in_this_probe": false,
     "independently_verified_execution_fills_available": false,
     "posthoc_market_data_count_as_fresh_OOS": false,
     "realizable_net_alpha_certified": false,
     "optimal_hour_certified": false
+  },
+  "audit_correction": {
+    "issue": "First summary compared ISO strings with normalized milliseconds to ISO string without milliseconds; lexicographic comparison rejected first boundary and included final endpoint.",
+    "correct_rule": "Date.parse(timestamp) >= Date.parse(start) && Date.parse(timestamp) < Date.parse(end)",
+    "prior_summary_commit": "ba1162dfd461eceb5179b6cd595d93134a8cf663",
+    "prior_market_window_claim_42_full_days_not_yet_verified": false,
+    "correction_changes_original_raw_bars": false,
+    "new_market_seeds": 0,
+    "independent_validation_required": "C23 source test must reject boundary substitution"
   }
 }
