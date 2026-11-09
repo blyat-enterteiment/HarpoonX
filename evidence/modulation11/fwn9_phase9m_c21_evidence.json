@@ -1,0 +1,164 @@
+{
+  "schema": "HARPOON_FWN9_M11_C21_SOURCE_OHLC_EIGHTSTEP_OBSTRUCTION_CERT_1",
+  "source_provenance": {
+    "branch": "research/m11-c21-native-executability-obstruction",
+    "original_M9_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "original_native_replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "original_reservation_source_sha256": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "original_trading_sources_modified": false
+  },
+  "constructive_non_equivalence": {
+    "fixed_not_market_sample": true,
+    "source_invariant": "STOP_FIRST_OVER_OHLC_AND_MODELED_EXIT_AT_BAR_END",
+    "prebar": {
+      "shares": 8,
+      "entry": 100,
+      "stop": 98,
+      "distance": 2,
+      "targetsR": [
+        1.5,
+        3
+      ]
+    },
+    "one_OHLC_for_both": {
+      "open": 100,
+      "high": 104,
+      "low": 96.4,
+      "close": 100.5
+    },
+    "eight_step_paths": {
+      "TP_then_STOP": [
+        103.4,
+        96.4,
+        101,
+        104,
+        99,
+        98.8,
+        100,
+        100.5
+      ],
+      "STOP_then_TP": [
+        96.4,
+        103.4,
+        101,
+        104,
+        99,
+        98.8,
+        100,
+        100.5
+      ]
+    },
+    "original_native_common_fill": [
+      {
+        "reason": "STOP",
+        "quantity": 8,
+        "effective_at_relative_ms": 300000
+      }
+    ],
+    "first_cross_TP_then_STOP": [
+      {
+        "reason": "TP1",
+        "quantity": 2,
+        "effective_at_relative_ms": 37500
+      },
+      {
+        "reason": "STOP",
+        "quantity": 6,
+        "effective_at_relative_ms": 75000
+      }
+    ],
+    "first_cross_STOP_then_TP": [
+      {
+        "reason": "STOP",
+        "quantity": 8,
+        "effective_at_relative_ms": 37500
+      }
+    ],
+    "net_sale_proceeds_original_NATIVE_USD": 783.72,
+    "net_sale_proceeds_first_path_USD": 784.9,
+    "net_sale_proceeds_second_path_USD": 770.92,
+    "cannot_be_universally_identified_from_OHLC_only": true,
+    "original_OHLC_and_discrete_first_cross_universally_equivalent": false,
+    "original_WEAK_full_support_alternative_order_neighborhoods": true,
+    "any_specific_limit_order_cannot_trade": false,
+    "broker_executable_price_certified": false
+  },
+  "hidden_prebar_state": {
+    "fixed_observation_example": {
+      "same_past_no_fill": true,
+      "stop_alt_1": 99.5,
+      "stop_alt_2": 98,
+      "next_bar_low": 99,
+      "one_triggers_one_not": true
+    },
+    "original_local_archive_verified": {
+      "original_zip_sha256": "a1d7a78c81f16b357a8699369fa1c8ac66e2b48e90d33f0770ebad88e3e0fc92",
+      "only_opened_member": "evidence/modulation9/development/WEAK_730101.json.gz",
+      "original_member_sha256": "4c45a1177a063ae4b7758ef3a644c9dbc1c1c3925d30a15d0a152f392adde819",
+      "historical_seed": 730101,
+      "market": "WEAK",
+      "stage": "development",
+      "pre_existing_accounts_read": 78,
+      "pre_existing_trades_read": 1213,
+      "pre_existing_exit_fills_read": 1641,
+      "historical_barrier_fills_missing_prebar_threshold_trace": 1430,
+      "reasons": {
+        "STOP": 1002,
+        "TP1": 336,
+        "TP2": 92,
+        "TIME": 205,
+        "MODULATION9_STALLED": 6
+      },
+      "original_compact_records_have_all_prebar_stops_and_targets": false,
+      "original_compact_records_have_approved_ioc_reservation_ledger": false,
+      "original_compact_records_have_real_broker_execution_receipts": false,
+      "original_final_archive_members_read": 0,
+      "local_independent_evidence_filename": "C21_WEAK_development_prebar_state_provenance.json",
+      "local_independent_evidence_sha256": "405d8fcd08d92b0ca59dfeeb5c59f518e5e50bc7142a41bcc9219f369897fc88",
+      "local_read_only_archive_check_pass": true,
+      "local_archive_byte_validation_not_in_CI": true
+    },
+    "compact_history_sufficient_to_compute_full_native_prebar_conditional_WEAK_distribution": false,
+    "source_policy_and_price_law_mathematically_fix_distribution_in_principle": true,
+    "full_state_population_integration_actually_executed": false
+  },
+  "population_math": {
+    "C20_admission_exposure_conditional": "E_WEAK[A]<=2506.7342217702894*E_WEAK[sum actual funded modeled buy notionals]",
+    "population_expected_total_actual_admission_B_upper_usd": null,
+    "population_expected_conditional_execution_U_upper_usd": null,
+    "certified_population_bound_tight_enough_for_original_one_bp": false,
+    "nominal_hurdle_increment_176_days_USD": 355.1158528283328,
+    "nominal_calendar_cost_floor_USD": 176,
+    "stress_calendar_cost_floor_USD": 352,
+    "original_candidate_policy_population_impossibility_proved": false,
+    "full_native_market_executable_risk_calibrated": false
+  },
+  "verification": {
+    "github_actions_run_id": 42628632602,
+    "github_actions_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42628632602",
+    "conclusion": "SUCCESS",
+    "original_source_static_hashes": "PASS",
+    "constructor_and_obstruction_Node_tests": 15,
+    "archived_source_Python_negative_tests": 6,
+    "C20_original_event_conditional_math_tests": 15,
+    "C20_fixed_native_admission_tests": 6,
+    "C16_fixed_native_book_tests": 11,
+    "C16_independent_Decimal46": "PASS",
+    "C15_null_expectation_promotion_gate": "PASS",
+    "Python_Ruff": "PASS",
+    "Python_mypy_strict": "PASS",
+    "parser_schema_archive_local_independent": "PASS"
+  },
+  "budget": {
+    "new_market_seeds": 0,
+    "new_signals": 0,
+    "new_economic_accounts": 0,
+    "new_final_M10_accounts_opened": 0,
+    "remaining_M10_sealed_accounts": 3200,
+    "broker_orders": 0,
+    "merges": 0,
+    "deploys": 0,
+    "recursive_reactivation": 0
+  },
+  "final_verdict": "STOP_UNIVERSAL_NATIVE_EXECUTION_CERTIFICATION_AS_ORIGINAL_OHLC_EQUIVALENCE_FALSE;N9-S_NO_GO"
+}
