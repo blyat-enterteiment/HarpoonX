@@ -121,9 +121,13 @@ def audit(evidence: dict[str, Any]) -> dict[str, str | int | bool]:
                         dec(b["l"]) > min(dec(b["o"]), dec(b["c"])) or
                         dec(b["h"]) < max(dec(b["o"]), dec(b["c"]))):
                     raise AssertionError("C16_INDEPENDENT_OHLC_SUPPORT")
-                lower += Decimal(8 * shares[symbol]) * dec(b["l"])
                 upper += Decimal(8 * shares[symbol]) * dec(b["h"])
             physical_events(end, "EXIT", row)
+            # An OHLC threshold may have crossed BEFORE the recorded close.
+            # Only shares surviving every possible intrabar exit are certain.
+            for symbol in shares:
+                b = row["assets"][symbol]
+                lower += Decimal(8 * shares[symbol]) * dec(b["l"])
         charge(int(sessions[-1]["close"]))
         if (len(consumed) != len(entries) or any(shares.values()) or
                 upper < lower or charged != evidence["calendarDays"]):
