@@ -24,7 +24,7 @@ jobs:
         run: |
           node --check runtime30/fwn9_c22_session_compound.cjs
           node --check tools/fwn9_c22_session_compound_test.cjs
-      - name: Deterministic independent 15 session/cost/compound negative tests
+      - name: 19 deterministic session/cost/compound/geometric safety tests
         run: node --test tools/fwn9_c22_session_compound_test.cjs
       - name: Frozen M9/M10 source and no new research economic accounts
         run: |
