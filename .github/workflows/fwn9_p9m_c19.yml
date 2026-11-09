@@ -1,0 +1,84 @@
+name: FWN9 C19 native bar-close U compensator and predictable A
+on:
+  push:
+    branches: [research/m11-c19-native-close-credit-coupling]
+    paths:
+      - 'research/modulation11/fwn9_phase9m_c19_protocol.json'
+      - 'tools/fwn9_p9m_c19_native_credit_moment.py'
+      - 'tools/test_fwn9_p9m_c19_native_credit_moment.py'
+      - '.github/workflows/fwn9_p9m_c19.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  original-weak-credit-compensator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Static and strict typed
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          python -m py_compile tools/fwn9_p9m_c19_native_credit_moment.py tools/test_fwn9_p9m_c19_native_credit_moment.py
+          ruff check tools/fwn9_p9m_c19_native_credit_moment.py tools/test_fwn9_p9m_c19_native_credit_moment.py
+          mypy --strict tools/fwn9_p9m_c19_native_credit_moment.py tools/test_fwn9_p9m_c19_native_credit_moment.py
+      - name: 14 analytic and adversarial tests (includes corrective counterexample)
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -v
+      - name: Frozen original WEAK and fail-closed population report
+        run: |
+          python -B tools/fwn9_p9m_c19_native_credit_moment.py > /tmp/c19.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c19_protocol.json').read_text())
+          assert p['budget']=={'new_seeds':0,'new_signals':0,'new_policy_candidates':0,'new_economic_accounts':0,'new_final_accounts_opened':0,'remaining_M10_final_accounts':3200,'alpha_spent':0}
+          report=json.loads(Path('/tmp/c19.jsonl').read_text().split('C19_FUNDED_NATIVE_WEAK_CREDIT=',1)[1])['math']
+          assert report['N9S']=='NO_GO'
+          assert report['max_bar_end_positive_credit_allowance_kappa'] < 0.003
+          assert report['positive_execution_credit_per_A_expectation_beta'] < 0.0004
+          assert report['scenarios']['NOMINAL']['mathematical_exclusion_of_1bp'] is False
+          assert report['scenarios']['STRESS']['mathematical_exclusion_of_1bp'] is False
+          assert report['full_native_engine_source_adaptedness_proved'] is False
+          assert report['full_native_fills_executable_at_8steps_proved'] is False
+          print('C19_WEAK_CLOSE_CREDIT_EXPECTATION_COUPLING_PASS')
+          print('C19_KAPPA',report['max_bar_end_positive_credit_allowance_kappa'])
+          print('C19_BETA',report['positive_execution_credit_per_A_expectation_beta'])
+          print('C19_UPPER_EXPECTED_A',report['upper_A_pop_for_model_class_usd_substeps'])
+          print('C19_UPPER_EXPECTED_U',report['upper_U_pop_for_model_class_usd'])
+          PY
+      - name: Existing C16 fixed native fixture and Decimal46 integration regressions
+        run: |
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 >/tmp/c16_c19.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c16_c19.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c16_c19.log research/modulation9/protocol.json > /tmp/c19_c15.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          obj=json.loads(Path('/tmp/c19_c15.jsonl').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert obj['N9SAdmission']=='NO_GO'
+          assert obj['population_C15_screens']['NOMINAL']['expected_A_upper'] is None
+          assert obj['population_C15_screens']['NOMINAL']['expected_U_upper'] is None
+          print('C19_C16_C15_MISSING_POPULATION_AND_FIXED_LEDGER_PASS')
+          PY
+      - name: Original M9 source hashes, no final archive opening
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          registration=json.loads(Path('research/modulation9/registration.json').read_text())
+          for p in ('quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js','research/modulation9/protocol.json'):
+              assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==registration['sources_sha256'][p]
+          assert not any(Path('.').rglob('final/WEAK_*.json.gz'))
+          print('C19_M9_FROZEN_FINAL_NOT_READ_PASS')
+          PY
