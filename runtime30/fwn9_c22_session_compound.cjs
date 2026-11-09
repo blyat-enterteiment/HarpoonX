@@ -151,11 +151,23 @@ function size(cap,{book,unitPriceUsd,unitRiskUsd,multiplier=1,step}={}){
  for(const [k,v] of Object.entries({unitPriceUsd,unitRiskUsd,multiplier}))
   need(num(v)&&v>0,"SIZE_"+k);
  if(book==="options")return close("OPTIONS_CONTRACT_EXECUTOR_NOT_CERTIFIED");
+ need(cap?.schema==="FWN9_C22_SETTLED_CAPACITY_1"&&
+  cap.executionAllowed===false&&cap.N9S==="NO_GO"&&
+  num(cap.newGrossAdmissionHeadroomUsd)&&cap.newGrossAdmissionHeadroomUsd>=0&&
+  num(cap.newRiskHeadroomUsd)&&cap.newRiskHeadroomUsd>=0,
+  "SIZE_REQUIRES_VERIFIED_CAPACITY_OBJECT");
  const increment=step??(book==="crypto"?1e-8:1);
- need(num(increment)&&increment>0,"SIZE_INCREMENT");
+ need(num(increment)&&increment>=1e-8&&
+  Math.abs(increment*1e8-Math.round(increment*1e8))<1e-6,
+  "SIZE_SUPPORTED_PRECISION_INCREMENT");
  const max=Math.min(cap.newGrossAdmissionHeadroomUsd/(unitPriceUsd*multiplier),
   cap.newRiskHeadroomUsd/(unitRiskUsd*multiplier));
- const qty=Number((Math.max(0,Math.floor((max+1e-10)/increment))*increment).toFixed(8));
+ let lots=Math.max(0,Math.floor(max/increment));
+ let qty=Number((lots*increment).toFixed(8));
+ while(lots>0&&(qty*unitPriceUsd*multiplier>cap.newGrossAdmissionHeadroomUsd+1e-9||
+   qty*unitRiskUsd*multiplier>cap.newRiskHeadroomUsd+1e-9)){
+  lots-=1;qty=Number((lots*increment).toFixed(8));
+ }
  return {schema:"FWN9_C22_RESEARCH_ONLY_FUNDED_QUANTITY_1",book,
   quantity:qty,grossNotionalUsd:qty*unitPriceUsd*multiplier,
   unitStopRiskUsd:qty*unitRiskUsd*multiplier,
