@@ -112,7 +112,7 @@ def _conservative_up(value: float) -> float:
         return 0.0
     power = math.floor(math.log10(value))-4
     scale = 10**power
-    return math.ceil(value/scale + 1e-8) * scale
+    return float(math.ceil(value/scale + 1e-8) * scale)
 
 
 def population_analytic_bounds(p: dict[str, Any]) -> dict[str, Any]:
