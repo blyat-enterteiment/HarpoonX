@@ -101,3 +101,28 @@ test("C22 notional >12 percent at mark prevents admission not forced sale",()=>{
  A.equal(x.newGrossAdmissionHeadroomUsd,0);
  A.equal(x.continuousGrossCapAssumed,false);
 });
+
+test("C22 integer equity and fractional crypto size from settled risk, no order",()=>{
+ const b=P.buyingPower(book());
+ const e=P.size(b,{book:"equity",unitPriceUsd:100,unitRiskUsd:1});
+ A.equal(e.quantity,24);A.equal(e.grossNotionalUsd,2400);
+ A.equal(e.executionAllowed,false);
+ const cr=P.size(b,{book:"crypto",unitPriceUsd:50000,unitRiskUsd:1000});
+ A.equal(cr.quantity,.048);A.equal(cr.executionAllowed,false);
+ const op=P.size(b,{book:"options",unitPriceUsd:2,unitRiskUsd:1,multiplier:100});
+ A.equal(op.eligible,false);
+ A.equal(op.reason,"OPTIONS_CONTRACT_EXECUTOR_NOT_CERTIFIED");
+});
+test("C22 blocks unreconciled buying power and attempts to raise original risk",()=>{
+ let b=book();b.reconciled=false;
+ A.throws(()=>P.buyingPower(b),/C22_RECONCILED_FINANCING/);
+ A.throws(()=>P.buyingPower(book(),{riskFraction:.005}),/C22_FROZEN_CAPS/);
+ A.throws(()=>P.buyingPower(book(),{hardCapitalUsd:0}),/C22_FROZEN_CAPS/);
+});
+test("C22 canonical audit hash includes nested entries not just top-level",()=>{
+ const a={x:1,b:{z:1,a:2},steps:[1,2]};
+ const b={steps:[1,2],b:{a:2,z:1},x:1};
+ A.equal(P.fingerprint(a),P.fingerprint(b));
+ A.notEqual(P.fingerprint(a),P.fingerprint({...a,b:{a:3,z:1}}));
+ A.throws(()=>P.fingerprint({invalid:Infinity}),/C22_NONFINITE_HASH_INPUT/);
+});
