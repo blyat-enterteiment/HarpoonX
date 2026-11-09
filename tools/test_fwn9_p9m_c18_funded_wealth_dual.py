@@ -25,7 +25,6 @@ class C18DualTests(unittest.TestCase):
         self.assertAlmostEqual(f.terminal_hurdle_increment,355.1158528283328)
 
     def test_independent_decimal_50_ideal_U_zero_bound(self) -> None:
-        f=Frozen()
         with localcontext() as ctx:
             ctx.prec=50
             capital=Decimal(20000)
