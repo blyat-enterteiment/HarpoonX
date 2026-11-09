@@ -41,3 +41,37 @@ Solo se clasifica cuando lower_net_bps>0, límite inferior del resultado aparead
 Evitar explícitamente sesgos de look-ahead, cierre de barra visto antes de publicación, selección post-hoc de ventanas, sesgo por supervivencia, múltiples comparaciones no corregidas, inventar fills en OHLC, financiar entradas con proceeds desconocidos y comparar cripto/equity reiniciando USD20.000 por clase.
 
 El ranking es determinista, ordenado por menor net edge demostrado y desempate de ID; no ajusta parámetros, crea hipótesis nuevas ni consume M10.
+
+## 4. Interés compuesto: riqueza financiada neta de costes
+
+Para una **sola cartera** con posición y caja auditadas, sin retiros ni depósitos:
+
+    W_(t+1) = W_t + PnL_gross_t - fees_t - external_costs_t
+    1 + R_compound_net = PRODUCT_t (W_(t+1) / W_t)
+    LOG(1+R_compound_net) = SUM_t LOG(W_(t+1)/W_t)
+
+La función compound exige identidad de patrimonio antes/después de cada intervalo, comisiones y costes no negativos, historial de recibos conocido antes de reutilizar caja, y ninguna transferencia externa. No suma resultados de backtests equity y cripto con capital inicial independiente. No reinicia el capital a 20.000 USD tras una pérdida.
+
+**Fixture exclusivamente contable, NO rentabilidad de HARPOONX:** 20.000 → 21.000 (+5% neto después de gastos), después 21.000 → 20.790 (−1% neto). El patrimonio final es 20.790 USD, retorno compuesto neto = 3,95%, no 4%. Esta prueba no mide una estrategia.
+
+La capacidad financiada requiere caja asentada, menos compromisos y saldos sin liquidar, descontando riesgo de posiciones existentes. El hard cap de N9-S sigue siendo 20.000 USD; riesgo de admisión ≤0,25% y exposición bruta de admisión ≤12%. **Una ganancia contable incrementa W pero no modifica el capital máximo permitido en el ensayo congelado.** Por tanto la implementación demuestra la mecánica del compound sin autorizar automáticamente más exposición.
+
+La función size calcula exclusivamente cantidades hipotéticas. Las opciones permanecen bloqueadas para ejecución y ningún método envía órdenes.
+
+## 5. Integración y evidencia
+
+Código nuevo, sin alterar el coordinador, profit8_replay, capital inicial ni motor original:
+
+- runtime30/fwn9_c22_session_compound.cjs — ventana DST NY, clasificación cripto 24/7 sujeta a venue, evaluación adversarial de costes, ranking, ledger compuesto y caja asentada.
+- tools/fwn9_c22_session_compound_test.cjs — 15 pruebas deterministas de contratos, temporización y contabilidad; ninguna es una cuenta económica experimental.
+- research/modulation11/fwn9_phase9m_c22_protocol.json — 3 hipótesis, máximo 6 variantes futuras; cero nuevas señales.
+- .github/workflows/fwn9_p9m_c22.yml — pruebas y regresiones antiguas C21/C20/C16, incluida verificación Decimal-46.
+- evidence/modulation11/fwn9_phase9m_c22_evidence.json — registro de resultados y límites.
+
+La capa está aislada y NO conectada a la ruta de broker. Para futura integración se requiere cuenta conciliada y observaciones verificables con costes, fills y relojes realmente alcanzables. C21 refutó equivalencia exacta OHLC STOP-FIRST versus ocho primeros cruces; C22 no la modifica ni reinterpreta resultados anteriores.
+
+## 6. Decisión
+
+Horarios negociables acreditados, pero rentabilidad superior de cualquiera de estas ventanas NO demostrada. Sin prueba económica prospectiva, reparto de costes, distribución completa de estados stop/target, cota poblacional admisiones y ejecución alcanzable, no corresponde abrir el holdout ni reanudar la búsqueda automática.
+
+**C22: verificador offline read-only aprobado. N9-S NO_GO; 3.200 cuentas finales M10 selladas; cero nuevas semillas, señales, cuentas económicas, órdenes, despliegues, fusiones o reinicios recursivos.**
