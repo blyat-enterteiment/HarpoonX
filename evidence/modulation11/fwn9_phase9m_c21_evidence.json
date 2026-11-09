@@ -81,7 +81,18 @@
     "original_OHLC_and_discrete_first_cross_universally_equivalent": false,
     "original_WEAK_full_support_alternative_order_neighborhoods": true,
     "any_specific_limit_order_cannot_trade": false,
-    "broker_executable_price_certified": false
+    "broker_executable_price_certified": false,
+    "original_12pct_admission_is_NOT_cumulative_B_cap": true,
+    "reusable_native_reservation_counterexample": {
+      "initialCapitalUsd": 20000,
+      "decisionTimeCapFraction": 0.12,
+      "commitmentAtFirstDecisionUsd": 2400,
+      "firstReservationClosedWithKnownReceiptBeforeSecondDecision": true,
+      "commitmentAtSecondDecisionUsd": 2400,
+      "cumulativeApprovedNotionalUsd": 4800,
+      "originalNativeReservationModuleAcceptsBoth": true,
+      "counterexampleIsOnlyReservationBookNotExecutionOrEconomicAccount": true
+    }
   },
   "hidden_prebar_state": {
     "fixed_observation_example": {
@@ -134,11 +145,11 @@
     "full_native_market_executable_risk_calibrated": false
   },
   "verification": {
-    "github_actions_run_id": 42628632602,
-    "github_actions_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42628632602",
+    "github_actions_run_id": 42629648833,
+    "github_actions_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42629648833",
     "conclusion": "SUCCESS",
     "original_source_static_hashes": "PASS",
-    "constructor_and_obstruction_Node_tests": 15,
+    "constructor_and_obstruction_Node_tests": 16,
     "archived_source_Python_negative_tests": 6,
     "C20_original_event_conditional_math_tests": 15,
     "C20_fixed_native_admission_tests": 6,
@@ -147,7 +158,8 @@
     "C15_null_expectation_promotion_gate": "PASS",
     "Python_Ruff": "PASS",
     "Python_mypy_strict": "PASS",
-    "parser_schema_archive_local_independent": "PASS"
+    "parser_schema_archive_local_independent": "PASS",
+    "original_reservation_repeated_admission_control": "PASS_SOURCE_NATIVE_BOOK_NO_TRADING"
   },
   "budget": {
     "new_market_seeds": 0,
