@@ -1,0 +1,101 @@
+name: FWN9 C21 source-frozen OHLC versus eight-step obstruction and sealed population gate
+on:
+  push:
+    branches: [research/m11-c21-native-executability-obstruction]
+    paths:
+      - 'runtime30/fwn9_p9m_c21_ohlc_obstruction.cjs'
+      - 'tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs'
+      - 'tools/fwn9_p9m_c21_archived_prebar_audit.py'
+      - 'tools/test_fwn9_p9m_c21_archived_prebar_audit.py'
+      - 'research/modulation11/fwn9_phase9m_c21_protocol.json'
+      - '.github/workflows/fwn9_p9m_c21.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  original-source-non-equivalence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source syntax, Python Ruff, and strict mypy
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          node --check runtime30/fwn9_p9m_c21_ohlc_obstruction.cjs
+          node --check tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          python -m py_compile tools/fwn9_p9m_c21_archived_prebar_audit.py tools/test_fwn9_p9m_c21_archived_prebar_audit.py
+          ruff check tools/fwn9_p9m_c21_archived_prebar_audit.py tools/test_fwn9_p9m_c21_archived_prebar_audit.py
+          mypy --strict tools/fwn9_p9m_c21_archived_prebar_audit.py tools/test_fwn9_p9m_c21_archived_prebar_audit.py
+      - name: Constructive eight-step OHLC non-equivalence and independent gates
+        run: |
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          node tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs --emit-c21 > /tmp/c21_obstruction.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          lines=Path('/tmp/c21_obstruction.log').read_text().splitlines()
+          matches=[line.split('C21_SOURCE_EXECUTION_OBSTRUCTION=',1)[1] for line in lines if line.startswith('C21_SOURCE_EXECUTION_OBSTRUCTION=')]
+          assert len(matches)==1
+          result=json.loads(matches[0])
+          w=result['witness']; p=result['prebarNonidentifiability']; gate=result['gate']
+          assert w['nativeOHLC']['identical'] is True
+          assert w['firstObservedEightStep']['identical'] is False
+          assert w['nativeStopFirstEqualsFirstCrossOnAllPaths'] is False
+          assert w['mathematicalUniversalTradingUnprofitabilityProved'] is False
+          assert p['samePastRecordedFills'] is True and p['futureActivationDiffers'] is True
+          assert gate['N9S']=='NO_GO'
+          assert gate['universalEconomicImpossibilityClaimAllowed'] is False
+          assert gate['holdoutM10Opened']==0
+          assert w['budget']=={'newMarketSeeds':0,'newSignals':0,'newEconomicAccounts':0,'finalM10Opened':0}
+          print('C21_STRUCTURAL_OHLC_NON_EQUIVALENCE_AND_NO_FALSE_PROFITABILITY_THEOREM_PASS')
+          print('C21_SOURCE_FIRST_CROSS_CASH',w['grossCashReceipts'])
+          PY
+      - name: Offline original archived member protection tests (archive itself absent from CI)
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c21_archived_prebar_audit.py' -v
+      - name: Frozen M9 source hashes and no final account
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          reg=json.loads(Path('research/modulation9/registration.json').read_text())
+          proto=json.loads(Path('research/modulation11/fwn9_phase9m_c21_protocol.json').read_text())
+          for path in ('quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js','research/modulation9/protocol.json'):
+              digest=hashlib.sha256(Path(path).read_bytes()).hexdigest()
+              assert digest==reg['sources_sha256'][path],path
+          assert proto['budget']=={'new_market_seeds':0,'new_signals':0,'new_candidate_policies':0,'new_economic_accounts':0,'final_M10_opened':0,'final_M10_sealed':3200,'broker_orders':0,'deploys':0,'merges':0,'recursive_starts':0}
+          assert proto['decision']['N9S']=='NO_GO'
+          assert proto['decision']['exact_equivalence_refuted'] is True
+          assert not list(Path('evidence').rglob('final/*.json.gz'))
+          print('C21_FROZEN_M9_AND_SEALED_M10_PASS')
+          PY
+      - name: C20 original event-conditioned mathematical and fixed native admission regressions
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -v
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+      - name: C16 funded ledger Decimal46 independent nonpromotion regression
+        run: |
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c21_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c21_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c21_c16.log research/modulation9/protocol.json > /tmp/c21_c15.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('/tmp/c21_c15.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert d['N9SAdmission']=='NO_GO'
+          assert d['population_C15_screens']['NOMINAL']['expected_A_upper'] is None
+          assert d['population_C15_screens']['NOMINAL']['expected_U_upper'] is None
+          print('C21_ORIGINAL_C15_POPULATION_EXPECTATIONS_REMAIN_NULL_PASS')
+          PY
