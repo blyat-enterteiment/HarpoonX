@@ -1,0 +1,89 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C1_EVIDENCE_1",
+  "source_commit": "3be4bffbe6633476c37426c518184d2c73f127ef",
+  "preregistration_commit": "ad497ba00f25b38b5bee3f5fb887ae08e96f18c7",
+  "protocol": "research/modulation11/fwn9_phase9m_c1_protocol.json",
+  "verification": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42468588675",
+  "ci_run": 42468588675,
+  "ci_status": "SUCCESS",
+  "tests_passed": 8,
+  "tests_failed": 0,
+  "static_checks": {
+    "node_check": "PASS",
+    "python_py_compile": "PASS",
+    "ruff": "NOT_RUN_IN_FOCAL_WORKFLOW",
+    "mypy": "NOT_RUN_IN_FOCAL_WORKFLOW"
+  },
+  "independent_accountant": "PASS_DECIMAL_46",
+  "benchmark_20_full_witness_ms": 80.459,
+  "fixture": {
+    "nature": "SYNTHETIC_DETERMINISTIC_ENGINEERING_NOT_ECONOMIC_ACCOUNT",
+    "common": {
+      "opening_usd": 100,
+      "high_usd": 104,
+      "low_usd": 96,
+      "closing_usd": 100,
+      "entry_fill_usd": 100.03,
+      "stop_threshold_usd": 98.03,
+      "target_threshold_usd": 103.03,
+      "quantity": 8,
+      "tick_usd": 0.01,
+      "spread_bps": 2,
+      "slippage_bps": 2,
+      "commission_per_share_per_side_usd": 0.005,
+      "capital_usd": 20000,
+      "calendar_cost_fixture_usd": 8
+    },
+    "target_first_substeps": [
+      100.2,
+      104,
+      103,
+      96,
+      97,
+      99,
+      100,
+      100
+    ],
+    "stop_first_substeps": [
+      100.2,
+      96,
+      103,
+      104,
+      97,
+      99,
+      100,
+      100
+    ],
+    "native_ohlc_net_trading_usd": -16.32,
+    "first_cross_target_first_net_trading_usd": -16.58,
+    "first_cross_stop_first_net_trading_usd": -32.56,
+    "difference_between_causal_orders_usd": 15.98,
+    "cash_control_terminal_usd": 19992,
+    "native_terminal_after_fixed_usd": 19975.68,
+    "target_first_terminal_after_fixed_usd": 19975.42,
+    "stop_first_terminal_after_fixed_usd": 19959.44,
+    "interpretation": "Values are arithmetic reconstruction of deterministic fixture with real registered tick and cost conventions; independent Decimal-46 reconciliation passed, no market inference."
+  },
+  "source_checksums_sha256": {
+    "runtime30/fwn9_p9m_c_order_witness.cjs": "4592c02794eab0b19b36c587df03e8a6f0994c0f03019673b0364f5c444e6262",
+    "tools/fwn9_p9m_c_order_test.cjs": "d8db17f60c57c89ae9118c38eab44f5b1f3e02751495459ab0a85f46fae922f5",
+    "tools/fwn9_p9m_c_accountant.py": "06a08baade9f1b8cbd0b2db1d1c7a9c9b9b05c36341e36437d28e4f86bb2a7b0"
+  },
+  "claims": {
+    "ohlc_cannot_uniquely_recover_eight_substep_order": true,
+    "native_m9_universal_self_financing_equivalence": false,
+    "weak_infeasibility_certificate_valid_for_native": false,
+    "operational_partial_reject_outage_impact_complete": false,
+    "multi_cell_coordinator_complete": false,
+    "n9s_acceptance": false,
+    "observed_profitability": false
+  },
+  "budgets": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "controls": 1,
+    "opened_m10_final": 0,
+    "m10_final_remaining": 3200,
+    "alpha_spent": 0
+  }
+}

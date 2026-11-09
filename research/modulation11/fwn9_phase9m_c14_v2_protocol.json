@@ -1,0 +1,33 @@
+{
+  "schema": "HARPOON_FWN9_C14_NATIVE_BAR_HIGH_V2_FIXTURE_REJECT_PRIORITY_1",
+  "parent": "research/modulation11/fwn9_phase9m_c14_protocol.json",
+  "prior_failed_ci": 42549621896,
+  "original_math_and_source_unchanged": true,
+  "repair": "V1 negative test mutated buy effectiveAt without updating knownAt and expected the later opening guard, but the causal receipt guard correctly rejected first; another negative test modified one publication clock and hit common-clock guard first. V2 changes only negative fixture timing and asserts the intended downstream guard, does not weaken native guards or calculations.",
+  "refutation": [
+    "Any negative fixture is accepted",
+    "V1 math or original native replay changed",
+    "Native fill above bar high is accepted",
+    "Independent Decimal cash accountant fails",
+    "Original M9 source hashes fail"
+  ],
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "new_seeds": 0,
+    "prospective_alpha": 0,
+    "final_M10_unopened": 3200,
+    "workers": 1
+  },
+  "source_blobs": {
+    "tools/fwn9_p9m_c14_moments.py": "ef74cff2eeb421015806121cc75d85cfed8d7a1a",
+    "tools/test_fwn9_p9m_c14_moments.py": "1f7b252afc8121b5fe161908606029fc8b2876de",
+    "runtime30/fwn9_p9m_c14_native_bar_guard.cjs": "6a2f9d36e2fe38593b096a94c7c924381a0fb278",
+    "tools/fwn9_p9m_c14_accountant.py": "13416f7d230e6c2e8899dae1dffea90329c844c5",
+    "tools/fwn9_p9m_c14_native_test_v2.cjs": "9f23f09f9f095103bf249e17678022ee74ca070a",
+    ".github/workflows/fwn9_p9m_c14_v2.yml": "04350ba31841e4cd70a20d85c4086ec49baa1f7f"
+  },
+  "source_original_protocol": "research/modulation9/protocol.json",
+  "population_claim": "CONDITIONAL_MOMENTS_NOT_UNIVERSAL_NATIVE_N9S_CERTIFICATE",
+  "no_market_seeds": true
+}

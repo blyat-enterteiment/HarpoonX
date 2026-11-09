@@ -1,0 +1,56 @@
+name: FWN9 P9M-A observed receipt preflight (offline)
+on:
+  push:
+    paths:
+      - 'quant/harpoon_quant/fwn9_observed_gate.py'
+      - 'quant/tests/test_fwn9_observed_gate.py'
+      - 'research/modulation11/fwn9_phase9m_a_protocol.json'
+      - '.github/workflows/fwn9_phase9m_a.yml'
+  pull_request:
+    paths:
+      - 'quant/harpoon_quant/fwn9_observed_gate.py'
+      - 'quant/tests/test_fwn9_observed_gate.py'
+      - '.github/workflows/fwn9_phase9m_a.yml'
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: quant
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install -r quant/requirements-roadmap9.txt
+      - run: python3 -m pip install ruff==0.17.3 mypy==2.4.1
+      - name: Checksums, static, typing, and causal reconciliation
+        run: |
+          python3 -m ruff check --select E4,E7,E9,F quant/harpoon_quant/fwn9_observed_gate.py quant/tests/test_fwn9_observed_gate.py
+          MYPYPATH=quant python3 -m mypy --follow-imports=silent --ignore-missing-imports --explicit-package-bases quant/harpoon_quant/fwn9_observed_gate.py
+          python3 -m compileall -q quant/harpoon_quant/fwn9_observed_gate.py quant/tests/test_fwn9_observed_gate.py
+          python3 -m unittest quant.tests.test_fwn9_observed_gate -v
+          python3 - <<'PY'
+          import hashlib,json,pathlib,time
+          from harpoon_quant.fwn9_observed_gate import audit_receipt_tape,receipt_sha256
+          from quant.tests.test_fwn9_observed_gate import fixture, BINDING, NOW
+          proof=pathlib.Path('research/modulation11/fwn9_phase9m_a_protocol.json')
+          p=json.loads(proof.read_text())
+          assert p['budget']['economic_accounts']==0 and not p['promotion_eligible']
+          for f in ['quant/harpoon_quant/fwn9_observed_gate.py','quant/tests/test_fwn9_observed_gate.py']:
+              print('P9M_A_SHA256',f,hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest())
+          tape=fixture(); root=receipt_sha256(tape['events']); start=time.perf_counter()
+          for _ in range(200):
+              result=audit_receipt_tape(tape,native_checkpoint_sha256=BINDING,
+                  externally_pinned_receipt_sha256=root,now=NOW)
+              assert result['optimizer_eligible'] is False
+          print('P9M_A_BENCHMARK_200_MS',round((time.perf_counter()-start)*1000,3))
+          print('P9M_A_GATE_PASS_NO_PROMOTION_NO_BROKER_NO_FINAL')
+          PY

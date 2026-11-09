@@ -1,0 +1,60 @@
+{
+  "schema": "HARPOON_FWN9_M11_C9_NATIVE_RESERVATION_EVENT_INDUCTION_PROTOCOL_1",
+  "phase": "M11_PHASE9M_C9_NATIVE_EVENT_INDUCTION_WEALTH_FEEDBACK",
+  "parent_head": "185d3f93d77b8b8fc2ab51028ed9b76a2d35d372",
+  "lease_id": "M11_C9_NATIVE_EVENT_INDUCTION_185d3f93d7",
+  "original_contract": "research/modulation9/protocol.json",
+  "hypothesis": "For every causally observed M9 decision and reservation event, PENDING preserves ex-ante approved notional until NO_FILL/OPENED knowledge; OPENED original-quantity repriced reservation dominates surviving long shares at the latest causally available mark (not at unseen intermediate prices); this remains true after partial exits and before delayed close knowledge. It does NOT imply terminal wealth moment bounds or OHLC/substep equivalence.",
+  "catalogue": [
+    "E1 PENDING: decision->late IOC NO_FILL knowledge; never early release; no phantom lots",
+    "E2 OPENED: original quantity and marked max cover partial decreases through close receipt",
+    "E3 CLOSED: delayed close knownAt keeps OPENED reserve until both timestamps are observed",
+    "E4 2-symbol overlapping reservations, rejects and new admission: aggregate 12% checked only at admission",
+    "E5 adversarial mutations: missing mark, quantity inflation, forged early observation, overbudget admitted state must fail closed"
+  ],
+  "refutation": "A valid native reachable event where shadow original-lot anchor < marked surviving inventory at last known price, or an admitted decision above .12 observed equity, or event knownAt lookahead / earlier release, falsifies induction. Infeasible fixture stops promotion; demonstration of finite cases alone is not universal proof.",
+  "source_blob_git_sha": {
+    "runtime30/profit8_replay.js": "2baa7e8cab40520b311032aea472fcf4017c2220",
+    "runtime30/ultimate_reservations.js": "aa8162d7150986455c95599aeaa50ec4b9faa3ee",
+    "runtime30/fwn9_p9m_c8b_native_anchor.cjs": "8f482e4a64d26697732c3737f55130e4f29e6a85",
+    "research/modulation9/protocol.json": "c49c8156f9d2f109f5eda0fd98d1b7290a837d1a"
+  },
+  "fixed": {
+    "capital_usd": 20000,
+    "assets": [
+      "SYNA",
+      "SYNB"
+    ],
+    "gross_admission": 0.12,
+    "risk_fraction": 0.0025,
+    "holding_hours": 72,
+    "nominal_commission_per_share_side_usd": 0.005,
+    "weak_daily_hurdle_bp": 1
+  },
+  "budget": {
+    "new_market_accounts": 0,
+    "new_recipes": 0,
+    "new_seeds": 0,
+    "new_final_opened": 0,
+    "alpha_spent": 0,
+    "workers": 1,
+    "engineering_attempts_cap": 4
+  },
+  "baselines": [
+    "CASH unchanged",
+    "M9_BEST unchanged"
+  ],
+  "results_class": "ENGINEERING_ONLY_NOT_HOLDOUT_NOT_VALIDATION",
+  "planned_files": [
+    "runtime30/fwn9_p9m_c9_event_induction.cjs",
+    "tools/fwn9_p9m_c9_event_induction_test.cjs",
+    ".github/workflows/fwn9_p9m_c9.yml",
+    "docs/MODULATION11_PHASE9M_C9.md",
+    "evidence/modulation11/fwn9_phase9m_c9.json"
+  ],
+  "restrictions": [
+    "No broker connection, orders, deployments, PR merge or third-party contact.",
+    "No new economic search until causal equivalence and wealth feedback bound.",
+    "No N9-S acceptance unless two operational gates independently checked."
+  ]
+}

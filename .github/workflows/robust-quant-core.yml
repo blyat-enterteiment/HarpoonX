@@ -10,6 +10,32 @@ on:
       - 'tools/multisector_replay.cjs'
       - 'tools/verify_swing8.py'
       - 'runtime/quant_bridge.cjs'
+      - 'tools/fwn9_p9i_partitioned_regressions.py'
+      - 'tools/fwn9_p9i_partitioned_regressions_r5.py'
+      - 'tools/fwn9_p9i_provenance.py'
+      - 'tools/fwn9_p9i_operational_test.cjs'
+      - 'runtime30/fwn9_p9i_operational_gate.cjs'
+      - 'runtime30/fwn9_p9j_native_risk_clock.cjs'
+      - 'runtime30/fwn9_p9k_fault_matrix.cjs'
+      - 'runtime30/fwn9_p9k_fault_matrix_r2.cjs'
+      - 'tools/fwn9_p9k_fault_matrix_test_r2.cjs'
+      - 'research/modulation11/fwn9_phase9k_r2_protocol.json'
+      - 'research/modulation11/fwn9_phase9k_r3_protocol.json'
+      - 'runtime30/fwn9_p9l_native_bridge.cjs'
+      - 'tools/fwn9_p9l_native_bridge_test.cjs'
+      - 'tools/fwn9_p9l_checkpoint.cjs'
+      - 'tools/fwn9_p9l_accountant.py'
+      - 'research/modulation11/fwn9_phase9l_r4_protocol.json'
+      - 'tools/fwn9_p9k_fault_matrix_test.cjs'
+      - 'tools/fwn9_p9k_accountant_r3.py'
+      - 'research/modulation11/fwn9_phase9k_protocol.json'
+      - 'tools/fwn9_phase9j_test.cjs'
+      - 'tools/fwn9_phase9j_accountant.py'
+      - 'research/modulation11/fwn9_phase9j_protocol.json'
+      - 'tools/fwn9_p9i_composite_lineage.py'
+      - 'research/modulation11/fwn9_phase9i_r4_protocol.json'
+      - 'research/modulation11/fwn9_phase9i_r5_protocol.json'
+      - 'research/modulation11/fwn9_phase9i_r6_protocol.json'
       - '.github/workflows/robust-quant-core.yml'
   pull_request:
     paths:
@@ -21,6 +47,11 @@ on:
       - 'tools/multisector_replay.cjs'
       - 'tools/verify_swing8.py'
       - 'runtime/quant_bridge.cjs'
+      - 'runtime30/fwn9_p9l_native_bridge.cjs'
+      - 'tools/fwn9_p9l_native_bridge_test.cjs'
+      - 'tools/fwn9_p9l_checkpoint.cjs'
+      - 'tools/fwn9_p9l_accountant.py'
+      - 'research/modulation11/fwn9_phase9l_r4_protocol.json'
       - '.github/workflows/robust-quant-core.yml'
   workflow_dispatch:
 permissions:
@@ -35,6 +66,9 @@ jobs:
       OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -56,5 +90,57 @@ jobs:
           python3 -m ruff check quant/harpoon_quant/framework.py quant/harpoon_quant/swing_evidence.py quant/harpoon_quant/__main__.py quant/tests/test_framework.py
           MYPYPATH=quant:tools python3 -m mypy --follow-imports=silent --ignore-missing-imports --explicit-package-bases quant/harpoon_quant/framework.py quant/harpoon_quant/swing_evidence.py quant/harpoon_quant/__main__.py
           node --check runtime/quant_bridge.cjs
-      - name: Entire quant suite including certificate regressions
-        run: python3 -B -m unittest discover -s quant/tests
+          python3 -m ruff check --select E4,E7,E9,F tools/fwn9_p9l_accountant.py
+          MYPYPATH=tools python3 -m mypy --strict tools/fwn9_p9l_accountant.py
+          MYPYPATH=tools python3 -m mypy --strict tools/fwn9_p9k_accountant_r3.py
+          python3 -m ruff check --select E4,E7,E9,F tools/fwn9_p9i_partitioned_regressions_r5.py
+          MYPYPATH=tools python3 -m mypy --strict tools/fwn9_p9i_partitioned_regressions_r5.py
+      - name: P9I hard-gate knownAt, cash, IOC no-fill and versioned provenance
+        run: |
+          node --check runtime30/fwn9_p9i_operational_gate.cjs
+          node --test tools/fwn9_p9i_operational_test.cjs
+          python3 -B tools/fwn9_p9i_provenance.py >/tmp/p9i_versioned.json
+          python3 -B tools/fwn9_p9i_composite_lineage.py >/tmp/p9i_composite.json
+          python3 - <<'PY'
+          import json
+          v=json.load(open('/tmp/p9i_versioned.json'))
+          c=json.load(open('/tmp/p9i_composite.json'))
+          assert v['provenance']['distinct_versions_verified']
+          assert v['provenance']['all_sources_covered']
+          assert c['composite_bytes_verified'] is True
+          assert c['atomic_snapshot_verified'] is False
+          assert v['promotion']['status']=='BLOCKED'
+          assert c['n9s_certified'] is False
+          print('P9I_REQUIRED_DIAGNOSTIC_GATE_PASS_NO_N9_PROMOTION')
+          PY
+      - name: P9J blocking IOC NO_FILL receipt and valuation event-clock tests
+        run: |
+          node --check runtime30/fwn9_p9j_native_risk_clock.cjs
+          node --test tools/fwn9_phase9j_test.cjs
+          node tools/fwn9_phase9j_test.cjs --emit-proof >/tmp/p9j_integrated.txt
+          python3 -B tools/fwn9_phase9j_accountant.py /tmp/p9j_integrated.txt
+      - name: P9K blocking multi-layer shared capital and fault-path checks
+        run: |
+          node --check runtime30/fwn9_p9k_fault_matrix_r2.cjs
+          node --test tools/fwn9_p9k_fault_matrix_test_r2.cjs
+          node tools/fwn9_p9k_fault_matrix_test_r2.cjs --emit-audit >/tmp/p9k_gate_audit.txt
+          python3 -B tools/fwn9_p9k_accountant_r3.py /tmp/p9k_gate_audit.txt
+      - name: P9L blocking native receipt adapter, restart journal and independent accounting
+        run: |
+          node --check runtime30/fwn9_p9l_native_bridge.cjs
+          node --check tools/fwn9_p9l_checkpoint.cjs
+          node --test tools/fwn9_p9l_native_bridge_test.cjs
+          node tools/fwn9_p9l_native_bridge_test.cjs --emit-audit | grep '^P9L_AUDIT=' >/tmp/p9l_integrated.txt
+          python3 -B tools/fwn9_p9l_accountant.py /tmp/p9l_integrated.txt
+          python3 - <<'PY'
+          import json
+          row=json.loads(open('/tmp/p9l_integrated.txt').read().removeprefix('P9L_AUDIT='))
+          assert row['accepted']>0 and row['noBroker'] is True
+          assert row['optimizerEligible'] is False
+          assert row['nativePriceExecutability'] is False
+          print('P9L_SOURCE_BRIDGE_PASS_NO_ECONOMIC_PROMOTION')
+          PY
+      - name: Current-head quant suite, excluding ONLY separately retained 12 archive tests
+        run: python3 -B tools/fwn9_p9i_partitioned_regressions_r5.py --current
+      - name: Historical archive suite, independently reconstructed from immutable byte refs
+        run: python3 -B tools/fwn9_p9i_partitioned_regressions_r5.py --archive

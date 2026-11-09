@@ -1,0 +1,71 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C3_FINITE_EVENT_SURFACE_1",
+  "parent_program": "research/continuous_n9/program.json",
+  "previous_head": "a98947d3d6bd1dd6c1888d9dfbaab9e4e2db233c",
+  "continuation_pr": 7,
+  "lease_id": "M11_P9M_C3_FINITE_CAUSAL_SURFACE_T8_20261108",
+  "hypothesis": "The native OHLC stop/target receipt mapping and the eight-substep first-cross causal surface can be classified exhaustively on a finite set of synthetic-engineering event fixtures, while a dual-asset IOC NO_FILL preserves causally reserved self-financing cash. Where native receipts lack a unique substep fill, that mismatch must block native WEAK bound promotion instead of being treated as realizable alpha.",
+  "falsification": [
+    "Any native or substep event is marked known before its effective time or publication",
+    "A native receipt is classified equivalent while its exit quantity, reason or net price differs across admissible substep permutations",
+    "Entry or mark consumes unavailable future OHLC information",
+    "NO_FILL creates shares or releases reserve before knownAt",
+    "Conservation of cash, inventory, fees or terminal equity fails on bounded fixtures",
+    "An existing market/final seed is used"
+  ],
+  "finite_catalog": [
+    "P9M-C1 same-OHLC target-before-stop 8-substep path",
+    "P9M-C1 same-OHLC stop-before-target 8-substep path",
+    "P9M-C2 two assets with SYNA filled and SYNB IOC NO_FILL",
+    "P9M-C2 two assets with SYNB filled and SYNA IOC NO_FILL",
+    "negative control: tampered substep publication time",
+    "negative control: tampered native receipt price / reservation knownAt"
+  ],
+  "seeds": {
+    "market": [],
+    "holdout": [],
+    "engineering": "fixed deterministic fixture times/prices, no RNG"
+  },
+  "budget": {
+    "new_candidates": 0,
+    "controls": 2,
+    "new_economic_accounts": 0,
+    "workers": 1,
+    "prospective_alpha_spent": 0,
+    "final_opened": 0
+  },
+  "immutable": {
+    "capitalUsd": 20000,
+    "reserveFraction": 0.12,
+    "riskFraction": 0.0025,
+    "maximumHoldingHours": 72,
+    "hurdleBpPerDay": 1,
+    "nominalCosts": {
+      "commissionUsdPerShareSide": 0.005,
+      "spreadBps": 2,
+      "slippageBps": 2
+    },
+    "generatorChanged": false
+  },
+  "inputs": [
+    "runtime30/fwn9_p9m_c_order_witness.cjs",
+    "runtime30/fwn9_p9m_c2_event_parity.cjs",
+    "runtime30/modulation11_stateful_campaign.cjs",
+    "runtime30/profit8_replay.js",
+    "runtime30/ultimate_reservations.js"
+  ],
+  "outputs": [
+    "runtime30/fwn9_p9m_c3_surface_bridge.cjs",
+    "tools/fwn9_p9m_c3_test.cjs",
+    "docs/MODULATION11_PHASE9M_C3.md",
+    "evidence/modulation11/fwn9_phase9m_c3.json"
+  ],
+  "scope": "Finite proof of event-surface non-equivalence, NOT full native market-population proof, bound certificate or economic account search",
+  "gates": {
+    "fullNativePopulationEquivalent": false,
+    "nativeWEAKBoundCertified": false,
+    "operationalGapsClosed": false,
+    "virtualCellIntegration": false,
+    "N9S": false
+  }
+}

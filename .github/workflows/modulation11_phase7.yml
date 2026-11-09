@@ -1,0 +1,69 @@
+name: M11 phase7 endogenous two-asset multi-bar coupling
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_multibar_coupling.cjs
+      - tools/modulation11_phase7_test.cjs
+      - tools/modulation11_phase7_accountant.py
+      - research/modulation11/phase7_protocol.json
+      - .github/workflows/modulation11_phase7.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  coupling:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax, deterministic full-campaign fixtures and reserve diagnostics
+        run: |
+          node --check runtime30/modulation11_multibar_coupling.cjs
+          node --check tools/modulation11_phase7_test.cjs
+          node --test tools/modulation11_phase7_test.cjs
+      - name: Restricted static JS types
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_multibar_coupling.cjs
+      - name: Independent cash and inventory accountant (Decimal 46)
+        run: |
+          node tools/modulation11_phase7_test.cjs --emit-accountant > /tmp/harpoon_m11_p7_event_fills.json
+          python -B tools/modulation11_phase7_accountant.py /tmp/harpoon_m11_p7_event_fills.json
+      - name: Registered provenance, hashes and no market account use
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('.')
+          m11=json.loads((root/'research/modulation11/protocol.json').read_text())
+          for path,expected in {**m11['source_provenance'],**m11['code_sha256']}.items():
+              actual=hashlib.sha256((root/path).read_bytes()).hexdigest()
+              assert actual==expected,(path,actual,expected)
+          m9=json.loads((root/'research/modulation9/registration.json').read_text())
+          p='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/p).read_bytes()).hexdigest()==m9['sources_sha256'][p]
+          protocol=json.loads((root/'research/modulation11/phase7_protocol.json').read_text())
+          assert protocol['new_economic_accounts']==0
+          assert protocol['seeds_opened']==[] and protocol['final_remaining']==3200
+          for path in ( 'runtime30/modulation11_multibar_coupling.cjs',
+              'tools/modulation11_phase7_test.cjs','tools/modulation11_phase7_accountant.py',
+              'research/modulation11/phase7_protocol.json'):
+              print('M11_P7_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          print('M11_P7_FROZEN_REGISTERED_SOURCES_OK_FINAL_SEALED')
+          PY
+      - name: Event-ledger microbenchmark (illustrative)
+        run: |
+          node - <<'JS'
+          const L=require('./runtime30/modulation11_multibar_coupling.cjs');
+          const marks=[{at:1,symbol:"SYNA",price:100},{at:2,symbol:"SYNA",price:101}];
+          const fills=[{id:"bench",symbol:"SYNA",at:1,knownAt:1,delta:8,price:100.03,fee:.04,reason:"IOC"},
+                       {id:"bench",symbol:"SYNA",at:2,knownAt:3,delta:-8,price:100.96,fee:.04,reason:"TIME"}];
+          const start=process.hrtime.bigint();
+          for(let i=0;i<3000;i++)L.runLedger(marks,fills,[],20000);
+          console.log('M11_P7_ACCOUNTING_3000_CALLS_MS',Number(process.hrtime.bigint()-start)/1e6);
+          JS

@@ -1,0 +1,69 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C1_STRUCTURAL_NONIDENTIFIABILITY_1",
+  "parent_program": "research/continuous_n9/program.json",
+  "prev_head": "cd7a3d254da83333775bf78a1874de95a56e15fe",
+  "pr": 7,
+  "lease_id": "M11_P9M_C_ORDER_NONIDENTIFIABILITY_WITNESS_20261108_T6",
+  "unit": "Single bounded causal source-parity witness: same native OHLC and price set, distinct eight-substep order, independent self-financing audit and clock. Offline engineering only.",
+  "hypothesis": "NATIVE_OHLC has no unique eight-substep causal self-financing execution mapping when stop and target both lie inside a bar: preserving OHLC, volume, time, opening, ending, tick, costs and admission can yield different first-cross fill sequences; hence the WEAK expectation bound cannot yet be transferred to native replay.",
+  "falsification": [
+    "Native actual filled events differ for identical OHLC inputs under different invisible substep orders",
+    "Discrete first-cross PnL/inventory and receipts do not differ for selected crossed stop/target witness",
+    "Independent micro-USD cash ledger fails to reconcile any native or discrete trace",
+    "Any modeled receipt known before sourceAvailableAt or entry/exit before eligible time",
+    "Substep OHLC identity violation is accepted"
+  ],
+  "finite_fixture_catalog": [
+    "flat identical OHLC baseline (negative control)",
+    "target-first path then stop",
+    "stop-first path then target with identical OHLC",
+    "tampered terminal substep mismatching close",
+    "unavailable future receipt at decision",
+    "fee and full-inventory conservation",
+    "first-cross order and timestamps",
+    "small deterministic runtime microbenchmark"
+  ],
+  "seeds": {
+    "market": [],
+    "holdout": [],
+    "engineering": "two fixed synthetic event permutations, no sampling"
+  },
+  "budget": {
+    "new_candidates": 0,
+    "controls": 1,
+    "new_economic_accounts": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_opened": 0
+  },
+  "original_contract": {
+    "capital_usd": 20000,
+    "reserve_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "maximum_holding_hours": 72,
+    "nominal_hurdle_bp_day": 1,
+    "costs_changed": false,
+    "generator_changed": false
+  },
+  "source_bindings": {
+    "registered_modulation9_generation_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "native_replay": "runtime30/profit8_replay.js",
+    "native_source_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "existing_stateful_comparator": "runtime30/modulation11_stateful_campaign.cjs"
+  },
+  "new_paths": [
+    "runtime30/fwn9_p9m_c_order_witness.cjs",
+    "tools/fwn9_p9m_c_order_test.cjs",
+    ".github/workflows/fwn9_p9m_c.yml",
+    "docs/MODULATION11_PHASE9M_C1.md",
+    "evidence/modulation11/fwn9_phase9m_c1.json"
+  ],
+  "gates": {
+    "full_native_equivalence_claimed": false,
+    "native_population_bound_claimed": false,
+    "optimizer_eligible": false,
+    "observed_trade_evidence": false,
+    "operational_coverage": false
+  },
+  "preregistration": "No new market accounts and no final seeds; one falsifiable structural fixture unit only."
+}

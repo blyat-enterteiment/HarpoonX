@@ -1,0 +1,55 @@
+{
+  "schema": "HARPOON_M11_PHASE6_CONDITIONAL_CREDIT_PROTOCOL_1",
+  "source_head": "1881a71ee1c6cbaffc30800b00398c9b7c2ce032",
+  "lease_commit": "8ab69732bfa08a1a053813eb18e0667fa3f94c4d",
+  "kind": "NON_ECONOMIC_ANALYTICAL_PROOF_AND_FIXTURES",
+  "hypothesis": "Uniform conditional L2 substep price-range moment under frozen WEAK sigma mixture bounds a single bar's positive OHLC-vs-first-cross marked-wealth difference for position quantities measurable at bar open; quantify whether resulting numeric envelope is small enough to bridge the 0.094876753bp/day gap.",
+  "proof": "M_k compensates Gaussian innovations and is a martingale. By Doob L2, E sup |M-1| <= 2sqrt(expm1(sigma^2)). For mu bound and finite eight-step grid, range <= 2S0 sup|S/S0-1|; integrate the .996/.004 sigma-mixture with uniform activity and drift extremes. A sell price is floor_tick(raw*(1-f))-fee, hence width <= H-L+f H+tick*(1+1e-8)+fee. Q*S0 times relative width bounds conditional E positive native-minus-observed wealth difference.",
+  "assumptions": [
+    "Q and opening S0 are observable in F_open",
+    "Q is nonnegative, self-financing inventory fixed within the bar (no purchases)",
+    "two comparisons start same shares and entry cash",
+    "mixture fresh per bar independent of F_open; no future signal access",
+    "frozen normal innovation substeps and compensator",
+    "OHLC high low close arise from the same eight prices plus opening",
+    "per-share fee/tick rounding and registered nominal/stress costs",
+    "no continuous 12 percent exposure cap"
+  ],
+  "excluded": [
+    "no bound on endogenous future Q*P across all admissions",
+    "not an overall sequential full-replay expected log wealth bound",
+    "not a claim native OHLC fills are passive executable",
+    "not a claim of iid or independence between symbols",
+    "no future-aware oracle or candidate promotion"
+  ],
+  "refutation": [
+    "invalid scalar Gaussian mixture conditional law in frozen code",
+    "Q not F_open measurable",
+    "single-bar gap falls outside pathwise envelope",
+    "sigma/activity bound fails source integrity checks",
+    "analytic bound does not remain an upper bound with tick and fee"
+  ],
+  "fixtures": [
+    "zero cash and portfolio additivity",
+    "sigma and scenario monotonicity",
+    "mixture moments",
+    "rare realized excursion exceeding expectation bound",
+    "ticks and units",
+    "mutated contract, future field, benchmark, shorts",
+    "original hurdle margin audit"
+  ],
+  "source_code_sha_pre_run": "GIT_BLOB_SHA_REGISTERED_AT_COMMIT",
+  "workers_max": 1,
+  "candidate_recipes": 0,
+  "new_economic_accounts": 0,
+  "dev_seed_ids": [],
+  "final_seed_ids": [],
+  "prospective_alpha_spent": 0,
+  "final_M10_eligible": false,
+  "final_M10_accounts_unopened": 3200,
+  "frozen_M9_source_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+  "capital_usd": 20000,
+  "admission_gross": 0.12,
+  "holding_max_hours": 72,
+  "expected_outcome_gate": "If bound is too loose to close 0.094876753 bp/day, retain NO_GO and require full endogenous cash/inventory sum or a versioned causal execution model; no signal sweep."
+}

@@ -1,0 +1,131 @@
+{
+  "schema": "HARPOON_FWN9_P9K_MULTILAYER_OPERATIONAL_FAULT_MATRIX_EVIDENCE_1",
+  "verdict": "NO_GO_N9S_ENGINEERING_MULTILAYER_VALIDATED_NATIVE_GATES_OPEN",
+  "lease_id": "M11_P9K_MULTILAYER_EVENT_GATE_20261108",
+  "source_preregistrations": [
+    "8e64f10133f6776f3626b1a9ba5725b096b8a6db",
+    "3abfe7bbaa8d4498a1b92c9ecfae8a459cc05fc2",
+    "d284ba3f8b4fb77005aeae84cc2f4ba6d7dbcc56"
+  ],
+  "ci_runs": {
+    "initial_failed": 42450020327,
+    "initial_tests_passed": 23,
+    "initial_tests_failed": 3,
+    "r2_failed_static": 42450137606,
+    "r2_tests_passed": 27,
+    "r2_tests_failed": 0,
+    "r3_focal_success": 42450233611,
+    "integrated_quant_success": 42450233567
+  },
+  "tests": {
+    "r3_adversarial_passed": 27,
+    "r3_adversarial_failed": 0,
+    "independent_decimal": "PASS_DECIMAL_60",
+    "ruff": "PASS",
+    "mypy_strict": "PASS_SCOPED_ACCOUNTANT",
+    "source_m9_registered_sha256_checked": 47,
+    "integrated_current_quant": 1062,
+    "integrated_legacy_quant": 12,
+    "integrated_total_quant": 1074,
+    "benchmark_80_full_fault_cycles_ms": 37.540958,
+    "benchmark_scope": "RUNNER_ENGINEERING_OFFLINE"
+  },
+  "layers": [
+    {
+      "id": "L0",
+      "scope": "frozen fixture contract",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L1",
+      "scope": "physical cash, inventory, fee accounting",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L2",
+      "scope": "SYNA EQUITY + SYNB CRYPTO common book reservation",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L3",
+      "scope": "IOC partial, NO_FILL, reject, expiry and cancellation request",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L4",
+      "scope": "knownAt, delay, idempotence, outage/recovery",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L5",
+      "scope": "limit price and modeled shortfall from explicit fills",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L6",
+      "scope": "partial exit, original reservation retained, no oversell",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L7",
+      "scope": "72h, daily loss, not continuous 12 percent cap",
+      "passed": true,
+      "native": false
+    },
+    {
+      "id": "L8",
+      "scope": "weekend calendar fees, audit, NO_GO promoted blocked",
+      "passed": true,
+      "native": false
+    }
+  ],
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidate_strategies": 0,
+    "new_control_accounts": 0,
+    "open_market_final_seeds": 0,
+    "m10_final_unopened": 3200,
+    "prospective_alpha_spent_delta": 0,
+    "workers": 1
+  },
+  "source_git_blobs": {
+    "runtime30/fwn9_p9k_fault_matrix.cjs": "888fa838694eae889eaee0eafa9eb554723e30e0",
+    "tools/fwn9_p9k_fault_matrix_test.cjs": "8eb671f0156fd4159f44b9c58164163d7364bdf7",
+    "runtime30/fwn9_p9k_fault_matrix_r2.cjs": "94e676cd261700e7a63a44ca3e714edc0a68ce1c",
+    "tools/fwn9_p9k_fault_matrix_test_r2.cjs": "d3245b92294d819e69ad8519c46b89523fedadd7",
+    "tools/fwn9_p9k_accountant_r3.py": "3637c6e20d86eb10290f8213e2f672b64776d741",
+    ".github/workflows/fwn9_phase9k_r3.yml": "cdc9b4fdd21f60547fbad95d67b3c78fdbae1320",
+    ".github/workflows/robust-quant-core.yml": "fdff2989ceacdedaa45c70dbd3e8ac7de758bfd3"
+  },
+  "sha256_ci": {
+    "tools/fwn9_p9k_accountant_r3.py": "198d199d8fb6bed7ee1283bb43157d67be54f2764555c82c7558b2603e190e80",
+    ".github/workflows/fwn9_phase9k_r3.yml": "2600659e51c4b508e5c7d4cd7bf51152343a1f7000dcac8db3522eba4da63b83",
+    ".github/workflows/robust-quant-core.yml": "8ab88e99b102aa042a18eb0df87ff1161c02bee93f0b81b18a21123a66c74c47"
+  },
+  "limitations": {
+    "all_native_M9_paths_verified": false,
+    "source_adapter_to_native_replay_complete": false,
+    "full_broker_fault_coverage": false,
+    "market_impact_calibrated": false,
+    "native_OHLC_caused_payoff_executable": false,
+    "inverse_wealth_population_bound_proven": false,
+    "conditional_N9_S_achieved": false,
+    "full_JS_type_errors_closed": false,
+    "branch_protection_required_checks_verified": false,
+    "retrospective_trial_debt_reconciled": false
+  },
+  "negative_findings": [
+    "Initial audit output aliases mismatch (3 of 26 tests failed), retained",
+    "R2 independent Python auditor Ruff E731, retained",
+    "Full real native source event equivalence not established",
+    "Two-cell offline success does not prove real multicell coordinator",
+    "Original 12 percent is at admission, not continuous"
+  ]
+}

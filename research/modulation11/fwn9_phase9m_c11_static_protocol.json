@@ -1,0 +1,27 @@
+{
+  "schema": "FWN9_C11_SCOPED_STATIC_PROTOCOL_1",
+  "parent_head": "ded62af99e4d30c61560a2d23876b6b1c7280c9e",
+  "reason": "Separate static/type/integrity checks from the native economic-test workflow; no tests that sample new market paths.",
+  "source_code_git_blob_sha1": {
+    "module": "a340ab43818ae563e094df0f2378c88e68e64072",
+    "test": "408cd48ed7a8ee7e809b51393f69341e7730d3c4",
+    "accountant": "f9d565c3267e3071954daedecbf9b05048a20545",
+    "generator": "b73f03b6d0ff2396e54c527b1da227953a1fdcc7",
+    "replay": "2baa7e8cab40520b311032aea472fcf4017c2220",
+    "reservations": "aa8162d7150986455c95599aeaa50ec4b9faa3ee"
+  },
+  "budget": {
+    "newAccounts": 0,
+    "newSeeds": 0,
+    "newCandidates": 0,
+    "finalOpen": 0,
+    "alphaSpent": 0,
+    "engineeringAttemptsCap": 3
+  },
+  "criteria": [
+    "Ruff and mypy --strict on independent Decimal verifier",
+    "Syntax for JS module and native tests",
+    "SHA/Git blob integrity of scoped and frozen sources",
+    "Do not alter base registration, law, costs or limits"
+  ]
+}

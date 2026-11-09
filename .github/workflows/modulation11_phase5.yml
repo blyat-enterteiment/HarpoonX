@@ -1,0 +1,76 @@
+name: M11 phase5 native payoff envelope proof checks
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_payoff_envelope.cjs
+      - tools/modulation11_phase5_test.cjs
+      - tools/modulation11_phase5_accountant.py
+      - research/modulation11/phase5_protocol.json
+      - .github/workflows/modulation11_phase5.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  payoff-envelope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and deterministic counterexamples
+        run: |
+          node --check runtime30/modulation11_payoff_envelope.cjs
+          node --check tools/modulation11_phase5_test.cjs
+          node --test tools/modulation11_phase5_test.cjs
+      - name: Static JS type check
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_payoff_envelope.cjs
+      - name: Independent Python Decimal account and pathwise bound
+        run: |
+          node - <<'JS' >/tmp/m11_phase5_cases.json
+          const B=require('./runtime30/modulation11_formal_execution_bridge.cjs');
+          const W=require('./runtime30/modulation11_payoff_envelope.cjs');
+          const p={quantity:8,entry:100.03,stop:99.03,distance:1,targetsR:[1.5,null]};
+          const c={friction:.0003,perSideUsd:.005,tick:.01};
+          const up=[100.2,101.8,100.8,100.4,100.1,100.3,100.2,100];
+          const down=[100.2,101.8,100.8,95.5,97,98,99,100];
+          const calc=prices=>W.certificate({bar:B.rawBar(1735920000000,100,prices),
+            prices,position:p,costs:c});
+          console.log(JSON.stringify({up:calc(up),down:calc(down)}));
+          JS
+          python -B tools/modulation11_phase5_accountant.py /tmp/m11_phase5_cases.json
+      - name: Immutable registered inputs and new source SHA256
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('.')
+          registered=json.loads((root/'research/modulation11/protocol.json').read_text())
+          for name,sha in {**registered['source_provenance'],**registered['code_sha256']}.items():
+              actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
+              assert actual==sha,(name,actual,sha)
+          for path in ('runtime30/modulation11_payoff_envelope.cjs',
+                       'tools/modulation11_phase5_test.cjs',
+                       'tools/modulation11_phase5_accountant.py',
+                       'research/modulation11/phase5_protocol.json'):
+              print('P5_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          print('M11_P5_REGISTERED_SOURCES_UNCHANGED; NO_MARKET_ACCOUNTS; M10_FINAL_SEALED')
+          PY
+      - name: Deterministic microbenchmark
+        run: |
+          node - <<'JS'
+          const W=require('./runtime30/modulation11_payoff_envelope.cjs');
+          const B=require('./runtime30/modulation11_formal_execution_bridge.cjs');
+          const p={quantity:8,entry:100.03,stop:99.03,distance:1,targetsR:[1.5,null]};
+          const c={friction:.0003,perSideUsd:.005,tick:.01};
+          const prices=[100.2,101.8,100.8,95.5,97,98,99,100];
+          const bar=B.rawBar(1735920000000,100,prices);
+          const t=process.hrtime.bigint();
+          for(let i=0;i<3000;i++) W.certificate({bar,prices,position:p,costs:c});
+          console.log('M11_P5_ENVELOPE_3000_CALLS_MS',Number(process.hrtime.bigint()-t)/1e6);
+          JS

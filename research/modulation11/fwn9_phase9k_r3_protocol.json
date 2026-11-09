@@ -1,0 +1,44 @@
+{
+  "schema": "HARPOON_P9K_R3_INDEPENDENT_ACCOUNTANT_STATIC_CORRECTION_1",
+  "lease_id": "M11_P9K_MULTILAYER_EVENT_GATE_20261108",
+  "parent": "research/modulation11/fwn9_phase9k_r2_protocol.json",
+  "failed_attempts": [
+    {
+      "run": 42450020327,
+      "pass": 23,
+      "fail": 3,
+      "reason": "OUTPUT_ALIASES"
+    },
+    {
+      "run": 42450137606,
+      "pass": 27,
+      "fail": 0,
+      "decimal": "PASS_DECIMAL_60",
+      "reason": "PYTHON_RUFF_E731_ASSIGNED_LAMBDA"
+    }
+  ],
+  "hypothesis": "Versioned pure function in accountant replaces forbidden assigned lambda, keeping exact Decimal-60 computation, all 27 receipt-fault tests, benchmark, and 47 frozen source checks. Prior code and failed attempts remain visible.",
+  "falsification": [
+    "Static check fails again",
+    "Strict mypy or Decimal arithmetic differs from R2 accountant",
+    "Any event cost/cap/broker setting modified",
+    "Any original M9 or old file checksum edited",
+    "Any final accounts unsealed"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9k_accountant_r3.py": "3637c6e20d86eb10290f8213e2f672b64776d741",
+    ".github/workflows/fwn9_phase9k_r3.yml": "cdc9b4fdd21f60547fbad95d67b3c78fdbae1320",
+    ".github/workflows/robust-quant-core.yml": "fdff2989ceacdedaa45c70dbd3e8ac7de758bfd3"
+  },
+  "frozen_fault_model_sha1": "94e676cd261700e7a63a44ca3e714edc0a68ce1c",
+  "frozen_test_sha1": "d3245b92294d819e69ad8519c46b89523fedadd7",
+  "promotion_eligible": false
+}

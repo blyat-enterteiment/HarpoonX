@@ -1,0 +1,59 @@
+{
+  "schema": "FWN9_C11_ORIGINAL_WEAK_TICK_SUPPORT_PROTOCOL_1",
+  "phase": "M11_PHASE9M_C11_NATIVE_TICK_SUPPORT",
+  "parent_head": "703947095158b14401710c9df005ff0f2fa06339",
+  "lease_id": "M11_P9M_C11_TICK_SUPPORT_70394709",
+  "original_contract": "research/modulation9/protocol.json",
+  "hypothesis": "Under the original strictly positive lognormal eight-substep WEAK law, next-session positive opening prices can fall below the fixed 0.01 tick. The native long exit sell floor after friction can then equal 0 even though every OHLC price is positive, so C10's 'all fill prices > 0' premise is not global. A revised ex-post long-only shadow bound using positive marks/entries as m and nonnegative exits may remain valid; it cannot prove N9-S feasibility or impossibility.",
+  "catalogue": [
+    "S1 native zero-tick round on strictly positive opening < tick, keep original friction/tick",
+    "S2 native two-symbol cash-ledger engineering fixture: prior valid financed entry then next-session tiny strictly-positive gap; preserve original admission and costs",
+    "S3 no-fill, regular gap and negative-priced adversarial guard; check nonnegative-sale lower-anchor version of C10 shadow inequality and independent cash accounting",
+    "S4 reconcile formal Gaussian positive-support caveat versus finite PRNG realized support; do not call synthetic extreme event a sampled population frequency",
+    "S5 assess whether fixed exit-count/price moments create a non-vacuous 1bp/day WEAK growth bound; if not, report open"
+  ],
+  "refutation": "Native replay either rejects the low positive mark before attempting an executable exit, or never produces zero-tick proceeds on an admitted open lot; in that case the hypothesized reachable ledger counterexample fails. A native self-financing sale with zero fill and a violated revised bound refutes the proposed repair.",
+  "original_limits": {
+    "capitalUsd": 20000,
+    "grossFraction": 0.12,
+    "assetFraction": 0.12,
+    "riskFraction": 0.0025,
+    "openRiskFraction": 0.0025,
+    "maxHoldHours": 72,
+    "weakHurdleLogBpDaily": 1,
+    "tickUsd": 0.01
+  },
+  "costs": {
+    "nominalSpreadBps": 2,
+    "nominalSlippageBps": 2,
+    "nominalCommissionPerSide": 0.005,
+    "stressSpreadBps": 4,
+    "stressSlippageBps": 4,
+    "stressCommissionPerSide": 0.01
+  },
+  "budget": {
+    "newMarketAccounts": 0,
+    "newCandidates": 0,
+    "newSeeds": 0,
+    "holdoutOpened": 0,
+    "alphaSpent": 0,
+    "workers": 1,
+    "maxEngineeringAttempts": 3
+  },
+  "baselines": [
+    "CASH unchanged",
+    "M9_BEST unchanged; no economic comparison"
+  ],
+  "planned_files": [
+    "runtime30/fwn9_p9m_c11_tick_applicability.cjs",
+    "tools/fwn9_p9m_c11_tick_test.cjs",
+    ".github/workflows/fwn9_p9m_c11.yml",
+    "docs/MODULATION11_PHASE9M_C11.md",
+    "evidence/modulation11/fwn9_phase9m_c11.json"
+  ],
+  "restrictions": [
+    "Do not alter original generator, economic caps, fees, session horizon, or core replay",
+    "Do not open M10 sealed final, or contact brokers/third parties",
+    "This is finite structural fixture, not new hypothesis grid or promotion"
+  ]
+}

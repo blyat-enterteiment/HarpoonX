@@ -1,0 +1,65 @@
+{
+  "schema": "HARPOON_FWN9_M11_C10_WEALTH_ENVELOPE_PROTOCOL_1",
+  "phase": "M11_PHASE9M_C10_WEALTH_ENDOGENOUS_ADMISSIONS_NATIVE_BRIDGE",
+  "original_contract": "research/modulation9/protocol.json",
+  "parent_head": "f78ef84e9da97a8b50bc6c62dca5d2cdba103af6",
+  "lease_id": "M11_P9MC10_WEALTH_ENVELOPE_F78EF84",
+  "hypothesis": "For the native two-asset cash-funded long-only receipt ledger with nonnegative physical cash, nonnegative costs, positive fill/mark prices, and bounded number of exits, terminal marked equity admits a pathwise market-range envelope independent of future integer admission decisions. This can establish an integrable (possibly vacuous) terminal-wealth bound if the complete M9 logprice law and fill/tick transformations satisfy moment assumptions. It DOES NOT bound OHLC-vs-first-cross differences tightly enough for N9-S.",
+  "catalogue": [
+    "W1 exact native receipt ledger: both assets, causal knownAt timestamps, full notional and fee reconciliation",
+    "W2 pathwise shadow U=C+sum(q*m_symbol): purchases never increase U, sales increase U by at most R=max(maxP/minP), assuming nonnegative cash",
+    "W3 terminal equity <= R*U_terminal <= 20000*R^(N_sales+1) for tested no-short no-borrow path; test both stress/nominal scenario costs without changing contracts",
+    "W4 fail-closed adversarial malformed receipts, negative cash, missing marks, fabricated execution beyond ledger price range",
+    "W5 produce exact independent Decimal accounting and state precisely which assumptions remain unproved in the complete native engine; no 9 acceptance"
+  ],
+  "refutation": "An actually native reachable long-only nonnegative-cash receipt trace that violates the pathwise wealth envelope, or native self-financing/CASH reconciliation, falsifies the proposed bound. A reachable negative-cash trace falsifies applicability to the full engine, not the conditional algebra; do not silently exclude it.",
+  "preregistered_source_bindings": {
+    "profit8_replay_git_blob": "2baa7e8cab40520b311032aea472fcf4017c2220",
+    "ultimate_reservations_git_blob": "aa8162d7150986455c95599aeaa50ec4b9faa3ee",
+    "fwn9_c9_git_blob": "267c2698d7d420b681b5c9784f89239c5f9bd7d4",
+    "generator_git_blob": "b73f03b6d0ff2396e54c527b1da227953a1fdcc7"
+  },
+  "economic_contract": {
+    "capital": 20000,
+    "universe": [
+      "SYNA",
+      "SYNB"
+    ],
+    "gross_admission": 0.12,
+    "risk_admission": 0.0025,
+    "holding_h": 72,
+    "weak_hurdle_bp_daily": 1,
+    "nominal_fee_per_share_per_side_usd": 0.005,
+    "stress_fee_per_share_per_side_usd": 0.01,
+    "market_generator_unchanged": true
+  },
+  "budget": {
+    "new_market_accounts": 0,
+    "new_recipes": 0,
+    "new_seeds": 0,
+    "new_holdout": 0,
+    "new_economic_grid": 0,
+    "prospective_alpha_spent": 0,
+    "workers": 1,
+    "engineering_attempts_max": 3
+  },
+  "planned_files": [
+    "runtime30/fwn9_p9m_c10_wealth_envelope.cjs",
+    "tools/fwn9_p9m_c10_wealth_test.cjs",
+    "tools/fwn9_p9m_c10_decimal_accountant.py",
+    ".github/workflows/fwn9_p9m_c10.yml",
+    "docs/MODULATION11_PHASE9M_C10.md",
+    "evidence/modulation11/fwn9_phase9m_c10.json"
+  ],
+  "baselines": [
+    "CASH same fixed cost unaffected",
+    "M9_BEST unchanged; no new economic comparison"
+  ],
+  "classification": "STRUCTURAL_ENGINEERING_AND_CONDITIONAL_MATH_NOT_STATISTICAL_VALIDATION",
+  "restrictions": [
+    "Do not alter frozen M9/M10 economic sources or retrospective results",
+    "Do not claim terminal wealth moment integration under actual law without verified no-negative-cash and tick support",
+    "Do not open sealed 3200 M10 final accounts",
+    "No broker/orders/deployment/PR merge or third-party contact"
+  ]
+}

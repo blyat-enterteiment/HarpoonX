@@ -1,0 +1,29 @@
+{
+  "schema": "FWN9_M11_PHASE9L_R2_DETERMINISTIC_ONLY_1",
+  "parent": "research/modulation11/fwn9_phase9l_protocol.json",
+  "lease_id": "M11_P9L_NATIVE_ADAPTER_20261108",
+  "failed_r1_run": 42453903221,
+  "r1_tests_passed": 12,
+  "r1_tests_failed": 0,
+  "identified_issue": "The deterministic P9L_AUDIT line was embedded in node:test TAP output which includes wall-time durations, making two otherwise identical audit transcripts differ. Strictly compare only the P9L_AUDIT JSON payload, retaining old run as failed.",
+  "hypothesis": "With only the deterministic P9L_AUDIT line compared, independent Decimal-60 accountant, full 12/12 native adapter and checkpoint tests, static/type and 47 M9 SHA should all pass.",
+  "refutation": [
+    "Audit JSON itself differs between two source reruns",
+    "Decimal accountant rejects source cash or final wealth",
+    "Source adapter fails after restart",
+    "Any original source or M10 final accessed or modified"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    ".github/workflows/fwn9_phase9l_r2.yml": "cca5b6a2e576c6d7b488d8688e92091131087530"
+  },
+  "source_test_blob_sha1": "4abbbd0ec8eb31b83e36f9564df399d4edfde42c",
+  "promotion_eligible": false
+}

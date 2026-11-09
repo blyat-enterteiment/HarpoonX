@@ -1,0 +1,112 @@
+{
+  "schema": "HARPOON_M11_PHASE9A_RESULT_1",
+  "origin": "DETERMINISTIC_ENGINEERING_FIXTURES_ONLY",
+  "branch": "codex/continuous-n9-research",
+  "protocol": "research/modulation11/phase9a_v2_protocol.json",
+  "preregistration_commit": "e0b835f54e7baa7829a846b420c4167b3cb3f736",
+  "ci": {
+    "successful_run": 42432220136,
+    "successful_job": 128583413716,
+    "conclusion": "SUCCESS",
+    "tests_passed": 6,
+    "tests_failed": 0,
+    "types": "NO_NEW_ERRORS_EIGHT_HISTORICAL_TS2365",
+    "independent_decimal": "PASS_46_DIGITS",
+    "source_hashes_verified": 4,
+    "generator_sha256_verified": true,
+    "benchmark20BooksMs": 319.225
+  },
+  "preserved_failed_attempts": [
+    {
+      "run": 42432129803,
+      "reason": "SyntaxError before campaign fixture execution",
+      "economic_accounts_consumed": 0,
+      "attempt_retained": true
+    }
+  ],
+  "baseline": {
+    "nativeUsd": -9.68,
+    "firstCrossUsd": -9.68,
+    "calendarFeesUsd": 8,
+    "nativeFundedCampaigns": 2
+  },
+  "adversarial": {
+    "nativeUsd": -33.31999999999971,
+    "firstCrossUsd": -33.70999999999913,
+    "deltaNativeMinusFirstUsd": 0.3899999999994179,
+    "nativeAdmissions": [
+      {
+        "id": "SYNA:NATIVE72:0",
+        "symbol": "SYNA",
+        "quantity": 12
+      },
+      {
+        "id": "SYNB:NATIVE72:1",
+        "symbol": "SYNB",
+        "quantity": 12
+      }
+    ],
+    "causalAdmissions": [
+      {
+        "id": "SYNA:NATIVE72:0",
+        "symbol": "SYNA",
+        "quantity": 12
+      },
+      {
+        "id": "SYNB:NATIVE72:1",
+        "symbol": "SYNB",
+        "quantity": 12
+      }
+    ],
+    "nativeDecisionAnchors": [
+      {
+        "id": "SYNA:NATIVE72:0",
+        "matched": true,
+        "quantityNative": 12,
+        "quantityMirror": 12,
+        "equityNativeUsd": 19999,
+        "equityMirrorUsd": 19999,
+        "cashNativeUsd": 19999,
+        "cashMirrorUsd": 19999
+      },
+      {
+        "id": "SYNB:NATIVE72:1",
+        "matched": true,
+        "quantityNative": 12,
+        "quantityMirror": 12,
+        "equityNativeUsd": 19971.52,
+        "equityMirrorUsd": 19971.52,
+        "cashNativeUsd": 19971.52,
+        "cashMirrorUsd": 19971.52
+      }
+    ],
+    "claims": {
+      "nativeAdmittedFullQuantity": true,
+      "nativeTradeNet": true,
+      "nativeDecisionAnchor": true,
+      "sourceNativeCampaigns": true,
+      "discreteEightSubstepExits": true,
+      "nativeFullMarkAndDailyGate": false,
+      "stochasticPopulationBridge": false
+    }
+  },
+  "sources_sha256": {
+    "runtime30/modulation11_native_receipt_parity_p9a_v2.cjs": "698f0229545329022ad05b0f991937191a3eea91eae403708f3630d23cc847c4",
+    "tools/modulation11_phase9a_v2_test.cjs": "2f5b8f5ffdecf47cbae619e1b4087a77603b00e8914682ce6f759fd109570906",
+    "tools/modulation11_phase9a_v2_accountant.py": "10cb5ae6db5b98c46c4c2016ac55a719af5ccebcdff402052dd1f98f2ce11ba9",
+    ".github/workflows/modulation11_phase9a_v2.yml": "1323ee43906d1d9a7c60834a7c95b48a6e7c6a2da131d01d152b5a193b61b244"
+  },
+  "decisions": {
+    "native_source_receipt_parity_in_fixture": true,
+    "first_cross_counterexample_preserved": true,
+    "stochastic_native_wealth_bridge_certified": false,
+    "universal_risk_clock_parity": false,
+    "universal_12pct_exposure_cap_claimed": false,
+    "new_economic_accounts": 0,
+    "market_seeds_opened": [],
+    "prospective_alpha_spent": 0,
+    "final_stage_accounts_unopened": 3200,
+    "current_verdict": "NO_GO"
+  },
+  "next": "M11_PHASE9B_NATIVE_MARK_DAILY_RISK_CLOCK_PARITY; do not open new signals or M10 final."
+}

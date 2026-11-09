@@ -1,0 +1,59 @@
+name: FWN9 phase9E reserve-shadow algebraic bridge
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_shadow_log_bridge_p9e.cjs
+      - tools/fwn9_phase9e_test.cjs
+      - tools/fwn9_phase9e_accountant.py
+      - research/modulation11/fwn9_phase9e_protocol.json
+      - .github/workflows/fwn9_phase9e.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pathwise-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and deterministic adversarial tests
+        run: |
+          node --check runtime30/fwn9_shadow_log_bridge_p9e.cjs
+          node --check tools/fwn9_phase9e_test.cjs
+          python -m py_compile tools/fwn9_phase9e_accountant.py
+          node --test tools/fwn9_phase9e_test.cjs
+      - name: Independent decimal arithmetic
+        run: python -B tools/fwn9_phase9e_accountant.py
+      - name: Integrity and sealed holdout
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess,hashlib
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/fwn9_phase9e_protocol.json').read_text())
+          assert p['budget']['economic_accounts']==0
+          assert p['budget']['m10_final_unopened']==3200
+          for path,sha in p['code_git_blob_sha1'].items():
+              actual=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert actual==sha,(path,actual,sha)
+              print('P9E_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          src='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/src).read_bytes()).hexdigest()==reg['sources_sha256'][src]
+          print('P9E_FROZEN_GENERATOR_OK')
+          PY
+      - name: Bounded benchmark
+        run: |
+          node - <<'JS'
+          const {performance}=require('node:perf_hooks');
+          const M=require('./runtime30/fwn9_shadow_log_bridge_p9e.cjs');
+          const n={terminalEquityUsd:20112.16,netAfterAllCostsUsd:112.16};
+          const c={terminalEquityUsd:19973.2,netAfterAllCostsUsd:-26.8};
+          const t=performance.now();for(let i=0;i<3000;i++)M.bridge(n,c);
+          console.log('P9E_3000_BRIDGES_MS='+ (performance.now()-t));
+          JS

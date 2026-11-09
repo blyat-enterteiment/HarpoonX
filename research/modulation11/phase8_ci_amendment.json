@@ -1,0 +1,22 @@
+{
+  "schema": "HARPOON_M11_PHASE8_CI_AMENDMENT_1",
+  "kind": "ADDITIVE_VALIDATION_WORKFLOW_NO_REWRITE",
+  "original_protocol": "research/modulation11/phase8_protocol.json",
+  "original_ci_run": 42430492844,
+  "original_ci_status": "FAIL_SCOPED_TYPES_TRANSITIVE_LEGACY",
+  "original_failure": "8 TS2365 errors in frozen runtime30/types.js; fixtures step passed; no economic attempt executed",
+  "original_workflow_git_blob_sha1": "12a447dd9e53e5beeb0e314c1b965c464a310b5e",
+  "added_workflow": ".github/workflows/modulation11_phase8_validation_v2.yml",
+  "added_workflow_git_blob_sha1": "3a2cca5715a2d2b7495083f55c1125770333c664",
+  "isolated_scope": "tsc checkJs --noResolve on M11 P8 module; transitive frozen JS code excluded from typecheck; functional calls integrated by Node fixtures",
+  "budget_delta": {
+    "new_economic_accounts": 0,
+    "new_market_seeds": 0,
+    "alpha": 0
+  },
+  "not_claimed": [
+    "legacy complete type suite fixed",
+    "stochastic wealth bridge proved",
+    "N9-S accepted"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "HARPOON_FWN9_P9D_V2_IOC_NOFILL_NATIVE_MARK_PROTOCOL_1",
+  "supersedes_for_engineering_only": "research/modulation11/fwn9_phase9d_protocol.json",
+  "failed_attempts_retained": [
+    42438069535
+  ],
+  "lease_id": "M11_P9D_20261108021724230",
+  "hypothesis": "Native IOC NO_FILL is a reservation that is not a funded campaign; native mark checks must compare approved admissions with reserved states rather than filled trades, and preserve historical P9B no-fill valuation event mismatch.",
+  "refutation": [
+    "No-fill appears as funded exposure",
+    "Reserved admission quantities diverge from native",
+    "P9B missing clock silently ignored",
+    "Any live order or M9 generator modification",
+    "Independent Decimal accountant disagrees >0.000001 USD"
+  ],
+  "fixtures": [
+    "Healthy native full-campaign marks",
+    "Partial target",
+    "Corrupt mark rejection",
+    "Native no-fill with P9B clock mismatch diagnostic",
+    "Delayed receipt negative control"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_native_mark_convergence_p9d_v2.cjs": "8f3a9bae8f30501541b7a1a5d4b9b90b6decd47b",
+    "tools/fwn9_phase9d_test_v2.cjs": "cbf301e7965cd5e232f59ff38ae3ca0b30fa2161",
+    "tools/fwn9_phase9d_accountant_v2.py": "8459d01ad3e179ae7477e491208137a9939eb120",
+    ".github/workflows/fwn9_phase9d_v2.yml": "ef03725d3e7ed72a9e9d542a72bbdddd0c8c1f4b"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_accounts_unopened": 3200
+  },
+  "original_contract": "research/modulation9/protocol.json",
+  "no_live_execution": true,
+  "no_merge": true,
+  "limitations": [
+    "No population wealth bound",
+    "Native OHLC fills still not proven executable",
+    "No native P9B historical mutation",
+    "Operational fault and multicell gaps remain"
+  ]
+}

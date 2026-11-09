@@ -1,0 +1,78 @@
+{
+  "schema": "FWN9_M11_C10_ENGINEERING_EVIDENCE_1",
+  "phase": "M11_PHASE9M_C10_WEALTH_ENDOGENOUS_ADMISSIONS_NATIVE_BRIDGE",
+  "date_utc": "2026-11-08",
+  "preregistered_at_commit": "5e677020fbe0aa10c361814a2da684dd3b0c7c96",
+  "head_verified_at_close": "de593ec44f9d39a79ae78dd5ae30527b68cce7be",
+  "ci": {
+    "r1": {
+      "run_id": 42512248407,
+      "conclusion": "failure",
+      "native_tests": "8/8",
+      "reason": "TAP plus JSON in independent-accountant pipe"
+    },
+    "r2": {
+      "run_id": 42512387707,
+      "conclusion": "failure",
+      "native_tests": "8/8",
+      "reason": "Export serializer wrote undefined v.h instead of v.hi; Python independently rejected missing max"
+    },
+    "r3": {
+      "run_id": 42512536107,
+      "conclusion": "success",
+      "native_tests_pass": 8,
+      "native_tests_fail": 0,
+      "independent_decimal50": "PASS: 5 native receipts, 3 exits",
+      "syntax_js_python": "PASS",
+      "benchmark_16_native_replays_ms": 56.521,
+      "static_ruff": "NOT_RUN",
+      "strict_mypy": "NOT_RUN"
+    }
+  },
+  "derivation": {
+    "domain": "Actual native two-symbol, long-only, self-financing receipts on tested deterministic engineering tapes, physical cash always nonnegative, fees/costs nonnegative, positive fill and observation prices.",
+    "prices_ex_post": "For each asset a: m_a=min positive bar and executed prices; M_a=max; R=max_a M_a/m_a >=1.",
+    "shadow_invariant": "U_t=C_t+sum_a q_a,t*m_a; buying at price >=m_a reduces U, selling <=M_a increases U by at most factor R when cash>=0. Calendar costs reduce U.",
+    "envelope": "0 < W_T <= R*U_T <= 20000 * R^(N_exits+1), for the checked nonborrowing long-only receipt ledger, with all fees and calendar costs charged.",
+    "future_integer_admissions": "No assumption that both counterfactual books make identical choices; algebra depends only on own actual inventory and cash.",
+    "limitation": "R calculated after seeing full path. This is a retrospective upper envelope, NOT a causal trading signal, tight net growth bound, stochastic M9 moment certificate, or OHLC/substep execution equivalence."
+  },
+  "outcomes": {
+    "independent_native_terminal_cash_reconciliation": "PASS_SCOPED",
+    "nominal_and_stress_fixtures": "PASS_SCOPED",
+    "no_fill_in_both_assets": "PASS_SCOPED",
+    "adversarial_negative_cash": "REJECTED",
+    "adversarial_early_knownAt": "REJECTED",
+    "adversarial_fee_removal": "REJECTED",
+    "original_M9_source_hashes": "PASS",
+    "universal_nonnegative_cash_m9": "UNPROVEN",
+    "future_admissions_counterfactual_witness": "UNPROVEN",
+    "weak_n9s_theorem": "UNPROVEN",
+    "oracle_promotable": false,
+    "N9S_verdict": "NO_GO"
+  },
+  "frozen_constraints": {
+    "initial_usd": 20000,
+    "weak_hurdle_bp_per_day": 1,
+    "nominal_fee_usd_per_share_side": 0.005,
+    "stress_fee_usd_per_share_side": 0.01,
+    "risk_fraction": 0.0025,
+    "admission_fraction": 0.12,
+    "max_hold_hours": 72,
+    "final_m10_accounts_unopened": 3200,
+    "new_economic_accounts": 0,
+    "alpha_spent": 0
+  },
+  "sha_checks": {
+    "git_blob_sha1": {
+      "runtime30/fwn9_p9m_c10_wealth_envelope_r3.cjs": "e0226354fa7742709ea3f66684112b6d728a19a8",
+      "tools/fwn9_p9m_c10_wealth_test_r3.cjs": "248cc67507960a9f39397a638465915689e4ecc3",
+      "tools/fwn9_p9m_c10_decimal_accountant.py": "78e5542a80c8d503274e577671a79e44c4dd708f",
+      ".github/workflows/fwn9_p9m_c10_r3.yml": "ff543e94783d73b4b5eb2fe53246aef53ffcb362"
+    },
+    "frozen_generator_modulation9_git_blob": "b73f03b6d0ff2396e54c527b1da227953a1fdcc7",
+    "frozen_profit8_replay_git_blob": "2baa7e8cab40520b311032aea472fcf4017c2220",
+    "frozen_ultimate_reservations_git_blob": "aa8162d7150986455c95599aeaa50ec4b9faa3ee"
+  },
+  "archive": "No new large raw data. Original M10 persistent ZIP ID remains in research/continuous_n9/state.json."
+}

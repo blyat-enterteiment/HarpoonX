@@ -1,0 +1,39 @@
+{
+  "schema": "HARPOON_FWN9_P9L_R4_FULL_QUANT_HARD_GATE_1",
+  "parent": "research/modulation11/fwn9_phase9l_protocol.json",
+  "lease_id": "M11_P9L_NATIVE_ADAPTER_20261108",
+  "preceding_source_ci_success": 42454100111,
+  "failed_preserved": [
+    {
+      "run": 42453903221,
+      "reason": "TAP_WALLTIME_DIFFERENCE_NOT_RECEIPT_DATA",
+      "node_passed": 12
+    },
+    {
+      "run": 42454005934,
+      "reason": "CHECKPOINT_PROTOCOL_WRONG_METADATA_KEY",
+      "node_passed": 12,
+      "accountant": "PASS_DECIMAL_60"
+    }
+  ],
+  "hypothesis": "P9L source-native adapter, restartable checkpoint, independent source receipt arithmetic and no-promotion guard operate as blocking tests in the full quant CI, preserving all 1062 current and 12 split-lineage archival tests.",
+  "refutation": [
+    "Any source adapter or ledger gate not executed in CI",
+    "One of 1062+12 regressions silently excluded",
+    "Optimization auto-promoted based on modeled OHLC data",
+    "Historic M9 source or M10 final changed",
+    "Any source receipt mismatch or restart corruption accepted"
+  ],
+  "git_blobs": {
+    ".github/workflows/robust-quant-core.yml": "185b597843696bc2414c810dc856d9765fea19de"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "promotion_eligible": false
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "HARPOON_FWN9_P9MC13_LOCAL72_COUPLING_EVIDENCE_1",
+  "version": "V4_FINAL_INTEGRITY_WITH_V3_FINANCIAL_CODE",
+  "source_head": "348c63ff49f944239f11ad75f08b9e0a989e83cf",
+  "preregistration_commit": "e88505039a9f0650ce355d7f6a42fc4566df42f5",
+  "registered_protocol": "research/modulation11/fwn9_phase9m_c13_protocol.json",
+  "sources_manifest": "research/modulation11/fwn9_phase9m_c13_sources_v4.json",
+  "ci_success": {
+    "run_id": 42535658934,
+    "status": "SUCCESS",
+    "node_tests_passed": 9,
+    "node_tests_failed": 0,
+    "independent_decimal_46": "PASS",
+    "ruff": "PASS",
+    "mypy_strict": "PASS",
+    "m9_three_frozen_sha256": "PASS",
+    "git_blob_registration": "PASS",
+    "benchmark_1000_local_books_ms": 103.363
+  },
+  "failed_ci_attempts": [
+    {
+      "run_id": 42535258081,
+      "type": "ENGINEERING_WINDOW_END_RECONCILIATION_FAIL",
+      "passed": 5,
+      "failed": 4
+    },
+    {
+      "run_id": 42535394982,
+      "type": "ENGINEERING_DIAGNOSTIC_CONFIRMS_WINDOW_1_END_NULL",
+      "passed": 5,
+      "failed": 4
+    },
+    {
+      "run_id": 42535528683,
+      "type": "STATIC_MANIFEST_EXPECTED_M9_INSTEAD_OF_C13_PROTOCOL",
+      "node_passed": 9,
+      "decimal_passed": true
+    }
+  ],
+  "source_sha256": {
+    "runtime30/fwn9_p9m_c13_local_coupling_v3.cjs": "c5c3346e2bc3aa1fdd2308d1bb4378a12fb1aa8d20ad9578d1f4bd889794a71a",
+    "tools/fwn9_p9m_c13_test_v3.cjs": "12605e1e93ae538ed846ac87c897b9f6b4779687bb3ab1d17a615647931fa0e6",
+    "tools/fwn9_p9m_c13_decimal_accountant_v3.py": "c49ecdb7a7949b3cdf8dcfb9eeb060d6711f27f9e5f23c57086c4f0622128b01",
+    ".github/workflows/fwn9_p9m_c13_v4.yml": "3118476c665ffc52441a9ca37052b0abd97262b69d76d87d3c0044c799df9cc7"
+  },
+  "engineering_fixture": {
+    "financial_windows": 3,
+    "window_max_hours": 72,
+    "native_end_equity_usd": 19946.56,
+    "independent_first_cross_end_equity_usd": 20048.49,
+    "native_minus_first_cross_usd": -101.93,
+    "exact_telescope_residual_max_abs_usd": 0.000001,
+    "positive_parts_aggregate_difference_upper_usd": 29.5,
+    "independent_decimal_events": 23,
+    "native_vs_counterbook_forced_matching": false,
+    "receipt_knowledge_clock_audited": true,
+    "trailing_no_event_window_reconciled": true
+  },
+  "actual_native_replay_fixture": {
+    "checked": true,
+    "native_campaigns_from_real_replay": true,
+    "independent_counterbook_first_cross_with_own_admission": true,
+    "accounting_terminal_reconciled": true,
+    "market_generator_sampled": false
+  },
+  "proof": {
+    "pathwise_local_wealth_identity": true,
+    "conditional_nonvacuous_population_bound": false,
+    "gaussian_WEAK_no_finite_uniform_deterministic_price_ratio": true,
+    "mathematical_scope_of_refutation": "NO_FIXED_DETERMINISTIC_LOCAL_PRICE_RATIO_CAP_FROM_72H_DURATION_ALONE",
+    "native_full_stochastic_WEAK_n9s_impossibility": false,
+    "real_market_profitability": false
+  },
+  "preservation": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "new_market_seeds": 0,
+    "new_final_M10_opened": 0,
+    "remaining_final_M10": 3200,
+    "alpha_spent": 0,
+    "live_orders": 0,
+    "deployments": 0,
+    "merged_pr": false,
+    "automation_reactivated": false
+  },
+  "verdict": "PASS_LOCAL_CAUSAL_LEDGER_IDENTITY_AND_REFUTATION_OF_UNIFORM_LOCAL_PRICE_CAP__N9S_NOT_CERTIFIED"
+}

@@ -1,0 +1,37 @@
+name: M11 integrated native campaign checks
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/modulation11_native_campaign_test.cjs
+      - .github/workflows/modulation11_phase1.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deterministic-integrated-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Full native campaign, reserve/IOC fixtures, checksum
+        run: |
+          node --check tools/modulation11_native_campaign_test.cjs
+          node --test tools/modulation11_fixture_test.cjs tools/modulation11_native_campaign_test.cjs
+          python - <<'PY'
+          import hashlib, json, pathlib
+          root=pathlib.Path('.')
+          p=root/'tools/modulation11_native_campaign_test.cjs'
+          e=json.loads((root/'evidence/modulation11/phase1_native_fixture.json').read_text())
+          print('phase1_sha256',hashlib.sha256(p.read_bytes()).hexdigest())
+          assert e['economic_accounts']==0 and not e['final_opened']
+          proto=json.loads((root/'research/modulation11/protocol.json').read_text())
+          for name,sha in {**proto['source_provenance'],**proto['code_sha256']}.items():
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest()==sha, name
+          print('historical registrations unchanged')
+          PY

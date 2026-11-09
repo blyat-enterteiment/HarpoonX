@@ -1,0 +1,32 @@
+name: C10 native wealth pathwise envelope audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - 'runtime30/fwn9_p9m_c10_wealth_envelope.cjs'
+      - 'tools/fwn9_p9m_c10_wealth_test.cjs'
+      - 'tools/fwn9_p9m_c10_decimal_accountant.py'
+      - '.github/workflows/fwn9_p9m_c10.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  native-envelope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Static syntax checks
+        run: |
+          node --check runtime30/fwn9_p9m_c10_wealth_envelope.cjs
+          node --check tools/fwn9_p9m_c10_wealth_test.cjs
+          python -m py_compile tools/fwn9_p9m_c10_decimal_accountant.py
+      - name: Native two-asset checks
+        run: node --test tools/fwn9_p9m_c10_wealth_test.cjs
+      - name: Independent Decimal-50 book
+        run: node tools/fwn9_p9m_c10_wealth_test.cjs --emit | python tools/fwn9_p9m_c10_decimal_accountant.py
+      - name: Benchmark
+        run: node tools/fwn9_p9m_c10_wealth_test.cjs --bench

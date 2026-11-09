@@ -1,0 +1,49 @@
+name: FWN9 P9I R2 immutable legacy mismatch attribution
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9i_legacy_debt.py
+      - tools/test_fwn9_p9i_legacy_debt.py
+      - research/modulation11/fwn9_phase9i_r2_protocol.json
+      - .github/workflows/fwn9_phase9i_r2.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  provenance-debt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read-only archived SHA mismatch attribution
+        run: |
+          python -m py_compile tools/fwn9_p9i_legacy_debt.py tools/test_fwn9_p9i_legacy_debt.py
+          PYTHONPATH=tools python -m unittest -v test_fwn9_p9i_legacy_debt
+          PYTHONPATH=tools python -B tools/fwn9_p9i_legacy_debt.py
+      - name: Static and type checks
+        run: |
+          python -m pip install --disable-pip-version-check 'ruff==0.14.4' 'mypy==1.18.2'
+          ruff check --select E4,E7,E9,F tools/fwn9_p9i_legacy_debt.py tools/test_fwn9_p9i_legacy_debt.py
+          mypy --strict tools/fwn9_p9i_legacy_debt.py tools/test_fwn9_p9i_legacy_debt.py
+      - name: Immutable preregistration, inputs and sealed budget
+        run: |
+          python - <<'PY'
+          import json,hashlib,pathlib,subprocess
+          p=json.loads(pathlib.Path("research/modulation11/fwn9_phase9i_r2_protocol.json").read_text())
+          assert p["budget"]["economic_accounts"]==0 and p["budget"]["m10_final_unopened"]==3200
+          for name,sha in p["code_git_blob_sha1"].items():
+              assert subprocess.check_output(["git","hash-object",name],text=True).strip()==sha
+              print("P9I_R2_SHA256",name,hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest())
+          old=json.loads(pathlib.Path("research/reused_evidence/protocol.json").read_text())
+          m9=json.loads(pathlib.Path("research/modulation9/registration.json").read_text())
+          assert old["source_head"]==p["archive_source_head"]
+          assert old["bound_files"]["runtime30/profit8_replay.js"]==p["archive_profit8_sha256"]
+          assert m9["sources_sha256"]["runtime30/profit8_replay.js"]==p["m9_profit8_sha256"]
+          PY

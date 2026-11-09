@@ -1,0 +1,44 @@
+name: FWN9 P9I R3 exact split-lineage source verification
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9i_composite_lineage.py
+      - tools/test_fwn9_p9i_composite_lineage.py
+      - research/modulation11/fwn9_phase9i_r3_protocol.json
+      - .github/workflows/fwn9_phase9i_r3.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-split-lineage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and exact split-lineage regression
+        run: |
+          python -m py_compile tools/fwn9_p9i_composite_lineage.py tools/test_fwn9_p9i_composite_lineage.py
+          PYTHONPATH=tools python -m unittest -v test_fwn9_p9i_composite_lineage
+          PYTHONPATH=tools python -B tools/fwn9_p9i_composite_lineage.py
+      - name: Static and type checks
+        run: |
+          python -m pip install --disable-pip-version-check 'ruff==0.14.4' 'mypy==1.18.2'
+          ruff check --select E4,E7,E9,F tools/fwn9_p9i_composite_lineage.py tools/test_fwn9_p9i_composite_lineage.py
+          mypy --strict tools/fwn9_p9i_composite_lineage.py tools/test_fwn9_p9i_composite_lineage.py
+      - name: Immutable registration and no artificial promotion
+        run: |
+          python - <<'PY'
+          import json,pathlib,hashlib,subprocess
+          p=json.loads(pathlib.Path('research/modulation11/fwn9_phase9i_r3_protocol.json').read_text())
+          assert p['budget']['economic_accounts']==0 and p['budget']['m10_final_unopened']==3200
+          for f,sha in p['code_git_blob_sha1'].items():
+              assert subprocess.check_output(['git','hash-object',f],text=True).strip()==sha
+              print('P9I_R3_SHA256',f,hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest())
+          PY

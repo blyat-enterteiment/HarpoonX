@@ -1,0 +1,63 @@
+name: FWN9 P9K shared-capital multilayer fault matrix
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_p9k_fault_matrix.cjs
+      - tools/fwn9_p9k_fault_matrix_test.cjs
+      - tools/fwn9_p9k_accountant.py
+      - research/modulation11/fwn9_phase9k_protocol.json
+      - .github/workflows/fwn9_phase9k.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fault-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Node syntax and all bounded adversarial multicell fixtures
+        run: |
+          node --check runtime30/fwn9_p9k_fault_matrix.cjs
+          node --check tools/fwn9_p9k_fault_matrix_test.cjs
+          python -m py_compile tools/fwn9_p9k_accountant.py
+          node --test tools/fwn9_p9k_fault_matrix_test.cjs
+      - name: Independent Decimal-60 accounting and receipt integrity
+        run: |
+          node tools/fwn9_p9k_fault_matrix_test.cjs --emit-audit > /tmp/p9k_audit.txt
+          python -B tools/fwn9_p9k_accountant.py /tmp/p9k_audit.txt
+      - name: Strict independent type checking and static Python quality
+        run: |
+          python -m pip install --disable-pip-version-check 'ruff==0.14.4' 'mypy==1.18.2'
+          ruff check --select E4,E7,E9,F tools/fwn9_p9k_accountant.py
+          mypy --strict tools/fwn9_p9k_accountant.py
+      - name: Original M9 source and preregistered Git SHA anchors
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/fwn9_phase9k_protocol.json').read_text())
+          assert p['budget']['economic_accounts']==0
+          assert p['budget']['m10_final_unopened']==3200
+          assert p['budget']['new_candidates']==0
+          for f,sha in p['git_blobs'].items():
+              assert subprocess.check_output(['git','hash-object',f],text=True).strip()==sha,(f,sha)
+              print('P9K_SHA256',f,hashlib.sha256((root/f).read_bytes()).hexdigest())
+          r=json.loads((root/'research/modulation9/registration.json').read_text())
+          for f,expected in r['sources_sha256'].items():
+              assert hashlib.sha256((root/f).read_bytes()).hexdigest()==expected,f
+          print('P9K_FROZEN_47_M9_FILES_PASS')
+          PY
+      - name: True 80 full fault-cycle benchmark
+        run: |
+          node tools/fwn9_p9k_fault_matrix_test.cjs --bench > /tmp/p9k_bench.log
+          grep 'P9K_80_FULL_FAULT_CYCLES_MS=' /tmp/p9k_bench.log

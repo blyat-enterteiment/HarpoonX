@@ -1,0 +1,41 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC8B_NATIVE_EVENT_ANCHOR_PREREG_1",
+  "phase": "M11_PHASE9M_C8B_REPRICED_ANCHOR_NATIVE_EVENT_PROOF",
+  "original_contract": "research/modulation9/protocol.json",
+  "parent_head": "4f3ce38d70a45dbe7d2525517d11012c01a4632d",
+  "source_blobs": {
+    "research/continuous_n9/state.json": "c5e330377b3849af31a9444f15025bb8782174a9",
+    "runtime30/profit8_replay.js": "2baa7e8cab40520b311032aea472fcf4017c2220",
+    "runtime30/ultimate_reservations.js": "aa8162d7150986455c95599aeaa50ec4b9faa3ee",
+    "runtime30/fwn9_p9m_c2_event_parity.cjs": "AS_OF_PARENT_HEAD"
+  },
+  "hypothesis": "At an actual M9 replay admission, the corrected aggregate Bstar = pending approved ceilings + opened original-lot maximum(original committed notional, original quantity x last causally known mark) is bounded by 12% of observed equity and real self-financing inventory at that decision; if this fails on a native signal/IOC/partial fixture, the C8 wealth transfer lemma cannot be certified for the engine.",
+  "catalogue": [
+    "F1 native two symbols: first fill, second admission, conservative full-original marked quantity; compare state.plan.notional and reservation snapshot, cash and mark-at-decision.",
+    "F2 reverse first entry IOC NO_FILL: verify no invented inventory, reservation retained before receipt and released exactly at receipt.",
+    "F3 partial exit known by second decision: compare original quantity reservation versus surviving inventory and conservative anchor.",
+    "F4 independent worst case: intervening mark move between decision and IOC prevents false assertion of 12% continuously."
+  ],
+  "refutation": "Any native admitted Bstar > 0.12 E at a decision, causally late mark, wrong terminal cash/inventory, or missed reservation/IOC event blocks equivalence; if fixtures pass, do NOT claim universal native event induction or population bound.",
+  "statistical_budget": {
+    "new_market_accounts": 0,
+    "new_recipes": 0,
+    "new_seeds": 0,
+    "new_final_opened": 0,
+    "alpha": 0,
+    "workers": 1
+  },
+  "baseline": "Existing CASH and M9_BEST not reevaluated; engineering-only replay fixtures.",
+  "fixed": "capital USD20000; SYNA/SYNB; NOMINAL/STRESS unchanged; reserve/gross 0.12; risk 0.0025; max hold 72h; untouched generator",
+  "allow_live": false,
+  "allow_merge": false,
+  "allow_deploy": false,
+  "success_gate": "Source-linked native replay receipt and state assertions + independent accounting + syntax + immutable source integrity + runtime benchmark, bounded scope only.",
+  "planned_files": [
+    "runtime30/fwn9_p9m_c8b_native_anchor.cjs",
+    "tools/fwn9_p9m_c8b_native_anchor_test.cjs",
+    "docs/MODULATION11_PHASE9M_C8B.md",
+    "evidence/modulation11/fwn9_phase9m_c8b.json"
+  ],
+  "holding": "N9S_NO_GO unless universal proof + operating requirements independently verified"
+}

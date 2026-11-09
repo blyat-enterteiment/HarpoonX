@@ -1,0 +1,49 @@
+{
+  "schema": "HARPOON_M11_PHASE4_FORMAL_FORK_PROTOCOL_1",
+  "unit": "M11_EXECUTION_CONTRACT_FORMAL_BRIDGE",
+  "source_head": "4689076133d7cd103e7037c8fcda7910a2760e09",
+  "kind": "engineering_contract_refutation_without_market_search",
+  "candidate_recipes": 0,
+  "market_account_executions": 0,
+  "holdout": [],
+  "alpha_spent": 0,
+  "worker_limit": 1,
+  "hypothesis": "The OHLC stop-first native engine is not pathwise equivalent to a self-financing pair of passive stop/target orders executed at their first observable crossing on the unchanged eight-substep tape, even with the same precommitted orders and identical prefixes.",
+  "proof_witness": "Construct two positive-price paths with identical opening and prefix through the first target cross, then diverge after that cross; one touches a stop and the other does not. If the target order was resting it executes in both. Native OHLC chooses only stop in the down fork, but target in the up fork, with both fills recognized at bar-end. Quantify terminal marked-wealth differences with the same entry costs.",
+  "refutation": [
+    "Fork is invalid if OHLC identity fails",
+    "Fork is invalid if target is not crossed at the same prefix time on both paths",
+    "Fork is invalid if native outcomes are the same",
+    "Fork is invalid if first-cross prior TP fills differ",
+    "Any claim about the whole native economic distribution from a local fork is invalid",
+    "No test may use future steps for signal admission"
+  ],
+  "controls": [
+    "unchanged M11 native OHLC pure comparator",
+    "unchanged eight-substep first-cross pure comparator",
+    "same precommitment and costs for both paths"
+  ],
+  "fixtures": [
+    "early target then late adverse stop vs target-only",
+    "isolated stop overshoot with positive native/substep value transfer",
+    "target-only native discount",
+    "gap at open exact first-cross agreement",
+    "invalid OHLC identity fails closed"
+  ],
+  "requirements": [
+    "USD_20000",
+    "NO_NEW_SIGNALS",
+    "M9_M10_GENERATOR_UNMODIFIED",
+    "NO_MARKET_TRIALS",
+    "NO_NEW_HOLDOUT_OPEN",
+    "LONG_ONLY",
+    "MAX_HOLD_72H_UNCHANGED",
+    "CAP_IS_ADMISSION_NOT_CONTINUOUS",
+    "BROKERS_DISABLED"
+  ],
+  "decision": "The local fork may disprove universal price-time equivalence of the native OHLC algorithm to prepositioned passive orders on the eight-step tape; it cannot prove N9-S impossible, nor bound expected correction. Stop economic search until an execution contract and new applicable economics are established.",
+  "implementation_path": "runtime30/modulation11_formal_execution_bridge.cjs",
+  "tests_path": "tools/modulation11_phase4_test.cjs",
+  "ci_path": ".github/workflows/modulation11_phase4.yml",
+  "registration_before_fixture_results": true
+}

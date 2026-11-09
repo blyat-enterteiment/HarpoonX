@@ -1,0 +1,23 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C2_CORRECTIVE_R3_1",
+  "prior_failed_runs": [
+    42472982612,
+    42473079765
+  ],
+  "failed_r2": {
+    "source_commit": "e135226e5e3bf56ed7fad0a3789395c8a3818612",
+    "tests_failed": 6,
+    "tests_passed": 2,
+    "charge": "1 engineering attempt; no economic accounts, no statistical alpha"
+  },
+  "material_diagnosis": "Native funded first symbol uses nearly full 0.25% common open-risk gate, so second signal refused before IOC even after reducing stop 2->5; do not mistake refusal for IOC NO_FILL.",
+  "correction": "For a fixed two-asset engineering fixture only: SYNA stopDistance=20 (2-share initial admission consumes about 40 USD risk), SYNB stopDistance=5 (~1 share while first active); original riskFraction and openRiskFraction remain 0.0025; no new price path, capital or leverage.",
+  "falsification": "If second reservation fails despite remaining risk budget, capture native statuses and stop, do not mislabel IOC refusal as NO_FILL.",
+  "new_sources": [
+    "tools/fwn9_p9m_c2_event_test_r3.cjs",
+    ".github/workflows/fwn9_phase9m_c2_r3.yml"
+  ],
+  "new_market_trials": 0,
+  "final_opened": 0,
+  "alpha_spent": 0
+}

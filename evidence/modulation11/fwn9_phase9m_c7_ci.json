@@ -1,0 +1,41 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC7_CI_FROZEN_1",
+  "ref_commit": "a5b102ca539e0829405570811c98706e7a247fb7",
+  "preregistration_commit": "a8d968293e6b730cedb6368fa8539d9a2c1182fa",
+  "workflow_run_id": 42490784015,
+  "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42490784015",
+  "status": "completed",
+  "conclusion": "success",
+  "verification": {
+    "ruff": "PASS",
+    "mypy_strict_module": "PASS",
+    "python_compile": "PASS",
+    "unittest_8": "PASS",
+    "git_blob_sha1": "PASS",
+    "m9_generator_sha256": "PASS",
+    "independent_decimal": "PASS",
+    "benchmark_10000_ms": 279.016
+  },
+  "associated_outcomes": {
+    "prior_local_credit_usd": "6.50",
+    "next_shares_with_credit": 24,
+    "next_shares_without_credit": 23,
+    "terminal_difference_usd": "-0.570",
+    "log_ratio": "-0.00002873403150506175759566827359"
+  },
+  "scope": "Deterministic constructed support witnesses, not M9 native replay and not population performance",
+  "economic_accounts_new": 0,
+  "market_seeds_new": 0,
+  "final_M10_unopened": 3200,
+  "prospective_alpha_delta": 0,
+  "gates": {
+    "infeasibility_certificate": false,
+    "N9S_accepted": false,
+    "operational_partial_reject_outage_impact": false,
+    "multicell_coordinator": false
+  },
+  "source_git_blob_sha1": {
+    "tools/fwn9_p9m_c7_bridge.py": "3ffb2397429321ef8de7edb42b8ca620a5ab1d50",
+    "tools/test_fwn9_p9m_c7_bridge.py": "d46b7442c27fd7fe1f48a04a39e098c5aab77411"
+  }
+}

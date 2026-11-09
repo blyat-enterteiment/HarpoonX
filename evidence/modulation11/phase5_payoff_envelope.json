@@ -1,0 +1,85 @@
+{
+  "schema": "HARPOON_M11_PHASE5_EXECUTION_PRICE_ENVELOPE_RESULT_1",
+  "protocol": "research/modulation11/phase5_protocol.json",
+  "registered_at_code_commit": "b952146dd232e289a3aee413fa26e1067d6cc7ca",
+  "verified_source_commit": "86835d6cdaf557574c059c3e6b7a9f82fe51a6cc",
+  "verification_run": 42417069961,
+  "verification_job": 128537366799,
+  "verdict": "PROVEN_PATHWISE_BAR_ENVELOPE_FOR_IDENTICAL_ENTRY_INVENTORY; NO_NATIVE_EXPECTATION_BOUND",
+  "conditions": [
+    "one OHLC bar with checked eight-substep identity",
+    "same prior quantity and acquisition cash/costs",
+    "no purchases within the audited bar",
+    "long-only and finite positive prices",
+    "native and first-cross sell-only under identical share-wise friction, tick and commission",
+    "exit marks at bar close; no liquidity, queue or intrabar reception theorem"
+  ],
+  "proof_identity": "delta = sum_native_sold_qty*(net_sell_price-bar_close) - sum_firstcross_sold_qty*(net_sell_price-bar_close). Given raw fill prices in [bar.low,bar.high] and monotone floor-to-tick net sell price, delta is bounded by [sN*(N(low)-C)-sF*(N(high)-C), sN*(N(high)-C)-sF*(N(low)-C)].",
+  "upper_and_lower_pathwise_values_usd": {
+    "up": {
+      "actual": -0.54,
+      "lower": -3.58,
+      "upper": 3.58,
+      "native_sold_shares": 2,
+      "observed_sold_shares": 2
+    },
+    "down": {
+      "actual": 15.66,
+      "lower": -50.32,
+      "upper": 50.32,
+      "native_sold_shares": 8,
+      "observed_sold_shares": 8
+    }
+  },
+  "same_entry_costs_capital_usd": 20000,
+  "additional_monte_carlo_world_seeds_opened": 0,
+  "new_market_account_executions": 0,
+  "new_signal_recipes": 0,
+  "lattice_fixtures": 729,
+  "total_unit_tests": 8,
+  "ci_tests_passed": 8,
+  "ci_tests_failed": 0,
+  "ci_checks": {
+    "syntax": "PASS",
+    "scoped_static_type_check": "PASS",
+    "independent_decimal_book": "PASS",
+    "registered_source_sha256": "PASS",
+    "benchmark_3000_calls_ms": 97.815247,
+    "historical_quant_suite": "OPEN_KNOWN_HASH_PROVENANCE_MISMATCH_IN_PREVIOUS_RUNS; NOT_REPAIRED_AND_NOT_CLAIMED_PASSING"
+  },
+  "qa_attempts": [
+    {
+      "run": 42417009467,
+      "status": "FAIL",
+      "tests_passed": 7,
+      "tests_failed": 1,
+      "reason": "JavaScript signed zero strict assertion -0 vs +0",
+      "economic_account_charge": 0
+    },
+    {
+      "run": 42417069961,
+      "status": "SUCCESS",
+      "tests_passed": 8,
+      "tests_failed": 0,
+      "economic_account_charge": 0
+    }
+  ],
+  "m10_holdout_accounts_unopened": 3200,
+  "alpha_spent": 0,
+  "original_law_unchanged": true,
+  "source_sha256": {
+    "runtime30/modulation11_payoff_envelope.cjs": "60799d8ab6682d83ee1602609ec2d568f5be039c67c82005566d07d9d29ec4a2",
+    "tools/modulation11_phase5_test.cjs": "009b15b3316f167c4b4c85cfa960b6448cade322852fb6f5f79db5faef69f0f3",
+    "tools/modulation11_phase5_accountant.py": "477b21dcae9768b5d225534c9bf15ff822f77c4f820a6cb06edde0910610bfa4",
+    "research/modulation11/phase5_protocol.json": "f1140f23f7f265582eed168b7e567e53cf5daa460ee6799e12b8680f6e4ea9bf"
+  },
+  "conditional_previous_expected_log_bound_bp_calendar_day": 0.9051232469572758,
+  "original_weak_hurdle_bp_calendar_day": 1,
+  "gap_to_weak_hurdle_under_previous_conditional_theorem_bp_calendar_day": 0.0948767530427242,
+  "population_expected_native_credit_bound_available": false,
+  "universal_reserve_shadow_theorem_available": false,
+  "economic_infeasibility_certified": false,
+  "N9S_accepted": false,
+  "non_promotion_reason": "The pathwise envelope depends on Q*(bar.high-bar.low) and is not an unconditional expectation bound under the frozen generator. Native OHLC receipts remain unproven executable on the discrete tape; capital shadow/reserve premises unproven globally.",
+  "next_action": "Derive from the frozen eight-step generator a distributionally valid expected positive execution-credit upper bound WITH event-time quantity/reserve constraints, or preregister a versioned causal executable-price motor and re-test unchanged policy economics. Reconcile historic source provenance separately; no signal search."
+}

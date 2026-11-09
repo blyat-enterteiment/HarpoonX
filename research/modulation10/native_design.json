@@ -1,0 +1,225 @@
+{
+  "schema": "HARPOON_MODULATION10_NATIVE_DESIGN_1",
+  "status": "IMPLEMENTED_ENGINEERING_QA_PASS_BEFORE_ECONOMIC_EXECUTION",
+  "sources_checked": {
+    "registered_sources": 47,
+    "mismatches": [],
+    "base_engine_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "base_registration_sha256": "04d1af699826b0821ef6da808b6d21e1e38adfbdabee35f4ba4ac15a5f98b086"
+  },
+  "implementation": {
+    "new_files": [
+      "runtime30/modulation10_replay.cjs",
+      "tools/modulation10_bridge.cjs",
+      "tools/modulation10_test.cjs"
+    ],
+    "engine": "Static source-bound copy of registered native engine with narrow Modulation10 hooks; untagged/non-opt-in calls delegate to original exported functions.",
+    "no_changes_to_47_registered_sources": true,
+    "no_runtime_source_text_rewriting": true,
+    "shared_helpers": "Use original contracts, policy, reservations, chronology and Modulation9 exit math under verified bindings; bridge ledgerAudit/summarize retain exact frozen implementation.",
+    "source_integrity": "Verify fixed old registration SHA and all 47 source SHA values before studies; verify new files via a new registration."
+  },
+  "signal_contract": {
+    "required": [
+      "id",
+      "symbol",
+      "hypothesis=CLOSED_CHANNEL",
+      "direction=1",
+      "at",
+      "plannedEntryAt",
+      "stopDistance",
+      "regime",
+      "sourceAvailableAt"
+    ],
+    "at": "Safe integer inside a declared session, not hardcoded to 60/90 minutes; sourceAvailableAt<=at.",
+    "plannedEntryAt": "Exactly the native causal next supported five-minute opening from planSignalEntryAt(at,sessions); still before close-5 minutes.",
+    "causality_scope": "Bridge verifies declared receipt clock and native causal reference; generator prefix invariance must verify that indicators use no future information.",
+    "metadata": {
+      "roadmapHorizonHours": "24,48,72 according to profile",
+      "modulation10": {
+        "entry": "registered entry identifier",
+        "profile": "registered exit identifier"
+      }
+    }
+  },
+  "api": {
+    "input": "Same dataset/protocol/signals-by-entry/variants shape as Modulation9; variants retain {id,entry,exit,risk}.",
+    "variants_example": [
+      {
+        "id": "CURRENT_EXACT",
+        "entry": "CONFIRMED",
+        "exit": "NATIVE72",
+        "risk": 0.0025
+      },
+      {
+        "id": "QUEUE_ONLY",
+        "entry": "CONFIRMED",
+        "exit": "NATIVE_QUEUE72",
+        "risk": 0.0025
+      },
+      {
+        "id": "MOM3_Z0_HOLD72_R2500",
+        "entry": "MOM3_Z0",
+        "exit": "HOLD72",
+        "risk": 0.0025
+      }
+    ],
+    "options": "researchModulation10=true plus native NATIVE_MAX contract; internal profit8Trace=true. Modulation10 metadata without opt-in rejects.",
+    "costs": "NOMINAL/STRESS definitions must exactly match the registered Modulation9 cost assumptions.",
+    "output": "Same account/curve/trades/summary/event_risk fields plus source binding, entry clock mode and receipt policy.",
+    "new_entry_ids": [
+      "MOM3_Z0",
+      "MOM3_Z075",
+      "MOM8_Z0",
+      "MOM8_Z075"
+    ],
+    "entry_schedules": {
+      "CONFIRMED": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          60
+        ]
+      },
+      "MOM3_Z0": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          5
+        ]
+      },
+      "MOM3_Z075": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          5
+        ]
+      },
+      "MOM8_Z0": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          5
+        ]
+      },
+      "MOM8_Z075": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          5
+        ]
+      },
+      "QUALITY": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          60
+        ]
+      },
+      "RETEST": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          90
+        ]
+      },
+      "SIMPLE": {
+        "lag_ms": 1000,
+        "max_per_session": 1,
+        "minutes": [
+          60
+        ]
+      }
+    },
+    "exit_profiles": {
+      "NATIVE72": {
+        "economic_profile": "NATIVE72",
+        "receipt": "LEGACY"
+      },
+      "NATIVE_QUEUE72": {
+        "economic_profile": "NATIVE72",
+        "receipt": "QUEUED"
+      },
+      "HOLD24": {
+        "economic_profile": "INITIAL_STOP_ONLY",
+        "horizon_hours": 24,
+        "partials": false,
+        "trailing": false,
+        "take_profit": false
+      },
+      "HOLD72": {
+        "economic_profile": "INITIAL_STOP_ONLY",
+        "horizon_hours": 72,
+        "partials": false,
+        "trailing": false,
+        "take_profit": false
+      },
+      "RUNNER72": {
+        "economic_profile": "MODULATION9_RUNNER72",
+        "receipt": "QUEUED"
+      }
+    }
+  },
+  "isolated_ablation": {
+    "entry_signals_identical": true,
+    "risk_identical": true,
+    "quantity_algorithm_identical": true,
+    "calendar_and_costs_identical": true,
+    "exit_parameters": {
+      "profile": "NATIVE72",
+      "quarter_targets_R": [
+        1.5,
+        3
+      ],
+      "trail_activation_R": 1.5,
+      "peak_close_lock_fraction": 0.6,
+      "trail_distance_R": 1.5,
+      "maximum_horizon_hours": 72
+    },
+    "single_changed_component": "One pending stop overwritten as native versus retained pending-stop queue applied only after knownAt.",
+    "native_math": "Invoke frozen native nextTrailingStop for native profiles in both receipt modes, not a newly approximated formula.",
+    "variant_ids": "NATIVE72 versus NATIVE_QUEUE72 with same entry family and risk; only stop receipt mechanism differs."
+  },
+  "multiple_signals": {
+    "supported_by_ledger": true,
+    "requirements": "Unique IDs, nondecreasing decision timestamps, deterministic tie order, causally known close before reopening.",
+    "same_symbol_simultaneous": "Remains refused via SYMBOL_BUSY; no pyramiding or implicit netting.",
+    "receipt_priority": "Do not release partial campaign reservations early; release only at observed terminal close as original.",
+    "study_scope": "New MOM family limited to one best-asset nomination per session by protocol.entry_schedules; generic engine capability retained and fixture-tested, not added as an economic variation."
+  },
+  "hardcoded_constraints": [
+    "assertProfit8Signal permits only session.open+60m+1s, or 60/90m+1s for Modulation9.",
+    "planSignalEntryAt supports arbitrary safe integer decision timestamps but entry must precede close-5m.",
+    "planCalendarHolding accepts 24/48/72h, anchors deadline at signal.at and uses calendar, not future bar existence.",
+    "Profit8 native admission rejects a planned deadline later than the evaluation terminal.",
+    "Only long cash shares, ALPACA_PROXY, pointValue=1, NATIVE_MAX and common 30bp IOC are retained.",
+    "Funded portfolio itself has no one-signal-per-day cap; generator scheduling and the fixed clock guard impose it."
+  ],
+  "limits_semantics": {
+    "capital_usd": 20000,
+    "gross_and_asset_admission": 0.12,
+    "open_risk_admission": 0.0025,
+    "session_loss_admission_gate": 0.02,
+    "drawdown_admission_gate": 0.08,
+    "maximum_horizon_from_decision_hours": 72,
+    "not_guaranteed": "Gaps and subsequent price/equity changes can exceed admission fractions or nominal stop losses; report and fail acceptance gates rather than silently cap losses."
+  },
+  "qa_before_economics": [
+    "All 47 source hashes unchanged",
+    "Disabled opt-in passthrough JSON equality",
+    "Legacy receipt reproduction for native profiles",
+    "Queue-only causal ablation with unchanged targets/rounding/fees",
+    "No activation before receipt",
+    "Several entries same day after observed close",
+    "Busy-symbol rejection and simultaneous-asset shared limits",
+    "Future/stale or outside-calendar timestamps rejected",
+    "Friday/weekend and terminal deadline restrictions",
+    "Missing bars with open exposure fail closed",
+    "IOC gaps/no-fill reservation release",
+    "Fill cash/inventory/calendar overhead reconciliation and CASH same cost",
+    "Malformed/unknown entry and receipt enum rejection"
+  ],
+  "known_remaining_scope": "This extension enables new causal clocks and isolated receipt ablations. It does not by itself supply a calibrated entry-partial/reject/outage/impact model or a production virtual coordinator.",
+  "requirements_note": "No named 45-requirement list located in supplied paths; the existing immutable registration contains 47 source files.",
+  "qa_record": "research/modulation10/native_qa.json"
+}

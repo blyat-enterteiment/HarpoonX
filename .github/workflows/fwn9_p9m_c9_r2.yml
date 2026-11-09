@@ -1,0 +1,27 @@
+name: C9 R2 native-event induction engineering
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - 'tools/fwn9_p9m_c9_event_induction_test_r2.cjs'
+      - '.github/workflows/fwn9_p9m_c9_r2.yml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Syntax
+        run: |
+          node --check runtime30/fwn9_p9m_c9_event_induction.cjs
+          node --check tools/fwn9_p9m_c9_event_induction_test_r2.cjs
+      - name: Native tests with integrity and independent terminal balance
+        run: node --test tools/fwn9_p9m_c9_event_induction_test_r2.cjs
+      - name: Benchmark
+        run: node tools/fwn9_p9m_c9_event_induction_test_r2.cjs --bench
+      - name: Reproducible engineering evidence
+        run: node tools/fwn9_p9m_c9_event_induction_test_r2.cjs --emit

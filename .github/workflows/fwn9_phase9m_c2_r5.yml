@@ -1,0 +1,38 @@
+name: FWN9 P9M-C2 R5 type and independent accountant verification
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths: [".github/workflows/fwn9_phase9m_c2_r5.yml"]
+permissions:
+  contents: read
+jobs:
+  native-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: SHA256 of versioned source and locked protocols
+        run: |
+          sha256sum runtime30/fwn9_p9m_c2_event_parity.cjs tools/fwn9_p9m_c2_event_test_r3.cjs tools/fwn9_p9m_c2_accountant_r5.py research/modulation11/fwn9_phase9m_c2_protocol.json research/modulation9/protocol.json research/modulation10/protocol.json
+      - name: Python static and strict typing
+        run: |
+          python -m pip install --disable-pip-version-check --quiet ruff mypy
+          ruff check tools/fwn9_p9m_c2_accountant_r5.py
+          mypy --strict tools/fwn9_p9m_c2_accountant_r5.py
+      - name: Node Python syntax and native fixture tests
+        run: |
+          node --check runtime30/fwn9_p9m_c2_event_parity.cjs
+          node --check tools/fwn9_p9m_c2_event_test_r3.cjs
+          python -m py_compile tools/fwn9_p9m_c2_accountant_r5.py
+          node --test tools/fwn9_p9m_c2_event_test_r3.cjs
+      - name: Reconcile independent Decimal-46 book
+        run: |
+          node tools/fwn9_p9m_c2_event_test_r3.cjs --emit-proof | sed -n 's/^P9MC2_AUDIT=//p' > /tmp/dualasset.json
+          python tools/fwn9_p9m_c2_accountant_r5.py /tmp/dualasset.json
+      - name: Benchmark 20 dual-asset cycles
+        run: node tools/fwn9_p9m_c2_event_test_r3.cjs --bench

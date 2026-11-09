@@ -1,0 +1,24 @@
+{
+  "schema": "HARPOON_M11_PHASE2_ENGINEERING_PROTOCOL_1",
+  "parent": "research/modulation11/protocol.json",
+  "source_lease_commit": "ce1b489f6af61df255e566f9c150e851ff450a2b",
+  "hypothesis": "A full-campaign state machine with persistent targets and received trailing stops can reproduce native replayCampaign under OHLC, while first-cross substeps demonstrate economically material execution differences. Native reserve/IOC event checks across SYNA and SYNB expose necessary but not sufficient premises of the shadow bound.",
+  "candidate_strategies": 0,
+  "synthetic_economic_accounts": 0,
+  "alpha_spent": 0,
+  "final_read": false,
+  "test_families": [
+    "NATIVE72 persistent multi-bar targets",
+    "PROTECT48 received trailing across overnight",
+    "RUNNER72 persistent target and trailing",
+    "dual-asset funded reserve IOC original-mark conditions",
+    "fail-closed substep chronology"
+  ],
+  "limits_unchanged": true,
+  "known_remaining_gap": [
+    "No proof for all possible reserve anchor event paths",
+    "First-cross discrete path is not a true filled-market microstructure model",
+    "No generic multiasset fills/partials/outage/impact coverage",
+    "No inferential economic comparison"
+  ]
+}

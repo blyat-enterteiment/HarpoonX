@@ -1,0 +1,37 @@
+{
+  "schema": "HARPOON_M11_PHASE3_SHADOW_WITNESS_PROTOCOL_1",
+  "registered_before_outcomes": true,
+  "source_commit": "5930671dbe98d9c7402e2b27f8ee92b58b9e2a8b",
+  "mode": "engineering_deterministic_only",
+  "hypothesis": "Two native synthetic campaigns may satisfy causal reservation/IOC accounting at their decision events yet a threshold-interpolated OHLC exit may be outside the support of the frozen eight-substep price process, blocking the native-to-martingale feasibility bridge.",
+  "refutation": "Any failed check for observed equity <= shadow equity, conservative reserve notional >= contemporaneous physical position plus pending authorized ceiling, budget<=12% observed equity, or off-grid native executed price blocks certification. Engineering success never proves the universal proposition.",
+  "controls": [
+    "unchanged M9/M10 native campaign",
+    "eight-substep first-cross comparator",
+    "cash-only control not applicable to zero-account fixtures"
+  ],
+  "synthetic_fixture_families": [
+    "two-asset self-financing mark bridge",
+    "stop interpolated off-grid",
+    "adversarial corrupted equity",
+    "tampered OHLC vs substeps"
+  ],
+  "economic_candidates": 0,
+  "economic_accounts": 0,
+  "workers_max": 1,
+  "alpha_spent": 0,
+  "new_holdout_seeds": [],
+  "final_seeds_unopened": 3200,
+  "invariants": [
+    "USD_20000",
+    "SAME_MARKET_GENERATOR",
+    "SAME_COSTS",
+    "CAP_ADMISSION_ONLY_12PCT",
+    "HOLD_MAX_72H",
+    "NO_BROKER"
+  ],
+  "code_sha1_refs": {
+    "shadow_module": "e1e366a9d1589b7b10235882e3e52f281bbfba02"
+  },
+  "promotion_eligible": false
+}

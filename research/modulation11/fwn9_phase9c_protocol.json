@@ -1,0 +1,73 @@
+{
+  "schema": "HARPOON_FWN9_P9C_PERSISTENT_CAUSAL_RISK_PROTOCOL_1",
+  "preregistration_parent_lease": "01bd703a7c6f2d7d636180ccd5b8aa6952493dc3",
+  "registered_before_test_outcomes": true,
+  "hypothesis": "An additive two-book event-time causal risk clock with native 2pct daily loss and 8pct event drawdown gates prevents post-loss admissions which decision-only P8 incorrectly permits, without using future receipts.",
+  "counterfactual": "Frozen P8 negative control, P9C same signals, OHLC tape, costs, limits and book-specific native/first-cross receipts.",
+  "refutation": [
+    "Second asset remains admitted despite >2pct published session loss",
+    "Future tape changes an earlier admission or observed peak",
+    "Delayed IOC/exit releases a reservation before knownAt",
+    "No-fill creates inventory or proceeds",
+    "Weekend cost or session-open baseline violates time convention",
+    "Healthy P9C native book disagrees with native equity at an eligible decision"
+  ],
+  "fixtures": [
+    "Two healthy independent asset books",
+    "Adverse realized intraday loss",
+    "Published bars without signals",
+    "IOC no-fill",
+    "Future tape perturbation",
+    "Partial target and original reservation",
+    "Weekend costs"
+  ],
+  "original_contract": "research/modulation9/protocol.json",
+  "unchanged": {
+    "capital_usd": 20000,
+    "universe": [
+      "SYNA",
+      "SYNB"
+    ],
+    "max_hold_hours": 72,
+    "gross_admission": 0.12,
+    "max_open_risk": 0.0025,
+    "daily_loss": 0.02,
+    "observed_dd": 0.08,
+    "costs": "M9_UNCHANGED",
+    "generator": "M9_UNCHANGED"
+  },
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_persistent_risk_mirror_p9c.cjs": "b66d9feeb8bef7c74a772931f2ee983f43b33b71",
+    "tools/fwn9_phase9c_test.cjs": "c6890de3b5b1f1ee5cd37441e4c7ec42bd81bfd4",
+    "tools/fwn9_phase9c_accountant.py": "b484b03ea316ca2622cd20aee14b15a53790943a",
+    ".github/workflows/fwn9_phase9c.yml": "e1cbe7bb9092e476b5ca4d76c183200009dcca9d"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_accounts_unopened": 3200
+  },
+  "gates": [
+    "Node tests",
+    "Independent Decimal accounting",
+    "No lookahead",
+    "Scoped typecheck and syntax",
+    "Original P8 SHA intact and M9 generator SHA intact",
+    "Benchmark 10 fixture books"
+  ],
+  "limitations": [
+    "Received closes not equivalent to independently proven native mark formation",
+    "No sampled M9 population trial",
+    "Partial entry/outages/impact and virtual cell coordination unverified",
+    "No universal WEAK feasibility theorem"
+  ],
+  "not_authorized": [
+    "Broker connections",
+    "Orders",
+    "Deployment",
+    "Merge",
+    "M10 final"
+  ]
+}

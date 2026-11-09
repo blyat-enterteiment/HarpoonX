@@ -1,0 +1,34 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC8_NATIVE_ANCHOR_PREREG_1",
+  "phase": "M11_PHASE9M_C8_RESERVATION_MOMENT_AND_NATIVE_EVENT_PROOF",
+  "parent_head": "44a0fa2901d1feab051d58f1c551d9625a5b2d26",
+  "binding_code_head": "44a0fa2901d1feab051d58f1c551d9625a5b2d26",
+  "source_blobs": {
+    "research/continuous_n9/state.json": "550ec8c260f86c40398d1a161705bebcfd0492f6",
+    "runtime30/profit8_replay.js": "2baa7e8cab40520b311032aea472fcf4017c2220",
+    "runtime30/ultimate_reservations.js": "aa8162d7150986455c95599aeaa50ec4b9faa3ee"
+  },
+  "original_law": "research/modulation9/protocol.json",
+  "hypothesis": "The original raw reservation snapshot B_tau may not upper-bound contemporaneously marked full inventory after appreciation, whereas a repriced per-lot anchor Bstar_tau=SUM_open_max(original_notional,original_qty*S_tau)+SUM_pending_qL may. Distinguish this failed raw lemma from potential corrected anchor. Test native reservation lifecycle, IOC NO_FILL, partial, and feedback; derive only conditional finite moment claims.",
+  "finite_fixture_catalogue": [
+    "A native OPENED A with appreciated available mark and new admitted B: test raw B_tau against actual post-IOC stock value with M_tau,b=1",
+    "B same records with conserved original-qty repricing: test Bstar_tau<=g E_tau and bound post fill",
+    "C adversarial IOC NO_FILL and full/partial fill observations: reject invented pending inventory and stale quantity release",
+    "D state explicitly what price moments and nonlinear wealth feedback remain unproved and give a finite-horizon conditional moment existence lemma (not a usable numeric bound)"
+  ],
+  "refutations": [
+    "Any native fixture passing risk/admission while qS>Braw*M refutes raw anchor",
+    "Any native fixture with Bstar>g E at admitted decision refutes corrected proof on that fixture",
+    "Any final expected-log bound needing unjustified product of expectations or fixed future admissions is rejected",
+    "Unobserved valuations, non-self-financing receipt, or nonpositive wealth block certification"
+  ],
+  "disjoint_seeds": "NONE; fixed engineering fixtures; unopened final M10 sealed",
+  "max_workers": 1,
+  "max_new_economic_accounts": 0,
+  "max_new_candidate_recipes": 0,
+  "alpha_spent": 0,
+  "baseline": "CASH and M9_BEST unchanged; no economic replay",
+  "validation": "Native JS reservations, independent Decimal reconciliation, static syntax / types where available, benchmark and SHA256; no population claim",
+  "future_code_hash": "Record immutable source Git blob SHA at implementation and SHA256 in evidence before report; no market search",
+  "no_live_no_orders_no_deploy_no_merge": true
+}

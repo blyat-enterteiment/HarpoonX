@@ -1,0 +1,60 @@
+{
+  "schema": "HARPOON_FWN9_P9J_OPERATIONAL_NOFILL_CLOCK_EVIDENCE_1",
+  "source_preregistration_commit": "bfaea19cc2d1fc9f9d69800713433684bb8dc720",
+  "corrective_protocol_commit": "cbb9f8e8cf50ceda5dcc35f174a10409467ef65d",
+  "lease_id": "M11_P9J_NOFILL_EVENT_20261108",
+  "verdict": "NO_GO_N9S_P9J_FINITE_NOFILL_CLOCK_PASS",
+  "ci": {
+    "p9j": 42447482254,
+    "status": "SUCCESS",
+    "tests": 9,
+    "failed": 0,
+    "independent_accounting": "PASS_DECIMAL_46",
+    "frozen_sources_verified": 47,
+    "actual_benchmark_r2_run": 42447596067,
+    "actual_benchmark_500_ms": 125.992,
+    "full_quant_ci": 42447482215,
+    "full_quant_status": "SUCCESS",
+    "current_suite_tests": 1062,
+    "archived_suite_tests": 12,
+    "native_frozen_law_run": 42447482225,
+    "native_frozen_law_status": "SUCCESS"
+  },
+  "source_git_blobs": {
+    "runtime30/fwn9_p9j_native_risk_clock.cjs": "a70094597cdcc2b12d4ddb3ab95715bd92e3a828",
+    "tools/fwn9_phase9j_test.cjs": "045a48649717d6b1653bf97cd2a31334e5832991",
+    "tools/fwn9_phase9j_accountant.py": "cc0b98c4a477f9e9b739f32156618fe44d124cd1",
+    "tools/fwn9_phase9j_test_r2.cjs": "7aff9425a251ab347205bfc055caa8bb6a073ef2",
+    ".github/workflows/fwn9_phase9j.yml": "81a057c9503d31ad4176c0674437bc4104bc7d9f",
+    ".github/workflows/fwn9_phase9j_r2.yml": "8e4c59d62aaf0a0aaaf19d04386bf6d25e5e692b",
+    ".github/workflows/robust-quant-core.yml": "e7d4554f79d934eec70f994c4af81eae4b4b3607"
+  },
+  "sha256": {
+    "runtime30/fwn9_p9j_native_risk_clock.cjs": "f70351bc2fc61305c71af7b8ba353016a8e17cc7962ba24003e1bb44f1d26b8c",
+    "tools/fwn9_phase9j_test.cjs": "08a63d38d438ce6a2ca2cc8dd333f5348231c35509c2330933e3e4e9c933f234",
+    "tools/fwn9_phase9j_accountant.py": "69dc83c6642f95156d9dd136cc3ff5a6cccc17d672fc43c252096d97997311bb",
+    "tools/fwn9_phase9j_test_r2.cjs": "03af9603b2fd5268e5c3cb641c90b5bd0c78b73fe6e5cedf22d35173e551ac0a",
+    ".github/workflows/fwn9_phase9j_r2.yml": "82323538f948174729b7be78e9992b77ed391191095f37fe70d6c9a720fba227"
+  },
+  "functional": {
+    "historical_p9b_unchanged": true,
+    "versioned_nofill_risk_clock_corrected_in_fixtures": true,
+    "source_wait_knownAt_enforced": true,
+    "reservation_release_not_early": true,
+    "phantom_inventory_rejected": true,
+    "native_count_reconciled": true,
+    "full_native_source_wide_coverage": false,
+    "operational_partial_reject_outage_impact_complete": false,
+    "multicell_complete": false,
+    "population_bound_proven": false,
+    "objective_n9s_accepted": false
+  },
+  "budget": {
+    "economic_accounts_new": 0,
+    "candidates_new": 0,
+    "control_accounts_new": 0,
+    "prospective_alpha_delta": 0,
+    "final_m10_unopened": 3200,
+    "workers": 1
+  }
+}

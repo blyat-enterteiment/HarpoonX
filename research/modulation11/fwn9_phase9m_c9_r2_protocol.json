@@ -1,0 +1,19 @@
+{
+  "schema": "HARPOON_FWN9_C9_R2_ENGINEERING_DIAGNOSTIC_1",
+  "parent": "research/modulation11/fwn9_phase9m_c9_protocol.json",
+  "failed_ci": 42507381337,
+  "charged_attempt": 1,
+  "finding": "Original-lot corruption is rejected earlier by the underlying native reservation observation schema than by C9 application-level check. The R1 test over-specified the rejection layer; no core code or economic source change is appropriate.",
+  "correction": "Preserve R1 verbatim. Add distinct R2 test accepting either fail-closed code, without relaxing validation. No economic account or seed permitted.",
+  "source_git_blob_sha": {
+    "runtime30/fwn9_p9m_c9_event_induction.cjs": "AS_R1",
+    "tools/fwn9_p9m_c9_event_induction_test.cjs": "AS_R1"
+  },
+  "budget": {
+    "new_accounts": 0,
+    "new_seeds": 0,
+    "alpha": 0,
+    "attempts_total_after_r2": 2
+  },
+  "override_of_economic_hypothesis": false
+}

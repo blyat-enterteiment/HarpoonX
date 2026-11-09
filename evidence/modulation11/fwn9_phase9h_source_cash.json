@@ -1,0 +1,75 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9H_SOURCE_CASH_RECEIPT_EVIDENCE_1",
+  "phase": "M11_PHASE9H",
+  "verification_scope": "Finite source-native engineering fixtures only; not stochastic M9 source coverage",
+  "preregistration_initial": "275244e678e912d20cb71de713a4fa4318f22324",
+  "preregistration_r2": "aefb43d3efdc57af3c832aeea094632fef5ea483",
+  "failed_ci_attempts_retained": [
+    {
+      "run": 42444895033,
+      "result": "FAIL_3_OF_5",
+      "reason": "Incorrect initial fixture placed second accepted signal 72h after first and the initial long was no longer open; this is a failed witness assumption, not source-cash theorem refutation."
+    }
+  ],
+  "success_ci": {
+    "run": 42444975973,
+    "conclusion": "SUCCESS",
+    "test_count": 5,
+    "test_passed": 5,
+    "syntax_js": "PASS_NODE_CHECK",
+    "independent_accounting": "PASS_DECIMAL_46",
+    "python_static_ruff": "PASS",
+    "python_types_mypy_strict": "PASS",
+    "frozen_generator_profit8_reservations": "PASS_GIT_SHA256",
+    "benchmark_500_fixture_audits_ms": 51.825,
+    "full_repository_types": "NOT_ATTESTED",
+    "full_repository_regressions": "NOT_ATTESTED"
+  },
+  "fixture_witness": {
+    "first_signal": "SYNA:0:60",
+    "second_accepted_decision": "SYNB:0:90",
+    "first_held_at_second": true,
+    "physical_cash_usd_independently_recomputed": "18798.58",
+    "physical_cash_not_equal_native_closed_pool": true,
+    "original_reservation_not_released_on_partial_exit": true,
+    "remaining_inventory_reconciled": true,
+    "native_equity_from_cash_plus_current_inventory_minus_exit_fee": true,
+    "gross_admission_bound_at_decision": true,
+    "future_fees_covered_by_open_risk_reservation": true,
+    "conditional_floor_applies_to_fixture": true,
+    "population_certificate": false
+  },
+  "adversarial_cases": {
+    "no_fill_releases_reserved_without_stock": "PASS",
+    "no_fill_event_clock_p9b_closed": "NO",
+    "delayed_knownAt_effective_exit_fails_closed": "PASS",
+    "altered_equity_fails_closed": "PASS",
+    "altered_reserve_risk_fails_closed": "PASS",
+    "partial_exit_retains_original_reservation": "PASS"
+  },
+  "not_proved": [
+    "Native-causal source identity for every accepted M9 decision",
+    "OHLC eight-substep positive wealth difference moment",
+    "IOC NO_FILL complete native event-clock coverage in historical P9B",
+    "Dividends/splits and unsettled exits on arbitrary paths",
+    "Partial/reject/outage/impact coverage and virtual-cell coordinator"
+  ],
+  "sealed_final_m10_accounts": 3200,
+  "market_seeds_opened": [],
+  "new_accounts": 0,
+  "new_candidates": 0,
+  "controls_rerun": 0,
+  "alpha_spent": 0,
+  "native_infeasibility_certified": false,
+  "n9s_accepted": false,
+  "live_profit_claim": false,
+  "source_sha256": {
+    "runtime30/fwn9_p9h_cash_ledger.cjs": "94ce2da31aecb3de4f1c24479846cdf5728727c20781379702a11c57f72a6788",
+    "tools/fwn9_phase9h_test.cjs": "acdcbfa41465831ca22464a807e7e39f5a802ebd82dc0c9b31202ac6d69c2276",
+    "tools/fwn9_phase9h_test_r2.cjs": "5f95b8e3ec9f265b191ec7cd9cbb905bd190809643fd932a12596075e6880496",
+    "tools/fwn9_phase9h_accountant.py": "d964c9d719e3621e9819d43485ff71e7b02bcdb462d5ac48d4a3981f5d6df1be",
+    ".github/workflows/fwn9_phase9h.yml": "3afb164b87618a08aa8dae9424089e4df29b8877e2f476cbaa0af260bdc22ba4",
+    ".github/workflows/fwn9_phase9h_r2.yml": "aac94dcb7c817b070497906910faa03bd98457ff903a1f3f5c48c104534c4d16"
+  },
+  "decision": "NO_GO_SOURCE_LEDGER_FIXTURE_ONLY_MORE_CAUSAL_COVERAGE_REQUIRED"
+}

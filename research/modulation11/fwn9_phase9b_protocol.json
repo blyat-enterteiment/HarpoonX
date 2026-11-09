@@ -1,0 +1,65 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9B_RISK_CLOCK_PROTOCOL_1",
+  "preregistration_parent_lease": "4aff88aef51b9c823a59d61f20ccda7505d6afac",
+  "registered_before_test_outcomes": true,
+  "hypothesis": "The native replay risk decision clock can be reconstructed from its full campaign marks and receipt timestamps, while a decision-only funded mirror lacking the daily loss gate can admit a second asset that the unchanged native replay refuses.",
+  "null_refutation": [
+    "Any native decision equity, cash, peak, drawdown or daily loss inequality differs from the separately reconstructed event clock",
+    "A future tape edit changes an earlier decision clock",
+    "A gap-induced loss is accepted by native despite exceeding 2pct observed daily loss",
+    "P8 mirror already applies and enforces native daily-loss gate",
+    "Any tampered native drawdown metadata passes independent clock audit"
+  ],
+  "fixture_catalogue": [
+    "Two accepted native synthetic campaigns, six-session calendar, no broker",
+    "Engineered extreme same-day price gap causing native daily-loss refusal while decision-only mirror admits",
+    "Corrupted native drawdown metadata must fail",
+    "Alter later bar without rewriting earlier decision anchors"
+  ],
+  "sources": [
+    "runtime30/profit8_replay.js",
+    "runtime30/modulation11_admission_mirror_v2.cjs",
+    "runtime30/modulation11_native_receipt_parity_p9a.cjs"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_native_risk_clock_p9b.cjs": "c8b74488f773fd1fda4414d644983db0a82788e6",
+    "tools/fwn9_phase9b_test.cjs": "41e7fc2ae346702b6d8a9dec2a9f1578affb60a9",
+    "tools/fwn9_phase9b_accountant.py": "a13d203fa1dd71ecdb275f5011b3cfb697d4451d",
+    ".github/workflows/fwn9_phase9b.yml": "c1350951e42d1112c7a4dc0cf87ec463fd03f81b"
+  },
+  "original_contract": "research/modulation9/protocol.json",
+  "unchanged_parameters": {
+    "capital_usd": 20000,
+    "held_hours_max": 72,
+    "gross_admission_fraction": 0.12,
+    "risk_fraction_original": 0.0025,
+    "max_drawdown": 0.08,
+    "daily_loss": 0.02,
+    "fees": "M9_NOMINAL_STRESS_UNALTERED",
+    "worlds": [
+      "TREND",
+      "WEAK",
+      "FALSE",
+      "NULL",
+      "GAP"
+    ]
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "controls_new": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_seeds_opened": 0,
+    "final_accounts_unopened": 3200
+  },
+  "statistical_claim": "NONE_ENGINEERING_ONLY",
+  "explicit_nonclaims": [
+    "No proof independent native mark formation",
+    "No complete parity of independent endogenous two-book stochastic histories",
+    "No broker partial/reject/outage/impact simulation certification",
+    "No net profitability or N9-S acceptance",
+    "No proof of WEAK population bound"
+  ],
+  "prior_attempts_immutable": true
+}

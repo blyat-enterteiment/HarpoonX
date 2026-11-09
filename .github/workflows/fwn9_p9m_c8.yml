@@ -1,0 +1,48 @@
+name: FWN9 M11 P9M-C8 structural anchor audit
+on:
+  push:
+    branches:
+      - codex/continuous-n9-research
+      - codex/n9-c8-lease-turn11-20261108
+    paths:
+      - tools/fwn9_p9m_c8_anchor_probe.cjs
+      - tools/fwn9_p9m_c8_anchor_test.cjs
+      - tools/fwn9_p9m_c8_accountant.py
+      - .github/workflows/fwn9_p9m_c8.yml
+  pull_request:
+    branches:
+      - codex/synthetic-modulation9
+    paths:
+      - tools/fwn9_p9m_c8_anchor_probe.cjs
+      - tools/fwn9_p9m_c8_anchor_test.cjs
+      - tools/fwn9_p9m_c8_accountant.py
+      - .github/workflows/fwn9_p9m_c8.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  structural-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Static syntax
+        run: |
+          node --check tools/fwn9_p9m_c8_anchor_probe.cjs
+          node --check tools/fwn9_p9m_c8_anchor_test.cjs
+          python -m py_compile tools/fwn9_p9m_c8_accountant.py
+      - name: Python scoped static and strict type checks
+        run: |
+          python -m pip install --disable-pip-version-check ruff mypy
+          ruff check tools/fwn9_p9m_c8_accountant.py
+          mypy --strict tools/fwn9_p9m_c8_accountant.py
+      - name: Native reservations, bound fixtures and SHA256 invariants
+        run: node tools/fwn9_p9m_c8_anchor_test.cjs
+      - name: Independent Decimal-60 accounting of native deterministic output
+        run: node tools/fwn9_p9m_c8_anchor_probe.cjs | python tools/fwn9_p9m_c8_accountant.py

@@ -1,0 +1,63 @@
+name: FWN9 C13 v2 local <=72h endogenous two-book coupling audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_p9m_c13_local_coupling_v2.cjs
+      - tools/fwn9_p9m_c13_test_v2.cjs
+      - tools/fwn9_p9m_c13_decimal_accountant.py
+      - research/modulation11/fwn9_phase9m_c13_protocol.json
+      - research/modulation11/fwn9_phase9m_c13_sources_v2.json
+      - .github/workflows/fwn9_p9m_c13_v2.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  finite-causal-72h:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Node static syntax and deterministic native integration
+        run: |
+          node --check runtime30/fwn9_p9m_c13_local_coupling_v2.cjs
+          node --check tools/fwn9_p9m_c13_test_v2.cjs
+          node --test tools/fwn9_p9m_c13_test_v2.cjs
+      - name: Python static types and independent decimal book
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          ruff check tools/fwn9_p9m_c13_decimal_accountant.py
+          mypy --strict tools/fwn9_p9m_c13_decimal_accountant.py
+          python -m py_compile tools/fwn9_p9m_c13_decimal_accountant.py
+          node tools/fwn9_p9m_c13_test_v2.cjs --emit-evidence > /tmp/fwn9_c13_ledger.txt
+          python -B tools/fwn9_p9m_c13_decimal_accountant.py /tmp/fwn9_c13_ledger.txt
+      - name: Preregistered sources and immutable M9 generator
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          root=pathlib.Path('.')
+          protocol=json.loads((root/'research/modulation11/fwn9_phase9m_c13_protocol.json').read_text())
+          sources=json.loads((root/'research/modulation11/fwn9_phase9m_c13_sources_v2.json').read_text())
+          assert protocol['budget']=={'economic_accounts':0,'market_seeds':0,'new_candidate_recipes':0,'workers':1,'alpha_spent':0,'final_M10_unopened':3200}
+          assert protocol['full_population_certification'] is False
+          assert sources['original_protocol']=='research/modulation9/protocol.json'
+          for path,expected in sources['blob_sha1'].items():
+              actual=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert actual==expected,(path,actual,expected)
+              print('FWN9_C13_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          for path in ['quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js']:
+              assert hashlib.sha256((root/path).read_bytes()).hexdigest()==reg['sources_sha256'][path]
+          print('FWN9_C13_FROZEN_M9_PASS')
+          PY
+      - name: Bounded performance benchmark
+        run: |
+          node tools/fwn9_p9m_c13_test_v2.cjs --bench | grep C13_1000_LOCAL_BOOKS_MS

@@ -1,0 +1,83 @@
+{
+  "schema": "HARPOON_FWN9_P9M_C3_REPRODUCIBLE_FINDING_1",
+  "round": "M11_PHASE9M_C3",
+  "protocol": "research/modulation11/fwn9_phase9m_c3_protocol.json",
+  "unit": "FINITE_ENGINEERING_FIXTURES_NO_NEW_ECONOMIC_SEARCH",
+  "preregistration_commit": "99f2cf317dae116cd994004a033d5ade3a0517d1",
+  "code_commit": "2f268544b76fb3c5e5b6bdb50fb8f1c20ec2eef0",
+  "correction_commit": "f004de3bd608d073b6153f03bb193f78d6d3af7e",
+  "attempts": [
+    {
+      "index": 1,
+      "workflow_run": 42474975346,
+      "conclusion": "FAILURE",
+      "kind": "CI_INDEPENDENT_ACCOUNTANT_INPUT_WRAPPER",
+      "reason": "Existing P9MC1 accountant requires P9MC1_EVIDENCE prefix; first workflow sed removed the prefix; underlying eight P9MC3 tests passed.",
+      "charged": true
+    },
+    {
+      "index": 2,
+      "workflow_run": 42475052166,
+      "conclusion": "SUCCESS",
+      "kind": "NEW_VERSIONED_R2_CI_WORKFLOW",
+      "charged": true
+    }
+  ],
+  "source_sha256": {
+    "runtime30/fwn9_p9m_c3_surface_bridge.cjs": "9f7876d32ab95fc5f318ef45350b87d7b6ecdced6101377c577eb4104b81b45d",
+    "tools/fwn9_p9m_c3_test.cjs": "6b1d3716809ef1a93d8c2e1b30590d0915d1c17d1add57287775e0e2491eedd4",
+    "research/modulation11/fwn9_phase9m_c3_protocol.json": "c4092e68845bdbca2670330b3d51651bd4b11a97e1125eb24b247416b1f0b32f"
+  },
+  "emitted_proof_json_sha256": "57af4d3250c50f2722ee01be069c2c5e5202514eb10580dc784c7173105c0748",
+  "tests": {
+    "new_specific": "8/8 PASS",
+    "node_syntax": "PASS",
+    "independent_decimal46": "P9MC1 and P9MC2 PASS (2 dual asset cases)",
+    "ruff": "PASS, scoped P9MC2 Python accountant",
+    "mypy_strict": "PASS, scoped P9MC2 Python accountant",
+    "benchmark_10_ms": 135.121,
+    "all_historical_ci_green_claimed": false
+  },
+  "native_vs_substep": {
+    "identical_ohlc_and_multiset": true,
+    "native_net_usd": -16.32,
+    "target_first_net_usd": -16.58,
+    "stop_first_net_usd": -32.56,
+    "finite_path_delta_usd": 15.98,
+    "native_minus_more_favorable_of_two_usd": 0.26,
+    "all_possible_substep_sequences_exhaustively_checked": false
+  },
+  "dual_asset_fixtures": {
+    "scenarios": 2,
+    "distinct_no_fill_symbols": 2,
+    "source_marks_verified_per_case": 2,
+    "no_fill_before_knownAt_not_released": true,
+    "no_phantom_position": true,
+    "terminal_self_financing_reconciled": true
+  },
+  "controls": {
+    "cash": "Same fixture calendar costs, 20000 USD initial cash; no economic outcome comparison.",
+    "prior_best": "Previous candidate preserved, not re-executed on engineering fixtures; no market trial.",
+    "new_competing_signal_candidates": 0
+  },
+  "budget": {
+    "economic_accounts_delta": 0,
+    "market_seeds_opened": 0,
+    "final_accounts_unopened": 3200,
+    "alpha_spent": 0,
+    "workers": 1
+  },
+  "gates": {
+    "native_ohlc_exact_substep_equivalence": false,
+    "WEAK_native_population_infeasibility_certified": false,
+    "full_operational_fault_coverage": false,
+    "virtual_cell_integration": false,
+    "N9S": false
+  },
+  "source_data": {
+    "raw_archive_library_file_id": "libfile_2a43d8459c048191ad1cf3da85a73f12",
+    "raw_archive_preserved_sha256": "26db8f357ea683d91ae0b0b1beb3277608036cd1c1dc419cdcd73d489c64c49d",
+    "new_big_raw_data": false
+  },
+  "decision": "Keep economic research paused pending coherent native OHLC/substep execution assumption and population mark-event proof. No promotion or conditional acceptance."
+}

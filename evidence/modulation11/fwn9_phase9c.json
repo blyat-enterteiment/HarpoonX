@@ -1,0 +1,45 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9C_CAUSAL_RISK_EVIDENCE_1",
+  "source_commit": "e1ad52e085a7f9b079c1cdd714ed4bf9b06ad463",
+  "protocol": "research/modulation11/fwn9_phase9c_protocol.json",
+  "ci_run": 42437283750,
+  "ci_status": "SUCCESS",
+  "tests_total": 7,
+  "tests_passed": 7,
+  "tests_failed": 0,
+  "static": "SCOPED_TSC_NO_NEW_ERRORS_8_HISTORICAL_TS2365",
+  "accountant": "PYTHON_DECIMAL_46_PASS",
+  "original_generator_sha": "PASS",
+  "p8_source_blob_sha1": "eedfb19e567f80597cfef0a38f689af95e99e0d6",
+  "sha256": {
+    "runtime30/fwn9_persistent_risk_mirror_p9c.cjs": "6ee51ca7ad548ace344511960b5f38e71033bce9b00b3bec04eb1f5e1498e239",
+    "tools/fwn9_phase9c_test.cjs": "31078256c3c8409b260047a52c437c842f43cc526c0243c70dc5756c8e754ec7",
+    "tools/fwn9_phase9c_accountant.py": "01ad408b1f3e3607a65f7b1923cbedb3ceb91e2902f7942c848bf4db2aac1b44",
+    ".github/workflows/fwn9_phase9c.yml": "87e7c571e607e1b6e46f9ed3b35f7714f3e91142fe4435160470a1cbb11cb9d9"
+  },
+  "benchmark_10_mirrors_ms": 274.057,
+  "findings": {
+    "persistent_observable_event_peak_tracking_verified_on_fixtures": true,
+    "native_daily_loss_refusal_reproduced_in_two_independent_books": true,
+    "legacy_p8_incorrect_second_admission_reproduced": true,
+    "future_tape_does_not_rewrite_past_decisions_on_fixture": true,
+    "ioc_no_fill_release_and_partial_retention_verified": true,
+    "weekend_calendar_cost_check_verified": true,
+    "full_native_mark_generation_parity_proven": false,
+    "population_weak_bound_certified": false,
+    "real_profitability_accredited": false
+  },
+  "scope": "DETERMINISTIC_ENGINEERING_FIXTURES_NOT_M9_MARKET_POPULATION",
+  "economics": {
+    "new_candidates": 0,
+    "new_accounts": 0,
+    "alpha_spent": 0,
+    "final_m10_accounts_unopened": 3200
+  },
+  "limitations": [
+    "Reconstruction uses received bar closes; does not reproduce every native campaign mark/receipt in all histories",
+    "Partial-entry, outages, market-impact, multi-cell production coordination not fully modeled",
+    "No stochastic WEAK feasibility proof or prospective economic edge claim"
+  ],
+  "verdict": "P9C_RISK_GATE_FIXED_IN_ADDITIVE_MIRROR_N9S_UNVERIFIED"
+}

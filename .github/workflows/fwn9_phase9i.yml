@@ -1,0 +1,73 @@
+name: FWN9 P9I versioned provenance and admission hard gates
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9i_provenance.py
+      - tools/test_fwn9_p9i_provenance.py
+      - runtime30/fwn9_p9i_operational_gate.cjs
+      - tools/fwn9_p9i_operational_test.cjs
+      - research/modulation11/fwn9_phase9i_protocol.json
+      - .github/workflows/fwn9_phase9i.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  immutable-lineage-and-operations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and adversarial Python provenance regression
+        run: |
+          python -m py_compile tools/fwn9_p9i_provenance.py tools/test_fwn9_p9i_provenance.py
+          PYTHONPATH=tools python -m unittest -v test_fwn9_p9i_provenance
+      - name: Scoped static and strict types
+        run: |
+          python -m pip install --disable-pip-version-check 'ruff==0.14.4' 'mypy==1.18.2'
+          ruff check --select E4,E7,E9,F tools/fwn9_p9i_provenance.py tools/test_fwn9_p9i_provenance.py
+          mypy --strict tools/fwn9_p9i_provenance.py tools/test_fwn9_p9i_provenance.py
+      - name: Immutable archived-commit versus active M9 provenance
+        run: |
+          python -B tools/fwn9_p9i_provenance.py > /tmp/p9i_lineage.json
+          python - <<'PY'
+          import json
+          r=json.load(open('/tmp/p9i_lineage.json'))
+          assert r['provenance']['distinct_versions_verified'] is True
+          assert r['provenance']['all_sources_covered'] is True
+          assert r['promotion']['status']=='BLOCKED'
+          print('P9I_ARCHIVED_SOURCE_FILES',r['provenance']['archive_files_checked'])
+          print('P9I_ARCHIVE_MISMATCHES',len(r['provenance']['archive_failures']))
+          print('P9I_M9_FROZEN_SOURCE_FILES',r['provenance']['m9_files_checked'])
+          print('P9I_FINAL_PROMOTION_BLOCKED')
+          PY
+      - name: Native full accepted decision and IOC NO_FILL fixture gates
+        run: |
+          node --check runtime30/fwn9_p9i_operational_gate.cjs
+          node --check tools/fwn9_p9i_operational_test.cjs
+          node --test tools/fwn9_p9i_operational_test.cjs
+          node tools/fwn9_p9i_operational_test.cjs --bench
+      - name: Immutable code registration and original generator checks
+        run: |
+          python - <<'PY'
+          import pathlib,subprocess,hashlib,json
+          p=json.loads(pathlib.Path('research/modulation11/fwn9_phase9i_protocol.json').read_text())
+          assert p['budget']=={'economic_accounts':0,'new_candidates':0,'controls_replayed':0,'workers':1,'alpha_spent':0,'m10_final_unopened':3200}
+          for f,sha in p['code_git_blob_sha1'].items():
+              actual=subprocess.check_output(['git','hash-object',f],text=True).strip()
+              assert actual==sha,(f,actual,sha)
+              print('P9I_SHA256',f,hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest())
+          reg=json.loads(pathlib.Path('research/modulation9/registration.json').read_text())
+          for f in ('quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js'):
+              assert hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest()==reg['sources_sha256'][f]
+          print('P9I_GENERATOR_AND_NATIVE_UNCHANGED')
+          PY

@@ -1,0 +1,37 @@
+name: FWN9 M11 P9M-C1 causal nonidentifiability witness
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - 'runtime30/fwn9_p9m_c_order_witness.cjs'
+      - 'tools/fwn9_p9m_c_order_test.cjs'
+      - 'tools/fwn9_p9m_c_accountant.py'
+      - '.github/workflows/fwn9_phase9m_c1.yml'
+      - 'research/modulation11/fwn9_phase9m_c1_protocol.json'
+  workflow_dispatch:
+jobs:
+  structural-witness:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and static checks
+        run: |
+          node --check runtime30/fwn9_p9m_c_order_witness.cjs
+          node --check tools/fwn9_p9m_c_order_test.cjs
+          python -m py_compile tools/fwn9_p9m_c_accountant.py
+      - name: Unit, adversarial and causal tests
+        run: node --test tools/fwn9_p9m_c_order_test.cjs
+      - name: Independent Decimal-46 reconciliation and benchmark
+        run: |
+          node tools/fwn9_p9m_c_order_test.cjs --emit-json > /tmp/fwn9_p9m_c1.jsonl
+          python tools/fwn9_p9m_c_accountant.py < /tmp/fwn9_p9m_c1.jsonl
+          node tools/fwn9_p9m_c_order_test.cjs --bench
+          sha256sum runtime30/fwn9_p9m_c_order_witness.cjs tools/fwn9_p9m_c_order_test.cjs tools/fwn9_p9m_c_accountant.py

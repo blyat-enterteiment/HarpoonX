@@ -1,0 +1,45 @@
+{
+  "schema": "HARPOON_FWN9_P9H_R2_SAME_SESSION_RECEIPT_SCOPE_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9h_protocol.json",
+  "lease_id": "M11_P9H_CASH_RECEIPT_LEDGER_20261107T2154",
+  "failed_ci_retained": 42444895033,
+  "revision_reason": "First fixture placed second signal 72h after first, so the first long was already closed at second decision; first two failures were faulty exposure-window assumptions, not a negation of the source-cash lemma.",
+  "precommitted_rule": "Second signal is 30 minutes after first signal on same trading session; entry IOC and partial exit both precede second decision by observed knownAt; original source and economic policy unchanged.",
+  "test_ids": [
+    "flat before and after first open",
+    "partial target with original reservation retained",
+    "IOC NO_FILL releases without any funded position",
+    "knownAt-delayed exit must reject",
+    "mutated equity must reject",
+    "mutated reserve risk must reject",
+    "independent Decimal receipt reconstruction",
+    "500-iteration fixture microbenchmark"
+  ],
+  "budget": {
+    "accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "seeds_development": [],
+    "seeds_final": [],
+    "workers": 1,
+    "alpha_spent": 0,
+    "final_accounts_sealed": 3200
+  },
+  "refutation_criteria": [
+    "Equity vs cash plus marks mismatch within displayed complete source fixture",
+    "12% gross reservation and fees bound fail on an accepted fixture",
+    "Later-known receipt used before knownAt",
+    "Unregistered file SHA or changed frozen M9/Profit8 source",
+    "Unresolved event is silently accepted as settled cash",
+    "Claim of native population certificate from finite fixtures"
+  ],
+  "git_blobs": {
+    "runtime30/fwn9_p9h_cash_ledger.cjs": "0120c111043769122bcaa073623c5f85bad4244c",
+    "tools/fwn9_phase9h_test.cjs": "78a9d4946bfedac253797bd0b29e8bf1408520ed",
+    "tools/fwn9_phase9h_accountant.py": "530d560071f11f00130010f2f231abc52bd11367",
+    ".github/workflows/fwn9_phase9h.yml": "f260e5a263c505a5e4a80f3d2c4ffc3614afcd72",
+    "tools/fwn9_phase9h_test_r2.cjs": "36090d147ac17ec4719acfee320d159c701376b2",
+    ".github/workflows/fwn9_phase9h_r2.yml": "0dae0d5f88504178c0bb506a462e997a19c16a76"
+  },
+  "promotion_eligible": false
+}

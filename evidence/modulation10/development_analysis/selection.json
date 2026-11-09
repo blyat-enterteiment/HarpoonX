@@ -1,0 +1,49 @@
+{
+  "candidate": {
+    "entry": "QUALITY",
+    "exit": "NATIVE_QUEUE72",
+    "id": "QUALITY_NATIVE_QUEUE72_R0625",
+    "mean_nominal_edge_daily_log": -4.095969190904e-05,
+    "p95_stress_drawdown": 0.020643049999999934,
+    "pareto": true,
+    "ranking_is_confirmatory_interval": false,
+    "risk": 0.000625,
+    "risk_feasible": true,
+    "role": "candidate",
+    "score": -0.00015679645503256372
+  },
+  "candidate_id": "QUALITY_NATIVE_QUEUE72_R0625",
+  "development_directory_relative_to_selection": "../development",
+  "development_manifest_sha256": "3517abcc2d73942e1191f788e1bbc5da117fdb35fb54853983bd0d78188852e5",
+  "development_score_positive": false,
+  "execution_allowed": false,
+  "final_allowed": false,
+  "final_results_read": false,
+  "protocol_sha256": "a5edb060459f0f6aeb149eb8d07bcc2a0f7bb5a63ee693457ed7e517d039bea0",
+  "reason": "NO_POSITIVE_FEASIBLE_DEVELOPMENT_SCORE",
+  "registration_sha256": "891d6a2e07aa878aae6d2af23b6764761668c4f2eab143c6501326bf315285fb",
+  "schema": "HARPOON_MODULATION10_SELECTION_1",
+  "selection_rule": {
+    "final_if_no_positive_score": "DO NOT OPEN RESERVED FINAL. Preserve negative development; no promotion.",
+    "hurdles": {
+      "NOMINAL": 0.0001,
+      "STRESS": 0.0
+    },
+    "only_stage": "development",
+    "pareto": [
+      "mean nominal daily log across TREND/WEAK",
+      "p95 eventDD across all stress worlds"
+    ],
+    "pareto_scope": "risk-feasible NEW candidates only",
+    "positive_edge_worlds": [
+      "TREND",
+      "WEAK"
+    ],
+    "risk_filter": "max eventDD<=8%, worst session>=-2%, reconciled, signal-to-exit<=72h",
+    "score": "minimum over TREND/WEAK and nominal/stress of mean daily log minus1.645SE minus scenario hurdle",
+    "score_is_confirmatory_interval": false,
+    "tie_break": "lower p95 stress drawdown, lower risk, lexical id"
+  },
+  "selection_sha256": "ffe633444530807348f2ac6e7bab3f9ba4cd6c8644f1e8380940230ff68899b3",
+  "stage": "DEVELOPMENT_ONLY_LOCK"
+}

@@ -1,0 +1,70 @@
+name: M11 phase6 conditional WEAK single-bar OHLC credit bound
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/modulation11_conditional_credit_bound.cjs
+      - tools/modulation11_phase6_test.cjs
+      - tools/modulation11_phase6_accountant.py
+      - research/modulation11/phase6_protocol.json
+      - .github/workflows/modulation11_phase6.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  conditional-credit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and engineering invariants
+        run: |
+          node --check runtime30/modulation11_conditional_credit_bound.cjs
+          node --check tools/modulation11_phase6_test.cjs
+          node --test tools/modulation11_phase6_test.cjs
+      - name: Static types for new module only
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/modulation11_conditional_credit_bound.cjs
+      - name: Independent high precision Decimal moments
+        run: |
+          node - <<'JS' >/tmp/m11_p6_results.json
+          const p=require('./research/modulation9/protocol.json');
+          const B=require('./runtime30/modulation11_conditional_credit_bound.cjs');
+          const pos=[{symbol:"SYNA",quantity:8,openingPrice:100},{symbol:"SYNB",quantity:7,openingPrice:150}];
+          console.log(JSON.stringify(B.boundPortfolioBar({protocol:p,stage:"final",scenario:"NOMINAL",positions:pos})));
+          JS
+          python -B tools/modulation11_phase6_accountant.py /tmp/m11_p6_results.json
+      - name: Frozen source provenance and SHA256
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('.')
+          p=json.loads((root/'research/modulation11/protocol.json').read_text())
+          for name,sha in {**p['source_provenance'],**p['code_sha256']}.items():
+              actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
+              assert actual==sha,(name,actual,sha)
+          old=json.loads((root/'research/modulation9/registration.json').read_text())
+          assert hashlib.sha256((root/'quant/harpoon_quant/modulation9.py').read_bytes()).hexdigest()==old['sources_sha256']['quant/harpoon_quant/modulation9.py']
+          for fn in ('runtime30/modulation11_conditional_credit_bound.cjs',
+                     'tools/modulation11_phase6_test.cjs',
+                     'tools/modulation11_phase6_accountant.py',
+                     'research/modulation11/phase6_protocol.json'):
+              print('M11_P6_SHA256',fn,hashlib.sha256((root/fn).read_bytes()).hexdigest())
+          print('M11_P6_FROZEN_PROVENANCE_OK_NO_ECONOMIC_ACCOUNTS_FINAL_SEALED')
+          PY
+      - name: Engineering microbenchmark
+        run: |
+          node - <<'JS'
+          const p=require('./research/modulation9/protocol.json');
+          const B=require('./runtime30/modulation11_conditional_credit_bound.cjs');
+          const start=process.hrtime.bigint();
+          for(let i=0;i<3000;i++) B.boundSingle({protocol:p,stage:"final",
+            scenario:"NOMINAL",position:{symbol:"SYNA",quantity:8,openingPrice:100}});
+          console.log('M11_P6_ANALYTIC_3000_CALLS_MS',Number(process.hrtime.bigint()-start)/1e6);
+          JS

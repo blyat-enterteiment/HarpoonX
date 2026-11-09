@@ -1,0 +1,29 @@
+{
+  "schema": "HARPOON_FWN9_P9I_R2_LEGACY_DEBT_CLASSIFIER_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9i_protocol.json",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "trigger": "Preregistered P9I validation 42445880626 succeeded but found three explicit archive manifest mismatches at original source_head; attribute each without modifying frozen evidence.",
+  "hypothesis": "For each historic archive hash that fails at source_head, an immutable commit may contain its original bytes; finding an independent per-file provenance ref distinguishes split archival lineage from missing history, but does not repair a single-snapshot claim or prior CI.",
+  "refutation": [
+    "Old and M9 hashes overwritten",
+    "Incorrect match falsely declared historical snapshot verified",
+    "Missing matching revision silently treated as recovered",
+    "Any economic or sealed final accounts opened"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200,
+    "workers": 1
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9i_legacy_debt.py": "2ed605465b2ad5e210678b33472407c03dbc4f32",
+    "tools/test_fwn9_p9i_legacy_debt.py": "978cfa607e7f67b9ba9db024d68534a0ce801e1a",
+    ".github/workflows/fwn9_phase9i_r2.yml": "8038a1aa4ae87207d6b980e3029429f32d18502c"
+  },
+  "archive_source_head": "424cc9dad2f840284e19e61c3f9cb9db26b46286",
+  "archive_profit8_sha256": "26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6",
+  "m9_profit8_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+  "promotion_eligible": false
+}

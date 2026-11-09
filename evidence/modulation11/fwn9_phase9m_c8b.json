@@ -1,0 +1,108 @@
+{
+  "schema": "HARPOON_FWN9_M11_C8B_NATIVE_ACTUAL_REPLAY_ENGINEERING_EVIDENCE_1",
+  "source_branch": "codex/continuous-n9-research",
+  "lease_commit": "2fc941551783454bfc19b4c8cc4f3255d44b6a56",
+  "source_parent_head": "ca61c5bcdc8edacc54d707e704296a09acfed667",
+  "phase": "M11_PHASE9M_C8B_REPRICED_ANCHOR_NATIVE_EVENT_PROOF",
+  "protocol": "research/modulation11/fwn9_phase9m_c8b_protocol.json",
+  "corrections": [
+    "research/modulation11/fwn9_phase9m_c8b_r2_protocol.json",
+    "research/modulation11/fwn9_phase9m_c8b_r3_protocol.json",
+    "research/modulation11/fwn9_phase9m_c8b_r4_protocol.json"
+  ],
+  "attempts_charged": 4,
+  "failed_attempts_charged": 3,
+  "ci": {
+    "r1": {
+      "id": 42500339262,
+      "conclusion": "failure",
+      "cause": "Ruff I001 import order and SIM115 file handle",
+      "native_tests_run": false
+    },
+    "r2": {
+      "id": 42500460440,
+      "conclusion": "failure",
+      "cause": "Ruff FURB157 Decimal quoted integer",
+      "native_tests_run": false
+    },
+    "r3": {
+      "id": 42500539934,
+      "conclusion": "failure",
+      "cause": "5/8 native tests pass, 3 fail; second asset refused by original risk cap with engineering stopDistance=5, corruption test then lacks reservation",
+      "native_tests_passed": 5,
+      "native_tests_failed": 3
+    },
+    "r4": {
+      "id": 42500652943,
+      "conclusion": "success",
+      "source_commit": "ca61c5bcdc8edacc54d707e704296a09acfed667",
+      "tests_passed": 8,
+      "tests_failed": 0,
+      "syntax": "PASS",
+      "ruff": "PASS",
+      "mypy_strict": "PASS",
+      "independent_accounting": "PASS_DECIMAL_50",
+      "benchmark_12_replays_ms": 68.097,
+      "original_core_sha256": "PASS_ORIGINAL_M9_REGISTRATION_SOURCE_HASHES"
+    },
+    "robust_quant": {
+      "id": 42500657942,
+      "conclusion": "success",
+      "source_head": "ca61c5bcdc8edacc54d707e704296a09acfed667"
+    }
+  },
+  "falsification": {
+    "raw_original_notional_anchor_refuted_prior_phase": true,
+    "corrected_original_quantity_anchor_consistent_on_engineering_fixtures": true,
+    "earlier_negative_engineering_risk_refusal_preserved": true,
+    "admission_gate_rechecked_against_native_state": true,
+    "ioc_no_fill_only_releases_after_event": true,
+    "first_asset_appreciation_and_second_asset_admission_with_native_replay": true,
+    "native_terminal_cash_reconciled_with_independent_ledger": true,
+    "native_OHLC_eight_substep_price_equivalence": false,
+    "universal_native_decision_invariant_proved": false,
+    "endogenous_wealth_moment_bound_proved": false,
+    "end_to_end_weak_infeasibility_certified": false,
+    "n9s_accepted": false
+  },
+  "universe": [
+    "SYNA",
+    "SYNB"
+  ],
+  "source_type": "FIXED_SYNTHETIC_ENGINEERING_ONLY_NOT_MARKET_EXECUTIONS",
+  "preserved_contract": {
+    "capital_usd": 20000,
+    "gross_admission_cap": 0.12,
+    "asset_admission_cap": 0.12,
+    "risk_fraction": 0.0025,
+    "holding_hours_max": 72,
+    "nominal_spread_bps": 2,
+    "nominal_slippage_bps": 2,
+    "nominal_commission_usd_per_share_per_side": 0.005,
+    "original_hurdle_log_growth_bp_per_calendar_day": 1
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidates": 0,
+    "new_market_seeds": 0,
+    "new_final_opened": 0,
+    "remaining_m10_final_accounts": 3200,
+    "prospective_alpha_spent": 0,
+    "workers": 1
+  },
+  "git_source_blob_sha1": {
+    "runtime30/fwn9_p9m_c8b_native_anchor.cjs": "8f482e4a64d26697732c3737f55130e4f29e6a85",
+    "tools/fwn9_p9m_c8b_native_anchor_test_r4.cjs": "93f148b1ff74d4d6c03db9f4507cf531d1745b3b",
+    "tools/fwn9_p9m_c8b_accountant_r3.py": "295a4071d76faac43985068850a0a07f40cb8c3e",
+    "research/modulation11/fwn9_phase9m_c8b_r4_protocol.json": "de0ebeca130ceaec884167854d62594e38547da6"
+  },
+  "unchanged_prior_m9_registered_sha256": {
+    "runtime30/profit8_replay.js": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "runtime30/ultimate_reservations.js": "94553547da3e02b972d72e8ea296a2e1ecc468a82133c75868eaea5fbe2ba494",
+    "quant/harpoon_quant/modulation9.py": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab"
+  },
+  "ci_log_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42500652943",
+  "negative_result": "With second signal stopDistance=5, native risk reservation refuses admission; it was erroneous to assume that passing gross cap implies admission. Distinct stopDistance=1 fixed engineering fixture passes both original gates without relaxing risk constraints.",
+  "limits": "All checks are finite engineering cases on actual native replay module; no universal proof, no calibrated market fills, no corrected historical statistical significance; no cohort endpoint metrics were generated.",
+  "verdict": "NO_GO_N9S"
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "HARPOON_MODULATION11_PHASE0_CI_1",
+  "status": "ENGINEERING_CHECKS_PASS_WITH_LIMITS",
+  "reported_at_utc": "2026-11-07T19:35:00Z",
+  "source_commit": "644cc26ed9234849b6fc2378938398a893eb6360",
+  "run_id": 42406823925,
+  "run_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42406823925",
+  "job_id": 128506202729,
+  "job_name": "phase0-equivalence",
+  "tests": {
+    "node_passed": 6,
+    "node_failed": 0,
+    "python_passed": 3,
+    "python_failed": 0
+  },
+  "checks": {
+    "python_compileall": "PASS",
+    "ruff": "PASS",
+    "mypy": "PASS",
+    "node_check_execution": "PASS",
+    "node_check_fixtures": "PASS",
+    "same_seed_original_generator_ohlcv_digest": "PASS",
+    "same_seed_original_signal_digest": "PASS",
+    "native_reservation_no_fill_partial_receipt_fixture": "PASS"
+  },
+  "economic": {
+    "accounts_this_stage": 0,
+    "holdout_final_opened": false,
+    "prospective_alpha_spent": 0,
+    "new_candidates": 0
+  },
+  "finding": "Exact OHLC versus first-observed-discrete-substep exit price/path equivalence is structurally false; local signs differ for stops versus targets. Native reserve/IOC 12% is admission-only, not continuous exposure cap.",
+  "caveat": "No integrated replayCampaign strategy comparison, no universal reserve-shadow equivalence proof, no economic average, no real fill calibration; historical broader workflow failures not repaired by focal CI."
+}

@@ -1,0 +1,79 @@
+name: FWN9 phase9B v2 native event-clock and daily-loss parity
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_native_risk_clock_p9b.cjs
+      - tools/fwn9_phase9b_test_v2.cjs
+      - tools/fwn9_phase9b_accountant.py
+      - research/modulation11/fwn9_phase9b_v2_protocol.json
+      - .github/workflows/fwn9_phase9b_v2.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  risk-clock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Static syntax and native risk gate fixtures
+        run: |
+          node --check runtime30/fwn9_native_risk_clock_p9b.cjs
+          node --check tools/fwn9_phase9b_test_v2.cjs
+          python -m py_compile tools/fwn9_phase9b_accountant.py
+          node --test tools/fwn9_phase9b_test_v2.cjs
+      - name: Focused JS typecheck with historical error disclosure
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          set +e
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/fwn9_native_risk_clock_p9b.cjs >/tmp/fwn9_p9b_types.log 2>&1
+          rc=$?
+          set -e
+          TSC_STATUS="$rc" python - <<'PY'
+          import pathlib,os
+          errors=[line for line in pathlib.Path('/tmp/fwn9_p9b_types.log').read_text().splitlines() if 'error TS' in line]
+          if int(os.environ['TSC_STATUS'])==0:
+              assert not errors,errors
+              print('FWN9_P9B_TYPES_PASS')
+          else:
+              assert int(os.environ['TSC_STATUS'])==2,int(os.environ['TSC_STATUS'])
+              assert len(errors)==8,errors
+              assert all(line.startswith('runtime30/types.js(') and ': error TS2365:' in line and
+                  line.split('(')[1].split(',')[0] in ('85','94','115','151') for line in errors),errors
+              print('FWN9_P9B_NO_NEW_TYPES_8_HISTORICAL_TS2365')
+          PY
+      - name: Confirm frozen P9A parser defect is still present (do not rewrite history)
+        run: |
+          node --check runtime30/modulation11_native_receipt_parity_p9a.cjs >/tmp/p9a_parser.log 2>&1 && exit 1 || true
+          grep 'SyntaxError: missing ) after argument list' /tmp/p9a_parser.log
+      - name: Independent Decimal accounting
+        run: |
+          node tools/fwn9_phase9b_test_v2.cjs --emit-audit > /tmp/fwn9_p9b_accountant.log
+          python -B tools/fwn9_phase9b_accountant.py /tmp/fwn9_p9b_accountant.log
+      - name: Immutable code registration and frozen generator
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess,hashlib
+          root=pathlib.Path('.')
+          proto=json.loads((root/'research/modulation11/fwn9_phase9b_v2_protocol.json').read_text())
+          assert proto['budget']['economic_accounts']==0
+          assert proto['budget']['final_seeds_opened']==0
+          for path,expected in proto['code_git_blob_sha1'].items():
+              got=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert got==expected,(path,got,expected)
+              print('FWN9_P9B_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          reg=json.loads((root/'research/modulation9/registration.json').read_text())
+          path='quant/harpoon_quant/modulation9.py'
+          assert hashlib.sha256((root/path).read_bytes()).hexdigest()==reg['sources_sha256'][path]
+          print('FWN9_P9B_FROZEN_GENERATOR_PASS')
+          PY
+      - name: Bounded execution benchmark
+        run: |
+          node tools/fwn9_phase9b_test_v2.cjs --bench > /tmp/fwn9_p9b_bench.log
+          grep 'FWN9_P9B_10_AUDITS_MS=' /tmp/fwn9_p9b_bench.log

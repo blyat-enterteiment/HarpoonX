@@ -1,0 +1,40 @@
+{
+  "schema": "HARPOON_FWN9_P9L_R3_PARENT_MANIFEST_BINDING_1",
+  "parent": "research/modulation11/fwn9_phase9l_protocol.json",
+  "lease_id": "M11_P9L_NATIVE_ADAPTER_20261108",
+  "failed_runs": [
+    {
+      "run": 42453903221,
+      "reason": "TAP_NONDETERMINISTIC_DURATION_COMPARE",
+      "tests_passed": 12
+    },
+    {
+      "run": 42454005934,
+      "reason": "WORKFLOW_WRONG_PROTOCOL_KEY_git_blobs",
+      "tests_passed": 12,
+      "decimal": "PASS_DECIMAL_60",
+      "mypy": "PASS"
+    }
+  ],
+  "hypothesis": "The R3 workflow verifies all preregistered parent Git blobs and the R3 added workflow Git blob, as well as the fixed original 47 M9 sources, while running 12 actual replay/alias/restart tests and an independent Decimal accountant. No original source is edited.",
+  "refutation": [
+    "Any Git blob SHA mismatch",
+    "Any original M9 SHA mismatch",
+    "Any of 12 tests fails",
+    "Any nondeterminism in P9L_AUDIT JSON",
+    "Independent accountant mismatch",
+    "Any final opened"
+  ],
+  "code_git_blob_sha1": {
+    ".github/workflows/fwn9_phase9l_r3.yml": "f82c33ac22dc6948405869d573cf909b2ba25fed"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "promotion_eligible": false
+}

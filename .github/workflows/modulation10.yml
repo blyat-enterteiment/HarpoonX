@@ -1,0 +1,53 @@
+name: Continuous N9 research checks
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - quant/harpoon_quant/modulation10.py
+      - quant/tests/test_modulation10*.py
+      - tools/*modulation10*
+      - runtime30/modulation10*.cjs
+      - research/modulation10/registration.json
+      - .github/workflows/modulation10.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deterministic-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned research checks
+        run: python -m pip install numpy==2.3.5 scipy==1.17.0 ruff==0.17.3 mypy==2.4.1
+      - name: Static checks
+        run: |
+          python -m compileall -q quant/harpoon_quant/modulation10.py tools/run_modulation10.py tools/analyze_modulation10.py tools/diagnose_modulation10_feasibility.py
+          lint_status=0
+          ruff check quant/harpoon_quant/modulation10.py tools/run_modulation10.py tools/analyze_modulation10.py tools/diagnose_modulation10_feasibility.py quant/tests/test_modulation10*.py --output-format concise || lint_status=$?
+          if [ "$lint_status" != 0 ]; then
+            ruff check quant/harpoon_quant/modulation10.py tools/run_modulation10.py tools/analyze_modulation10.py tools/diagnose_modulation10_feasibility.py quant/tests/test_modulation10*.py --diff || true
+          fi
+          types_status=0
+          MYPYPATH=quant:tools mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/modulation10.py tools/run_modulation10.py tools/analyze_modulation10.py tools/diagnose_modulation10_feasibility.py || types_status=$?
+          test "$lint_status" = 0
+          test "$types_status" = 0
+      - name: Causal, statistical and native regression checks
+        env:
+          PYTHONPATH: quant:tools
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          python -m unittest discover -s quant/tests -p 'test_modulation10*.py' -v
+          python -m unittest discover -s quant/tests -p 'test_modulation9*.py' -v
+          node --check runtime30/modulation10_replay.cjs
+          node --check tools/modulation10_bridge.cjs
+          node --test tools/modulation10_test.cjs tools/modulation9_test.cjs tools/profit8_replay_test.cjs
+      - name: Confirm new and inherited source registrations
+        run: |
+          PYTHONPATH=quant:tools python -c 'from run_modulation10 import verify_registration; r=verify_registration(); print(r["protocol_sha256"])'

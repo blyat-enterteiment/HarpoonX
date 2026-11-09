@@ -1,0 +1,72 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9L_NATIVE_SOURCE_RESTARTABLE_BRIDGE_1",
+  "lease_id": "M11_P9L_NATIVE_ADAPTER_20261108",
+  "start_head": "41b01f792848aa46c69ee2139b9aeef0bfb46bcc",
+  "hypothesis": "On a finite registered engineering catalog, native replayFundedPortfolio's own modeled IOC reservations, campaign inventory events and source availability clocks can be replayed into the existing P9K shared capital ledger without inventing fills, conserving commitment, fees, terminal cash and equity; checkpoint persistence is idempotent after a fresh process starts.",
+  "counterhypotheses": [
+    "Source-native admission under conservative committed closed-campaign cash differs from physical cash P9K on some endogenous admission; then fail and preserve minimal witness",
+    "Model generated OHLC exit prices are not broker executable; source bridge may be numerically equal but cannot prove economic feasibility or profit",
+    "Market observations alone do not constitute fully labeled opportunities and must never be converted into eligible optimizer input"
+  ],
+  "catalog": [
+    "two native funded campaigns/source reservation parity",
+    "native source partial target and original quantity retention",
+    "native modeled IOC no fill and remaining funded symbol",
+    "both native IOC no fill and no phantom position",
+    "missing signal disposition rejects",
+    "mutated source notional/risk rejects",
+    "changed fee/gross limit rejects",
+    "tampered exit quantity fails before replay",
+    "source event chronology",
+    "atomic restart reopens checkpoint without replayed economic accounts",
+    "idempotent duplicate checkpoint and conflicting payload rejection",
+    "corrupted checkpoint checksum rejected",
+    "simulated OHLC tape cannot be promoted to optimizer observed data"
+  ],
+  "refutation": [
+    "Any native source receipt missing or future-known source event used at decision",
+    "Any source original commitment differs from P9K reserved amount",
+    "Any source cash/terminal wealth/fee differs from P9K physical book and independent Decimal",
+    "Any incomplete native outcome silently assigned synthetic fill",
+    "Any duplicated signal, source reservation, or IOC receipt accepted",
+    "Any checkpoint can be overwritten without integrity complaint or rewind committed receipts",
+    "Any source sample mislabeled observed or optimizer-authorized",
+    "Any frozen original M9 source file changed",
+    "Any sealed 3200 M10 final accessed or new market candidate/search launched"
+  ],
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "contract": {
+    "capital_usd": 20000,
+    "original_m9_protocol": "research/modulation9/protocol.json",
+    "open_risk": 0.0025,
+    "gross_at_admission": 0.12,
+    "daily_loss": 0.02,
+    "drawdown": 0.08,
+    "max_hold_hours": 72,
+    "fee_scope": "P9L fixture only per_side_usd 0.005, unchanged original source; other native costs fail closed",
+    "statistical_claims": false
+  },
+  "git_blobs": {
+    "runtime30/fwn9_p9l_native_bridge.cjs": "4df0d78b5a0bf009e6a2a7c9aafa3e30cd88c46e",
+    "tools/fwn9_p9l_native_bridge_test.cjs": "4abbbd0ec8eb31b83e36f9564df399d4edfde42c",
+    "tools/fwn9_p9l_checkpoint.cjs": "8490597ecc2f6127d7d032e0be6a5540bdb75174",
+    "tools/fwn9_p9l_accountant.py": "03839fe56b8a43fa9e597ed0bd558025dbde9732",
+    ".github/workflows/fwn9_phase9l.yml": "fc61be6cdc26eeeb15d6ebc60f0f5fdf0de85bd4"
+  },
+  "scope_limits": [
+    "Source-native receipts are HISTORICAL_MODELED_OHLCV, NOT independent broker executions",
+    "No full M9 WEAK population positive credit bound",
+    "No production/PAPER order integrations",
+    "Not a universal ready-to-optimize opportunity panel; handoff must fail closed",
+    "Restart proof covers offline checkpoint integrity, not deployed distributed durability",
+    "Do not open new signals or M10 finals, do not merge PR"
+  ],
+  "promotion_eligible": false
+}

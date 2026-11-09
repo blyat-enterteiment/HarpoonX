@@ -1,0 +1,139 @@
+{
+  "calendar": {
+    "calendar_definition": "SYNTHETIC_WEEKDAYS_1430_2100_UTC_NO_HOLIDAYS_OR_DST",
+    "evaluation_first_date": "2024-03-18",
+    "evaluation_last_date": "2024-09-09",
+    "evaluation_sessions": 126,
+    "holding_hours": 72,
+    "inclusive_charged_calendar_days": 176,
+    "max_overnight_events_in_half_open_holding_window": 3,
+    "max_substep_events_in_half_open_holding_window": 1872,
+    "proof_covering_calendar_dates": 4,
+    "proof_upper_full_bars_in_holding_window": 312,
+    "proof_upper_overnights_in_holding_window": 4,
+    "total_evaluation_bars": 9828,
+    "total_evaluation_substeps": 78624
+  },
+  "cases": {
+    "development_parameters": {
+      "admission_72h_conditional_bound": {
+        "expected_max_relative_price_upper": 1.0875777815974363,
+        "fixed_expected_log_penalty_bp_per_calendar_day_lower": 0.391078418391487,
+        "gross_expected_log_bp_per_calendar_day_upper": 1.1539165032458265,
+        "hurdle_log_bp_per_calendar_day": 1.0,
+        "moment_order_q": 44,
+        "moment_search": "Deterministic valid inequalities at integer q=2..500; no trading-policy selection.",
+        "native_ohlc_replay_infeasibility_certified": false,
+        "net_expected_log_bp_per_calendar_day_upper": 0.7628380848543395,
+        "status": "THEOREM_CONDITIONAL_ON_COHERENT_ADMISSION_AND_PRICE_CONSISTENT_EXECUTION",
+        "uniform_conditional_mean_gross_fraction_upper": 0.1291520319777627,
+        "upper_bound_below_hurdle": true
+      },
+      "continuous_cap_conditional_bound": {
+        "net_expected_log_bp_per_calendar_day_upper": 0.5866739431260558,
+        "status": "VALID_ONLY_IF_CONTINUOUS_PRICE_CONSISTENT_GROSS_CAP"
+      },
+      "drift_multiplier": 1.0,
+      "favorable_regime_probability": 0.64,
+      "first_order_continuous_cap_heuristic": {
+        "fixed_cost_bp_of_initial_capital_per_calendar_day": 0.5,
+        "gross_bp_per_calendar_day": 1.0721454545454545,
+        "net_bp_per_calendar_day": 0.5721454545454545,
+        "status": "HEURISTIC_NOT_NATIVE_BOUND"
+      },
+      "max_overnight_sigma": 0.007048134476146668,
+      "max_unmixed_intraday_bar_sigma": 0.002139612251687381,
+      "positive_drift_log_parameter_per_bar": 2.5e-05,
+      "positive_mean_arithmetic_excess_per_substep": 3.1250048828175866e-06,
+      "sigma_multiplier": 1.0
+    },
+    "supported_final_worst_parameters": {
+      "admission_72h_conditional_bound": {
+        "expected_max_relative_price_upper": 1.1047340935165126,
+        "fixed_expected_log_penalty_bp_per_calendar_day_lower": 0.3815867048480303,
+        "gross_expected_log_bp_per_calendar_day_upper": 1.2867099518053062,
+        "hurdle_log_bp_per_calendar_day": 1.0,
+        "moment_order_q": 37,
+        "moment_search": "Deterministic valid inequalities at integer q=2..500; no trading-policy selection.",
+        "native_ohlc_replay_infeasibility_certified": false,
+        "net_expected_log_bp_per_calendar_day_upper": 0.9051232469572758,
+        "status": "THEOREM_CONDITIONAL_ON_COHERENT_ADMISSION_AND_PRICE_CONSISTENT_EXECUTION",
+        "uniform_conditional_mean_gross_fraction_upper": 0.13092264349550703,
+        "upper_bound_below_hurdle": true
+      },
+      "continuous_cap_conditional_bound": {
+        "net_expected_log_bp_per_calendar_day_upper": 0.6953181055912473,
+        "status": "VALID_ONLY_IF_CONTINUOUS_PRICE_CONSISTENT_GROSS_CAP"
+      },
+      "drift_multiplier": 1.1,
+      "favorable_regime_probability": 0.64,
+      "first_order_continuous_cap_heuristic": {
+        "fixed_cost_bp_of_initial_capital_per_calendar_day": 0.5,
+        "gross_bp_per_calendar_day": 1.17936,
+        "net_bp_per_calendar_day": 0.67936,
+        "status": "HEURISTIC_NOT_NATIVE_BOUND"
+      },
+      "max_overnight_sigma": 0.008457761371376,
+      "max_unmixed_intraday_bar_sigma": 0.0025675347020248573,
+      "positive_drift_log_parameter_per_bar": 2.7500000000000004e-05,
+      "positive_mean_arithmetic_excess_per_substep": 3.4375059082098956e-06,
+      "sigma_multiplier": 1.2
+    }
+  },
+  "costs_hurdles_generator_and_frozen_sources_changed": false,
+  "deterministic_self_checks": {
+    "checks": {
+      "all_reported_scalar_results_are_finite": true,
+      "coarser_supported_final_bound_is_not_smaller": true,
+      "compensated_bar_first_moment_is_one": true,
+      "evaluation_calendar_is_126_sessions_176_charged_dates": true,
+      "exposure_fraction_at_no_price_change_equals_cap": true,
+      "exposure_fraction_is_increasing_below_one": true,
+      "fixed_cost_unit_is_usd_per_calendar_day": true,
+      "proof_calendar_cover_dominates_observed_event_grid": true,
+      "substeps_have_correct_dimensions": true,
+      "symmetric_jump_first_moment_is_one": true,
+      "two_asset_positive_regime_probability": true,
+      "zero_volatility_bar_moment_is_one": true
+    },
+    "failed": 0,
+    "passed": 12
+  },
+  "diagnostic_role": "NONSELECTABLE_THEORETICAL_UPPER_BOUND",
+  "diagnostic_script_sha256": "6f6ae0a1cd1b706f378fa5bdb14e03342836f9f4ee07f66665afe3ef621454ad",
+  "economic_policy_executions": 0,
+  "generator_calls": 0,
+  "interpretation": [
+    "The bound concerns expected full-horizon calendar-day log growth, not a pathwise maximum or a finite holdout statistic.",
+    "The ideal causal current-regime oracle is included in the theorem class; it does not get future prices.",
+    "A numerical native replay can exceed this conditional bound if the mathematical assumptions do not describe its execution semantics.",
+    "Development score>0 is a different criterion from the nominal final adjusted lower bound>1bp/day.",
+    "The .25% open-risk, drawdown, session-loss and discrete-share restrictions are relaxed, making this an upper bound for any subclass satisfying them."
+  ],
+  "native_ohlc_replay_infeasibility_certified": false,
+  "origin": "SYNTHETIC_LAW_ANALYSIS_NO_PRICE_PATHS_GENERATED",
+  "primary_mathematical_reference": {
+    "title": "Amir Dembo, Probability Theory: STAT310/MATH230, Corollary5.2.13 (Doob Lp)",
+    "url": "https://web.stanford.edu/class/stats310c/NOTES/lnotes.pdf"
+  },
+  "registered_source_integrity_before_and_after": {
+    "all_registered_sources_match": true,
+    "generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "protocol_sha256": "de694919b0908fc0ecf474c9612ff7d54fe04db635a385e12ffa0f81abc7780d",
+    "registered_sources_verified": 47,
+    "registration_sha256": "04d1af699826b0821ef6da808b6d21e1e38adfbdabee35f4ba4ac15a5f98b086"
+  },
+  "schema": "HARPOON_MODULATION10_DETERMINISTIC_FEASIBILITY_1",
+  "theorem_assumptions": [
+    "Two tradable assets; long-only; nonnegative cash; no borrowing or external cash inflows.",
+    "Predictable trading at the actual compensated substep/overnight prices; no OHLC threshold interpolation.",
+    "Every admission caps total risky marked notional at12% of coherent contemporary actual equity.",
+    "Every individual holding is liquidated within72 elapsed hours; subsequent sales cannot increase risky holdings.",
+    "Zero-interest cash, all variable execution costs nonnegative, fixed nominal cost1USD per charged calendar date.",
+    "Positive terminal wealth, otherwise log-growth cannot satisfy the target."
+  ],
+  "unresolved_native_engine_bridges": [
+    "Admission uses causal available marks and reservations before IOC; equivalence to a coherent contemporary cap must be proved.",
+    "Native OHLC fills may pay a threshold between sampled substep prices; a martingale price law alone does not prove self-financing wealth under those fills."
+  ]
+}

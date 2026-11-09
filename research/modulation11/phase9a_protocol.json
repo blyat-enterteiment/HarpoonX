@@ -1,0 +1,63 @@
+{
+  "schema": "HARPOON_M11_PHASE9A_NATIVE_RECEIPT_PARITY_PROTOCOL_1",
+  "scope": "one bounded ENGINEERING unit, no economic market sampling",
+  "preregistration_parent_lease": "d2e656ab4a2bc87413d32fa14dbfad9ad438550e",
+  "hypothesis": "A deferred receipt factory sourced from the actual native full-campaign replay, independently recalculated for each accepted integer quantity, will reconcile the native funded ledger to the native-side causal receipt mirror on the frozen two-asset engineering tape, while the first-observed-substep book may diverge on intrabar stop/target paths.",
+  "null_or_refutation": [
+    "Native side admitted identities or quantities cannot be matched to funded replay",
+    "Native trade monetary net fails separate receipt/fee reconstruction",
+    "Any first-book decision uses a future receipt or unpublished price",
+    "OHLC/substep mismatch is accepted as a valid observed path",
+    "Any unreleased reservation, unsupported exit clock or >72h holding is silently accepted",
+    "Any purported equivalence of full risk-mark clocks or stochastic WEAK population inferred from these fixtures"
+  ],
+  "fixture_catalogue": [
+    "Two native-funded full 72h campaigns over SYNA and SYNB, both books flat until time exit",
+    "Intrabar target-first/stop-later reversal with native OHLC ambiguity",
+    "Future-bar perturbation changes realized exits but not earlier sizing",
+    "Next IOC opening exceeds known ex-ante ceiling and resolves NO_FILL",
+    "Tampered eight-substep last price violates its OHLC close",
+    "Explicit inability to certify native daily-loss/risk-event-clock and operational gates"
+  ],
+  "preserved_constraints": {
+    "capital_usd": 20000,
+    "symbols": [
+      "SYNA",
+      "SYNB"
+    ],
+    "entry_limits": "UNCHANGED_M9",
+    "risk_admission_fraction": 0.0025,
+    "gross_admission_fraction": 0.12,
+    "hold_hours_max": 72,
+    "costs": "UNCHANGED_M9_NOMINAL",
+    "generator": "UNTOUCHED",
+    "nominal_hurdle": "UNTOUCHED_1_BP_DAILY_LOG_ADJUSTED"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "candidate_recipes": 0,
+    "market_seeds_opened": [],
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "controls": [
+    "Native replay original reference",
+    "First-cross receipt mirror independent funded book",
+    "CASH with identical calendar charges (no new statistical accounts)",
+    "Previous M10 best remains unchanged and unevaluated"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/modulation11_native_receipt_parity_p9a.cjs": "e59472228ebdb0489ff7d75db7a9852c485d98e9",
+    "tools/modulation11_phase9a_test.cjs": "0ada7c4a544eccda0b80a97746a3c43729c3651c",
+    "tools/modulation11_phase9a_accountant.py": "e5ad5e4b23d3b36abea4ccdb7b44c36cbd6d0c73",
+    ".github/workflows/modulation11_phase9a.yml": "ebc2cd7ca772f5f379d21274bc78948c1bfb92c8"
+  },
+  "explicit_nonclaims": [
+    "No full native mark/daily-loss/event-clock parity",
+    "No stochastic upper bound or negative population theorem",
+    "No partial/reject/interrupt/impact or virtual-cell certification",
+    "No broker fills or real profitability",
+    "No candidate promotion or final stage opened"
+  ]
+}

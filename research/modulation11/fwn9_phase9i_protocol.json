@@ -1,0 +1,87 @@
+{
+  "schema": "HARPOON_FWN9_P9I_VERSIONED_INTEGRITY_OPERATIONS_PROTOCOL_1",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "phase": "M11_PHASE9I_ALL_ACCEPTED_DECISIONS_AND_NOFILL_CLOCK",
+  "parent_checkpoint": "c74a3c705d936556a0e8a6242af547fe0fb05fde",
+  "hypothesis": "The archive file hashes are checked in the original immutable source_head, while M9 source hashes are checked against the current frozen registration; the same engineering replay allows all accepted admissions and NO_FILL dispositions to be audited with source knownAt and P9H physical cash without implying support-wide coverage.",
+  "counterhypotheses": [
+    "One or more of 108 historical archived hashes is missing from its source_head, leaving original history NOT VERIFIED",
+    "An active M9 frozen source violates its own registration; this MUST be a failing gate",
+    "An accepted decision can fail P9H causal book reconciliation, or no-fill can create phantom shares",
+    "A pass on finite fixtures does not repair historical P9B NO_FILL valuation clock, execution faults, virtual cells, or population theorem",
+    "Manually setting result flags cannot create an N9-S certificate without independent review"
+  ],
+  "finite_catalog": [
+    "legacy source_head SHA anchor",
+    "all 108 archive files at immutable source_head",
+    "current 47 M9 source file SHA checks",
+    "archived/active hashes must not be silently rewritten",
+    "source path traversal rejection",
+    "missing files and damaged hashes",
+    "metadata forged promotion attempt",
+    "two same-session accepted source decisions",
+    "original reserve after partial target",
+    "IOC NO_FILL reserved then released",
+    "delayed knownAt exit rejection",
+    "admission equity tampering rejection",
+    "duplicate signal identity rejection",
+    "gross cap alteration rejection"
+  ],
+  "refutation": [
+    "Old and M9 source scopes accidentally mixed",
+    "Any historical checksum modified rather than read at original commit",
+    "Any sequence with unobserved receipt used in a decision",
+    "Any accepted state escapes audit in finite fixture",
+    "Any NO_FILL creates funded shares or releases before knownAt",
+    "Any type/static failure, source identity or independent arithmetic mismatch",
+    "Any claim all legacy, live, native OHLC or virtual-cell gates are certified by these scoped checks"
+  ],
+  "controls": [
+    "CASH same-cost historical not rerun",
+    "QUALITY_NATIVE_QUEUE72_R0625 prior best not rerun"
+  ],
+  "source_archive": {
+    "protocol": "research/reused_evidence/protocol.json",
+    "immutable_ref": "424cc9dad2f840284e19e61c3f9cb9db26b46286",
+    "files_expected": 108,
+    "old_profit8_sha256": "26b7046f1c209cf617e48453f63470e82ebcb4c2a41b13ec28c210f10b0718d6"
+  },
+  "active_m9": {
+    "registration": "research/modulation9/registration.json",
+    "files_expected": 47,
+    "profit8_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810"
+  },
+  "frozen_contract": {
+    "capital_usd": 20000,
+    "gross_admission": 0.12,
+    "open_risk": 0.0025,
+    "drawdown_admission": 0.08,
+    "daily_loss": 0.02,
+    "holding_max_hours": 72,
+    "holdout_sealed": true
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_replayed": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200
+  },
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9i_provenance.py": "6647c70ad22e2ee52f1886578d0c4d28c60b7b3f",
+    "tools/test_fwn9_p9i_provenance.py": "d934c45ad6f0d5b58f79c9bad423b602ee3c07ea",
+    "runtime30/fwn9_p9i_operational_gate.cjs": "b3ef2f3bfd706e635de3f8e35cf7bee9edba2a7c",
+    "tools/fwn9_p9i_operational_test.cjs": "4e5cc94172df2e1206c8cc3c80cd33d987cb8905",
+    ".github/workflows/fwn9_phase9i.yml": "c588808286ddb2c2831ca90b27e40787b890832b"
+  },
+  "scope_exclusions": [
+    "No new market economic accounts or seeds; no holdout opened",
+    "NO_FILL P9B valuation clock debt remains until source-wide repair",
+    "Native OHLC thresholds are not automatically executable",
+    "No proof of population inverse wealth or expected credit",
+    "Entry partials/rejections/outages/market impact and virtual-cell coordinator are not implemented here",
+    "Historical robust-quant-core remains separately red until version-aware run is integrated"
+  ],
+  "promotion_eligible": false
+}

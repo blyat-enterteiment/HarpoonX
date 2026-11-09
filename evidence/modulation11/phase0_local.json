@@ -1,0 +1,58 @@
+{
+  "schema": "HARPOON_M11_PHASE0_ENGINEERING_EVIDENCE_1",
+  "recorded_utc": "2026-11-07T19:33:00Z",
+  "synthetic_only": true,
+  "source_branch": "codex/continuous-n9-research",
+  "base_head": "0f09892fbf78ab91a6cfb9853ee7a86cd7630126",
+  "phase": "PHASE0_NO_ECONOMIC_TRIAL",
+  "new_economic_accounts": 0,
+  "new_final_accounts": 0,
+  "candidate_recipes": 0,
+  "controls": 0,
+  "prospective_validation_alpha_spent": 0,
+  "final_sealed": true,
+  "eligible_for_promotion": false,
+  "local_checks": {
+    "node_benchmark": {
+      "pairs": 10000,
+      "elapsed_ms": 63.85,
+      "ms_per_pair": 0.00638,
+      "node": "v22.16.0",
+      "context": "isolated runtime, non-economic"
+    },
+    "node_test": {
+      "status": "5_PASS_1_NOT_RUN_NATIVE_DEPENDENCY_UNAVAILABLE_IN_ISOLATED_CONTAINER",
+      "command": "node --test --test-name-pattern='family1|family3|family4|fail-closed' tools/modulation11_fixture_test.cjs",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 1
+    },
+    "node_check": "PASS",
+    "python_compileall": "PASS",
+    "ruff": "NOT_RUN_LOCAL",
+    "mypy": "NOT_RUN_LOCAL",
+    "real_M9_generator_trace": "NOT_RUN_LOCAL",
+    "native_reservations_fixture": "NOT_RUN_LOCAL"
+  },
+  "findings": {
+    "stop_ohlc_minus_discrete_usd_per_share": 0.23,
+    "target_ohlc_minus_discrete_usd_per_share": -0.27,
+    "same_ohlc_different_substep_order_changes_fills": true,
+    "native_12pct_continuous_cap": false,
+    "reserve_shadow_lemma_certified": false,
+    "native_infeasibility_certified": false
+  },
+  "source_code_sha256": {
+    "quant/harpoon_quant/modulation11_substeps.py": "75b7755bd9a5b52b1c7975b510620115af5aee8a2bbff6cfde7dd18d3f9e6917",
+    "quant/tests/test_modulation11_substeps.py": "bb18df59bdd83cd15491dc261b572348dfab01de1425faefb98b39d507096f90",
+    "runtime30/modulation11_execution_equivalence.cjs": "8a827b3f6f92879d690c313047d4c2e2d86b8184d4ee56694aa9078028815d76",
+    "tools/modulation11_fixture_test.cjs": "4b63b1ef904881c4508d9fec19967d5bd545118a8ed440dfbe818c5157285470"
+  },
+  "missing": [
+    "GitHub CI execution and complete source-hash verification",
+    "Full native campaign comparison",
+    "Reserve-anchor universal checks across native event chronology",
+    "Partial rejects outage impact model",
+    "Virtual-cell coordinator"
+  ]
+}

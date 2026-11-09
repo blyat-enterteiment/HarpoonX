@@ -1,0 +1,94 @@
+{
+  "schema": "HARPOON_M11_PHASE8_CAUSAL_ADMISSION_EVIDENCE_2",
+  "scope": "DETERMINISTIC_ENGINEERING_FIXTURE_TWO_BOOKS_NOT_MARKET_TRIAL",
+  "modes": [
+    "NATIVE_OHLC_RECEIPT_INPUT",
+    "FIRST_CROSS_RECEIPT_INPUT"
+  ],
+  "protocol": "research/modulation11/phase8_v2_protocol.json",
+  "source_commit": "5061b87714a56c9cd7b436ca3ee993613872da5e",
+  "preregistration_commits": [
+    "2f54f4a08b1774445cf7dd39a96bc75603e2c9cc",
+    "87b63445ff3530a9dc4856c2514a3014f04c7f3a"
+  ],
+  "CI": {
+    "run": 42430886679,
+    "status": "SUCCESS",
+    "tests_passed": 7,
+    "independent_decimal_digits": 46,
+    "accounting_passed": true,
+    "checked_js_no_new_typescript_errors": true,
+    "frozen_transitive_typescript_error_count": 8,
+    "source_integrity_passed": true,
+    "microbenchmark_1000_books_ms": 281.84,
+    "prior_success_with_calendar_bug": 42430727411,
+    "failed_CI_attempts_preserved": [
+      42430492844,
+      42430570596,
+      42430674678
+    ]
+  },
+  "scenario": {
+    "starting_capital_usd": 20000,
+    "assets": [
+      "SYNA",
+      "SYNB"
+    ],
+    "calendar_span": "single UTC date 2025-01-03",
+    "fixed_calendar_fee_usd": 1,
+    "trading_fee_per_side_per_share_usd": 0.005,
+    "spread_bps": 2,
+    "slippage_bps": 2,
+    "native_admitted": [
+      "SYNA:0",
+      "SYNB:1"
+    ],
+    "first_cross_admitted": [
+      "SYNA:0",
+      "SYNA:2"
+    ],
+    "terminal_native_equity_usd": 20112.16,
+    "terminal_first_cross_equity_usd": 19973.2,
+    "net_native_usd": 112.16,
+    "net_first_cross_usd": -26.8,
+    "native_minus_first_cross_usd": 138.96,
+    "note": "Source prices and fill receipts are engineered; no inference about economic market edge or population."
+  },
+  "causal_diagnostics": {
+    "new_signals_tested": 0,
+    "economic_accounts": 0,
+    "unopened_M10_final_accounts": 3200,
+    "future_receipt_prefix_invariance_passed": true,
+    "delayed_receipt_financing_rejected": true,
+    "no_fill_release_passed": true,
+    "calendar_cost_guard_passed": true,
+    "terminal_unresolved_fails_closed": true,
+    "receipt_factory_is_engineering_only": true
+  },
+  "SHA256": {
+    "runtime30/modulation11_admission_mirror_v2.cjs": "d0d63169d3c8f189f5a23d1671aeb27947616bda76bd1b177f0863e937f393d1",
+    "tools/modulation11_phase8_v2_test.cjs": "744989aa98a234784745dae9ccc5ee4fdbbd77dd76973c2cf2a43f074fc641c2",
+    "tools/modulation11_phase8_accountant.py": "9e11004b16063a40d56a9d1173156e240a0069156f99da2497303de9b264a815",
+    ".github/workflows/modulation11_phase8_v5.yml": "a003173ccc87c556d7105839cfccc54d70268e96492f698718ea54fe298c77d0"
+  },
+  "claims": {
+    "native_risk_gross_cash_sizing_and_reservation_reused": true,
+    "identical_entry_coupling_refuted_for_fixture": true,
+    "full_native_replay_parity_proved": false,
+    "full_population_expected_bound_proved": false,
+    "continuous_12_percent_cap_proved": false,
+    "new_profitability_proved": false,
+    "operational_gates_complete": false
+  },
+  "reference_controls": [
+    "CASH unchanged, not rerun",
+    "QUALITY_NATIVE_QUEUE72_R0625 prior best unchanged, not rerun"
+  ],
+  "risk_metrics_not_estimated_for_market": {
+    "worst_session": true,
+    "best_campaign_concentration": true,
+    "stability_between_worlds": true,
+    "reason": "No new market seeds or accounts opened in structural engineering unit"
+  },
+  "prospective_alpha_spent": 0
+}

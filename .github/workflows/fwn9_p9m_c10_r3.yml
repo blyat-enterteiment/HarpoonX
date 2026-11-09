@@ -1,0 +1,32 @@
+name: C10 R3 native and Decimal independent verification
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths: ['.github/workflows/fwn9_p9m_c10_r3.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Syntax
+        run: |
+          node --check runtime30/fwn9_p9m_c10_wealth_envelope_r3.cjs
+          node --check tools/fwn9_p9m_c10_wealth_test_r3.cjs
+          python -m py_compile tools/fwn9_p9m_c10_decimal_accountant.py
+      - name: Native 8 scoped tests
+        run: node --test tools/fwn9_p9m_c10_wealth_test_r3.cjs
+      - name: Independent Decimal-50
+        run: |
+          set -o pipefail
+          node tools/fwn9_p9m_c10_wealth_test_r3.cjs --emit \
+            | grep '^{"schema":"FWN9_C10_NATIVE_WEALTH_ENVELOPE_1"' \
+            | python tools/fwn9_p9m_c10_decimal_accountant.py
+      - name: Benchmark native replays
+        run: node tools/fwn9_p9m_c10_wealth_test_r3.cjs --bench | grep '^C10_BENCH_16_NATIVE_REPLAYS_MS='

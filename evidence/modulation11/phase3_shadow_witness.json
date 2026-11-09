@@ -1,0 +1,52 @@
+{
+  "schema": "HARPOON_M11_PHASE3_SHADOW_WITNESS_RESULT_1",
+  "source_commit": "3ef9ddcde0bd49fe0afddabe4d646e6a634510ae",
+  "preregistered_protocol": "research/modulation11/phase3_protocol.json",
+  "result": "NATIVE_EXECUTION_NOT_GENERALLY_SUPPORTED_BY_EIGHT_DISCRETE_SUBSTEPS",
+  "exact_claim": "The native OHLC fill at the threshold is not always one of the generator's eight discrete substep prices or its bar opening; the previous upper-bound proof has not been bridged to native replay.",
+  "test_families": [
+    "two-asset native temporal ledgers",
+    "off-grid stop support",
+    "forged observed equity rejected",
+    "mismatched OHLC/substeps rejected"
+  ],
+  "finite_fixture_dual_asset_decisions": 2,
+  "finite_fixture_entry_exit_events": 4,
+  "finite_fixture_shadow_admission_checks": "PASS_ONLY_IN_ENGINEERING_FIXTURE",
+  "off_grid_stop_counterexample": true,
+  "universal_reserve_anchor_proof": false,
+  "price_consistent_execution_proven": false,
+  "native_infeasibility_certified": false,
+  "conditional_weak_upper_bound_bp_calendar_day": 0.9051232469572758,
+  "economic_accounts_new": 0,
+  "holdout_M10_accounts_unopened": 3200,
+  "alpha_spent": 0,
+  "ci_attempts": [
+    {
+      "run": 42412209074,
+      "status": "FAILED",
+      "passed": 18,
+      "failed": 1,
+      "classification": "INCORRECT_FIXTURE_EXPECTATION",
+      "charged_economic_accounts": 0
+    },
+    {
+      "run": 42412278331,
+      "status": "SUCCESS",
+      "passed": 19,
+      "failed": 0,
+      "charged_economic_accounts": 0
+    }
+  ],
+  "exact_provenance_unchanged": true,
+  "sha256": {
+    "runtime30/modulation11_shadow_witness.cjs": "9fee93337fd4fac972a9bff1d7d0af132fc3ca22f23f1952b48245194c01b2dc",
+    "tools/modulation11_phase2_test.cjs": "39eb728ef7bcc65ecade5a2ac2ba39879f27d3667ba416fc28130b4bcb170e6f"
+  },
+  "blocked_requirements": [
+    "Need consistent traded-price representation or a new justified price-process bound for OHLC fills",
+    "Need proof, not a fixture, of the reservation-shadow inequality across all admitted event histories",
+    "Entry partial/reject/outage/impact and virtual-cell coordinator not fully covered"
+  ],
+  "verdict": "NO_GO_STRUCTURAL_EXECUTION_BRIDGE_UNPROVEN"
+}

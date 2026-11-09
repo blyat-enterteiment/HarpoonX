@@ -1,0 +1,19 @@
+{
+  "schema": "HARPOON_M11_PHASE8_CI_AMENDMENT_2",
+  "original_protocol": "research/modulation11/phase8_protocol.json",
+  "previous_amendment": "research/modulation11/phase8_ci_amendment.json",
+  "failed_ci_runs": [
+    42430492844,
+    42430570596
+  ],
+  "legacy_type_error_count": 8,
+  "legacy_path": "runtime30/types.js",
+  "isolated_noResolve_issue": "TS2307 for node:assert/strict",
+  "new_workflow": ".github/workflows/modulation11_phase8_validation_v3.yml",
+  "new_workflow_git_blob_sha1": "c43c2c182cccf82f36c44f02d1e9104c5c58d103",
+  "validation_policy": "Full JS checkJs across transitive imports; only 8 existing TS2365 errors in frozen types.js at lines 85/94/115/151 permitted; any other diagnostic fails; no waiver in new module",
+  "original_assets_untouched": true,
+  "account_delta": 0,
+  "seeds_opened": [],
+  "alpha_delta": 0
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9B_EVIDENCE_1",
+  "protocol": "research/modulation11/fwn9_phase9b_v2_protocol.json",
+  "preregistered_code_commit": "cf36651774960bcad138c02ba62a1747fcecaf4c",
+  "ci": 42434295581,
+  "ci_conclusion": "SUCCESS",
+  "tests_passed": 4,
+  "tests_failed": 0,
+  "engineering_findings": {
+    "native_full_risk_clock_parity_on_deterministic_fixture": true,
+    "native_daily_loss_refuses_second_asset": true,
+    "p8_mirror_admits_second_asset_without_daily_gate": true,
+    "bar_jump_is_registered_m9_population": false,
+    "independent_mark_price_formation_proven": false,
+    "stochastic_wealth_bound_certified": false,
+    "n9s_accepted": false
+  },
+  "previous_failed_ci": {
+    "id": 42434154497,
+    "reason": "FROZEN_P9A_SYNTAX_ERROR",
+    "p9a_blob": "e59472228ebdb0489ff7d75db7a9852c485d98e9",
+    "prior_claim_of_success_reproducibility_conflict": true
+  },
+  "accounting": "PYTHON_DECIMAL_46_PASS",
+  "typing": "FOCUSED_CHECKJS_PASS_NO_NEW_ERRORS",
+  "benchmark_10_books_ms": 55.473,
+  "new_economic_accounts": 0,
+  "new_candidates": 0,
+  "alpha_spent": 0,
+  "final_accounts_unopened": 3200,
+  "source_sha256": {
+    "runtime30/fwn9_native_risk_clock_p9b.cjs": "28731c3e92793dcab16fe140860f3e6451ce9f8ef96d70e652d37e0b8a8f2017",
+    "tools/fwn9_phase9b_test_v2.cjs": "0d04e6460e5ae7a3e3c848ebcec2d3402d030a1807af4b53f81e0d7defcf7bfd",
+    "tools/fwn9_phase9b_accountant.py": "573c160f5d7fd8388302a61096127ddcee6327abd8a98546ec5e35221c2fb9e1",
+    ".github/workflows/fwn9_phase9b_v2.yml": "8f310e629d5f3f9100a49032c7efb8b51acfbd3e0705775efcfc5717a8009d7a"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC8B_R4_FIXTURE_CORRECTIVE_1",
+  "previous": "research/modulation11/fwn9_phase9m_c8b_r3_protocol.json",
+  "retained_failed_ci": [
+    42500339262,
+    42500460440,
+    42500539934
+  ],
+  "root_cause": "Actual M9 native risk reservation rejects the second signal with 5 USD stop distance despite residual gross capacity. R4 reduces ONLY synthetic engineering second signal stopDistance to 1 USD so both original admission gates can be tested, without changing M9, market law, cost, global caps or candidate selection.",
+  "new_source": "tools/fwn9_p9m_c8b_native_anchor_test_r4.cjs",
+  "observable_requirement": "Second native reservation must be admitted after repriced A with preserved full original lot. Rejection blocks a claimed successful fixture.",
+  "accounts": 0,
+  "alpha": 0,
+  "final_opened": 0,
+  "workers": 1
+}

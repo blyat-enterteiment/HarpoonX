@@ -1,0 +1,104 @@
+name: FWN9 C14 conditional native wealth p-moment and bar-high audit
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_p9m_c14_moments.py
+      - tools/test_fwn9_p9m_c14_moments.py
+      - runtime30/fwn9_p9m_c14_native_bar_guard.cjs
+      - tools/fwn9_p9m_c14_native_test.cjs
+      - tools/fwn9_p9m_c14_accountant.py
+      - research/modulation11/fwn9_phase9m_c14_protocol.json
+      - .github/workflows/fwn9_p9m_c14.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  conditional-native-moments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: JS native receipt envelope and two-book adversarial tests
+        run: |
+          node --check runtime30/fwn9_p9m_c14_native_bar_guard.cjs
+          node --check tools/fwn9_p9m_c14_native_test.cjs
+          node --test tools/fwn9_p9m_c14_native_test.cjs
+      - name: Static Python and typed analytics
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.14.7 mypy==1.18.2
+          python -m py_compile tools/fwn9_p9m_c14_moments.py tools/test_fwn9_p9m_c14_moments.py tools/fwn9_p9m_c14_accountant.py
+          ruff check tools/fwn9_p9m_c14_moments.py tools/test_fwn9_p9m_c14_moments.py tools/fwn9_p9m_c14_accountant.py
+          mypy --strict tools/fwn9_p9m_c14_moments.py tools/test_fwn9_p9m_c14_moments.py tools/fwn9_p9m_c14_accountant.py
+      - name: Gaussian independent quadrature and fixed-contract math
+        run: |
+          python -B -m unittest discover -s tools -p test_fwn9_p9m_c14_moments.py -v
+          python -B tools/fwn9_p9m_c14_moments.py > /tmp/c14_analytic.log
+          python - <<'PY'
+          import json,pathlib
+          text=pathlib.Path('/tmp/c14_analytic.log').read_text()
+          row=json.loads(text.split('FWN9_C14_ANALYTIC=',1)[1])
+          assert row['accounts_opened']==0
+          assert row['M10_final_unopened']==3200
+          assert row['bounds']['N9S_threshold_certified'] is False
+          assert row['all_cash']['conditionalMomentFactor']==1.0
+          for x in row['max_72h_window']:
+              assert x['wealthMomentFactorUpper']>1
+              assert x['hurdleProvedImpossible'] is False
+          print('FWN9_C14_ANALYTIC_CONDITIONAL_MOMENTS_PASS')
+          print('FWN9_C14_72H_MOMENT_FACTORS',[(x['power'],x['wealthMomentFactorUpper'],x['tail20xWealthUpperMarkov']) for x in row['max_72h_window']])
+          PY
+      - name: Independently reconciled USD cash-share terminal receipt book
+        run: |
+          node tools/fwn9_p9m_c14_native_test.cjs --emit-c14 > /tmp/c14_receipt.log
+          python -B tools/fwn9_p9m_c14_accountant.py /tmp/c14_receipt.log
+      - name: Scoped JS typechecker (disclose exactly historical TS2365 debt)
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          set +e
+          ./node_modules/.bin/tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module node16 --types node runtime30/fwn9_p9m_c14_native_bar_guard.cjs > /tmp/c14_tsc.log 2>&1
+          rc=$?
+          set -e
+          TSC_STATUS="$rc" python - <<'PY'
+          import os,pathlib
+          errors=[line for line in pathlib.Path('/tmp/c14_tsc.log').read_text().splitlines() if 'error TS' in line]
+          rc=int(os.environ['TSC_STATUS'])
+          if rc==0:
+              assert not errors,errors
+              print('FWN9_C14_JS_TYPES_PASS')
+          else:
+              assert rc==2,rc
+              assert len(errors)==8,errors
+              assert all(x.startswith('runtime30/types.js(') and ': error TS2365:' in x
+                  and x.split('(')[1].split(',')[0] in ('85','94','115','151')
+                  for x in errors),errors
+              print('FWN9_C14_JS_TYPES_NO_NEW_ERRORS_8_HISTORICAL')
+          PY
+      - name: Immutable M9 generator/replay and C14 Git blob registration
+        run: |
+          python - <<'PY'
+          import json,pathlib,hashlib,subprocess
+          root=pathlib.Path('.')
+          proto=json.loads((root/'research/modulation11/fwn9_phase9m_c14_protocol.json').read_text())
+          assert proto['budget']=={'new_economic_accounts':0,'new_candidates':0,'new_seeds':0,'prospective_alpha':0,'final_M10_unopened':3200,'workers':1}
+          for path,blob in proto['source_blobs'].items():
+              actual=subprocess.check_output(['git','hash-object',path],text=True).strip()
+              assert actual==blob,(path,actual,blob)
+              print('FWN9_C14_SHA256',path,hashlib.sha256((root/path).read_bytes()).hexdigest())
+          registered=json.loads((root/'research/modulation9/registration.json').read_text())
+          for path in ['quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js','runtime30/ultimate_reservations.js']:
+              assert hashlib.sha256((root/path).read_bytes()).hexdigest()==registered['sources_sha256'][path]
+          print('FWN9_C14_FROZEN_M9_ALL_THREE_PASS')
+          PY
+      - name: Bounded performance microbenchmark
+        run: |
+          node tools/fwn9_p9m_c14_native_test.cjs --bench >/tmp/c14_bench.log
+          grep C14_10000_INDEPENDENT_BAR_BOOKS_MS /tmp/c14_bench.log

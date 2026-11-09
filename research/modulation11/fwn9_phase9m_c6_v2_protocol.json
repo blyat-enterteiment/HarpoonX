@@ -1,0 +1,36 @@
+{
+  "schema": "HARPOON_FWN9_M11_P9MC6_V2_STATIC_TYPING_AMENDMENT_1",
+  "parent_protocol": "research/modulation11/fwn9_phase9m_c6_protocol.json",
+  "reason": "Correct four mypy strict errors in v1 while preserving original stochastic lemma, fixtures, budget and economic source.",
+  "failed_attempts": [
+    {
+      "workflow_run_id": 42483189855,
+      "classification": "MYPY_TYPEDDICT_DYNAMIC_KEY_AND_FIXTURE_RETURN",
+      "new_economic_accounts": 0
+    }
+  ],
+  "hypothesis": "C6 v2 strict typing and exactly the original eight deterministic fixture checks will pass; same budget and no population/wealth inference.",
+  "scope": "ENGINEERING_STATIC_AND_LEDGER_DIAGNOSTIC_ONLY",
+  "refutation": [
+    "Static type check fails",
+    "Any of eight fixtures fails",
+    "Source objects diverge",
+    "Frozen M9 generator diverges"
+  ],
+  "source_git_blob_sha1": {
+    "tools/fwn9_p9m_c6_budget_v2.py": "f2b4daace4118d9f9008582a8e8c6618141369f9",
+    "tools/test_fwn9_p9m_c6_budget_v2.py": "f6648b335ff44eb9fcf1a66100fd109060ea5d91"
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "new_market_seeds": 0,
+    "alpha_spent": 0,
+    "final_m10_unopened": 3200,
+    "workers": 1,
+    "engineering_fixtures": 8
+  },
+  "original_hurdles_changed": false,
+  "no_brokers": true,
+  "no_merges": true
+}

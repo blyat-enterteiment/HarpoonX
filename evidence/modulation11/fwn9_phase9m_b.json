@@ -1,0 +1,79 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9M_B_ENGINEERING_EVIDENCE_1",
+  "kind": "OFFLINE_FINITE_ENGINEERING_FIXTURE_NOT_OBSERVED_MARKET_EVIDENCE",
+  "lease_id": "M11_P9M_B_OFFLINE_PROVENANCE_PANEL_20261108_T5",
+  "lease_acquisition_commit": "9d65f7440fe954ec0e2f5d6e84f945b0303ef369",
+  "source_sha": "5f3b680f44c85268cc488825b9361d51b5f66fed",
+  "validated_workflow_sha": "ec8c005369f5f0cb7ad0c80315fd2d1fc77e53d5",
+  "protocol": "research/modulation11/fwn9_phase9m_b_protocol.json",
+  "corrective_protocols": [
+    "research/modulation11/fwn9_phase9m_b_r2_protocol.json",
+    "research/modulation11/fwn9_phase9m_b_r3_protocol.json",
+    "research/modulation11/fwn9_phase9m_b_r4_protocol.json"
+  ],
+  "CI": {
+    "failed_first_mypy": 42464106131,
+    "failed_second_mypy": 42464205064,
+    "p9mb_focal_green": 42464439001,
+    "p9ma_prior_gate_green": 42464304317,
+    "quant_regressions_on_source_green": 42464304235,
+    "quant_current_passed": 1087,
+    "archived_passed": 12,
+    "p9mb_focal_passed": 12,
+    "ruff": "PASS",
+    "mypy": "PASS",
+    "syntax": "PASS"
+  },
+  "integrity": {
+    "source_sha256": "edf66c2f3bd8f52694645749b847540a427735a332de1039a90c513e1e06b521",
+    "test_sha256": "1683fb2130c08615a75a4ecb22a5dd2c6677f4174bba83661f42c13c2a9d7424",
+    "registered_m9_m10_files_modified": false,
+    "previous_results_overwritten": false
+  },
+  "fixture": {
+    "development_calendar_days": 180,
+    "full_mark_rows": 360,
+    "full_symbol_weekday_opportunities": 256,
+    "synthetic_signer": "TEST_ONLY_NOT_INDEPENDENT",
+    "source_claimed_issuer_independence": false,
+    "cryptographic_signature_verification": "PASS_ENGINEERING_ONLY",
+    "event_receipt_kind": "CONSTRUCTED_FAKE",
+    "cash_start_usd": "20000",
+    "cash_final_with_same_fixed_cost_usd": "19820",
+    "ledger_equity_end_usd": "19861.90",
+    "booked_receipt_net_before_fixed_usd": "41.90",
+    "fixed_calendar_usd": "180",
+    "net_after_costs_usd": "-138.10",
+    "real_return_inference": false
+  },
+  "benchmark": {
+    "mode": "CI_GitHub_Actions_ubuntu-latest_Python_3_12",
+    "repeated_panel_audits": 50,
+    "total_ms": 612.408,
+    "warning": "Engineering microbenchmark, not production latency guarantee"
+  },
+  "verified_limits": {
+    "source_authentication_independent": false,
+    "issuer_can_sign_false_payload": true,
+    "universe_independently_observed": false,
+    "real_daily_quotes_observed": false,
+    "independent_accounting_separate_review_complete": false,
+    "native_m9_ohlc_and_substep_equivalent": false,
+    "operational_execution_fault_coverage_complete": false,
+    "multicell_production_coordination_complete": false,
+    "native_M9_WEAK_infeasibility_certified": false,
+    "n9s_goal_accepted": false
+  },
+  "economic_budget_delta": {
+    "new_candidates": 0,
+    "controls": 0,
+    "accounts": 0,
+    "market_seeds_used": [],
+    "final_m10_opened": 0,
+    "final_m10_remaining": 3200,
+    "prospective_alpha_spent": 0,
+    "failed_engineering_ci_attempts_retained": 2
+  },
+  "no_trading_or_deployment": true,
+  "next_action": "Proof of native M9 OHLC/substep receipts and complete 180d actual market provenance are separate; do not promote engineered signatures as observed."
+}

@@ -1,0 +1,40 @@
+name: FWN9 M11 C8B native event anchor
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - runtime30/fwn9_p9m_c8b_native_anchor.cjs
+      - tools/fwn9_p9m_c8b_native_anchor_test.cjs
+      - tools/fwn9_p9m_c8b_accountant.py
+      - .github/workflows/fwn9_p9m_c8b.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Syntax and Python static type checks
+        run: |
+          node --check runtime30/fwn9_p9m_c8b_native_anchor.cjs
+          node --check tools/fwn9_p9m_c8b_native_anchor_test.cjs
+          python -m pip install --disable-pip-version-check --quiet ruff mypy
+          ruff check tools/fwn9_p9m_c8b_accountant.py
+          mypy --strict tools/fwn9_p9m_c8b_accountant.py
+          python -m py_compile tools/fwn9_p9m_c8b_accountant.py
+      - name: Actual M9 native replay causal reservation tests and source integrity
+        run: node --test tools/fwn9_p9m_c8b_native_anchor_test.cjs
+      - name: Independent Decimal cash and anchor cross-check
+        run: |
+          node tools/fwn9_p9m_c8b_native_anchor_test.cjs --emit-proof | sed -n 's/^P9MC8B_AUDIT=//p' > /tmp/c8b.json
+          python tools/fwn9_p9m_c8b_accountant.py /tmp/c8b.json
+      - name: Benchmark full native replay fixtures
+        run: node tools/fwn9_p9m_c8b_native_anchor_test.cjs --bench

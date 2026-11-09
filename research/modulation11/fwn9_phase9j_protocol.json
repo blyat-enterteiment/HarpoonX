@@ -1,0 +1,70 @@
+{
+  "schema": "FWN9_M11_P9J_NOFILL_VALUATION_EVENT_PROTOCOL_1",
+  "lease_id": "M11_P9J_NOFILL_EVENT_20261108",
+  "base_head": "b74e37cfb3338ff2a7eede4e9d40aa0841a2897e",
+  "problem": "Historical P9B risk-clock audit omitted native modeled IOC NO_FILL plannedEntryAt queue valuation. Native records event after NO_FILL even without a trade; previous P9D native fixture proves legacy counter mismatch.",
+  "hypothesis": "Adding each verified source IOC NO_FILL valuation event to a versioned independent risk clock, retaining native source timestamp and no funded inventory, reconciles observedValuationEvents, terminal equity and drawdown, including two independent no-fills.",
+  "counter_hypothesis": "The native no-fill clock differs in some receipt ordering or same-timestamp interactions; if so the modified auditor must fail closed and retain the counterexample.",
+  "refutation": [
+    "Missing or duplicate modeledNoFills records accepted",
+    "NO_FILL creates shares or leads to early reserve release",
+    "An event at before its knownAt used by risk/admission",
+    "Valuation count, risk peak, session-loss decision or terminal equity mismatch",
+    "A nonzero no-fill trading PnL without trade",
+    "Any recorded original source or 47 M9 hash changed",
+    "Positive fixtures used to assert universal native population or executable OHLC fill"
+  ],
+  "finite_fixture_catalog": [
+    "normal two funded trades",
+    "same-session realized-loss refusal",
+    "tampered drawdown",
+    "future tape common-prefix invariance",
+    "first asset IOC no-fill",
+    "second asset IOC no-fill",
+    "both assets IOC no-fill",
+    "no-fill reservation receipt delayed knownAt tamper",
+    "no-fill modeled resolution timestamp tamper"
+  ],
+  "budget": {
+    "new_accounts": 0,
+    "new_candidates": 0,
+    "controls_rerun": 0,
+    "workers": 1,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200,
+    "market_seeds": []
+  },
+  "original_contract": {
+    "capital_usd": 20000,
+    "universe": [
+      "SYNA",
+      "SYNB"
+    ],
+    "gross_reservation_admission": 0.12,
+    "open_risk": 0.0025,
+    "max_holding_hours": 72,
+    "daily_loss": 0.02,
+    "observed_drawdown": 0.08,
+    "original_m9_source": "research/modulation9/protocol.json",
+    "costs": "M9 nominal/registered unchanged"
+  },
+  "controls": [
+    "CASH historical not rerun",
+    "M10 QUALITY_NATIVE_QUEUE72_R0625 not rerun"
+  ],
+  "code_git_blob_sha1": {
+    "runtime30/fwn9_p9j_native_risk_clock.cjs": "a70094597cdcc2b12d4ddb3ab95715bd92e3a828",
+    "tools/fwn9_phase9j_test.cjs": "045a48649717d6b1653bf97cd2a31334e5832991",
+    "tools/fwn9_phase9j_accountant.py": "cc0b98c4a477f9e9b739f32156618fe44d124cd1",
+    ".github/workflows/fwn9_phase9j.yml": "81a057c9503d31ad4176c0674437bc4104bc7d9f",
+    ".github/workflows/robust-quant-core.yml": "e7d4554f79d934eec70f994c4af81eae4b4b3607"
+  },
+  "scope_exclusions": [
+    "No original P9B or M9 source overwritten",
+    "No claims to complete receipt coverage under generator M9 or real brokers",
+    "No population profit/impossibility bound",
+    "No partial entry, outages, rejects, impact or multicell integration",
+    "No final M10 or new candidates opened, no merge or live operations"
+  ],
+  "promotion_eligible": false
+}

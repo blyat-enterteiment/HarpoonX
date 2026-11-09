@@ -1,0 +1,62 @@
+{
+  "schema": "HARPOON_FWN9_M11_PHASE9D_CLOSURE_1",
+  "timestamp_utc": "2026-11-08T02:22:37.613Z",
+  "verdict": "NO_GO_FIXTURE_MARK_PARITY_VERIFIED_NATIVE_STOCHASTIC_BRIDGE_UNPROVEN",
+  "preregistered_protocol": "research/modulation11/fwn9_phase9d_v2_protocol.json",
+  "v1_protocol": "research/modulation11/fwn9_phase9d_protocol.json",
+  "preregistration_commit": "36fdc0049f1f89fddd469166186de4adeedb40fd",
+  "source_base_commit": "8a82ff82de1db4ab1305a19d42da6ce96486e25e",
+  "ci_success": {
+    "id": 42438179051,
+    "result": "SUCCESS",
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "independent_decimal": "PASS_DECIMAL_46",
+    "campaigns_checked": 2,
+    "marks_reconstructed": 154,
+    "fixture_trading_net_usd": -1.61,
+    "benchmark_10_audits_ms": 39.791,
+    "checkjs": "NO_NEW_TYPES_8_HISTORICAL",
+    "source_hashes_sha256": {
+      "runtime30/fwn9_native_mark_convergence_p9d_v2.cjs": "0ae4e38568ad057631a84f5850c6dbfdd2f2e316dfa4ec1508275676122efcdc",
+      "tools/fwn9_phase9d_test_v2.cjs": "5fceb0ca17c78dcee59099028110b92b125316d1ba005f1ca5e3a972d8ddb6ce",
+      "tools/fwn9_phase9d_accountant_v2.py": "965e31bf192f802b2c181d2ace419311f501d5aa6bf8f73e0bf1b8175ff89902",
+      ".github/workflows/fwn9_phase9d_v2.yml": "8c34f98f6cd07248222aeef9e6e7e40d1e63c16f6b62adfc30cdab63e6519dc4"
+    },
+    "generator_sha256_original_pass": true
+  },
+  "failed_attempt_retained": {
+    "ci_run": 42438069535,
+    "tests_passed": 4,
+    "tests_failed": 1,
+    "reason": "P9B observational event count excludes modeled no-fill opening valuation",
+    "frozen_source_unchanged": true
+  },
+  "controls": {
+    "cash": "REGISTERED_NO_NEW_TRIAL",
+    "previous_best": "QUALITY_NATIVE_QUEUE72_R0625_NOT_RERUN"
+  },
+  "budget": {
+    "new_economic_accounts": 0,
+    "new_candidate_recipes": 0,
+    "alpha_spent": 0,
+    "final_accounts_remaining_sealed": 3200
+  },
+  "gates": {
+    "native_fixture_mark_accounting": true,
+    "full_p9c_native_mark_clocks_on_fixtures": true,
+    "universal_wealth_stochastic_bridge": false,
+    "ohclv_execution_equivalence": false,
+    "full_partial_reject_outage_impact": false,
+    "virtual_cell_coordinator": false,
+    "native_infeasibility_certified": false,
+    "promotion_eligible": false
+  },
+  "external_actions": {
+    "brokers": 0,
+    "orders": 0,
+    "deployments": 0,
+    "merges": 0,
+    "third_party_contacts": 0
+  }
+}

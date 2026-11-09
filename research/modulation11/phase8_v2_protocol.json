@@ -1,0 +1,37 @@
+{
+  "schema": "HARPOON_M11_PHASE8_COST_COMPLETENESS_PROTOCOL_1",
+  "previous_protocol": "research/modulation11/phase8_protocol.json",
+  "previous_test_success": 42430727411,
+  "preexisting_diagnostic_issue": "First P8 engineering fixture terminalAt crossed the UTC calendar boundary without adding a second USD1 daily fee. Original result remains an engineering observation only and must not be reported as a full-calendar economic result.",
+  "hypothesis": "Adding an exact daily USD1 cost-completeness guard to each book will reject undercharged windows and preserve independent causal receipt admissions on corrected same-day and midnight-crossing fixtures.",
+  "refutation": [
+    "A terminal through two calendar dates with one USD1 fee is accepted",
+    "A corrected two-day fixture fails independent Decimal accounting or changes earlier admissions because of future fixed costs",
+    "A typecheck error appears outside the frozen eight known TS2365 errors",
+    "A future unseen price changes an earlier decision"
+  ],
+  "new_finite_fixtures": 7,
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "new_controls": 0,
+    "market_seeds_opened": [],
+    "m10_final_unopened": 3200,
+    "workers": 1,
+    "alpha_spent": 0
+  },
+  "original_constraints": "UNCHANGED_M9_CAPITAL_20000_COSTS_LIMITS_72H",
+  "code_git_blob_sha1": {
+    "runtime30/modulation11_admission_mirror_v2.cjs": "eedfb19e567f80597cfef0a38f689af95e99e0d6",
+    "tools/modulation11_phase8_v2_test.cjs": "c63240293e87ec2e699f928cb357fb4649305b58",
+    "tools/modulation11_phase8_accountant.py": "09bc52d13ec5ea2802b0aa32ebcaf4c11a229370",
+    ".github/workflows/modulation11_phase8_v5.yml": "7420a157c04a7496800ff9eb480f9e8f208297c9"
+  },
+  "limitations": [
+    "Only bounded engineering fixture tape, not full native original-law population",
+    "Cash and admitted quantity endogenous under receipts but native mark PnL and session risk parity not globally proved",
+    "Original registered protocol/source files and CI history not modified",
+    "No broker, no PR merge, no final holdout"
+  ],
+  "promotion_eligible": false
+}

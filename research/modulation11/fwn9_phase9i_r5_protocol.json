@@ -1,0 +1,30 @@
+{
+  "schema": "HARPOON_FWN9_P9I_R5_QUANT_PACKAGE_PATH_CORRECTION_1",
+  "lease_id": "M11_P9I_PROVENANCE_GATES_20261108",
+  "parent_protocol": "research/modulation11/fwn9_phase9i_r4_protocol.json",
+  "failed_r4_ci": 42446280945,
+  "failed_r4_current_tests": 1062,
+  "archived_tests_retained": 12,
+  "diagnosis": "Full current-head suite ran all 1062 tests and failed exactly one by ModuleNotFoundError: quant from a test's absolute import; repair root sys.path in v5 runner, and preserve original script and results.",
+  "hypothesis": "Adding immutable checkout root to current and reconstructed historical Python import search path permits all current and archival tests without suppressing any assertion.",
+  "refutation": [
+    "Test count changes from 1062+12",
+    "Any historical SHA omitted",
+    "Any test waived instead of moved",
+    "Any root path permits non-root import from other historical context",
+    "Any market seed, strategy, cost, or baseline changed"
+  ],
+  "code_git_blob_sha1": {
+    "tools/fwn9_p9i_partitioned_regressions_r5.py": "713eee351b97980fb57bfb6e43c78534ce048986",
+    ".github/workflows/robust-quant-core.yml": "6286ab5f7282dc33b4fdd5ab636cd2c186e1b53f"
+  },
+  "budget": {
+    "economic_accounts": 0,
+    "new_candidates": 0,
+    "controls_replayed": 0,
+    "alpha_spent": 0,
+    "m10_final_unopened": 3200,
+    "workers": 1
+  },
+  "promotion_eligible": false
+}

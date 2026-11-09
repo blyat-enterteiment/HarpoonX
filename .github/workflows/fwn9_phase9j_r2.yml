@@ -1,0 +1,38 @@
+name: FWN9 P9J R2 full clock benchmark correction
+on:
+  push:
+    branches: [codex/continuous-n9-research]
+    paths:
+      - tools/fwn9_phase9j_test_r2.cjs
+      - research/modulation11/fwn9_phase9j_r2_protocol.json
+      - .github/workflows/fwn9_phase9j_r2.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actual-clock-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Adversarial NO_FILL test and actual P9J run benchmark
+        run: |
+          node --check tools/fwn9_phase9j_test_r2.cjs
+          node --test tools/fwn9_phase9j_test_r2.cjs
+          node tools/fwn9_phase9j_test_r2.cjs --bench >/tmp/p9j_benchmark.txt
+          grep 'P9J_500_NATIVE_CLOCK_AUDITS_MS=' /tmp/p9j_benchmark.txt
+      - name: Register original source and test immutability
+        run: |
+          python - <<'PY'
+          import subprocess,pathlib,hashlib,json
+          p=json.loads(pathlib.Path('research/modulation11/fwn9_phase9j_r2_protocol.json').read_text())
+          for f,sha in p['code_git_blob_sha1'].items():
+              assert subprocess.check_output(['git','hash-object',f],text=True).strip()==sha
+              print('P9J_R2_SHA256',f,hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest())
+          assert p['budget']['economic_accounts']==0 and p['budget']['m10_final_unopened']==3200
+          PY
