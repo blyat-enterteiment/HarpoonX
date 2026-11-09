@@ -1,0 +1,106 @@
+name: FWN9 C24 final read-only execution evidence and all source regression closure
+on:
+  push:
+    branches: [research/m11-c24-render-receipt-test-closure]
+    paths:
+      - 'runtime30/fwn9_p9m_c24_evidence_closure.cjs'
+      - 'tools/fwn9_p9m_c24_evidence_closure_test.cjs'
+      - 'research/modulation11/fwn9_phase9m_c24_protocol.json'
+      - 'evidence/modulation11/fwn9_phase9m_c24_render_inventory.json'
+      - '.github/workflows/fwn9_p9m_c24.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  immutable-source-and-evidence-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static and immutable source contracts
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.14.1 ruff==0.14.7 mypy==1.18.2
+          node --check runtime30/fwn9_p9m_c24_evidence_closure.cjs
+          node --check tools/fwn9_p9m_c24_evidence_closure_test.cjs
+          python -m py_compile tools/test_fwn9_p9m_c17_weak_population.py tools/test_fwn9_p9m_c18_funded_wealth_dual.py tools/test_fwn9_p9m_c19_native_credit_moment.py tools/test_fwn9_p9m_c20_triggered_u_admission_a.py tools/test_fwn9_p9m_c21_archived_prebar_audit.py
+          ruff check tools/fwn9_p9m_c17_weak_population.py tools/fwn9_p9m_c18_funded_wealth_dual.py tools/fwn9_p9m_c19_native_credit_moment.py tools/fwn9_p9m_c20_triggered_u_admission_a.py tools/fwn9_p9m_c21_archived_prebar_audit.py
+          mypy --strict --follow-imports=silent tools/fwn9_p9m_c17_weak_population.py tools/fwn9_p9m_c18_funded_wealth_dual.py tools/fwn9_p9m_c19_native_credit_moment.py tools/fwn9_p9m_c20_triggered_u_admission_a.py tools/fwn9_p9m_c21_archived_prebar_audit.py
+      - name: C24 authorized Render inventory source-vs-remote and hard evidence closure (13 tests)
+        run: |
+          node --test tools/fwn9_p9m_c24_evidence_closure_test.cjs
+          node tools/fwn9_p9m_c24_evidence_closure_test.cjs --emit-c24 > /tmp/c24_evidence.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path("/tmp/c24_evidence.log").read_text()
+          rows=[line.split("C24_EVIDENCE_CLOSURE=",1)[1] for line in text.splitlines() if line.startswith("C24_EVIDENCE_CLOSURE=")]
+          assert len(rows)==1
+          d=json.loads(rows[0])
+          assert d["final"]=="N9S_NO_GO_ECONOMICS_UNPROVEN"
+          assert d["allOfflineEngineeringChecksPassed"] is True
+          assert d["allEconomicCertificationChecksPassed"] is False
+          assert d["render"]["serviceInventoryResolved"] is False
+          assert d["render"]["workspaceHasZeroServicesProven"] is False
+          assert d["deployment"]["originalPaperStartFlagDeclared"] is True
+          assert d["deployment"]["deployObserved"] is None
+          assert d["market"]["SPY_5min_complete"]==2340
+          assert d["market"]["BTC_hourly_complete"]==1008
+          assert d["statusCounts"]["FAIL"]>=1
+          assert d["statusCounts"]["BLOCKED"]>=8
+          assert d["M10_final_sealed"]==3200
+          assert d["canAuthorizeLiveOrders"] is False
+          print("C24_ENGINEERING_CHECKLIST_COMPLETE_ECONOMIC_CERTIFICATION_BLOCKED")
+          print("C24_CHECK_STATUS_COUNTS",d["statusCounts"])
+          PY
+      - name: Full source-native Node regression C23 C22 C21 C20 C16
+        run: |
+          node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
+          node --test tools/fwn9_c22_session_compound_test.cjs
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+      - name: Full mathematical Python regression C21 C20 C19 C18 C17
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c21_archived_prebar_audit.py' -v
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -v
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -v
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c18_funded_wealth_dual.py' -v
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c17_weak_population.py' -v
+      - name: Independent C16 Decimal46 accountant and original C15 no-population gate
+        run: |
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c24_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c24_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c24_c16.log research/modulation9/protocol.json > /tmp/c24_C15_gate.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          o=json.loads(Path("/tmp/c24_C15_gate.log").read_text().split("FWN9_C16_C15_HANDOFF=",1)[1])
+          assert o["N9SAdmission"]=="NO_GO"
+          for scenario in ("NOMINAL","STRESS"):
+              assert o["population_C15_screens"][scenario]["expected_A_upper"] is None
+              assert o["population_C15_screens"][scenario]["expected_U_upper"] is None
+          assert o["may_enable_recursive_search"] is False
+          print("C24_NO_NATIVE_POPULATION_FAKE_INPUT_AND_NO_OPTIMIZER_RESTART_PASS")
+          PY
+      - name: Original frozen M9 hashes, 3200 final still sealed, budget zero
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          registered=json.loads(Path("research/modulation9/registration.json").read_text())
+          for p in ("quant/harpoon_quant/modulation9.py","runtime30/profit8_replay.js","runtime30/ultimate_reservations.js","research/modulation9/protocol.json"):
+              assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==registered["sources_sha256"][p]
+          protocol=json.loads(Path("research/modulation11/fwn9_phase9m_c24_protocol.json").read_text())
+          assert protocol["budget"]=={"new_market_seeds":0,"new_signals":0,"new_economic_accounts":0,"new_paper_orders":0,"new_live_orders":0,"new_deployments":0,"new_merges":0,"new_recursive_searches":0,"final_M10_opened":0,"final_M10_still_sealed":3200}
+          assert not list(Path("evidence").rglob("final/*.json.gz"))
+          print("C24_ALL_ORIGINAL_SOURCE_SHA256_NO_FINAL_M10_NO_NEW_ORDERS_PASS")
+          PY
