@@ -1,7 +1,6 @@
 """C20 independent one-sided Gaussian quadrature, bar triggers, admission kernel."""
 from __future__ import annotations
 
-import copy
 import math
 import tempfile
 import unittest
@@ -10,7 +9,7 @@ from decimal import Decimal, localcontext
 from pathlib import Path
 
 from fwn9_p9m_c20_triggered_u_admission_a import (
-    ASSETS, BAR_DRIFT_MAX, MAX_HOLD_INTRADAY_SUBSTEPS,
+    ASSETS, BAR_DRIFT_MAX,
     AdmissionCohort, admission_population_upper,
     event_probability_bound, event_weighted_put_upper,
     gaussian_put_moments, original_source_hashes,
