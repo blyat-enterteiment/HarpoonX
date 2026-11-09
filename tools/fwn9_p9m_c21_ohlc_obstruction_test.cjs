@@ -100,6 +100,15 @@ test("C21 positive-density WEAK *neighborhoods*, not positive mass exact path",(
  A.equal(w.claimThatAnyIndividualOHLCPriceNeverTraded,false);
 });
 
+test("C21 no-fill compact archive omits different prebar stop states with different future triggers",()=>{
+ const w=P.latentPrebarStatesWitness();
+ A.equal(w.samePastOHLC,true);
+ A.equal(w.samePastRecordedFills,true);
+ A.deepEqual(w.alternativeUnrecordedPriorStops,[99.5,98.0]);
+ A.equal(w.futureActivationDiffers,true);
+ A.equal(w.historicalSingleSeedPopulationCertified,false);
+ A.match(w.conclusion,/cannot uniquely determine conditional future exit probabilities/);
+});
 test("C21 incomplete population inputs fail closed and expose all blockers",()=>{
  const d=P.certificateGate();
  A.equal(d.N9S,"NO_GO");
@@ -141,6 +150,6 @@ test("C21 no account, signal, market seed, final or order creation",()=>{
 if(process.argv.includes("--emit-c21")){
  const w=P.completeExample(),gate=P.certificateGate();
  console.log("C21_SOURCE_EXECUTION_OBSTRUCTION="+JSON.stringify({
-  witness:w,gate,source:P.assertFrozenSources()
+  witness:w,prebarNonidentifiability:P.latentPrebarStatesWitness(),gate,source:P.assertFrozenSources()
  }));
 }
