@@ -232,3 +232,28 @@ test("C26 missing receipt through CLI rejects without creating a report",()=>{
   A.equal(fs.existsSync(out),false);
  }finally{fs.rmSync(tmp,{recursive:true,force:true});}
 });
+
+test("C26 quote received 100ns AFTER decision in same millisecond must be rejected",()=>{
+ const x=bundle();
+ x.choices.quotes[0].known_at="2026-11-06T14:29:58.000000100Z";
+ x.choices.quotes[0].market_at="2026-11-06T14:29:56.000000001Z";
+ x.choices.decisions[0].decision_at="2026-11-06T14:29:58.000000000Z";
+ x.choices.decisions[0].known_at="2026-11-06T14:29:58.000000000Z";
+ A.equal(Date.parse(x.choices.quotes[0].known_at),
+  Date.parse(x.choices.decisions[0].decision_at));
+ A.throws(()=>C.classify(x),/C26_DECISION_KNOWLEDGE_CAUSALITY/);
+});
+test("C26 receipt at +1ns within the same millisecond cannot match original FILL",()=>{
+ const x=bundle();
+ x.choices.receipts[0].execution_at="2026-11-06T14:30:02.000000001Z";
+ A.equal(Date.parse(x.choices.receipts[0].execution_at),
+  Date.parse(x.account_export.activities.pages[0].rows[0].transaction_time));
+ A.throws(()=>C.classify(x),/C26_FILL_AND_LOCAL_RECEIPT_TIME_MISMATCH/);
+});
+test("C26 nanosecond timestamp order independent of textual milliseconds format",()=>{
+ const a=C.stampNs("2026-11-06T14:29:58.123456789Z","TEST"),
+  b=C.stampNs("2026-11-06T14:29:58.123456790Z","TEST");
+ A.equal(b-a,1n);
+ A.throws(()=>C.stampNs("2026-11-06T14:29:58.1234567891Z","TEST"),
+  /C26_TEST/);
+});
