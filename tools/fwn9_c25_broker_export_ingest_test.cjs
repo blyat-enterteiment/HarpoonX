@@ -71,7 +71,7 @@ test("C25 independent instrument qty arithmetic rejects forged broker cash and N
 });
 test("C25 tampered order average fill or total quantity fails closed",()=>{
  expectThrow(x=>{x.orders.rows[0].filled_avg_price="105";},"ORDER_WEIGHTED_FILL_AVERAGE_MISMATCH");
- expectThrow(x=>{x.orders.rows[0].filled_qty="1.5";},"ORDER_ACTIVITY_FILL_QUANTITY_MISMATCH");
+ expectThrow(x=>{x.orders.rows[0].status="canceled";x.orders.rows[0].filled_qty="1.5";},"ORDER_ACTIVITY_FILL_QUANTITY_MISMATCH");
 });
 test("C25 forged known order side and missing exported order rejected",()=>{
  expectThrow(x=>{x.orders.rows[0].side="sell";},"ORDER_FILL_SYMBOL_SIDE_TIME");
