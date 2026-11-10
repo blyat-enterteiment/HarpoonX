@@ -1,0 +1,94 @@
+name: FWN9 C25 offline broker evidence intake and original source ledger reconciliation
+on:
+  push:
+    branches: [research/m11-c25-broker-evidence-ingest]
+    paths:
+      - 'research/modulation11/fwn9_phase9m_c25_protocol.json'
+      - 'runtime30/fwn9_c25_broker_export_ingest.cjs'
+      - 'tools/fwn9_c25_broker_export_ingest_test.cjs'
+      - 'tools/fwn9_c25_readonly_cli.cjs'
+      - '.github/workflows/fwn9_p9m_c25.yml'
+      - 'docs/MODULATION11_PHASE9M_C25.md'
+      - 'evidence/modulation11/fwn9_phase9m_c25_evidence.json'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  c25-offline-source-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and no ambient network dependency
+        run: |
+          node --check runtime30/fwn9_c25_broker_export_ingest.cjs
+          node --check tools/fwn9_c25_broker_export_ingest_test.cjs
+          node --check tools/fwn9_c25_readonly_cli.cjs
+          node tools/fwn9_c25_readonly_cli.cjs > /tmp/c25_without_export.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('/tmp/c25_without_export.json').read_text())
+          assert d['status']=='BLOCKED_NO_AUTHENTICATED_PRIVATE_BROKER_EXPORT'
+          assert d['orderAuthority'] is False
+          assert d['N9S']=='NO_GO'
+          assert d['holdoutM10Sealed']==3200
+          print('C25_ABSENT_PRIVATE_EXPORT_FAILS_CLOSED')
+          PY
+      - name: 21 C25 exact decimal broker-export/order-activity and negative tests
+        run: node --test tools/fwn9_c25_broker_export_ingest_test.cjs
+      - name: Prior C24-C16 causal safety and original ledgers
+        run: |
+          node --test tools/fwn9_p9m_c24_evidence_closure_test.cjs
+          node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
+          node --test tools/fwn9_c22_session_compound_test.cjs
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+      - name: Prior mathematical Gaussian and autonomous null expectation gates
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.14.1
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c21_archived_prebar_audit.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c18_funded_wealth_dual.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c17_weak_population.py' -q
+      - name: Independent C16 Decimal46 and C15 null-population pass-through
+        run: |
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c25_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c25_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c25_c16.log research/modulation9/protocol.json > /tmp/c25_gate.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('/tmp/c25_gate.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert p['N9SAdmission']=='NO_GO'
+          for s in ['NOMINAL','STRESS']:
+              assert p['population_C15_screens'][s]['expected_A_upper'] is None
+              assert p['population_C15_screens'][s]['expected_U_upper'] is None
+          print('C25_C15_ORIGINAL_M9_MODEL_LOCKED_NO_FALSE_EXPECTATION')
+          PY
+      - name: M9 source hashes, 3200 M10 sealed, zero new economic accounts
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          r=json.loads(Path('research/modulation9/registration.json').read_text())
+          for p in ['quant/harpoon_quant/modulation9.py','runtime30/profit8_replay.js',
+                    'runtime30/ultimate_reservations.js','research/modulation9/protocol.json']:
+              assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==r['sources_sha256'][p]
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c25_protocol.json').read_text())
+          assert p['budget']=={'new_signals':0,'new_market_seeds':0,'new_economic_trial_accounts':0,'M10_final_opened':0,'M10_final_still_sealed':3200,'paper_orders':0,'live_orders':0,'Render_mutations':0,'deployment':0,'merges':0,'recursive_optimization':0}
+          assert p['acceptance']['N9S']=='NO_GO'
+          assert not list(Path('evidence').rglob('final/*.json.gz'))
+          print('C25_SOURCE_SHA_M10_HOLDOUT_IMMUTABLE_PASS')
+          PY
