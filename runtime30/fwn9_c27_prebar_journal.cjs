@@ -189,4 +189,30 @@ function checkScheduleComplete(dir){
   originalM10Sealed:3200,
   financialAcceptance:false,N9S:"NO_GO"};
 }
-module.exports={newJournal,append,verifyJournal,checkScheduleComplete};
+/** Exhaustive ORIGINAL M9 synthetic 5-minute grid derived from source sessions,
+ * without reading any market OHLC, hidden final account or new seed.
+ * Live equity must instead use a verified exchange holiday/DST calendar.
+ */
+function originalM9Grid(sessions){
+ need(Array.isArray(sessions)&&sessions.length>0&&sessions.length<=126,
+  "ORIGINAL_M9_SESSION_LIST");
+ const bars=[],seen=new Set();
+ let priorClose=-1;
+ for(const x of sessions){
+  need(Number.isSafeInteger(x.open)&&Number.isSafeInteger(x.close)&&
+   x.open>0&&x.open>priorClose&&x.close-x.open===78*300000,
+   "ORIGINAL_M9_SESSION_78_BARS");
+  for(let i=0;i<78;i++){
+   const start=x.open+i*300000;
+   need(!seen.has(start),"ORIGINAL_M9_DUPLICATE_BAR");
+   seen.add(start);bars.push(start);
+  }
+  priorClose=x.close;
+ }
+ return {schema:"HARPOON_FWN9_C27_ORIGINAL_REGISTERED_BAR_GRID_1",
+  expectedBars:bars,source:"ORIGINAL_M9_SYNTHETIC_SESSION_OPEN_CLOSE_ONLY",
+  sourceDataExternallyAuthenticated:false,
+  accountPolicySignalDataConsumed:false,
+  noMarketSeedOrBarOHLCRead:true,N9S:"NO_GO"};
+}
+module.exports={newJournal,append,verifyJournal,checkScheduleComplete,originalM9Grid};
