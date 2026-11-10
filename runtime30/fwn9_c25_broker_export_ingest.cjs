@@ -202,6 +202,8 @@ function certify(bundle){
  const from=time(bundle.from,"FROM"),to=time(bundle.through,"THROUGH"),
   collected=time(bundle.collected_at,"COLLECTED_AT");
  need(from<to&&to<=collected,"COLLECTION_TIME_WINDOW");
+ need(Array.isArray(bundle.baseline_open_orders)&&bundle.baseline_open_orders.length===0,
+  "PREBASELINE_PENDING_ORDERS_REQUIRE_SEPARATE_RECONCILIATION");
  const catalog=instrumentsFor(bundle.instruments);
  // Stub store / transport cannot initiate network IO: only native read-only
  // snapshot() and activity() methods are invoked directly.
@@ -273,9 +275,7 @@ function certify(bundle){
  if(!costDeclaredComplete)blockers.push("EXTERNAL_COST_COVERAGE_INCOMPLETE");
  if(activities.some(x=>x.activity_type!=="FILL"&&!x.date.includes("T")))
   blockers.push("DAY_ONLY_NONTRADE_EVENTS_CANNOT_CERTIFY_INTRADAY_FINANCING");
- const hash=netLedgerDigest({schema:SCHEMA,account_id:id,from:bundle.from,
-  through:bundle.through,baseline_hash:b.sourceHash,terminal_hash:e.sourceHash,
-  activities:audit_for_hash(audited.activity),orders:chk.orders.map(x=>x.id)});
+ const hash=netLedgerDigest(bundle);
  const accountDelta=e.equity-b.equity-audited.flow;
  const economicDelta=accountDelta-totalExternal;
  return {
@@ -314,7 +314,6 @@ function certify(bundle){
   createdEconomicTrialAccounts:0,placedBrokerOrders:0
  };
 }
-function audit_for_hash(items){return items.map(x=>[x.id,x.sourceHash]);}
 function missingEvidence(){
  return {schema:"HARPOON_FWN9_C25_OFFLINE_ACCOUNT_SOURCE_RECONCILIATION_1",
   status:"BLOCKED_NO_AUTHENTICATED_PRIVATE_BROKER_EXPORT",
