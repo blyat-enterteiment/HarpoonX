@@ -1,0 +1,90 @@
+name: FWN9 C27 immutable prebar state, candidate rejection and 72h funded risk journal
+on:
+  push:
+    branches: [research/m11-c27-prebar-causal-ledger]
+    paths:
+      - 'runtime30/fwn9_c27_prebar_state.cjs'
+      - 'runtime30/fwn9_c27_prebar_journal.cjs'
+      - 'tools/fwn9_c27_prebar_state_test.cjs'
+      - 'tools/fwn9_c27_prebar_journal_test.cjs'
+      - 'tools/fwn9_c27_test_fixture.cjs'
+      - 'research/modulation11/fwn9_phase9m_c27_protocol.json'
+      - '.github/workflows/fwn9_p9m_c27.yml'
+      - 'docs/MODULATION11_PHASE9M_C27.md'
+      - 'evidence/modulation11/fwn9_phase9m_c27_evidence.json'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  source-causal-prebar-and-immutable-restart:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and original M9 source hash invariants
+        run: |
+          node --check runtime30/fwn9_c27_prebar_state.cjs
+          node --check runtime30/fwn9_c27_prebar_journal.cjs
+          node --check tools/fwn9_c27_prebar_state_test.cjs
+          node --check tools/fwn9_c27_prebar_journal_test.cjs
+          node --check tools/fwn9_c27_test_fixture.cjs
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          reg=json.loads(Path('research/modulation9/registration.json').read_text())
+          for p in ('quant/harpoon_quant/modulation9.py','research/modulation9/protocol.json',
+                    'runtime30/profit8_replay.js','runtime30/ultimate_reservations.js'):
+              assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==reg['sources_sha256'][p],p
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c27_protocol.json').read_text())
+          assert p['budget']=={'new_market_seeds':0,'new_signals':0,'new_economic_accounts':0,'orders_live':0,'orders_paper':0,'new_deployments':0,'merges':0,'optimizer_restarted':False,'M10_final_opened':0,'M10_final_sealed':3200}
+          assert p['success']['N9S']=='NO_GO'
+          assert not list(Path('evidence').rglob('final/*.json.gz'))
+          print('C27_M9_FROZEN_AND_M10_3200_FINAL_SEALED_PASS')
+          PY
+      - name: Prebar source reservation, stop and TP, all opportunities adversarial tests
+        run: node --test tools/fwn9_c27_prebar_state_test.cjs
+      - name: Private append-only source persistence, restart and missing-bar proof tests
+        run: node --test tools/fwn9_c27_prebar_journal_test.cjs
+      - name: Original C26 C25 C24 C23 C22 C21 C20 C16 native regressions
+        run: |
+          node --test tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
+          node --test tools/fwn9_c25_broker_export_ingest_test.cjs
+          node --test tools/fwn9_c25_alpaca_readonly_exporter_test.cjs
+          node --test tools/fwn9_p9m_c24_evidence_closure_test.cjs
+          node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
+          node --test tools/fwn9_c22_session_compound_test.cjs
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+      - name: Original C17 to C21 mathematical Gaussian/funded exposure tests
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.14.1
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c21_archived_prebar_audit.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c18_funded_wealth_dual.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c17_weak_population.py' -q
+      - name: Decimal46 independent original accounting and C15 NO_GO
+        run: |
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c27_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c27_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c27_c16.log research/modulation9/protocol.json > /tmp/c27_C15.log
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=json.loads(Path('/tmp/c27_C15.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert p['N9SAdmission']=='NO_GO'
+          for s in ('NOMINAL','STRESS'):
+              assert p['population_C15_screens'][s]['expected_A_upper'] is None
+              assert p['population_C15_screens'][s]['expected_U_upper'] is None
+          print('C27_C15_OLD_POPULATION_BOUNDS_STILL_NULL_NO_GO')
+          PY
