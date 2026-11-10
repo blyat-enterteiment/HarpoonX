@@ -61,7 +61,7 @@ function validatePrebar(input,manifest){
   "CURRENT_BAR_DATA_FORBIDDEN");
  keysOnly(input,["schema","runId","mode","barStart","barIndex",
   "capturedAt","lastPublicKnownAt","scope","universe",
-  "sourceReservationBook","positions","physicalBook",
+  "sourceReservationBook","admissionDecisions","positions","physicalBook",
   "opportunityCoverage"],"UNDECLARED_PREBAR_FIELD");
 
  const scope=obj(input.scope,"SOURCE_SCOPE");
@@ -91,6 +91,41 @@ function validatePrebar(input,manifest){
    need(tick(o.at,"OBSERVATION_AT")<=cutoff&&
     tick(o.knownAt,"OBSERVATION_KNOWN_AT")<=cutoff&&o.at<=o.knownAt,
     "RESERVATION_FUTURE_RECEIPT");
+ }
+ // The original reservation book retains ex-ante quantities but drops the
+ // decision equity/cash capacity used in reserveFundedEntry(). C27 REQUIRES
+ // a separate time-stamped source capacity receipt for EVERY admission.
+ // A book that merely contains reservations cannot prove original funding.
+ need(Array.isArray(input.admissionDecisions)&&
+  input.admissionDecisions.length===book.reservations.length,
+  "COMPLETE_SOURCE_ADMISSION_CAPACITY_PROOF");
+ const proofs=new Map();
+ let admissionGross=0,admissionRisk=0;
+ for(let i=0;i<book.reservations.length;i++){
+  const reservation=book.reservations[i],proof=input.admissionDecisions[i];
+  keysOnly(proof,["id","decisionAt","knownAt",
+   "equityAtDecisionUsd","cashAvailableAtDecisionUsd"],
+   "ADMISSION_PROOF_FIELDS");
+  need(proof.id===reservation.id&&proof.decisionAt===reservation.decisionAt&&
+   tick(proof.knownAt,"ADMISSION_KNOWN_AT")<=proof.decisionAt&&
+   proof.knownAt<=cutoff,
+   "ADMISSION_CAPACITY_NOT_KNOWN_AT_DECISION");
+  const eq=pos(proof.equityAtDecisionUsd,"ADMISSION_EQUITY"),
+    cash=nonneg(proof.cashAvailableAtDecisionUsd,"ADMISSION_CASH");
+  need(cash<=eq+0.02,"ADMISSION_CASH_EXCEEDS_EQUITY");
+  const history={schema:"HARPOON_FUNDED_RESERVATIONS_1",
+   reservations:book.reservations.slice(0,i)};
+  const prior=R.snapshotFundedReservations(history,proof.decisionAt);
+  need(!prior.symbols.includes(reservation.symbol),
+   "ADMISSION_SYMBOL_ALREADY_RESERVED");
+  need(reservation.riskUsd<=eq*0.0025+0.01&&
+   reservation.notionalUsd<=eq*0.12+0.01&&
+   prior.riskUsd+reservation.riskUsd<=eq*0.0025+0.01&&
+   prior.notionalUsd+reservation.notionalUsd<=eq*0.12+0.01&&
+   prior.cashUsd+reservation.cashUsd<=cash+0.01,
+   "ORIGINAL_DECISION_RISK_GROSS_CASH_CAP");
+  proofs.set(proof.id,proof);
+  admissionGross+=reservation.notionalUsd;admissionRisk+=reservation.riskUsd;
  }
  const reserved=R.snapshotFundedReservations(book,t);
  const physical=obj(input.physicalBook,"PHYSICAL_BOOK");
@@ -229,6 +264,9 @@ function validatePrebar(input,manifest){
  const sourceBookHash=digest(book);
  return {schema:"HARPOON_FWN9_C27_PREBAR_VALIDATED_FRAME_1",
   originalInput:structuredClone(input),barStart:t,captureKnowledgeCutoff:cutoff,
+  sourceAdmissionDecisionProofsVerified:proofs.size,
+  sourceAdmissionCumulativeGrossNotionalUsd:admissionGross,
+  sourceAdmissionCumulativeRiskUsd:admissionRisk,
   positionCount:seen.size,sourceReservationCount:reserved.reservations.length,
   reservedPending:reserved.pending,reservedOpened:reserved.opened,
   sourceBookHash,sourceSnapshotHash:digest(reserved),
@@ -263,6 +301,11 @@ function continuity(before,after){
    need(digest(a.observations[j])===digest(b.observations[j]),
     "OBSERVED_RECEIPT_RESTATED");
  }
+ const oldCapacity=prev.admissionDecisions,newCapacity=now.admissionDecisions;
+ need(newCapacity.length>=oldCapacity.length,"ADMISSION_HISTORY_TRUNCATED");
+ for(let i=0;i<oldCapacity.length;i++)
+  need(digest(oldCapacity[i])===digest(newCapacity[i]),
+   "ADMISSION_EXANTE_CAPACITY_RESTATED");
  const previous=new Map(prev.positions.map(p=>[p.reservationId,p]));
  const current=new Map(now.positions.map(p=>[p.reservationId,p]));
  for(const [id,p] of previous){
