@@ -7,6 +7,9 @@ on:
       - 'runtime30/fwn9_c25_broker_export_ingest.cjs'
       - 'tools/fwn9_c25_broker_export_ingest_test.cjs'
       - 'tools/fwn9_c25_readonly_cli.cjs'
+      - 'runtime30/fwn9_c25_alpaca_readonly_exporter.cjs'
+      - 'tools/fwn9_c25_alpaca_readonly_exporter_test.cjs'
+      - 'tools/fwn9_c25_capture_readonly_alpaca.cjs'
       - '.github/workflows/fwn9_p9m_c25.yml'
       - 'docs/MODULATION11_PHASE9M_C25.md'
       - 'evidence/modulation11/fwn9_phase9m_c25_evidence.json'
@@ -31,6 +34,9 @@ jobs:
           node --check runtime30/fwn9_c25_broker_export_ingest.cjs
           node --check tools/fwn9_c25_broker_export_ingest_test.cjs
           node --check tools/fwn9_c25_readonly_cli.cjs
+          node --check runtime30/fwn9_c25_alpaca_readonly_exporter.cjs
+          node --check tools/fwn9_c25_alpaca_readonly_exporter_test.cjs
+          node --check tools/fwn9_c25_capture_readonly_alpaca.cjs
           node tools/fwn9_c25_readonly_cli.cjs > /tmp/c25_without_export.json
           python - <<'PY'
           import json
@@ -42,8 +48,10 @@ jobs:
           assert d['holdoutM10Sealed']==3200
           print('C25_ABSENT_PRIVATE_EXPORT_FAILS_CLOSED')
           PY
-      - name: 21 C25 exact decimal broker-export/order-activity and negative tests
+      - name: 23 C25 exact decimal broker-export/order-activity and negative tests
         run: node --test tools/fwn9_c25_broker_export_ingest_test.cjs
+      - name: C25 GET-only Alpaca Trading API private capture mocked offline integration
+        run: node --test tools/fwn9_c25_alpaca_readonly_exporter_test.cjs
       - name: Prior C24-C16 causal safety and original ledgers
         run: |
           node --test tools/fwn9_p9m_c24_evidence_closure_test.cjs
