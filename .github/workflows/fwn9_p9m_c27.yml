@@ -8,6 +8,8 @@ on:
       - 'tools/fwn9_c27_prebar_state_test.cjs'
       - 'tools/fwn9_c27_prebar_journal_test.cjs'
       - 'tools/fwn9_c27_test_fixture.cjs'
+      - 'runtime30/fwn9_c27_quant_observation_adapter.cjs'
+      - 'tools/fwn9_c27_quant_observation_adapter_test.cjs'
       - 'research/modulation11/fwn9_phase9m_c27_protocol.json'
       - '.github/workflows/fwn9_p9m_c27.yml'
       - 'docs/MODULATION11_PHASE9M_C27.md'
@@ -35,6 +37,8 @@ jobs:
           node --check tools/fwn9_c27_prebar_state_test.cjs
           node --check tools/fwn9_c27_prebar_journal_test.cjs
           node --check tools/fwn9_c27_test_fixture.cjs
+          node --check runtime30/fwn9_c27_quant_observation_adapter.cjs
+          node --check tools/fwn9_c27_quant_observation_adapter_test.cjs
           python - <<'PY'
           from pathlib import Path
           import json,hashlib
@@ -48,10 +52,12 @@ jobs:
           assert not list(Path('evidence').rglob('final/*.json.gz'))
           print('C27_M9_FROZEN_AND_M10_3200_FINAL_SEALED_PASS')
           PY
-      - name: Prebar source reservation, stop and TP, all opportunities adversarial tests
+      - name: C27 25 prebar source reservation stop TP and opportunity falsifiers
         run: node --test tools/fwn9_c27_prebar_state_test.cjs
-      - name: Private append-only source persistence, restart and missing-bar proof tests
+      - name: C27 25 append-only persistence restart calendar and two-writer falsifiers
         run: node --test tools/fwn9_c27_prebar_journal_test.cjs
+      - name: C27 eight native observation requested, observed and rejected coverage adapter tests
+        run: node --test tools/fwn9_c27_quant_observation_adapter_test.cjs
       - name: Original C26 C25 C24 C23 C22 C21 C20 C16 native regressions
         run: |
           node --test tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
