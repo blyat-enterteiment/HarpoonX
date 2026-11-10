@@ -14,9 +14,20 @@ const SCALE=100000000n,MAX_ROWS=100000;
 function need(ok,code){A.ok(ok,"C26_"+code);}
 function record(x,code){need(x&&typeof x==="object"&&!Array.isArray(x),code);return x;}
 function id(x,code){need(typeof x==="string"&&x.length>0&&x.length<=500,code);return x;}
+/** Nanosecond-stable RFC3339 clock. Date.parse truncates the fractional
+ * second to milliseconds; using it alone can reverse within-ms causality.
+ */
+function stampNs(x,code){
+ need(typeof x==="string",code);
+ const m=/^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d)(?:\.(\d{1,9}))?(Z|[+-]\d\d:\d\d)$/.exec(x);
+ need(m!==null,code);
+ const sec=Date.parse(m[1]+m[3]);
+ need(Number.isSafeInteger(sec)&&sec>0,code);
+ return BigInt(sec)*1000000n+BigInt((m[2]||"").padEnd(9,"0"));
+}
 function stamp(x,code){
- need(typeof x==="string"&&/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(x),code);
- const n=Date.parse(x);need(Number.isSafeInteger(n)&&n>0,code);return n;
+ const n=stampNs(x,code);
+ return Number(n/1000000n);
 }
 function dec(x,code,{positive=false}={}){
  need(typeof x==="string"&&/^(?:0|[1-9]\d*)(?:\.\d{1,8})?$/.test(x),code);
@@ -41,17 +52,24 @@ function normalizeQuote(q,allowedSymbols){
  need(ask>=bid,"QUOTE_CROSSED");
  const market=stamp(q.market_at,"QUOTE_EXCHANGE_TIME"),
   known=stamp(q.known_at,"QUOTE_LOCAL_RECEIPT_TIME");
- need(market<=known,"QUOTE_KNOWN_BEFORE_EXCHANGE_EVENT");
+ need(stampNs(q.market_at,"QUOTE_EXCHANGE_NS")<=
+  stampNs(q.known_at,"QUOTE_LOCAL_RECEIPT_NS"),
+  "QUOTE_KNOWN_BEFORE_EXCHANGE_EVENT");
  return {id:id(q.id,"QUOTE_ID"),symbol,feed,bid,ask,bs,as,
-  market,known,rawHash:netLedgerDigest(q)};
+  market,known,marketNs:stampNs(q.market_at,"QUOTE_EXCHANGE_NS"),
+  knownNs:stampNs(q.known_at,"QUOTE_LOCAL_RECEIPT_NS"),
+  rawHash:netLedgerDigest(q)};
 }
 function normalizeReceipt(r){
  record(r,"RECEIPT");
  const at=stamp(r.execution_at,"EXECUTION_AT"),known=stamp(r.known_at,"FILL_KNOWN_AT");
- need(known>=at,"RECEIPT_BEFORE_EXECUTION");
+ need(stampNs(r.known_at,"RECEIPT_KNOWN_NS")>=
+  stampNs(r.execution_at,"RECEIPT_EXECUTION_NS"),"RECEIPT_BEFORE_EXECUTION");
  return {activityId:id(r.activity_id,"RECEIPT_ACTIVITY_ID"),
   orderId:id(r.order_id,"RECEIPT_ORDER_ID"),symbol:id(r.symbol,"RECEIPT_SYMBOL"),
-  at,known,kind:id(r.kind,"RECEIPT_KIND")};
+  at,known,atNs:stampNs(r.execution_at,"RECEIPT_EXECUTION_NS"),
+  knownNs:stampNs(r.known_at,"RECEIPT_KNOWN_NS"),
+  kind:id(r.kind,"RECEIPT_KIND")};
 }
 function classify(bundle){
  record(bundle,"BUNDLE");
@@ -61,7 +79,8 @@ function classify(bundle){
  const src=C25.certify(account); // invokes native read-only NetAccountLedger.
  need(src.validated.independentCashAndInventoryReconciled===true,
   "C25_ACCOUNT_RECONCILIATION");
- const collected=stamp(account.collected_at,"ACCOUNT_COLLECTED_TIME");
+ const collected=stamp(account.collected_at,"ACCOUNT_COLLECTED_TIME"),
+  collectedNs=stampNs(account.collected_at,"ACCOUNT_COLLECTED_NS");
  const inputs=record(bundle.choices,"CHOICE_REGISTER");
  const catalog=new Map(account.instruments.map(x=>[x.symbol,x.asset_class]));
  need(catalog.size===account.instruments.length&&Array.isArray(inputs.quotes)&&
@@ -71,7 +90,8 @@ function classify(bundle){
  const quotes=new Map();
  for(const raw of inputs.quotes){
   const q=normalizeQuote(raw,catalog);
-  need(!quotes.has(q.id)&&q.known<=collected,"QUOTE_DUPLICATE_OR_AFTER_COLLECTION");
+  need(!quotes.has(q.id)&&q.knownNs<=collectedNs,
+   "QUOTE_DUPLICATE_OR_AFTER_COLLECTION");
   quotes.set(q.id,q);
  }
  const orders=new Map(account.orders.rows.map(o=>[o.id,o]));
@@ -86,22 +106,26 @@ function classify(bundle){
   const at=stamp(raw.decision_at,"DECISION_AT"),
     known=stamp(raw.known_at,"DECISION_KNOWN_AT"),
     submitted=stamp(o.submitted_at,"ORDER_SUBMITTED_AT");
-  need(quote.known<=at&&known>=at&&known<=submitted&&
-   at<=submitted,"DECISION_KNOWLEDGE_CAUSALITY");
-  need(submitted-quote.known<=5000&&quote.market<=quote.known,
+  const atNs=stampNs(raw.decision_at,"DECISION_NS"),
+   knownNs=stampNs(raw.known_at,"DECISION_KNOWN_NS"),
+   submittedNs=stampNs(o.submitted_at,"ORDER_SUBMITTED_NS");
+  need(quote.knownNs<=atNs&&knownNs>=atNs&&knownNs<=submittedNs&&
+   atNs<=submittedNs,"DECISION_KNOWLEDGE_CAUSALITY");
+  need(submittedNs-quote.knownNs<=5000000000n&&
+   quote.marketNs<=quote.knownNs,
    "PREDECISION_QUOTE_TOO_STALE");
   need(raw.source==="LOCAL_OBSERVATION_JOURNAL_CLAIM",
    "DECISION_SOURCE_UNVERIFIED_FORMAT");
   need(["buy","sell"].includes(raw.side)&&raw.side===o.side,
    "DECISION_SIDE");
-  decisions.set(order,{at,known,submitted,quote,order:o,
+  decisions.set(order,{at,known,submitted,atNs,knownNs,submittedNs,quote,order:o,
     digest:netLedgerDigest(raw)});
  }
  const receipts=new Map();
  for(const raw of inputs.receipts){
   const r=normalizeReceipt(raw);
   need(r.kind==="BROKER_ORDER_UPDATE_LOCAL_JOURNAL_CLAIM"&&
-   !receipts.has(r.activityId)&&r.known<=collected,
+   !receipts.has(r.activityId)&&r.knownNs<=collectedNs,
    "RECEIPT_DUPLICATE_KIND_OR_AFTER_COLLECTION");
   receipts.set(r.activityId,r);
  }
@@ -116,9 +140,11 @@ function classify(bundle){
   need(r&&d&&r.orderId===fill.order_id&&r.symbol===fill.symbol,
    "FILL_QUOTE_AND_RECEIPT_NOT_LINKED");
   const t=stamp(fill.transaction_time,"FILL_TIME");
-  need(t===r.at&&r.known>=t&&r.known>=d.submitted,
+  const tNs=stampNs(fill.transaction_time,"FILL_EXECUTION_NS");
+  need(tNs===r.atNs&&r.knownNs>=tNs&&r.knownNs>=d.submittedNs,
    "FILL_AND_LOCAL_RECEIPT_TIME_MISMATCH");
-  need(t>=d.submitted&&t<=stamp(account.through,"ACCOUNT_THROUGH"),
+  need(tNs>=d.submittedNs&&
+   tNs<=stampNs(account.through,"ACCOUNT_THROUGH_NS"),
    "FILL_BEFORE_ORDER_OR_AFTER_ACCOUNT");
   const qty=dec(fill.qty,"FILL_QUANTITY",{positive:true}),
     price=dec(fill.price,"FILL_PRICE",{positive:true});
@@ -192,4 +218,4 @@ function absence(){
   sourceEvidenceAuthenticated:false,N9S:"NO_GO",
   sealedM10Final:3200};
 }
-module.exports={classify,absence,normalizeQuote,normalizeReceipt,dec,stamp};
+module.exports={classify,absence,normalizeQuote,normalizeReceipt,dec,stamp,stampNs};
