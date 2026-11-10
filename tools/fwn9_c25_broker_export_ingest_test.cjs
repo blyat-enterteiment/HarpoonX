@@ -67,7 +67,7 @@ test("C25 absence of broker export always BLOCKED not empty profit",()=>{
 });
 test("C25 independent instrument qty arithmetic rejects forged broker cash and NAV",()=>{
  expectThrow(x=>{x.terminal.account.cash="19910";x.terminal.account.equity="20022";},"CASH_FROM_ACTIVITY_RECONCILIATION");
- expectThrow(x=>{x.terminal.account.equity="20022";},"INDEPENDENT_NAV_MISMATCH");
+ expectThrow(x=>{x.terminal.account.equity="20022";},"NAV_MISMATCH");
 });
 test("C25 tampered order average fill or total quantity fails closed",()=>{
  expectThrow(x=>{x.orders.rows[0].filled_avg_price="105";},"ORDER_WEIGHTED_FILL_AVERAGE_MISMATCH");
