@@ -178,3 +178,28 @@ test("C27 strict policy ID gate disallows invented variants after viewing outcom
   x.opportunityCoverage.outcomes[0].policyId="RETRO_OPTIMAL_UTC_08_16";
  }),manifest()),/C27_OPPORTUNITY_CLOCK_POLICY/);
 });
+
+test("C27 PROSPECTIVE source receipt after capture but before bar is future information",()=>{
+ const x=mutate(1,y=>{
+  y.mode="PROSPECTIVE_LOCAL_CAPTURE";y.capturedAt=y.barStart-10000;
+  y.sourceReservationBook.reservations[0].observations[0].knownAt=y.barStart-5000;
+ });
+ const m={...manifest(),mode:"PROSPECTIVE_LOCAL_CAPTURE"};
+ A.throws(()=>S.validatePrebar(x,m),/C27_RESERVATION_FUTURE_RECEIPT/);
+});
+test("C27 PROSPECTIVE stop revision after capture is unusable even before next open",()=>{
+ const x=mutate(1,y=>{
+  y.mode="PROSPECTIVE_LOCAL_CAPTURE";y.capturedAt=y.barStart-10000;
+  y.positions[0].stop.knownAt=y.barStart-5000;
+ });
+ A.throws(()=>S.validatePrebar(x,{...manifest(),mode:"PROSPECTIVE_LOCAL_CAPTURE"}),
+  /C27_STOP_NOT_KNOWN_PREBAR/);
+});
+test("C27 PROSPECTIVE rejected candidate event after local seal cannot leak",()=>{
+ const x=mutate(1,y=>{
+  y.mode="PROSPECTIVE_LOCAL_CAPTURE";y.capturedAt=y.barStart-10000;
+  y.opportunityCoverage.outcomes[1].knownAt=y.barStart-5000;
+ });
+ A.throws(()=>S.validatePrebar(x,{...manifest(),mode:"PROSPECTIVE_LOCAL_CAPTURE"}),
+  /C27_OPPORTUNITY_CLOCK_POLICY/);
+});
