@@ -132,6 +132,13 @@ function verifyJournal(dir){
   N9S:"NO_GO"};
 }
 function append(dir,input,{now=Date.now()}={}){
+ safeDir(dir);
+ // An exclusive external lock serializes appenders in DIFFERENT Node processes.
+ // Crash leaves the lock behind intentionally: manual repair is required,
+ // never silently re-acquire a stale lock and risk rewriting history.
+ const lock=dir+".write-lock";
+ const fd=fs.openSync(lock,"wx",0o600);
+ try{
  const initial=verifyJournal(dir),m=initial.manifest,index=initial.verifiedFrames;
  need(index<m.expectedBars.length,"ALREADY_FULLY_CAPTURED");
  need(input?.barIndex===index,"EXPECTED_NEXT_SCHEDULED_BAR");
@@ -163,7 +170,12 @@ function append(dir,input,{now=Date.now()}={}){
  const hash=S.digest(body),filename=String(index+1).padStart(8,"0")+"-"+hash+".json";
  writeExclusive(path.join(dir,filename),{...body,frameHash:hash});
  return verifyJournal(dir);
+ }finally{
+  fs.closeSync(fd);
+  fs.unlinkSync(lock);
+ }
 }
+
 function checkScheduleComplete(dir){
  const proof=verifyJournal(dir);
  const pending=proof.manifest.expectedBars.slice(proof.verifiedFrames);
