@@ -195,3 +195,13 @@ test("C25 if explicit FILL asset class disagrees with catalog reject",()=>{
  const x=fixture();x.activities.pages[0].rows[0].asset_class="crypto";
  A.throws(()=>C.certify(x),/C25_FILL_ASSET_CLASS_MISMATCH/);
 });
+
+test("C25 source order status must agree with filled, partial and rejected quantities",()=>{
+ expectThrow(x=>{x.orders.rows[0].status="new";},"ORDER_NONFILLED_STATUS_QUANTITY");
+ expectThrow(x=>{x.orders.rows[0].qty="3";},"ORDER_FILLED_STATUS_QUANTITY");
+ expectThrow(x=>{x.orders.rows[0].status="partially_filled";},
+  "ORDER_PARTIAL_STATUS_QUANTITY");
+ const canceled=fixture();
+ canceled.orders.rows[0].status="canceled";
+ A.equal(C.certify(canceled).validated.orders,2);
+});
