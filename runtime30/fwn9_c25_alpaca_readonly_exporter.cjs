@@ -13,7 +13,8 @@ function need(v,code){A.ok(v,"C25_GET_"+code);}
 function iso(t){return new Date(t).toISOString();}
 function time(s){const t=Date.parse(s);need(Number.isSafeInteger(t)&&t>0,"TIME");return t;}
 function validatePath(path){
- need(typeof path==="string"&&(
+ need(typeof path==="string"&&!path.includes("..")&&
+  !/%2e/i.test(path)&&(
   path==="/v2/account"||path==="/v2/positions"||
   path==="/v2/orders"||path==="/v2/account/activities"||
   /^\/v2\/assets\/(?:[A-Za-z0-9._-]|%2F)+$/i.test(path)
@@ -21,7 +22,7 @@ function validatePath(path){
  return path;
 }
 function readOnlyTransport({mode="PAPER",env=process.env,transport=fetch}={}){
- need(mode in ALLOWED_ORIGINS,"MODE");
+ need(Object.hasOwn(ALLOWED_ORIGINS,mode),"MODE");
  const key=env.APCA_API_KEY_ID,secret=env.APCA_API_SECRET_KEY;
  need(typeof key==="string"&&key.length>0&&
   typeof secret==="string"&&secret.length>0,"CREDENTIALS_FROM_LOCAL_ENV");
