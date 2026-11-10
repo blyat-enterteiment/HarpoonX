@@ -30,7 +30,8 @@ jobs:
         run: |
           node --check runtime30/fwn9_c26_causal_quote_fill_bridge.cjs
           node --check tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
-      - name: C26 original synthetic engineering causal quote/fill failure checks
+          node --check tools/fwn9_c26_readonly_cli.cjs
+      - name: C26 24 synthetic engineering causal quote, fill and offline CLI checks
         run: node --test tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
       - name: C25 source-native activity and GET-only private export regression
         run: |
