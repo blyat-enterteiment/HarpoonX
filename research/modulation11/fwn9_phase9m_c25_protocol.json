@@ -42,7 +42,8 @@
     "Deposit/withdrawal rejected for simple compound without time-weighted return",
     "Unauthenticated JSON evidence never labelled broker authenticated",
     "Original OHLC 8-step refutation preserved C21",
-    "No final M10 opened or new account/order executed"
+    "No final M10 opened or new account/order executed",
+    "Order status new/accepted/rejected/filled/partially_filled must match cumulative exact fills"
   ],
   "acceptance": {
     "gate": "OFFLINE_SOURCE_AND_LEDGER_CONTRACT_PASS_ONLY",
@@ -64,5 +65,27 @@
     "deployment": 0,
     "merges": 0,
     "recursive_optimization": 0
+  },
+  "source_capture_amendment": {
+    "phase": "C25_R2_SOURCE_ONLY_NO_ECONOMIC_RESEARCH",
+    "code": "runtime30/fwn9_c25_alpaca_readonly_exporter.cjs",
+    "cli": "tools/fwn9_c25_capture_readonly_alpaca.cjs",
+    "method_allowlist": [
+      "GET /v2/account",
+      "GET /v2/positions",
+      "GET /v2/orders",
+      "GET /v2/account/activities",
+      "GET /v2/assets/{symbol}"
+    ],
+    "mode": "EXPLICIT_USER_PAPER_OR_LIVE_READ_ONLY",
+    "auth": "ENV_ONLY_LOCAL_NEVER_PRINT_KEYS",
+    "persistent_source": "private 0600 exclusive local files only; never GitHub",
+    "pagination": "activities page_token, orders refuse >=500 due undocumented cursor",
+    "underlying_native_account_verification": "NetAccountLedger.snapshot/activity read-only",
+    "live_connection_tested_in_current_session": false,
+    "mock_http_integration_only": true,
+    "future_baseline_checkpoint_needed": true,
+    "C26_reachable_quote_and_fill_competition_not_resolved": true,
+    "N9S": "NO_GO"
   }
 }
