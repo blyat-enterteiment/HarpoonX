@@ -156,6 +156,8 @@ test("C27 continuity rejects undoing target completion and lowering protective s
  const next=structuredClone(f.frames[2]);next.barIndex=3;next.barStart=F.BARS[2]+300000;
  next.capturedAt=next.barStart-1000;next.lastPublicKnownAt=next.capturedAt;
  const m={...manifest(),expectedBars:[...F.BARS,next.barStart]};
+ next.positions[0].pendingStop=null;
+ next.positions[0].stop={price:102,knownAt:F.BARS[1]+110000};
  next.positions[0].targets[0].done=false;
  let c=S.validatePrebar(next,m);
  A.throws(()=>S.continuity(a,c),/C27_TARGET_CHANGED_OR_UNDONE/);
