@@ -114,7 +114,10 @@ function activityRows(rows,ledger,instruments,from,to,at){
    const symbol=str(raw.symbol,"FILL_SYMBOL");
    need(instruments.has(symbol)&&["buy","sell"].includes(raw.side),
     "FILL_ASSET_SIDE");
-   need(instruments.get(symbol).asset_class===raw.asset_class,
+   // Alpaca FILL trade activity normally omits asset_class. Bind it from
+   // the explicit instrument catalog; reject only conflicting supplied class.
+   if(raw.asset_class!==undefined)need(
+    instruments.get(symbol).asset_class===raw.asset_class,
     "FILL_ASSET_CLASS_MISMATCH");
    const signed=raw.side==="buy"?qty:-qty;
    cash=-mult(signed,price);
