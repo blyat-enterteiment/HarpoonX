@@ -43,8 +43,13 @@ function validatePrebar(input,manifest){
   Number.isSafeInteger(input.barIndex)&&input.barIndex>=0,"SCHEDULE_BAR_INDEX");
  need(input.runId===manifest.runId&&input.mode===manifest.mode,
   "RUN_CONTEXT");
- need(tick(input.capturedAt,"CAPTURE_AT")<=t&&
-  tick(input.lastPublicKnownAt,"LAST_PUBLISHED_KNOWN_AT")<=t,
+ const captured=tick(input.capturedAt,"CAPTURE_AT");
+ need(captured<=t,"NO_POSTBAR_INFORMATION");
+ // A prospective frame sealed BEFORE barStart must not contain a receipt
+ // known between capture time and barStart: this prevents the subtle
+ // after-capture/before-open lookahead that t-only validation permits.
+ const cutoff=manifest.mode==="PROSPECTIVE_LOCAL_CAPTURE"?captured:t;
+ need(tick(input.lastPublicKnownAt,"LAST_PUBLISHED_KNOWN_AT")<=cutoff,
   "NO_POSTBAR_INFORMATION");
  need(input.currentBar===undefined&&input.currentOHLC===undefined&&
   input.intrabarPath===undefined&&input.futureReceipt===undefined,
@@ -66,12 +71,12 @@ function validatePrebar(input,manifest){
  // silently slice future-dated receipt observations from the supplied book.
  for(const r of book.reservations){
   str(r.id,"RESERVATION_ID");
-  need(symbols.has(r.symbol)&&tick(r.decisionAt,"RESERVATION_DECISION")<=t,
+  need(symbols.has(r.symbol)&&tick(r.decisionAt,"RESERVATION_DECISION")<=cutoff,
    "RESERVATION_FROM_FUTURE");
   need(Array.isArray(r.observations),"RESERVATION_OBSERVATIONS");
   for(const o of r.observations)
-   need(tick(o.at,"OBSERVATION_AT")<=t&&
-    tick(o.knownAt,"OBSERVATION_KNOWN_AT")<=t&&o.at<=o.knownAt,
+   need(tick(o.at,"OBSERVATION_AT")<=cutoff&&
+    tick(o.knownAt,"OBSERVATION_KNOWN_AT")<=cutoff&&o.at<=o.knownAt,
     "RESERVATION_FUTURE_RECEIPT");
  }
  const reserved=R.snapshotFundedReservations(book,t);
@@ -80,7 +85,7 @@ function validatePrebar(input,manifest){
   settled=nonneg(physical.settledCashUsd,"SETTLED_CASH"),
   unsettled=nonneg(physical.unsettledCashUsd,"UNSETTLED_CASH"),
   committed=nonneg(physical.extraCommittedCashUsd,"EXTRA_COMMITTED_CASH");
- need(tick(physical.knownAt,"BOOK_KNOWN_AT")<=t&&
+ need(tick(physical.knownAt,"BOOK_KNOWN_AT")<=cutoff&&
   settled<=cash+0.02,"SETTLED_GREATER_PHYSICAL_CASH");
  need(Array.isArray(input.positions)&&input.positions.length<=5000,"POSITIONS");
  const active=new Map(reserved.reservations.filter(x=>x.state==="OPENED").map(x=>[x.id,x]));
@@ -96,8 +101,8 @@ function validatePrebar(input,manifest){
    p.quantity===r.observedRemainingQuantity,
    "POSITION_NOT_SOURCE_OPEN_REMAINING");
   const entryPrice=pos(p.entryPrice,"ENTRY_PRICE");
-  need(tick(p.entryAt,"ENTRY_AT")<=t&&p.entryAt>=r.decisionAt&&
-   tick(p.positionKnownAt,"POSITION_KNOWN_AT")<=t,
+  need(tick(p.entryAt,"ENTRY_AT")<=cutoff&&p.entryAt>=r.decisionAt&&
+   tick(p.positionKnownAt,"POSITION_KNOWN_AT")<=cutoff,
    "POSITION_FROM_FUTURE");
   need(tick(p.deadlineAt,"DEADLINE_AT")>=p.entryAt&&
    p.deadlineAt-p.entryAt<=MS72,"HOLDING_EXCEEDS_72H");
@@ -105,16 +110,16 @@ function validatePrebar(input,manifest){
   // A trailing stop is allowed to rise ABOVE entry after profits. Do not
   // reinterpret such native profit protection as an invalid long entry.
   need(pos(stop.price,"STOP_PRICE")>0&&
-   tick(stop.knownAt,"STOP_KNOWN_AT")<=t,
+   tick(stop.knownAt,"STOP_KNOWN_AT")<=cutoff,
    "STOP_NOT_KNOWN_PREBAR");
-  need(tick(p.lastMarkKnownAt,"MARK_KNOWN_AT")<=t,
+  need(tick(p.lastMarkKnownAt,"MARK_KNOWN_AT")<=cutoff,
    "FUTURE_POSITION_MARK");
   const mark=pos(p.lastKnownMarkPrice,"MARK_PRICE");
   markTotal+=mark*p.quantity;
   if(p.pendingStop!==null&&p.pendingStop!==undefined){
    const pending=obj(p.pendingStop,"PENDING_STOP");
    need(pos(pending.price,"PENDING_STOP_PRICE")>=stop.price&&
-    tick(pending.knownAt,"PENDING_STOP_KNOWN")<=t&&
+    tick(pending.knownAt,"PENDING_STOP_KNOWN")<=cutoff&&
     tick(pending.effectiveAt,"PENDING_STOP_EFFECTIVE")>t&&
     pending.knownAt<=pending.effectiveAt,
     "PENDING_STOP_ALREADY_EFFECTIVE_OR_FUTURE_KNOWN");
@@ -127,7 +132,7 @@ function validatePrebar(input,manifest){
    obj(tp,"TARGET");
    need(typeof tp.done==="boolean"&&
     Number.isSafeInteger(tp.quantity)&&tp.quantity>=0&&
-    tick(tp.knownAt,"TARGET_KNOWN_AT")<=t,
+    tick(tp.knownAt,"TARGET_KNOWN_AT")<=cutoff,
     "TARGET_KNOWN_PAST_AND_INTEGER");
    if(tp.price!==null){
     need(pos(tp.price,"TARGET_PRICE")>entryPrice,
@@ -163,8 +168,8 @@ function validatePrebar(input,manifest){
    "OPPORTUNITY_NOT_ENUMERATED_OR_DUPLICATE");
   outcomes.add(row.id);
   need(POLICY_IDS.includes(row.policyId)&&symbols.has(row.symbol)&&
-   tick(row.decisionAt,"OPPORTUNITY_AT")<=t&&
-   tick(row.knownAt,"OPPORTUNITY_KNOWN_AT")<=t&&
+   tick(row.decisionAt,"OPPORTUNITY_AT")<=cutoff&&
+   tick(row.knownAt,"OPPORTUNITY_KNOWN_AT")<=cutoff&&
    row.knownAt>=row.decisionAt,
    "OPPORTUNITY_CLOCK_POLICY");
   need(Object.hasOwn(counts,row.outcome),"OPPORTUNITY_OUTCOME");
@@ -176,7 +181,7 @@ function validatePrebar(input,manifest){
   }else if(row.outcome==="NO_FILL"){
    const r=booked.get(row.id);
    need(r&&r.observations.some(o=>o.kind==="NO_FILL"&&
-    o.knownAt<=t),"NO_FILL_NOT_SOURCE_RECEIPTED");
+    o.knownAt<=cutoff),"NO_FILL_NOT_SOURCE_RECEIPTED");
    need(row.reason==="IOC_NO_FILL","NO_FILL_REASON");
   }else{
    need(!booked.has(row.id),"REFUSED_OR_NO_SIGNAL_WAS_ADMITTED");
@@ -188,7 +193,7 @@ function validatePrebar(input,manifest){
  need(enumerated.size===outcomes.size,"UNACCOUNTED_GENERATED_OPPORTUNITY");
  const sourceBookHash=digest(book);
  return {schema:"HARPOON_FWN9_C27_PREBAR_VALIDATED_FRAME_1",
-  originalInput:structuredClone(input),barStart:t,
+  originalInput:structuredClone(input),barStart:t,captureKnowledgeCutoff:cutoff,
   positionCount:seen.size,sourceReservationCount:reserved.reservations.length,
   reservedPending:reserved.pending,reservedOpened:reserved.opened,
   sourceBookHash,sourceSnapshotHash:digest(reserved),
