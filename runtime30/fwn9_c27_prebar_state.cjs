@@ -102,7 +102,9 @@ function validatePrebar(input,manifest){
   need(tick(p.deadlineAt,"DEADLINE_AT")>=p.entryAt&&
    p.deadlineAt-p.entryAt<=MS72,"HOLDING_EXCEEDS_72H");
   const stop=obj(p.stop,"STOP");
-  need(pos(stop.price,"STOP_PRICE")<entryPrice&&
+  // A trailing stop is allowed to rise ABOVE entry after profits. Do not
+  // reinterpret such native profit protection as an invalid long entry.
+  need(pos(stop.price,"STOP_PRICE")>0&&
    tick(stop.knownAt,"STOP_KNOWN_AT")<=t,
    "STOP_NOT_KNOWN_PREBAR");
   need(tick(p.lastMarkKnownAt,"MARK_KNOWN_AT")<=t,
