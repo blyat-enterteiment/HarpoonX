@@ -13,6 +13,7 @@ const S=require("./fwn9_c27_prebar_state.cjs");
 const MANIFEST="HARPOON_FWN9_C27_SCHEDULE_MANIFEST_1";
 const ARCHIVE="HARPOON_FWN9_C27_IMMUTABLE_FRAME_1";
 const MAX_BARS=60000,MAX_FRAME_BYTES=4*1024*1024;
+const ORIGINAL_M9_WEAK_SHA256="9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab";
 function need(x,code){if(!x)throw Error("C27J_"+code);}
 function safeDir(folder){
  need(typeof folder==="string"&&folder.length>0,"DIRECTORY");
@@ -45,7 +46,7 @@ function openManifest(dir){
   ["ENGINEERING_REPLAY","PROSPECTIVE_LOCAL_CAPTURE"].includes(m.mode)&&
   Array.isArray(m.expectedBars)&&m.expectedBars.length>0&&
   m.expectedBars.length<=MAX_BARS&&
-  typeof m.generatorHash==="string"&&/^[0-9a-f]{64}$/.test(m.generatorHash)&&
+  m.generatorHash===ORIGINAL_M9_WEAK_SHA256&&
   m.policyIds.join("|")===S.POLICY_IDS.join("|")&&
   typeof m.seal==="string","MANIFEST_CONTRACT");
  let last=-1;
@@ -67,8 +68,7 @@ function newJournal(dir,{runId,mode="ENGINEERING_REPLAY",expectedBars,generatorH
   "CAPTURE_MODE");
  need(Array.isArray(expectedBars)&&expectedBars.length>0&&
   expectedBars.length<=MAX_BARS,"BAR_SCHEDULE_REQUIRED");
- need(typeof generatorHash==="string"&&/^[0-9a-f]{64}$/.test(generatorHash),
-  "SOURCE_GENERATOR_HASH");
+ need(generatorHash===ORIGINAL_M9_WEAK_SHA256,"SOURCE_GENERATOR_HASH");
  fs.mkdirSync(dir,{recursive:true,mode:0o700});
  safeDir(dir);
  const base={schema:MANIFEST,runId,mode,
