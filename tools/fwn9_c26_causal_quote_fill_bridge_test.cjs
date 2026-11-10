@@ -121,7 +121,7 @@ test("C26 broker receipt cannot be known before its exchange fill",()=>{
   "RECEIPT_BEFORE_EXECUTION");
 });
 test("C26 fill raw event and receipt execution times must agree",()=>{
- rejects(x=>{x.choices.receipts[0].execution_at="2026-11-06T14:30:04Z";},
+ rejects(x=>{x.choices.receipts[0].execution_at="2026-11-06T14:30:01Z";},
   "FILL_AND_LOCAL_RECEIPT_TIME_MISMATCH");
 });
 test("C26 missing receipt or missing order decision fails",()=>{
