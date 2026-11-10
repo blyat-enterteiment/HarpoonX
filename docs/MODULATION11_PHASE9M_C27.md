@@ -58,6 +58,25 @@ El comando solo imprime número de barras capturadas, barra total esperada, SHA 
 
 **No está cableado a la ruta de órdenes o al servicio Render.** El usuario no autorizó una reactivación y el workspace conectado no devolvió un identificador de servicio. Su ejecución con fuentes reales requiere instalar primero el observador en el punto causal inmediatamente anterior a la barra y comprobar que puede recuperar todo su estado de reservas y de oportunidades sin ver OHLC futuro.
 
+
+### Prueba adicional de financiación en el momento de admitir
+
+El libro original conserva cantidades, riesgo y notional, pero **no** conserva necesariamente el capital y la caja que justificaron la aprobación. Por ello, C27 hace obligatorio `admissionDecisions`: una evidencia por cada reserva histórica con `id`, `decisionAt`, `knownAt`, `equityAtDecisionUsd` y `cashAvailableAtDecisionUsd`.
+
+El programa reconstruye el libro de reservas PREVIO a cada decisión mediante la función fuente `snapshotFundedReservations()`, y contrasta la capacidad disponible con el 12% de notional por admisión, 0,25% de riesgo individual y agregado y caja pendiente. Exige `knownAt <= decisionAt`, correspondencia exacta de reserva e historial inmutable. No asume un límite de exposición continua del 12% ni que el capital se reinicie por operación. La comprobación de cash/equity es una prueba de **consistencia del estado aportado**; la fuente real aún debe autenticar que esos valores fueron observados en el instante declarado.
+
+En un reinicio posterior, C27 compara las pruebas previas de admisión byte a byte mediante SHA-256, además de las observaciones IOC y salidas. Un capital histórico alterado que todavía cumpliera aritméticamente los límites se rechaza como una restatación del pasado.
+
+### Correspondencia con la fuente original de observaciones
+
+El adaptador original `HARPOON_RUNTIME_OBSERVATION_1` distingue `OBSERVED_ONLY` de una orden financiada. Un candidato con características suficientes puede aparecer como observado, **pero nunca como ejecutado** solo por tener ocho características numéricas. El conjunto de IDs solicitado debe coincidir con la unión de candidatos observados y candidatos rechazados. Esta verificación es íntegra sobre las solicitudes registradas, no sobre oportunidades que el generador haya omitido.
+
+### Estado de certificación
+
+Los datos de las pruebas C27 son **fixtures deterministas de ingeniería**, no cuentas nuevas de trading. No se cambió `profit8_replay.js`, ni se publicó un agente para capturar barras reales. El estado remoto de Render y los recibos privados Alpaca siguen sin verificarse. El informe de cobertura del diario describe barras **aportadas por el operador**: un registro completo de esa malla todavía requiere verificar la procedencia externa del calendario y de todos los eventos de origen.
+
+GitHub Actions valida 33 controles nuevos del estado, 25 del diario persistente, ocho del adaptador y seis del CLI privado, además de las 203 regresiones heredadas: **275 pruebas ejecutables**. Es un certificado de software con puertas económicas cerradas, no un certificado de alfa, de ejecución bursátil ni de que la población original WEAK resulte imposible o rentable.
+
 ## 6. Comprobaciones y límites de aceptación
 
 Se mantienen los verificadores C16–C26 (203 regresiones). C27 añade pruebas de origen `ultimate_reservations.js`, TP, trailing/pending, caja y máximo de 72h; adaptación original de observaciones, nanosegundos C26, errores por valores futuros, nombres de campos extra, corrupción de archivo, reinicio, doble escritor y calendario completo. Todos son ensayos de software con datos inequívocamente sintéticos.
