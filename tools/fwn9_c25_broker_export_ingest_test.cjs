@@ -183,3 +183,15 @@ test("C25 fully synthetic smoke uses zero new broker orders or M10 final",()=>{
  A.equal(x.holdoutM10Sealed,3200);
 });
 module.exports={fixture};
+
+test("C25 official Alpaca TradeActivity FILL without asset_class uses bound asset catalog",()=>{
+ const x=fixture();
+ for(const r of x.activities.pages[0].rows)if(r.activity_type==="FILL")delete r.asset_class;
+ const y=C.certify(x);
+ A.equal(y.validated.fills,3);
+ A.equal(y.validated.independentCashAndInventoryReconciled,true);
+});
+test("C25 if explicit FILL asset class disagrees with catalog reject",()=>{
+ const x=fixture();x.activities.pages[0].rows[0].asset_class="crypto";
+ A.throws(()=>C.certify(x),/C25_FILL_ASSET_CLASS_MISMATCH/);
+});
