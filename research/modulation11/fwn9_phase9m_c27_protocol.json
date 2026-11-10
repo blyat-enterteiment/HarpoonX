@@ -1,0 +1,61 @@
+{
+  "schema": "HARPOON_FWN9_M11_C27_PREBAR_CAUSAL_SOURCE_PREREG_1",
+  "parent": "research/modulation11/fwn9_phase9m_c26_protocol.json",
+  "goal": "Persist an immutable source-checked full prebar state for inventory, active and pending stops, TP1/TP2 state, funded IOC reservations, explicit all-generated opportunities including REFUSED/NO_FILL, and independently verifiable missing-bar/restart hash-chain gates WITHOUT viewing current bar OHLC, generating signals or accounts.",
+  "source_files": {
+    "original_reservation": "runtime30/ultimate_reservations.js",
+    "original_campaign": "runtime30/profit8_replay.js",
+    "original_quant_observation": "runtime30/quant_observations.js",
+    "original_adapter": "runtime30/modulation11_stateful_campaign.cjs",
+    "C25_economic_book": "runtime30/fwn9_c25_broker_export_ingest.cjs",
+    "C26_caused_quote_fill": "runtime30/fwn9_c26_causal_quote_fill_bridge.cjs",
+    "original_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "original_native_replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810"
+  },
+  "exact_input": {
+    "mode": "OFFLINE_READ_ONLY_NATIVE_SOURCE_TEST",
+    "bar_start": "planned 5-minute bar start; no bar.h,bar.l,bar.c or current open allowed",
+    "public_information": "only completed prior bars with source availableAt <= barStart",
+    "portfolio": "one funded account physical cash/equity with explicit knownAt, no rehypothecation and no second shadow starting bankroll",
+    "reservations": "original full HARPOON_FUNDED_RESERVATIONS_1 book passed to snapshotFundedReservations; reject observations with knownAt beyond current bar start rather than silently slicing them",
+    "positions": "every open long lot, entryPrice, entryAt, quantity and original admission reservation ID; stop price, stopKnownAt and pending future stop; TP1/TP2 price, quantity, done, knownAt; 72h deadline",
+    "candidate_universe": "list of enumerated source candidate IDs with declared generator hash plus exact one outcome each; REFUSED has reason; RESERVED must bind original reservation; NO_SIGNAL supported, no futures.",
+    "coverage": "expected five-minute scheduled bar starts externally supplied; require all frames and no duplicate timestamps/keys before claiming complete",
+    "storage": "private local new-files-only append-only SHA256 chain, mode0700 dir and 0600 files; no compressed temporary byte hiding or postdating frames",
+    "complete_roll_accountability": "real count of source generated candidates, refused reasons, cancellations and NO_FILL observations retained; source declaration cannot be treated as completeness proof absent instrumentation at generator",
+    "clock": "all knownAt fields <=barStart, internal event at<=knownAt and published prior marks; exact numeric safe millisecond epoch for M9 synthetic source; future journal may use C26 nanosecond source",
+    "provenance": "byte hash is reproducibility, NOT independent broker authenticity or proof event was captured at claimed time"
+  },
+  "falsifiers": [
+    "Prebar snapshot includes any current-bar high, low, close or future open",
+    "KnownAt of stop, TP, opportunity or reservation observation after barStart",
+    "Position qty differs from source OPENED reservation remaining, or position missing for OPENED reservation",
+    "Target marked done then reverts to undone, stop tightened based on future data, pending stop effective before known",
+    "NO_FILL/CLOSED released before their knownAt; delayed fill/reject becomes backward-funded entry",
+    "Rejected opportunity lacks explicit reason, source generated candidate has no outcome or duplicate ID",
+    "One planned 5-minute bar absent, duplicated, out-of-order, or journal hash altered",
+    "Restart resumes without independently checking all immutable previous frames",
+    "Account marked wealth differs from cash plus funded marks within tolerance, negative funded cash or double initial capital",
+    "Original 12% admission cap recast as continuous 12% liquidation",
+    "Offline local content digest promoted to exchange- or broker-origin authentication",
+    "Any new market seed, signal nomination, economic account, private paper/live order, M10 final member read, deploy or merge"
+  ],
+  "success": {
+    "software": "Source-frozen snapshot + immutable restart proof + missing bar and adversarial finance/receipt tests PASS",
+    "economic_certification": "BLOCKED until independently authenticated origin/complete live coverage and reached price/fills; C27 itself does not create real data",
+    "N9S": "NO_GO",
+    "no_alpha_expended": true
+  },
+  "budget": {
+    "new_market_seeds": 0,
+    "new_signals": 0,
+    "new_economic_accounts": 0,
+    "orders_live": 0,
+    "orders_paper": 0,
+    "new_deployments": 0,
+    "merges": 0,
+    "optimizer_restarted": false,
+    "M10_final_opened": 0,
+    "M10_final_sealed": 3200
+  }
+}
