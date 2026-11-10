@@ -1,0 +1,73 @@
+{
+  "schema": "HARPOON_FWN9_M11_C26_PREDECISION_CAUSAL_QUOTE_FILL_PREREG_1",
+  "parent": "research/modulation11/fwn9_phase9m_c25_protocol.json",
+  "scope": "Implement read-only offline attachment of actual chronological quote snapshots and local receipt markers to every C25 verified FILL, without pretending historical downloaded quotes were known predecision or that L1 size certifies market fill.",
+  "original_frozen": {
+    "M9_weak_source_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "native_ohlc_source_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "original_native_8step_exact_market_equivalence": false,
+    "N9S": "NO_GO",
+    "M10_final_accounts_sealed": 3200
+  },
+  "offline_interface": {
+    "schema": "HARPOON_FWN9_C26_CAUSAL_QUOTE_FILL_BUNDLE_1",
+    "market_account": "C25 source account_export with two broker account NAV checkpoints, complete order/activities",
+    "quote": "{id,symbol,feed,market_at,known_at,bp,ap,bs,as} original LOCAL received timestamps; SIP or IEX for stocks, US for crypto; 8-decimal exact strings",
+    "decision": "{order_id,quote_id,side,decision_at,known_at,source='LOCAL_OBSERVATION_JOURNAL_CLAIM'}",
+    "receipt": "{activity_id,order_id,symbol,execution_at,known_at,kind='BROKER_ORDER_UPDATE_LOCAL_JOURNAL_CLAIM'}",
+    "causal_rules": [
+      "Quote event market_at<=known_at<=decision_at<=decision_known_at<=order_submit_at",
+      "Latest quote received before submit within 5 seconds",
+      "FILL execution_at matched exactly to original C25 activity and local receipt known_at>=exchange_fill_time",
+      "All filled orders have matching causally prior decisions; all activity fills have one matched receipt",
+      "No missing source fill can be silently treated as a rejection",
+      "Price and size are descriptive historical BBO not queue/depth guarantees"
+    ],
+    "valuation": "For each actual FILL side BUY: signed shortfall = qty * (fill_price - prior_known_ask); SELL: qty * (prior_known_bid - fill_price). Positive means worse than prior quote, negative is price improvement. A predecision quote is not a fill-time market quote; cannot label this execution cost as a certified achievable price.",
+    "coverage": "C25 formal ledger reconciled; quote capture provenance remains an unverified locally declared source until independently attested; no source flags can switch economic GO",
+    "safety": "No actual orders, no live broker HTTP, no AI model calls; no customer secrets in GitHub CI or printed diagnostics."
+  },
+  "math_and_policy": {
+    "familywise_variants_unchanged": 6,
+    "no_real_expected_alpha_claim": true,
+    "no_OHLC_realized_fill_claim": true,
+    "no_unverified_market_timestamp_as_knownAt": true,
+    "no_source_quote_size_to_guaranteed_fill": true,
+    "no_undocumented_options_delta_or_multiplier": true,
+    "costs_in_fills_not_subtracted_twice": true,
+    "requires_independent_source_attestation_before_financial_GO": true,
+    "requires_unfilled_opportunities_before_optimal_hour": true,
+    "requires_common_financed_NAV_vs_CASH_and_original": true
+  },
+  "unit_tests": [
+    "Predecision quote known_at <= decision clock <= order submit, with local receipt after market source",
+    "Stale or future quote cannot certify predecision information",
+    "Every FILL matches activity, order, symbol, local receipt and submitted time",
+    "Signed buy/sell implementation shortfall arithmetic and spread with prior known L1",
+    "Displayed quote size never equivalent to executable broker fill",
+    "Unrecognized symbol/quote feed, duplicate quote/receipt, mismatched decision side rejected",
+    "IEX allowed for descriptive comparison but does not claim consolidated SIP NBBO",
+    "C25 source NAV/cash/FEE and original C21 non-equivalence retained",
+    "Missing private input returns BLOCKED, not zero profit",
+    "All 3,200 M10 final accounts and no new signals/trading accounts protected"
+  ],
+  "budget": {
+    "new_signals": 0,
+    "new_market_seeds": 0,
+    "new_economic_accounts": 0,
+    "new_broker_GET_in_CI": 0,
+    "new_broker_orders": 0,
+    "opened_M10_final": 0,
+    "remaining_M10_final": 3200,
+    "deploy": false,
+    "merge": false,
+    "optimizer_restarted": false
+  },
+  "decision": {
+    "N9S": "NO_GO",
+    "source_math_probe_pass_does_not_approve_trading": true,
+    "broker_authenticated_quote_receipts_obtained_in_chat": false,
+    "can_open_holdout": false,
+    "can_trade": false
+  }
+}
