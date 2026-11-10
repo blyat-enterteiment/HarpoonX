@@ -108,7 +108,7 @@ jobs:
           p=json.loads(Path('research/modulation11/fwn9_phase9m_c25_protocol.json').read_text())
           e=json.loads(Path('evidence/modulation11/fwn9_phase9m_c25_evidence.json').read_text())
           assert e['validation']['all_scoped_regression_tests']==176
-          assert e['validation']['passed']==175 and e['validation']['failed']==0
+          assert e['validation']['passed']==176 and e['validation']['failed']==0
           assert e['validation']['actual_Alpaca_private_account_GET_performed_in_this_chat'] is False
           assert e['validation']['original_c15_population_ea_upper'] is None
           assert e['validation']['original_c15_population_eu_upper'] is None
