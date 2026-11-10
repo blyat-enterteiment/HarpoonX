@@ -178,3 +178,13 @@ test("C25 private account metadata never has to be printed by CLI",()=>{
   "--out","/private/b.json","--cost","/private/c.json"]),
   /C25_CAPTURE_BASELINE_UNEXPECTED_INPUT/);
 });
+
+test("C25 origin mode prototype pollution and encoded path traversal fail closed",()=>{
+ A.throws(()=>E.readOnlyTransport({mode:"__proto__",
+  env:{APCA_API_KEY_ID:"x",APCA_API_SECRET_KEY:"y"},
+  transport:async()=>({ok:true,text:async()=>"{}"})}),
+  /C25_GET_MODE/);
+ for(const path of ["/v2/assets/..","/v2/assets/%2e%2e",
+  "/v2/assets/ABC..DEF","/v2/assets/BTC%2e%2eUSD"])
+  A.throws(()=>E.validatePath(path),/C25_GET_ENDPOINT_ALLOWLIST/);
+});
