@@ -16,7 +16,7 @@ function validatePath(path){
  need(typeof path==="string"&&(
   path==="/v2/account"||path==="/v2/positions"||
   path==="/v2/orders"||path==="/v2/account/activities"||
-  /^\/v2\/assets\/[A-Za-z0-9._/-]+$/.test(path)
+  /^\/v2\/assets\/(?:[A-Za-z0-9._-]|%2F)+$/i.test(path)
  ),"ENDPOINT_ALLOWLIST");
  return path;
 }
