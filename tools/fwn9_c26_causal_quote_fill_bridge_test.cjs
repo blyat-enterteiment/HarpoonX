@@ -215,7 +215,7 @@ test("C26 valid synthetic offline combined evidence writes 0600 private report",
   A.equal(st.mode&0o777,0o600);
   const result=JSON.parse(fs.readFileSync(out,"utf8"));
   A.equal(result.matchedFillCount,3);
-  A.equal(result.sourceAccountIdentifierPrinted,false);
+  A.equal(result.accountIdentityPrinted,false);
   A.equal(result.N9S,"NO_GO");
   A.equal(result.inputShaAuthenticatesBroker,false);
   A.throws(()=>CLI.run(["--bundle",inp,"--out",out]),/EEXIST/);
