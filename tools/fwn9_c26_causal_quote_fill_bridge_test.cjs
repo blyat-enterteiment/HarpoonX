@@ -192,3 +192,43 @@ test("C26 missing any actual account/quote/decision/receipt reports BLOCKED",()=
  A.equal(d.financialGO,false);
  A.equal(d.N9S,"NO_GO");
 });
+
+const fs=require("node:fs"),os=require("node:os"),path=require("node:path");
+const CLI=require("./fwn9_c26_readonly_cli.cjs");
+test("C26 CLI no private bundle yields explicit financial evidence BLOCKED",()=>{
+ A.equal(CLI.args([])["--bundle"],undefined);
+ A.equal(C.absence().financialGO,false);
+});
+test("C26 CLI never reads M10 final/holdout even if it looks like an Alpaca export",()=>{
+ A.throws(()=>CLI.guarded("/tmp/holdout/sensitive.json"),/C26_CLI_SEALED_M10_PATH/);
+ A.throws(()=>CLI.guarded("/tmp/M10_final/sensitive.json"),/C26_CLI_SEALED_M10_PATH/);
+ A.throws(()=>CLI.args(["--bundle","/tmp/a","--out","/tmp/a"]),
+  /C26_CLI_REQUIRED_BUNDLE/);
+});
+test("C26 valid synthetic offline combined evidence writes 0600 private report",()=>{
+ const tmp=fs.mkdtempSync(path.join(os.tmpdir(),"fwn9-c26-"));
+ try{
+  const inp=path.join(tmp,"synthetic.json"),out=path.join(tmp,"report.json");
+  fs.writeFileSync(inp,JSON.stringify(bundle()),{mode:0o600});
+  A.equal(CLI.run(["--bundle",inp,"--out",out]),0);
+  const st=fs.statSync(out);
+  A.equal(st.mode&0o777,0o600);
+  const result=JSON.parse(fs.readFileSync(out,"utf8"));
+  A.equal(result.matchedFillCount,3);
+  A.equal(result.sourceAccountIdentifierPrinted,false);
+  A.equal(result.N9S,"NO_GO");
+  A.equal(result.inputShaAuthenticatesBroker,false);
+  A.throws(()=>CLI.run(["--bundle",inp,"--out",out]),/EEXIST/);
+ }finally{fs.rmSync(tmp,{recursive:true,force:true});}
+});
+test("C26 missing receipt through CLI rejects without creating a report",()=>{
+ const tmp=fs.mkdtempSync(path.join(os.tmpdir(),"fwn9-c26-missing-"));
+ try{
+  const inp=path.join(tmp,"bad.json"),out=path.join(tmp,"not-created.json");
+  const x=bundle();x.choices.receipts.pop();
+  fs.writeFileSync(inp,JSON.stringify(x),{mode:0o600});
+  A.throws(()=>CLI.run(["--bundle",inp,"--out",out]),
+   /C26_FILL_QUOTE_AND_RECEIPT_NOT_LINKED/);
+  A.equal(fs.existsSync(out),false);
+ }finally{fs.rmSync(tmp,{recursive:true,force:true});}
+});
