@@ -85,7 +85,7 @@ test("C25 source baseline only when no prior pending orders",async()=>{
  const b=await E.baseline(get,"PAPER",()=>Date.parse(FROM));
  A.equal(b.schema,"HARPOON_FWN9_C25_SOURCE_BASELINE_1");
  A.equal(b.baseline.account.currency,"USD");
- A.equal(b.baseline.observed_at,FROM);
+ A.equal(Date.parse(b.baseline.observed_at),Date.parse(FROM));
  A.equal(b.baseline_open_orders.length,0);
  A.equal(history.filter(x=>x.p==="/v2/orders").length,1);
  const q=mockGet({openOrders:[{id:"UNMODELED_OPEN"}]},"baseline");
