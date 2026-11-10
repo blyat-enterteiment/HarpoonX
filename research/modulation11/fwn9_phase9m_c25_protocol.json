@@ -1,0 +1,91 @@
+{
+  "schema": "HARPOON_FWN9_M11_C25_OFFLINE_BROKER_RECEIPT_INTAKE_PREREG_1",
+  "parent": "research/modulation11/fwn9_phase9m_c24_protocol.json",
+  "objective": "Implement complete read-only OFFLINE parsing and independent arithmetic reconciliation of exported Alpaca trading account snapshots, activity pages, order lists and separately declared expenses. Never infer broker authentication from local JSON, never call private Alpaca/Render APIs, never trade.",
+  "source_policy": {
+    "original_M9_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "original_native_replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "original_ledger": "runtime30/net_accounting.js",
+    "original_activity_cash_basis": "GROSS_PLUS_SEPARATE_ACTIVITY_FEES",
+    "original_intact": true
+  },
+  "interface": {
+    "source": "offline customer/exported raw JSON; never ask for API keys, account IDs printed or token values",
+    "schema": "HARPOON_FWN9_C25_ALPACA_OFFLINE_BUNDLE_1",
+    "account_identity": "one account and currency USD, explicitly PAPER or LIVE, source claims always UNAUTHENTICATED",
+    "interval": "baseline to terminal UTC, explicit snapshot-time and collection time, no future receipt claims",
+    "input_components": [
+      "baseline.account / positions",
+      "terminal.account / positions",
+      "orders rows and complete pagination flag",
+      "account activity pages: original FILL, FEE, CFEE, cash flow codes",
+      "cost report separately declared with coverage",
+      "quote and opportunity traces if available"
+    ],
+    "output": [
+      "native parse contract validation",
+      "independent fixed 8-decimal cash/inventory reconciliation",
+      "order-to-fill cross check",
+      "receipt timing and outside-window diagnostic",
+      "external-cost coverage and activity authenticity gates",
+      "structural blockers, always N9S NO_GO"
+    ],
+    "no_secrets_in_report": true
+  },
+  "adversarial_tests": [
+    "Partial fills matching order cumulative quantity, including canceled remainder",
+    "Duplicated activity ID and incomplete pages fail before certification",
+    "Unknown order/side/type/multiplier/currency rejected",
+    "Fees not double-counted against NAV; absent FEE/CFEE coverage remains blocker",
+    "Cash/share mismatch and fee sign tampering rejected",
+    "Future timestamp, off-window activity and unjustified chronological financing rejected",
+    "Deposit/withdrawal rejected for simple compound without time-weighted return",
+    "Unauthenticated JSON evidence never labelled broker authenticated",
+    "Original OHLC 8-step refutation preserved C21",
+    "No final M10 opened or new account/order executed",
+    "Order status new/accepted/rejected/filled/partially_filled must match cumulative exact fills"
+  ],
+  "acceptance": {
+    "gate": "OFFLINE_SOURCE_AND_LEDGER_CONTRACT_PASS_ONLY",
+    "expected_input_status_without_original_real_exports": "BROKER_REALIZED_ECONOMICS_BLOCKED",
+    "source_SHA_check_mandatory": true,
+    "real_receipt_economic_certification": false,
+    "N9S": "NO_GO",
+    "paper_or_live_orders_allowed": false
+  },
+  "budget": {
+    "new_signals": 0,
+    "new_market_seeds": 0,
+    "new_economic_trial_accounts": 0,
+    "M10_final_opened": 0,
+    "M10_final_still_sealed": 3200,
+    "paper_orders": 0,
+    "live_orders": 0,
+    "Render_mutations": 0,
+    "deployment": 0,
+    "merges": 0,
+    "recursive_optimization": 0
+  },
+  "source_capture_amendment": {
+    "phase": "C25_R2_SOURCE_ONLY_NO_ECONOMIC_RESEARCH",
+    "code": "runtime30/fwn9_c25_alpaca_readonly_exporter.cjs",
+    "cli": "tools/fwn9_c25_capture_readonly_alpaca.cjs",
+    "method_allowlist": [
+      "GET /v2/account",
+      "GET /v2/positions",
+      "GET /v2/orders",
+      "GET /v2/account/activities",
+      "GET /v2/assets/{symbol}"
+    ],
+    "mode": "EXPLICIT_USER_PAPER_OR_LIVE_READ_ONLY",
+    "auth": "ENV_ONLY_LOCAL_NEVER_PRINT_KEYS",
+    "persistent_source": "private 0600 exclusive local files only; never GitHub",
+    "pagination": "activities page_token, orders refuse >=500 due undocumented cursor",
+    "underlying_native_account_verification": "NetAccountLedger.snapshot/activity read-only",
+    "live_connection_tested_in_current_session": false,
+    "mock_http_integration_only": true,
+    "future_baseline_checkpoint_needed": true,
+    "C26_reachable_quote_and_fill_competition_not_resolved": true,
+    "N9S": "NO_GO"
+  }
+}
