@@ -206,3 +206,15 @@ test("C27 PROSPECTIVE rejected candidate event after local seal cannot leak",()=
  A.throws(()=>S.validatePrebar(x,{...manifest(),mode:"PROSPECTIVE_LOCAL_CAPTURE"}),
   /C27_OPPORTUNITY_CLOCK_POLICY/);
 });
+
+test("C27 unknown top/nested fields cannot smuggle future OHLC into prebar frame",()=>{
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.futureBarHigh=200;
+ }),manifest()),/C27_UNDECLARED_PREBAR_FIELD/);
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.positions[0].barHigh=200;
+ }),manifest()),/C27_UNDECLARED_POSITION_FIELD/);
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.positions[0].stop.next_bar_close=101;
+ }),manifest()),/C27_UNDECLARED_STOP_FIELD/);
+});
