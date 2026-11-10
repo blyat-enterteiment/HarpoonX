@@ -100,3 +100,24 @@ jobs:
           assert not list(Path('evidence').rglob('final/*.json.gz'))
           print('C25_SOURCE_SHA_M10_HOLDOUT_IMMUTABLE_PASS')
           PY
+      - name: Evidence file binds 175 passing source-contract tests, NO economic GO
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c25_protocol.json').read_text())
+          e=json.loads(Path('evidence/modulation11/fwn9_phase9m_c25_evidence.json').read_text())
+          assert e['validation']['all_scoped_regression_tests']==175
+          assert e['validation']['passed']==175 and e['validation']['failed']==0
+          assert e['validation']['actual_Alpaca_private_account_GET_performed_in_this_chat'] is False
+          assert e['validation']['original_c15_population_ea_upper'] is None
+          assert e['validation']['original_c15_population_eu_upper'] is None
+          assert e['original_C24_economic_gate']['conclusion']=='N9S_NO_GO_UNCHANGED'
+          assert e['budgets']['M10_final_opened']==0
+          assert e['budgets']['M10_final_still_sealed']==3200
+          assert e['budgets']['paper_orders']==0 and e['budgets']['live_orders']==0
+          assert e['implemented']['transport']['HTTP_methods']==['GET']
+          assert e['verdict']=='SOURCE_AND_ENGINEERING_PASS__BROKER_FINANCIAL_AND_FWN9_NO_GO'
+          assert p['acceptance']['N9S']=='NO_GO'
+          print('C25_175_BROKER_SOURCE_CONTRACT_TESTS_PASS_N9S_FINANCIAL_BLOCKED')
+          PY
