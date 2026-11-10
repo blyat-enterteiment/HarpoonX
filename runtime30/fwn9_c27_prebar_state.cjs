@@ -19,6 +19,11 @@ const POLICY_IDS=Object.freeze([
 ]);
 function need(x,code){A.ok(x,"C27_"+code);}
 function obj(x,code){need(x&&typeof x==="object"&&!Array.isArray(x),code);return x;}
+function keysOnly(row,allowed,code){
+ obj(row,code);
+ const accepted=new Set(allowed);
+ need(Object.keys(row).every(k=>accepted.has(k)),code);
+}
 function str(x,code){need(typeof x==="string"&&x.length>0&&x.length<=256,code);return x;}
 function tick(x,code){need(Number.isSafeInteger(x)&&x>=0,code);return x;}
 function nonneg(x,code){need(typeof x==="number"&&Number.isFinite(x)&&x>=0,code);return x;}
@@ -54,7 +59,15 @@ function validatePrebar(input,manifest){
  need(input.currentBar===undefined&&input.currentOHLC===undefined&&
   input.intrabarPath===undefined&&input.futureReceipt===undefined,
   "CURRENT_BAR_DATA_FORBIDDEN");
+ keysOnly(input,["schema","runId","mode","barStart","barIndex",
+  "capturedAt","lastPublicKnownAt","scope","universe",
+  "sourceReservationBook","positions","physicalBook",
+  "opportunityCoverage"],"UNDECLARED_PREBAR_FIELD");
+
  const scope=obj(input.scope,"SOURCE_SCOPE");
+ keysOnly(scope,["originalSource","sourceInputsAuthenticatedExternally",
+  "allCandidatesIndependentlyAuthenticated"],"UNDECLARED_SOURCE_SCOPE");
+
  need(scope.originalSource==="ORIGINAL_M9_NATIVE_SOURCE_READONLY"&&
   scope.sourceInputsAuthenticatedExternally===false&&
   scope.allCandidatesIndependentlyAuthenticated===false,
@@ -81,6 +94,10 @@ function validatePrebar(input,manifest){
  }
  const reserved=R.snapshotFundedReservations(book,t);
  const physical=obj(input.physicalBook,"PHYSICAL_BOOK");
+ keysOnly(physical,["knownAt","physicalPnlOrigin","cashUsd",
+  "settledCashUsd","unsettledCashUsd","extraCommittedCashUsd",
+  "equityUsd","availableCashUsd"],"UNDECLARED_PHYSICAL_BOOK_FIELD");
+
  const cash=nonneg(physical.cashUsd,"CASH"),equity=pos(physical.equityUsd,"EQUITY"),
   settled=nonneg(physical.settledCashUsd,"SETTLED_CASH"),
   unsettled=nonneg(physical.unsettledCashUsd,"UNSETTLED_CASH"),
@@ -93,6 +110,10 @@ function validatePrebar(input,manifest){
  const seen=new Set();let markTotal=0;
  for(const p of input.positions){
   obj(p,"POSITION");
+  keysOnly(p,["reservationId","symbol","quantity","entryAt","entryPrice",
+   "positionKnownAt","deadlineAt","stop","pendingStop",
+   "lastMarkKnownAt","lastKnownMarkPrice","targets"],"UNDECLARED_POSITION_FIELD");
+
   const id=str(p.reservationId,"POSITION_RESERVATION_ID");
   need(!seen.has(id),"DUPLICATE_POSITION");seen.add(id);
   const r=active.get(id);
@@ -107,6 +128,8 @@ function validatePrebar(input,manifest){
   need(tick(p.deadlineAt,"DEADLINE_AT")>=p.entryAt&&
    p.deadlineAt-p.entryAt<=MS72,"HOLDING_EXCEEDS_72H");
   const stop=obj(p.stop,"STOP");
+  keysOnly(stop,["price","knownAt"],"UNDECLARED_STOP_FIELD");
+
   // A trailing stop is allowed to rise ABOVE entry after profits. Do not
   // reinterpret such native profit protection as an invalid long entry.
   need(pos(stop.price,"STOP_PRICE")>0&&
@@ -118,6 +141,9 @@ function validatePrebar(input,manifest){
   markTotal+=mark*p.quantity;
   if(p.pendingStop!==null&&p.pendingStop!==undefined){
    const pending=obj(p.pendingStop,"PENDING_STOP");
+   keysOnly(pending,["price","knownAt","effectiveAt"],
+    "UNDECLARED_PENDING_STOP_FIELD");
+
    need(pos(pending.price,"PENDING_STOP_PRICE")>=stop.price&&
     tick(pending.knownAt,"PENDING_STOP_KNOWN")<=cutoff&&
     tick(pending.effectiveAt,"PENDING_STOP_EFFECTIVE")>t&&
@@ -130,6 +156,9 @@ function validatePrebar(input,manifest){
   let allocations=0;
   for(const tp of p.targets){
    obj(tp,"TARGET");
+   keysOnly(tp,["id","price","quantity","knownAt","done"],
+    "UNDECLARED_TARGET_FIELD");
+
    need(typeof tp.done==="boolean"&&
     Number.isSafeInteger(tp.quantity)&&tp.quantity>=0&&
     tick(tp.knownAt,"TARGET_KNOWN_AT")<=cutoff,
@@ -150,6 +179,9 @@ function validatePrebar(input,manifest){
  need(Math.abs(nonneg(physical.availableCashUsd,"AVAILABLE_CASH")-available)<=0.02,
   "AVAILABLE_CASH_VS_PENDING_RESERVATIONS");
  const c=obj(input.opportunityCoverage,"OPPORTUNITY_COVERAGE");
+ keysOnly(c,["generatorSourceHash","candidateCollectionCompleteDeclared",
+  "enumeratedIds","outcomes"],"UNDECLARED_CANDIDATE_FIELD");
+
  need(Array.isArray(c.enumeratedIds)&&Array.isArray(c.outcomes)&&
   c.generatorSourceHash===manifest.generatorHash&&
   c.candidateCollectionCompleteDeclared===true&&
@@ -164,6 +196,9 @@ function validatePrebar(input,manifest){
  const booked=new Map(book.reservations.map(x=>[x.id,x]));
  for(const row of c.outcomes){
   obj(row,"OPPORTUNITY");
+  keysOnly(row,["id","policyId","symbol","decisionAt","knownAt",
+   "outcome","reason"],"UNDECLARED_OPPORTUNITY_FIELD");
+
   need(enumerated.has(row.id)&&!outcomes.has(row.id),
    "OPPORTUNITY_NOT_ENUMERATED_OR_DUPLICATE");
   outcomes.add(row.id);
