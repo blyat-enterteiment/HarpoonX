@@ -16,8 +16,8 @@
     ".github/workflows/fwn9_p9m_c25.yml"
   ],
   "validation": {
-    "source_run_id": 42759573076,
-    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42759573076",
+    "source_run_id": 42760021394,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42760021394",
     "result": "SUCCESS",
     "current_C25_independent_activity_order_native_decimal8_tests": 24,
     "current_C25_GET_only_private_exporter_tests": 14,
@@ -35,7 +35,26 @@
     "actual_Alpaca_private_account_GET_performed_in_this_chat": false,
     "mock_local_GET_transport_only_in_CI": true,
     "previous_ci_failures_retained": true,
-    "source_snapshot_real_user_account_reconciliation_performed": false
+    "source_snapshot_real_user_account_reconciliation_performed": false,
+    "final_C25_176_contract_math_tests_source_head": "2689dacd77e88da61c2adbc7b343667e48789799",
+    "previous_failed_attempts": [
+      {
+        "run": 42758288991,
+        "reason": "C25 initial native expectation precedence mismatch in adversarial tests"
+      },
+      {
+        "run": 42759018682,
+        "reason": "new exporter timestamp ISO .000Z versus Z literal expected; corrected by epoch compare"
+      },
+      {
+        "run": 42759484267,
+        "reason": "added order state consistency guard preceded legacy quantity mismatch expectation; corrected test"
+      },
+      {
+        "run": 42759908860,
+        "reason": "final CI evidence count mismatch 175 vs revised 176; corrected"
+      }
+    ]
   },
   "implemented": {
     "source_normalizer": "existing runtime30/net_accounting.js snapshot and activity called read-only",
