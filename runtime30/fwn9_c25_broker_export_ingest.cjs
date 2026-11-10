@@ -147,3 +147,182 @@ function activityRows(rows,ledger,instruments,from,to,at){
  }
  return {activity,flow,fee,accountCash,fillCash,balances};
 }
+function ordersCrossCheck(orders,filledByOrder,from,to){
+ need(orders&&typeof orders==="object"&&orders.filter_status==="all"&&
+  orders.pagination_asserted_complete===true&&Array.isArray(orders.rows)&&
+  orders.rows.length<=100000,"COMPLETE_ALL_ORDERS_EXPORT_REQUIRED");
+ const seen=new Set(),out=[];
+ for(const o of orders.rows){
+  plain(o,"ORDER");
+  const id=str(o.id,"ORDER_ID");
+  need(!seen.has(id),"DUPLICATE_ORDER");
+  seen.add(id);
+  need(["buy","sell"].includes(o.side)&&
+   typeof o.symbol==="string"&&
+   ["new","accepted","partially_filled","filled","canceled","expired",
+    "rejected","done_for_day","replaced","pending_cancel",
+    "pending_replace","stopped","suspended","calculated"].includes(o.status),
+   "ORDER_STATUS_SIDE");
+  const qty=dec(o.qty,"ORDER_QTY",{positive:true});
+  const filled=dec(o.filled_qty,"ORDER_FILLED_QTY");
+  need(filled<=qty,"ORDER_OVERFILL");
+  const submitted=time(o.submitted_at,"ORDER_SUBMITTED_AT");
+  need(submitted>=from&&submitted<=to,"ORDER_PREBASELINE_OR_POSTTERMINAL");
+  const rows=filledByOrder.get(id)||[];
+  let quantity=0n,notional=0n;
+  for(const x of rows){
+   need(x.symbol===o.symbol&&x.side===o.side&&
+    x.at>=submitted,"ORDER_FILL_SYMBOL_SIDE_TIME");
+   quantity+=x.qty;notional+=mult(x.qty,x.price);
+  }
+  need(quantity===filled,"ORDER_ACTIVITY_FILL_QUANTITY_MISMATCH");
+  if(filled>0n){
+   need(o.filled_avg_price!==null&&o.filled_avg_price!==undefined,
+    "ORDER_MISSING_AVERAGE_FILL_PRICE");
+   const average=dec(o.filled_avg_price,"ORDER_AVG_PRICE",{positive:true});
+   const difference=notional-mult(filled,average);
+   need(difference<=1000000n&&difference>=-1000000n,
+    "ORDER_WEIGHTED_FILL_AVERAGE_MISMATCH");
+  }else need(!o.filled_avg_price||dec(o.filled_avg_price,"UNFILLED_AVG")===0n,
+   "ORDER_WITHOUT_ACTIVITIES_HAS_AVG_PRICE");
+  out.push({id,quantity,filled,notional,originalStatus:o.status});
+ }
+ for(const id of filledByOrder.keys())need(seen.has(id),
+  "FILL_WITHOUT_EXPORTED_ORDER");
+ return {orders:out,orderCount:out.length,
+  ordersWithFills:out.filter(x=>x.filled>0n).length};
+}
+function certify(bundle){
+ plain(bundle,"OFFLINE_BUNDLE");
+ need(bundle.schema===SCHEMA&&bundle.mode==="PAPER"||bundle.schema===SCHEMA&&bundle.mode==="LIVE",
+  "BUNDLE_SCHEMA_AND_MODE");
+ need(bundle.export_type==="OFFLINE_ALPACA_TRADING_API_READ_ONLY"&&
+  bundle.currency==="USD","OFFLINE_EXPORT_CONTRACT");
+ const id=str(bundle.account_id,"ACCOUNT_IDENTIFIER");
+ const from=time(bundle.from,"FROM"),to=time(bundle.through,"THROUGH"),
+  collected=time(bundle.collected_at,"COLLECTED_AT");
+ need(from<to&&to<=collected,"COLLECTION_TIME_WINDOW");
+ const catalog=instrumentsFor(bundle.instruments);
+ // Stub store / transport cannot initiate network IO: only native read-only
+ // snapshot() and activity() methods are invoked directly.
+ const ledger=new NetAccountLedger({},{},"c25-offline-unpersisted",id,
+  {currency:"USD",fillCashBasis:"GROSS_PLUS_SEPARATE_ACTIVITY_FEES"});
+ const original=new Map(catalog);
+ const b=snapshot(bundle.baseline,ledger,original,id,collected);
+ const e=snapshot(bundle.terminal,ledger,original,id,collected);
+ need(b.at===from&&e.at===to,"OBSERVATIONS_NOT_BOUND_TO_EXPORTED_WINDOW");
+ const page=plain(bundle.activities,"ACTIVITIES");
+ need(page.filter==="all"&&page.order==="asc"&&
+  Number.isSafeInteger(page.page_size),"ACTIVITY_QUERY_CONTRACT");
+ const activities=flattenPages(page.pages,page.page_size);
+ const audited=activityRows(activities,ledger,catalog,from,to,collected);
+ const chk=ordersCrossCheck(bundle.orders,audited.balances,from,to);
+ let cash=b.cash+audited.fillCash+audited.fee+audited.accountCash+audited.flow;
+ need(cash-e.cash<=1000000n&&e.cash-cash<=1000000n,
+  "CASH_FROM_ACTIVITY_RECONCILIATION");
+ const positions=new Map(b.positions);
+ const fills=activities.filter(x=>x.activity_type==="FILL")
+  .sort((x,y)=>Date.parse(x.transaction_time)-Date.parse(y.transaction_time)||
+   x.id.localeCompare(y.id));
+ for(const f of fills){
+  const q=dec(f.qty,"RECONCILE_FILL_QTY",{positive:true});
+  const old=positions.get(f.symbol)??0n;
+  const next=old+(f.side==="buy"?q:-q);
+  need(next>=0n,"NO_UNDISCLOSED_SHORT_OR_SELL_BEFORE_INVENTORY");
+  positions.set(f.symbol,next);
+ }
+ for(const sym of new Set([...positions.keys(),...e.positions.keys()])){
+  const delta=(positions.get(sym)??0n)-(e.positions.get(sym)??0n);
+  need(delta<=1n&&delta>=-1n,"FINAL_INVENTORY_FROM_FILLED_QUANTITIES");
+ }
+ let costDeclaredComplete=false,totalExternal=0n;
+ const coverage=bundle.external_cost_coverage;
+ if(coverage!==undefined&&coverage!==null){
+  plain(coverage,"COST_COVERAGE");
+  need(coverage.currency==="USD"&&coverage.from===bundle.from&&
+   coverage.through===bundle.through&&
+   Array.isArray(coverage.categories)&&
+   ["DATA","INFRASTRUCTURE","INFERENCE","OTHER"].every(x=>coverage.categories.includes(x))&&
+   coverage.categories.length===4&&Array.isArray(coverage.rows),
+   "FULL_COST_CATEGORY_SCOPE");
+  const costIds=new Set();
+  for(const x of coverage.rows){
+   plain(x,"COST_ROW");
+   need(!costIds.has(x.id)&&typeof x.id==="string"&&
+    typeof x.reference==="string"&&x.reference.length>0&&
+    coverage.categories.includes(x.category),"COST_DOCUMENT_BOUND");
+   costIds.add(x.id);
+   const amount=dec(x.amount_usd,"COST_AMOUNT");
+   need(x.already_in_account===false,"C25_FEES_ALREADY_IN_NAV_NOT_DOUBLE_CHARGED");
+   const at=time(x.at,"COST_AT"),known=time(x.known_at,"COST_KNOWN_AT");
+   need(at>=from&&at<=to&&known>=at&&known<=collected,"COST_CLOCK");
+   totalExternal+=amount;
+  }
+  costDeclaredComplete=coverage.coverage_declared_complete===true;
+ }
+ const blockers=[
+  "OFFLINE_JSON_HASH_DOES_NOT_AUTHENTICATE_ALPACA_ORIGIN",
+  "NO_INDEPENDENT_BROKER_ENDPOINT_ATTESTATION",
+  "NO_TRUSTWORTHY_PREDECISION_KNOWN_AT_OR_EXCHANGE_QUEUE_FILLS",
+  "ORIGINAL_NATIVE_OHLC_FIRST_CROSS_NON_EQUIVALENCE_C21",
+  "NO_COMPLETE_UNFILLED_OPPORTUNITY_TRACE_FOR_C22",
+  "SIX_C22_VARIANTS_NOT_EXECUTED_PROSPECTIVELY",
+  "NO_INDEPENDENT_ORIGINAL_POLICY_NET_BASELINE"
+ ];
+ if(audited.flow!==0n)blockers.push("EXTERNAL_CAPITAL_FLOW_REQUIRES_TWR");
+ if(!costDeclaredComplete)blockers.push("EXTERNAL_COST_COVERAGE_INCOMPLETE");
+ if(activities.some(x=>x.activity_type!=="FILL"&&!x.date.includes("T")))
+  blockers.push("DAY_ONLY_NONTRADE_EVENTS_CANNOT_CERTIFY_INTRADAY_FINANCING");
+ const hash=netLedgerDigest({schema:SCHEMA,account_id:id,from:bundle.from,
+  through:bundle.through,baseline_hash:b.sourceHash,terminal_hash:e.sourceHash,
+  activities:audit_for_hash(audited.activity),orders:chk.orders.map(x=>x.id)});
+ const accountDelta=e.equity-b.equity-audited.flow;
+ const economicDelta=accountDelta-totalExternal;
+ return {
+  schema:"HARPOON_FWN9_C25_OFFLINE_ACCOUNT_SOURCE_RECONCILIATION_1",
+  sourceDigestSha256:hash,
+  sourceInputExternallyAuthenticated:false,
+  mode:bundle.mode,
+  sourceAccountIdRedacted:true,
+  window:{from:bundle.from,through:bundle.through,collectedAt:bundle.collected_at},
+  validated:{orders:chk.orderCount,withFills:chk.ordersWithFills,
+   activities:audited.activity.length,
+   fills:fills.length,
+   activityFees:audited.activity.filter(x=>x.classification==="FEE").length,
+   instruments:catalog.size,sourceNativeActivityParity:true,
+   sourceNativeNavParity:true,
+   independentCashAndInventoryReconciled:true,
+   reportedFeeCashUsd:money(audited.fee),
+   recordedCashFlowUsd:money(audited.flow),
+   externalCostsDeclaredComplete:costDeclaredComplete,
+   externalCostsNotInNavUsd:money(totalExternal),
+   algebraicAccountPnlUsd:money(accountDelta),
+   conditionalAfterDeclaredCostsPnlUsd:costDeclaredComplete?
+    money(economicDelta):null,
+   brokerAuthenticatedEconomicPnlUsd:null
+  },
+  admission:{
+   reconstructedPastBrokerFillsAreNotProspectiveC22Trades:true,
+   receiptLevelPredecisionFiltrationCertified:false,
+   originalOHLCModelExecutionEquivalent:false,
+   familywiseOutsideSampleNetAlphaCertified:false,
+   realCompoundedOutperformanceVsCashCertified:false,
+   independentFinancialProfitabilityLevel9:false,
+   orderAuthority:false,N9S:"NO_GO"
+  },
+  blockers, holdoutM10Sealed:3200,createdMarketSeeds:0,
+  createdEconomicTrialAccounts:0,placedBrokerOrders:0
+ };
+}
+function audit_for_hash(items){return items.map(x=>[x.id,x.sourceHash]);}
+function missingEvidence(){
+ return {schema:"HARPOON_FWN9_C25_OFFLINE_ACCOUNT_SOURCE_RECONCILIATION_1",
+  status:"BLOCKED_NO_AUTHENTICATED_PRIVATE_BROKER_EXPORT",
+  sourceAccountIdRedacted:true,sourceInputExternallyAuthenticated:false,
+  financialPerformanceDemonstrated:false,
+  missing:["OFFLINE_ALPACA_ACCOUNT_SNAPSHOTS","COMPLETE_ORDER_AND_ACTIVITY_PAGINATION",
+   "INDEPENDENT_ORIGIN_AUTHENTICATION_AND_OBSERVED_RECEIPT_CLOCKS",
+   "CASH_FEES_POSITION_COST_COVERAGE","SIX_UNEXECUTED_C22_VARIANTS"],
+  orderAuthority:false,N9S:"NO_GO",holdoutM10Sealed:3200};
+}
+module.exports={certify,missingEvidence,flattenPages,dec,sourceDigest:sha};
