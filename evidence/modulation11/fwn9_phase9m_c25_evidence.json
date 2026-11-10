@@ -1,0 +1,130 @@
+{
+  "schema": "HARPOON_FWN9_M11_C25_BROKER_EVIDENCE_SOURCE_READONLY_RECEIPT_BRIDGE_1",
+  "phase": "C25_OPERATIONAL_TRUTH_AND_CAUSAL_FINANCING_EVIDENCE",
+  "audited_at_utc_date": "2026-11-09",
+  "parent": "research/modulation11/fwn9_phase9m_c24_protocol.json",
+  "code_sources": [
+    "runtime30/fwn9_c25_broker_export_ingest.cjs",
+    "runtime30/fwn9_c25_alpaca_readonly_exporter.cjs",
+    "tools/fwn9_c25_capture_readonly_alpaca.cjs",
+    "tools/fwn9_c25_readonly_cli.cjs"
+  ],
+  "prereg": "research/modulation11/fwn9_phase9m_c25_protocol.json",
+  "tests": [
+    "tools/fwn9_c25_broker_export_ingest_test.cjs",
+    "tools/fwn9_c25_alpaca_readonly_exporter_test.cjs",
+    ".github/workflows/fwn9_p9m_c25.yml"
+  ],
+  "validation": {
+    "source_run_id": 42759573076,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42759573076",
+    "result": "SUCCESS",
+    "current_C25_independent_activity_order_native_decimal8_tests": 24,
+    "current_C25_GET_only_private_exporter_tests": 13,
+    "original_C24_to_C16_native_tests": 83,
+    "original_C21_to_C17_Python_math_tests": 55,
+    "all_scoped_regression_tests": 175,
+    "passed": 175,
+    "failed": 0,
+    "original_m9_source_hashes": "PASS",
+    "original_m10_final_sealed": "PASS",
+    "original_c16_independent_decimal46": "PASS",
+    "original_c15_population_ea_upper": null,
+    "original_c15_population_eu_upper": null,
+    "source_code_unit_tests_only": true,
+    "actual_Alpaca_private_account_GET_performed_in_this_chat": false,
+    "mock_local_GET_transport_only_in_CI": true,
+    "previous_ci_failures_retained": true,
+    "source_snapshot_real_user_account_reconciliation_performed": false
+  },
+  "implemented": {
+    "source_normalizer": "existing runtime30/net_accounting.js snapshot and activity called read-only",
+    "arithmetic": "independent BigInt USD/quantity fixed 8-digit fractional precision; reject excess source precision",
+    "native_crosschecks": [
+      "unique account identity and currency",
+      "two broker snapshots cash + positions = NAV",
+      "FILL partial vs cumulative order qty/status/avg price",
+      "order symbols, time and side",
+      "cash changes and fees independent gross basis",
+      "long stock/ETF and crypto USD spot only",
+      "terminal instrument quantities",
+      "unique activity IDs, page cursor, page exhaustion",
+      "external flows and costs not double counted"
+    ],
+    "transport": {
+      "origin_allowlist": [
+        "https://paper-api.alpaca.markets",
+        "https://api.alpaca.markets"
+      ],
+      "HTTP_methods": [
+        "GET"
+      ],
+      "redirects": "DENIED",
+      "endpoint_allowlist": [
+        "/v2/account",
+        "/v2/positions",
+        "/v2/orders",
+        "/v2/account/activities",
+        "/v2/assets/{symbol}"
+      ],
+      "credentials": "local environment only; not persisted; no chat upload",
+      "source_mode": "explicit PAPER or LIVE read only",
+      "time_window": "two checkpoints; no reconstruction of missing historic baseline",
+      "source_confirmed_pagination": "activity page_token checked, order 500 limit causes STOP"
+    },
+    "confidentiality": {
+      "local_output_permissions": "0600",
+      "file_creation_exclusive": true,
+      "contains_raw_account_data_only_on_private_local_storage": true,
+      "output_report_prints_account_id": false,
+      "does_not_log_API_keys": true,
+      "sha256_of_local_file_not_source_authentication": true
+    },
+    "no_native_original_replay_patch": true,
+    "future_data_not_assumed_known_before_receipt": true,
+    "captured_snapshots_not_at_market_synchronized_timestamp": true,
+    "direct_broker_receipt_attestation_done_in_CI": false,
+    "option_executable_contract_not_supported": true,
+    "broker_fill_quote_at_order_time_not_available": true,
+    "causal_admissions_after_partial_knowAt_not_verified": true
+  },
+  "original_C24_economic_gate": {
+    "financial_evidence_before_C25": {
+      "PASS": 6,
+      "FAIL": 1,
+      "BLOCKED": 10
+    },
+    "M9_native_OHLC_firstcross_equivalence": "REFUTED_C21",
+    "any_authenticated_real_broker_fills_provided": false,
+    "per_asset_hour_prospective_net_edge_certified": false,
+    "CASH_comparison_real": false,
+    "original_strategy_real_baseline": false,
+    "autonomous_capital_compound_comparison": false,
+    "WEAK_population_EA_EU_independently_bounded": false,
+    "conclusion": "N9S_NO_GO_UNCHANGED",
+    "data_source_limitation": "Render authorized workspace returned literal null services, no PostgreSQL/KV; connected Alpaca plugin data market only and cannot call user-private Trading API"
+  },
+  "budgets": {
+    "new_market_seeds": 0,
+    "new_signals": 0,
+    "new_economic_accounts": 0,
+    "new_real_broker_account_receipts": 0,
+    "M10_final_opened": 0,
+    "M10_final_still_sealed": 3200,
+    "paper_orders": 0,
+    "live_orders": 0,
+    "Render_mutations": 0,
+    "deployments": 0,
+    "merges": 0,
+    "recursive_optimization_starts": 0
+  },
+  "required_for_actual_C25_gate": [
+    "Take read-only baseline and terminal actual Alpaca account/position snapshots from an authorized local execution environment",
+    "Export all order and activity pages with verified pagination, including fees and partial fills, no preexisting open orders or document that state separately",
+    "Record causally known quote and fill receipts as observed (broker feed/order stream), not fill timestamp alone",
+    "Validate external cost invoices and their NAV treatment; account for all flows; complete settlement and reconciliation",
+    "Authenticate provider origin independently, preserve exact source bytes privately and evaluate actual opportunity rejection set",
+    "Keep original C21 OHLC model non-equivalent; do not compare C22 variants as executed when no orders for them"
+  ],
+  "verdict": "SOURCE_AND_ENGINEERING_PASS__BROKER_FINANCIAL_AND_FWN9_NO_GO"
+}
