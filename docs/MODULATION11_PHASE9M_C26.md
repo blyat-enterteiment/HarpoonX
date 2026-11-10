@@ -61,7 +61,7 @@ If no bundle is supplied, C26 returns `BLOCKED_CAUSAL_BID_ASK_AND_BROKER_ORDER_R
 
 Source code: `runtime30/fwn9_c26_causal_quote_fill_bridge.cjs`. CLI: `tools/fwn9_c26_readonly_cli.cjs`. Tests: `tools/fwn9_c26_causal_quote_fill_bridge_test.cjs`.
 
-C26 includes 27 deterministic adversarial controls: original partial fill/order identity; quote known before decision; stale/future quote; same-millisecond but different nanosecond ordering; duplicate receipt/quote; wrong side/feed; IEX-versus-SIP distinction; insufficient displayed size not confused with impossibility or certainty; missing receipt/decision fail-closed; CSV/JSON input invalid; local CLI 0600 exclusive report and no M10 holdout path.
+C26 includes 27 deterministic adversarial controls: original partial fill/order identity; quote known before decision; stale/future quote; same-millisecond but different nanosecond ordering; duplicate receipt/quote; wrong side/feed; IEX-versus-SIP distinction; insufficient displayed size not confused with impossibility or certainty; missing receipt/decision fail-closed; JSON de entrada inválido; local CLI 0600 exclusive report and no M10 holdout path.
 
 CI also runs 176 existing C16–C25 tests including C16 independent Decimal-46 accounting and original C15 null expectation inputs. Total: **203 test cases**. These are source-contract tests; CI uses no account credentials, no broker GET, no market seeds, no new economic trial accounts. No source-level existing economic code is changed.
 
