@@ -56,7 +56,7 @@ jobs:
           assert not list(Path('evidence').rglob('final/*.json.gz'))
           print('C27_M9_FROZEN_AND_M10_3200_FINAL_SEALED_PASS')
           PY
-      - name: C27 28 prebar source reservation stop TP and capture-time falsifiers
+      - name: C27 33 prebar source reservations ex-ante financing stop TP and capture-time falsifiers
         run: node --test tools/fwn9_c27_prebar_state_test.cjs
       - name: C27 25 append-only persistence restart calendar and two-writer falsifiers
         run: node --test tools/fwn9_c27_prebar_journal_test.cjs
@@ -99,4 +99,31 @@ jobs:
               assert p['population_C15_screens'][s]['expected_A_upper'] is None
               assert p['population_C15_screens'][s]['expected_U_upper'] is None
           print('C27_C15_OLD_POPULATION_BOUNDS_STILL_NULL_NO_GO')
+          PY
+      - name: Complete C27 source-evidence gate remains N9-S NO_GO after 275 tests
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('evidence/modulation11/fwn9_phase9m_c27_evidence.json').read_text())
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c27_protocol.json').read_text())
+          assert d['validation']['C27_prebar_financing_stop_target_and_candidate_tests']==33
+          assert d['validation']['C27_append_only_private_restart_lock_calendar_tests']==25
+          assert d['validation']['C27_original_runtime_quant_observation_adapter_tests']==8
+          assert d['validation']['C27_private_cli_end_to_end_tests']==6
+          assert d['validation']['base_original_C16_to_C26_unit_tests']==203
+          assert d['validation']['total_executed_source_contract_tests']==275
+          assert d['validation']['total_passed']==275
+          assert d['validation']['total_failed']==0
+          assert d['prebar_contract']['original_market_signal_generator_overall_completeness_proved'] is False
+          assert d['journal']['externalTrustedClockVerified'] is False
+          assert d['journal']['marketTradeAndOrderGatewayConnected'] is False
+          assert d['research_comparison']['familywise_OOS_fills_realized'] is False
+          assert d['verdict']['N9S']=='NO_GO'
+          assert d['verdict']['C27_full_original_native_operational_prebar_capture']=='BLOCKED_NO_LIVE_INSTRUMENTED_SOURCE'
+          assert d['budget']['M10FinalOpened']==0
+          assert d['budget']['M10FinalSealed']==3200
+          assert d['budget']['newPaperOrders']==0 and d['budget']['newLiveOrders']==0
+          assert p['success']['N9S']=='NO_GO'
+          print('C27_275_RESTART_PREBAR_PROOF_PASS_NO_REAL_FILLS_NO_GO_HOLDOUT_3200_SEALED')
           PY
