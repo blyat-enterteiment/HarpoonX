@@ -6,7 +6,7 @@ const R=require("../runtime30/ultimate_reservations.js");
 const S=require("../runtime30/fwn9_c27_prebar_state.cjs");
 const DAY=Date.UTC(2026,10,6,14,30);
 const BARS=[DAY,DAY+300000,DAY+600000];
-const SOURCE_HASH="a".repeat(64);
+const SOURCE_HASH="9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab";
 function manifest({mode="ENGINEERING_REPLAY"}={}){
  return {runId:"C27_SYNTHETIC_ENGINEERING_ONLY",mode,
   expectedBars:[...BARS],generatorHash:SOURCE_HASH};
