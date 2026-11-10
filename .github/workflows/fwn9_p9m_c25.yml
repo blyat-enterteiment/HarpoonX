@@ -50,7 +50,7 @@ jobs:
           PY
       - name: 24 C25 exact decimal broker-export/order-activity and negative tests
         run: node --test tools/fwn9_c25_broker_export_ingest_test.cjs
-      - name: C25 GET-only Alpaca Trading API private capture mocked offline integration
+      - name: C25 14 GET-only Alpaca Trading API private capture mocked offline integration
         run: node --test tools/fwn9_c25_alpaca_readonly_exporter_test.cjs
       - name: Prior C24-C16 causal safety and original ledgers
         run: |
@@ -100,14 +100,14 @@ jobs:
           assert not list(Path('evidence').rglob('final/*.json.gz'))
           print('C25_SOURCE_SHA_M10_HOLDOUT_IMMUTABLE_PASS')
           PY
-      - name: Evidence file binds 175 passing source-contract tests, NO economic GO
+      - name: Evidence file binds 176 passing source-contract tests, NO economic GO
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           p=json.loads(Path('research/modulation11/fwn9_phase9m_c25_protocol.json').read_text())
           e=json.loads(Path('evidence/modulation11/fwn9_phase9m_c25_evidence.json').read_text())
-          assert e['validation']['all_scoped_regression_tests']==175
+          assert e['validation']['all_scoped_regression_tests']==176
           assert e['validation']['passed']==175 and e['validation']['failed']==0
           assert e['validation']['actual_Alpaca_private_account_GET_performed_in_this_chat'] is False
           assert e['validation']['original_c15_population_ea_upper'] is None
@@ -119,5 +119,5 @@ jobs:
           assert e['implemented']['transport']['HTTP_methods']==['GET']
           assert e['verdict']=='SOURCE_AND_ENGINEERING_PASS__BROKER_FINANCIAL_AND_FWN9_NO_GO'
           assert p['acceptance']['N9S']=='NO_GO'
-          print('C25_175_BROKER_SOURCE_CONTRACT_TESTS_PASS_N9S_FINANCIAL_BLOCKED')
+          print('C25_176_BROKER_SOURCE_CONTRACT_TESTS_PASS_N9S_FINANCIAL_BLOCKED')
           PY
