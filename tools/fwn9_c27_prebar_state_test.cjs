@@ -218,3 +218,29 @@ test("C27 unknown top/nested fields cannot smuggle future OHLC into prebar frame
   x.positions[0].stop.next_bar_close=101;
  }),manifest()),/C27_UNDECLARED_STOP_FIELD/);
 });
+
+test("C27 each original funded IOC reservation needs an ex-ante capacity receipt",()=>{
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.admissionDecisions=[];
+ }),manifest()),/C27_COMPLETE_SOURCE_ADMISSION_CAPACITY_PROOF/);
+});
+test("C27 original decision 12pct gross/0.25pct risk and physical cash are admission-only caps",()=>{
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.admissionDecisions[0].equityAtDecisionUsd=1000;
+ }),manifest()),/C27_ORIGINAL_DECISION_RISK_GROSS_CASH_CAP/);
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.admissionDecisions[0].cashAvailableAtDecisionUsd=100;
+ }),manifest()),/C27_ORIGINAL_DECISION_RISK_GROSS_CASH_CAP/);
+});
+test("C27 cannot justify capital with equity known after reservation decision",()=>{
+ A.throws(()=>S.validatePrebar(mutate(1,x=>{
+  x.admissionDecisions[0].knownAt=x.admissionDecisions[0].decisionAt+1;
+ }),manifest()),/C27_ADMISSION_CAPACITY_NOT_KNOWN_AT_DECISION/);
+});
+test("C27 cannot silently revise the previously certified decision equity on next bar",()=>{
+ const f=F.sample(),before=S.validatePrebar(f.frames[1],manifest());
+ const x=mutate(2,y=>{y.admissionDecisions[0].equityAtDecisionUsd=19500;});
+ const after=S.validatePrebar(x,manifest());
+ A.throws(()=>S.continuity(before,after),
+  /C27_ADMISSION_EXANTE_CAPACITY_RESTATED/);
+});
