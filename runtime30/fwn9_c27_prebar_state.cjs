@@ -155,7 +155,7 @@ function validatePrebar(input,manifest){
   need(typeof id==="string"&&id.length>0&&!enumerated.has(id),"DUPLICATE_ENUMERATED_ID");
   enumerated.add(id);
  }
- const outcomes=new Set(),counts={RESERVED:0,REFUSED:0,NO_FILL:0,NO_SIGNAL:0};
+ const outcomes=new Set(),counts={RESERVED:0,REFUSED:0,NO_FILL:0,NO_SIGNAL:0,OBSERVED_ONLY:0};
  const booked=new Map(book.reservations.map(x=>[x.id,x]));
  for(const row of c.outcomes){
   obj(row,"OPPORTUNITY");
