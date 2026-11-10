@@ -176,3 +176,36 @@ test("C27 local SHA journaling cannot certify complete broker source coverage",(
  A.equal(r.canOpenM10Final,false);
  A.equal(r.originalM10FinalSealed,undefined);
 }));
+
+test("C27 original M9 calendar expands to all 78 five-minute bars per source session",()=>{
+ const day=F.BARS[0],close=day+78*300000;
+ const r=J.originalM9Grid([{open:day,close}]);
+ A.equal(r.expectedBars.length,78);
+ A.equal(r.expectedBars[0],day);
+ A.equal(r.expectedBars.at(-1),close-300000);
+ A.equal(r.noMarketSeedOrBarOHLCRead,true);
+ A.equal(r.accountPolicySignalDataConsumed,false);
+});
+test("C27 missing session or shortened 77-bar day cannot be misrepresented",()=>{
+ const day=F.BARS[0];
+ A.throws(()=>J.originalM9Grid([]),/C27J_ORIGINAL_M9_SESSION_LIST/);
+ A.throws(()=>J.originalM9Grid([{open:day,close:day+77*300000}]),
+  /C27J_ORIGINAL_M9_SESSION_78_BARS/);
+});
+test("C27 adjacent cross-process exclusive lock blocks simultaneous writer",()=>temp(dir=>{
+ start(dir);
+ const lock=dir+".write-lock";
+ fs.writeFileSync(lock,"MANUAL_RECOVERY_REQUIRED",{flag:"wx",mode:0o600});
+ A.throws(()=>J.append(dir,F.sample().frames[0]),/EEXIST/);
+ A.equal(J.verifyJournal(dir).verifiedFrames,0);
+ fs.unlinkSync(lock);
+ A.equal(J.append(dir,F.sample().frames[0]).verifiedFrames,1);
+}));
+test("C27 failed append releases exclusive lock without silently storing corrupt frame",()=>temp(dir=>{
+ start(dir);
+ const bad=F.sample().frames[0];
+ bad.currentOHLC={h:999,l:1};
+ A.throws(()=>J.append(dir,bad),/C27_CURRENT_BAR_DATA_FORBIDDEN/);
+ A.equal(fs.existsSync(dir+".write-lock"),false);
+ A.equal(J.verifyJournal(dir).verifiedFrames,0);
+}));
