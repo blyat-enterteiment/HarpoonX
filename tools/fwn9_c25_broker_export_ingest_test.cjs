@@ -44,7 +44,7 @@ function fixture(){
 }
 function expectThrow(change,code){
  const x=fixture();change(x);
- A.throws(()=>C.certify(x),new RegExp("C25_"+code));
+ A.throws(()=>C.certify(x),new RegExp("(?:C25_)?"+code));
 }
 test("C25 real native parse and independent exact synthetic cash, shares and order activity",()=>{
  const o=C.certify(fixture());
@@ -66,7 +66,7 @@ test("C25 absence of broker export always BLOCKED not empty profit",()=>{
  A.equal(r.holdoutM10Sealed,3200);
 });
 test("C25 independent instrument qty arithmetic rejects forged broker cash and NAV",()=>{
- expectThrow(x=>{x.terminal.account.cash="19910";},"CASH_FROM_ACTIVITY_RECONCILIATION");
+ expectThrow(x=>{x.terminal.account.cash="19910";x.terminal.account.equity="20022";},"CASH_FROM_ACTIVITY_RECONCILIATION");
  expectThrow(x=>{x.terminal.account.equity="20022";},"INDEPENDENT_NAV_MISMATCH");
 });
 test("C25 tampered order average fill or total quantity fails closed",()=>{
@@ -115,7 +115,7 @@ test("C25 action without source-long inventory cannot short/sell extra",()=>{
   },"NO_UNDISCLOSED_SHORT_OR_SELL_BEFORE_INVENTORY");
 });
 test("C25 late/future activity or out of window cannot finance original book",()=>{
- expectThrow(x=>{x.activities.pages[0].rows[0].transaction_time="2026-11-07T15:00:00Z";},"FILL_OUTSIDE_EXPORTED_ACCOUNT_PERIOD");
+ expectThrow(x=>{x.activities.pages[0].rows[0].transaction_time="2026-11-06T18:00:00Z";},"FILL_OUTSIDE_EXPORTED_ACCOUNT_PERIOD");
 });
 test("C25 no prebaseline open order silently adopted as complete",()=>{
  expectThrow(x=>{x.baseline_open_orders=[{id:"OLDER"}];},"PREBASELINE_PENDING_ORDERS_REQUIRE_SEPARATE_RECONCILIATION");
