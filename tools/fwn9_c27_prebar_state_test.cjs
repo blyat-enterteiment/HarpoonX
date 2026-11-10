@@ -227,6 +227,7 @@ test("C27 each original funded IOC reservation needs an ex-ante capacity receipt
 test("C27 original decision 12pct gross/0.25pct risk and physical cash are admission-only caps",()=>{
  A.throws(()=>S.validatePrebar(mutate(1,x=>{
   x.admissionDecisions[0].equityAtDecisionUsd=1000;
+  x.admissionDecisions[0].cashAvailableAtDecisionUsd=1000;
  }),manifest()),/C27_ORIGINAL_DECISION_RISK_GROSS_CASH_CAP/);
  A.throws(()=>S.validatePrebar(mutate(1,x=>{
   x.admissionDecisions[0].cashAvailableAtDecisionUsd=100;
@@ -239,7 +240,8 @@ test("C27 cannot justify capital with equity known after reservation decision",(
 });
 test("C27 cannot silently revise the previously certified decision equity on next bar",()=>{
  const f=F.sample(),before=S.validatePrebar(f.frames[1],manifest());
- const x=mutate(2,y=>{y.admissionDecisions[0].equityAtDecisionUsd=19500;});
+ const x=mutate(2,y=>{y.admissionDecisions[0].equityAtDecisionUsd=19500;
+  y.admissionDecisions[0].cashAvailableAtDecisionUsd=19500;});
  const after=S.validatePrebar(x,manifest());
  A.throws(()=>S.continuity(before,after),
   /C27_ADMISSION_EXANTE_CAPACITY_RESTATED/);
