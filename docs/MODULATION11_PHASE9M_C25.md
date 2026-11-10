@@ -39,3 +39,21 @@ El contrato de orden/actividad puede verificarse con datos reales solo cuando el
 Acceso genuino al broker (sin exponer las claves aquí), precios y cantidades de fills verificables con recibos de origen, comisiones y costes, NAV/caja/posiciones en dos checkpoints, conjunto de oportunidades rechazadas, baseline original verdaderamente comparable y seis variantes congeladas evaluadas prospectivamente. La equivalencia OHLC STOP-FIRST frente al primer cruce está refutada en C21 y no se repara por una exportación contable.
 
 **Prohibido promover esta fase a GO financiero.** No hay nuevos seeds, señales, cuentas económicas, órdenes PAPER/LIVE, merges, deploys ni reinicios de búsqueda recursiva. Las 3.200 cuentas finales M10 permanecen selladas.
+
+## Verificación C25 R2 y documentación de origen
+
+El cliente local sigue exclusivamente los endpoints oficiales de Alpaca Trading API: `GET /v2/account`, `GET /v2/positions`, `GET /v2/orders`, `GET /v2/account/activities` y la metadata GET por instrumento. Las órdenes GET se limitan a 500, por lo que una respuesta exactamente en ese límite se rechaza como evidencia de paginación no demostrada. En actividades se exige `page_token` del último ID y página final incompleta.
+
+Documentación oficial usada al construir los contratos:
+
+- https://docs.alpaca.markets/us/reference/getallorders-1
+- https://docs.alpaca.markets/us/reference/getaccountactivities-2
+- https://docs.alpaca.markets/us/v1.4.2/docs/account-activities
+
+El capturador no ejecuta nada por sí solo: requiere claves en el entorno local y la invocación expresa de baseline y finish. No se han probado cuentas reales ni se autenticaron actividades privadas del usuario en ChatGPT. La CI utiliza mocks de transporte y recibos sintéticos marcados exclusivamente como casos de ingeniería.
+
+Validación final esperada: **176 pruebas** en la integración C25 (24 de importador, 14 de exportación segura y 138 de regresión C16–C24) además de conciliación independiente Decimal-46. Esta cifra certifica contratos de software y matemáticas de alcance limitado, **no** 176 comprobaciones de rentabilidad ni una certificación económica.
+
+Controles de seguridad añadidos: impedir que el modo de origen use propiedades heredadas del objeto y que la ruta de metadatos contenga `..` o sus variantes codificadas. Los precios fraccionarios cuya precisión supere ocho decimales se rechazan con error explícito, nunca se redondean de forma silenciosa.
+
+El resultado del modelo WEAK original continúa N9-S `NO_GO`, con las 3.200 cuentas finales selladas. No se creó ninguna señal ni cuenta económica; el ejecutor histórico STOP-FIRST no se ha cambiado y permanece matemáticamente distinto del primer cruce de ocho subpasos.
