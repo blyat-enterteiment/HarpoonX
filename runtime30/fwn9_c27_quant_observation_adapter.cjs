@@ -51,7 +51,9 @@ function fromOriginalObservation(input,observation,{barStart,universe,
    Date.parse(row.known_at)<=input.now,
    "FEATURE_PREBAR_KNOWN_AND_COMPLETE");
   covered.set(row.id,{...requested.get(row.id),
-   knownAt:Date.parse(row.known_at),
+   // Full feature decision is only evaluated/observable by input.now;
+   // never claim an earlier acceptance from the feature row timestamp.
+   knownAt:input.now,
    outcome:"OBSERVED_ONLY",reason:"NOT_ROUTED_N9S_NO_GO"});
  }
  for(const [id,reason] of Object.entries(observation.rejected)){
