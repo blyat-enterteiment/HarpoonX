@@ -31,7 +31,7 @@ jobs:
           node --check runtime30/fwn9_c26_causal_quote_fill_bridge.cjs
           node --check tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
           node --check tools/fwn9_c26_readonly_cli.cjs
-      - name: C26 24 synthetic engineering causal quote, fill and offline CLI checks
+      - name: C26 27 synthetic engineering causal quote, fill, nanosecond and offline CLI checks
         run: node --test tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
       - name: C25 source-native activity and GET-only private export regression
         run: |
@@ -83,4 +83,25 @@ jobs:
           assert p['decision']['N9S']=='NO_GO'
           assert not list(Path('evidence').rglob('final/*.json.gz'))
           print('C26_N9S_NO_GO_SOURCE_M10_HOLDOUT_LOCK_PASS')
+          PY
+      - name: Evidence and protocol financial GO stay BLOCKED after 203 passing scoped tests
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          evidence=json.loads(Path('evidence/modulation11/fwn9_phase9m_c26_evidence.json').read_text())
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c26_protocol.json').read_text())
+          assert evidence['engineering_result']['total_unit_and_regression_tests']==203
+          assert evidence['engineering_result']['tests_passed']==203
+          assert evidence['engineering_result']['tests_failed']==0
+          assert evidence['mathematical_and_operational_claim']['quote_millisecond_loss_prevented_by_nanosecond_BigInt']
+          assert evidence['source_provenance']['broker_origin_independently_authenticated'] is False
+          assert evidence['fail_closed_gate']['N9S']=='NO_GO'
+          assert evidence['fail_closed_gate']['realized_broker_fill_and_quote_provenance']=='BLOCKED'
+          assert evidence['fail_closed_gate']['net_OOS_vs_CASH_and_original']=='BLOCKED'
+          assert evidence['budget']['M10_final_accounts_sealed']==3200
+          assert evidence['budget']['opened_M10_final_accounts']==0
+          assert evidence['budget']['paper_orders']==0 and evidence['budget']['live_orders']==0
+          assert p['decision']['N9S']=='NO_GO'
+          print('C26_203_PASS_24_NANOSECOND_CAUSAL_TESTS_BROKER_PROVENANCE_UNVERIFIED_NO_GO')
           PY
