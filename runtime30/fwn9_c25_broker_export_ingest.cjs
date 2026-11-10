@@ -169,6 +169,11 @@ function ordersCrossCheck(orders,filledByOrder,from,to){
   const qty=dec(o.qty,"ORDER_QTY",{positive:true});
   const filled=dec(o.filled_qty,"ORDER_FILLED_QTY");
   need(filled<=qty,"ORDER_OVERFILL");
+  if(o.status==="filled")need(filled===qty,"ORDER_FILLED_STATUS_QUANTITY");
+  if(o.status==="partially_filled")need(filled>0n&&filled<qty,
+   "ORDER_PARTIAL_STATUS_QUANTITY");
+  if(["new","accepted","rejected"].includes(o.status))
+   need(filled===0n,"ORDER_NONFILLED_STATUS_QUANTITY");
   const submitted=time(o.submitted_at,"ORDER_SUBMITTED_AT");
   need(submitted>=from&&submitted<=to,"ORDER_PREBASELINE_OR_POSTTERMINAL");
   const rows=filledByOrder.get(id)||[];
