@@ -103,15 +103,24 @@ function auditCall({rows,book,asOf,selectedPlugins,universe,optionUnderlyings=[]
   selectedPlugins.flatMap(p=>optionUnderlyings.map(s=>p.id+"|"+s)):[];
  const optionActual=rows.filter(r=>r.site==="OPTIONS_UNDERLYING_PRE_FILTERS")
   .map(r=>r.pluginId+"|"+r.symbol);
- const featureExpected=(book==="equity"||book==="etf")?
-  universe.filter(a=>a.book!=="crypto").map(a=>a.symbol):[];
+ const featureExpected=universe.filter(a=>a.book!=="crypto").map(a=>a.symbol);
  const featureActual=rows.filter(r=>r.site==="FEATURE_PRE_QUOTE")
   .map(r=>r.symbol);
  const same=(a,b)=>a.length===b.length&&
    new Set(a).size===a.length&&new Set(b).size===b.length&&
    a.every(x=>new Set(b).has(x));
+ // Native options() can call features() again only after its underlying
+ // gates succeed. Its zero-or-more complete passes are not contract fills.
+ const featureRounds=book==="options"&&featureExpected.length>0?
+  featureActual.length/featureExpected.length:
+  (book==="equity"||book==="etf")?1:0;
+ const featureComplete=Number.isInteger(featureRounds)&&
+  featureActual.length===featureRounds*featureExpected.length&&
+  Array.from({length:featureRounds},(_,i)=>
+   same(featureExpected,featureActual.slice(i*featureExpected.length,
+    (i+1)*featureExpected.length))).every(Boolean);
  const siteComplete=same(expected,actualPairs)&&
-  same(optionExpected,optionActual)&&same(featureExpected,featureActual);
+  same(optionExpected,optionActual)&&featureComplete;
  let prior=0,consistent=true;
  for(const [i,r] of rows.entries()){
   if(!r||r.schema!==SCHEMA||r.book!==book&&
@@ -146,6 +155,7 @@ function auditCall({rows,book,asOf,selectedPlugins,universe,optionUnderlyings=[]
   missingNativePairs:expected.filter(x=>!actualSet.has(x)),
   unexpectedNativePairs:actualPairs.filter(x=>!expectedSet.has(x)),
   nativeOptionUnderlyingScopeComplete:same(optionExpected,optionActual),
+  nativeSourceFeaturePassesObserved:featureRounds,
   optionsEvaluatedPerContract:false,
   conditionalWindowProjections:projections,
   c28FrozenSixPolicyIdentityAndExecutionEquivalent:false,
