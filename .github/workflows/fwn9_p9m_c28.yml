@@ -6,9 +6,11 @@ on:
       - 'runtime30/fwn9_c28_source_obligations.cjs'
       - 'runtime30/fwn9_c28_source_tap_archive.cjs'
       - 'runtime30/fwn9_c28_one_book_prospective_comparator.cjs'
+      - 'runtime30/fwn9_c28_external_anchor.cjs'
       - 'tools/fwn9_c28_source_obligations_test.cjs'
       - 'tools/fwn9_c28_source_tap_archive_test.cjs'
       - 'tools/fwn9_c28_prospective_comparator_test.cjs'
+      - 'tools/fwn9_c28_external_anchor_test.cjs'
       - 'research/modulation11/fwn9_phase9m_c28_protocol.json'
       - 'docs/MODULATION11_PHASE9M_C28.md'
       - 'evidence/modulation11/fwn9_phase9m_c28_evidence.json'
@@ -34,9 +36,11 @@ jobs:
           node --check runtime30/fwn9_c28_source_obligations.cjs
           node --check runtime30/fwn9_c28_source_tap_archive.cjs
           node --check runtime30/fwn9_c28_one_book_prospective_comparator.cjs
+          node --check runtime30/fwn9_c28_external_anchor.cjs
           node --check tools/fwn9_c28_source_obligations_test.cjs
           node --check tools/fwn9_c28_source_tap_archive_test.cjs
           node --check tools/fwn9_c28_prospective_comparator_test.cjs
+          node --check tools/fwn9_c28_external_anchor_test.cjs
           python - <<'PY'
           import json,hashlib
           from pathlib import Path
@@ -55,8 +59,10 @@ jobs:
         run: node --test tools/fwn9_c28_source_obligations_test.cjs
       - name: C28 12 durable source-tap sidecar and restart adversarial checks
         run: node --test tools/fwn9_c28_source_tap_archive_test.cjs
-      - name: C28 15 one-funded-book prospective CASH-original comparison gates
+      - name: C28 18 one-funded-book prospective CASH-original comparison gates
         run: node --test tools/fwn9_c28_prospective_comparator_test.cjs
+      - name: C28 eight Ed25519 pinned independent archive integrity checks
+        run: node --test tools/fwn9_c28_external_anchor_test.cjs
       - name: Regression C27 source prebar and immutable/private journal
         run: |
           node --test tools/fwn9_c27_prebar_state_test.cjs
