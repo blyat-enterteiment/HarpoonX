@@ -11,6 +11,8 @@ on:
       - 'tools/fwn9_c28_source_tap_archive_test.cjs'
       - 'tools/fwn9_c28_prospective_comparator_test.cjs'
       - 'tools/fwn9_c28_external_anchor_test.cjs'
+      - 'tools/fwn9_c28_readonly_cli.cjs'
+      - 'tools/fwn9_c28_readonly_cli_test.cjs'
       - 'research/modulation11/fwn9_phase9m_c28_protocol.json'
       - 'docs/MODULATION11_PHASE9M_C28.md'
       - 'evidence/modulation11/fwn9_phase9m_c28_evidence.json'
@@ -41,6 +43,8 @@ jobs:
           node --check tools/fwn9_c28_source_tap_archive_test.cjs
           node --check tools/fwn9_c28_prospective_comparator_test.cjs
           node --check tools/fwn9_c28_external_anchor_test.cjs
+          node --check tools/fwn9_c28_readonly_cli.cjs
+          node --check tools/fwn9_c28_readonly_cli_test.cjs
           python - <<'PY'
           import json,hashlib
           from pathlib import Path
@@ -63,6 +67,8 @@ jobs:
         run: node --test tools/fwn9_c28_prospective_comparator_test.cjs
       - name: C28 eight Ed25519 pinned independent archive integrity checks
         run: node --test tools/fwn9_c28_external_anchor_test.cjs
+      - name: C28 six private operational init/append/verify coverage CLI tests
+        run: node --test tools/fwn9_c28_readonly_cli_test.cjs
       - name: Regression C27 source prebar and immutable/private journal
         run: |
           node --test tools/fwn9_c27_prebar_state_test.cjs
