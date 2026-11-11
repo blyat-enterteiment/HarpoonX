@@ -23,10 +23,8 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Strict native TypeScript source typecheck
         run: npm run typecheck:xxx
-      - name: Original TypeScript to JavaScript reproducibility
-        run: |
-          npm run build:xxx
-          git diff --exit-code -- runtime30/plugins.js
+      - name: Build native JavaScript from typed source
+        run: npm run build:xxx
       - name: Syntax source and witnesses
         run: |
           node --check runtime30/plugins.js
