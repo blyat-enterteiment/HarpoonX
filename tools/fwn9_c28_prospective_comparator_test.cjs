@@ -122,3 +122,16 @@ test("C28 no zero-cost fake outperformance if original and cash blocks absent",(
  A.equal(r.FWN9FinancialGo,undefined);
  A.equal(r.N9S,"NO_GO");
 });
+
+test("C28 initial capital cannot silently start a separate 20k normalized account",()=>{
+ rejects(p=>{p[0].beginningEquityUsd=50000;},
+  "ORIGINAL_FROZEN_20000_INITIAL_ACCOUNT_CAPITAL");
+});
+test("C28 a claimed economic gain without any fill/fee provenance cannot appear",()=>{
+ rejects(p=>{p[0].sourceReceiptDigests=[];},
+  "TRADED_GROSS_GAIN_WITHOUT_ANY_SOURCE_FILL_RECEIPT");
+});
+test("C28 CASH arm must not carry alleged broker strategy fills",()=>{
+ rejects(p=>{p[0].arm="CASH";},
+  "CASH_CONTROL_MUST_NOT_USE_TRADING_FILLED_ORDERS");
+});
