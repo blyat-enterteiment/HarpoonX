@@ -84,6 +84,12 @@ function auditCall({rows,book,asOf,selectedPlugins,universe,optionUnderlyings=[]
   universe.every(a=>a&&typeof a.symbol==="string"&&BOOKS.has(a.book))&&
   new Set(universe.map(a=>a.symbol)).size===universe.length,
   "SELECTED_NATIVE_CATALOG");
+ const actualCodeSha=sourceHash();
+ need(rows.every(r=>r&&r.source==="ORIGINAL_PLUGINS_SOURCE_SITE"&&
+  r.sourceFileSha256===actualCodeSha&&
+  r.sourceInvocationObserved===true&&
+  r.sourceKnownBeforeRegisteredBarProved===false&&
+  r.brokerFillObserved===false),"SOURCE_ORIGINAL_CODE_AND_NOT_FINANCIAL_EVIDENCE");
  const scope=rows.filter(r=>r.site==="EVALUATE_SOURCE_BEFORE_FEATURES");
  need(scope.length===1&&rows[0]===scope[0]&&
   scope[0].pluginId===null&&scope[0].symbol===null,
