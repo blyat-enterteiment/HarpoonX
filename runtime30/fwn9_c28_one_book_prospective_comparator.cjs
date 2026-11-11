@@ -39,6 +39,8 @@ function assess({sourcePanel,brokerBundle=null,periods=[],
    "C26_REAL_ACCOUNT_RECONCILIATION_REQUIRED");
  }
  const names=new Set(),all=[],forCompound=[];
+ if(periods.length>0)need(periods[0].beginningEquityUsd===20000,
+  "ORIGINAL_FROZEN_20000_INITIAL_ACCOUNT_CAPITAL");
  let id=null,prior=-1,cashLog=0;
  const counts=Object.fromEntries(ARMS.map(x=>[x,{
   completedBlocks:0,netLogSum:0,netEconomicPnlUsd:0,
@@ -80,6 +82,11 @@ function assess({sourcePanel,brokerBundle=null,periods=[],
    "SINGLE_BOOK_FLOW_AND_FEES");
   need(r.ledgerReconciled===true&&r.costCoverageComplete===true,
    "UNVERIFIED_COST_COVERAGE");
+  if(label!=="CASH"&&gross!==0)
+   need(r.sourceReceiptDigests.length>0,
+    "TRADED_GROSS_GAIN_WITHOUT_ANY_SOURCE_FILL_RECEIPT");
+  if(label==="CASH")need(r.sourceReceiptDigests.length===0,
+   "CASH_CONTROL_MUST_NOT_USE_TRADING_FILLED_ORDERS");
   if(i>0){
    need(periods[i-1].knownAt<=a,"NO_REUSE_OF_UNKNOWN_PROCEEDS");
   }
