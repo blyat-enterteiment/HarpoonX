@@ -1,0 +1,101 @@
+name: FWN9 C28 registered-source obligation and one-book prospective diagnostic NO_GO
+on:
+  push:
+    branches: [research/m11-c28-prospective-source-obligation-gate]
+    paths:
+      - 'runtime30/fwn9_c28_source_obligations.cjs'
+      - 'runtime30/fwn9_c28_source_tap_archive.cjs'
+      - 'runtime30/fwn9_c28_one_book_prospective_comparator.cjs'
+      - 'tools/fwn9_c28_source_obligations_test.cjs'
+      - 'tools/fwn9_c28_source_tap_archive_test.cjs'
+      - 'tools/fwn9_c28_prospective_comparator_test.cjs'
+      - 'research/modulation11/fwn9_phase9m_c28_protocol.json'
+      - 'docs/MODULATION11_PHASE9M_C28.md'
+      - 'evidence/modulation11/fwn9_phase9m_c28_evidence.json'
+      - '.github/workflows/fwn9_p9m_c28.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  c28-immutable-prefilter-opportunity-and-economic-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and original frozen M9 source hashes
+        run: |
+          node --check runtime30/fwn9_c28_source_obligations.cjs
+          node --check runtime30/fwn9_c28_source_tap_archive.cjs
+          node --check runtime30/fwn9_c28_one_book_prospective_comparator.cjs
+          node --check tools/fwn9_c28_source_obligations_test.cjs
+          node --check tools/fwn9_c28_source_tap_archive_test.cjs
+          node --check tools/fwn9_c28_prospective_comparator_test.cjs
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          r=json.loads(Path('research/modulation9/registration.json').read_text())
+          for path in ('quant/harpoon_quant/modulation9.py','research/modulation9/protocol.json',
+                       'runtime30/profit8_replay.js','runtime30/ultimate_reservations.js'):
+              assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==r['sources_sha256'][path],path
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c28_protocol.json').read_text())
+          assert p['frozen']['N9S']=='NO_GO'
+          assert p['budget']=={'new_signal_nominations':0,'new_market_seeds':0,'new_economic_trial_accounts':0,'new_broker_paper_orders':0,'new_broker_live_orders':0,'new_deployments':0,'new_merges':0,'new_recursive_optimizer_runs':0,'opened_M10_final_accounts':0,'sealed_M10_final_accounts':3200}
+          assert p['acceptance_gate']['final_economic_certification'] is False
+          assert not list(Path('evidence').rglob('final/*.json.gz'))
+          print('C28_ORIGINAL_SOURCE_HASHES_M10_FINAL_SEALED_NO_GO_PASS')
+          PY
+      - name: C28 20 independent C22 source slot and C27 obligation falsifiers
+        run: node --test tools/fwn9_c28_source_obligations_test.cjs
+      - name: C28 12 durable source-tap sidecar and restart adversarial checks
+        run: node --test tools/fwn9_c28_source_tap_archive_test.cjs
+      - name: C28 15 one-funded-book prospective CASH-original comparison gates
+        run: node --test tools/fwn9_c28_prospective_comparator_test.cjs
+      - name: Regression C27 source prebar and immutable/private journal
+        run: |
+          node --test tools/fwn9_c27_prebar_state_test.cjs
+          node --test tools/fwn9_c27_prebar_journal_test.cjs
+          node --test tools/fwn9_c27_quant_observation_adapter_test.cjs
+          node --test tools/fwn9_c27_prebar_cli_test.cjs
+      - name: Regression C26-C16 fixed original source accounting and clocks
+        run: |
+          node --test tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
+          node --test tools/fwn9_c25_broker_export_ingest_test.cjs
+          node --test tools/fwn9_c25_alpaca_readonly_exporter_test.cjs
+          node --test tools/fwn9_p9m_c24_evidence_closure_test.cjs
+          node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
+          node --test tools/fwn9_c22_session_compound_test.cjs
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+      - name: Regression C17-C21 original WEAK source analytical population math
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.14.1
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c21_archived_prebar_audit.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c18_funded_wealth_dual.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c17_weak_population.py' -q
+      - name: Independent original Decimal46 accounting and C15 NO_GO
+        run: |
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c28_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c28_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c28_c16.log research/modulation9/protocol.json > /tmp/c28_gate.log
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          q=json.loads(Path('/tmp/c28_gate.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert q['N9SAdmission']=='NO_GO'
+          for scenario in ('NOMINAL','STRESS'):
+              assert q['population_C15_screens'][scenario]['expected_A_upper'] is None
+              assert q['population_C15_screens'][scenario]['expected_U_upper'] is None
+          print('C28_ORIGINAL_C15_POPULATION_UNCERTIFIED_NO_GO_PASS')
+          PY
