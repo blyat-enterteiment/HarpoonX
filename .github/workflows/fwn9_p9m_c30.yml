@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - research/m11-c30-study-feasibility
+  pull_request:
+    branches:
+      - research/m11-c29-registered-prospective-bridge
   workflow_dispatch:
 permissions:
   contents: read
