@@ -35,7 +35,7 @@ function originalMethodIdentity(plugins){
 }
 function attach(plugins,{sink,clock=Date.now}={}){
  const hash=originalMethodIdentity(plugins);
- need(!Object.hasOwn(plugins,"c32PrefilterTap")&&
+ need(plugins.c32PrefilterTap===undefined&&
   typeof sink==="function"&&typeof clock==="function",
   "NO_HOOK_OVERWRITE_AND_SINK_REQUIRED");
  let ordinal=0,last=-1;
