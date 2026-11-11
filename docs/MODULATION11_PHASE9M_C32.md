@@ -54,6 +54,28 @@ Por lo tanto `c28FrozenSixPolicyIdentityAndExecutionEquivalent=false`
 sigue siendo una conclusión falsable y honesta. Elevar esa bandera a
 true sin un contrato preregistrado sería selección retrospectiva.
 
+## Enlace inequívoco para una NUEVA versión prospectiva, no retrospectiva
+
+El módulo `runtime30/fwn9_c32_forward_binding.cjs` resuelve la
+ambigüedad de identidad hacia adelante: fija para cada una de las seis
+ventanas el conjunto completo de plugins **nativos actualmente habilitados**
+por libro, los IDs/versiones/parámetros, el universo de activos y las
+huellas del evaluador, coordinador, políticas, salidas y calendario.
+Dos ventanas pueden compartir los mismos plugins, pero forman políticas
+compuestas distintas por su reloj de admisión. Ningún plugin inexistente
+puede atribuirse a una ventana.
+
+`freeze()` rechaza una de las seis familias sin plugin/activo;
+`link()` compara el universo registrado, los plugins habilitados y el
+SHA del código original contra el registro real C32, y rechaza
+cualquier instrumento o plugin agregado/desaparecido. Solo permite
+afirmar **identidad local determinista de una NUEVA definición**.
+
+Esta es una especificación alternativa que **debe ser preregistrada
+externamente antes de resultados**. No puede asignarse a C22 original,
+no cambia ni ejecuta los seis brazos de C29, y no autoriza opciones.
+Los modos PAPER/LIVE y la certificación N9-S siguen bloqueados.
+
 ## Diario durable y pruebas
 
 `runtime30/fwn9_c32_prefilter_journal.cjs` escribe un NDJSON
@@ -69,6 +91,7 @@ Validación:
     npm ci --ignore-scripts --no-audit --no-fund
     npm run typecheck:xxx
     npm run build:xxx
+    node --check runtime30/fwn9_c32_forward_binding.cjs
     node --test tools/fwn9_c32_native_prefilter_test.cjs
     node --test tools/fwn9_c31_native_lineage_witness_test.cjs tools/fwn9_c30_study_feasibility_test.cjs
 
