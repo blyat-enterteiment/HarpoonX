@@ -193,8 +193,8 @@ test("C28 any omitted entire bar source-tap group invalidates complete market pa
   tapsByBar:[taps(0),taps(1)]}),/C28_INCOMPLETE_C27_BAR_SCHEDULE/);
 }));
 test("C28 source tap locally controlled hash cannot independently authenticate broker",()=>{
- const frame=C.verifyFrame({frame:frame(0),registry,calendar:exchange,taps:taps(0)});
- A.equal(frame.originalNativeBrokerReceiptSourceAuthenticated,false);
- A.equal(frame.underlyingGeneratorCoverageBeyondRegisteredSlotsCertified,false);
- A.equal(frame.executableOrdersAllowed,false);
+ const result=C.verifyFrame({frame:frame(0),registry,calendar:exchange,taps:taps(0)});
+ A.equal(result.originalNativeBrokerReceiptSourceAuthenticated,false);
+ A.equal(result.underlyingGeneratorCoverageBeyondRegisteredSlotsCertified,false);
+ A.equal(result.executableOrdersAllowed,false);
 });
