@@ -144,6 +144,7 @@ function auditStudy({plan,blocks,sourceProof}={}){
   quoteTimeAndNAVProofScope:"OFFLINE_CONTRACT_COHERENCE_NOT_BROKER_ATTESTATION",
   externallyVerifiedExchangeAndBrokerSource:false,
   allC27C28ClockSlotsCompleteWithinDeclaredGrid:true,
+  actualC27C28SourceFilesReplayed:sourceProof.originalC27C28FilesActuallyReplayed===true,
   networkAccountActuallyQueriedByThisAudit:false,
   privateSourceOriginVerifiedByPinnedIndependentVerifier:false,
   realProspectiveOutperformanceCertified:false,
