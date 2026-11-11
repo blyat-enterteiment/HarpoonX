@@ -110,3 +110,28 @@ jobs:
               assert d['population_C15_screens'][s]['expected_U_upper'] is None
           print('C29_ORIGINAL_WEAK_POPULATION_AND_HOLDOUT_NO_GO')
           PY
+      - name: Evidence gate: all 381 source/engineering tests, no financial GO or M10 opening
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('evidence/modulation11/fwn9_phase9m_c29_evidence.json').read_text())
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c29_protocol.json').read_text())
+          v=e['engineering_validation']
+          assert v['C29_total_new_tests']==42
+          assert v['original_C16_through_C28_regression_tests']==339
+          assert v['aggregate_focused_suite_cases']==381
+          assert e['preregistration']['cycles_minimum_to_possible_0_025_SIX_FAMILY_HOLM']==8
+          assert e['randomization_math']['pilot_4_cycles_min_exact_one_sided_p']==0.0625
+          assert e['producer_real_readonly_source']['original_native_Journal_class_read_and_export_verified_by_unit_test'] is True
+          assert e['producer_real_readonly_source']['source_current_six_C22_prefilter_evaluations_realized'] is False
+          assert e['source_grid']['complete_4cycle_5min_utc_bars']==55680
+          assert e['financial_block_link']['C25_source_realized_user_account_reads']==0
+          assert e['acceptance']['economic_GO'] is False
+          assert e['acceptance']['original_N9S']=='NO_GO'
+          assert e['acceptance']['net_growth_oos_above_cash_and_original'] is None
+          assert e['budget']=={'new_market_seeds':0,'new_alpha_signals':0,'new_economic_accounts':0,'paper_orders':0,'live_orders':0,'Render_mutations':0,'deployments':0,'merges':0,'optimizer_restarts':0,'M10_final_opened':0,'M10_final_sealed':3200}
+          assert p['acceptance']['new_prospective_real_blocks_evaluated']==0
+          assert p['acceptance']['N9S']=='NO_GO'
+          print('C29_381_ENGINEERING_PASS_NO_AUTHENTICATED_PRIVATE_TRADING_SOURCE_OR_FINANCIAL_GO_M10_SEALED')
+          PY
