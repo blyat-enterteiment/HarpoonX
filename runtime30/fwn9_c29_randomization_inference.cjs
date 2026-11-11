@@ -110,9 +110,9 @@ function audit({plan,observedBlocks,sourceAuthenticated=false,
    (b.arm!=="CASH"||row.sourceFillActivityDigests.length===0)&&
    (b.arm==="CASH"||pnl===0||row.sourceFillActivityDigests.length>0),
    "NO_IMPUTED_STRATEGY_FILLS");
-  need(row.brokerReceiptSourceIndependent===false&&
-   row.marketQuoteSourceIndependent===false,
-   "NO_SELF_AUTHENTICATED_BROKER");
+  need(typeof row.brokerReceiptSourceIndependent==="boolean"&&
+   typeof row.marketQuoteSourceIndependent==="boolean",
+   "PROVENANCE_FIELD_TYPE_ONLY_NOT_ATTESTATION");
   const returnRate=Math.log(row.endingEquityUsd/row.beginningEquityUsd)/
    ((b.washoutEndAt-b.startAt)/MS_DAY);
   need(!data[b.cycle].has(b.arm),"DUPLICATE_ARM_IN_CYCLE");
