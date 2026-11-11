@@ -148,6 +148,9 @@ function auditCall({rows,book,asOf,selectedPlugins,universe,optionUnderlyings=[]
  }
  return {
   schema:"HARPOON_FWN9_C32_NATIVE_TO_C22_CAUSAL_LINEAGE_AUDIT_1",
+  book,sourceAsOf:asOf,
+  sourceUniverseDigest:C27.digest(C28.reg(universe)),
+  selectedNativePluginIds:selectedPlugins.map(p=>p.id).sort(),
   sourceFileSha256:rows[0].sourceFileSha256,
   nativeScopeObserved:true,
   expectedNativePrefilterPairs:expected.length,observedNativePrefilterPairs:actualPairs.length,
