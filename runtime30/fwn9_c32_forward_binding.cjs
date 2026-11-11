@@ -107,9 +107,15 @@ function link({definition,callAudit}={}){
  validate(definition);
  need(callAudit?.schema==="HARPOON_FWN9_C32_NATIVE_TO_C22_CAUSAL_LINEAGE_AUDIT_1"&&
   callAudit.sourceFileSha256===definition.nativeOriginalCodeSha256&&
+  callAudit.sourceUniverseDigest===definition.universeDigest&&
   callAudit.nativePairScopeComplete===true&&
   Array.isArray(callAudit.conditionalWindowProjections),
   "VERIFIED_NATIVE_SCOPE_REQUIRED");
+ const expected=definition.enabledNativeCatalog.filter(p=>p.book===callAudit.book)
+  .map(p=>p.id).sort();
+ need(Array.isArray(callAudit.selectedNativePluginIds)&&
+  JSON.stringify(expected)===JSON.stringify(callAudit.selectedNativePluginIds),
+  "NATIVE_ENABLED_SET_MISMATCH");
  const records=[];
  for(const item of callAudit.conditionalWindowProjections){
   need(item.deterministicResearchWindowProjection===true&&
