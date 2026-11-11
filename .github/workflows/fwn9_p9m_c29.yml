@@ -11,6 +11,8 @@ on:
       - 'tools/fwn9_c29_protocol_randomization_test.cjs'
       - 'tools/fwn9_c29_native_producer_reader_test.cjs'
       - 'tools/fwn9_c29_broker_block_grid_test.cjs'
+      - 'tools/fwn9_c29_plan_cli.cjs'
+      - 'tools/fwn9_c29_plan_cli_test.cjs'
       - 'research/modulation11/fwn9_phase9m_c29_protocol.json'
       - 'docs/MODULATION11_PHASE9M_C29.md'
       - 'evidence/modulation11/fwn9_phase9m_c29_evidence.json'
@@ -48,6 +50,11 @@ jobs:
           assert not list(Path('evidence').rglob('final/*.json.gz'))
           print('C29_FROZEN_SOURCE_M10_3200_NO_GO_PASS')
           PY
+      - name: C29 write-once local prospective plan and non-rewindable clock tests
+        run: |
+          node --check tools/fwn9_c29_plan_cli.cjs
+          node --check tools/fwn9_c29_plan_cli_test.cjs
+          node --test tools/fwn9_c29_plan_cli_test.cjs
       - name: C29 randomized registered 8-arm design and exact conditional Holm
         run: node --test tools/fwn9_c29_protocol_randomization_test.cjs
       - name: C29 actual ORIGINAL QuantObservationJournal source read-only bridge
