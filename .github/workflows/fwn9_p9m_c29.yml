@@ -110,7 +110,7 @@ jobs:
               assert d['population_C15_screens'][s]['expected_U_upper'] is None
           print('C29_ORIGINAL_WEAK_POPULATION_AND_HOLDOUT_NO_GO')
           PY
-      - name: Evidence gate: all 381 source/engineering tests, no financial GO or M10 opening
+      - name: "Evidence gate: all 381 source/engineering tests, no financial GO or M10 opening"
         run: |
           python - <<'PY'
           import json
