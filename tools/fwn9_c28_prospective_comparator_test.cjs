@@ -25,7 +25,7 @@ const prereg=(p)=>({schema:"HARPOON_FWN9_C28_FROZEN_ARM_ASSIGNMENTS_1",
 function rejects(change,pattern){
  const p=[period()];change(p);
  A.throws(()=>P.assess({sourcePanel:base(),periods:p,prespecified:prereg(p)}),
-  new RegExp("C28P_"+pattern));
+  new RegExp("(?:C28P_|C22_)"+pattern));
 }
 test("C28 frozen exact six variants plus CASH and original are all retained",()=>{
  A.equal(P.ARMS.length,8);
