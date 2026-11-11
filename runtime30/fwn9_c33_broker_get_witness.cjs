@@ -47,7 +47,7 @@ function wrapTransport({transport=fetch,sink,mode="PAPER",
    ["GET"].includes(init?.method)&&init?.redirect==="error"&&
    init?.body===undefined&&
    parsed.username===""&&parsed.password===""&&
-   /^\/v2\/(?:account|positions|orders|assets\/)/.test(parsed.pathname),
+   C25.validatePath(parsed.pathname)===parsed.pathname,
    "STRICT_PAPER_ALPACA_GET_ORIGIN_AND_METHOD");
   need(init.headers&&
    typeof init.headers["APCA-API-KEY-ID"]==="string"&&
