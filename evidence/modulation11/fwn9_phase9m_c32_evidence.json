@@ -1,0 +1,63 @@
+{
+  "schema": "HARPOON_FWN9_M11_C32_NATIVE_PREFILTER_SOURCE_TECHNICAL_EVIDENCE_1",
+  "asof_date": "2026-11-10",
+  "tested_source_commit": "9b624195a0256286e0d6e9d3426907d845eb6528",
+  "ci_run_id": 42967465347,
+  "ci_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/42967465347",
+  "ci_conclusion": "success",
+  "checks": {
+    "checked_in_javascript_test_suites": "PASS",
+    "strict_typescript_typecheck": "PASS",
+    "source_to_javascript_build": "PASS",
+    "javascript_syntax": "PASS",
+    "rebuilt_javascript_test_suites": "PASS",
+    "c32_tests_per_pass": 29,
+    "c31_tests_per_pass": 15,
+    "c30_tests_per_pass": 6,
+    "total_tests_per_pass": 50,
+    "test_passes": 2,
+    "not_full_repository_regression_suite": true,
+    "benchmarks_executed": false,
+    "external_source_validation_executed": false
+  },
+  "implemented": [
+    "xxx/plugins.ts",
+    "runtime30/plugins.js",
+    "runtime30/fwn9_c32_native_prefilter_gate.cjs",
+    "runtime30/fwn9_c32_prefilter_journal.cjs",
+    "runtime30/fwn9_c32_forward_binding.cjs",
+    "tools/fwn9_c32_native_prefilter_test.cjs",
+    ".github/workflows/fwn9_p9m_c32.yml"
+  ],
+  "technical_findings": {
+    "original_native_prefilter_site_instrumented": true,
+    "original_native_quoted_filter_execution_modified": false,
+    "synchronous_local_prebar_clock_guard_implemented": true,
+    "all_six_C22_historic_strategy_semantic_identity_proved": false,
+    "future_six_windowed_composite_policies_locally_defined": true,
+    "outside_observed_runtime_source_complete": false,
+    "options_contract_admission_equivalent": false,
+    "private_alpaca_trading_receipts_authenticated": false,
+    "external_preregistration_attested": false,
+    "economic_prospective_results_observed": false
+  },
+  "gates": {
+    "N9S": "NO_GO",
+    "new_alpha_seeds": 0,
+    "new_economic_trials": 0,
+    "paper_orders": 0,
+    "live_orders": 0,
+    "deploys": 0,
+    "merges": 0,
+    "final_M10_sealed": 3200,
+    "can_start_prospective_real_economic_comparison": false,
+    "can_trade": false
+  },
+  "limitations": [
+    "CI validates deterministic offline software behavior, not actual user broker or runtime observations.",
+    "A deterministic forward-only native window binding is not retroactive equivalence of six C22 strategies.",
+    "Source code SHA, filesystem write timestamps, and GitHub CI do not independently authenticate broker/event clocks.",
+    "TS compilation passes; no byte-for-byte parity or independent static binary audit claimed.",
+    "Per-event fsync overhead and complete historical integration remain unbenchmarked."
+  ]
+}
