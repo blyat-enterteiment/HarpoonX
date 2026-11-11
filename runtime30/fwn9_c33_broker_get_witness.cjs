@@ -9,6 +9,7 @@
 const assert=require("node:assert/strict");
 const crypto=require("node:crypto");
 const C27=require("./fwn9_c27_prebar_state.cjs");
+const C25=require("./fwn9_c25_alpaca_readonly_exporter.cjs");
 const SCHEMA="HARPOON_FWN9_C33_ALPACA_GET_LOCAL_WITNESS_1";
 const ORIGINS=new Set(["https://paper-api.alpaca.markets",
  "https://api.alpaca.markets"]);
@@ -90,7 +91,7 @@ function verifyCoverage({witnesses,mode="PAPER",offlineBundle=null}={}){
  let last=0;const seen=new Set(),byPath=new Map();
  for(const [i,row] of witnesses.entries()){
   acceptWitness(row);
-  need(row.sequence===i+1&&row.startedAt>=last&&
+  need(row.sequence===i+1&&row.completedAt>=last&&
    row.origin==="https://paper-api.alpaca.markets",
    "GET_SEQUENCE_AND_ORIGIN");
   last=row.completedAt;
