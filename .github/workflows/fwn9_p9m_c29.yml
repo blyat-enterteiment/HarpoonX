@@ -1,0 +1,105 @@
+name: FWN9 C29 prereg eight-arm prospective source/receipt/inference bridge NO_GO
+on:
+  push:
+    branches: [research/m11-c29-registered-prospective-bridge]
+    paths:
+      - 'runtime30/fwn9_c29_frozen_assignments.cjs'
+      - 'runtime30/fwn9_c29_native_producer_reader.cjs'
+      - 'runtime30/fwn9_c29_randomization_inference.cjs'
+      - 'runtime30/fwn9_c29_broker_block_reconciliation.cjs'
+      - 'runtime30/fwn9_c29_segmented_source_coverage.cjs'
+      - 'tools/fwn9_c29_protocol_randomization_test.cjs'
+      - 'tools/fwn9_c29_native_producer_reader_test.cjs'
+      - 'tools/fwn9_c29_broker_block_grid_test.cjs'
+      - 'research/modulation11/fwn9_phase9m_c29_protocol.json'
+      - 'docs/MODULATION11_PHASE9M_C29.md'
+      - 'evidence/modulation11/fwn9_phase9m_c29_evidence.json'
+      - '.github/workflows/fwn9_p9m_c29.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  source-native-one-book-and-conditional-statistics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static Node and frozen original M9/M10 sources and limits
+        run: |
+          for f in runtime30/fwn9_c29_*.cjs tools/fwn9_c29_*test.cjs; do node --check "$f"; done
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          r=json.loads(Path('research/modulation9/registration.json').read_text())
+          for p in ('quant/harpoon_quant/modulation9.py','research/modulation9/protocol.json',
+                    'runtime30/profit8_replay.js','runtime30/ultimate_reservations.js'):
+              assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==r['sources_sha256'][p],p
+          p=json.loads(Path('research/modulation11/fwn9_phase9m_c29_protocol.json').read_text())
+          assert p['budget']=={'new_market_seeds':0,'new_signals':0,'new_economic_accounts':0,'paper_orders':0,'live_orders':0,'deployment':0,'merge':0,'recursive_optimization':0,'M10_final_opened':0,'M10_final_sealed':3200}
+          assert p['acceptance']['N9S']=='NO_GO'
+          assert p['acceptance']['new_prospective_real_blocks_evaluated']==0
+          assert not list(Path('evidence').rglob('final/*.json.gz'))
+          print('C29_FROZEN_SOURCE_M10_3200_NO_GO_PASS')
+          PY
+      - name: C29 randomized registered 8-arm design and exact conditional Holm
+        run: node --test tools/fwn9_c29_protocol_randomization_test.cjs
+      - name: C29 actual ORIGINAL QuantObservationJournal source read-only bridge
+        run: node --test tools/fwn9_c29_native_producer_reader_test.cjs
+      - name: C29 full five-minute evidence grid, actual C25/C26 source block cash accounting
+        run: node --test tools/fwn9_c29_broker_block_grid_test.cjs
+      - name: Regression C28 original 64 source/finance/signature/CLI tests
+        run: |
+          node --test tools/fwn9_c28_source_obligations_test.cjs
+          node --test tools/fwn9_c28_source_tap_archive_test.cjs
+          node --test tools/fwn9_c28_prospective_comparator_test.cjs
+          node --test tools/fwn9_c28_external_anchor_test.cjs
+          node --test tools/fwn9_c28_readonly_cli_test.cjs
+      - name: Regression C27 original prebar, inventory, source and cold restart
+        run: |
+          node --test tools/fwn9_c27_prebar_state_test.cjs
+          node --test tools/fwn9_c27_prebar_journal_test.cjs
+          node --test tools/fwn9_c27_quant_observation_adapter_test.cjs
+          node --test tools/fwn9_c27_prebar_cli_test.cjs
+      - name: Regression C26-C16 original causal execution, ledger and no broker GO
+        run: |
+          node --test tools/fwn9_c26_causal_quote_fill_bridge_test.cjs
+          node --test tools/fwn9_c25_broker_export_ingest_test.cjs
+          node --test tools/fwn9_c25_alpaca_readonly_exporter_test.cjs
+          node --test tools/fwn9_p9m_c24_evidence_closure_test.cjs
+          node --test tools/fwn9_p9m_c23_market_data_audit_test.cjs
+          node --test tools/fwn9_c22_session_compound_test.cjs
+          node --test tools/fwn9_p9m_c21_ohlc_obstruction_test.cjs
+          node --test tools/fwn9_p9m_c20_native_admission_test.cjs
+          node --test tools/fwn9_p9m_c16_native_au_test.cjs
+      - name: Regression C17-C21 original mathematical WEAK population proofs
+        env:
+          PYTHONPATH: tools
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.14.1
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c21_archived_prebar_audit.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c20_triggered_u_admission_a.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c19_native_credit_moment.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c18_funded_wealth_dual.py' -q
+          python -B -m unittest discover -s tools -p 'test_fwn9_p9m_c17_weak_population.py' -q
+      - name: Independent original C16 Decimal46 and C15 missing population evidence
+        run: |
+          node tools/fwn9_p9m_c16_native_au_test.cjs --emit-c16 > /tmp/c29_c16.log
+          python -B tools/fwn9_p9m_c16_decimal_accountant.py /tmp/c29_c16.log
+          python -B tools/fwn9_p9m_c16_c15_handoff.py /tmp/c29_c16.log research/modulation9/protocol.json > /tmp/c29_gate.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('/tmp/c29_gate.log').read_text().split('FWN9_C16_C15_HANDOFF=',1)[1])
+          assert d['N9SAdmission']=='NO_GO'
+          for s in ['NOMINAL','STRESS']:
+              assert d['population_C15_screens'][s]['expected_A_upper'] is None
+              assert d['population_C15_screens'][s]['expected_U_upper'] is None
+          print('C29_ORIGINAL_WEAK_POPULATION_AND_HOLDOUT_NO_GO')
+          PY
