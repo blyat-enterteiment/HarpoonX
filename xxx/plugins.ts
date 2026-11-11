@@ -5,6 +5,12 @@ import { Market } from "./market";
 import { contiguousBars, openingRange, regularClosedBars, sessionContext, streakDiagnostics } from "./sessions";
 const avg = (a: number[]) =>
   a.reduce((s, v) => s + v, 0) / Math.max(1, a.length);
+type C32PrefilterTrace = {
+  site: "FEATURE_PRE_QUOTE" | "EVALUATE_SOURCE_BEFORE_FEATURES" |
+    "NATIVE_PAIR_PRE_QUOTE" | "OPTIONS_UNDERLYING_PRE_FILTERS";
+  book: string; pluginId: string | null; symbol: string | null;
+  asOf: number;
+};
 export class Plugins {
   legacy: Json;
   models: Record<string, Json> = {};
@@ -12,6 +18,9 @@ export class Plugins {
   lastFeatures: Json[] = [];
   catalog: Json[];
   diagnostics: Json[] = [];
+  // C32 is an opt-in, synchronous, fail-closed observation hook, NOT a
+  // policy selector or order authorization. The trading engine does not attach it.
+  c32PrefilterTap?: (event: C32PrefilterTrace) => void;
   tape: any;
   stream: any;
   cryptoTape: any;
@@ -262,6 +271,10 @@ export class Plugins {
       spyMom =
         spy.length >= 4 && contiguousBars(spy.slice(-4)) ? (spy.at(-1)!.c / spy.at(-4)!.c - 1) * 10000 : null;
     for (const i of this.cfg.universe.filter((x) => x.book !== "crypto")) {
+      this.c32PrefilterTap?.({
+        site: "FEATURE_PRE_QUOTE", book: i.book, pluginId: null,
+        symbol: i.symbol, asOf: now,
+      });
       try {
         const q = m.quotes[i.symbol];
         if (!fresh(q, now, this.cfg.quoteAgeMs)) throw Error("STALE_QUOTE");
@@ -354,13 +367,24 @@ export class Plugins {
       L = this.legacy,
       selected = this.catalog.filter(
         (p) => p.book === book && enabled.includes(p.id),
-      ),
-      features =
+      );
+    // Original native call scope, emitted BEFORE this.features() filters.
+    this.c32PrefilterTap?.({
+      site: "EVALUATE_SOURCE_BEFORE_FEATURES", book,
+      pluginId: null, symbol: null, asOf: now,
+    });
+    const features =
         book === "equity" || book === "etf"
           ? this.features(m, now).filter((f) => f.book === book)
           : [];
     for (const plugin of selected) {
       for (const i of this.cfg.universe.filter((i) => i.book === book)) {
+        // BEFORE the source's quote/spread/strategy filters, never reconstructed
+        // from its successful result. A failure in the recorder aborts evaluation.
+        this.c32PrefilterTap?.({
+          site: "NATIVE_PAIR_PRE_QUOTE", book, pluginId: plugin.id,
+          symbol: i.symbol, asOf: now,
+        });
         try {
           const q = m.quotes[i.symbol];
           if (!fresh(q, now, this.cfg.quoteAgeMs)) throw Error("STALE_QUOTE");
@@ -615,6 +639,13 @@ export class Plugins {
   options(p: Json, m: Market, now: number): Signal[] {
     const out: Signal[] = [];
     for (const underlying of this.cfg.optionUnderlyings) {
+      // Options use a different native generator: underlying first, and
+      // contract enumeration ONLY after underlying gates. Not a C28 contract
+      // pre-filter evaluation; preserve this distinction in the evidence.
+      this.c32PrefilterTap?.({
+        site: "OPTIONS_UNDERLYING_PRE_FILTERS", book: "options",
+        pluginId: p.id, symbol: underlying, asOf: now,
+      });
       try {
         const spot = m.quotes[underlying],
           daily = (m.daily[underlying] || []).filter(
