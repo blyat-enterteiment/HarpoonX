@@ -9,6 +9,7 @@ const W=require("../runtime30/fwn9_c32_native_prefilter_gate.cjs");
 const J=require("../runtime30/fwn9_c32_prefilter_journal.cjs");
 const C27=require("../runtime30/fwn9_c27_prebar_state.cjs");
 const C28=require("../runtime30/fwn9_c28_source_obligations.cjs");
+const F=require("../runtime30/fwn9_c32_forward_binding.cjs");
 const EMPTY_MARKET={quotes:{},bars:{},daily:{},calendar:[],assets:{},snapshots:{},metadata:{}};
 const AT=Date.parse("2026-11-10T01:00:00.000Z");
 function native(book="crypto"){
@@ -236,4 +237,72 @@ test("local timing gate requires complete source site coverage",()=>{
  const callAudit=W.auditCall(context(p,"crypto",rows.slice(0,1)));
  assert.throws(()=>W.auditNextBar({callAudit,rows,nextBarStart:AT+300000}),
   /C32_COMPLETE_NATIVE_SOURCE_AND_NEXT_BAR_REQUIRED/);
+});
+
+function frozenCompositeNativeSource(){
+ const p=native();
+ p.cfg.universe=[
+  {symbol:"SPY",book:"equity",venueOpen:true,contractSessionVerified:false},
+  {symbol:"QQQ",book:"etf",venueOpen:true,contractSessionVerified:false},
+  {symbol:"BTC/USD",book:"crypto",venueOpen:true,contractSessionVerified:false},
+  {symbol:"SPY261218C00600000",book:"options",venueOpen:true,
+   contractSessionVerified:true}
+ ];
+ p.catalog=[
+  {id:"equity-native",book:"equity",family:"native_equity",version:"30"},
+  {id:"etf-native",book:"etf",family:"native_etf",version:"30"},
+  {id:"crypto-native-original",book:"crypto",family:"native_crypto",version:"30"},
+  {id:"options-native",book:"options",family:"native_options",version:"30"}
+ ];
+ const enabled=p.catalog.map(x=>x.id);
+ const definition=F.freeze({plugins:p,enabledPluginIds:enabled,
+  registeredUniverse:p.cfg.universe,calendarSha256:"a".repeat(64),proposedAt:AT});
+ return {p,definition};
+}
+test("new six-window native composite defines deterministic forward source only",()=>{
+ const {definition}=frozenCompositeNativeSource();
+ assert.equal(F.validate(definition),true);
+ assert.equal(definition.sixProspectiveWindowBindings.length,6);
+ assert.deepEqual(definition.controls,["ORIGINAL_BASELINE","CASH"]);
+ assert.equal(definition.originalC22StrategyEquivalent,false);
+ assert.equal(definition.independentPreOutcomeRegistration,false);
+ assert.equal(definition.nativeOptionContractExecutionCertified,false);
+ assert.equal(definition.financialGO,false);
+ assert.notEqual(definition.sixProspectiveWindowBindings[2].window,
+  definition.sixProspectiveWindowBindings[3].window);
+ assert.deepEqual(definition.sixProspectiveWindowBindings[2].nativePluginsByBook,
+  definition.sixProspectiveWindowBindings[3].nativePluginsByBook);
+});
+test("forward native binding matches only exact registered native plugin within window",()=>{
+ const {definition}=frozenCompositeNativeSource(),p=native();
+ const {rows}=observe(p),audit=W.auditCall(context(p,"crypto",rows));
+ const result=F.link({definition,callAudit:audit});
+ assert.equal(result.newCompositeSourceDefinitionLocallyDeterministic,true);
+ assert.equal(result.existingC22SixStrategiesSemanticallyEquivalent,false);
+ assert.equal(result.records[0].matchedWindow,
+  "H22_CRYPTO_UTC_LIQUIDITY@UTC_00_08");
+ assert.equal(result.records[0].status,"FORWARD_ONLY_WINDOWED_NATIVE_SOURCE_BOUND");
+ assert.equal(result.brokerFillsOrPaperOrdersAllowed,false);
+});
+test("unregistered native plugin cannot borrow another frozen C22 identity",()=>{
+ const {definition}=frozenCompositeNativeSource(),p=native();
+ p.catalog[0].id="unregistered-crypto";
+ const rows=[];const stop=W.attach(p,{clock:clock(),sink:r=>rows.push(r)});
+ p.evaluate("crypto",EMPTY_MARKET,["unregistered-crypto"],AT);stop();
+ const audit=W.auditCall({rows,book:"crypto",asOf:AT,
+  selectedPlugins:p.catalog,universe:p.cfg.universe,calendar:[]});
+ assert.throws(()=>F.link({definition,callAudit:audit}),
+  /C32B_NATIVE_PLUGIN_NOT_IN_FROZEN_FORWARD_DEFINITION/);
+});
+test("missing enabled native class blocks definition of all six variants",()=>{
+ const {p}=frozenCompositeNativeSource();
+ const enabled=p.catalog.map(x=>x.id).filter(x=>x!=="options-native");
+ assert.throws(()=>F.freeze({plugins:p,enabledPluginIds:enabled,
+  registeredUniverse:p.cfg.universe,calendarSha256:"a".repeat(64),proposedAt:AT}),
+  /C32B_MISSING_ENABLED_NATIVE_PLUGIN_FOR_options/);
+});
+test("a tampered binding or bogus external certificate never passes validation",()=>{
+ const {definition}=frozenCompositeNativeSource();
+ definition.independentPreOutcomeRegistration=true;
+ assert.throws(()=>F.validate(definition),/C32B_SOURCE_BINARY_DIGEST_CHANGED/);
 });
