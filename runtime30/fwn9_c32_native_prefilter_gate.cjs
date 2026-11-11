@@ -9,6 +9,7 @@ const fs=require("node:fs");
 const path=require("node:path");
 const crypto=require("node:crypto");
 const {Plugins}=require("./plugins.js");
+const C27=require("./fwn9_c27_prebar_state.cjs");
 const C22=require("./fwn9_c22_session_compound.cjs");
 const C28=require("./fwn9_c28_source_obligations.cjs");
 const SITES=new Set(["EVALUATE_SOURCE_BEFORE_FEATURES","FEATURE_PRE_QUOTE",
