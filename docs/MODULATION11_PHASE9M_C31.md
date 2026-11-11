@@ -26,6 +26,14 @@ Crucially these are POSTFILTER observations: they do not prove that all
 original internal eligibility tests ran, nor the C28 per-policy prefilter
 source obligations. No native C22 mapping is fabricated.
 
+The witness also compares the selected native plugin × configured instrument
+pairs with the engine's actual SIGNAL/WAIT diagnostics. A pair without either
+a diagnostic or an explicit observed source invocation remains **unaccounted**
+rather than being misread as a genuine zero-signal evaluation. The test suite
+covers both an authentic native WAIT caused by missing quote and a source pair
+with no diagnostic. This is a stronger internal diagnostic consistency test,
+not an independent source enumeration or a replacement for prefilter taps.
+
 ## Durable local witness
 
 runtime30/fwn9_c31_native_call_journal.cjs writes each witness to a private
