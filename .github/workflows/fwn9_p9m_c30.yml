@@ -1,0 +1,23 @@
+name: FWN9 C30 structural feasibility
+on:
+  push:
+    branches:
+      - research/m11-c30-study-feasibility
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  c30-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check C30 JavaScript syntax
+        run: |
+          node --check runtime30/fwn9_c30_study_feasibility.cjs
+          node --check tools/fwn9_c30_study_feasibility_test.cjs
+      - name: Run C30 no-network structural tests
+        run: node --test tools/fwn9_c30_study_feasibility_test.cjs
