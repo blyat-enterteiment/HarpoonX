@@ -273,9 +273,18 @@ test("new six-window native composite defines deterministic forward source only"
  assert.deepEqual(definition.sixProspectiveWindowBindings[2].nativePluginsByBook,
   definition.sixProspectiveWindowBindings[3].nativePluginsByBook);
 });
-test("forward native binding matches only exact registered native plugin within window",()=>{
- const {definition}=frozenCompositeNativeSource(),p=native();
- const {rows}=observe(p),audit=W.auditCall(context(p,"crypto",rows));
+function observeFrozenCrypto(p){
+ const selected=p.catalog.filter(x=>x.book==="crypto"),rows=[];
+ const stop=W.attach(p,{clock:clock(),sink:r=>rows.push(r)});
+ p.evaluate("crypto",EMPTY_MARKET,selected.map(x=>x.id),AT);stop();
+ return W.auditCall({rows,book:"crypto",asOf:AT,
+  selectedPlugins:selected,universe:p.cfg.universe,
+  optionUnderlyings:p.cfg.optionUnderlyings,calendar:[]});
+}
+test("forward native binding matches exact registered source in the same universe",()=>{
+ const {definition,p}=frozenCompositeNativeSource();
+ const audit=observeFrozenCrypto(p);
+ assert.equal(audit.sourceUniverseDigest,definition.universeDigest);
  const result=F.link({definition,callAudit:audit});
  assert.equal(result.newCompositeSourceDefinitionLocallyDeterministic,true);
  assert.equal(result.existingC22SixStrategiesSemanticallyEquivalent,false);
@@ -285,14 +294,17 @@ test("forward native binding matches only exact registered native plugin within 
  assert.equal(result.brokerFillsOrPaperOrdersAllowed,false);
 });
 test("unregistered native plugin cannot borrow another frozen C22 identity",()=>{
- const {definition}=frozenCompositeNativeSource(),p=native();
- p.catalog[0].id="unregistered-crypto";
- const rows=[];const stop=W.attach(p,{clock:clock(),sink:r=>rows.push(r)});
- p.evaluate("crypto",EMPTY_MARKET,["unregistered-crypto"],AT);stop();
- const audit=W.auditCall({rows,book:"crypto",asOf:AT,
-  selectedPlugins:p.catalog,universe:p.cfg.universe,calendar:[]});
+ const {definition,p}=frozenCompositeNativeSource();
+ p.catalog.find(x=>x.book==="crypto").id="unregistered-crypto";
+ const audit=observeFrozenCrypto(p);
  assert.throws(()=>F.link({definition,callAudit:audit}),
-  /C32B_NATIVE_PLUGIN_NOT_IN_FROZEN_FORWARD_DEFINITION/);
+  /C32B_NATIVE_ENABLED_SET_MISMATCH/);
+});
+test("partial source universe cannot borrow a registered forward binding",()=>{
+ const {definition}=frozenCompositeNativeSource(),p=native();
+ const {rows}=observe(p),audit=W.auditCall(context(p,"crypto",rows));
+ assert.throws(()=>F.link({definition,callAudit:audit}),
+  /C32B_VERIFIED_NATIVE_SCOPE_REQUIRED/);
 });
 test("missing enabled native class blocks definition of all six variants",()=>{
  const {p}=frozenCompositeNativeSource();
