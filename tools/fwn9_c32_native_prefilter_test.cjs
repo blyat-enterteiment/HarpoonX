@@ -191,3 +191,27 @@ test("C32 journal private file permissions are enforced",()=>{
   assert.throws(()=>J.verify(dir),/C32J_PRIVATE_FILE_0600_AND_LIMIT/);
  });
 });
+
+test("actual Plugins constructor with its undefined optional field can attach",()=>{
+ const p=new Plugins({}, {universe:[],enabledPlugins:[],optionUnderlyings:[]});
+ const rows=[],detach=W.attach(p,{sink:x=>rows.push(x),clock:clock()});
+ assert.equal(typeof p.c32PrefilterTap,"function");
+ assert.deepEqual(p.evaluate("crypto",EMPTY_MARKET,[],AT),[]);
+ detach();
+ assert.equal(p.c32PrefilterTap,undefined);
+ assert.equal(rows.length,1);
+ assert.equal(rows[0].site,"EVALUATE_SOURCE_BEFORE_FEATURES");
+});
+test("a forged local SHA cannot be promoted to native source coverage",()=>{
+ const p=native(),{rows}=observe(p);
+ const forged=rows.map(r=>({...r,sourceFileSha256:"f".repeat(64)}));
+ assert.throws(()=>W.auditCall(context(p,"crypto",forged)),
+  /C32_SOURCE_ORIGINAL_CODE_AND_NOT_FINANCIAL_EVIDENCE/);
+});
+test("a source record claiming pre-registered causal or broker proof is rejected",()=>{
+ const p=native(),{rows}=observe(p);
+ const claimed=rows.map(r=>({...r,
+  sourceKnownBeforeRegisteredBarProved:true,brokerFillObserved:true}));
+ assert.throws(()=>W.auditCall(context(p,"crypto",claimed)),
+  /C32_SOURCE_ORIGINAL_CODE_AND_NOT_FINANCIAL_EVIDENCE/);
+});
