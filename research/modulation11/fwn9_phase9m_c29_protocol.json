@@ -1,0 +1,89 @@
+{
+  "schema": "HARPOON_FWN9_M11_C29_PREREGISTERED_EIGHT_ARM_PROSPECTIVE_SOURCE_INFERENCE_1",
+  "parent": "research/modulation11/fwn9_phase9m_c28_protocol.json",
+  "scope": "Connect existing original QuantObservationJournal read-only export to C27/C28 source-obligation evidence; freeze balanced eight-arm one-financed-account experimental schedule; require actual C25-C26 source NAV/quotes/FILL evidence for descriptive return; provide conditional sharp-null exact sign-flip randomization with six-family Holm. Never generate signals, market seeds, accounts, broker orders or certify economic GO from source-only fixtures.",
+  "source_connections": {
+    "native_Journal": "runtime30/quant_observations.js exportFrames/view called read-only; original quant_bridge.cjs observationInput uses plugin 'observation-only' and rotates symbols, so it DOES NOT produce all six C22 policy prefilter evaluations",
+    "C27_state": "runtime30/fwn9_c27_prebar_journal.cjs",
+    "C28_source_taps": "runtime30/fwn9_c28_source_tap_archive.cjs",
+    "C25_account": "runtime30/fwn9_c25_broker_export_ingest.cjs",
+    "C26_predecision_fill_receipts": "runtime30/fwn9_c26_causal_quote_fill_bridge.cjs",
+    "warning": "Native read-only adapter functional in tests with original Journal class, but NOT deployed/connected to user's live Render service or authenticated broker. All six-arm generator hooks currently uninstrumented."
+  },
+  "pre_registration": {
+    "eight_arms": [
+      "H22_OPENING_CONFIRMATION@RTH_OPEN_30",
+      "H22_OPENING_CONFIRMATION@RTH_MORNING_30_120",
+      "H22_CRYPTO_UTC_LIQUIDITY@UTC_00_08",
+      "H22_CRYPTO_UTC_LIQUIDITY@UTC_16_24",
+      "H22_OPTION_ASYMMETRY_RESEARCH_ONLY@RTH_MORNING_30_120",
+      "H22_OPTION_ASYMMETRY_RESEARCH_ONLY@RTH_LAST_90",
+      "ORIGINAL_BASELINE",
+      "CASH"
+    ],
+    "registered_at_requirement": "At least 72h before first block; independent time anchor not supplied or assumed",
+    "randomization": "Every one of eight arms occurs exactly once in every cycle. Deterministic unbiased Fisher-Yates with domain-separated SHA256 from user-provided fixed commitment nonce; seed does not generate market data or investment signals.",
+    "min_pilot_cycles": 4,
+    "min_cycles_for_any_familywise_significant_sharp_null": 8,
+    "block_trade_hours": 72,
+    "block_washout_hours": 72,
+    "block_funding_review_hours": 1,
+    "active_carry_positions_allowed": false,
+    "cash_account": "single continuously financed initial $20,000, no secondary account resets, external flows disallowed",
+    "familywise_alpha": 0.025,
+    "long_position_max_holding_hours": 72,
+    "holdout_M10_kept_sealed": 3200,
+    "portfolio_mutations_allowed": false,
+    "actual_study_scheduled_or_started": false
+  },
+  "statistical_method": {
+    "source": "runtime30/fwn9_c29_randomization_inference.cjs",
+    "estimand": "Cycle-specific daily log wealth difference for one assigned variant vs assigned CASH and original baseline, normalized by six-day active+washout block horizon.",
+    "conditional_pairwise_test": "Under pairwise sharp no-effect null, fixed potential outcomes, legitimate randomized arm assignments, no cross-block carry/interference, each cycle's arm/control assignment labels are exchangeable; flip the within-cycle contrast sign. Enumerate all 2^cycle sign patterns through 18 cycles, else deterministic 19999-sample randomization diagnostic with +1.",
+    "intersection_union": "For each of six variants need positive advantage versus both controls; combine p_i=max(p_i_vsCash,p_i_vsOriginal).",
+    "multiple_tests": "Holm familywise 0.025 across six intersection-union hypotheses, not 78 five-minute bars independently treated.",
+    "minimum_p_bound": "For 4 cycles the one-sided best possible p=1/16=0.0625 and no Holm six-family rejection is possible; 8 cycles permits 1/256*6=0.0234375 under perfect sign-aligned data.",
+    "limits": "Even a small p under sharp null does not establish a population effect lower confidence bound under heterogeneous treatment effects, no time interference, conditional execution attainability, causal source signing or profitable net growth. Report sharp-null tests as DIAGNOSTIC_ONLY until independently authenticated.",
+    "power_analysis_beyond_design": "Not performed; 8 cycles is an algebraic lower bound on attainable p-value, not a power guarantee."
+  },
+  "coverage_and_provenance": {
+    "five_minute_grid": "Every 5-min UTC slot (including cryptocurrency overnight and washout) between first assigned start and last funding review must be in immutable C27+C28 source journals; 4-cycle pilot 55,680 records, 8-cycle inference minimum >60,000 and requires multiple segmented journals.",
+    "native_source_completeness": "Caller-provided asset registry and QuantObservationJournal rotating 'observation-only' records never prove six original research variants were actually evaluated before filters; original generator still requires instrumentation/independent source tap.",
+    "C25_C26_economic_evidence": "Each planned block must supply account baseline+terminal, all orders/activities FILL/FEE/cash, actual source quote/decision/receipt stamps. Cash and initial/final positions must be flat, order/fill within the 72h trade interval, no queue claim, no outside costs outside NAV until payable separately reconciled.",
+    "financial_claims": "Always false with connected source-only tools. User private Alpaca Trading API and Render runtime not accessible from current project connectors."
+  },
+  "deliverables": [
+    "runtime30/fwn9_c29_frozen_assignments.cjs",
+    "runtime30/fwn9_c29_native_producer_reader.cjs",
+    "runtime30/fwn9_c29_segmented_source_coverage.cjs",
+    "runtime30/fwn9_c29_broker_block_reconciliation.cjs",
+    "runtime30/fwn9_c29_randomization_inference.cjs",
+    "tools/fwn9_c29_protocol_randomization_test.cjs",
+    "tools/fwn9_c29_native_producer_reader_test.cjs",
+    "tools/fwn9_c29_broker_block_grid_test.cjs"
+  ],
+  "budget": {
+    "new_market_seeds": 0,
+    "new_signals": 0,
+    "new_economic_accounts": 0,
+    "paper_orders": 0,
+    "live_orders": 0,
+    "deployment": 0,
+    "merge": 0,
+    "recursive_optimization": 0,
+    "M10_final_opened": 0,
+    "M10_final_sealed": 3200
+  },
+  "acceptance": {
+    "source_code_and_regression_pass_scope_only": true,
+    "authenticated_live_C27_C28_producer_input_received": false,
+    "authenticated_private_C25_C26_execution_receipts_received": false,
+    "new_prospective_real_blocks_evaluated": 0,
+    "real_vs_cash_and_original_net_compound_growth_proved": false,
+    "universal_economic_impossibility_proved": false,
+    "original_C21_OHLC_equivalence_refuted": true,
+    "N9S": "NO_GO",
+    "can_trade": false,
+    "can_open_final": false
+  }
+}
