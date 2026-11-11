@@ -151,3 +151,29 @@ test("cannot use source hash from another engine",()=>{
   assert.throws(()=>J.append(dir,observed(native())),/C31J_APPEND_SOURCE_CONTRACT/);
  });
 });
+
+test("original native WAIT diagnostic is accounted without treating it as C22",()=>{
+ const p=native();
+ p.cfg={universe:[{book:"crypto",symbol:"BTC/USD"}],quoteAgeMs:15000,maxSpreadBps:50};
+ p.catalog=[{id:"crypto-native",book:"crypto",family:"shock_recovery",params:{}}];
+ const rows=[],detach=W.attach(p,{sink:r=>rows.push(r),clock:clock()});
+ assert.deepEqual(p.evaluate("crypto",{quotes:{},daily:{}},["crypto-native"],500),[]);
+ detach();
+ assert.equal(rows.length,1);
+ assert.equal(rows[0].nativeDiagnostics.declaredNativePluginSymbolPairs,1);
+ assert.equal(rows[0].nativeDiagnostics.diagnosedNativePluginSymbolPairs,1);
+ assert.equal(rows[0].nativeDiagnostics.diagnosticsCompleteForDeclaredNativePairs,true);
+ assert.equal(rows[0].nativeDiagnostics.actualNativePrefilterEvaluationAndZeroSignalCompletenessProved,false);
+ assert.equal(rows[0].c22SixFrozenPrefilterEvaluationsProved,false);
+});
+test("silent original-native outcomes cannot count as observed evaluation",()=>{
+ const p=native();
+ p.cfg.universe=[{book:"crypto",symbol:"BTC/USD"}];
+ p.catalog=[{id:"crypto-native",book:"crypto",family:"shock_recovery"}];
+ p.diagnostics=[];
+ const audit=W.auditNativeDiagnostics(p,"crypto",["crypto-native"]);
+ assert.equal(audit.declaredNativePluginSymbolPairs,1);
+ assert.deepEqual(audit.undiagnosedNativePairIds,["crypto-native|BTC/USD"]);
+ assert.equal(audit.diagnosticsCompleteForDeclaredNativePairs,false);
+ assert.equal(audit.sixC22PolicyLineageProved,false);
+});
