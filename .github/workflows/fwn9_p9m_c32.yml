@@ -21,6 +21,8 @@ jobs:
           cache: npm
       - name: Install pinned dependencies without scripts
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Test checked-in native JavaScript before compiling
+        run: node --test tools/fwn9_c32_native_prefilter_test.cjs tools/fwn9_c31_native_lineage_witness_test.cjs tools/fwn9_c30_study_feasibility_test.cjs
       - name: Strict native TypeScript source typecheck
         run: npm run typecheck:xxx
       - name: Build native JavaScript from typed source
