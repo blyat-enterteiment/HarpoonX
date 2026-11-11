@@ -1,0 +1,69 @@
+{
+  "schema": "HARPOON_FWN9_M11_C28_PROSPECTIVE_OBLIGATION_AND_SINGLE_BOOK_PREREG_1",
+  "parent": "research/modulation11/fwn9_phase9m_c27_protocol.json",
+  "objective": "Close source candidate omission within the six registered C22 asset/window slots and ORIGINAL_BASELINE by an independent prefilter upstream-evaluation obligation per scheduled C27 prebar; bind evidence in a private persistent SHA chain; prepare strictly descriptive one-financed-book net-log comparisons versus CASH/original without claiming realized out-of-sample profitability from unexecuted variants.",
+  "frozen": {
+    "original_M9_generator_sha256": "9d4afa402d2b70791f175e79219495f9bbbe25eb3cd0b7e9212cef6bccbd68ab",
+    "original_replay_sha256": "303aa6956cfa0a249f0432bea23894b3ee8e514c60ff011177baabc7a6974810",
+    "original_M10_final_sealed_accounts": 3200,
+    "N9S": "NO_GO",
+    "original_C21_OHLC_stop_first_equivalent_to_reachable_first_cross": false,
+    "original_C15_WEAK_population_EA_EU_certified": false
+  },
+  "arm_matrix": [
+    "H22_OPENING_CONFIRMATION@RTH_OPEN_30",
+    "H22_OPENING_CONFIRMATION@RTH_MORNING_30_120",
+    "H22_CRYPTO_UTC_LIQUIDITY@UTC_00_08",
+    "H22_CRYPTO_UTC_LIQUIDITY@UTC_16_24",
+    "H22_OPTION_ASYMMETRY_RESEARCH_ONLY@RTH_MORNING_30_120",
+    "H22_OPTION_ASYMMETRY_RESEARCH_ONLY@RTH_LAST_90",
+    "ORIGINAL_BASELINE",
+    "CASH"
+  ],
+  "C28_source_obligation": {
+    "code": "runtime30/fwn9_c28_source_obligations.cjs",
+    "independent_slot_generator": "For every supplied registered asset × relevant frozen variant plus original baseline at every scheduled C27 bar, derive eligibility from C22 original session calendar. Do NOT use candidate signals to decide which slots exist.",
+    "source_capture": "Call a supplied prefilter evaluator exactly once when eligible (upstream of policy/financial filters); emit returned IDs even if zero. A zero-candidate evaluation must be a signed local source record, not an absent record.",
+    "source_replay": "Match every source-emitted ID to exactly one original C27 prebar OBSERVED_ONLY/RESERVED/REFUSED/NO_FILL/NO_SIGNAL row. Reject candidate omitted from either side, wrong asset/variant, future event, duplicate slot and undocumented skipped evaluation.",
+    "excludes": "Does NOT prove all conceivable market opportunities, that all possible assets were placed in registered universe, or that caller-provided source taps truthfully originate from exchange or broker.",
+    "local_auth": "Original prefilter wrapper direct call result and C27 saved snapshot digest; both local, not independent trusted external origin.",
+    "external_trust_still_missing": true
+  },
+  "C28_tap_archive": {
+    "code": "runtime30/fwn9_c28_source_tap_archive.cjs",
+    "format": "Private 0700 directory, exclusive 0600 content-addressed numbered JSON records, SHA256 prior-record chain, fsync, external writer O_EXCL lock, binding to original C27 frame hash and manifest/registered calendar. Full replay on every restart.",
+    "trusted_timestamp": false,
+    "externally_verified_market_source": false,
+    "hostile_filesystem_operator_can_rewrite_entire_archive": true
+  },
+  "C28_prospective_financing": {
+    "code": "runtime30/fwn9_c28_one_book_prospective_comparator.cjs",
+    "metric": "Exact original source C22 compound net log growth across one continuously financed account after fees and external costs, paired to declared known-before-start CASH benchmark rate. One original policy and six fixed research variants are distinct arms, never independently capital-reset.",
+    "assignment": "Every arm assignment must be frozen before its return block starts. No post-view changes. Carry exposure crossing arms disallowed for unattributed one-arm result.",
+    "model": "Descriptive bookkeeping only. Real randomized independent and identically distributed return assumptions, tail bounds and causal inference are not proven by completed source accounts.",
+    "cannot_certify": "Without independent broker activity receipts (C25), decision-time quote+receipt and queue verification (C26), instrumented source-tap registered slots (C28), original/control execution and prospectively registered dependence/multiplicity inference, no real OOS alpha or optimal-hour GO.",
+    "controls": "CASH and ORIGINAL_BASELINE must each have observed, source-reconciled original market data for a meaningful test; no simulated fill can be presented as executed."
+  },
+  "acceptance_gate": {
+    "phase_release": "ONLY_C28_SOURCE_CONTRACT_IMPLEMENTATION",
+    "final_economic_certification": false,
+    "N9S": "NO_GO",
+    "holdout_can_open": false,
+    "recursive_optimizer_can_start": false,
+    "live_paper_orders_authorized": false,
+    "C29_dependence_adjusted_statistics_not_implemented": true,
+    "Genuine_broker_account_and_market_receipts_available_in_this_chat": false
+  },
+  "budget": {
+    "new_signal_nominations": 0,
+    "new_market_seeds": 0,
+    "new_economic_trial_accounts": 0,
+    "new_broker_paper_orders": 0,
+    "new_broker_live_orders": 0,
+    "new_deployments": 0,
+    "new_merges": 0,
+    "new_recursive_optimizer_runs": 0,
+    "opened_M10_final_accounts": 0,
+    "sealed_M10_final_accounts": 3200
+  }
+}
