@@ -42,6 +42,7 @@ function auditGrids(plan,grids){
   globalUniverseDeclaredSourceNotIndependentlyAuthenticated:true,
   sourceFromRealProductionAuthenticated:false,
   noMarketOHLCUsedInProof:true,
+  originalC27C28FilesActuallyReplayed:false,
   offlineEconomicGO:false,N9S:"NO_GO",segments:metadata};
 }
 function verifySegments(plan,dirs){
@@ -66,7 +67,8 @@ function verifySegments(plan,dirs){
    completeC28:t.fullBarsAndSourceTapsComplete});
  }
  const proof=auditGrids(plan,inputs);
- return {...proof,allC27ArchiveHeadsIndependentlySigned:false,
+ return {...proof,originalC27C28FilesActuallyReplayed:true,
+  allC27ArchiveHeadsIndependentlySigned:false,
   allC28ArchiveHeadsIndependentlySigned:false,
   crossSegmentExternalCounterSignatureRequired:true,
   brokerOriginAttestationNotEquivalentToHashChain:true,
