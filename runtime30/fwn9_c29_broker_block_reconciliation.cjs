@@ -79,7 +79,7 @@ function auditBlock(b,row){
  // equity; the strict one-financed-book contract rejects them until booked
  // in the same physical ledger or externally audited liability waterfall.
  const net=source.validated.algebraicAccountPnlUsd;
- const fees=-source.validated.reportedFeeCashUsd;
+ const fees=Math.max(0,-source.validated.reportedFeeCashUsd);
  need(fees>=0,"FEES_SIGN");
  const originalGross=net+fees;
  const begin=Number(account.baseline.account.equity),
