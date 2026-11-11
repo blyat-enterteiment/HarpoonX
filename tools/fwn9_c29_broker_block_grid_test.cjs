@@ -54,7 +54,7 @@ test("C29 complete 4-cycle UTC grid requires 55,680 prebar five-minute observati
  A.equal(g.offlineEconomicGO,false);
 });
 test("C29 one removed five-minute bar in second segment fails continuous source proof",()=>{
- const p=PLAN(),s=segments(p);s[1].splice(5,1);
+ const p=PLAN(),s=segments(p);s[1].expectedBars.splice(5,1);
  A.throws(()=>G.auditGrids(p,s),/C29G_MISSING_OR_DUPLICATED_FIVE_MINUTE_BAR/);
 });
 test("C29 fabricated segment complete flags cannot be accepted as complete",()=>{
