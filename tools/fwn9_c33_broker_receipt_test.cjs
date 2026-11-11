@@ -27,8 +27,12 @@ function cashBundle(){
 }
 function scratch(fn){
  const p=fs.mkdtempSync(path.join(os.tmpdir(),"harpoon-c33-"));
- try{return fn(path.join(p,"private"))}
- finally{fs.rmSync(p,{force:true,recursive:true});}
+ const clean=()=>fs.rmSync(p,{force:true,recursive:true});
+ try{
+  const result=fn(path.join(p,"private"));
+  if(result&&typeof result.then==="function")return result.finally(clean);
+  clean();return result;
+ }catch(e){clean();throw e;}
 }
 function getFixtureTransport(data='{"cash":"20000"}'){
  return async(url,init)=>({status:200,ok:true,
