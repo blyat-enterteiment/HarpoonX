@@ -215,3 +215,25 @@ test("a source record claiming pre-registered causal or broker proof is rejected
  assert.throws(()=>W.auditCall(context(p,"crypto",claimed)),
   /C32_SOURCE_ORIGINAL_CODE_AND_NOT_FINANCIAL_EVIDENCE/);
 });
+
+test("completed original source can be locally timestamped before next bar only",()=>{
+ const p=native(),{rows}=observe(p);
+ const callAudit=W.auditCall(context(p,"crypto",rows));
+ const temporal=W.auditNextBar({callAudit,rows,nextBarStart:AT+5*60000});
+ assert.equal(temporal.localSourceKnownBeforeNextBar,true);
+ assert.equal(temporal.c28SixOriginalPolicySemanticParityCertified,false);
+ assert.equal(temporal.thirdPartyTimeOrMarketAuthenticated,false);
+ assert.equal(temporal.financialGO,false);
+});
+test("local timing gate rejects source records received after bar start",()=>{
+ const p=native(),{rows}=observe(p);
+ const callAudit=W.auditCall(context(p,"crypto",rows));
+ assert.throws(()=>W.auditNextBar({callAudit,rows,nextBarStart:AT}),
+  /C32_NATIVE_SOURCE_CAPTURE_AFTER_BAR_START/);
+});
+test("local timing gate requires complete source site coverage",()=>{
+ const p=native(),{rows}=observe(p);
+ const callAudit=W.auditCall(context(p,"crypto",rows.slice(0,1)));
+ assert.throws(()=>W.auditNextBar({callAudit,rows,nextBarStart:AT+300000}),
+  /C32_COMPLETE_NATIVE_SOURCE_AND_NEXT_BAR_REQUIRED/);
+});
