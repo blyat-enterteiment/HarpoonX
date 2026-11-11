@@ -10,7 +10,8 @@ const crypto=require("node:crypto");
 const C27=require("./fwn9_c27_prebar_state.cjs");
 const C28=require("./fwn9_c28_one_book_prospective_comparator.cjs");
 const SCHEMA="HARPOON_FWN9_C29_FIXED_EIGHT_ARM_PROSPECTIVE_PLAN_1";
-const HOUR=3600000,TRADE_MS=72*HOUR,WASH_MS=72*HOUR;
+const HOUR=3600000,TRADE_MS=72*HOUR,WASH_MS=72*HOUR,
+ GAP_MS=HOUR; // receipt/settlement inspection, never presumes T+1 settled
 function need(ok,tag){A.ok(ok,"C29R_"+tag);}
 function safe(v,k){need(Number.isSafeInteger(v)&&v>=0,k);return v;}
 function scalar(s,k){need(typeof s==="string"&&s.length>=1&&s.length<=500,k);return s;}
@@ -52,14 +53,15 @@ function freeze({studyId,registeredAt,startAt,cycles=4,assignmentNonce,
  for(let cycle=0;cycle<cycles;cycle++){
   const arms=permutation(nonce,cycle);
   for(let slot=0;slot<arms.length;slot++){
-   const index=cycle*arms.length+slot,at=start+index*(TRADE_MS+WASH_MS);
+   const index=cycle*arms.length+slot,at=start+index*(TRADE_MS+WASH_MS+GAP_MS);
    need(Number.isSafeInteger(at+TRADE_MS+WASH_MS),"SCHEDULE_SAFE_EPOCH");
    blocks.push({
     index,blockId:"C29_"+name+"_"+String(index+1).padStart(5,"0"),
     cycle,slot,arm:arms[slot],assignmentKnownAt:registered,
     startAt:at,tradeEndAt:at+TRADE_MS,
     washoutEndAt:at+TRADE_MS+WASH_MS,
-    tradeHours:72,washoutHours:72,
+    fundingReviewEndAt:at+TRADE_MS+WASH_MS+GAP_MS,
+    tradeHours:72,washoutHours:72,fundingReviewHours:1,
     accountDesign:"ONE_SHARED_USD_20000_FUNDED_ACCOUNT",
     entryAuthorized:false,liveApproved:false});
   }
@@ -67,6 +69,7 @@ function freeze({studyId,registeredAt,startAt,cycles=4,assignmentNonce,
  const body={schema:SCHEMA,studyId:name,registeredAt:registered,
   startAt:start,cycles,initialCapitalUsd:20000,
   holdingMaximumHours:72,washoutHours:72,
+  fundingReviewHours:1,
   eightArms:[...C28.ARMS],blocks,
   assignmentAlgorithm:"SHA256_DOMAIN_SEPARATED_UNBIASED_FISHER_YATES",
   assignmentNonceCommitment:hash("C29_NONCE_V1|"+nonce),
@@ -100,9 +103,10 @@ function validate(plan){
   const b=plan.blocks[i];
   need(b.index===i&&b.cycle===Math.floor(i/8)&&b.slot===i%8&&
    C28.ARMS.includes(b.arm)&&!prev.has(b.blockId)&&
-   b.startAt===plan.startAt+i*(TRADE_MS+WASH_MS)&&
+   b.startAt===plan.startAt+i*(TRADE_MS+WASH_MS+GAP_MS)&&
    b.tradeEndAt-b.startAt===TRADE_MS&&
    b.washoutEndAt-b.tradeEndAt===WASH_MS&&
+   b.fundingReviewEndAt-b.washoutEndAt===GAP_MS&&
    b.assignmentKnownAt===plan.registeredAt&&
    b.entryAuthorized===false&&b.liveApproved===false,
    "FROZEN_BLOCK_GEOMETRY");
