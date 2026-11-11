@@ -1,0 +1,29 @@
+name: FWN9 C31 native postfilter lineage
+on:
+  push:
+    branches:
+      - research/m11-c31-native-lineage-witness
+  pull_request:
+    branches:
+      - research/m11-c30-study-feasibility
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: C31 syntax
+        run: |
+          node --check runtime30/fwn9_c31_native_postfilter_witness.cjs
+          node --check runtime30/fwn9_c31_native_call_journal.cjs
+          node --check tools/fwn9_c31_native_lineage_witness_test.cjs
+      - name: Original native method and durable source witness tests
+        run: node --test tools/fwn9_c31_native_lineage_witness_test.cjs
+      - name: Preserve C30 structural gate
+        run: node --test tools/fwn9_c30_study_feasibility_test.cjs
