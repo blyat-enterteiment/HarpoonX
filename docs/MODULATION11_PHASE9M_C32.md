@@ -72,10 +72,17 @@ Validación:
     node --test tools/fwn9_c32_native_prefilter_test.cjs
     node --test tools/fwn9_c31_native_lineage_witness_test.cjs tools/fwn9_c30_study_feasibility_test.cjs
 
-La CI compila el TypeScript y ejecuta las pruebas contra el JavaScript
-generado. No declara paridad byte a byte entre formatos ni certificación
-externa del productor. El resultado será evidencia de ingeniería,
+La CI prueba primero el JavaScript incluido en GitHub, luego ejecuta el
+tipado estricto, recompila el TypeScript y vuelve a ejecutar las pruebas sobre
+el JavaScript generado. No declara paridad byte a byte entre formatos ni
+certificación externa del productor. El resultado será evidencia de ingeniería,
 **no de ejecución contra mercado o broker**.
+
+El control `auditNextBar()` solo acepta eventos completos con hora LOCAL
+recibida antes del inicio de la siguiente barra. Rechaza expresamente las
+invocaciones registradas después de ese instante. Esto no constituye una
+sincronización independiente de relojes ni captura el estado de posiciones,
+reservas y patrimonio exigido por C27.
 
 ## Siguiente cierre real para N9
 
