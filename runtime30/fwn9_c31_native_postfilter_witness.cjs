@@ -50,6 +50,33 @@ function inspectLineage(plugins){
   finalFinancialGO:false,N9S:"NO_GO"
  };
 }
+function auditNativeDiagnostics(plugins,book,enabled){
+ // These rows are emitted by the ORIGINAL Plugins.evaluate diagnostics
+ // after its filters. They cannot certify C28 prefilter opportunity coverage.
+ const selected=plugins.catalog.filter(p=>p.book===book&&enabled.includes(p.id))
+  .map(p=>p.id);
+ const symbols=plugins.cfg.universe.filter(x=>x.book===book).map(x=>x.symbol);
+ const expected=selected.flatMap(id=>symbols.map(symbol=>id+"|"+symbol));
+ const counts=new Map();
+ for(const d of plugins.diagnostics||[]){
+  if(d?.book!==book||typeof d.plugin!=="string"||
+    typeof d.symbol!=="string"||!["WAIT","SIGNAL"].includes(d.status))continue;
+  const k=d.plugin+"|"+d.symbol;
+  counts.set(k,(counts.get(k)||0)+1);
+ }
+ const missing=expected.filter(id=>!counts.has(id));
+ const duplicate=expected.filter(id=>(counts.get(id)||0)>1);
+ return {
+  declaredNativePluginSymbolPairs:expected.length,
+  diagnosedNativePluginSymbolPairs:expected.length-missing.length,
+  undiagnosedNativePairIds:missing,
+  duplicateNativePairIds:duplicate,
+  diagnosticsCompleteForDeclaredNativePairs:
+    expected.length>0&&missing.length===0&&duplicate.length===0,
+  actualNativePrefilterEvaluationAndZeroSignalCompletenessProved:false,
+  sixC22PolicyLineageProved:false
+ };
+}
 function attach(plugins,{sink,clock=Date.now}={}){
  need(plugins&&Object.getPrototypeOf(plugins)===Plugins.prototype&&
   plugins.evaluate===Plugins.prototype.evaluate,
@@ -102,6 +129,7 @@ function attach(plugins,{sink,clock=Date.now}={}){
    startedAt:started,finishedAt:finished,
    callAsOf:asof??null,book,
    selectedNativePluginIds:selected,
+   nativeDiagnostics:auditNativeDiagnostics(plugins,book,enabled),
    sourceInputScopeSha256:digest,
    outputCount:idRows.length,
    emittedNativeIds:idRows,
@@ -128,4 +156,4 @@ function attach(plugins,{sink,clock=Date.now}={}){
  return ()=>{need(plugins.evaluate===wrapped,"WITNESS_REPLACED");
   plugins.evaluate=original;};
 }
-module.exports={SCHEMA,sourceFingerprint,inspectLineage,attach};
+module.exports={SCHEMA,sourceFingerprint,inspectLineage,auditNativeDiagnostics,attach};
