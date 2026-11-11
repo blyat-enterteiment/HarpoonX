@@ -13,6 +13,7 @@ class Plugins {
     lastFeatures = [];
     catalog;
     diagnostics = [];
+    c32PrefilterTap;
     tape;
     stream;
     cryptoTape;
@@ -228,6 +229,10 @@ class Plugins {
         };
         const closed = (s) => (0, sessions_1.regularClosedBars)(history(s), now, calendar), spy = closed("SPY"), spyMom = spy.length >= 4 && (0, sessions_1.contiguousBars)(spy.slice(-4)) ? (spy.at(-1).c / spy.at(-4).c - 1) * 10000 : null;
         for (const i of this.cfg.universe.filter((x) => x.book !== "crypto")) {
+            this.c32PrefilterTap?.({
+                site: "FEATURE_PRE_QUOTE", book: i.book, pluginId: null,
+                symbol: i.symbol, asOf: now,
+            });
             try {
                 const q = m.quotes[i.symbol];
                 if (!(0, types_1.fresh)(q, now, this.cfg.quoteAgeMs))
@@ -293,11 +298,20 @@ class Plugins {
     }
     evaluate(book, m, enabled, now = Date.now()) {
         this.diagnostics = this.diagnostics.filter((d) => d.book !== book);
-        const out = [], L = this.legacy, selected = this.catalog.filter((p) => p.book === book && enabled.includes(p.id)), features = book === "equity" || book === "etf"
+        const out = [], L = this.legacy, selected = this.catalog.filter((p) => p.book === book && enabled.includes(p.id));
+        this.c32PrefilterTap?.({
+            site: "EVALUATE_SOURCE_BEFORE_FEATURES", book,
+            pluginId: null, symbol: null, asOf: now,
+        });
+        const features = book === "equity" || book === "etf"
             ? this.features(m, now).filter((f) => f.book === book)
             : [];
         for (const plugin of selected) {
             for (const i of this.cfg.universe.filter((i) => i.book === book)) {
+                this.c32PrefilterTap?.({
+                    site: "NATIVE_PAIR_PRE_QUOTE", book, pluginId: plugin.id,
+                    symbol: i.symbol, asOf: now,
+                });
                 try {
                     const q = m.quotes[i.symbol];
                     if (!(0, types_1.fresh)(q, now, this.cfg.quoteAgeMs))
@@ -498,6 +512,10 @@ class Plugins {
     options(p, m, now) {
         const out = [];
         for (const underlying of this.cfg.optionUnderlyings) {
+            this.c32PrefilterTap?.({
+                site: "OPTIONS_UNDERLYING_PRE_FILTERS", book: "options",
+                pluginId: p.id, symbol: underlying, asOf: now,
+            });
             try {
                 const spot = m.quotes[underlying], daily = (m.daily[underlying] || []).filter((b) => Date.parse(b.t) + 86400000 <= now), bars = (m.bars[underlying] || [])
                     .filter((b) => Date.parse(b.t) + 303000 <= now)
