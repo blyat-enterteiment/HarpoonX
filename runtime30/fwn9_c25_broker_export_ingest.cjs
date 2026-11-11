@@ -81,7 +81,7 @@ function flattenPages(pages,pageSize){
  return rows;
 }
 function instrumentsFor(rows){
- need(Array.isArray(rows)&&rows.length>0&&rows.length<=10000,
+ need(Array.isArray(rows)&&rows.length<=10000,
   "INSTRUMENT_CATALOG");
  const m=new Map();
  for(const x of rows){
@@ -213,6 +213,16 @@ function certify(bundle){
  need(Array.isArray(bundle.baseline_open_orders)&&bundle.baseline_open_orders.length===0,
   "PREBASELINE_PENDING_ORDERS_REQUIRE_SEPARATE_RECONCILIATION");
  const catalog=instrumentsFor(bundle.instruments);
+ // Empty catalog is admissible ONLY for a truly flat, order-free CASH
+ // interval, not as a way to hide instruments or missing order history.
+ if(catalog.size===0)need(
+  Array.isArray(bundle.baseline?.positions)&&bundle.baseline.positions.length===0&&
+  Array.isArray(bundle.terminal?.positions)&&bundle.terminal.positions.length===0&&
+  Array.isArray(bundle.orders?.rows)&&bundle.orders.rows.length===0&&
+  Array.isArray(bundle.activities?.pages)&&
+  bundle.activities.pages.every(p=>Array.isArray(p.rows)&&
+   p.rows.every(r=>r.activity_type!=="FILL")),
+  "EMPTY_INSTRUMENT_CATALOG_REQUIRES_CASH_ONLY_NO_ORDERS_OR_FILLS");
  // Stub store / transport cannot initiate network IO: only native read-only
  // snapshot() and activity() methods are invoked directly.
  const ledger=new NetAccountLedger({},{},"c25-offline-unpersisted",id,

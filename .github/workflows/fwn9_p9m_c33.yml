@@ -1,0 +1,35 @@
+name: FWN9 C33 PAPER GET provenance and CASH baseline
+on:
+  push:
+    branches:
+      - research/m11-c33-cash-broker-get-receipts
+  pull_request:
+    branches:
+      - research/m11-c32-native-prefilter-source-provenance
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install pinned dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Syntax and read-only source checks
+        run: |
+          node --check runtime30/fwn9_c25_alpaca_readonly_exporter.cjs
+          node --check runtime30/fwn9_c25_broker_export_ingest.cjs
+          node --check runtime30/fwn9_c33_broker_get_witness.cjs
+          node --check runtime30/fwn9_c33_broker_get_journal.cjs
+          node --check tools/fwn9_c33_paper_capture.cjs
+          node --check tools/fwn9_c33_broker_receipt_test.cjs
+      - name: C33 and C25 original regressions (no network)
+        run: node --test tools/fwn9_c33_broker_receipt_test.cjs tools/fwn9_c25_alpaca_readonly_exporter_test.cjs tools/fwn9_c25_broker_export_ingest_test.cjs
+      - name: Preserve C32 C31 C30 provenance gates
+        run: node --test tools/fwn9_c32_native_prefilter_test.cjs tools/fwn9_c31_native_lineage_witness_test.cjs tools/fwn9_c30_study_feasibility_test.cjs

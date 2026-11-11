@@ -133,7 +133,8 @@ async function instrumentCatalog(get,base,terminal,orders){
    symbols.set(symbol,asset.class);
   }
  }
- need(symbols.size>0&&symbols.size<=10000,"INSTRUMENTS_REQUIRED");
+ // A legitimately flat CASH block has no position/order instruments.
+ need(symbols.size<=10000,"INSTRUMENT_CATALOG_BOUND");
  return [...symbols].map(([symbol,asset_class])=>({
   symbol,asset_class,currency:"USD",multiplier:1
  }));
