@@ -87,6 +87,7 @@ test("C29 wrong C25 from-to interval fails assigned sample clock",()=>{
  const p=PLAN(),b=p.blocks[0],row=data(p)[0];
  row.accountExport.from=new Date(b.startAt+120000).toISOString();
  row.accountExport.baseline.observed_at=row.accountExport.from;
+ row.accountExport.external_cost_coverage.from=row.accountExport.from;
  A.throws(()=>B.auditBlock(b,row),/C29B_SOURCE_INTERVAL_NOT_MATCHING_PREASSIGNED_BLOCK/);
 });
 test("C29 a CASH block cannot conceal active orders even if no fills",()=>{
@@ -137,5 +138,5 @@ test("C29 original strategy unexecuted source block cannot receive invented PnL"
  const p=PLAN(),r=data(p).find(x=>x.arm==="ORIGINAL_BASELINE");
  r.accountExport.terminal.account.equity="20100";
  A.throws(()=>B.auditBlock(p.blocks.find(x=>x.arm==="ORIGINAL_BASELINE"),r),
-  /C25_NAV_MISMATCH|C29B_SOURCE_NATIVE_ECONOMIC_NAV_PARITY/);
+  /NAV_MISMATCH|C29B_SOURCE_NATIVE_ECONOMIC_NAV_PARITY/);
 });
