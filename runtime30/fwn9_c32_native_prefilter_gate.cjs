@@ -165,4 +165,29 @@ function auditCall({rows,book,asOf,selectedPlugins,universe,optionUnderlyings=[]
   originalM10Sealed:3200,financialGO:false,N9S:"NO_GO"
  };
 }
-module.exports={SCHEMA,sourceHash,originalMethodIdentity,attach,auditCall};
+function auditNextBar({callAudit,rows,nextBarStart}={}){
+ need(callAudit?.schema==="HARPOON_FWN9_C32_NATIVE_TO_C22_CAUSAL_LINEAGE_AUDIT_1"&&
+  callAudit.nativePairScopeComplete===true&&
+  Array.isArray(rows)&&rows.length>0&&
+  Number.isSafeInteger(nextBarStart)&&nextBarStart>0,
+  "COMPLETE_NATIVE_SOURCE_AND_NEXT_BAR_REQUIRED");
+ need(rows.every(r=>r?.schema===SCHEMA&&
+  r.sourceFileSha256===callAudit.sourceFileSha256&&
+  Number.isSafeInteger(r.sourceAsOf)&&r.sourceAsOf<=nextBarStart&&
+  Number.isSafeInteger(r.localRecordedAt)&&
+  r.localRecordedAt<=nextBarStart),
+  "NATIVE_SOURCE_CAPTURE_AFTER_BAR_START");
+ return {
+  schema:"HARPOON_FWN9_C32_SOURCE_TIMING_BEFORE_NEXT_BAR_1",
+  nativeOriginalPreFilterSitesRecorded:true,
+  localSourceKnownBeforeNextBar:true,
+  nextBarStart,
+  clockSource:"LOCAL_SYSTEM_CLOCK_NOT_INDEPENDENT_TIME_AUTHORITY",
+  originalC27FundingPositionStateCaptured:false,
+  c28SixOriginalPolicySemanticParityCertified:false,
+  thirdPartyTimeOrMarketAuthenticated:false,
+  brokerOrderOrFillAuthenticated:false,
+  financialGO:false,N9S:"NO_GO"
+ };
+}
+module.exports={SCHEMA,sourceHash,originalMethodIdentity,attach,auditCall,auditNextBar};
