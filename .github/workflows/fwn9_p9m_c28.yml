@@ -111,3 +111,30 @@ jobs:
               assert q['population_C15_screens'][scenario]['expected_U_upper'] is None
           print('C28_ORIGINAL_C15_POPULATION_UNCERTIFIED_NO_GO_PASS')
           PY
+      - name: Seal 339 source tests and block all financial promotions
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          evidence=json.loads(Path('evidence/modulation11/fwn9_phase9m_c28_evidence.json').read_text())
+          proto=json.loads(Path('research/modulation11/fwn9_phase9m_c28_protocol.json').read_text())
+          q=evidence['quality']
+          assert q['C28_new_tests']==64
+          assert q['C16_to_C27_prior_source_and_math_regression_tests']==275
+          assert q['total_source_contract_math_and_regression_tests']==339
+          assert q['total_passed']==339 and q['total_failed']==0
+          assert q['independent_C16_Decimal46']=='PASS'
+          assert evidence['closed_engineering_gaps']['all_eligible_slots_explicit_evaluation_receipt_even_zero_candidates']
+          assert evidence['closed_engineering_gaps']['C27_C28_heads_bound_in_private_0700_0600_immutable_SHA_chains']
+          assert evidence['closed_engineering_gaps']['source_generated_IDs_must_equal_C27_named_outcomes']
+          assert evidence['closed_engineering_gaps']['signer_trust_and_actual_timestamp_independently_verified'] is False
+          assert evidence['closed_engineering_gaps']['market_broker_receipts_authenticated_by_Ed25519_anchor'] is False
+          assert evidence['financing_and_experiment']['actual_observed_source_financed_blocks']==0
+          assert evidence['financing_and_experiment']['real_six_variant_compounded_growth_vs_cash'] is None
+          assert evidence['financing_and_experiment']['realized_alpha_independent_adjusted_multiple_testing'] is False
+          assert evidence['budget']=={'newMarketSeeds':0,'newSignals':0,'newEconomicAccounts':0,'newPaperOrders':0,'newLiveOrders':0,'openedM10Final':0,'sealedM10Final':3200,'deployedServices':0,'mergedPRs':0,'recursiveResearchStarts':0}
+          assert evidence['verdict']['N9S']=='NO_GO'
+          assert proto['acceptance_gate']['final_economic_certification'] is False
+          assert proto['acceptance_gate']['C29_dependence_adjusted_statistics_not_implemented'] is True
+          print('C28_339_SOURCE_TESTS_PASS_SOURCE_AUTHENTICATION_AND_PROSPECTIVE_OOS_BLOCKED_M10_SEALED')
+          PY
