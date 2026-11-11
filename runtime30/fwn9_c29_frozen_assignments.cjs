@@ -69,6 +69,9 @@ function freeze({studyId,registeredAt,startAt,cycles=4,assignmentNonce,
  const body={schema:SCHEMA,studyId:name,registeredAt:registered,
   startAt:start,cycles,initialCapitalUsd:20000,
   holdingMaximumHours:72,washoutHours:72,
+  originalFrozenDailyHurdleBps:1,
+  originalRiskPerEntryFraction:0.0025,
+  originalGrossAdmissionFraction:0.12,
   fundingReviewHours:1,
   eightArms:[...C28.ARMS],blocks,
   assignmentAlgorithm:"SHA256_DOMAIN_SEPARATED_UNBIASED_FISHER_YATES",
@@ -96,7 +99,10 @@ function validate(plan){
   plan.eightArms.every((x,i)=>x===C28.ARMS[i])&&
   Number.isInteger(plan.cycles)&&plan.cycles>=4&&
   plan.blocks.length===plan.cycles*8&&
-  plan.familywiseAlpha===.025&&plan.initialCapitalUsd===20000,
+  plan.familywiseAlpha===.025&&plan.initialCapitalUsd===20000&&
+  plan.originalFrozenDailyHurdleBps===1&&
+  plan.originalRiskPerEntryFraction===.0025&&
+  plan.originalGrossAdmissionFraction===.12,
   "FROZEN_ARMS_AND_CAPITAL");
  const prev=new Set();
  for(let i=0;i<plan.blocks.length;i++){
