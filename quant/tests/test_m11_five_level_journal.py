@@ -1,7 +1,6 @@
 """C38 private persistence, no latch reset from quote rebounds or restarts."""
 from __future__ import annotations
 
-import json
 import os
 import tempfile
 import unittest
@@ -9,7 +8,12 @@ from dataclasses import replace
 from pathlib import Path
 
 from harpoon_quant.five_level_guard import (
-    GridSpec, Inventory, Quote, create_grid, empty_latch, inspect,
+    GridSpec,
+    Inventory,
+    Quote,
+    create_grid,
+    empty_latch,
+    inspect,
 )
 from harpoon_quant.five_level_journal import Writer, create, verify
 
