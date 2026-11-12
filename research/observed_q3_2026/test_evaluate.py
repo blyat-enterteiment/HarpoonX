@@ -47,13 +47,13 @@ class ObservedQ3Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             shutil.copytree(
-                evaluate.ROOT / "research/observed_q3_2026",
+                evaluate.DATA_DIR,
                 root / "research/observed_q3_2026",
             )
             path = root / "research/observed_q3_2026/raw/BTCUSD_us_1day.csv"
             data = path.read_bytes()
             path.write_bytes(data[:-2] + (b"9" if data[-2:-1] != b"9" else b"8") + data[-1:])
-            with patch.object(evaluate, "ROOT", root):
+            with patch.object(evaluate, "DATA_DIR", root / "research/observed_q3_2026"):
                 with self.assertRaisesRegex(ValueError, "SOURCE_GIT_BLOB_CHANGED"):
                     evaluate.load_data(
                         root / "research/observed_q3_2026/source_manifest.json"
