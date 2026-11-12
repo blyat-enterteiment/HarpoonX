@@ -76,6 +76,22 @@ If a separate signer/intermediate cert is required, supply
 `--signer /private/tsa-chain.pem`. Never post API keys, CA private
 keys or account exports to GitHub.
 
+## Delayed activity restatement guard (C34-L)
+
+The Alpaca Trading API activity interval is based on record creation time,
+not necessarily when a trade economically settled. A fee or correction can
+be created after a C25 block's terminal snapshot. The new
+`fwn9_c34_delayed_activity_census.cjs` validates a broader PAPER
+activity requery. It requires every old ID and exact record digest to
+reappear, flags newly created fees and other activities, and rejects
+missing old events, changed fees, duplicates, unknown `created_at`,
+account substitution and an unextended query window.
+
+A requery containing zero additional activities cannot prove that the
+broker will never report a later charge. C34 therefore leaves
+`financialGO=false` even when the supplied activity history passes.
+This is an offline consistency gate, not a live broker connection.
+
 ## What still prevents N9-S
 
 - No actual independently vetted timestamp service was called;
