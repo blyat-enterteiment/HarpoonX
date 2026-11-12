@@ -1,0 +1,60 @@
+name: FWN9 C37 Q3-2026 observed data - retrospective economic test
+on:
+  push:
+    branches:
+      - research/m11-c37-q3-2026-observed-history
+  pull_request:
+    branches:
+      - research/m11-c36-frozen-safe-incubator
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  historical-quarter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source and economic replay syntax
+        run: |
+          python -m py_compile research/observed_q3_2026/evaluate.py
+          python -m py_compile research/observed_q3_2026/test_evaluate.py
+          python -m py_compile research/observed_q3_2026/emit_artifacts.py
+      - name: Validate input SHA source, no lookahead, costs and frozen capital
+        run: python -m unittest discover -s research/observed_q3_2026 -p test_evaluate.py -v
+      - name: Produce research-only historical report
+        run: python research/observed_q3_2026/emit_artifacts.py
+      - name: Verify downloaded market rows and report provenance
+        run: |
+          python - <<'PY'
+          import csv,json,pathlib
+          base=pathlib.Path("research/observed_q3_2026")
+          m=json.loads((base/"source_manifest.json").read_text())
+          assert sum(x["expected_rows"] for x in m["files"])==376
+          assert len(m["files"])==5
+          r=json.loads((base/"artifacts/replay_report.json").read_text())
+          assert r["source"]["rows"]==376
+          assert r["economic_conclusions"]["real_prospective_N9_alpha_proven"] is False
+          assert r["economic_conclusions"]["actual_broker_entry_exit_orders_fills"]==0
+          assert r["economic_conclusions"]["firm_level_growth_target_N9"]=="NO_GO"
+          with (base/"artifacts/economic_comparison.csv").open() as f:
+              rows=list(csv.DictReader(f))
+          assert len(rows)==5
+          assert all(row["real_broker_fill_count"]=="0" and row["N9_GO"]=="NO_GO" for row in rows)
+          print("C37_376_OBSERVED_MARKET_BARS_REPLAY_MODELED_ONLY_N9_NO_GO")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: C37-Q3-2026-5-assets-RESEARCH-ONLY
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            research/observed_q3_2026/source_manifest.json
+            research/observed_q3_2026/raw/*.csv
+            research/observed_q3_2026/evaluate.py
+            research/observed_q3_2026/test_evaluate.py
+            research/observed_q3_2026/emit_artifacts.py
+            research/observed_q3_2026/artifacts/*
