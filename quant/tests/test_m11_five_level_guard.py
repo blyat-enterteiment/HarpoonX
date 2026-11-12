@@ -7,8 +7,14 @@ import unittest
 from dataclasses import asdict, replace
 
 from harpoon_quant.five_level_guard import (
-    GridSpec, Inventory, Quote, create_grid, empty_latch, inspect,
-    rearm, research_capacity,
+    GridSpec,
+    Inventory,
+    Quote,
+    create_grid,
+    empty_latch,
+    inspect,
+    rearm,
+    research_capacity,
 )
 
 AT = 1_800_000_000_000
