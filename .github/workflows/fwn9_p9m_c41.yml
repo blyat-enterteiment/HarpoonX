@@ -1,0 +1,51 @@
+name: FWN9 C41 one frozen champion and economic NO-GO witness
+on:
+  push:
+    branches:
+      - research/m11-c41-one-champion-n9-gate
+  pull_request:
+    branches:
+      - research/m11-c37-q3-2026-observed-history
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  c41:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # original M9 P9I reads immutable earlier commits
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned static validation
+        run: python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+      - name: Static and type verification for one research-only candidate
+        run: |
+          python -m py_compile research/n9_c41/champion.py research/n9_c41/test_champion.py
+          ruff check research/n9_c41/champion.py research/n9_c41/test_champion.py
+          mypy --strict research/n9_c41/champion.py
+      - name: C41 single policy and no-phantom-broker-test
+        run: python -m unittest discover -s research/n9_c41 -p 'test_champion.py' -v
+      - name: C37 historical source and modeled execution regression
+        run: python -m unittest discover -s research/observed_q3_2026 -p 'test_evaluate.py' -v
+      - name: C36 funded matrix and compound regression
+        run: PYTHONPATH=quant python -m unittest discover -s quant/tests -p 'test_m11_incubation_matrix.py' -v
+      - name: Original frozen M9 source provenance
+        run: python tools/fwn9_p9i_provenance.py
+      - name: Ensure C40 winning policy cannot pass GO
+        run: |
+          python - <<'PY'
+          import json, pathlib, math
+          x=json.loads(pathlib.Path("research/n9_c41/c40_research_reference.json").read_text())
+          assert x["selected_using_future_September_outcomes"]
+          assert x["hypotheses_examined_retrospectively"] == 1250
+          assert x["fills_confirmed_from_broker"] == 0
+          assert x["modelled_net_log_growth_bps_per_calendar_day"] < 1.0
+          target=20000*(math.exp(30*0.0001)-1)
+          assert target>60 and x["modelled_net_pnl_usd"]<target
+          assert x["N9S"]=="NO_GO"
+          print("C41_C40_RETROSPECTIVE_WINNER_INELIGIBLE_FOR_FINANCIAL_GO")
+          PY
