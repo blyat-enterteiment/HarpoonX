@@ -1,0 +1,46 @@
+{
+  "schema": "HARPOON_FWN9_M11_C36_LOCAL_ASSET_STRATEGY_INCUBATOR_1",
+  "parent": "research/modulation11/fwn9_phase9m_c35_protocol.json",
+  "source_scope": "OFFLINE_RESEARCH_ONLY_USE_ASSERTED_PREFILTER_AND_ALIGNED_SCENARIO_ESTIMATES",
+  "frozen_constraints": {
+    "hard_capital_usd": 20000,
+    "max_hours": 72,
+    "max_admission_gross_fraction": 0.12,
+    "max_admission_risk_fraction": 0.0025,
+    "hurdle_bps_per_day": 1,
+    "preoutcome_familywise_alpha": 0.025
+  },
+  "research_only_conservative_amendments": {
+    "per_candidate_fraction": 0.04,
+    "confidence_sensitivity_z": 2.5,
+    "tail_risk_penalty": 0.25,
+    "no_trade_buffer_nav_bps": 0.25,
+    "one_entry_per_asset": true,
+    "same_factor_max_simultaneous": 1
+  },
+  "components": [
+    "causal_clock",
+    "native_prefilter",
+    "technical_volume_volmomentum_breakout",
+    "full_roundtrip_costs",
+    "expected_net_alpha_uncertainty",
+    "cash_and_risk_shared_budget",
+    "joint_scenario_log_cvar",
+    "factor_duplicate_selection",
+    "persistent_one_book_compound"
+  ],
+  "explicit_no_proofs": {
+    "selected_stochastic_returns_real": false,
+    "customer_portfolio_broker_observed": false,
+    "options_execution": true,
+    "fully_authenticated_prospective_market_data": false,
+    "original_C22_six_semantic_equivalence": false,
+    "third_party_preregistration": false,
+    "statistical_population_lower_bound": false
+  },
+  "zero_orders": true,
+  "zero_market_seeds": true,
+  "zero_executions": true,
+  "M10_final_accounts_sealed": 3200,
+  "N9S": "NO_GO"
+}
