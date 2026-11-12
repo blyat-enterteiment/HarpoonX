@@ -360,7 +360,7 @@ def _joint_log_risk_score(
 def evaluate_matrix(
     candidates: tuple[Opportunity, ...],
     book: FundedBook,
-    policy: ResearchPolicy = ResearchPolicy(),
+    policy: ResearchPolicy | None = None,
 ) -> dict[str, object]:
     """Research-only cohort with a deterministic no-trade option.
 
@@ -369,6 +369,8 @@ def evaluate_matrix(
     IDs make cross-asset analysis of dependence possible, but are not a proof
     of their true population probability distribution.
     """
+    if policy is None:
+        policy = ResearchPolicy()
     base = _validate_funding(book, policy)
     if not isinstance(candidates, tuple) or len(candidates) > 512:
         raise ValueError("C36_COHORT_INPUT_LIMIT")
