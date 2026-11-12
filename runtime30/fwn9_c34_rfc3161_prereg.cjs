@@ -24,7 +24,8 @@ const SOURCES=Object.freeze([
  "fwn9_c33_broker_get_witness.cjs",
  "fwn9_c33_broker_get_journal.cjs",
  "plugins.js",
- "fwn9_c34_rfc3161_prereg.cjs"
+ "fwn9_c34_rfc3161_prereg.cjs",
+ "fwn9_c34_delayed_activity_census.cjs"
 ]);
 function need(x,k){A.ok(x,"C34_"+k);}
 function sha(x){return crypto.createHash("sha256").update(x).digest("hex");}
