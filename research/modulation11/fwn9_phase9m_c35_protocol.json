@@ -1,0 +1,36 @@
+{
+  "schema": "HARPOON_FWN9_M11_C35_PAPER_NATIVE_WS_RECEIPT_1",
+  "prior": "research/modulation11/fwn9_phase9m_c34_protocol.json",
+  "official_source": "https://docs.alpaca.markets/us/docs/websocket-streaming",
+  "one_account_continuous": true,
+  "C35_source": "ALPACA_PAPER_TRADE_UPDATES_AUTH_LISTEN",
+  "C35_stream_data_source": "ACTUAL_CONNECTION_ONLY_WHEN_USER_INVOCED",
+  "fills_matched_by": [
+    "broker_order_id",
+    "symbol",
+    "side",
+    "execution_timestamp_ns",
+    "qty_decimal",
+    "price_decimal"
+  ],
+  "fills_not_identified_by_unsafe_assumption": "activity.id_is_execution_id",
+  "local_receive_timestamp_not_independent_broker_attestation": true,
+  "stream_reconnect_not_silently_healed": true,
+  "readiness": {
+    "live_stream_connected_in_this_delivery": false,
+    "private_alpaca_trading_api_receipts_retrieved": false,
+    "original_C22_six_strategy_semantic_parity_certified": false,
+    "c27_c28_source_universe_running_in_Render": false,
+    "options_fee_exercise_settlement_certified": false,
+    "timestamp_authority_independently_vetted": false,
+    "audited_financed_OOS_return_vs_cash_and_original": null
+  },
+  "safety": {
+    "out_of_process_manual_capture": true,
+    "zero_trading_orders": true,
+    "no_deploy": true,
+    "no_merge": true,
+    "M10_final_sealed": 3200,
+    "N9S": "NO_GO"
+  }
+}
