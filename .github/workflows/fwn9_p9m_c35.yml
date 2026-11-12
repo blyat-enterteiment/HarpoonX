@@ -1,0 +1,37 @@
+name: FWN9 C35 PAPER trade_updates offline verification
+on:
+  push:
+    branches:
+      - research/m11-c35-paper-trade-updates
+  pull_request:
+    branches:
+      - research/m11-c34-rfc3161-prereg-gate
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  c35-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install pinned Node dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check C35 and inherited syntax
+        run: |
+          node --check runtime30/fwn9_c35_paper_trade_updates.cjs
+          node --check runtime30/fwn9_c35_paper_stream_journal.cjs
+          node --check tools/fwn9_c35_capture_paper_stream.cjs
+          node --check tools/fwn9_c35_paper_stream_test.cjs
+      - name: C35 native PAPER order stream and exact C25 receipt join tests only - NO NETWORK
+        run: node --test tools/fwn9_c35_paper_stream_test.cjs
+      - name: C34 cryptography and late account receipt regression
+        run: node --test tools/fwn9_c34_rfc3161_prereg_test.cjs tools/fwn9_c34_delayed_activity_census_test.cjs
+      - name: C33-C25 CASH and read-only GET provenance regression
+        run: node --test tools/fwn9_c33_broker_receipt_test.cjs tools/fwn9_c25_alpaca_readonly_exporter_test.cjs tools/fwn9_c25_broker_export_ingest_test.cjs
+      - name: C32-C30 native source and strategy feasibility regression
+        run: node --test tools/fwn9_c32_native_prefilter_test.cjs tools/fwn9_c31_native_lineage_witness_test.cjs tools/fwn9_c30_study_feasibility_test.cjs
