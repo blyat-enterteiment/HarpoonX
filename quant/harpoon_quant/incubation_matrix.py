@@ -9,7 +9,9 @@ Original frozen funded cap: min(observed equity, USD 20,000); 12% gross and
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from hashlib import sha256
+import json
 from math import ceil, isfinite, log1p, sqrt
 from statistics import fmean, pstdev
 from typing import Literal
@@ -191,6 +193,7 @@ def _validate_evidence(o: Opportunity, policy: ResearchPolicy) -> None:
         or x.known_at_ms <= 0
         or not isinstance(f.quote_age_ms, int)
         or f.quote_age_ms < 0
+        or f.quote_age_ms < o.decision_at_ms - o.quote_known_at_ms
     ):
         raise ValueError("C36_FUTURE_INFORMATION_OR_CLOCK")
     features = (
@@ -371,8 +374,16 @@ def evaluate_matrix(
         raise ValueError("C36_COHORT_INPUT_LIMIT")
     identity: set[tuple[str, str]] = set()
     scenarios: tuple[str, ...] | None = None
+    common_decision_at: int | None = None
+    common_horizon_hours: int | None = None
     for o in candidates:
         _validate_evidence(o, policy)
+        if common_decision_at is None:
+            common_decision_at = o.decision_at_ms
+            common_horizon_hours = o.horizon_hours
+        elif (o.decision_at_ms != common_decision_at
+              or o.horizon_hours != common_horizon_hours):
+            raise ValueError("C36_NONATOMIC_PORTFOLIO_COHORT_OR_HORIZON")
         key = (o.symbol, o.native_strategy_id)
         if key in identity:
             raise ValueError("C36_DUPLICATE_ASSET_STRATEGY")
@@ -475,10 +486,24 @@ def evaluate_matrix(
         selected_symbols.add(o.symbol)
         groups[o.factor_bucket] = groups.get(o.factor_bucket, 0) + 1
     joint = _joint_log_risk_score(weighted_positions, policy)
+    # Exact research inputs are content-addressed; future preregistration
+    # must pin these hashes externally before seeing any prospective returns.
+    policy_sha256 = sha256(json.dumps(
+        asdict(policy), sort_keys=True, separators=(",", ":"),
+        allow_nan=False,
+    ).encode()).hexdigest()
+    cohort_sha256 = sha256(json.dumps(
+        [asdict(o) for o in candidates], sort_keys=True,
+        separators=(",", ":"), allow_nan=False,
+    ).encode()).hexdigest()
     return {
         "schema": RESEARCH_SCHEMA,
         "original_hard_capital_base_usd": base,
         "beginning_observed_equity_usd": book.equity_usd,
+        "research_policy_sha256": policy_sha256,
+        "research_input_cohort_sha256": cohort_sha256,
+        "common_decision_at_ms": common_decision_at,
+        "common_horizon_hours": common_horizon_hours,
         "candidate_count": len(candidates),
         "shortlisted_count": len(chosen),
         "rejected_count": len(rejections),
