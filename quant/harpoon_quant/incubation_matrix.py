@@ -9,9 +9,9 @@ Original frozen funded cap: min(observed equity, USD 20,000); 12% gross and
 
 from __future__ import annotations
 
+import json
 from dataclasses import asdict, dataclass
 from hashlib import sha256
-import json
 from math import ceil, isfinite, log1p, sqrt
 from statistics import fmean, pstdev
 from typing import Literal
