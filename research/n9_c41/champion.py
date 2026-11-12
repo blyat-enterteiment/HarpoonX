@@ -345,13 +345,18 @@ def evidence_gate(
         gaps.append("INDEPENDENT_FINANCIAL_REVIEW_MISSING")
     if final_m10_accounts_sealed != 3200:
         gaps.append("SEALED_M10_SOURCE_CHANGED")
-    try:
-        lower = decimal(corrected_log_lower_vs_both_benchmarks_bps_per_day,
-                        "CONFIRMATORY_LOWER_BPS")
-        if lower <= N9_HURDLE_BPS_PER_DAY:
-            gaps.append("BELOW_OR_EQUAL_FROZEN_1BP_PER_DAY")
-    except ValueError:
+    if corrected_log_lower_vs_both_benchmarks_bps_per_day is None:
         gaps.append("NO_VALID_CORRECTED_POSITIVE_POPULATION_BOUND")
+    else:
+        try:
+            lower = decimal(
+                corrected_log_lower_vs_both_benchmarks_bps_per_day,
+                "CONFIRMATORY_LOWER_BPS",
+            )
+            if lower <= N9_HURDLE_BPS_PER_DAY:
+                gaps.append("BELOW_OR_EQUAL_FROZEN_1BP_PER_DAY")
+        except ValueError:
+            gaps.append("NO_VALID_CORRECTED_POSITIVE_POPULATION_BOUND")
     return {
         "schema": "HARPOON_FWN9_C41_INDEPENDENT_FINANCIAL_REVIEW_READINESS_1",
         "candidate_version_sha256": policy_digest(),
