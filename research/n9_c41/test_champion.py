@@ -5,8 +5,14 @@ import unittest
 from dataclasses import replace
 
 from champion import (
-    ClosedBar, FinancedAccount, MarketSnapshot, Position, evidence_gate,
-    evaluate_entry, exit_step, policy_digest,
+    ClosedBar,
+    FinancedAccount,
+    MarketSnapshot,
+    Position,
+    evaluate_entry,
+    evidence_gate,
+    exit_step,
+    policy_digest,
 )
 
 NOW = 1_800_000_000_000
