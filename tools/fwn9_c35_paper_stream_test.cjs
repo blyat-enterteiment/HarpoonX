@@ -2,6 +2,7 @@
 const test=require("node:test");
 const A=require("node:assert/strict");
 const fs=require("node:fs"),os=require("node:os"),path=require("node:path");
+const {EventEmitter}=require("node:events");
 const W=require("../runtime30/fwn9_c35_paper_trade_updates.cjs");
 const J=require("../runtime30/fwn9_c35_paper_stream_journal.cjs");
 const CLI=require("./fwn9_c35_capture_paper_stream.cjs");
@@ -220,4 +221,51 @@ test("C35 CLI cannot authorize LIVE, indefinite capture, or M10",()=>{
   "--seconds","3601"]),/C35CLI_FINITE_PRIVATE_CAPTURE_NOT_M10/);
  A.throws(()=>CLI.argumentsOf(["--mode","PAPER","--out","/tmp/M10_final/x",
   "--seconds","10"]),/C35CLI_FINITE_PRIVATE_CAPTURE_NOT_M10/);
+});
+
+test("C35 finite CLI end-to-end mock socket sends only auth/listen and persists one real-schema event",async()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),"harpoon-c35-cli-"));
+ const sent=[],connections=[];
+ class FakeSocket extends EventEmitter{
+  constructor(url,opts){
+   super();connections.push({url,opts});
+   queueMicrotask(()=>this.emit("open"));
+  }
+  send(data){
+   const msg=JSON.parse(data);
+   sent.push(msg);
+   if(msg.action==="auth"){
+    queueMicrotask(()=>this.emit("message",Buffer.from(JSON.stringify({
+     stream:"authorization",data:{status:"authorized"}
+    }))));
+   }else if(msg.action==="listen"){
+    queueMicrotask(()=>{
+     this.emit("message",Buffer.from(JSON.stringify({
+      stream:"listening",data:{streams:["trade_updates"]}
+     })));
+     this.emit("message",frame("fill"));
+    });
+   }
+  }
+  close(){this.emit("close");}
+  terminate(){this.emit("close");}
+ }
+ try{
+  const dir=path.join(root,"private");
+  const answer=await CLI.localCapture([
+   "--mode","PAPER","--out",dir,"--seconds","1"
+  ],{Socket:FakeSocket,env:{
+   APCA_API_KEY_ID:"SYNTHETIC_TEST_KEY",
+   APCA_API_SECRET_KEY:"SYNTHETIC_TEST_SECRET"
+  }});
+  A.equal(answer.noBrokerOrdersSubmitted,true);
+  A.equal(answer.eventsRecorded,1);
+  A.deepEqual(sent.map(x=>x.action),["auth","listen"]);
+  A.equal(connections.length,1);
+  A.equal(connections[0].url,"wss://paper-api.alpaca.markets/stream");
+  A.equal(J.verify(dir).eventsRecorded,1);
+  const out=fs.readFileSync(path.join(dir,"events.ndjson"),"utf8");
+  A.equal(out.includes("SYNTHETIC_TEST_SECRET"),false);
+  A.equal(out.includes("SYNTHETIC_TEST_KEY"),false);
+ }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
