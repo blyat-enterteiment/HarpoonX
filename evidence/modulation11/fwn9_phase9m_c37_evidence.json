@@ -1,0 +1,126 @@
+{
+  "schema": "HARPOON_FWN9_M11_C37_Q3_2026_OBSERVED_MARKET_BARS_MODELED_ECONOMICS_1",
+  "data_source": "Alpaca market data connector: equity IEX feed, crypto US feed",
+  "observed_market_bar_total": 376,
+  "as_of": "2026-11-12",
+  "source_manifest": "research/observed_q3_2026/source_manifest.json",
+  "sources": [
+    {
+      "symbol": "SPY",
+      "bars": 64,
+      "feed": "iex"
+    },
+    {
+      "symbol": "QQQ",
+      "bars": 64,
+      "feed": "iex"
+    },
+    {
+      "symbol": "NVDA",
+      "bars": 64,
+      "feed": "iex"
+    },
+    {
+      "symbol": "BTC/USD",
+      "bars": 92,
+      "feed": "us"
+    },
+    {
+      "symbol": "ETH/USD",
+      "bars": 92,
+      "feed": "us"
+    }
+  ],
+  "evaluated_time_split": {
+    "calibration": "2026-07-01 through 2026-08-31",
+    "pseudo_oos": "2026-09-01 through 2026-09-30",
+    "chosen_before_outcome": false,
+    "real_prospective": false
+  },
+  "source_checks": {
+    "git_blob_sha1_verified_per_file": true,
+    "per_file_csv_sha256_reported": true,
+    "calendar_and_OHLC_integrity_verified": true,
+    "independent_exchange_signature": false,
+    "original_SIP_NBBO": false,
+    "real_execution_order_fill_receipts": false,
+    "crypto_quote_midpoints_possible": true
+  },
+  "methodological_boundaries": {
+    "signal_from_closed_daily_bar": true,
+    "entry_lag_two_daily_bars": true,
+    "exit_next_daily_open": true,
+    "holding_hours_at_most_72": true,
+    "continuous_shared_initial_capital_usd": 20000,
+    "original_gross_admission_fraction_limit": 0.12,
+    "original_risk_admission_fraction_limit": 0.0025,
+    "extra_research_candidate_fraction_limit": 0.04,
+    "native_C22_original_six_semantics_proved": false,
+    "transaction_costs_published_crypto_taker_25bps_each_side": true,
+    "additional_spread_slippage_impact_assumed": true
+  },
+  "calibration": {
+    "candidate_pairs_with_training_events": 11,
+    "train_signals": 54,
+    "september_signals": 26,
+    "prospective_signals": 0
+  },
+  "economic_comparison_modeled": {
+    "CASH": {
+      "trades": 0,
+      "pnl_usd": 0,
+      "final_usd": 20000
+    },
+    "NAIVE_MOMENTUM_NOT_ORIGINAL": {
+      "trades": 17,
+      "pnl_usd": -2.780799,
+      "roundtrip_estimated_cost_usd": 36.960441,
+      "final_usd": 19997.219201,
+      "log_growth_bps_per_day": -0.04635
+    },
+    "SOFT_RESEARCH_FILTER": {
+      "trades": 9,
+      "pnl_usd": -52.781364,
+      "roundtrip_estimated_cost_usd": 34.972305,
+      "final_usd": 19947.218636,
+      "log_growth_bps_per_day": -0.880852
+    },
+    "STRICT_FILTER": {
+      "trades": 0,
+      "pnl_usd": 0,
+      "final_usd": 20000
+    },
+    "STRICT_COST_STRESS": {
+      "trades": 0,
+      "pnl_usd": 0,
+      "final_usd": 20000
+    }
+  },
+  "reproducibility": {
+    "source_code_commit_tested": "98d3c4eb9d47970668f4ea05da3f874ec859d2ed",
+    "github_actions_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43308063292",
+    "github_actions_run_id": 43308063292,
+    "outcome": "success",
+    "tests_run": 20,
+    "tests_passed": 20,
+    "standalone_archive_tests_run": 20,
+    "standalone_archive_tests_passed": 20,
+    "report_sha256": "9cadcc9ec1b034aa28c471f134641ba788627af548c5af3702ff52d46f712c43",
+    "github_artifact_id": 13984687377,
+    "artifact": "C37-Q3-2026-5-assets-RESEARCH-ONLY"
+  },
+  "verdict": {
+    "observed_market_data_true": true,
+    "fills_historical_market_data_modeled_only": true,
+    "real_economic_execution_validated": false,
+    "c29_cash_and_original_broker_comparison": false,
+    "alpha_population_lower_bound": false,
+    "out_of_sample_prospective_proven": false,
+    "original_M10_3200_accounts_sealed": true,
+    "orders_paper": 0,
+    "orders_live": 0,
+    "deployments": 0,
+    "main_merges": 0,
+    "N9S": "NO_GO"
+  }
+}
