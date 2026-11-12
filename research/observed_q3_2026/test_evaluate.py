@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import copy
 import math
 import shutil
 import tempfile
@@ -53,7 +52,7 @@ class ObservedQ3Tests(unittest.TestCase):
             )
             path = root / "research/observed_q3_2026/raw/BTCUSD_us_1day.csv"
             data = path.read_bytes()
-            path.write_bytes(data.replace(b"BTC", b"BTX", 1))
+            path.write_bytes(data[:-2] + (b"9" if data[-2:-1] != b"9" else b"8") + data[-1:])
             with patch.object(evaluate, "ROOT", root):
                 with self.assertRaisesRegex(ValueError, "SOURCE_GIT_BLOB_CHANGED"):
                     evaluate.load_data(
