@@ -203,6 +203,22 @@ cuya base es C31 sin cambio de `runtime30/plugins.js` ni `xxx/plugins.ts`.
 Las capturas C32–C35 siguen como trabajos distintos, sin autoridad de
 producción ni fusión hasta demostrar compatibilidad con la fuente original.
 
-Solo la CI de la rama congelada podrá acreditar que P9I ha dejado de
-fallar; superar el gate Python C36 por sí solo no equivale a superar
-la cadena de origen M9. N9-S sigue NO_GO.
+La CI de la rama congelada acreditó P9I/P9J/P9K/P9L: ejecución
+https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43300690515
+SUCCESS. Ejecutó además 1.126 pruebas de la cabeza actual y 12
+pruebas de archivo reconstituidas desde referencias inmutables.
+
+La CI de C36
+https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43300690401
+SUCCESS: 39 pruebas de incubadora, Ruff, mypy estricto y benchmark
+sintético. En runner efímero GitHub, 160 combinaciones × 32
+escenarios: p50=16,52 ms y p95=33,39 ms (20 repeticiones).
+Tres filas fueron preseleccionadas y 157 descartadas SOLO en el
+banco sintético. No es una medición de alfa o reducción real de fees.
+
+Evidencia formal:
+`evidence/modulation11/fwn9_phase9m_c36_evidence.json`.
+
+La cadena archivada conserva procedencia compuesta y no constituye
+un snapshot histórico atómico de las 108 fuentes. P9I y el software
+C36 pasan en su alcance, sin certificar rentabilidad. N9-S sigue NO_GO.
