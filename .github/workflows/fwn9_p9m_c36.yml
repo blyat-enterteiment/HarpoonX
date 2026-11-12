@@ -1,0 +1,33 @@
+name: FWN9 C36 Multi-layer Cost-Aware Incubator (offline)
+on:
+  push:
+    branches:
+      - research/m11-c36-frozen-safe-incubator
+  pull_request:
+    branches:
+      - research/m11-c31-native-lineage-witness
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  c36-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static syntax and exact source compile
+        run: |
+          python -m py_compile quant/harpoon_quant/incubation_matrix.py
+          python -m py_compile quant/tests/test_m11_incubation_matrix.py
+      - name: Pinned static analysis and strict Python type verification
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+          ruff check quant/harpoon_quant/incubation_matrix.py quant/tests/test_m11_incubation_matrix.py quant/benchmark_m11_incubator.py
+          mypy --strict --follow-imports=silent quant/harpoon_quant/incubation_matrix.py
+      - name: Full C36 asset-strategy/funding/cost invariants (synthetic only)
+        run: PYTHONPATH=quant python -m unittest discover -s quant/tests -p 'test_m11_incubation_matrix.py' -v
+      - name: C36 deterministic per-asset matrix benchmarking (no market data)
+        run: PYTHONPATH=quant python quant/benchmark_m11_incubator.py
