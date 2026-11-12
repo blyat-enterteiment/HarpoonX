@@ -207,7 +207,7 @@ test("C35 journal rejects reopened untracked partial stream",()=>{
  withDir(dir=>{
   J.create(dir,{captureId:"C35_TEST_05"});
   const w=J.openWriter(dir);
-  A.throws(()=>J.openWriter(dir),/C35J_NEW_CAPTURE_WRITER_ONLY/);
+  A.throws(()=>J.openWriter(dir),/C35J_STALE_LOCK_REQUIRES_REVIEW/);
   w.authorized(RX1-2000);w.listening(RX1-1000);w.close(RX1);
  });
 });
