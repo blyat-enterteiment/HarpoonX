@@ -235,7 +235,7 @@ def _feature_gate(o: Opportunity, policy: ResearchPolicy) -> str | None:
         return "STALE_SOURCE_QUOTE"
     if f.liquidity_usd < policy.min_liquidity_usd:
         return "INSUFFICIENT_LIQUIDITY"
-    spread = 2 * (o.costs.half_spread_entry_bps + o.costs.half_spread_exit_bps) / 2
+    spread = 2 * max(o.costs.half_spread_entry_bps, o.costs.half_spread_exit_bps)
     if spread > policy.max_full_spread_bps:
         return "SPREAD_EXCEEDS_RESEARCH_GATE"
     if f.relative_volume < policy.min_relative_volume:
@@ -281,17 +281,23 @@ def _economics(
     mean_lower = (f.expected_gross_bps
                   - policy.confidence_multiplier * f.standard_error_bps)
     lower_net = mean_lower - cost
-    scenario_log = tuple(
-        log1p(fraction * (gross - cost) / 10_000)
-        for gross in f.scenario_returns_bps
-    )
+    scenario_net = tuple(fraction * (gross - cost) / 10_000
+                         for gross in f.scenario_returns_bps)
+    if any(x <= -1.0 for x in scenario_net):
+        raise ValueError("C36_SCENARIO_RUIN_NO_FINANCED_LOG")
+    scenario_log = tuple(log1p(x) for x in scenario_net)
     log_mean = fmean(scenario_log)
     log_standard_error = pstdev(scenario_log) / sqrt(f.n_effective)
-    tail = _tail_cvar(tuple(max(0.0, -v) for v in scenario_log))
+    empirical_tail = _tail_cvar(tuple(max(0.0, -v) for v in scenario_log))
+    # A stop is not a proven upper bound on actual reachable gap losses;
+    # retaining this research stress penalty is NOT a financial certificate.
+    modeled_stop_stress = (fraction * (o.stop_loss_upper_bps + cost)
+                           / 10_000)
+    tail_penalty_basis = max(empirical_tail, modeled_stop_stress)
     robust_log = (
         log_mean
         - policy.confidence_multiplier * log_standard_error
-        - policy.tail_risk_penalty * tail
+        - policy.tail_risk_penalty * tail_penalty_basis
     )
     required_portfolio_bps = (
         policy.hurdle_bps_per_day * o.horizon_hours / 24
@@ -306,7 +312,9 @@ def _economics(
         "portfolio_hurdle_bps": required_portfolio_bps,
         "scenario_expected_log": log_mean,
         "scenario_log_standard_error": log_standard_error,
-        "scenario_loss_cvar95": tail,
+        "scenario_loss_cvar95": empirical_tail,
+        "modeled_stop_stress_fraction": modeled_stop_stress,
+        "tail_penalty_basis": tail_penalty_basis,
         "robust_scenario_log_score": robust_log,
         "portfolio_log_hurdle": threshold,
         "log_margin": robust_log - threshold,
@@ -384,13 +392,13 @@ def evaluate_matrix(
     current_gross = book.outstanding_gross_usd
     current_risk = book.outstanding_risk_usd
     selected_symbols = set(book.held_symbols)
-    groups: set[str] = set()
+    groups: dict[str, int] = {}
     for _, _, _, o in prelim:
         if o.symbol in selected_symbols:
             rejections.append({"symbol": o.symbol, "strategy": o.native_strategy_id,
                                "reason": "BETTER_NATIVE_STRATEGY_ALREADY_SELECTED"})
             continue
-        if o.factor_bucket in groups:
+        if groups.get(o.factor_bucket, 0) >= policy.max_per_factor_bucket:
             rejections.append({"symbol": o.symbol, "strategy": o.native_strategy_id,
                                "reason": "FACTOR_CLUSTER_EXPOSURE_DUPLICATED"})
             continue
@@ -420,7 +428,7 @@ def evaluate_matrix(
         current_gross += cap
         current_risk += cap * o.stop_loss_upper_bps / 10_000
         selected_symbols.add(o.symbol)
-        groups.add(o.factor_bucket)
+        groups[o.factor_bucket] = groups.get(o.factor_bucket, 0) + 1
     return {
         "schema": RESEARCH_SCHEMA,
         "original_hard_capital_base_usd": base,
