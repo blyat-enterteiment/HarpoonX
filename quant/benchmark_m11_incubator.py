@@ -7,7 +7,6 @@ import hashlib
 import json
 import statistics
 import time
-from dataclasses import asdict
 
 from harpoon_quant.incubation_matrix import (
     Forecast,
@@ -49,11 +48,11 @@ def cohort() -> tuple[Opportunity, ...]:
                 "crypto" if i % 2 == 0 else "equity"
             )
             fc = Forecast(
-                expected_gross_bps=260 - 5 * j,
+                expected_gross_bps=360 - 5 * j,
                 standard_error_bps=5,
                 n_effective=32,
                 scenario_ids=SCENARIO_IDS,
-                scenario_returns_bps=(300,) * 31 + (0,),
+                scenario_returns_bps=(450,) * 31 + (0,),
                 known_at_ms=EPOCH - 500,
                 provenance="SYNTHETIC_RESEARCH",
             )
