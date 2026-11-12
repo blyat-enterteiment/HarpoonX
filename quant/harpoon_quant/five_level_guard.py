@@ -136,7 +136,13 @@ def create_grid(spec: GridSpec) -> Grid:
     )
 
 
+def validate_grid(grid: Grid) -> None:
+    if grid != create_grid(grid.spec):
+        raise ValueError("C38_GRID_LEVEL_OR_GENERATION_TAMPER")
+
+
 def empty_latch(grid: Grid) -> Latch:
+    validate_grid(grid)
     return Latch(grid.generation, False, False, 0, None)
 
 
@@ -162,6 +168,7 @@ def inspect(
     existing_native_protection_present: bool,
     max_source_age_ms: int = 15_000,
 ) -> tuple[Latch, dict[str, object]]:
+    validate_grid(grid)
     if grid.schema != SCHEMA or old.generation != grid.generation:
         raise ValueError("C38_GRID_GENERATION_CHANGED_WITHOUT_REARM")
     if (
@@ -254,6 +261,8 @@ def rearm(
     broker_orders_and_positions_reconciled: bool,
     independent_new_signal_confirmed: bool,
 ) -> Latch:
+    validate_grid(prior_grid)
+    validate_grid(fresh)
     if (
         prior.generation != prior_grid.generation
         or fresh.generation == prior_grid.generation
@@ -297,6 +306,7 @@ def research_capacity(
     broker_account_reconciled: bool,
 ) -> dict[str, object]:
     """Modeled dollar budget, NEVER a guarantee losses stop at two levels."""
+    validate_grid(grid)
     numbers = (
         observed_equity_usd, settled_cash_usd, committed_cash_usd,
         unsettled_cash_usd, already_admitted_gross_usd,
