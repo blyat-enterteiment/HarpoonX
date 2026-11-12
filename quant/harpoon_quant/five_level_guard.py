@@ -150,11 +150,11 @@ def _inventory_valid(inventory: Inventory, generation: str) -> tuple[Decimal, De
     held = _d(inventory.position_qty, "HELD_QTY")
     pending = _d(inventory.pending_entry_qty, "PENDING_QTY")
     if (
-        held > 0 and (
+        (held > 0 and (
             inventory.actual_entry_price is None
             or inventory.position_grid_generation != generation
-        )
-        or pending > 0 and inventory.pending_entry_grid_generation != generation
+        ))
+        or (pending > 0 and inventory.pending_entry_grid_generation != generation)
     ):
         raise ValueError("C38_POSITION_OR_RESERVATION_GRID_NOT_FROZEN")
     if held > 0 and inventory.actual_entry_price is not None:
