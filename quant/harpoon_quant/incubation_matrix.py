@@ -114,6 +114,7 @@ class ResearchPolicy:
     max_horizon_hours: int = 72
     max_admission_gross_fraction: float = 0.12
     max_admission_risk_fraction: float = 0.0025
+    max_candidate_gross_fraction: float = 0.04
     hard_capital_usd: float = 20_000.0
     hurdle_bps_per_day: float = 1.0
     confidence_multiplier: float = 2.5
@@ -154,6 +155,7 @@ def _validate_funding(book: FundedBook, policy: ResearchPolicy) -> float:
         or policy.tail_risk_penalty < 0
         or not isfinite(policy.tail_risk_penalty)
         or policy.max_per_factor_bucket < 1
+        or not 0 < policy.max_candidate_gross_fraction <= 0.12
         or policy.max_quote_age_ms < 0
         or policy.min_relative_volume < 0
         or policy.min_liquidity_usd < 0
@@ -263,7 +265,8 @@ def _capacity(
                 - current_gross)
     risk = max(0.0, policy.max_admission_risk_fraction * base
                - current_risk)
-    return min(cash, gross, risk * 10_000 / loss_bps)
+    return min(cash, gross, risk * 10_000 / loss_bps,
+               policy.max_candidate_gross_fraction * base)
 
 
 def _tail_cvar(losses: tuple[float, ...], confidence: float = 0.95) -> float:
@@ -318,6 +321,36 @@ def _economics(
         "robust_scenario_log_score": robust_log,
         "portfolio_log_hurdle": threshold,
         "log_margin": robust_log - threshold,
+    }
+
+
+def _joint_log_risk_score(
+    positions: list[tuple[Opportunity, float]], policy: ResearchPolicy,
+) -> dict[str, float]:
+    """Aligned scenario portfolio log wealth; diagnostic, not a confidence proof."""
+    if not positions:
+        return {"lower_log": 0.0, "tail_fraction": 0.0,
+                "worst_portfolio_return_bps": 0.0}
+    count = len(positions[0][0].forecast.scenario_ids)
+    portfolio_bps = [0.0] * count
+    modeled_stress = 0.0
+    n_eff = min(o.forecast.n_effective for o, _ in positions)
+    for opportunity, weight in positions:
+        cost = opportunity.costs.total_bps()
+        modeled_stress += weight * (opportunity.stop_loss_upper_bps + cost) / 10_000
+        for i, scenario_bps in enumerate(opportunity.forecast.scenario_returns_bps):
+            portfolio_bps[i] += weight * (scenario_bps - cost)
+    if any(bps <= -10_000 for bps in portfolio_bps):
+        raise ValueError("C36_JOINT_SCENARIO_RUIN")
+    logs = tuple(log1p(bps / 10_000) for bps in portfolio_bps)
+    tail = max(_tail_cvar(tuple(max(0.0, -v) for v in logs)),
+               modeled_stress)
+    return {
+        "lower_log": fmean(logs)
+            - policy.confidence_multiplier * pstdev(logs) / sqrt(n_eff)
+            - policy.tail_risk_penalty * tail,
+        "tail_fraction": tail,
+        "worst_portfolio_return_bps": min(portfolio_bps),
     }
 
 
@@ -393,6 +426,7 @@ def evaluate_matrix(
     current_risk = book.outstanding_risk_usd
     selected_symbols = set(book.held_symbols)
     groups: dict[str, int] = {}
+    weighted_positions: list[tuple[Opportunity, float]] = []
     for _, _, _, o in prelim:
         if o.symbol in selected_symbols:
             rejections.append({"symbol": o.symbol, "strategy": o.native_strategy_id,
@@ -415,6 +449,16 @@ def evaluate_matrix(
             rejections.append({"symbol": o.symbol, "strategy": o.native_strategy_id,
                                "reason": "MARGINAL_EDGE_VANISHED_AFTER_COMPETITION"})
             continue
+        before = _joint_log_risk_score(weighted_positions, policy)
+        after = _joint_log_risk_score(
+            [*weighted_positions, (o, cap / base)], policy
+        )
+        if after["lower_log"] <= before["lower_log"] + log1p(
+            policy.no_trade_buffer_portfolio_bps / 10_000
+        ):
+            rejections.append({"symbol": o.symbol, "strategy": o.native_strategy_id,
+                               "reason": "JOINT_LOG_RISK_ERASES_MARGINAL_EDGE"})
+            continue
         chosen.append({
             "symbol": o.symbol,
             "strategy": o.native_strategy_id,
@@ -425,10 +469,12 @@ def evaluate_matrix(
             "analysis": analysis,
             "selection": "OFFLINE_RESEARCH_SHORTLIST_NOT_ORDER",
         })
+        weighted_positions.append((o, cap / base))
         current_gross += cap
         current_risk += cap * o.stop_loss_upper_bps / 10_000
         selected_symbols.add(o.symbol)
         groups[o.factor_bucket] = groups.get(o.factor_bucket, 0) + 1
+    joint = _joint_log_risk_score(weighted_positions, policy)
     return {
         "schema": RESEARCH_SCHEMA,
         "original_hard_capital_base_usd": base,
@@ -436,6 +482,9 @@ def evaluate_matrix(
         "candidate_count": len(candidates),
         "shortlisted_count": len(chosen),
         "rejected_count": len(rejections),
+        "joint_aligned_scenario_log_score": joint["lower_log"],
+        "joint_scenario_tail_fraction": joint["tail_fraction"],
+        "joint_worst_scenario_portfolio_bps": joint["worst_portfolio_return_bps"],
         "research_shortlist": chosen,
         "no_trade_diagnostics": rejections,
         "baseline": "CASH",
