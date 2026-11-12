@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import math
 from dataclasses import asdict, dataclass
 from decimal import Decimal, ROUND_CEILING, ROUND_DOWN
 from typing import Literal
@@ -164,6 +163,7 @@ def evaluate_entry(
         volumes.append(decimal(bar.volume, "VOLUME"))
     if (not isinstance(snapshot.quote_known_at_ms, int)
             or snapshot.quote_known_at_ms > snapshot.decision_at_ms
+            or snapshot.quote_known_at_ms < snapshot.bars[-1].known_at_ms
             or snapshot.quote_known_at_ms <= 0):
         raise ValueError("C41_QUOTE_TIME")
     bid = decimal(snapshot.bid, "BID", positive=True)
@@ -333,7 +333,7 @@ def evidence_gate(
     must verify cryptography, actual account events and statistical validity.
     """
     gaps = []
-    if not isinstance(actual_receipts, int) or actual_receipts <= 0:
+    if type(actual_receipts) is not int or actual_receipts <= 0:
         gaps.append("NO_REAL_BROKER_FILL_RECEIPTS")
     if not independently_registered_before_first_trial:
         gaps.append("NO_INDEPENDENT_PREOUTCOME_REGISTRATION")
