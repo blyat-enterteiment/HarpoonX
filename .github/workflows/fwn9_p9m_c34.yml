@@ -1,0 +1,33 @@
+name: FWN9 C34 RFC3161 preregistration - offline cryptography
+on:
+  push:
+    branches:
+      - research/m11-c34-rfc3161-prereg-gate
+  pull_request:
+    branches:
+      - research/m11-c33-cash-broker-get-receipts
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-prereg:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check cryptography dependencies
+        run: openssl version
+      - name: Native source and prereg syntax checks
+        run: |
+          node --check runtime30/fwn9_c34_rfc3161_prereg.cjs
+          node --check tools/fwn9_c34_rfc3161_prereg_test.cjs
+          node --check tools/fwn9_c34_prereg_cli.cjs
+      - name: RFC3161 actual signature nonce and negative test suite (offline TEST-ONLY CA)
+        run: node --test tools/fwn9_c34_rfc3161_prereg_test.cjs
+      - name: C33 and original C25 regressions - no broker network
+        run: node --test tools/fwn9_c33_broker_receipt_test.cjs tools/fwn9_c25_alpaca_readonly_exporter_test.cjs tools/fwn9_c25_broker_export_ingest_test.cjs
+      - name: Preserve C30-C32 research source lineage
+        run: node --test tools/fwn9_c32_native_prefilter_test.cjs tools/fwn9_c31_native_lineage_witness_test.cjs tools/fwn9_c30_study_feasibility_test.cjs
