@@ -1,0 +1,82 @@
+{
+  "schema": "HARPOON_FWN9_C37_OBSERVED_ALPACA_FREE_MARKET_DATA_MANIFEST_1",
+  "received_source": "Connected Alpaca Market Data app, source API historical bars, not independently exchange signed",
+  "data_source_not_user_broker_orders": true,
+  "request_start": "2026-07-01T00:00:00Z",
+  "request_end": "2026-09-30T23:59:59Z",
+  "timeframe": "1Day",
+  "split": {
+    "calibration": "2026-07-01/2026-08-31",
+    "retrospective_held_out": "2026-09-01/2026-09-30"
+  },
+  "sources": {
+    "equity": "https://docs.alpaca.markets/us/reference/stockbars",
+    "crypto": "https://docs.alpaca.markets/us/reference/cryptobars-1",
+    "fees": "https://docs.alpaca.markets/us/docs/crypto-fees"
+  },
+  "files": [
+    {
+      "symbol": "SPY",
+      "feed": "iex",
+      "path": "research/observed_q3_2026/raw/SPY_iex_1day.csv",
+      "expected_rows": 64,
+      "git_blob_sha": "a171c5d94af120825c823d6bc613dec8ad75befe",
+      "first_timestamp": "2026-07-01T04:00:00+00:00",
+      "last_timestamp": "2026-09-30T04:00:00+00:00",
+      "raw_bytes": 5109,
+      "hash_algorithm": "Git blob SHA1 and runtime SHA256"
+    },
+    {
+      "symbol": "QQQ",
+      "feed": "iex",
+      "path": "research/observed_q3_2026/raw/QQQ_iex_1day.csv",
+      "expected_rows": 64,
+      "git_blob_sha": "ce125ac4413fbc745bc0e6f045fac396b84e84c4",
+      "first_timestamp": "2026-07-01T04:00:00+00:00",
+      "last_timestamp": "2026-09-30T04:00:00+00:00",
+      "raw_bytes": 5010,
+      "hash_algorithm": "Git blob SHA1 and runtime SHA256"
+    },
+    {
+      "symbol": "NVDA",
+      "feed": "iex",
+      "path": "research/observed_q3_2026/raw/NVDA_iex_1day.csv",
+      "expected_rows": 64,
+      "git_blob_sha": "8c4102550152c249fb7b121d9bbbec2b5074f754",
+      "first_timestamp": "2026-07-01T04:00:00+00:00",
+      "last_timestamp": "2026-09-30T04:00:00+00:00",
+      "raw_bytes": 5115,
+      "hash_algorithm": "Git blob SHA1 and runtime SHA256"
+    },
+    {
+      "symbol": "BTC/USD",
+      "feed": "us",
+      "path": "research/observed_q3_2026/raw/BTCUSD_us_1day.csv",
+      "expected_rows": 92,
+      "git_blob_sha": "969f90ca74b47e60dd24b8e60283afc31de97d8c",
+      "first_timestamp": "2026-07-01T00:00:00+00:00",
+      "last_timestamp": "2026-09-30T00:00:00+00:00",
+      "raw_bytes": 9088,
+      "hash_algorithm": "Git blob SHA1 and runtime SHA256"
+    },
+    {
+      "symbol": "ETH/USD",
+      "feed": "us",
+      "path": "research/observed_q3_2026/raw/ETHUSD_us_1day.csv",
+      "expected_rows": 92,
+      "git_blob_sha": "e40e26690edf5827e67bcee40b27e24ad826f67c",
+      "first_timestamp": "2026-07-01T00:00:00+00:00",
+      "last_timestamp": "2026-09-30T00:00:00+00:00",
+      "raw_bytes": 8701,
+      "hash_algorithm": "Git blob SHA1 and runtime SHA256"
+    }
+  ],
+  "restrictions": {
+    "iex_only_single_exchange": true,
+    "crypto_us_market_data_may_include_midpoints": true,
+    "not_comprehensive_NBBO": true,
+    "no_bid_ask_or_trading_fills": true,
+    "not_C29_original_six_policies": true,
+    "not_real_prospective_study": true
+  }
+}
