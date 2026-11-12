@@ -147,8 +147,8 @@ def verify(directory: Path, grid: Grid) -> dict[str, Any]:
             raise ValueError("C38J_INVALID_STATE")
         if state is not None and (
             candidate.last_known_at_ms < state.last_known_at_ms
-            or state.veto_latched and not candidate.veto_latched
-            or state.exit_pending_unconfirmed and not candidate.exit_pending_unconfirmed
+            or (state.veto_latched and not candidate.veto_latched)
+            or (state.exit_pending_unconfirmed and not candidate.exit_pending_unconfirmed)
         ):
             raise ValueError("C38J_UNAUTHORIZED_STATE_RESET")
         if index == 1 and candidate != empty_latch(grid):
@@ -190,9 +190,9 @@ class Writer:
             raise ValueError("C38J_WRITER_CLOSED")
         if (state.generation != self._grid.generation
                 or state.last_known_at_ms < self._state.last_known_at_ms
-                or self._state.veto_latched and not state.veto_latched
-                or self._state.exit_pending_unconfirmed
-                and not state.exit_pending_unconfirmed):
+                or (self._state.veto_latched and not state.veto_latched)
+                or (self._state.exit_pending_unconfirmed
+                    and not state.exit_pending_unconfirmed)):
             raise ValueError("C38J_UNAUTHORIZED_STATE_RESET")
         row = _row(self._index + 1, self._head,
                    self._manifest["manifest_sha256"], state)
