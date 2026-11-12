@@ -1,0 +1,66 @@
+{
+  "schema": "HARPOON_FWN9_M11_C35_PAPER_TRADE_UPDATES_OFFLINE_TESTED_EVIDENCE_1",
+  "asof_date": "2026-11-12",
+  "parent": "evidence/modulation11/fwn9_phase9m_c34_evidence.json",
+  "protocol": "research/modulation11/fwn9_phase9m_c35_protocol.json",
+  "report": "docs/MODULATION11_PHASE9M_C35.md",
+  "code_tested_commit": "6e88218214f2a921ef9c312eafeb1b9e8c1212bb",
+  "github_actions": {
+    "run_id": 43282073340,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43282073340",
+    "conclusion": "success",
+    "C35_new_offline_tests": 21,
+    "C34_offline_tests": 18,
+    "C33_C25_offline_tests": 52,
+    "C32_C31_C30_offline_tests": 50,
+    "total_scoped_offline_test_cases": 141,
+    "offline_mock_WebSocket_CLI_end_to_end_pass": true,
+    "node_22_on_ubuntu": true,
+    "original_full_repo_suite_executed": false,
+    "actual_Alpaca_PAPER_WebSocket_network_connection_executed": false
+  },
+  "implemented": [
+    "runtime30/fwn9_c35_paper_trade_updates.cjs",
+    "runtime30/fwn9_c35_paper_stream_journal.cjs",
+    "tools/fwn9_c35_capture_paper_stream.cjs",
+    "tools/fwn9_c35_paper_stream_test.cjs",
+    ".github/workflows/fwn9_p9m_c35.yml"
+  ],
+  "key_findings": {
+    "origin_WSS_readonly_PAPER_only": true,
+    "only_auth_and_listen_outgoing_messages": true,
+    "native_binary_JSON_messages_supported": true,
+    "original_order_fill_execution_id_and_local_known_at_recorded": true,
+    "original_C25_fills_matched_by_order_symbol_side_timestamp_decimal_qty_price": true,
+    "execution_id_is_not_assumed_equal_to_account_activity_id": true,
+    "unmatched_and_ambiguous_execution_fails_closed": true,
+    "stream_reconnection_cannot_be_falsely_proven_contiguous": true,
+    "option_multileg_events_explicitly_unsupported": true,
+    "auth_and_listen_ack_must_precede_trade_events": true,
+    "local_SHA_journal_restart_corruption_detected": true,
+    "local_clock_not_independently_attested": true,
+    "Alpaca_payload_not_cryptographically_signed": true
+  },
+  "outstanding_N9_gate": {
+    "actual_broker_private_PAPER_order_event_receipts_observed": 0,
+    "Render_live_producer_service_identified": false,
+    "original_C32_pre_filter_source_and_C27_C28_market_grid_live_bound": false,
+    "preregistration_with_independently_vetted_external_RFC3161_TSA": false,
+    "option_multiplier_exercise_clearing_and_fee_parity": false,
+    "prospective_single_account_return_vs_CASH_and_ORIGINAL": null,
+    "original_C22_six_way_semantic_equivalence": false,
+    "alpha_familywise_population_lower_bound": null,
+    "economic_GO": false,
+    "N9S": "NO_GO"
+  },
+  "actions": {
+    "paper_orders": 0,
+    "live_orders": 0,
+    "deploys": 0,
+    "merges": 0,
+    "M10_final_opened": 0,
+    "M10_final_sealed": 3200,
+    "new_market_seeds": 0,
+    "new_economic_trials": 0
+  }
+}
