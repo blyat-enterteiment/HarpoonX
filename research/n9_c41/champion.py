@@ -8,17 +8,17 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import asdict, dataclass
-from decimal import Decimal, ROUND_CEILING, ROUND_DOWN
+from dataclasses import dataclass
+from decimal import ROUND_CEILING, ROUND_DOWN, Decimal
 from typing import Literal
 
 SCHEMA = "HARPOON_FWN9_C41_SINGLE_FROZEN_RESEARCH_CHAMPION_1"
 TWENTY_FOUR_HOURS_MS = 86_400_000
-HARD_CAPITAL_USD = Decimal("20000")
+HARD_CAPITAL_USD = Decimal(20000)
 FROZEN_GROSS = Decimal(".12")
 FROZEN_RISK = Decimal(".0025")
 RESEARCH_SINGLE_MAX = Decimal(".04")
-N9_HURDLE_BPS_PER_DAY = Decimal("1")
+N9_HURDLE_BPS_PER_DAY = Decimal(1)
 ENTRY_BUFFER_PORTFOLIO_BPS = Decimal(".25")
 RVOL_MIN = Decimal("1.25")
 CRYPTO_MOMENTUM5 = Decimal(".025")
