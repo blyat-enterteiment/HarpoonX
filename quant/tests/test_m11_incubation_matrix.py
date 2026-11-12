@@ -313,5 +313,74 @@ class MultilayerIncubatorTests(unittest.TestCase):
         self.assertTrue(row["shortlist_requires_independent_prospective_validation"])
 
 
+    def test_no_mixed_decision_clocks_in_joint_matrix(self):
+        a = candidate()
+        b = candidate(symbol="ETH/USD", strategy="native-eth", factor="eth",
+                      )
+        b = replace(b, decision_at_ms=NOW + 10)
+        with self.assertRaisesRegex(ValueError, "NONATOMIC_PORTFOLIO"):
+            evaluate_matrix((a, b), funded())
+
+    def test_no_mixed_forecast_horizons_in_joint_scenario_distribution(self):
+        a = candidate()
+        b = replace(candidate(symbol="ETH/USD", strategy="eth", factor="eth"),
+                    horizon_hours=24)
+        with self.assertRaisesRegex(ValueError, "NONATOMIC_PORTFOLIO"):
+            evaluate_matrix((a, b), funded())
+
+    def test_caller_cannot_claim_zero_quote_age_with_stale_receipt(self):
+        c = replace(candidate(), quote_known_at_ms=NOW - 100_000)
+        with self.assertRaisesRegex(ValueError, "FUTURE_INFORMATION_OR_CLOCK"):
+            evaluate_matrix((c,), funded())
+
+    def test_policy_and_cohort_sha256_are_stable_and_content_addressed(self):
+        x = evaluate_matrix((candidate(),), funded())
+        y = evaluate_matrix((candidate(),), funded())
+        self.assertEqual(x["research_policy_sha256"], y["research_policy_sha256"])
+        self.assertEqual(x["research_input_cohort_sha256"],
+                         y["research_input_cohort_sha256"])
+        z = evaluate_matrix((candidate(gross=361),), funded())
+        self.assertNotEqual(x["research_input_cohort_sha256"],
+                            z["research_input_cohort_sha256"])
+        self.assertEqual(len(x["research_policy_sha256"]), 64)
+        self.assertFalse(x["portfolio_financial_go"])
+
+    def test_three_assets_can_share_capital_without_three_12pct_trades(self):
+        rows = tuple(
+            candidate(symbol=f"ASSET_{i}", strategy="native-breakout",
+                      factor=f"FACTOR_{i}") for i in range(3)
+        )
+        result = evaluate_matrix(rows, funded())
+        self.assertEqual(result["shortlisted_count"], 3)
+        self.assertAlmostEqual(sum(
+            x["research_notional_usd"] for x in result["research_shortlist"]
+        ), 2_400.0)
+        self.assertLessEqual(sum(
+            x["research_loss_budget_usd"] for x in result["research_shortlist"]
+        ), 50.0)
+        self.assertGreater(result["joint_aligned_scenario_log_score"], 0)
+        self.assertEqual(result["N9S"], "NO_GO")
+
+    def test_factor_bucket_research_limit_can_be_relaxed_only_without_trade_authority(self):
+        rows = (
+            candidate(symbol="BTC/USD", strategy="btc"),
+            candidate(symbol="ETH/USD", strategy="eth"),
+        )
+        result = evaluate_matrix(rows, funded(), replace(
+            ResearchPolicy(), max_per_factor_bucket=2,
+        ))
+        self.assertEqual(result["shortlisted_count"], 2)
+        self.assertEqual(result["N9S"], "NO_GO")
+        self.assertFalse(result["paper_or_live_orders_allowed"])
+
+    def test_nonfinite_joint_return_does_not_result_in_profitable_signal(self):
+        c = candidate()
+        future = replace(c.forecast, scenario_returns_bps=(
+            math.inf, 450, 450, 450, 450, 450, 450, 0
+        ))
+        with self.assertRaisesRegex(ValueError, "MISSING_OR_MISALIGNED_SCENARIOS"):
+            evaluate_matrix((replace(c, forecast=future),), funded())
+
+
 if __name__ == "__main__":
     unittest.main()
