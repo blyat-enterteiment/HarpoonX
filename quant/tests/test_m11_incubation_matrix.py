@@ -55,7 +55,7 @@ def candidate(
     book: str = "crypto",
     factor: str = "crypto-beta",
     family: str = "breakout",
-    gross: float = 260,
+    gross: float = 360,
     fee: float = 25,
     losses: float = 200,
 ) -> Opportunity:
@@ -73,7 +73,7 @@ def candidate(
         standard_error_bps=5,
         n_effective=8,
         scenario_ids=SCENARIOS,
-        scenario_returns_bps=(300, 300, 300, 300, 300, 300, 300, 0),
+        scenario_returns_bps=(450, 450, 450, 450, 450, 450, 450, 0),
         known_at_ms=NOW - 1_000,
         provenance="SYNTHETIC_RESEARCH",
     )
@@ -163,7 +163,7 @@ class MultilayerIncubatorTests(unittest.TestCase):
         self.assertEqual(maker["N9S"], "NO_GO")
 
     def test_cost_eats_small_alpha_in_no_trade_zone(self):
-        c = candidate(gross=70)
+        c = candidate(gross=110)
         row = evaluate_matrix((c,), funded())
         self.assertEqual(row["shortlisted_count"], 0)
         self.assertEqual(row["no_trade_diagnostics"][0]["reason"],
@@ -201,7 +201,7 @@ class MultilayerIncubatorTests(unittest.TestCase):
         total = sum(x["research_notional_usd"] for x in
                     row["research_shortlist"])
         self.assertLessEqual(total, 2400 + 1e-9)
-        self.assertEqual(row["shortlisted_count"], 1)
+        self.assertEqual(row["shortlisted_count"], 2)
 
     def test_very_large_loss_assumption_shrinks_funded_capacity(self):
         c = candidate(losses=6000)
@@ -262,7 +262,7 @@ class MultilayerIncubatorTests(unittest.TestCase):
 
     def test_bankruptcy_scenario_blocks_log_score(self):
         c = candidate()
-        x = replace(c.forecast, scenario_returns_bps=(-100_000,) * 8)
+        x = replace(c.forecast, scenario_returns_bps=(-300_000,) * 8)
         with self.assertRaisesRegex(ValueError, "SCENARIO_RUIN"):
             evaluate_matrix((replace(c, forecast=x),), funded())
 
