@@ -19,8 +19,8 @@ from pathlib import Path
 from statistics import fmean, stdev
 from zoneinfo import ZoneInfo
 
-ROOT = Path(__file__).resolve().parents[2]
-INPUT = ROOT / "research/observed_q3_2026/source_manifest.json"
+DATA_DIR = Path(__file__).resolve().parent
+INPUT = DATA_DIR / "source_manifest.json"
 SEPT = date(2026, 9, 1)
 OCT = date(2026, 10, 1)
 INITIAL = 20_000.0
@@ -73,8 +73,14 @@ def load_data(manifest_path: Path = INPUT) -> tuple[
     market: dict[str, list[Bar]] = {}
     audit: list[dict[str, object]] = []
     for item in manifest["files"]:
-        path = ROOT / str(item["path"])
-        if not path.resolve().is_relative_to(ROOT):
+        declared = str(item["path"])
+        expected_prefix = "research/observed_q3_2026/raw/"
+        if (not declared.startswith(expected_prefix)
+                or "/" in declared[len(expected_prefix):]
+                or not declared[len(expected_prefix):].endswith(".csv")):
+            raise ValueError("C37_SOURCE_PATH_ESCAPE")
+        path = DATA_DIR / "raw" / declared[len(expected_prefix):]
+        if not path.resolve().is_relative_to((DATA_DIR / "raw").resolve()):
             raise ValueError("C37_SOURCE_PATH_ESCAPE")
         raw = path.read_bytes()
         if _sha_blob(raw) != item["git_blob_sha"]:
