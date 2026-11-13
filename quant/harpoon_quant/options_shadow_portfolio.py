@@ -36,7 +36,7 @@ def shadow_portfolio(
     decisions={p.package.thesis.decision_at_ms for p in proposals}
     if len(decisions)!=1:
         raise ValueError("C43P_CROSS_CLOCK_COHORT_NOT_ATOMIC")
-    keys:set[tuple[str,str]]=set()
+    keys:set[str]=set()
     aligned:tuple[tuple[str,str,int],...]|None=None
     current=start
     rows=[]
@@ -44,9 +44,9 @@ def shadow_portfolio(
     probs:dict[str,Decimal]={}
     for proposal in proposals:
         p=proposal.package
-        identity=(p.thesis.underlying,p.thesis.strategy_id)
+        identity=p.thesis.underlying
         if identity in keys:
-            raise ValueError("C43P_DUPLICATE_UNDERLYING_STRATEGY")
+            raise ValueError("C43P_DUPLICATE_UNDERLYING_ACTIVE_CAMPAIGN")
         keys.add(identity)
         plan=tuple((s.scenario_id,s.probability,s.holding_hours)
                    for s in proposal.shocks)
