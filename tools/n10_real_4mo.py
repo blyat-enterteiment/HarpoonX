@@ -212,7 +212,8 @@ def simulate(options:pd.DataFrame,stocks:pd.DataFrame,policy:str)->tuple[dict[st
                              "net_trade_pnl_usd":round(trade_pnl,4),"exit_observed":bool(valid),
                              "cost_model":"ask+slip+fee / bid-slip-fee"})
             attempts["closed"]+=1
-            if not valid: attempts["exit_unobserved_written_down_to_zero"]+=1
+            if not valid:
+                attempts["exit_unobserved_written_down_to_zero"]+=1
             position=None
         if current in entries:
             order=entries[current]
@@ -253,9 +254,11 @@ def simulate(options:pd.DataFrame,stocks:pd.DataFrame,policy:str)->tuple[dict[st
                 q=book.loc[position["contract_id"]]
                 if valid_quote(q):
                     mark=max(0.0,float(q.bid)-premium_slip)*100
-            if mark==0: attempts["unmarked_position_days"]+=1
+            if mark==0:
+                attempts["unmarked_position_days"]+=1
         equity=cash+mark
-        if equity<=0: raise RuntimeError("nonpositive funded account")
+        if equity<=0:
+            raise RuntimeError("nonpositive funded account")
         peak=max(peak,equity)
         dd=max(dd,(peak-equity)/peak)
         delta=equity-previous_equity
@@ -265,7 +268,8 @@ def simulate(options:pd.DataFrame,stocks:pd.DataFrame,policy:str)->tuple[dict[st
                      "cash_usd":round(cash,6),"option_mark_usd":round(mark,6),
                      "session_pnl_usd":round(delta,6)})
         previous_equity=equity
-    if position is not None: raise RuntimeError("unfinished position at end of study")
+    if position is not None:
+        raise RuntimeError("unfinished position at end of study")
     total_positive=sum(max(0,x["net_trade_pnl_usd"]) for x in realized)
     best=max((x["net_trade_pnl_usd"] for x in realized),default=0)
     last=previous_equity
