@@ -1,0 +1,29 @@
+name: N10 options phase0 (offline engineering)
+on:
+  push:
+    branches:
+      - codex/n10-options-frontier-phase0
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  phase0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install static analysis only
+        run: python -m pip install ruff==0.11.10 mypy==1.15.0
+      - name: Compile
+        run: python -m compileall -q quant/harpoon_quant/n10_options.py tests/test_n10_options.py tools/n10_phase0_verify.py
+      - name: Ruff
+        run: ruff check quant/harpoon_quant/n10_options.py tests/test_n10_options.py tools/n10_phase0_verify.py
+      - name: Mypy strict (isolated module)
+        run: mypy --strict quant/harpoon_quant/n10_options.py
+      - name: Unit tests
+        run: PYTHONPATH=. python -m unittest discover -s tests -p test_n10_options.py -v
+      - name: Source integrity, independent arithmetic and benchmark
+        run: PYTHONPATH=. python tools/n10_phase0_verify.py
