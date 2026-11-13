@@ -213,7 +213,7 @@ class FourLegCreditRiskTests(unittest.TestCase):
     def test_credit_quotes_no_credit_not_an_income_strategy(self):
         c=condor()
         c=replace(c,short_put=replace(
-            c.short_put,bid=".01"
+            c.short_put,bid="0"
         ))
         with self.assertRaisesRegex(ValueError,"POSITIVE_CREDIT"):
             credit_risk(c,funded(),costs())
