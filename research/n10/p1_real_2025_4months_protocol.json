@@ -1,0 +1,80 @@
+{
+  "schema": "HARPOONX_N10_P1_REAL_QUOTE_FOUR_MONTH_PREREG_V1",
+  "scope": "Single retrospective diagnostic on publicly mirrored historical SPY option bid/ask, not an N9-S benchmark or prospective N10 validation.",
+  "preregistered_before_results": true,
+  "source": {
+    "repository": "anahatsingh-ui/options-dataset-hist",
+    "commit": "37f6c456fe1a4775c875673fb8ef907d5cd2fd66",
+    "files": [
+      {
+        "path": "spy/options_2025.parquet",
+        "byte_size": 58216546,
+        "git_blob_sha1": "133bf1d95c3479149bf4771bc8b3fd8b625064ce"
+      },
+      {
+        "path": "spy/underlying_prices.parquet",
+        "byte_size": 252066,
+        "git_blob_sha1": "4c22934a77ba09ced10fd1c413b5d8c9e0cb4a8d"
+      }
+    ],
+    "license": "MIT claimed by repository, original option provenance not independently authenticated",
+    "quality": "Public preservation mirror: not exchange-direct NBBO; quotes EOD snapshots, not guaranteed executable."
+  },
+  "dates": {
+    "first": "2025-01-01",
+    "last": "2025-04-30",
+    "calendar_days": 120
+  },
+  "asset": "SPY",
+  "exercise_style": "AMERICAN_ETF_LONG_ONLY",
+  "contract_multiplier": 100,
+  "capital_usd": 20000,
+  "open_risk_fraction": 0.0025,
+  "admission_fraction": 0.12,
+  "session_loss_fraction": 0.02,
+  "max_drawdown_fraction": 0.08,
+  "max_elapsed_holding_hours": 72,
+  "options_fee_usd_per_leg_per_side": 0.65,
+  "slippage_premium_per_share_per_side": 0.01,
+  "fixed_calendar_cost_usd_per_day": 1,
+  "forecast_catalogue": [
+    "FOLLOW_3D",
+    "FADE_3D",
+    "CALL_ALWAYS",
+    "PUT_ALWAYS",
+    "CASH"
+  ],
+  "policy": "Signal at D EOD using SPY D-3 vs D. Select same-day contract from D quote: DTE 7..35, abs(delta) nearest 0.08 in [0.01,0.30], bid>=0.01 ask<=0.45 and spread<=0.20, volume>=1, OI>=50, bid/ask size>=1. Pre-committed one-contract IOC ceiling min(0.45, D ask*1.20+0.03). Order attempt D+1 at EOD observed ask, fill only if ask+0.01<=ceiling; risk max loss <=0.25% initial/ongoing continuous equity. Exit D+2 at EOD observed bid minus slippage; if missing/invalid exit bid book zero recovery (adverse accounting), never omit an executed trade. No overlapping positions. Max 72h from fill to exit. Do not use D+1/D+2 to choose D signal or strike; use next day only for fill rule. Skip dates lacking planned D+2 trading session or 72h eligibility. Always one lot, fully funded.",
+  "reference": "CASH with exact same $1/day fixed charge; no option variable fees.",
+  "metrics": [
+    "net after all costs",
+    "mean per calendar log return",
+    "max observed EOD drawdown",
+    "worst daily USD and percent",
+    "best-trade contribution",
+    "n attempts, fills, rejection and missing receipts",
+    "paired CASH relative",
+    "monthly stability"
+  ],
+  "candidate_limit": 4,
+  "controls": 1,
+  "economic_accounts_max": 5,
+  "workers_max": 1,
+  "unseen_final_or_holdout_access": false,
+  "new_prospective_alpha_spent": 0,
+  "falsifiers": [
+    "any chronological/lookahead violation",
+    "nonmatching Git source blobs",
+    "invalid source quote used as execution",
+    "zero-cost or midprice fill",
+    "missing exit omitted",
+    "contract exceeds risk limit",
+    "unreported data gap or invalid state"
+  ],
+  "decision": "descriptive retrospective market-data diagnostic only; no N10 promotion, no return prediction or calibrated options beta.",
+  "no_broker": true,
+  "no_orders": true,
+  "no_deploy": true,
+  "no_merges": true,
+  "no_n9_modifications": true
+}
