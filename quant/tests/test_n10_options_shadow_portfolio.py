@@ -5,7 +5,13 @@ import unittest
 from dataclasses import replace
 
 from harpoon_quant.options_shadow_desk import (
-    Book, Expenses, Leg, OptionQuote, Package, Shock, Thesis,
+    Book,
+    Expenses,
+    Leg,
+    OptionQuote,
+    Package,
+    Shock,
+    Thesis,
 )
 from harpoon_quant.options_shadow_portfolio import Proposal, shadow_portfolio
 
