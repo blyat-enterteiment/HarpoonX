@@ -8,10 +8,10 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal as D
 from pathlib import Path
 
-from quant.harpoon_quant.n10_options import Candidate, Contract, Guard, Leg, Portfolio, Quote, Right, Scenario, evaluate, select
+from quant.harpoon_quant.n10_options import Candidate, Contract, Guard, Leg, Portfolio, Quote, Right, Scenario, select
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL = ROOT / 'research/n10/phase0_protocol.json'
+PROTOCOL = ROOT / 'research/n10/phase0_lint_r2_protocol.json'
 
 
 def check_hashes() -> dict[str, str]:

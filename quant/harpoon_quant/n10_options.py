@@ -6,12 +6,12 @@ haircut, NOT an attainable observed fill or market-data backtest.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 from decimal import Decimal
 from enum import Enum
 from math import erf, exp, isfinite, log, sqrt
-from typing import Iterable
+from collections.abc import Iterable
 
 D = Decimal
 MULTIPLIER = D('100')
@@ -111,12 +111,12 @@ class Scenario:
 
 @dataclass(frozen=True)
 class Guard:
-    capital: Decimal = D('20000')
-    risk_fraction: Decimal = D('0.0025')
-    admission_fraction: Decimal = D('0.12')
-    entry_fee_per_leg: Decimal = D('0.65')
-    exit_fee_per_leg: Decimal = D('0.65')
-    slippage_per_leg_premium: Decimal = D('0.01')
+    capital: Decimal = field(default_factory=lambda: D('20000'))
+    risk_fraction: Decimal = field(default_factory=lambda: D('0.0025'))
+    admission_fraction: Decimal = field(default_factory=lambda: D('0.12'))
+    entry_fee_per_leg: Decimal = field(default_factory=lambda: D('0.65'))
+    exit_fee_per_leg: Decimal = field(default_factory=lambda: D('0.65'))
+    slippage_per_leg_premium: Decimal = field(default_factory=lambda: D('0.01'))
     max_quote_age_seconds: int = 120
     max_holding_hours: int = 72
     min_edge_log: float = 0.0
@@ -181,7 +181,8 @@ def black_scholes(right: Right, spot: float, strike: float, years: float,
     v = sigma * sqrt(years)
     d1 = (log(spot / strike) + (rate + 0.5 * sigma * sigma) * years) / v
     d2 = d1 - v
-    norm = lambda x: (1 + erf(x / sqrt(2.0))) / 2
+    def norm(x: float) -> float:
+        return (1 + erf(x / sqrt(2.0))) / 2
     price = (spot * norm(d1) - strike * exp(-rate * years) * norm(d2)) if right == Right.CALL else (
         strike * exp(-rate * years) * norm(-d2) - spot * norm(-d1))
     return max(price, 0.0)
@@ -243,7 +244,7 @@ def _robust_mean(values: tuple[float, ...], probabilities: tuple[float, ...], ep
                 hi += 1
             if 1 - probs[dst] < 1e-14:
                 lo += 1
-    return sum(p * v for p, v in zip(probs, values))
+    return sum(p * v for p, v in zip(probs, values, strict=True))
 
 
 def evaluate(candidate: Candidate, scenarios: tuple[Scenario, ...], *,
@@ -303,7 +304,7 @@ def evaluate(candidate: Candidate, scenarios: tuple[Scenario, ...], *,
         results.append(log(float(wealth / portfolio.equity)))
     values = tuple(results)
     ps = tuple(s.probability for s in scenarios)
-    expected = sum(x * p for x, p in zip(values, ps))
+    expected = sum(x * p for x, p in zip(values, ps, strict=True))
     robust = _robust_mean(values, ps, guard.ambiguity_mass)
     return Assessment(candidate.label, True, 'RISK_ADMITTED', max_loss, entry, robust, expected)
 
