@@ -1,0 +1,33 @@
+{
+  "schema": "HARPOONX_N10_P2_REVERSE_ENGINEERING_PREREG_1",
+  "title": "Frozen Jan-Apr 2025 SPY put/call opportunity frontier and observable precursors",
+  "study_type": "REUSED_DEVELOPMENT_RETROSPECTIVE_NO_UNSEEN_HOLDOUT",
+  "source": {
+    "repo": "anahatsingh-ui/options-dataset-hist",
+    "commit": "37f6c456fe1a4775c875673fb8ef907d5cd2fd66",
+    "option_file": "spy/options_2025.parquet",
+    "option_git_sha1": "133bf1d95c3479149bf4771bc8b3fd8b625064ce",
+    "underlying_file": "spy/underlying_prices.parquet",
+    "underlying_git_sha1": "4c22934a77ba09ced10fd1c413b5d8c9e0cb4a8d",
+    "four_month_window_sha256": "01162014e951b32ceacb8064596a3341c7b6e848ae7a077460e76c01930b8acf"
+  },
+  "dates": ["2025-01-01", "2025-04-30"],
+  "financial_contract": {"initial_usd":20000, "risk_fraction":0.0025, "gross_admission_fraction":0.12, "max_elapsed_holding_hours":72, "daily_fixed_usd":1, "fee_per_contract_side_usd":0.65, "premium_slippage_per_share_side_usd":0.01, "contract_multiplier":100},
+  "schedule": "Use original P1 every-other-trading-session decision indices 3,5,... with D+1 observable EOD IOC and D+2 EOD exit (<=72h). No overlap; no reranking after no-fill.",
+  "candidate_d_filters": {"min_dte":7,"max_dte":35,"min_abs_delta":0.01,"max_abs_delta":0.30,"max_ask_usd_per_share":0.45,"max_spread_usd_per_share":0.20,"min_bid":0.01,"min_bid_size":1,"min_ask_size":1,"min_volume":1,"min_open_interest":50},
+  "order_rule": "At D freeze name, contract and ceiling min(0.45, round_down? actually round(min(0.45,D_ask*1.20+0.03),2)); IOC at D+1 observed ask+0.01<=ceiling; risk paid debit + anticipated close fee <= 0.25% available wealth. At D+2 observed bid-0.01 with fee; if missing valid quote book zero recovery.",
+  "observability": "All model features on D only: SPY 3-session close return, trailing 20-session historical realized vol, current D option IV, delta, bid/ask, OI, volume. D+1/D+2 cannot affect contract selection. Date-only quote timestamps cannot prove intra-day synchrony.",
+  "single_diagnostic_oracle": "After outcomes only select max positive net PnL per decision across all feasible contracts; wholly excluded from candidate selection, promotion and training. Diagnostic upper bound, not causal trading strategy.",
+  "fixed_ex_ante_catalogue": ["CASH", "PUT_08_P1_CONTROL", "FOLLOW_3D_08", "IV_DISCOUNT_TREND", "REVERSAL_ABS_2PCT"],
+  "causal_rules": {
+    "PUT_08_P1_CONTROL":"Buy best available D put close to abs(delta)=0.08, OI descending, volume descending, contract lexical (matches P1); P1 comparator",
+    "FOLLOW_3D_08":"If SPY D close / D-3 close >=1 choose call, else put; nearest abs(delta)=0.08; same filters",
+    "IV_DISCOUNT_TREND":"Same sign as 3-session move, but only if trailing realized vol20 >=1.2 * chosen instrument IV, else CASH. Fixed ex-ante threshold, not tuned.",
+    "REVERSAL_ABS_2PCT":"Only when |SPY 3-session return| >=2%, buy put after rise or call after fall; otherwise CASH. Same quote selector."
+  },
+  "oracle_metrics": ["max feasible trade by date and side", "top-ten single opportunities", "same-path ideal upper-bound book", "number of positive feasible contracts", "lookahead maximum concentration", "spread/vol/IV/delta ex-ante feature differences"],
+  "causal_metrics": ["net USD after costs", "vs CASH", "drawdown", "worst day", "best-trade removal", "monthly segmentation", "missed-oracle regret", "sign chosen vs ex-post best side", "no fill", "zero recovery exits"],
+  "falsification": ["If no causal arm exceeds CASH after costs, no alpha", "If best campaign removal destroys edge, no robust alpha", "If only oracle appears positive, hindsight alone is not predictability", "If price quality is not attributable to original exchange/quotes, no real execution claim"],
+  "limits": {"new_signal_grid":false,"new_policy_count":2,"controls_including_cash":3,"workers":1,"new_statistical_holdouts_opened":0,"prospective_alpha_spent":0,"n9_final_accounts_opened":0},
+  "safety": {"broker_connections":false,"orders":false,"deployment":false,"merges":false,"source_data_overwrites":false,"training_of_persistent_model":false}
+}
