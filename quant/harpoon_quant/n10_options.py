@@ -6,12 +6,12 @@ haircut, NOT an attainable observed fill or market-data backtest.
 """
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from decimal import Decimal
 from enum import Enum
 from math import erf, exp, isfinite, log, sqrt
-from collections.abc import Iterable
 
 D = Decimal
 MULTIPLIER = D('100')
