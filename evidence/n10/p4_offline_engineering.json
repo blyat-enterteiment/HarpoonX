@@ -1,0 +1,52 @@
+{
+  "schema": "HARPOONX_N10_P4_OFFLINE_EVIDENCE_1",
+  "preregistration_commit": "96a12fa093e72edfd4827d96c2c7fc8bd65bd02c",
+  "source_code_commit": "426eaa7125558a6cf9d93fc343c96fd9a7d2c81d",
+  "corrective_preregistration_commit": "ff80efcfcb605b2b1168bb5210a6e0eaea893cdb",
+  "corrective_code_commit": "3beef27c1741861feb267ef2015fe75fdef065ba",
+  "failed_attempts_preserved": [
+    {
+      "run": 43505407684,
+      "reason": "Ruff E702 in a test; compile PASS; type/tests skipped"
+    }
+  ],
+  "passing_ci": {
+    "run": 43505711854,
+    "status": "SUCCESS",
+    "python_version": "3.11",
+    "ruff_scope": "E4,E7,E9,F63,F7,F82",
+    "ruff": "PASS",
+    "mypy_strict": "PASS_SCOPED",
+    "unit_tests": 18,
+    "unit_failures": 0,
+    "source_integrity": "PASS",
+    "independent_decimal": "PASS",
+    "benchmark_2000_assessments_ms": 1271.497
+  },
+  "numeric_fixtures": {
+    "executable_call_vertical_bid_usd": "3.00",
+    "executable_call_vertical_ask_usd": "8.00",
+    "maximum_contractual_loss_including_costs_usd": "12.60"
+  },
+  "source_sha256": {
+    "quant/harpoon_quant/n10_vertical_bounds.py": "9c6077587abc0860d905e767c7cd10dcff4ef6dc572d00f5abcbb2fbc215ba47",
+    "tests/test_n10_vertical_bounds.py": "180dd6a0d72182c969e60b39f39371649671d164655de0b1de122ca332ad20d8",
+    "tools/n10_p4_verify.py": "52c1b41df3f1cbb51e83b3007b9f9b96d3aa91144d60875562531ae13dd49f9e"
+  },
+  "original_n9_branch_unchanged": true,
+  "original_m10_final_accounts_unopened": 3200,
+  "economic_accounts_executed": 0,
+  "market_data_requested": 0,
+  "statistical_alpha_spent": 0,
+  "broker_orders": 0,
+  "outcome": "ENGINEERING_P4_PASS_NO_ECONOMIC_PROFIT_CLAIM",
+  "limitation": [
+    "BL finite strike identifies interval average of Q survival/CDF, not pointwise full density",
+    "Only XSP/SPX European cash settlement intended; old SPY American EOD quotes are not P4 validation",
+    "Physical probabilities P sourced externally, cannot be authenticated by timestamp alone",
+    "KL rho=0.02 is sensitivity, not calibrated coverage or significance",
+    "Package simultaneous executable spread/partials/market impact not verified",
+    "No observed market profitability, no prospective OOS, no external independent review",
+    "N9-S C14 lease remains separate and two original operational gates incomplete"
+  ]
+}
