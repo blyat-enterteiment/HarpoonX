@@ -14,7 +14,7 @@ import re
 from dataclasses import asdict, dataclass
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal, InvalidOperation
-from typing import Literal
+from typing import Literal, cast
 
 SCHEMA = "HARPOONX_M11_C43_N10_OPTIONS_SHADOW_RESEARCH_1"
 OCC = re.compile(r"^([A-Z]{1,6})(\d{6})([CP])(\d{8})$")
@@ -124,14 +124,14 @@ class Shock:
     holding_hours: int
 
 
-def parse_occ(symbol: str) -> tuple[str, date, str, Decimal]:
+def parse_occ(symbol: str) -> tuple[str, date, Literal["C", "P"], Decimal]:
     m = OCC.fullmatch(symbol)
     if not m:
         raise ValueError("C43_NONSTANDARD_OR_INVALID_OCC_CONTRACT")
     root, yymmdd, right, strike = m.groups()
     expiry = date_utc("20" + yymmdd[:2] + "-" + yymmdd[2:4]
                       + "-" + yymmdd[4:])
-    return root, expiry, right, Decimal(int(strike)) / Decimal(1000)
+    return root, expiry, cast(Literal["C", "P"], right), Decimal(int(strike)) / Decimal(1000)
 
 
 def quote_validate(q: OptionQuote) -> tuple[Decimal, Decimal, Decimal]:
