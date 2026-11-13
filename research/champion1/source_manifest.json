@@ -1,0 +1,114 @@
+{
+  "schema": "HARPOONX_M11_C41_Q3_WARMUP_OCT_NOV_OBSERVED_ALPACA_DATA_MANIFEST_1",
+  "frozen_candidate_commit_before_target_data_get": "a8eb6029f026131d375f791f9fc439a4c2a4c44f",
+  "first_target_API_query_after_lock": true,
+  "provider": "Alpaca connected public market-data API",
+  "equity_feed": "IEX_SINGLE_VENUE_NOT_SIP",
+  "crypto_feed": "US_NOT_GLOBAL_VENUE_PRICE_MAY_INCLUDE_MIDPOINT",
+  "timespan_target_start": "2026-10-01",
+  "timespan_target_end": "2026-11-12",
+  "split": "PURPOSEFUL_TEMPORAL_HOLDBACK_NOT_PROSPECTIVE_AND_NOT_INDEPENDENT_TIMESTAMP",
+  "source_market_data_is_not_actual_broker_execution": true,
+  "records": [
+    {
+      "symbol": "SPY",
+      "feed": "iex",
+      "path": "research/champion1/warmup/SPY_iex_1day.csv",
+      "partition": "warmup",
+      "expected_rows": 64,
+      "source_git_blob_sha1": "a171c5d94af120825c823d6bc613dec8ad75befe",
+      "first": "2026-07-01T04:00:00+00:00",
+      "last": "2026-09-30T04:00:00+00:00"
+    },
+    {
+      "symbol": "SPY",
+      "feed": "iex",
+      "path": "research/champion1/target/SPY_iex_1day.csv",
+      "partition": "target",
+      "expected_rows": 31,
+      "source_git_blob_sha1": "4033d1c76a205630420061babc20f2f094aa7576",
+      "first": "2026-10-01T04:00:00+00:00",
+      "last": "2026-11-12T05:00:00+00:00"
+    },
+    {
+      "symbol": "QQQ",
+      "feed": "iex",
+      "path": "research/champion1/warmup/QQQ_iex_1day.csv",
+      "partition": "warmup",
+      "expected_rows": 64,
+      "source_git_blob_sha1": "ce125ac4413fbc745bc0e6f045fac396b84e84c4",
+      "first": "2026-07-01T04:00:00+00:00",
+      "last": "2026-09-30T04:00:00+00:00"
+    },
+    {
+      "symbol": "QQQ",
+      "feed": "iex",
+      "path": "research/champion1/target/QQQ_iex_1day.csv",
+      "partition": "target",
+      "expected_rows": 31,
+      "source_git_blob_sha1": "340e50431033a79d9bb207490dc90ff1fef93e32",
+      "first": "2026-10-01T04:00:00+00:00",
+      "last": "2026-11-12T05:00:00+00:00"
+    },
+    {
+      "symbol": "NVDA",
+      "feed": "iex",
+      "path": "research/champion1/warmup/NVDA_iex_1day.csv",
+      "partition": "warmup",
+      "expected_rows": 64,
+      "source_git_blob_sha1": "8c4102550152c249fb7b121d9bbbec2b5074f754",
+      "first": "2026-07-01T04:00:00+00:00",
+      "last": "2026-09-30T04:00:00+00:00"
+    },
+    {
+      "symbol": "NVDA",
+      "feed": "iex",
+      "path": "research/champion1/target/NVDA_iex_1day.csv",
+      "partition": "target",
+      "expected_rows": 31,
+      "source_git_blob_sha1": "23622e36a35344fe04586fd21bcc3b7d4b472822",
+      "first": "2026-10-01T04:00:00+00:00",
+      "last": "2026-11-12T05:00:00+00:00"
+    },
+    {
+      "symbol": "BTC/USD",
+      "feed": "us",
+      "path": "research/champion1/warmup/BTCUSD_us_1day.csv",
+      "partition": "warmup",
+      "expected_rows": 92,
+      "source_git_blob_sha1": "969f90ca74b47e60dd24b8e60283afc31de97d8c",
+      "first": "2026-07-01T00:00:00+00:00",
+      "last": "2026-09-30T00:00:00+00:00"
+    },
+    {
+      "symbol": "BTC/USD",
+      "feed": "us",
+      "path": "research/champion1/target/BTCUSD_us_1day.csv",
+      "partition": "target",
+      "expected_rows": 43,
+      "source_git_blob_sha1": "18f6832f40d2216b9065d3a3703a28d1104407fa",
+      "first": "2026-10-01T00:00:00+00:00",
+      "last": "2026-11-12T00:00:00+00:00"
+    },
+    {
+      "symbol": "ETH/USD",
+      "feed": "us",
+      "path": "research/champion1/warmup/ETHUSD_us_1day.csv",
+      "partition": "warmup",
+      "expected_rows": 92,
+      "source_git_blob_sha1": "e40e26690edf5827e67bcee40b27e24ad826f67c",
+      "first": "2026-07-01T00:00:00+00:00",
+      "last": "2026-09-30T00:00:00+00:00"
+    },
+    {
+      "symbol": "ETH/USD",
+      "feed": "us",
+      "path": "research/champion1/target/ETHUSD_us_1day.csv",
+      "partition": "target",
+      "expected_rows": 43,
+      "source_git_blob_sha1": "3065c7eec42d353f9cabe72a3b69852c8d66ac81",
+      "first": "2026-10-01T00:00:00+00:00",
+      "last": "2026-11-12T00:00:00+00:00"
+    }
+  ]
+}
