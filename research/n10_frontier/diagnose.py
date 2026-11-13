@@ -129,6 +129,21 @@ def analyze(root:Path=C.HERE)->dict[str,object]:
     number=int(champion["closed_modeled_trades"])
     max_candidate_notional=initial*.04
     min_extra_bps_per_additional_800_usd_winner=10_000*additional/max_candidate_notional
+    # This is ONLY an optimistic opportunity envelope for this specific
+    # source and seven historical triggers: perfect future-high exit, up
+    # to USD 800 per signal, skip losers, ignore overlapping positions,
+    # fills/queues and correlated risk. It is not a tradable portfolio.
+    # Since those relaxations favor the envelope, failing this test
+    # exposes an opportunity-generation bottleneck, not a stop parameter.
+    perfect_unfiltered=sum(
+        max(0.,x.oracle_after_assumed_cost_bps)*max_candidate_notional/10000
+        for x in all_rows
+    )
+    perfect_rvol=sum(
+        max(0.,x.oracle_after_assumed_cost_bps)*max_candidate_notional/10000
+        for x in rv_rows
+    )
+    required_from_cash=target_wealth-initial
     return {
         "schema":SCHEMA,
         "source":source,
@@ -147,6 +162,23 @@ def analyze(root:Path=C.HERE)->dict[str,object]:
             "modeled_trail2_net_bps":x.model_exit_net_bps,
         } for x in sorted(all_rows,
             key=lambda r:(-r.oracle_gross_mfe_bps,r.symbol,r.signal_day))[:12]],
+        "optimistic_fixed_trigger_opportunity_envelope":{
+            "capital_limit_per_candidate_usd":max_candidate_notional,
+            "all_existing_momentum_signals_oracle_perfect_high_max_profit_usd":
+                round(perfect_unfiltered,6),
+            "rvol_ge_1p25_signals_oracle_perfect_high_max_profit_usd":
+                round(perfect_rvol,6),
+            "required_net_profit_from_cash_N9_1bp_over_43_days_usd":
+                round(required_from_cash,6),
+            "even_oracle_unfiltered_reaches_N9_hurdle":
+                perfect_unfiltered>=required_from_cash,
+            "even_oracle_frozen_rvol_reaches_N9_hurdle":
+                perfect_rvol>=required_from_cash,
+            "ignores_overlaps_and_funding_limits_except_800_notional":True,
+            "assumes_perfect_future_high_execution_not_realistic":True,
+            "cannot_generalize_beyond_frozen_trigger_set_and_provider_bars":True,
+            "NOT_a_bound_on_unknown_real_market_alpha":True,
+        },
         "economic_gap":{
             "current_modelled_strategy_pnl_usd":pnl,
             "without_rvol_modelled_pnl_usd":no_rvol["modelled_net_pnl_usd"],
