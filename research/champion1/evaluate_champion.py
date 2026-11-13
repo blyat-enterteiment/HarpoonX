@@ -321,7 +321,7 @@ def simulate(market: dict[str,list[Bar]], *, rvol_floor: float=1.25,
     max_drawdown=0.
     active:list[tuple[Outcome,float,float]]=[]
     closed:list[dict[str,object]]=[]
-    rejected=Counter()
+    rejected:Counter[str]=Counter()
     cum_cost=0.
     def close_due(at:datetime)->None:
         nonlocal equity,peak,max_drawdown,cum_cost
@@ -415,12 +415,15 @@ def evaluate(root:Path=HERE)->dict[str,object]:
     # A true paired cost stress keeps original entries/exits/nominals fixed;
     # a separate stress simulation also re-evaluates financed admission.
     paired_extra=0.
-    for t in champion["trades"]:
+    champion_trades=champion.get("trades")
+    if not isinstance(champion_trades,list):
+        raise ValueError("C41_CHAMPION_TRADE_LIST_REQUIRED")
+    for t in champion_trades:
         assert isinstance(t,dict)
         delta=70. if "/" in str(t["symbol"]) else 13.
-        paired_extra+=float(t["nominal_usd"])*delta/10000
-    base_pnl=float(champion["modelled_net_pnl_usd"])
-    winners=[float(x["modelled_net_pnl_usd"]) for x in champion["trades"]]
+        paired_extra+=float(str(t["nominal_usd"]))*delta/10000
+    base_pnl=float(str(champion["modelled_net_pnl_usd"]))
+    winners=[float(str(x["modelled_net_pnl_usd"])) for x in champion_trades]
     leave_best=base_pnl-max(winners) if winners else 0.
     return {
         "schema":SCHEMA,
