@@ -107,7 +107,10 @@ def shadow_portfolio(
                 money(current.already_reserved_risk_usd,"RISK")+risk
             ),
         )
-        for shock,scen in zip(proposal.shocks,v["scenarios"],strict=True):
+        scenario_rows=v["scenarios"]
+        if not isinstance(scenario_rows,list):
+            raise ValueError("C43P_SCENARIOS_NOT_AUTHENTICATED_ARRAY")
+        for shock,scen in zip(proposal.shocks,scenario_rows,strict=True):
             assert isinstance(scen,dict)
             sid=shock.scenario_id
             w=money(shock.probability,"WEIGHT",positive=True)
