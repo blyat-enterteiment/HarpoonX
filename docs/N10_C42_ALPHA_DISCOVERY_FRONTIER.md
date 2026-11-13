@@ -155,3 +155,51 @@ Fuentes matemáticas primarias:
   https://escholarship.org/uc/item/4w1110bb
 
 **N9-S NO_GO. N10 NO_GO.**
+
+## C42: restricción económica necesaria bajo los triggers existentes
+
+El diagnóstico C42 recupera **siete candidatos** que cumplen
+momentum5 + régimen vol (sin RVOL) en octubre–noviembre; solo **uno**
+supera además RVOL10>=1.25. Por activo, el mayor MFE histórico
+diario máximo observado dentro de 72h de esas entradas fue:
+
+| Activo | Nº candidatos antes de RVOL | Mayor MFE bruto oracular |
+| --- | ---: | ---: |
+| SPY | 2 | 18.40 pb |
+| QQQ | 0 | sin candidato |
+| NVDA | 3 | 96.04 pb |
+| BTC/USD | 1 | 75.13 pb |
+| ETH/USD | 1 | 64.47 pb |
+
+Estos HIGH futuros no son fills y no conocemos el orden interno
+STOP/TP de velas conflictivas. No se utilizaron para escoger señales.
+
+Experimento de *cota optimista deliberadamente inalcanzable*: para
+CADA una de las siete señales existentes se permite, con clarividencia,
+salir exactamente en el mayor HIGH del periodo; descartar sin coste
+señales negativas; tomar hasta 800 USD por señal e ignorar conflictos
+temporales entre candidatos. Se restan solo las tarifas/fricciones
+modeladas C41. Bajo **estos supuestos favorablemente irreales**:
+
+- 7 candidatos sin RVOL: suma de beneficios positivos oraculares
+  **10.713384 USD**.
+- 1 candidato con RVOL>=1.25: **3.638363 USD**.
+- Beneficio mínimo para obtener 1 pb diario logarítmico neto sobre
+  20.000 USD y 43 días desde CASH: **86.185165 USD**.
+
+La fuente actual ofrece, por tanto, alrededor de **8 veces menos
+potencial oracular** del necesario incluso con los siete candidatos.
+Eso refuta, en esta muestra y bajo el presupuesto experimental de
+4% por propuesta, que mejorar el trailing o TP de estas mismas
+entradas pueda bastar para N9, mucho menos N10. No implica una
+cota sobre el mercado real completo, sobre señales no generadas
+ni sobre datos intradía no presentes.
+
+**Decisión cuantitativa:** la siguiente investigación debe elevar
+la oferta de oportunidades capturables **ANTES** de la entrada,
+mediante señales causales de ruptura con RVOL de la misma franja,
+continuación de tendencia en escalas 1h/4h/5m auditadas, y medición
+de supervivencia de oportunidades hasta 72h, no mediante
+reoptimizar niveles de salida frente al HIGH futuro. Ninguna
+señal nueva obtiene permiso de ejecución sin evaluación OOS
+preregistrada y fuentes auténticas.
