@@ -1,0 +1,104 @@
+{
+  "schema": "HARPOONX_N10_P1_REAL_QUOTE_FOUR_MONTH_RESULTS_1",
+  "protocol": "research/n10/p1_real_2025_4months_protocol.json",
+  "precommit": "e1bcc56b0424c7e1688f8c1e9f2fc81d3bf63773",
+  "tested_commit": "99db7f5916ac87065fafd5cc17189dc714feeb27",
+  "data": {
+    "source": "anahatsingh-ui/options-dataset-hist",
+    "commit": "37f6c456fe1a4775c875673fb8ef907d5cd2fd66",
+    "period_start": "2025-01-01",
+    "period_end": "2025-04-30",
+    "observed_dates_start": "2025-01-02",
+    "observed_dates_end": "2025-04-30",
+    "days_calendar": 120,
+    "trading_days": 81,
+    "options_rows": 817348,
+    "calls": 408674,
+    "puts": 408674,
+    "source_annual_sha256": "77def9302fec018a926b270841a6507bfd69a5e46b3680fbb78267f73efb611e",
+    "original_git_blob": "133bf1d95c3479149bf4771bc8b3fd8b625064ce",
+    "normalized_four_month_subset_sha256": "01162014e951b32ceacb8064596a3341c7b6e848ae7a077460e76c01930b8acf",
+    "artifact_zip_sha256": "b815f666859e9e85ff5857cfd60897ff0f7e8c13d6d534f74552c70c1c86d32d"
+  },
+  "run": {
+    "github_actions": 43479588990,
+    "result": "SUCCESS",
+    "artifact_id": 14062884905,
+    "artifact_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43479588990/artifacts/14062884905",
+    "expires_at": "2026-12-13T18:08:33Z",
+    "initial_failed_static_ci": 43479380011,
+    "initial_economic_downloads": 0,
+    "full_economic_test_executions": 1
+  },
+  "starting_capital_usd": 20000,
+  "calendar_cost_total_usd": 120,
+  "results": {
+    "CASH": {
+      "net_usd": -120,
+      "drawdown": 0.006,
+      "filled": 0
+    },
+    "FOLLOW_3D": {
+      "net_usd": -368.85,
+      "vs_cash_usd": -248.85,
+      "dd": 0.0184425,
+      "filled": 26,
+      "attempted": 36,
+      "best_trade": 21.7,
+      "without_best": -390.55,
+      "missing_exit": 3
+    },
+    "FADE_3D": {
+      "net_usd": -131.9,
+      "vs_cash_usd": -11.9,
+      "dd": 0.01381143,
+      "filled": 25,
+      "attempted": 36,
+      "best_trade": 168.7,
+      "without_best": -300.6,
+      "missing_exit": 4
+    },
+    "CALL_ALWAYS": {
+      "net_usd": -495.6,
+      "vs_cash_usd": -375.6,
+      "dd": 0.02478,
+      "filled": 25,
+      "attempted": 36,
+      "best_trade": -5.3,
+      "without_best": -495.6,
+      "missing_exit": 6
+    },
+    "PUT_ALWAYS": {
+      "net_usd": -5.15,
+      "vs_cash_usd": 114.85,
+      "dd": 0.00939582,
+      "filled": 26,
+      "attempted": 36,
+      "best_trade": 168.7,
+      "without_best": -173.85,
+      "missing_exit": 1
+    }
+  },
+  "accounting": {
+    "independent_decimal_reconciliation": "PASS",
+    "all_5_daily_ledgers_days": 120,
+    "all_trade_cashflows_reconciled": true,
+    "all_terminal_equities_reconciled": true
+  },
+  "limitations": [
+    "SPY American physically-settled; N10 P0 European XSP remains unvalidated",
+    "source publicly mirrored MIT claim, exchange quote authenticity not independently audited",
+    "historical EOD bid/ask quotes not verified broker fills",
+    "exit without bid written down to zero, a conservative scenario not proof of settlement",
+    "single retrospective January-April 2025 path is not prospective OOS",
+    "no modeling of intraday early exercise, partial fills or market impact",
+    "thin/out-of-money options and stale/missing quotes may severely affect results",
+    "put relative advantage eliminated by best-trade removal"
+  ],
+  "verdict": "N10_NOT_CERTIFIED_PUT_BETTER_THAN_CASH_FINITE_PATH_NOT_ROBUST",
+  "n9_s": "NO_GO_UNCHANGED",
+  "m10_final_unopened": 3200,
+  "no_broker": true,
+  "no_orders": true,
+  "no_merge": true
+}
