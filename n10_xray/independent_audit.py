@@ -30,7 +30,10 @@ for name,headline in summary['causal_policies'].items():
     tt=[x for x in trades if x['policy']==name]
     ll=sorted((x for x in ledger if x['policy']==name),key=lambda x:x['date'])
     assert len(ll)==120
-    prior=D('20000');cum=D(0);peak=prior;dd=D(0);worst=D(0)
+    prior=D('20000')
+    peak=prior
+    dd=D(0)
+    worst=D(0)
     for daily in ll:
         now=D(daily['equity_usd'])
         day_change=D(daily['pnl_usd'])
@@ -43,14 +46,16 @@ for name,headline in summary['causal_policies'].items():
     pnl=D(0)
     last_exit=None
     for t in sorted(tt,key=lambda x:x['entry_date']):
-        entry=date.fromisoformat(t['entry_date']);exit_=date.fromisoformat(t['exit_date'])
+        entry=date.fromisoformat(t['entry_date'])
+        exit_=date.fromisoformat(t['exit_date'])
         assert last_exit is None or entry>last_exit
         last_exit=exit_
         elapsed=datetime.combine(exit_,time(16),ZoneInfo('America/New_York'))-datetime.combine(entry,time(16),ZoneInfo('America/New_York'))
         assert 0<elapsed.total_seconds()<=72*3600
         p=get(entry,t['contract_id'])
         assert p is not None
-        ask=D(str(p.ask)); bid=D(str(p.bid))
+        ask=D(str(p.ask))
+        bid=D(str(p.bid))
         assert ask>0 and ask>=bid and p.ask_size>=1 and p.bid_size>=1
         debit=(ask+D('.01'))*100+D('.65')
         assert debit+D('.65')<=D('50.01')
