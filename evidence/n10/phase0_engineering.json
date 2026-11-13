@@ -1,0 +1,59 @@
+{
+  "schema": "HARPOONX_N10_PHASE0_ENGINEERING_EVIDENCE_1",
+  "status": "ENGINEERING_PASS_ONLY_NOT_ECONOMIC_VALIDATION",
+  "source_base_c13": "c735cd519a34d3b2104e3a224ba2cc3698f3b8af",
+  "initial_preregistration": "1f51f1bd1b69edf14cdd3de260cc6cfa5401dc63",
+  "corrective_protocols": [
+    "b1aa3bfbea3b644131f9033edd2b0ae427be7811",
+    "b7481236a7610143ed6420ddd6b283eb6f2e9b23"
+  ],
+  "code_commit_tested": "f961a50010b0673bc9383de716b742656427e054",
+  "github_actions": {
+    "focused_run": 43472152394,
+    "focused_conclusion": "SUCCESS",
+    "python": "3.11",
+    "ruff": "SUCCESS",
+    "mypy_strict_scoped": "SUCCESS",
+    "compile": "SUCCESS",
+    "unittest_passed": 18,
+    "unittest_failed": 0
+  },
+  "source_hashes_sha256": {
+    "quant/harpoon_quant/n10_options.py": "0e8d053ab49fcb78dbf2d1d242d0c0eab3a24db4ffe5d903c07f70c00a047055",
+    "tests/test_n10_options.py": "89cd21422579ea54e7ff93ba77ae207e598dc03617d2af0c40a1f88d083af71c"
+  },
+  "independent_decimal_accounting": {
+    "long_call_max_loss_usd": "17.30",
+    "bull_put_credit_vertical_max_loss_usd": "13.60",
+    "status": "PASS_ENGINEERING_FIXTURE"
+  },
+  "benchmark": {
+    "selections": 2000,
+    "elapsed_ms": 163.692,
+    "scope": "CI Python3.11 single-run synthetic fixture, not production throughput"
+  },
+  "attempts": {
+    "initial_ruff_failures_preserved": [
+      43471546866,
+      43471859691,
+      43471926577,
+      43472123609
+    ],
+    "corrections": "R2 and R3 lint-only; no economic metric optimizations",
+    "economic_accounts_charged": 0,
+    "validation_holdouts_opened": 0,
+    "statistical_alpha_spent": 0
+  },
+  "limitations": [
+    "scenario exit is model repricing with static quote-derived halfspread; not observed executable exit",
+    "no authenticated NBBO/option chain and no historical economic validation",
+    "phase0 risk-capital translation differs from original M9 equity notionals",
+    "full partial/rejection/outage/impact execution and virtual-cell coordinator not implemented",
+    "no broker or order path",
+    "original N9-S still NO_GO, PR7 unchanged"
+  ],
+  "original_m10_final_accounts_unopened": 3200,
+  "profitability_observed": false,
+  "promotion_eligible": false,
+  "ci_recheck_after_release_pending": true
+}
