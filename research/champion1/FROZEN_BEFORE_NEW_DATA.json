@@ -1,0 +1,98 @@
+{
+  "schema": "HARPOONX_M11_C41_CHAMPION1_LOCKED_RULES_BEFORE_NEW_API_QUERIES_1",
+  "purpose": "Test one policy frozen from Q3 C40 exploration on a later October-November unseen-in-this-research-tool sequence; NOT prospective time registration because these market days are already in the past.",
+  "registered_workflow": "GITHUB_COMMIT_UTC_IS_AN_AUDIT_TRAIL_NOT_INDEPENDENT_RFC3161",
+  "known_exploratory_Q3_result": {
+    "time": "2026-09-01_to_2026-09-30",
+    "trades": 4,
+    "modelled_pnl_usd": 13.282176,
+    "source": "C40-RVOL uploaded ZIP",
+    "n9s": "NO_GO"
+  },
+  "market_data_request_AFTER_this_commit": {
+    "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "BTC/USD",
+      "ETH/USD"
+    ],
+    "equity_feed": "iex",
+    "crypto_feed": "us",
+    "bar_size": "1Day",
+    "start_inclusive": "2026-10-01",
+    "end_inclusive": "2026-11-12",
+    "historical_warmup": "2026-09-01/2026-09-30 from C37 original public API files"
+  },
+  "single_frozen_candidate": {
+    "id": "CHAMPION1_MOMENTUM5_RVOL10_GE_1P25_TRAIL2",
+    "candidate_universe": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "BTC/USD",
+      "ETH/USD"
+    ],
+    "features_only_completed_daily_bar": true,
+    "momentum5_min_fraction_equity": 0.01,
+    "momentum5_min_fraction_crypto": 0.025,
+    "rvol10_threshold": 1.25,
+    "rvol10_baseline": "signal-day completed volume over prior 10 completed daily bars, same symbol/feed, no same-day denominator",
+    "volatility_momentum_ratio_min": 0.8,
+    "volatility_momentum_windows": [
+      5,
+      15
+    ],
+    "historical_entry": "next source bar after full additional calendar session delay; i+2 open modeled only",
+    "exit": "TRAIL2 - 2 frozen ATR/spread/cost grid steps below last prior fully completed favorable high; stop first on ambiguous bar",
+    "stop": "2 grid steps below actual modeled entry open, not original anchor; gap open if below stop",
+    "holding_max_hours": 72,
+    "max_lookahead_market_bars": 0,
+    "modelled_close_prices_are_not_broker_fills": true
+  },
+  "funding": {
+    "initial_continuous_book_usd": 20000,
+    "hard_base_cap_for_new_admissions_usd": 20000,
+    "per_candidate_research_nominal_limit_fraction": 0.04,
+    "gross_at_admission_limit_fraction": 0.12,
+    "risk_per_entry_limit_fraction": 0.0025,
+    "capital_and_hedging_cash_shared": true,
+    "one_symbol_and_one_factor_open_max": true,
+    "crypto_gap_buffer_bps": 200,
+    "equity_gap_buffer_bps": 50
+  },
+  "execution_assumptions": {
+    "equity_all_in_roundtrip_bps": 13,
+    "equity_stress_roundtrip_bps": 26,
+    "crypto_all_in_roundtrip_bps": 100,
+    "crypto_stress_roundtrip_bps": 170,
+    "crypto_component_published_taker_fee_bps_per_side": 25,
+    "all_modelled_costs_not_actual_receipts": true,
+    "no_claim_of_stopmarket_crypto": true
+  },
+  "unmodified_comparators": [
+    "CASH_ZERO_YIELD",
+    "MOMENTUM5_NO_RVOL_TRAIL2",
+    "CHAMPION1_BASE_COSTS",
+    "CHAMPION1_PAIRED_COST_STRESS",
+    "CHAMPION1_LEAVE_ONE_WINNER_OUT"
+  ],
+  "forbidden": [
+    "retune RVOL after Oct-Nov results",
+    "rank assets using Oct-Nov",
+    "choose winners from target period",
+    "classify modeled TP as broker fill",
+    "treat Q3/OCT_NOV as authentic prospectively registered trial",
+    "modify C29 eight-arm plan",
+    "open 3200 sealed M10 accounts",
+    "send paper or live orders without fresh explicit trading risk approval"
+  ],
+  "conclusion_semantics": {
+    "financialGO": false,
+    "N9S": "NO_GO",
+    "true_prospective_data_observed": false,
+    "independent_timestamp_authority": false,
+    "broker_orders_allowed": false,
+    "M10_final_sealed": 3200
+  }
+}
