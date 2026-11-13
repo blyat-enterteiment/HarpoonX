@@ -72,7 +72,7 @@ class Outcome:
 
 def git_blob_sha(raw: bytes) -> str:
     return hashlib.sha1(
-        b"blob " + str(len(raw)).encode() + b"\\x00" + raw
+        b"blob " + str(len(raw)).encode() + b"\x00" + raw
     ).hexdigest()
 
 
