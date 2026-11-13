@@ -1,0 +1,71 @@
+name: FWN9 C41 Frozen CHAMPION-1 historical holdback, NON-PROSPECTIVE
+on:
+  push:
+    branches:
+      - research/m11-c41-champion1-frozen-forward-proxy
+  pull_request:
+    branches:
+      - research/m11-c38-five-level-stop-veto
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  champion-forward-proxy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # immutable M9 lineage validator uses git show old SHA
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned lint and typing
+        run: python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+      - name: Source syntax and static analysis
+        run: |
+          python -m py_compile research/champion1/evaluate_champion.py research/champion1/test_champion.py research/champion1/emit_champion.py
+          ruff check --select E4,E7,E9,F,I research/champion1/evaluate_champion.py research/champion1/test_champion.py research/champion1/emit_champion.py
+          mypy --follow-imports=silent --ignore-missing-imports research/champion1/evaluate_champion.py
+      - name: C41 forward-proxy input hashes, causal no-leak, finance and exit regressions
+        run: python -m unittest discover -s research/champion1 -p test_champion.py -v
+      - name: Recheck conservative original C36/C38 engineering guards
+        run: |
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p 'test_m11_incubation_matrix.py'
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p 'test_m11_five_level_guard.py'
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p 'test_m11_five_level_journal.py'
+      - name: Verify immutable M9 source manifest without rewriting it
+        run: python tools/fwn9_p9i_provenance.py
+      - name: Export 179 new market bars historical replay and cost stress
+        run: python research/champion1/emit_champion.py
+      - name: Invariants block false N9 promotion and broker fill claims
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research/champion1/artifacts')
+          r=json.loads((p/'C41_CHAMPION1_OBSERVED_BARS_MODELED_FILLS.json').read_text())
+          e=json.loads((p/'C41_EVIDENCE_NO_GO.json').read_text())
+          assert r['source']['new_oct_nov_market_bars']==179
+          assert r['source']['market_bars_total']==555
+          assert r['frozen_before_new_API_query_commit']=='a8eb6029f026131d375f791f9fc439a4c2a4c44f'
+          assert r['N9S']=='NO_GO' and r['financialGO'] is False
+          assert r['blocked_contracts']['alpaca_broker_fills_and_costs_authenticated'] is False
+          assert r['real_orders_created']==0
+          assert e['M10_final_accounts_sealed']==3200
+          print('C41_TEMPORAL_HOLDBACK_REAL_MARKET_BARS_MODELED_FILLS_NO_N9_GO')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HARPOONX-C41-CHAMPION1-OCTNOV-2026-NO_GO
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            research/champion1/FROZEN_BEFORE_NEW_DATA.json
+            research/champion1/source_manifest.json
+            research/champion1/evaluate_champion.py
+            research/champion1/test_champion.py
+            research/champion1/emit_champion.py
+            research/champion1/warmup/*.csv
+            research/champion1/target/*.csv
+            research/champion1/artifacts/*
