@@ -137,7 +137,7 @@ class OptionsShadowDeskTests(unittest.TestCase):
 
     def test_vertical_wrong_way_short_is_rejected(self):
         p=call_vertical()
-        wrong=replace(p,legs=(p.legs[1],p.legs[0]))
+        wrong=replace(p,legs=(Leg(p.legs[1].quote,"LONG"),Leg(p.legs[0].quote,"SHORT")))
         with self.assertRaisesRegex(ValueError,"WRONG_WAY_VERTICAL"):
             validate_package(wrong)
 
