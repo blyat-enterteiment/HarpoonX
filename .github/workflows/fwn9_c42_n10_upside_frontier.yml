@@ -1,0 +1,64 @@
+name: N10 C42 - upside frontier without future leakage or broker claims
+on:
+  push:
+    branches:
+      - research/m11-c42-n10-upside-frontier
+  pull_request:
+    branches:
+      - research/m11-c41-champion1-frozen-forward-proxy
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  n10-frontier-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source syntax, static analysis, frozen M9 bytes
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+          python -m py_compile research/n10_frontier/diagnose.py research/n10_frontier/test_n10.py
+          ruff check --select E4,E7,E9,F,I research/n10_frontier/diagnose.py research/n10_frontier/test_n10.py
+          mypy --follow-imports=silent --ignore-missing-imports research/n10_frontier/diagnose.py
+          python tools/fwn9_p9i_provenance.py > /tmp/n10_M9_identity.txt
+      - name: Confirm 72h ORACLE is never a trading signal or a broker fill
+        run: python -m unittest discover -s research/n10_frontier -p test_n10.py -v
+      - name: Replay C41 frozen original negative economics; no retuning
+        run: |
+          python research/champion1/emit_champion.py
+          python -m unittest discover -s research/champion1 -p test_n9_go_gate.py
+          python research/champion1/n9_go_gate.py
+      - name: Emit N10 potential-missing-alpha accountability report
+        run: python research/n10_frontier/diagnose.py
+      - name: Hard fail if hidden promotion or missing original source
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("research/n10_frontier/evidence")
+          r=json.loads((p/"C42_N10_UPSIDE_FRONTIER_ORACLE_ONLY.json").read_text())
+          a=json.loads((p/"C42_N10_NO_GO.json").read_text())
+          assert r["N10"]=="NO_GO" and r["N9S"]=="NO_GO"
+          assert r["financialGO"] is False and r["actual_broker_orders"]==0
+          assert r["source"]["market_bars_total"]==555
+          assert r["source"]["broker_fill_receipts"]==0
+          assert r["all_mfe_prices_are_future_oracle_not_order_prices"] is True
+          assert r["unresolved_N10"]["strategy_parameter_retuning_from_this_oracle_allowed"] is False
+          assert a["no_new_trading_authority"] is True
+          print("C42_N10_MFE_ORACLE_ONLY_PNL_NOT_FILLS_N9_AND_N10_NO_GO")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: C42-N10-ORACLE-NOT-ALPHA-NO-GO
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            research/n10_frontier/diagnose.py
+            research/n10_frontier/test_n10.py
+            research/n10_frontier/evidence/*
+            docs/N10_C42_ALPHA_DISCOVERY_FRONTIER.md
