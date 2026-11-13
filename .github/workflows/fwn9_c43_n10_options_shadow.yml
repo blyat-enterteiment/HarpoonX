@@ -1,0 +1,76 @@
+name: N10 C43 — Options shadow research, never live execution
+on:
+  push:
+    branches:
+      - research/m11-c43-n10-options-shadow-desk
+  pull_request:
+    branches:
+      - research/m11-c42-n10-upside-frontier
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  options-shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static validation of options desk and research tests
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+          python -m py_compile quant/harpoon_quant/options_shadow_desk.py quant/harpoon_quant/options_shadow_portfolio.py quant/tests/test_n10_options_shadow_desk.py quant/tests/test_n10_options_shadow_portfolio.py
+          ruff check quant/harpoon_quant/options_shadow_desk.py quant/harpoon_quant/options_shadow_portfolio.py quant/tests/test_n10_options_shadow_desk.py quant/tests/test_n10_options_shadow_portfolio.py
+          MYPYPATH=quant mypy --follow-imports=silent --ignore-missing-imports quant/harpoon_quant/options_shadow_desk.py quant/harpoon_quant/options_shadow_portfolio.py
+      - name: Test OCC terms, actual indicative chain adapter, American exercise and funded shadow
+        run: |
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_n10_options_shadow_desk.py -v
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_n10_options_shadow_portfolio.py -v
+      - name: Verify original source exact Git blob and that free indicative is not OPRA
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path("research/n10_options")
+          p=root/"observed_indicative_SPY_2026-11-13.json"
+          m=json.loads((root/"source_manifest.json").read_text())
+          b=p.read_bytes()
+          blob=hashlib.sha1(b"blob "+str(len(b)).encode()+b"\x00"+b).hexdigest()
+          assert blob==m["immutable_git_blob_sha"]
+          assert m["source_feed"]=="ALPACA_INDICATIVE_NOT_EXECUTABLE_OPRA"
+          assert m["actual_broker_orders"]==0 and m["actual_broker_fills"]==0
+          assert m["observed_contracts"]==16
+          assert m["N10"]=="NO_GO" and m["N9S"]=="NO_GO"
+          print("C43_REAL_INDICATIVE_16_CONTRACTS_ONLY_SHADOW_NO_FILL_PROOF")
+          PY
+      - name: Recheck C36 options block and frozen M9 provenance
+        run: |
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_m11_incubation_matrix.py
+          python tools/fwn9_p9i_provenance.py >/tmp/C43_M9_PROVENANCE.txt
+      - name: N10 C42 alpha research remains NO_GO
+        run: |
+          python research/champion1/emit_champion.py
+          python research/n10_frontier/diagnose.py
+          python - <<'PY'
+          import json,pathlib
+          path=pathlib.Path("research/n10_frontier/evidence/C42_N10_NO_GO.json")
+          evidence=json.loads(path.read_text())
+          assert evidence["N10"]=="NO_GO" and evidence["N9S"]=="NO_GO"
+          assert evidence["no_new_trading_authority"] is True
+          print("C43_OPTIONS_ADDED_RESEARCH_ONLY_N10_REMAINS_NO_GO")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N10-C43-OPTIONS-SHADOW-INDICATIVE-NO-GO
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            quant/harpoon_quant/options_shadow_desk.py
+            quant/harpoon_quant/options_shadow_portfolio.py
+            quant/tests/test_n10_options_shadow_desk.py
+            quant/tests/test_n10_options_shadow_portfolio.py
+            research/n10_options/*
+            docs/N10_C43_OPTIONS_ARCHITECTURE.md
