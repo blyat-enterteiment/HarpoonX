@@ -12,7 +12,11 @@ from dataclasses import asdict, dataclass, replace
 from decimal import Decimal
 
 from .options_shadow_desk import (
-    Book, Expenses, Package, Shock, cost_and_funding, money,
+    Book,
+    Expenses,
+    Package,
+    Shock,
+    money,
     scenario_economics,
 )
 
@@ -103,7 +107,7 @@ def shadow_portfolio(
                 money(current.already_reserved_risk_usd,"RISK")+risk
             ),
         )
-        for shock,scen in zip(proposal.shocks,v["scenarios"]):
+        for shock,scen in zip(proposal.shocks,v["scenarios"],strict=True):
             assert isinstance(scen,dict)
             sid=shock.scenario_id
             w=money(shock.probability,"WEIGHT",positive=True)
