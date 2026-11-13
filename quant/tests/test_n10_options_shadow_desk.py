@@ -125,7 +125,7 @@ class OptionsShadowDeskTests(unittest.TestCase):
         self.assertEqual(r["estimated_roundtrip_fees_usd"],"3.00")
         self.assertEqual(r["maximum_premium_loss_plus_estimated_fees_usd"],
                          "28.00")
-        self.assertEqual(r["expiry_max_profit_for_vertical_only_usd"],"72.00")
+        self.assertEqual(float(r["expiry_max_profit_for_vertical_only_usd"]),72.0)
         self.assertTrue(r["funded_in_research_only"])
         self.assertFalse(r["physical_delivery_funding_proved"])
         self.assertTrue(r["assignment_intraday_share_exposure_possible"])
