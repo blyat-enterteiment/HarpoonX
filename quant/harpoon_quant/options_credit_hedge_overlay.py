@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import math
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from decimal import Decimal
@@ -348,18 +347,6 @@ def exit_72h_european_proxy(
         "European_BSM_proxy_not_American_SPY_value":True,
         "financialGO":False,"N10":"NO_GO",
     }
-
-
-def signed_decimal(raw:str,name:str)->Decimal:
-    if not isinstance(raw,str) or not raw or len(raw)>50:
-        raise ValueError("C45_BAD_"+name)
-    try:
-        n=Decimal(raw)
-    except Exception as exc:
-        raise ValueError("C45_BAD_"+name) from exc
-    if not n.is_finite():
-        raise ValueError("C45_BAD_"+name)
-    return n
 
 
 def cohort_identity(c:CreditFourLeg,book:Book,fees:Expenses)->str:
