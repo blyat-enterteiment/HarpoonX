@@ -305,6 +305,37 @@ class OptionsShadowDeskTests(unittest.TestCase):
                 seen+=1
         self.assertEqual(seen,16)
 
+    def test_real_indicative_long_option_premia_do_not_fit_frozen_risk(self):
+        # Historical indicative quotes, NOT signals or executable broker BBO.
+        obj=json.loads((
+            ROOT/"research/n10_options/observed_indicative_SPY_2026-11-13.json"
+        ).read_text())
+        amounts=[]
+        for chain in obj["chains"]:
+            at=chain["local_connector_return_timestamp_ms"]
+            for record in chain["records"]:
+                q=adapt_alpaca_snapshot(
+                    record,underlying="SPY",decision_at_ms=at+1,
+                    received_at_ms=at,feed="indicative"
+                )
+                th=Thesis(
+                    "SPY","SYNTHETIC_OBSERVED_QUOTE_RISK_RESEARCH",
+                    "BULL" if q.right=="C" else "BEAR",
+                    at,at+1,"1.4","SYNTHETIC_RESEARCH"
+                )
+                p=Package(
+                    "LONG_CALL" if q.right=="C" else "LONG_PUT",
+                    (Leg(q,"LONG"),),1,th
+                )
+                result=cost_and_funding(p,book(),expenses())
+                self.assertFalse(result["funded_in_research_only"])
+                self.assertFalse(result["physical_delivery_funding_proved"])
+                amounts.append(float(result[
+                    "maximum_premium_loss_plus_estimated_fees_usd"]))
+        self.assertEqual(len(amounts),16)
+        self.assertGreater(min(amounts),50)
+        self.assertTrue(obj["quote_cannot_guarantee_execution"])
+
     def test_provider_behind_clock_or_missing_ask_is_rejected(self):
         record={
             "symbol":"SPY261218C00760000",
