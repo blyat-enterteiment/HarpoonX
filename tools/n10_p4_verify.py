@@ -21,7 +21,7 @@ def sha256(path: Path) -> str:
 
 
 def check() -> dict[str, object]:
-    proto = json.loads((ROOT / 'research/n10/p4_protocol.json').read_text())
+    proto = json.loads((ROOT / 'research/n10/p4_corrective_r2.json').read_text())
     hashes: dict[str, str] = {}
     for path, expected in proto['source_sha256'].items():
         current = sha256(ROOT / path)

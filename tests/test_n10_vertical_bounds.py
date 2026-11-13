@@ -93,7 +93,8 @@ class VerticalBoundsTests(unittest.TestCase):
             quote_band(v,decision_at=NOW,discount_factor=D('1.02'))
 
     def test_kl_lower_monotonic(self)->None:
-        p=(.5,.5);v=(0.0,1.0)
+        p=(.5,.5)
+        v=(0.0,1.0)
         a=kl_lower(v,p,0)
         b=kl_lower(v,p,.02)
         c=kl_lower(v,p,.1)
