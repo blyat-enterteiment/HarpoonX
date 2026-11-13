@@ -98,6 +98,28 @@ class UpsideFrontierTests(unittest.TestCase):
         self.assertGreater(g["additional_net_bps_required_if_only_one_new_800usd_full_sized_trade"],0)
         self.assertLess(g["current_modelled_strategy_pnl_usd"],0)
 
+    def test_oracle_envelope_is_too_small_to_support_frozen_N9_hurdle(self):
+        envelope=self.report["optimistic_fixed_trigger_opportunity_envelope"]
+        self.assertAlmostEqual(envelope["capital_limit_per_candidate_usd"],800)
+        self.assertFalse(envelope["even_oracle_unfiltered_reaches_N9_hurdle"])
+        self.assertFalse(envelope["even_oracle_frozen_rvol_reaches_N9_hurdle"])
+        self.assertGreater(envelope[
+            "required_net_profit_from_cash_N9_1bp_over_43_days_usd"],
+            envelope[
+                "all_existing_momentum_signals_oracle_perfect_high_max_profit_usd"])
+        self.assertTrue(envelope[
+            "assumes_perfect_future_high_execution_not_realistic"])
+
+    def test_oracle_counts_only_positive_hypothetical_net_trade_opportunities(self):
+        all_signals=D.frontiers(self.market,floor=0.)
+        expected=sum(
+            max(0.,x.oracle_after_assumed_cost_bps)*800/10000
+            for x in all_signals
+        )
+        actual=self.report["optimistic_fixed_trigger_opportunity_envelope"][
+            "all_existing_momentum_signals_oracle_perfect_high_max_profit_usd"]
+        self.assertAlmostEqual(actual,expected,places=5)
+
     def test_one_book_original_cap_compounding_limits_not_overwritten(self):
         self.assertTrue(self.report["economic_gap"][
             "no_reinvestment_above_original_20000_admission_base"])
