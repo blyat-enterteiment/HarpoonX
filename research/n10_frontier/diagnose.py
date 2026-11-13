@@ -11,7 +11,6 @@ import hashlib
 import json
 import math
 import sys
-from collections import Counter
 from dataclasses import dataclass
 from datetime import timedelta
 from pathlib import Path
