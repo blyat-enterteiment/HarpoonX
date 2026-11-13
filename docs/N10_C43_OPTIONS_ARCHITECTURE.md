@@ -135,6 +135,24 @@ take profit antes que stop. Para calibrar
 prima y del subyacente, con relojes y cotizaciones ejecutables;
 no pueden obtenerse de una cadena aislada.
 
+## Resultado de la muestra indicativa SPY, 13 de noviembre de 2026
+
+Ejecuté el analizador de riesgo sobre las **16 cotizaciones indicativas
+originales** (8 calls + 8 puts, 18/dic/2026) recibidas del conector
+Alpaca. Bajo 1 contrato estándar de 100 acciones, gastos supuestos
+de 0,50 USD por pata y lado más 1 USD extra, los **desembolsos de prima
+más costes** de las calls/puts largas van de **994 a 1.803 USD**.
+**Ninguna de las 16** respeta el máximo original de 50 USD
+de riesgo por entrada ni tiene la obligación potencial de entrega
+de acciones plenamente financiada por 20.000 USD.
+
+Es una constatación de restricciones y fuentes **indicativas no
+ejecutables**, no recomendación de compra/venta ni estimación de
+alfa. Se mantiene abierta únicamente la posibilidad de analizar
+verticales de débito de prima baja: aun así la asignación americana
+de pata corta y la entrega pueden exceder la caja; por ello el
+desk conserva autorización de órdenes FALSE.
+
 ## Datos y advertencias documentadas por los emisores
 
 El feed de opciones indicativo de Alpaca es gratuito, pero las
