@@ -76,6 +76,7 @@ def select_research_structure(regime: MarketRegime) -> dict[str, object]:
     )
     if iv > 5 or realized > 5:
         raise ValueError("C45_VOLATILITY_DOMAIN")
+    allowed:tuple[str,...]
     if (
         iv >= Decimal("1.2") * realized
         and rv <= Decimal("1.25")
