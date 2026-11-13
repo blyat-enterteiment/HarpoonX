@@ -1,0 +1,61 @@
+name: N10 C45 — credit condor/butterfly and debit hedge only, offline
+on:
+  push:
+    branches:
+      - research/m11-c45-options-hedge-income-shadow
+  pull_request:
+    branches:
+      - research/m11-c43-n10-options-shadow-desk
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  credit-hedge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static analysis and type contracts (no broker)
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+          python -m py_compile quant/harpoon_quant/options_credit_hedge_overlay.py quant/tests/test_n10_credit_hedge_overlay.py
+          ruff check --select E4,E7,E9,F,B,RUF021 quant/harpoon_quant/options_credit_hedge_overlay.py quant/tests/test_n10_credit_hedge_overlay.py
+          MYPYPATH=quant mypy --strict --follow-imports=silent quant/harpoon_quant/options_credit_hedge_overlay.py
+      - name: C45 iron condor / butterfly synthetic cash-risk and assignment gates
+        run: PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_n10_credit_hedge_overlay.py -v
+      - name: Preserve C43 verified long/debit strategy guards
+        run: |
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_n10_options_shadow_desk.py -v
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_n10_options_shadow_portfolio.py -v
+      - name: Freeze original M9 source hashes and C36 options execution block
+        run: |
+          python tools/fwn9_p9i_provenance.py > /tmp/C45_M9_PROVENANCE.json
+          PYTHONPATH=quant python -m unittest discover -s quant/tests -p test_m11_incubation_matrix.py -v
+      - name: Explicit registration and no-trading contract
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("research/n10_hedges/C45_FROZEN_HEDGE_CREDIT_STUDY.json")
+          r=json.loads(p.read_text())
+          assert r["C44_frozen_study_mutated"] is False
+          assert r["zero_orders"] and r["no_live_deploy"]
+          assert r["fixed_limits"]["original_risk_per_entry_fraction"]==.0025
+          assert r["fixed_limits"]["original_funded_base_usd"]==20000
+          assert r["N9S"]=="NO_GO" and r["N10"]=="NO_GO"
+          print("C45_CREDIT_CONDOR_NOT_CRASH_HEDGE_OR_EXECUTION")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N10-C45-IRON-CONDOR-BUTTERFLY-CREDIT-RISK-ONLY
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            quant/harpoon_quant/options_credit_hedge_overlay.py
+            quant/tests/test_n10_credit_hedge_overlay.py
+            research/n10_hedges/C45_FROZEN_HEDGE_CREDIT_STUDY.json
+            docs/N10_C45_CREDIT_OVERLAY_RISK.md

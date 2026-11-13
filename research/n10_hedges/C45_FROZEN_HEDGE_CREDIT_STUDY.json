@@ -1,0 +1,59 @@
+{
+  "schema": "HARPOONX_N10_C45_CREDIT_HEDGE_POLICY_PREREG_BEFORE_ANY_NEW_MARKET_OUTCOME_1",
+  "date": "2026-11-13",
+  "scope": "OFFLINE_OPTION_STRUCTURE_AND_RISK_RESEARCH_ONLY",
+  "parent": "research/m11-c43-n10-options-shadow-desk",
+  "C44_frozen_study_mutated": false,
+  "strategies": [
+    "SHORT_IRON_CONDOR_CREDIT",
+    "SHORT_IRON_BUTTERFLY_CREDIT",
+    "LONG_PUT_VERTICAL_PROTECTIVE_FROM_C43",
+    "CASH"
+  ],
+  "regime_rule_exploratory": {
+    "rv20_annualized_strict_positive": true,
+    "iv_to_rv_min_ratio_for_short_premium": 1.2,
+    "max_RVOL10_for_quiet_regime": 1.25,
+    "max_abs_momentum5_fraction_for_quiet_regime": 0.01,
+    "premium_sell_only_if_quiet": true,
+    "puts_cover_only_if_bear_signal": true,
+    "active_bull_signal_sells_NO_condor": true,
+    "no_regime_threshold_selected_using_future_outcomes": true,
+    "regime_labels_not_calibrated_probability": true
+  },
+  "math": {
+    "credit_entry": "short_put_bid + short_call_bid - long_put_ask - long_call_ask",
+    "fee_open_close": "8 * fee_per_leg_per_side * contracts + package_expense",
+    "max_loss_expiry": "100 * max(put_width,call_width)*contracts - 100*entry_credit_per_share*contracts + roundtrip_fees",
+    "max_profit_expiry": "100 * entry_credit_per_share*contracts - roundtrip_fees",
+    "lower_break_even": "short_put_strike - net_entry_credit_per_share_after_fees",
+    "upper_break_even": "short_call_strike + net_entry_credit_per_share_after_fees",
+    "risk_budget": "risk at admission <=0.0025 * min(NAV,20000); gross <=0.12 base; research position <=0.04 base",
+    "early_assignment": "American physical assignment exposure separately budgeted and blocks execution until broker authentication",
+    "holding_hours_max": 72,
+    "full_delivery_cash_required": true,
+    "crypto_options_not_supported": true,
+    "European_cash_index_requires_broker_verified_metadata": true
+  },
+  "not_certified": [
+    "true TP before SL probability",
+    "real option fills",
+    "OPRA quote authentication",
+    "early assignment schedule",
+    "Ex-dividend and exercise flows",
+    "prospective alpha",
+    "N9 or N10 financial GO"
+  ],
+  "fixed_limits": {
+    "original_funded_base_usd": 20000,
+    "original_risk_per_entry_fraction": 0.0025,
+    "original_gross_cap_admission_fraction": 0.12,
+    "original_holding_hours": 72,
+    "extra_candidate_research_fraction": 0.04
+  },
+  "zero_orders": true,
+  "no_live_deploy": true,
+  "M10_final_3200_sealed": true,
+  "N9S": "NO_GO",
+  "N10": "NO_GO"
+}
