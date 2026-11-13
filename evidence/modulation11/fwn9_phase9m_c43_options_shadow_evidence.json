@@ -1,0 +1,106 @@
+{
+  "schema": "HARPOONX_N10_C43_OPTIONS_SHADOW_DESK_VALIDATION_1",
+  "as_of": "2026-11-13",
+  "provenance": {
+    "parent": "research/m11-c42-n10-upside-frontier",
+    "source_file": "research/n10_options/observed_indicative_SPY_2026-11-13.json",
+    "source_manifest": "research/n10_options/source_manifest.json",
+    "original_git_blob_sha1": "707baf99a65f7de147398c58fba13aa9355c5b50",
+    "feed": "Alpaca indicative option chain, NOT OPRA",
+    "underlying": "SPY",
+    "expiry": "2026-12-18",
+    "records": 16,
+    "calls": 8,
+    "puts": 8,
+    "provider_quotes_executably_attested": false,
+    "deliverable_and_multiplier_confirmed_from_private_broker": false
+  },
+  "implemented": {
+    "code": [
+      "quant/harpoon_quant/options_shadow_desk.py",
+      "quant/harpoon_quant/options_shadow_portfolio.py"
+    ],
+    "strategies": [
+      "LONG_CALL",
+      "LONG_PUT",
+      "DEBIT_CALL_VERTICAL",
+      "DEBIT_PUT_VERTICAL"
+    ],
+    "blocks_uncovered_short_and_credit_spreads": true,
+    "put_requires_independent_bearish_underlying_thesis": true,
+    "OCC_standard_contract_date_strike_multiplier_checked": true,
+    "corporate_actions_adjusted_contracts_rejected": true,
+    "quote_clock_source_not_authenticated": true,
+    "BSM_pricing_european_analytic_proxy_only": true,
+    "American_exercise_early_assignment_and_share_delivery_are_separate_blockers": true,
+    "joint_scenario_input_probs_not_calibrated": true,
+    "target_before_stop_first_passage_probability_NOT_verified": true,
+    "no_option_broker_orders_or_fill_assumptions": true,
+    "remains_blocked_in_original_C36_native_execution": true
+  },
+  "portfolio": {
+    "initial_USD": 20000,
+    "capital_for_new_admission_max_USD": 20000,
+    "gross_at_admission_fraction": 0.12,
+    "risk_at_admission_fraction": 0.0025,
+    "max_nominal_research_fraction_per_candidate": 0.04,
+    "max_budgeted_loss_per_entry_original_usd": 50,
+    "original_core_risk_thresholds_unchanged": true,
+    "one_portfolio_shared_cash_and_risk": true,
+    "physical_delivery_collateral_is_separate_risk_test": true
+  },
+  "observed_SPY_indicative_risk_diagnostic": {
+    "per_contract_premium_plus_assumed_roundtrip_fees_usd_min": 994,
+    "per_contract_premium_plus_assumed_roundtrip_fees_usd_max": 1803,
+    "affordable_long_calls_or_puts_under_50usd_original_risk_cap": 0,
+    "delivery_financed_by_original_20000_usd_book": 0,
+    "fee_assumptions_usd_per_leg_per_side": 0.5,
+    "additional_roundtrip_package_fee_usd": 1,
+    "actual_broker_fee_receipts_observed": 0,
+    "actual_broker_placements_or_fills": 0,
+    "economic_alpha_authenticated": false
+  },
+  "CI": {
+    "coded_head_sha": "9388830130417c245eca6dcd84058acb50729030",
+    "focused_run": 43493614494,
+    "focused_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43493614494",
+    "focused_conclusion": "success",
+    "C43_options_unit_tests_passed": 31,
+    "C43_portfolio_unit_tests_passed": 8,
+    "existing_C36_regressions_passed": 39,
+    "focused_static_Ruff_mypy_python_compile_pass": true,
+    "original_M9_provenance_pass": true,
+    "full_core_run": 43493614548,
+    "full_core_url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43493614548",
+    "full_core_conclusion": "success",
+    "current_head_python_tests_passed": 1209,
+    "independently_reconstituted_archival_tests_passed": 12,
+    "archive_Git_composite_hashes_verified": 108,
+    "true_atomic_archival_snapshot_claimed": false,
+    "standalone_archive_sha256": "5d68fb74c0d011bac465faabe91e021ec75248c1070913d6b0917b50748a97bc",
+    "standalone_archive_C43_tests_passed": 39,
+    "standalone_zip_not_independent_financial_audit": true
+  },
+  "outstanding": {
+    "OPRA_authentic_liquid_bid_ask_depth_and_receipt_timestamps": false,
+    "broker_verified_exact_contract_terms_and_split_adjustments": false,
+    "verified_option_exercise_assignment_dividends_settlement": false,
+    "real_multi_leg_order_partial_fill_and_financed_ledger": false,
+    "independent_real_prospective_swing_path_and_broker_fills": false,
+    "probability_of_TP_before_SL_verified": false,
+    "actual_option_returns_positive_after_real_costs": false,
+    "original_C22_cash_option_and_underlying_comparator_complete": false,
+    "C29_original_N9_first_certified": false,
+    "true_independent_N10_GO": false
+  },
+  "safety": {
+    "orders_PAPER": 0,
+    "orders_LIVE": 0,
+    "deployments": 0,
+    "merges": 0,
+    "final_M10_accounts_sealed": 3200,
+    "financialGO": false,
+    "N9S": "NO_GO",
+    "N10": "NO_GO"
+  }
+}
