@@ -5,12 +5,11 @@ No network, orders, fills or original-C22 economic GO in this test.
 from __future__ import annotations
 
 import json
-import math
 import shutil
 import tempfile
 import unittest
 from dataclasses import replace
-from datetime import date, datetime, timedelta, timezone
+from datetime import date
 from pathlib import Path
 
 import evaluate_champion as C
@@ -199,7 +198,7 @@ class FrozenChampionTests(unittest.TestCase):
         self.assertEqual(self.result,C.evaluate())
 
     def test_stale_or_future_market_bars_are_not_fabricated(self):
-        self.assertEqual(self.market["BTC/USD"][-1].day,TARGET_END if False else C.TARGET_END)
+        self.assertEqual(self.market["BTC/USD"][-1].day,C.TARGET_END)
         for name in C.SYMBOLS:
             self.assertEqual(self.market[name][-1].day,C.TARGET_END)
 
