@@ -1,0 +1,55 @@
+{
+  "schema": "HARPOONX_M11_C42_N10_POSITIVE_ALPHA_OBSTRUCTION_EVIDENCE_1",
+  "as_of": "2026-11-13",
+  "parent": "evidence/modulation11/fwn9_phase9m_c41_evidence.json",
+  "report": "docs/N10_C42_ALPHA_DISCOVERY_FRONTIER.md",
+  "code_tested_head": "b633a3505590bf5a95bc009b7bb5d2e6d8a21941",
+  "github_actions": {
+    "run_id": 43464316983,
+    "url": "https://github.com/blyat-enterteiment/HarpoonX/actions/runs/43464316983",
+    "conclusion": "success",
+    "new_C42_adversarial_tests": 14,
+    "prior_C41_n9_acceptance_gate_tests": 9,
+    "ruff": "PASS",
+    "mypy": "PASS",
+    "legacy_M9_provenance": "PASS"
+  },
+  "source_scope": {
+    "observed_provider_bars": 555,
+    "new_target_period_bars": 179,
+    "source": "Alpaca IEX equities + Alpaca Crypto US daily historical bars",
+    "original_C41_trigger_unchanged": true,
+    "broker_fills": 0,
+    "broker_orders": 0,
+    "independent_forward_preregister": false
+  },
+  "diagnosis": {
+    "frozen_C41_momentum_volmom_candidate_signals_without_RVOL": 7,
+    "with_RVOL_1_25": 1,
+    "maximum_oracle_72h_5_levels_only_future_data": true,
+    "optimistic_7_signal_hindsight_profit_with_800usd_per_signal_USD": 10.713384,
+    "optimistic_1_signal_RVOL_1_25_profit_USD": 3.638363,
+    "required_N9_1bp_daily_43d_cash_profit_USD": 86.185165,
+    "modeled_actual_C41_pnl_USD": -10.783784,
+    "additional_USD_needed_from_C41_ending_wealth": 96.968949,
+    "new_USD_needed_per_one_800_position_bps": 1212.111866,
+    "optimistic_estimates_ignore_overlap_stop_reachability": true,
+    "optimistic_revenue_is_not_a_universal_market_profit_bound": true,
+    "oracle_prices_never_used_as_entry_signals": true,
+    "underlying_alpha_failure": "INSUFFICIENT_EXISTING_CONDITIONALLY_CANDIDATE_RIGHT_TAIL_DENSITY"
+  },
+  "status": {
+    "technical_diagnostic_verified": true,
+    "new_N10_alpha_engine_implemented": false,
+    "real_prospective_study_completed": false,
+    "level_9_certified": false,
+    "level_10_certified": false,
+    "execution_deployed": false,
+    "orders_paper": 0,
+    "orders_live": 0,
+    "independent_economic_audit": false,
+    "M10_final_sealed": 3200,
+    "N9S": "NO_GO",
+    "N10": "NO_GO"
+  }
+}
