@@ -187,14 +187,16 @@ def save(root:Path=C.HERE)->dict[str,object]:
     dest.mkdir(exist_ok=True)
     out=json.dumps(report,sort_keys=True,indent=2,allow_nan=False)+"\n"
     (dest/"C42_N10_UPSIDE_FRONTIER_ORACLE_ONLY.json").write_text(out)
+    gap=report["economic_gap"]
+    if not isinstance(gap,dict):
+        raise ValueError("C42_INVALID_N10_ECONOMIC_GAP_CONTRACT")
     badge={
         "schema":"HARPOONX_C42_N10_DIAGNOSTIC_SUMMARY_1",
         "source_sha256":hashlib.sha256(out.encode()).hexdigest(),
         "N10":"NO_GO","N9S":"NO_GO",
         "signal_count_unfiltered":report["signal_count_unfiltered"],
         "signal_count_rvol_ge_1p25":report["signal_count_rvol_ge_1p25"],
-        "additional_net_usd_N9_hurdle":report["economic_gap"][
-            "additional_net_usd_to_reach_N9_hurdle_in_this_43d_period"],
+        "additional_net_usd_N9_hurdle":gap["additional_net_usd_to_reach_N9_hurdle_in_this_43d_period"],
         "no_new_trading_authority":True,
     }
     (dest/"C42_N10_NO_GO.json").write_text(
