@@ -125,9 +125,12 @@ def main()->None:
     result=audit()
     out=HERE/"artifacts"/"C41_N9_GO_GATE_FAIL_CLOSED.json"
     out.write_text(json.dumps(result,sort_keys=True,indent=2)+"\n")
+    unmet=result["unmet_acceptance_conditions"]
+    if not isinstance(unmet,list):
+        raise ValueError("C41G_UNMET_CONDITIONS_NOT_A_LIST")
     print(json.dumps({
         "schema":result["schema"],"financialGO":False,"N9S":"NO_GO",
-        "unmet_count":len(result["unmet_acceptance_conditions"]),
+        "unmet_count":len(unmet),
         "modelled_net_pnl_usd":result["champion_modelled_net_pnl_usd"],
         "required_terminal_usd":result[
             "required_terminal_for_1bp_per_calendar_day_usd"
