@@ -1,0 +1,17 @@
+{
+  "schema": "HARPOONX_N10_P4_CORRECTIVE_R2_1",
+  "initial_prereg_commit": "96a12fa093e72edfd4827d96c2c7fc8bd65bd02c",
+  "source_code_commit_R1": "426eaa7125558a6cf9d93fc343c96fd9a7d2c81d",
+  "failed_CI_preserved_and_charged": 43505407684,
+  "failed_reason": "Ruff E702 at test_n10_vertical_bounds.py:96; compile PASS, downstream tests/type skipped",
+  "delta_scope": "only split semicolon into two lines in test; verifier switches to corrective manifest. No economic logic or model parameters changed.",
+  "source_sha256": {
+    "quant/harpoon_quant/n10_vertical_bounds.py": "9c6077587abc0860d905e767c7cd10dcff4ef6dc572d00f5abcbb2fbc215ba47",
+    "tests/test_n10_vertical_bounds.py": "180dd6a0d72182c969e60b39f39371649671d164655de0b1de122ca332ad20d8",
+    "tools/n10_p4_verify.py": "52c1b41df3f1cbb51e83b3007b9f9b96d3aa91144d60875562531ae13dd49f9e"
+  },
+  "economic_accounts_delta": 0,
+  "alpha_spent": 0,
+  "m10_final_opened": 0,
+  "automatic_retry_allowed": false
+}
