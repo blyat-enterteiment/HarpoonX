@@ -1,0 +1,73 @@
+name: N10 P2 frozen quote export (no trading tests)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned dataframe dependencies
+        run: python -m pip install pandas==2.2.3 numpy==2.2.4 pyarrow==19.0.1
+      - name: Download immutable public options and underlying source, export verified CSV
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          import pandas as pd
+          from tools.n10_real_4mo import acquire_source,load_data,sha256_file
+
+          base=Path("_n10_real4mo")
+          base.mkdir(exist_ok=True)
+          p1=json.loads(Path("research/n10/p1_real_2025_4months_protocol.json").read_text())
+          frozen=json.loads(Path("research/n10/p2_reverse_engineering_protocol.json").read_text())
+          assert p1["source"]["commit"]==frozen["source"]["commit"]
+          files=[acquire_source(x,p1["source"]["commit"]) for x in p1["source"]["files"]]
+          for entry in files:
+              print("VERIFIED SOURCE", entry["file"], entry["sha256"], entry["bytes"])
+          options,stocks,stats=load_data(Path(files[0]["path"]),Path(files[1]["path"]))
+          raw=base/"SPY_options_2025_JanApr_source_window.parquet"
+          assert sha256_file(raw)==frozen["source"]["jan_apr_source_subset_sha256"]
+          cols=["date","contract_id","expiration","strike","type","bid","ask","bid_size",
+                "ask_size","volume","open_interest","delta","implied_volatility"]
+          missing=[x for x in cols if x not in options]
+          if missing:
+              raise AssertionError("missing columns "+str(missing))
+          out1=Path("out_p2_options_2025_janapr.csv.gz")
+          out2=Path("out_p2_spy_underlying_all.csv.gz")
+          options[cols].to_csv(out1,index=False,compression="gzip")
+          underlying=pd.read_parquet(files[1]["path"])
+          underlying.to_csv(out2,index=False,compression="gzip")
+          manifest={
+             "schema":"N10_P2_EXPORTED_SOURCE_METADATA_1",
+             "source_repo":p1["source"]["repository"],
+             "source_commit":p1["source"]["commit"],
+             "original_files":files,
+             "source_option_window_sha256":sha256_file(raw),
+             "n_options_rows":len(options),
+             "n_spot_source_rows":len(underlying),
+             "range_first":"2025-01-01","range_last":"2025-04-30",
+             "files":{x.name:{"bytes":x.stat().st_size,"sha256":sha256_file(x)}
+                      for x in (out1,out2)},
+             "economic_accounts_run":0,
+             "no_model_outcomes_evaluated":True,
+             "warning":"EOD snapshot mirror is not authenticated exchange tape or broker executions"}
+          Path("out_p2_source_manifest.json").write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n")
+          print(json.dumps({k:v for k,v in manifest.items() if k!="original_files"},indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n10-p2-frozen-options-csv-janapr25
+          path: |
+            out_p2_options_2025_janapr.csv.gz
+            out_p2_spy_underlying_all.csv.gz
+            out_p2_source_manifest.json
+          retention-days: 30
+          if-no-files-found: warn

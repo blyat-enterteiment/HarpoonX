@@ -1,0 +1,38 @@
+name: N10 P2 frozen code check (no economic reruns)
+on:
+  push:
+    branches: [codex/n10-p2-reverse-engineering-janapr2025]
+permissions:
+  contents: read
+jobs:
+  unit-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pandas==2.2.3 numpy==2.2.4 ruff==0.11.10
+      - name: Syntax and scoped static verification
+        run: |
+          python -m compileall -q n10_xray
+          ruff check --select E4,E7,E9,F63,F7,F82 n10_xray/*.py
+      - name: No-lookahead synthetic fixtures
+        run: PYTHONPATH=n10_xray:. python -m unittest discover -s n10_xray -p test_reverse_engineer.py -v
+      - name: Source hash and sealed evidence
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          p=json.loads(Path('research/n10/p2_preflight_v2.json').read_text())
+          assert hashlib.sha256(Path('n10_xray/reverse_engineer.py').read_bytes()).hexdigest()==p['code_sha256']
+          assert hashlib.sha256(Path('n10_xray/test_reverse_engineer.py').read_bytes()).hexdigest()==p['test_sha256']
+          e=json.loads(Path('evidence/n10/p2_reverse_engineering.json').read_text())
+          assert e['calendar']['scheduled_opportunities']==36
+          assert e['causal_policies']['CASH']['net_usd']==-120.0
+          assert e['causal_policies']['PUT_08_P1_CONTROL']['net_usd']==-5.15
+          assert e['causal_policies']['FOLLOW_3D_08']['net_usd']==-368.85
+          assert e['oracle']['diagnostic_not_promotable']
+          print('Frozen hash and P1 regressions: PASS')
+          PY

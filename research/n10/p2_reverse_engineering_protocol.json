@@ -1,0 +1,98 @@
+{
+  "schema": "HARPOONX_N10_P2_REVERSE_ENGINEERING_PREREG_1",
+  "date": "2026-11-13",
+  "source": {
+    "repo": "anahatsingh-ui/options-dataset-hist",
+    "commit": "37f6c456fe1a4775c875673fb8ef907d5cd2fd66",
+    "option_git_sha1": "133bf1d95c3479149bf4771bc8b3fd8b625064ce",
+    "underlying_git_sha1": "4c22934a77ba09ced10fd1c413b5d8c9e0cb4a8d",
+    "jan_apr_source_subset_sha256": "01162014e951b32ceacb8064596a3341c7b6e848ae7a077460e76c01930b8acf"
+  },
+  "prereg_local_source_sha256": {
+    "code": "1f7dbdd70be49b64aba9dd200942e64372885486277ab67648bb88ea918d0958",
+    "unit_tests": "89d0572e48ced9efb722ba3dff0afa03546b3b8aa37317e555b8bf63c3513e43",
+    "protocol_full": "7542958b1357081d1721e8a5f48656c475ed4fc65a6793d9ac006e9706f0fe56"
+  },
+  "scope": "Exactly one bounded forensic Jan-Apr 2025 reuse of already inspected development; no fresh economic or prospective alpha claim, no reuse of reserved final seed data.",
+  "research_question": "Identify the realized most-profitable one-contract 1-3 day put/call opportunities among contracts selectable using D quote, and test whether fixed D-only technical and option IV features forecast them.",
+  "catalog": [
+    "CASH",
+    "PUT_08_P1_CONTROL",
+    "FOLLOW_3D_08",
+    "IV_DISCOUNT_TREND",
+    "REVERSAL_ABS_2PCT"
+  ],
+  "diagnostic_oracle": "Ex-post selects among feasible D contracts using D+1 ask and D+2 bid; solely descriptive, excluded from strategies and model input. For market quote proxy not actual fills.",
+  "signal_schedule": "Use same P1 every second eligible Jan-Apr session, decision D quote & D-3 SPY return, IOC modeled at D+1 EOD, exit at D+2 EOD (elapsed <=72h). No overlapping positions.",
+  "d_quote_filter": {
+    "dte": [
+      7,
+      35
+    ],
+    "abs_delta": [
+      0.01,
+      0.3
+    ],
+    "ask_max": 0.45,
+    "spread_max": 0.2,
+    "bid_min": 0.01,
+    "bid_size_min": 1,
+    "ask_size_min": 1,
+    "volume_min": 1,
+    "open_interest_min": 50
+  },
+  "fill": "D freeze ID and ask-based ceiling=min(0.45,round(D_ask*1.20+0.03,2)), next day pay ask+.01+0.65 fee, reject if above ceiling or one-lot full-risk exceeds 0.25% capital; close D+2 at bid-.01 less 0.65. Missing exit quote write down to zero.",
+  "new_rules": {
+    "IV_DISCOUNT_TREND": "Buy same 3-day SPY momentum side only if trailing 20-session SPY realized vol >=1.2*same-day selected option IV; otherwise CASH.",
+    "REVERSAL_ABS_2PCT": "Buy opposite 3-session move side only if abs 3-day SPY return >= 2%; else CASH."
+  },
+  "original_p1_controls": [
+    "PUT_08_P1_CONTROL",
+    "FOLLOW_3D_08",
+    "CASH"
+  ],
+  "capital": 20000,
+  "max_risk_fraction": 0.0025,
+  "admission_fraction": 0.12,
+  "max_hold_hours": 72,
+  "fixed_cost_usd_per_calendar_day": 1,
+  "commission_per_side_usd": 0.65,
+  "adverse_premium_per_share_per_side": 0.01,
+  "analysis_endpoints": [
+    "top realized gain by day/side/contract",
+    "upper-bound ex-post oracle gross and concentration",
+    "same-day known features of winners",
+    "causal strategy cashflow, DD, worst day, monthly consistency and best-trade removal",
+    "CASH paired regret",
+    "negative as well as positive results"
+  ],
+  "source_quality_limitations": [
+    "Public quote mirror, provenance not independently authenticated",
+    "Date-only EOD quotes not broker executions",
+    "SPY American physical settlement, N10 P0 XSP European model not equivalent"
+  ],
+  "budgets": {
+    "new_option_model_variants": 2,
+    "controls": 3,
+    "attempts": 1,
+    "workers": 1,
+    "statistical_new_holdouts": 0,
+    "alpha_spent": 0,
+    "original_final_M10_accounts_opened": 0
+  },
+  "falsifiers": [
+    "Causal strategy not beating CASH after all costs",
+    "Best-campaign removal wipes edge",
+    "Ex-post oracle positive while no same-day feature predictor works",
+    "Quote timestamp does not establish causal EOD clocks"
+  ],
+  "prohibited": [
+    "broker",
+    "orders",
+    "deployment",
+    "PR merge",
+    "N9-state mutation",
+    "original data overwrite",
+    "future quote used as candidate selection"
+  ]
+}

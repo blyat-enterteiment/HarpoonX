@@ -1,0 +1,724 @@
+{
+  "schema": "HARPOONX_N10_P2_REVERSE_ENGINEERING_REUSED_DEV_1",
+  "run_scope": "DEVELOPMENT_ONLY_NO_NEW_HOLDOUT_OR_ALPHA",
+  "provenance": {
+    "source_option_subset_sha256": "01162014e951b32ceacb8064596a3341c7b6e848ae7a077460e76c01930b8acf",
+    "source_underlying_sha256": "dfd0ef6691944992abf553d68d37ce146b0ba4537bbbf92218c5af8b99ad50cf",
+    "original_expected_rows": 817348,
+    "observed_date_count": 81,
+    "prereg_json_sha256": "7542958b1357081d1721e8a5f48656c475ed4fc65a6793d9ac006e9706f0fe56"
+  },
+  "calendar": {
+    "scheduled_opportunities": 36,
+    "first_decision": "2025-01-07",
+    "last_decision": "2025-04-25",
+    "fixed_cost_total_usd": 120
+  },
+  "oracle": {
+    "not_feasible_as_strategy": true,
+    "zero_trades_if_no_positive": true,
+    "ex_post_per_date_gross_positive_usd": 433.7,
+    "ex_post_per_date_net_after_fixed_usd": 313.7,
+    "best_one_profit_usd": 168.7,
+    "share_of_oracle_positive_gains_from_best_one": 0.388979,
+    "top10_best_contracts_with_prior_known_features": [
+      {
+        "decision_date": "2025-02-19",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250226P00595000",
+          "type": "P",
+          "signal_date": "2025-02-19",
+          "exit_date": "2025-02-21",
+          "strike": 595.0,
+          "dte": 7.0,
+          "delta": -0.07139,
+          "implied_volatility": 0.15146,
+          "ask": 0.4,
+          "bid": 0.38,
+          "volume": 187.0,
+          "open_interest": 216.0,
+          "relative_spread": 0.05,
+          "feasible": true,
+          "entry_ask": 0.42,
+          "exit_bid": 2.14,
+          "pnl_usd": 168.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": 0.005248224624013753,
+        "decision_rv20": 0.10264379256562083,
+        "positive_feasible_count": 85,
+        "feasible_contracts": 131
+      },
+      {
+        "decision_date": "2025-01-23",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250130P00593000",
+          "type": "P",
+          "signal_date": "2025-01-23",
+          "exit_date": "2025-01-27",
+          "strike": 593.0,
+          "dte": 7.0,
+          "delta": -0.07057,
+          "implied_volatility": 0.1417,
+          "ask": 0.43,
+          "bid": 0.42,
+          "volume": 467.0,
+          "open_interest": 788.0,
+          "relative_spread": 0.023256,
+          "feasible": true,
+          "entry_ask": 0.29,
+          "exit_bid": 1.78,
+          "pnl_usd": 145.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": 0.020365474078784418,
+        "decision_rv20": 0.14129289033787668,
+        "positive_feasible_count": 94,
+        "feasible_contracts": 137
+      },
+      {
+        "decision_date": "2025-03-31",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250409C00583000",
+          "type": "C",
+          "signal_date": "2025-03-31",
+          "exit_date": "2025-04-02",
+          "strike": 583.0,
+          "dte": 9.0,
+          "delta": 0.05726,
+          "implied_volatility": 0.16122,
+          "ask": 0.35,
+          "bid": 0.34,
+          "volume": 125.0,
+          "open_interest": 266.0,
+          "relative_spread": 0.028571,
+          "feasible": true,
+          "entry_ask": 0.43,
+          "exit_bid": 0.94,
+          "pnl_usd": 47.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": -0.016180376017868814,
+        "decision_rv20": 0.20545024447218094,
+        "positive_feasible_count": 69,
+        "feasible_contracts": 130
+      },
+      {
+        "decision_date": "2025-02-25",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250306P00560000",
+          "type": "P",
+          "signal_date": "2025-02-25",
+          "exit_date": "2025-02-27",
+          "strike": 560.0,
+          "dte": 9.0,
+          "delta": -0.05189,
+          "implied_volatility": 0.23926,
+          "ask": 0.45,
+          "bid": 0.44,
+          "volume": 159.0,
+          "open_interest": 578.0,
+          "relative_spread": 0.022222,
+          "feasible": true,
+          "entry_ask": 0.31,
+          "exit_bid": 0.56,
+          "pnl_usd": 21.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": -0.026442543988990486,
+        "decision_rv20": 0.10876813112243533,
+        "positive_feasible_count": 41,
+        "feasible_contracts": 144
+      },
+      {
+        "decision_date": "2025-01-07",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250115P00565000",
+          "type": "P",
+          "signal_date": "2025-01-07",
+          "exit_date": "2025-01-10",
+          "strike": 565.0,
+          "dte": 8.0,
+          "delta": -0.05703,
+          "implied_volatility": 0.18073,
+          "ask": 0.4,
+          "bid": 0.39,
+          "volume": 223.0,
+          "open_interest": 951.0,
+          "relative_spread": 0.025,
+          "feasible": true,
+          "entry_ask": 0.31,
+          "exit_bid": 0.53,
+          "pnl_usd": 18.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": 0.006824712643678232,
+        "decision_rv20": 0.1559153535037206,
+        "positive_feasible_count": 49,
+        "feasible_contracts": 127
+      },
+      {
+        "decision_date": "2025-01-21",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250131C00621000",
+          "type": "C",
+          "signal_date": "2025-01-21",
+          "exit_date": "2025-01-23",
+          "strike": 621.0,
+          "dte": 10.0,
+          "delta": 0.06642,
+          "implied_volatility": 0.11244,
+          "ask": 0.28,
+          "bid": 0.27,
+          "volume": 1224.0,
+          "open_interest": 1996.0,
+          "relative_spread": 0.035714,
+          "feasible": true,
+          "entry_ask": 0.35,
+          "exit_bid": 0.5,
+          "pnl_usd": 11.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": 0.017325145922602037,
+        "decision_rv20": 0.14226875221312782,
+        "positive_feasible_count": 8,
+        "feasible_contracts": 142
+      },
+      {
+        "decision_date": "2025-02-27",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250314P00520000",
+          "type": "P",
+          "signal_date": "2025-02-27",
+          "exit_date": "2025-03-03",
+          "strike": 520.0,
+          "dte": 15.0,
+          "delta": -0.02923,
+          "implied_volatility": 0.31731,
+          "ask": 0.43,
+          "bid": 0.42,
+          "volume": 283.0,
+          "open_interest": 964.0,
+          "relative_spread": 0.023256,
+          "feasible": true,
+          "entry_ask": 0.31,
+          "exit_bid": 0.42,
+          "pnl_usd": 7.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": -0.020361346929890778,
+        "decision_rv20": 0.11640112950754374,
+        "positive_feasible_count": 38,
+        "feasible_contracts": 123
+      },
+      {
+        "decision_date": "2025-03-17",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250411C00603000",
+          "type": "C",
+          "signal_date": "2025-03-17",
+          "exit_date": "2025-03-19",
+          "strike": 603.0,
+          "dte": 25.0,
+          "delta": 0.04728,
+          "implied_volatility": 0.13195,
+          "ask": 0.44,
+          "bid": 0.43,
+          "volume": 233.0,
+          "open_interest": 524.0,
+          "relative_spread": 0.022727,
+          "feasible": true,
+          "entry_ask": 0.27,
+          "exit_bid": 0.35,
+          "pnl_usd": 4.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": 0.014815610070320506,
+        "decision_rv20": 0.20001178504937636,
+        "positive_feasible_count": 16,
+        "feasible_contracts": 160
+      },
+      {
+        "decision_date": "2025-04-14",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250502P00390000",
+          "type": "P",
+          "signal_date": "2025-04-14",
+          "exit_date": "2025-04-16",
+          "strike": 390.0,
+          "dte": 18.0,
+          "delta": -0.01257,
+          "implied_volatility": 0.67828,
+          "ask": 0.39,
+          "bid": 0.36,
+          "volume": 149.0,
+          "open_interest": 648.0,
+          "relative_spread": 0.076923,
+          "feasible": true,
+          "entry_ask": 0.35,
+          "exit_bid": 0.42,
+          "pnl_usd": 3.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": -0.017316175130327016,
+        "decision_rv20": 0.5141737698477092,
+        "positive_feasible_count": 11,
+        "feasible_contracts": 163
+      },
+      {
+        "decision_date": "2025-03-13",
+        "right": "BEST_ANY",
+        "best": {
+          "contract_id": "SPY250328C00589000",
+          "type": "C",
+          "signal_date": "2025-03-13",
+          "exit_date": "2025-03-17",
+          "strike": 589.0,
+          "dte": 15.0,
+          "delta": 0.04158,
+          "implied_volatility": 0.18073,
+          "ask": 0.33,
+          "bid": 0.32,
+          "volume": 110.0,
+          "open_interest": 870.0,
+          "relative_spread": 0.030303,
+          "feasible": true,
+          "entry_ask": 0.4,
+          "exit_bid": 0.46,
+          "pnl_usd": 2.7,
+          "exit_quote_observed": true
+        },
+        "decision_r3": -0.016340219058832095,
+        "decision_rv20": 0.1823125139644176,
+        "positive_feasible_count": 6,
+        "feasible_contracts": 190
+      }
+    ],
+    "all_positive_opportunities_dates": 11,
+    "diagnostic_not_promotable": true
+  },
+  "causal_policies": {
+    "CASH": {
+      "policy": "CASH",
+      "end_usd": 19880.0,
+      "net_usd": -120.0,
+      "vs_cash_usd": 0.0,
+      "trades": 0,
+      "worst_day_usd": -1.0,
+      "max_eod_dd": 0.006,
+      "best_trade_usd": 0.0,
+      "net_after_best_trade_removal_usd": -120.0,
+      "best_trade_positive_profit_share": null,
+      "monthly_net_usd": {
+        "2025-01": -31.0,
+        "2025-02": -28.0,
+        "2025-03": -31.0,
+        "2025-04": -30.0
+      },
+      "events": {},
+      "oracle_regret_vs_ideal_usd": 433.7
+    },
+    "PUT_08_P1_CONTROL": {
+      "policy": "PUT_08_P1_CONTROL",
+      "end_usd": 19994.85,
+      "net_usd": -5.15,
+      "vs_cash_usd": 114.85,
+      "trades": 26,
+      "worst_day_usd": -19.0,
+      "max_eod_dd": 0.00939582,
+      "best_trade_usd": 168.7,
+      "net_after_best_trade_removal_usd": -173.85,
+      "best_trade_positive_profit_share": 0.49155,
+      "monthly_net_usd": {
+        "2025-01": 66.9,
+        "2025-02": 110.6,
+        "2025-03": -67.2,
+        "2025-04": -115.45
+      },
+      "events": {
+        "signals": 36,
+        "fills": 26,
+        "closed": 26,
+        "no_ioc_fill_or_risk": 10,
+        "missing_exit_zero_recovery": 1
+      },
+      "oracle_regret_vs_ideal_usd": 318.85
+    },
+    "FOLLOW_3D_08": {
+      "policy": "FOLLOW_3D_08",
+      "end_usd": 19631.15,
+      "net_usd": -368.85,
+      "vs_cash_usd": -248.85,
+      "trades": 26,
+      "worst_day_usd": -33.0,
+      "max_eod_dd": 0.0184425,
+      "best_trade_usd": 21.7,
+      "net_after_best_trade_removal_usd": -390.55,
+      "best_trade_positive_profit_share": 0.77224,
+      "monthly_net_usd": {
+        "2025-01": -108.8,
+        "2025-02": -74.1,
+        "2025-03": -67.5,
+        "2025-04": -118.45
+      },
+      "events": {
+        "signals": 36,
+        "fills": 26,
+        "closed": 26,
+        "no_ioc_fill_or_risk": 10,
+        "missing_exit_zero_recovery": 3
+      },
+      "oracle_regret_vs_ideal_usd": 682.55
+    },
+    "IV_DISCOUNT_TREND": {
+      "policy": "IV_DISCOUNT_TREND",
+      "end_usd": 19693.7,
+      "net_usd": -306.3,
+      "vs_cash_usd": -186.3,
+      "trades": 12,
+      "worst_day_usd": -33.0,
+      "max_eod_dd": 0.015315,
+      "best_trade_usd": -5.3,
+      "net_after_best_trade_removal_usd": -306.3,
+      "best_trade_positive_profit_share": null,
+      "monthly_net_usd": {
+        "2025-01": -73.6,
+        "2025-02": -78.9,
+        "2025-03": -58.9,
+        "2025-04": -94.9
+      },
+      "events": {
+        "signals": 16,
+        "fills": 12,
+        "closed": 12,
+        "no_ioc_fill_or_risk": 4,
+        "missing_exit_zero_recovery": 2
+      },
+      "oracle_regret_vs_ideal_usd": 620.0
+    },
+    "REVERSAL_ABS_2PCT": {
+      "policy": "REVERSAL_ABS_2PCT",
+      "end_usd": 19897.55,
+      "net_usd": -102.45,
+      "vs_cash_usd": 17.55,
+      "trades": 7,
+      "worst_day_usd": -25.0,
+      "max_eod_dd": 0.00984554,
+      "best_trade_usd": 128.7,
+      "net_after_best_trade_removal_usd": -231.15,
+      "best_trade_positive_profit_share": 1.0,
+      "monthly_net_usd": {
+        "2025-01": 91.4,
+        "2025-02": -56.3,
+        "2025-03": -46.3,
+        "2025-04": -91.25
+      },
+      "events": {
+        "signals": 10,
+        "fills": 7,
+        "closed": 7,
+        "no_ioc_fill_or_risk": 3,
+        "missing_exit_zero_recovery": 1
+      },
+      "oracle_regret_vs_ideal_usd": 416.15
+    }
+  },
+  "causal_selection_hits": {
+    "PUT_08_P1_CONTROL": {
+      "signals": 36,
+      "positive_feasible_positions": 6,
+      "exact_match_to_ex_post_best_contract": 2
+    },
+    "FOLLOW_3D_08": {
+      "signals": 36,
+      "positive_feasible_positions": 3,
+      "exact_match_to_ex_post_best_contract": 1
+    },
+    "IV_DISCOUNT_TREND": {
+      "signals": 16,
+      "positive_feasible_positions": 0,
+      "exact_match_to_ex_post_best_contract": 0
+    },
+    "REVERSAL_ABS_2PCT": {
+      "signals": 10,
+      "positive_feasible_positions": 1,
+      "exact_match_to_ex_post_best_contract": 0
+    }
+  },
+  "feature_forecasts": {
+    "trend_side_match_oracle_side": 18,
+    "trend_side_match_among_positive_oracle_days": 6,
+    "positive_oracle_days": 11,
+    "n_decisions": 36,
+    "iv_discount_preknown_days": 16
+  },
+  "quality": {
+    "source_snapshot_not_authenticated_nbbo": true,
+    "no_intraday_quote_timestamp": true,
+    "unobserved_fill_execution": true,
+    "output_cannot_certify_N10": true,
+    "by_decision": [
+      {
+        "date": "2025-01-07",
+        "decision_quotes": 127,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 127
+      },
+      {
+        "date": "2025-01-10",
+        "decision_quotes": 138,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 137
+      },
+      {
+        "date": "2025-01-14",
+        "decision_quotes": 124,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 75
+      },
+      {
+        "date": "2025-01-21",
+        "decision_quotes": 147,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 142
+      },
+      {
+        "date": "2025-01-23",
+        "decision_quotes": 137,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 137
+      },
+      {
+        "date": "2025-01-27",
+        "decision_quotes": 87,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 82
+      },
+      {
+        "date": "2025-01-29",
+        "decision_quotes": 102,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 100
+      },
+      {
+        "date": "2025-01-31",
+        "decision_quotes": 138,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 98
+      },
+      {
+        "date": "2025-02-04",
+        "decision_quotes": 31,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 29
+      },
+      {
+        "date": "2025-02-06",
+        "decision_quotes": 163,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 140
+      },
+      {
+        "date": "2025-02-10",
+        "decision_quotes": 176,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 172
+      },
+      {
+        "date": "2025-02-12",
+        "decision_quotes": 172,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 118
+      },
+      {
+        "date": "2025-02-14",
+        "decision_quotes": 200,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 200
+      },
+      {
+        "date": "2025-02-19",
+        "decision_quotes": 136,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 131
+      },
+      {
+        "date": "2025-02-21",
+        "decision_quotes": 147,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 147
+      },
+      {
+        "date": "2025-02-25",
+        "decision_quotes": 146,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 144
+      },
+      {
+        "date": "2025-02-27",
+        "decision_quotes": 158,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 123
+      },
+      {
+        "date": "2025-03-03",
+        "decision_quotes": 139,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 133
+      },
+      {
+        "date": "2025-03-05",
+        "decision_quotes": 144,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 87
+      },
+      {
+        "date": "2025-03-07",
+        "decision_quotes": 159,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 94
+      },
+      {
+        "date": "2025-03-11",
+        "decision_quotes": 142,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 142
+      },
+      {
+        "date": "2025-03-13",
+        "decision_quotes": 210,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 190
+      },
+      {
+        "date": "2025-03-17",
+        "decision_quotes": 175,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 160
+      },
+      {
+        "date": "2025-03-19",
+        "decision_quotes": 191,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 190
+      },
+      {
+        "date": "2025-03-21",
+        "decision_quotes": 164,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 83
+      },
+      {
+        "date": "2025-03-25",
+        "decision_quotes": 148,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 100
+      },
+      {
+        "date": "2025-03-27",
+        "decision_quotes": 147,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 91
+      },
+      {
+        "date": "2025-03-31",
+        "decision_quotes": 143,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 130
+      },
+      {
+        "date": "2025-04-02",
+        "decision_quotes": 149,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 64
+      },
+      {
+        "date": "2025-04-04",
+        "decision_quotes": 128,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 128
+      },
+      {
+        "date": "2025-04-08",
+        "decision_quotes": 103,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 0
+      },
+      {
+        "date": "2025-04-10",
+        "decision_quotes": 101,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 94
+      },
+      {
+        "date": "2025-04-14",
+        "decision_quotes": 164,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 163
+      },
+      {
+        "date": "2025-04-21",
+        "decision_quotes": 150,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 35
+      },
+      {
+        "date": "2025-04-23",
+        "decision_quotes": 172,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 106
+      },
+      {
+        "date": "2025-04-25",
+        "decision_quotes": 190,
+        "missing_d1_quotes": 0,
+        "missing_d2_quotes": 0,
+        "sum_feasible": 190
+      }
+    ]
+  }
+}

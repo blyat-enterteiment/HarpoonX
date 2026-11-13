@@ -1,0 +1,73 @@
+{
+  "schema": "N10_P2_INDEPENDENT_ARITHMETIC_AUDIT_1",
+  "scope": "retrospective market quote proxy, not true fills or validated price source",
+  "source_parquet_sha256": "01162014e951b32ceacb8064596a3341c7b6e848ae7a077460e76c01930b8acf",
+  "policy_accounts": {
+    "CASH": {
+      "trades": 0,
+      "terminal_reconstructed_usd": "19880.0",
+      "net_variable_profit_usd": "0",
+      "fixed_calendar_cost_usd": "120.0",
+      "daily_ledger_days": 120,
+      "max_drawdown_reconstructed": "0.006",
+      "worst_day_usd": "-1.0",
+      "status": "PASS"
+    },
+    "PUT_08_P1_CONTROL": {
+      "trades": 26,
+      "terminal_reconstructed_usd": "19994.85",
+      "net_variable_profit_usd": "114.85",
+      "fixed_calendar_cost_usd": "120.0",
+      "daily_ledger_days": 120,
+      "max_drawdown_reconstructed": "0.009395823527954618643018157497",
+      "worst_day_usd": "-19.0",
+      "status": "PASS"
+    },
+    "FOLLOW_3D_08": {
+      "trades": 26,
+      "terminal_reconstructed_usd": "19631.15",
+      "net_variable_profit_usd": "-248.85",
+      "fixed_calendar_cost_usd": "120.0",
+      "daily_ledger_days": 120,
+      "max_drawdown_reconstructed": "0.0184425",
+      "worst_day_usd": "-33.0",
+      "status": "PASS"
+    },
+    "IV_DISCOUNT_TREND": {
+      "trades": 12,
+      "terminal_reconstructed_usd": "19693.7",
+      "net_variable_profit_usd": "-186.30",
+      "fixed_calendar_cost_usd": "120.0",
+      "daily_ledger_days": 120,
+      "max_drawdown_reconstructed": "0.015315",
+      "worst_day_usd": "-33.0",
+      "status": "PASS"
+    },
+    "REVERSAL_ABS_2PCT": {
+      "trades": 7,
+      "terminal_reconstructed_usd": "19897.55",
+      "net_variable_profit_usd": "17.55",
+      "fixed_calendar_cost_usd": "120.0",
+      "daily_ledger_days": 120,
+      "max_drawdown_reconstructed": "0.009845536789514018133503189785",
+      "worst_day_usd": "-25.0",
+      "status": "PASS"
+    }
+  },
+  "oracle_records_crosschecked": 98,
+  "time_no_overlap": "PASS",
+  "72h_max": "PASS",
+  "full_cashflow_reconciled": "PASS",
+  "premium_ask_bid_fees": "PASS",
+  "mark_to_market_continuous": "PASS",
+  "artifact_checksums": {
+    "expost_contract_opportunities.csv": "3f04b5305a25dd935784de818b587fcfecd0c4f298cda1961b1ae84f39d4ff23",
+    "foreseen_vs_oracle_by_day.csv": "4cb4645f550e91f2e0349bbe83375f9063e833f601efa58aa6ab8e1b4a37a52e",
+    "independent_audit.json": "15efbf68256ea8086654abcadd8bcaebbdd7088cf95b6a3cef8ff3ada3c3cfd8",
+    "causal_trade_log.csv": "542f303a3de47724041d03364c159b068c44949c0e5c6bfcae8b586f4eee2bd3",
+    "forensic_evidence.json": "abf94c3dc8bb72502ef17cb5af64dfa16a0017b643849df53c3f84c67d4efbb4",
+    "causal_daily_ledger.csv": "549f6aca17d2fbdbe702c97ce53c6181c1491ea3043b843eaee4378a9f24dca0"
+  },
+  "profitability_real_accredited": false,
+  "independent_option_data_origin_confirmed": false
+}
