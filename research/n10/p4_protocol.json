@@ -1,0 +1,62 @@
+{
+  "schema": "HARPOONX_N10_P4_EUROPEAN_VERTICAL_PREREG_1",
+  "date": "2026-11-13",
+  "phase": "ENGINEERING_ONLY_CASH_OR_DEFINED_RISK_VERTICAL",
+  "parent_branch": "codex/n10-p2-reverse-engineering-janapr2025",
+  "original_contract_untouched": "research/modulation9/protocol.json",
+  "hypothesis": "Using causal P forecasts and observable executable vertical quote envelopes yields a conservative point-in-time tail-excess test, with abstention when Q range and costs preclude confidence.",
+  "null": "No European long debit vertical beats CASH after costs and model uncertainty.",
+  "scope": "One bounded preregistered engineering-only unit. Reuse no observed market outcomes, N9 holdout, or SPY American premiums to certify European Q.",
+  "finite_catalogue": [
+    "LONG_CALL_DEBIT_VERTICAL",
+    "LONG_PUT_DEBIT_VERTICAL"
+  ],
+  "controls": [
+    "CASH",
+    "P_EQ_Q_PLACEBO",
+    "UNINFORMATIVE_P"
+  ],
+  "prospective_market_seeds": [],
+  "synthetic_engineering_fixtures": 18,
+  "risk": {
+    "initial_reference_capital_usd": 20000,
+    "max_contract_open_risk_fraction": 0.0025,
+    "total_admission_reservation_fraction": 0.12,
+    "max_holding_hours": 72,
+    "bid_ask_required": true,
+    "one_lot": true
+  },
+  "synthetic_cost_contract": {
+    "per_leg_per_side_fee_usd": 0.65,
+    "adverse_slippage_per_leg_premium_usd": 0.01
+  },
+  "constrained_KL_radius_sensitivity": 0.02,
+  "evidence_scope": "European cash-settled XSP/SPX, two strikes at one expiry, interval-averaged risk-neutral tail only. No exact pointwise state price identified.",
+  "falsifiers": [
+    "American SPY accepted",
+    "stale/future quote or forecast accepted",
+    "convexity/parity guaranteed arbitrage passes",
+    "P=Q after-cost placebo trades",
+    "risky whole contract forced above 0.25% shared budget",
+    "76h expiry accepted",
+    "N9 state modified",
+    "retrospective 2025 sample called OOS"
+  ],
+  "budgets": {
+    "new_economic_accounts": 0,
+    "market_data_downloads": 0,
+    "prospective_alpha_spent": 0,
+    "m10_holdout_opened": 0,
+    "workers": 1
+  },
+  "no_broker": true,
+  "no_orders": true,
+  "no_deployment": true,
+  "no_merges": true,
+  "no_automation_resume": true,
+  "source_sha256": {
+    "quant/harpoon_quant/n10_vertical_bounds.py": "9c6077587abc0860d905e767c7cd10dcff4ef6dc572d00f5abcbb2fbc215ba47",
+    "tests/test_n10_vertical_bounds.py": "6783640b350b0fc20bc8bca818c413e13e7ef14010e11ee3ff20c248e00f0f39",
+    "tools/n10_p4_verify.py": "a48d3a4f7c6868a7425c1707489bd37c577b08d329618886081697b7284a173e"
+  }
+}
