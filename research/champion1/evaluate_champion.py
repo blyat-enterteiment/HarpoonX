@@ -127,7 +127,7 @@ def load_manifest(root: Path = HERE) -> tuple[dict[str, list[Bar]], dict[str, ob
                 or v < 0 or (bars and day <= bars[-1].day)
             ):
                 raise ValueError("C41_INVALID_OHLCV")
-            bars.append(Bar(day, o, h, l, c, v))
+            bars.append(Bar(day, o, h, low, c, v))
         expected = 31 if period == "target" and "/" not in symbol else (
             43 if period == "target" else (92 if "/" in symbol else 64)
         )
