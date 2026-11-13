@@ -7,15 +7,25 @@ from __future__ import annotations
 
 import json
 import math
-import sys
 import unittest
 from dataclasses import replace
 from pathlib import Path
 
 from harpoon_quant.options_shadow_desk import (
-    Book, Expenses, Leg, OptionQuote, Package, Shock, Thesis,
-    adapt_alpaca_snapshot, cost_and_funding, european_proxy, parse_occ,
-    quote_validate, scenario_economics, validate_package,
+    Book,
+    Expenses,
+    Leg,
+    OptionQuote,
+    Package,
+    Shock,
+    Thesis,
+    adapt_alpaca_snapshot,
+    cost_and_funding,
+    european_proxy,
+    parse_occ,
+    quote_validate,
+    scenario_economics,
+    validate_package,
 )
 
 DAY=86_400_000
@@ -28,7 +38,7 @@ def quote(*,right="C",strike="760.000",bid="1.00",ask="1.25",
           mult=100,deliverable="STANDARD_100_SHARES",
           expiry="2026-12-18",clock=DECISION):
     code=("C" if right=="C" else "P")
-    digits=int(round(float(strike)*1000))
+    digits=round(float(strike)*1000)
     return OptionQuote(
         symbol=symbol or f"SPY261218{code}{digits:08d}",
         underlying="SPY",right=right,strike=strike,expiration=expiry,
