@@ -13,7 +13,7 @@ import hashlib
 import json
 import math
 from collections import Counter
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from statistics import fmean
@@ -118,12 +118,12 @@ def load_manifest(root: Path = HERE) -> tuple[dict[str, list[Bar]], dict[str, ob
             # The provider daily-bar timestamp is at midnight UTC/04 UTC/
             # 05 UTC, not a local execution time.
             day = stamp.date()
-            o, h, l, c, v = (float(r[k]) for k in (
+            o, h, low, c, v = (float(r[k]) for k in (
                 "open", "high", "low", "close", "volume"
             ))
             if (
-                not all(math.isfinite(x) for x in (o, h, l, c, v))
-                or not 0 < l <= min(o, c) <= max(o, c) <= h
+                not all(math.isfinite(x) for x in (o, h, low, c, v))
+                or not 0 < low <= min(o, c) <= max(o, c) <= h
                 or v < 0 or (bars and day <= bars[-1].day)
             ):
                 raise ValueError("C41_INVALID_OHLCV")
