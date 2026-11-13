@@ -12,8 +12,8 @@ import json
 import math
 import re
 from dataclasses import asdict, dataclass
-from datetime import date, datetime, timezone
-from decimal import Decimal, InvalidOperation, ROUND_DOWN
+from datetime import UTC, date, datetime, timedelta
+from decimal import Decimal, InvalidOperation
 from typing import Literal
 
 SCHEMA = "HARPOONX_M11_C43_N10_OPTIONS_SHADOW_RESEARCH_1"
@@ -31,7 +31,7 @@ def money(raw: str, name: str, *, positive: bool = False) -> Decimal:
         n = Decimal(raw)
     except InvalidOperation as exc:
         raise ValueError("C43_INVALID_" + name) from exc
-    if not n.is_finite() or n < 0 or positive and n <= 0:
+    if not n.is_finite() or n < 0 or (positive and n <= 0):
         raise ValueError("C43_INVALID_" + name)
     return n
 
@@ -170,8 +170,8 @@ def quote_validate(q: OptionQuote) -> tuple[Decimal, Decimal, Decimal]:
     ):
         raise ValueError("C43_INCONSISTENT_OPTION_DELTA")
     if date_utc(q.expiration) - datetime.fromtimestamp(
-        q.decision_at_ms / 1000, timezone.utc
-    ).date() < __import__("datetime").timedelta(days=10):
+        q.decision_at_ms / 1000, UTC
+    ).date() < timedelta(days=10):
         raise ValueError("C43_EXPIRY_TOO_CLOSE_FOR_UNCERTIFIED_EXERCISE")
     return bid, ask, iv
 
@@ -254,7 +254,7 @@ def cost_and_funding(
     if short_leg:
         entry -= money(short_leg.bid, "SHORT_BID")
     width = Decimal(str(meta["width_price"]))
-    if entry <= 0 or short_leg is not None and entry >= width:
+    if entry <= 0 or (short_leg is not None and entry >= width):
         raise ValueError("C43_NONDEBIT_OR_NO_POSSIBLE_MAX_GAIN")
     fee = (money(expenses.per_leg_per_side_usd, "FEE") *
            Decimal(2 * len(p.legs) * p.contracts)
@@ -402,7 +402,7 @@ def scenario_economics(
             if not Decimal("0.0001") <= new_iv <= Decimal(5):
                 raise ValueError("C43_INVALID_SHOCKED_IV")
             decision = datetime.fromtimestamp(
-                oq.decision_at_ms / 1000,timezone.utc
+                oq.decision_at_ms / 1000,UTC
             )
             dte = Decimal((date_utc(oq.expiration) - decision.date()).days)
             remaining = (dte * 24 - Decimal(shock.holding_hours)) / (
