@@ -1,0 +1,116 @@
+{
+  "schema": "HARPOONX_M11_C44_OPTIONS_EOD_CALIBRATION_FREEZE_1",
+  "research_status": "PRE_DATA_QUERY_PREREG_ON_GITHUB_NOT_INDEPENDENT_EXTERNAL_TSA",
+  "asof": "2026-11-13",
+  "source": {
+    "repository": "anahatsingh-ui/options-dataset-hist",
+    "pinned_commit": "37f6c456fe1a4775c875673fb8ef907d5cd2fd66",
+    "option_file": "spy/options_2025.parquet",
+    "option_blob_sha1": "133bf1d95c3479149bf4771bc8b3fd8b625064ce",
+    "option_bytes": 58216546,
+    "underlying_file": "spy/underlying_prices.parquet",
+    "underlying_blob_sha1": "4c22934a77ba09ced10fd1c413b5d8c9e0cb4a8d",
+    "underlying_bytes": 252066,
+    "source_limitations": [
+      "public mirror not exchange-signed",
+      "EOD quotes not trading prints",
+      "American SPY physical settlement not modeled",
+      "no authenticated original broker fills"
+    ]
+  },
+  "splits": {
+    "train_start": "2025-01-01",
+    "train_end": "2025-04-30",
+    "validation_start": "2025-05-01",
+    "validation_end": "2025-08-29",
+    "n10_reserved_M10_holdout_may_not_be_opened": true,
+    "splits_were_selected_after_full_2025_exists": true,
+    "validation_is_not_prospective": true
+  },
+  "signal": {
+    "lag_days": 3,
+    "momentum_sign": "UP when close_D > close_Dminus3; else DOWN",
+    "evaluation_schedule": "every third valid common SPY options trading session after 20 sessions, D to D+1 entry EOD to D+2/D+3 EOD <=72 wall clock hours; no overlap across arms",
+    "underlying_rvol10_from_prior_10_closed_sessions": "required only if volume exists; if missing report feature unavailable and block any RVOL-conditioned model",
+    "iv_divided_by_trailing20_realized_vol": "feature measured on decision day D, nonmissing only",
+    "dte_range_calendar": [
+      10,
+      35
+    ],
+    "option_liquidity": {
+      "min_bid": 0.01,
+      "max_ask": 0.45,
+      "max_spread": 0.15,
+      "min_bid_size": 1,
+      "min_ask_size": 1,
+      "min_volume": 1,
+      "min_open_interest": 50,
+      "min_abs_delta": 0.01,
+      "max_abs_delta": 0.3,
+      "prioritize_abs_delta": 0.08
+    },
+    "candidate_choice": "deterministic closest abs(delta) to .08 then higher OI then volume then contract_id; vertical short nearest strike one to five dollars further OTM same expiry and right, long leg frozen at D"
+  },
+  "observations": {
+    "target_fraction_net_premium": 0.25,
+    "stop_fraction_net_premium": 0.25,
+    "events": "at D+2/D+3 observed EOD exit BBO mark net of modeled costs; first observed target or stop wins, otherwise TIME at D+3; no fill proof; no quotes -> CENSORED and audit; holding <=72h",
+    "conditional_model": "Beta(1,1) probability of TP given resolved episodes, per right and IV_discount flag, use overall side fallback if n<8; 95% Wilson interval; no post-validation fit",
+    "pnl_estimator": "mean training realized net USD by right+IVregime, including negative and censored-as-zero liquidation; uncertainty and lower confidence using conservative standard error, never GO with missing exits"
+  },
+  "execution": {
+    "entry": "contract chosen D only; D+1 option ask+.01 proxy, IOC ceiling min(.45,ask_D*1.2+.03); filled in model iff next observed ask+.01<=ceiling; no real execution",
+    "exit": "D+2 or D+3 BBO bid-.01 for long; vertical exit long bid - short ask with slip .01 per leg; missing terminal exit full premium loss, not dropped",
+    "option_fee_per_leg_per_side_usd": 0.65,
+    "slippage_per_leg_premium_usd": 0.01,
+    "equity_spread_roundtrip_bps": 13,
+    "fixed_calendar_cost_daily_usd": 1,
+    "options_exercise_assignment_proved": false
+  },
+  "arms": [
+    "CASH",
+    "SPY_UNDERLYING_MOMENTUM3",
+    "PUT_ALWAYS_LONG",
+    "CALL_ALWAYS_LONG",
+    "FOLLOW3_LONG_OPTION",
+    "FADE3_LONG_OPTION",
+    "BULL_CALL_DEBIT_VERTICAL",
+    "BEAR_PUT_DEBIT_VERTICAL",
+    "ORIGINAL_NOT_OBSERVABLE"
+  ],
+  "funding": {
+    "starting_usd": 20000,
+    "hard_admission_base_usd": 20000,
+    "max_entry_gross_fraction": 0.12,
+    "max_entry_risk_fraction": 0.0025,
+    "max_holding_hours": 72,
+    "one_account_per_separately_simulated_counterfactual_arm": true,
+    "never_claim_one_physical_prospective_account_across_arms": true,
+    "native_risk_unchanged": true
+  },
+  "model_validation": {
+    "Brier_score": true,
+    "expected_calibration_error": true,
+    "log_loss": true,
+    "Wilson_interval": true,
+    "sample_count_and_censored_fraction": true,
+    "forecasts_derived_training_only": true,
+    "grouping": "right + IV_discount vs 20d annualized realized vol",
+    "monthly_returns": true,
+    "leave_best_trade_out": true,
+    "paired_cost_stress": true,
+    "paired_cash_and_underlying_comparison": true,
+    "ORIGINAL_absent_not_fabricated": true,
+    "multiplicity": "all exploratory; no familywise confirmed GO"
+  },
+  "security": {
+    "zero_orders": true,
+    "zero_deploys": true,
+    "zero_M10_final_accounts_opened": true,
+    "freeze_profitability_target_bps_day": 1,
+    "alpha_0_025_unmodified": true,
+    "financialGO": false,
+    "N9S": "NO_GO",
+    "N10": "NO_GO"
+  }
+}
