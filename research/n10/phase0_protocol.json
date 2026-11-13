@@ -1,0 +1,78 @@
+{
+  "schema": "HARPOONX_N10_OPTIONS_PHASE0_PREREG_1",
+  "phase": "N10_P0_CAUSAL_OPTION_VALUE_AND_FUNDED_ADMISSION",
+  "research_origin": "M12_GPTASTRA_P_VS_Q_OPTIONS_FRONTIER",
+  "immutable_parent_commit": "c735cd519a34d3b2104e3a224ba2cc3698f3b8af",
+  "original_contract": "research/modulation9/protocol.json",
+  "hypothesis": "A causal ex-ante P-vs-Q option selector can abstain, enforce funded maximum risk, and value calls/puts and verticals using bid/ask entry and conservative scenario exit without future data. Positive economic alpha is NOT assumed.",
+  "null": "No defined-risk structure outperforms CASH after option bid/ask, fees, model uncertainty and risk controls.",
+  "catalogue_finite": [
+    "LONG_CALL",
+    "LONG_PUT",
+    "BULL_CALL_DEBIT_VERTICAL",
+    "BEAR_PUT_DEBIT_VERTICAL",
+    "BULL_PUT_CREDIT_VERTICAL",
+    "BEAR_CALL_CREDIT_VERTICAL"
+  ],
+  "controls": [
+    "CASH",
+    "P_EQ_Q_PLACEBO",
+    "SIGN_PERMUTED_FEATURE",
+    "RISK_MATCHED_UNDERLYING_WHEN_COMPARABLE",
+    "PREVIOUS_BEST_ONLY_IF_TRANSFERABLE"
+  ],
+  "candidate_max": 18,
+  "control_max": 5,
+  "accounts_max_per_round": 5040,
+  "workers_max": 4,
+  "new_economic_accounts_budget": 0,
+  "future_market_seeds": [],
+  "old_m10_final_seed_accounts_unopened": 3200,
+  "prospective_alpha_spent": 0,
+  "original_limits": {
+    "capital_usd": 20000,
+    "admission_fraction": 0.12,
+    "open_risk_fraction": 0.0025,
+    "daily_loss_fraction": 0.02,
+    "max_drawdown": 0.08,
+    "max_holding_hours": 72
+  },
+  "options_translation": "Separate risk-capital convention: option premium and defined worst-case collateral, not unchanged share notional. No transfer of N9 certification.",
+  "new_model_costs": {
+    "fee_usd_per_leg_per_side": 0.65,
+    "slippage_premium_per_leg_per_side": 0.01,
+    "scenario_exit_spread": "observed entry halfspread, conservative forecast haircut"
+  },
+  "scope": "Engineering only: pure option market quote and forecast validators; European cash-settled 100x contracts; long calls/puts and two-leg opposed verticals; funded risk; Black-Scholes forecast exit repricing; maximin robust selector with CASH. No observed market pricing or economic accounts.",
+  "source_code_sha256_preregistered": "8f656ad1d9285facdc6045d249970c800544e37fc709686649e60865438e68a0",
+  "test_source_sha256_preregistered": "89cd21422579ea54e7ff93ba77ae207e598dc03617d2af0c40a1f88d083af71c",
+  "falsifiers": [
+    "future quote/forecast/portfolio accepted",
+    "naked short accepted",
+    "over-risk contract accepted",
+    "shared reserved risk bypassed",
+    "P=Q no-edge accepted after costs",
+    "crossed/stale quote accepted",
+    "network or order operation"
+  ],
+  "validation_required": [
+    "unittest",
+    "independent_arithmetic",
+    "compile",
+    "static_analysis",
+    "type_check",
+    "benchmark",
+    "SHA256"
+  ],
+  "promotion": "FORBIDDEN_UNTIL_NEW_OPTIONS_SPECIFIC_PREREGISTERED_MARKET_VALIDATION",
+  "prohibitions": [
+    "NO_BROKER",
+    "NO_ORDERS",
+    "NO_DEPLOY",
+    "NO_MERGE",
+    "NO_NAKED_SHORT",
+    "NO_MIDPRICE_FILL",
+    "NO_OLD_HOLDOUT",
+    "NO_N9_AUTOMATION_RESUME"
+  ]
+}
