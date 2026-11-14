@@ -250,7 +250,7 @@ def on_completed_bar(
         above=bar.close>=state.breakout_stop and not wide and not anomaly_reversal
         # One completed bar above threshold arms a watch, TWO consecutive
         # completed closes above trigger confirm a future NEXT-OPEN intent.
-        new_name="CONFIRMED" if above and state.previous_close_above else "WATCH"
+        new_name:StateName="CONFIRMED" if above and state.previous_close_above else "WATCH"
         return replace(
             state,name=new_name,previous_close_above=above,**updates
         ),{**base,"status":new_name}
