@@ -1,9 +1,7 @@
 """C47 fixed 3%/4% SIP-vs-IEX Raptor 5Min posthoc replication checks."""
 from __future__ import annotations
 
-import copy
 import json
-import math
 import shutil
 import tempfile
 import unittest
