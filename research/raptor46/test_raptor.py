@@ -222,7 +222,7 @@ class RaptorNetTests(unittest.TestCase):
         self.assertFalse(self.result[
             "Finviz_full_RVOL_GT5_screen_proved_in_original_hour"])
         self.assertTrue(self.result[
-            "user_screenshot_selected_tickers_after_outcome"])
+            "selection_lookahead_bias_present"])
 
 
 if __name__=="__main__":
