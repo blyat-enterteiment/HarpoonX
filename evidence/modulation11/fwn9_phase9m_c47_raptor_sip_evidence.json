@@ -1,0 +1,109 @@
+{
+  "schema": "HARPOONX_M11_C47_RAPTOR_ASYMMETRIC_FISHING_NET_EMPIRICAL_AUDIT_1",
+  "as_of": "2026-11-13",
+  "user_universe": "16 screenshot-visible postselected Finviz Raptor symbols only, not complete 19/20 portfolio",
+  "source": {
+    "IEX": {
+      "study": "C46",
+      "bars": 808,
+      "source_git_sha1": "0a02807b2027e1f70c240561d3e06bc9aaa49a1f",
+      "confirmed_3pct": 0,
+      "confirmed_4pct": 0
+    },
+    "SIP": {
+      "study": "C47",
+      "raw_five_minute_bars": 2540,
+      "regular_hours_5m": 1867,
+      "extended_hours_bars_discarded": 673,
+      "source_git_sha1": "20ab6f9cc4902d9c3b9135ef48011edb193e7cac",
+      "raw_csv_sha256": "74a1230b581a9654f27f47b624fac2f873add59a76046764e3d045304d6de3a4",
+      "day12_and_day13_historical": true
+    },
+    "SIP_four_symbol_availability_preflight_before_freeze": true,
+    "SIP_full_freeze_commit_before_full_download": "f37f5a1266e2026d3ecb5b17818bfacc8a7223ff",
+    "user_screener_historical_membership_proved": false,
+    "same_intraday_fin_viz_RVOL_gt5_source_proved": false,
+    "NBBO_or_trading_fills_observed": false,
+    "independent_original_exchange_signature": false
+  },
+  "risk_policy": {
+    "original_starting_equity_USD": 20000,
+    "max_original_entry_risk_fraction": 0.0025,
+    "max_original_admission_gross_fraction": 0.12,
+    "experimental_extra_max_notional_fraction": 0.04,
+    "entry_levels": [
+      3,
+      4
+    ],
+    "confirmation_closes": 2,
+    "bar_minutes": 5,
+    "next_open_chase_limit_bps": 75,
+    "stop_initial_grid_steps": 2,
+    "trailing_min_non_decreasing": true,
+    "no_fixed_take_profit": true,
+    "detect_source_gap_and_reversal": true,
+    "stress_fee_bps_roundtrip": [
+      100,
+      300,
+      500
+    ],
+    "source_bar_high_is_not_actual_order_election": true,
+    "source_bar_low_is_not_actual_exit_fill": true
+  },
+  "economic_results": {
+    "IEX_3pct_touches": 6,
+    "IEX_4pct_touches": 5,
+    "IEX_3pct_confirmed": 0,
+    "IEX_4pct_confirmed": 0,
+    "SIP_3pct_touches": 8,
+    "SIP_4pct_touches": 6,
+    "SIP_3pct_confirmed_model_entries": 0,
+    "SIP_4pct_confirmed_model_entries": 1,
+    "SIP_3pct_model_pnl_USD": 0,
+    "SIP_4pct_model_pnl_100bp_USD": -24.736402,
+    "SIP_4pct_model_pnl_300bp_USD": -40.736402,
+    "SIP_4pct_model_pnl_500bp_USD": -56.736402,
+    "SIP_4pct_hypothetical_trade": {
+      "symbol": "ENGN",
+      "decision_entry": "2026-11-13T18:40:00+00:00",
+      "entry_OPEN_model_USD": 2.39,
+      "price_STOP_model_USD": 2.34,
+      "stop_touch_exit_datetime_model": "2026-11-13T18:55:00+00:00",
+      "notional_model_USD": 800,
+      "actual_fill": false
+    },
+    "SIP_3pct_touch_EOD_red": 2,
+    "SIP_4pct_touch_EOD_red": 1,
+    "cash_model_hypothesis_return_zero": true,
+    "C22_ORIGINAL_semantic_broker_comparison_not_done": true,
+    "only_one_target_day_observed_no_72h": true,
+    "hindsight_selection_invalidates_prospective_inference": true,
+    "single_trial_no_alpha_confidence_interval": true,
+    "N9_original_1bp_daily_net_threshold_not_achieved": true
+  },
+  "test_evidence": {
+    "C46_actions_run": 43538654612,
+    "C46_CI_result": "success",
+    "C46_adversarial_tests": 19,
+    "C38_legacy_guard_tests": 30,
+    "C47_actions_run": 43539316603,
+    "C47_CI_result": "success",
+    "C47_adversarial_tests": 12,
+    "C46_repeat_tests": 19,
+    "ruff_and_mypy_static_pass": true,
+    "original_M9_frozen_source_provenance_PASS": true,
+    "C47_report_sha256": "3be71dfa9f1938bcb727a4c3ffe39514ae9db49e4ec812fefe0ddf04e833fb68",
+    "C47_source_csv_sha256": "74a1230b581a9654f27f47b624fac2f873add59a76046764e3d045304d6de3a4",
+    "artifact_GitHub_id": 14089574972
+  },
+  "verdict": {
+    "research_implementation_executed": true,
+    "N9S": "NO_GO",
+    "N10": "NO_GO",
+    "paper_orders": 0,
+    "live_orders": 0,
+    "deployments": 0,
+    "merges": 0,
+    "M10_sealed_final_accounts": 3200
+  }
+}
