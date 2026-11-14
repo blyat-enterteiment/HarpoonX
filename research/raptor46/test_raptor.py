@@ -220,7 +220,7 @@ class RaptorNetTests(unittest.TestCase):
 
     def test_no_trainable_rvol_and_screen_original_membership_claim(self):
         self.assertFalse(self.result[
-            "FINVIZ_relative_volume_intraday_over_five_proved"])
+            "Finviz_full_RVOL_GT5_screen_proved_in_original_hour"])
         self.assertTrue(self.result[
             "user_screenshot_selected_tickers_after_outcome"])
 
