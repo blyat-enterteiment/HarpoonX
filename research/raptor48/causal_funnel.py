@@ -10,7 +10,7 @@ import json
 from collections import Counter
 from datetime import datetime, timedelta, time
 from pathlib import Path
-from typing import Any, Protocol, Sequence
+from typing import Any, Sequence
 from zoneinfo import ZoneInfo
 
 import assess_breakout as A
@@ -22,15 +22,6 @@ HERE = Path(__file__).resolve().parent
 EXPECTED_SOURCE_SHA256 = "74a1230b581a9654f27f47b624fac2f873add59a76046764e3d045304d6de3a4"
 
 
-class FiveMinBar(Protocol):
-    at: datetime
-    open: float
-    high: float
-    low: float
-    close: float
-    volume: float
-
-
 def within_cutoff(bar_at: datetime) -> bool:
     """Entry next bar must start before 15:00 ET on a regular session."""
     if bar_at.tzinfo is None or bar_at.utcoffset() is None:
@@ -39,7 +30,7 @@ def within_cutoff(bar_at: datetime) -> bool:
     return time(9, 30) <= local.time().replace(tzinfo=None) < time(15, 0)
 
 
-def audit_path(previous: Sequence[FiveMinBar], today: Sequence[FiveMinBar],
+def audit_path(previous: Sequence[A.Bar], today: Sequence[A.Bar],
                fraction: float) -> dict[str, Any]:
     """Independent descriptive upper-bound funnel, never an actual fill.
 
