@@ -16,7 +16,7 @@ from statistics import median
 
 import assess_breakout as A
 from local_fishing_net import (
-    FundedSnapshot, NetConfig, NetState, affordable, build,
+    FundedSnapshot, NetConfig, build,
     finish_entry_bar, next_open_entry, on_completed_bar,
 )
 
