@@ -1,0 +1,99 @@
+{
+  "schema": "HARPOONX_C51_DUAL_CLOCK_PROSPECTIVE_PREREG_V1",
+  "status": "PREREGISTRATION_ONLY_NO_OUTCOME_OBSERVED",
+  "decision_clock": "America/New_York",
+  "registration_note": "C46-C50 data and prior selected winners contaminated; no reuse as OOS",
+  "start": "2026-11-16",
+  "end": "2026-12-15",
+  "universe": "Full point-in-time exchange-listed active US equities and ETFs as of 2026-11-13; no selection by future returns; independently archive full listing and delistings; OTC separate only if verified feed and eligibility",
+  "universe_capture_required_before_evaluation": true,
+  "source_requirements": [
+    "SIP 1Min or 5Min full RTH",
+    "known-at prior official close and corporate actions",
+    "NBBO bid ask sizes timestamps",
+    "same-clock RVOL computed from prior 20 complete sessions per minute-of-day",
+    "broker PAPER receipts for executed strategy only",
+    "full screening denominator and rejection journal"
+  ],
+  "screening": {
+    "price_min_usd": 0.1,
+    "price_max_usd": 20,
+    "asset_types": [
+      "US_LISTED_COMMON_STOCK",
+      "ETF_SEPARATE_STRATUM"
+    ],
+    "OTC": "EXCLUDED_UNTIL_INDEPENDENT_FEED_AND_TRADABILITY",
+    "reference": "previous adjusted official close known at decision time",
+    "early_price_trigger_pct": 5,
+    "late_confirmation_change_from_open_pct": 10,
+    "late_confirmation_rvol_gt": 5,
+    "late_filter_never_required_for_early_signal": true
+  },
+  "candidate": {
+    "pyramid_increment_percentage_points": 0.5,
+    "desired_nav_fraction_per_rung": 0.05,
+    "entry_chase_bps": 75,
+    "max_hold_hours": 72,
+    "orders_per_day_max": 2,
+    "requires_calibrated_lower_net_edge": true,
+    "otherwise_cash": true
+  },
+  "frozen_risk": {
+    "initial_nav_usd": 20000,
+    "max_shared_gross_fraction": 0.12,
+    "max_shared_risk_fraction": 0.0025,
+    "max_research_idea_fraction": 0.04,
+    "no_overrides": true
+  },
+  "comparators": [
+    "C49_DUAL_CLOCK",
+    "C47_FROZEN",
+    "ORIGINAL_FROZEN",
+    "CASH"
+  ],
+  "economic_method": {
+    "one_shared_financed_book_per_policy": true,
+    "continuous_nav": true,
+    "no_same_capital_multiple_policy_execution": true,
+    "unexecuted_variants_are_shadow_only": true,
+    "cost_stress_roundtrip_bps": [
+      100,
+      300,
+      500
+    ],
+    "no_high_low_same_bar_optimism": true,
+    "independent_next_bar_or_quotes_required": true,
+    "stop_election_not_a_fill": true,
+    "paired_campaign_blocks_with_72h_embargo": true,
+    "multiplicity": "familywise 0.025 preregistered",
+    "primary": "net log growth differential vs ORIGINAL and CASH, with survival",
+    "secondary": [
+      "opportunity capture",
+      "false breakout rate",
+      "max drawdown",
+      "spread and slippage",
+      "fill ratio",
+      "latency",
+      "missingness"
+    ]
+  },
+  "stop_conditions": [
+    "missing population snapshot",
+    "unverified market timestamps",
+    "missing historical RVOL",
+    "missing NBBO",
+    "incomplete funded ledger",
+    "no authenticated receipts for executed strategy"
+  ],
+  "prohibitions": [
+    "no orders without separate authorization",
+    "no C46-C50 data as fresh validation",
+    "no outcome-dependent ticker selection",
+    "no threshold tuning",
+    "no holdout M10 opening",
+    "no main merge or deployment"
+  ],
+  "N9S": "NO_GO",
+  "N10": "NO_GO",
+  "sealed_M10_accounts": 3200
+}
