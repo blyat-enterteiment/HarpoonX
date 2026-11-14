@@ -10,7 +10,7 @@ import hashlib
 import json
 import math
 from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pathlib import Path
 from statistics import median
 
