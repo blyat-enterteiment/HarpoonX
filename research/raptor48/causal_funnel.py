@@ -10,7 +10,7 @@ import json
 from collections import Counter
 from datetime import datetime, timedelta, time
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Protocol, Sequence
 from zoneinfo import ZoneInfo
 
 import assess_breakout as A
@@ -39,7 +39,7 @@ def within_cutoff(bar_at: datetime) -> bool:
     return time(9, 30) <= local.time().replace(tzinfo=None) < time(15, 0)
 
 
-def audit_path(previous: list[FiveMinBar], today: list[FiveMinBar],
+def audit_path(previous: Sequence[FiveMinBar], today: Sequence[FiveMinBar],
                fraction: float) -> dict[str, Any]:
     """Independent descriptive upper-bound funnel, never an actual fill.
 
