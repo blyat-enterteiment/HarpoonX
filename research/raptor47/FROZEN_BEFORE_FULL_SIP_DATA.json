@@ -1,0 +1,78 @@
+{
+  "schema": "HARPOONX_C47_SIP_5MIN_REPLICATION_UNTUNED_1",
+  "status": "SOURCE_FEED_REPLICATION_REGISTERED_BEFORE_FULL_SIP_SOURCE_DOWNLOAD",
+  "initial_posthoc_selection": "16 visible tickers were selected after seeing Finviz screenshot gains, cannot remove selection bias",
+  "pre_registration_limit": "4 ticker SIP coverage preflight already queried ENGN ICMB TGHL OPTT, 915 total source records observed, one ENGN bar inspected; the full SIP cohort is NOT untouched unseen data",
+  "period": {
+    "first": "2026-11-12T14:30:00Z",
+    "last": "2026-11-13T21:00:00Z",
+    "timezone": "America/New_York",
+    "timeframe": "5Min",
+    "provider": "Alpaca",
+    "feed": "sip",
+    "SIP_is_consolidated_trades_not_BBO": true
+  },
+  "symbols": [
+    "TGHL",
+    "OPTT",
+    "ENGN",
+    "CJMB",
+    "STKS",
+    "ATXG",
+    "WVAV",
+    "ICMB",
+    "TGEN",
+    "PLBL",
+    "USEA",
+    "SOS",
+    "RETO",
+    "TISI",
+    "DAIO",
+    "OPRX"
+  ],
+  "code_frozen_before_full_retrieval": [
+    "research/raptor46/local_fishing_net.py",
+    "research/raptor46/replay_net.py"
+  ],
+  "source_frozen_IEX_comparator": "research/raptor46/source_manifest.json",
+  "strict_policy_frozen": {
+    "entry_levels": [
+      0.03,
+      0.04
+    ],
+    "entry_confirmation": "2 consecutive completed five-minute closes above threshold",
+    "entry_proxy": "next contiguous SIP 5m OPEN <= trigger +75 bps, no broker order/fill",
+    "first_touch_cutoff_utc": "2026-11-13T20:00:00Z",
+    "atr_proxy": "median of prior session 5m high-low for at least six observed IEX/SIP 5min bars",
+    "spread_proxy": "50bp of anchor price not actual BBO",
+    "trail": "C46 frozen no fixed take profit and stop initial entry-2steps, then ratchet by verified fully completed nonanomalous highs",
+    "risk": "one continuous $20,000 financed hypothetical ledger, max $50/entry risk at admission, 12% combined gross, 4% per proposed candidate, 72h max but only one day observed",
+    "stress_fees_bps_roundtrip": [
+      100,
+      300,
+      500
+    ]
+  },
+  "replay_economic_labels": [
+    "MODELLED_STOP_EXIT_NOT_BROKER",
+    "OPEN_EOD_LIQUIDATION_PROXY_NOT_REALIZED"
+  ],
+  "unavailable": [
+    "Finviz historical membership and exact RVOL>5",
+    "preentry bid-ask quotes, broker fills, IOC rejection or partials",
+    "future 72h full observation, true stock adjusted action data",
+    "independent prospective randomization CASH ORIGINAL",
+    "population alpha confidence and FWER .025"
+  ],
+  "prohibitions": [
+    "no retune 3/4 thresholds from IEX or SIP outcome",
+    "no SIP order fill claims",
+    "no automatic orders",
+    "do not claim seven or sixteen sample represent the Finviz universe",
+    "no merge/deploy/main changes",
+    "no M10 holdout"
+  ],
+  "n9s": "NO_GO",
+  "n10": "NO_GO",
+  "sealed_M10_accounts": 3200
+}
