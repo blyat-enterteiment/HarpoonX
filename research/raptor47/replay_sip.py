@@ -46,9 +46,9 @@ def load(root:Path=HERE)->tuple[dict[str,list[A.Bar]],dict[str,object]]:
               "close","volume","trade_count","vwap")
     if rdr.fieldnames!=list(expected):
         raise ValueError("C47_SOURCE_COLUMNS_UNVERIFIED")
-    full={str(x):[] for x in prereg["symbols"]}
+    full:dict[str,list[A.Bar]]={str(x):[] for x in prereg["symbols"]}
     both={name:[0,0] for name in full}
-    counts=Counter()
+    counts:Counter[str]=Counter()
     for row in rdr:
         symbol=row["symbol"]
         if symbol not in full:
@@ -176,6 +176,14 @@ def report(root:Path=HERE)->dict[str,object]:
     }
 
 
+def _required_nested(value:object,*keys:str)->object:
+    for key in keys:
+        if not isinstance(value,dict) or key not in value:
+            raise ValueError("C47_SOURCE_OR_RESULTS_NESTED_CONTRACT")
+        value=value[key]
+    return value
+
+
 def write(root:Path=HERE)->dict[str,object]:
     report_data=report(root)
     folder=root/"artifacts"
@@ -184,26 +192,17 @@ def write(root:Path=HERE)->dict[str,object]:
     (folder/"C47_SIP_RAPTOR_UNTUNED_FINANCIAL_MODEL.json").write_text(body)
     stats={
         "schema":"HARPOONX_C47_SIP_REPLICATION_FINANCIAL_SUMMARY_1",
-        "code_source_SIP_sha256":report_data["source"]["raw_source_sha256"],
+        "code_source_SIP_sha256":_required_nested(report_data,"source","raw_source_sha256"),
         "report_sha256":hashlib.sha256(body.encode()).hexdigest(),
         "coverage":report_data["source"],
         "thresholds":[{
             "breakout_percentage":p,
-            "SIP_high_touches":report_data["scenarios"][p][
-                "SIP_high_touch_symbol_count"],
-            "high_touch_then_EOD_red":report_data["scenarios"][p][
-                "SIP_touch_but_eod_red_symbol_count"],
-            "modeled_entries":report_data["scenarios"][p][
-                "strict_2bar_next_open_shadow_candidates"],
-            "PnL_if_cost_100bp_usd":report_data["scenarios"][p][
-                "cost_100_300_500_bps_onebook_sensitivity"]["100.0"][
-                    "hypothetical_one_day_net_pnl_usd"],
-            "PnL_if_cost_300bp_usd":report_data["scenarios"][p][
-                "cost_100_300_500_bps_onebook_sensitivity"]["300.0"][
-                    "hypothetical_one_day_net_pnl_usd"],
-            "PnL_if_cost_500bp_usd":report_data["scenarios"][p][
-                "cost_100_300_500_bps_onebook_sensitivity"]["500.0"][
-                    "hypothetical_one_day_net_pnl_usd"],
+            "SIP_high_touches":_required_nested(report_data,"scenarios",p,"SIP_high_touch_symbol_count"),
+            "high_touch_then_EOD_red":_required_nested(report_data,"scenarios",p,"SIP_touch_but_eod_red_symbol_count"),
+            "modeled_entries":_required_nested(report_data,"scenarios",p,"strict_2bar_next_open_shadow_candidates"),
+            "PnL_if_cost_100bp_usd":_required_nested(report_data,"scenarios",p,"cost_100_300_500_bps_onebook_sensitivity","100.0","hypothetical_one_day_net_pnl_usd"),
+            "PnL_if_cost_300bp_usd":_required_nested(report_data,"scenarios",p,"cost_100_300_500_bps_onebook_sensitivity","300.0","hypothetical_one_day_net_pnl_usd"),
+            "PnL_if_cost_500bp_usd":_required_nested(report_data,"scenarios",p,"cost_100_300_500_bps_onebook_sensitivity","500.0","hypothetical_one_day_net_pnl_usd"),
         } for p in ("3","4")],
         "real_fills":0,"real_N9_alpha":False,
         "N9S":"NO_GO","N10":"NO_GO",
