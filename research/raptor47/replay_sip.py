@@ -59,14 +59,14 @@ def load(root:Path=HERE)->tuple[dict[str,list[A.Bar]],dict[str,object]]:
         date=dt.date().isoformat()
         if date not in ("2026-11-12","2026-11-13"):
             raise ValueError("C47_TIME_WINDOW_NOT_FROZEN")
-        o,h,l,c,v=(float(row[k]) for k in (
+        o,h,low,c,v=(float(row[k]) for k in (
             "open","high","low","close","volume"
         ))
-        if (not all(math.isfinite(x) for x in (o,h,l,c,v))
-            or not 0<l<=min(o,c)<=max(o,c)<=h or v<0
+        if (not all(math.isfinite(x) for x in (o,h,low,c,v))
+            or not 0<low<=min(o,c)<=max(o,c)<=h or v<0
             or (full[symbol] and dt<=full[symbol][-1].at)):
             raise ValueError("C47_IMPOSSIBLE_OHLCV_OR_CLOCK")
-        full[symbol].append(A.Bar(dt,o,h,l,c,v))
+        full[symbol].append(A.Bar(dt,o,h,low,c,v))
         both[symbol][0 if date=="2026-11-12" else 1]+=1
         counts[date]+=1
     if sum(counts.values())!=manifest["rows"] or (
