@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import unittest
 from dataclasses import replace
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 import assess_breakout as A
 import local_fishing_net as F
@@ -17,8 +17,8 @@ import replay_net as R
 T0=datetime.fromisoformat("2026-11-13T14:30:00+00:00")
 
 
-def bar(offset:int, o:float, h:float, l:float, c:float, volume:float=250)->A.Bar:
-    return A.Bar(T0+timedelta(minutes=5*offset),o,h,l,c,volume)
+def bar(offset:int, o:float, h:float, low:float, c:float, volume:float=250)->A.Bar:
+    return A.Bar(T0+timedelta(minutes=5*offset),o,h,low,c,volume)
 
 
 def config(anchor:float=100,breakout:float=.03)->F.NetConfig:
