@@ -44,6 +44,8 @@ jobs:
           assert x['authenticated_broker_fills']==0
           assert x['orders_PAPER']==x['orders_LIVE']==0
           assert x['no_new_holdout'] and not x['full_72h_completed']
+          import json as _json
+          print('C48_OBSERVED_CAUSAL_FUNNEL='+_json.dumps({k:v['stage_counts_non_mutually_exclusive'] for k,v in x['scenarios'].items()},sort_keys=True))
           print('C48_HISTORICAL_DIAGNOSTIC_ONLY_NO_RETUNE_NO_GO')
           PY
       - name: Original legacy portfolio/source invariants
