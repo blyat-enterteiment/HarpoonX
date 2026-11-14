@@ -1,0 +1,62 @@
+name: C48 Raptor causal funnel (read-only posthoc diagnostics)
+on:
+  push:
+    branches: [research/m11-c48-raptor-causal-funnel]
+  pull_request:
+    branches: [research/m11-c47-raptor-sip-fishing-net]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frozen-funnel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static checks
+        run: |
+          python -m pip install --disable-pip-version-check ruff==0.17.3 mypy==2.4.1
+          python -m py_compile research/raptor48/causal_funnel.py research/raptor48/test_causal_funnel.py
+          ruff check --select E4,E7,E9,F research/raptor48
+          mypy --follow-imports=silent --ignore-missing-imports research/raptor48/causal_funnel.py
+      - name: C48 independent clock unit regressions
+        run: PYTHONPATH=research/raptor46:research/raptor47 python -m unittest discover -s research/raptor48 -p test_causal_funnel.py -v
+      - name: Immutable baseline C47 regression
+        run: PYTHONPATH=research/raptor46 python -m unittest discover -s research/raptor47 -p test_replay_sip.py -v
+      - name: Compute C48 observed-source waterfall
+        run: PYTHONPATH=research/raptor46:research/raptor47 python research/raptor48/causal_funnel.py
+      - name: Mandatory NO_GO and original-source lineage
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('research/raptor48/artifacts/C48_CAUSAL_FUNNEL_DIAGNOSTIC_ONLY.json')
+          x=json.loads(p.read_text())
+          assert x['historical_real_SIP_5min_bars']==2540
+          assert x['thresholds_frozen']==[3,4]
+          assert x['scenarios']['3']['C47_strict_shadow_entries']==0
+          assert x['scenarios']['4']['C47_strict_shadow_entries']==1
+          assert x['N9S']==x['N10']=='NO_GO'
+          assert x['authenticated_broker_fills']==0
+          assert x['orders_PAPER']==x['orders_LIVE']==0
+          assert x['no_new_holdout'] and not x['full_72h_completed']
+          import json as _json
+          print('C48_OBSERVED_CAUSAL_FUNNEL='+_json.dumps({k:v['stage_counts_non_mutually_exclusive'] for k,v in x['scenarios'].items()},sort_keys=True))
+          print('C48_HISTORICAL_DIAGNOSTIC_ONLY_NO_RETUNE_NO_GO')
+          PY
+      - name: Original legacy portfolio/source invariants
+        run: python tools/fwn9_p9i_provenance.py > /tmp/C48_legacy.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: C48-RAPTOR-CAUSAL-FUNNEL-NO-GO
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            docs/N10_C48_RAPTOR_CAUSAL_FUNNEL_PROTOCOL.md
+            research/raptor48/causal_funnel.py
+            research/raptor48/test_causal_funnel.py
+            research/raptor48/artifacts/C48_CAUSAL_FUNNEL_DIAGNOSTIC_ONLY.json
