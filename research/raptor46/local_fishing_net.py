@@ -16,7 +16,7 @@ import math
 from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timedelta
 from decimal import Decimal, ROUND_CEILING, ROUND_FLOOR
-from typing import Literal
+from typing import Literal, TypedDict
 
 from assess_breakout import Bar, tick_at_price, upward_stop
 
@@ -25,6 +25,13 @@ StateName = Literal[
     "WATCH", "CONFIRMED", "SHADOW_LONG", "SHADOW_STOP_UNVERIFIED",
     "HALTED_MISSING_SOURCE", "CANCELLED_ENTRY", "SHADOW_FLAT_MARK_ONLY"
 ]
+
+
+class _Progress(TypedDict):
+    last_event_at: datetime
+    anomalous_reversal_count: int
+    wide_bar_count: int
+    source_gaps: int
 
 
 @dataclass(frozen=True)
@@ -224,7 +231,7 @@ def on_completed_bar(
         "actual_broker_fill":False,
         "real_trading_permission":False,
     }
-    updates={
+    updates:_Progress={
         "last_event_at":bar.at,
         "anomalous_reversal_count":state.anomalous_reversal_count+int(anomaly_reversal),
         "wide_bar_count":state.wide_bar_count+int(wide),
