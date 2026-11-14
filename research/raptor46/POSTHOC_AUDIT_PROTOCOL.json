@@ -1,0 +1,86 @@
+{
+  "schema": "HARPOONX_M11_C46_RAPTOR_POSTHOC_BREAKOUT_AUDIT_1",
+  "study_time": "2026-11-13",
+  "selection_provenance": "User supplied 2 FINVIZ screenshots of a screener and portfolio, selected tickers after observing displayed performance",
+  "selected_symbols_16_visible": [
+    "TGHL",
+    "OPTT",
+    "ENGN",
+    "CJMB",
+    "STKS",
+    "ATXG",
+    "WVAV",
+    "ICMB",
+    "TGEN",
+    "PLBL",
+    "USEA",
+    "SOS",
+    "RETO",
+    "TISI",
+    "DAIO",
+    "OPRX"
+  ],
+  "portfolio_19_of_20_not_fully_observed": true,
+  "do_not_impute_hidden_tickers": true,
+  "screener_settings_user_image": {
+    "signal": "Unusual Volume",
+    "relative_volume": "Over 5",
+    "change_from_open": "Up 10%",
+    "other_indicator_filters_exist": true,
+    "all_filters_at_historical_decision_time_proved": false
+  },
+  "source": {
+    "provider": "Connected Alpaca historical stock bars",
+    "feed": "IEX not SIP consolidated",
+    "timeframe": "5Min",
+    "from": "2026-11-12T14:30:00Z",
+    "to": "2026-11-13T21:00:00Z",
+    "dates_are_known_outcomes": true,
+    "source_not_independently_exchange_signed": true,
+    "no_bid_ask_quotes": true,
+    "no_intraday_Finviz_RVOL_member_history": true
+  },
+  "test": {
+    "reference_price": "Last observed Alpaca IEX bar close on Nov12, not necessarily official consolidated closing price",
+    "trigger_levels_above_reference": [
+      0.03,
+      0.04
+    ],
+    "tick": "Price >=1 USD => 0.01 USD; below 1 USD => 0.0001 USD",
+    "signal": "First 2026-11-13 IEX 5Min HIGH>=rounded stop",
+    "stop_limit_research_buffer_fraction": 0.0075,
+    "confirmation": "Two consecutive 5-minute closing IEX bars above trigger (must be exactly adjacent in clock) before any hypothesized buy",
+    "late_entry_cutoff": "2026-11-13T20:00:00Z (15:00 EST, allow at least one hour trading)",
+    "priced_entry": "Next observed bar OPEN only as hypothetical proxy when between trigger and limit; no fills claimed",
+    "modeled_exit": "Last observed 2026-11-13 IEX CLOSE (not 72h swing result)",
+    "cost_sensitivity_roundtrip_fraction": [
+      0,
+      0.01,
+      0.03,
+      0.05
+    ],
+    "capital_usd": 20000,
+    "original_max_gross_fraction": 0.12,
+    "original_max_risk_fraction": 0.0025,
+    "additional_research_per_candidate_fraction": 0.04,
+    "unrealized_pnl_not_reinvested": true,
+    "short_or_options_disallowed": true
+  },
+  "falsifiers": [
+    "3%-4% positive touches also include realized losers",
+    "many gaps/last-minute IEX first crosses unobservable as liquid fills",
+    "positive result vanishes after cost stress or timing correction",
+    "selection after outcomes cannot certify alpha"
+  ],
+  "forbid": [
+    "claim 19 of 20 tickers accounted for",
+    "pretend 5-minute IEX bars are complete SIP or NBBO",
+    "use future high to condition entering at previous close",
+    "report BUY stop touched as a broker fill",
+    "send PAPER or LIVE orders",
+    "N9 or N10 promotion",
+    "change sealed M10 data"
+  ],
+  "N9S": "NO_GO",
+  "N10": "NO_GO"
+}
