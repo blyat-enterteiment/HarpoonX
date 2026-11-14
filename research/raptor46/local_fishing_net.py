@@ -351,3 +351,54 @@ def next_open_entry(
         "trailing_stop_can_decrease":False,
         "actual_broker_order":False,
     }
+
+
+def finish_entry_bar(
+    state:NetState,config:NetConfig,bar:Bar
+)->tuple[NetState,dict[str,object]]:
+    """Process entry bar *after it closes* using pre-existing entry stop.
+
+    A BUY simulated at OPEN can be stopped within the SAME 5min bar. The
+    bar HIGH cannot ratchet the stop before the LOW was examined. All
+    stop exits remain hypothetical, never authenticated broker fills.
+    """
+    if (state.name!="SHADOW_LONG" or state.entry_at!=bar.at
+        or state.protective_trailing_stop is None
+        or state.hypothetical_entry is None):
+        raise ValueError("C46NET_ENTRY_BAR_NOT_OWNED_BY_POSITION")
+    _validate_completed_bar(replace(state,last_event_at=None),bar)
+    stop=state.protective_trailing_stop
+    if bar.low<=stop:
+        return replace(
+            state,name="SHADOW_STOP_UNVERIFIED",
+            exit_model_price=stop,
+            exit_model_reason="FIRST_5MIN_ENTRY_BAR_STOP_TOUCH_UNVERIFIED",
+            has_unconfirmed_broker_exit=True
+        ),{
+            "status":"ENTRY_BAR_STOP_TOUCH_FIRST_NO_ASSUMED_FILL",
+            "stop_prior_to_any_HIGH_based_trailing":stop,
+            "actual_broker_fill":False
+        }
+    anomaly=(
+        bar.high>=state.breakout_stop
+        and bar.close<state.breakout_stop
+    ) or (bar.high-bar.low)>config.max_highlow_atr_before_anomaly*config.atr_closed
+    # No ratchet on this bar. Its high can become a completed-bar
+    # observation for the NEXT bar only if the print was non-anomalous.
+    hwm=bar.high if not anomaly else state.hypothetical_entry
+    return replace(
+        state,
+        highest_verified_completed_bar_high=max(
+            state.hypothetical_entry,hwm
+        ),
+        wide_bar_count=state.wide_bar_count+int(
+            bar.high-bar.low>config.max_highlow_atr_before_anomaly*config.atr_closed
+        ),
+        anomalous_reversal_count=state.anomalous_reversal_count+int(
+            bar.high>=state.breakout_stop and bar.close<state.breakout_stop
+        )
+    ),{
+        "status":"FIRST_BAR_HOLD_STOP_UNCHANGED",
+        "stop_prior_to_any_HIGH_based_trailing":stop,
+        "actual_broker_fill":False
+    }
