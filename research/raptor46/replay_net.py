@@ -257,6 +257,14 @@ def one_day_portfolio(
     }
 
 
+def _required_nested(value:object,*keys:str)->object:
+    for key in keys:
+        if not isinstance(value,dict) or key not in value:
+            raise ValueError("C46_REPORT_NESTED_DATA_CONTRACT")
+        value=value[key]
+    return value
+
+
 def report(root:Path=HERE)->dict[str,object]:
     market,source=A.load(root)
     baseline=A.report(root)
@@ -284,10 +292,9 @@ def report(root:Path=HERE)->dict[str,object]:
             "ticker_rejection_or_state":rejected,
             "cost_sensitivity":comparisons,
             "raw_IEX_high_threshold_touches":
-                baseline["tests"][key]["historical_IEX_high_touches"],
+                _required_nested(baseline,"tests",key,"historical_IEX_high_touches"),
             "touches_ending_below_prior_IEX_close":
-                baseline["tests"][key][
-                    "historical_touch_but_day_end_below_previous_IEX"],
+                _required_nested(baseline,"tests",key,"historical_touch_but_day_end_below_previous_IEX"),
             "actual_buy_stops_submitted":0,
         }
     return {
@@ -317,22 +324,19 @@ def save(root:Path=HERE)->dict[str,object]:
     recap={
         "schema":"HARPOONX_C46_REPLAY_ECONOMIC_SUMMARY_1",
         "report_sha256":hashlib.sha256(content.encode()).hexdigest(),
-        "source_sha256":output["source"]["raw_source_sha256"],
+        "source_sha256":_required_nested(output,"source","raw_source_sha256"),
         "scenarios":[{
             "threshold":p,
             "confirmed_model_entries":
-                output["sensitivity"][p]["qualified_candidates_after_2bar_continuity"],
+                _required_nested(output,"sensitivity",p,"qualified_candidates_after_2bar_continuity"),
             "raw_IEX_touches":
-                output["sensitivity"][p]["raw_IEX_high_threshold_touches"],
+                _required_nested(output,"sensitivity",p,"raw_IEX_high_threshold_touches"),
             "PnL_mark_if_cost_100bps":
-                output["sensitivity"][p]["cost_sensitivity"]["100.0"][
-                    "hypothetical_one_day_net_pnl_usd"],
+                _required_nested(output,"sensitivity",p,"cost_sensitivity","100.0","hypothetical_one_day_net_pnl_usd"),
             "PnL_mark_if_cost_300bps":
-                output["sensitivity"][p]["cost_sensitivity"]["300.0"][
-                    "hypothetical_one_day_net_pnl_usd"],
+                _required_nested(output,"sensitivity",p,"cost_sensitivity","300.0","hypothetical_one_day_net_pnl_usd"),
             "PnL_mark_if_cost_500bps":
-                output["sensitivity"][p]["cost_sensitivity"]["500.0"][
-                    "hypothetical_one_day_net_pnl_usd"],
+                _required_nested(output,"sensitivity",p,"cost_sensitivity","500.0","hypothetical_one_day_net_pnl_usd"),
         } for p in ("3","4")],
         "actual_broker_orders":0,"actual_fills":0,
         "N9S":"NO_GO","N10":"NO_GO"
