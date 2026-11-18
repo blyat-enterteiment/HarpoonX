@@ -7,6 +7,7 @@ import csv
 import hashlib
 import json
 import math
+import random
 from collections import defaultdict
 from pathlib import Path
 
@@ -118,6 +119,29 @@ def run(path=SOURCE):
         result["policies"][key]={"wealth":round(w,6),"pnl":round(w-INITIAL,6),
             "trades":counts[key],"geom_session":math.expm1(math.log(w/INITIAL)/len(ledger)),
             "max_dd":dd}
+    rng=random.Random(20261118)
+    n=len(ledger)
+    uncertainty={}
+    for strategy in STRATEGIES[1:]:
+        for cost in COSTS:
+            key=f"{strategy}_{cost}"
+            logs=[row["accounts"][key]["log_return"] for row in ledger]
+            replicates=[]
+            for _ in range(2000):
+                sample=[]
+                while len(sample)<n:
+                    j=rng.randrange(n)
+                    sample.extend(logs[(j+k)%n] for k in range(5))
+                replicates.append(sum(sample[:n])/n)
+            replicates.sort()
+            uncertainty[key]={"paired_daily_log_mean":sum(logs)/n,
+                              "block5_ci95_low":replicates[49],
+                              "block5_ci95_high":replicates[1949]}
+    result["block_bootstrap_exploratory"]=uncertainty
+    result["promotable"]=False
+    result["promotion_blockers"]=["independent evaluation missing",
+         "exact ORIGINAL missing","achievable quotes missing",
+         "multiple strategy selection not corrected"]
     return result,ledger
 
 if __name__=="__main__":
