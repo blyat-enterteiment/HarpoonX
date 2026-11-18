@@ -2,8 +2,11 @@
 import http.server
 import json
 import os
+import subprocess
+import sys
 from research.hf22.hf22_portfolio import run
 
+subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', 'research/hf22', '-p', 'test_*.py', '-v'], check=True)
 RESULT, LEDGER = run()
 print("HF22_RESULT " + json.dumps(RESULT, sort_keys=True), flush=True)
 
