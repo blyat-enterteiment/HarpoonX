@@ -73,8 +73,38 @@ def audit():
                 row["exit_bid"]=row["exit"]["bid"]
             reports.append(row)
             print("HF25_AUDIT_EVENT "+json.dumps(row,sort_keys=True),flush=True)
+    # Financed continuous account with missing quote snapshots -> abstain, not synthetic fills.
+    # This is a conditional snapshot-only scenario; not the original 38-trade policy.
+    accounts={str(c):20000.0 for c in (12.5,30.0)}
+    complete_dates=sorted({x["date"] for x in reports})
+    byday={}
+    for x in reports:
+        byday.setdefault(x["date"],[]).append(x)
+    scenario_trades=0
+    for day in complete_dates:
+        valid=[x for x in byday[day] if x["status"]=="BOTH_SNAPSHOTS_OBSERVED_NOT_FILLS"]
+        valid=valid[:3]
+        scenario_trades+=len(valid)
+        for cost in (12.5,30.0):
+            k=str(cost)
+            before=accounts[k]
+            pnl=0.0
+            for x in valid:
+                ask=x["entry_ask"]
+                bid=x["exit_bid"]
+                if ask<=0 or bid<=0:
+                    raise ValueError("Invalid quotes")
+                r=bid/ask-1
+                pnl+=before*.10*(r-cost/10000*(2+r))
+            accounts[k]=before+pnl
+            if accounts[k]<=0:
+                raise ValueError("Nonpositive funded wealth")
     result={"status":"QUOTE_REACHABILITY_SHADOW_ONLY",
             "events_expected":MAX_EVENTS,"events_checked":len(reports),
+            "snapshot_scenario_trades":scenario_trades,
+            "snapshot_scenario_ending_wealth":accounts,
+            "cash_ending_wealth":20000.0,
+            "original":"NOT_AVAILABLE_EXACT_POLICY",
             "both_snapshots":sum(x["status"]=="BOTH_SNAPSHOTS_OBSERVED_NOT_FILLS" for x in reports),
             "manifest":manifest,"actual_fills":0,"orders_enabled":False,
             "holdout_november_2026_opened":False}
