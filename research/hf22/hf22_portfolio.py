@@ -5,6 +5,7 @@ import csv
 import hashlib
 import json
 import math
+import random
 from collections import defaultdict
 from pathlib import Path
 
@@ -102,12 +103,32 @@ def run(path=DATA):
                        "hf22_enabled":enabled,"train_n":len(available)})
     if not ledger:
         raise ValueError("No evaluation sessions")
+    # Fixed-seed circular five-session block bootstrap of paired daily log returns.
+    # Exploratory only: overlapping events, hindsight universe and OHLC fill bias remain.
+    rng = random.Random(20261118)
+    bootstrap = {}
+    n = len(ledger)
+    for bps in FEE_BPS:
+        key = f"RAPTOR_PROXY_{bps}"
+        logs = [r["accounts"][key]["log_return"] for r in ledger]
+        draws = []
+        for _ in range(2000):
+            sampled = []
+            while len(sampled) < n:
+                start = rng.randrange(n)
+                sampled.extend(logs[(start+k)%n] for k in range(5))
+            draws.append(sum(sampled[:n])/n)
+        draws.sort()
+        bootstrap[key] = {"paired_daily_log_mean":sum(logs)/n,
+                          "block5_ci95_low":draws[49],
+                          "block5_ci95_high":draws[1949],
+                          "resamples":2000}
     result={"status":"RETROSPECTIVE_EXPLORATORY_NOT_OOS",
             "data_sha256":digest,"source":"Alpaca IEX daily OHLC; not executable SIP",
             "evaluation_start":ledger[0]["date"],"evaluation_end":ledger[-1]["date"],
             "sessions":len(ledger),"initial_wealth":INITIAL,
             "cash_ending":INITIAL,"original":"NOT_AVAILABLE_EXACT_POLICY_NOT_RECONSTRUCTED",
-            "policies":{},"holdout_november_2026_opened":False,
+            "policies":{},"block_bootstrap_exploratory":bootstrap,"holdout_november_2026_opened":False,
             "actual_fills":0}
     for key,end in accounts.items():
         daily_logs=[r["accounts"][key]["log_return"] for r in ledger]
