@@ -52,12 +52,13 @@ def check():
         result["error_type"] = type(exc).__name__
     return result
 
+DIAGNOSTIC = check()
+print("HF19_STARTUP_NETWORK_RESULT " + json.dumps(DIAGNOSTIC, sort_keys=True), flush=True)
+
 class Handler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path not in ("/", "/health"):
-            self.send_error(404)
-            return
-        payload = json.dumps(check(), sort_keys=True).encode()
+        print("HF19_HTTP_REQUEST " + repr(self.path[:120]), flush=True)
+        payload = json.dumps(DIAGNOSTIC, sort_keys=True).encode()
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_header("Cache-Control", "no-store")
