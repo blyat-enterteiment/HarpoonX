@@ -48,7 +48,7 @@ def evaluate():
                     if f and f["breakout"] and f["relative_volume"]>=rv and f["momentum"]>=momentum:
                         selections[str(i)].append((symbol,bar))
                 elif family=="ETF_MOMENTUM" and symbol in ETFS:
-                    lookback,momentum,_=params
+                    lookback,momentum=params
                     f=features(histories[symbol],lookback)
                     if f and f["momentum"]>=momentum:
                         selections[str(i)].append((symbol,bar))
