@@ -4,6 +4,8 @@ import hashlib
 import http.server
 import json
 import os
+import subprocess
+import sys
 from pathlib import Path
 from research.hf15.hf15_shadow import evaluate
 
@@ -39,6 +41,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         pass
 
 if __name__ == "__main__":
+    subprocess.run([sys.executable, "-m", "unittest", "discover",
+                    "-s", "research/hf15", "-p", "test_*.py", "-v"], check=True)
     RESULT = run()
     print("HF21_VALUATION " + json.dumps(RESULT, sort_keys=True), flush=True)
     http.server.HTTPServer(("0.0.0.0", int(os.environ.get("PORT", "10000"))), Handler).serve_forever()
