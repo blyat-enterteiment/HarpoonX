@@ -5,6 +5,8 @@ No opening breakout condition: cannot use an opening print to fill at the same o
 import csv
 import hashlib
 import json
+import http.server
+import os
 import math
 from collections import defaultdict
 from pathlib import Path
@@ -126,3 +128,14 @@ def run(path=DATA):
 if __name__=="__main__":
     output,ledger=run()
     print("HF23_RESULT "+json.dumps(output,sort_keys=True),flush=True)
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            body=json.dumps(output,sort_keys=True).encode()
+            self.send_response(200)
+            self.send_header("Content-Type","application/json")
+            self.send_header("Content-Length",str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        def log_message(self,*args):
+            pass
+    http.server.HTTPServer(("0.0.0.0",int(os.environ.get("PORT","10000"))),Handler).serve_forever()
