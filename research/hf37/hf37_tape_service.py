@@ -54,6 +54,18 @@ def acquire_sip_probe():
  RESULT["durable_sip_probe"]=proof
  print("HF37_SIP_PROBE "+json.dumps(proof,sort_keys=True),flush=True)
 
+def audit_sip_cohort():
+ if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
+  return
+ try:
+  process=subprocess.run([sys.executable,"-m","research.hf37.hf37_sip_cohort_audit"],
+   capture_output=True,text=True,timeout=120,check=False)
+  proof=json.loads(process.stdout)
+ except (OSError,ValueError,subprocess.TimeoutExpired) as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["sip_cohort_coverage"]=proof
+ print("HF37_SIP_COHORT "+json.dumps(proof,sort_keys=True),flush=True)
+
 def acquire_session_pilot():
  if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
   return
@@ -81,4 +93,5 @@ if __name__=="__main__":
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
  threading.Thread(target=acquire_sip_probe,daemon=True).start()
+ threading.Thread(target=audit_sip_cohort,daemon=True).start()
  http.server.HTTPServer(("0.0.0.0",int(os.environ.get("PORT","10000"))),Handler).serve_forever()
