@@ -3,7 +3,9 @@
 import hashlib
 import json
 import time
+from datetime import datetime, timedelta
 from urllib.error import HTTPError
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from research.hf18.hf18_collector import fetch
 from research.hf37.hf37_durable_acquire import run
@@ -13,6 +15,16 @@ from research.hf37.hf37_tape import windows
 START = "2026-08-03T13:30:00Z"
 END = "2026-08-03T20:00:00Z"
 SYMBOL = "AAPL"
+
+
+def session_page_url(url: str) -> str:
+    parts = urlsplit(url)
+    params = dict(parse_qsl(parts.query))
+    # The provider end is inclusive. Session windows use integer-second bounds.
+    upper_second = datetime.fromisoformat(params["end"]) - timedelta(seconds=1)
+    params["end"] = upper_second.strftime("%Y-%m-%dT%H:%M:%S.999999999Z")
+    params["limit"] = "10000"
+    return urlunsplit(parts._replace(query=urlencode(params)))
 
 
 def run_session() -> dict[str, object]:
@@ -27,7 +39,7 @@ def run_session() -> dict[str, object]:
         time.sleep(max(0.0, last_request + 0.40 - time.monotonic()))
         last_request = time.monotonic()
         requests += 1
-        return fetch(url, key, secret)
+        return fetch(session_page_url(url), key, secret)
 
     verified: list[dict] = []
     result: dict[str, object] = {
