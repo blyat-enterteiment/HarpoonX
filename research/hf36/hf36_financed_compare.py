@@ -6,7 +6,7 @@ import math
 from collections import defaultdict
 from research.hf36.hf36_events import events
 from research.hf36.hf36_evidence import validate_quote_evidence,economic_gate
-from research.hf30.hf30_regime import TRAIN,DIAG
+from research.hf30.hf30_regime import TRAIN,DIAG,load
 INITIAL=20000.
 COSTS=(30.,50.)
 METHODS=("CASH","IMMEDIATE","MARKETABLE","PASSIVE","ICEBERG")
@@ -14,7 +14,7 @@ def evaluate_quote_scenarios(root,original=None):
     ev=events()
     evidence=validate_quote_evidence(root,ev)
     byid={x["id"]:x for x in evidence["records"]}
-    days=sorted({x["date"] for x in ev})
+    all_dates,_,_=load()\n    days=[d for d in all_dates if TRAIN[0]<=d<=DIAG[1]]
     ledger={}
     for cost in COSTS:
         wealth={method:INITIAL for method in METHODS}
