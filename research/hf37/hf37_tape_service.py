@@ -1,4 +1,7 @@
 import http.server,json,os
+import subprocess
+import sys
+import threading
 from research.hf37.hf37_universe import manifest
 from research.hf37.hf37_audit import audit
 from research.hf37.hf37_tape import symbols,windows
@@ -18,6 +21,25 @@ RESULT={"real_tape_pilot":PILOT,"migration":MIGRATION,"archived_hf20":verify(),"
 "one_minute_window_requests":len(symbols())*2,
 "status":"NO_GO_AWAITING_DURABLE_ACQUISITION","orders_enabled":False,
 "holdout_november_2026_opened":False}
+def acquire_boot_pilot():
+ if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
+  return
+ RESULT["durable_acquisition_pilot"]={"status":"RUNNING"}
+ try:
+  process=subprocess.run([
+   sys.executable,"-m","research.hf37.hf37_durable_acquire",
+   "--symbol","AAPL","--start","2026-08-03T14:30:00Z","--end","2026-08-03T14:31:00Z"
+  ],capture_output=True,text=True,timeout=90,check=False)
+  proof=json.loads(process.stdout)
+  if process.returncode == 0 and proof["status"] == "POSTGRES_COMMITTED_AND_READBACK_VERIFIED":
+   RESULT["pagination_verified_on_real_provider"]=True
+  elif proof["status"] != "FAILED_CLOSED":
+   raise ValueError("UNEXPECTED_PILOT_RESULT")
+ except (OSError,ValueError,KeyError,subprocess.TimeoutExpired) as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["durable_acquisition_pilot"]=proof
+ print("HF37_DURABLE_PILOT "+json.dumps(proof,sort_keys=True),flush=True)
+
 print("HF37_TAPE_GATE "+json.dumps(RESULT,sort_keys=True),flush=True)
 class Handler(http.server.BaseHTTPRequestHandler):
  def do_GET(self):
@@ -27,4 +49,5 @@ class Handler(http.server.BaseHTTPRequestHandler):
   self.send_header("Content-Length",str(len(body)));self.end_headers();self.wfile.write(body)
  def log_message(self,*args):pass
 if __name__=="__main__":
+ threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  http.server.HTTPServer(("0.0.0.0",int(os.environ.get("PORT","10000"))),Handler).serve_forever()
