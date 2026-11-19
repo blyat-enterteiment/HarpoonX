@@ -49,7 +49,8 @@ class Book:
             raise ValueError("INVALID_PRICE_FEE")
         if o.side=="BUY":
             cost=quantity*price+fee
-            if price>o.limit+1e-9 or cost>self.cash+1e-9:\n                raise ValueError("BUY_FILL_EXCEEDS_LIMIT_OR_CASH")
+            if price>o.limit+1e-9 or cost>self.cash+1e-9:
+                raise ValueError("BUY_FILL_EXCEEDS_LIMIT_OR_CASH")
             self.cash-=cost
             self.shares[o.symbol]=self.shares.get(o.symbol,0)+quantity
             release=o.reserved*quantity/(o.requested-o.filled)
