@@ -1,4 +1,4 @@
-"""Run one bounded HF37 IEX batch in a private runtime."""
+"""Run one bounded HF37 market-data batch in a private runtime."""
 from __future__ import annotations
 
 import argparse
@@ -34,6 +34,9 @@ def encode(root: Path, symbol: str, start: str, end: str, identity: dict) -> byt
     for kind in KINDS:
         folder = root / kind
         proof = verify(folder, symbol, kind, start, end)
+        source = json.loads((folder / "manifest.json").read_bytes())["source"]
+        if source != f'Alpaca {identity["feed"].upper()} Market Data v2':
+            raise ValueError("MANIFEST_FEED_MISMATCH")
         names = ["manifest.json", *(
             f"page_{i:05d}.json" for i in range(proof["pages"])
         )]
@@ -58,8 +61,12 @@ def read_verified(row: tuple, expected: str | None = None) -> str:
 
 
 def run(
-    symbol: str, start: str, end: str, *, request: Callable[[str, str, str], dict] = fetch,
+    symbol: str, start: str, end: str, *, feed: str = "iex", request: Callable[[str, str, str], dict] = fetch,
 ) -> dict:
+    if feed not in ("iex", "sip"):
+        raise ValueError("UNSUPPORTED_FEED")
+    sql_table = f"hf37_{feed}_durable_batch"
+    select = SELECT.replace("hf37_iex_durable_batch", sql_table)
     if symbol not in symbols():
         raise ValueError("SYMBOL_OUTSIDE_HF37_UNIVERSE")
     chunks = iter(windows(start, end, seconds=300))
@@ -76,7 +83,7 @@ def run(
         raise RuntimeError("PRIVATE_DATABASE_SECRET_REQUIRED")
     import psycopg
 
-    identity = {"feed": "iex", "symbol": symbol, "start": start, "end": end,
+    identity = {"feed": feed, "symbol": symbol, "start": start, "end": end,
                 "universe_sha256": manifest()["universe_sha256"], "format": 1}
     batch_id = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
     with psycopg.connect(dsn, connect_timeout=10,
@@ -84,8 +91,8 @@ def run(
         with db.transaction():
             # Serialize first-use DDL, without holding a transaction while calling Alpaca.
             db.execute("SELECT pg_advisory_xact_lock(370037)")
-            db.execute(SCHEMA)
-            row = db.execute(SELECT, (batch_id,)).fetchone()
+            db.execute(SCHEMA.replace("hf37_iex_durable_batch", sql_table))
+            row = db.execute(select, (batch_id,)).fetchone()
         if row is None:
             key = os.environ.get("APCA_API_KEY_ID")
             secret = os.environ.get("APCA_API_SECRET_KEY")
@@ -94,24 +101,24 @@ def run(
             with tempfile.TemporaryDirectory(prefix="hf37-") as temp:
                 root = Path(temp)
                 for kind in KINDS:
-                    collect(symbol, kind, start, end, str(root / kind), key, secret, request=request)
+                    collect(symbol, kind, start, end, str(root / kind), key, secret, request=request, feed=feed)
                 payload = encode(root, symbol, start, end, identity)
             digest = hashlib.sha256(payload).hexdigest()
             with db.transaction():
-                db.execute("""INSERT INTO hf37_iex_durable_batch (batch_id, sha256, payload)
+                db.execute(f"""INSERT INTO {sql_table} (batch_id, sha256, payload)
                               VALUES (%s, %s, %s) ON CONFLICT (batch_id) DO NOTHING""",
                            (batch_id, digest, payload))
         else:
             digest = read_verified(row)
         with db.transaction():
-            row = db.execute(SELECT + " FOR UPDATE", (batch_id,)).fetchone()
+            row = db.execute(select + " FOR UPDATE", (batch_id,)).fetchone()
             if row is None:
                 raise RuntimeError("DURABLE_BATCH_MISSING")
             read_verified(row, digest)
-            db.execute("""UPDATE hf37_iex_durable_batch SET acquired_at = now()
+            db.execute(f"""UPDATE {sql_table} SET acquired_at = now()
                           WHERE batch_id = %s AND acquired_at IS NULL""", (batch_id,))
         with db.transaction():
-            row = db.execute(SELECT, (batch_id,)).fetchone()
+            row = db.execute(select, (batch_id,)).fetchone()
             if row is None or row[2] is None:
                 raise RuntimeError("ACQUISITION_COMMIT_NOT_VISIBLE")
             read_verified(row, digest)
@@ -122,12 +129,13 @@ def run(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--feed", choices=("iex", "sip"), default="iex")
     parser.add_argument("--symbol", required=True)
     parser.add_argument("--start", required=True)
     parser.add_argument("--end", required=True)
     args = parser.parse_args()
     try:
-        print(json.dumps(run(args.symbol, args.start, args.end), sort_keys=True))
+        print(json.dumps(run(args.symbol, args.start, args.end, feed=args.feed), sort_keys=True))
     except HTTPError as exc:
         print(json.dumps({"status": "FAILED_CLOSED", "provider_http_status": exc.code}))
         raise SystemExit(1) from None
