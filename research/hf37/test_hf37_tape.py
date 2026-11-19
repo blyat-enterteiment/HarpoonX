@@ -1,4 +1,5 @@
 import json,os,tempfile,unittest
+from research.hf37.test_hf37_persistence import TestHF37Persistence
 from pathlib import Path
 from unittest.mock import patch
 from research.hf37.hf37_tape import windows,verify,acquire,symbols
