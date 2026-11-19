@@ -22,6 +22,8 @@ class TestHF37Tape(unittest.TestCase):
                 self.assertFalse(x["complete"])
                 y=acquire(d,"2026-11-17T15:00:00Z","2026-11-17T15:01:00Z",max_requests=2,request=request)
                 self.assertEqual(y["verified_this_run"],2)
+                self.assertEqual(y["skipped_verified"],2)
+                self.assertEqual(y["verified_total_on_disk"],4)
                 folder=next(Path(d).glob("NVDA_trades_*"))
                 self.assertEqual(verify(folder,"NVDA","trades","2026-11-17T15:00:00Z","2026-11-17T15:01:00Z")["records"],1)
                 page=folder/"page_00000.json"
