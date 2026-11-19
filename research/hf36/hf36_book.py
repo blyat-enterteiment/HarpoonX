@@ -49,13 +49,14 @@ class Book:
             raise ValueError("INVALID_PRICE_FEE")
         if o.side=="BUY":
             cost=quantity*price+fee
-            if cost>self.cash+1e-9:raise ValueError("UNFUNDED_FILL")
+            if price>o.limit+1e-9 or cost>self.cash+1e-9:\n                raise ValueError("BUY_FILL_EXCEEDS_LIMIT_OR_CASH")
             self.cash-=cost
             self.shares[o.symbol]=self.shares.get(o.symbol,0)+quantity
             release=o.reserved*quantity/(o.requested-o.filled)
             o.reserved-=release;self.reserved-=release
+            # Actual cash spent can exceed reserved cash at limit; reject before mutation.
         else:
-            if quantity>self.shares.get(o.symbol,0):raise ValueError("UNOWNED_SELL")
+            if price+1e-9<o.limit or quantity>self.shares.get(o.symbol,0):raise ValueError("SELL_FILL_BELOW_LIMIT_OR_UNOWNED")
             self.shares[o.symbol]-=quantity
             self.cash+=quantity*price-fee
         self.realized_fees+=fee
