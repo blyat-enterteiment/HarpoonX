@@ -14,7 +14,8 @@ def evaluate_quote_scenarios(root,original=None):
     ev=events()
     evidence=validate_quote_evidence(root,ev)
     byid={x["id"]:x for x in evidence["records"]}
-    all_dates,_,_=load()\n    days=[d for d in all_dates if TRAIN[0]<=d<=DIAG[1]]
+    all_dates,_,_=load()
+    days=[d for d in all_dates if TRAIN[0]<=d<=DIAG[1]]
     ledger={}
     for cost in COSTS:
         wealth={method:INITIAL for method in METHODS}
