@@ -2,7 +2,8 @@ import http.server,json,os
 from research.hf37.hf37_universe import manifest
 from research.hf37.hf37_audit import audit
 from research.hf37.hf37_tape import symbols,windows
-RESULT={"phase":"HF37_TAPE_GATE","universe":manifest(),"archive":audit(),
+from research.hf20.archive.verify_hf20_archive import verify
+RESULT={"archived_hf20":verify(),"hf18":"CODE_PRESERVED","hf19":"CODE_PRESERVED","phase":"HF37_TAPE_GATE","universe":manifest(),"archive":audit(),
 "tape_collector_implemented":True,"full_historical_tape_acquired":False,
 "pagination_verified_on_real_provider":False,"market_data_credentials_configured":bool(os.environ.get("APCA_API_KEY_ID") and os.environ.get("APCA_API_SECRET_KEY")),
 "one_minute_window_requests":len(symbols())*2,
