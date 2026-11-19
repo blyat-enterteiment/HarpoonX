@@ -64,14 +64,11 @@ def acquire(root,start,end,seconds=60,max_requests=4,request=None):
         for a,b in windows(start,end,seconds):
             for kind in KINDS:
                 items.append((symbol,kind,a,b))
-    accepted=0;failed=0;processed=0
+    accepted=0;failed=0;processed=0;skipped_verified=0
     for symbol,kind,a,b in items:
-        if processed>=max_requests:break
         name=f"{symbol}_{kind}_{a.replace(':','').replace('-','')}_{b.replace(':','').replace('-','')}"
         folder=root/name
-        status="VERIFIED_EXISTING"
-        try:
-            if not folder.exists():
+        # Resume by skipping verified windows, not by reprocessing the first N.\n        if folder.exists():\n            try:\n                verify(folder,symbol,kind,a,b)\n                skipped_verified+=1\n                continue\n            except (OSError,KeyError,ValueError,TypeError):\n                failed+=1\n                with ledger.open("ab") as lf:\n                    lf.write(canonical({"symbol":symbol,"kind":kind,"start":a,"end":b,\n                       "status":"CORRUPT_EXISTING_WINDOW_MANUAL_REPAIR_REQUIRED"})+b"\\n")\n                continue\n        if processed>=max_requests:break\n        status="COLLECTED_AND_VERIFIED"\n        try:\n            if not folder.exists():
                 kwargs={"request":request} if request is not None else {}
                 collect(symbol,kind,a,b,str(folder),key,secret,**kwargs)
                 status="COLLECTED_AND_VERIFIED"
@@ -98,7 +95,7 @@ def acquire(root,start,end,seconds=60,max_requests=4,request=None):
                 pass
     report={"phase":"HF37_TAPE","feed":"iex","symbols":len(symbols()),
             "required_windows":len(items),"processed_this_run":processed,
-            "verified_this_run":accepted,"failed_this_run":failed,
+            "verified_this_run":accepted,"failed_this_run":failed,\n            "skipped_verified":skipped_verified,
             "verified_total_on_disk":all_verified,
             "complete":all_verified==len(items) and failed==0,
             "status":"NO_GO_DATA_GATE","orders_enabled":False,
