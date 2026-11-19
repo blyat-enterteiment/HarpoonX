@@ -85,10 +85,22 @@ def acquire(root,start,end,seconds=60,max_requests=4,request=None):
         with ledger.open("ab") as f:
             f.write(canonical(entry)+b"\n")
         processed+=1
+    # A bounded run cannot claim whole-cohort completion; inspect every expected window.
+    all_verified=0
+    for symbol,kind,a,b in items:
+        name=f"{symbol}_{kind}_{a.replace(':','').replace('-','')}_{b.replace(':','').replace('-','')}"
+        folder=root/name
+        if folder.exists():
+            try:
+                verify(folder,symbol,kind,a,b)
+                all_verified+=1
+            except (OSError,KeyError,ValueError,TypeError):
+                pass
     report={"phase":"HF37_TAPE","feed":"iex","symbols":len(symbols()),
             "required_windows":len(items),"processed_this_run":processed,
             "verified_this_run":accepted,"failed_this_run":failed,
-            "complete":processed==len(items) and failed==0,
+            "verified_total_on_disk":all_verified,
+            "complete":all_verified==len(items) and failed==0,
             "status":"NO_GO_DATA_GATE","orders_enabled":False,
             "holdout_november_2026_opened":False,
             "selection_point_in_time_verified":False,
