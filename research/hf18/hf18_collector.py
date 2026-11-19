@@ -31,7 +31,9 @@ def fetch(url, key, secret):
             raise RuntimeError("Market data HTTP status not 200")
         return json.load(response)
 
-def collect(symbol, kind, start, end, output, key, secret, request=fetch):
+def collect(symbol, kind, start, end, output, key, secret, request=fetch, *, feed="iex"):
+    if feed not in ("iex", "sip"):
+        raise ValueError("Unsupported feed")
     if kind not in KINDS:
         raise ValueError("Unsupported data type")
     if not symbol.isascii() or not symbol.isalnum() or len(symbol) > 12:
@@ -55,7 +57,7 @@ def collect(symbol, kind, start, end, output, key, secret, request=fetch):
         while True:
             if page >= MAX_PAGES:
                 raise RuntimeError("Page budget exceeded")
-            params = {"start": start, "end": end, "feed": "iex",
+            params = {"start": start, "end": end, "feed": feed,
                       "limit": "1000", "sort": "asc"}
             if token:
                 params["page_token"] = token
@@ -94,10 +96,11 @@ def collect(symbol, kind, start, end, output, key, secret, request=fetch):
             seen_tokens.add(next_token)
             token = next_token
         manifest = {"status": "PROVIDER_PAGINATION_EXHAUSTED_NOT_FULL_MARKET_CERTIFIED",
-                    "source": "Alpaca IEX Market Data v2", "symbol": symbol,
+                    "source": f"Alpaca {feed.upper()} Market Data v2", "symbol": symbol,
                     "kind": kind, "start": start, "end": end,
                     "pages": page, "records": count, "page_hashes": hashes,
-                    "warning": "IEX partial venue; conditions and market reachability not certified; not fills"}
+                    "warning": ("IEX partial venue; " if feed == "iex" else "SIP consolidated; ") +
+                               "conditions and market reachability not certified; not fills"}
         (root / "manifest.json").write_bytes(canonical(manifest))
         return manifest
     except Exception:
