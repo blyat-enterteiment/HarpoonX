@@ -40,6 +40,20 @@ def acquire_boot_pilot():
  RESULT["durable_acquisition_pilot"]=proof
  print("HF37_DURABLE_PILOT "+json.dumps(proof,sort_keys=True),flush=True)
 
+def acquire_sip_probe():
+ if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
+  return
+ try:
+  process=subprocess.run([
+   sys.executable,"-m","research.hf37.hf37_durable_acquire","--feed","sip",
+   "--symbol","AAPL","--start","2026-08-03T14:30:01Z","--end","2026-08-03T14:30:06Z"
+  ],capture_output=True,text=True,timeout=90,check=False)
+  proof=json.loads(process.stdout)
+ except (OSError,ValueError,subprocess.TimeoutExpired) as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["durable_sip_probe"]=proof
+ print("HF37_SIP_PROBE "+json.dumps(proof,sort_keys=True),flush=True)
+
 def acquire_session_pilot():
  if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
   return
@@ -66,4 +80,5 @@ class Handler(http.server.BaseHTTPRequestHandler):
 if __name__=="__main__":
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
+ threading.Thread(target=acquire_sip_probe,daemon=True).start()
  http.server.HTTPServer(("0.0.0.0",int(os.environ.get("PORT","10000"))),Handler).serve_forever()
