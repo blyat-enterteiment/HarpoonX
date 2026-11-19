@@ -7,11 +7,12 @@ import hashlib
 import json
 import os
 import tempfile
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 from urllib.error import HTTPError
 
-from research.hf18.hf18_collector import collect
+from research.hf18.hf18_collector import collect, fetch
 from research.hf37.hf37_tape import KINDS, symbols, verify, windows
 from research.hf37.hf37_universe import manifest
 
@@ -56,7 +57,9 @@ def read_verified(row: tuple, expected: str | None = None) -> str:
     return digest
 
 
-def run(symbol: str, start: str, end: str) -> dict:
+def run(
+    symbol: str, start: str, end: str, *, request: Callable[[str, str, str], dict] = fetch,
+) -> dict:
     if symbol not in symbols():
         raise ValueError("SYMBOL_OUTSIDE_HF37_UNIVERSE")
     chunks = iter(windows(start, end, seconds=300))
@@ -91,7 +94,7 @@ def run(symbol: str, start: str, end: str) -> dict:
             with tempfile.TemporaryDirectory(prefix="hf37-") as temp:
                 root = Path(temp)
                 for kind in KINDS:
-                    collect(symbol, kind, start, end, str(root / kind), key, secret)
+                    collect(symbol, kind, start, end, str(root / kind), key, secret, request=request)
                 payload = encode(root, symbol, start, end, identity)
             digest = hashlib.sha256(payload).hexdigest()
             with db.transaction():
