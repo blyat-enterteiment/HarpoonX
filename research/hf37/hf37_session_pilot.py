@@ -1,5 +1,6 @@
 """Acquire one calendar-defined IEX development session for AAPL."""
 
+import argparse
 import hashlib
 import json
 import time
@@ -27,7 +28,7 @@ def session_page_url(url: str) -> str:
     return urlunsplit(parts._replace(query=urlencode(params)))
 
 
-def run_session() -> dict[str, object]:
+def run_session(symbol: str = SYMBOL) -> dict[str, object]:
     expected = tuple(windows(START, END, seconds=300))
     last_request = 0.0
     requests = 0
@@ -43,12 +44,12 @@ def run_session() -> dict[str, object]:
 
     verified: list[dict] = []
     result: dict[str, object] = {
-        "symbol": SYMBOL, "feed": "iex", "start": START, "end": END,
+        "symbol": symbol, "feed": "iex", "start": START, "end": END,
         "expected_batches": len(expected), "eligible_economic_sessions": 0,
     }
     try:
         for start, end in expected:
-            verified.append(run(SYMBOL, start, end, request=paced_fetch))
+            verified.append(run(symbol, start, end, request=paced_fetch))
     except HTTPError as exc:
         result.update(status="FAILED_CLOSED", provider_http_status=exc.code)
     except Exception as exc:  # noqa: BLE001 — Sanitize provider and database errors.
@@ -62,7 +63,10 @@ def run_session() -> dict[str, object]:
 
 
 if __name__ == "__main__":
-    proof = run_session()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--symbol", choices=("AAPL","MSFT"), default="AAPL")
+    args = parser.parse_args()
+    proof = run_session(args.symbol)
     print(json.dumps(proof, sort_keys=True), flush=True)
     if proof["status"] == "FAILED_CLOSED":
         raise SystemExit(1)
