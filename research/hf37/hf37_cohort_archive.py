@@ -74,24 +74,47 @@ def verify_object(client, bucket, key, identity, scratch):
         if response["Metadata"].get("sha256") != actual:
             raise ValueError("ARCHIVE_READBACK_HASH_MISMATCH")
         copy.seek(0)
-        with ZipFile(copy) as archive:
-            if json.loads(archive.read("identity.json")) != identity:
-                raise ValueError("ARCHIVE_IDENTITY_MISMATCH")
-            names = archive.namelist()
-            if len(set(names)) != len(names):
-                raise ValueError("ARCHIVE_DUPLICATE_MEMBER")
-            expected = {"identity.json"}
-            for kind in KINDS:
-                folder = ZipPath(archive, f"{kind}/")
-                proof = verify(folder, identity["symbol"], kind, identity["start"],
-                               identity["end"], verify_cursor=True)
-                if json.loads((folder / "manifest.json").read_bytes())["source"] != "Alpaca SIP Market Data v2":
-                    raise ValueError("UNEXPECTED_ARCHIVE_FEED")
-                expected.add(f"{kind}/manifest.json")
-                expected.update(f"{kind}/page_{i:05d}.json" for i in range(proof["pages"]))
-            if set(names) != expected:
-                raise ValueError("ARCHIVE_MEMBER_SET_MISMATCH")
+        verify_zip(copy, identity)
     return actual
+
+
+def verify_zip(copy, identity):
+    with ZipFile(copy) as archive:
+        if json.loads(archive.read("identity.json")) != identity:
+            raise ValueError("ARCHIVE_IDENTITY_MISMATCH")
+        names = archive.namelist()
+        if len(set(names)) != len(names):
+            raise ValueError("ARCHIVE_DUPLICATE_MEMBER")
+        expected = {"identity.json"}
+        for kind in KINDS:
+            folder = ZipPath(archive, f"{kind}/")
+            proof = verify(folder, identity["symbol"], kind, identity["start"],
+                           identity["end"], verify_cursor=True)
+            if json.loads((folder / "manifest.json").read_bytes())["source"] != "Alpaca SIP Market Data v2":
+                raise ValueError("UNEXPECTED_ARCHIVE_FEED")
+            expected.add(f"{kind}/manifest.json")
+            expected.update(f"{kind}/page_{i:05d}.json" for i in range(proof["pages"]))
+        if set(names) != expected:
+            raise ValueError("ARCHIVE_MEMBER_SET_MISMATCH")
+
+
+def build_zip(path, root, identity, request, credentials):
+    access_key, secret_key = credentials
+    symbol, start, end = (identity[field] for field in ("symbol", "start", "end"))
+    with ZipFile(path, "w", compression=ZIP_DEFLATED) as archive:
+        archive.writestr("identity.json", json.dumps(identity, sort_keys=True))
+        for kind in KINDS:
+            folder = root / kind
+            collect(symbol, kind, start, end, str(folder), access_key, secret_key,
+                    request=request, feed="sip")
+            proof = verify(folder, symbol, kind, start, end)
+            manifest_path = folder / "manifest.json"
+            if json.loads(manifest_path.read_bytes())["source"] != "Alpaca SIP Market Data v2":
+                raise ValueError("UNEXPECTED_ARCHIVE_FEED")
+            archive.write(manifest_path, f"{kind}/manifest.json")
+            for index in range(proof["pages"]):
+                name = f"page_{index:05d}.json"
+                archive.write(folder / name, f"{kind}/{name}")
 
 
 def transfer(client, bucket, batch_id, identity, request, credentials, *, verify_only, scope="sector"):
@@ -104,23 +127,8 @@ def transfer(client, bucket, batch_id, identity, request, credentials, *, verify
         digest = verify_object(client, bucket, key, identity, root)
         if digest is not None or verify_only:
             return digest
-        access_key, secret_key = credentials
-        symbol, start, end = (identity[field] for field in ("symbol", "start", "end"))
         path = root / "batch.zip"
-        with ZipFile(path, "w", compression=ZIP_DEFLATED) as archive:
-            archive.writestr("identity.json", json.dumps(identity, sort_keys=True))
-            for kind in KINDS:
-                folder = root / kind
-                collect(symbol, kind, start, end, str(folder), access_key, secret_key,
-                        request=request, feed="sip")
-                proof = verify(folder, symbol, kind, start, end)
-                manifest_path = folder / "manifest.json"
-                if json.loads(manifest_path.read_bytes())["source"] != "Alpaca SIP Market Data v2":
-                    raise ValueError("UNEXPECTED_ARCHIVE_FEED")
-                archive.write(manifest_path, f"{kind}/manifest.json")
-                for index in range(proof["pages"]):
-                    name = f"page_{index:05d}.json"
-                    archive.write(folder / name, f"{kind}/{name}")
+        build_zip(path, root, identity, request, credentials)
         written = False
         with path.open("rb") as file:
             digest = hashlib.file_digest(file, "sha256").hexdigest()

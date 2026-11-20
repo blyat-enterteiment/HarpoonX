@@ -110,7 +110,24 @@ def verify_archive_storage():
  RESULT["archive_storage_probe"]=proof
  print("HF37_ARCHIVE_STORAGE "+json.dumps(proof,sort_keys=True),flush=True)
 
+def acquire_drive_probe():
+ if os.environ.get("HF38_DRIVE_PROBE") != "1":
+  return
+ try:
+  process=subprocess.run(
+   [sys.executable,"-m","research.hf37.hf38_drive","--offset","0","--limit","1"],
+   capture_output=True,text=True,timeout=480,check=False,
+  )
+  proof=json.loads(process.stdout)
+  if (process.returncode == 0) != (proof["status"] == "DRIVE_AND_POSTGRES_READBACK_VERIFIED"):
+   raise ValueError("UNEXPECTED_DRIVE_PROBE_RESULT")
+ except (OSError,ValueError,KeyError,subprocess.TimeoutExpired) as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["hf38_drive_probe"]={"status":proof["status"]}
+ print("HF38_DRIVE_PROBE "+json.dumps(proof,sort_keys=True),flush=True)
+
 if __name__=="__main__":
+ threading.Thread(target=acquire_drive_probe,daemon=True).start()
  threading.Thread(target=verify_archive_storage,daemon=True).start()
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
