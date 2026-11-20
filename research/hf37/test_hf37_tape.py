@@ -1,6 +1,7 @@
 import json,os,tempfile,unittest
 from research.hf37.test_hf37_persistence import TestHF37Persistence
 from research.hf37.test_hf37_portfolio_mnp import TestHF37PortfolioMNP
+from research.hf37.test_hf37_financed_replay import TestFinancedReplay
 from pathlib import Path
 from unittest.mock import patch
 from research.hf37.hf37_tape import windows,verify,acquire,symbols
