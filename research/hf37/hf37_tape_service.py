@@ -89,7 +89,28 @@ class Handler(http.server.BaseHTTPRequestHandler):
   self.send_response(200);self.send_header("Content-Type","application/json")
   self.send_header("Content-Length",str(len(body)));self.end_headers();self.wfile.write(body)
  def log_message(self,*args):pass
+def verify_archive_storage():
+ if not os.environ.get("HF37_S3_BUCKET"):
+  proof={"status":"BUCKET_NOT_CONFIGURED"}
+ else:
+  try:
+   result=subprocess.run([
+    sys.executable,"-m","research.hf37.hf37_cohort_archive",
+    "--scope","sector","--offset","0","--limit","1"
+   ],capture_output=True,text=True,timeout=120,check=False)
+   lines=[json.loads(line) for line in result.stdout.splitlines()]
+   if result.returncode==0 and len(lines)==2 and lines[1].get("verified")==1:
+    proof={"status":"SIP_OBJECT_READBACK_VERIFIED","batch_id":lines[0]["batch_id"],
+           "sha256":lines[0]["sha256"],"provider_requests":lines[1]["provider_requests"]}
+   else:
+    proof={"status":"FAILED_CLOSED","exit_code":result.returncode}
+  except (OSError,ValueError,KeyError,subprocess.TimeoutExpired) as exc:
+   proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["archive_storage_probe"]=proof
+ print("HF37_ARCHIVE_STORAGE "+json.dumps(proof,sort_keys=True),flush=True)
+
 if __name__=="__main__":
+ threading.Thread(target=verify_archive_storage,daemon=True).start()
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
  threading.Thread(target=acquire_sip_probe,daemon=True).start()
