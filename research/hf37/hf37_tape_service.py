@@ -54,6 +54,17 @@ def acquire_second_session_pilot():
  RESULT["second_session_pilot"]=proof
  print("HF38_SECOND_SESSION "+json.dumps(proof,sort_keys=True),flush=True)
 
+def report_db_size():
+ try:
+  p=subprocess.run([sys.executable,"-m","research.hf37.hf38_db_size"],
+    capture_output=True,text=True,timeout=30,check=False)
+  proof=json.loads(p.stdout.removeprefix("HF38_DB_SIZE "))
+  if p.returncode != 0:proof={"status":"FAILED_CLOSED","error_type":"DB_MEASUREMENT_PROCESS"}
+ except (OSError,ValueError,subprocess.TimeoutExpired) as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["db_size"]=proof
+ print("HF38_DB_SIZE "+json.dumps(proof,sort_keys=True),flush=True)
+
 def acquire_sip_probe():
  if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
   return
@@ -124,6 +135,7 @@ def verify_archive_storage():
  print("HF37_ARCHIVE_STORAGE "+json.dumps(proof,sort_keys=True),flush=True)
 
 if __name__=="__main__":
+ threading.Thread(target=report_db_size,daemon=True).start()
  threading.Thread(target=verify_archive_storage,daemon=True).start()
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
