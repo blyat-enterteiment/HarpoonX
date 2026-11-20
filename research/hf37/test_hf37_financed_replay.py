@@ -23,7 +23,8 @@ def fixture():
     return sessions,receipts,quotes,intent
 class TestFinancedReplay(unittest.TestCase):
  def test_continuous_capital_abstention_and_costs(self):
-    result=replay(*fixture())
+    s,r,q,i=fixture()
+    result=replay(s,r,["AAPL"],q,i)
     self.assertEqual(result["status"],"REPLAY_MODELED_NOT_OOS_CERTIFIED")
     self.assertEqual(len(result["paths"]["CASH"]),3)
     self.assertEqual(result["paths"]["CASH"],[20000.]*3)
