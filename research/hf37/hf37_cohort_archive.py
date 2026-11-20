@@ -10,6 +10,7 @@ import tempfile
 import time
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
+from zipfile import Path as ZipPath
 
 from research.hf18.hf18_collector import collect, fetch
 from research.hf37.hf37_session_pilot import session_page_url
@@ -76,6 +77,20 @@ def verify_object(client, bucket, key, identity, scratch):
         with ZipFile(copy) as archive:
             if json.loads(archive.read("identity.json")) != identity:
                 raise ValueError("ARCHIVE_IDENTITY_MISMATCH")
+            names = archive.namelist()
+            if len(set(names)) != len(names):
+                raise ValueError("ARCHIVE_DUPLICATE_MEMBER")
+            expected = {"identity.json"}
+            for kind in KINDS:
+                folder = ZipPath(archive, f"{kind}/")
+                proof = verify(folder, identity["symbol"], kind, identity["start"],
+                               identity["end"], verify_cursor=True)
+                if json.loads((folder / "manifest.json").read_bytes())["source"] != "Alpaca SIP Market Data v2":
+                    raise ValueError("UNEXPECTED_ARCHIVE_FEED")
+                expected.add(f"{kind}/manifest.json")
+                expected.update(f"{kind}/page_{i:05d}.json" for i in range(proof["pages"]))
+            if set(names) != expected:
+                raise ValueError("ARCHIVE_MEMBER_SET_MISMATCH")
     return actual
 
 
