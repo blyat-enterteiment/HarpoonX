@@ -41,6 +41,19 @@ def acquire_boot_pilot():
  RESULT["durable_acquisition_pilot"]=proof
  print("HF37_DURABLE_PILOT "+json.dumps(proof,sort_keys=True),flush=True)
 
+def acquire_second_session_pilot():
+ if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
+  return
+ try:
+  process=subprocess.run([sys.executable,"-m","research.hf37.hf37_session_pilot",
+      "--symbol","MSFT"],capture_output=True,text=True,timeout=480,check=False)
+  proof=json.loads(process.stdout)
+  if process.returncode != 0:proof={"status":"FAILED_CLOSED","error_type":"SESSION_PROCESS_FAILED"}
+ except (OSError,ValueError,subprocess.TimeoutExpired) as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["second_session_pilot"]=proof
+ print("HF38_SECOND_SESSION "+json.dumps(proof,sort_keys=True),flush=True)
+
 def acquire_sip_probe():
  if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
   return
@@ -114,6 +127,7 @@ if __name__=="__main__":
  threading.Thread(target=verify_archive_storage,daemon=True).start()
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
+ threading.Thread(target=acquire_second_session_pilot,daemon=True).start()
  threading.Thread(target=acquire_sip_probe,daemon=True).start()
  threading.Thread(target=audit_sip_cohort,daemon=True).start()
  http.server.HTTPServer(("0.0.0.0",int(os.environ.get("PORT","10000"))),Handler).serve_forever()
