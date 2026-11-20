@@ -54,6 +54,19 @@ def acquire_second_session_pilot():
  RESULT["second_session_pilot"]=proof
  print("HF38_SECOND_SESSION "+json.dumps(proof,sort_keys=True),flush=True)
 
+def export_august_drive():
+ if not os.environ.get("HF38_GOOGLE_REFRESH_TOKEN"):
+  proof={"status":"BLOCKED_GOOGLE_OAUTH_NOT_CONFIGURED"}
+ else:
+  try:
+   from research.hf37.hf38_drive_session_export import export
+   proof={"sessions":[export(sym) for sym in ("AAPL","MSFT")]}
+   proof["status"]="DRIVE_SESSIONS_VERIFIED" if all(x["status"]=="DRIVE_ORIGINAL_SESSION_READBACK_VERIFIED" for x in proof["sessions"]) else "FAILED_CLOSED"
+  except Exception as exc:
+   proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["august_drive_archive"]=proof
+ print("HF38_DRIVE_ARCHIVE "+json.dumps(proof,sort_keys=True),flush=True)
+
 def report_db_size():
  try:
   p=subprocess.run([sys.executable,"-m","research.hf37.hf38_db_size"],
@@ -136,6 +149,7 @@ def verify_archive_storage():
 
 if __name__=="__main__":
  threading.Thread(target=report_db_size,daemon=True).start()
+ threading.Thread(target=export_august_drive,daemon=True).start()
  threading.Thread(target=verify_archive_storage,daemon=True).start()
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
  threading.Thread(target=acquire_session_pilot,daemon=True).start()
