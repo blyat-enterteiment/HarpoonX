@@ -19,9 +19,9 @@ def capture():
             root=Path(tmp)
             for symbol in SYMBOLS:
                 for kind in ("trades","quotes"):
-                    folder=root/symbol/kind
+                    folder=root/symbol/kind/(START.replace(":","")+"_"+END.replace(":",""))
                     collect(symbol,kind,START,END,str(folder),key,secret,feed="iex")
-                    summary[symbol+"_"+kind]=verify(folder,symbol,kind,START,END)
+                    summary[symbol+"_"+kind]=verify(folder,symbol,kind,START,END,verify_cursor=True)
             stream=io.BytesIO()
             with tarfile.open(fileobj=stream,mode="w:gz") as tf:
                 for p in sorted(root.rglob("*")):
