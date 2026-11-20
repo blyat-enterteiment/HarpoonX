@@ -24,8 +24,8 @@ def windows(start,end,seconds=60):
         c=min(a+dt.timedelta(seconds=seconds),b)
         yield iso(a),iso(c)
         a=c
-def verify(folder,symbol,kind,start,end):
-    folder=Path(folder)
+def verify(folder,symbol,kind,start,end,*,verify_cursor=False):
+    if isinstance(folder,(str,os.PathLike)):folder=Path(folder)
     if (folder/"INCOMPLETE_DO_NOT_USE").exists():raise ValueError("INCOMPLETE_WINDOW")
     m=json.loads((folder/"manifest.json").read_bytes())
     if (m["symbol"],m["kind"],m["start"],m["end"])!=(symbol,kind,start,end):
@@ -35,11 +35,25 @@ def verify(folder,symbol,kind,start,end):
     if len(m["page_hashes"])!=m["pages"]:raise ValueError("PAGE_COUNT")
     total=0
     prev=None
+    token=None
+    seen_tokens=set()
+    if verify_cursor and not m["pages"]:raise ValueError("EMPTY_PAGE_CHAIN")
     for i,p in enumerate(m["page_hashes"]):
         if p["page"]!=i:raise ValueError("PAGE_SEQUENCE")
         body=(folder/("page_%05d.json"%i)).read_bytes()
         if hashlib.sha256(body).hexdigest()!=p["sha256"]:raise ValueError("PAGE_SHA256")
         obj=json.loads(body)
+        if verify_cursor:
+            token_hash=hashlib.sha256(token.encode()).hexdigest() if token else None
+            if p["request_token_sha256"]!=token_hash:raise ValueError("CURSOR_HASH")
+            token=obj.get("next_page_token")
+            last=i==m["pages"]-1
+            if last:
+                if token not in (None,""):raise ValueError("CURSOR_NOT_EXHAUSTED")
+            else:
+                if not isinstance(token,str) or not token or token in seen_tokens:
+                    raise ValueError("CURSOR_CHAIN")
+                seen_tokens.add(token)
         records=obj[kind]
         if len(records)!=p["records"]:raise ValueError("PAGE_RECORD_COUNT")
         for row in records:
