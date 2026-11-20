@@ -8,7 +8,7 @@ def fixture():
        "status":"VERIFIED","manifest_sha256":"a"*64,"durable_uri":"drive://verified-id",
        "pages":1,"records":2,"window_start":s["start"],"window_end":s["end"]}
        for s in sessions for k in ("quotes","trades")]
-    quotes=[{"session":s["id"],"symbol":"AAPL",
+    quotes=[[{"session":s["id"],"symbol":"AAPL",
         "at":s["start"].replace("13:30:00","13:31:00"),
         "known_at":s["start"].replace("13:30:00","13:31:01"),
         "bid":100.,"ask":100.2,"bid_size":100,"ask_size":100},
