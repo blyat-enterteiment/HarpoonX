@@ -16,20 +16,38 @@ from research.hf37.hf37_session_pilot import session_page_url
 from research.hf37.hf37_sip_cohort_audit import COHORT, COHORT_SHA256, plan
 from research.hf37.hf37_tape import KINDS, verify, windows
 
+ORIGINAL_SHA256 = "ac9435e2e1a4c56b8f134210f9f82dffb4a070501a9588f4be07f2700b2a6f16"
 
-def frozen_batches() -> list[tuple[str, dict[str, str | int]]]:
+
+def frozen_batches(scope: str = "sector") -> list[tuple[str, dict[str, str | int]]]:
     raw = COHORT.read_bytes()
     if hashlib.sha256(raw).hexdigest() != COHORT_SHA256:
         raise ValueError("FROZEN_COHORT_MANIFEST_CHANGED")
     config = json.loads(raw)
     ids = plan(config)
+    if scope == "sector":
+        ranges = [(config["calendar"], config["sector_symbols"])]
+    elif scope == "original":
+        raw = COHORT.with_name("hf37_original_sip_extension.json").read_bytes()
+        if hashlib.sha256(raw).hexdigest() != ORIGINAL_SHA256:
+            raise ValueError("FROZEN_ORIGINAL_MANIFEST_CHANGED")
+        original = json.loads(raw)
+        ranges = [(original["training_calendar"], original["training_symbols"]),
+                  (config["calendar"], original["evaluation_supplemental_symbols"])]
+    else:
+        raise ValueError("UNSUPPORTED_ARCHIVE_SCOPE")
+
     identities = [
         {"feed": "sip", "symbol": symbol, "start": start, "end": end,
          "universe_sha256": config["sector_universe_sha256"], "format": 1}
-        for session in config["calendar"]
+        for calendar, names in ranges
+        for session in calendar
         for start, end in windows(session["start"], session["end"], config["window_seconds"])
-        for symbol in config["sector_symbols"]
+        for symbol in names
     ]
+    if scope == "original":
+        ids = [hashlib.sha256(json.dumps(i, sort_keys=True).encode()).hexdigest()
+               for i in identities]
     return list(zip(ids, identities, strict=True))
 
 
@@ -61,10 +79,11 @@ def verify_object(client, bucket, key, identity, scratch):
     return actual
 
 
-def transfer(client, bucket, batch_id, identity, request, credentials, *, verify_only):
+def transfer(client, bucket, batch_id, identity, request, credentials, *, verify_only, scope="sector"):
     from botocore.exceptions import ClientError
 
-    key = f"hf37/sip/sector/{COHORT_SHA256}/{batch_id}.zip"
+    scope_hash = COHORT_SHA256 if scope == "sector" else ORIGINAL_SHA256
+    key = f"hf37/sip/{scope}/{scope_hash}/{batch_id}.zip"
     with tempfile.TemporaryDirectory(prefix="hf37-sip-") as temp:
         root = Path(temp)
         digest = verify_object(client, bucket, key, identity, root)
@@ -108,11 +127,12 @@ def main() -> None:
     import boto3
 
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--scope", choices=("sector", "original"), default="sector")
     parser.add_argument("--offset", type=int, required=True)
     parser.add_argument("--limit", type=int, required=True)
     parser.add_argument("--verify-only", action="store_true")
     args = parser.parse_args()
-    batches = frozen_batches()
+    batches = frozen_batches(args.scope)
     if args.offset < 0 or not 1 <= args.limit <= 1000 or args.offset + args.limit > len(batches):
         parser.error("Invalid cohort shard range")
     bucket = os.environ["HF37_S3_BUCKET"]
@@ -140,7 +160,7 @@ def main() -> None:
         batch_id, identity = batches[index]
         try:
             digest = transfer(client, bucket, batch_id, identity, request, credentials,
-                              verify_only=args.verify_only)
+                              verify_only=args.verify_only, scope=args.scope)
         except Exception as exc:  # noqa: BLE001 — Sanitize provider and storage errors.
             print(json.dumps({"status": "FAILED_CLOSED", "error_type": type(exc).__name__,
                               "resume_offset": index, "provider_requests": requests}))
