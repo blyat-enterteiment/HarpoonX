@@ -128,6 +128,7 @@ def reconcile(dsn, drive, folder, batch_id, identity, request, credentials):
     import psycopg
     from psycopg.types.json import Jsonb
 
+    started = time.monotonic()
     # Keep the reservation durable across upload failures and serialize the same batch.
     with closing(psycopg.connect(dsn, autocommit=True, connect_timeout=10)) as writer:
         writer.execute("SELECT pg_advisory_lock(hashtextextended(%s, 0))", (batch_id,))
@@ -144,15 +145,19 @@ def reconcile(dsn, drive, folder, batch_id, identity, request, credentials):
         if stored_folder != folder or stored_identity != identity:
             raise ValueError("DRIVE_BATCH_IDENTITY_CONFLICT")
         digest = drive.verify(file_id, folder, batch_id, identity, stored_hash)
+        capture_ms = None
         if digest is None:
             with tempfile.TemporaryDirectory(prefix="hf38-") as directory:
                 root = Path(directory)
                 archive = root / "batch.zip"
+                capture_started = time.monotonic()
                 build_zip(archive, root, identity, request, credentials)
+                capture_ms = round((time.monotonic() - capture_started) * 1000, 1)
                 raw = archive.read_bytes()
                 expected = hashlib.sha256(raw).hexdigest()
                 drive.create(file_id, folder, batch_id, expected, raw)
                 digest = drive.verify(file_id, folder, batch_id, identity, expected)
+        commit_started = time.monotonic()
         if stored_hash is None:
             writer.execute(
                 "UPDATE hf38_drive_batch SET sha256 = %s, verified_at = now()"
@@ -163,7 +168,13 @@ def reconcile(dsn, drive, folder, batch_id, identity, request, credentials):
             reader.execute("SET TRANSACTION READ ONLY")
             if reader.execute(SELECT, (batch_id,)).fetchone() != (file_id, folder, identity, digest):
                 raise ValueError("POSTGRES_READBACK_MISMATCH")
+    timing = {"capture_zip_ms": capture_ms,
+              "postgres_finalize_ms": round((time.monotonic() - commit_started) * 1000, 1),
+              "total_ms": round((time.monotonic() - started) * 1000, 1)}
+    if hasattr(drive, "timings"):
+        timing["bridge_calls"] = drive.timings
     return {"status": "DRIVE_AND_POSTGRES_READBACK_VERIFIED", "batch_id": batch_id,
+            "latency": timing,
             "drive_file_id": file_id, "drive_folder_id": folder, "sha256": digest, **identity}
 
 
@@ -181,12 +192,18 @@ def main():
     if not re.fullmatch(r"[A-Za-z0-9_-]+", folder):
         raise ValueError("INVALID_DRIVE_FOLDER_ID")
     dsn = os.environ["HF37_DATABASE_URL"]
-    drive = Drive.from_environment()
-    folder_meta = drive.metadata(folder)
-    if (folder_meta["id"] != folder or folder_meta.get("trashed") is not False
-            or folder_meta["mimeType"] != "application/vnd.google-apps.folder"
-            or not folder_meta["capabilities"]["canAddChildren"]):
-        raise ValueError("DRIVE_FOLDER_NOT_WRITABLE")
+    if bridge_url := os.environ.get("HF38_APPS_SCRIPT_URL"):
+        if (args.offset, args.limit) != (0, 1):
+            parser.error("Apps Script transport supports only the first frozen lot")
+        from research.hf37.hf38_apps_script import AppsScriptDrive
+        drive = AppsScriptDrive(bridge_url, folder, os.environ["HF38_BRIDGE_SECRET"])
+    else:
+        drive = Drive.from_environment()
+        folder_meta = drive.metadata(folder)
+        if (folder_meta["id"] != folder or folder_meta.get("trashed") is not False
+                or folder_meta["mimeType"] != "application/vnd.google-apps.folder"
+                or not folder_meta["capabilities"]["canAddChildren"]):
+            raise ValueError("DRIVE_FOLDER_NOT_WRITABLE")
     credentials = os.environ["APCA_API_KEY_ID"], os.environ["APCA_API_SECRET_KEY"]
     with psycopg.connect(dsn, connect_timeout=10) as db:
         db.execute(DDL)
