@@ -6,7 +6,7 @@ and SHA-verified using HF37's existing collector, not a truncated Alpaca query.
 No November holdout, no orders, no invented fills or signals.
 """
 from __future__ import annotations
-import argparse,hashlib,json,os
+import argparse,hashlib,json,os,re
 from datetime import datetime,timezone
 from pathlib import Path
 from research.hf18.hf18_collector import collect
@@ -42,8 +42,19 @@ def collect_session(root,start,end,*,feed="iex",seconds=300,max_windows=2000,
    proof=verify(folder,s,k,x,y,verify_cursor=True)
    receipts.append({"symbol":s,"kind":k,"start":x,"end":y,**proof})
   except Exception as exc:
+   # Expose only an allowlisted diagnostic code, never provider URLs or secrets.
+   reason=str(exc)
+   known={"Duplicate trade identity":"DUPLICATE_TRADE_IDENTITY",
+          "Page budget exceeded":"PAGE_BUDGET",
+          "Time ordering violation":"TIME_REORDER",
+          "Record outside requested interval":"OUT_OF_WINDOW",
+          "Unexpected Alpaca payload":"PROVIDER_PAYLOAD",
+          "Invalid or repeated continuation token":"PAGINATION_CURSOR",
+          "INCOMPLETE_WINDOW":"INCOMPLETE_PRIOR_BATCH",
+          "INCOMPLETE_DO_NOT_USE":"INCOMPLETE_PRIOR_BATCH"}
+   code=next((v for key,v in known.items() if key in reason),"UNCLASSIFIED_PROVIDER_OR_INTEGRITY_ERROR")
    failed.append({"symbol":s,"kind":k,"start":x,"end":y,
-                  "error_type":type(exc).__name__})
+                  "error_type":type(exc).__name__,"reason_code":code})
  manifest={"status":"FULL_SESSION_PAGINATION_VERIFIED" if not failed and
    len(receipts)==len(tasks) else "NO_GO_INCOMPLETE_ACQUISITION",
    "feed":feed,"start":start,"end":end,"required":len(tasks),
