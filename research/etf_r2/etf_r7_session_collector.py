@@ -14,7 +14,7 @@ from research.hf37.hf37_tape import verify,windows
 from research.etf_r1.etf_r1 import BASKET
 from research.etf_r2.etf_r6_common_tape_stress import compare
 KINDS=("quotes","trades")
-def collect_session(root,start,end,*,feed="iex",seconds=60,max_windows=1000,
+def collect_session(root,start,end,*,feed="iex",seconds=300,max_windows=2000,
                     request=None):
  if feed not in ("iex","sip"):raise ValueError("INVALID_FEED")
  a=datetime.fromisoformat(start.replace("Z","+00:00"))
@@ -74,8 +74,8 @@ def main():
  p=argparse.ArgumentParser()
  p.add_argument("--root",required=True);p.add_argument("--start",required=True)
  p.add_argument("--end",required=True);p.add_argument("--feed",choices=("iex","sip"),default="iex")
- p.add_argument("--seconds",type=int,default=60)
- p.add_argument("--max-windows",type=int,default=1000)
+ p.add_argument("--seconds",type=int,default=300)
+ p.add_argument("--max-windows",type=int,default=2000)
  a=p.parse_args()
  try:
   r=collect_session(a.root,a.start,a.end,feed=a.feed,
