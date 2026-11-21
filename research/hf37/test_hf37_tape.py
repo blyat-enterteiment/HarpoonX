@@ -4,6 +4,7 @@ from research.hf37.test_hf37_portfolio_mnp import TestHF37PortfolioMNP
 from research.hf37.test_hf37_financed_replay import TestFinancedReplay
 from research.hf37.test_hf37_archive_integrity import TestHF37ArchiveIntegrity
 from research.hf37.test_hf38_storage_budget import TestHF38StorageBudget
+from research.hf37.test_hf38_drive_session_export import TestHF38DriveSessionExport
 from pathlib import Path
 from unittest.mock import patch
 from research.hf37.hf37_tape import windows,verify,acquire,symbols
