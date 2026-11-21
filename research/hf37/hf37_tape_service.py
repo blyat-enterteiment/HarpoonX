@@ -158,7 +158,11 @@ def acquire_etf_r7_boot():
    "2026-09-15T13:30:00Z","2026-09-15T13:31:00Z",
    feed="iex",seconds=60,max_windows=18)
   proof={k:v for k,v in proof.items() if k!="receipts"}
-  proof["status"]="ONE_MINUTE_SMOKE_ONLY" if proof["status"]=="FULL_SESSION_PAGINATION_VERIFIED" else proof["status"]
+  if proof["status"]=="FULL_SESSION_PAGINATION_VERIFIED":
+   from research.etf_r2.etf_r7_postgres_readback import persist
+   archive=persist("/tmp/etf-r7-iex-20260915")
+   proof["archive_readback"]=archive
+   proof["status"]="ONE_MINUTE_SMOKE_AND_POSTGRES_READBACK_VERIFIED" if archive["status"]=="POSTGRES_COMMITTED_AND_READBACK_VERIFIED" else "NO_GO_ARCHIVE"
  except Exception as exc:
   proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
  RESULT["etf_r7_smoke"]=proof
