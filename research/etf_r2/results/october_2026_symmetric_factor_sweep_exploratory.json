@@ -1,0 +1,2363 @@
+{
+  "period": "2026-10",
+  "status": "EXPLORATORY_DAILY_OHLC_FIXED_STOP_NOT_TRUE_TRAILING",
+  "source": "Alpaca IEX daily OHLC",
+  "capital": 20000,
+  "fees_bps_per_side": 7,
+  "stop_pct": 2,
+  "disclaimer": "Stop fills at exact stop on OHLC low breach; no intraday causality or quotes; optimistic and not OOS",
+  "policies": {
+    "CASH": {
+      "wealth": 20000,
+      "pnl": 0,
+      "return_pct": 0,
+      "attempts": 0,
+      "wins": 0,
+      "stops": 0,
+      "abstain": 22,
+      "daily": [
+        {
+          "day": "2026-10-01",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-02",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-05",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-06",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-07",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-08",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-09",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-12",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-13",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-14",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-15",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-16",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-19",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-20",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-21",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-22",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-23",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-26",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-27",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-28",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-29",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-30",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        }
+      ]
+    },
+    "OPEN": {
+      "wealth": 20039.54309841002,
+      "pnl": 39.54309841002032,
+      "return_pct": 0.19771549205009897,
+      "attempts": 21,
+      "wins": 9,
+      "stops": 7,
+      "abstain": 1,
+      "daily": [
+        {
+          "day": "2026-10-01",
+          "symbol": "TMF",
+          "pnl": 143.15114749999987,
+          "wealth": 20143.1511475,
+          "hit": false
+        },
+        {
+          "day": "2026-10-02",
+          "symbol": "HIBS",
+          "pnl": 21.601422000000394,
+          "wealth": 20164.7525695,
+          "hit": false
+        },
+        {
+          "day": "2026-10-05",
+          "symbol": "HIBS",
+          "pnl": -92.25462000000005,
+          "wealth": 20072.4979495,
+          "hit": false
+        },
+        {
+          "day": "2026-10-06",
+          "symbol": "SQQQ",
+          "pnl": 10.285855000000208,
+          "wealth": 20082.783804500003,
+          "hit": false
+        },
+        {
+          "day": "2026-10-07",
+          "symbol": "SPXS",
+          "pnl": -32.41183200000049,
+          "wealth": 20050.3719725,
+          "hit": false
+        },
+        {
+          "day": "2026-10-08",
+          "symbol": "HIBL",
+          "pnl": -105.53306647999999,
+          "wealth": 19944.838906020002,
+          "hit": true
+        },
+        {
+          "day": "2026-10-09",
+          "state": "ABSTAIN_NO_LIQUIDITY",
+          "wealth": 19944.838906020002
+        },
+        {
+          "day": "2026-10-12",
+          "symbol": "SPXS",
+          "pnl": 6.8783025000008635,
+          "wealth": 19951.717208520004,
+          "hit": false
+        },
+        {
+          "day": "2026-10-13",
+          "symbol": "TQQQ",
+          "pnl": 72.67977600000086,
+          "wealth": 20024.396984520004,
+          "hit": false
+        },
+        {
+          "day": "2026-10-14",
+          "symbol": "HIBL",
+          "pnl": -105.67688732999979,
+          "wealth": 19918.720097190006,
+          "hit": true
+        },
+        {
+          "day": "2026-10-15",
+          "symbol": "HIBL",
+          "pnl": 321.8229300000008,
+          "wealth": 20240.543027190008,
+          "hit": false
+        },
+        {
+          "day": "2026-10-16",
+          "symbol": "TMV",
+          "pnl": -106.6844887199994,
+          "wealth": 20133.85853847001,
+          "hit": true
+        },
+        {
+          "day": "2026-10-19",
+          "symbol": "HIBL",
+          "pnl": 61.276929999999936,
+          "wealth": 20195.13546847001,
+          "hit": false
+        },
+        {
+          "day": "2026-10-20",
+          "symbol": "SQQQ",
+          "pnl": -106.54355498000027,
+          "wealth": 20088.59191349001,
+          "hit": true
+        },
+        {
+          "day": "2026-10-21",
+          "symbol": "TMV",
+          "pnl": -1.4738899999991872,
+          "wealth": 20087.118023490013,
+          "hit": false
+        },
+        {
+          "day": "2026-10-22",
+          "symbol": "HIBS",
+          "pnl": 241.67814300000032,
+          "wealth": 20328.796166490014,
+          "hit": false
+        },
+        {
+          "day": "2026-10-23",
+          "symbol": "HIBL",
+          "pnl": -29.348928000000342,
+          "wealth": 20299.447238490015,
+          "hit": false
+        },
+        {
+          "day": "2026-10-26",
+          "symbol": "HIBL",
+          "pnl": 132.67994100000035,
+          "wealth": 20432.127179490017,
+          "hit": false
+        },
+        {
+          "day": "2026-10-27",
+          "symbol": "HIBS",
+          "pnl": -106.8872280000005,
+          "wealth": 20325.239951490017,
+          "hit": true
+        },
+        {
+          "day": "2026-10-28",
+          "symbol": "HIBS",
+          "pnl": -72.1944269999996,
+          "wealth": 20253.04552449002,
+          "hit": false
+        },
+        {
+          "day": "2026-10-29",
+          "symbol": "HIBS",
+          "pnl": -106.87696271999877,
+          "wealth": 20146.16856177002,
+          "hit": true
+        },
+        {
+          "day": "2026-10-30",
+          "symbol": "TQQQ",
+          "pnl": -106.62546335999973,
+          "wealth": 20039.54309841002,
+          "hit": true
+        }
+      ]
+    },
+    "MACD": {
+      "wealth": 19809.731467780002,
+      "pnl": -190.26853221999772,
+      "return_pct": -0.9513426610999853,
+      "attempts": 3,
+      "wins": 1,
+      "stops": 2,
+      "abstain": 19,
+      "daily": [
+        {
+          "day": "2026-10-01",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "day": "2026-10-02",
+          "symbol": "HIBS",
+          "pnl": 21.53349300000039,
+          "wealth": 20021.533493,
+          "hit": false
+        },
+        {
+          "day": "2026-10-05",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-06",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-07",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-08",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-09",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-12",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-13",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-14",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-15",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-16",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-19",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "day": "2026-10-20",
+          "symbol": "SQQQ",
+          "pnl": -106.54355498000027,
+          "wealth": 19914.98993802,
+          "hit": true
+        },
+        {
+          "day": "2026-10-21",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-22",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-23",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-26",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-27",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-28",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-29",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "day": "2026-10-30",
+          "symbol": "TQQQ",
+          "pnl": -105.25847023999972,
+          "wealth": 19809.731467780002,
+          "hit": true
+        }
+      ]
+    },
+    "CRP": {
+      "wealth": 20174.419928840005,
+      "pnl": 174.419928840005,
+      "return_pct": 0.8720996442000306,
+      "attempts": 22,
+      "wins": 11,
+      "stops": 5,
+      "abstain": 0,
+      "daily": [
+        {
+          "day": "2026-10-01",
+          "symbol": "TMV",
+          "pnl": -106.20608390000001,
+          "wealth": 19893.7939161,
+          "hit": true
+        },
+        {
+          "day": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 19905.1915266,
+          "hit": false
+        },
+        {
+          "day": "2026-10-05",
+          "symbol": "TMV",
+          "pnl": -5.9388249999993405,
+          "wealth": 19899.2527016,
+          "hit": false
+        },
+        {
+          "day": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 19912.5603656,
+          "hit": false
+        },
+        {
+          "day": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.34252200000066,
+          "wealth": 20044.902887599997,
+          "hit": false
+        },
+        {
+          "day": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20068.786115599996,
+          "hit": false
+        },
+        {
+          "day": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20108.318465599998,
+          "hit": false
+        },
+        {
+          "day": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20090.6069616,
+          "hit": false
+        },
+        {
+          "day": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20010.2611536,
+          "hit": false
+        },
+        {
+          "day": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20335.7827786,
+          "hit": false
+        },
+        {
+          "day": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20228.99734796,
+          "hit": true
+        },
+        {
+          "day": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20286.77662796,
+          "hit": false
+        },
+        {
+          "day": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20180.6259338,
+          "hit": true
+        },
+        {
+          "day": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20168.225766800002,
+          "hit": false
+        },
+        {
+          "day": "2026-10-21",
+          "symbol": "HIBS",
+          "pnl": -22.392923999999198,
+          "wealth": 20145.832842800002,
+          "hit": false
+        },
+        {
+          "day": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20039.387021840004,
+          "hit": true
+        },
+        {
+          "day": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 19932.836623340005,
+          "hit": true
+        },
+        {
+          "day": "2026-10-26",
+          "symbol": "TQQQ",
+          "pnl": 94.36576200000059,
+          "wealth": 20027.202385340006,
+          "hit": false
+        },
+        {
+          "day": "2026-10-27",
+          "symbol": "TQQQ",
+          "pnl": 113.88484800000083,
+          "wealth": 20141.087233340008,
+          "hit": false
+        },
+        {
+          "day": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20164.137131840005,
+          "hit": false
+        },
+        {
+          "day": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20181.326296840005,
+          "hit": false
+        },
+        {
+          "day": "2026-10-30",
+          "symbol": "HIBL",
+          "pnl": -6.9063679999999295,
+          "wealth": 20174.419928840005,
+          "hit": false
+        }
+      ]
+    }
+  },
+  "iterations": [
+    {
+      "config": {
+        "name": "V0",
+        "fast": 12,
+        "slow": 26,
+        "signal": 9,
+        "macdThreshold": 0,
+        "crpThreshold": 0.15,
+        "rvolMin": 0,
+        "allocation": 0.25
+      },
+      "MACD": {
+        "wealth": 19809.731467780002,
+        "pnl": -190.26853221999772,
+        "return_pct": -0.9513426610999853,
+        "attempts": 3,
+        "wins": 1,
+        "stops": 2,
+        "abstain": 19,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBS",
+            "pnl": 21.53349300000039,
+            "wealth": 20021.533493,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-15",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-16",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-19",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "SQQQ",
+            "pnl": -106.54355498000027,
+            "wealth": 19914.98993802,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-23",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-29",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "TQQQ",
+            "pnl": -105.25847023999972,
+            "wealth": 19809.731467780002,
+            "hit": true
+          }
+        ]
+      },
+      "CRP": {
+        "wealth": 20174.419928840005,
+        "pnl": 174.419928840005,
+        "return_pct": 0.8720996442000306,
+        "attempts": 22,
+        "wins": 11,
+        "stops": 5,
+        "abstain": 0,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "symbol": "TMV",
+            "pnl": -106.20608390000001,
+            "wealth": 19893.7939161,
+            "hit": true
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBL",
+            "pnl": 11.397610500000638,
+            "wealth": 19905.1915266,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "symbol": "TMV",
+            "pnl": -5.9388249999993405,
+            "wealth": 19899.2527016,
+            "hit": false
+          },
+          {
+            "day": "2026-10-06",
+            "symbol": "SPXL",
+            "pnl": 13.307663999999932,
+            "wealth": 19912.5603656,
+            "hit": false
+          },
+          {
+            "day": "2026-10-07",
+            "symbol": "TMF",
+            "pnl": 132.34252200000066,
+            "wealth": 20044.902887599997,
+            "hit": false
+          },
+          {
+            "day": "2026-10-08",
+            "symbol": "HIBS",
+            "pnl": 23.883227999998876,
+            "wealth": 20068.786115599996,
+            "hit": false
+          },
+          {
+            "day": "2026-10-09",
+            "symbol": "TMF",
+            "pnl": 39.53235000000005,
+            "wealth": 20108.318465599998,
+            "hit": false
+          },
+          {
+            "day": "2026-10-12",
+            "symbol": "SPXL",
+            "pnl": -17.711503999998968,
+            "wealth": 20090.6069616,
+            "hit": false
+          },
+          {
+            "day": "2026-10-13",
+            "symbol": "SQQQ",
+            "pnl": -80.34580799999924,
+            "wealth": 20010.2611536,
+            "hit": false
+          },
+          {
+            "day": "2026-10-14",
+            "symbol": "HIBS",
+            "pnl": 325.52162499999986,
+            "wealth": 20335.7827786,
+            "hit": false
+          },
+          {
+            "day": "2026-10-15",
+            "symbol": "HIBS",
+            "pnl": -106.78543063999899,
+            "wealth": 20228.99734796,
+            "hit": true
+          },
+          {
+            "day": "2026-10-16",
+            "symbol": "TMF",
+            "pnl": 57.77928000000017,
+            "wealth": 20286.77662796,
+            "hit": false
+          },
+          {
+            "day": "2026-10-19",
+            "symbol": "SQQQ",
+            "pnl": -106.1506941599999,
+            "wealth": 20180.6259338,
+            "hit": true
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "TMV",
+            "pnl": -12.400166999999087,
+            "wealth": 20168.225766800002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "HIBS",
+            "pnl": -22.392923999999198,
+            "wealth": 20145.832842800002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "symbol": "TQQQ",
+            "pnl": -106.44582095999908,
+            "wealth": 20039.387021840004,
+            "hit": true
+          },
+          {
+            "day": "2026-10-23",
+            "symbol": "HIBS",
+            "pnl": -106.55039850000037,
+            "wealth": 19932.836623340005,
+            "hit": true
+          },
+          {
+            "day": "2026-10-26",
+            "symbol": "TQQQ",
+            "pnl": 94.36576200000059,
+            "wealth": 20027.202385340006,
+            "hit": false
+          },
+          {
+            "day": "2026-10-27",
+            "symbol": "TQQQ",
+            "pnl": 113.88484800000083,
+            "wealth": 20141.087233340008,
+            "hit": false
+          },
+          {
+            "day": "2026-10-28",
+            "symbol": "TQQQ",
+            "pnl": 23.049898499999202,
+            "wealth": 20164.137131840005,
+            "hit": false
+          },
+          {
+            "day": "2026-10-29",
+            "symbol": "TMV",
+            "pnl": 17.189165000000628,
+            "wealth": 20181.326296840005,
+            "hit": false
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "HIBL",
+            "pnl": -6.9063679999999295,
+            "wealth": 20174.419928840005,
+            "hit": false
+          }
+        ]
+      }
+    },
+    {
+      "config": {
+        "name": "V1_MACD_FAST",
+        "fast": 8,
+        "slow": 21,
+        "signal": 5,
+        "macdThreshold": 0,
+        "crpThreshold": 0.15,
+        "rvolMin": 0,
+        "allocation": 0.25
+      },
+      "MACD": {
+        "wealth": 20141.677257500003,
+        "pnl": 141.67725750000318,
+        "return_pct": 0.7083862875000069,
+        "attempts": 2,
+        "wins": 1,
+        "stops": 0,
+        "abstain": 20,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "symbol": "TMF",
+            "pnl": 143.15114749999987,
+            "wealth": 20143.1511475,
+            "hit": false
+          },
+          {
+            "day": "2026-10-02",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-05",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-15",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-16",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-19",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-20",
+            "state": "ABSTAIN",
+            "wealth": 20143.1511475
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "TMV",
+            "pnl": -1.4738899999991872,
+            "wealth": 20141.677257500003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          },
+          {
+            "day": "2026-10-23",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          },
+          {
+            "day": "2026-10-29",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          },
+          {
+            "day": "2026-10-30",
+            "state": "ABSTAIN",
+            "wealth": 20141.677257500003
+          }
+        ]
+      },
+      "CRP": {
+        "wealth": 20492.444091240013,
+        "pnl": 492.4440912400132,
+        "return_pct": 2.4622204562000594,
+        "attempts": 22,
+        "wins": 13,
+        "stops": 4,
+        "abstain": 0,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "symbol": "SPXS",
+            "pnl": -1.919872499999979,
+            "wealth": 19998.0801275,
+            "hit": false
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBL",
+            "pnl": 11.397610500000638,
+            "wealth": 20009.477738,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "symbol": "SPXL",
+            "pnl": 89.78480299999973,
+            "wealth": 20099.262541,
+            "hit": false
+          },
+          {
+            "day": "2026-10-06",
+            "symbol": "SPXL",
+            "pnl": 13.307663999999932,
+            "wealth": 20112.570205,
+            "hit": false
+          },
+          {
+            "day": "2026-10-07",
+            "symbol": "TMF",
+            "pnl": 132.99768300000065,
+            "wealth": 20245.567888,
+            "hit": false
+          },
+          {
+            "day": "2026-10-08",
+            "symbol": "HIBS",
+            "pnl": 23.883227999998876,
+            "wealth": 20269.451116,
+            "hit": false
+          },
+          {
+            "day": "2026-10-09",
+            "symbol": "TMF",
+            "pnl": 39.53235000000005,
+            "wealth": 20308.983466,
+            "hit": false
+          },
+          {
+            "day": "2026-10-12",
+            "symbol": "SPXL",
+            "pnl": -17.711503999998968,
+            "wealth": 20291.271962000003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-13",
+            "symbol": "SQQQ",
+            "pnl": -80.34580799999924,
+            "wealth": 20210.926154000004,
+            "hit": false
+          },
+          {
+            "day": "2026-10-14",
+            "symbol": "HIBS",
+            "pnl": 325.52162499999986,
+            "wealth": 20536.447779000006,
+            "hit": false
+          },
+          {
+            "day": "2026-10-15",
+            "symbol": "HIBS",
+            "pnl": -106.78543063999899,
+            "wealth": 20429.662348360005,
+            "hit": true
+          },
+          {
+            "day": "2026-10-16",
+            "symbol": "TMF",
+            "pnl": 57.77928000000017,
+            "wealth": 20487.441628360004,
+            "hit": false
+          },
+          {
+            "day": "2026-10-19",
+            "symbol": "SQQQ",
+            "pnl": -106.1506941599999,
+            "wealth": 20381.290934200006,
+            "hit": true
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "TMV",
+            "pnl": -12.400166999999087,
+            "wealth": 20368.890767200006,
+            "hit": false
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "HIBL",
+            "pnl": 137.10951000000043,
+            "wealth": 20506.000277200008,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "symbol": "TQQQ",
+            "pnl": -106.44582095999908,
+            "wealth": 20399.55445624001,
+            "hit": true
+          },
+          {
+            "day": "2026-10-23",
+            "symbol": "HIBS",
+            "pnl": -106.55039850000037,
+            "wealth": 20293.00405774001,
+            "hit": true
+          },
+          {
+            "day": "2026-10-26",
+            "symbol": "TMV",
+            "pnl": -2.900869999999287,
+            "wealth": 20290.103187740013,
+            "hit": false
+          },
+          {
+            "day": "2026-10-27",
+            "symbol": "SPXL",
+            "pnl": 41.66545300000138,
+            "wealth": 20331.768640740014,
+            "hit": false
+          },
+          {
+            "day": "2026-10-28",
+            "symbol": "TQQQ",
+            "pnl": 23.049898499999202,
+            "wealth": 20354.818539240012,
+            "hit": false
+          },
+          {
+            "day": "2026-10-29",
+            "symbol": "TMV",
+            "pnl": 17.189165000000628,
+            "wealth": 20372.00770424001,
+            "hit": false
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "SQQQ",
+            "pnl": 120.43638700000005,
+            "wealth": 20492.444091240013,
+            "hit": false
+          }
+        ]
+      }
+    },
+    {
+      "config": {
+        "name": "V2_MACD_SLOW",
+        "fast": 16,
+        "slow": 32,
+        "signal": 12,
+        "macdThreshold": 0,
+        "crpThreshold": 0.15,
+        "rvolMin": 0,
+        "allocation": 0.25
+      },
+      "MACD": {
+        "wealth": 19788.197974780003,
+        "pnl": -211.80202521999672,
+        "return_pct": -1.0590101260999796,
+        "attempts": 2,
+        "wins": 0,
+        "stops": 2,
+        "abstain": 20,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-02",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-05",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-15",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-16",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-19",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "SQQQ",
+            "pnl": -106.54355498000027,
+            "wealth": 19893.45644502,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-23",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-29",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "TQQQ",
+            "pnl": -105.25847023999972,
+            "wealth": 19788.197974780003,
+            "hit": true
+          }
+        ]
+      },
+      "CRP": {
+        "wealth": 19732.889769139998,
+        "pnl": -267.11023086000205,
+        "return_pct": -1.3355511543000076,
+        "attempts": 21,
+        "wins": 9,
+        "stops": 6,
+        "abstain": 1,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "symbol": "TMV",
+            "pnl": -106.20608390000001,
+            "wealth": 19893.7939161,
+            "hit": true
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBL",
+            "pnl": 11.397610500000638,
+            "wealth": 19905.1915266,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "symbol": "TMV",
+            "pnl": -5.9388249999993405,
+            "wealth": 19899.2527016,
+            "hit": false
+          },
+          {
+            "day": "2026-10-06",
+            "symbol": "SPXL",
+            "pnl": 13.307663999999932,
+            "wealth": 19912.5603656,
+            "hit": false
+          },
+          {
+            "day": "2026-10-07",
+            "symbol": "TMF",
+            "pnl": 132.34252200000066,
+            "wealth": 20044.902887599997,
+            "hit": false
+          },
+          {
+            "day": "2026-10-08",
+            "symbol": "HIBS",
+            "pnl": 23.883227999998876,
+            "wealth": 20068.786115599996,
+            "hit": false
+          },
+          {
+            "day": "2026-10-09",
+            "symbol": "TMF",
+            "pnl": 39.53235000000005,
+            "wealth": 20108.318465599998,
+            "hit": false
+          },
+          {
+            "day": "2026-10-12",
+            "symbol": "SPXL",
+            "pnl": -17.711503999998968,
+            "wealth": 20090.6069616,
+            "hit": false
+          },
+          {
+            "day": "2026-10-13",
+            "symbol": "SQQQ",
+            "pnl": -80.34580799999924,
+            "wealth": 20010.2611536,
+            "hit": false
+          },
+          {
+            "day": "2026-10-14",
+            "symbol": "TMF",
+            "pnl": 194.56320350000004,
+            "wealth": 20204.824357100002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-15",
+            "symbol": "HIBS",
+            "pnl": -106.78543063999899,
+            "wealth": 20098.03892646,
+            "hit": true
+          },
+          {
+            "day": "2026-10-16",
+            "symbol": "TMF",
+            "pnl": 57.77928000000017,
+            "wealth": 20155.81820646,
+            "hit": false
+          },
+          {
+            "day": "2026-10-19",
+            "symbol": "SQQQ",
+            "pnl": -106.1506941599999,
+            "wealth": 20049.667512300002,
+            "hit": true
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "HIBS",
+            "pnl": -106.64214443999964,
+            "wealth": 19943.025367860002,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "HIBS",
+            "pnl": -22.3057919999992,
+            "wealth": 19920.719575860003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "symbol": "HIBL",
+            "pnl": -105.8825137200002,
+            "wealth": 19814.837062140003,
+            "hit": true
+          },
+          {
+            "day": "2026-10-23",
+            "symbol": "HIBS",
+            "pnl": -105.57733550000036,
+            "wealth": 19709.25972664,
+            "hit": true
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19709.25972664
+          },
+          {
+            "day": "2026-10-27",
+            "symbol": "TMF",
+            "pnl": -9.327037499999644,
+            "wealth": 19699.93268914,
+            "hit": false
+          },
+          {
+            "day": "2026-10-28",
+            "symbol": "TQQQ",
+            "pnl": 22.715841999999213,
+            "wealth": 19722.64853114,
+            "hit": false
+          },
+          {
+            "day": "2026-10-29",
+            "symbol": "TMV",
+            "pnl": 17.039694000000623,
+            "wealth": 19739.68822514,
+            "hit": false
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "HIBL",
+            "pnl": -6.7984559999999306,
+            "wealth": 19732.889769139998,
+            "hit": false
+          }
+        ]
+      }
+    },
+    {
+      "config": {
+        "name": "V3_CRP_SELECTIVE",
+        "fast": 12,
+        "slow": 26,
+        "signal": 9,
+        "macdThreshold": 0.2,
+        "crpThreshold": 0.3,
+        "rvolMin": 1,
+        "allocation": 0.25
+      },
+      "MACD": {
+        "wealth": 19788.197974780003,
+        "pnl": -211.80202521999672,
+        "return_pct": -1.0590101260999796,
+        "attempts": 2,
+        "wins": 0,
+        "stops": 2,
+        "abstain": 20,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-02",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-05",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-15",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-16",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-19",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "SQQQ",
+            "pnl": -106.54355498000027,
+            "wealth": 19893.45644502,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-23",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-29",
+            "state": "ABSTAIN",
+            "wealth": 19893.45644502
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "TQQQ",
+            "pnl": -105.25847023999972,
+            "wealth": 19788.197974780003,
+            "hit": true
+          }
+        ]
+      },
+      "CRP": {
+        "wealth": 19665.34709342001,
+        "pnl": -334.6529065799914,
+        "return_pct": -1.673264532899954,
+        "attempts": 12,
+        "wins": 4,
+        "stops": 4,
+        "abstain": 10,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "symbol": "SPXS",
+            "pnl": -1.919872499999979,
+            "wealth": 19998.0801275,
+            "hit": false
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBL",
+            "pnl": 11.397610500000638,
+            "wealth": 20009.477738,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "symbol": "TMV",
+            "pnl": -6.000049999999334,
+            "wealth": 20003.477688000003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20003.477688000003
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20003.477688000003
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20003.477688000003
+          },
+          {
+            "day": "2026-10-09",
+            "symbol": "TMF",
+            "pnl": 39.53235000000005,
+            "wealth": 20043.010038000004,
+            "hit": false
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20043.010038000004
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20043.010038000004
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20043.010038000004
+          },
+          {
+            "day": "2026-10-15",
+            "symbol": "HIBS",
+            "pnl": -106.78543063999899,
+            "wealth": 19936.224607360004,
+            "hit": true
+          },
+          {
+            "day": "2026-10-16",
+            "symbol": "TMF",
+            "pnl": 57.45828400000017,
+            "wealth": 19993.682891360004,
+            "hit": false
+          },
+          {
+            "day": "2026-10-19",
+            "symbol": "SQQQ",
+            "pnl": -106.1506941599999,
+            "wealth": 19887.532197200006,
+            "hit": true
+          },
+          {
+            "day": "2026-10-20",
+            "state": "ABSTAIN",
+            "wealth": 19887.532197200006
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "HIBS",
+            "pnl": -22.218659999999204,
+            "wealth": 19865.313537200007,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "symbol": "TQQQ",
+            "pnl": -104.9674067799991,
+            "wealth": 19760.346130420006,
+            "hit": true
+          },
+          {
+            "day": "2026-10-23",
+            "symbol": "HIBS",
+            "pnl": -105.09080400000036,
+            "wealth": 19655.255326420007,
+            "hit": true
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19655.255326420007
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN_NO_LIQUIDITY",
+            "wealth": 19655.255326420007
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 19655.255326420007
+          },
+          {
+            "day": "2026-10-29",
+            "symbol": "TMV",
+            "pnl": 16.890223000000617,
+            "wealth": 19672.14554942001,
+            "hit": false
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "HIBL",
+            "pnl": -6.7984559999999306,
+            "wealth": 19665.34709342001,
+            "hit": false
+          }
+        ]
+      }
+    },
+    {
+      "config": {
+        "name": "V4_ACTIVITY",
+        "fast": 12,
+        "slow": 26,
+        "signal": 9,
+        "macdThreshold": 0,
+        "crpThreshold": 0.15,
+        "rvolMin": 1.5,
+        "allocation": 0.25
+      },
+      "MACD": {
+        "wealth": 19809.731467780002,
+        "pnl": -190.26853221999772,
+        "return_pct": -0.9513426610999853,
+        "attempts": 3,
+        "wins": 1,
+        "stops": 2,
+        "abstain": 19,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBS",
+            "pnl": 21.53349300000039,
+            "wealth": 20021.533493,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-15",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-16",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-19",
+            "state": "ABSTAIN",
+            "wealth": 20021.533493
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "SQQQ",
+            "pnl": -106.54355498000027,
+            "wealth": 19914.98993802,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-23",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-29",
+            "state": "ABSTAIN",
+            "wealth": 19914.98993802
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "TQQQ",
+            "pnl": -105.25847023999972,
+            "wealth": 19809.731467780002,
+            "hit": true
+          }
+        ]
+      },
+      "CRP": {
+        "wealth": 19619.464417850006,
+        "pnl": -380.5355821499943,
+        "return_pct": -1.9026779107499725,
+        "attempts": 11,
+        "wins": 3,
+        "stops": 5,
+        "abstain": 11,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "TMF",
+            "pnl": -106.36626503999953,
+            "wealth": 19893.63373496,
+            "hit": true
+          },
+          {
+            "day": "2026-10-05",
+            "symbol": "TMV",
+            "pnl": -5.9388249999993405,
+            "wealth": 19887.69490996,
+            "hit": false
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 19887.69490996
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 19887.69490996
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 19887.69490996
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 19887.69490996
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 19887.69490996
+          },
+          {
+            "day": "2026-10-13",
+            "symbol": "SPXS",
+            "pnl": -19.59008399999989,
+            "wealth": 19868.10482596,
+            "hit": false
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 19868.10482596
+          },
+          {
+            "day": "2026-10-15",
+            "symbol": "HIBS",
+            "pnl": -105.888074079999,
+            "wealth": 19762.21675188,
+            "hit": true
+          },
+          {
+            "day": "2026-10-16",
+            "symbol": "TMF",
+            "pnl": 57.13728800000017,
+            "wealth": 19819.354039880003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-19",
+            "symbol": "TMF",
+            "pnl": -105.74297007000014,
+            "wealth": 19713.611069810002,
+            "hit": true
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "HIBS",
+            "pnl": -105.27493745999963,
+            "wealth": 19608.336132350003,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "HIBS",
+            "pnl": -21.957263999999213,
+            "wealth": 19586.378868350002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 19586.378868350002
+          },
+          {
+            "day": "2026-10-23",
+            "symbol": "HIBS",
+            "pnl": -104.60427250000036,
+            "wealth": 19481.77459585,
+            "hit": true
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19481.77459585
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN_NO_LIQUIDITY",
+            "wealth": 19481.77459585
+          },
+          {
+            "day": "2026-10-28",
+            "symbol": "TMV",
+            "pnl": 120.79959900000016,
+            "wealth": 19602.574194850004,
+            "hit": false
+          },
+          {
+            "day": "2026-10-29",
+            "symbol": "TMV",
+            "pnl": 16.890223000000617,
+            "wealth": 19619.464417850006,
+            "hit": false
+          },
+          {
+            "day": "2026-10-30",
+            "state": "ABSTAIN",
+            "wealth": 19619.464417850006
+          }
+        ]
+      }
+    },
+    {
+      "config": {
+        "name": "V5_CAPITAL",
+        "fast": 12,
+        "slow": 26,
+        "signal": 9,
+        "macdThreshold": 0,
+        "crpThreshold": 0.15,
+        "rvolMin": 0,
+        "allocation": 0.1
+      },
+      "MACD": {
+        "wealth": 19923.95809812,
+        "pnl": -76.04190187999848,
+        "return_pct": -0.3802095093999869,
+        "attempts": 3,
+        "wins": 1,
+        "stops": 2,
+        "abstain": 19,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "state": "ABSTAIN",
+            "wealth": 20000
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBS",
+            "pnl": 8.626983000000157,
+            "wealth": 20008.626983000002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-06",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-07",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-08",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-09",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-12",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-13",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-14",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-15",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-16",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-19",
+            "state": "ABSTAIN",
+            "wealth": 20008.626983000002
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "SQQQ",
+            "pnl": -42.29209816000011,
+            "wealth": 19966.334884840002,
+            "hit": true
+          },
+          {
+            "day": "2026-10-21",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-22",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-23",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-26",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-27",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-28",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-29",
+            "state": "ABSTAIN",
+            "wealth": 19966.334884840002
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "TQQQ",
+            "pnl": -42.37678671999989,
+            "wealth": 19923.95809812,
+            "hit": true
+          }
+        ]
+      },
+      "CRP": {
+        "wealth": 20069.09754835001,
+        "pnl": 69.0975483500115,
+        "return_pct": 0.34548774175005015,
+        "attempts": 22,
+        "wins": 11,
+        "stops": 5,
+        "abstain": 0,
+        "daily": [
+          {
+            "day": "2026-10-01",
+            "symbol": "TMV",
+            "pnl": -42.265686450000004,
+            "wealth": 19957.73431355,
+            "hit": true
+          },
+          {
+            "day": "2026-10-02",
+            "symbol": "HIBL",
+            "pnl": 4.447848000000249,
+            "wealth": 19962.18216155,
+            "hit": false
+          },
+          {
+            "day": "2026-10-05",
+            "symbol": "TMV",
+            "pnl": -2.387774999999735,
+            "wealth": 19959.794386550002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-06",
+            "symbol": "SPXL",
+            "pnl": 4.990373999999974,
+            "wealth": 19964.784760550003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-07",
+            "symbol": "TMF",
+            "pnl": 53.068041000000264,
+            "wealth": 20017.85280155,
+            "hit": false
+          },
+          {
+            "day": "2026-10-08",
+            "symbol": "HIBS",
+            "pnl": 9.506915999999553,
+            "wealth": 20027.35971755,
+            "hit": false
+          },
+          {
+            "day": "2026-10-09",
+            "symbol": "TMF",
+            "pnl": 15.69067500000002,
+            "wealth": 20043.05039255,
+            "hit": false
+          },
+          {
+            "day": "2026-10-12",
+            "symbol": "SPXL",
+            "pnl": -6.641813999999613,
+            "wealth": 20036.408578550003,
+            "hit": false
+          },
+          {
+            "day": "2026-10-13",
+            "symbol": "SQQQ",
+            "pnl": -32.36150599999969,
+            "wealth": 20004.04707255,
+            "hit": false
+          },
+          {
+            "day": "2026-10-14",
+            "symbol": "HIBS",
+            "pnl": 130.20864999999992,
+            "wealth": 20134.255722550002,
+            "hit": false
+          },
+          {
+            "day": "2026-10-15",
+            "symbol": "HIBS",
+            "pnl": -42.6244365999996,
+            "wealth": 20091.631285950003,
+            "hit": true
+          },
+          {
+            "day": "2026-10-16",
+            "symbol": "TMF",
+            "pnl": 23.111712000000068,
+            "wealth": 20114.742997950005,
+            "hit": false
+          },
+          {
+            "day": "2026-10-19",
+            "symbol": "SQQQ",
+            "pnl": -42.30065255999996,
+            "wealth": 20072.442345390005,
+            "hit": true
+          },
+          {
+            "day": "2026-10-20",
+            "symbol": "TMV",
+            "pnl": -5.005571999999631,
+            "wealth": 20067.436773390007,
+            "hit": false
+          },
+          {
+            "day": "2026-10-21",
+            "symbol": "HIBS",
+            "pnl": -8.974595999999678,
+            "wealth": 20058.462177390007,
+            "hit": false
+          },
+          {
+            "day": "2026-10-22",
+            "symbol": "TQQQ",
+            "pnl": -41.39559703999964,
+            "wealth": 20017.06658035001,
+            "hit": true
+          },
+          {
+            "day": "2026-10-23",
+            "symbol": "HIBS",
+            "pnl": -42.32824050000015,
+            "wealth": 19974.73833985001,
+            "hit": true
+          },
+          {
+            "day": "2026-10-26",
+            "symbol": "TQQQ",
+            "pnl": 36.98117700000023,
+            "wealth": 20011.71951685001,
+            "hit": false
+          },
+          {
+            "day": "2026-10-27",
+            "symbol": "TQQQ",
+            "pnl": 44.28855200000032,
+            "wealth": 20056.008068850013,
+            "hit": false
+          },
+          {
+            "day": "2026-10-28",
+            "symbol": "TQQQ",
+            "pnl": 9.019525499999688,
+            "wealth": 20065.027594350013,
+            "hit": false
+          },
+          {
+            "day": "2026-10-29",
+            "symbol": "TMV",
+            "pnl": 6.875666000000251,
+            "wealth": 20071.903260350013,
+            "hit": false
+          },
+          {
+            "day": "2026-10-30",
+            "symbol": "HIBL",
+            "pnl": -2.8057119999999713,
+            "wealth": 20069.09754835001,
+            "hit": false
+          }
+        ]
+      }
+    }
+  ]
+}
