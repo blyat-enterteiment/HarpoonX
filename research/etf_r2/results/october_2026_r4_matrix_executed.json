@@ -1,0 +1,2422 @@
+{
+  "status": "EXPLORATORY_OHLC_PROXY_NO_EXECUTABLE_QUOTES",
+  "period": [
+    "2026-10-01",
+    "2026-10-30"
+  ],
+  "source": "research/etf_r2/data/aug_oct_2026_iex_daily_warmup.json",
+  "source_git_blob_sha": "964c33eb4a3211d4680eb365b0d82e502d9a2d00",
+  "assumptions": {
+    "capital": 20000,
+    "fee_and_impact_bps_side": 7,
+    "stop_pct": 2,
+    "max_allocation": 0.25,
+    "risk_budget_usd": 100,
+    "stop_fill": "EXACT_STOP_OPTIMISTIC",
+    "reinvest": true,
+    "holdout": "NOVEMBER_NOT_USED"
+  },
+  "baselines": {
+    "CASH": {
+      "terminal": 20000,
+      "pnl": 0,
+      "return_pct": 0,
+      "trades": 0,
+      "abstentions": 22
+    },
+    "OPEN": {
+      "terminal": 20039.54309841002,
+      "pnl": 39.54309841002032,
+      "return_pct": 0.19771549205009897,
+      "geometric_per_session": 0.00008978598153012237,
+      "max_drawdown": 0.01921405821485278,
+      "trades": 21,
+      "wins": 9,
+      "abstentions": 1,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "TMF",
+          "pnl": 143.15114749999987,
+          "wealth": 20143.1511475,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBS",
+          "pnl": 21.601422000000394,
+          "wealth": 20164.7525695,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "HIBS",
+          "pnl": -92.25462000000005,
+          "wealth": 20072.4979495,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SQQQ",
+          "pnl": 10.285855000000208,
+          "wealth": 20082.783804500003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "SPXS",
+          "pnl": -32.41183200000049,
+          "wealth": 20050.3719725,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBL",
+          "pnl": -105.53306647999999,
+          "wealth": 19944.838906020002,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-09",
+          "state": "ABSTAIN_NO_SIZE",
+          "wealth": 19944.838906020002
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXS",
+          "pnl": 6.8783025000008635,
+          "wealth": 19951.717208520004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "TQQQ",
+          "pnl": 72.67977600000086,
+          "wealth": 20024.396984520004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBL",
+          "pnl": -105.67688732999979,
+          "wealth": 19918.720097190006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBL",
+          "pnl": 321.8229300000008,
+          "wealth": 20240.543027190008,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMV",
+          "pnl": -106.6844887199994,
+          "wealth": 20133.85853847001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "HIBL",
+          "pnl": 61.276929999999936,
+          "wealth": 20195.13546847001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "SQQQ",
+          "pnl": -106.54355498000027,
+          "wealth": 20088.59191349001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "TMV",
+          "pnl": -1.4738899999991872,
+          "wealth": 20087.118023490013,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "HIBS",
+          "pnl": 241.67814300000032,
+          "wealth": 20328.796166490014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBL",
+          "pnl": -29.348928000000342,
+          "wealth": 20299.447238490015,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "HIBL",
+          "pnl": 132.67994100000035,
+          "wealth": 20432.127179490017,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "HIBS",
+          "pnl": -106.8872280000005,
+          "wealth": 20325.239951490017,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "HIBS",
+          "pnl": -72.1944269999996,
+          "wealth": 20253.04552449002,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "HIBS",
+          "pnl": -106.87696271999877,
+          "wealth": 20146.16856177002,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "TQQQ",
+          "pnl": -106.62546335999973,
+          "wealth": 20039.54309841002,
+          "stop_proxy": true
+        }
+      ]
+    },
+    "MACD_CONVENTIONAL_12_26_9": {
+      "terminal": 19809.731467780002,
+      "pnl": -190.26853221999772,
+      "return_pct": -0.9513426610999853,
+      "geometric_per_session": -0.00043440417928804805,
+      "max_drawdown": 0.010578711430572874,
+      "trades": 3,
+      "wins": 1,
+      "abstentions": 19,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "state": "ABSTAIN",
+          "wealth": 20000
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBS",
+          "pnl": 21.53349300000039,
+          "wealth": 20021.533493,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-06",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-07",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-08",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-09",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-12",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-13",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-14",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-15",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-16",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-19",
+          "state": "ABSTAIN",
+          "wealth": 20021.533493
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "SQQQ",
+          "pnl": -106.54355498000027,
+          "wealth": 19914.98993802,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-21",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-22",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-23",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-26",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-27",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-28",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-29",
+          "state": "ABSTAIN",
+          "wealth": 19914.98993802
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "TQQQ",
+          "pnl": -105.25847023999972,
+          "wealth": 19809.731467780002,
+          "stop_proxy": true
+        }
+      ]
+    }
+  },
+  "results": [
+    {
+      "id": "M01",
+      "macd": [
+        5,
+        13,
+        4
+      ],
+      "pressure": "MACD_ONLY",
+      "threshold": null,
+      "terminal": 20280.674744109998,
+      "pnl": 280.67474410999785,
+      "return_pct": 1.403373720549994,
+      "geometric_per_session": 0.0006336632261950405,
+      "max_drawdown": 0.01561459640196372,
+      "trades": 21,
+      "wins": 13,
+      "abstentions": 1,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "HIBS",
+          "pnl": -106.69892427000005,
+          "wealth": 19893.30107573,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "TMF",
+          "pnl": -105.80937359999953,
+          "wealth": 19787.49170213,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 19877.276505129998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 19890.584169129997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.34252200000066,
+          "wealth": 20022.926691129996,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20046.809919129995,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "SQQQ",
+          "pnl": 18.8420720000002,
+          "wealth": 20065.651991129995,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "TMF",
+          "pnl": 27.725608,
+          "wealth": 20093.377599129995,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20013.031791129997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20338.55341613,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20231.767985489998,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20289.547265489997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20183.39657133,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "HIBL",
+          "pnl": 205.80250200000037,
+          "wealth": 20389.199073329997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "TQQQ",
+          "pnl": 49.949272500000575,
+          "wealth": 20439.14834583,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "HIBL",
+          "pnl": -105.8825137200002,
+          "wealth": 20333.26583211,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20226.71543361,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "SPXS",
+          "pnl": -106.71613999999963,
+          "wealth": 20119.99929361,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-27",
+          "state": "ABSTAIN_NO_SIZE",
+          "wealth": 20119.99929361
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20143.049192109997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20160.238357109996,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20280.674744109998,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M02",
+      "macd": [
+        5,
+        13,
+        4
+      ],
+      "pressure": "CRP_ZERO",
+      "threshold": 0,
+      "terminal": 20492.651848470014,
+      "pnl": 492.65184847001365,
+      "return_pct": 2.4632592423500688,
+      "geometric_per_session": 0.0011067074909595802,
+      "max_drawdown": 0.01052837702111975,
+      "trades": 22,
+      "wins": 14,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "HIBS",
+          "pnl": -106.69892427000005,
+          "wealth": 19893.30107573,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 19904.69868623,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "TQQQ",
+          "pnl": 126.58421099999946,
+          "wealth": 20031.28289723,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20044.59056123,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20177.588244230003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20201.47147223,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20241.003822230003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20223.292318230004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20142.946510230006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20468.468135230007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20361.682704590006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20419.461984590005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20313.311290430007,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "SPXL",
+          "pnl": 55.78723400000035,
+          "wealth": 20369.098524430006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20506.20803443001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20399.76221347001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20293.21181497001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20290.310944970013,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20331.976397970015,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20355.026296470012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20372.215461470012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20492.651848470014,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M03",
+      "macd": [
+        5,
+        13,
+        4
+      ],
+      "pressure": "CRP_STRICT",
+      "threshold": 0.25,
+      "terminal": 20492.651848470014,
+      "pnl": 492.65184847001365,
+      "return_pct": 2.4632592423500688,
+      "geometric_per_session": 0.0011067074909595802,
+      "max_drawdown": 0.01052837702111975,
+      "trades": 22,
+      "wins": 14,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "HIBS",
+          "pnl": -106.69892427000005,
+          "wealth": 19893.30107573,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 19904.69868623,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "TQQQ",
+          "pnl": 126.58421099999946,
+          "wealth": 20031.28289723,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20044.59056123,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20177.588244230003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20201.47147223,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20241.003822230003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20223.292318230004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20142.946510230006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20468.468135230007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20361.682704590006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20419.461984590005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20313.311290430007,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "SPXL",
+          "pnl": 55.78723400000035,
+          "wealth": 20369.098524430006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20506.20803443001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20399.76221347001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20293.21181497001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20290.310944970013,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20331.976397970015,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20355.026296470012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20372.215461470012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20492.651848470014,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M04",
+      "macd": [
+        6,
+        17,
+        5
+      ],
+      "pressure": "MACD_ONLY",
+      "threshold": null,
+      "terminal": 19857.620694309997,
+      "pnl": -142.3793056900031,
+      "return_pct": -0.7118965284500178,
+      "geometric_per_session": -0.00032469391305957356,
+      "max_drawdown": 0.02062922944587553,
+      "trades": 21,
+      "wins": 11,
+      "abstentions": 1,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "HIBS",
+          "pnl": -106.69892427000005,
+          "wealth": 19893.30107573,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "TMF",
+          "pnl": -105.80937359999953,
+          "wealth": 19787.49170213,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 19877.276505129998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 19890.584169129997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "SPXL",
+          "pnl": 18.323999999999614,
+          "wealth": 19908.908169129998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.728643999998884,
+          "wealth": 19932.636813129997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.32857500000005,
+          "wealth": 19971.965388129996,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "TMF",
+          "pnl": 27.581952,
+          "wealth": 19999.547340129997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 19919.20153213,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 323.15419499999985,
+          "wealth": 20242.355727129998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20135.570296489997,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20193.349576489996,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20087.198882329998,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20074.79871533,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "TQQQ",
+          "pnl": 49.949272500000575,
+          "wealth": 20124.74798783,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "HIBL",
+          "pnl": -105.8825137200002,
+          "wealth": 20018.86547411,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "TMF",
+          "pnl": -87.9113884999998,
+          "wealth": 19930.95408561,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "SPXS",
+          "pnl": -106.18255929999962,
+          "wealth": 19824.77152631,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-27",
+          "state": "ABSTAIN_NO_SIZE",
+          "wealth": 19824.77152631
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 22.715841999999213,
+          "wealth": 19847.487368309998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.039694000000623,
+          "wealth": 19864.527062309997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "HIBL",
+          "pnl": -6.9063679999999295,
+          "wealth": 19857.620694309997,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M05",
+      "macd": [
+        6,
+        17,
+        5
+      ],
+      "pressure": "CRP_ZERO",
+      "threshold": 0,
+      "terminal": 20529.243499240016,
+      "pnl": 529.2434992400158,
+      "return_pct": 2.6462174962000873,
+      "geometric_per_session": 0.0011878917236104664,
+      "max_drawdown": 0.011974025734530325,
+      "trades": 22,
+      "wins": 13,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 20009.477738,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "TQQQ",
+          "pnl": 126.58421099999946,
+          "wealth": 20136.061949000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20149.369613000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20282.367296000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20306.250524000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20345.782874000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20328.071370000005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20247.725562000007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20573.247187000008,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20466.461756360008,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20524.241036360007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20418.09034220001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20405.69017520001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20542.79968520001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20436.353864240013,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20329.803465740013,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20326.902595740015,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20368.568048740017,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20391.617947240014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20408.807112240014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20529.243499240016,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M06",
+      "macd": [
+        6,
+        17,
+        5
+      ],
+      "pressure": "CRP_STRICT",
+      "threshold": 0.25,
+      "terminal": 20529.243499240016,
+      "pnl": 529.2434992400158,
+      "return_pct": 2.6462174962000873,
+      "geometric_per_session": 0.0011878917236104664,
+      "max_drawdown": 0.011974025734530325,
+      "trades": 22,
+      "wins": 13,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 20009.477738,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "TQQQ",
+          "pnl": 126.58421099999946,
+          "wealth": 20136.061949000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20149.369613000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20282.367296000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20306.250524000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20345.782874000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20328.071370000005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20247.725562000007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20573.247187000008,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20466.461756360008,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20524.241036360007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20418.09034220001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20405.69017520001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20542.79968520001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20436.353864240013,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20329.803465740013,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20326.902595740015,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20368.568048740017,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20391.617947240014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20408.807112240014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20529.243499240016,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M07",
+      "macd": [
+        8,
+        21,
+        5
+      ],
+      "pressure": "MACD_ONLY",
+      "threshold": null,
+      "terminal": 20027.467602610002,
+      "pnl": 27.46760261000236,
+      "return_pct": 0.13733801305000348,
+      "geometric_per_session": 0.00006238548710255566,
+      "max_drawdown": 0.01626988872694357,
+      "trades": 21,
+      "wins": 11,
+      "abstentions": 1,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "HIBS",
+          "pnl": -106.69892427000005,
+          "wealth": 19893.30107573,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "TMF",
+          "pnl": -105.80937359999953,
+          "wealth": 19787.49170213,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 19877.276505129998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 19890.584169129997,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "SPXL",
+          "pnl": 18.323999999999614,
+          "wealth": 19908.908169129998,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "TMF",
+          "pnl": 120.37947600000041,
+          "wealth": 20029.28764513,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20068.81999513,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "TMF",
+          "pnl": 27.725608,
+          "wealth": 20096.545603130002,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20016.199795130004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20341.721420130005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20234.935989490004,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20292.715269490003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20186.564575330005,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20174.164408330005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20311.273918330007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "HIBL",
+          "pnl": -105.8825137200002,
+          "wealth": 20205.391404610007,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "TMF",
+          "pnl": -87.9113884999998,
+          "wealth": 20117.480016110007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "SPXS",
+          "pnl": -106.71613999999963,
+          "wealth": 20010.763876110006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-27",
+          "state": "ABSTAIN_NO_SIZE",
+          "wealth": 20010.763876110006
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20033.813774610004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "HIBL",
+          "pnl": 0.5601959999999337,
+          "wealth": 20034.373970610002,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "HIBL",
+          "pnl": -6.9063679999999295,
+          "wealth": 20027.467602610002,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M08",
+      "macd": [
+        8,
+        21,
+        5
+      ],
+      "pressure": "CRP_ZERO",
+      "threshold": 0,
+      "terminal": 20492.444091240013,
+      "pnl": 492.4440912400132,
+      "return_pct": 2.4622204562000594,
+      "geometric_per_session": 0.0011062461545023443,
+      "max_drawdown": 0.01199548207708534,
+      "trades": 22,
+      "wins": 13,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 20009.477738,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 20099.262541,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20112.570205,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20245.567888,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20269.451116,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20308.983466,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20291.271962000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20210.926154000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20536.447779000006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20429.662348360005,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20487.441628360004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20381.290934200006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20368.890767200006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20506.000277200008,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20399.55445624001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20293.00405774001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20290.103187740013,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20331.768640740014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20354.818539240012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20372.00770424001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20492.444091240013,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M09",
+      "macd": [
+        8,
+        21,
+        5
+      ],
+      "pressure": "CRP_STRICT",
+      "threshold": 0.25,
+      "terminal": 20492.444091240013,
+      "pnl": 492.4440912400132,
+      "return_pct": 2.4622204562000594,
+      "geometric_per_session": 0.0011062461545023443,
+      "max_drawdown": 0.01199548207708534,
+      "trades": 22,
+      "wins": 13,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 20009.477738,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 20099.262541,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20112.570205,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20245.567888,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20269.451116,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20308.983466,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20291.271962000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20210.926154000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20536.447779000006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20429.662348360005,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20487.441628360004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20381.290934200006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20368.890767200006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20506.000277200008,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20399.55445624001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20293.00405774001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20290.103187740013,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20331.768640740014,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20354.818539240012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20372.00770424001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "SQQQ",
+          "pnl": 120.43638700000005,
+          "wealth": 20492.444091240013,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M10",
+      "macd": [
+        10,
+        24,
+        7
+      ],
+      "pressure": "MACD_ONLY",
+      "threshold": null,
+      "terminal": 20279.14703794,
+      "pnl": 279.1470379400016,
+      "return_pct": 1.395735189699998,
+      "geometric_per_session": 0.0006302369254920152,
+      "max_drawdown": 0.016160418239349106,
+      "trades": 22,
+      "wins": 12,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "TMF",
+          "pnl": -106.36626503999953,
+          "wealth": 19891.71386246,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 19981.49866546,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 19994.80632946,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "SPXL",
+          "pnl": 18.323999999999614,
+          "wealth": 20013.13032946,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "TMF",
+          "pnl": 120.99365700000041,
+          "wealth": 20134.12398646,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20173.65633646,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "TMF",
+          "pnl": 27.725608,
+          "wealth": 20201.38194446,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "TMF",
+          "pnl": -47.38756199999999,
+          "wealth": 20153.99438246,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20479.516007460003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20372.730576820002,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20430.50985682,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20324.359162660003,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20311.958995660003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "HIBL",
+          "pnl": 137.10951000000043,
+          "wealth": 20449.068505660005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "HIBL",
+          "pnl": -105.8825137200002,
+          "wealth": 20343.185991940005,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "TMF",
+          "pnl": -87.9113884999998,
+          "wealth": 20255.274603440004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "SPXS",
+          "pnl": -106.71613999999963,
+          "wealth": 20148.558463440004,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "TQQQ",
+          "pnl": 113.88484800000083,
+          "wealth": 20262.443311440005,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20285.493209940003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "HIBL",
+          "pnl": 0.5601959999999337,
+          "wealth": 20286.05340594,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "HIBL",
+          "pnl": -6.9063679999999295,
+          "wealth": 20279.14703794,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M11",
+      "macd": [
+        10,
+        24,
+        7
+      ],
+      "pressure": "CRP_ZERO",
+      "threshold": 0,
+      "terminal": 20215.75472224001,
+      "pnl": 215.75472224000987,
+      "return_pct": 1.0787736112000568,
+      "geometric_per_session": 0.0004878445758924254,
+      "max_drawdown": 0.01926775309528539,
+      "trades": 22,
+      "wins": 11,
+      "abstentions": 0,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 20009.477738,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 20099.262541,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20112.570205,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20245.567888,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20269.451116,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20308.983466,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20291.271962000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20210.926154000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20536.447779000006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20429.662348360005,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20487.441628360004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20381.290934200006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20368.890767200006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "TMF",
+          "pnl": -12.2371040000005,
+          "wealth": 20356.653663200006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20250.207842240008,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20143.65744374001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "symbol": "TMV",
+          "pnl": -2.900869999999287,
+          "wealth": 20140.75657374001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20182.422026740012,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20205.47192524001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20222.66109024001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "HIBL",
+          "pnl": -6.9063679999999295,
+          "wealth": 20215.75472224001,
+          "stop_proxy": false
+        }
+      ]
+    },
+    {
+      "id": "M12",
+      "macd": [
+        10,
+        24,
+        7
+      ],
+      "pressure": "CRP_STRICT",
+      "threshold": 0.25,
+      "terminal": 20218.655592240008,
+      "pnl": 218.65559224000754,
+      "return_pct": 1.0932779612000454,
+      "geometric_per_session": 0.0004943698340946525,
+      "max_drawdown": 0.019126498384090196,
+      "trades": 21,
+      "wins": 11,
+      "abstentions": 1,
+      "sessions": 22,
+      "ledger": [
+        {
+          "date": "2026-10-01",
+          "symbol": "SPXS",
+          "pnl": -1.919872499999979,
+          "wealth": 19998.0801275,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-02",
+          "symbol": "HIBL",
+          "pnl": 11.397610500000638,
+          "wealth": 20009.477738,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-05",
+          "symbol": "SPXL",
+          "pnl": 89.78480299999973,
+          "wealth": 20099.262541,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-06",
+          "symbol": "SPXL",
+          "pnl": 13.307663999999932,
+          "wealth": 20112.570205,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-07",
+          "symbol": "TMF",
+          "pnl": 132.99768300000065,
+          "wealth": 20245.567888,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-08",
+          "symbol": "HIBS",
+          "pnl": 23.883227999998876,
+          "wealth": 20269.451116,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-09",
+          "symbol": "TMF",
+          "pnl": 39.53235000000005,
+          "wealth": 20308.983466,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-12",
+          "symbol": "SPXL",
+          "pnl": -17.711503999998968,
+          "wealth": 20291.271962000003,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-13",
+          "symbol": "SQQQ",
+          "pnl": -80.34580799999924,
+          "wealth": 20210.926154000004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-14",
+          "symbol": "HIBS",
+          "pnl": 325.52162499999986,
+          "wealth": 20536.447779000006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-15",
+          "symbol": "HIBS",
+          "pnl": -106.78543063999899,
+          "wealth": 20429.662348360005,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-16",
+          "symbol": "TMF",
+          "pnl": 57.77928000000017,
+          "wealth": 20487.441628360004,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-19",
+          "symbol": "SQQQ",
+          "pnl": -106.1506941599999,
+          "wealth": 20381.290934200006,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-20",
+          "symbol": "TMV",
+          "pnl": -12.400166999999087,
+          "wealth": 20368.890767200006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-21",
+          "symbol": "TMF",
+          "pnl": -12.2371040000005,
+          "wealth": 20356.653663200006,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-22",
+          "symbol": "TQQQ",
+          "pnl": -106.44582095999908,
+          "wealth": 20250.207842240008,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-23",
+          "symbol": "HIBS",
+          "pnl": -106.55039850000037,
+          "wealth": 20143.65744374001,
+          "stop_proxy": true
+        },
+        {
+          "date": "2026-10-26",
+          "state": "ABSTAIN",
+          "wealth": 20143.65744374001
+        },
+        {
+          "date": "2026-10-27",
+          "symbol": "SPXL",
+          "pnl": 41.66545300000138,
+          "wealth": 20185.32289674001,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-28",
+          "symbol": "TQQQ",
+          "pnl": 23.049898499999202,
+          "wealth": 20208.372795240008,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-29",
+          "symbol": "TMV",
+          "pnl": 17.189165000000628,
+          "wealth": 20225.561960240007,
+          "stop_proxy": false
+        },
+        {
+          "date": "2026-10-30",
+          "symbol": "HIBL",
+          "pnl": -6.9063679999999295,
+          "wealth": 20218.655592240008,
+          "stop_proxy": false
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "independent_oos": false,
+    "quote_coverage_verified": false,
+    "causal_indicator_source_recomputed": true,
+    "statistical_significance": false
+  }
+}
