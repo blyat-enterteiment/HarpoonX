@@ -33,7 +33,10 @@ def collect_session(root,start,end,*,feed="iex",seconds=300,max_windows=2000,
   ident=f"{s}/{k}/{x.replace(':','')}_{y.replace(':','')}"
   folder=root/ident
   try:
-   if not folder.exists():
+   if folder.exists():
+    # A prior partial/corrupt batch must never be treated as complete.
+    verify(folder,s,k,x,y,verify_cursor=True)
+   else:
     kwargs={"request":request} if request is not None else {}
     collect(s,k,x,y,str(folder),key,secret,feed=feed,**kwargs)
    proof=verify(folder,s,k,x,y,verify_cursor=True)
@@ -66,6 +69,11 @@ def quote_sessions(root,manifest,signals):
   for j in range(doc["pages"]):
    page=json.loads((folder/f"page_{j:05d}.json").read_bytes())
    for q in page["quotes"]:
+    # Historical exchange time is a research proxy, never a receipt timestamp.
+    # Discard malformed or non-positive quotes rather than manufacture fills.
+    if not all(k in q for k in ("t","bp","ap","bs","as")):raise ValueError("MALFORMED_PROVIDER_QUOTE")
+    if not (0 < q["bp"] < q["ap"] and q["bs"] >= 0 and q["as"] >= 0):
+     continue
     out.append({"symbol":item["symbol"],"at":q["t"],"known_at":q["t"],
       "bid":q["bp"],"ask":q["ap"],"bid_size":q["bs"],"ask_size":q["as"]})
  return {"status":"HISTORICAL_EXCHANGE_CLOCK_ONLY_NOT_ARRIVAL_CERTIFIED",
