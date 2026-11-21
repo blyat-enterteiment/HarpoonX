@@ -38,11 +38,11 @@ def choose(policy,signals,decision):
  if not options:return None
  return sorted(options)[0][1]
 def simulate(sessions,*,initial=20000,fee_bps=2,impact_bps=5,
-             trail=.02,max_allocation=.25,risk_budget=100):
+             trail=.02,max_allocation=.25,risk_budget=100,max_spread_bps=50):
  if not sessions:raise ValueError("NO_SESSIONS")
  cap=dec(initial);fee=dec(fee_bps)/10000;impact=dec(impact_bps)/10000
- tr=dec(trail);allocation=dec(max_allocation);risk=dec(risk_budget)
- if not(cap>0 and fee>=0 and impact>=0 and 0<tr<1 and 0<allocation<=1 and risk>0):
+ tr=dec(trail);allocation=dec(max_allocation);risk=dec(risk_budget);spread_limit=dec(max_spread_bps)
+ if not(cap>0 and fee>=0 and impact>=0 and 0<tr<1 and 0<allocation<=1 and risk>0 and spread_limit>=0):
   raise ValueError("INVALID_CONFIGURATION")
  books={p:{"wealth":[float(cap)],"events":[]} for p in POLICIES}
  last=None
@@ -70,7 +70,12 @@ def simulate(sessions,*,initial=20000,fee_bps=2,impact_bps=5,
     if len(seq)<2:
      event["state"]="ABSTAIN_NO_POST_DECISION_QUOTES"
     else:
-     first=quote(seq[0]);buy=first[2]*(1+impact)
+     first=quote(seq[0]);spread_bps=(first[2]/first[1]-1)*10000
+     if spread_bps>spread_limit:
+      event["state"]="ABSTAIN_EXCESSIVE_SPREAD"
+      b["wealth"].append(float(before));b["events"].append(event)
+      continue
+     buy=first[2]*(1+impact)
      qty=min(int((risk/(buy*tr)).to_integral_value(rounding=ROUND_FLOOR)),
        int((before*allocation/(buy*(1+fee))).to_integral_value(rounding=ROUND_FLOOR)),
        first[4])
