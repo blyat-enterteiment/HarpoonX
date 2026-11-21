@@ -147,7 +147,25 @@ def verify_archive_storage():
  RESULT["archive_storage_probe"]=proof
  print("HF37_ARCHIVE_STORAGE "+json.dumps(proof,sort_keys=True),flush=True)
 
+
+def acquire_etf_r7_boot():
+ if os.environ.get("ETF_R7_BOOT_ACQUIRE") != "1":
+  return
+ try:
+  from research.etf_r2.etf_r7_session_collector import collect_session
+  # Bounded one-minute smoke acquisition: never pretend this is a session.
+  proof=collect_session("/tmp/etf-r7-iex-20260915",
+   "2026-09-15T13:30:00Z","2026-09-15T13:31:00Z",
+   feed="iex",seconds=60,max_windows=18)
+  proof={k:v for k,v in proof.items() if k!="receipts"}
+  proof["status"]="ONE_MINUTE_SMOKE_ONLY" if proof["status"]=="FULL_SESSION_PAGINATION_VERIFIED" else proof["status"]
+ except Exception as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ RESULT["etf_r7_smoke"]=proof
+ print("ETF_R7_RENDER_SMOKE "+json.dumps(proof,sort_keys=True),flush=True)
+
 if __name__=="__main__":
+ threading.Thread(target=acquire_etf_r7_boot,daemon=True).start()
  threading.Thread(target=report_db_size,daemon=True).start()
  threading.Thread(target=export_august_drive,daemon=True).start()
  threading.Thread(target=verify_archive_storage,daemon=True).start()
