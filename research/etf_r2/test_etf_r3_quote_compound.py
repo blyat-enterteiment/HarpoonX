@@ -30,6 +30,14 @@ class TestETFQuoteCompound(unittest.TestCase):
  def test_future_signal_rejected(self):
   s=sample();s[0]["signals"][0]["known_at"]="2026-10-06T15:00:00Z"
   with self.assertRaises(ValueError):simulate(s)
+ def test_excessive_spread_abstains_without_fake_profit(self):
+  s=sample()
+  for q in s[0]["quotes"]:
+   if q["symbol"]=="SQQQ" and q["known_at"].startswith("2026-10-06T14:00:00"):
+    q["ask"]=45
+  x=simulate(s)
+  self.assertEqual(x["books"]["CRP"]["events"][0]["state"],"ABSTAIN_EXCESSIVE_SPREAD")
+  self.assertEqual(x["books"]["CRP"]["terminal"],20000)
  def test_no_quote_abstains(self):
   s=sample();s[0]["quotes"]=[]
   x=simulate(s)
