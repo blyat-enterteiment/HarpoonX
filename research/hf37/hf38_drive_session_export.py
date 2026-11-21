@@ -61,14 +61,14 @@ def export(symbol,connect=None,request=_request):
         if not os.getenv("HF37_DATABASE_URL"):return {"status":"BLOCKED_DB_SECRET"}
         import psycopg
         connect=lambda:psycopg.connect(os.environ["HF37_DATABASE_URL"],connect_timeout=10)
-    with connect() as db:
-        rows=db.execute("""SELECT batch_id,sha256,payload FROM hf37_iex_durable_batch
-            WHERE acquired_at IS NOT NULL AND sha256=encode(sha256(payload),'hex')""").fetchall()
     from research.hf37.hf37_universe import manifest
     ids={hashlib.sha256(json.dumps({**i,"universe_sha256":manifest()["universe_sha256"]},
              sort_keys=True).encode()).hexdigest() for i in expected(symbol)}
-    selected=[r for r in rows if r[0] in ids]
-    archive=_zip_session(selected,symbol)
+    with connect() as db:
+        rows=db.execute("""SELECT batch_id,sha256,payload FROM hf37_iex_durable_batch
+            WHERE batch_id = ANY(%s) AND acquired_at IS NOT NULL
+            AND sha256=encode(sha256(payload),'hex')""",(list(ids),)).fetchall()
+    archive=_zip_session(rows,symbol)
     digest=hashlib.sha256(archive).hexdigest()
     token=_token()
     folder=os.environ["HF38_GOOGLE_DRIVE_FOLDER_ID"]
@@ -85,6 +85,13 @@ def export(symbol,connect=None,request=_request):
         headers={"Authorization":"Bearer "+token})
     if hashlib.sha256(fetched).hexdigest()!=digest:
         raise ValueError("DRIVE_READBACK_SHA256_MISMATCH")
+    with zipfile.ZipFile(io.BytesIO(fetched)) as z:
+        expected_members={"index.json",*(f"{i}.gz" for i in ids)}
+        if set(z.namelist())!=expected_members or len(z.namelist())!=len(expected_members):
+            raise ValueError("DRIVE_ARCHIVE_MEMBER_SET_MISMATCH")
+        for batch in ids:
+            if hashlib.sha256(z.read(f"{batch}.gz")).hexdigest()!=next(row[1] for row in rows if row[0]==batch):
+                raise ValueError("DRIVE_BATCH_READBACK_MISMATCH")
     return {"status":"DRIVE_ORIGINAL_SESSION_READBACK_VERIFIED",
         "symbol":symbol,"file_id":file_id,"sha256":digest,
         "bytes":len(archive),"verified_windows":len(ids),
