@@ -1,3 +1,4 @@
+from research.etf_r2.test_etf_r2_mnp import TestETFR2MNP
 import json,os,tempfile,unittest
 from research.hf37.test_hf37_persistence import TestHF37Persistence
 from research.hf37.test_hf37_portfolio_mnp import TestHF37PortfolioMNP
