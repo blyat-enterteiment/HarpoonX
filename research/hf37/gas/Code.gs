@@ -29,22 +29,77 @@ function doPost(e) {
     cache.put('nonce:'+p.nonce,'1',300);
     const bytes=Utilities.base64Decode(p.data);
     if(bytes.length===0 || bytes.length>MAX_BYTES || sha_(bytes)!==p.sha256)return reply_({status:'HASH_MISMATCH'});
-    const folder=DriveApp.getFolderById(folderId);
-    // Collision safe: existing filename must have same hash; do not overwrite.
-    if(folderId!=='1OQnmZLBIXflEQR-ZKIcOOsyhKBCAoUBJ' || folder.getSharingAccess()!==DriveApp.Access.PRIVATE)return reply_({status:'FOLDER_MISMATCH'});
-    const found=folder.getFilesByName(p.name);
-    while(found.hasNext()) {
-      const f=found.next();
-      if(found.hasNext() || f.getSharingAccess()!==DriveApp.Access.PRIVATE)return reply_({status:'NAME_COLLISION'});
-      const actual=sha_(f.getBlob().getBytes());
-      if(actual===p.sha256)return reply_({status:'DRIVE_READBACK_VERIFIED',folder_id:folderId,file_id:f.getId(),sha256:actual,bytes:bytes.length,duplicate:true});
-      return reply_({status:'NAME_COLLISION'});
-    }
-    const file=folder.createFile(Utilities.newBlob(bytes,'application/octet-stream',p.name));
-    file.setSharing(DriveApp.Access.PRIVATE,DriveApp.Permission.NONE);
-    const readback=file.getBlob().getBytes();const actual=sha_(readback);
-    if(actual!==p.sha256 || readback.length!==bytes.length) { file.setTrashed(true);return reply_({status:'READBACK_FAILED'}); }
-    return reply_({status:'DRIVE_READBACK_VERIFIED',folder_id:folderId,file_id:file.getId(),sha256:actual,bytes:readback.length,duplicate:false});
+    return archive_(props,folderId,p,bytes);
   } catch(err) { return reply_({status:'FAILED_CLOSED',error_type:String(err&&err.name||'Error')}); }
   finally {lock.releaseLock();}
+}
+
+const ARCHIVE_FOLDER = '1OQnmZLBIXflEQR-ZKIcOOsyhKBCAoUBJ';
+const PILOT_NAME = '4dc3b6d1e26338417a1b25a049e423c4d2ffbdba5f95024824591fc6bb5bce17.json.gz';
+const FILE_FIELDS = 'id,name,parents,size,trashed,ownedByMe,shared,mimeType,appProperties';
+function read_(id, query) {
+  if (!/^[A-Za-z0-9_-]+$/.test(id)) throw Error('INVALID_ID');
+  const response = UrlFetchApp.fetch('https://www.googleapis.com/drive/v3/files/' + id + '?' + query, {
+    headers: {Authorization:'Bearer ' + ScriptApp.getOAuthToken()}, followRedirects:false, muteHttpExceptions:true
+  });
+  if (response.getResponseCode() === 404) return null;
+  if (response.getResponseCode() !== 200) throw Error('DRIVE_READ_FAILED');
+  return response;
+}
+function metadata_(id) {
+  const response = read_(id, 'fields=' + encodeURIComponent(FILE_FIELDS));
+  return response ? JSON.parse(response.getContentText()) : null;
+}
+function private_(f) { return f && f.trashed === false && f.ownedByMe === true && f.shared === false; }
+function reservedId_(props, name) {
+  const tag = 'file:' + name;
+  let id = props.getProperty(tag);
+  if (!id) {
+    id = Drive.Files.generateIds({count:1,space:'drive',type:'files'}).ids[0];
+    props.setProperty(tag,id);
+  }
+  return id;
+}
+function preparePilot() {
+  const lock = LockService.getScriptLock(); lock.waitLock(15000);
+  try {
+    const props = PropertiesService.getScriptProperties();
+    if (props.getProperty('HF37_FOLDER_ID') !== ARCHIVE_FOLDER) throw Error('FOLDER_MISMATCH');
+    const folder = metadata_(ARCHIVE_FOLDER);
+    if (folder && private_(folder) && folder.mimeType === 'application/vnd.google-apps.folder') {
+      console.log('ARCHIVE_FOLDER_ACCESSIBLE'); return;
+    }
+    if (folder) throw Error('FOLDER_NOT_PRIVATE');
+    const id = reservedId_(props,PILOT_NAME);
+    if (!metadata_(id)) Drive.Files.create({id:id,name:'HF37-pilot.pending',mimeType:'application/octet-stream',
+      appProperties:{hf37Name:PILOT_NAME}}, null, {fields:'id'});
+    console.log('PILOT_FILE_TO_MOVE ' + id);
+  } finally { lock.releaseLock(); }
+}
+function archive_(props, folderId, p, bytes) {
+  if (folderId !== ARCHIVE_FOLDER) return reply_({status:'FOLDER_MISMATCH'});
+  const id = reservedId_(props,p.name);
+  let f = metadata_(id);
+  const blob = Utilities.newBlob(bytes,'application/octet-stream',p.name);
+  let duplicate = true;
+  if (!f) {
+    const folder = metadata_(folderId);
+    if (!private_(folder) || folder.mimeType !== 'application/vnd.google-apps.folder') return reply_({status:'FOLDER_ACCESS_REQUIRED'});
+    const matches = Drive.Files.list({q:"'"+folderId+"' in parents and trashed = false and name = '"+p.name+"'",fields:'files(id)',pageSize:1});
+    if ((matches.files || []).length) return reply_({status:'NAME_COLLISION'});
+    Drive.Files.create({id:id,name:p.name,parents:[folderId],mimeType:'application/octet-stream',appProperties:{hf37Name:p.name}}, blob, {fields:'id'});
+    duplicate = false;
+  } else {
+    if (!private_(f) || !f.parents || f.parents.length !== 1 || f.parents[0] !== folderId || !f.appProperties || f.appProperties.hf37Name !== p.name) return reply_({status:'FILE_NOT_AUTHORIZED'});
+    if (p.name === PILOT_NAME && f.name === 'HF37-pilot.pending' && Number(f.size) === 0) {
+      Drive.Files.update({name:p.name},id,blob,{fields:'id'}); duplicate=false;
+    } else if (f.name !== p.name) return reply_({status:'NAME_COLLISION'});
+  }
+  f = metadata_(id);
+  if (!private_(f) || !f.parents || f.parents.length !== 1 || f.parents[0] !== folderId || f.name !== p.name || Number(f.size) !== bytes.length) return reply_({status:'READBACK_FAILED'});
+  const response = read_(id,'alt=media');
+  if (!response) return reply_({status:'READBACK_FAILED'});
+  const raw = response.getContent(); const actual = sha_(raw);
+  if (raw.length !== bytes.length || actual !== p.sha256) return reply_({status:'READBACK_FAILED'});
+  return reply_({status:'DRIVE_READBACK_VERIFIED',folder_id:folderId,file_id:id,sha256:actual,bytes:raw.length,duplicate:duplicate});
 }
