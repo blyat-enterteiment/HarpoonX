@@ -67,6 +67,16 @@ def export_august_drive():
  RESULT["august_drive_archive"]=proof
  print("HF38_DRIVE_ARCHIVE "+json.dumps(proof,sort_keys=True),flush=True)
 
+def export_sip_drive_pilot():
+ try:
+  from research.hf37.hf37_gas_pilot import run
+  proof=run()
+ except Exception as exc:
+  proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+ # Keep Drive object identifiers off the public health endpoint.
+ RESULT["sip_drive_pilot"]={"status":proof["status"]}
+ print("HF37_GAS_SIP_PILOT "+json.dumps(proof,sort_keys=True),flush=True)
+
 def report_db_size():
  try:
   p=subprocess.run([sys.executable,"-m","research.hf37.hf38_db_size"],
@@ -171,6 +181,7 @@ def acquire_etf_r7_boot():
 if __name__=="__main__":
  threading.Thread(target=acquire_etf_r7_boot,daemon=True).start()
  threading.Thread(target=report_db_size,daemon=True).start()
+ threading.Thread(target=export_sip_drive_pilot,daemon=True).start()
  threading.Thread(target=export_august_drive,daemon=True).start()
  threading.Thread(target=verify_archive_storage,daemon=True).start()
  threading.Thread(target=acquire_boot_pilot,daemon=True).start()
