@@ -55,6 +55,8 @@ def acquire_second_session_pilot():
  print("HF38_SECOND_SESSION "+json.dumps(proof,sort_keys=True),flush=True)
 
 def export_august_drive():
+ if os.environ.get("HF38_BOOT_ARCHIVE_SIP") == "1":
+  return
  if not os.environ.get("HF38_GOOGLE_REFRESH_TOKEN"):
   proof={"status":"BLOCKED_GOOGLE_OAUTH_NOT_CONFIGURED"}
  else:
@@ -101,6 +103,27 @@ def acquire_sip_probe():
   proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
  RESULT["durable_sip_probe"]=proof
  print("HF37_SIP_PROBE "+json.dumps(proof,sort_keys=True),flush=True)
+ if os.environ.get("HF38_BOOT_ARCHIVE_SIP") == "1":
+  archive_sip_probe(proof)
+
+
+def archive_sip_probe(acquisition):
+ if acquisition.get("status") != "POSTGRES_COMMITTED_AND_READBACK_VERIFIED":
+  proof={"status":"BLOCKED_SIP_PROBE_NOT_COMMITTED"}
+ elif any(not os.environ.get("HF38_GOOGLE_"+key) for key in
+          ("CLIENT_ID","CLIENT_SECRET","REFRESH_TOKEN","DRIVE_FOLDER_ID")):
+  proof={"status":"BLOCKED_GOOGLE_OAUTH_NOT_CONFIGURED"}
+ else:
+  try:
+   from research.hf37.hf38_sip_drive_probe import archive_probe
+   receipt=archive_probe()
+   proof={key:receipt[key] for key in ("status","batch_id","sha256","bytes")}
+  except Exception as exc:
+   proof={"status":"FAILED_CLOSED","error_type":type(exc).__name__}
+   if isinstance(getattr(exc,"code",None),int):
+    proof["provider_http_status"]=exc.code
+ RESULT["hf38_sip_drive_probe"]=proof
+ print("HF38_SIP_DRIVE_PROBE "+json.dumps(proof,sort_keys=True),flush=True)
 
 def audit_sip_cohort():
  if os.environ.get("HF37_BOOT_ACQUIRE") != "1":
