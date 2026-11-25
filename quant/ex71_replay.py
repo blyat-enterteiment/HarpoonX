@@ -141,4 +141,4 @@ def replay(data: dict[str,list[Bar]], cap: float, fee: float,
 def compare(data: dict[str,list[Bar]]) -> list[dict]:
     return [dict(cap=cap,fee=fee,policy=p,**replay(data,cap,fee,p))
             for cap in (.2,1/3) for fee in (.002,.004)
-            for p in ("cash","bull","cross","inflection","calibrated")]
+            for p in ("cash","bull","cross","inflection","calibrated","kelly","gain","kelly_gain")]
