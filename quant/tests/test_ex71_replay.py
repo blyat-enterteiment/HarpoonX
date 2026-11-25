@@ -12,7 +12,7 @@ class ReplayTests(unittest.TestCase):
     def test_flat_abstains(self):
         self.assertEqual(replay(self.data,1/3,.004)["entries"],0)
     def test_compare(self):
-        self.assertEqual(len(compare(self.data)),20)
+        self.assertEqual(len(compare(self.data)),32)
     def test_missing_symbol(self):
         del self.data["HCMT"]
         with self.assertRaises(ValueError):
